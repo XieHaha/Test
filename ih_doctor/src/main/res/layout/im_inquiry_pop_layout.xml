@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="horizontal"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        android:layout_width="@dimen/dp_160"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/im_inquiry_pop_bg"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10" />
+
+        <TextView
+            android:id="@+id/inspection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:drawableStart="@mipmap/im_inquiry_inspection_icon"
+            android:drawablePadding="@dimen/dp_12"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_20"
+            android:text="检验申请"
+            android:textColor="#FF333333"
+            android:textSize="@dimen/dp_13" />
+
+        <TextView
+            android:id="@+id/examination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:drawableStart="@mipmap/im_inquiry_examination_icon"
+            android:drawablePadding="@dimen/dp_12"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_20"
+            android:text="检查申请"
+            android:textColor="#FF333333"
+            android:textSize="@dimen/dp_13" />
+
+        <TextView
+            android:id="@+id/referral"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:drawableStart="@mipmap/im_inquiry_referral_icon"
+            android:drawablePadding="@dimen/dp_12"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_20"
+            android:text="转诊"
+            android:textColor="#FF333333"
+            android:textSize="@dimen/dp_13" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_left_right_dp"
+        android:paddingRight="@dimen/padding_left_right_dp">
+
+        <TextView
+            android:id="@+id/nursing_title"
+            android:layout_width="303dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="静脉穿刺"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/fontColorPrimary"
+            android:textSize="@dimen/font_size_primary" />
+
+        <ImageView
+            android:id="@+id/nursing_status_iv"
+            android:layout_width="@dimen/dp_10"
+            android:layout_height="@dimen/dp_10"
+            android:src="@drawable/nursing_circle" />
+
+        <TextView
+            android:id="@+id/nursing_status_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:textSize="@dimen/font_size_auxiliary" />
+
+        <TextView
+            android:id="@+id/charge_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_6"
+            android:background="@mipmap/chargeback_bg"
+            android:drawableLeft="@mipmap/chargeback_icon"
+            android:drawablePadding="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_9"
+            android:paddingLeft="@dimen/dp_14"
+            android:paddingRight="@dimen/dp_14"
+            android:paddingTop="@dimen/dp_9"
+            android:text="@string/nursing_order_charge_back"
+            android:textColor="@color/list_tab_color"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/go_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_6"
+            android:background="@drawable/go_pay_background"
+            android:drawableLeft="@mipmap/go_pay_icon"
+            android:drawablePadding="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_9"
+            android:paddingLeft="@dimen/dp_14"
+            android:paddingRight="@dimen/dp_14"
+            android:paddingTop="@dimen/dp_9"
+            android:text="@string/nursing_order_go_pay"
+            android:textColor="@color/nursing_status_red"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/assess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_6"
+            android:background="@drawable/order_assess_background"
+            android:drawableLeft="@mipmap/order_assess_icon"
+            android:drawablePadding="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_9"
+            android:paddingLeft="@dimen/dp_14"
+            android:paddingRight="@dimen/dp_14"
+            android:paddingTop="@dimen/dp_9"
+            android:text="@string/nursing_order_assess"
+            android:textColor="@color/register_success_color"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/line_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_left_right_dp"
+        android:paddingRight="@dimen/padding_left_right_dp">
+
+        <TextView
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥"
+            android:textColor="@color/nursing_status_red"
+            android:textSize="@dimen/font_size_20" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_weight="1"
+            android:text="服务费用/次"
+            android:textColor="@color/tab_nol_color"
+            android:textSize="@dimen/font_size_auxiliary" />
+
+        <View
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="match_parent"
+            android:background="@color/line_color" />
+
+        <TextView
+            android:id="@+id/num"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20"
+            android:gravity="center_vertical"
+            android:text="服务次数：1次"
+            android:textColor="@color/primary_font_color"
+            android:textSize="@dimen/font_size_auxiliary" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/line_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_left_right_dp"
+        android:paddingTop="@dimen/dp_14"
+        android:paddingBottom="@dimen/dp_14"
+        android:paddingRight="@dimen/padding_left_right_dp">
+
+        <TextView
+            android:id="@+id/order_num_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_14"
+            android:textColor="@color/tab_nol_color"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:text="订单号：" />
+
+        <TextView
+            android:id="@+id/time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/tab_nol_color"
+            android:layout_marginTop="@dimen/dp_14"
+            android:layout_below="@+id/order_num_tv"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:text="预约上门时间：" />
+
+        <TextView
+            android:id="@+id/content_tv"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/dp_14"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/time_tv"
+            android:textColor="@color/tab_nol_color"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:text="服务对象：" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/time"
+            android:layout_alignBottom="@+id/time_tv"
+            android:layout_toRightOf="@+id/time_tv"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:textColor="@color/primary_font_color"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/order_num"
+            android:layout_alignBottom="@+id/order_num_tv"
+            android:layout_alignLeft="@+id/time"
+            android:textColor="@color/primary_font_color"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/content"
+            android:layout_alignBottom="@+id/content_tv"
+            android:layout_alignLeft="@+id/time"
+            android:textColor="@color/primary_font_color"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/remark_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_14"
+            android:textColor="@color/tab_nol_color"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:visibility="gone"
+            android:text="退回理由：" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/remark"
+            android:layout_alignTop="@+id/order_num_tv"
+            android:layout_alignLeft="@+id/time"
+            android:visibility="gone"
+            android:textColor="@color/primary_font_color"
+            android:textSize="@dimen/font_size_auxiliary"
+            />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color"
+        />
+</LinearLayout>

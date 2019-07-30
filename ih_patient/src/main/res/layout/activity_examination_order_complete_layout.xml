@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <LinearLayout
+        android:id="@+id/order_exa_complete_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_200">
+
+            <ImageView
+                android:id="@+id/order_success_img"
+                android:layout_width="@dimen/dp_86"
+                android:layout_height="@dimen/dp_86"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_30"
+                android:src="@mipmap/order_complete_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/order_success_img"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="预约成功"
+                android:textColor="#22E17E"
+                android:textSize="@dimen/dp_23" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/primary_bg_color" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_20"
+            android:text="预约详情"
+            android:textColor="@color/fontColorDirection"
+            android:textSize="@dimen/font_size_primary" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/mine_interval_bg" />
+
+        <TextView
+            android:id="@+id/exa_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_31"
+            android:layout_marginTop="@dimen/dp_21"
+            android:text="CT项目"
+            android:textColor="#3F98F7"
+            android:textSize="@dimen/dp_14" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/exa_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_19"
+                android:layout_marginTop="@dimen/dp_15"
+                android:gravity="right"
+                android:lineSpacingExtra="@dimen/dp_8"
+                android:text="@string/order_exa_label"
+                android:textColor="@color/fontColorDirection"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/exa_detail_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_15"
+                android:lineSpacingExtra="@dimen/dp_8"
+                android:text="@string/order_exa_example"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_24"
+            android:background="@mipmap/colorful_line" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/primary_bg_color" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

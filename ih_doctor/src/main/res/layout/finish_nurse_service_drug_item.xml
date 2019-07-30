@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dp_26">
+
+    <TextView
+        android:id="@+id/drug_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="@dimen/dp_7"
+        android:text="1、"
+        android:textColor="@color/fontColorPrimary"
+        android:textSize="@dimen/font_size_primary" />
+
+    <TextView
+        android:id="@+id/drug_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/drug_num"
+        android:text="注射器"
+        android:textColor="@color/fontColorPrimary"
+        android:textSize="@dimen/font_size_primary" />
+
+    <TextView
+        android:id="@+id/drug_specifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/drug_num"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="@dimen/dp_13"
+        android:paddingLeft="@dimen/dp_25"
+        android:text="10毫升８#"
+        android:textColor="#999999"
+        android:textSize="@dimen/font_size_primary" />
+
+    <TextView
+        android:id="@+id/drug_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/drug_specifications"
+        android:layout_centerHorizontal="true"
+        android:text="1.00盒"
+        android:textColor="#999999"
+        android:textSize="@dimen/font_size_primary" />
+
+
+    <TextView
+        android:id="@+id/drug_fee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/drug_specifications"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:paddingRight="@dimen/dp_25"
+        android:text="12元"
+        android:textColor="#FF3939"
+        android:textSize="@dimen/font_size_primary" />
+
+</RelativeLayout>

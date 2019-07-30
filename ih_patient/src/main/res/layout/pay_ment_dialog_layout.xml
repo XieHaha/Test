@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primary_color"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_58">
+
+        <ImageView
+            android:id="@+id/close_img"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_25"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:padding="@dimen/dp_5"
+            android:src="@mipmap/pay_close_icon" />
+
+        <TextView
+            android:id="@+id/order_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="¥30"
+            android:textColor="#FF3939"
+            android:textSize="@dimen/dp_20" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/address_select_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_38"
+            android:background="#F2F2F2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:text="请选择药品配送方式"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/medical_money_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_21"
+                android:text="药品费用"
+                android:textColor="#3F98F7"
+                android:textSize="@dimen/font_size_primary" />
+        </RelativeLayout>
+        <RadioGroup
+            android:id="@+id/sex_rg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_38"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20">
+
+            <RadioButton
+                android:id="@+id/self"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="自取"
+                android:textColor="#666666"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/hospital"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:textColor="#666666"
+                android:text="医院配送"
+                android:textSize="13sp" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="#f2f2f2" />
+
+        <LinearLayout
+            android:id="@+id/address_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20">
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/edit_hint_color"
+                android:textSize="@dimen/font_size_primary"
+                android:text="请选择配送详细地址和联系人"
+                android:paddingTop="@dimen/dp_21"
+                android:paddingBottom="@dimen/dp_21"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/exa_report_right" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_38"
+        android:background="#F2F2F2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:text="选择支付方式"
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/order_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_21"
+            android:textColor="#3F98F7"
+            android:textSize="@dimen/font_size_primary" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_63">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:src="@mipmap/ali_pay_icon" />
+
+        <TextView
+            android:id="@+id/ali_pay_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_105"
+            android:text="支付宝支付"
+            android:textColor="#7FBDFF"
+            android:textSize="@dimen/font_size_primary" />
+
+        <ImageView
+            android:id="@+id/ali_pay_selected_img"
+            android:layout_width="@dimen/dp_27"
+            android:layout_height="@dimen/dp_27"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_45"
+            android:src="@mipmap/pay_selected_icon" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_92"
+            android:layout_marginRight="@dimen/dp_25"
+            android:background="#EEEEEE" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_63">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:src="@mipmap/wechat_pay_icon" />
+
+        <TextView
+            android:id="@+id/wechat_pay_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_105"
+            android:text="微信支付"
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_primary" />
+
+        <ImageView
+            android:id="@+id/wechat_pay_selected_img"
+            android:layout_width="@dimen/dp_27"
+            android:layout_height="@dimen/dp_27"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_45"
+            android:src="@mipmap/pay_unselected_icon" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_92"
+            android:layout_marginRight="@dimen/dp_25"
+            android:background="#EEEEEE" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="@dimen/dp_65">
+
+        <CheckBox
+            android:id="@+id/pay_agreement_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:button="@drawable/pay_checkbox_selector"
+            android:layout_marginLeft="@dimen/dp_50"/>
+
+        <TextView
+            android:id="@+id/pay_agreement_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_2"
+            android:layout_toRightOf="@+id/pay_agreement_cb"
+            android:text="我已阅读并同意《网络诊间服务条款》"
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_primary" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/pay_commit_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_52"
+        android:layout_marginBottom="@dimen/dp_50"
+        android:layout_marginLeft="@dimen/dp_21"
+        android:layout_marginRight="@dimen/dp_21"
+        android:background="@mipmap/pay_commit_bg"
+        android:gravity="center"
+        android:text="去付款"
+        android:textColor="@color/primary_color"
+        android:textSize="@dimen/dp_17" />
+</LinearLayout>

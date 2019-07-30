@@ -1,0 +1,103 @@
+<resources>
+    <string name="app_name">InternetHospital_Android</string>
+
+    <!--日期-->
+    <string name="im_yesterday_format">昨天</string>
+    <string name="im_year_format">年</string>
+    <string name="im_month_format">月</string>
+    <string name="im_day_format">日</string>
+    <string name="im_monday_format">周一</string>
+    <string name="im_tuesday_format">周二</string>
+    <string name="im_wednesday_format">周三</string>
+    <string name="im_thuresday_format">周四</string>
+    <string name="im_friday_format">周五</string>
+    <string name="im_saturday_format">周六</string>
+    <string name="im_sunsay_format">周日</string>
+    <string name="im_daybreak_format">凌晨</string>
+    <string name="im_morning_format">上午</string>
+    <string name="im_noon_format">中午</string>
+    <string name="im_afternoon_format">下午</string>
+    <string name="im_night_format">晚上</string>
+    <!--IM底部操作栏-->
+    <string name="im_ext_extension_bar_input_hint">请输入消息…</string>
+    <string name="im_ext_extension_bar_audio_input">按住 说话</string>
+    <string name="im_ext_extension_bar_audio_input_hover">松开 发送</string>
+    <string name="im_ext_extension_bar_send">发送</string>
+    <!--语音-->
+    <string name="im_voice_rec">手指上滑，取消发送</string>
+    <string name="im_voice_cancel">松开手指，取消发送</string>
+    <string name="im_voice_short">录音时间太短</string>
+    <string name="im_voice_failure">录音失败！</string>
+    <string name="im_voice_too_long">录制时间超长</string>
+    <string name="im_voip_occupying">声音通道正被占用，请稍后再试</string>
+    <!--plugin-->
+    <string name="im_plugin_image">图文咨询</string>
+    <string name="im_plugin_camera">拍摄</string>
+    <string name="im_plugin_video">视频咨询</string>
+    <string name="im_plugin_phone">电话咨询</string>
+
+    <!--视频通话-->
+    <string name="im_call_video_start_fail">正在视频通话中</string>
+    <string name="im_call_network_error">当前网络不可用,请检查你的网络设置</string>
+    <string name="im_call_come_out_hint">正在呼叫%1$s&#8230;</string>
+    <string name="im_call_come_in_hint">邀请您进行视频问诊</string>
+    <string name="im_call_hang_up">拒绝</string>
+    <string name="im_call_answer">接受</string>
+    <string name="im_call_close">挂断</string>
+    <string name="im_call_camera">翻转</string>
+    <string name="im_call_minimize">收起</string>
+    <string name="nrtc_setting_vie_crop_ratio_key">nrtc_setting_vie_crop_ratio_key</string>
+    <string name="nrtc_setting_vie_crop_ratio">画面裁剪比例</string>
+    <string name="nrtc_setting_vie_quality_key">nrtc_setting_vie_quality_key</string>
+    <string name="nrtc_setting_vie_quality">视频清晰度</string>
+    <string name="nrtc_setting_other_device_default_rotation_key">nrtc_setting_other_device_default_rotation_key</string>
+    <string name="nrtc_setting_other_device_default_rotation">设备默认旋转角度(特殊设备使用)</string>
+    <string name="nrtc_setting_other_device_rotation_fixed_offset_key">nrtc_setting_other_device_rotation_fixed_offset_key</string>
+    <string name="nrtc_setting_other_device_rotation_fixed_offset">设备旋转角度修正偏移量(特殊设备使用)</string>
+    <string name="nrtc_setting_vie_rotation_key">nrtc_setting_vie_rotation_key</string>
+    <string name="nrtc_setting_vie_rotation">画面旋转</string>
+    <string name="nrtc_setting_vie_default_front_camera_key">nrtc_setting_vie_default_front_camera_key</string>
+    <string name="nrtc_setting_vie_default_front_camera">默认前置摄像头</string>
+    <string name="nrtc_setting_vie_hw_encoder_key">nrtc_setting_vie_hw_encoder_key</string>
+    <string name="nrtc_setting_vie_hw_encoder">硬件编码(仅部分设备支持)</string>
+    <string name="nrtc_setting_vie_hw_decoder_key">nrtc_setting_vie_hw_decoder_key</string>
+    <string name="nrtc_setting_vie_hw_decoder">硬件解码(仅部分设备支持)</string>
+    <string name="nrtc_setting_other_server_record_audio_key">nrtc_setting_other_server_record_audio_key</string>
+    <string name="nrtc_setting_other_server_record_audio">音频服务器录制</string>
+    <string name="nrtc_setting_other_server_record_video_key">nrtc_setting_other_server_record_video_key</string>
+    <string name="nrtc_setting_other_server_record_video">视频服务器录制</string>
+    <string name="nrtc_setting_voe_call_proximity_key">nrtc_setting_voe_call_proximity_key</string>
+    <string name="nrtc_setting_voe_call_proximity">通话期间关闭屏幕</string>
+    <string name="nrtc_setting_vie_fps_reported_key">nrtc_setting_vie_fps_reported_key</string>
+    <string name="nrtc_setting_vie_fps_reported">帧率汇报</string>
+    <string name="nrtc_setting_vie_max_bitrate_key">nrtc_setting_vie_max_bitrate_key</string>
+    <string name="nrtc_setting_vie_max_bitrate">码率(Kbps)</string>
+    <string name="nrtc_setting_voe_audio_aec_key">nrtc_setting_voe_audio_aec_key</string>
+    <string name="nrtc_setting_voe_audio_aec">回音消除</string>
+    <string name="nrtc_setting_voe_audio_ns_key">nrtc_setting_voe_audio_ns_key</string>
+    <string name="nrtc_setting_voe_audio_ns">降噪</string>
+    <string name="nrtc_setting_voe_high_quality_key">nrtc_setting_voe_high_quality_key</string>
+    <string name="nrtc_setting_voe_high_quality">高清语音</string>
+    <string name="nrtc_setting_voe_dtx_key">nrtc_setting_voe_dtx_key</string>
+    <string name="nrtc_setting_voe_dtx">人声检测</string>
+    <string name="avchat_net_error_then_quit">网络异常，通话结束</string>
+    <string name="avchat_call_finish">通话结束</string>
+    <string name="avchat_call_reject">被对方拒绝</string>
+    <string name="avchat_peer_protocol_low_version">对方版本过低，请提示对方升级</string>
+    <string name="avchat_local_protocol_low_version">版本过低，请升级后使用</string>
+    <string name="avchat_invalid_channel_id">对方已挂断</string>
+    <string name="avchat_local_call_busy">本地通话中，无法进行通话。</string>
+    <string name="avchat_peer_busy">对方正在通话中，请稍后再拨。</string>
+    <string name="avchat_notification">正在与%1$s通话中，点击继续</string>
+    <string name="avchat_call">网络通话</string>
+    <string name="avchat_no_pickup_call">未接听</string>
+
+
+    <string name="permission_cancel">取消</string>
+    <string name="permission_message_permission_failed">我们需要的一些权限被您拒绝或者系统发生错误申请失败，请您到设置页面手动授权，否则功能无法正常使用！</string>
+    <string name="permission_message_permission_rationale">您已经拒绝过我们申请授权，请您同意授权，否则功能无法正常使用！</string>
+    <string name="permission_resume">继续</string>
+    <string name="permission_setting">去设置</string>
+    <string name="permission_title_permission_failed">权限申请失败</string>
+    <string name="permission_title_permission_rationale">权限已被拒绝</string>
+</resources>

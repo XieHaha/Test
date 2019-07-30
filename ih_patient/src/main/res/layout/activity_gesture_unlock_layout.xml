@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_color"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/common_title_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/regist_step_1_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/dp_316"
+                android:layout_height="@dimen/dp_154"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_5"
+                android:src="@mipmap/top_bg" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_43"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/dp_19"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginRight="@dimen/dp_19"
+                android:background="@drawable/update_password_input_bg">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_17"
+                    android:layout_height="23dp"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginBottom="@dimen/dp_12"
+                    android:src="@mipmap/login_user_name_icon" />
+
+
+                <com.keydom.ih_common.view.ClearEditText
+                    android:id="@+id/phone_num_cedt"
+                    style="@android:style/Widget.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_43"
+                    android:layout_marginLeft="@dimen/dp_41"
+                    android:background="@null"
+                    android:hint="@string/register_phone_hint"
+                    android:textColor="@color/primary_font_color"
+                    android:textCursorDrawable="@drawable/edit_cursor"
+                    android:textSize="@dimen/dp_13" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_43"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/dp_19"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_19"
+                android:background="@drawable/update_password_input_bg">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_17"
+                    android:layout_height="@dimen/dp_19"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginBottom="@dimen/dp_12"
+                    android:src="@mipmap/login_password_icon" />
+
+
+                <com.keydom.ih_common.view.InterceptorEditText
+                    android:id="@+id/message_code_cedt"
+                    style="@android:style/Widget.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_43"
+                    android:layout_marginLeft="@dimen/dp_41"
+                    android:layout_toLeftOf="@id/get_identifying_code_bt"
+                    android:background="@null"
+                    android:hint="@string/register_code_hint"
+                    android:textColor="@color/primary_font_color"
+                    android:textCursorDrawable="@drawable/edit_cursor"
+                    android:textSize="@dimen/dp_13" />
+
+                <com.keydom.ih_common.view.MButton
+                    android:id="@+id/get_code_bt"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="@dimen/dp_90"
+                    android:layout_height="@dimen/dp_37"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:background="@drawable/login_btn"
+                    android:gravity="center"
+                    android:text="@string/register_code_btn_text"
+                    android:textColor="@color/primary_bg_color"
+                    android:textSize="@dimen/dp_11" />
+
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_53"
+                android:layout_marginStart="@dimen/dp_46"
+                android:layout_marginTop="@dimen/dp_36"
+                android:layout_marginEnd="@dimen/dp_46"
+                android:background="@drawable/register_next_frame_bg"
+                android:padding="@dimen/dp_5">
+
+                <Button
+                    android:id="@+id/register_next_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/register_next_btn_bg"
+                    android:text="@string/register_next_btn_text"
+                    android:textColor="@color/other_login_color"
+                    android:textSize="@dimen/sp_17" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/gesture_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="#F9F9F9" />
+            <TextView
+                android:id="@+id/title_label_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_70"
+                android:gravity="center_horizontal"
+                android:text="为了您的隐私安全，请设置您的手势密码"
+                android:textColor="#666666"
+                android:textSize="@dimen/dp_14" />
+            <com.keydom.ih_patient.view.UnlockView
+                android:id="@+id/my_unlock_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_350" />
+            <TextView
+                android:id="@+id/reset_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:gravity="center_horizontal"
+                android:text="重新设置"
+                android:textColor="#3F98F7"
+                android:textSize="@dimen/dp_14" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

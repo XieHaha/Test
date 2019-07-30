@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_bg_color"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+
+    <com.ganxin.library.LoadDataLayout
+        android:id="@+id/loadDataLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/no_group_rl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_20"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/no_group_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/no_group" />
+
+                <TextView
+                    android:id="@+id/no_group_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/no_group_icon"
+                    android:text="还未加入团队"
+                    android:textColor="@color/fontColorDirection"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/no_group_create"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_7"
+                    android:layout_toRightOf="@id/no_group_tip"
+                    android:autoLink="all"
+                    android:text="@string/create_group"
+                    android:textColor="#3399FF"
+                    android:textSize="@dimen/font_size_primary" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/doctor_coopreation_info_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:paddingLeft="@dimen/dp_35"
+                android:paddingRight="@dimen/padding_left_right_dp"
+                android:visibility="visible">
+
+                <com.keydom.ih_common.view.CircleImageView
+                    android:id="@+id/doctor_coopreation_icon"
+                    android:layout_width="@dimen/dp_58"
+                    android:layout_height="@dimen/dp_58"
+                    android:background="@mipmap/user_icon"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:id="@+id/doctor_coopreation_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_17"
+                    android:layout_toRightOf="@id/doctor_coopreation_icon"
+                    android:paddingTop="@dimen/dp_5"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:maxLength="8"
+                    android:text="唐林专家团队"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_title" />
+
+                <TextView
+                    android:id="@+id/doctor_coopreation_dec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/doctor_coopreation_name"
+                    android:layout_alignBottom="@id/doctor_coopreation_icon"
+                    android:ellipsize="end"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:singleLine="true"
+                    android:text="团队擅长：擅长孕期疑难、高危疾病的诊治以及产前保健、高危妊娠、胎位异常、先兆流产、急慢性盆腔炎、不孕不育、内分泌失调等。"
+                    android:textColor="@color/action_bar_txt_color"
+                    android:textSize="@dimen/font_size_auxiliary" />
+
+                <ImageView
+                    android:id="@+id/group_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/doctor_coopreation_icon"
+                    android:layout_alignRight="@id/doctor_coopreation_icon"
+                    android:layout_marginTop="@dimen/dp_m_22"
+                    android:layout_marginRight="@dimen/dp_m_10"
+                    android:background="@mipmap/edit" />
+
+                <TextView
+                    android:id="@+id/group_cut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:background="#3F98F7"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:paddingTop="@dimen/dp_5"
+                    android:paddingRight="@dimen/dp_15"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:elevation="@dimen/dp_6"
+                    android:text="切换"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_primary" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_25">
+
+                <RelativeLayout
+                    android:id="@+id/group_exchange_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/group_exchange_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:src="@mipmap/group_exchange"></ImageView>
+
+                    <TextView
+                        android:id="@+id/group_exchange_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/group_exchange_icon"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:text="团队交流"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/group_member_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/group_member_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:src="@mipmap/group_member"></ImageView>
+
+                    <TextView
+                        android:id="@+id/group_member_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/group_member_icon"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:text="团队成员"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/diagnosis_recoder_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/diagnosis_recoder_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:src="@mipmap/diagnose_recoder"></ImageView>
+
+                    <TextView
+                        android:id="@+id/diagnosis_recoder_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/diagnosis_recoder_icon"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:text="问诊记录"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/line_color" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp">
+
+                <ImageView
+                    android:id="@+id/change_diagnose_left_img"
+                    android:layout_width="@dimen/dp_2"
+                    android:layout_height="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_18"
+                    android:background="#71A4FF" />
+
+                <TextView
+                    android:id="@+id/tip_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_toRightOf="@id/change_diagnose_left_img"
+                    android:paddingTop="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_16"
+                    android:text="转诊"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/change_diagnose_recoder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingTop="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_16"
+                    android:text="转诊记录"
+                    android:textSize="@dimen/font_size_auxiliary" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/line_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/change_diagnose_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_64"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@drawable/common_white_click_bg"
+                    android:clickable="true"
+                    android:paddingLeft="@dimen/dp_24"
+                    android:paddingTop="@dimen/dp_12"
+                    android:paddingBottom="@dimen/dp_12">
+
+                    <ImageView
+                        android:id="@+id/change_diagnose_icon"
+                        android:layout_width="@dimen/dp_38"
+                        android:layout_height="@dimen/dp_38"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/initiate_change_diagnose" />
+
+                    <TextView
+                        android:id="@+id/change_diagnose_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/change_diagnose_icon"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dp_13"
+                        android:text="发起转诊"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/change_diagnose_title"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:layout_toRightOf="@id/change_diagnose_icon"
+                        android:paddingLeft="@dimen/dp_13"
+                        android:text="转给对症的医生"
+                        android:textColor="@color/index_text_color"
+                        android:textSize="@dimen/dp_11" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/receive_diagnose_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_64"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@drawable/common_white_click_bg"
+                    android:clickable="true"
+                    android:paddingLeft="@dimen/dp_5"
+                    android:paddingTop="@dimen/dp_12"
+                    android:paddingBottom="@dimen/dp_12">
+
+                    <ImageView
+                        android:id="@+id/receive_diagnose_icon"
+                        android:layout_width="@dimen/dp_38"
+                        android:layout_height="@dimen/dp_38"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/receive_change_diagnose" />
+
+                    <TextView
+                        android:id="@+id/receive_diagnose_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/receive_diagnose_icon"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dp_13"
+                        android:text="接收转诊"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/receive_diagnose_title"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:layout_toRightOf="@id/receive_diagnose_icon"
+                        android:paddingLeft="@dimen/dp_13"
+                        android:text="接收对症的患者"
+                        android:textColor="@color/index_text_color"
+                        android:textSize="@dimen/dp_11" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/line_color" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp">
+
+                <ImageView
+                    android:id="@+id/group_diagnose_left_img"
+                    android:layout_width="@dimen/dp_2"
+                    android:layout_height="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_18"
+                    android:background="#71A4FF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_toRightOf="@id/group_diagnose_left_img"
+                    android:paddingTop="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_16"
+                    android:text="会诊"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/group_diagnose_recoder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingTop="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_16"
+                    android:text="会诊记录"
+                    android:textColor="#BBBBBB"
+                    android:textSize="@dimen/font_size_auxiliary" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/line_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/group_diagnose_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_64"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@drawable/common_white_click_bg"
+                    android:clickable="true"
+                    android:paddingLeft="@dimen/dp_24"
+                    android:paddingTop="@dimen/dp_12"
+                    android:paddingBottom="@dimen/dp_12">
+
+                    <ImageView
+                        android:id="@+id/group_diagnose_icon"
+                        android:layout_width="@dimen/dp_38"
+                        android:layout_height="@dimen/dp_38"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/initiate_group_diagnose" />
+
+                    <TextView
+                        android:id="@+id/group_diagnose_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/group_diagnose_icon"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dp_13"
+                        android:text="发起会诊"
+                        android:textColor="#BBBBBB"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/group_diagnose_title"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:layout_toRightOf="@id/group_diagnose_icon"
+                        android:paddingLeft="@dimen/dp_13"
+                        android:text="邀请其他科室会诊"
+                        android:textColor="#E4E4E4"
+                        android:textSize="@dimen/dp_11" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/receive_group_diagnose_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_64"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@drawable/common_white_click_bg"
+                    android:clickable="true"
+                    android:paddingLeft="@dimen/dp_5"
+                    android:paddingTop="@dimen/dp_12"
+                    android:paddingBottom="@dimen/dp_12">
+
+                    <ImageView
+                        android:id="@+id/receive_group_diagnose_icon"
+                        android:layout_width="@dimen/dp_38"
+                        android:layout_height="@dimen/dp_38"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/receive_group_diagnose" />
+
+                    <TextView
+                        android:id="@+id/receive_group_diagnose_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/receive_group_diagnose_icon"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dp_13"
+                        android:text="接收会诊"
+                        android:textColor="#BBBBBB"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/receive_group_diagnose_title"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:layout_toRightOf="@id/receive_group_diagnose_icon"
+                        android:paddingLeft="@dimen/dp_13"
+                        android:text="接受会诊请求"
+                        android:textColor="#E4E4E4"
+                        android:textSize="@dimen/dp_11" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/line_color" />
+        </LinearLayout>
+    </com.ganxin.library.LoadDataLayout>
+</LinearLayout>

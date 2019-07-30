@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_120"
+    android:layout_marginLeft="@dimen/dp_19"
+    android:layout_marginTop="@dimen/dp_15"
+    android:layout_marginRight="@dimen/dp_19"
+    android:background="@drawable/white_corner_bg">
+
+    <TextView
+        android:id="@+id/medical_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_25"
+        android:layout_marginLeft="@dimen/dp_14"
+        android:drawablePadding="@dimen/dp_10"
+        android:drawableLeft="@mipmap/point_green"
+        android:textSize="@dimen/font_size_primary"
+        android:textColor="#333333"
+        android:text="双黄连口服液"/>
+
+    <TextView
+        android:id="@+id/medical_spec_tv"
+        android:layout_below="@+id/medical_name_tv"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/dp_12"
+        android:textColor="#666666"
+        android:text="规格：10ml*10支/盒    1.00盒     12元"/>
+
+    <TextView
+        android:id="@+id/medical_usage_tv"
+        android:layout_below="@+id/medical_spec_tv"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginLeft="@dimen/dp_36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/dp_12"
+        android:textColor="#666666"
+        android:text="用法：2.6g/次      口服       每日2次"/>
+
+    <ImageView
+        android:id="@+id/select_img"
+        android:layout_width="@dimen/dp_23"
+        android:layout_height="@dimen/dp_23"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dp_13"
+        android:layout_marginTop="@dimen/dp_19"
+        android:src="@mipmap/nursing_project_unselect"/>
+</RelativeLayout>

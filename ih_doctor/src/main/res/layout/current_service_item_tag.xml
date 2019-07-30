@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!--<TextView-->
+        <!--android:id="@+id/name"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:drawableLeft="@mipmap/check_box_selected"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:minWidth="@dimen/dp_10"-->
+        <!--android:paddingLeft="@dimen/dp_29"-->
+        <!--android:paddingRight="@dimen/dp_10"-->
+        <!--android:text="aa"-->
+        <!--android:textColor="@color/fontColorPrimary" />-->
+
+    <CheckBox
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/back_visit_ck"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_toRightOf="@+id/chooser_permission_label"
+        android:button="@drawable/check_box_style"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:textColor="#666666"
+        android:checked="true"
+        android:textSize="@dimen/font_size_primary" />
+
+</RelativeLayout>

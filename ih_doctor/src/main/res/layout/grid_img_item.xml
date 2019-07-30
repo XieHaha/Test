@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/dp_86"
+    android:layout_height="@dimen/dp_86"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/item_icon"
+        android:layout_width="@dimen/dp_86"
+        android:layout_height="@dimen/dp_86"
+        android:scaleType="center"
+        app:riv_corner_radius="@dimen/dp_5"
+        android:src="@mipmap/plus"
+        app:riv_tile_mode="clamp" />
+
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/delete_img"
+        android:layout_width="@dimen/dp_19"
+        android:layout_height="@dimen/dp_19"
+        android:layout_alignTop="@id/item_icon"
+        android:layout_alignRight="@id/item_icon"
+        android:layout_centerInParent="true"
+        android:adjustViewBounds="true"
+        android:background="@drawable/diagnose_change_delete_img_bg"
+        android:padding="@dimen/dp_6"
+        android:scaleType="fitXY"
+        android:src="@mipmap/group_dialog_close"
+        app:riv_corner_radius="@dimen/dp_5"
+        app:riv_tile_mode="clamp" />
+
+    <!--<com.makeramen.roundedimageview.RoundedImageView-->
+    <!--android:id="@+id/community_item_img"-->
+    <!--android:layout_width="@dimen/dp_115"-->
+    <!--android:layout_height="@dimen/dp_60"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:background="@drawable/img_bg"-->
+    <!--android:scaleType="centerCrop"-->
+    <!--android:src="@mipmap/community_item_img"-->
+    <!--app:riv_corner_radius="@dimen/dp_5" />-->
+</RelativeLayout>

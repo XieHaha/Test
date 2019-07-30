@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/common_bottom_line_bg"
+        android:paddingLeft="@dimen/padding_left_right_dp"
+        android:paddingRight="@dimen/padding_left_right_dp">
+
+        <TextView
+            android:id="@+id/name_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@mipmap/point_red"
+            android:drawablePadding="@dimen/dp_18"
+            android:paddingTop="@dimen/dp_24"
+            android:paddingBottom="@dimen/dp_24"
+            android:text="选择患者："
+            android:textColor="@color/fontColorPrimary"
+            android:textSize="@dimen/font_size_primary" />
+
+        <com.keydom.ih_doctor.view.MySelectView
+            android:id="@+id/tag_box"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@id/name_tip"
+            android:layout_alignBottom="@id/name_tip"
+            android:layout_toLeftOf="@id/name"
+            android:layout_toRightOf="@id/name_tip"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_12"
+            android:paddingRight="12dp"></com.keydom.ih_doctor.view.MySelectView>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:drawableRight="@mipmap/consulting_arraw_right"
+            android:drawablePadding="@dimen/dp_14"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:hint="请选择患者入群"
+            android:paddingTop="@dimen/dp_24"
+            android:paddingBottom="@dimen/dp_24"
+            android:singleLine="true"
+            android:textColor="@color/fontColorDirection"
+            android:textSize="@dimen/font_size_primary" />
+    </RelativeLayout>
+</merge>

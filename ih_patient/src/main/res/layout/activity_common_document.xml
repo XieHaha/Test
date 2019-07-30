@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+    <include layout="@layout/common_title_bar"/>
+    <com.tencent.smtt.sdk.WebView
+        android:layout_width="match_parent"
+        android:id="@+id/webView"
+        android:visibility="gone"
+        android:layout_height="match_parent"></com.tencent.smtt.sdk.WebView>
+    <TextView
+        android:id="@+id/dec_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_19"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_19"
+        android:layout_marginBottom="@dimen/dp_70"
+        android:textColor="@color/text_color_main"
+        android:textSize="@dimen/dp_12" />
+</LinearLayout>

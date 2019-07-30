@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/item_f9_bg_bottom_divider"
+    android:paddingLeft="@dimen/bottom_bar_dp"
+    android:paddingRight="@dimen/bottom_bar_dp"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/top_group"
+        android:paddingTop="5dp"
+       >
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_width="@dimen/dp_10"
+            android:layout_height="@dimen/dp_10"
+            android:src="@drawable/nursing_order_service_radius" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:text="本次器材/耗材耗用"
+            android:textColor="@color/tab_nol_color"
+            android:textSize="@dimen/font_size_primary" />
+    </FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/namex"
+        android:text="1、"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_below="@+id/top_group"
+        android:textSize="@dimen/font_size_primary"
+        android:textColor="@color/primary_font_color"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/namex"
+        android:layout_alignBottom="@+id/namex"
+        android:id="@+id/name"
+        android:text="name"
+
+        android:textSize="@dimen/font_size_primary"
+        android:textColor="@color/primary_font_color"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/content"
+        android:textColor="@color/tab_nol_color"
+        android:text="content"
+        android:textSize="@dimen/font_size_primary"
+        android:layout_alignLeft="@+id/name"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:layout_below="@+id/name"
+        android:layout_marginTop="@dimen/dp_10"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/num"
+        android:layout_alignBottom="@+id/content"
+        android:layout_toLeftOf="@+id/money"
+        android:textColor="@color/tab_nol_color"
+        android:text="num"
+        android:textSize="@dimen/font_size_primary"
+        android:layout_marginRight="@dimen/dp_44"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/money"
+        android:textSize="@dimen/font_size_primary"
+        android:textColor="@color/nursing_status_red"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/content"
+        android:layout_marginRight="@dimen/dp_32"
+        android:text="12"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/bottom_group"
+        android:layout_below="@+id/content"
+        android:paddingBottom="@dimen/dp_30"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/line_color"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_32"
+            android:text="合计："
+            android:layout_marginTop="@dimen/dp_15"
+            android:textSize="@dimen/font_size_primary"
+            android:textColor="@color/title_bar_text_color"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:id="@+id/total"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp_15"
+            android:textSize="@dimen/font_size_primary"
+            android:textColor="@color/nursing_status_red"
+            android:layout_marginRight="@dimen/dp_32"
+            />
+    </RelativeLayout>
+</RelativeLayout>

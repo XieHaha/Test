@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_52"
+    android:background="@drawable/item_line_bg_bottom_divider"
+    android:gravity="center_vertical"
+    android:id="@+id/title"
+    android:layout_marginTop="@dimen/dp_10"
+    android:paddingLeft="@dimen/padding_left_right_dp"
+    android:paddingRight="@dimen/padding_left_right_dp"
+    android:text="@string/service_record"
+    android:textColor="@color/list_tab_color"
+    android:textSize="@dimen/font_size_primary" />

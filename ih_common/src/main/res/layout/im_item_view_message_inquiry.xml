@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.keydom.ih_common.im.widget.provider.item.ImMessageItemInquiryProvider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/dp_215"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/inquiry_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_12"
+            android:textColor="@color/fontColorPrimary"
+            android:textSize="@dimen/dp_12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:maxWidth="@dimen/dp_80"
+            android:ellipsize="end"
+            android:lines="1"
+            tools:text="张三的撒大大撒打算撒旦" />
+
+        <TextView
+            android:id="@+id/inquiry_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_12"
+            android:textColor="@color/fontColorPrimary"
+            android:textSize="@dimen/dp_12"
+            app:layout_constraintStart_toEndOf="@+id/inquiry_name"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="女" />
+
+        <TextView
+            android:id="@+id/inquiry_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_12"
+            android:textColor="@color/fontColorPrimary"
+            android:textSize="@dimen/dp_12"
+            app:layout_constraintStart_toEndOf="@+id/inquiry_sex"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="25岁" />
+
+        <ImageView
+            android:id="@+id/line_1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_6"
+            android:background="@color/refreshBg"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inquiry_name" />
+
+        <TextView
+            android:id="@+id/inquiry_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_6"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:textColor="#999999"
+            android:textSize="@dimen/dp_12"
+            android:maxLines="5"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line_1"
+            tools:text="3日前自觉鼻塞、流涕，轻微咳嗽，自服抗感冒药物效果不佳." />
+
+        <ImageView
+            android:id="@+id/inquiry_image_1"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginStart="@dimen/dp_13"
+            android:layout_marginTop="@dimen/dp_10"
+            android:contentDescription="@string/app_name"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inquiry_content"
+            tools:src="@drawable/ic_launcher_background" />
+
+        <ImageView
+            android:id="@+id/inquiry_image_2"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginStart="@dimen/dp_6"
+            android:layout_marginTop="@dimen/dp_10"
+            android:contentDescription="@string/app_name"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/inquiry_image_1"
+            app:layout_constraintTop_toBottomOf="@+id/inquiry_content"
+            tools:src="@drawable/ic_launcher_background" />
+
+        <ImageView
+            android:id="@+id/line_2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_8"
+            android:background="@color/refreshBg"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inquiry_image_1" />
+
+        <TextView
+            android:id="@+id/inquiry"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_30"
+            android:drawableEnd="@mipmap/im_message_details_left"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_12"
+            android:paddingEnd="@dimen/dp_12"
+            android:text="问诊单"
+            android:textColor="#FF3F98F7"
+            android:textSize="@dimen/dp_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line_2" />
+    </android.support.constraint.ConstraintLayout>
+</com.keydom.ih_common.im.widget.provider.item.ImMessageItemInquiryProvider>

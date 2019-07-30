@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="#F9F9F9" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@color/primary_bg_color"
+        android:layout_height="@dimen/dp_83">
+
+        <com.keydom.ih_common.view.InterceptorEditText
+            android:id="@+id/search_et"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_35"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginRight="@dimen/dp_77"
+            android:background="@drawable/search_radius_bg"
+            android:drawableLeft="@mipmap/search"
+            android:drawablePadding="@dimen/dp_7"
+            android:ellipsize="none"
+            android:textCursorDrawable="@null"
+            android:hint="搜索药品关键字、适应症、关联词"
+            android:paddingLeft="@dimen/dp_18"
+            android:singleLine="true"
+            android:textColor="@color/primary_font_color"
+            android:textColorHint="#BBBBBB"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/search_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_19"
+            android:paddingRight="@dimen/dp_32"
+            android:text="搜索"
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_primary" />
+    </RelativeLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/medical_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F9F9F9"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"></android.support.v7.widget.RecyclerView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

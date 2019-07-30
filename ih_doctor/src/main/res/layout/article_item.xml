@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.keydom.ih_doctor.view.SwipeItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   >
+    <LinearLayout
+        android:id="@+id/article_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/common_white_click_bg"
+        android:clickable="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/padding_left_right_dp"
+        android:paddingRight="@dimen/padding_left_right_dp"
+        android:paddingBottom="@dimen/dp_21"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dp_23"
+            android:paddingBottom="@dimen/dp_23">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/tag_left_tip_img"
+                    android:layout_width="@dimen/dp_12"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@id/community_article_tag"
+                    android:layout_alignBottom="@id/community_article_tag"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/article_tag_left" />
+
+                <TextView
+                    android:id="@+id/community_article_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tag_left_tip_img"
+                    android:background="@drawable/article_tag"
+                    android:paddingLeft="@dimen/dp_6"
+                    android:paddingTop="@dimen/dp_3"
+                    android:paddingRight="@dimen/dp_6"
+                    android:paddingBottom="@dimen/dp_3"
+                    android:text="成长指南"
+                    android:textColor="#DCC98F"
+                    android:textSize="@dimen/font_size_auxiliary" />
+
+                <TextView
+                    android:id="@+id/article_audit_res"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_9"
+                    android:layout_toRightOf="@id/community_article_tag"
+                    android:background="@drawable/audit_working"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dp_12"
+                    android:paddingRight="@dimen/dp_12"
+                    android:text="审核中"
+                    android:textSize="@dimen/font_size_auxiliary" />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/community_author_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_13"
+                android:layout_toLeftOf="@id/community_author_icon"
+                android:text="苏木晨dsadsadadsadadsadsadad"
+                android:maxWidth="@dimen/dp_80"
+                android:lines="1"
+                android:ellipsize="end"
+                android:textSize="@dimen/font_size_primary" />
+
+            <com.keydom.ih_common.view.CircleImageView
+                android:id="@+id/community_author_icon"
+                android:layout_width="@dimen/dp_29"
+                android:layout_height="@dimen/dp_29"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/user_icon" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/community_item_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/community_item_img"
+                android:text="别让读书误了你"
+                android:textSize="@dimen/font_size_fuc" />
+
+            <TextView
+                android:id="@+id/community_item_dec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/community_item_title"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_toLeftOf="@id/community_item_img"
+                android:text="读书这碗鸡汤的“勺子”到底是什 么呢?"
+                android:textColor="@color/fontColorDirection"
+                android:textSize="@dimen/font_size_auxiliary" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/community_item_img"
+                android:layout_width="@dimen/dp_115"
+                android:layout_height="@dimen/dp_60"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/img_bg"
+                android:scaleType="centerCrop"
+                app:riv_corner_radius="@dimen/dp_5" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/feedback_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="#F9F9F9"
+            android:lineSpacingExtra="@dimen/dp_10"
+            android:padding="@dimen/dp_10"
+            android:text="本条信息含有本院未经发布的过敏名单，请适当编辑后，隐藏相关信息在进行发布"
+            android:textColor="#777777"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:visibility="gone" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_gravity="center_vertical"
+            android:id="@+id/update"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_mark"
+            android:text="修改"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+        <Button
+            android:layout_gravity="center_vertical"
+            android:id="@+id/delete"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_delete"
+            android:text="删除"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</com.keydom.ih_doctor.view.SwipeItemLayout>

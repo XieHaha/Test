@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_bg_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingLeft="@dimen/padding_left_right_dp"
+        android:paddingTop="@dimen/dp_24"
+        android:paddingRight="@dimen/padding_left_right_dp"
+        android:paddingBottom="@dimen/dp_24">
+
+        <com.keydom.ih_common.view.InterceptorEditText
+            android:id="@+id/search_input_ev"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_35"
+            android:layout_toLeftOf="@id/search_tv"
+            android:background="@drawable/comment_input"
+            android:drawableLeft="@mipmap/search"
+            android:drawablePadding="@dimen/dp_10"
+            android:textCursorDrawable="@null"
+            android:textColor="@color/edit_font_color"
+            android:singleLine="true"
+            android:hint="请输入医生或患者关键字"
+            android:paddingLeft="@dimen/dp_20"
+            android:textSize="@dimen/font_size_auxiliary" />
+
+        <TextView
+            android:id="@+id/search_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_35"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:gravity="center_vertical"
+            android:text="搜索"
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_primary" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+
+    <com.ganxin.library.LoadDataLayout
+        android:id="@+id/loadDataLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/diagnose_recoder_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F9F9F9"
+                android:overScrollMode="never"></android.support.v7.widget.RecyclerView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </com.ganxin.library.LoadDataLayout>
+</LinearLayout>

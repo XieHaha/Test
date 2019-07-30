@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.keydom.ih_common.im.widget.provider.item.ImMessageItemTipsProvider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/item_message_view_tips_bg"
+    android:gravity="center_vertical"
+    android:paddingStart="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_5"
+    android:paddingEnd="@dimen/dp_10"
+    android:paddingBottom="@dimen/dp_5"
+    android:textColor="#FF767676"
+    android:textSize="@dimen/dp_9"
+    tools:text="提示消息" />

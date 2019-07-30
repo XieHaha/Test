@@ -1,0 +1,162 @@
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">甲方：“言行医至”互联网医院</span></strong>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">乙方：“言行医至”互联网医院注册用户</span></strong>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">本服务协议是甲方与乙方就“言行医至”互联网医院客户端（以下简称言行医至客户端）服务等相关事宜订立的契约，请乙方在使用前认真阅读本协议，点击&quot;注册&quot;按钮后即为同意所有注册协议条款，本协议即构成对双方有约束力的法律文件。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">第一条、服务条款的确认</span></strong>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">1</span><span style="font-size:20px;font-family:仿宋">、言行医至客户端提供的各项服务的所有权和运作权归甲方所有。乙方同意所有注册协议条款并完成注册程序，才能成为言行医至的正式用户。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">2</span><span style="font-size:20px;font-family:仿宋">、乙方点击同意本协议的，即为乙方确认自己具有享受言行医至客户端服务等相应的权利能力和行为能力，能够独立承担法律责任。（18周岁以下，应在父母或监护人的监护参与下使用）</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">3</span><span style="font-size:20px;font-family:仿宋">、本协议条款适用于言行医至客户端提供的各种服务，当乙方使用其中某一特定服务时，如有单独的服务条款和须知，请乙方遵守本协议及言行医至在网上随时公布、更新的相关服务条款。所有的服务条款和须知均构成本协议的一部分。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">4</span><span style="font-size:20px;font-family:仿宋">、本协议适用于规范甲乙双方的行为和关系，保护甲方和乙方的合法权益。乙方任何通过网站、APP或其他间接方式使用言行医至客户端功能及服务的行为，即为同意并接受本协议内容，愿意遵守协议条款所约定的各顼义务并承担各项法律责任。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">5</span><span style="font-size:20px;font-family:仿宋">、甲方保留在中华人民共和国法律允许的范围内独自决定拒绝服务、关闭用户账户、清除或编辑内容或取消订单的权利。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">第二条、服务承诺</span></strong>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">言行医至互联网医院客户端以线下实体医疗机构为依托，为患者提供在线诊疗服务。提供医疗服务的人员全部为甲方承建所属线下实体医疗机构注册的医务人员，保证相关卫生技术人员资质的真实、合法、有效。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">第三条、注册账号管理</span></strong>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">1</span><span style="font-size:20px;font-family:仿宋">、乙方自行诚信向言行医至客户端提供注册资料，保证其提供的注册资料真实、准确、完整、合法有效。注册资料如有变动的，乙方应及时更新其注册资料。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">2</span><span style="font-size:20px;font-family:仿宋">、乙方注册成功后，将成为言行医至客户端的合法用户，请妥善保存好账户和密码。不得以任何理甶任何方式将账户转让、借与他人使用。一旦登陆后进行的所有活动即认为乙方本人操作使用，由乙方对注册账号进行的所有活动和事件负责。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">3</span><span style="font-size:20px;font-family:仿宋">、每个账号可添加包括本人在内的五名就诊人资料，请提供真实有效、完整详尽的资料信息。如果乙方提供的注册资料和就诊人资料不合法、不真实、不准确、不详尽的，乙方需承担因此引起的相应责任及后果，并且甲方保留终止乙方使用言行医至客户端各项服务的权利。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">第四条、服务内容</span></strong>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">1</span><span style="font-size:20px;font-family:仿宋">、言行医至客户端在线问诊服务主要适用于常见病、慢性病及复诊患者。在线诊疗服务受时间、空间和网络环境所限，不适用于急危重症患者、发热患者、传染病患者及首诊患者。如乙方需获取更详细、全方位和更及时的医疗信息和诊治服务，建议到实体医院门诊和急诊就诊。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">2</span><span style="font-size:20px;font-family:仿宋">、言行医至客户端可向乙方提供图文问诊和视频问诊两种类型的在线问诊服务。乙方应保证就诊实名制，并提供就诊人完整、真实、准确的个人信息、疾病诊疗资料，甲方及所属互联网医院的实体医疗机构将以乙方提供的信息资料为判断基础提供初步的诊疗意见，并仅对本次提供的就诊资料负责，甲方及所属互联网医院的实体医疗机构不对乙方提供的任何信息的真实性、合法性承担责任。如甲方及所属互联网医院的实体医疗机构发现乙方提供的资料有虚假，甲方及所属互联网医院的实体医疗机构有权拒绝和终止提供的所有服务，并冻结乙方账户，有权要求乙方赔偿因提供虚假信息给甲方及所属互联网医院的实体医疗机构造成的损失。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">第五条、信息管理</span></strong>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">1</span><span style="font-size:20px;font-family:仿宋">、乙方同意甲方及所属互联网医院的实体医疗机构拥有通过短信、电话、视频等方式向乙方和言行医至客户端就诊人发送消息等告知信息的权利。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">2</span><span style="font-size:20px;font-family:仿宋">、乙方同意授权甲方为保护、储存乙方信息资料而与第三方进行合作，授权甲方因乙方的服务需求与第三方共享个人信息。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">3</span><span style="font-size:20px;font-family:仿宋">、甲方及所属互联网医院的实体医疗机构将遵循国家法律、法规对健康医疗数据的相关要求，保护乙方的个人信息资料，包括身份信息、医疗资料等，并采取相应的安全措施。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">4</span><span style="font-size:20px;font-family:仿宋">、甲方及所属互联网医院的实体医疗机构只能在乙方同意的特定事顼中或用户授权范围内使用用户健康医疗信息，未经乙方许可，不得向第八条第二项外的任何第三方提供、公开或共享乙方信息。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">第六条、乙方依法言行义务</span></strong>
+</p>
+<p>
+    <span style="font-size:20px;font-family:仿宋">本协议依据国家相关法律法规规章制定，乙方同意严格遵守以下义务：</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">1</span><span style="font-size:20px;font-family:仿宋">、不得传输或发表：煽动抗拒、破坏宪法和法律、行政法规实施的言论，煽动颠覆国家政权，推翻社会主义制度的言论，煽动分裂国家、破坏国家统一的言论，煽动民族仇恨、民族歧视、破坏民族团结的言论。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">2</span><span style="font-size:20px;font-family:仿宋">、从中国大陆向境外传输资料信息时必须符合中国有关法律法规。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">3</span><span style="font-size:20px;font-family:仿宋">、不得利用言行医至客户端从事洗钱、窃取商业秘密、窃取个人信息等违法犯罪活动。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">4</span><span style="font-size:20px;font-family:仿宋">、不得干扰言行医至客户端的正常运转，不得侵入甲方及所属互联网医院的实体医疗机构及国家计算机信息系统。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">5</span><span style="font-size:20px;font-family:仿宋">、不得传输或发表任何违法犯罪的、骚扰性的、中伤他人的、辱骂性的、恐吓性的、伤害性的、庸俗的、淫秽的、不文明的信息资料。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">6</span><span style="font-size:20px;font-family:仿宋">、不得传输或发表损害国家社会公共利益和涉及国家安全的信息资料或言论。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">7</span><span style="font-size:20px;font-family:仿宋">、不得教唆他人从事本条所禁止的行为。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">8</span><span style="font-size:20px;font-family:仿宋">、不得利用在言行医至客户端注册的账户进行牟利性经营活动。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">9</span><span style="font-size:20px;font-family:仿宋">、不得发布任何侵犯他人著作权、商标权等知识产权或合法权利的内容。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">乙方应关注并遵守言行医至客户端不时公布或修改的各类合法规则规定。甲方保有删除各类不符合法律政策或不真实的信息内容而无须通知乙方的权利。若乙方未遵守以上规定的，甲方有权作出独立判断并采取暂停或关闭乙方帐号等措施。乙方须对自己在网上的言论和行为承担法律责任。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">第七条、所有权及知识产权</span></strong>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">1</span><span style="font-size:20px;font-family:仿宋">、言行医至客户端在服务中提供的内容（包括但不限于网页、文字、图片、音频、视频等）的知识产权归甲方所有。甲方拥有言行医至客户端内容及资源的著作权等合法权利，受国家法律保护，有权不时地对本协议及互联网医院的内容进行修改，无须另行通知乙方。在法律允许的最大限度范围内，甲方对本协议及言行医至内容拥有解释权。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">2</span><span style="font-size:20px;font-family:仿宋">、除法律另有强制性规定外，未经甲方明确的特别书面许可，任何单位或个人不得以任何方式非法地全部或部分复制、转载、引用、链接、抓取或以其他方式使用言行医至互联网医院的信息内容，否则，甲方及所属互联网医院的实体医疗机构有权追究其法律责任。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">第八条、服务的暂停终止及免责条款</span></strong>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">1</span><span style="font-size:20px;font-family:仿宋">、如发现乙方提供的资料信息错误、不实、过时或不完整，或其他违反本协议约定的行为，甲方有权暂停或终止提供服务，甲方对此不承担任何责任。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">2</span><span style="font-size:20px;font-family:仿宋">、乙方在使用在线医疗服务过程中的言行应当遵守国家宪法、法律和行政法规及甲方各项规章制度，不得违背社会公共利益或公共道德，不损害他人的合法权益。如乙方在服务过程中实施不正当行为，甲方有权终止服务，由此造成的法律和经济后果由乙方承担。</span>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">3</span><span style="font-size:20px;font-family:仿宋">、言行医至系统因以下情形可能导致服务暂停或延迟，造成乙方无法使用在线服务时，甲方不承担任何责任：</span>
+</p>
+<p>
+    <span style="font-size:20px;font-family:仿宋">(1)</span><span style="font-size:20px;font-family:仿宋">、发生火灾、水灾、暴动、骚乱、战争、自然灾害、国家法律法规、电信部门技术调整等不可抗力或不能预见、不能克服或避免的事件。</span>
+</p>
+<p>
+    <span style="font-size:20px;font-family:仿宋">(2)</span><span style="font-size:20px;font-family:仿宋">、言行医至客户端升级或停机维护。</span>
+</p>
+<p>
+    <span style="font-size:20px;font-family:仿宋">(3)</span><span style="font-size:20px;font-family:仿宋">、甲方、乙方或第三方电脑系统、软件、硬件、网络通信线路出现故障或技术调整。</span>
+</p>
+<p>
+    <span style="font-size:20px;font-family:仿宋">(4)</span><span style="font-size:20px;font-family:仿宋">、受到计算机病毒、木马或其他恶意程序、黑客攻击的破坏。</span>
+</p>
+<p>
+    <span style="font-size:20px;font-family:仿宋">(5)</span><span style="font-size:20px;font-family:仿宋">、乙方操作不当，或通过非甲方授权方式使用服务。</span>
+</p>
+<p>
+    <span style="font-size:20px;font-family:仿宋">(6)</span><span style="font-size:20px;font-family:仿宋">、其他甲方无法控制或合理预见的情形。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">第九条、协议更新及乙方关注义务</span></strong>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">根据国家法律法规变化及网络运营需要，甲方有权对本协议条款在必要时进行修改，修改后的协议一旦被张贴在言行医至互联网医院上即生效，并代替原来的协议。乙方可随时登陆查阅最新协议，并有义务不时关注并阅读最新版的协议及言行医至互联网医院公告。如乙方不同意更新后的协议，可以且应立即停止接受言行医至依据本协议提供的服务；如乙方继续使用言行医至提供的服务，即视为同意更新后的协议。如果本协议中任何一条被视为废止、无效或因任何理由不可执行，该条应视为可分的且并不影响任何其余条款的有效性和可执行性。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">第十条、法律适用</span></strong>
+</p>
+<p style="text-indent:40px">
+    <span style="font-size:20px;font-family:仿宋">1</span><span style="font-size:20px;font-family:仿宋">、本协议之效力、解释、执行和争议的解决均适用中华人民共和国之法律。如本协议之任何一部分与中华人民共和国法律相抵触，则该部分条款应按有关法律规定重新解释，如无相关法律规定的，则应参照商业惯例、政府部门相关规定和(或）行业惯例执行。</span>
+</p>
+<p>
+    <span style="font-size:20px;font-family:仿宋">2</span><span style="font-size:20px;font-family:仿宋">、因本协议所产生的纠纷由双方协商解决；协商不成任何一方都有权向甲方所在地人民法院提起诉讼</span>
+</p>
+<p>
+    <br/>
+</p>

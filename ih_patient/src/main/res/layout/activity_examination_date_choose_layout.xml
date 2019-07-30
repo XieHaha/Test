@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <include layout="@layout/common_title_bar"/>
+    <LinearLayout
+        android:id="@+id/order_exa_order_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/primary_bg_color" />
+        <RelativeLayout
+            android:id="@+id/hospital_area_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_77">
+            <RelativeLayout
+                android:id="@+id/hos_head_layout"
+                android:layout_width="@dimen/dp_52"
+                android:layout_height="@dimen/dp_52"
+                android:layout_marginLeft="@dimen/dp_22"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/order_head_img_bg"
+                >
+                <com.keydom.ih_common.view.CircleImageView
+                    android:id="@+id/order_hospital_img"
+                    android:layout_width="@dimen/dp_45"
+                    android:layout_height="@dimen/dp_45"
+                    android:layout_marginLeft="@dimen/dp_4"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:padding="@dimen/dp_10"
+                    android:src="@mipmap/order_doctor_icon"
+                    />
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/order_hospital_name_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/hos_head_layout"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:text="南区"
+                android:textSize="@dimen/dp_15"
+                android:textColor="#666666"/>
+            <TextView
+                android:id="@+id/order_hospital_label_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/order_hospital_name_name"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:text="三级甲等 | 综合医院"
+                android:textSize="@dimen/dp_12"
+                android:textColor="#BBBBBB"/>
+            <TextView
+                android:id="@+id/order_hospital_address_tv"
+                android:layout_below="@+id/order_hospital_name_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/hos_head_layout"
+                android:layout_marginTop="@dimen/dp_7"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:text="地址：成都市高新区万象北路18号"
+                android:textSize="@dimen/dp_12"
+                android:textColor="#999999"/>
+            <ImageView
+                android:id="@+id/order_hos_down_img"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45"
+                android:padding="@dimen/dp_15"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_36"
+                android:src="@mipmap/arrow_bottom"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/primary_bg_color" />
+        <LinearLayout
+            android:id="@+id/date_list_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_52">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="全部日期"
+                android:paddingLeft="@dimen/dp_30"
+                android:paddingRight="@dimen/dp_28"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/font_size_primary"
+                android:textColor="#666666"/>
+            <View
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="match_parent"
+                android:background="#F9F9F9"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/date_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/primary_bg_color" />
+        <TextView
+            android:id="@+id/surplus_of_exa_num_tv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"
+            android:text=""
+            android:textSize="@dimen/font_size_primary"
+            android:paddingLeft="@dimen/dp_19"
+            android:gravity="center_vertical"
+            android:textColor="#FFAB49"
+            android:background="#FFEE9B"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/order_exa_rv"
+            android:layout_width="match_parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            android:layout_height="match_parent"/>
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/state_retry2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/fontColorForeground">
+
+            <ImageView
+                android:id="@+id/progress_wheel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_100"
+                android:src="@mipmap/no_data" />
+
+            <TextView
+                android:id="@+id/empty_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/progress_wheel"
+                android:layout_centerHorizontal="true"
+                android:text=" 暂无数据" />
+
+            <View
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="@dimen/dp_1"
+                android:layout_alignParentBottom="true" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

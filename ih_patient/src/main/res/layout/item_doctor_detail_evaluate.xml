@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_line_bg_bottom_divider"
+    android:paddingBottom="@dimen/dp_19"
+    android:paddingLeft="@dimen/padding_left_right_dp"
+    android:paddingRight="@dimen/padding_left_right_dp"
+    android:paddingTop="@dimen/dp_21">
+
+    <ImageView
+        android:id="@+id/head_img"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_48" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_17"
+        android:layout_toLeftOf="@+id/time"
+        android:layout_toRightOf="@+id/head_img"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/primary_font_color"
+        android:textSize="@dimen/font_size_primary"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/name"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/edit_hint_color"
+        android:textSize="@dimen/font_size_auxiliary" />
+
+    <com.zhy.view.flowlayout.TagFlowLayout
+        android:id="@+id/tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/name"
+        android:layout_below="@+id/name"
+        android:layout_marginTop="@dimen/dp_22"
+        app:max_select="0" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignLeft="@+id/name"
+        android:layout_below="@+id/tags"
+        android:layout_marginTop="@dimen/dp_14"
+        android:gravity="center_vertical"
+        android:id="@+id/evaluate_rb_group"
+        android:layout_height="wrap_content">
+
+    <com.keydom.ih_patient.view.RatingBarView
+        android:id="@+id/evaluate_rb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:starCount="5"
+        app:starEmpty="@mipmap/evaluate_icon_unselect"
+        app:starFill="@mipmap/evaluate_icon_select"
+        app:starImageSize="@dimen/dp_26" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/grade"
+            android:textColor="@color/login_btn_color"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:layout_marginLeft="@dimen/dp_8"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_24"
+        android:background="@mipmap/good_evaluate_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/evaluate_rb_group"
+        android:id="@+id/isLike"
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_12">
+
+        <ImageView
+            android:layout_width="@dimen/dp_12"
+            android:layout_height="@dimen/dp_12"
+            android:id="@+id/good_evaluate_icon"
+            android:src="@mipmap/good_evaluate_icon" />
+
+        <TextView
+            android:id="@+id/goods_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_6"
+            android:text="100"
+            android:textColor="@color/login_btn_color"
+            android:textSize="@dimen/font_size_auxiliary" />
+    </LinearLayout>
+</RelativeLayout>

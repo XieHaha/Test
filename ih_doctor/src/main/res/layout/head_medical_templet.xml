@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+android:orientation="horizontal"
+android:layout_marginTop="@dimen/dp_10"
+android:gravity="center_vertical"
+android:layout_marginBottom="@dimen/dp_10"
+xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+android:layout_height="@dimen/dp_83">
+<TextView
+    android:layout_width="wrap_content"
+    android:gravity="center_vertical"
+    android:text="科室"
+    android:id="@+id/department"
+    android:paddingLeft="@dimen/dp_24"
+    android:textColor="@color/primary_font_color"
+    android:textSize="@dimen/font_size_primary"
+    android:drawableRight="@mipmap/arrow_bottom_grey"
+    android:drawablePadding="@dimen/dp_16"
+    android:layout_height="match_parent" />
+<com.keydom.ih_common.view.InterceptorEditText
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_marginLeft="@dimen/dp_10"
+    android:background="@drawable/search_radius_bg"
+    android:drawableLeft="@mipmap/search"
+    android:drawablePadding="@dimen/dp_7"
+    android:paddingLeft="@dimen/dp_18"
+    android:id="@+id/search_et"
+    android:singleLine="true"
+    android:hint="搜索关键字"
+    android:textColorHint="#BBBBBB"
+    android:textSize="@dimen/font_size_primary"
+    android:textColor="@color/primary_font_color"
+    android:layout_height="@dimen/dp_35" />
+<TextView
+    android:layout_width="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingRight="@dimen/dp_32"
+    android:paddingLeft="@dimen/dp_19"
+    android:id="@+id/search"
+    android:textSize="@dimen/font_size_primary"
+    android:textColor="#666666"
+    android:text="搜索"
+    android:layout_height="match_parent" />
+</LinearLayout>

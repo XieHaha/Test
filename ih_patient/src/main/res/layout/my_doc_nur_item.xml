@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_125"
+    android:layout_height="@dimen/dp_192"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/dp_18"
+    android:layout_marginBottom="@dimen/dp_28"
+    android:layout_marginLeft="@dimen/dp_20"
+    android:background="@drawable/my_doc_nur_bg"
+    android:gravity="center_horizontal">
+    <RelativeLayout
+        android:layout_width="@dimen/dp_49"
+        android:layout_height="@dimen/dp_49"
+        android:layout_marginTop="@dimen/dp_20"
+
+        android:background="@mipmap/doctor_head_bg_icon">
+        <com.keydom.ih_common.view.CircleImageView
+            android:id="@+id/head_img"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:layout_width="@dimen/dp_43"
+            android:layout_height="@dimen/dp_43"
+            android:src="@mipmap/test_doctor_head_icon"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:textSize="@dimen/font_size_primary"
+        android:textColor="#333333"
+        android:text="徐海嘉"/>
+    <TextView
+        android:id="@+id/dept_ranks_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textSize="@dimen/dp_12"
+        android:textColor="#3F98F7"
+        android:text="主任医师   眼科"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="#EEEEEE"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_5"
+        android:layout_marginLeft="@dimen/dp_5"/>
+    <TextView
+        android:id="@+id/adeption_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_14"
+        android:lines="2"
+        android:ellipsize="end"
+        android:textSize="@dimen/dp_12"
+        android:textColor="#999999"
+        android:text="擅长胃食管反流你的病、炎症性肠病等消化系统常..."/>
+
+
+</LinearLayout>

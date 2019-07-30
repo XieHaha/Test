@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="@dimen/dp_48">
+    <TextView
+        android:id="@+id/body_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:drawableRight="@mipmap/exa_report_right"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_19"
+        android:paddingRight="@dimen/dp_24"
+        android:textSize="@dimen/font_size_primary"
+        android:textColor="#666666"
+        android:text=""
+        android:background="#F9F9F9"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="#EEEEEE"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

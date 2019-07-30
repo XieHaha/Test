@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:background="@color/medical_card_detail_label_bg"
+        android:gravity="center"
+        android:text="@string/medical_card_detail_label"
+        android:textColor="@color/medical_card_detail_label_font"
+        android:textSize="@dimen/dp_14" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@mipmap/bind_card_user_name_icon"
+                    android:drawablePadding="@dimen/dp_16"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_21"
+                    android:text="@string/location_manage_add_name"
+                    android:textColor="@color/title_bar_text_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/card_detail_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="@dimen/dp_37"
+                    android:text=""
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@mipmap/bind_card_card_num_icon"
+                    android:drawablePadding="@dimen/dp_16"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_21"
+                    android:text="@string/medical_card_detail_card_num"
+                    android:textColor="@color/title_bar_text_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/card_detail_card_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="@dimen/dp_37"
+                    android:text=""
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/primary_bg_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@mipmap/sex"
+                    android:drawablePadding="@dimen/dp_16"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_21"
+                    android:text="@string/medical_card_detail_usersex"
+                    android:textColor="@color/title_bar_text_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/card_detail_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="@dimen/dp_37"
+                    android:text=""
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@mipmap/time"
+                    android:drawablePadding="@dimen/dp_16"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_21"
+                    android:text="@string/medical_card_detail_userphone"
+                    android:textColor="@color/title_bar_text_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/card_detail_user_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="@dimen/dp_37"
+                    android:text=""
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@mipmap/card_id"
+                    android:drawablePadding="@dimen/dp_16"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_21"
+                    android:text="@string/medical_card_detail_id_card_num"
+                    android:textColor="@color/title_bar_text_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/card_detail_id_card_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="@dimen/dp_37"
+                    android:text=""
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@mipmap/bind_card_card_num_icon"
+                    android:drawablePadding="@dimen/dp_16"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_21"
+                    android:text="@string/medical_card_detail_bind_card_time"
+                    android:textColor="@color/title_bar_text_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/card_detail_bind_card_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="@dimen/dp_37"
+                    android:text=""
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@mipmap/bind_card_card_num_icon"
+                    android:drawablePadding="@dimen/dp_16"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_21"
+                    android:text="@string/medical_card_detail_real_name_status"
+                    android:textColor="@color/title_bar_text_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/card_detail_real_name_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="@dimen/dp_37"
+                    android:text=""
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@mipmap/bind_card_user_name_icon"
+                    android:drawablePadding="@dimen/dp_16"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_21"
+                    android:text="联系人"
+                    android:textColor="@color/title_bar_text_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/contactor_name_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="@dimen/dp_37"
+                    android:text=""
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@mipmap/location_add_phone_icon"
+                    android:drawablePadding="@dimen/dp_16"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_21"
+                    android:text="联系电话"
+                    android:textColor="@color/title_bar_text_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/contactor_phone_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="@dimen/dp_37"
+                    android:text=""
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@mipmap/bind_card_card_num_icon"
+                    android:drawablePadding="@dimen/dp_16"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_21"
+                    android:text="与患者关系"
+                    android:textColor="@color/title_bar_text_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/contactor_relationship_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="@dimen/dp_37"
+                    android:text=""
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@mipmap/colorful_line" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/primary_bg_color" />
+
+            <TextView
+                android:id="@+id/card_detail_remove_bind"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_58"
+                android:layout_marginLeft="@dimen/dp_19"
+                android:layout_marginTop="@dimen/dp_31"
+                android:layout_marginRight="@dimen/dp_19"
+                android:layout_marginBottom="@dimen/dp_31"
+                android:background="@mipmap/complete_register_bt_bg"
+                android:gravity="center"
+                android:text="@string/medical_card_detail_remove_bind"
+                android:textColor="@color/title_bar_text_color"
+                android:textSize="@dimen/dp_17" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

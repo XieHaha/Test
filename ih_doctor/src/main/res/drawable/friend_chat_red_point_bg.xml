@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:state_pressed="false">
+        <shape android:shape="rectangle">
+                <!-- 实心 -->
+                <solid android:color="@color/friend_age_txt_color" />
+                <!-- 圆角 -->
+                <corners android:radius="@dimen/dp_260" />
+        </shape>
+</item>
+</selector>

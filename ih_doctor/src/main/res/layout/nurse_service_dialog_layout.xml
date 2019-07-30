@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/check_dialog_bg"
+    android:padding="@dimen/dp_19">
+
+    <ImageView
+        android:id="@+id/dialog_icon"
+        android:layout_width="@dimen/dp_96"
+        android:layout_height="@dimen/dp_96"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@mipmap/nurse_appoint" />
+
+    <ImageView
+        android:id="@+id/dialog_close"
+        android:layout_width="@dimen/dp_42"
+        android:layout_height="@dimen/dp_42"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:background="@mipmap/dialog_close" />
+
+    <TextView
+        android:id="@+id/dialog_tip_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_19"
+        android:text="上门护士服务指派"
+        android:textColor="@color/primary_font_color"
+        android:textSize="@dimen/font_size_title" />
+
+    <LinearLayout
+        android:id="@+id/nurse_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_tip_tv"
+        android:layout_marginTop="@dimen/dp_38"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="护士：" />
+
+        <TextView
+            android:id="@+id/nurse_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/common_bottom_line_bg"
+            android:drawableRight="@mipmap/arrow_right_grey"
+            android:drawablePadding="@dimen/dp_17"
+            android:gravity="right"
+            android:paddingRight="@dimen/dp_17"
+            android:paddingBottom="@dimen/dp_15" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dialog_submit"
+        android:layout_width="@dimen/dp_236"
+        android:layout_height="@dimen/dp_42"
+        android:layout_below="@id/nurse_ll"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_44"
+        android:background="@drawable/check_dialog_btn_bg"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_title" />
+
+</RelativeLayout>

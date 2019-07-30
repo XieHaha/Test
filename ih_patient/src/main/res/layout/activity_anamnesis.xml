@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <ScrollView xmlns:zhy="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp">
+
+                <View
+                    android:layout_width="@dimen/dp_2"
+                    android:layout_height="@dimen/dp_15"
+                    android:layout_marginBottom="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:background="@color/anamnesis_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:text="@string/marriageChildbearingHistory"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/line_color" />
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/married_flow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_24"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp"
+                android:paddingTop="@dimen/dp_22"
+                zhy:max_select="-1" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/bg_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp">
+
+                <View
+                    android:layout_width="@dimen/dp_2"
+                    android:layout_height="@dimen/dp_15"
+                    android:layout_marginBottom="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:background="@color/anamnesis_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:text="@string/historySurgeryOrTrauma"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:text="（可从常见标签中选择）"
+                    android:textColor="@color/edit_hint_color"
+                    android:textSize="@dimen/font_size_auxiliary" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/line_color" />
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/surgery_flow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_24"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp"
+                android:paddingTop="@dimen/dp_22"
+                zhy:max_select="-1" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/surgery_edit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_96"
+                android:layout_marginBottom="@dimen/dp_14"
+                android:layout_marginLeft="@dimen/padding_left_right_dp"
+                android:layout_marginRight="@dimen/padding_left_right_dp"
+                android:background="@drawable/anamnesis_edit_bg"
+                android:gravity="start"
+                android:singleLine="false"
+                android:hint="可输入补充您的手术或外伤情况，所选标签和补充字数总和最多100字"
+                android:paddingBottom="@dimen/dp_12"
+                android:maxLength="100"
+                android:paddingLeft="@dimen/dp_8"
+                android:paddingRight="@dimen/dp_8"
+                android:paddingTop="@dimen/dp_12"
+                android:textColor="@color/title_bar_text_color"
+                android:textColorHint="@color/edit_hint_color"
+                android:textSize="@dimen/font_size_auxiliary" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/bg_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp">
+
+                <View
+                    android:layout_width="@dimen/dp_2"
+                    android:layout_height="@dimen/dp_15"
+                    android:layout_marginBottom="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:background="@color/anamnesis_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:text="@string/familyHistory"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:text="（可从常见标签中选择）"
+                    android:textColor="@color/edit_hint_color"
+                    android:textSize="@dimen/font_size_auxiliary" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/line_color" />
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/family_flow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_24"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp"
+                android:paddingTop="@dimen/dp_22"
+                zhy:max_select="-1" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/family_edit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_96"
+                android:layout_marginBottom="@dimen/dp_14"
+                android:layout_marginLeft="@dimen/padding_left_right_dp"
+                android:layout_marginRight="@dimen/padding_left_right_dp"
+                android:background="@drawable/anamnesis_edit_bg"
+                android:gravity="start"
+                android:singleLine="false"
+                android:hint="可输入补充您的家族病史，所选标签和补充字数总和最多100字"
+                android:paddingBottom="@dimen/dp_12"
+                android:maxLength="100"
+                android:paddingLeft="@dimen/dp_8"
+                android:paddingRight="@dimen/dp_8"
+                android:paddingTop="@dimen/dp_12"
+                android:textColor="@color/title_bar_text_color"
+                android:textColorHint="@color/edit_hint_color"
+                android:textSize="@dimen/font_size_auxiliary" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/bg_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp">
+
+                <View
+                    android:layout_width="@dimen/dp_2"
+                    android:layout_height="@dimen/dp_15"
+                    android:layout_marginBottom="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:background="@color/anamnesis_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:text="@string/personalHistory"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:text="（可从常见标签中选择）"
+                    android:textColor="@color/edit_hint_color"
+                    android:textSize="@dimen/font_size_auxiliary" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/line_color" />
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/person_flow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_24"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp"
+                android:paddingTop="@dimen/dp_22"
+                zhy:max_select="-1" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/bg_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp">
+
+                <View
+                    android:layout_width="@dimen/dp_2"
+                    android:layout_height="@dimen/dp_15"
+                    android:layout_marginBottom="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:background="@color/anamnesis_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:text="@string/allergyHistory"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:text="（可从常见标签中选择）"
+                    android:textColor="@color/edit_hint_color"
+                    android:textSize="@dimen/font_size_auxiliary" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/line_color" />
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/allergy_flow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_24"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp"
+                android:paddingTop="@dimen/dp_22"
+                zhy:max_select="-1" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/allergy_edit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_96"
+                android:maxLength="100"
+                android:layout_marginBottom="@dimen/dp_14"
+                android:layout_marginLeft="@dimen/padding_left_right_dp"
+                android:layout_marginRight="@dimen/padding_left_right_dp"
+                android:background="@drawable/anamnesis_edit_bg"
+                android:gravity="start"
+                android:singleLine="false"
+                android:hint="可输入补充您的过敏药物，所选标签和补充字数总和最多100字"
+                android:paddingBottom="@dimen/dp_12"
+                android:paddingLeft="@dimen/dp_8"
+                android:paddingRight="@dimen/dp_8"
+                android:paddingTop="@dimen/dp_12"
+                android:textColor="@color/title_bar_text_color"
+                android:textColorHint="@color/edit_hint_color"
+                android:textSize="@dimen/font_size_auxiliary" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/bg_color" />
+
+            <include layout="@layout/layout_anamnesis_footer" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

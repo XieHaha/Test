@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_bg_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_left_right_dp"
+        android:paddingTop="@dimen/dp_18"
+        android:paddingRight="@dimen/padding_left_right_dp"
+        android:paddingBottom="@dimen/dp_18">
+
+        <Button
+            android:id="@+id/diagnose"
+            style="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_27"
+            android:layout_marginTop="@dimen/dp_2"
+            android:layout_marginBottom="@dimen/dp_2"
+            android:background="@drawable/evaluation_sel_bg"
+            android:text="问诊(0)"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_primary" />
+
+        <Button
+            android:id="@+id/consult"
+            style="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_27"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_2"
+            android:layout_marginBottom="@dimen/dp_2"
+            android:background="@drawable/evaluation_nol_bg"
+            android:padding="@dimen/dp_1"
+            android:text="咨询(0)"
+            android:textColor="@color/fontClickEnable"
+            android:textSize="@dimen/font_size_primary" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+
+    <com.ganxin.library.LoadDataLayout
+        android:id="@+id/loadDataLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/evaluation_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </com.ganxin.library.LoadDataLayout>
+</LinearLayout>

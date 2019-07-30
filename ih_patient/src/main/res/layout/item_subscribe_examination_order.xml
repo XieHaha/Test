@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_10"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_left_right_dp"
+        android:paddingRight="@dimen/padding_left_right_dp">
+
+        <TextView
+            android:id="@+id/goods_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/fontColorPrimary"
+            android:textSize="@dimen/font_size_primary" />
+
+        <ImageView
+            android:id="@+id/nursing_status_iv"
+            android:layout_width="@dimen/dp_10"
+            android:layout_height="@dimen/dp_10"
+            android:src="@drawable/nursing_circle" />
+
+        <TextView
+            android:id="@+id/nursing_status_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginRight="@dimen/dp_13"
+            android:textSize="@dimen/font_size_auxiliary" />
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:src="@mipmap/subscribe_delete" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/line_color"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:paddingRight="@dimen/padding_left_right_dp"
+        android:paddingLeft="@dimen/padding_left_right_dp"
+        android:paddingBottom="@dimen/dp_14"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="@dimen/dp_86"
+            android:id="@+id/goods_img"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_14"
+            android:layout_height="@dimen/dp_58" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/goods_text"
+            android:layout_alignTop="@+id/goods_img"
+            android:layout_toRightOf="@+id/goods_img"
+            android:layout_marginLeft="@dimen/dp_18"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:textColor="@color/tab_nol_color"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/goods_num"
+            android:layout_below="@+id/goods_img"
+            android:layout_marginTop="@dimen/dp_14"
+            android:layout_alignLeft="@+id/goods_img"
+            android:textSize="@dimen/font_size_primary"
+            android:textColor="@color/title_bar_text_color"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/sp_21"
+            android:textColor="@color/money_text_color"
+            android:text="¥ 123"
+            android:id="@+id/goods_money"
+            android:layout_alignBottom="@+id/goods_num"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/goods_money"
+            android:layout_alignBottom="@+id/goods_money"
+            android:text="实付款："
+            android:textSize="@dimen/font_size_primary"
+            android:textColor="@color/title_bar_text_color"
+            />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/line_color"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="@dimen/dp_38">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:id="@+id/btn_left"
+            android:gravity="center"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:textColor="@color/title_bar_text_color"
+            />
+        <View
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="match_parent"
+            android:background="@color/line_color"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:id="@+id/btn_right"
+            android:gravity="center"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:textColor="@color/title_bar_text_color"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/line_color"
+        />
+</LinearLayout>

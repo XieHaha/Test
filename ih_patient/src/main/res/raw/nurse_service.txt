@@ -1,0 +1,231 @@
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">1</span></strong><strong><span style="font-size:20px;font-family: 仿宋">、上门输液（静脉输液、静脉滴注等）</span></strong>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">服务介绍：</span></strong><span style="font-size: 20px;font-family:仿宋">护士看护不低于20分钟。上门输液服务，是由医疗机构执业护士上门，为需要进行静脉输液各类药物、营养药的患者提供的护理服务。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">服务内容：</span></strong><span style="font-size: 20px;font-family:仿宋">根据医嘱、选择适合输液的静脉进行穿刺，不提供药物过敏试验或抗生素类、美容整形类药物注射（药品敏试、抗生素注射请到医院观察输注）</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">注意事项：</span></strong><span style="font-size: 20px;font-family:仿宋">对药物过敏者，以及有严重出血、凝血障碍/倾向，血小板明显减少或适用肝素、双香豆素等进行抗凝治疗暂禁穿刺者禁做；请勿空腹输液，以免输液过程中出现胃肠不适；在输液过程中如有心慌、气紧、恶心、呕吐、头晕、皮肤瘙痒等不适，请立即告诉护士。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">预约须知：</span></strong><span style="font-size: 20px;font-family:仿宋">选择打针、输液类服务的患者需要在服务之前提供正规医院的医嘱、处方等文件；受限于客观条件，具有攻击性、易产生过激反应，具有传染病的患者不在服务范围之内；耗材需要患者自备（大致包括一次性输液器、分装袋、一次性注射器、头皮针、无菌纱布、输液贴、棉签、75%酒精等），如无法提供由则护士提供，患者需要支付相应补充费用；年龄不足10岁的患者不提供上门输液服务；护士只提供上门输液服务，不提供相关药品；服务前需评估病人的大致情况，并在双方签署知情同意书的情况下方可执行；每次上门仅为预约患者提供服务，如需多人服务请另行下单或添加子订单；（其他待补充）。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">2</span></strong><strong><span style="font-size:20px;font-family: 仿宋">、上门打针（肌肉注射、皮下注射、静脉推注等）</span></strong>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">服务介绍：</span></strong><span style="font-size: 20px;font-family:仿宋">上门打针服务，是由医疗机构执业护士上门，为需要进行皮下或肌肉注射各类药物的患者提供的护理服务。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">服务内容：</span></strong><span style="font-size: 20px;font-family:仿宋">根据医嘱、选择适合输液的静脉进行穿刺，不提供药物过敏试验或抗生素类、美容整形类药物注射（药品敏试、抗生素注射请到医院观察输注），不提供疫苗注射。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">注意事项：</span></strong><span style="font-size: 20px;font-family:仿宋">对药物过敏者，以及有严重出血、凝血障碍/倾向，血小板明显减少或适用肝素、双香豆素等进行抗凝治疗暂禁穿刺者、禁做；打针后穿刺处请勿碰水、揉搓针眼，尽量不要食用刺激性食物、勿饮酒、喝浓茶。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">预约须知：</span></strong><span style="font-size: 20px;font-family:仿宋">选择打针、输液类服务的患者需要在服务之前提供正规医院的医嘱、处方等文件；受限于客观条件，具有攻击性、易产生过激反应，具有传染病的患者不在服务范围之内；耗材需要患者自备（大致包含一次性注射器，棉签、75%酒精等），如无法提供由护士提供，需要支付相应补充费用；年龄不足5岁的患者不提供上门打针服务；护士只提供上门打针服务，不提供相关药品；服务前需评估病人的大致情况，并在双方签署知情同意书的情况下方可执行；每次上门仅为预约患者提供服务，如需多人服务请另行下单或添加子订单；（其他待补充）。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">3</span></strong><strong><span style="font-size:20px;font-family: 仿宋">、留置针输液</span></strong>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">服务介绍：</span></strong><span style="font-size: 20px;font-family:仿宋">留置针输液服务是由医疗机构执业护士上门提供留置针穿刺及输液服务。包含留置针穿刺、留置针换液（封管/不封管）。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">服务优点：</span></strong><span style="font-size: 20px;font-family:仿宋">保护血管，减少穿刺次数；减轻因多次穿刺带来的痛苦；在输液过程中更加舒适，不用担心血管被刺破；方便安排合理用药时间，提高效率减少花费；</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">注意事项：</span></strong><span style="font-size: 20px;font-family:仿宋">对肝素过敏者禁止注射；有严重出血、凝血倾向，血小板减少或用肝素、双香豆素进行抗凝治疗暂禁穿刺者禁止注射；在输液过程中如有心慌、气紧、恶心、呕吐、头晕、皮肤瘙痒等不适，请立即告诉护士；为避免留置针感染，建议每次留置针留置时间不宜超过3-5天，血管脆性较大者留置针保留时间可能较短；使用留置针后，留置部位活动受限。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">预约须知：</span></strong><span style="font-size: 20px;font-family:仿宋">受限于客观条件，具有攻击性、易产生过激反应，具有传染病的患者不在服务范围之内；耗材需要患者自备（大致包含留置针、生理盐水、肝素、注射器、输液器分装袋、棉签、75%酒精等），如无法提供由护士提供，需要支付相应补充费用；年龄不足10岁的患者不提供留置针输液服务；服务前需评估病人的大致情况，并在双方签署知情同意书的情况下方可执行；每次上门仅为预约患者提供服务，如需多人服务请另行下单或添加子订单；（其他待补充）。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">4</span></strong><strong><span style="font-size:20px;font-family: 仿宋">、静脉采血</span></strong>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">服务介绍：</span></strong><span style="font-size: 20px;font-family:仿宋">护士上门从静脉抽取血液标本，用于检验检查。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">服务内容：</span></strong><span style="font-size: 20px;font-family:仿宋">根据血液标本的种类、提醒用户采血注意事项，为病人采集、留取静脉血标本、选择合适的静脉进行穿刺，及时处理采血过程中的常见问题；护士只提供相关技术服务，不提供一次性采血耗材，请自备相关采血工具。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">注意事项：</span></strong><span style="font-size: 20px;font-family:仿宋">采血前不吃过于油腻或含高蛋白的食物，避免大量饮酒；检查血糖时，早上不能服用降糖药；查肝功、血粘稠度、血脂等项目应空腹采血；采血结束后，需立即用消毒干棉签按压穿刺部位，切记不要揉搓。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">预约须知：</span></strong><span style="font-size: 20px;font-family:仿宋">选择打针、输液类服务的患者需要在服务之前提供正规医院的医嘱、处方等文件；受限于客观条件，具有攻击性、易产生过激反应，具有传染病的患者不在服务范围之内；耗材需要患者自备（大致包含一次性采血针、负压采血管，一次性止血带棉签、75%酒精等），如无法提供由护士提供，需要支付相应补充费用；年龄不足5岁的患者不提供上门服务；护士只提供上门打针服务，不提供相关药品；服务前需评估病人的大致情况，并在双方签署知情同意书的情况下方可执行；每次上门仅为预约患者提供服务，如需多人服务请另行下单或添加子订单；（其他待补充）。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">5</span></strong><strong><span style="font-size:20px;font-family: 仿宋">、导尿护理（一次性导尿、留置导尿）</span></strong>
+</p>
+<p>
+    <a><strong><span style="font-size:20px;font-family:仿宋">服务介绍：</span></strong></a><span style="font-size:20px;font-family: 仿宋">由医疗机构执业护士上门提供导尿护理服务，包括对留置导尿管的更换、管路冲洗、膀胱冲洗等。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">服务内容：</span></strong><span style="font-size:20px;font-family:仿宋">根据医生医嘱、建议及患者的情况上门更换尿管、清洁尿道口、膀胱冲洗、严格无菌操作，并针对尿管护理相关注意事项基于专业指导及宣教。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">注意事项：</span></strong><span style="font-size:20px;font-family:仿宋">有感染倾向、急性尿道炎、急性前列腺炎、附睾炎、未婚女性、女性月经期、尿道损伤已经完全断裂的患者、尿道狭窄、导尿管无法插入的患者禁做；老年男性及长期留置导尿者，因尿道粘膜薄弱，导尿操作可能会有出血属于正常现象；女性患者长期留置导尿管可能导致尿道松弛，尿管留置过程中可能出现漏尿现象，此种情况无法避免。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">预约须知：</span></strong><span style="font-size: 20px;font-family:仿宋">受限于客观条件，具有攻击性、易产生过激反应，具有传染病的患者不在服务范围之内；耗材需要患者自备（大致适合患者型号的导尿包、膀胱冲洗器、冲洗药液、尿袋曲别针、无菌手套等），如无法提供由护士提供，需要支付相应补充费用；年龄大于70岁的男性患者不提供上门服务；护士只提供上门打针服务，不提供相关药品；服务前需评估病人的大致情况，并在双方签署知情同意书的情况下方可执行；每次上门仅为预约患者提供服务，如需多人服务请另行下单或添加子订单；（其他待补充）。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">6</span></strong><strong><span style="font-size:20px;font-family: 仿宋">、外科伤口换药</span></strong>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">服务介绍：</span></strong><span style="font-size: 20px;font-family:仿宋">检查并清理伤口，更换敷料等。护士上门观察伤口状况，做相应处理；保持创面清洁，清除伤口异物，保持和防止伤口受损和外来感染。促进组织生长，伤口愈合。</span>
+</p>
+<p>
+    <a><strong><span style="font-size:20px;font-family:仿宋">服务内容：</span></strong></a><span style="font-size:20px;font-family: 仿宋">护士上门清理伤口分泌物，对伤口进行包扎并提供指导宣教；本服务一次上门可对同一患者提供不超过3个部位（面积不超过10cm×10cm）的伤口换药；适用于伤口敷料移位、脱落或者污染的 清洁消毒以及术后伤口的无菌换药等。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">注意事项：</span></strong><span style="font-size:20px;font-family:仿宋">本服务不含比较大创伤和术后的伤口拆线，如有伤口拆线需求，请添加外科拆线服务；请下订单前上传伤口近期照片或相关医嘱描述以便审核订单；伤口严重感染或坏死，大量活动性出血者不提供上门换药服务。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">预约须知：</span></strong><span style="font-size: 20px;font-family:仿宋">耗材需要患者自备（大致包括一次性无菌换药包、换药盘、无菌纱布、绷带、生理盐水等等），如无法提供由护士提供，需要支付相应补充费用；年龄不满10岁者不提供上门服务；服务前需评估病人的大致情况，并在双方签署知情同意书的情况下方可执行；患者如有精神问题，如狂躁、抑郁、不受控制等行为不提供服务；（其他待补充）。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">7</span></strong><strong><span style="font-size:20px;font-family: 仿宋">、PICC换药</span></strong>
+</p>
+<p>
+    <a><strong><span style="font-size:20px;font-family:仿宋">服务介绍：</span></strong></a><span style="font-size:20px;font-family: 仿宋">护士上门提供PICC（经外周静脉置入中心静脉导管）护理服务，包括对PICC置管的换药和维护服务，并指导患者进行自我维护及健康指导等（适用人群：留置PICC后，需定期维护的居家患者与反复化疗的肿瘤患者）。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">服务内容：</span></strong><span style="font-size:20px;font-family:仿宋">护士谨遵医嘱，根据PICC置管穿刺处的情况，进行换药、接头更换、管路冲洗等操作。防止导管移脱、导管堵塞、感染等问题。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">预约须知：</span></strong><span style="font-size: 20px;font-family:仿宋">用户必须上传换药部位情况以及上一次维护情况；耗材需要患者自备（大致包括正压接头、20ml和10ml一次性注射器、冲洗管路、生理盐水及肝素、无菌手套、一次性PICC换药包、透明贴膜、PICC情况记录本、皮尺等），如无法提供由护士提供，需要支付相应补充费用；年龄不满5岁者不提供上门服务；服务前需评估病人的大致情况，并在双方签署知情同意书的情况下方可执行；患者如有精神问题，如狂躁、抑郁、不受控制等行为不提供服务；换药部位疑有感染倾向，不提供上门服务；伤口严重感染或坏死、大量活动性出血者不提供上门服务；（其他待补充）</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">8</span></strong><strong><span style="font-size:20px;font-family: 仿宋">、吸痰护理</span></strong>
+</p>
+<p>
+    <a><strong><span style="font-size:20px;font-family:仿宋">服务介绍：</span></strong></a><span style="font-size:20px;font-family: 仿宋">经口腔、鼻腔、人工气道（气管切开术）将呼吸道分泌物吸出，以保持呼吸道通畅，预防吸入性肺炎、肺不张、窒息等并发症，适用于昏迷病人、痰液特别多有窒息可能性的病人。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">服务内容：</span></strong><span style="font-size:20px;font-family:仿宋">应用吸痰器吸出口腔及气道痰液或将气道误吸入的呕吐物吸出，保持呼吸道通畅；观察吸痰前后呼吸频率的改变，同时注意吸出物的性状、量及颜色等，帮助评估病情。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">注意事项：</span></strong><span style="font-size:20px;font-family:仿宋">颅底骨折病人禁用鼻导管吸痰，声门、气管痉挛者、心血管急症者禁做；只提供相关技术，不提供耗材，吸痰器需自备。</span>
+</p>
+<p>
+    <span style="font-size:20px;font-family:仿宋">预约须知：耗材需要患者自备（大致包括一次性吸痰管、无菌纱布、无菌手套、生理盐水等），如无法提供由护士提供，需要支付相应补充费用；年龄不满10不提供上门服务；受限于客观条件：具有攻击性、易产生过激反应，具有传染病患者不在服务范围内；此项护理服务需要有患者家属陪同，如家属无法陪同请谨慎使用此项服务；服务前需评估病人的大致情况，并在双方签署知情同意书的情况下方可执行；（其他待补充）</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">9</span></strong><strong><span style="font-size:20px;font-family: 仿宋">、留置胃管</span></strong>
+</p>
+<p>
+    <a><strong><span style="font-size:20px;font-family:仿宋">服务介绍：</span></strong></a><span style="font-size:20px;font-family: 仿宋">护士上门提供留置胃管更换、管路清洁与鼻饲服务。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">服务内容：</span></strong><span style="font-size:20px;font-family:仿宋">专科护士根据医生医嘱、建议及患者的需求上门更换胃管并针对鼻饲方法及注意事项给予相关的专业指导。（适用人群：行胃管留置术患者，如昏迷、口腔疾患者等，不能经口进食，通过胃管给予应用的患者。）</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">注意事项：</span></strong><span style="font-size:20px;font-family:仿宋">是管静脉曲张、食道梗阻、食道和胃贲门手术者禁做。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">预约须知：</span></strong><span style="font-size: 20px;font-family:仿宋">耗材需要患者自备（大致包括一次性换药包、无菌垫巾、鼻饲液、纱布、胶布、50ml一次性注射器、皮筋等），如无法提供由护士提供，需要支付相应补充费用；年龄不满10岁不提供上门服务，无法提供上门服务；有感染倾向、出血倾向患者如有精神问题，如狂躁症、抑郁症、不受控制等不提供服务；服务前需评估病人的大致情况，并在双方签署知情同意书的情况下方可执行；（其他待补充）</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">10</span></strong><strong><span style="font-size:20px;font-family: 仿宋">、灌肠护理</span></strong>
+</p>
+<p>
+    <a><strong><span style="font-size:20px;font-family:仿宋">服务介绍：</span></strong></a><span style="font-size:20px;font-family: 仿宋">用导管自肛门镜直肠插入结肠灌注液体，以达到通便排气的治疗方法。能刺激肠蠕动、软化、清除粪便，并有降温、催产、稀释肠内毒物，减少吸收的作用。此外，亦可达到供给药物、营养、水分等治疗目的。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">服务内容：</span></strong><span style="font-size:20px;font-family:仿宋">观察肛周皮肤黏膜情况，掌握灌肠液及容量、温度、浓度、流速和压力，观察灌肠效果，帮助评估病情。（适用人群：便秘患者、长期卧床患者）</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">注意事项：</span></strong><span style="font-size:20px;font-family:仿宋">急腹症、妊娠早期，消化道出血的患者禁做：肝性脑病患者禁用肥皂水灌肠；伤寒患者灌肠量不能超过500ml，液面距肛门不得超过30cm；灌肠前请家属或患者准备好卫生纸，并注意为患者保暖；身体虚弱或老年患者需要家属陪同，并准备好便盆，注意安全，防止坠床或跌倒；灌肠前在短时间内避免大量饮水，以减少排尿几率。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">预约须知：</span></strong><span style="font-size: 20px;font-family:仿宋">耗材需要患者自备（大致包括一次性肛管、无菌纱布、灌肠液等），如无法提供由护士提供，需要支付相应补充费用；年龄不满10岁不提供上门服务，无法提供上门服务；具有攻击性，易产生过激反应，具有传染病患者不在服务范围内；服务前需评估病人的大致情况，并在双方签署知情同意书的情况下方可执行；（其他待补充）</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">11</span></strong><strong><span style="font-size:20px;font-family: 仿宋">、雾化治疗</span></strong>
+</p>
+<p>
+    <a><strong><span style="font-size:20px;font-family:仿宋">服务介绍：</span></strong></a><span style="font-size:20px;font-family: 仿宋">利用高速氧气气流，使药液形成雾状，再由呼吸道吸入，达到治疗的目的。治疗呼吸道感染，消除炎症和水肿。解痉。稀化痰液，帮助祛痰。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">服务内容：</span></strong><span style="font-size:20px;font-family:仿宋">适用人群包括哮喘、呼吸道、支气管炎症、肺部疾病等需要雾化治疗的患者。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">注意事项：</span></strong><span style="font-size:20px;font-family:仿宋">加强口、鼻的卫生护理。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">预约须知：</span></strong><span style="font-size: 20px;font-family:仿宋">耗材需要患者自备（大致包括生理盐水、雾化装置、雾化药品等），如无法提供由护士提供，需要支付相应补充费用；病情较重或不适宜进行雾化治疗者不提供上门服务；需确认患者对适用的药品无过敏现象；具有攻击性，易产生过激反应，具有传染病患者不在服务范围内；服务前需评估病人的大致情况，并在双方签署知情同意书的情况下方可执行；（其他待补充）</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">12</span></strong><strong><span style="font-size:20px;font-family: 仿宋">、压疮护理</span></strong>
+</p>
+<p>
+    <a><strong><span style="font-size:20px;font-family:仿宋">服务介绍：</span></strong></a><span style="font-size:20px;font-family: 仿宋">护士上门提供压疮护理服务，包括对压疮部位的清洁、消更换敷料等，用于接触局部受压，改善局部血液循环。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">服务内容：</span></strong><span style="font-size:20px;font-family:仿宋">根据压疮的伤口情况与分期，采取不同的护理措施。选择适合的敷料给予换药，并对家属进行压疮预防的指导宣教；本服务上门可以为同一患者提供三个部位的压疮护理，每个部位面积不超过10cm×10cm。（适用于长期卧床、造成压疮的患者。）</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">注意事项：</span></strong><span style="font-size:20px;font-family:仿宋">此项服务需家属陪同，如家属无法陪同请谨慎使用此项服务；受压疮分期及伤口大小数量的影响，请在下单时将伤口照片上传便于客服人员审核订单</span><span style="font-size:20px;font-family:仿宋">。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">预约须知：</span></strong><span style="font-size: 20px;font-family:仿宋">耗材需要患者自备（大致包括一次性换药包、针对疮口所需药物及专业敷料等），如无法提供由护士提供，需要支付相应补充费用；具有攻击性，易产生过激反应，具有传染病患者不在服务范围内；服务前需评估病人的大致情况，并在双方签署知情同意书的情况下方可执行；（其他待补充）</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">13</span></strong><strong><span style="font-size:20px;font-family: 仿宋">、外科拆线</span></strong>
+</p>
+<p>
+    <a><strong><span style="font-size:20px;font-family:仿宋">服务介绍：</span></strong></a><span style="font-size:20px;font-family: 仿宋">外科手术后伤口愈合，拆除缝合线的医疗操作。检查伤口、清除伤口分泌物，除去伤口内异物和坏死组织，通畅引流，控制感染，促进伤口愈合。适用于一般外科手术拆线。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">服务内容：</span></strong><span style="font-size:20px;font-family:仿宋">每次服务仅限于7针以下的伤口拆线，单次服务仅限于一处伤口，如有多个伤口需要拆线，请购买多次套餐服务；面部整容、美容类术后不提供上门服务。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">注意事项：</span></strong><span style="font-size:20px;font-family:仿宋">提供服务前会详细记录拆线情况，请如实告知：医生建议的拆线时间，截止服务时间是术后多少天；需拆线部位以及缝合的针数；是普通外科伤口缝合线还是医疗美容缝合线；伤口覆盖用的敷料是纱布还是其他；伤口缝合到拆线期间是否换过药；换药期间是否观察过伤口愈合程度；是否糖尿病病史。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">预约须知：</span></strong><span style="font-size: 20px;font-family:仿宋">耗材需要患者自备（大致包括拆线剪、无菌敷料、伤口/皮肤消毒液等），如无法提供由护士提供，需要支付相应补充费用；具有攻击性，易产生过激反应，具有传染病患者不在服务范围内；服务前需评估病人的大致情况，并在双方签署知情同意书的情况下方可执行；（其他待补充）</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">14</span></strong><strong><span style="font-size:20px;font-family: 仿宋">、造口护理</span></strong>
+</p>
+<p>
+    <a><strong><span style="font-size:20px;font-family:仿宋">服务介绍：</span></strong></a><span style="font-size:20px;font-family: 仿宋">提供造口周围皮肤清洁、消毒以及更换敷贴的操作</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">注意事项：</span></strong><span style="font-size:20px;font-family:仿宋">有造口的患者，衣物要宽松，避免压迫造成造口，避免要带勒牢造口；家中备齐造口护理用品，沐浴时可贴袋或不贴袋淋浴；睡眠时，避免压破造口；定期扩张造口，避免经常举重物或剧烈运动；避免增加腹压的活动；出门时备足造口用品。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">预约须知：</span></strong><span style="font-size: 20px;font-family:仿宋">耗材需要患者自备（大致包括造口袋、软膏等），如无法提供由护士提供，需要支付相应补充费用；具有攻击性，易产生过激反应，具有传染病患者不在服务范围内；服务前需评估病人的大致情况，并在双方签署知情同意书的情况下方可执行；（其他待补充）</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">15</span></strong><strong><span style="font-size:20px;font-family: 仿宋">、新生儿护理</span></strong>
+</p>
+<p>
+    <a><strong><span style="font-size:20px;font-family:仿宋">服务介绍：</span></strong></a><span style="font-size:20px;font-family: 仿宋"> 提供儿科护士到家一对一指导家属的新生儿家庭护理指导以及常见问题的预防</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">服务内容：</span></strong><span style="font-size:20px;font-family:仿宋">本服务适用于0-28天的新生儿。服务内容包括，新生儿洗澡（脐周护理、抚触、皮肤、护理）；新生儿常见疾病的预防和宣教（新生儿脐炎的预防和护理、新生儿黄疸的护理及观察、新生儿湿疹护理及预防、新生儿生活常见问题指导）；新生儿母乳喂养及人工喂养指导；新生儿口腔观察及鹅口疮预防、抚触指导。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">预约须知：</span></strong><span style="font-size: 20px;font-family:仿宋">护士上门提供护理技术服务，不提供相关药品。</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family:仿宋">16</span></strong><strong><span style="font-size:20px;font-family: 仿宋">、产后产褥期护理</span></strong>
+</p>
+<p>
+    <a><strong><span style="font-size:20px;font-family:仿宋">服务介绍：</span></strong></a><span style="font-size:20px;font-family: 仿宋">所有产妇的产褥期护理</span>
+</p>
+<p>
+    <strong><span style="font-size:20px;font-family: 仿宋">服务内容：</span></strong><span style="font-size:20px;font-family:仿宋">护士通过专业手法按揉子宫，避免宫缩乏力；观察子宫复旧情况，通过专业手法促进子宫复旧；指导产褥期产妇的日常生活护理；检查产妇恶露情况，预防感染，子宫复位不良；正确的产后运动指导，预防伤口断裂，恢复健康体型；产褥期产妇的饮食指导；观察伤口恢复情况，预防感染。</span>
+</p>
+<p>
+    <span style="font-size:20px;font-family:仿宋">预约须知：只适用于与产褥期妇女；只提供护理技术服务，不提供相关药品。</span>
+</p>
+<p>
+    <br/>
+</p>

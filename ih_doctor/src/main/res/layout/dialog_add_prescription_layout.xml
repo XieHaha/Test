@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primary_bg_color"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/dp_26"
+        android:text="添加处方" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_60"
+        android:paddingRight="@dimen/dp_60">
+
+
+        <TextView
+            android:id="@+id/add_common_prescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/common_prescription"
+            android:drawablePadding="@dimen/dp_10"
+            android:gravity="center_horizontal"
+            android:text="普通" />
+
+        <TextView
+            android:id="@+id/add_paediatrics_prescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/paediatrics_prescription"
+            android:drawablePadding="@dimen/dp_10"
+            android:gravity="center_horizontal"
+            android:text="儿科" />
+
+
+    </LinearLayout>
+
+
+    <ImageButton
+        android:id="@+id/dialog_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_33"
+        android:layout_marginBottom="@dimen/dp_33"
+        android:background="@null"
+        android:src="@mipmap/group_dialog_close" />
+
+</LinearLayout>

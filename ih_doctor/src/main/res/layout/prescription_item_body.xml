@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.keydom.ih_doctor.view.SwipeItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="@dimen/dp_19"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_80">
+
+        <TextView
+            android:id="@+id/medicine_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_61"
+            android:text="1、"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/medicine_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/medicine_num"
+            android:layout_toRightOf="@id/medicine_num"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="感冒通"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/medicine_specifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/medicine_name"
+            android:layout_alignLeft="@id/medicine_name"
+            android:layout_marginTop="@dimen/dp_6"
+            android:layout_toLeftOf="@id/medicine_amount"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="0.65g*24粒/盒"
+            android:textSize="@dimen/font_size_auxiliary" />
+
+
+        <TextView
+            android:id="@+id/medicine_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/medicine_num"
+            android:layout_alignTop="@id/medicine_specifications"
+            android:layout_alignBottom="@id/medicine_specifications"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="1盒"
+            android:textSize="@dimen/font_size_auxiliary" />
+
+        <TextView
+            android:id="@+id/medicine_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/medicine_num"
+            android:layout_alignTop="@id/medicine_specifications"
+            android:layout_alignBottom="@id/medicine_specifications"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/medicine_amount"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:singleLine="true"
+            android:text="20元"
+            android:paddingRight="@dimen/dp_40"
+            android:textColor="#FF3939"
+            android:textSize="@dimen/font_size_auxiliary" />
+
+
+        <TextView
+            android:id="@+id/use_once"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/medicine_specifications"
+            android:layout_alignLeft="@id/medicine_name"
+            android:layout_marginTop="@dimen/dp_3"
+            android:layout_toLeftOf="@id/use_method"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="用法：2.6g/次"
+            android:textSize="@dimen/font_size_auxiliary" />
+
+        <TextView
+            android:id="@+id/use_method"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/medicine_specifications"
+            android:layout_alignTop="@id/use_once"
+            android:layout_alignBottom="@id/use_once"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="口服"
+            android:textSize="@dimen/font_size_auxiliary" />
+
+        <TextView
+            android:id="@+id/times"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/medicine_specifications"
+            android:layout_alignTop="@id/use_once"
+            android:layout_alignBottom="@id/use_once"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/use_method"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:singleLine="true"
+            android:paddingRight="@dimen/dp_24"
+            android:text="每日两次"
+            android:textSize="@dimen/font_size_auxiliary" />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/update_tv"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="#F5F5F5"
+            android:textSize="@dimen/dp_13"
+            android:textColor="#666666"
+            android:text="修改"/>
+        <TextView
+            android:id="@+id/delete_tv"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="#FF3939 "
+            android:textSize="@dimen/dp_13"
+            android:textColor="#FFFFFF"
+            android:text="删除"/>
+    </LinearLayout>
+
+
+</com.keydom.ih_doctor.view.SwipeItemLayout>

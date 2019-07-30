@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/test_child_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/diagnose_rb"
+        android:ellipsize="end"
+        android:paddingLeft="@dimen/dp_22"
+        android:paddingTop="@dimen/dp_14"
+        android:paddingBottom="@dimen/dp_14"
+        android:singleLine="true"
+        android:text="乙肝表面抗原（HBsAg)"
+        android:textColor="#999999"
+        android:textSize="@dimen/font_size_primary" />
+
+    <com.keydom.ih_common.view.MRadioButton
+        android:id="@+id/diagnose_rb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:button="@drawable/radio_btn_style"
+        android:checked="false"
+        android:clickable="true"
+        android:textColor="@color/agreement" />
+
+</RelativeLayout>

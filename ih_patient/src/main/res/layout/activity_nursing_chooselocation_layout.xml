@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="#F9F9F9" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_38">
+
+        <ImageView
+            android:id="@+id/function_config_second_icon"
+            android:layout_width="@dimen/dp_2"
+            android:layout_height="@dimen/dp_18"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:src="@mipmap/title_left_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_6"
+            android:layout_toRightOf="@+id/function_config_second_icon"
+            android:text="上门服务"
+            android:textColor="@color/fontColorPrimary"
+            android:textSize="@dimen/font_size_primary" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_38">
+
+        <TextView
+            android:id="@+id/choose_location_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_6"
+            android:paddingLeft="@dimen/dp_20"
+            android:gravity="center_vertical"
+            android:drawableRight="@mipmap/exa_report_right"
+            android:paddingRight="@dimen/dp_19"
+            android:text="服务地址"
+            android:textColor="#999999"
+            android:textSize="@dimen/font_size_primary" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="#EEEEEE"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/dp_19"
+            android:layout_marginLeft="@dimen/dp_19"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_144"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_19"
+        android:layout_marginRight="@dimen/dp_19">
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/nursing_service_mv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            ></com.baidu.mapapi.map.MapView>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_20"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <TextView
+                android:id="@+id/overlay_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/overlay_text_bg"
+                android:gravity="center"
+                android:padding="@dimen/dp_3"
+                android:text="成都市人民医院"
+                android:textColor="#3F98F7"
+                android:textSize="@dimen/dp_12" />
+
+            <ImageView
+                android:id="@+id/overlay_icon"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_3"
+                android:scaleType="fitXY"
+                android:src="@drawable/my_location_overlay" />
+        </LinearLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_42">
+
+        <ImageView
+            android:id="@+id/second_icon"
+            android:layout_width="@dimen/dp_2"
+            android:layout_height="@dimen/dp_18"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:src="@mipmap/title_left_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_6"
+            android:layout_toRightOf="@+id/second_icon"
+            android:text="预约注意事项"
+            android:textColor="@color/fontColorPrimary"
+            android:textSize="@dimen/font_size_primary" />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/notice_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_29"
+        android:layout_marginLeft="@dimen/dp_29"
+        android:lineSpacingExtra="@dimen/dp_8"
+        android:textSize="@dimen/font_size_primary"
+        android:textColor="#666666"
+        android:text=""/>
+    <RelativeLayout
+        android:layout_marginTop="@dimen/dp_23"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_58"
+        android:background="#FFEE9B">
+        <TextView
+            android:id="@+id/service_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_54"
+            android:layout_marginLeft="@dimen/dp_54"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="@dimen/dp_5"
+            android:text="平台免费为患者提供医责险，最高赔付20万元保险条款。"
+            android:textColor="#FF3939"
+            android:textSize="@dimen/dp_12" />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/nursing_service_notice_ck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_28"
+            android:scaleY="0.8"
+            android:scaleX="0.8"
+            android:layout_gravity="center_vertical"
+            android:buttonTint="#999999"
+           />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_primary"
+            android:layout_gravity="center_vertical"
+            android:text="同意"/>
+        <TextView
+            android:id="@+id/nursing_service_notice_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 《护理服务用户协议》"
+            android:layout_gravity="center_vertical"
+
+            android:textSize="@dimen/font_size_primary"
+            android:textColor="#3F98F7"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_43"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/cancel_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="@dimen/dp_15"
+                android:textColor="#BBBBBB"
+                android:background="#F9F9F9"
+                android:text="取消"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/nursing_order_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="@dimen/dp_15"
+                android:textColor="@color/primary_color"
+                android:background="#3F98F7"
+                android:text="预约"
+                android:gravity="center"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

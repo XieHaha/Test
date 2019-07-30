@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/padding_left_right_dp"
+    android:paddingTop="@dimen/dp_24"
+    android:paddingRight="@dimen/padding_left_right_dp"
+    android:paddingBottom="@dimen/dp_24">
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="wrap_content"
+        android:text="徐＊"
+        android:lines="1"
+        android:ellipsize="end"
+        android:textColor="@color/primary_font_color"
+        android:textSize="@dimen/font_size_primary" />
+
+    <RatingBar
+        android:id="@+id/star_rb"
+        style="@style/RadingStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/user_name"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:rating="3"
+        android:stepSize="1" />
+
+    <TextView
+        android:id="@+id/evaluation_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_toRightOf="@id/star_rb"
+        android:text="满意"
+        android:textColor="#3399FF"
+        android:textSize="@dimen/font_size_primary" />
+
+    <com.keydom.ih_doctor.view.TagView
+        android:id="@+id/evaluation_tag_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_name"
+        android:layout_alignLeft="@id/star_rb"
+        android:layout_marginTop="@dimen/dp_16"></com.keydom.ih_doctor.view.TagView>
+
+</RelativeLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F98F7</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="fontColorPrimary">#333333</color><!--用于标题、正文等-->
+    <color name="fontColorNavigate">#666666</color><!--用于导航栏等-->
+    <color name="fontColorDirection">#BBBBBB</color><!--辅助说明文字颜色-->
+    <color name="fontColorInterval">#333333</color><!--模块背景或者间隔-->
+    <color name="fontColorForeground">#FFFFFF</color><!--用于文字前景-->
+    <color name="colorRedPoint">#FF1212</color><!--用于消息红点背景-->
+    <color name="colorSearchEdt">#F0F0F0</color><!--用于首页搜索框背景色-->
+    <color name="colorSearchEdtMine">#2286ED</color><!--用于个人中心搜索框背景色-->
+    <color name="strokeColorDisable">#DDDDDD</color><!--按钮不可点击状态下边框颜色-->
+    <color name="refreshBg">#F9F9F9</color><!--按钮不可点击状态下边框颜色-->
+    <color name="backgroundColorDisable">#FFFFFF</color><!--不可点击按钮背景色-->
+    <color name="backgroundColorEnable">#4076FF</color><!--可点击按钮背景色-->
+    <color name="backgroundColorEnablePress">#245AE2</color><!--可点击按钮背景色-->
+    <color name="fontClickEnable">#BBBBBB</color>
+    <color name="font_service_enable">#FF22E17E</color>
+    <color name="font_select">#22E17E</color>
+
+    <color name="im_bg">#FFF9F9F9</color><!--IM 会话界面背景色-->
+    <color name="im_context_text">#FF767676</color><!--IM界面会话字体颜色-->
+    <color name="im_plugin_grid_bg">#FFF7F7F7</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="im_status_waiting">#FFFBD54E</color>
+    <color name="im_status_ing">#FF22E17E</color>
+    <color name="im_status_completed">#FF3F98F7</color>
+    <color name="income_bg">#3F98F7</color>
+    <color name="font_medical_select">#C8E3FF</color>
+    <color name="font_order_type_image_with_video">#FF6E4D</color>
+    <color name="cycle_red">#FF1E00</color>
+    <color name="cycle_green">#22E17E</color>
+    <color name="cycle_yellow">#FFC700</color>
+    <color name="font_green">#22E17E</color>
+    <color name="font_red">#FF3939</color>
+    <color name="diagnose_font_red">#FF1E00</color>
+    <color name="diagnose_font_yellow">#FFC700</color>
+
+</resources>

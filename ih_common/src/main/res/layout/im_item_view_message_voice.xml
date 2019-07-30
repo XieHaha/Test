@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.keydom.ih_common.im.widget.provider.item.ImMessageItemVoiceProvider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/im_message_left"
+    android:gravity="center_vertical"
+    android:paddingStart="@dimen/dp_12"
+    android:paddingEnd="@dimen/dp_12"
+    android:scaleType="centerCrop">
+
+    <TextView
+        android:id="@+id/im_message_voice_time_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/dp_12"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/im_message_voice_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
+        android:maxWidth="@dimen/dp_177"
+        android:scaleType="fitStart" />
+
+    <TextView
+        android:id="@+id/im_message_voice_time_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/dp_12"
+        android:textStyle="bold" />
+
+</com.keydom.ih_common.im.widget.provider.item.ImMessageItemVoiceProvider>

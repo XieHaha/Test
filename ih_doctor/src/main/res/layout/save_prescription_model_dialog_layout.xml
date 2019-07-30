@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/check_dialog_bg"
+    android:padding="@dimen/dp_19">
+
+    <ImageView
+        android:id="@+id/dialog_icon"
+        android:layout_width="@dimen/dp_96"
+        android:layout_height="@dimen/dp_96"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@mipmap/dialog_check_icon" />
+
+    <ImageView
+        android:id="@+id/check_dialog_close"
+        android:layout_width="@dimen/dp_42"
+        android:layout_height="@dimen/dp_42"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:background="@mipmap/dialog_close" />
+
+    <TextView
+        android:id="@+id/dialog_tip_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_19"
+        android:text="保存并存为模板"
+        android:textColor="@color/primary_font_color"
+        android:textSize="@dimen/font_size_title" />
+
+    <TextView
+        android:id="@+id/model_type_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_tip_tv"
+        android:layout_marginTop="@dimen/dp_16"
+        android:text="模版类型"
+        android:textColor="#BBBBBB"
+        android:textSize="@dimen/font_size_primary" />
+
+    <LinearLayout
+        android:id="@+id/model_type_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/model_type_tip"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/model_type_personal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/model_un_selected"
+                android:paddingLeft="@dimen/dp_18"
+                android:paddingTop="@dimen/dp_3"
+                android:paddingRight="@dimen/dp_18"
+                android:paddingBottom="@dimen/dp_3"
+                android:text="个人"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/model_type_dept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/model_un_selected"
+                android:paddingLeft="@dimen/dp_18"
+                android:paddingTop="@dimen/dp_3"
+                android:paddingRight="@dimen/dp_18"
+                android:paddingBottom="@dimen/dp_3"
+                android:text="科室"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/model_type_common"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/model_un_selected"
+                android:paddingLeft="@dimen/dp_18"
+                android:paddingTop="@dimen/dp_3"
+                android:paddingRight="@dimen/dp_18"
+                android:paddingBottom="@dimen/dp_3"
+                android:text="公共"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/model_name_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/model_type_ll"
+        android:layout_marginTop="@dimen/dp_16"
+        android:text="模版名称"
+        android:textColor="#BBBBBB"
+        android:textSize="@dimen/font_size_primary" />
+
+    <com.keydom.ih_common.view.InterceptorEditText
+        android:id="@+id/model_name_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/model_name_tip"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/model_input_bg"
+        android:hint="请输入模版名称"
+        android:maxLength="20"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_16"
+        android:paddingBottom="@dimen/dp_10"
+        android:textCursorDrawable="@null"
+        android:singleLine="true"
+        android:textColor="#666666"
+        android:textSize="@dimen/font_size_primary" />
+
+    <TextView
+        android:id="@+id/check_dialog_submit"
+        android:layout_width="@dimen/dp_236"
+        android:layout_height="@dimen/dp_42"
+        android:layout_below="@id/model_name_et"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_28"
+        android:background="@drawable/check_dialog_btn_bg"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_title" />
+
+</RelativeLayout>

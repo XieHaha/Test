@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/dp_27"
+    android:paddingRight="@dimen/padding_left_right_dp"
+    android:weightSum="8">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:text="项目"
+        android:textColor="#BBBBBB"
+        android:textSize="@dimen/font_size_primary" />
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.3"
+        android:gravity="left"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_10"
+        android:text="执行科室"
+        android:textColor="#BBBBBB"
+        android:textSize="@dimen/font_size_primary" />
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.7"
+        android:gravity="left"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_10"
+        android:text="金额(元)"
+        android:textColor="#BBBBBB"
+        android:textSize="@dimen/font_size_primary" />
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:text="操作"
+        android:textColor="#BBBBBB"
+        android:textSize="@dimen/font_size_primary" />
+</LinearLayout>

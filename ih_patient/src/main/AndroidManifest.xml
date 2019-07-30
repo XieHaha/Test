@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.keydom.ih_patient"
+    android:versionCode="6"
+    android:versionName="1.5">
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!--百度地图权限-->
+    <!-- 这个权限用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <!-- 这个权限用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+    <!-- 用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <!-- 访问网络，网络定位需要上网-->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/template"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/template"
+        android:supportsRtl="true"
+        android:theme="@style/BaseThemes"
+        tools:ignore="GoogleAppIndexingWarning">
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="Gjk18IKzCYpDzIdO5VQcfYLaNmB8ZeBP"></meta-data>
+
+        <activity
+            android:name=".activity.login.LoginActivity"
+            android:launchMode="singleTop"></activity>
+        <activity android:name=".activity.welcome.WelcomeActivity"></activity>
+
+        <receiver
+            android:name=".broadcast.JPushReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.keydom.ih_patient" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".activity.index_main.MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="${applicationId}"
+                    android:scheme="app" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.login.RegisterActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.function_config.FunctionConfigActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.card_operate.CardoperateActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.location_manage.LocationManageActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.my_medical_card.MyMedicalCardActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.MedicalCardQrActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.my_medical_card.MedicalCardDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.new_card.NewCardActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.upload_certificate_picture.UploadCertificatePictureActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.user_info_operate.UserInfoOperateActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="com.keydom.ih_patient.activity.user_info_operate.UserInfoOperateActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.certification.CertificateActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.prescription_check.PrescriptionListActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.prescription_check.PrescriptionDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.location_manage.AddLocationActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"
+            android:theme="@style/protect_transparent"></activity>
+        <activity
+            android:name=".activity.setting.FeedBackActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.online_diagnoses_search.DiagnoseSearchActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.setting.GestureUnlockActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.global_search.SearchActivity"
+            android:launchMode="standard" />
+        <!--会话界面-->
+        <activity
+            android:name=".activity.im.ConversationActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="${applicationId}"
+                    android:pathPrefix="/from_doctor_conversation"
+                    android:scheme="im" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.order_hospital_cure.OrderHospitalCureListActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.order_hospital_cure.OrderHospitalCureActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.order_physical_examination.OrderPhysicalExaminationActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.order_physical_examination.PhysicalExaminationDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.order_doctor_register.OrderDoctorRegisterActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.order_doctor_register.ChooseDoctorActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.order_doctor_register.DoctorIndexActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.order_doctor_register.ChooseMedicalCardActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.order_doctor_register.RegisterSearchActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.login.UpdatePasswordActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.order_doctor_register.RegistrationRecordActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.order_doctor_register.RegistrationRecordDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.inspection_report.InspectionReportActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.diagnose_user_manager.ManageUserActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.order_examination.OrderExaminationActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.order_examination.ExaminationDateChooseActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.order_examination.ExaminationOrderCompleteActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.diagnose_user_manager.AddManageUserActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.nursing_order.NursingOrderActivity"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".activity.subscribe_examination_order.SubscribeExaminationActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.nursing_order.ChargeBackOrderActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.nursing_order.WaitForAdmissionActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.my_doctor_or_nurse.MyDoctorOrNurseActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.common_document.CommonDocumentActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity">
+            <intent-filter>
+                <action android:name="com.keydom.ih_patient.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.medical_record.MedicalRecordActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.medical_record.MedicalRecordDetailActivity"
+            android:hardwareAccelerated="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.nursing_order.SentListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.my_chat_group.ChatGoupActivity"
+            android:launchMode="singleTop" />
+        <!--视频通话-->
+        <activity
+            android:name="com.keydom.ih_common.im.activity.CommonVideoCallActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="com.ih_common.intent.action.video.doctor" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.keydom.ih_common.im.activity.TeamChatActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="${applicationId}"
+                    android:pathPrefix="/from_doctor_team"
+                    android:scheme="im" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.diagnose_user_manager.AnamnesisActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <!-- 微信支付 -->
+        <activity
+            android:name=".utils.pay.weixin.WXCallbackActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity-alias
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:targetActivity=".utils.pay.weixin.WXCallbackActivity" />
+
+        <!-- 支付宝支付 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <activity
+            android:name=".activity.my_message.MyMessageActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.setting.SettingActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.my_message.NoticeDeatailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.inspection_report.InspectionDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.inspection_report.BodyCheckDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.nursing_service.NursingChooseHospitalActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.nursing_service.NursingActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.nursing_service.NursingOrderFillInActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.nursing_service.ChooseNursingServiceActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.nursing_service.NursingApplyOrderActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.nursing_service.NursingProjectDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.order_evaluate.OrderEvaluateActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.nursing_service.FacialRecognitionActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.nursing_service.NursingChoosePatientActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.payment_records.PaymentRecordActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.payment_records.PaymentDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.payment_records.PaymentSuccessActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.online_diagnoses_order.OnlineDiagnonsesOrderActivity"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".activity.online_diagnoses_order.DianoseCaseDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.nursing_service.FaceDetectExpActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.index_main.ChooseCityActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.nursing_service.NursingOnlineConsultActivity"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".activity.apply_for_order_detail.CheckOrderDetailActivity"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".activity.apply_for_order_detail.TransferTreatmentOrderDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.online_diagnoses_order.DiagnosesApplyActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.AgreementActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.online_diagnoses_order.ChoosePatientActivity"
+            android:launchMode="singleTop" />
+        <!--百度地图-->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
+        <!--QQ登录-->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent101544116" />
+                <!--把XXXXXXXX换成AppID，千万不要把前面几个字母tencent去掉-->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+    </application>
+
+</manifest>

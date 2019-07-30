@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/group"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_left_right_dp"
+        android:paddingRight="@dimen/padding_left_right_dp"
+        android:background="@color/primary_bg_color"
+        android:gravity="center_vertical"
+        android:layout_height="@dimen/dp_47">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pre_num"
+            android:textSize="@dimen/font_size_primary"
+            android:textColor="#BBBBBB"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/name"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:textSize="@dimen/font_size_primary"
+            android:textColor="#666666"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/exa_report_right"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="#EEEEEE"
+        />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_8"
+        android:id="@+id/bottom"
+        android:src="@mipmap/colorful_line"
+        />
+</LinearLayout>

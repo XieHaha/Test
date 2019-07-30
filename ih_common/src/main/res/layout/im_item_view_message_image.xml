@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.keydom.ih_common.im.widget.provider.item.ImMessageItemImageProvider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_110"
+    android:layout_height="@dimen/dp_150"
+    android:background="@drawable/im_message_left"
+    android:gravity="center_vertical"
+    android:scaleType="centerCrop" />

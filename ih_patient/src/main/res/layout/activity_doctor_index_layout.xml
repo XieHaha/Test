@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_color"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_260"
+            android:background="#3F98F7">
+
+            <RelativeLayout
+                android:id="@+id/doctor_top_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_154"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@drawable/white_corner_bg">
+
+                <TextView
+                    android:id="@+id/doctor_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:maxWidth="@dimen/dp_100"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/dp_23"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/doctor_label_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/doctor_name_tv"
+                    android:layout_marginLeft="@dimen/dp_13"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/dp_10">
+
+                    <TextView
+                        android:id="@+id/job_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="#E6FFF2"
+                        android:paddingBottom="@dimen/dp_4"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingRight="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_4"
+                        android:maxWidth="@dimen/dp_80"
+                        android:lines="1"
+                        android:ellipsize="end"
+                        android:textColor="#22E17E"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <TextView
+                        android:id="@+id/dept_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:background="#FFFCE9"
+                        android:paddingBottom="@dimen/dp_4"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingRight="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_4"
+                        android:lines="1"
+                        android:ellipsize="end"
+                        android:maxWidth="@dimen/dp_100"
+                        android:textColor="#EECE00"
+                        android:textSize="@dimen/font_size_primary" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/doctor_qr_img"
+                    android:layout_width="@dimen/dp_61"
+                    android:layout_height="@dimen/dp_61"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp_23"
+                    android:layout_marginTop="@dimen/dp_20" />
+
+                <TextView
+                    android:id="@+id/doctor_dsc_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:layout_marginLeft="@dimen/dp_25"
+                    android:layout_marginRight="@dimen/dp_25"
+                    android:lineSpacingExtra="@dimen/dp_10"
+                    android:lines="2"
+                    android:ellipsize="end"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/dp_12" />
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="@dimen/dp_72"
+                android:layout_height="@dimen/dp_72"
+                android:layout_above="@+id/doctor_top_layout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/dp_m_30"
+                android:background="@mipmap/doctor_head_bg_icon">
+
+                <com.keydom.ih_common.view.CircleImageView
+                    android:id="@+id/doctor_head_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/dp_4"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:src="@mipmap/test_doctor_head_icon" />
+            </FrameLayout>
+        </RelativeLayout>
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/primary_color">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_scrollFlags="scroll">
+                    <RelativeLayout
+                        android:id="@+id/diagnoses_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_115"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/is_doctor_open_online_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_22"
+                            android:layout_marginTop="@dimen/dp_20"
+                            android:text="医生已开通在线问诊"
+                            android:textColor="#333333"
+                            android:textSize="@dimen/font_size_primary" />
+
+                        <TextView
+                            android:id="@+id/doctor_online_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/dp_19"
+                            android:paddingLeft="@dimen/dp_13"
+                            android:paddingTop="@dimen/dp_6"
+                            android:paddingRight="@dimen/dp_13"
+                            android:paddingBottom="@dimen/dp_6"
+                            android:text="立即问诊"
+                            android:textColor="#333333"
+                            android:textSize="@dimen/font_size_primary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/is_doctor_open_online_tv"
+                            android:layout_marginLeft="@dimen/dp_22"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_123"
+                            android:text="医生在线图文、电话、视频问诊，开具电子处方/检验等"
+                            android:lineSpacingExtra="@dimen/dp_10"
+                            android:textColor="#999999"
+                            android:textSize="@dimen/dp_12" />
+                    </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_10"
+                        android:background="#F9F9F9" />
+                </LinearLayout>
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/doctor_index_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_44"
+                    app:tabIndicatorColor="@color/other_login_color"
+                    app:tabSelectedTextColor="@color/other_login_color"
+                    app:tabTextColor="@color/tab_nol_color">
+
+                </android.support.design.widget.TabLayout>
+            </android.support.design.widget.AppBarLayout>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/doctor_index_vp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                >
+
+            </android.support.v4.view.ViewPager>
+        </android.support.design.widget.CoordinatorLayout>
+
+
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_dp">
+
+        <LinearLayout
+            android:id="@+id/llLeftGoBack"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/title_bar_dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/padding_left_right_dp"
+            android:paddingRight="@dimen/padding_left_right_dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:src="@mipmap/back_white_icon" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llRightComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/title_bar_dp"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/padding_left_right_dp"
+            android:paddingRight="@dimen/padding_left_right_dp">
+
+            <ImageView
+                android:id="@+id/tvRightComplete"
+                android:layout_width="@dimen/dp_23"
+                android:layout_height="@dimen/dp_23"
+                android:src="@mipmap/share_icon" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvCenterTitle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_bar_dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="医生主页"
+            android:textColor="@color/primary_color"
+            android:textSize="@dimen/font_size_title" />
+    </RelativeLayout>
+</RelativeLayout>

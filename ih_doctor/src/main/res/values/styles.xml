@@ -1,0 +1,88 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:listDivider">@drawable/recyclr_view_line_bg</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="ActionBarItem">
+        <item name="android:paddingTop">@dimen/dp_7</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/action_bar_txt_color</item>
+        <item name="android:background">#fff</item>
+        <item name="android:textSize">@dimen/dp_12</item>
+    </style>
+
+    <style name="BaseThemes" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor">#f2f2f2</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">#FF4a91f4</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:listDivider">@drawable/recyclr_view_line_bg</item>
+    </style>
+
+    <style name="dialogFullscreen">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="RadingStyle" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_bg</item>
+        <item name="android:minHeight">@dimen/dp_15</item>
+        <item name="android:maxHeight">@dimen/dp_15</item>
+    </style>
+
+    <style name="MyCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/check_box_style</item>
+        <item name="android:paddingLeft">@dimen/dp_19</item>
+        <item name="android:maxHeight">@dimen/dp_23</item>
+    </style>
+
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">@dimen/dp_15</item>
+    </style>
+
+    <style name="WelcomeStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="editTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_35</item>
+        <item name="android:drawablePadding">@dimen/dp_10</item>
+        <item name="android:drawableStart">@mipmap/search</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:imeOptions">actionSearch</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/font_size_primary</item>
+        <item name="android:textColor">@color/primary_font_color</item>
+        <item name="android:textColorHint">@color/fontColorDirection</item>
+        <item name="android:hint">搜索</item>
+    </style>
+
+    <!-- 自定义搜索框文本样式 -->
+    <style name="textViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_35</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/font_size_primary</item>
+    </style>
+</resources>

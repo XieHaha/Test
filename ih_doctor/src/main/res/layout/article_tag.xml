@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tag_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/dp_10"
+        android:layout_centerVertical="true"
+        android:background="@mipmap/article_tag_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_29"
+        android:paddingRight="@dimen/dp_10"
+        android:text="aa"
+        android:textColor="@color/fontColorPrimary" />
+
+</RelativeLayout>

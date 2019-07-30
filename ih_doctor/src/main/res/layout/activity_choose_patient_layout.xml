@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_bg_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="#F9F9F9" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_19"
+        android:layout_marginTop="@dimen/dp_26"
+        android:text="已选患者"
+        android:textColor="#BBBBBB"
+        android:textSize="@dimen/font_size_primary" />
+
+    <com.keydom.ih_doctor.view.TagView
+        android:id="@+id/selected_patient_fl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_24"
+        app:height_space="@dimen/dp_22"
+        app:width_space="@dimen/dp_36">
+
+    </com.keydom.ih_doctor.view.TagView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_30"
+        android:background="#F9F9F9" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingLeft="@dimen/padding_left_right_dp"
+        android:paddingTop="@dimen/dp_12"
+        android:paddingRight="@dimen/padding_left_right_dp"
+        android:paddingBottom="@dimen/dp_12">
+
+        <RelativeLayout
+            android:id="@+id/search_input_rl"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_35"
+            android:layout_toLeftOf="@id/search_tv"
+            android:background="@drawable/patient_contact_search_bg"
+            android:drawablePadding="@dimen/dp_10"
+            android:gravity="center">
+
+            <android.support.v7.widget.SearchView
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:autofillHints="搜索"
+                android:background="@null"
+                android:gravity="center_horizontal"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:textSize="@dimen/font_size_primary"
+                android:visibility="gone"
+                app:queryBackground="@null"
+                app:searchHintIcon="@null"
+                app:searchIcon="@mipmap/search"
+                app:submitBackground="@null">
+
+            </android.support.v7.widget.SearchView>
+
+            <TextView
+                android:id="@+id/search_input_ev"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_35"
+                android:layout_centerHorizontal="true"
+                android:layout_toLeftOf="@id/search_tv"
+                android:drawableLeft="@mipmap/search"
+                android:drawablePadding="@dimen/dp_10"
+                android:gravity="center"
+                android:hint="搜索"
+                android:textSize="@dimen/font_size_primary"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="#F9F9F9" />
+
+    <com.ganxin.library.LoadDataLayout
+        android:id="@+id/loadDataLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/patient_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+        </android.support.v7.widget.RecyclerView>
+    </com.ganxin.library.LoadDataLayout>
+</LinearLayout>

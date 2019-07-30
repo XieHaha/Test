@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_44"
+    android:background="@color/primary_bg_color">
+
+
+    <TextView
+        android:id="@+id/title_bar_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/title_bar_text_color"
+        android:textSize="@dimen/font_size_title"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:text="登录"/>
+
+    <TextView
+        android:id="@+id/title_bar_right"
+        android:layout_width="@dimen/dp_44"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:text="跳过"
+        android:gravity="center"
+        android:visibility="gone"/>
+
+
+</RelativeLayout>

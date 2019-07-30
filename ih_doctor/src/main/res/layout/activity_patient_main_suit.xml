@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/primary_bg_color" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/main_suit_et"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_81"
+                android:layout_marginLeft="@dimen/padding_left_right_dp"
+                android:layout_marginTop="@dimen/padding_left_right_dp"
+                android:layout_marginRight="@dimen/padding_left_right_dp"
+                android:background="@drawable/search_radius_bg"
+                android:gravity="top"
+                android:hint="请输入患者主诉"
+                android:maxLength="20"
+                android:padding="@dimen/dp_10"
+                android:singleLine="false"
+                android:textColor="@color/primary_font_color"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_left_right_dp"
+                android:layout_marginTop="@dimen/dp_31"
+                android:text="常见症状"
+                android:textColor="@color/primary_font_color"
+                android:textSize="@dimen/font_size_primary" />
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/flow_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_left_right_dp"
+                android:layout_marginTop="@dimen/dp_19"
+                android:layout_marginRight="@dimen/padding_left_right_dp"
+                android:clickable="false"
+                android:focusable="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_left_right_dp"
+                android:layout_marginTop="@dimen/dp_31"
+                android:text="常用时间"
+                android:textColor="@color/primary_font_color"
+                android:textSize="@dimen/font_size_primary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_30"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp">
+
+                <TextView
+                    android:id="@+id/time_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="1"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="2"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="3"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="4"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="5"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="6"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="7"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="8"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="9"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_0"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="0"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_21"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp">
+
+                <TextView
+                    android:id="@+id/time_morning"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="早晨"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_noon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="中午"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_night"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="晚上"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_year"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="年"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_month"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="月"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp">
+
+                <TextView
+                    android:id="@+id/time_week"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="周"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_day"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="天"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_hour"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="小时"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_min"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="分钟"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/time_null"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

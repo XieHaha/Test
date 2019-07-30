@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/common_white_click_bg"
+    android:clickable="true">
+
+    <ImageView
+        android:id="@+id/work_function_icon"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_48"
+        android:src="@mipmap/consulting"
+        android:layout_centerHorizontal="true"/>
+    
+    <TextView
+        android:id="@+id/work_function_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/dp_14"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/work_function_icon"
+        android:text="门诊排班"
+        />
+
+
+</RelativeLayout>

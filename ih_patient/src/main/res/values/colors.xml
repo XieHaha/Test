@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="tran">#00000000</color>
+    <color name="transparent">#5f000000</color>
+    <color name="mine_color">#399CF9</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#4097F7</color>
+    <color name="primary_font_color">#333333</color>
+    <color name="primary_color">#FFFFFF</color>
+    <color name="primary_bg_color">#F9F9F9</color>
+    <color name="tab_sel_color">#4097F7</color>
+    <color name="tab_nol_color">#999999</color>
+    <color name="title_bar_text_color">#666666</color>
+    <color name="login_btn_color">#4097F7</color>
+    <color name="login_btn_click_color">#cc4097F7</color>
+    <color name="other_login_color">#3F98F7</color>
+    <color name="index_news_color">#3694F7</color>#FFF4E8
+    <color name="index_news_article_label">#D68125</color>
+    <color name="tiem_func_name">#444444</color>
+    <color name="article_space_bg_color">#F0F0F0</color>
+    <color name="login_warning_color">#FF3B3B</color>
+    <color name="register_success_color">#22E17E</color>
+    <color name="mine_interval_bg">#EEEEEE</color>
+    <color name="location_add_label">#FFEE9B</color>
+    <color name="location_add_label_fond">#FFAB49</color>
+
+    <color name="my_medical_card_fond">#976407</color>
+    <color name="my_medical_card_fond_hospital">#DFB76E</color>
+    <color name="medical_card_qr_card_num">#000000</color>
+
+    <color name="medical_card_detail_label_bg">#FFFAE2</color>
+    <color name="medical_card_detail_label_font">#F8980F</color>
+    <color name="exa_date_selected_bg">#EBF5FF</color>
+    <color name="pay_selected">#7FBDFF</color>
+    <color name="pay_unselected">#666666</color>
+
+    <color name="edit_hint_color">#BBBBBB</color>
+    <color name="nursing_status_yellow">#FBD54E</color>
+    <color name="nursing_status_red">#FF3939</color>
+    <color name="nursing_status_purple">#8F6BEB</color>
+    <color name="nursing_status_gray">#D5D5D5</color>
+    <color name="list_tab_color">#3F98F7</color>
+    <color name="money_text_color">#F83535</color>
+
+    <color name="anamnesis_color">#71A4FF</color>
+    <color name="stroke_color">#DDDDDD</color>
+    <color name="order_assess_stroke">#CBFFE4</color>
+    <color name="order_assess_bg_color">#EEFFF6</color>
+    <color name="go_pay_bg_color">#FFF4F4</color>
+    <color name="go_pay_stroke">#FFD0D0</color>
+    <color name="white_50p">#79ffffff</color>
+    <color name="white_80p">#ccffffff</color>
+    <color name="evaluate_color">#FAB91B</color>
+    <color name="goods_num_color">#FFA201</color>
+    <color name="attention_num_color">#FB643B</color>
+    <color name="edit_text_color">#666666</color>
+</resources>

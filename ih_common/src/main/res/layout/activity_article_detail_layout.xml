@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fontColorForeground"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <com.ganxin.library.LoadDataLayout
+        android:id="@+id/loadDataLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolBar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/input_rl">
+
+                <com.keydom.ih_common.view.AnimationScrollView
+                    android:id="@+id/detail_box_sv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/padding_left_right_dp"
+                        android:paddingRight="@dimen/padding_left_right_dp">
+
+                        <TextView
+                            android:id="@+id/article_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_28"
+                            android:text="爷爷泡的茶，有一种味道叫做家"
+                            android:textSize="@dimen/font_size_title"
+                            android:textStyle="bold" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_28">
+
+                            <TextView
+                                android:id="@+id/author_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="苏木晨"
+                                android:singleLine="true"
+                                android:maxLength="20"
+                                android:ellipsize="end"
+                                android:textColor="#FF3399FF"
+                                android:textSize="@dimen/font_size_primary" />
+
+                            <TextView
+                                android:id="@+id/author_city"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/author_name"
+                                android:layout_marginTop="@dimen/dp_17"
+                                android:maxLength="20"
+                                android:ellipsize="end"
+                                android:text="成都"
+                                android:textSize="@dimen/font_size_auxiliary" />
+
+                            <TextView
+                                android:id="@+id/author_departments"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@id/author_city"
+                                android:layout_marginLeft="@dimen/dp_17"
+                                android:singleLine="true"
+                                android:layout_toRightOf="@id/author_city"
+                                android:text="儿科"
+                                android:maxLength="20"
+                                android:ellipsize="end"
+                                android:textSize="@dimen/font_size_auxiliary" />
+
+                            <TextView
+                                android:id="@+id/author_position"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@id/author_city"
+                                android:layout_marginLeft="@dimen/dp_8"
+                                android:singleLine="true"
+                                android:layout_toRightOf="@id/author_departments"
+                                android:text="成都"
+                                android:textSize="@dimen/font_size_auxiliary" />
+
+                            <TextView
+                                android:id="@+id/attention_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:background="@drawable/attention_o_bg"
+                                android:paddingLeft="@dimen/dp_16"
+                                android:paddingTop="@dimen/dp_7"
+                                android:paddingRight="@dimen/dp_16"
+                                android:paddingBottom="@dimen/dp_7"
+                                android:text="已关注"
+                                android:textColor="@color/fontColorForeground"
+                                android:textSize="@dimen/font_size_fuc" />
+
+                            <TextView
+                                android:id="@+id/article_readed"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/author_city"
+                                android:layout_marginTop="@dimen/dp_17"
+                                android:drawableLeft="@mipmap/readed"
+                                android:drawablePadding="@dimen/dp_4"
+                                android:text="3.3K"
+                                android:textSize="@dimen/font_size_auxiliary" />
+
+                            <TextView
+                                android:id="@+id/article_attention"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@id/article_readed"
+                                android:layout_toRightOf="@id/article_readed"
+                                android:drawableLeft="@mipmap/attention_nol"
+                                android:drawablePadding="@dimen/dp_4"
+                                android:paddingLeft="@dimen/dp_9"
+                                android:text="906"
+                                android:textSize="@dimen/font_size_auxiliary" />
+
+                            <TextView
+                                android:id="@+id/article_comment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@id/article_readed"
+                                android:layout_toRightOf="@id/article_attention"
+                                android:drawableLeft="@mipmap/comment"
+                                android:drawablePadding="@dimen/dp_4"
+                                android:paddingLeft="@dimen/dp_9"
+                                android:text="82"
+                                android:textSize="@dimen/font_size_auxiliary" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/dec_ll"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="@dimen/dp_18">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/article_marks" />
+
+                            <TextView
+                                android:id="@+id/article_dec"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_11"
+                                android:lineSpacingExtra="@dimen/dp_11"
+                                android:text="我喜欢泡壶茶放在办公桌上，然后开始一天的工作，我喜茶叶，这个习惯源自我的爷爷。"
+                                android:textColor="@color/fontColorDirection"
+                                android:textSize="@dimen/font_size_primary" />
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingTop="@dimen/dp_36">
+
+                            <WebView
+                                android:id="@+id/article_box"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"></WebView>
+
+                            <TextView
+                                android:id="@+id/article_box_rich_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:lineSpacingExtra="@dimen/dp_10" />
+                        </RelativeLayout>
+
+                        <com.keydom.ih_common.view.FlowLayout
+                            android:id="@+id/tag_rv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginTop="@dimen/dp_43"
+                            android:layout_marginBottom="@dimen/dp_27"
+                            android:gravity="right"
+                            android:orientation="horizontal">
+
+                        </com.keydom.ih_common.view.FlowLayout>
+
+                        <View
+                            android:id="@+id/comment_line"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_1"
+                            android:background="@color/line_color" />
+
+                        <RelativeLayout
+                            android:id="@+id/like_amount_rl"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_54"
+                            android:paddingRight="@dimen/dp_35">
+
+                            <ImageView
+                                android:id="@+id/left_icon"
+                                android:layout_width="@dimen/dp_12"
+                                android:layout_height="@dimen/dp_12"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/dp_12"
+                                android:layout_marginRight="@dimen/dp_12"
+                                android:scaleType="fitXY"
+                                android:src="@mipmap/attention_nol" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/like_user_icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@id/like_user_amount"
+                                android:layout_toRightOf="@id/left_icon"
+                                android:overScrollMode="never">
+
+                            </android.support.v7.widget.RecyclerView>
+
+                            <TextView
+                                android:id="@+id/like_user_amount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:paddingLeft="@dimen/dp_12"
+                                android:textColor="#999999"
+                                android:textSize="@dimen/font_size_auxiliary" />
+
+                        </RelativeLayout>
+
+
+                        <TextView
+                            android:id="@+id/comment_tip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:text="全部评论" />
+
+                        <LinearLayout
+                            android:id="@+id/detail_page_comment_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="20dp"
+                            android:orientation="vertical">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/detail_page_lv_comment"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="64dp"
+                                android:divider="@null"
+                                android:focusable="false"
+                                android:listSelector="@android:color/transparent"
+                                android:nestedScrollingEnabled="false"
+                                android:overScrollMode="never"
+                                android:scrollbars="none"></android.support.v7.widget.RecyclerView>
+                            <!--<com.keydom.ih_common.view.CommentExpandableListView-->
+                            <!--android:id="@+id/detail_page_lv_comment"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:layout_marginBottom="64dp"-->
+                            <!--android:divider="@null"-->
+                            <!--android:listSelector="@android:color/transparent"-->
+                            <!--android:scrollbars="none" />-->
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/comment_empty_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/fontColorForeground"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:id="@+id/progress_wheel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/dp_100"
+                                android:src="@mipmap/no_data" />
+
+                            <TextView
+                                android:id="@+id/empty_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/progress_wheel"
+                                android:layout_centerHorizontal="true"
+                                android:text="" />
+
+                            <View
+                                android:layout_width="@dimen/dp_1"
+                                android:layout_height="@dimen/dp_1"
+                                android:layout_alignParentBottom="true" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </com.keydom.ih_common.view.AnimationScrollView>
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+            <RelativeLayout
+                android:id="@+id/input_rl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_57"
+                android:layout_alignParentBottom="true"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp">
+
+                <TextView
+                    android:id="@+id/comment_input_ev"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@id/comment_tv"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:gravity="center_vertical"
+                    android:hint="发表评论"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/comment_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_17"
+                    android:layout_toLeftOf="@id/collect_iv"
+                    android:drawableLeft="@mipmap/comment_black"
+                    android:drawablePadding="@dimen/dp_4"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <ImageView
+                    android:id="@+id/collect_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/article_collect" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </com.ganxin.library.LoadDataLayout>
+</RelativeLayout>

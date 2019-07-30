@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_31"
+    android:paddingLeft="@dimen/dp_19"
+    android:paddingRight="@dimen/dp_19"
+    android:background="@color/tran"
+    android:layout_marginTop="@dimen/dp_24"
+    android:fitsSystemWindows="true">
+    
+    <TextView
+        android:layout_width="@dimen/dp_288"
+        android:layout_height="@dimen/dp_31"
+        android:background="@drawable/search_select_bg"
+        android:gravity="center"
+        android:textColor="@color/primary_bg_color"
+        android:text="@string/agreement"/>
+
+    <Button
+        android:id="@+id/search_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_31"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:minHeight="@dimen/dp_31"
+        android:minWidth="@dimen/dp_31"
+        android:textSize="@dimen/dp_11"
+        android:drawableTop="@mipmap/search"
+        android:text="@string/search"
+        android:textColor="@color/primary_bg_color"/>
+
+</RelativeLayout>

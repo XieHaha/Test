@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_welcome"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.WelcomeActivity">
+
+    <RelativeLayout
+        android:id="@+id/welcome_rootview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/welcome_vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/welcome_skip"
+            android:layout_width="45dp"
+            android:layout_height="22dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="35dp"
+            android:layout_marginRight="25dp"
+            android:gravity="center"
+            android:text="跳过"
+            android:textColor="#666" />
+
+        <TextView
+            android:id="@+id/welcome_in"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="100dp"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:text="进入"
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_fuc"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/common_white_click_bg"
+    android:clickable="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/padding_left_right_dp"
+    android:paddingRight="@dimen/padding_left_right_dp"
+    android:paddingBottom="@dimen/dp_16">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dp_23"
+        android:paddingBottom="@dimen/dp_23">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/left_tip_tv"
+                android:layout_width="@dimen/dp_12"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/article_tag"
+                android:layout_alignBottom="@id/article_tag"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/article_tag_left" />
+
+            <TextView
+                android:id="@+id/article_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/left_tip_tv"
+                android:background="@drawable/article_tag"
+                android:paddingLeft="@dimen/dp_6"
+                android:paddingTop="@dimen/dp_3"
+                android:paddingRight="@dimen/dp_6"
+                android:paddingBottom="@dimen/dp_3"
+                android:text="成长指南"
+                android:textColor="#DCC98F"
+                android:textSize="@dimen/font_size_auxiliary" />
+
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/community_author_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_13"
+            android:layout_toLeftOf="@id/community_author_icon"
+            android:text="苏木晨"
+            android:textSize="@dimen/font_size_primary" />
+
+        <com.keydom.ih_common.view.CircleImageView
+            android:id="@+id/community_author_icon"
+            android:layout_width="@dimen/dp_29"
+            android:layout_height="@dimen/dp_29"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/user_icon" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/community_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/community_item_img"
+            android:text="别让读书误了你"
+            android:textSize="@dimen/font_size_fuc" />
+
+        <TextView
+            android:id="@+id/community_item_dec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/community_item_title"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_toLeftOf="@id/community_item_img"
+            android:text="读书这碗鸡汤的“勺子”到底是什 么呢?"
+            android:textColor="@color/fontColorDirection"
+            android:textSize="@dimen/font_size_auxiliary" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/community_item_img"
+            android:layout_width="@dimen/dp_115"
+            android:layout_height="@dimen/dp_60"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/img_bg"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="@dimen/dp_5" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_17">
+
+        <TextView
+            android:id="@+id/readed_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@mipmap/readed"
+            android:drawablePadding="@dimen/dp_4"
+            android:paddingRight="@dimen/dp_9"
+            android:textSize="@dimen/font_size_auxiliary" />
+
+        <TextView
+            android:id="@+id/attention_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/readed_amount"
+            android:drawableLeft="@mipmap/attention_nol"
+            android:drawablePadding="@dimen/dp_4"
+            android:paddingLeft="@dimen/dp_9"
+            android:paddingRight="@dimen/dp_9"
+            android:textSize="@dimen/font_size_auxiliary" />
+
+        <TextView
+            android:id="@+id/comment_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/attention_amount"
+            android:drawableLeft="@mipmap/comment"
+            android:drawablePadding="@dimen/dp_4"
+            android:paddingLeft="@dimen/dp_9"
+            android:paddingRight="@dimen/dp_9"
+            android:textSize="@dimen/font_size_auxiliary" />
+
+        <ImageView
+            android:id="@+id/attention_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/dp_10"
+            android:src="@mipmap/attention_nol" />
+
+    </RelativeLayout>
+</LinearLayout>

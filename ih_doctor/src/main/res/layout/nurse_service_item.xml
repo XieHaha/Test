@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp_10"
+    android:background="@drawable/nurse_service_item_bg">
+
+    <TextView
+        android:id="@+id/base_info_tip_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/common_bottom_line_bg"
+        android:drawableLeft="@mipmap/point_green"
+        android:drawableRight="@mipmap/arrow_bottom_grey"
+        android:drawablePadding="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_17"
+        android:paddingTop="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_17"
+        android:paddingBottom="@dimen/dp_15"
+        android:text="第一次服务"
+        android:textColor="@color/fontColorPrimary"
+        android:textSize="@dimen/font_size_primary" />
+
+    <LinearLayout
+        android:id="@+id/service_order_detail_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/base_info_tip_tv"
+        android:layout_marginTop="@dimen/dp_8"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp_9"
+            android:paddingBottom="@dimen/dp_9">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="接单人："
+                android:textColor="#bbbbbb"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/receive_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="李娟"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp_9"
+            android:paddingBottom="@dimen/dp_9">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="接单时间："
+                android:textColor="#bbbbbb"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/receive_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="2018.10.19 15:30:23"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp_9"
+            android:paddingBottom="@dimen/dp_9">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="接单科室："
+                android:textColor="#bbbbbb"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/receive_dept"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="呼吸内科"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp_9"
+            android:paddingBottom="@dimen/dp_9">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="服务项目："
+                android:textColor="#bbbbbb"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/send_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="张静"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp_9"
+            android:paddingBottom="@dimen/dp_9">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="服务护士："
+                android:textColor="#bbbbbb"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/service_nurse_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="王思雨"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp_9"
+            android:paddingBottom="@dimen/dp_9">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="确认上门时间："
+                android:textColor="#bbbbbb"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/visit_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="2018.10.19 15:30:23"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp_9"
+            android:paddingBottom="@dimen/dp_9">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="服务开始时间："
+                android:textColor="#bbbbbb"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/service_start_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="2018.10.19 15:30:23"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp_9"
+            android:paddingBottom="@dimen/dp_9">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="服务完成时间："
+                android:textColor="#bbbbbb"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/service_end_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="2018.10.19 15:30:23"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp_9"
+            android:paddingBottom="@dimen/dp_9">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="预约下次时间："
+                android:textColor="#bbbbbb"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/next_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="2018.10.19 15:30:23"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp_9"
+            android:paddingBottom="@dimen/dp_9">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="器材/耗材耗用:"
+                android:textColor="#bbbbbb"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/consume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="2018.10.19 15:30:23"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp_9"
+            android:paddingBottom="@dimen/dp_9">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="备注："
+                android:textColor="#bbbbbb"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/remark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="本次病情稳定："
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sub_order_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

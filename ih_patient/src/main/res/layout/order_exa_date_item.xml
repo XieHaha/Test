@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="@dimen/dp_52"
+    android:id="@+id/date_layout"
+    android:focusable="true"
+    android:clickable="true">
+    <TextView
+        android:id="@+id/date_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:text="09/20"
+        android:textColor="#BBBBBB"
+        android:textSize="@dimen/font_size_primary"/>
+    <TextView
+        android:id="@+id/week_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_3"
+        android:text="周三"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#BBBBBB"
+        android:textSize="@dimen/dp_12"/>
+</LinearLayout>

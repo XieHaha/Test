@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="status_bar_color_work">#48a0f9</color>
+    <!--系统背景颜色-->
+    <color name="primary_bg_color">#FFFFFF</color>
+    <!--系统主要字体颜色,标题、正文等-->
+    <color name="primary_font_color">#333333</color>
+    <color name="edit_font_color">#666666</color>
+    <!--登录输入框颜色-->
+    <color name="login_input_color">#F9F9F9</color>
+    <color name="login_btn_color">#4097F7</color>
+    <color name="login_btn_click_color">#cc4097F7</color>
+    <color name="click_txt">#BBBBBB</color>
+    <color name="agreement">#3F98F7</color>
+    <color name="action_bar_txt_color">#999999</color>
+    <color name="search_select">#efefef</color>
+    <color name="tran">#00000000</color>
+    <color name="index_text_color">#FF999999</color>
+    <color name="line_color">#FFF9F9F9</color>
+    <color name="position_txt_color">#FFB72025</color>
+    <color name="department_txt_color">#FFFF7075</color>
+    <color name="position_bg_color">#FFFBD54E</color>
+    <color name="department_bg_color">#FFFFF5F3</color>
+    <color name="stting_bg_color">#FFFDF7D2</color>
+    <color name="friend_age_txt_color">#FF3333</color>
+    <color name="font_green">#22E17E</color>
+    <color name="font_red">#FF3939</color>
+    <color name="diagnose_font_red">#FF1E00</color>
+    <color name="diagnose_font_yellow">#FFC700</color>
+    <color name="font_audit_working_color">#FFCE1C</color>
+    <color name="font_audit_stop_color">#FF3939</color>
+    <color name="font_recoder_status_green">#22E17E</color>
+    <color name="income_diagnose">#3F98F7</color>
+    <color name="income_video">#FFC700</color>
+    <color name="income_phone">#22E17E</color>
+    <color name="servcie_waite">#8F6BEB</color>
+    <color name="servcie_out_time">#FF3939</color>
+
+    <color name="tab_color">#3F98F7</color>
+
+
+
+    <color name="medical_card_detail_label_bg">#FFFAE2</color>
+    <color name="medical_card_detail_label_font">#F8980F</color>
+    <color name="exa_date_selected_bg">#EBF5FF</color>
+    <color name="pay_selected">#7FBDFF</color>
+    <color name="pay_unselected">#666666</color>
+
+    <color name="edit_hint_color">#BBBBBB</color>
+    <color name="nursing_status_yellow">#FBD54E</color>
+    <color name="nursing_status_red">#FF3939</color>
+    <color name="nursing_status_purple">#8F6BEB</color>
+    <color name="nursing_status_gray">#D5D5D5</color>
+    <color name="list_tab_color">#3F98F7</color>
+    <color name="money_text_color">#F83535</color>
+
+    <color name="anamnesis_color">#71A4FF</color>
+    <color name="stroke_color">#DDDDDD</color>
+    <color name="order_assess_stroke">#CBFFE4</color>
+    <color name="order_assess_bg_color">#EEFFF6</color>
+    <color name="go_pay_bg_color">#FFF4F4</color>
+    <color name="go_pay_stroke">#FFD0D0</color>
+    <color name="white_50p">#79ffffff</color>
+    <color name="white_80p">#ccffffff</color>
+    <color name="evaluate_color">#FAB91B</color>
+    <color name="goods_num_color">#FFA201</color>
+    <color name="attention_num_color">#FB643B</color>
+    <color name="edit_text_color">#666666</color>
+    <color name="mine_color">#399CF9</color>
+    <color name="title_bar_text_color">#666666</color>
+    <color name="other_login_color">#3F98F7</color>
+    <color name="tab_nol_color">#999999</color>
+    <color name="mine_interval_bg">#EEEEEE</color>
+
+</resources>

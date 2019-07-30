@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_70">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:id="@+id/head_group"
+                android:layout_height="40dp">
+                <com.keydom.ih_common.view.CircleImageView
+                    android:id="@+id/comment_item_logo"
+                    android:layout_width="28dp"
+                    android:layout_gravity="center"
+                    android:layout_height="28dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginRight="6dp"
+                    android:background="@mipmap/user_icon" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/comment_item_userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="沐风"
+                    android:textColor="#5B595A"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/comment_item_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="1小时前"
+                    android:textColor="#989898"
+                    android:textSize="@dimen/font_size_auxiliary" />
+            </LinearLayout>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/delete_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingTop="@dimen/dp_8"
+                android:paddingLeft="@dimen/dp_8"
+                android:paddingRight="@dimen/dp_8"
+                android:paddingBottom="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_3"
+                android:gravity="center_vertical"
+                android:textColor="@color/income_bg"
+                android:textSize="@dimen/font_size_auxiliary"
+                android:text="删除"/>
+
+
+            <ImageView
+                android:layout_below="@+id/delete_tv"
+                android:layout_alignParentRight="true"
+                android:id="@+id/comment_item_like"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:paddingTop="@dimen/dp_8"
+                android:paddingRight="@dimen/dp_8"
+                android:paddingBottom="@dimen/dp_8"
+                android:src="@mipmap/like" />
+            <TextView
+                android:layout_below="@+id/delete_tv"
+                android:layout_toLeftOf="@+id/comment_item_like"
+                android:id="@+id/like_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:textColor="#999999"
+                android:textSize="@dimen/font_size_auxiliary" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/reply_item_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_48"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_32"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/dp_2"
+            android:layout_height="match_parent"
+            android:background="#DDDDDD" />
+
+        <TextView
+            android:id="@+id/reply_item_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lineSpacingExtra="@dimen/dp_8"
+            android:maxLines="10"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingBottom="@dimen/dp_5"
+            android:text="沐风:世上本没有路，走的人多了，也就成了路"
+            android:textColor="#999999"
+            android:textSize="@dimen/font_size_primary" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/comment_item_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_52"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginRight="@dimen/dp_24"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:text="从前有座山，山里有座庙，庙里有个老和尚"
+        android:textColor="#484848"
+        android:textSize="@dimen/font_size_primary" />
+
+
+</LinearLayout>

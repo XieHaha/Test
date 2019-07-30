@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/mine_index_refresh">
+    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.scwang.smartrefresh.layout.header.ClassicsHeader>
+    <RelativeLayout
+        xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.ih_common.view"
+        xmlns:funcitem="http://schemas.android.com/apk/res-audo/com.keydom.ih_patient.view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary_color">
+
+        <com.keydom.ih_common.view.MyScrollView
+            android:id="@+id/mine_box_sv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/mine_top_bg_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_144"
+                    android:background="@mipmap/mine_top_bg">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_19"
+                        android:text="@string/mine_top_label"
+                        android:textColor="@color/fontColorForeground"
+                        android:textSize="@dimen/dp_17" />
+
+                    <ImageView
+                        android:id="@+id/mine_setting_img"
+                        android:layout_width="@dimen/dp_19"
+                        android:layout_height="@dimen/dp_19"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp_20"
+                        android:src="@mipmap/mine_setting_white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/user_base_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/mine_top_bg_layout"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_m_22"
+                    android:layout_marginRight="@dimen/dp_10">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_115"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="@mipmap/mine_person_message_bg">
+
+                        <TextView
+                            android:id="@+id/mine_user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_102"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:text="执笔一幅情画"
+                            android:maxWidth="@dimen/dp_120"
+                            android:lines="1"
+                            android:ellipsize="end"
+                            android:textColor="@color/fontColorPrimary"
+                            android:textSize="@dimen/dp_17" />
+
+                        <TextView
+                            android:id="@+id/mine_user_sex_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_17"
+                            android:layout_marginTop="@dimen/dp_21"
+                            android:layout_toRightOf="@+id/mine_user_name"
+                            android:drawableLeft="@mipmap/mine_sex_unlogin"
+                            android:drawablePadding="@dimen/dp_5"
+                            android:text=""
+                            android:textColor="@color/tab_nol_color"
+                            android:textSize="@dimen/dp_12" />
+
+                        <TextView
+                            android:id="@+id/mine_last_clinical_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/mine_user_name"
+                            android:layout_marginLeft="@dimen/dp_102"
+                            android:layout_marginTop="@dimen/dp_4"
+                            android:text="最近就诊： 2018-11-16 10:09:33"
+                            android:textColor="@color/tab_nol_color"
+                            android:textSize="@dimen/dp_12" />
+                        <RelativeLayout
+                            android:id="@+id/un_login_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_60"
+                            android:layout_marginLeft="@dimen/dp_97"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_marginRight="@dimen/dp_20"
+                            android:background="@color/primary_color">
+                            <TextView
+                                android:id="@+id/jump_to_login_tv"
+                                android:layout_width="@dimen/dp_162"
+                                android:layout_height="@dimen/dp_40"
+                                android:layout_marginLeft="@dimen/dp_24"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:background="@mipmap/fill_personal_bt_bg"
+                                android:gravity="center"
+                                android:text="立即登录"
+                                android:textSize="@dimen/dp_14"
+                                android:textColor="@color/primary_color"/>
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/mine_user_location_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/mine_last_clinical_time"
+                            android:layout_marginLeft="@dimen/dp_17"
+                            android:layout_marginTop="@dimen/dp_12"
+                            android:maxWidth="@dimen/dp_150"
+                            android:singleLine="true"
+                            android:ellipsize="middle"
+                            android:drawableLeft="@mipmap/mine_location_blue"
+                            android:drawablePadding="@dimen/dp_12"
+                            android:gravity="center_vertical"
+                            android:text="暂无法获得信息"
+                            android:textColor="#BBBBBB"
+                            android:textSize="@dimen/font_size_primary" />
+
+                        <TextView
+                            android:id="@+id/mine_user_phone_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/mine_last_clinical_time"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="@dimen/dp_12"
+                            android:layout_marginRight="@dimen/dp_26"
+                            android:drawableLeft="@mipmap/mine_user_phone"
+                            android:drawablePadding="@dimen/dp_11"
+                            android:gravity="center_vertical"
+                            android:text="暂无法获得信息"
+                            android:textColor="#BBBBBB"
+                            android:textSize="@dimen/font_size_primary" />
+
+                        <View
+                            android:layout_width="@dimen/dp_1"
+                            android:layout_height="@dimen/dp_20"
+                            android:layout_below="@+id/mine_last_clinical_time"
+                            android:layout_marginTop="@dimen/dp_12"
+                            android:layout_marginRight="@dimen/dp_13"
+                            android:layout_toLeftOf="@+id/mine_user_phone_tv"
+                            android:background="@color/mine_interval_bg" />
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/mine_user_head_img"
+                        android:layout_width="@dimen/dp_72"
+                        android:layout_height="@dimen/dp_72"
+                        android:layout_marginLeft="@dimen/dp_18"
+                        android:padding="@dimen/dp_21"
+                        android:scaleType="fitXY"
+                        android:background="@drawable/mine_user_head_bg"
+                        android:src="@mipmap/unlogin_uer_head" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/user_base_layout"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_24"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/mine_function_doctor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_5"
+                            android:drawableTop="@mipmap/mine_my_doctor"
+                            android:drawablePadding="@dimen/dp_5"
+                            android:text="@string/mine_function_doctor"
+                            android:textColor="@color/fontColorPrimary"
+                            android:textSize="@dimen/font_size_primary" />
+
+                        <TextView
+                            android:id="@+id/mine_function_nurse"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_26"
+                            android:drawableTop="@mipmap/mine_my_nurse"
+                            android:drawablePadding="@dimen/dp_5"
+                            android:text="@string/mine_function_nurse"
+                            android:textColor="@color/fontColorPrimary"
+                            android:textSize="@dimen/font_size_primary" />
+
+                        <TextView
+                            android:id="@+id/mine_function_insurance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_26"
+                            android:drawableTop="@mipmap/mine_my_insurance"
+                            android:drawablePadding="@dimen/dp_5"
+                            android:text="@string/mine_function_insurance"
+                            android:textColor="@color/fontColorPrimary"
+                            android:textSize="@dimen/font_size_primary" />
+
+                        <TextView
+                            android:id="@+id/mine_function_card"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_24"
+                            android:drawableTop="@mipmap/mine_my_medical_card"
+                            android:drawablePadding="@dimen/dp_5"
+                            android:text="@string/mine_function_card"
+                            android:textColor="@color/fontColorPrimary"
+                            android:textSize="@dimen/font_size_primary" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:background="@color/primary_bg_color" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_100">
+                        <ImageView
+                            android:id="@+id/first_title_left_icon"
+                            android:layout_width="@dimen/dp_2"
+                            android:layout_height="@dimen/dp_18"
+                            android:layout_marginLeft="@dimen/dp_19"
+                            android:layout_marginTop="@dimen/dp_14"
+                            android:src="@mipmap/title_left_icon" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_6"
+                            android:layout_marginTop="@dimen/dp_14"
+                            android:layout_toRightOf="@+id/first_title_left_icon"
+                            android:text="@string/mine_function_type_diagnosis"
+                            android:textColor="@color/fontColorPrimary"
+                            android:textSize="@dimen/font_size_primary" />
+                        <LinearLayout
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="@dimen/dp_36"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_72">
+                            <com.keydom.ih_patient.view.MineFunctionItemView
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:id="@+id/mine_case_record"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                funcitem:itemTitle="@string/mine_function_item_case_record"
+                                funcitem:iconImg="@mipmap/mine_case_record"
+                                />
+                            <com.keydom.ih_patient.view.MineFunctionItemView
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:layout_marginLeft="@dimen/dp_20"
+                                android:id="@+id/mine_inspection_report"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                funcitem:itemTitle="@string/mine_function_item_inspection_report"
+                                funcitem:iconImg="@mipmap/mine_inspection_report"
+                                />
+                            <com.keydom.ih_patient.view.MineFunctionItemView
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:layout_marginLeft="@dimen/dp_20"
+                                android:id="@+id/mine_electronic_prescription"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                funcitem:itemTitle="@string/mine_function_item_electronic_prescription"
+                                funcitem:iconImg="@mipmap/mine_electronic_prescription"
+                                />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_10"
+                        android:background="@color/primary_bg_color" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_100">
+
+                        <ImageView
+                            android:id="@+id/second_title_left_icon"
+                            android:layout_width="@dimen/dp_2"
+                            android:layout_height="@dimen/dp_18"
+                            android:layout_marginLeft="@dimen/dp_19"
+                            android:layout_marginTop="@dimen/dp_14"
+                            android:src="@mipmap/title_left_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_6"
+                            android:layout_marginTop="@dimen/dp_14"
+                            android:layout_toRightOf="@+id/second_title_left_icon"
+                            android:text="@string/mine_function_type_order"
+                            android:textColor="@color/fontColorPrimary"
+                            android:textSize="@dimen/font_size_primary" />
+                        <LinearLayout
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="@dimen/dp_36"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_72">
+                            <com.keydom.ih_patient.view.MineFunctionItemView
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:id="@+id/mine_physician_orders"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                funcitem:itemTitle="@string/mine_function_item_physician_orders"
+                                funcitem:iconImg="@mipmap/mine_physician_orders"
+                                />
+                            <com.keydom.ih_patient.view.MineFunctionItemView
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:layout_marginLeft="@dimen/dp_30"
+                                android:id="@+id/mine_nursing_orders"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                funcitem:itemTitle="@string/mine_function_item_nursing_orders"
+                                funcitem:iconImg="@mipmap/mine_nursing_orders"
+                                />
+                            <com.keydom.ih_patient.view.MineFunctionItemView
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:layout_marginLeft="@dimen/dp_20"
+                                android:id="@+id/mine_booking_order"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                funcitem:itemTitle="@string/mine_function_item_booking_order"
+                                funcitem:iconImg="@mipmap/mine_booking_order"
+                                />
+                            <com.keydom.ih_patient.view.MineFunctionItemView
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:layout_marginLeft="@dimen/dp_20"
+                                android:id="@+id/mine_registered_mail_order"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                funcitem:itemTitle="@string/mine_function_item_registered_mail_order"
+                                funcitem:iconImg="@mipmap/mine_registered_mail_order"
+                                />
+                        </LinearLayout>
+                    </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_10"
+                        android:background="@color/primary_bg_color" />
+
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_100">
+
+                        <ImageView
+                            android:id="@+id/third_title_left_icon"
+                            android:layout_width="@dimen/dp_2"
+                            android:layout_height="@dimen/dp_18"
+                            android:layout_marginLeft="@dimen/dp_19"
+                            android:layout_marginTop="@dimen/dp_14"
+                            android:src="@mipmap/title_left_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_6"
+                            android:layout_marginTop="@dimen/dp_14"
+                            android:layout_toRightOf="@+id/third_title_left_icon"
+                            android:text="@string/mine_function_type_base_information_control"
+                            android:textColor="@color/fontColorPrimary"
+                            android:textSize="@dimen/font_size_primary" />
+                        <LinearLayout
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="@dimen/dp_36"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_72">
+                            <com.keydom.ih_patient.view.MineFunctionItemView
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:id="@+id/mine_payment_records"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                funcitem:itemTitle="@string/mine_function_item_payment_records"
+                                funcitem:iconImg="@mipmap/mine_payment_records"
+                                />
+                            <com.keydom.ih_patient.view.MineFunctionItemView
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:layout_marginLeft="@dimen/dp_30"
+                                android:id="@+id/mine_people_control"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                funcitem:itemTitle="@string/mine_function_item_people_control"
+                                funcitem:iconImg="@mipmap/mine_people_control"
+                                />
+                            <com.keydom.ih_patient.view.MineFunctionItemView
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:layout_marginLeft="@dimen/dp_20"
+                                android:id="@+id/mine_location_control"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                funcitem:itemTitle="@string/mine_function_item_location_control"
+                                funcitem:iconImg="@mipmap/mine_location_yellow"
+                                />
+                        </LinearLayout>
+                    </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_10"
+                        android:background="@color/primary_bg_color" />
+                    <com.keydom.ih_common.view.GeneralItemView
+                        android:id="@+id/mine_item_my_chatgroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_57"
+                        mitem:itemTitle="我的群"
+                        mitem:leftImg="@mipmap/chat_group"
+                        mitem:rightImg="@mipmap/exa_report_right"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:background="@color/mine_interval_bg" />
+                    <com.keydom.ih_common.view.GeneralItemView
+                        android:id="@+id/mine_item_my_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_57"
+                        mitem:itemTitle="@string/mine_item_my_message"
+                        mitem:leftImg="@mipmap/mine_item_message"
+                        mitem:rightImg="@mipmap/exa_report_right"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:background="@color/mine_interval_bg" />
+                    <com.keydom.ih_common.view.GeneralItemView
+                        android:id="@+id/mine_item_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_57"
+                        mitem:itemTitle="@string/mine_item_feedback"
+                        mitem:leftImg="@mipmap/mine_request_opinion"
+                        mitem:rightImg="@mipmap/exa_report_right"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:background="@color/mine_interval_bg" />
+                    <com.keydom.ih_common.view.GeneralItemView
+                        android:id="@+id/mine_item_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_57"
+                        mitem:itemTitle="@string/mine_item_setting"
+                        mitem:leftImg="@mipmap/mine_item_setting"
+                        mitem:rightImg="@mipmap/exa_report_right"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:background="@color/mine_interval_bg" />
+                </LinearLayout>
+            </RelativeLayout>
+        </com.keydom.ih_common.view.MyScrollView>
+        <LinearLayout
+            android:id="@+id/mine_top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_41"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/dp_m_1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/location_layout"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:src="@mipmap/mine_location_white" />
+
+                <TextView
+                    android:id="@+id/location_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/fontColorForeground"
+                    android:textSize="@dimen/font_size_auxiliary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/mine_title_searchedt_bg">
+
+                <TextView
+                    android:id="@+id/search_edt"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_29"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dp_12"
+                    android:paddingRight="@dimen/dp_12"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:drawableRight="@mipmap/mine_search_down"
+                    android:text=""
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/fontColorForeground"
+                    android:textSize="@dimen/dp_12" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/search_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_18"
+                android:layout_marginRight="@dimen/dp_20"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:src="@mipmap/mine_search_white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/main_search_text"
+                    android:textColor="@color/fontColorForeground"
+                    android:textSize="@dimen/font_size_auxiliary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/qr_code_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/dp_20"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:src="@mipmap/mine_qr_white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/main_qrcode_text"
+                    android:textColor="@color/fontColorForeground"
+                    android:textSize="@dimen/font_size_auxiliary" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+

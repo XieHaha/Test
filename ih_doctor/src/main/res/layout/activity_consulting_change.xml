@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_bg_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+
+    <TextView
+        android:id="@+id/consulting_change_tip_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_19"
+        android:text="新增/修改循环排班后，不影响已生成的停诊和特殊排 班。"
+        android:textColor="@color/fontColorDirection"
+        android:textSize="@dimen/font_size_primary" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+
+
+    <RelativeLayout
+        android:id="@+id/consulting_cycle_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dp_14"
+        android:paddingBottom="@dimen/dp_14">
+
+        <ImageView
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:paddingTop="@dimen/dp_5"
+            android:src="@mipmap/point_blue" />
+
+        <TextView
+            android:id="@+id/consulting_item_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_48"
+            android:layout_toRightOf="@+id/left_img"
+            android:text="接诊周期"
+            android:textColor="@color/fontColorPrimary"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/consulting_item_one_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_14"
+            android:drawableRight="@mipmap/arrow_right_grey"
+            android:drawablePadding="@dimen/dp_12"
+            android:padding="@dimen/dp_5"
+            android:text="请选择"
+            android:textColor="@color/fontColorDirection" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/consulting_time_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dp_14"
+        android:paddingBottom="@dimen/dp_14">
+
+        <ImageView
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:paddingTop="@dimen/dp_5"
+            android:src="@mipmap/point_green" />
+
+        <TextView
+            android:id="@+id/consulting_item_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_48"
+            android:layout_toRightOf="@+id/left_img"
+            android:text="接诊时间"
+            android:textColor="@color/fontColorPrimary"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/consulting_item_two_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_14"
+            android:drawableRight="@mipmap/arrow_right_grey"
+            android:drawablePadding="@dimen/dp_12"
+            android:padding="@dimen/dp_5"
+            android:text="请选择"
+            android:textColor="@color/fontColorDirection" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/consulting_circle_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dp_19"
+        android:paddingBottom="@dimen/dp_19">
+
+        <ImageView
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:paddingTop="@dimen/dp_5"
+            android:src="@mipmap/point_yellow" />
+
+        <TextView
+            android:id="@+id/consulting_item_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_48"
+            android:layout_toRightOf="@+id/left_img"
+            android:text="循环排班"
+            android:textColor="@color/fontColorPrimary"
+            android:textSize="@dimen/font_size_primary" />
+
+        <RelativeLayout
+            android:id="@+id/action_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_19">
+
+            <ImageView
+                android:id="@+id/consulting_action_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/consulting_open_bg" />
+
+            <ImageView
+                android:id="@+id/consulting_open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@id/consulting_action_bg"
+                android:layout_marginTop="@dimen/dp_1"
+                android:src="@mipmap/consulting_action_icon" />
+
+            <ImageView
+                android:id="@+id/consulting_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/consulting_action_bg"
+                android:layout_marginTop="@dimen/dp_1"
+                android:src="@mipmap/consulting_action_icon"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:paddingLeft="@dimen/dp_65"
+    android:paddingRight="@dimen/dp_61"
+    android:paddingTop="@dimen/dp_15"
+    android:paddingBottom="@dimen/dp_13"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:id="@+id/name"
+        android:textSize="@dimen/font_size_primary"
+        android:textColor="@color/tab_nol_color"
+        android:text="name"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/money"
+        android:textSize="@dimen/font_size_primary"
+        android:textColor="@color/nursing_status_red"
+        android:text="money"
+        />
+</LinearLayout>

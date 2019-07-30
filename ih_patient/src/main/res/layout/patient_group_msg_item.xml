@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:background="@drawable/common_bottom_line_bg"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/padding_left_right_dp"
+    android:paddingTop="@dimen/dp_9"
+    android:paddingRight="@dimen/padding_left_right_dp"
+    android:paddingBottom="@dimen/dp_9">
+
+
+    <com.keydom.ih_common.view.CircleImageView
+        android:id="@+id/friend_icon_civ"
+        android:layout_width="@dimen/dp_38"
+        android:layout_height="@dimen/dp_38"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/user_icon" />
+
+
+    <RelativeLayout
+        android:id="@+id/friend_info_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/friend_icon_civ"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/friend_name_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toLeftOf="@id/group_chat_num"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="这是一条测试消息这是一条测试消息这是一条测试消息"
+            android:textColor="@color/primary_font_color"
+            android:textSize="@dimen/font_size_fuc" />
+
+        <TextView
+            android:id="@+id/group_chat_num"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_17"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/group_chat_num_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_5"
+            android:text="8"
+            android:textColor="#FF999999"
+            android:textSize="@dimen/font_size_auxiliary" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_10">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_10">
+
+            <TextView
+                android:id="@+id/medical_name_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_toLeftOf="@id/medical_num_sacler"
+                android:drawableLeft="@mipmap/point_green"
+                android:drawablePadding="@dimen/dp_14"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_20"
+                android:text="感冒清热颗粒"
+                android:textColor="#333333"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/medical_desc_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/medical_name_tv"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_toLeftOf="@id/medical_num_sacler"
+                android:paddingLeft="@dimen/dp_46"
+                android:text="10ml*10支/盒"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+
+            <LinearLayout
+                android:id="@+id/medical_num_sacler"
+                android:layout_width="@dimen/dp_122"
+                android:layout_height="@dimen/dp_31"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_20"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/medical_num_scaler_minus_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/scaler_minus_bg">
+
+                    <View
+                        android:layout_width="@dimen/dp_12"
+                        android:layout_height="@dimen/dp_2"
+                        android:layout_centerInParent="true"
+                        android:background="#999999" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/medical_num_scaler_text_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@drawable/scaler_text_bg"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="1"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/dp_17" />
+
+                <RelativeLayout
+                    android:id="@+id/medical_num_scaler_add_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/scaler_add_bg">
+
+                    <View
+                        android:layout_width="@dimen/dp_12"
+                        android:layout_height="@dimen/dp_2"
+                        android:layout_centerInParent="true"
+                        android:background="#FFFFFF" />
+
+                    <View
+                        android:layout_width="@dimen/dp_2"
+                        android:layout_height="@dimen/dp_12"
+                        android:layout_centerInParent="true"
+                        android:background="#FFFFFF" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dp_10"-->
+        <!--android:background="#F9F9F9" />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_52"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dp_20"
+                android:text="给药途径"
+                android:textColor="#999999"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/get_medical_way_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_27"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_12"
+                android:background="@drawable/gray_corner_bg"
+                android:drawableRight="@mipmap/arrow_right_grey"
+                android:drawablePadding="@dimen/dp_11"
+                android:gravity="center_vertical|right"
+                android:paddingLeft="@dimen/dp_20"
+                android:paddingRight="@dimen/dp_11"
+                android:text=""
+                android:textColor="#999999"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_52"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dp_20"
+                android:text="单次剂量"
+                android:textColor="#999999"
+                android:textSize="@dimen/font_size_primary" />
+
+            <LinearLayout
+                android:id="@+id/medical_dosage_sacler"
+                android:layout_width="@dimen/dp_122"
+                android:layout_height="@dimen/dp_31"
+                android:layout_marginLeft="@dimen/dp_22"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/medical_dosage_scaler_minus_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/scaler_minus_bg">
+
+                    <View
+                        android:layout_width="@dimen/dp_12"
+                        android:layout_height="@dimen/dp_2"
+                        android:layout_centerInParent="true"
+                        android:background="#999999" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/medical_dosage_scaler_text_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@drawable/scaler_text_bg"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="1"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/dp_17" />
+
+                <RelativeLayout
+                    android:id="@+id/medical_dosage_scaler_add_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/scaler_add_bg">
+
+                    <View
+                        android:layout_width="@dimen/dp_12"
+                        android:layout_height="@dimen/dp_2"
+                        android:layout_centerInParent="true"
+                        android:background="#FFFFFF" />
+
+                    <View
+                        android:layout_width="@dimen/dp_2"
+                        android:layout_height="@dimen/dp_12"
+                        android:layout_centerInParent="true"
+                        android:background="#FFFFFF" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dosage_unit_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_27"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_12"
+                android:drawableRight="@mipmap/arrow_right_grey"
+                android:drawablePadding="@dimen/dp_11"
+                android:gravity="center_vertical|right"
+                android:paddingLeft="@dimen/dp_20"
+                android:paddingRight="@dimen/dp_11"
+                android:text="单位"
+                android:textColor="#999999"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_52"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dp_20"
+                android:text="用药频率"
+                android:textColor="#999999"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/eat_medical_rate_tv"
+                android:layout_width="match_parent"
+
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_27"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_12"
+                android:background="@drawable/gray_corner_bg"
+                android:drawableRight="@mipmap/arrow_right_grey"
+                android:drawablePadding="@dimen/dp_11"
+                android:gravity="center_vertical|right"
+                android:paddingLeft="@dimen/dp_20"
+                android:paddingRight="@dimen/dp_11"
+                android:text=""
+                android:textColor="#999999"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_52">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="@dimen/dp_20"
+                android:text="用药天数"
+                android:textColor="#999999"
+                android:textSize="@dimen/font_size_primary" />
+
+            <LinearLayout
+                android:id="@+id/eat_medical_day_sacler"
+                android:layout_width="@dimen/dp_122"
+                android:layout_height="@dimen/dp_31"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_20"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/eat_medical_day_scaler_minus_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/scaler_minus_bg">
+
+                    <View
+                        android:layout_width="@dimen/dp_12"
+                        android:layout_height="@dimen/dp_2"
+                        android:layout_centerInParent="true"
+                        android:background="#999999" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/eat_medical_day_scaler_text_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@drawable/scaler_text_bg"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="1"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/dp_17" />
+
+                <RelativeLayout
+                    android:id="@+id/eat_medical_day_scaler_add_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/scaler_add_bg">
+
+                    <View
+                        android:layout_width="@dimen/dp_12"
+                        android:layout_height="@dimen/dp_2"
+                        android:layout_centerInParent="true"
+                        android:background="#FFFFFF" />
+
+                    <View
+                        android:layout_width="@dimen/dp_2"
+                        android:layout_height="@dimen/dp_12"
+                        android:layout_centerInParent="true"
+                        android:background="#FFFFFF" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:id="@+id/eat_medical_day_labei"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_20"
+                android:text="医嘱事项"
+                android:textColor="#999999"
+                android:textSize="@dimen/font_size_primary" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/doctor_entrust"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_86"
+                android:layout_marginLeft="@dimen/dp_28"
+                android:layout_marginTop="@dimen/dp_11"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_toRightOf="@+id/eat_medical_day_labei"
+                android:background="@drawable/gray_corner_bg"
+                android:maxLength="500"
+                android:gravity="left|top"
+                android:singleLine="false"
+                android:textColor="@color/edit_font_color"
+                android:padding="@dimen/dp_8"
+                android:textSize="@dimen/font_size_primary" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+</LinearLayout>

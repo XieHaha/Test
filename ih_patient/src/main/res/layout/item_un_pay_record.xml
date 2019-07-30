@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/padding_left_right_dp"
+    android:paddingTop="@dimen/dp_29"
+    android:paddingBottom="@dimen/dp_24"
+   >
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/select_group"
+        android:layout_weight="1">
+
+        <CheckBox
+            android:id="@+id/select"
+            android:layout_width="@dimen/dp_28"
+            android:layout_height="@dimen/dp_28" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3.5">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:id="@+id/name_group"
+            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/title_bar_text_color"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/project"
+            android:textColor="@color/edit_hint_color"
+            android:textSize="@dimen/font_size_auxiliary"
+            android:layout_marginLeft="@dimen/dp_5"
+            />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/edit_hint_color"
+            android:layout_below="@+id/name_group"
+            android:textSize="@dimen/font_size_auxiliary" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:id="@+id/money"
+        android:textColor="@color/nursing_status_red"
+        android:textSize="@dimen/font_size_primary"
+        android:gravity="center" />
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2">
+
+        <TextView
+            android:id="@+id/pay"
+            android:layout_width="@dimen/dp_72"
+            android:layout_height="@dimen/dp_31"
+            android:layout_gravity="center"
+            android:background="@drawable/exa_has_num_bg"
+            android:gravity="center"
+            android:text="缴费"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/dp_12" />
+    </FrameLayout>
+</LinearLayout>

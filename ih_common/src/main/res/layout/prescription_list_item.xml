@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/dp_20">
+
+
+    <TextView
+        android:id="@+id/medicine_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1、"
+        android:textSize="@dimen/font_size_auxiliary"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/medicine_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/medicine_num"
+        android:layout_toRightOf="@id/medicine_num"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="感冒通"
+        android:textSize="@dimen/font_size_auxiliary"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/medicine_specifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/medicine_name"
+        android:layout_alignLeft="@id/medicine_name"
+        android:layout_marginTop="@dimen/dp_6"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="0.65g*24粒/盒"
+        android:textSize="@dimen/font_size_auxiliary" />
+
+
+    <TextView
+        android:id="@+id/medicine_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/medicine_num"
+        android:layout_alignTop="@id/medicine_specifications"
+        android:layout_alignBottom="@id/medicine_specifications"
+        android:layout_alignParentRight="true"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="1盒"
+        android:textSize="@dimen/font_size_auxiliary" />
+
+
+    <TextView
+        android:id="@+id/use_once"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/medicine_specifications"
+        android:layout_alignLeft="@id/medicine_name"
+        android:layout_marginTop="@dimen/dp_3"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="用法：2.6g/次"
+        android:textSize="@dimen/font_size_auxiliary" />
+
+    <TextView
+        android:id="@+id/use_method"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/medicine_specifications"
+        android:layout_alignTop="@id/use_once"
+        android:layout_alignBottom="@id/use_once"
+        android:layout_centerHorizontal="true"
+        android:layout_toLeftOf="@id/times"
+        android:layout_toRightOf="@id/use_once"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:singleLine="true"
+        android:text="口服"
+        android:textSize="@dimen/font_size_auxiliary" />
+
+    <TextView
+        android:id="@+id/times"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/medicine_specifications"
+        android:layout_alignTop="@id/use_once"
+        android:layout_alignBottom="@id/use_once"
+        android:layout_alignParentRight="true"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="每日两次"
+        android:textSize="@dimen/font_size_auxiliary" />
+
+
+</RelativeLayout>

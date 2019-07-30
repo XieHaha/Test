@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/dp_17"
+        android:paddingBottom="@dimen/dp_17">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:drawableLeft="@mipmap/bind_card_card_type_icon"
+            android:drawablePadding="@dimen/dp_13"
+            android:gravity="center_vertical"
+            android:text="@string/bind_card_card_type"
+            android:textColor="@color/title_bar_text_color"
+            android:textSize="@dimen/font_size_primary" />
+
+        <RadioGroup
+            android:id="@+id/card_type_rg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/card_phusical_rb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_38"
+                android:checked="true"
+                android:text="@string/bind_card_card_type_physical"
+                android:textColor="@color/title_bar_text_color"
+                android:textSize="@dimen/font_size_primary" />
+
+            <RadioButton
+                android:id="@+id/card_electronic_rb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_26"
+                android:checked="false"
+                android:text="@string/bind_card_card_type_electronic"
+                android:textColor="@color/title_bar_text_color"
+                android:textSize="@dimen/font_size_primary" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/dp_17"
+        android:paddingBottom="@dimen/dp_17">
+
+        <TextView
+            android:id="@+id/name_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:drawableLeft="@mipmap/bind_card_user_name_icon"
+            android:drawablePadding="@dimen/dp_13"
+            android:gravity="center_vertical"
+            android:text="@string/bind_card_user_name"
+            android:textColor="@color/title_bar_text_color"
+            android:textSize="@dimen/font_size_primary" />
+
+        <com.keydom.ih_common.view.InterceptorEditText
+            android:id="@+id/card_user_name_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="right"
+            android:hint="请输入患者姓名"
+            android:lines="1"
+            android:maxLength="20"
+            android:paddingRight="@dimen/dp_30"
+            android:textColor="@color/primary_font_color"
+            android:textColorHint="@color/fontColorDirection"
+            android:textSize="@dimen/dp_14" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/dp_17"
+        android:paddingBottom="@dimen/dp_17">
+
+        <TextView
+            android:id="@+id/card_type_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:drawableLeft="@mipmap/bind_card_card_num_icon"
+            android:drawablePadding="@dimen/dp_13"
+            android:gravity="center_vertical"
+            android:text="@string/bind_card_card_num"
+            android:textColor="@color/title_bar_text_color"
+            android:textSize="@dimen/font_size_primary" />
+
+        <com.keydom.ih_common.view.InterceptorEditText
+            android:id="@+id/card_num_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="right"
+            android:hint="请输入就诊卡号"
+            android:maxLength="30"
+            android:paddingRight="@dimen/dp_30"
+            android:inputType="textPassword"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:textColor="@color/primary_font_color"
+            android:textColorHint="@color/fontColorDirection"
+            android:textSize="@dimen/dp_14" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@mipmap/colorful_line" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/primary_bg_color" />
+
+    <TextView
+        android:id="@+id/bind_card_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_61"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/dp_19"
+        android:layout_marginTop="@dimen/dp_42"
+        android:layout_marginRight="@dimen/dp_19"
+        android:background="@mipmap/fill_personal_bt_bg"
+        android:gravity="center"
+        android:text="@string/bind_card"
+        android:textColor="@color/primary_color"
+        android:textSize="@dimen/dp_17" />
+</LinearLayout>

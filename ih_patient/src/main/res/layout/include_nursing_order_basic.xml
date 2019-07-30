@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primary_bg_color"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:background="@color/medical_card_detail_label_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_left_right_dp">
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/circle"
+            android:layout_width="@dimen/dp_14"
+            android:layout_gravity="center"
+            android:layout_height="@dimen/dp_14" />
+            <ImageView
+                android:layout_width="@dimen/dp_9"
+                android:layout_gravity="center"
+                android:src="@drawable/white_oval_radius"
+                android:layout_height="@dimen/dp_9" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/order_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:textSize="@dimen/font_size_primary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/map_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.baidu.mapapi.map.TextureMapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_144"
+            android:layout_marginBottom="@dimen/dp_9"
+            android:layout_marginLeft="@dimen/padding_left_right_dp"
+            android:layout_marginRight="@dimen/padding_left_right_dp"
+            android:layout_marginTop="@dimen/dp_9"></com.baidu.mapapi.map.TextureMapView>
+
+        <TextView
+            android:id="@+id/distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_left_right_dp"
+            android:layout_marginRight="@dimen/padding_left_right_dp"
+            android:drawableLeft="@mipmap/mine_location_blue"
+            android:drawablePadding="@dimen/dp_14"
+            android:ellipsize="end"
+            android:gravity="bottom"
+            android:maxLines="1"
+            android:textColor="@color/tab_nol_color"
+            android:textSize="@dimen/font_size_primary" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_19"
+            android:background="@color/line_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dp_13"
+            android:paddingLeft="@dimen/padding_left_right_dp"
+            android:paddingTop="@dimen/dp_19">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dp_5"
+                android:src="@mipmap/point_icon_4" />
+
+            <TextView
+                android:id="@+id/hospital_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_19"
+                android:textColor="@color/title_bar_text_color"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/line_color"
+            android:layout_marginLeft="@dimen/dp_53"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dp_13"
+            android:paddingLeft="@dimen/padding_left_right_dp"
+            android:paddingTop="@dimen/dp_19">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dp_5"
+                android:src="@mipmap/point_icon_1" />
+
+            <TextView
+                android:id="@+id/service_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_19"
+                android:textColor="@color/title_bar_text_color"
+                android:textSize="@dimen/font_size_primary" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/dp_19"
+        android:paddingLeft="@dimen/padding_left_right_dp"
+        android:paddingTop="@dimen/dp_19"
+        android:text="@string/basic_info"
+        android:textColor="@color/edit_hint_color"
+        android:textSize="@dimen/font_size_primary" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/line_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/dp_25"
+        android:paddingLeft="@dimen/padding_left_right_dp"
+        android:paddingRight="@dimen/padding_left_right_dp"
+        android:paddingTop="@dimen/dp_19">
+
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="     订单号："
+            android:textColor="@color/tab_nol_color"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/number"
+            android:layout_below="@+id/number_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="姓名："
+            android:textColor="@color/tab_nol_color"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/number"
+            android:layout_below="@+id/name"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="电话："
+            android:textColor="@color/tab_nol_color"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/number"
+            android:layout_below="@+id/phone"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="地址："
+            android:textColor="@color/tab_nol_color"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/number"
+            android:layout_below="@+id/address_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="时间："
+            android:textColor="@color/tab_nol_color"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/service_object"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/number"
+            android:layout_below="@+id/time"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="服务对象："
+            android:textColor="@color/tab_nol_color"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/project"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/number"
+            android:layout_below="@+id/hospital"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="预约套餐："
+            android:textColor="@color/tab_nol_color"
+            android:textSize="@dimen/font_size_primary"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/hospital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/number"
+            android:layout_below="@+id/service_object"
+            android:layout_marginTop="@dimen/dp_10"
+            android:textSize="@dimen/font_size_primary"
+            android:text="医院："
+            android:textColor="@color/tab_nol_color" />
+
+        <TextView
+            android:id="@+id/number_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/number"
+            android:layout_marginLeft="@dimen/dp_28"
+            android:layout_toRightOf="@+id/number"
+            android:textColor="@color/pay_unselected"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/name_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/name"
+            android:layout_marginLeft="@dimen/dp_28"
+            android:layout_toRightOf="@+id/name"
+
+            android:textColor="@color/pay_unselected"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/phone_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/phone"
+            android:layout_marginLeft="@dimen/dp_28"
+            android:layout_toRightOf="@+id/phone"
+            android:textColor="@color/pay_unselected"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/address_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/address"
+            android:layout_marginLeft="@dimen/dp_28"
+            android:layout_toRightOf="@+id/address"
+            android:textColor="@color/pay_unselected"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/time_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/time"
+            android:layout_marginLeft="@dimen/dp_28"
+            android:layout_toRightOf="@+id/time"
+
+            android:textColor="@color/pay_unselected"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/service_object_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/service_object"
+            android:layout_marginLeft="@dimen/dp_28"
+            android:layout_toRightOf="@+id/service_object"
+
+            android:textColor="@color/pay_unselected"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/hospital_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/hospital"
+            android:layout_marginLeft="@dimen/dp_28"
+            android:layout_toRightOf="@+id/hospital"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/pay_unselected"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/project_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/project"
+            android:layout_marginLeft="@dimen/dp_28"
+            android:layout_toRightOf="@+id/project"
+            android:textColor="@color/nursing_status_red"
+
+            android:textSize="@dimen/font_size_primary"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/launch_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/hospital"
+            android:layout_alignTop="@+id/address"
+            android:background="@drawable/nursing_hide_bg">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:drawablePadding="@dimen/dp_19"
+                android:drawableRight="@mipmap/blue_down"
+                android:text="展开订单信息"
+                android:textColor="@color/list_tab_color"
+                android:textSize="@dimen/font_size_primary" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/colorful_line"
+        android:visibility="gone" />
+</LinearLayout>

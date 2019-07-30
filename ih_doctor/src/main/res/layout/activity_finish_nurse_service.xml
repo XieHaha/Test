@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_bg_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button_ll"
+        android:layout_below="@id/toolBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/finish_nurse_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFAE2"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingTop="@dimen/dp_17"
+                android:paddingRight="@dimen/padding_left_right_dp"
+                android:paddingBottom="@dimen/dp_17"
+                android:textColor="#FFAB49" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dp_33"
+                android:paddingRight="@dimen/padding_left_right_dp">
+
+                <TextView
+                    android:id="@+id/service_item_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/point_blue"
+                    android:drawablePadding="@dimen/dp_12"
+                    android:paddingTop="@dimen/dp_23"
+                    android:paddingBottom="@dimen/dp_23"
+                    android:text="本次服务内容"
+                    android:textColor="#999999" />
+
+                <HorizontalScrollView
+                    android:id="@+id/service_item_hsv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/service_item_tip"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:id="@+id/service_item_box"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/line_color" />
+
+            <RelativeLayout
+                android:id="@+id/next_visit_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dp_33">
+
+                <TextView
+                    android:id="@+id/next_visit_time_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:drawableLeft="@mipmap/point_green"
+                    android:drawablePadding="@dimen/dp_12"
+                    android:ellipsize="end"
+                    android:paddingTop="@dimen/dp_23"
+                    android:paddingBottom="@dimen/dp_23"
+                    android:singleLine="true"
+                    android:text="下次预约上门时间"
+                    android:textColor="#999999" />
+
+                <TextView
+                    android:id="@+id/next_visit_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/next_visit_time_tip"
+                    android:drawableRight="@mipmap/arrow_right_grey"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:ellipsize="end"
+                    android:gravity="right"
+                    android:paddingTop="@dimen/dp_23"
+                    android:paddingRight="@dimen/padding_left_right_dp"
+                    android:paddingBottom="@dimen/dp_23"
+                    android:singleLine="true" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/line_color" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:paddingLeft="@dimen/dp_33"
+                android:paddingRight="@dimen/padding_left_right_dp">
+
+                <TextView
+                    android:id="@+id/current_nurse_service_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/point_orange"
+                    android:drawablePadding="@dimen/dp_12"
+                    android:paddingTop="@dimen/dp_23"
+                    android:paddingBottom="@dimen/dp_19"
+                    android:text="本次护理内容"
+                    android:textColor="#999999" />
+
+                <com.keydom.ih_common.view.InterceptorEditText
+                    android:id="@+id/current_nurse_service_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_97"
+                    android:layout_below="@id/current_nurse_service_tip"
+                    android:layout_marginLeft="@dimen/dp_19"
+                    android:background="@drawable/check_dialog_input_bg"
+                    android:textCursorDrawable="@null"
+                    android:gravity="left|top"
+                    android:hint="请输入本次护理情况及患者反馈"
+                    android:maxLength="100"
+                    android:padding="@dimen/dp_13"
+                    android:singleLine="false"
+                    android:textColor="@color/edit_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_33"
+                android:paddingRight="@dimen/padding_left_right_dp">
+
+                <TextView
+                    android:id="@+id/current_nurse_service_material_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/point_red"
+                    android:drawablePadding="@dimen/dp_12"
+                    android:paddingTop="@dimen/dp_23"
+                    android:paddingBottom="@dimen/dp_19"
+                    android:text="本次器材/耗材耗用"
+                    android:textColor="#999999" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/current_nurse_service_material_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/current_nurse_service_material_tip">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <View
+                    android:id="@+id/service_bottom_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_below="@id/current_nurse_service_material_rv"
+                    android:background="@color/line_color" />
+
+                <RelativeLayout
+                    android:id="@+id/total_fee_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/service_bottom_line"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:paddingLeft="@dimen/dp_20"
+                    android:paddingRight="@dimen/dp_30">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="合计："
+                        android:textColor="@color/fontColorPrimary" />
+
+                    <TextView
+                        android:id="@+id/total_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#FF3939" />
+                </RelativeLayout>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/nurse_service_add_medicine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_62"
+                    android:layout_below="@id/total_fee_rl"
+                    android:layout_alignLeft="@id/prescription_drug_rv"
+                    android:layout_alignRight="@id/prescription_drug_rv"
+                    android:layout_marginTop="@dimen/dp_29"
+                    android:layout_marginRight="@dimen/dp_2"
+                    android:layout_marginBottom="@dimen/dp_38">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableLeft="@mipmap/medicine_icon"
+                        android:drawablePadding="@dimen/dp_12"
+                        android:gravity="center"
+                        android:text="添加器材/耗材"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+                </android.support.v7.widget.CardView>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/button_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_43"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/finish_service_bt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#3F98F7"
+            android:text="完成"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</RelativeLayout>

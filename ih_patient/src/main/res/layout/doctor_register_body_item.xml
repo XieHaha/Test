@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.keydom.ih_patient.view.FlowLayout
+        app:width_space="@dimen/dp_36"
+        app:height_space="@dimen/dp_22"
+        android:id="@+id/flowLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_44"
+        android:paddingRight="@dimen/dp_44"
+        android:paddingBottom="@dimen/dp_24"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="#EEEEEE"/>
+    <TextView
+        android:id="@+id/item_show_more_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_38"
+        android:gravity="center"
+        android:text="展开更多"
+        android:textSize="@dimen/font_size_primary"
+        android:textColor="#BBBBBB"/>
+</LinearLayout>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:showIn="@layout/im_item_view_message_showin">
+
+    <TextView
+        android:id="@+id/im_message_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_20"
+        android:textColor="@color/fontColorDirection"
+        android:textSize="@dimen/dp_13"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="04-09  11:00" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10">
+
+        <ImageView
+            android:id="@+id/im_message_avatar_left"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:src="@mipmap/ic_launcher" />
+
+        <ImageView
+            android:id="@+id/im_message_avatar_right"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/left_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:textColor="#666666"
+            android:textSize="@dimen/dp_12"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/im_message_avatar_left"
+            app:layout_constraintTop_toTopOf="@+id/im_message_avatar_left"
+            tools:text="张三" />
+
+        <LinearLayout
+            android:id="@+id/im_message_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_5"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toRightOf="@+id/im_message_avatar_left"
+            app:layout_constraintRight_toLeftOf="@+id/im_message_avatar_right"
+            app:layout_constraintTop_toBottomOf="@+id/left_name"
+            app:layout_goneMarginEnd="0dp"
+            app:layout_goneMarginStart="0dp">
+
+            <FrameLayout
+                android:id="@+id/im_addition_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical">
+
+                <ProgressBar
+                    android:id="@+id/im_progress"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="@dimen/dp_13"
+                    android:layout_height="@dimen/dp_13"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:indeterminateDrawable="@drawable/im_progress_sending_style" />
+
+                <ImageView
+                    android:id="@+id/im_warning"
+                    android:layout_width="@dimen/dp_13"
+                    android:layout_height="@dimen/dp_13"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/dp_18"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/im_warning" />
+            </FrameLayout>
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+</merge>

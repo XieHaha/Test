@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.keydom.ih_common.im.widget.provider.item.ImMessageItemInspectionProvider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/dp_215"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_icon"
+            android:layout_width="@dimen/dp_9"
+            android:layout_height="@dimen/dp_9"
+            android:layout_marginStart="@dimen/dp_18"
+            android:src="@drawable/inspection_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/text1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text1" />
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_12"
+            android:text="检验申请单"
+            android:textColor="@color/fontColorPrimary"
+            android:textSize="@dimen/dp_12"
+            app:layout_constraintStart_toEndOf="@+id/image_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/line_1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_6"
+            android:background="@color/refreshBg"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text1" />
+
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_14"
+            android:text="检验项目:"
+            android:textColor="#FFBBBBBB"
+            android:textSize="@dimen/dp_12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/inspection_content" />
+
+        <TextView
+            android:id="@+id/inspection_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_6"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:textSize="@dimen/dp_12"
+            android:textColor="#FF666666"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text2"
+            app:layout_constraintTop_toBottomOf="@+id/line_1"
+            tools:text="3日前自觉鼻塞、流涕，轻微咳嗽，自服抗感冒药物效果不佳." />
+
+
+        <ImageView
+            android:id="@+id/line_2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/refreshBg"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inspection_content" />
+
+        <TextView
+            android:id="@+id/bottom_title"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_12"
+            android:paddingEnd="@dimen/dp_5"
+            android:textColor="#FF3F98F7"
+            android:textSize="@dimen/dp_12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line_2"
+            tools:text="详情" />
+
+        <TextView
+            android:id="@+id/payment_amount"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_4"
+            android:gravity="center_vertical|end"
+            android:textColor="#FFFF3939"
+            android:textSize="@dimen/dp_12"
+            app:layout_constraintBottom_toBottomOf="@+id/bottom_title"
+            app:layout_constraintEnd_toStartOf="@+id/result_pay"
+            app:layout_constraintStart_toEndOf="@+id/bottom_title"
+            app:layout_constraintTop_toTopOf="@+id/bottom_title"
+            tools:text="(￥119元)" />
+
+        <TextView
+            android:id="@+id/result_pay"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_4"
+            android:gravity="center_vertical"
+            android:textColor="#FF3F98F7"
+            android:textSize="@dimen/dp_12"
+            app:layout_constraintBottom_toBottomOf="@+id/bottom_title"
+            app:layout_constraintEnd_toStartOf="@+id/image"
+            app:layout_constraintTop_toTopOf="@+id/bottom_title"
+            tools:text="去支付" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_9"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/im_message_details_left"
+            app:layout_constraintBottom_toBottomOf="@+id/bottom_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bottom_title" />
+    </android.support.constraint.ConstraintLayout>
+</com.keydom.ih_common.im.widget.provider.item.ImMessageItemInspectionProvider>

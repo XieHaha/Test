@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.ih_common.view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+
+    <TextView
+        android:id="@+id/update_password"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_46"
+        android:background="@drawable/common_bottom_line_bg"
+        android:drawableLeft="@mipmap/point_red"
+        android:drawableRight="@mipmap/arrow_right_grey"
+        android:drawablePadding="@dimen/dp_18"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_30"
+        android:paddingRight="@dimen/dp_23"
+        android:text="修改密码"
+        android:textSize="@dimen/font_size_primary" />
+
+    <TextView
+        android:id="@+id/user_book"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_46"
+        android:background="@drawable/common_bottom_line_bg"
+        android:drawableLeft="@mipmap/point_green"
+        android:drawableRight="@mipmap/arrow_right_grey"
+        android:drawablePadding="@dimen/dp_18"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_30"
+        android:paddingRight="@dimen/dp_23"
+        android:text="用户手册"
+        android:textSize="@dimen/font_size_primary" />
+
+    <TextView
+        android:id="@+id/exit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_46"
+        android:background="@drawable/common_bottom_line_bg"
+        android:drawableLeft="@mipmap/point_yellow"
+        android:drawableRight="@mipmap/arrow_right_grey"
+        android:drawablePadding="@dimen/dp_18"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_30"
+        android:paddingRight="@dimen/dp_23"
+        android:text="退出登录"
+        android:textSize="@dimen/font_size_primary" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+</LinearLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_86">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="@dimen/dp_180"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/name_tv"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginLeft="@dimen/dp_19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_size_primary"
+                android:textColor="#666666"
+                android:text="张启灵"/>
+            <TextView
+                android:id="@+id/project_tv"
+                android:layout_below="@+id/name_tv"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_marginLeft="@dimen/dp_19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dp_12"
+                android:textColor="#BBBBBB"
+                android:text="缴费（问诊）"/>
+
+            <TextView
+                android:id="@+id/time_tv"
+                android:layout_below="@+id/name_tv"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dp_12"
+                android:paddingRight="@dimen/dp_10"
+                android:textColor="#BBBBBB"
+                android:text="2018.09.05"/>
+
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/social_security_price_tv"
+            android:layout_width="@dimen/dp_53"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="@dimen/font_size_primary"
+            android:textColor="#FF3939"
+            android:text="0"/>
+        <TextView
+            android:id="@+id/personal_price_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="@dimen/font_size_primary"
+            android:textColor="#FF3939"
+            android:text="30.00"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="#F9F9F9"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

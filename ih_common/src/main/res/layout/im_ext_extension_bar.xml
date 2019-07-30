@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/im_ext_main_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_51"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <!-- “语音”布局-->
+
+        <ImageView
+            android:id="@+id/im_voice_toggle"
+            android:layout_width="@dimen/dp_51"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/app_name"
+            android:padding="@dimen/dp_15"
+            android:src="@drawable/im_voice_toggle_selector" />
+
+        <!-- 文本，表情输入容器，通过控制“语音”，容器中填充不同的内容 -->
+        <FrameLayout
+            android:id="@+id/im_container_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp">
+
+            <EditText
+                android:id="@+id/im_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_32"
+                android:layout_gravity="center"
+                android:background="@drawable/im_ext_extension_bar_edit_bg"
+                android:hint="@string/im_ext_extension_bar_input_hint"
+                android:imeOptions="actionSend"
+                android:padding="@dimen/dp_2"
+                android:singleLine="true"
+                android:textColor="@color/im_context_text"
+                android:textColorHint="@color/fontColorDirection"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/sp_15"
+                tools:ignore="TextFields" />
+
+            <Button
+                android:id="@+id/im_audio_input_toggle"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/im_ext_extension_bar_audio_bg"
+                android:padding="0dp"
+                android:text="@string/im_ext_extension_bar_audio_input"
+                android:textColor="@color/fontColorDirection"
+                android:textSize="@dimen/sp_15"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <!-- 扩展栏 “emoji” 布局-->
+        <!--<ImageView
+            android:id="@+id/im_emoticon_toggle"
+            android:layout_width="@dimen/im_ext_extension_bar_height"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/app_name"
+            android:padding="@dimen/im_ext_extension_bar_icon_padding"
+            android:src="@drawable/im_emotion_toggle_selector" />-->
+
+        <!-- 扩展栏 “+号” 布局-->
+        <ImageView
+            android:id="@+id/im_plugin_toggle"
+            android:layout_width="@dimen/dp_51"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/app_name"
+            android:padding="@dimen/sp_15"
+            android:src="@drawable/im_plugin_toggle_selector" />
+
+        <FrameLayout
+            android:id="@+id/im_plugin_send"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/im_plugin_send_bg"
+                android:paddingLeft="@dimen/dp_8"
+                android:paddingTop="@dimen/dp_5"
+                android:paddingRight="@dimen/dp_8"
+                android:paddingBottom="@dimen/dp_5"
+                android:text="@string/im_ext_extension_bar_send"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_13" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/home_emoji"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/line_color" />
+
+        <com.keydom.ih_common.im.widget.WrapContentHeightViewPager
+            android:id="@+id/vp_emoji"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_140" />
+
+        <com.keydom.ih_common.im.widget.IndicatorView
+            android:id="@+id/ind_emoji"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_18"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_16"
+            android:background="#00000000"
+            app:gravity="0"
+            app:indicatorColor="#668b8989"
+            app:indicatorColorSelected="@color/colorPrimary"
+            app:indicatorWidth="6" />
+
+    </LinearLayout>
+
+</LinearLayout>

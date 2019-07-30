@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_bg_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar"></include>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_43"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/dp_19"
+        android:layout_marginTop="@dimen/dp_6"
+        android:layout_marginRight="@dimen/dp_19">
+
+        <TextView
+            android:id="@+id/phone_number_tip_tv"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/phone_input_et"
+            android:layout_alignBottom="@id/phone_input_et"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_12"
+            android:drawableLeft="@mipmap/point_green"
+            android:drawablePadding="@dimen/dp_12"
+            android:text="激活码"
+            android:textColor="#333333"
+            android:textSize="@dimen/dp_13" />
+
+        <TextView
+            android:id="@+id/phone_input_et"
+            style="@android:style/Widget.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_43"
+            android:layout_toRightOf="@id/phone_number_tip_tv"
+            android:background="@null"
+            android:singleLine="true"
+            android:textColor="@color/primary_font_color"
+            android:textColorHint="@color/fontColorDirection"
+            android:textCursorDrawable="@drawable/edit_cursor"
+            android:textSize="@dimen/dp_13" />
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_43"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/dp_19"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_19">
+
+        <TextView
+            android:id="@+id/phone_code_tip_tv"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/code_input_et"
+            android:layout_alignBottom="@id/code_input_et"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_12"
+            android:drawableLeft="@mipmap/point_yellow"
+            android:drawablePadding="@dimen/dp_12"
+            android:text="签名口令"
+            android:textColor="#333333"
+            android:textSize="@dimen/dp_13" />
+
+        <com.keydom.ih_common.view.InterceptorEditText
+            android:id="@+id/code_input_et"
+            style="@android:style/Widget.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_43"
+            android:layout_toRightOf="@id/phone_code_tip_tv"
+            android:background="@null"
+            android:drawablePadding="@dimen/dp_12"
+            android:maxLength="10"
+            android:hint="请输入签名口令"
+            android:singleLine="true"
+            android:textColor="@color/primary_font_color"
+            android:textColorHint="@color/fontColorDirection"
+            android:textCursorDrawable="@drawable/edit_cursor"
+            android:textSize="@dimen/dp_13" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_43"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/dp_19"
+        android:layout_marginTop="@dimen/dp_6"
+        android:layout_marginRight="@dimen/dp_19">
+
+        <TextView
+            android:id="@+id/user_name_tip_tv"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/user_name_input_et"
+            android:layout_alignBottom="@id/user_name_input_et"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_12"
+            android:drawableLeft="@mipmap/point_red"
+            android:drawablePadding="@dimen/dp_12"
+            android:text="重复口令"
+            android:textColor="#333333"
+            android:textSize="@dimen/dp_13" />
+
+        <com.keydom.ih_common.view.ClearEditText
+            android:id="@+id/user_name_input_et"
+            style="@android:style/Widget.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_43"
+            android:layout_toRightOf="@id/user_name_tip_tv"
+            android:background="@null"
+            android:hint="请在次输入口令"
+            android:maxLength="10"
+            android:singleLine="true"
+            android:textColor="@color/primary_font_color"
+            android:textColorHint="@color/fontColorDirection"
+            android:textCursorDrawable="@drawable/edit_cursor"
+            android:textSize="@dimen/dp_13" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,152 @@
+<resources>
+    <string name="app_name">患者端</string>
+    <string name="unlogin_hint">您暂未登录，请从(我的) 页面登录后再查看</string>
+    <string name="login_phone_hint">请输入账户或手机号</string>
+    <string name="login_password_hint">请输入密码</string>
+    <string name="login_validate">请输入验证码</string>
+    <string name="login">登录</string>
+    <string name="login_register">立即注册</string>
+    <string name="login_forget_password">忘记密码</string>
+    <string name="login_more_method">更多登录方式</string>
+    <string name="register_phone_hint">请输入手机号</string>
+    <string name="register_code_hint">验证码</string>
+    <string name="register_code_btn_text">获取验证码</string>
+    <string name="register_next_btn_text">下一步</string>
+    <string name="main_location_text">成都市</string>
+    <string name="main_search_text">搜索</string>
+    <string name="main_qrcode_text">扫码</string>
+    <string name="main_edt_hint">成都市第一人民医院互联网医院</string>
+    <string name="index_health_title">健康专栏</string>
+    <string name="index_new_article_label">最新文章</string>
+    <string name="index_bottom_label">我也是有底线的</string>
+    <string name="function_config_title">我的应用编辑</string>
+    <string name="function_config_complete">完成</string>
+    <string name="function_config_editor">编辑</string>
+    <string name="function_config_label_top_base">首页应用</string>
+    <string name="function_config_label_top_editing">我的应用</string>
+    <string name="function_config_hint">( 按住拖动调整顺序 )</string>
+    <string name="function_config_label_bottom">就医服务</string>
+    <string name="regist_success">注册成功</string>
+    <string name="regist_success_hint_f">请完善个人信息哦，将有助您更快获</string>
+    <string name="regist_success_hint_s">得医疗服务</string>
+    <string name="complet_regist">先去逛逛</string>
+    <string name="fill_personal">完善个人信息</string>
+    <string name="regist_title">注册</string>
+    <string name="mine_top_label">我的</string>
+    <string name="mine_function_doctor">我的医生</string>
+    <string name="mine_function_nurse">我的护士</string>
+    <string name="mine_function_insurance">我的保险</string>
+    <string name="mine_function_card">我的就诊卡</string>
+
+
+    <string name="mine_function_type_diagnosis">诊疗信息</string>
+    <string name="mine_function_item_case_record">病历记录</string>
+    <string name="mine_function_item_inspection_report">检验检查报告</string>
+    <string name="mine_function_item_electronic_prescription">电子处方</string>
+
+    <string name="mine_function_type_order">订单信息</string>
+    <string name="mine_function_item_physician_orders">问诊订单</string>
+    <string name="mine_function_item_nursing_orders">护理订单</string>
+    <string name="mine_function_item_booking_order">体检预约订单</string>
+    <string name="mine_function_item_registered_mail_order">挂号订单</string>
+
+    <string name="mine_function_type_base_information_control">基本信息管理</string>
+    <string name="mine_function_item_payment_records">缴费记录</string>
+    <string name="mine_function_item_people_control">就诊人管理</string>
+    <string name="mine_function_item_location_control">地址管理</string>
+
+    <string name="mine_item_my_message">我的消息</string>
+    <string name="mine_item_feedback">意见反馈</string>
+    <string name="mine_item_setting">设置</string>
+
+    <string name="creat_or_bind_card_title">办卡绑卡</string>
+    <string name="creat_or_bind_card_label">申领/绑定电子健康卡</string>
+    <string name="creat_or_bind_card_top_right_label">去申领/绑定</string>
+    <string name="creat_or_bind_card_func_create">办卡</string>
+    <string name="creat_or_bind_card_func_bind">绑卡</string>
+    <string name="creat_or_bind_card_func_create_manage">办卡管理</string>
+    <string name="creat_or_bind_card_func_send_id_card">上传身份证</string>
+    <string name="creat_or_bind_card_func_send_other_certificates">上传户口本/其他证件</string>
+    <string name="bind_card_card_type">卡类型</string>
+    <string name="bind_card_card_type_physical">实体卡</string>
+    <string name="bind_card_card_type_electronic">电子就诊卡</string>
+    <string name="bind_card_user_name">姓名</string>
+    <string name="bind_card_card_num">就诊卡号</string>
+    <string name="bind_card">绑定</string>
+
+    <string name="location_manage_title">地址管理</string>
+    <string name="location_manage_add">新建地址</string>
+    <string name="location_manage_set_default_location">设为默认地址</string>
+    <string name="location_manage_edit">编辑</string>
+    <string name="location_manage_delete">删除</string>
+    <string name="location_manage_add_title">新增地址</string>
+    <string name="location_manage_edit_title">编辑地址</string>
+    <string name="location_manage_add_label">请务必确保收货地址信息的真实性</string>
+    <string name="location_manage_add_name">姓名</string>
+    <string name="location_manage_add_phone">电话</string>
+    <string name="location_manage_add_region">地区</string>
+    <string name="location_manage_add_address">详细地址</string>
+    <string name="location_manage_add_name_hint">请输入患者姓名</string>
+    <string name="location_manage_add_phone_hint">请输入患者联系方式</string>
+    <string name="location_manage_add_address_hint">请输入详细住址、街道或楼牌号等</string>
+    <string name="location_manage_add_commit_add">新增</string>
+    <string name="location_manage_add_commit_modify">修改</string>
+
+    <string name="my_medical_card_title">我的就诊卡</string>
+    <string name="medical_card_qr_title">就诊卡二维码</string>
+
+    <string name="medical_card_detail_title">就诊卡详情</string>
+    <string name="medical_card_detail_label">请确认您的个人信息是否正确？</string>
+    <string name="medical_card_detail_card_num">电子卡号</string>
+    <string name="medical_card_detail_usersex">性别</string>
+    <string name="medical_card_detail_userphone">手机号</string>
+    <string name="medical_card_detail_id_card_num">身份证号</string>
+    <string name="medical_card_detail_bind_card_time">绑卡时间</string>
+    <string name="medical_card_detail_real_name_status">实名状态</string>
+    <string name="medical_card_detail_remove_bind">解除绑定</string>
+    <string name="upload_certificate_pic_hint">1、成人上传身份证的正面+反面，一共两张照片\n2、儿童如果没有身份证，需上传户口本主页和本人信息当页\n3、请上传真实清晰的证件照片，并填写准确的资料，以免造成就诊信息错误\n4、办卡或绑卡成功后，三个月解除绑定一次</string>
+    <string name="order_exa_label">就诊人:\n  检查项目:\n  检查时段:\n  号序:\n  院区:\n  检查地点:</string>
+    <string name="order_exa_example">张三\n  脑部 \n  2018-09-25 13：00~14：00\n  下午10号\n  南区\n  门诊A区第一影像室</string>
+    <string name="jump_to_card_operate"> <u>办卡绑卡</u> </string>
+
+    <string name="subscribe_examination_order_title">预约体检订单</string>
+    <string name="nursing_order_charge_back">退单</string>
+    <string name="nursing_order_assess">评价</string>
+    <string name="nursing_order_go_pay">支付</string>
+    <string name="delete_success">删除成功</string>
+    <string name="cancel_success">取消成功</string>
+    <string name="evaluate_success">评价提交成功</string>
+    <string name="charge_back_success">退单成功</string>
+    <string name="registration_record_detail_notic">1、预约号最迟应于就诊日期24小时前提交退号申请。\n 2、晚间22:30-02:00系统结算时间，不能进行退号操作！\n 3、当日号不能退号退费。\n 4、一个账号7天内只能退一个号，30天内只能退2个号。</string>
+    <string name="refresh_success">刷新成功</string>
+    <string name="manage_user_name_hint">请输入姓名</string>
+    <string name="manage_user_phone_hint">请输入手机号</string>
+    <string name="manage_user_phone">手机</string>
+    <string name="manage_user_sex">性别</string>
+    <string name="manage_user_sex_hint">请选择性别</string>
+    <string name="manage_user_birthday_hint">请选择出生日期</string>
+    <string name="manage_user_birthday">出生日期</string>
+    <string name="manage_user_id_card_hint">请输入身份证信息</string>
+    <string name="marriageChildbearingHistory">婚育史</string>
+    <string name="historySurgeryOrTrauma">手术或外伤史</string>
+    <string name="familyHistory">家族史</string>
+    <string name="personalHistory">个人史</string>
+    <string name="allergyHistory">过敏史</string>
+    <string name="save">保存</string>
+    <string name="charge_back_rule">退费规则</string>
+    <string name="charge_order_rule_content">a、未接单全额退款\nb、已接单，且未服务过，则退第一次服务费用的80%+剩余次数的全部金额。\nc、护士上门途中退本次服务费用的30%+剩余次数的全部金额。\nd、已服务，订单状态为待服务状态，则退剩余次数的全部金额。
+</string>
+    <string name="charge_back_content">退费内容</string>
+    <string name="basic_info">基本信息</string>
+    <string name="order_demand">需求描述</string>
+    <string name="service_record">服务记录</string>
+    <string name="pathological_basis">病情依据</string>
+    <string name="important_notice">重要提示</string>
+    <string name="service_cost">服务费用</string>
+    <string name="important_notice_content">1、护士上门后，请先检查其证件确认身份\n2、预约套餐服务有效期为1年（自预约服务时间算起）</string>
+    <string name="nursing_service_label">订单号:\n  姓名:\n  电话:\n  服务地址:\n  上门时间:\n  服务对象:\n  医院:\n  科室:</string>
+    <string name="hospital_cure_agreement">申请前必须阅读<font color='#3F98F7'>《入院注意事项》</font></string>
+
+    <string name="nursing_service_example">N00003659842165412\n  执笔一副情画 \n  185 2696 6665\n  成都市武侯区天府软件园C区11-22\n  2018-09-25 13:00\n  张三 男 30岁\n  四川大学华西医院\n  妇科</string>
+
+</resources>

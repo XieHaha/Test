@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_101"
+    android:layout_height="@dimen/dp_67"
+    android:layout_gravity="center"
+    android:layout_marginRight="@dimen/dp_10"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/item_icon"
+        android:layout_width="@dimen/dp_101"
+        android:layout_height="@dimen/dp_67"
+        android:scaleType="fitXY"
+        android:src="@mipmap/community_head_test_img" />
+</RelativeLayout>

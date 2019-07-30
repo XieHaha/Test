@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_bg_color">
+
+    <com.keydom.ih_doctor.view.MainView
+        android:id="@+id/main_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/index_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_53"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/tab_work"
+                        style="@style/ActionBarItem"
+                        android:drawableTop="@drawable/tab_work"
+                        android:drawablePadding="@dimen/dp_5"
+                        android:text="工作台"
+                        android:textSize="@dimen/dp_11" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/tab_patient_manage"
+                        style="@style/ActionBarItem"
+                        android:drawableTop="@drawable/tab_patient"
+                        android:drawablePadding="@dimen/dp_5"
+                        android:text="患者管理"
+                        android:textSize="@dimen/dp_11" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/tab_community"
+                        style="@style/ActionBarItem"
+                        android:drawableTop="@drawable/tab_community"
+                        android:drawablePadding="@dimen/dp_5"
+                        android:text="社区"
+                        android:textSize="@dimen/dp_11" />
+
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/tab_personal_center"
+                        style="@style/ActionBarItem"
+                        android:drawableTop="@drawable/tab_personal_center"
+                        android:drawablePadding="@dimen/dp_5"
+                        android:text="我的"
+                        android:textSize="@dimen/dp_11" />
+
+                </FrameLayout>
+            </LinearLayout>
+
+            <com.keydom.ih_common.view.ScrollControlViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/index_tabs">
+            </com.keydom.ih_common.view.ScrollControlViewPager>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_above="@+id/index_tabs"
+                android:background="#f0f8f8f8" />
+        </RelativeLayout>
+
+
+    </com.keydom.ih_doctor.view.MainView>
+
+
+</RelativeLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.ih_common.view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primary_bg_color"
+    android:paddingTop="@dimen/dp_22"
+    android:paddingBottom="@dimen/dp_22"
+    android:paddingLeft="@dimen/padding_left_right_dp"
+    android:paddingRight="@dimen/padding_left_right_dp">
+
+    <ImageView
+        android:id="@+id/consulting_item_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/consulting_item_date_tv"
+        android:src="@mipmap/point_green"/>
+
+    <TextView
+        android:id="@+id/consulting_item_date_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_toRightOf="@id/consulting_item_icon"
+        android:textSize="@dimen/font_size_primary"
+        android:textColor="@color/primary_font_color"
+        android:text="9月27号 星期日"/>
+
+    <TextView
+        android:id="@+id/consulting_item_time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_21"
+        android:layout_toRightOf="@id/consulting_item_date_tv"
+        android:textSize="@dimen/font_size_primary"
+        android:textColor="@color/fontColorDirection"
+        android:text="8：00-12：00"/>
+
+
+    <TextView
+        android:id="@+id/consulting_stop_tip_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_21"
+        android:layout_toLeftOf="@id/action_rl"
+        android:layout_marginRight="@dimen/dp_8"
+        android:textSize="@dimen/font_size_primary"
+        android:textColor="@color/colorRedPoint"
+        android:visibility="invisible"
+        android:text="停诊"/>
+
+    <RelativeLayout
+        android:id="@+id/action_rl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true">
+        <ImageView
+            android:id="@+id/consulting_action_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/consulting_open_bg"/>
+
+        <ImageView
+            android:id="@+id/consulting_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_1"
+            android:layout_alignRight="@id/consulting_action_bg"
+            android:src="@mipmap/consulting_action_icon"/>
+
+        <ImageView
+            android:id="@+id/consulting_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/consulting_action_bg"
+            android:layout_marginTop="@dimen/dp_1"
+            android:src="@mipmap/consulting_action_icon"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

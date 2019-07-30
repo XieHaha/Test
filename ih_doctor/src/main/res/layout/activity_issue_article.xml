@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_bg_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/padding_left_right_dp"
+            android:paddingRight="@dimen/padding_left_right_dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_43"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_6"
+                android:background="@drawable/update_password_input_bg">
+
+                <com.keydom.ih_common.view.ClearEditText
+                    android:id="@+id/article_title"
+                    style="@android:style/Widget.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_43"
+                    android:background="@null"
+                    android:hint="请输入文章标题～"
+                    android:maxLength="20"
+                    android:singleLine="true"
+                    android:textColor="@color/edit_font_color"
+                    android:textCursorDrawable="@drawable/edit_cursor"
+                    android:textSize="@dimen/dp_13" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_43"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_6"
+                android:background="@drawable/update_password_input_bg">
+
+                <com.keydom.ih_common.view.ClearEditText
+                    android:id="@+id/article_dec"
+                    style="@android:style/Widget.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_43"
+                    android:background="@null"
+                    android:hint="输入文章概述内容～"
+                    android:maxLength="200"
+                    android:singleLine="true"
+                    android:textColor="@color/edit_font_color"
+                    android:textCursorDrawable="@drawable/edit_cursor"
+                    android:textSize="@dimen/dp_13" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/add_tag_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/article_tag_bg"
+                    android:paddingLeft="@dimen/dp_13"
+                    android:paddingTop="@dimen/dp_9"
+                    android:paddingRight="@dimen/dp_13"
+                    android:paddingBottom="@dimen/dp_9"
+                    android:text="＃添加标签"
+                    android:textColor="#FF3399FF"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.keydom.ih_doctor.view.TagView
+                        android:id="@+id/my_tag_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_16"></com.keydom.ih_doctor.view.TagView>
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/dp_19">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="添加图片"
+                    android:textSize="@dimen/font_size_auxiliary" />
+
+                <com.keydom.ih_common.view.GridViewForScrollView
+                    android:id="@+id/img_gv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnWidth="@dimen/dp_86"
+                    android:horizontalSpacing="@dimen/dp_10"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="auto_fit"
+                    android:paddingTop="@dimen/dp_17"
+                    android:paddingBottom="@dimen/dp_19"
+                    android:scrollbars="none"
+                    android:verticalSpacing="@dimen/dp_10"></com.keydom.ih_common.view.GridViewForScrollView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:background="@color/line_color" />
+
+            </LinearLayout>
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/article_content"
+                style="@android:style/Widget.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_marginBottom="@dimen/dp_40"
+                android:background="@null"
+                android:gravity="top"
+                android:textCursorDrawable="@null"
+                android:hint="输入正文内容"
+                android:lineSpacingExtra="@dimen/dp_10"
+                android:maxLength="2000"
+                android:minHeight="@dimen/dp_100"
+                android:singleLine="false"
+                android:textColor="@color/edit_font_color"
+                android:paddingTop="@dimen/dp_14"
+                android:textSize="@dimen/font_size_primary" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_bg_color">
+    <RelativeLayout
+        android:layout_width="@dimen/dp_316"
+        android:layout_height="@dimen/dp_154"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_gravity="center_horizontal">
+        <ImageView
+            android:contentDescription="@string/app_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/top_bg"/>
+        <TextView
+            android:id="@+id/login_warning_tv"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前密码错误，请重新输入"
+            android:textSize="@dimen/dp_12"
+            android:textColor="@color/login_warning_color"
+            android:visibility="gone"/>
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="@dimen/font_size_primary"
+        android:textColor="#BBBBBB"
+        android:text="这是一个欢迎界面"/>
+</LinearLayout>

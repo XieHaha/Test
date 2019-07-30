@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.ih_common.view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primary_bg_color"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/top_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_bg_color"
+        android:paddingLeft="@dimen/dp_19"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingRight="@dimen/dp_19"
+        android:paddingBottom="@dimen/dp_5">
+
+        <TextView
+            android:id="@+id/top_hospital_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_31"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_toLeftOf="@id/search_btn"
+            android:background="@drawable/search_select_bg"
+            android:drawableRight="@mipmap/arrow_bottom_grey"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:textColor="@color/primary_font_color"
+            android:textSize="@dimen/font_size_primary" />
+
+        <Button
+            android:id="@+id/search_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_31"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:drawableTop="@mipmap/search"
+            android:minWidth="@dimen/dp_31"
+            android:minHeight="@dimen/dp_31"
+            android:text="@string/search"
+            android:textColor="@color/primary_font_color"
+            android:textSize="@dimen/dp_11" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+
+    <com.ganxin.library.LoadDataLayout
+        android:id="@+id/loadDataLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srlEnableLoadMore="false"
+            app:srlEnableRefresh="true">
+
+            <android.support.v4.widget.NestedScrollView
+                style="@null"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dp_20">
+
+                        <com.keydom.ih_common.view.CircleImageView
+                            android:id="@+id/personal_icon_civ"
+                            android:layout_width="@dimen/dp_58"
+                            android:layout_height="@dimen/dp_58"
+                            android:scaleType="fitXY" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/personal_icon_civ"
+                            android:paddingLeft="@dimen/dp_19"
+                            android:paddingTop="@dimen/dp_10">
+
+                            <TextView
+                                android:id="@+id/personal_user_name_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="18dp"
+                                android:text="木雨成风"
+                                android:maxWidth="@dimen/dp_100"
+                                android:lines="1"
+                                android:ellipsize="end"
+                                android:textSize="@dimen/dp_14" />
+
+                            <TextView
+                                android:id="@+id/personal_position_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/personal_user_name_tv"
+                                android:layout_marginTop="@dimen/dp_11"
+                                android:layout_marginRight="@dimen/dp_10"
+                                android:background="@drawable/personal_position_tv"
+                                android:paddingLeft="@dimen/dp_10"
+                                android:paddingTop="@dimen/dp_2"
+                                android:paddingRight="@dimen/dp_10"
+                                android:paddingBottom="@dimen/dp_2"
+                                android:text="主任医师"
+                                android:textColor="@color/position_txt_color"
+                                android:textSize="@dimen/dp_10" />
+
+                            <TextView
+                                android:id="@+id/department_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/personal_user_name_tv"
+                                android:layout_marginTop="@dimen/dp_11"
+                                android:layout_toRightOf="@id/personal_position_tv"
+                                android:background="@drawable/personal_department_tv"
+                                android:paddingLeft="@dimen/dp_10"
+                                android:paddingTop="@dimen/dp_2"
+                                android:paddingRight="@dimen/dp_10"
+                                android:paddingBottom="@dimen/dp_2"
+                                android:text="主任医师"
+                                android:textColor="@color/department_txt_color"
+                                android:textSize="@dimen/dp_10" />
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/setting_iv"
+                            android:layout_width="@dimen/dp_23"
+                            android:layout_height="@dimen/dp_23"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="@dimen/dp_6"
+                            android:src="@mipmap/setting" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/dp_14">
+
+
+                        <com.keydom.ih_common.view.CountItemView
+                            android:id="@+id/today_order_rl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            mitem:itemName="今日订单"></com.keydom.ih_common.view.CountItemView>
+
+                        <com.keydom.ih_common.view.CountItemView
+                            android:id="@+id/all_order_rl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            mitem:itemName="累计订单"></com.keydom.ih_common.view.CountItemView>
+
+                        <com.keydom.ih_common.view.CountItemView
+                            android:id="@+id/today_evaluation_rl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            mitem:itemName="今日好评"></com.keydom.ih_common.view.CountItemView>
+
+                        <com.keydom.ih_common.view.CountItemView
+                            android:id="@+id/all_evaluation_rl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            mitem:itemName="累计好评"></com.keydom.ih_common.view.CountItemView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/finish_info_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_43"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/stting_bg_color"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/dp_20"
+                        android:paddingRight="@dimen/dp_20"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="您还未完善资料，点击右上角去完善"
+                            android:textColor="@color/primary_font_color"
+                            android:textSize="@dimen/dp_12" />
+
+                        <TextView
+                            android:id="@+id/finish_setting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_19"
+                            android:background="@drawable/personal_setting_tv_bg"
+                            android:paddingLeft="@dimen/dp_7"
+                            android:paddingTop="@dimen/dp_3"
+                            android:paddingRight="@dimen/dp_7"
+                            android:paddingBottom="@dimen/dp_3"
+                            android:text="去完善"
+                            android:textColor="@color/position_txt_color"
+                            android:textSize="@dimen/dp_12" />
+
+                        <ImageView
+                            android:id="@+id/close_setting_tip"
+                            android:layout_width="@dimen/dp_21"
+                            android:layout_height="@dimen/dp_21"
+                            android:layout_marginLeft="@dimen/dp_36"
+                            android:padding="@dimen/dp_5"
+                            android:src="@mipmap/setting_close" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_10"
+                        android:background="@color/line_color" />
+
+                    <com.keydom.ih_common.view.GeneralItemView
+                        android:id="@+id/my_visiting_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/common_white_click_bg"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        mitem:itemTitle="我的名片"
+                        mitem:leftImg="@mipmap/my_visiting_card"
+                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+
+                    <com.keydom.ih_common.view.GeneralItemView
+                        android:id="@+id/my_collect"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/common_white_click_bg"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        mitem:itemTitle="我的收藏"
+                        mitem:leftImg="@mipmap/my_collect_icon"
+                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+
+                    <com.keydom.ih_common.view.GeneralItemView
+                        android:id="@+id/my_article"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/common_white_click_bg"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        mitem:itemTitle="我的文章"
+                        mitem:leftImg="@mipmap/my_article_icon"
+                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+
+                    <com.keydom.ih_common.view.GeneralItemView
+                        android:id="@+id/my_attention"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/common_white_click_bg"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        mitem:itemTitle="我的关注"
+                        mitem:leftImg="@mipmap/my_attention_icon"
+                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+
+                    <com.keydom.ih_common.view.GeneralItemView
+                        android:id="@+id/my_service"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/common_white_click_bg"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        mitem:itemTitle="我的服务"
+                        mitem:leftImg="@mipmap/my_service_icon"
+                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+
+                    <com.keydom.ih_common.view.GeneralItemView
+                        android:id="@+id/my_sign"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/common_white_click_bg"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        mitem:itemTitle="我的电子签名"
+                        mitem:leftImg="@mipmap/my_sign"
+                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+
+                    <com.keydom.ih_common.view.GeneralItemView
+                        android:id="@+id/my_insurance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/common_white_click_bg"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        mitem:itemTitle="我的保险"
+                        mitem:leftImg="@mipmap/my_insurance_icon"
+                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+
+                    <com.keydom.ih_common.view.GeneralItemView
+                        android:id="@+id/my_purse"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/common_white_click_bg"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        mitem:itemTitle="我的钱包"
+                        mitem:leftImg="@mipmap/my_purse_icon"
+                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+
+                    <com.keydom.ih_common.view.GeneralItemView
+                        android:id="@+id/my_evaluation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/common_white_click_bg"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        mitem:itemTitle="患者评价"
+                        mitem:leftImg="@mipmap/my_evaluation_icon"
+                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_10"
+                        android:background="@color/line_color" />
+                    <com.keydom.ih_common.view.GeneralItemView
+                        android:id="@+id/my_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/common_white_click_bg"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        mitem:itemTitle="我的消息"
+                        mitem:leftImg="@mipmap/my_feedback_icon"
+                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+
+                    <com.keydom.ih_common.view.GeneralItemView
+                        android:id="@+id/my_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/common_white_click_bg"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        mitem:itemTitle="意见反馈"
+                        mitem:leftImg="@mipmap/my_feedback_icon"
+                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+
+                    <com.keydom.ih_common.view.GeneralItemView
+                        android:id="@+id/my_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/common_white_click_bg"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        mitem:itemTitle="设置"
+                        mitem:leftImg="@mipmap/my_setting_icon"
+                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </com.ganxin.library.LoadDataLayout>
+</LinearLayout>

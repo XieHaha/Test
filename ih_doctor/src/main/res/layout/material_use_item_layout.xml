@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_10">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_10">
+
+            <TextView
+                android:id="@+id/medical_name_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_toLeftOf="@id/medical_num_sacler"
+                android:drawableLeft="@mipmap/point_green"
+                android:drawablePadding="@dimen/dp_14"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_20"
+                android:text="感冒清热颗粒"
+                android:textColor="#333333"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/medical_desc_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/medical_name_tv"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_toLeftOf="@id/medical_num_sacler"
+                android:paddingLeft="@dimen/dp_46"
+                android:text="10ml*10支/盒"
+                android:textColor="#666666"
+                android:textSize="@dimen/font_size_primary" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_52">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="@dimen/dp_20"
+                android:text="本次耗用"
+                android:textColor="#999999"
+                android:textSize="@dimen/font_size_primary" />
+
+            <LinearLayout
+                android:id="@+id/eat_medical_day_sacler"
+                android:layout_width="@dimen/dp_122"
+                android:layout_height="@dimen/dp_31"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_20"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/use_amount_scaler_minus_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/scaler_minus_bg">
+
+                    <View
+                        android:layout_width="@dimen/dp_12"
+                        android:layout_height="@dimen/dp_2"
+                        android:layout_centerInParent="true"
+                        android:background="#999999" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/use_amount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@drawable/scaler_text_bg"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="1"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/dp_17" />
+
+                <RelativeLayout
+                    android:id="@+id/use_amount_scaler_add_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/scaler_add_bg">
+
+                    <View
+                        android:layout_width="@dimen/dp_12"
+                        android:layout_height="@dimen/dp_2"
+                        android:layout_centerInParent="true"
+                        android:background="#FFFFFF" />
+
+                    <View
+                        android:layout_width="@dimen/dp_2"
+                        android:layout_height="@dimen/dp_12"
+                        android:layout_centerInParent="true"
+                        android:background="#FFFFFF" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+</LinearLayout>
+
+

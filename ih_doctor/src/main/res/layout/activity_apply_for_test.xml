@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+
+    <com.keydom.ih_common.view.AnimationScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/baseinfo_left_img"
+                    android:layout_width="@dimen/dp_2"
+                    android:layout_height="@dimen/dp_15"
+                    android:layout_marginLeft="@dimen/padding_left_right_dp"
+                    android:layout_marginTop="@dimen/dp_18"
+                    android:background="#71A4FF" />
+
+                <TextView
+                    android:id="@+id/baseinfo_tip_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_toRightOf="@id/baseinfo_left_img"
+                    android:paddingTop="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_16"
+                    android:text="基本信息"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <View
+                    android:id="@+id/baseinfo_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_below="@id/baseinfo_tip_tv"
+                    android:background="@color/line_color" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingTop="@dimen/dp_20"
+                android:paddingRight="@dimen/padding_left_right_dp"
+                android:paddingBottom="@dimen/dp_28">
+
+                <RelativeLayout
+                    android:id="@+id/name_rl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/user_name_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/dp_9"
+                        android:paddingBottom="@dimen/dp_9"
+                        android:text="姓名:"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/user_name_tip"
+                        android:background="@drawable/common_bottom_line_bg"
+                        android:paddingLeft="@dimen/dp_12"
+                        android:paddingTop="@dimen/dp_9"
+                        android:paddingRight="@dimen/dp_12"
+                        android:paddingBottom="@dimen/dp_9"
+                        android:text="莫思凡·卡农"
+                        android:textColor="@color/fontColorDirection"
+                        android:textSize="@dimen/font_size_primary" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/sex_rl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/age_rl"
+                    android:layout_toRightOf="@id/name_rl"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/user_sex_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/dp_9"
+                        android:paddingBottom="@dimen/dp_9"
+                        android:text="性别:"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <TextView
+                        android:id="@+id/user_sex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/user_sex_tip"
+                        android:background="@drawable/common_bottom_line_bg"
+                        android:paddingLeft="@dimen/dp_12"
+                        android:paddingTop="@dimen/dp_9"
+                        android:paddingRight="@dimen/dp_12"
+                        android:paddingBottom="@dimen/dp_9"
+                        android:text="男"
+                        android:textColor="@color/fontColorDirection"
+                        android:textSize="@dimen/font_size_primary" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/age_rl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true">
+
+                    <TextView
+                        android:id="@+id/user_age_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/dp_9"
+                        android:paddingBottom="@dimen/dp_9"
+                        android:text="年龄:"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <TextView
+                        android:id="@+id/user_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/user_age_tip"
+                        android:background="@drawable/common_bottom_line_bg"
+                        android:paddingLeft="@dimen/dp_12"
+                        android:paddingTop="@dimen/dp_9"
+                        android:paddingRight="@dimen/dp_12"
+                        android:paddingBottom="@dimen/dp_9"
+                        android:text="24"
+                        android:textColor="@color/fontColorDirection"
+                        android:textSize="@dimen/font_size_primary" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/line_color" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/diagnose_left_img"
+                    android:layout_width="@dimen/dp_2"
+                    android:layout_height="@dimen/dp_15"
+                    android:layout_marginLeft="@dimen/padding_left_right_dp"
+                    android:layout_marginTop="@dimen/dp_18"
+                    android:background="#71A4FF" />
+
+                <TextView
+                    android:id="@+id/diagnose_tip_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_toRightOf="@id/diagnose_left_img"
+                    android:paddingTop="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_16"
+                    android:text="诊断"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_below="@id/diagnose_tip_tv"
+                    android:background="@color/line_color" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingTop="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp"
+                android:paddingBottom="@dimen/padding_left_right_dp">
+
+                <TextView
+                    android:id="@+id/diagnose_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:paddingTop="@dimen/dp_12"
+                    android:paddingBottom="@dimen/dp_12"
+                    android:text="诊断:"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/diagnose_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/diagnose_tip"
+                    android:background="@drawable/common_bottom_line_bg"
+                    android:drawableRight="@mipmap/arrow_right_grey"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:ellipsize="end"
+                    android:gravity="right"
+                    android:hint="请输入或选择疾病"
+                    android:padding="@dimen/dp_12"
+                    android:singleLine="true"
+                    android:textSize="@dimen/font_size_primary" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/disease_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingTop="@dimen/padding_left_right_dp"
+                android:paddingRight="@dimen/padding_left_right_dp"
+                android:paddingBottom="@dimen/padding_left_right_dp">
+
+                <TextView
+                    android:id="@+id/disease_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:paddingTop="@dimen/dp_12"
+                    android:paddingBottom="@dimen/dp_12"
+                    android:text="病情描述:"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/disease_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/disease_tip"
+                    android:background="@drawable/common_bottom_line_bg"
+                    android:ellipsize="end"
+                    android:gravity="right"
+                    android:hint="请输入病情描述"
+                    android:paddingLeft="@dimen/dp_12"
+                    android:paddingTop="@dimen/dp_12"
+                    android:paddingRight="@dimen/dp_33"
+                    android:paddingBottom="@dimen/dp_12"
+                    android:singleLine="true"
+                    android:textSize="@dimen/font_size_primary" />
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/line_color" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/apply_test_left_img"
+                    android:layout_width="@dimen/dp_2"
+                    android:layout_height="@dimen/dp_15"
+                    android:layout_marginLeft="@dimen/padding_left_right_dp"
+                    android:layout_marginTop="@dimen/dp_18"
+                    android:background="#71A4FF" />
+
+                <TextView
+                    android:id="@+id/apply_test_tip_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_toRightOf="@id/apply_test_left_img"
+                    android:paddingTop="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_16"
+                    android:text="申请项目"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/apply_test_add_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/apply_test_tip_tv"
+                    android:layout_alignBottom="@id/apply_test_tip_tv"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/padding_left_right_dp"
+                    android:gravity="center_vertical"
+                    android:text="添加"
+                    android:textColor="#22E17E"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <View
+                    android:id="@+id/apply_test_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_below="@id/apply_test_tip_tv"
+                    android:background="@color/line_color" />
+
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/check_tip_ll"
+                layout="@layout/check_item_list_head_layout" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/apply_item_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dp_27"
+                android:paddingRight="@dimen/dp_19">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/line_color" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingTop="@dimen/dp_21"
+                android:paddingRight="@dimen/padding_left_right_dp"
+                android:paddingBottom="@dimen/dp_21">
+
+                <TextView
+                    android:id="@+id/apply_item_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:drawableLeft="@mipmap/point_green"
+                    android:text="总共零项"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <TextView
+                    android:id="@+id/total_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="金额：¥0.0"
+                    android:textColor="#FF3939"
+                    android:textSize="@dimen/font_size_primary" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </com.keydom.ih_common.view.AnimationScrollView>
+</LinearLayout>

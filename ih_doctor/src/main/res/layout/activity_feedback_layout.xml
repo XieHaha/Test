@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:overScrollMode="never">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingLeft="@dimen/padding_left_right_dp">
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/feed_back_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_bottom_line_bg"
+                android:hint="反馈类型或标题(25字)"
+                android:maxLength="25"
+                android:padding="@dimen/dp_19"
+                android:textColor="@color/edit_font_color"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/font_size_primary" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/feed_back_content"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_155"
+                android:layout_below="@id/feed_back_title"
+                android:background="@drawable/common_bottom_line_bg"
+                android:gravity="top"
+                android:hint="您有什么意见或建议，快来告诉我吧(150字)"
+                android:maxLength="150"
+                android:padding="@dimen/dp_19"
+                android:singleLine="false"
+                android:textColor="@color/edit_font_color"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/font_size_primary" />
+
+            <TextView
+                android:id="@+id/add_img_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/feed_back_content"
+                android:paddingTop="@dimen/dp_17"
+                android:paddingBottom="@dimen/dp_17"
+                android:text="添加图片"
+                android:textSize="@dimen/font_size_auxiliary" />
+
+            <com.keydom.ih_common.view.GridViewForScrollView
+                android:id="@+id/img_gv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/add_img_tip"
+                android:columnWidth="@dimen/dp_86"
+                android:horizontalSpacing="@dimen/dp_10"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="auto_fit"
+                android:paddingTop="@dimen/dp_17"
+                android:paddingBottom="@dimen/dp_19"
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/dp_10"></com.keydom.ih_common.view.GridViewForScrollView>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

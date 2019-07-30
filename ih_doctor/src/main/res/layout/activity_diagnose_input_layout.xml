@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+
+    <com.keydom.ih_common.view.InterceptorEditText
+        android:id="@+id/diagnose_input_et"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_81"
+        android:layout_below="@id/explain_line"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/padding_left_right_dp"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginRight="@dimen/padding_left_right_dp"
+        android:textCursorDrawable="@null"
+        android:layout_marginBottom="@dimen/dp_19"
+        android:background="@drawable/check_dialog_input_bg"
+        android:gravity="left|top"
+        android:hint="请填写初步诊断"
+        android:maxLength="1000"
+        android:padding="@dimen/dp_13"
+        android:singleLine="false"
+        android:textColor="@color/edit_font_color"
+        android:lineSpacingExtra="@dimen/dp_3"
+        android:textSize="@dimen/font_size_primary" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingLeft="@dimen/padding_left_right_dp"
+        android:paddingTop="@dimen/dp_24"
+        android:paddingRight="@dimen/padding_left_right_dp"
+        android:paddingBottom="@dimen/dp_24">
+
+        <com.keydom.ih_common.view.InterceptorEditText
+            android:id="@+id/search_input_ev"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_35"
+            android:layout_toLeftOf="@id/search_tv"
+            android:background="@drawable/comment_input"
+            android:drawableLeft="@mipmap/search"
+            android:drawablePadding="@dimen/dp_10"
+            android:hint="可按ICD-10码搜索"
+            android:singleLine="true"
+            android:textCursorDrawable="@null"
+            android:paddingLeft="@dimen/dp_20"
+            android:textSize="@dimen/font_size_auxiliary" />
+
+        <TextView
+            android:id="@+id/search_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_35"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:gravity="center_vertical"
+            android:text="搜索"
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_primary" />
+
+    </RelativeLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/icd_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+</LinearLayout>
