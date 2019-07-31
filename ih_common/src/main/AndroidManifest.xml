@@ -56,9 +56,12 @@
             android:name="com.netease.nim.appKey"
             android:value="e59959f8bc17c29f3d341af5d6bba137" />-->
         <!--验收环境参数-->
+<!--        <meta-data
+            android:name="com.netease.nim.appKey"
+            android:value="5df521769f05e5e6ce93dd7904564c22" />-->
         <meta-data
             android:name="com.netease.nim.appKey"
-            android:value="5df521769f05e5e6ce93dd7904564c22" />
+            android:value="fd082df365283763246ff489028d43dd" />
         <!-- 云信后台服务，请使用独立进程。 -->
         <service
             android:name="com.netease.nimlib.service.NimService"
