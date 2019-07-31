@@ -7,12 +7,12 @@ android {
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
     signingConfigs {
-        release_map {
+/*        release_map {
             keyAlias 'key0'
             keyPassword '111111'
             storeFile file('D:/Truk/ih_key')
             storePassword '111111'
-        }
+        }*/
     }
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     defaultConfig {
@@ -39,13 +39,13 @@ android {
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.release_map
+            //signingConfig signingConfigs.release_map
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable true
         }
         debug{
-            signingConfig signingConfigs.release_map
+            //signingConfig signingConfigs.release_map
         }
     }
     compileOptions {

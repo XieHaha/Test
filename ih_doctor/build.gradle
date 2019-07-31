@@ -5,12 +5,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 android {
     signingConfigs {
-        ih_key {
+/*        ih_key {
             keyAlias 'key0'
             keyPassword '111111'
-            storeFile file('D:/Truk/ih_key')
+            storeFile file('/Users/kanewood/Android_project/moonbox/MoonBox/app/ih_key')
             storePassword '111111'
-        }
+        }*/
     }
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     defaultConfig {
@@ -37,13 +37,13 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            signingConfig signingConfigs.ih_key
+            //signingConfig signingConfigs.ih_key
             debuggable true
         }
 
         debug{
             minifyEnabled false
-            signingConfig signingConfigs.ih_key
+            //signingConfig signingConfigs.ih_key
         }
 
     }
