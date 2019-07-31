@@ -54,8 +54,8 @@ public class Const {
      * 没有其他作用，仅做前期接口测试
      */
     //测试服务器
-    public static final String RELEASE_HOST = "http://110.191.238.12:12015/";
-    public static final String IMAGE_HOST = "http://110.191.238.12:12005/";
+    public static final String RELEASE_HOST = "http://110.191.238.12:12009/";
+    public static final String IMAGE_HOST = "http://110.191.238.12:12009/";
     //开发服务器
 //    public static final String RELEASE_HOST = "http://110.191.238.12:12004/";
 //    public static final String IMAGE_HOST = "http://110.191.238.12:12005/";
