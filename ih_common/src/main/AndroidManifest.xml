@@ -52,13 +52,13 @@
         <!-- APP key, 可以在这里设置，也可以在 SDKOptions 中提供。
                    如果 SDKOptions 中提供了，取 SDKOptions 中的值。 -->
         <!--测试环境参数-->
+<!--        <meta-data
+            android:name="com.netease.nim.appKey"
+            android:value="e59959f8bc17c29f3d341af5d6bba137" />-->
+        <!--验收环境参数-->
         <meta-data
             android:name="com.netease.nim.appKey"
-            android:value="e59959f8bc17c29f3d341af5d6bba137" />
-        <!--验收环境参数-->
-        <!--<meta-data
-            android:name="com.netease.nim.appKey"
-            android:value="fd082df365283763246ff489028d43dd" />-->
+            android:value="fd082df365283763246ff489028d43dd" />
         <!-- 云信后台服务，请使用独立进程。 -->
         <service
             android:name="com.netease.nimlib.service.NimService"
