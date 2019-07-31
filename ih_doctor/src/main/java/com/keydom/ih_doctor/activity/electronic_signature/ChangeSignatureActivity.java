@@ -17,6 +17,7 @@ import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.bean.SignRegInfoBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -69,6 +70,7 @@ public class ChangeSignatureActivity extends BaseControllerActivity<ApplySignatu
         userCode = getIntent().getStringExtra(Const.DATA);
         user_code_tv.setText(userCode);
         setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
+            @SingleClick(1000)
             @Override
             public void OnRightTextClick(View v) {
                 String phoneNum = phone_input_et.getText().toString().trim();

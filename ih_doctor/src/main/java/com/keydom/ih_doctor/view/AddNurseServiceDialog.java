@@ -23,6 +23,7 @@ import com.keydom.ih_doctor.m_interface.OnAddServiceItemDialogListener;
 import com.keydom.ih_doctor.m_interface.OnNurseServiceItemResultListener;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,21 +44,26 @@ public class AddNurseServiceDialog extends Dialog implements View.OnClickListene
     private double totalFee = 0;
     private OnAddServiceItemDialogListener mListener;
     private HeadNurseServiceOrderDetailBean baseInfo;
-    private List<NursingProjectInfo> selectList;
+    private List<NursingProjectInfo> selectList=new ArrayList<>();
     private int limit;
+    private boolean isUpdate=false;
 
 
     /**
      * @param context
+     * @param frequency
      */
-    public AddNurseServiceDialog(Context context, HeadNurseServiceOrderDetailBean info, int limit, OnAddServiceItemDialogListener listener) {
+    public AddNurseServiceDialog(Context context, HeadNurseServiceOrderDetailBean info, int limit, int frequency, List<NursingProjectInfo> dataList, boolean isUpdate, OnAddServiceItemDialogListener listener) {
         super(context, R.style.dialogFullscreen);
         mContext = context;
         this.mListener = listener;
         this.baseInfo = info;
         this.limit = limit;
+        serviceAmount=frequency;
+        selectList.clear();
+        selectList.addAll(dataList);
+        this.isUpdate=isUpdate;
     }
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_add_nurse_service_layout);
@@ -77,12 +83,19 @@ public class AddNurseServiceDialog extends Dialog implements View.OnClickListene
         serviceFee = (TextView) findViewById(R.id.service_fee);
         serviceBox = (SelectFlowLayout) findViewById(R.id.service_box);
         submitBt = (Button) findViewById(R.id.add_btn);
+        if(isUpdate)
+            submitBt.setText("修改");
+        else
+            submitBt.setText("添加");
+
         cancelBtn.setOnClickListener(this);
         submitBt.setOnClickListener(this);
         minusRl.setOnClickListener(this);
         addRl.setOnClickListener(this);
         serviceItemTv.setOnClickListener(this);
         setInfo();
+        nurseServiceItemResult(selectList);
+        serviceTimes.setText(String.valueOf(serviceAmount));
     }
 
 
@@ -106,7 +119,7 @@ public class AddNurseServiceDialog extends Dialog implements View.OnClickListene
                     serviceAmount--;
                 }
                 serviceTimes.setText(String.valueOf(serviceAmount));
-                serviceFee.setText("￥" + totalFee * serviceAmount + "元");
+                serviceFee.setText("¥" + totalFee * serviceAmount + "元");
                 break;
             case R.id.inquiry_scaler_add_layout:
                 if (serviceAmount == limit + 1) {
@@ -114,7 +127,7 @@ public class AddNurseServiceDialog extends Dialog implements View.OnClickListene
                 } else {
                     serviceAmount++;
                     serviceTimes.setText(String.valueOf(serviceAmount));
-                    serviceFee.setText("￥" + totalFee * serviceAmount + "元");
+                    serviceFee.setText("¥" + totalFee * serviceAmount + "元");
                 }
                 break;
             case R.id.service_item_tv:
@@ -155,7 +168,7 @@ public class AddNurseServiceDialog extends Dialog implements View.OnClickListene
             serviceItemTv.setHint("请选择服务项目");
         }
 
-        serviceFee.setText("￥" + totalFee * serviceAmount + "元");
+        serviceFee.setText("¥" + totalFee * serviceAmount + "元");
     }
 
     public Map<String, Object> getAddServiceItemMap() {

@@ -13,6 +13,7 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity;
 import com.keydom.ih_doctor.bean.DeptDoctorBean;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import java.util.List;
 
@@ -60,6 +61,7 @@ public class GroupMemberRecyclrViewAdapter extends BaseEmptyAdapter<DeptDoctorBe
             GlideUtils.load(userIcon, Const.IMAGE_HOST + bean.getAvatar(), 0, 0, false, null);
             userName.setText(bean.getName());
             itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
 //                    ToastUtil.shortToast(mContext, "跳转到医生详情页面");

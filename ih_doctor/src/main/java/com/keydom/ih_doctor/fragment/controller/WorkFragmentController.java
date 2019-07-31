@@ -25,6 +25,7 @@ import com.keydom.ih_doctor.bean.HomeMsgBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.ServiceConst;
 import com.keydom.ih_doctor.fragment.view.WorkFragmentView;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.MainApiService;
 import com.keydom.ih_doctor.net.PersonalApiService;
 import com.keydom.ih_doctor.utils.SelectHospitalPopUtil;
@@ -46,13 +47,13 @@ import java.util.HashMap;
 @SuppressLint("NewApi")
 public class WorkFragmentController extends ControllerImpl<WorkFragmentView> implements View.OnClickListener, View.OnScrollChangeListener {
 
-
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
             case R.id.receive_online_re:
-                if (!MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_ONLINE_DIAGNOSE_SERVICE_CODE, ServiceConst.NURSE_CONSULT_SERVICE_CODE, ServiceConst.NURSE_SERVICE_CODE, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE})) {
+                if (!MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_ONLINE_DIAGNOSE_SERVICE_IMG_CODE,ServiceConst.DOCTOR_ONLINE_DIAGNOSE_SERVICE_VIDEO_CODE, ServiceConst.NURSE_IMG_CONSULT_SERVICE_CODE,ServiceConst.NURSE_VIDEO_CONSULT_SERVICE_CODE, ServiceConst.NURSE_SERVICE_CODE, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_IMG,ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_VIDEO})) {
                     showNotAccessDialog();
                     return;
                 }
@@ -71,7 +72,7 @@ public class WorkFragmentController extends ControllerImpl<WorkFragmentView> imp
                 }
                 break;
             case R.id.cooperate_online_re:
-                if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_COOPERATE_SERVICE_CODE, ServiceConst.NURSE_COOPERATE_SERVICE_CODE, ServiceConst.MEDICINE_COOPERATE_SERVICE_CODE})) {
+                if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_COOPERATE_SERVICE_CODE_Z,ServiceConst.DOCTOR_COOPERATE_SERVICE_CODE_H, ServiceConst.NURSE_COOPERATE_SERVICE_CODE, ServiceConst.MEDICINE_COOPERATE_SERVICE_CODE})) {
                     DoctorCooperationActivity.start(getContext());
                 } else {
                     showNotAccessDialog();

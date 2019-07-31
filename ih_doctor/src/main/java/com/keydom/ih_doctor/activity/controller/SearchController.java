@@ -15,6 +15,7 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.view.SearchView;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.TypeEnum;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.MainApiService;
 
 import org.jetbrains.annotations.NotNull;
@@ -30,6 +31,7 @@ import java.util.List;
  * 修改时间：18/11/16 上午9:09
  */
 public class SearchController extends ControllerImpl<SearchView> implements View.OnClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.search_close_tv) {

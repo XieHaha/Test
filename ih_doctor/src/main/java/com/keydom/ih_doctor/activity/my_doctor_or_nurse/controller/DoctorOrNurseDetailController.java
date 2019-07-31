@@ -22,6 +22,7 @@ import com.keydom.ih_doctor.bean.DoctorHeadItem;
 import com.keydom.ih_doctor.bean.DoctorMainBean;
 import com.keydom.ih_doctor.bean.DoctorTeamItem;
 import com.keydom.ih_doctor.bean.DoctorTextItem;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.UserService;
 
 import org.jetbrains.annotations.NotNull;
@@ -37,6 +38,7 @@ import java.util.Map;
  * des:医生详情控制器
  */
 public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseDetailView> implements View.OnClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -216,9 +218,6 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
         Map<String, Object> map = new HashMap<>();
         map.put("userId", Global.getUserId());
         map.put("doctorCode", code);
-        if (isDoctor) {
-            map.put("commentType", 1);
-        }
         map.put("currentPage", currentPage);
         map.put("pageSize", "8");
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getDoctorEvaluates(map), new HttpSubscriber<List<DoctorEvaluateItem>>(getContext(), getDisposable(), false) {

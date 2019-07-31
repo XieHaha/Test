@@ -58,7 +58,7 @@ public class FeedBackActivity extends BaseControllerActivity<FeedBackController>
 
     @Override
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        setTitle("dialog_check_icon");
+        setTitle("意见反馈");
         setRightTxt("提交");
         setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
             @Override

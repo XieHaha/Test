@@ -190,9 +190,16 @@ public class HeadNurseServiceOrderDetailActivity extends BaseControllerActivity<
         serviceReqExplainTv.setText(bean.getConditionDesciption());
         if (bean.getConditionImage() != null) {
             String[] icons = bean.getConditionImage().split(",");
-            for (int i = 0; i < icons.length; i++) {
-                dataList.add(icons[i]);
+            if(icons.length==1){
+                if(!"".equals(icons[0])){
+                    dataList.add(icons[0]);
+                }
+            }else {
+                for (int i = 0; i < icons.length; i++) {
+                    dataList.add(icons[i]);
+                }
             }
+
             diagnoseMaterialAdapter.notifyDataSetChanged();
         }
 
@@ -232,6 +239,7 @@ public class HeadNurseServiceOrderDetailActivity extends BaseControllerActivity<
     public void backOrderSuccess(String msg) {
         ToastUtil.shortToast(this, "操作成功");
         EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
+        EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.UPDATENURSENUM).build());
         finish();
     }
 
@@ -239,6 +247,7 @@ public class HeadNurseServiceOrderDetailActivity extends BaseControllerActivity<
     public void backOrderFailed(int code, String errMsg) {
         if (code == Const.RETURN_ERROR_ORDER_IS_ROB) {
             EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
+            EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.UPDATENURSENUM).build());
             finish();
         }
         ToastUtil.shortToast(this, errMsg);
@@ -248,6 +257,7 @@ public class HeadNurseServiceOrderDetailActivity extends BaseControllerActivity<
     public void receiveSuccess(String msg) {
         ToastUtil.shortToast(this, "操作成功");
         EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
+        EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.UPDATENURSENUM).build());
         finish();
     }
 
@@ -256,6 +266,7 @@ public class HeadNurseServiceOrderDetailActivity extends BaseControllerActivity<
 
         if (code == Const.RETURN_ERROR_ORDER_IS_ROB) {
             EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
+            EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.UPDATENURSENUM).build());
             finish();
         }
         ToastUtil.shortToast(this, errMsg);

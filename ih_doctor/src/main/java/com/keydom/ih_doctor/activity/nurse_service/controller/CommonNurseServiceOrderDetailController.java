@@ -39,10 +39,13 @@ import com.keydom.ih_doctor.activity.nurse_service.CommonNurseServiceOrderDetail
 import com.keydom.ih_doctor.activity.nurse_service.SelectNurseActivity;
 import com.keydom.ih_doctor.activity.nurse_service.view.CommonNurseServiceOrderDetailView;
 import com.keydom.ih_doctor.bean.CommonNurseServiceOrderDetailBean;
+import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.bean.NurseBean;
+import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.m_interface.BDMapResultInternet;
 import com.keydom.ih_doctor.m_interface.OnExtraOptionDialogListener;
 import com.keydom.ih_doctor.m_interface.OnNurseResultListener;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.NurseServiceApiService;
 import com.keydom.ih_doctor.utils.CalculateTimeUtils;
 import com.keydom.ih_doctor.utils.DialogUtils;
@@ -52,6 +55,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -75,7 +79,7 @@ public class CommonNurseServiceOrderDetailController extends ControllerImpl<Comm
     private Dialog receiveDialog;
     private OnNurseResultListener mlistener;
     private BDLocation currentLocation;
-
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -140,6 +144,31 @@ public class CommonNurseServiceOrderDetailController extends ControllerImpl<Comm
                         callPhone(getView().getBaseInfo().getApplyPhone());
                     }
                 }).show();
+                break;
+            case R.id.cancle_change_order_bt:
+                new GeneralDialog(getContext(), "你确认要撤销转单吗？", new GeneralDialog.OnCloseListener() {
+                    @Override
+                    public void onCommit() {
+                        cancelTtransferOrder();
+
+                    }
+                }).setTitle("提示").show();
+                break;
+            case R.id.refuse_change_order_bt:
+                new GeneralDialog(getContext(), "你确认要退回转单吗？", new GeneralDialog.OnCloseListener() {
+                    @Override
+                    public void onCommit() {
+                        acceptOrder(getView().getRefuseReciveMap());
+                    }
+                }).setTitle("提示").show();
+                break;
+            case R.id.accept_receive_bt:
+                new GeneralDialog(getContext(), "你确认要接收转单吗？", new GeneralDialog.OnCloseListener() {
+                    @Override
+                    public void onCommit() {
+                        acceptOrder(getView().getAcceptReciveMap());
+                    }
+                }).setTitle("提示").show();
                 break;
             default:
 
@@ -226,6 +255,54 @@ public class CommonNurseServiceOrderDetailController extends ControllerImpl<Comm
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                 hideLoading();
                 getView().transferFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 同意接受或者决绝接受转单
+     */
+    public void acceptOrder(Map<String,Object> map) {
+        showLoading();
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NurseServiceApiService.class).acceptOrder(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                hideLoading();
+                if(map.get("operator").equals("accept"))
+                    getView().acceptOrderSuccess(data);
+                else
+                    getView().refuseAcceptSuccess(data);
+
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                hideLoading();
+                ToastUtil.shortToast(getContext(),"操作失败"+msg);
+                EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 取消转单
+     */
+    public void cancelTtransferOrder() {
+        showLoading();
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NurseServiceApiService.class).cancelTtransferOrder(HttpService.INSTANCE.object2Body(getView().getCancelChangeMap())), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                hideLoading();
+                getView().cancelChangeSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                hideLoading();
+                ToastUtil.shortToast(getContext(),"操作失败"+msg);
+                EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
                 return super.requestError(exception, code, msg);
             }
         });
@@ -334,14 +411,18 @@ public class CommonNurseServiceOrderDetailController extends ControllerImpl<Comm
         search = getView().getMapUtil().getGeoPointByAddress(MyApplication.userInfo.getCityName(), getView().getBaseInfo().getServiceAddress(), new OnGetGeoCoderResultListener() {
             @Override
             public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
-                LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                LatLng endlatLng = new LatLng(geoCodeResult.getLocation().latitude, geoCodeResult.getLocation().longitude);
-                PlanNode stNode = PlanNode.withLocation(latLng);
-                PlanNode enNode = PlanNode.withLocation(endlatLng);
-                routePlanSearch.drivingSearch((new DrivingRoutePlanOption())
-                        .from(stNode)
-                        .to(enNode));
-                routePlanSearch.destroy();
+
+                if (geoCodeResult.getLocation() != null){
+                    LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    LatLng endlatLng = new LatLng(geoCodeResult.getLocation().latitude, geoCodeResult.getLocation().longitude);
+                    PlanNode stNode = PlanNode.withLocation(latLng);
+                    PlanNode enNode = PlanNode.withLocation(endlatLng);
+                    routePlanSearch.drivingSearch((new DrivingRoutePlanOption())
+                            .from(stNode)
+                            .to(enNode));
+                    routePlanSearch.destroy();
+                }
+
                 search.destroy();
             }
 

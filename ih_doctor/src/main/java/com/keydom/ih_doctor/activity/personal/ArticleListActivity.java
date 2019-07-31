@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.CostomToastUtils;
 import com.keydom.ih_common.utils.DialogCreator;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.IssueArticleActivity;
@@ -91,7 +92,7 @@ public class ArticleListActivity extends BaseControllerActivity<ArticleListContr
         doctorName=getIntent().getStringExtra("doctorName");
         articleListRv = (RecyclerView) this.findViewById(R.id.article_list_rv);
         refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
-        articleListRecyclrViewAdapter = new ArticleListRecyclrViewAdapter(mlist, this);
+        articleListRecyclrViewAdapter = new ArticleListRecyclrViewAdapter(mlist, this,type);
         articleListRv.setAdapter(articleListRecyclrViewAdapter);
         articleListRv.setLayoutManager(new LinearLayoutManager(this));
         articleListRv.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(getContext()));
@@ -174,6 +175,17 @@ public class ArticleListActivity extends BaseControllerActivity<ArticleListContr
     @Override
     public String getDoctorCode() {
         return doctorCode;
+    }
+
+    @Override
+    public void removeCollectSuccess() {
+        CostomToastUtils.getInstance().ToastMessage(getContext(), "取消收藏成功");
+        getController().getCollect(TypeEnum.REFRESH);
+    }
+
+    @Override
+    public void removeCollectFailed(String msg) {
+        ToastUtil.shortToast(getContext(),"取消收藏失败："+msg);
     }
 
     Dialog dialog;

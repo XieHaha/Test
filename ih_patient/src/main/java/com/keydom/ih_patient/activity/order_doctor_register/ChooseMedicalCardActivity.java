@@ -107,7 +107,13 @@ public class ChooseMedicalCardActivity extends BaseControllerActivity<ChooseMedi
 
     @Override
     public void showPayDialog() {
-        SelectDialogUtils.showPayDialog(getContext(), doctorSchedulingBean.getRegistrationFee(), "预约挂号-" + doctorName, new GeneralCallback.SelectPayMentListener() {
+        String nameStr="";
+        if(doctorName.length()>5){
+            nameStr=doctorName.substring(0,2)+"..."+doctorName.substring(doctorName.length()-1,doctorName.length());
+
+        }else
+            nameStr=doctorName;
+        SelectDialogUtils.showPayDialog(getContext(), doctorSchedulingBean.getRegistrationFee(), "预约挂号-" + nameStr, new GeneralCallback.SelectPayMentListener() {
             @Override
             public void getSelectPayMent(String type) {
                 Map<String, Object> map = new HashMap<>();
@@ -116,9 +122,11 @@ public class ChooseMedicalCardActivity extends BaseControllerActivity<ChooseMedi
 
                 if (Type.ALIPAY.equals(type)) {
                     map.put("type", 2);
-                    getController().hospitalFeeByOrderNumber(map);
+                    getController().hospitalFeeByOrderNumber(map,2);
                 } else if (Type.WECHATPAY.equals(type)) {
                     map.put("type", 1);
+                    getController().hospitalFeeByOrderNumber(map,1);
+
                 }
             }
         });

@@ -47,6 +47,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.CalculateTimeUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.doctor_cooperation.DianoseCaseDetailActivity;
@@ -65,6 +66,7 @@ import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.constant.ServiceConst;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.DiagnoseApiService;
 import com.keydom.ih_doctor.utils.ToastUtil;
 import com.netease.nimlib.sdk.NIMClient;
@@ -234,7 +236,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     NimUserInfo patientInfo = (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(message.getFromAccount());
                     NimUserInfo currentUserInfo = (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(SharePreferenceManager.getUserCode());
                     if ((ImMessageConstant.DOCTOR).equals(currentUserInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
-                        if ((ImMessageConstant.DOCTOR).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))){
+                        if ((ImMessageConstant.DOCTOR).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
                             Intent intent = new Intent("com.keydom.ih_doctor.DoctorOrNurseDetailActivity");
                             intent.putExtra("doctorCode", String.valueOf(patientInfo.getAccount()));
                             startActivity(intent);
@@ -296,8 +298,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     } else if (message.getAttachment() instanceof ConsultationResultAttachment) {//处方
                         DianoseCaseDetailActivity.start(context, ((ConsultationResultAttachment) message.getAttachment()).getId());
 //                        PrescriptionActivity.startCommon(context, Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
-                    }else if(message.getAttachment() instanceof DisposalAdviceAttachment){
-                        HandleProposeAcitivity.start(getContext(),((DisposalAdviceAttachment) message.getAttachment()).getContent());
+                    } else if (message.getAttachment() instanceof DisposalAdviceAttachment) {
+                        HandleProposeAcitivity.start(getContext(), ((DisposalAdviceAttachment) message.getAttachment()).getContent());
 
                     }
                 }
@@ -306,13 +308,93 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
             @Override
             public boolean onPayClick(Context context, View view, IMMessage message) {
-                PrescriptionActivity.startCommon(context, Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
+                if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
+
+
+                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
+                        @Override
+                        public void requestComplete(@Nullable CheckItemListBean data) {
+                            if (data != null) {
+                                CheckOrderDetailActivity.startInspactOrder(context, ((ExaminationAttachment) message.getAttachment()).getId(), orderBean);
+                            } else {
+                                ToastUtil.shortToast(context, "检查报告单不存在");
+                            }
+                        }
+
+                        @Override
+                        public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                            ToastUtil.shortToast(context, msg);
+                            return super.requestError(exception, code, msg);
+                        }
+                    });
+
+                } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
+
+                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((InspectionAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
+                        @Override
+                        public void requestComplete(@Nullable CheckItemListBean data) {
+                            if (data != null) {
+                                CheckOrderDetailActivity.startTestOrder(context, ((InspectionAttachment) message.getAttachment()).getId(), orderBean);
+                            } else {
+                                ToastUtil.shortToast(context, "检验报告单不存在");
+                            }
+                        }
+
+                        @Override
+                        public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                            ToastUtil.shortToast(context, msg);
+                            return super.requestError(exception, code, msg);
+                        }
+                    });
+
+                } else
+                    PrescriptionActivity.startCommon(context, Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
                 return false;
             }
 
             @Override
             public boolean onPrescriptionClick(Context context, @android.support.annotation.Nullable IMMessage message) {
-                PrescriptionActivity.startCommon(context, Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
+                if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
+
+
+                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
+                        @Override
+                        public void requestComplete(@Nullable CheckItemListBean data) {
+                            if (data != null) {
+                                CheckOrderDetailActivity.startInspactOrder(context, ((ExaminationAttachment) message.getAttachment()).getId(), orderBean);
+                            } else {
+                                ToastUtil.shortToast(context, "检查报告单不存在");
+                            }
+                        }
+
+                        @Override
+                        public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                            ToastUtil.shortToast(context, msg);
+                            return super.requestError(exception, code, msg);
+                        }
+                    });
+
+                } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
+
+                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((InspectionAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
+                        @Override
+                        public void requestComplete(@Nullable CheckItemListBean data) {
+                            if (data != null) {
+                                CheckOrderDetailActivity.startTestOrder(context, ((InspectionAttachment) message.getAttachment()).getId(), orderBean);
+                            } else {
+                                ToastUtil.shortToast(context, "检验报告单不存在");
+                            }
+                        }
+
+                        @Override
+                        public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                            ToastUtil.shortToast(context, msg);
+                            return super.requestError(exception, code, msg);
+                        }
+                    });
+
+                } else
+                    PrescriptionActivity.startCommon(context, Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
                 return false;
             }
         });
@@ -344,7 +426,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mPopupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setFocusable(true);
-        referralTv=view.findViewById(R.id.referral);
+        referralTv = view.findViewById(R.id.referral);
         view.findViewById(R.id.inspection).setOnClickListener(this);
         view.findViewById(R.id.examination).setOnClickListener(this);
         view.findViewById(R.id.referral).setOnClickListener(this);
@@ -361,7 +443,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         if (!chatting) {
             mMessageView.removePlugin(mVideoPlugin);
             mMessageView.removePlugin(mEndInquiryPlugin);
-            mMessageView.addPlugin(mVideoPlugin);
+            if (orderBean != null && orderBean.getInquisitionType() == 1)
+                mMessageView.addPlugin(mVideoPlugin);
             mMessageView.addPlugin(mEndInquiryPlugin);
         }
         if (!chatting) {
@@ -419,9 +502,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             mPopupWindow.getContentView().findViewById(R.id.referral).setVisibility(View.GONE);
             setRightImgVisibility(false);
         }
-        if(referralState==0||referralState==1){
+        if (referralState == 0 || referralState == 1) {
             referralTv.setText("取消转诊");
-        }else {
+        } else {
             referralTv.setText("转诊");
         }
 
@@ -495,6 +578,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mMessageView.showExtension();
     }
 
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -565,9 +649,15 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 }
                 break;
             case R.id.referral:
-                if(referralState==0||referralState==1){
-                    getController().stopReferral();
-                }else {
+                if (referralState == 0 || referralState == 1) {
+                    new GeneralDialog(getContext(), "确认取消该条转诊操作？", new GeneralDialog.OnCloseListener() {
+                        @Override
+                        public void onCommit() {
+                            getController().stopReferral();
+                        }
+                    }).setTitle("提示").show();
+
+                } else {
                     FillOutApplyActivity.startFillOut(this, orderBean);
                 }
                 if (mPopupWindow != null) {
@@ -681,13 +771,15 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         } else {
             setRightImgVisibility(true);
         }
+
         if (data != null) {
             orderType = data.getType();
             orderBean = data;
             calculateTime();
-            referralState=data.getReferralState();
+            referralState = data.getReferralState();
         }
         initStatus();
+
     }
 
     @Override
@@ -726,6 +818,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     @Override
     public void stopReferralSuccess() {
+        ToastUtil.shortToast(getContext(), "取消转诊成功");
         getController().getInquiryStatus();
     }
 
@@ -765,6 +858,21 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         }
         mHour = com.keydom.ih_doctor.utils.CalculateTimeUtils.hourDistance(remainingTime) + day * 24;
         mMin = com.keydom.ih_doctor.utils.CalculateTimeUtils.minDistance(remainingTime);
+        if (inquiryStatus == InquiryStatus.INQUIRY_WAIT || inquiryStatus == InquiryStatus.INQUIRY_REFERRAL_DOCTOR) {
+            visitingRemainingTime = mHour + "小时" + mMin + "分";
+            SpannableStringBuilder ssb = new SpannableStringBuilder();
+            ssb.append("请在");
+            ssb.append(" ");
+            SpannableString ss = new SpannableString(visitingRemainingTime);
+            ss.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color.colorPrimary)), 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ssb.append(ss);
+            ssb.append(" ");
+            ssb.append("内接单，超时将自动退诊");
+            mVisitingRemainingTimeTv.setText(ssb);
+        } else if (inquiryStatus == InquiryStatus.INQUIRY_ING || inquiryStatus == InquiryStatus.INQUIRY_APPLY_END) {
+            inquiryRemainingTime = mHour + "小时" + mMin + "分后问诊结束";
+            mQuestionRemainingTimeTv.setText(inquiryRemainingTime);
+        }
         timeDisposable = Flowable.intervalRange(1, remainingTime / 1000 / 60, 0, 1, TimeUnit.MINUTES)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -775,10 +883,16 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      * 倒计时计算
      */
     private void computeTime() {
+
         if (mMin < 0) {
-            mMin = 59;
-            mHour--;
-            if (mHour < 0) {
+            if (mHour > 0) {
+                mHour--;
+                mMin = 59;
+
+            } else
+                mMin = 0;
+
+            if (mHour == 0 && mMin == 0) {
                 // 倒计时结束
                 if (!timeDisposable.isDisposed()) {
                     timeDisposable.dispose();

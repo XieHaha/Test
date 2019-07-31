@@ -21,6 +21,7 @@ import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.bean.NotificationBean;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.constant.TypeEnum;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.SwipeItemLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -85,6 +86,7 @@ public class NotificationListActivity extends BaseControllerActivity<Notificatio
         setTitle("公告栏");
         setRightTxt("发布新公告");
         setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
+            @SingleClick(1000)
             @Override
             public void OnRightTextClick(View v) {
                 IssueNotificationActivity.start(NotificationListActivity.this);

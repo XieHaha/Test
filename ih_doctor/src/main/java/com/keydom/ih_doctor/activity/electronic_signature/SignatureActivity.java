@@ -16,6 +16,7 @@ import com.keydom.ih_doctor.activity.electronic_signature.view.ApplySignatureVie
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.bean.SignRegInfoBean;
 import com.keydom.ih_doctor.constant.EventType;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
@@ -73,6 +74,7 @@ public class SignatureActivity extends BaseControllerActivity<ApplySignatureCont
         sign_tip_iv = findViewById(R.id.sign_tip_iv);
         qr_iv = findViewById(R.id.qr_iv);
         right_btn_tv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (!isCart)

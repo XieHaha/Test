@@ -224,6 +224,8 @@
                     android:drawableRight="@mipmap/arrow_right_grey"
                     android:drawablePadding="@dimen/dp_8"
                     android:gravity="center_vertical|right"
+                    android:singleLine="true"
+                    android:ellipsize="middle"
                     android:hint="选择医院"
                     android:textSize="@dimen/font_size_primary" />
             </RelativeLayout>

@@ -16,6 +16,7 @@ import com.keydom.ih_doctor.bean.Event;
 import com.keydom.ih_doctor.bean.MaterialBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -70,6 +71,7 @@ public class MaterialUseActivity extends BaseActivity {
         recyclerView.setAdapter(materialUseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         saveDrug.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (checkSubmit()) {

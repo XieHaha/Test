@@ -140,7 +140,7 @@ public class SearchActivity extends BaseControllerActivity<SearchController> imp
                 }
                 if (item instanceof SearchResultBean.DeptBean) {
 //                    ToastUtil.shortToast(SearchActivity.this, "科室详情");
-                    ChooseDoctorActivity.start(getContext(), ((SearchResultBean.DeptBean) item).getHospitalAreaId(), "", ((SearchResultBean.DeptBean) item).getId(), ((SearchResultBean.DeptBean) item).getName(), null);
+                    ChooseDoctorActivity.start(getContext(), ((SearchResultBean.DeptBean) item).getHospitalAreaId(), ((SearchResultBean.DeptBean) item).getHospitalAreaName(), ((SearchResultBean.DeptBean) item).getId(), ((SearchResultBean.DeptBean) item).getName(), null);
                 }
                 if (item instanceof SearchResultBean.ArticleBean) {
 //                    ArticleDetailActivity.startArticle(SearchActivity.this, ((SearchResultBean.ArticleBean) item).getId(), MyApplication.userInfo.getId(), MyApplication.userInfo.getName(), MyApplication.userInfo.getAvatar(), true);

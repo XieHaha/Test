@@ -20,6 +20,7 @@ import com.keydom.ih_doctor.bean.PrescriptionModelBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.m_interface.OnModelAndCaseDialogListener;
 import com.keydom.ih_doctor.m_interface.OnModelDialogListener;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.DiagnoseApiService;
 import com.keydom.ih_doctor.net.PrescriptionService;
 import com.keydom.ih_doctor.utils.DialogUtils;
@@ -44,7 +45,7 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
     BottomAddPrescriptionDialog dialog;
     private String modelNameTemp = "";
     private String modelTypeTemp = "";
-
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

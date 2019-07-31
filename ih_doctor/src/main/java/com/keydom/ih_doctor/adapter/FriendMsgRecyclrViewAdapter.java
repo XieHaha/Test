@@ -14,6 +14,7 @@ import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_doctor.R;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.CalculateTimeUtils;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.msg.MsgService;
@@ -113,6 +114,7 @@ public class FriendMsgRecyclrViewAdapter extends BaseEmptyAdapter<RecentContact>
             chatNum.setText(bean.getUnreadCount() == 0 ? "" : String.valueOf(bean.getUnreadCount()));
 
             itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     if (mDatas.get(position).getSessionType() == SessionTypeEnum.Team) {

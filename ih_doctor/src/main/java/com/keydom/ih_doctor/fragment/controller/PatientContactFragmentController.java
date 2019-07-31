@@ -10,6 +10,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_doctor.bean.ImPatientInfo;
 import com.keydom.ih_doctor.fragment.view.PatientContactFragmentView;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.PatientManageApiService;
 
 import org.jetbrains.annotations.NotNull;
@@ -27,6 +28,7 @@ import java.util.List;
  * 修改时间：18/11/14 上午10:56
  */
 public class PatientContactFragmentController extends ControllerImpl<PatientContactFragmentView> implements View.OnClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
 

@@ -23,6 +23,15 @@
         android:layout_below="@id/work_function_icon"
         android:text="门诊排班"
         />
+    <View
+        android:id="@+id/item_redpoint_view"
+        android:layout_width="@dimen/dp_8"
+        android:layout_height="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_5"
+        android:layout_alignRight="@+id/work_function_icon"
+        android:visibility="gone"
+        android:background="@drawable/red_point_view_bg"/>
 
 
 </RelativeLayout>

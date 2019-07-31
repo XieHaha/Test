@@ -23,7 +23,7 @@ public class ApplySignatureController extends ControllerImpl<ApplySignatureView>
      * 注册电子签名
      */
     public void applySign() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SignService.class).addTrustedUsert(HttpService.INSTANCE.object2Body(getView().getApplyMap())), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SignService.class).addTrustedUsert(HttpService.INSTANCE.object2Body(getView().getApplyMap())), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable String data) {
                 getView().applySuccess(data);
@@ -44,7 +44,7 @@ public class ApplySignatureController extends ControllerImpl<ApplySignatureView>
     public void sendCode(String phoneNo) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("phoneNumber", phoneNo);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginApiService.class).sendCode(map), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginApiService.class).sendCode(map), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable String data) {
                 getView().getIdentifyingCodeSuccess();
@@ -64,7 +64,7 @@ public class ApplySignatureController extends ControllerImpl<ApplySignatureView>
     public void addAuthJob() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("msspId", MyApplication.userInfo.getMsspId());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SignService.class).addAuthJob(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SignService.class).addAuthJob(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable String data) {
                 getView().getIdentifyingCodeSuccess();
@@ -88,7 +88,7 @@ public class ApplySignatureController extends ControllerImpl<ApplySignatureView>
         map.put("mobile", mobile);
         map.put("msspId", MyApplication.userInfo.getMsspId());
         map.put("userId", MyApplication.userInfo.getId());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SignService.class).changeMobile(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SignService.class).changeMobile(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable String data) {
                 getView().changeMobileSuccess(data);
@@ -109,7 +109,7 @@ public class ApplySignatureController extends ControllerImpl<ApplySignatureView>
     public void getUserElectronicsInfo() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", MyApplication.userInfo.getId());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SignService.class).getUserElectronicsInfo(map), new HttpSubscriber<SignRegInfoBean>(getContext(), getDisposable(), true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SignService.class).getUserElectronicsInfo(map), new HttpSubscriber<SignRegInfoBean>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable SignRegInfoBean data) {
                 getView().getUserSuccess(data);

@@ -326,6 +326,7 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
         if (dto.getOrderDetailItems() != null) {
             int j = 1;
             StringBuffer str = new StringBuffer();
+            BigDecimal totolFee=new BigDecimal("0");
             for (int i = 0; i < dto.getOrderDetailItems().size(); i++) {
                 NursingOrderDetailBean.OrderDetailItemsBean orderDetailItemsBean = dto.getOrderDetailItems().get(i);
                 str.append(j);
@@ -339,9 +340,10 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
                 str.append(orderDetailItemsBean.getFrequency());
                 str.append("次");
                 str.append("\n");
+                totolFee= totolFee.add(orderDetailItemsBean.getTotalPrice());
             }
             mServiceDes.setText(str);
-            mServiceCost.setText("¥" + dto.getReservationSet() + "元");
+            mServiceCost.setText("¥" + totolFee + "元");
         }
         if (mState == NursingOrderDetailBean.STATE1 || mState == NursingOrderDetailBean.STATE2 || mState == NursingOrderDetailBean.STATE3 || mState == NursingOrderDetailBean.STATE4 || mState == NursingOrderDetailBean.Evaluted) {
             BigDecimal total = new BigDecimal(0.00);

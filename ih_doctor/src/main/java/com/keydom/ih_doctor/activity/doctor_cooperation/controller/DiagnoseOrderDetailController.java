@@ -10,6 +10,7 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.doctor_cooperation.view.DiagnoseOrderDetailView;
 import com.keydom.ih_doctor.bean.DiagnoseOrderDetailBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.GroupCooperateApiService;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
@@ -32,7 +33,7 @@ public class DiagnoseOrderDetailController extends ControllerImpl<DiagnoseOrderD
      * 退回操作
      */
     private static final int BACK_OPERATE = -1;
-
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.return_bt) {

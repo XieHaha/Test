@@ -10,14 +10,19 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
@@ -28,6 +33,7 @@ import com.keydom.ih_doctor.bean.ImPatientInfo;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.view.TagView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -116,6 +122,9 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
         patientRv.setLayoutManager(new LinearLayoutManager(this));
         patientRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         appCompatImageView = (AppCompatImageView) mSearchView.findViewById(android.support.v7.appcompat.R.id.search_button);
+        EditText editText = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        editText.setFilters(new InputFilter[]{emojiFilter });
+        editText.setSingleLine(true);
         mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
@@ -127,6 +136,7 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
 
 
         searchInputEv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 searchInputEv.setVisibility(View.GONE);
@@ -328,4 +338,24 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
         textView.setTextColor(this.getResources().getColor(R.color.fontColorPrimary));
 
     }
+
+    InputFilter emojiFilter = new InputFilter() {
+        /*Pattern emoji = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]",
+                Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);*/
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            if (CommonUtils.containsEmoji(source.toString())) {
+                Toast.makeText(getContext(), "不支持输入颜文字或表情", Toast.LENGTH_SHORT).show();
+                return "";
+            }
+            return null;
+          /*  Matcher emojiMatcher = emoji.matcher(source);
+            if (emojiMatcher.find()) {
+                Toast.makeText(context, "不支持输入表情", Toast.LENGTH_SHORT).show();
+                return "";
+            }
+            return null;*/
+        }
+    };
 }

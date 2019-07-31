@@ -26,9 +26,10 @@ public class PrescriptionDetailView extends RelativeLayout {
 
     private RecyclerView recyclerView;
     private ImageView doctorSign;
-    private TextView number, hospitalName, userName, userSex, userAge, caseNum, deptName, address, phoneNum, feeType, diagnose, date, doctorName, checkDoctorName, prescriptionTypeName, sendDoctorName;
+    private TextView number, hospitalName, userName, userSex, userAge, caseNum, deptName, address, phoneNum, feeType, diagnose, date, doctorName, checkDoctorName, prescriptionTypeName, sendDoctorName,prescriptionNumTv;
     private MedicineRecyclrViewAdapter mAdapter;
     private List<PrescriptionDrugBean> dataList = new ArrayList<>();
+    private int position=0;
     public PrescriptionDetailView(Context context) {
         this(context,null);
     }
@@ -40,6 +41,7 @@ public class PrescriptionDetailView extends RelativeLayout {
     public PrescriptionDetailView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         LayoutInflater.from(context).inflate(R.layout.prescription_detail_view_layout, this);
+        prescriptionNumTv=this.findViewById(R.id.prescription_num_tv);
         hospitalName = (TextView) this.findViewById(R.id.hospital_name);
         doctorSign = (ImageView) this.findViewById(R.id.doctor_sign);
         userName = (TextView) this.findViewById(R.id.user_name);
@@ -65,6 +67,8 @@ public class PrescriptionDetailView extends RelativeLayout {
     }
 
     public void  setData(PrescriptionDetailBean bean,int position){
+        this.position=position;
+        prescriptionNumTv.setText("处方"+CommonUtils.numberToChinese(position+1));
         hospitalName.setText(MyApplication.userInfo.getHospitalName() + "处方笺");
         userName.setText(bean.getName());
         userSex.setText(CommonUtils.getSex(bean.getSex()));

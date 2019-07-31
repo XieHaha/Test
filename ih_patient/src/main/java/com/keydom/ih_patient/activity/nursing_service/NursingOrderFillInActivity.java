@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,6 +24,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.constant.Const;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_common.view.GridViewForScrollView;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_patient.App;
@@ -33,11 +36,13 @@ import com.keydom.ih_patient.adapter.NursingSelectProjectAdapter;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.HospitaldepartmentsInfo;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
+import com.keydom.ih_patient.bean.NurseSavedData;
 import com.keydom.ih_patient.bean.NursingOrderDetailBean;
 import com.keydom.ih_patient.bean.NursingProjectInfo;
 import com.keydom.ih_patient.constant.Config;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
+import com.keydom.ih_patient.utils.LocalizationUtils;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -85,7 +90,7 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
     private TextView mChooseProjects;//jump_to_choose_service_tv
     private TextView mTimeChoose;//choose_service_time_tv  上门时间
     private RelativeLayout mReduceBtn;//scaler_minus_layout
-    private TextView mServiceNumTv;//scaler_text_layout  服务次数
+    private TextView mServiceNumTv,desc_font_num_tv;//scaler_text_layout  服务次数
     private RelativeLayout mAddBtn;//scaler_add_layout
     private TextView mServiceObj;//jump_to_choose_service_object_tv 服务对象
     private TextView mServiceDepartment;//jump_to_choose_department_tv 服务科室
@@ -101,7 +106,6 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
     private String deptId = null;
     private String serviceAddress = null;
     private String patientCardNum = null;
-    private ImageView pic_first_img, pic_second_img;
     private long hospitalAreaId = -1;
     private BigDecimal allProjectFees = new BigDecimal(0);
     private BigDecimal allProjectPrice = new BigDecimal(0);
@@ -114,6 +118,7 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
     private GridViewForScrollView img_gv;
     private GridViewPlusImgAdapter mAdapter;
     public List<String> dataList = new ArrayList<>();
+    private boolean isNeedSaveEdit = true;
 
     @Override
     public int getLayoutRes() {
@@ -136,7 +141,7 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
         }
         allProjectFees = allProjectPrice.multiply(BigDecimal.valueOf(mServiceNum));*/
         EventBus.getDefault().register(this);
-        getView();
+//        getView();
         mServiceNumTv.setText(String.valueOf(mServiceNum));
         isChange = getIntent().getBooleanExtra(IS_CHANGE, false);
         if (isChange) {
@@ -189,7 +194,7 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
             mServiceNum = bean.getFrequency();
             mServiceNumTv.setText(String.valueOf(mServiceNum));
             mCommit.setText("提交修改");
-            if(bean.getConditionImage()!=null){
+            if (bean.getConditionImage() != null) {
                 String pics = bean.getConditionImage();
                 String[] split = pics.replace("，", ",").split(",");
                 for (int i = 0; i < split.length; i++) {
@@ -204,9 +209,9 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
                 if (nursingProjectInfo.getCateId() == Global.getProfessionalProjectTypeId())
                     isHaveProfessionalProject = true;
                 projectList.add(nursingProjectInfo);
-                if (StringUtils.isEmpty(nursingProjectInfo.getHospitalDeptName())){
+                if (StringUtils.isEmpty(nursingProjectInfo.getHospitalDeptName())) {
 //                    mDeptGroup.setVisibility(View.GONE);
-                }else{
+                } else {
                     mServiceDepartment.setText(nursingProjectInfo.getHospitalDeptName());
                     deptId = String.valueOf(nursingProjectInfo.getHospitalDeptId());
                 }
@@ -246,6 +251,7 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
      * 查找控件
      */
     private void getView() {
+        desc_font_num_tv=findViewById(R.id.desc_font_num_tv);
         mAddress = findViewById(R.id.address);
         mProjects = findViewById(R.id.project_rv);
         mProjects.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -279,6 +285,23 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
         mAdapter = new GridViewPlusImgAdapter(this, dataList);
         img_gv.setAdapter(mAdapter);
         img_gv.setOnItemClickListener(getController());
+        getSavedEditData();
+
+        mRemark.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                desc_font_num_tv.setText(charSequence.length() + "/500");
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
     }
 
     /**
@@ -368,10 +391,10 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
     @Override
     public Map<String, Object> getCommitMap() {
         Map<String, Object> map = new HashMap<>();
-        /*if (!isFacialRecognition) {
+        if (!isFacialRecognition) {
             ToastUtil.shortToast(getContext(), "请完成人脸识别操作");
             return null;
-        }*/
+        }
         if (serviceAddress != null && !"".equals(serviceAddress)) {
             map.put("serviceAddress", serviceAddress);
         } else {
@@ -419,8 +442,8 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
         map.put("hospitalId", App.hospitalId);
         map.put("userId", Global.getUserId());
         map.put("fee", String.valueOf(allProjectFees));
-        if (mRemark.getText().toString().trim()!=null&&mRemark.getText().toString().trim().length() < 20) {
-            ToastUtil.shortToast(getContext(), "请填写病情依据，至少20字");
+        if (mRemark.getText().toString().trim() != null && mRemark.getText().toString().trim().length() < 10) {
+            ToastUtil.shortToast(getContext(), "请填写病情依据，至少10字");
             return null;
         } else
             map.put("conditionDesc", mRemark.getText().toString().trim());
@@ -442,10 +465,10 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
     @Override
     public Map<String, Object> getChangeMap() {
         Map<String, Object> map = new HashMap<>();
-      /*  if (!isFacialRecognition) {
+        if (!isFacialRecognition) {
             ToastUtil.shortToast(getContext(), "请完成人脸识别操作");
             return null;
-        }*/
+        }
         if (!StringUtils.isEmpty(patientCardNum)) {
             map.put("serviceObject", patientCardNum);
         }
@@ -568,16 +591,24 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
             }
         }
     }
+
     @Override
     public boolean getLastItemClick(int position) {
         if (position == dataList.size())
             return true;
         return false;
     }
+
     @Override
     public String getPicUrl(int position) {
-        return Const.IMAGE_HOST+dataList.get(position);
+        return Const.IMAGE_HOST + dataList.get(position);
     }
+
+    @Override
+    public void setIsNeedSaveEdit(boolean isNeedSaveEdit) {
+        this.isNeedSaveEdit=isNeedSaveEdit;
+    }
+
     @Override
     public int getImgSize() {
         return dataList.size();
@@ -598,8 +629,79 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
         return imageStr;
     }
 
+    /**
+     * 保存页面编辑的数据
+     */
+    private void saveEditData() {
+        NurseSavedData nurseSavedData=new NurseSavedData();
+        nurseSavedData.setServiceObjectName(mServiceObj.getText().toString().trim());
+        nurseSavedData.setServiceObjectCardNum(patientCardNum);
+        nurseSavedData.setProjectList(projectList);
+        nurseSavedData.setServiceTime(visitTime);
+        nurseSavedData.setVisitPeriod(visitPeriod);
+        nurseSavedData.setmServiceNum(mServiceNum);
+        nurseSavedData.setNurseDepartmentName(mServiceDepartment.getText().toString().trim());
+        nurseSavedData.setDeptId(deptId);
+        nurseSavedData.setNurseDescripe(mRemark.getText().toString().trim());
+        nurseSavedData.setImgUrlList(dataList);
+        String fileName="nurseEditData"+Global.getUserId()+"_"+App.hospitalId;
+        LocalizationUtils.fileSave2Local(getContext(),nurseSavedData,fileName);
+    }
+
+
+    private void getSavedEditData() {
+        String fileName="nurseEditData"+Global.getUserId()+"_"+App.hospitalId;
+        NurseSavedData nurseSavedData= (NurseSavedData) LocalizationUtils.readFileFromLocal(getContext(),fileName);
+        if(nurseSavedData!=null){
+            new GeneralDialog(getContext(), "存在上次未提交的编辑内容，是否继续编辑？", new GeneralDialog.OnCloseListener() {
+                @Override
+                public void onCommit() {
+                    projectList.clear();
+                    projectList.addAll(nurseSavedData.getProjectList());
+                    nursingSelectProjectAdapter.setNewData(projectList);
+                    mServiceObj.setText(nurseSavedData.getServiceObjectName());
+                    patientCardNum = nurseSavedData.getServiceObjectCardNum();
+                    visitTime = nurseSavedData.getServiceTime();
+                    visitPeriod=nurseSavedData.getVisitPeriod();
+                    mTimeChoose.setText(visitTime + " " + visitPeriod);
+                    mServiceNum = nurseSavedData.getmServiceNum();
+                    mServiceNumTv.setText(String.valueOf(mServiceNum));
+                    deptId = nurseSavedData.getDeptId();
+                    mServiceDepartment.setText(nurseSavedData.getNurseDepartmentName());
+                    mRemark.setText(nurseSavedData.getNurseDescripe());
+                    dataList.clear();
+                    dataList.addAll(nurseSavedData.getImgUrlList());
+                    mAdapter.notifyDataSetChanged();
+                    allProjectPrice = BigDecimal.valueOf(0);
+                    for (NursingProjectInfo nursingProjectInfo : projectList) {
+                        allProjectPrice = allProjectPrice.add(nursingProjectInfo.getFee());
+                    }
+                    allProjectPrice = allProjectPrice.add(Global.getBaseFee());
+                    allProjectFees = allProjectPrice.multiply(BigDecimal.valueOf(mServiceNum));
+                    mTotalFee.setText("费用合计（￥" + allProjectFees + "元）");
+                }
+            }, new GeneralDialog.CancelListener() {
+                @Override
+                public void onCancel() {
+                    String fileName="nurseEditData"+Global.getUserId()+"_"+App.hospitalId;
+                    LocalizationUtils.deleteFileFromLocal(getContext(),fileName);
+                }
+            }).setTitle("提示").show();
+
+        }
+    }
+
+    private boolean isHaveData(){
+        if(dataList.size()>0||projectList.size()>0||patientCardNum!=null||visitTime!=null||!"".equals(mRemark.getText().toString().trim()))
+            return true;
+        else
+            return false;
+    }
+
     @Override
     protected void onDestroy() {
+        if (isNeedSaveEdit&&isHaveData())
+            saveEditData();
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }

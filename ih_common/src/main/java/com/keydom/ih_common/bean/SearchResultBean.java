@@ -211,6 +211,15 @@ public class SearchResultBean implements Serializable {
 
         private String image;
         private long hospitalAreaId;
+        private String hospitalAreaName;
+
+        public String getHospitalAreaName() {
+            return hospitalAreaName;
+        }
+
+        public void setHospitalAreaName(String hospitalAreaName) {
+            this.hospitalAreaName = hospitalAreaName;
+        }
 
         public long getHospitalAreaId() {
             return hospitalAreaId;
@@ -296,6 +305,34 @@ public class SearchResultBean implements Serializable {
         private String suggest;
         private String patientCode;
         private int state;
+        private int sex;
+        private int age;
+        private String createTime;
+
+        public int getSex() {
+            return sex;
+        }
+
+        public void setSex(int sex) {
+            this.sex = sex;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
+
         public String getPatientCode() {
             return patientCode;
         }

@@ -10,6 +10,7 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.online_diagnose.view.DiagnoseHandleProposalView;
 import com.keydom.ih_doctor.bean.DiagnoseHandleBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.DiagnoseApiService;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
@@ -43,7 +44,7 @@ public class DiagnoseHandleProposalController extends ControllerImpl<DiagnoseHan
             }
         });
     }
-
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.submit_btn) {

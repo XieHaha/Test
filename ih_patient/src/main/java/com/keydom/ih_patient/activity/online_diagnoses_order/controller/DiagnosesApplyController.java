@@ -30,6 +30,7 @@ import com.keydom.ih_patient.net.UserService;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
+import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -41,6 +42,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,17 +106,19 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
                 @Override
                 public void requestComplete(@Nullable PayOrderBean data) {
                     getView().getOrderInfo(data);
-                    SelectDialogUtils.showPayDialog(getContext(), data.getFee()+"", payDesc, new GeneralCallback.SelectPayMentListener() {
+                    SelectDialogUtils.showPayDialog(getContext(), data.getFee().setScale(2,BigDecimal.ROUND_HALF_UP)+"", payDesc, new GeneralCallback.SelectPayMentListener() {
                         @Override
                         public void getSelectPayMent(String type) {
                             Map<String,Object> payMap=new HashMap<>();
                             payMap.put("orderId",data.getOrderId());
                             if(Type.ALIPAY.equals(type)){
                                 payMap.put("type",2);
+                                inquiryPay(payMap,2);
                             }else if(Type.WECHATPAY.equals(type)){
                                 payMap.put("type",1);
+                                inquiryPay(payMap,1);
                             }
-                            inquiryPay(payMap);
+
                         }
                     });
                 }
@@ -131,15 +135,13 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
     /**
      * 发起支付
      */
-    public void inquiryPay(Map<String,Object> map){
+    public void inquiryPay(Map<String,Object> map,int type){
         if(map!=null){
             ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).inquiryPay(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(),getDisposable(),false,false) {
                 @Override
                 public void requestComplete(@Nullable String data) {
-                    try {
-                        JSONObject object = new JSONObject(data);
-                        Logger.e("return_msg:"+ object.getString("return_msg"));
-                        new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
+                    if(type==1){
+                        WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
                             @Override
                             public void onSuccess() {
                                 ToastUtil.shortToast(getContext(),"支付成功");
@@ -152,11 +154,6 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
                             }
 
                             @Override
-                            public void onDealing() {
-
-                            }
-
-                            @Override
                             public void onError(int error_code) {
                                 ToastUtil.shortToast(getContext(),"支付失败"+error_code
                                 );
@@ -166,10 +163,44 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
                             public void onCancel() {
 
                             }
-                        }).doPay();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        });
+                    }else {
+                        try {
+                            JSONObject object = new JSONObject(data);
+                            Logger.e("return_msg:"+ object.getString("return_msg"));
+                            new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
+                                @Override
+                                public void onSuccess() {
+                                    ToastUtil.shortToast(getContext(),"支付成功");
+                                    new GeneralDialog(getContext(), "问诊订单支付成功，近期请留意订单状态以及接诊医生给你发送的消息", new GeneralDialog.OnCloseListener() {
+                                        @Override
+                                        public void onCommit() {
+                                            MainActivity.start(getContext(),false);
+                                        }
+                                    }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
+                                }
+
+                                @Override
+                                public void onDealing() {
+
+                                }
+
+                                @Override
+                                public void onError(int error_code) {
+                                    ToastUtil.shortToast(getContext(),"支付失败"+error_code
+                                    );
+                                }
+
+                                @Override
+                                public void onCancel() {
+
+                                }
+                            }).doPay();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
+
                 }
 
                 @Override

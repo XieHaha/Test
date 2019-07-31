@@ -17,6 +17,7 @@ import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.issue_information.NotificationListActivity;
 import com.keydom.ih_doctor.bean.NotificationBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import java.util.List;
 
@@ -126,12 +127,14 @@ public class NotificationRecyclrViewAdapter extends BaseEmptyAdapter<Notificatio
             delete.setLayoutParams(deleteLayoutParams);
             update.setLayoutParams(updateLayoutParams);
             notification_main_layout.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     ArticleDetailActivity.startNotification(mContext, mDatas.get(position).getId(), MyApplication.userInfo.getHospitalId());
                 }
             });
             delete.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View view) {
                     new GeneralDialog(mContext, "确认要删除该条通知公告？", new GeneralDialog.OnCloseListener() {
@@ -144,6 +147,7 @@ public class NotificationRecyclrViewAdapter extends BaseEmptyAdapter<Notificatio
                 }
             });
             update.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View view) {
                     ((NotificationListActivity) mContext).todoNotification(position, 0);

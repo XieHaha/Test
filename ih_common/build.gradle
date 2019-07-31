@@ -30,7 +30,7 @@ android {
             path "CMakeLists.txt"
         }
     }*/
-    buildToolsVersion rootProject.ext.android['buildToolsVersion']
+    buildToolsVersion '28.0.2'
 
 }
 
@@ -97,4 +97,5 @@ dependencies {
     api rootProject.ext.dependencies["jpush"]
     api rootProject.ext.dependencies["jcore"]
     api 'com.github.hani-momanii:SuperNova-Emoji:1.1'
+
 }

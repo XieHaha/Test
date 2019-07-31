@@ -310,7 +310,9 @@ public class NursingChooseHospitalActivity extends BaseControllerActivity<Nursin
 
     @Override
     public void getHospitalLocationInfoSuccess(List<HospitalLocationInfo> hospitalLocationInfoList) {
+        hospitalAreaId=-1;
         isCanContinue=true;
+        mMap.clear();
         if (hospitalLocationInfoList.size() == 0) {
             isHasServiceHospital = false;
             mMap.clear();

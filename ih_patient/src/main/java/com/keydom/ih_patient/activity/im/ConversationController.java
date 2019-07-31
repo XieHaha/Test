@@ -19,6 +19,7 @@ import com.keydom.ih_patient.net.PayService;
 import com.keydom.ih_patient.net.UserService;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
+import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 import com.orhanobut.logger.Logger;
 
 import org.jetbrains.annotations.NotNull;
@@ -99,15 +100,47 @@ public class ConversationController extends ControllerImpl<ConversationView> {
     /**
      * 发起支付
      */
-    public void inquiryPay(Map<String, Object> map) {
+    public void inquiryPay(Map<String, Object> map, int type) {
         if (map != null) {
             ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).inquiryPay(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>() {
                 @Override
                 public void requestComplete(@org.jetbrains.annotations.Nullable String data) {
-                    try {
-                        JSONObject object = new JSONObject(data);
-                        Logger.e("return_msg:" + object.getString("return_msg"));
-                        new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
+                    if(type==2){
+                        try {
+                            JSONObject object = new JSONObject(data);
+                            Logger.e("return_msg:" + object.getString("return_msg"));
+                            new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
+                                @Override
+                                public void onSuccess() {
+                                    ToastUtil.shortToast(getContext(), "支付成功");
+                                    new GeneralDialog(getContext(), "支付成功", new GeneralDialog.OnCloseListener() {
+                                        @Override
+                                        public void onCommit() {
+                                            getView().paySuccess();
+                                        }
+                                    }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
+                                }
+
+                                @Override
+                                public void onDealing() {
+
+                                }
+
+                                @Override
+                                public void onError(int error_code) {
+                                    ToastUtil.shortToast(getContext(), "支付失败" + error_code);
+                                }
+
+                                @Override
+                                public void onCancel() {
+
+                                }
+                            }).doPay();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }else if(type==1){
+                        WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
                             @Override
                             public void onSuccess() {
                                 ToastUtil.shortToast(getContext(), "支付成功");
@@ -120,23 +153,18 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                             }
 
                             @Override
-                            public void onDealing() {
-
-                            }
-
-                            @Override
                             public void onError(int error_code) {
-                                ToastUtil.shortToast(getContext(), "支付失败" + error_code);
+                                ToastUtil.shortToast(getContext(),"支付失败"+error_code
+                                );
                             }
 
                             @Override
                             public void onCancel() {
 
                             }
-                        }).doPay();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        });
                     }
+
                 }
             });
         }

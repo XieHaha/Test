@@ -28,11 +28,14 @@ import com.keydom.ih_patient.activity.nursing_service.view.NursingOrderFillInVie
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.HospitaldepartmentsInfo;
 import com.keydom.ih_patient.bean.NursingServiceOrderInfo;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
+import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.NursingService;
 import com.keydom.ih_patient.net.OrderService;
 import com.keydom.ih_patient.net.UploadService;
 import com.keydom.ih_patient.utils.DateUtils;
+import com.keydom.ih_patient.utils.LocalizationUtils;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -59,6 +62,7 @@ import okhttp3.RequestBody;
  * des:护理订单填写控制器
  */
 public class NursingOrderFillInController extends ControllerImpl<NursingOrderFillInView> implements View.OnClickListener, AdapterView.OnItemClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -223,6 +227,9 @@ public class NursingOrderFillInController extends ControllerImpl<NursingOrderFil
                 @Override
                 public void requestComplete(@Nullable NursingServiceOrderInfo data) {
                     Logger.e("请求成功");
+                    String fileName="nurseEditData"+Global.getUserId()+"_"+App.hospitalId;
+                    LocalizationUtils.deleteFileFromLocal(getContext(),fileName);
+                    getView().setIsNeedSaveEdit(false);
                     EventBus.getDefault().post(new Event(EventType.CREATE_NURSING_SUCCESS, null));
                     NursingApplyOrderActivity.start(getContext(), data);
                 }

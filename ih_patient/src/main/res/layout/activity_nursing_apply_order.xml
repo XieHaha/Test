@@ -233,7 +233,8 @@
                         android:layout_alignBottom="@+id/hospital"
                         android:layout_marginLeft="@dimen/dp_28"
                         android:layout_toRightOf="@+id/hospital"
-
+                        android:lines="1"
+                        android:ellipsize="end"
                         android:textColor="@color/pay_unselected"
                         android:textSize="@dimen/font_size_primary" />
 

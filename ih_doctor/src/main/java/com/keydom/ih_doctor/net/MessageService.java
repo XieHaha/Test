@@ -4,10 +4,12 @@ import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_doctor.bean.MessageBean;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * 消息接口
@@ -23,10 +25,10 @@ public interface MessageService {
 
     /**
      * 用户消息列表查询
-     * @param userId 用户ID
+     * @param map
      */
     @GET("/api/messageNotification/userMessageInfos")
-    Observable<HttpResult<List<MessageBean>>> userMessageInfos(@Query("doctorPhone") String doctorPhone);
+    Observable<HttpResult<List<MessageBean>>> userMessageInfos(@QueryMap Map<String, Object> map);
 
     /**
      * 更新消息状态

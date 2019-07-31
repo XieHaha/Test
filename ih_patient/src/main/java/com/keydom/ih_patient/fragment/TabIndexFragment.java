@@ -37,6 +37,7 @@ import com.keydom.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.ih_patient.bean.IndexData;
 import com.keydom.ih_patient.bean.IndexFunction;
 import com.keydom.ih_patient.callback.GeneralCallback;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
@@ -86,6 +87,12 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     private String selectHospitalName;
     private SmartRefreshLayout indexRefresh;
     private List<IndexData.NotificationsBean> noticeList = new ArrayList<>();
+    private int unFinishInquiry = 0;
+    private int unFinishNurse = 0;
+    private int clinic = 0;
+    private int unFinishAdmission = 0;
+    private int unFinishInspect = 0;
+
 
     @Override
     public int getLayoutRes() {
@@ -100,9 +107,6 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
                 getController().fillViewData();
-                if (App.hospitalId == -1)
-                    lazyLoad();
-                getController().fillFunction();
             }
         });
         titleLayout = view.findViewById(R.id.title_layout);
@@ -192,7 +196,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateLoginState(Event event) {
         if (event.getType() == EventType.UPDATELOGINSTATE) {
-            getController().fillFunction();
+            getController().fillViewData();
         }
     }
 
@@ -216,7 +220,6 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         if (event.getType() == EventType.UPDATEHOSPITAL) {
             searchEdt.setText(App.hospitalName);
             getController().fillViewData();
-            getController().fillFunction();
         }
     }
 
@@ -292,8 +295,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                     Glide.with(getContext()).load(Const.IMAGE_HOST + List.get(position).getPicturePath()).into((ImageView) view);
                 }
             });
-        }else {
-            List<String> list=new ArrayList<>();
+        } else {
+            List<String> list = new ArrayList<>();
             indexFirstBanner.setData(list, null);
             indexFirstBanner.loadImage(new XBanner.XBannerAdapter() {
                 @Override
@@ -323,6 +326,44 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
     @Override
     public void setFunctionRvData(List<IndexFunction> dataList) {
+        for (int i = 0; i <dataList.size() ; i++) {
+            if(dataList.get(i).getId()==23){
+                //诊间缴费
+                if(clinic>0){
+                    dataList.get(i).setRedPointShow(true);
+                }else {
+                    dataList.get(i).setRedPointShow(false);
+                }
+            }else if(dataList.get(i).getId()==25){
+                //在线问诊
+                if(unFinishInquiry>0){
+                    dataList.get(i).setRedPointShow(true);
+                }else {
+                    dataList.get(i).setRedPointShow(false);
+                }
+            }else if(dataList.get(i).getId()==28){
+                //检查项目
+                if(unFinishInspect>0){
+                    dataList.get(i).setRedPointShow(true);
+                }else {
+                    dataList.get(i).setRedPointShow(false);
+                }
+            }else if(dataList.get(i).getId()==26){
+                //护理订单
+                if(unFinishNurse>0){
+                    dataList.get(i).setRedPointShow(true);
+                }else {
+                    dataList.get(i).setRedPointShow(false);
+                }
+            }else if(dataList.get(i).getId()==29){
+                //住院预约
+                if(unFinishAdmission>0){
+                    dataList.get(i).setRedPointShow(true);
+                }else {
+                    dataList.get(i).setRedPointShow(false);
+                }
+            }
+        }
         datalist.clear();
         datalist.addAll(dataList);
         indexFunctionAdapter.notifyDataSetChanged();
@@ -371,7 +412,9 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
     @Override
     public void setNoticeData(final List<IndexData.NotificationsBean> List) {
+
         if (List == null || List.size() == 0) {
+            noticeList.clear();
             List<String> list = new ArrayList<>();
             list.add("暂无通知");
             indexNoticeBanner.setData(R.layout.notice_xbanner_item, list, null);
@@ -442,12 +485,14 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             });
 
             indexNewArticleBanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onItemClick(XBanner banner, Object model, View view, int position) {
                     ArticleDetailActivity.startHealth(getContext(), dataList.get(0).getId(), Global.getUserId(), "", "");
                 }
             });
             topHealthRl.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     ArticleDetailActivity.startHealth(getContext(), dataList.get(0).getId(), Global.getUserId(), "", "");
@@ -463,6 +508,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                 }
                 generalArticleItem.setReaderNum(dataList.get(i).getPageView(), dataList.get(i).getCreateTime());
                 generalArticleItem.setOnClickListener(new View.OnClickListener() {
+                    @SingleClick(1000)
                     @Override
                     public void onClick(View v) {
                         ArticleDetailActivity.startHealth(getContext(), generalArticleItem.getArticleId(), Global.getUserId(), "", "");
@@ -472,6 +518,16 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                 healthZoneLayout.addView(generalArticleItem);
             }
         }
+
+    }
+
+    @Override
+    public void setRedPointView(IndexData indexData) {
+        unFinishInquiry = indexData.getUnFinishInquiry();
+        unFinishNurse = indexData.getUnFinishNurse();
+        clinic = indexData.getClinic();
+        unFinishAdmission = indexData.getUnFinishAdmission();
+        unFinishInspect = indexData.getUnFinishInspect();
 
     }
 
@@ -517,7 +573,6 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             EventBus.getDefault().post(new Event(EventType.UPDATEHOSPITAL, null));
             chooseHospitalAdapter.notifyDataSetChanged();
             getController().fillViewData();
-            getController().fillFunction();
         } else {
             new GeneralDialog(getContext(), "该城市暂无服务医院，请切换城市", new GeneralDialog.OnCloseListener() {
                 @Override
@@ -537,9 +592,9 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
     @Override
     public void showHospitalPopupWindow() {
-        for (int i = 0; i <hospitalList.size() ; i++) {
+        for (int i = 0; i < hospitalList.size(); i++) {
             hospitalList.get(i).setSelected(false);
-            if( hospitalList.get(i).getName().equals(App.hospitalName))
+            if (hospitalList.get(i).getName().equals(App.hospitalName))
                 hospitalList.get(i).setSelected(true);
         }
         chooseHospitalAdapter.notifyDataSetChanged();
@@ -559,9 +614,9 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                 if (charSequence.toString().equals("")) {
                     hospitalList.clear();
                     hospitalList.addAll(hospitalListFromService);
-                    for (int position = 0; position <hospitalList.size() ; position++) {
+                    for (int position = 0; position < hospitalList.size(); position++) {
                         hospitalList.get(position).setSelected(false);
-                        if( hospitalList.get(position).getName().equals(App.hospitalName))
+                        if (hospitalList.get(position).getName().equals(App.hospitalName))
                             hospitalList.get(position).setSelected(true);
                     }
                     chooseHospitalAdapter.notifyDataSetChanged();
@@ -575,6 +630,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         });
         TextView hospitalSearchTv = view.findViewById(R.id.hospital_search_tv);
         hospitalSearchTv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 if (hospitalSearchEdt.getText().toString().trim().equals("")) {
@@ -585,9 +641,9 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                             hospitalList.add(info);
                         }
                     }
-                    for (int i = 0; i <hospitalList.size() ; i++) {
+                    for (int i = 0; i < hospitalList.size(); i++) {
                         hospitalList.get(i).setSelected(false);
-                        if( hospitalList.get(i).getName().equals(App.hospitalName))
+                        if (hospitalList.get(i).getName().equals(App.hospitalName))
                             hospitalList.get(i).setSelected(true);
                     }
                     chooseHospitalAdapter.notifyDataSetChanged();
@@ -595,12 +651,14 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             }
         });
         backgroudView.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 hospitalPopupWindow.dismiss();
             }
         });
         cancelTv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 hospitalPopupWindow.dismiss();
@@ -608,6 +666,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         });
         TextView commitTv = view.findViewById(R.id.commit_tv);
         commitTv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 App.hospitalId = selectHospitalId;

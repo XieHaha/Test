@@ -3,6 +3,7 @@ package com.keydom.ih_doctor.fragment.controller;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -40,6 +41,7 @@ import org.jetbrains.annotations.Nullable;
  * 修改时间：18/11/14 上午10:56
  */
 public class PersonalFragmentController extends ControllerImpl<PersonalFragmentView> implements View.OnClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -68,7 +70,7 @@ public class PersonalFragmentController extends ControllerImpl<PersonalFragmentV
                 MyIncomeActivity.start(mContext);
                 break;
             case R.id.my_service:
-                MyServiceActivity.start(mContext);
+                MyServiceActivity.start(mContext,false);
                 break;
             case R.id.my_setting:
                 SettingActivity.start(mContext);

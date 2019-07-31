@@ -58,6 +58,8 @@ public class TentativeDiagnosisActivity extends BaseControllerActivity<Tentative
     private LinearLayout doctorLl, patientLl;
     private String doctorId="";
     private int type;
+    private String userName="";
+    private String userId="";
     /**
      * 添加的医生View列表
      */
@@ -102,10 +104,12 @@ public class TentativeDiagnosisActivity extends BaseControllerActivity<Tentative
      *
      * @param context
      */
-    public static void start(Context context, int type, String doctorId) {
+    public static void start(Context context, int type, String doctorId,String userName,String userId) {
         Intent intent = new Intent(context, TentativeDiagnosisActivity.class);
         intent.putExtra("type", type);
         intent.putExtra("doctorId", doctorId);
+        intent.putExtra("userName", userName);
+        intent.putExtra("userId", userId);
         context.startActivity(intent);
     }
 
@@ -114,8 +118,11 @@ public class TentativeDiagnosisActivity extends BaseControllerActivity<Tentative
      */
     private void initView() {
         type = getIntent().getIntExtra("type", 0);
-        if (type == TYPEUPDATE)
+        if (type == TYPEUPDATE){
             doctorId = getIntent().getStringExtra("doctorId");
+            userName=getIntent().getStringExtra("userName");
+            userId=getIntent().getStringExtra("userId");
+        }
         backVisitScalerTextLayout = this.findViewById(R.id.back_visit_scaler_text_layout);
         inquiryScalerTextLayout = this.findViewById(R.id.inquiry_scaler_text_layout);
         chooseTermTv = this.findViewById(R.id.choose_term_tv);
@@ -164,7 +171,7 @@ public class TentativeDiagnosisActivity extends BaseControllerActivity<Tentative
             }
         });
         if (type == TYPEUPDATE)
-            getController().getWarrantDetail(doctorId);
+            getController().getWarrantDetail(doctorId,userId);
 
 
     }
@@ -272,6 +279,11 @@ public class TentativeDiagnosisActivity extends BaseControllerActivity<Tentative
         map.put("interrogationOrder", inquiryScalerQuantity);
         map.put("termValidity", mDate);
         map.put("state", state);
+        if(type==TYPECREAT)
+            map.put("type",0);
+        else
+            map.put("type",1);
+
         return map;
     }
 
@@ -317,7 +329,7 @@ public class TentativeDiagnosisActivity extends BaseControllerActivity<Tentative
         else
             backVisitCk.setChecked(true);
         inquiryScalerState=warrantDetailBean.getInterrogationState();
-        if(backVisitState==0)
+        if(inquiryScalerState==0)
             inquiryCk.setChecked(false);
         else
             inquiryCk.setChecked(true);

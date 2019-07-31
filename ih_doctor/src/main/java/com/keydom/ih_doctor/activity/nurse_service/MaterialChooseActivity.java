@@ -20,6 +20,7 @@ import com.keydom.ih_doctor.adapter.MaterialChooseAdapter;
 import com.keydom.ih_doctor.bean.MaterialBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.TypeEnum;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -78,6 +79,7 @@ public class MaterialChooseActivity extends BaseControllerActivity<MaterialChoos
         initList();
         getController().materialList(TypeEnum.REFRESH);
         setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
+            @SingleClick(1000)
             @Override
             public void OnRightTextClick(View v) {
                 if (materialChooseAdapter.getSelectList() == null || materialChooseAdapter.getSelectList().size() == 0) {

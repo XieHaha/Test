@@ -54,14 +54,18 @@ public class Const {
      * 没有其他作用，仅做前期接口测试
      */
     //测试服务器
-    public static final String RELEASE_HOST = "http://110.191.238.12:12009/";
-    public static final String IMAGE_HOST = "http://110.191.238.12:12009/";
+//    public static final String RELEASE_HOST = "http://110.191.238.12:12014/";
+//    public static final String IMAGE_HOST = "http://110.191.238.12:12005/";
     //开发服务器
 //    public static final String RELEASE_HOST = "http://110.191.238.12:12004/";
 //    public static final String IMAGE_HOST = "http://110.191.238.12:12005/";
     //验收服务器
 //    public static final String RELEASE_HOST = "http://110.191.238.12:12013/";
 //    public static final String IMAGE_HOST = "http://110.191.238.12:12013/";
+
+    //新验收服务器
+    public static final String RELEASE_HOST = "http://110.191.238.12:12010/";
+    public static final String IMAGE_HOST = "http://110.191.238.12:12010/";
 
 
 }

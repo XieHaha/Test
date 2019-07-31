@@ -3,6 +3,7 @@ package com.keydom.ih_patient.activity.prescription_check;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
@@ -13,6 +14,7 @@ import com.keydom.ih_patient.activity.prescription_check.view.PrescriptionDetail
 import com.keydom.ih_patient.adapter.MedicineRecyclrViewAdapter;
 import com.keydom.ih_patient.bean.PrescriptionDetailBean;
 import com.keydom.ih_patient.bean.PrescriptionDrugBean;
+import com.keydom.ih_patient.view.PrescriptionLayoutView;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -34,6 +36,7 @@ public class PrescriptionDetailActivity extends BaseControllerActivity<Prescript
      */
     private List<PrescriptionDrugBean> dataList = new ArrayList<>();
     private TextView number, hospitalName, userName, userSex, userAge, caseNum, deptName, address, phoneNum, feeType, diagnose, date, doctorName,checkDoctorName, prescriptionTypeName, sendDoctorName;
+    private LinearLayout prescription_detail_layout;
 
     @Override
     public int getLayoutRes() {
@@ -44,27 +47,8 @@ public class PrescriptionDetailActivity extends BaseControllerActivity<Prescript
      * 查找控件
      */
     private void getView() {
-        hospitalName = (TextView) this.findViewById(R.id.hospital_name);
-        userName = (TextView) this.findViewById(R.id.user_name);
-        userSex = (TextView) this.findViewById(R.id.user_sex);
-        userAge = (TextView) this.findViewById(R.id.user_age);
-        caseNum = (TextView) this.findViewById(R.id.case_num);
-        deptName = (TextView) this.findViewById(R.id.dept_name);
-        address = (TextView) this.findViewById(R.id.address);
-        phoneNum = (TextView) this.findViewById(R.id.phone_num);
-        feeType = (TextView) this.findViewById(R.id.fee_type);
-        diagnose = (TextView) this.findViewById(R.id.diagnose);
-        number = (TextView) this.findViewById(R.id.number);
-        date = (TextView) this.findViewById(R.id.date);
-        checkDoctorName = (TextView) this.findViewById(R.id.check_doctor_name);
-        sendDoctorName = (TextView) this.findViewById(R.id.send_doctor_name);
-        prescriptionTypeName = (TextView) this.findViewById(R.id.prescription_type_name);
-        doctorName = (TextView) this.findViewById(R.id.doctor_name);
-        recyclerView = (RecyclerView) findViewById(R.id.medicine_rv);
-        mAdapter = new MedicineRecyclrViewAdapter(getContext(), dataList);
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setNestedScrollingEnabled(false);
+        prescription_detail_layout=findViewById(R.id.prescription_detail_layout);
+
     }
 
     @Override
@@ -85,24 +69,14 @@ public class PrescriptionDetailActivity extends BaseControllerActivity<Prescript
      */
     private void setDetail(PrescriptionDetailBean bean) {
         if (bean != null) {
-            hospitalName.setText(bean.getHospitalName()+"处方笺");
-            userName.setText(bean.getName());
-            userSex.setText(CommonUtils.getSex(bean.getSex()));
-            userAge.setText(bean.getAge());
-            caseNum.setText(bean.getOutpatientNumber());
-            deptName.setText(bean.getDept());
-            address.setText(bean.getAddress());
-            phoneNum.setText(bean.getPhoneNumber());
-            feeType.setText(bean.getFee());
-            diagnose.setText(bean.getDiagnosis());
-            date.setText(bean.getTime());
-            doctorName.setText(bean.getDoctorName());
-            number.setText(bean.getSerialNumber());
-            prescriptionTypeName.setText(bean.getCate() == 1 ? "普通药品处方" : "儿科药品处方");
-            checkDoctorName.setText(bean.getAuditer());
-            sendDoctorName.setText(bean.getChecker());
-            dataList.addAll(bean.getList());
-            mAdapter.notifyDataSetChanged();
+
+            prescription_detail_layout.removeAllViews();
+            for (int i = 0; i <bean.getList().size() ; i++) {
+                PrescriptionLayoutView prescriptionDetailView=new PrescriptionLayoutView(getContext());
+                prescriptionDetailView.setData(bean,i);
+                prescription_detail_layout.addView(prescriptionDetailView);
+            }
+
         }
     }
 

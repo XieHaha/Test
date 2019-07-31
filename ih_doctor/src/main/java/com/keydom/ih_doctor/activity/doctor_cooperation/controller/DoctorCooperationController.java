@@ -24,6 +24,7 @@ import com.keydom.ih_doctor.activity.doctor_cooperation.view.DoctorCooperationVi
 import com.keydom.ih_doctor.bean.GroupInfoBean;
 import com.keydom.ih_doctor.bean.GroupInfoRes;
 import com.keydom.ih_doctor.constant.TypeEnum;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.GroupCooperateApiService;
 import com.keydom.ih_doctor.view.BottomGroupCutDialog;
 
@@ -40,7 +41,7 @@ import java.util.HashMap;
  * 修改时间：18/11/16 上午9:09
  */
 public class DoctorCooperationController extends ControllerImpl<DoctorCooperationView> implements View.OnClickListener, IhTitleLayout.OnRightTextClickListener {
-
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

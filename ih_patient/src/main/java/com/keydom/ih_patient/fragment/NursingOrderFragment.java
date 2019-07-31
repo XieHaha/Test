@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.nursing_order.ChargeBackOrderActivity;
@@ -22,6 +23,7 @@ import com.keydom.ih_patient.bean.NursingOrderBean;
 import com.keydom.ih_patient.bean.NursingOrderDetailBean;
 import com.keydom.ih_patient.bean.OrderEvaluateBean;
 import com.keydom.ih_patient.callback.GeneralCallback;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.fragment.controller.NursingOrderFragmentController;
@@ -95,7 +97,12 @@ public class NursingOrderFragment extends BaseControllerFragment<NursingOrderFra
         mStatus = getArguments().getInt(STATUS);
         switchState(mStatus);
         mRefreshLayout.setOnRefreshListener(refreshLayout -> switchState(mStatus));
-        mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @SingleClick(1000)
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+
             NursingOrderBean bean = (NursingOrderBean) adapter.getData().get(position);
             switch (view.getId()) {
                 case R.id.num:
@@ -132,7 +139,8 @@ public class NursingOrderFragment extends BaseControllerFragment<NursingOrderFra
                     ActivityUtils.startActivity(i1);
                     break;
             }
-        });
+        }});
+
     }
 
     /**

@@ -33,6 +33,7 @@ import com.keydom.ih_doctor.bean.SubmitCheckOrderReqBean;
 import com.keydom.ih_doctor.bean.SubmitInspectOrderReqBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.m_interface.OnItemChangeListener;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
@@ -231,11 +232,13 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
         } else {
             getTitleLayout().showRightDoubleBtn();
             getTitleLayout().setDoubleRightListener(new IhTitleLayout.OnRightTextClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void OnRightTextClick(View v) {
                     getController().saveOrder();
                 }
             }, new IhTitleLayout.OnRightTextClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void OnRightTextClick(View v) {
                     getController().deleteInquisition(checkItemListBean.getId());

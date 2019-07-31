@@ -97,7 +97,7 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
             SharePreferenceManager.setPositionId(info.getNurseMonitorState());
             PushManager.setAlias(getContext(), info.getPhoneNumber());
             MyApplication.isNeedInit=false;
-            MainActivity.start(LoginActivity.this,false);
+            MainActivity.start(LoginActivity.this,false,false);
             CommonUtils.hideSoftKeyboard(this);
 //            } else {
 //                DialogUtils.showSingleAlertDialog(LoginActivity.this, info.getRoleIds(), new OnSelectRoleListener() {

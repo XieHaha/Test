@@ -14,6 +14,7 @@ import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.NurseBean;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import java.io.Serializable;
 import java.util.List;
@@ -69,6 +70,7 @@ public class NurseSelectRecyclrViewAdapter extends BaseEmptyAdapter<NurseBean> {
             selectTv.setBackground(mContext.getResources().getDrawable(R.drawable.doctor_unselect_bg));
             selectTv.setTextColor(mContext.getResources().getColor(R.color.white));
             selectTv.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent();

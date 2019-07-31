@@ -14,6 +14,7 @@ import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.DeptDoctorBean;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
 import java.io.Serializable;
@@ -122,6 +123,7 @@ public class DoctorSelectRecyclrViewAdapter extends BaseEmptyAdapter<DeptDoctorB
                 selectTv.setTextColor(mContext.getResources().getColor(R.color.white));
             }
             selectTv.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     if (orderType!=0&&bean.getProjectStatus() != 3 && bean.getProjectStatus() != orderType) {

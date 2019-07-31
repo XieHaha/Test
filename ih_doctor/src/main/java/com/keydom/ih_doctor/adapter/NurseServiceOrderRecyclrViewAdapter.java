@@ -15,6 +15,7 @@ import com.keydom.ih_doctor.activity.nurse_service.HeadNurseServiceOrderDetailAc
 import com.keydom.ih_doctor.bean.NurseServiceListBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.TypeEnum;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.CalculateTimeUtils;
 
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.List;
  * 修改人：xusong
  * 修改时间：18/11/6 下午6:52
  */
-public class NurseServiceOrderRecyclrViewAdapter extends BaseEmptyAdapter<NurseServiceListBean> {
+public class   NurseServiceOrderRecyclrViewAdapter extends BaseEmptyAdapter<NurseServiceListBean> {
 
 
     /**
@@ -154,6 +155,7 @@ public class NurseServiceOrderRecyclrViewAdapter extends BaseEmptyAdapter<NurseS
             serviceAddress.setText(bean.getAddress());
             serviceTime.setText(CalculateTimeUtils.getYMDTime(bean.getVisitTime()) + " " + bean.getVisitPeriod());
             itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
 
@@ -166,12 +168,12 @@ public class NurseServiceOrderRecyclrViewAdapter extends BaseEmptyAdapter<NurseS
                         }
 
                     } else if (type == TypeEnum.COMMON_NURSE_FRAGMENT_RECEIVE_ORDER) {//护士待接收
-                        CommonNurseServiceOrderDetailActivity.start(mContext, String.valueOf(bean.getId()));
+                        CommonNurseServiceOrderDetailActivity.start(mContext, String.valueOf(bean.getId()),bean.getOrderNumber());
                     } else if (type == TypeEnum.COMMON_NURSE_FRAGMNET_WORKING_ORDER || type == TypeEnum.COMMON_NURSE_FRAGMENT_FINISH_ORDER) {//护士已接收
                         if (bean.getState() == Const.NURSING_SERVICE_ORDER_STATE_ON_SERVICE || bean.getState() == Const.NURSING_SERVICE_ORDER_STATE_FINISH) {
                             CommonNurseServiceWorkingOrderDetailActivity.start(mContext, type, String.valueOf(bean.getId()));
                         } else {
-                            CommonNurseServiceOrderDetailActivity.start(mContext, String.valueOf(bean.getId()));
+                            CommonNurseServiceOrderDetailActivity.start(mContext, String.valueOf(bean.getId()),bean.getOrderNumber());
                         }
 
                     }

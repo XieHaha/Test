@@ -44,6 +44,10 @@
             android:textSize="@dimen/font_size_primary"
             android:drawablePadding="@dimen/dp_7"
             android:paddingLeft="@dimen/dp_10"
+            android:singleLine="true"
+            android:ellipsize="middle"
+            android:maxWidth="@dimen/dp_120"
+            android:text="的撒谎的看见撒旦凯撒好的凯撒很简单拉萨机"
             android:drawableRight="@mipmap/arrow_bottom"
             android:paddingRight="@dimen/dp_24"
             android:textColor="#666666"/>

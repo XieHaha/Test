@@ -89,13 +89,13 @@ public class FeedBackController extends ControllerImpl<FeedBackView> implements 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (getView().getLastItemClick(position)) {
-            if (getView().getImgSize() < 2) {
+            if (getView().getImgSize() < 9) {
                 PictureSelector.create((Activity) getContext())
                         .openGallery(PictureMimeType.ofImage())
-                        .maxSelectNum(2 - getView().getImgSize())
+                        .maxSelectNum(9 - getView().getImgSize())
                         .forResult(PictureConfig.CHOOSE_REQUEST);
             } else {
-                ToastUtil.shortToast(mContext, "最多只能选择两张图片");
+                ToastUtil.shortToast(mContext, "最多只能选择九张图片");
             }
 
         }else

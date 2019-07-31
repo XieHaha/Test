@@ -298,7 +298,7 @@ public class ArticleDetailActivity extends BaseControllerActivity<ArticleDetailC
     }
 
     private void initHealthCommentListVew() {
-        healthCommentAdapter = new HealthCommentAdapter(this, healthCommentsList,userId);
+        healthCommentAdapter = new HealthCommentAdapter(this, healthCommentsList, userId);
         expandableListView.setAdapter(healthCommentAdapter);
         expandableListView.setLayoutManager(new LinearLayoutManager(this));
         expandableListView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -726,9 +726,13 @@ public class ArticleDetailActivity extends BaseControllerActivity<ArticleDetailC
             detail_page_comment_container.setVisibility(View.VISIBLE);
             comment_empty_layout.setVisibility(View.GONE);
         }
-        healthCommentsList.add(0, commentBean);
+      /*  healthCommentsList.add(0, commentBean);
         healthCommentAdapter.notifyDataSetChanged();
+        moveToComment();*/
+        healthCommentsList.clear();
         moveToComment();
+        getController().setCurrentPage(1);
+        getController().getHealthArticleComments(getHealthCommentMap());
     }
 
     @Override
@@ -861,7 +865,10 @@ public class ArticleDetailActivity extends BaseControllerActivity<ArticleDetailC
 
     @Override
     protected void onDestroy() {
+        if (healthCommentAdapter != null)
+            healthCommentAdapter.deletedDialog();
         super.onDestroy();
+
         RichText.clear(this);
     }
 

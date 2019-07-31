@@ -79,7 +79,9 @@
                         android:id="@+id/cure_doctor_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="杨沛"
+                        android:singleLine="true"
+                        android:layout_marginRight="@dimen/dp_20"
+                        android:ellipsize="middle"
                         android:textColor="#666666"
                         android:textSize="@dimen/font_size_primary"/>
                 </LinearLayout>

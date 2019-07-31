@@ -9,6 +9,7 @@ import com.keydom.ih_patient.activity.index_main.MainActivity;
 import com.keydom.ih_patient.activity.payment_records.controller.PaymentSuccessController;
 import com.keydom.ih_patient.activity.payment_records.view.PaymentSuccessView;
 import com.keydom.ih_patient.bean.Event;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 
 import org.greenrobot.eventbus.EventBus;
@@ -30,7 +31,7 @@ public class PaymentSuccessActivity extends BaseControllerActivity<PaymentSucces
         findViewById(R.id.see).setOnClickListener(this);
         findViewById(R.id.back_home).setOnClickListener(this);
     }
-
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()){

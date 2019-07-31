@@ -52,6 +52,17 @@ public class MedicalCardInfo implements Serializable {
     @JSONField(name = "relationship")
     private String relationship;
 
+    @JSONField(name = "isUnbind")
+    private int isUnbind;
+
+    public int getIsUnbind() {
+        return isUnbind;
+    }
+
+    public void setIsUnbind(int isUnbind) {
+        this.isUnbind = isUnbind;
+    }
+
     public String getContact() {
         return contact;
     }

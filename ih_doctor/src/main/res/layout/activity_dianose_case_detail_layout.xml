@@ -121,7 +121,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_8"
                         android:layout_toRightOf="@id/user_name_tv_tip"
-                        android:text="君莫笑"
+                        android:singleLine="true"
+                        android:maxWidth="@dimen/dp_80"
+                        android:ellipsize="end"
                         android:textColor="@color/primary_font_color"
                         android:textSize="@dimen/font_size_primary"
                         android:textStyle="bold" />

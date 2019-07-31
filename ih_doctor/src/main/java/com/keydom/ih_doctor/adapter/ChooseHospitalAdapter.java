@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.HospitalAreaInfo;
 import com.keydom.ih_doctor.m_interface.GeneralCallback;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,7 @@ public class ChooseHospitalAdapter extends RecyclerView.Adapter<ChooseHospitalAd
             holder.lospital_select_img.setVisibility(View.GONE);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 holder.hospital_name_tv.setTextColor(Color.parseColor("#3F98F7"));

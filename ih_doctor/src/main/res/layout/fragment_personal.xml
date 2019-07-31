@@ -28,6 +28,8 @@
             android:gravity="center"
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_10"
+            android:lines="1"
+            android:ellipsize="end"
             android:textColor="@color/primary_font_color"
             android:textSize="@dimen/font_size_primary" />
 

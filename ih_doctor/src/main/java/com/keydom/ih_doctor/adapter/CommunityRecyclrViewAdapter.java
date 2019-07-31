@@ -22,6 +22,7 @@ import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.ArticleListBean;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -99,6 +100,7 @@ public class CommunityRecyclrViewAdapter extends BaseEmptyAdapter<ArticleListBea
                 attentionSelect.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.attention_nol));
             }
             attentionSelect.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     if (CalculateTimeUtils.isFastClick(2000)) {
@@ -139,6 +141,7 @@ public class CommunityRecyclrViewAdapter extends BaseEmptyAdapter<ArticleListBea
             });
 
             itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     ArticleDetailActivity.startArticle(mContext, mDatas.get(position).getId(), MyApplication.userInfo.getId(), MyApplication.userInfo.getName(), MyApplication.userInfo.getAvatar(),true);

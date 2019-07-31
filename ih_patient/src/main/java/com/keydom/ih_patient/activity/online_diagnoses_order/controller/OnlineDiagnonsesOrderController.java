@@ -22,6 +22,7 @@ import com.keydom.ih_patient.net.PayService;
 import com.keydom.ih_patient.net.UserService;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
+import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -66,15 +67,47 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
     /**
      * 问诊订单支付
      */
-    public void inquiryPay(Map<String, Object> map, DiagnosesOrderBean item) {
+    public void inquiryPay(Map<String, Object> map, DiagnosesOrderBean item, int type) {
         if (map != null) {
             ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).inquiryPay(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(),getDisposable(),false,false) {
                 @Override
                 public void requestComplete(@Nullable String data) {
-                    try {
-                        JSONObject object = new JSONObject(data);
-                        Logger.e("return_msg:" + object.getString("return_msg"));
-                        new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
+                    if(type==2){
+                        try {
+                            JSONObject object = new JSONObject(data);
+                            Logger.e("return_msg:" + object.getString("return_msg"));
+                            new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
+                                @Override
+                                public void onSuccess() {
+                                    ToastUtil.shortToast(getContext(), "支付成功");
+                                    new GeneralDialog(getContext(), "问诊订单支付成功，近期请留意订单状态以及接诊医生给你发送的消息", new GeneralDialog.OnCloseListener() {
+                                        @Override
+                                        public void onCommit() {
+                                            EventBus.getDefault().post(new Event(EventType.REFRESHDIAGNOSESORDER, null));
+                                        }
+                                    }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
+                                }
+
+                                @Override
+                                public void onDealing() {
+
+                                }
+
+                                @Override
+                                public void onError(int error_code) {
+
+                                }
+
+                                @Override
+                                public void onCancel() {
+
+                                }
+                            }).doPay();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }else if(type==1){
+                        WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
                             @Override
                             public void onSuccess() {
                                 ToastUtil.shortToast(getContext(), "支付成功");
@@ -87,23 +120,18 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
                             }
 
                             @Override
-                            public void onDealing() {
-
-                            }
-
-                            @Override
                             public void onError(int error_code) {
-
+                                ToastUtil.shortToast(getContext(),"支付失败"+error_code
+                                );
                             }
 
                             @Override
                             public void onCancel() {
 
                             }
-                        }).doPay();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        });
                     }
+
                 }
             });
         }
@@ -168,11 +196,30 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
                     ToastUtils.showShort("返回支付参数为空");
                     return;
                 }
-                com.alibaba.fastjson.JSONObject js = com.alibaba.fastjson.JSONObject.parseObject(data);
-                if (type == 1) {
 
+                if (type == 1) {
+                    WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
+                        @Override
+                        public void onSuccess() {
+                            getView().paySuccess();
+                            EventBus.getDefault().post(new Event(EventType.REFRESHDIAGNOSESORDER, null));
+                            ToastUtils.showShort("支付成功");
+                        }
+
+                        @Override
+                        public void onError(int error_code) {
+                            ToastUtil.shortToast(getContext(),"支付失败"+error_code
+                            );
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+                    });
                 }
                 if (type == 2) {
+                    com.alibaba.fastjson.JSONObject js = com.alibaba.fastjson.JSONObject.parseObject(data);
                     if (!js.containsKey("return_msg")) {
                         return;
                     }
@@ -180,6 +227,7 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
                         @Override
                         public void onSuccess() {
                             getView().paySuccess();
+                            EventBus.getDefault().post(new Event(EventType.REFRESHDIAGNOSESORDER, null));
                             ToastUtils.showShort("支付成功");
                         }
 

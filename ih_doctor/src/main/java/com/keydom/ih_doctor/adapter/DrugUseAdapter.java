@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.DrugBean;
 import com.keydom.ih_doctor.bean.DrugUseConfigBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
 import java.text.DecimalFormat;
@@ -39,7 +40,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
         if(item.getSingleDose()!=0){
             dose=item.getSingleDose();
         }else {
-            if(item.getDosage()!=0){
+            if(item.getDosage()!=null&&item.getDosage()!=0){
                 dose=item.getDosage();
             }else {
                 dose=item.getSingleMaximum();
@@ -86,6 +87,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
             }
         });
         medical_num_scaler_minus_layout.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (item.getQuantity() > 0) {
@@ -97,6 +99,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
             }
         });
         medical_num_scaler_add_layout.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (!ischange) {
@@ -107,6 +110,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
         });
 
         medical_dosage_scaler_minus_layout.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (item.getSingleDose() > 0.1) {
@@ -120,6 +124,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
         });
 
         medical_dosage_scaler_add_layout.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (item.getSingleMaximum() == 0 || Double.parseDouble(df1.format(item.getSingleDose() + 0.1)) <= item.getSingleMaximum()) {
@@ -135,6 +140,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
         });
 
         eat_medical_day_scaler_minus_layout.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (item.getDays() > 0) {
@@ -148,6 +154,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
         });
 
         eat_medical_day_scaler_add_layout.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (item.getMaximumMedicationDays() == 0 || item.getDays() < item.getMaximumMedicationDays()) {

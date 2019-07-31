@@ -2,6 +2,7 @@ package com.keydom.ih_doctor.activity.doctor_cooperation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_common.view.GridViewForScrollView;
@@ -188,6 +190,7 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
         TextView userSex = view.findViewById(R.id.user_sex);
         TextView diagnoseDec = view.findViewById(R.id.diagnose_dec);
         TextView diagnoseTime = view.findViewById(R.id.diagnose_time);
+        TextView diagnoseType=view.findViewById(R.id.order_type_tv);
         ImageView delete = view.findViewById(R.id.delete);
         RecyclerView imgRv = view.findViewById(R.id.img_rv);
         userName.setText(bean.getName());
@@ -196,6 +199,18 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
         diagnoseDec.setText(bean.getConditionDesc());
         diagnoseTime.setText(bean.getApplyTime());
         selectDiagnoseOrder.setText(bean.getName());
+        if(bean.getInquisitionType()==0){
+            diagnoseType.setText("图文问诊");
+            Drawable rightDrawable = getContext().getResources().getDrawable(R.mipmap.diagnose_illustration);
+            rightDrawable.setBounds(0, 0, rightDrawable.getMinimumWidth(), rightDrawable.getMinimumHeight());
+            diagnoseType.setCompoundDrawables(rightDrawable,null,null,null);
+        }else {
+            diagnoseType.setText("视频问诊");
+            Drawable rightDrawable = getContext().getResources().getDrawable(R.mipmap.video_diagnoses_icon);
+            rightDrawable.setBounds(0, 0, rightDrawable.getMinimumWidth(), rightDrawable.getMinimumHeight());
+            diagnoseType.setCompoundDrawables(rightDrawable,null,null,null);
+
+        }
         orderStatus.setVisibility(View.GONE);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,6 +225,7 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
                 }).show();
             }
         });
+        GlideUtils.load(userIcon, Const.IMAGE_HOST + bean.getUserAvatar(), 0, R.mipmap.user_icon, false, null);
         DiagnoseOrderDetailAdapter adapter = new DiagnoseOrderDetailAdapter(this, CommonUtils.getImgList(orderBean.getConditionData()));
         LinearLayoutManager diagnoseInfoImgRvLm = new LinearLayoutManager(this);
         diagnoseInfoImgRvLm.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -240,11 +256,28 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
                     break;
                 case Const.DOCTOR_SLEECT_ONLY_RESULT:
                     List<DeptDoctorBean> list = (List<DeptDoctorBean>) data.getSerializableExtra(Const.DATA);
-                    doctorList.clear();
-                    doctorList.addAll(list);
-                    removeView();
-                    addDoctor();
-                    selectDoctor.setText("");
+                    if(orderBean!=null&&orderBean.getInquisitionType()==0){
+                        if(list.get(0).getProjectStatus()==1||list.get(0).getProjectStatus()==3){
+                            doctorList.clear();
+                            doctorList.addAll(list);
+                            removeView();
+                            addDoctor();
+                            selectDoctor.setText("");
+                        }else {
+                            ToastUtil.shortToast(getContext(),"该医生未开通图文问诊服务");
+                        }
+                    }else  if(orderBean!=null&&orderBean.getInquisitionType()==1){
+                        if(list.get(0).getProjectStatus()==2||list.get(0).getProjectStatus()==3){
+                            doctorList.clear();
+                            doctorList.addAll(list);
+                            removeView();
+                            addDoctor();
+                            selectDoctor.setText("");
+                        }else {
+                            ToastUtil.shortToast(getContext(),"该医生未开通视频问诊服务");
+                        }
+                    }
+
                     break;
                 case Const.DIAGNOSE_ORDER_SELECT:
                     orderBean = (InquiryBean) data.getSerializableExtra(Const.DATA);

@@ -9,18 +9,31 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.nurse_service.controller.ServiceOrderListController;
 import com.keydom.ih_doctor.activity.nurse_service.view.ServiceOrderListView;
+import com.keydom.ih_doctor.bean.Event;
+import com.keydom.ih_doctor.bean.MessageEvent;
+import com.keydom.ih_doctor.bean.OrderStatisticBean;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.fragment.NurseServiceOrderFragment;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Name：com.keydom.ih_doctor.activity
@@ -36,7 +49,8 @@ public class NurseServiceOrderListActivity extends BaseControllerActivity<Servic
     private Fragment[] mFragmentArrays;
 
     private EditText searchInputEv;
-    private TextView searchTv;
+    private TextView searchTv,order_num_tv;
+    private LinearLayout order_num_layout;
     /**
      * tab列表
      */
@@ -75,20 +89,42 @@ public class NurseServiceOrderListActivity extends BaseControllerActivity<Servic
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         mType = (TypeEnum) getIntent().getSerializableExtra(Const.TYPE);
         setTitle("护理服务订单");
+        order_num_layout=this.findViewById(R.id.order_num_layout);
+        order_num_tv=this.findViewById(R.id.order_num_tv);
         tabLayout = this.findViewById(R.id.tablayout);
         viewPager = this.findViewById(R.id.tab_viewpager);
         searchInputEv = this.findViewById(R.id.search_input_ev);
         searchTv = this.findViewById(R.id.search_tv);
         searchTv.setOnClickListener(getController());
         if (mType == TypeEnum.HEAD_NURSE) {
+            order_num_layout.setVisibility(View.VISIBLE);
+            getController().getOrderStatistic(getStatisticMap());
             initNurseManager();
         } else {
+            order_num_layout.setVisibility(View.GONE);
             initNurse();
         }
 
 
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(MessageEvent messageEvent) {
+        if (messageEvent.getType() == EventType.UPDATENURSENUM) {
+            if (mType == TypeEnum.HEAD_NURSE) {
+                getController().getOrderStatistic(getStatisticMap());
+            }
+        }
+    }
+
+    @Override
+    public Map<String,Object> getStatisticMap(){
+        Map<String,Object> map=new HashMap<>();
+        map.put("keyword",searchInputEv.getText().toString().trim());
+        map.put("nurseId",MyApplication.userInfo.getId());
+        return map;
     }
 
 
@@ -131,6 +167,7 @@ public class NurseServiceOrderListActivity extends BaseControllerActivity<Servic
 
     @Override
     protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -141,7 +178,12 @@ public class NurseServiceOrderListActivity extends BaseControllerActivity<Servic
 
     @Override
     public String getKeyword() {
-        return searchInputEv.getText().toString();
+        return searchInputEv.getText().toString().trim();
+    }
+
+    @Override
+    public void getOrderStatistic(OrderStatisticBean data) {
+        order_num_tv.setText("未接单："+data.getExpireNum()+"单（即将过期）/"+data.getAllNum()+"单");
     }
 
 
@@ -167,4 +209,5 @@ public class NurseServiceOrderListActivity extends BaseControllerActivity<Servic
 
         }
     }
+
 }

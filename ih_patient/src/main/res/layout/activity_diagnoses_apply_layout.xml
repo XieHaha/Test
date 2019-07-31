@@ -266,7 +266,7 @@
                     android:singleLine="false"
                     android:textSize="@dimen/font_size_primary"
                     android:textColor="#BBBBBB"
-                    android:hint="详细描述您的病情症状，曾经做过的检查、用药情况，目前病情是加重还是缓解，想要获得医生的什么帮助（不少于20字，最多支持五百字）"/>
+                    android:hint="详细描述您的病情症状，曾经做过的检查、用药情况，目前病情是加重还是缓解，想要获得医生的什么帮助（不少于10字，最多支持五百字）"/>
                 <TextView
                     android:id="@+id/desc_font_num_tv"
                     android:layout_width="wrap_content"

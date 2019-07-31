@@ -14,6 +14,7 @@ import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.adapter.PatientViewPagerAdapter;
 import com.keydom.ih_doctor.bean.MessageEvent;
+import com.keydom.ih_doctor.bean.PermissionBean;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.fragment.controller.PatientManageFragmentController;
 import com.keydom.ih_doctor.fragment.view.PatientManageFragmentView;
@@ -46,6 +47,9 @@ public class PatientManageFragment extends BaseControllerFragment<PatientManageF
     private Button searchButton;
     private RefreshLayout refreshLayout;
     private int currentTab = 0;
+    private int buildingGroupState=0;
+    private int empowerState=0;
+
 
     @Override
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -69,8 +73,10 @@ public class PatientManageFragment extends BaseControllerFragment<PatientManageF
                 EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.PATIENT_UPDATE_USER_LIST).build());
                 EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.UPDATE_MSG_LIST).build());
                 refreshLayout.finishRefresh(1500);
+                getController().getPermission(MyApplication.userInfo.getId()+"");
             }
         });
+
     }
 
     /**
@@ -98,10 +104,27 @@ public class PatientManageFragment extends BaseControllerFragment<PatientManageF
     @Override
     public void lazyLoad() {
         topHospitalName.setText(MyApplication.userInfo.getHospitalName());
+        getController().getPermission(MyApplication.userInfo.getId()+"");
     }
 
     @Override
     public RelativeLayout getTitleLayout() {
         return topTitleLayout;
+    }
+
+    @Override
+    public void getPermissionSuccess(PermissionBean permissionBean) {
+        buildingGroupState=permissionBean.getBuildingGroupState();
+        empowerState=permissionBean.getEmpowerState();
+    }
+
+    @Override
+    public int getBuildingGroupState() {
+        return buildingGroupState;
+    }
+
+    @Override
+    public int getEmpowerState() {
+        return empowerState;
     }
 }

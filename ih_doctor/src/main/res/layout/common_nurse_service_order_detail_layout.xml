@@ -28,7 +28,7 @@
             <com.keydom.ih_common.view.AnimationScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/button_ll"
+                android:layout_above="@id/bottom_layout"
                 android:overScrollMode="never">
 
                 <LinearLayout
@@ -345,7 +345,30 @@
                                     android:text="刘惜君"
                                     android:textSize="@dimen/font_size_primary" />
                             </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
 
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="3"
+                                    android:paddingTop="@dimen/dp_13"
+                                    android:paddingBottom="@dimen/dp_13"
+                                    android:text="电话："
+                                    android:textSize="@dimen/font_size_primary" />
+
+                                <TextView
+                                    android:id="@+id/order_user_contact_number"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:paddingTop="@dimen/dp_13"
+                                    android:paddingBottom="@dimen/dp_13"
+                                    android:text="13912345678"
+                                    android:textSize="@dimen/font_size_primary" />
+                            </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -435,30 +458,7 @@
                                     android:textSize="@dimen/font_size_primary" />
                             </LinearLayout>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:paddingTop="@dimen/dp_13"
-                                    android:paddingBottom="@dimen/dp_13"
-                                    android:text="联系电话："
-                                    android:textSize="@dimen/font_size_primary" />
-
-                                <TextView
-                                    android:id="@+id/order_user_contact_number"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:paddingTop="@dimen/dp_13"
-                                    android:paddingBottom="@dimen/dp_13"
-                                    android:text="13912345678"
-                                    android:textSize="@dimen/font_size_primary" />
-                            </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -699,58 +699,104 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
                 android:background="@color/line_color" />
-
-            <LinearLayout
-                android:id="@+id/button_ll"
+            <RelativeLayout
+                android:id="@+id/bottom_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_43"
-                android:layout_alignParentBottom="true"
-                android:orientation="horizontal"
-                android:visibility="visible">
+                android:layout_alignParentBottom="true">
+                <LinearLayout
+                    android:id="@+id/button_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_43"
 
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <Button
+                        android:id="@+id/change_order_bt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#F9F9F9"
+                        android:text="转单"
+                        android:textColor="#BBBBBB"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <Button
+                        android:id="@+id/receive_bt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#3F98F7"
+                        android:text="接收"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <Button
+                        android:id="@+id/go_bt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#3F98F7"
+                        android:text="出发"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_primary"
+                        android:visibility="gone" />
+
+
+                    <Button
+                        android:id="@+id/arrive_bt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#3F98F7"
+                        android:text="到达"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_primary"
+                        android:visibility="gone" />
+                </LinearLayout>
                 <Button
-                    android:id="@+id/change_order_bt"
+                    android:id="@+id/cancle_change_order_bt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:background="#F9F9F9"
-                    android:text="转单"
+                    android:text="撤销转单"
                     android:textColor="#BBBBBB"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/dp_15"
+                    android:visibility="gone"/>
 
-                <Button
-                    android:id="@+id/receive_bt"
+                <LinearLayout
+                    android:id="@+id/recive_button_ll"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#3F98F7"
-                    android:text="接收"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:layout_height="@dimen/dp_43"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
-                <Button
-                    android:id="@+id/go_bt"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#3F98F7"
-                    android:text="出发"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_primary"
-                    android:visibility="gone" />
+                    <Button
+                        android:id="@+id/refuse_change_order_bt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#F9F9F9"
+                        android:text="退回转单"
+                        android:textColor="#BBBBBB"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <Button
+                        android:id="@+id/accept_receive_bt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#3F98F7"
+                        android:text="接收转单"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_primary" />
 
 
-                <Button
-                    android:id="@+id/arrive_bt"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#3F98F7"
-                    android:text="到达"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_primary"
-                    android:visibility="gone" />
-            </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+
         </RelativeLayout>
     </com.ganxin.library.LoadDataLayout>
 </RelativeLayout>

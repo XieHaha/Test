@@ -8,6 +8,7 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_doctor.bean.PrescriptionBean;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.constant.ServiceConst;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.fragment.view.PrescriptionFragmentView;
 import com.keydom.ih_doctor.net.PrescriptionService;
@@ -46,9 +47,9 @@ public class PrescriptionFragmentController extends ControllerImpl<PrescriptionF
     }
 
     public void getData(TypeEnum type) {
-        if (SharePreferenceManager.getRoleId() == Const.ROLE_DOCTOR) {
+        if (ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE.equals(getView().getStartCod())) {
             getDoctorPrescriptionList(type);
-        } else {
+        } else if(ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE.equals(getView().getStartCod())){
             getDrugsPrescriptionList(type);
         }
     }

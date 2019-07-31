@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.R;
+import com.keydom.ih_patient.activity.login.LoginActivity;
 import com.keydom.ih_patient.activity.order_hospital_cure.controller.OrderHospitalCureListController;
 import com.keydom.ih_patient.activity.order_hospital_cure.view.OrderHospitalCureListView;
 import com.keydom.ih_patient.adapter.UnOrderCureAdapter;
 import com.keydom.ih_patient.bean.HospitalCureInfo;
+import com.keydom.ih_patient.constant.Global;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -53,6 +56,19 @@ public class OrderHospitalCureListActivity extends BaseControllerActivity<OrderH
                 getController().queryAdmissionCardList();
             }
         });
+        if (Global.getUserId() == -1) {
+            new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？", new GeneralDialog.OnCloseListener() {
+                @Override
+                public void onCommit() {
+                    LoginActivity.start(getContext());
+                }
+            }, new GeneralDialog.CancelListener() {
+                @Override
+                public void onCancel() {
+                    finish();
+                }
+            }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
+        }
     }
 
     @Override

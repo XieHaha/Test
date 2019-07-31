@@ -11,10 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.keydom.ih_doctor.R;
+import com.keydom.ih_doctor.activity.my_message.MyMessageActivity;
 import com.keydom.ih_doctor.activity.my_message.NoticeDeatailActivity;
 import com.keydom.ih_doctor.activity.nurse_service.NurseServiceOrderListActivity;
 import com.keydom.ih_doctor.activity.online_diagnose.DiagnoseOrderListActivity;
 import com.keydom.ih_doctor.bean.MessageBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import java.util.List;
 
@@ -55,13 +57,17 @@ public class MyMessageAdapter extends RecyclerView.Adapter<MyMessageAdapter.VH> 
                 holder.isReadTv.setTextColor(Color.parseColor("#F83535"));
             }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View view) {
 //                    NoticeDeatailActivity.start(context, messageBean);
+                    ((MyMessageActivity)context).getController().updateMessageState(messageBean.getId());
                     switch (messageBean.getInfoType()){
                         case "APPOINT_INQUIRY":
                             DiagnoseOrderListActivity.startDiagnose(context);
                             break;
+                        case "ACCEPTCHANGE_APPOINT_INQUIRY":
+                        case "CHANGE_APPOINT_INQUIRY":
                         case "INSPECT_APPOINT_INQUIRY":
                             DiagnoseOrderListActivity.startDiagnose(context);
 

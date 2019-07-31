@@ -87,7 +87,7 @@ public class SetPasswordActivity extends BaseControllerActivity<SetPasswordContr
                     TeamDataCache.getInstance().buildCache();
                     ImPreferences.saveUserAccount(userInfo.getUserCode());
                     ImPreferences.saveUserToken(userInfo.getImToken());
-                    MainActivity.start(SetPasswordActivity.this,false);
+                    MainActivity.start(SetPasswordActivity.this,false,false);
                 }
 
                 @Override
@@ -97,7 +97,7 @@ public class SetPasswordActivity extends BaseControllerActivity<SetPasswordContr
                 }
             });
         } else {
-            MainActivity.start(SetPasswordActivity.this,false);
+            MainActivity.start(SetPasswordActivity.this,false,false);
         }
 
 

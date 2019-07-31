@@ -19,6 +19,7 @@ import com.keydom.ih_doctor.activity.electronic_signature.view.ApplySignatureVie
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.bean.SignRegInfoBean;
 import com.keydom.ih_doctor.constant.EventType;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -64,6 +65,7 @@ public class ApplySignatureActivity extends BaseControllerActivity<ApplySignatur
         card_input_et = this.findViewById(R.id.card_input_et);
         get_identifying_code_bt = this.findViewById(R.id.get_identifying_code_bt);
         get_identifying_code_bt.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 String phoneNum = phone_input_et.getText().toString().trim();
@@ -83,6 +85,7 @@ public class ApplySignatureActivity extends BaseControllerActivity<ApplySignatur
         setRightTxt("提交");
         initView();
         setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
+            @SingleClick(1000)
             @Override
             public void OnRightTextClick(View v) {
                 if (checkMap()) {

@@ -140,10 +140,20 @@ public class ChooseDoctorActivity extends BaseControllerActivity<ChooseDoctorCon
         List<String> parentDepList = new ArrayList<>();
         final List<List<String>> childDepList = new ArrayList<>();
         for (int i = 0; i < departmentList.size(); i++) {
-            parentDepList.add(departmentList.get(i).getName());
+            if(departmentList.get(i).getName().length()>6){
+                parentDepList.add(departmentList.get(i).getName().substring(0,2)+"..."+departmentList.get(i).getName().substring(departmentList.get(i).getName().length()-3,departmentList.get(i).getName().length()));
+            }else {
+                parentDepList.add(departmentList.get(i).getName());
+            }
+
             List<String> parendChildList = new ArrayList<>();
             for (int j = 0; j < departmentList.get(i).getHdList().size(); j++) {
-                parendChildList.add(departmentList.get(i).getHdList().get(j).getName());
+                if(departmentList.get(i).getHdList().get(j).getName().length()>10){
+                    parendChildList.add(departmentList.get(i).getHdList().get(j).getName().substring(0,4)+"..."+departmentList.get(i).getHdList().get(j).getName().substring(departmentList.get(i).getHdList().get(j).getName().length()-3,departmentList.get(i).getHdList().get(j).getName().length()));
+                }else {
+                    parendChildList.add(departmentList.get(i).getHdList().get(j).getName());
+
+                }
             }
             childDepList.add(parendChildList);
         }

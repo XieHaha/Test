@@ -22,6 +22,7 @@ import com.keydom.ih_doctor.bean.PrescriptionBodyBean;
 import com.keydom.ih_doctor.bean.PrescriptionBottomBean;
 import com.keydom.ih_doctor.bean.PrescriptionHeadBean;
 import com.keydom.ih_doctor.m_interface.OnModelDialogListener;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.DialogUtils;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
@@ -60,6 +61,7 @@ public class PrescriptionAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                 PrescriptionHeadBean prescriptionHeadBean= (PrescriptionHeadBean) item;
                 helper.setText(R.id.modal_name,prescriptionHeadBean.getTitleName());
                 select_save.setOnClickListener(new View.OnClickListener() {
+                    @SingleClick(1000)
                     @Override
                     public void onClick(View view) {
                         DialogUtils.saveModelDialog(context,context.getTemplateList().get(prescriptionHeadBean.getPosition()), new OnModelDialogListener() {
@@ -73,6 +75,7 @@ public class PrescriptionAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                     }
                 });
                 prescription_delete_img.setOnClickListener(new View.OnClickListener() {
+                    @SingleClick(1000)
                     @Override
                     public void onClick(View view) {
                         new GeneralDialog(context, "确认删除该处方？", new GeneralDialog.OnCloseListener() {
@@ -100,6 +103,7 @@ public class PrescriptionAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                         .setText(R.id.use_once, "用法：" + drugBean.getSingleDose() + drugBean.getDosageUnit()).setText(R.id.use_method, drugBean.getWay())
                         .setText(R.id.times, String.valueOf(drugBean.getFrequency()));
                 update_tv.setOnClickListener(new View.OnClickListener() {
+                    @SingleClick(1000)
                     @Override
                     public void onClick(View view) {
 //                ToastUtils.showShort("点击了修改按钮");
@@ -112,6 +116,7 @@ public class PrescriptionAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                     }
                 });
                 delete_tv.setOnClickListener(new View.OnClickListener() {
+                    @SingleClick(1000)
                     @Override
                     public void onClick(View view) {
                         new GeneralDialog(context, "确认删除该药品？", new GeneralDialog.OnCloseListener() {
@@ -126,9 +131,10 @@ public class PrescriptionAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
 
             case TYPE_BOTTOM:
                 PrescriptionBottomBean prescriptionBottomBean= (PrescriptionBottomBean) item;
-                helper.setText(R.id.fee_count,"￥"+prescriptionBottomBean.getFee());
+                helper.setText(R.id.fee_count,"¥"+prescriptionBottomBean.getFee());
                 CardView add_medicine=helper.getView(R.id.add_medicine);
                 add_medicine.setOnClickListener(new View.OnClickListener() {
+                    @SingleClick(1000)
                     @Override
                     public void onClick(View view) {
                         if (context.getSelectList().get(prescriptionBottomBean.getBottomPosition()).size() >= 5)

@@ -27,8 +27,10 @@
                 android:layout_marginLeft="@dimen/dp_24"
                 android:layout_marginTop="@dimen/dp_26"
                 android:textColor="@color/primary_font_color"
-                android:textSize="@dimen/sp_23"
-                android:text=""
+                android:textSize="@dimen/sp_18"
+                android:text="的撒可怜见的撒赖扩大吉萨了解萨拉就大量的绝啊"
+                android:singleLine="true"
+                android:maxWidth="@dimen/dp_120"
                 android:textStyle="bold" />
 
             <LinearLayout

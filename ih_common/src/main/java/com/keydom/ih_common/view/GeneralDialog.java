@@ -147,4 +147,7 @@ public class GeneralDialog extends Dialog implements View.OnClickListener {
     public interface CancelListener{
         void onCancel();
     }
+    public void  setOnCloseListener(OnCloseListener onCloseListener){
+        this.listener=onCloseListener;
+    }
 }

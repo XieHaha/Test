@@ -45,7 +45,7 @@ public class WarrantListActivity extends BaseControllerActivity<WarrantListContr
         setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
             @Override
             public void OnRightTextClick(View v) {
-                TentativeDiagnosisActivity.start(getContext(),TentativeDiagnosisActivity.TYPECREAT,"");
+                TentativeDiagnosisActivity.start(getContext(),TentativeDiagnosisActivity.TYPECREAT,"","","");
             }
         });
         warrantRv=findViewById(R.id.warrant_list_rv);

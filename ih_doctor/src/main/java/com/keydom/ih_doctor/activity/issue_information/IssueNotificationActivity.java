@@ -23,6 +23,7 @@ import com.keydom.ih_doctor.activity.issue_information.view.IssueNotificationVie
 import com.keydom.ih_doctor.adapter.GridViewPlusImgAdapter;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.EventType;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -195,6 +196,7 @@ public class IssueNotificationActivity extends BaseControllerActivity<IssueNotif
         setTitle("发布公告");
         setRightTxt("发布");
         setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
+            @SingleClick(1000)
             @Override
             public void OnRightTextClick(View v) {
                 getController().issueArticle(getNotificationMap());

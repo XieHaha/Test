@@ -5,177 +5,185 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/check_dialog_bg"
     android:padding="@dimen/dp_19">
-
-    <ImageView
-        android:id="@+id/dialog_icon"
-        android:layout_width="@dimen/dp_96"
-        android:layout_height="@dimen/dp_96"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_10"
-        android:background="@mipmap/dialog_check_icon" />
-
-    <ImageView
-        android:id="@+id/check_dialog_close"
-        android:layout_width="@dimen/dp_42"
-        android:layout_height="@dimen/dp_42"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:background="@mipmap/dialog_close" />
-
-    <TextView
-        android:id="@+id/dialog_tip_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dialog_icon"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_19"
-        android:text="保存并存为模板"
-        android:textColor="@color/primary_font_color"
-        android:textSize="@dimen/font_size_title" />
-
-    <TextView
-        android:id="@+id/model_type_tip"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dialog_tip_tv"
-        android:layout_marginTop="@dimen/dp_16"
-        android:text="病例：模版类型"
-        android:textColor="#BBBBBB"
-        android:textSize="@dimen/font_size_primary" />
-
-    <LinearLayout
-        android:id="@+id/model_type_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/model_type_tip"
-        android:layout_marginTop="@dimen/dp_10"
-        android:orientation="horizontal">
-
+        android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/dialog_icon"
+                android:layout_width="@dimen/dp_96"
+                android:layout_height="@dimen/dp_96"
+                android:layout_centerHorizontal="true"
+                android:background="@mipmap/dialog_check_icon" />
+
+            <ImageView
+                android:id="@+id/check_dialog_close"
+                android:layout_width="@dimen/dp_42"
+                android:layout_height="@dimen/dp_42"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:background="@mipmap/dialog_close" />
 
             <TextView
-                android:id="@+id/model_type_personal"
+                android:id="@+id/dialog_tip_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/model_un_selected"
-                android:paddingLeft="@dimen/dp_18"
-                android:paddingTop="@dimen/dp_3"
-                android:paddingRight="@dimen/dp_18"
-                android:paddingBottom="@dimen/dp_3"
-                android:text="个人"
-                android:textColor="#666666"
-                android:textSize="@dimen/font_size_primary" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+                android:layout_below="@id/dialog_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="保存并存为模板"
+                android:textColor="@color/primary_font_color"
+                android:textSize="@dimen/font_size_title" />
 
             <TextView
-                android:id="@+id/model_type_dept"
-                android:layout_width="wrap_content"
+                android:id="@+id/model_type_tip"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/model_un_selected"
-                android:paddingLeft="@dimen/dp_18"
-                android:paddingTop="@dimen/dp_3"
-                android:paddingRight="@dimen/dp_18"
-                android:paddingBottom="@dimen/dp_3"
-                android:text="科室"
-                android:textColor="#666666"
+                android:layout_below="@id/dialog_tip_tv"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="病例：模版类型"
+                android:textColor="#BBBBBB"
                 android:textSize="@dimen/font_size_primary" />
-        </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/model_type_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/model_type_tip"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/model_type_personal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/model_un_selected"
+                        android:paddingLeft="@dimen/dp_18"
+                        android:paddingTop="@dimen/dp_3"
+                        android:paddingRight="@dimen/dp_18"
+                        android:paddingBottom="@dimen/dp_3"
+                        android:text="个人"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/font_size_primary" />
+                </RelativeLayout>
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/model_type_dept"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/model_un_selected"
+                        android:paddingLeft="@dimen/dp_18"
+                        android:paddingTop="@dimen/dp_3"
+                        android:paddingRight="@dimen/dp_18"
+                        android:paddingBottom="@dimen/dp_3"
+                        android:text="科室"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/font_size_primary" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/model_type_common"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/model_un_selected"
+                        android:paddingLeft="@dimen/dp_18"
+                        android:paddingTop="@dimen/dp_3"
+                        android:paddingRight="@dimen/dp_18"
+                        android:paddingBottom="@dimen/dp_3"
+                        android:text="公共"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/font_size_primary" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
 
             <TextView
-                android:id="@+id/model_type_common"
-                android:layout_width="wrap_content"
+                android:id="@+id/model_name_tip"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/model_un_selected"
-                android:paddingLeft="@dimen/dp_18"
-                android:paddingTop="@dimen/dp_3"
-                android:paddingRight="@dimen/dp_18"
-                android:paddingBottom="@dimen/dp_3"
-                android:text="公共"
+                android:layout_below="@id/model_type_ll"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="病例：模版名称"
+                android:textColor="#BBBBBB"
+                android:textSize="@dimen/font_size_primary" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/model_name_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/model_name_tip"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@drawable/model_input_bg"
+                android:hint="请输入模版名称"
+                android:maxLength="20"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_16"
+                android:paddingBottom="@dimen/dp_10"
+                android:textCursorDrawable="@null"
+                android:singleLine="true"
                 android:textColor="#666666"
                 android:textSize="@dimen/font_size_primary" />
+            <View
+                android:id="@+id/line_bg"
+                android:layout_below="@+id/model_name_et"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="#F5F5F5"/>
+            <android.support.design.widget.TabLayout
+                android:id="@+id/prescription_tab"
+                android:layout_below="@+id/line_bg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_42"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                app:tabIndicatorColor="@color/tab_color"
+                app:tabSelectedTextColor="@color/tab_color"
+                app:tabIndicatorHeight="1dp"
+                app:tabMode="scrollable"
+                app:tabGravity="fill"></android.support.design.widget.TabLayout>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/prescription_vp"
+                android:layout_below="@+id/prescription_tab"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_200"></android.support.v4.view.ViewPager>
+
+            <TextView
+                android:id="@+id/check_dialog_submit"
+                android:layout_width="@dimen/dp_236"
+                android:layout_height="@dimen/dp_42"
+                android:layout_below="@id/prescription_vp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_28"
+                android:background="@drawable/check_dialog_btn_bg"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_title" />
         </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
 
-    </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/model_name_tip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/model_type_ll"
-        android:layout_marginTop="@dimen/dp_16"
-        android:text="病例：模版名称"
-        android:textColor="#BBBBBB"
-        android:textSize="@dimen/font_size_primary" />
-
-    <com.keydom.ih_common.view.InterceptorEditText
-        android:id="@+id/model_name_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/model_name_tip"
-        android:layout_marginTop="@dimen/dp_10"
-        android:background="@drawable/model_input_bg"
-        android:hint="请输入模版名称"
-        android:maxLength="20"
-        android:paddingLeft="@dimen/dp_16"
-        android:paddingTop="@dimen/dp_10"
-        android:paddingRight="@dimen/dp_16"
-        android:paddingBottom="@dimen/dp_10"
-        android:textCursorDrawable="@null"
-        android:singleLine="true"
-        android:textColor="#666666"
-        android:textSize="@dimen/font_size_primary" />
-    <View
-        android:id="@+id/line_bg"
-        android:layout_below="@+id/model_name_et"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:background="#F5F5F5"/>
-    <android.support.design.widget.TabLayout
-        android:id="@+id/prescription_tab"
-        android:layout_below="@+id/line_bg"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_42"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
-        app:tabIndicatorColor="@color/tab_color"
-        app:tabSelectedTextColor="@color/tab_color"
-        app:tabIndicatorHeight="1dp"
-        app:tabMode="scrollable"
-        app:tabGravity="fill"></android.support.design.widget.TabLayout>
-    <android.support.v4.view.ViewPager
-        android:id="@+id/prescription_vp"
-        android:layout_below="@+id/prescription_tab"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_200"></android.support.v4.view.ViewPager>
-
-    <TextView
-        android:id="@+id/check_dialog_submit"
-        android:layout_width="@dimen/dp_236"
-        android:layout_height="@dimen/dp_42"
-        android:layout_below="@id/prescription_vp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_28"
-        android:background="@drawable/check_dialog_btn_bg"
-        android:gravity="center"
-        android:text="确定"
-        android:textColor="@color/white"
-        android:textSize="@dimen/font_size_title" />
 
 </RelativeLayout>

@@ -3,17 +3,29 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'android-aspectjx'
+
+//apply plugin: 'android-aspectjx'
+
+aspectjx {
+
+    exclude 'com/alipay'
+
+}
 android {
-    signingConfigs {
-/*        ih_key {
+
+/*    signingConfigs {
+        ih_key {
             keyAlias 'key0'
             keyPassword '111111'
-            storeFile file('/Users/kanewood/Android_project/moonbox/MoonBox/app/ih_key')
+            storeFile file('D:/local/localTruck/ih_key')
             storePassword '111111'
-        }*/
-    }
-    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+        }
+    }*/
+    compileSdkVersion 26
     defaultConfig {
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
         applicationId "com.keydom.ih_doctor"
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
@@ -24,7 +36,7 @@ android {
 
         ndk {
             //选择要添加的对应 cpu 类型的 .so 库。
-            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a','x86','x86_64','mips','mips64'
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
 
@@ -41,17 +53,17 @@ android {
             debuggable true
         }
 
-        debug{
-            //minifyEnabled false
+        debug {
+            minifyEnabled false
             //signingConfig signingConfigs.ih_key
         }
 
     }
-
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
+    buildToolsVersion '28.0.2'
 }
 
 dependencies {
@@ -65,6 +77,8 @@ dependencies {
     implementation files('libs/coreComponent2.2.5.jar')
     implementation files('libs/gson-2.2.2.jar')
     implementation files('libs/msspprovider_signed.jar')
+//    api rootProject.ext.dependencies["Aspectj"]
+    implementation 'org.aspectj:aspectjrt:1.8.9'
 }
 
 repositories {

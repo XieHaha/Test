@@ -11,6 +11,10 @@
         android:id="@+id/card_user_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:maxWidth="@dimen/dp_120"
+        android:text="是看来大家撒旦建立撒娇的拉萨机"
+        android:ellipsize="middle"
         android:textSize="@dimen/font_size_primary"
         android:textColor="#666666"
         android:layout_centerInParent="true"/>

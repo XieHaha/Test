@@ -1,7 +1,10 @@
 package com.keydom.ih_doctor.activity.nurse_service.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.ih_doctor.bean.OrderStatisticBean;
 import com.keydom.ih_doctor.constant.TypeEnum;
+
+import java.util.Map;
 
 /**
  * @Name：com.keydom.ih_doctor.fragment.view
@@ -26,4 +29,7 @@ public interface ServiceOrderListView extends BaseView {
      */
     String getKeyword();
 
+    void getOrderStatistic(OrderStatisticBean data);
+
+    Map<String,Object> getStatisticMap();
 }

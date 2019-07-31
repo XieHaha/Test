@@ -11,6 +11,7 @@ import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
@@ -61,6 +62,7 @@ public class GridViewPlusImgAdapter extends BaseAdapter {
         }
         if (position < list.size()) {
             mImageView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     CommonUtils.previewImage(context, Const.IMAGE_HOST + list.get(position));
@@ -71,6 +73,7 @@ public class GridViewPlusImgAdapter extends BaseAdapter {
             mImageView.setBackgroundResource(R.mipmap.plus);
         }
         deleteImg.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 new GeneralDialog(context, "确定删除该图片？", new GeneralDialog.OnCloseListener() {

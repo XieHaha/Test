@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.online_diagnose.DrugUseActivity;
 import com.keydom.ih_doctor.bean.DrugBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.orhanobut.logger.Logger;
 
 import java.math.BigDecimal;
@@ -40,6 +41,7 @@ public class DrugDetailListAdapter extends BaseQuickAdapter<DrugBean, BaseViewHo
                 .setText(R.id.use_once, "用法：" + item.getSingleDose() + item.getDosageUnit()).setText(R.id.use_method, item.getWay())
                 .setText(R.id.times, String.valueOf(item.getFrequency()));
         update_tv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
 //                ToastUtils.showShort("点击了修改按钮");
@@ -49,6 +51,7 @@ public class DrugDetailListAdapter extends BaseQuickAdapter<DrugBean, BaseViewHo
             }
         });
         delete_tv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 if (deleteListener != null)

@@ -9,7 +9,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
@@ -18,6 +20,7 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.prescription_check.controller.PrescriptionCheckController;
 import com.keydom.ih_doctor.activity.prescription_check.view.PrescriptionCheckView;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.constant.ServiceConst;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.fragment.PrescriptionFragment;
 import com.keydom.ih_doctor.utils.ToastUtil;
@@ -39,14 +42,18 @@ public class PrescriptionCheckActivity extends BaseControllerActivity<Prescripti
     private String[] mTabTitles;
     private EditText searchInputEv;
     private TextView searchTv;
+    private String startCode="";
+    private LinearLayout order_num_layout;
 
     /**
      * 开启处方审核主页
      *
      * @param context
      */
-    public static void start(Context context) {
+    public static void start(Context context,String startCode) {
+
         Intent starter = new Intent(context, PrescriptionCheckActivity.class);
+        starter.putExtra("startCode",startCode);
         context.startActivity(starter);
     }
 
@@ -57,16 +64,18 @@ public class PrescriptionCheckActivity extends BaseControllerActivity<Prescripti
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        startCode=getIntent().getStringExtra("startCode");
+        order_num_layout=this.findViewById(R.id.order_num_layout);
+        order_num_layout.setVisibility(View.GONE);
         tabLayout = this.findViewById(R.id.tablayout);
         viewPager = this.findViewById(R.id.tab_viewpager);
         searchInputEv = this.findViewById(R.id.search_input_ev);
         searchTv = this.findViewById(R.id.search_tv);
         searchTv.setOnClickListener(getController());
-        if (SharePreferenceManager.getRoleId() == Const.ROLE_DOCTOR) {
+        if (ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE.equals(startCode)) {
             setTitle("处方查询");
             initDoctor();
-        } else if (SharePreferenceManager.getRoleId() == Const.ROLE_MEDICINE) {
+        } else if (ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE.equals(startCode)) {
             setTitle("处方审核");
             initDrugControl();
         } else {
@@ -88,9 +97,9 @@ public class PrescriptionCheckActivity extends BaseControllerActivity<Prescripti
         mTabTitles[1] = "已退回";
         mTabTitles[2] = "已通过";
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        mFragmentArrays[0] = PrescriptionFragment.newInstance(TypeEnum.CHECK_NOT_FINISH);
-        mFragmentArrays[1] = PrescriptionFragment.newInstance(TypeEnum.CHECK_RETURN);
-        mFragmentArrays[2] = PrescriptionFragment.newInstance(TypeEnum.CHECK_PASS);
+        mFragmentArrays[0] = PrescriptionFragment.newInstance(TypeEnum.CHECK_NOT_FINISH,startCode);
+        mFragmentArrays[1] = PrescriptionFragment.newInstance(TypeEnum.CHECK_RETURN,startCode);
+        mFragmentArrays[2] = PrescriptionFragment.newInstance(TypeEnum.CHECK_PASS,startCode);
 
         viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(pagerAdapter);
@@ -109,10 +118,10 @@ public class PrescriptionCheckActivity extends BaseControllerActivity<Prescripti
         mTabTitles[2] = "已配送";
         mTabTitles[3] = "已过期";
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        mFragmentArrays[0] = PrescriptionFragment.newInstance(TypeEnum.CHECK_NOT_FINISH);
-        mFragmentArrays[1] = PrescriptionFragment.newInstance(TypeEnum.CHECK_FINISH);
-        mFragmentArrays[2] = PrescriptionFragment.newInstance(TypeEnum.CHECK_SEND);
-        mFragmentArrays[3] = PrescriptionFragment.newInstance(TypeEnum.CHECK_TIME_OUT);
+        mFragmentArrays[0] = PrescriptionFragment.newInstance(TypeEnum.CHECK_NOT_FINISH,startCode);
+        mFragmentArrays[1] = PrescriptionFragment.newInstance(TypeEnum.CHECK_FINISH,startCode);
+        mFragmentArrays[2] = PrescriptionFragment.newInstance(TypeEnum.CHECK_SEND,startCode);
+        mFragmentArrays[3] = PrescriptionFragment.newInstance(TypeEnum.CHECK_TIME_OUT,startCode);
         viewPager.setOffscreenPageLimit(4);
         PagerAdapter pagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);

@@ -35,6 +35,9 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ellipsize="middle"
+            android:maxWidth="@dimen/dp_60"
             android:textColor="@color/title_bar_text_color"
             android:textSize="@dimen/font_size_primary" />
 
@@ -42,6 +45,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/project"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textColor="@color/edit_hint_color"
             android:textSize="@dimen/font_size_auxiliary"
             android:layout_marginLeft="@dimen/dp_5"

@@ -12,6 +12,7 @@ import com.keydom.ih_doctor.activity.LoginActivity;
 import com.keydom.ih_doctor.activity.UpdatePasswordActivity;
 import com.keydom.ih_doctor.activity.personal.view.MyVisitingCardView;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.LocalizationUtils;
 
 /**
@@ -24,7 +25,7 @@ import com.keydom.ih_doctor.utils.LocalizationUtils;
  */
 public class SettingController extends ControllerImpl<MyVisitingCardView> implements View.OnClickListener {
 
-
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

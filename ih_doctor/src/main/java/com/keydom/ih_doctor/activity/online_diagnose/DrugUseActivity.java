@@ -22,6 +22,7 @@ import com.keydom.ih_doctor.bean.DrugUseConfigBean;
 import com.keydom.ih_doctor.bean.Event;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.PrescriptionService;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
@@ -133,6 +134,7 @@ public class DrugUseActivity extends BaseActivity {
         recyclerView.setAdapter(drugUseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         saveDrug.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (checkSubmit()) {

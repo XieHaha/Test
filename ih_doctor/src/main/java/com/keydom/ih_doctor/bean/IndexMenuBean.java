@@ -15,6 +15,15 @@ public class IndexMenuBean implements Serializable {
     private Integer id;
     private String code;
     private String name;
+    private boolean isRedPointShow=false;
+
+    public boolean isRedPointShow() {
+        return isRedPointShow;
+    }
+
+    public void setRedPointShow(boolean redPointShow) {
+        isRedPointShow = redPointShow;
+    }
 
     public Integer getId() {
         return id;

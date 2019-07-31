@@ -32,6 +32,7 @@ import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.ih_patient.bean.NursingIndexInfo;
 import com.keydom.ih_patient.callback.GeneralCallback;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.fragment.controller.TabNurseController;
@@ -114,6 +115,7 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
         nurse_function_professional_nursing.setOnClickListener(getController());
         qr_code_layout = getView().findViewById(R.id.qr_code_layout);
         qr_code_layout.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if(Global.getUserId()!=-1){
@@ -176,6 +178,7 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
         });
         nurseServiceImg = getView().findViewById(R.id.nurse_service_img);
         nurseServiceImg.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 if (Global.getUserId() == -1) {
@@ -538,6 +541,7 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
         });
         TextView hospitalSearchTv = view.findViewById(R.id.hospital_search_tv);
         hospitalSearchTv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 if (hospitalSearchEdt.getText().toString().trim().equals("")) {
@@ -558,12 +562,14 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
             }
         });
         backgroudView.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 hospitalPopupWindow.dismiss();
             }
         });
         cancelTv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 hospitalPopupWindow.dismiss();
@@ -571,6 +577,7 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
         });
         TextView commitTv = view.findViewById(R.id.commit_tv);
         commitTv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 nursing_search_tv.setText(selectHospitalName);

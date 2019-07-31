@@ -140,7 +140,7 @@ public class PersonalInfoActivity extends BaseControllerActivity<PersonalInfoCon
                 @Override
                 public void OnRightTextClick(View v) {
                     SharePreferenceManager.setFirstFinishInfo(false);
-                    MainActivity.start(getContext(),false);
+                    MainActivity.start(getContext(),false,true);
                 }
             });
 
@@ -149,7 +149,7 @@ public class PersonalInfoActivity extends BaseControllerActivity<PersonalInfoCon
                 public void onLeftButtonClick(View v) {
                     if (SharePreferenceManager.getFirstFinishInfo()) {
                         SharePreferenceManager.setFirstFinishInfo(false);
-                        MainActivity.start(getContext(),false);
+                        MainActivity.start(getContext(),false,true);
                     } else {
                         finish();
                     }

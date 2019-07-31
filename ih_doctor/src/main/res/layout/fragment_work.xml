@@ -222,6 +222,12 @@
                                 android:text="常用功能"
                                 android:textSize="@dimen/dp_13"
                                 android:textStyle="bold" />
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/work_function_rv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="@dimen/dp_12"
+                                android:paddingBottom="@dimen/dp_16"></android.support.v7.widget.RecyclerView>
 
                             <com.keydom.ih_common.view.PageRecyclerView
                                 android:id="@+id/work_function_rw"
@@ -476,6 +482,8 @@
                     android:paddingLeft="@dimen/dp_10"
                     android:paddingRight="@dimen/dp_10"
                     android:text="医院"
+                    android:lines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/primary_bg_color"
                     android:textSize="@dimen/font_size_primary" />
 

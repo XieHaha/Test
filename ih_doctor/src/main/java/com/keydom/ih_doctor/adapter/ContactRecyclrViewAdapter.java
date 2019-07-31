@@ -19,6 +19,7 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.patient_manage.PatientDatumActivity;
 import com.keydom.ih_doctor.bean.ImPatientInfo;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ColorUtils;
 import com.keydom.ih_doctor.view.ContactTagView;
 
@@ -90,6 +91,7 @@ public class ContactRecyclrViewAdapter extends BaseEmptyAdapter<ImPatientInfo> {
                 emphasesAttentionIv.setVisibility(View.VISIBLE);
             }
             friendIconCiv.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     PatientDatumActivity.start(mContext, String.valueOf(bean.getImNumber()));
@@ -97,6 +99,7 @@ public class ContactRecyclrViewAdapter extends BaseEmptyAdapter<ImPatientInfo> {
             });
 
             itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();

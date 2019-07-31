@@ -3,6 +3,7 @@ package com.keydom.ih_doctor.fragment.view;
 import android.widget.RelativeLayout;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.ih_doctor.bean.PermissionBean;
 
 /**
  * @Name：com.keydom.ih_doctor.fragment.view
@@ -14,4 +15,8 @@ import com.keydom.ih_common.base.BaseView;
  */
 public interface PatientManageFragmentView extends BaseView {
     RelativeLayout getTitleLayout();
+
+    void getPermissionSuccess(PermissionBean permissionBean);
+    int  getBuildingGroupState();
+    int getEmpowerState();
 }

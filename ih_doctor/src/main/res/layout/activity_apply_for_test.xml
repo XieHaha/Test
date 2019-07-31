@@ -90,7 +90,10 @@
                         android:paddingTop="@dimen/dp_9"
                         android:paddingRight="@dimen/dp_12"
                         android:paddingBottom="@dimen/dp_9"
-                        android:text="莫思凡·卡农"
+                        android:maxWidth="@dimen/dp_80"
+                        android:singleLine="true"
+                        android:ellipsize="middle"
+                        android:text="莫思凡·卡农萨达飒飒大苏打阿斯顿啊大神"
                         android:textColor="@color/fontColorDirection"
                         android:textSize="@dimen/font_size_primary" />
                 </RelativeLayout>

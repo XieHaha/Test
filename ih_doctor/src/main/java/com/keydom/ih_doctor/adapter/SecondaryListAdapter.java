@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.keydom.ih_doctor.m_interface.SingleClick;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -184,6 +186,7 @@ public abstract class SecondaryListAdapter<GVH, SVH extends RecyclerView.ViewHol
                     .getSubItemIndex());
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
 

@@ -20,6 +20,7 @@ import com.keydom.ih_doctor.activity.personal.MyAttentionActivity;
 import com.keydom.ih_doctor.bean.AttentionBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.TypeEnum;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
@@ -79,6 +80,7 @@ public class AttentionRecyclrViewAdapter extends BaseEmptyAdapter<AttentionBean>
             userDepartmentTv.setText(mDatas.get(position).getDepartment());
 
             delete.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
 
@@ -95,6 +97,7 @@ public class AttentionRecyclrViewAdapter extends BaseEmptyAdapter<AttentionBean>
                 }
             });
             mainLayout.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View view) {
                     Logger.e("点击了第"+position+"位置");
@@ -103,6 +106,7 @@ public class AttentionRecyclrViewAdapter extends BaseEmptyAdapter<AttentionBean>
                 }
             });
             userIconIv.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     Logger.e("点击了第"+position+"位置的头像");

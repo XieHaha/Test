@@ -56,4 +56,8 @@ public interface ArticleListView extends BaseView {
     TypeEnum getType();
 
     String getDoctorCode();
+
+    void removeCollectSuccess();
+
+    void removeCollectFailed(String msg);
 }

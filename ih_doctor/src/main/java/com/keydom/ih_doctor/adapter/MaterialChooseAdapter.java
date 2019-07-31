@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.MaterialBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -56,6 +57,7 @@ public class MaterialChooseAdapter extends BaseQuickAdapter<MaterialBean, BaseVi
             medical_vender_tv.setTextColor(mContext.getResources().getColor(R.color.fontColorNavigate));
         }
         helper.itemView.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (isSelect(item)) {

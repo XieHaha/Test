@@ -14,6 +14,7 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.GroupInfoBean;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.EventType;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.view.BottomGroupCutDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -63,7 +64,7 @@ public class GroupCutDialogRecyclrViewAdapter extends RecyclerView.Adapter<Group
             holder.groupSelect.setVisibility(View.GONE);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
-
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 SharePreferenceManager.setGroup(data.get(position).getId());

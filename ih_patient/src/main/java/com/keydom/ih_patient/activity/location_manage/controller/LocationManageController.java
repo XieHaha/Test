@@ -34,17 +34,14 @@ public class LocationManageController extends ControllerImpl<LocationManageView>
     public void initLocationList(){
         Map<String,Object> map=new HashMap<>();
         map.put("userId",Global.getUserId());
-        showLoading();
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LocationService.class).getAddressList(map), new HttpSubscriber<List<LocationInfo>>(getContext(),getDisposable(),false) {
             @Override
             public void requestComplete(@Nullable List<LocationInfo> data) {
-                hideLoading();
                 getView().getLocationList(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 getView().getLocationListFailed(msg);
                 return super.requestError(exception, code, msg);
             }

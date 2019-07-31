@@ -48,8 +48,9 @@ public class PrescriptionDetailBean implements Serializable {
     private String fee;
     private int cate;
     private String checker;
+    private String commonSeal;
 
-    private List<PrescriptionDrugBean> list ;
+    private List<List<PrescriptionDrugBean>> list;
 
     public int getCate() {
         return cate;
@@ -211,11 +212,19 @@ public class PrescriptionDetailBean implements Serializable {
         this.fee = fee;
     }
 
-    public List<PrescriptionDrugBean> getList() {
+    public List<List<PrescriptionDrugBean>> getList() {
         return list;
     }
 
-    public void setList(List<PrescriptionDrugBean> list) {
+    public void setList(List<List<PrescriptionDrugBean>> list) {
         this.list = list;
+    }
+
+    public String getCommonSeal() {
+        return commonSeal;
+    }
+
+    public void setCommonSeal(String commonSeal) {
+        this.commonSeal = commonSeal;
     }
 }

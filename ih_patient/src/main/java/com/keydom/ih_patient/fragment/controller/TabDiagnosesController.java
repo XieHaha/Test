@@ -17,6 +17,7 @@ import com.keydom.ih_patient.bean.DiagnoseIndexBean;
 import com.keydom.ih_patient.bean.DiagnosesAndNurDepart;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.ih_patient.bean.RecommendDocAndNurBean;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.fragment.view.TabDiagnosesView;
 import com.keydom.ih_patient.net.InquiryService;
@@ -34,6 +35,7 @@ import java.util.Map;
  * 在线问诊控制器
  */
 public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> implements View.OnClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

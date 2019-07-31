@@ -21,6 +21,7 @@ import com.keydom.ih_doctor.activity.personal.PersonalInfoActivity;
 import com.keydom.ih_doctor.activity.view.CommonInputView;
 import com.keydom.ih_doctor.bean.PersonalInfoBean;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
 import java.util.HashMap;
@@ -140,6 +141,7 @@ public class CommonInputActivity extends BaseControllerActivity<CommonInputContr
         inputEt.setText(mContent);
         inputEt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(limite)});
         setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
+            @SingleClick(1000)
             @Override
             public void OnRightTextClick(View v) {
                 if (mType == PersonalInfoActivity.USER_NAME || mType == PersonalInfoActivity.BE_GOOD || mType == PersonalInfoActivity.DEC) {

@@ -17,6 +17,7 @@ import com.keydom.ih_doctor.activity.patient_manage.PatientDatumActivity;
 import com.keydom.ih_doctor.bean.ImPatientInfo;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.EventType;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ColorUtils;
 import com.keydom.ih_doctor.view.ContactTagView;
 import com.keydom.ih_doctor.view.TagView;
@@ -101,6 +102,7 @@ public class ChoosePatientRecyclrViewAdapter extends BaseEmptyAdapter<ImPatientI
                 friendSexIv.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.patient_cicle_green));
             }
             itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     bean.setSelect(!bean.isSelect());
@@ -114,6 +116,7 @@ public class ChoosePatientRecyclrViewAdapter extends BaseEmptyAdapter<ImPatientI
                 }
             });
             friendIconCiv.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     PatientDatumActivity.start(mContext, String.valueOf(bean.getId()));

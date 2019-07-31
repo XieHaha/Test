@@ -16,6 +16,7 @@ import com.keydom.ih_doctor.activity.patient_manage.ChoosePatientActivity;
 import com.keydom.ih_doctor.activity.patient_manage.TentativeDiagnosisActivity;
 import com.keydom.ih_doctor.activity.patient_manage.view.TentativeDiagnosisView;
 import com.keydom.ih_doctor.bean.WarrantDetailBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.PatientManageApiService;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
@@ -23,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TentativeDiagnosisController extends ControllerImpl<TentativeDiagnosisView> implements View.OnClickListener, IhTitleLayout.OnRightTextClickListener, SwitchButton.OnCheckedChangeListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -91,8 +93,8 @@ public class TentativeDiagnosisController extends ControllerImpl<TentativeDiagno
      *
      * @param doctorId
      */
-    public void getWarrantDetail(String doctorId) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PatientManageApiService.class).getEditInfo(MyApplication.userInfo.getId(), doctorId), new HttpSubscriber<WarrantDetailBean>() {
+    public void getWarrantDetail(String doctorId,String userId) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PatientManageApiService.class).getEditInfo(MyApplication.userInfo.getId(), doctorId,userId), new HttpSubscriber<WarrantDetailBean>() {
             @Override
             public void requestComplete(@Nullable WarrantDetailBean data) {
                 getView().getWarrantDetailSuccess(data);

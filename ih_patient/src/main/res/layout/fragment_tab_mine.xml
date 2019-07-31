@@ -6,7 +6,8 @@
     android:id="@+id/mine_index_refresh">
     <com.scwang.smartrefresh.layout.header.ClassicsHeader
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.scwang.smartrefresh.layout.header.ClassicsHeader>
+        android:layout_height="wrap_content"
+        android:background="#3F98F7"></com.scwang.smartrefresh.layout.header.ClassicsHeader>
     <RelativeLayout
         xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.ih_common.view"
         xmlns:funcitem="http://schemas.android.com/apk/res-audo/com.keydom.ih_patient.view"

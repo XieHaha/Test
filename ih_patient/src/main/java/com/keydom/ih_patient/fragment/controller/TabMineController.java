@@ -15,6 +15,8 @@ import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.view.MyScrollView;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.diagnose_user_manager.ManageUserActivity;
+import com.keydom.ih_patient.activity.global_search.SearchActivity;
+import com.keydom.ih_patient.activity.index_main.ChooseCityActivity;
 import com.keydom.ih_patient.activity.inspection_report.InspectionReportActivity;
 import com.keydom.ih_patient.activity.location_manage.LocationManageActivity;
 import com.keydom.ih_patient.activity.login.LoginActivity;
@@ -32,6 +34,7 @@ import com.keydom.ih_patient.activity.setting.FeedBackActivity;
 import com.keydom.ih_patient.activity.setting.SettingActivity;
 import com.keydom.ih_patient.activity.subscribe_examination_order.SubscribeExaminationActivity;
 import com.keydom.ih_patient.activity.user_info_operate.UserInfoOperateActivity;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.fragment.TabMineFragment;
@@ -47,6 +50,7 @@ import org.jetbrains.annotations.Nullable;
  * 个人中心控制器
  */
 public class TabMineController extends ControllerImpl<TabMineView> implements View.OnClickListener, MyScrollView.OnScrollListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -226,6 +230,13 @@ public class TabMineController extends ControllerImpl<TabMineView> implements Vi
                     ToastUtil.shortToast(getContext(), getContext().getString(R.string.unlogin_hint));
                 }
                 break;
+
+            case R.id.search_layout:
+//                Toast.makeText(getContext(), "点击了Search", Toast.LENGTH_SHORT).show();
+                SearchActivity.start(getContext());
+                break;
+            case R.id.location_layout:
+                ChooseCityActivity.start(getContext());
             default:
         }
     }

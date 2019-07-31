@@ -18,6 +18,7 @@ import com.keydom.ih_doctor.activity.online_diagnose.DiagnoseInputActivity;
 import com.keydom.ih_doctor.activity.online_diagnose.view.ApplyForCheckView;
 import com.keydom.ih_doctor.bean.CheckOutItemBean;
 import com.keydom.ih_doctor.bean.OrderApplyResponse;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.DiagnoseApiService;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
@@ -37,7 +38,7 @@ import java.util.Map;
  */
 public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> implements View.OnClickListener, IhTitleLayout.OnRightTextClickListener {
 
-
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -58,7 +59,7 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
                 DiagnoseInputActivity.start(getContext(), getView().getMainDec());
                 break;
             case R.id.disease_tv:
-                CommonInputActivity.start(getContext(), ApplyForCheckActivity.INPUT_DISEASE, "病情描述", getView().getDisease(), 500, 20);
+                CommonInputActivity.start(getContext(), ApplyForCheckActivity.INPUT_DISEASE, "病情描述", getView().getDisease(), 500, 10);
                 break;
         }
 

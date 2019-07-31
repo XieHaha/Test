@@ -84,4 +84,6 @@ public interface NursingOrderFillInView extends BaseView {
 
     String getPicUrl(int position);
 
+    void setIsNeedSaveEdit(boolean isNeedSaveEdit);
+
 }

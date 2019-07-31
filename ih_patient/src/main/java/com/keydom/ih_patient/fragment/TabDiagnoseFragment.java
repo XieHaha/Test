@@ -44,6 +44,7 @@ import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.ih_patient.bean.RecommendDocAndNurBean;
 import com.keydom.ih_patient.callback.GeneralCallback;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.fragment.controller.TabDiagnosesController;
@@ -128,6 +129,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
         choose_depart_tv.setOnClickListener(getController());
         choose_area_tv = getView().findViewById(R.id.choose_area_tv);
         choose_area_tv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 showChooseAreaDialog(data);
@@ -135,6 +137,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
         });
         search_tv = getView().findViewById(R.id.search_tv);
         search_tv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 DiagnoseSearchActivity.start(getContext(), 0, isOnline ? 1 : 0, 1);
@@ -143,6 +146,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
         my_doctor_rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         myDocAndNurAdapter = new MyDocAndNurAdapter(dataList);
         myDocAndNurAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @SingleClick(1000)
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Logger.e(myDocAndNurAdapter.getData().get(position).getUuid());
@@ -164,27 +168,19 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
         recommend_doctor_rv = getView().findViewById(R.id.recommend_doctor_rv);
         recommendDocAndNurAdapter = new RecommendDocAndNurAdapter(recommendList);
         recommendDocAndNurAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @SingleClick(1000)
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (Global.getUserId() == -1) {
-                    new GeneralDialog(getContext(), "暂未登录，是否前往登录？", new GeneralDialog.OnCloseListener() {
-                        @Override
-                        public void onCommit() {
-                            LoginActivity.start(getContext());
-                        }
-                    }).setTitle("提示").setPositiveButton("确认").show();
-                } else {
-                    if (recommendDocAndNurAdapter.getData().get(position).getIsInquiry() == 0)
-                        ToastUtil.shortToast(getContext(), "该医生暂未开通问诊服务");
-                    else {
-                        Logger.e(recommendDocAndNurAdapter.getData().get(position).getUuid());
-                        Intent intent = new Intent(getContext(), DoctorOrNurseDetailActivity.class);
-                        int type = 0;
+                if (recommendDocAndNurAdapter.getData().get(position).getIsInquiry() == 0)
+                    ToastUtil.shortToast(getContext(), "该医生暂未开通问诊服务");
+                else {
+                    Logger.e(recommendDocAndNurAdapter.getData().get(position).getUuid());
+                    Intent intent = new Intent(getContext(), DoctorOrNurseDetailActivity.class);
+                    int type = 0;
 
-                        intent.putExtra("type", 0);
-                        intent.putExtra("doctorCode", recommendDocAndNurAdapter.getData().get(position).getUuid());
-                        startActivity(intent);
-                    }
+                    intent.putExtra("type", 0);
+                    intent.putExtra("doctorCode", recommendDocAndNurAdapter.getData().get(position).getUuid());
+                    startActivity(intent);
                 }
 
             }

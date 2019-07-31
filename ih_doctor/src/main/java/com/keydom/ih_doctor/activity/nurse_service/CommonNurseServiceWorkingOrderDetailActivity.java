@@ -17,23 +17,28 @@ import com.baidu.mapapi.map.TextureMapView;
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.nurse_service.controller.CommonNurseServiceWorkingOrderDetailController;
 import com.keydom.ih_doctor.activity.nurse_service.view.CommonNurseServiceWorkingOrderDetailView;
 import com.keydom.ih_doctor.adapter.DiagnoseOrderDetailAdapter;
+import com.keydom.ih_doctor.adapter.NurseChildRecordAdapter;
 import com.keydom.ih_doctor.adapter.NurseServiceEquipmentAdapter;
 import com.keydom.ih_doctor.adapter.NurseServiceRecoderAdapter;
 import com.keydom.ih_doctor.bean.CommonNurseServiceOrderDetailBean;
 import com.keydom.ih_doctor.bean.HeadNurseServiceOrderDetailBean;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.bean.NurseServiceRecoderBean;
+import com.keydom.ih_doctor.bean.NurseSubOrderBean;
 import com.keydom.ih_doctor.bean.NursingPatientEquipmentItem;
 import com.keydom.ih_doctor.bean.NursingProjectInfo;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.constant.TypeEnum;
+import com.keydom.ih_doctor.m_interface.OnAddServiceItemDialogListener;
 import com.keydom.ih_doctor.utils.BaiduMapUtil;
 import com.keydom.ih_doctor.utils.ToastUtil;
+import com.keydom.ih_doctor.view.AddNurseServiceDialog;
 import com.keydom.ih_doctor.view.DrivingRouteOverlay;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -70,18 +75,21 @@ public class CommonNurseServiceWorkingOrderDetailActivity extends BaseController
     private DiagnoseOrderDetailAdapter diagnoseMaterialAdapter;
     private NurseServiceRecoderAdapter nurseServiceRecoderAdapter;
     private NurseServiceEquipmentAdapter nurseServiceEquipmentAdapter;
+    private NurseChildRecordAdapter nurseChildRecordAdapter;
     private ImageView navigate, userPhoneIcon;
     private TextView spreadOut, hospitalAddress;
     private Button addServiceBt, finishServiceBt;
-    private RecyclerView diagnoseMaterialRv, serviceRecoderRv, serviceMaterialRv;
+    private RecyclerView diagnoseMaterialRv, serviceRecoderRv, serviceMaterialRv,childRecordRv;
     private List<NurseServiceRecoderBean> nurseServiceRecoderBeanList = new ArrayList<>();
     private List<NursingPatientEquipmentItem> nursingPatientEquipmentItemList = new ArrayList<>();
+    private List<NurseSubOrderBean> subOrderDetails=new ArrayList<>();
     private HeadNurseServiceOrderDetailBean baseInfo;
     private List<String> diagnoseMaterialList = new ArrayList<>();
     private TextView distanceTv, hospitalName, userPhone, orderNumber, orderUserDept, orderUserName, orderUserPhone, orderUserAddress, orderServiceObject, orderUserContactNumber, orderVisitTime, orderFee, serviceReqExplainTv;
     private List<NursingProjectInfo> addServiceItemList;
     private BaiduMapUtil mapUtil;
-
+    private AddNurseServiceDialog dialog;
+    private RelativeLayout child_recoder_layout;
     /**
      * 开启服务中订单详情页面
      *
@@ -132,12 +140,14 @@ public class CommonNurseServiceWorkingOrderDetailActivity extends BaseController
      * 初始化界面
      */
     private void initView() {
+        child_recoder_layout=this.findViewById(R.id.child_recoder_layout);
         mMapView = this.findViewById(R.id.service_map);
         baseInfoLl = this.findViewById(R.id.base_info_ll);
         hospitalAddress = this.findViewById(R.id.hospital_address);
         diagnoseMaterialRv = this.findViewById(R.id.diagnose_material_rv);
         serviceRecoderRv = this.findViewById(R.id.service_recoder_rv);
         serviceMaterialRv = this.findViewById(R.id.service_material_rv);
+        childRecordRv=this.findViewById(R.id.child_recoder_rv);
         buttonLl = this.findViewById(R.id.button_ll);
         hospitalNameRl = this.findViewById(R.id.hospital_name_rl);
         hospitalAddressRl = this.findViewById(R.id.hospital_address_rl);
@@ -216,6 +226,13 @@ public class CommonNurseServiceWorkingOrderDetailActivity extends BaseController
         serviceMaterialRv.setAdapter(nurseServiceEquipmentAdapter);
         serviceMaterialRv.setLayoutManager(nurseServiceDrugRvLm);
 
+
+        nurseChildRecordAdapter=new NurseChildRecordAdapter(this,subOrderDetails,mType);
+        LinearLayoutManager  nurseChildRecordMaterialRvLm = new LinearLayoutManager(this);
+        nurseChildRecordMaterialRvLm.setOrientation(LinearLayoutManager.VERTICAL);
+        childRecordRv.setAdapter(nurseChildRecordAdapter);
+        childRecordRv.setLayoutManager(nurseChildRecordMaterialRvLm);
+
     }
 
 
@@ -247,6 +264,7 @@ public class CommonNurseServiceWorkingOrderDetailActivity extends BaseController
     public Map<String, Object> getDetailMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("id", orderNum);
+        map.put("nurseId",MyApplication.userInfo.getId());
         return map;
     }
 
@@ -266,6 +284,18 @@ public class CommonNurseServiceWorkingOrderDetailActivity extends BaseController
         nurseServiceEquipmentAdapter.notifyDataSetChanged();
         diagnoseMaterialList.addAll(CommonUtils.getImgList(bean.getNursingServiceOrderDetailBaseDto().getConditionImage()));
         diagnoseMaterialAdapter.notifyDataSetChanged();
+
+        subOrderDetails.clear();
+        subOrderDetails.addAll(bean.getSubOrderDetails());
+        nurseChildRecordAdapter.setNewData(subOrderDetails);
+        if(subOrderDetails.size()==0){
+            child_recoder_layout.setVisibility(View.GONE);
+            childRecordRv.setVisibility(View.GONE);
+        }else {
+            child_recoder_layout.setVisibility(View.VISIBLE);
+            childRecordRv.setVisibility(View.VISIBLE);
+        }
+
         setInfo(bean.getNursingServiceOrderDetailBaseDto());
         baseInfo = bean.getNursingServiceOrderDetailBaseDto();
         setMapInfo();
@@ -337,6 +367,19 @@ public class CommonNurseServiceWorkingOrderDetailActivity extends BaseController
     }
 
     @Override
+    public void editServiceItemSuccess(String msg) {
+        if(dialog.isShowing())
+            dialog.dismiss();
+        getController().getNurseServiceOrderDetail();
+    }
+
+    @Override
+    public void editServiceItemFailed(String errMsg) {
+        if(dialog.isShowing())
+            dialog.dismiss();
+    }
+
+    @Override
     public int getLimit() {
         int limit = baseInfo.getFrequency() - baseInfo.getServiceFrequency();
         return (limit < 0) ? 0 : limit;
@@ -353,6 +396,48 @@ public class CommonNurseServiceWorkingOrderDetailActivity extends BaseController
     }
 
     @Override
+    public void getSubOrderDetail(List<NursingProjectInfo> data, String subOrderNumber, int frequency) {
+        if(dialog==null){
+            dialog = new AddNurseServiceDialog(getContext(), getBaseInfo(), getLimit(),frequency,data,true, new OnAddServiceItemDialogListener() {
+                @Override
+                public void dialogClick(View v, Map<String, Object> value) {
+                    switch (v.getId()) {
+                        case R.id.service_item_tv:
+                            ChooseNursingServiceActivity.start(getContext(),data);
+                            break;
+                        case R.id.add_btn:
+                            value.put("subOrderNumber",subOrderNumber);
+                            getController().editSubOrder(value);
+                            break;
+                    }
+                }
+            });
+            dialog.setCanceledOnTouchOutside(true);
+        }else {
+            dialog=null;
+            dialog = new AddNurseServiceDialog(getContext(), getBaseInfo(), getLimit(), frequency, data,true, new OnAddServiceItemDialogListener() {
+                @Override
+                public void dialogClick(View v, Map<String, Object> value) {
+
+                    switch (v.getId()) {
+                        case R.id.service_item_tv:
+                            ChooseNursingServiceActivity.start(getContext(),data);
+                            break;
+                        case R.id.add_btn:
+                            value.put("subOrderNumber",subOrderNumber);
+                            getController().editSubOrder(value);
+                            break;
+                    }
+
+                }
+            });
+            dialog.setCanceledOnTouchOutside(true);
+        }
+
+        dialog.show();
+    }
+
+    @Override
     public TextView getDistanceTv() {
         return distanceTv;
     }
@@ -364,8 +449,10 @@ public class CommonNurseServiceWorkingOrderDetailActivity extends BaseController
             switch (requestCode) {
                 case Const.NURSE_SERVICE_ITEM_SELECT:
                     addServiceItemList = (List<NursingProjectInfo>) data.getSerializableExtra(Const.DATA);
-                    if (getController().getDialog() != null) {
+                    if (getController().getDialog() != null&&getController().getDialog().isShowing()) {
                         getController().getDialog().nurseServiceItemResult(addServiceItemList);
+                    }else if(dialog!=null&&dialog.isShowing()){
+                        dialog.nurseServiceItemResult(addServiceItemList);
                     }
                     break;
                 case Const.FINISH_ACTIVITY:

@@ -153,7 +153,7 @@ public class AgreementActivity extends BaseControllerActivity<AgreementControlle
     @Override
     public void openSuccess(String msg) {
         SharePreferenceManager.setIsAgreement(false);
-        MainActivity.start(this,false);
+        MainActivity.start(this,false,false);
     }
 
     @Override

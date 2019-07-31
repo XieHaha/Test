@@ -20,6 +20,7 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.online_diagnose.ApplyForCheckActivity;
 import com.keydom.ih_doctor.bean.CheckOutItemBean;
 import com.keydom.ih_doctor.m_interface.SelectInspectItemListener;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.view.DiagnoseInspactItemDialog;
 
 import java.math.BigDecimal;
@@ -93,6 +94,7 @@ public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutItemBean, B
             }
         });
         inspactItemName.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 Drawable rightImg, leftImg;
@@ -112,6 +114,7 @@ public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutItemBean, B
         });
 
         subItemName.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (item != null && item.getItems() != null) {
@@ -137,6 +140,7 @@ public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutItemBean, B
             }
         });
         subItemPart.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (item != null && item.selectedItem() != null && item.selectedItem().getItems() != null && item.selectedItem().getItems().size() > 0) {
@@ -171,6 +175,7 @@ public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutItemBean, B
         });
 
         subItemDeleteBtn.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 new GeneralDialog(mContext, "确定删除该检查项目?", new GeneralDialog.OnCloseListener() {

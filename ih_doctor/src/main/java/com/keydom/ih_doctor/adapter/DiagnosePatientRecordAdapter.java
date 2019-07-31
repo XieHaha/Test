@@ -13,6 +13,7 @@ import com.keydom.ih_doctor.activity.doctor_cooperation.DianoseCaseDetailActivit
 import com.keydom.ih_doctor.activity.online_diagnose.ReportListActivity;
 import com.keydom.ih_doctor.activity.prescription_check.PrescriptionActivity;
 import com.keydom.ih_doctor.bean.DiagnoseRecoderItemBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +51,7 @@ public class DiagnosePatientRecordAdapter extends BaseQuickAdapter<DiagnoseRecod
         final TextView time_tv = helper.getView(R.id.time_tv);
         final TextView function_medical_record_tv = helper.getView(R.id.function_medical_record_tv);
         function_medical_record_tv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 //跳转到病例
@@ -58,6 +60,7 @@ public class DiagnosePatientRecordAdapter extends BaseQuickAdapter<DiagnoseRecod
         });
         final TextView function_inspect_tv = helper.getView(R.id.function_inspect_tv);
         function_inspect_tv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 //跳转到检查
@@ -68,6 +71,7 @@ public class DiagnosePatientRecordAdapter extends BaseQuickAdapter<DiagnoseRecod
         });
         final TextView function_check_tv = helper.getView(R.id.function_check_tv);
         function_check_tv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 //跳转到检验
@@ -78,6 +82,7 @@ public class DiagnosePatientRecordAdapter extends BaseQuickAdapter<DiagnoseRecod
         });
         final TextView function_prescription_tv = helper.getView(R.id.function_prescription_tv);
         function_prescription_tv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 //跳转到处方
@@ -89,6 +94,7 @@ public class DiagnosePatientRecordAdapter extends BaseQuickAdapter<DiagnoseRecod
         layoutParams.height = itemLayout.getMeasuredHeight();
         lineView.setLayoutParams(layoutParams);
         openImg.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 itemLayout.setBackgroundColor(context.getResources().getColor(R.color.primary_bg_color));
@@ -115,6 +121,7 @@ public class DiagnosePatientRecordAdapter extends BaseQuickAdapter<DiagnoseRecod
             }
         });
         closeImg.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 itemLayout.setBackgroundColor(context.getResources().getColor(R.color.login_input_color));

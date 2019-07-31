@@ -43,6 +43,8 @@ public interface TabIndexView extends BaseView {
      */
     void setArticleData(List<IndexData.HealthKnowledgesBean> dataList);
 
+    void setRedPointView(IndexData indexData);
+
     /**
      * 获取用户id
      */

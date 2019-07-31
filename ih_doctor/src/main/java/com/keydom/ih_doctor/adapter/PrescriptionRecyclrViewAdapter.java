@@ -22,6 +22,7 @@ import com.keydom.ih_doctor.bean.PrescriptionBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.ServiceConst;
 import com.keydom.ih_doctor.constant.TypeEnum;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import java.util.List;
 
@@ -40,11 +41,12 @@ public class PrescriptionRecyclrViewAdapter extends BaseEmptyAdapter<Prescriptio
      * 和APPLICATION中的roleID一起判断显示的item类型
      */
     private TypeEnum type;
+    private String startcode;
 
-    public PrescriptionRecyclrViewAdapter(Context context, TypeEnum type, List<PrescriptionBean> data) {
+    public PrescriptionRecyclrViewAdapter(Context context, TypeEnum type, List<PrescriptionBean> data,String startCode) {
         super(data, context);
         this.type = type;
-
+        this.startcode=startCode;
     }
 
 
@@ -80,7 +82,7 @@ public class PrescriptionRecyclrViewAdapter extends BaseEmptyAdapter<Prescriptio
 
     private void setData(final PrescriptionBean item, ViewHolder holder) {
         setCommon(item, holder);
-        if (SharePreferenceManager.getRoleId() == Const.ROLE_DOCTOR) {
+        if (ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE.equals(startcode)) {
             switch (type) {
                 case CHECK_NOT_FINISH:
 //                    holder.twoLin.setVisibility(View.GONE);
@@ -116,6 +118,7 @@ public class PrescriptionRecyclrViewAdapter extends BaseEmptyAdapter<Prescriptio
                     break;
             }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     if (type != TypeEnum.CHECK_NOT_FINISH) {
@@ -126,7 +129,8 @@ public class PrescriptionRecyclrViewAdapter extends BaseEmptyAdapter<Prescriptio
 
                 }
             });
-        } else {
+        } else if(ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE.equals(startcode)){
+            holder.checkUpdate.setVisibility(View.GONE);
             switch (type) {
                 case CHECK_NOT_FINISH:
                     holder.distributionTip.setVisibility(View.GONE);
@@ -138,7 +142,7 @@ public class PrescriptionRecyclrViewAdapter extends BaseEmptyAdapter<Prescriptio
                     holder.distributionTip.setVisibility(View.GONE);
                     holder.distribution.setVisibility(View.GONE);
                     holder.threeLin.setVisibility(View.GONE);
-                    holder.checkUpdate.setVisibility(View.GONE);
+
                     break;
                 case CHECK_SEND:
                     holder.threeLin.setVisibility(View.GONE);
@@ -153,6 +157,7 @@ public class PrescriptionRecyclrViewAdapter extends BaseEmptyAdapter<Prescriptio
             }
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     if (type != TypeEnum.CHECK_NOT_FINISH) {

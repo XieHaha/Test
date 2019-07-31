@@ -18,6 +18,7 @@ import com.keydom.ih_patient.activity.nursing_service.NursingOnlineConsultActivi
 import com.keydom.ih_patient.activity.nursing_service.NursingProjectDetailActivity;
 import com.keydom.ih_patient.bean.BannerBean;
 import com.keydom.ih_patient.bean.NursingIndexInfo;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.fragment.view.TabNurseView;
@@ -36,6 +37,7 @@ import java.util.Map;
  * 护理服务控制器
  */
 public class TabNurseController extends ControllerImpl<TabNurseView> implements View.OnClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -43,15 +45,7 @@ public class TabNurseController extends ControllerImpl<TabNurseView> implements 
                 getPatientHomePageByUserId();
                 break;
             case R.id.nurse_function_consulting_online:
-                if (Global.getUserId() == -1) {
-                    new GeneralDialog(getContext(), "暂未登录，是否前往登录？", new GeneralDialog.OnCloseListener() {
-                        @Override
-                        public void onCommit() {
-                            LoginActivity.start(getContext());
-                        }
-                    }).setTitle("提示").setPositiveButton("确认").show();
-                } else
-                    NursingOnlineConsultActivity.start(getContext());
+                NursingOnlineConsultActivity.start(getContext());
                 break;
             case R.id.nurse_function_base_nursing:
                 NursingActivity.start(getContext(), Type.BASENURSING, getView().getProjectTypeId("基础护理"));
@@ -148,7 +142,7 @@ public class TabNurseController extends ControllerImpl<TabNurseView> implements 
         Map<String, Object> map = new HashMap<>();
         map.put("userId", Global.getUserId());
         map.put("hospitalId", App.hospitalId);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingService.class).getPatientHomePageByUserId(map), new HttpSubscriber<NursingIndexInfo>(getContext(),getDisposable(),false,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingService.class).getPatientHomePageByUserId(map), new HttpSubscriber<NursingIndexInfo>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable NursingIndexInfo data) {
                 getView().getIndexSuccess(data);
@@ -166,7 +160,7 @@ public class TabNurseController extends ControllerImpl<TabNurseView> implements 
      * 获取banner图片
      */
     public void getBannerPicByHospitalId(Map<String, Object> map) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getPicture(map), new HttpSubscriber<List<BannerBean>>(getContext(),getDisposable(),false,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getPicture(map), new HttpSubscriber<List<BannerBean>>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable List<BannerBean> data) {
                 getView().getPicListSuccess(data);

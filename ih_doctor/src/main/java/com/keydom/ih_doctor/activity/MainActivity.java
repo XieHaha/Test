@@ -33,6 +33,7 @@ import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.controller.MainController;
 import com.keydom.ih_doctor.activity.my_message.MyMessageActivity;
+import com.keydom.ih_doctor.activity.personal.MyServiceActivity;
 import com.keydom.ih_doctor.activity.personal.PersonalInfoActivity;
 import com.keydom.ih_doctor.bean.DeptBean;
 import com.keydom.ih_doctor.bean.LoginBean;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private boolean isExitApp = false;
     private boolean isNeedJump=false;
+    private boolean isNeedJump2Service=false;
     private MainController mainController;
 
     /**
@@ -87,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param context
      */
-    public static void start(Context context,boolean isNeedJump) {
+    public static void start(Context context,boolean isNeedJump,boolean isNeedJump2Service) {
         if (SharePreferenceManager.getIsAgreement()) {
             AgreementActivity.startService(context);
         } else if (SharePreferenceManager.getFirstFinishInfo()) {
@@ -95,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Intent starter = new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             starter.putExtra("isNeedJump",isNeedJump);
+            starter.putExtra("isNeedJump2Service",isNeedJump2Service);
             context.startActivity(starter);
             SharePreferenceManager.setIsFirst(false);
         }
@@ -106,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         EventBus.getDefault().register(this);
         isNeedJump=getIntent().getBooleanExtra("isNeedJump",false);
+        isNeedJump2Service=getIntent().getBooleanExtra("isNeedJump2Service",false);
         StatusBarUtils.setWindowStatusBarColor(this, R.color.status_bar_color_work);
         if (parseIntent()) {
             finish();
@@ -117,6 +121,10 @@ public class MainActivity extends AppCompatActivity {
         if(isNeedJump){
             MyMessageActivity.start(this,null);
         }
+        if(isNeedJump2Service){
+            MyServiceActivity.start(this,true);
+        }
+
 
     }
 
@@ -272,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
 
                         } else {
                             Logger.e("权限未打开");
-                            MainActivity.start(MainActivity.this,isNeedJump);
+                            MainActivity.start(MainActivity.this,isNeedJump,isNeedJump2Service);
                             finish();
                         }
                     }

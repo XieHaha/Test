@@ -15,7 +15,7 @@ public class ExaminationAttachment extends BaseCustomAttachment {
     /**
      * 检查单id
      */
-    private Long id;
+    private String id;
 
     /**
      * 检查单金额
@@ -33,7 +33,7 @@ public class ExaminationAttachment extends BaseCustomAttachment {
     @Override
     protected void paresData(JSONObject data) {
         examinationContent = data.getString("examinationContent");
-        id = data.getLong("id");
+        id = String.valueOf(data.getLong("id"));
         amount = data.getString("amount");
         payStatus = data.getInteger("payStatus");
     }
@@ -57,11 +57,11 @@ public class ExaminationAttachment extends BaseCustomAttachment {
     }
 
     public Long getId() {
-        return id;
+        return Long.valueOf(id);
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.id = String.valueOf(id);
     }
 
     public String getAmount() {

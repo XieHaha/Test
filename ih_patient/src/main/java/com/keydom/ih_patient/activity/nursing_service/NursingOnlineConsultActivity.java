@@ -198,6 +198,13 @@ public class NursingOnlineConsultActivity extends BaseControllerActivity<Nursing
         getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline));
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getController().getHomeData(getHomeQueryMap());
+        getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline));
+    }
+
     /**
      * 获取首页请求map
      */

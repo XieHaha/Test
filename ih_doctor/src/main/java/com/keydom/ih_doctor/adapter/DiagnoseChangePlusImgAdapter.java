@@ -11,6 +11,7 @@ import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
@@ -73,6 +74,7 @@ public class DiagnoseChangePlusImgAdapter extends BaseAdapter {
 
 
         deleteImg.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 new GeneralDialog(context, "确定删除该图片？", new GeneralDialog.OnCloseListener() {

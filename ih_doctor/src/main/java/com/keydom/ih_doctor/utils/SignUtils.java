@@ -55,7 +55,7 @@ public class SignUtils {
         map.put("userId", MyApplication.userInfo.getId());
         map.put("signData", Base64.encodeToString(signData.getBytes(), Base64.DEFAULT));
         map.put("signType", type);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SignService.class).addAuthJob(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(context, ((BaseActivity) context).getDisposable(), true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SignService.class).addAuthJob(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(context, ((BaseActivity) context).getDisposable(), false) {
             @Override
             public void requestComplete(@org.jetbrains.annotations.Nullable String data) {
                 SignIdBean signIdBean = JSON.parseObject(data, new TypeReference<SignIdBean>() {

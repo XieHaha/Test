@@ -38,8 +38,10 @@ import com.keydom.ih_doctor.activity.nurse_service.ChooseNursingServiceActivity;
 import com.keydom.ih_doctor.activity.nurse_service.FinishNurseServiceActivity;
 import com.keydom.ih_doctor.activity.nurse_service.view.CommonNurseServiceWorkingOrderDetailView;
 import com.keydom.ih_doctor.bean.CommonNurseServiceOrderDetailBean;
+import com.keydom.ih_doctor.bean.NursingProjectInfo;
 import com.keydom.ih_doctor.m_interface.BDMapResultInternet;
 import com.keydom.ih_doctor.m_interface.OnAddServiceItemDialogListener;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.NurseServiceApiService;
 import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.AddNurseServiceDialog;
@@ -52,6 +54,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -67,7 +70,7 @@ import io.reactivex.functions.Consumer;
 public class CommonNurseServiceWorkingOrderDetailController extends ControllerImpl<CommonNurseServiceWorkingOrderDetailView> implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener, OnGetRoutePlanResultListener, OnAddServiceItemDialogListener, BDMapResultInternet {
     AddNurseServiceDialog dialog;
     private BDLocation currentLocation;
-
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
 
@@ -76,7 +79,7 @@ public class CommonNurseServiceWorkingOrderDetailController extends ControllerIm
                 getView().showAndHideBaseInfo();
                 break;
             case R.id.add_service_bt:
-                dialog = new AddNurseServiceDialog(getContext(), getView().getBaseInfo(), getView().getLimit(), this);
+                dialog = new AddNurseServiceDialog(getContext(), getView().getBaseInfo(), getView().getLimit(), 1, new ArrayList<>(),false, this);
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.show();
                 break;
@@ -174,6 +177,24 @@ public class CommonNurseServiceWorkingOrderDetailController extends ControllerIm
         });
     }
 
+    /**
+     * 获取护理服务子订单订单详情
+     */
+    public void getSubOrderProjectsBySubOrderNumber(String subOrderNumber,int frequency) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NurseServiceApiService.class).getSubOrderProjectsBySubOrderNumber(subOrderNumber), new HttpSubscriber<List<NursingProjectInfo>>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable List<NursingProjectInfo> data) {
+                getView().getSubOrderDetail(data,subOrderNumber,frequency);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                getView().getDetailFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
 
     /**
      * 添加服务项目
@@ -196,6 +217,30 @@ public class CommonNurseServiceWorkingOrderDetailController extends ControllerIm
                 hideLoading();
                 dialog.setAddBtnEnable(true);
                 getView().addServiceItemFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 修改子订单
+     *
+     * @param map 请求参数
+     */
+    public void editSubOrder(Map<String, Object> map) {
+        showLoading();
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NurseServiceApiService.class).editSubOrder(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                hideLoading();
+                getView().editServiceItemSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                hideLoading();
+                dialog.setAddBtnEnable(true);
+                getView().editServiceItemFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });

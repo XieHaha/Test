@@ -19,6 +19,7 @@ import com.keydom.ih_patient.net.CardService;
 import com.keydom.ih_patient.net.OrderService;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
+import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 import com.orhanobut.logger.Logger;
 
 import org.jetbrains.annotations.NotNull;
@@ -73,12 +74,11 @@ public class ChooseMedicalCardController extends ControllerImpl<ChooseMedicalCar
 
     /**
      * 生成挂号订单
-     *
      */
     public void userOrderNumber(Map<String, Object> map) {
-        if (map != null)
+        if (map != null) {
             showLoading();
-            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).userOrderNumber(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PaymentOrderBean>(getContext(),getDisposable(),false) {
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).userOrderNumber(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PaymentOrderBean>(getContext(), getDisposable(), false) {
                 @Override
                 public void requestComplete(@Nullable PaymentOrderBean data) {
                     hideLoading();
@@ -92,20 +92,54 @@ public class ChooseMedicalCardController extends ControllerImpl<ChooseMedicalCar
                     return super.requestError(exception, code, msg);
                 }
             });
+        }
+
     }
 
     /**
      * 挂号订单支付
-     *
      */
-    public void hospitalFeeByOrderNumber(Map<String, Object> map) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).hospitalFeeByOrderNumber(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(),getDisposable(),false,false) {
+    public void hospitalFeeByOrderNumber(Map<String, Object> map, int type) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).hospitalFeeByOrderNumber(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable String data) {
-                try {
-                    JSONObject object = new JSONObject(data);
-                    Logger.e("return_msg:" + object.getString("return_msg"));
-                    new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
+                if(type==2){
+                    try {
+                        JSONObject object = new JSONObject(data);
+                        Logger.e("return_msg:" + object.getString("return_msg"));
+                        new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
+                            @Override
+                            public void onSuccess() {
+                                ToastUtil.shortToast(getContext(), "支付成功");
+                                new GeneralDialog(getContext(), "挂号成功，可在挂号订单中进行查看", new GeneralDialog.OnCloseListener() {
+                                    @Override
+                                    public void onCommit() {
+                                        getView().completeOrder();
+                                    }
+                                }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
+                            }
+
+                            @Override
+                            public void onDealing() {
+
+                            }
+
+                            @Override
+                            public void onError(int error_code) {
+                                ToastUtil.shortToast(getContext(), "支付失败" + error_code
+                                );
+                            }
+
+                            @Override
+                            public void onCancel() {
+
+                            }
+                        }).doPay();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else if(type==1){
+                    WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
                         @Override
                         public void onSuccess() {
                             ToastUtil.shortToast(getContext(), "支付成功");
@@ -118,13 +152,8 @@ public class ChooseMedicalCardController extends ControllerImpl<ChooseMedicalCar
                         }
 
                         @Override
-                        public void onDealing() {
-
-                        }
-
-                        @Override
                         public void onError(int error_code) {
-                            ToastUtil.shortToast(getContext(), "支付失败" + error_code
+                            ToastUtil.shortToast(getContext(),"支付失败"+error_code
                             );
                         }
 
@@ -132,15 +161,14 @@ public class ChooseMedicalCardController extends ControllerImpl<ChooseMedicalCar
                         public void onCancel() {
 
                         }
-                    }).doPay();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    });
                 }
+
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                ToastUtil.shortToast(getContext(), "从支付宝拉取订单失败，请重试");
+                ToastUtil.shortToast(getContext(), "拉取订单失败，请重试");
                 return super.requestError(exception, code, msg);
             }
         });

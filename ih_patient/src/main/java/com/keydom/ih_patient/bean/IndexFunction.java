@@ -18,6 +18,15 @@ public class IndexFunction implements Serializable {
     @JSONField(name = "name")
     private String name;
 
+    private boolean isRedPointShow=false;
+
+    public boolean isRedPointShow() {
+        return isRedPointShow;
+    }
+
+    public void setRedPointShow(boolean redPointShow) {
+        isRedPointShow = redPointShow;
+    }
 
     public int getFunctionIcon() {
         return functionIcon;

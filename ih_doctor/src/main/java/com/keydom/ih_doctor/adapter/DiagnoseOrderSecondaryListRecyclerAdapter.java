@@ -16,6 +16,7 @@ import com.keydom.ih_common.view.MRadioButton;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.CheckOutItemBean;
 import com.keydom.ih_doctor.m_interface.OnItemChangeListener;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,7 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
         ((GroupItemViewHolder) holder).deptName.setText(bean.getDeptName());
         ((GroupItemViewHolder) holder).testItemFee.setText(String.valueOf(bean.getTotalFee()));
         ((GroupItemViewHolder) holder).deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
 

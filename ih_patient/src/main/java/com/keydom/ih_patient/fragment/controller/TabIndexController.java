@@ -18,6 +18,8 @@ import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.ih_patient.bean.IndexData;
 import com.keydom.ih_patient.bean.IndexFunction;
+import com.keydom.ih_patient.callback.MessageSingleClick;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.FunctionConfig;
 import com.keydom.ih_patient.constant.Global;
@@ -46,6 +48,7 @@ import java.util.Map;
 public class TabIndexController extends ControllerImpl<TabIndexView> implements View.OnClickListener {
     private IndexFunction allFunction;
 
+    @SingleClick(1000)
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -58,10 +61,10 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
                 break;
             case R.id.qr_code_layout:
                 //Toast.makeText(getContext(),"点击了Qr",Toast.LENGTH_SHORT).show();
-                if(Global.getUserId()!=-1){
+                if (Global.getUserId() != -1) {
                     EventBus.getDefault().post(new Event(EventType.STARTTOQR, null));
-                }else {
-                    ToastUtil.shortToast(getContext(),"你未登录,请登录后尝试");
+                } else {
+                    ToastUtil.shortToast(getContext(), "你未登录,请登录后尝试");
                 }
                 break;
             case R.id.empty_layout:
@@ -72,7 +75,10 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
                 getView().showHospitalPopupWindow();
                 break;
             case R.id.more_tv:
-                MyMessageActivity.start(getContext(), Type.NOTICEMESSAGE, DepartmentDataHelper.getNotificationsBeanAfterHandle(getView().getNoticeList()));
+                if (getView().getNoticeList() != null && getView().getNoticeList().size() > 0)
+                    MyMessageActivity.start(getContext(), Type.NOTICEMESSAGE, DepartmentDataHelper.getNotificationsBeanAfterHandle(getView().getNoticeList()));
+                else
+                    ToastUtil.shortToast(getContext(),"暂无通知公告");
                 break;
             default:
         }
@@ -134,6 +140,7 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
                     for (int i = 0; i < size; i++) {
                         data.get(i).setFunctionIcon(FunctionConfig.getIcon(data.get(i).getId()));
                         data.get(i).setSelected(true);
+                        data.get(i).setRedPointShow(false);
                         savedLocalFunction.add(data.get(i));
                     }
                     LocalizationUtils.fileSave2Local(getContext(), data, allFunctionFilename);
@@ -167,7 +174,7 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
      */
     public void fillViewData() {
         Map<String, Object> map = new HashMap<>();
-        map.put("id", Global.getUserId());
+        map.put("userId", Global.getUserId());
         map.put("hospitalId", App.hospitalId);
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(IndexService.class).initIndexData(map), new HttpSubscriber<IndexData>(getContext(), getDisposable(), false) {
             @Override
@@ -210,6 +217,8 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
         getView().setAdBannerData(data.getAdvertisement());
         getView().setNoticeData(data.getNotifications());
         getView().setArticleData(data.getHealthKnowledges());
+        getView().setRedPointView(data);
+        fillFunction();
 
 
     }
@@ -222,14 +231,17 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
         List<IndexFunction> indexFunctionList = new ArrayList<>();
         indexFunctionList.addAll(dataList);
         indexFunctionList.add(allFunction);
+        for (int i = 0; i < dataList.size(); i++) {
+            dataList.get(i).setRedPointShow(false);
+        }
         getView().setFunctionRvData(indexFunctionList);
     }
 
     /**
      * 通过关键字搜索城市
      */
-    public void queryCityListByKeyword(String keyWord){
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).findOrderByPinyin(keyWord), new HttpSubscriber<CityBean>(getContext(),getDisposable(),false) {
+    public void queryCityListByKeyword(String keyWord) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).findOrderByPinyin(keyWord), new HttpSubscriber<CityBean>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable CityBean data) {
                 getView().getCityListSuccess(DepartmentDataHelper.getCityBeanAfterHandle(data));

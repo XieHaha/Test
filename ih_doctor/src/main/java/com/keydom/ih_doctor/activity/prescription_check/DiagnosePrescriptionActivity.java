@@ -305,7 +305,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
      * 新建处方界面初始化
      */
     private void initPrescription() {
-        setTitle("");
+        setTitle("诊断与处方");
         setRightTxt("病历模板");
         setRightImgVisibility(true);
         diagnose_prescription_ll.setVisibility(View.VISIBLE);
@@ -400,6 +400,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                 prescription_type = bean.getCate();
                 saveData.add(bean.getItems().get(0));
                 prescriptionAdapter.setNewData(packagingData(saveData));
+                isHavePrescription = true;
             }else {
                 if(prescription_type==bean.getCate()){
                     saveData.add(bean.getItems().get(0));
@@ -546,6 +547,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                 drugSavedBean.setWay(saveData.get(i).get(j).getWay());
                 drugSavedBean.setDoctorAdvice(saveData.get(i).get(j).getDoctorAdvice());
                 drugSavedBean.setId(saveData.get(i).get(j).getId());
+                drugSavedBean.setPackUnit(saveData.get(i).get(j).getPackUnit());
                 items.add(drugSavedBean);
             }
             commitPrescriptionSavedBean.setItems(items);

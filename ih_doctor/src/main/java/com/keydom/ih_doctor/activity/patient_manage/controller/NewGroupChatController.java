@@ -16,6 +16,7 @@ import com.keydom.ih_doctor.activity.patient_manage.ChoosePatientActivity;
 import com.keydom.ih_doctor.activity.patient_manage.NewGroupChatActivity;
 import com.keydom.ih_doctor.activity.patient_manage.view.NewGroupChatView;
 import com.keydom.ih_doctor.bean.GroupResBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.MainApiService;
 import com.keydom.ih_doctor.net.PatientManageApiService;
 import com.keydom.ih_doctor.utils.ToastUtil;
@@ -32,6 +33,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class NewGroupChatController extends ControllerImpl<NewGroupChatView> implements View.OnClickListener, IhTitleLayout.OnRightTextClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

@@ -14,6 +14,7 @@ import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.online_diagnose.view.PrescriptionTempletView;
 import com.keydom.ih_doctor.bean.PrescriptionTempletBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.DiagnoseApiService;
 
 import org.jetbrains.annotations.NotNull;
@@ -48,7 +49,7 @@ public class PrescriptionTempletController extends ControllerImpl<PrescriptionTe
             }
         });
     }
-
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.type_tv) {

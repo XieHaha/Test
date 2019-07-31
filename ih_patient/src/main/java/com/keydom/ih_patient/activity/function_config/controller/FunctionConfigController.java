@@ -13,6 +13,7 @@ import com.keydom.ih_patient.utils.LocalizationUtils;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,16 +29,26 @@ public class FunctionConfigController extends ControllerImpl<FunctionConfigView>
         String filename="index_function_"+Global.getUserId();
         String allFunctionFilename = "all_function_" + Global.getUserId();
         List<IndexFunction> selectedFunctionlist= (List<IndexFunction>) LocalizationUtils.readFileFromLocal(getContext(),filename);
-        if(selectedFunctionlist!=null){
-            Logger.e("selectedFunctionlist.size=="+selectedFunctionlist.size());
-        }else {
-            Logger.e("selectedFunctionlist==null");
-        }
+
         List<IndexFunction> allFunctionlist= (List<IndexFunction>) LocalizationUtils.readFileFromLocal(getContext(),allFunctionFilename);
         if(allFunctionlist!=null){
             Logger.e("selectedFunctionlist.size=="+allFunctionlist.size());
         }else {
             Logger.e("selectedFunctionlist==null");
+        }
+        if(selectedFunctionlist!=null){
+            Logger.e("selectedFunctionlist.size=="+selectedFunctionlist.size());
+        }else {
+            Logger.e("selectedFunctionlist==null");
+            selectedFunctionlist=new ArrayList<>();
+            if(allFunctionlist!=null){
+                if(allFunctionlist.size()>7){
+                    selectedFunctionlist.addAll(allFunctionlist.subList(0,6));
+                }else {
+                    selectedFunctionlist.addAll(allFunctionlist);
+                }
+            }
+
         }
         if(selectedFunctionlist!=null&&allFunctionlist!=null){
             getView().fillFunctionData(allFunctionlist,selectedFunctionlist);

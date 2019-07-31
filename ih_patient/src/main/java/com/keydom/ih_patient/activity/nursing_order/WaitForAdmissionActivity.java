@@ -21,6 +21,7 @@ import com.keydom.ih_patient.activity.nursing_order.view.WaitForAdmissionView;
 import com.keydom.ih_patient.adapter.NursingChargeBackImgAdapter;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.NursingOrderDetailBean;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 
 import org.greenrobot.eventbus.EventBus;
@@ -90,6 +91,7 @@ public class WaitForAdmissionActivity extends BaseControllerActivity<WaitForAdmi
 
         mImgAdapter = new NursingChargeBackImgAdapter(new ArrayList<>());
         mImgAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @SingleClick(1000)
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 String url = Const.IMAGE_HOST + (String) adapter.getData().get(position);

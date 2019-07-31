@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_60"
+    android:layout_height="wrap_content"
+    >
     <ImageView
         android:id="@+id/item_func_icon"
         android:layout_width="@dimen/dp_58"
-        android:layout_gravity="center_horizontal"
         android:layout_height="@dimen/dp_58"
+        android:layout_centerHorizontal="true"
         android:src="@mipmap/consultation_orderby"/>
     <TextView
         android:id="@+id/item_func_name"
+        android:layout_below="@+id/item_func_icon"
         android:layout_marginTop="@dimen/dp_3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
         android:textSize="@dimen/dp_12"
-        android:text="测试的名称"
+        android:text="测试2222222222222"
         android:lines="1"
+        android:ellipsize="end"
         android:textColor="@color/tiem_func_name"/>
-</LinearLayout>
+    <View
+        android:id="@+id/item_redpoint_view"
+        android:layout_width="@dimen/dp_8"
+        android:layout_height="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_5"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        android:background="@drawable/red_point_view_bg"/>
+
+
+</RelativeLayout>

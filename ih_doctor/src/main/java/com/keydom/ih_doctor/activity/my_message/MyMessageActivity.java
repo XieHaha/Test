@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.my_message.controller.MyMessagaeController;
 import com.keydom.ih_doctor.activity.my_message.view.MyMessageView;
@@ -14,12 +15,17 @@ import com.keydom.ih_doctor.adapter.MyMessageAdapter;
 import com.keydom.ih_doctor.bean.MessageBean;
 import com.keydom.ih_doctor.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 我的消息页面
@@ -41,6 +47,7 @@ public class MyMessageActivity extends BaseControllerActivity<MyMessagaeControll
     private List<Object> dataList=new ArrayList<>();
     private MyMessageAdapter myMessageAdapter;
     private String type;
+    private int page=1;
     @Override
     public int getLayoutRes() {
         return R.layout.activity_my_message_layout;
@@ -55,23 +62,61 @@ public class MyMessageActivity extends BaseControllerActivity<MyMessagaeControll
         my_message_rv=findViewById(R.id.my_message_rv);
 
         setTitle("我的消息");
-        my_messag_refresh.setEnableRefresh(false);
+        my_messag_refresh.setEnableRefresh(true);
+        my_messag_refresh.setEnableLoadMore(true);
         myMessageAdapter=new MyMessageAdapter(getContext(),dataList);
         my_message_rv.setAdapter(myMessageAdapter);
+        my_messag_refresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                getController().getMyMessageList(getMessageMap());
+            }
+        });
+        my_messag_refresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                page=1;
+                getController().getMyMessageList(getMessageMap());
 
+            }
+        });
+    }
+    private Map<String,Object> getMessageMap(){
+        Map<String,Object> map=new HashMap<>();
+        map.put("doctorPhone",SharePreferenceManager.getPhoneNumber());
+        map.put("pageSize",8);
+        map.put("currentPage",page);
+        return map;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getController().getMyMessageList();
+        getController().getMyMessageList(getMessageMap());
     }
 
     @Override
     public void getMessageListSuccess(List<MessageBean> messageList) {
-        dataList.clear();
-        dataList.addAll(messageList);
-        myMessageAdapter.notifyDataSetChanged();
+        my_messag_refresh.finishLoadMore();
+        my_messag_refresh.finishRefresh();
+        if(messageList!=null&&messageList.size()>0){
+            if(page==1){
+                dataList.clear();
+                dataList.addAll(messageList);
+                myMessageAdapter.notifyDataSetChanged();
+
+            }else {
+                dataList.addAll(messageList);
+                myMessageAdapter.notifyDataSetChanged();
+            }
+            page++;
+        }else {
+            if(page==1){
+                dataList.clear();
+                dataList.addAll(messageList);
+                myMessageAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
     @Override

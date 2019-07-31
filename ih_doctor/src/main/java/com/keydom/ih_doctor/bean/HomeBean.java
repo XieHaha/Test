@@ -43,4 +43,50 @@ public class HomeBean implements Serializable {
     public void setAuth(AccessInfoBean auth) {
         this.auth = auth;
     }
+
+    private int auditNoPass;
+    private int noAudit;
+    private int receiveNurse;
+    private int receiveInquiry;
+    private int visitNurse;
+
+    public int getAuditNoPass() {
+        return auditNoPass;
+    }
+
+    public void setAuditNoPass(int auditNoPass) {
+        this.auditNoPass = auditNoPass;
+    }
+
+    public int getNoAudit() {
+        return noAudit;
+    }
+
+    public void setNoAudit(int noAudit) {
+        this.noAudit = noAudit;
+    }
+
+    public int getReceiveNurse() {
+        return receiveNurse;
+    }
+
+    public void setReceiveNurse(int receiveNurse) {
+        this.receiveNurse = receiveNurse;
+    }
+
+    public int getReceiveInquiry() {
+        return receiveInquiry;
+    }
+
+    public void setReceiveInquiry(int receiveInquiry) {
+        this.receiveInquiry = receiveInquiry;
+    }
+
+    public int getVisitNurse() {
+        return visitNurse;
+    }
+
+    public void setVisitNurse(int visitNurse) {
+        this.visitNurse = visitNurse;
+    }
 }

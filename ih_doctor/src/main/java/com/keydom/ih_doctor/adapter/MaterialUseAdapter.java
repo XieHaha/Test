@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.MaterialBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -34,6 +35,7 @@ public class MaterialUseAdapter extends BaseQuickAdapter<MaterialBean, BaseViewH
         RelativeLayout use_amount_scaler_add_layout = helper.itemView.findViewById(R.id.use_amount_scaler_add_layout);
 
         use_amount_scaler_minus_layout.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (item.getMaterialAmount() > 1) {
@@ -43,6 +45,7 @@ public class MaterialUseAdapter extends BaseQuickAdapter<MaterialBean, BaseViewH
             }
         });
         use_amount_scaler_add_layout.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 item.setMaterialAmount(item.getMaterialAmount() + 1);

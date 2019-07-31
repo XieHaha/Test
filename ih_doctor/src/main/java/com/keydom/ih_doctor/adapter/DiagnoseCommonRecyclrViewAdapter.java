@@ -13,6 +13,7 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.doctor_cooperation.DiagnoseOrderDetailActivity;
 import com.keydom.ih_doctor.bean.ChangeDiagnoseRecoderBean;
 import com.keydom.ih_doctor.constant.TypeEnum;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import java.util.List;
 
@@ -94,6 +95,7 @@ public class DiagnoseCommonRecyclrViewAdapter extends BaseEmptyAdapter<ChangeDia
             receive.setText(bean.getChangeInfoDoctor() + "、" + (bean.getChangeInfoJobTitle() == null || "".equals(bean.getChangeInfoJobTitle()) ? "" : (bean.getChangeInfoJobTitle() + "、")) + bean.getChangeInfoDept());
             apply.setText(bean.getDoctor() + "、" + (bean.getJobTitle() == null || "".equals(bean.getJobTitle()) ? "" : (bean.getJobTitle() + "、")) + bean.getDept());
             itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     if (mType == TypeEnum.DIAGNOSE_CHANGE_RECEIVE) {

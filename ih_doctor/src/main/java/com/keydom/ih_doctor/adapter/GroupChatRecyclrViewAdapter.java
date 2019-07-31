@@ -22,6 +22,7 @@ import com.keydom.ih_doctor.activity.patient_manage.NewGroupChatActivity;
 import com.keydom.ih_doctor.bean.GroupInfoBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.TypeEnum;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
 import com.netease.nimlib.sdk.team.model.Team;
@@ -87,6 +88,7 @@ public class GroupChatRecyclrViewAdapter extends BaseEmptyAdapter<Team> {
                 count.setVisibility(View.GONE);
             }
             itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     ImClient.startTeamChart(mContext, team.getId(), null);
@@ -94,6 +96,7 @@ public class GroupChatRecyclrViewAdapter extends BaseEmptyAdapter<Team> {
             });
             if (!Const.CHECK_AND_ACCEP) {
                 icon.setOnClickListener(new View.OnClickListener() {
+                    @SingleClick(1000)
                     @Override
                     public void onClick(View v) {
                         if(!"".equals(team.getExtServer())){

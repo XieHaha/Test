@@ -12,6 +12,7 @@ import com.keydom.ih_doctor.activity.CommonInputActivity;
 import com.keydom.ih_doctor.activity.patient_manage.PatientDatumActivity;
 import com.keydom.ih_doctor.activity.patient_manage.view.PatientDatumView;
 import com.keydom.ih_doctor.bean.PatientInfoBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.PatientManageApiService;
 
 import org.jetbrains.annotations.NotNull;
@@ -20,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 
 public class PatientDatumController extends ControllerImpl<PatientDatumView> implements View.OnClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View view) {
 

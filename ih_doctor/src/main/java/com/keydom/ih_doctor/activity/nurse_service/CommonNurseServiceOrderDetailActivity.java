@@ -18,6 +18,7 @@ import com.baidu.mapapi.map.TextureMapView;
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.nurse_service.controller.CommonNurseServiceOrderDetailController;
 import com.keydom.ih_doctor.activity.nurse_service.view.CommonNurseServiceOrderDetailView;
@@ -80,12 +81,13 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
      * 护理订单单号
      */
     private String orderNum;
+    private String orderNumberStr;
     private TextureMapView mMapView = null;
     private DrivingRouteOverlay overlay;
-    private LinearLayout baseInfoLl;
+    private LinearLayout baseInfoLl,button_ll,recive_button_ll;
     private RelativeLayout spreadOut;
     private TextView spreadOutTv;
-    private Button changeOrderBt, receiveBt, goBt, arriveBt;
+    private Button changeOrderBt, receiveBt, goBt, arriveBt,cancleChangeOrderBt,refuse_change_order_bt,accept_receive_bt;
     private DiagnoseOrderDetailAdapter diagnoseMaterialAdapter;
     private RecyclerView diagnoseMaterialRv, serviceRecoderRv;
     private TextView hospitalAddress, distanceTv, hospitalName, userPhone, orderNumber, orderUserDept, orderUserName, orderUserPhone, orderUserAddress, orderServiceObject, orderUserContactNumber, orderVisitTime, orderFee, serviceReqExplainTv;
@@ -100,9 +102,10 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
      * @param context
      * @param orderNum
      */
-    public static void start(Context context, String orderNum) {
+    public static void start(Context context, String orderNum,String orderNumberStr) {
         Intent starter = new Intent(context, CommonNurseServiceOrderDetailActivity.class);
         starter.putExtra(Const.DATA, orderNum);
+        starter.putExtra("orderNumberStr",orderNumberStr);
         context.startActivity(starter);
     }
 
@@ -114,6 +117,7 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         orderNum = getIntent().getStringExtra(Const.DATA);
+        orderNumberStr=getIntent().getStringExtra("orderNumberStr");
         setTitle("订单详情");
         initView();
         pageLoading();
@@ -164,12 +168,20 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
         nurseServiceRecoderRvLm.setOrientation(LinearLayoutManager.VERTICAL);
         serviceRecoderRv.setAdapter(nurseServiceRecoderAdapter);
         serviceRecoderRv.setLayoutManager(nurseServiceRecoderRvLm);
+        button_ll=this.findViewById(R.id.button_ll);
+        cancleChangeOrderBt=this.findViewById(R.id.cancle_change_order_bt);
+        recive_button_ll=this.findViewById(R.id.recive_button_ll);
+        refuse_change_order_bt=this.findViewById(R.id.refuse_change_order_bt);
+        accept_receive_bt=this.findViewById(R.id.accept_receive_bt);
 
         receiveBt.setOnClickListener(getController());
         goBt.setOnClickListener(getController());
         arriveBt.setOnClickListener(getController());
         changeOrderBt.setOnClickListener(getController());
         spreadOut.setOnClickListener(getController());
+        cancleChangeOrderBt.setOnClickListener(getController());
+        refuse_change_order_bt.setOnClickListener(getController());
+        accept_receive_bt.setOnClickListener(getController());
         initAdapter();
     }
 
@@ -222,6 +234,50 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
         return mapUtil;
     }
 
+    @Override
+    public Map<String, Object> getAcceptReciveMap() {
+        Map<String, Object> map=new HashMap<>();
+        map.put("nurseId",MyApplication.userInfo.getId());
+        map.put("orderNumber",orderNumberStr);
+        map.put("operator","accept");
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> getRefuseReciveMap() {
+        Map<String, Object> map=new HashMap<>();
+        map.put("nurseId",MyApplication.userInfo.getId());
+        map.put("orderNumber",orderNumberStr);
+        map.put("operator","refuse");
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> getCancelChangeMap() {
+        Map<String, Object> map=new HashMap<>();
+        map.put("nurseId",MyApplication.userInfo.getId());
+        map.put("orderNumber",orderNumberStr);
+        return map;
+    }
+
+    @Override
+    public void acceptOrderSuccess(String data) {
+        EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
+        getController().getNurseServiceOrderDetail();
+    }
+
+    @Override
+    public void refuseAcceptSuccess(String data) {
+        EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
+        finish();
+    }
+
+    @Override
+    public void cancelChangeSuccess(String data) {
+        EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
+        getController().getNurseServiceOrderDetail();
+    }
+
     private void initAdapter() {
         diagnoseMaterialAdapter = new DiagnoseOrderDetailAdapter(this, diagnoseMaterialList);
         LinearLayoutManager diagnoseMaterialRvLm = new LinearLayoutManager(this);
@@ -234,12 +290,32 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
      * 设置订单信息
      *
      * @param bean 订单详情对象
+     * @param transfered
+     * @param needAccept
      */
-    private void setInfo(HeadNurseServiceOrderDetailBean bean) {
+    private void setInfo(HeadNurseServiceOrderDetailBean bean, boolean transfered, boolean needAccept) {
         if (bean == null) {
             ToastUtil.shortToast(this, "加载失败");
             finish();
             return;
+        }
+
+        if(needAccept){
+            button_ll.setVisibility(View.GONE);
+            cancleChangeOrderBt.setVisibility(View.GONE);
+            recive_button_ll.setVisibility(View.VISIBLE);
+        }else {
+            recive_button_ll.setVisibility(View.GONE);
+            button_ll.setVisibility(View.VISIBLE);
+            cancleChangeOrderBt.setVisibility(View.VISIBLE);
+
+        }
+        if(transfered){
+            button_ll.setVisibility(View.GONE);
+            cancleChangeOrderBt.setVisibility(View.VISIBLE);
+        }else {
+            button_ll.setVisibility(View.VISIBLE);
+            cancleChangeOrderBt.setVisibility(View.GONE);
         }
         if (bean.getState() == Const.NURSING_SERVICE_ORDER_STATE_ON_WAY) {
             showArriveView();
@@ -248,6 +324,8 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
         } else if (bean.getState() == Const.NURSING_SERVICE_ORDER_STATE_ACCEPT) {
             showGoView();
         }
+
+
         hospitalAddress.setText(bean.getServiceAddress());
         hospitalName.setText(bean.getHospital());
         userPhone.setText(bean.getApplyPhone());
@@ -270,6 +348,7 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
     public Map<String, Object> getDetailMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("id", orderNum);
+        map.put("nurseId",MyApplication.userInfo.getId());
         return map;
     }
 
@@ -285,7 +364,7 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
     public void getDetailSuccess(CommonNurseServiceOrderDetailBean bean) {
         pageLoadingSuccess();
         baseInfo = bean.getNursingServiceOrderDetailBaseDto();
-        setInfo(bean.getNursingServiceOrderDetailBaseDto());
+        setInfo(bean.getNursingServiceOrderDetailBaseDto(),bean.isTransfered(),bean.isNeedAccept());
         nurseServiceRecoderBeanList.clear();
         nurseServiceRecoderBeanList.addAll(bean.getNurseServiceRecordDetailDtos());
         setMapInfo();
@@ -311,6 +390,11 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
     @Override
     public void getDetailFailed(String errMsg) {
         pageLoadingFail();
+        if("当前订单不属于您".equals(errMsg)){
+            ToastUtil.shortToast(getContext(),errMsg);
+            EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
+            finish();
+        }
     }
 
 
@@ -338,7 +422,6 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
 
     @Override
     public void transferSuccess(String msg) {
-        EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
         EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
         finish();
     }

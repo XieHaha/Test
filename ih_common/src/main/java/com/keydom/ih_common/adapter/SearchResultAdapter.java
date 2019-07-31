@@ -10,10 +10,12 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.keydom.ih_common.R;
 import com.keydom.ih_common.bean.SearchResultBean;
+import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.constant.SearchConst;
 import com.keydom.ih_common.minterface.OnSearchListItemClickListener;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
+import com.keydom.ih_common.view.CircleImageView;
 
 import java.util.List;
 
@@ -77,12 +79,16 @@ public class SearchResultAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
             case SearchConst.SEARCH_ORDER:
                 final SearchResultBean.OrderBean bean = (SearchResultBean.OrderBean) item;
                 TextView orderStatus, orderTypeTv;
+                CircleImageView circleImageView;
+                circleImageView=helper.itemView.findViewById(R.id.user_icon);
                 orderTypeTv = helper.itemView.findViewById(R.id.order_type_tv);
                 orderStatus = helper.itemView.findViewById(R.id.order_status);
                 helper.setText(R.id.user_name, CommonUtils.getSearchResultStr(keyword, bean.getName()));
                 helper.setText(R.id.diagnose_dec, CommonUtils.getSearchResultStr(keyword, bean.getConditionDesc()));
-                helper.setText(R.id.diagnose_time, "");
-                GlideUtils.load((ImageView) helper.getView(R.id.user_icon), bean.getPatientImage(), 0, 0, false, null);
+                helper.setText(R.id.diagnose_time,bean.getCreateTime()==null?"":bean.getCreateTime() );
+                helper.setText(R.id.user_age,bean.getAge()+"岁");
+                helper.setText(R.id.user_sex,CommonUtils.getSex(bean.getSex()));
+                GlideUtils.load(circleImageView, Const.IMAGE_HOST+bean.getPatientImage(), 0, 0, false, null);
                 Drawable img;
                 if (bean.getOrderType() != null && "0".equals(bean.getOrderType())) {
                     Drawable leftimg = mContext.getResources().getDrawable(R.mipmap.diagnose_illustration);

@@ -4,6 +4,7 @@ import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_doctor.bean.GroupResBean;
 import com.keydom.ih_doctor.bean.ImPatientInfo;
 import com.keydom.ih_doctor.bean.PatientInfoBean;
+import com.keydom.ih_doctor.bean.PermissionBean;
 import com.keydom.ih_doctor.bean.WarrantDetailBean;
 import com.keydom.ih_doctor.bean.WarrantDoctorBean;
 
@@ -112,6 +113,15 @@ public interface PatientManageApiService {
      * @return
      */
     @GET("Inquiry/registerUserAuthorization/editInfo")
-    Observable<HttpResult<WarrantDetailBean>> getEditInfo(@Query("creatorId") long creatorId, @Query("doctorId") String doctorId);
+    Observable<HttpResult<WarrantDetailBean>> getEditInfo(@Query("creatorId") long creatorId, @Query("doctorId") String doctorId, @Query("userId") String userId);
 
+
+    /**
+     * 获取否具有授权与建群权限
+     *
+     * @param doctorId
+     * @return
+     */
+    @GET("Inquiry/hospitalUserMenu/getRole")
+    Observable<HttpResult<PermissionBean>> getPermission(@Query("doctorId") String doctorId );
 }

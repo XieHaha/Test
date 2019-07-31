@@ -10,6 +10,7 @@ import com.keydom.ih_doctor.activity.inspection_report.BodyCheckDetailActivity;
 import com.keydom.ih_doctor.activity.inspection_report.InspectionDetailActivity;
 import com.keydom.ih_doctor.activity.online_diagnose.ReportListActivity;
 import com.keydom.ih_doctor.bean.ReportItemBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class ReportListAdapter extends BaseQuickAdapter<ReportItemBean, BaseView
 
         helper.setText(R.id.report_name, item.getName());
         helper.itemView.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (mType == ReportListActivity.REPORT_INSPECT) {

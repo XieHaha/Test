@@ -166,10 +166,17 @@ public class ExaminationDateChooseActivity extends BaseControllerActivity<Examin
     @Override
     public void getDateList(List<DateInfo> dateList) {
         if (dateList != null && dateList.size() != 0) {
+            if(date_list_layout.getVisibility()==View.GONE){
+                date_list_layout.setVisibility(View.VISIBLE);
+                surplus_of_exa_num_tv.setVisibility(View.VISIBLE);
+                orderExaRv.setVisibility(View.VISIBLE);
+                state_retry2.setVisibility(View.GONE);
+            }
             orderExtDateAdapter.refreshInit();
             this.dateList.clear();
             this.dateList.addAll(dateList);
             orderExtDateAdapter.notifyDataSetChanged();
+
         } else {
             date_list_layout.setVisibility(View.GONE);
             surplus_of_exa_num_tv.setVisibility(View.GONE);

@@ -21,6 +21,7 @@ import com.keydom.ih_doctor.activity.personal.MyRealNameCertifyActivity;
 import com.keydom.ih_doctor.activity.personal.PersonalInfoActivity;
 import com.keydom.ih_doctor.activity.personal.view.PersonalInfoView;
 import com.keydom.ih_doctor.bean.PersonalInfoBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.MainApiService;
 import com.keydom.ih_doctor.net.PersonalApiService;
 import com.luck.picture.lib.PictureSelector;
@@ -51,7 +52,7 @@ import static com.keydom.ih_doctor.activity.personal.PersonalInfoActivity.USER_I
  * 修改时间：18/11/16 上午9:09
  */
 public class PersonalInfoController extends ControllerImpl<PersonalInfoView> implements View.OnClickListener {
-
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -87,7 +88,7 @@ public class PersonalInfoController extends ControllerImpl<PersonalInfoView> imp
                 break;
             case R.id.finish:
                 SharePreferenceManager.setFirstFinishInfo(false);
-                MainActivity.start(getContext(),false);
+                MainActivity.start(getContext(),false,true);
                 break;
             default:
         }

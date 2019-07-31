@@ -14,6 +14,7 @@ import com.keydom.ih_common.utils.DialogCreator;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.AgreementActivity;
 import com.keydom.ih_doctor.activity.view.UpdatePasswordView;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.LoginApiService;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
@@ -32,7 +33,7 @@ import java.util.HashMap;
  */
 public class UpdatePasswordController extends ControllerImpl<UpdatePasswordView> implements View.OnClickListener {
     private Dialog loading;
-
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.get_identifying_code_bt) {

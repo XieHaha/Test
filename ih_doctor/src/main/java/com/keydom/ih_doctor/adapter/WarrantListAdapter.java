@@ -16,6 +16,8 @@ import com.keydom.ih_doctor.activity.patient_manage.TentativeDiagnosisActivity;
 import com.keydom.ih_doctor.bean.DeptDoctorBean;
 import com.keydom.ih_doctor.bean.WarrantDoctorBean;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.m_interface.SingleClick;
+
 import java.util.List;
 
 public class WarrantListAdapter extends BaseEmptyAdapter<WarrantDoctorBean> {
@@ -67,9 +69,10 @@ public class WarrantListAdapter extends BaseEmptyAdapter<WarrantDoctorBean> {
             doctorJob.setText(bean.getJobTitleName());
             doctorName.setText(bean.getName());
             editTv.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
-                    TentativeDiagnosisActivity.start(context,TentativeDiagnosisActivity.TYPEUPDATE,bean.getHospitalUserId());
+                    TentativeDiagnosisActivity.start(context,TentativeDiagnosisActivity.TYPEUPDATE,bean.getHospitalUserId(),bean.getUserName(),bean.getUserId());
                 }
             });
         }

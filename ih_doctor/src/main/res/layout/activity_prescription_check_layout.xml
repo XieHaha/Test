@@ -59,6 +59,7 @@
         android:visibility="gone" />
 
     <LinearLayout
+        android:id="@+id/order_num_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -66,9 +67,10 @@
         android:paddingTop="@dimen/dp_22"
         android:paddingRight="@dimen/dp_22"
         android:paddingBottom="@dimen/dp_22"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <TextView
+            android:id="@+id/order_num_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@mipmap/point_purple_blue"

@@ -178,7 +178,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * 跳转到首页，并结束当前页面
      */
     private void goToMainActivity() {
-        MainActivity.start(this,isNeedJump);
+        MainActivity.start(this,isNeedJump,false);
         finish();
     }
 

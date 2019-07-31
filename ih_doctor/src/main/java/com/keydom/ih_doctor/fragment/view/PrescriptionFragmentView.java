@@ -26,4 +26,6 @@ public interface PrescriptionFragmentView extends BaseView {
     TypeEnum getType();
 
     Map<String ,Object> getListMap();
+
+    String getStartCod();
 }

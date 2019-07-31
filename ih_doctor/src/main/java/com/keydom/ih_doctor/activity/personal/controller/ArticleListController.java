@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
+import com.keydom.ih_common.net.ApiService;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
@@ -11,6 +12,7 @@ import com.keydom.ih_doctor.activity.personal.view.ArticleListView;
 import com.keydom.ih_doctor.bean.ArticleItemBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.TypeEnum;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.PersonalApiService;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -31,6 +33,7 @@ import java.util.HashMap;
  * 修改时间：18/11/16 上午9:09
  */
 public class ArticleListController extends ControllerImpl<ArticleListView> implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
 
@@ -121,6 +124,34 @@ public class ArticleListController extends ControllerImpl<ArticleListView> imple
             }
         });
     }
+
+    /**
+     * 取消收藏
+     */
+    public void removeCollect(HashMap<String, Object> map) {
+
+        showLoading();
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ApiService.class).collect(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                if (getView() != null) {
+                    hideLoading();
+                    getView().removeCollectSuccess();
+                }
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                if (getView() != null) {
+                    hideLoading();
+                    getView().removeCollectFailed(msg);
+
+                }
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
 
     @Override
     public void onLoadMore(RefreshLayout refreshLayout) {

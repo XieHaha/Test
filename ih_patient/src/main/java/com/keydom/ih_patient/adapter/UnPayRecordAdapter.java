@@ -49,7 +49,7 @@ public class UnPayRecordAdapter extends BaseQuickAdapter<PayRecordBean, BaseView
         checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (checkBox.isPressed()) {
                 item.setSelect(isChecked);
-//                checkBox.setChecked(false);  //新需求
+                checkBox.setChecked(false);  //新需求
                 mIOnSelectedChanged.onPriceChanged(item, helper.getAdapterPosition());
             }
         });

@@ -18,10 +18,13 @@ import com.keydom.ih_patient.activity.payment_records.view.UnpayRecordView;
 import com.keydom.ih_patient.bean.LocationInfo;
 import com.keydom.ih_patient.bean.PayRecordBean;
 import com.keydom.ih_patient.bean.PaymentOrderBean;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.LocationService;
 import com.keydom.ih_patient.net.PayService;
+import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
+import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.jetbrains.annotations.NotNull;
@@ -62,57 +65,57 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
             }
         });
     }
-
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pay_tv:
-//                List<PayRecordBean> selectList = getView().getSelectList();
-//                if (selectList.size() > 0) {
-//                    String hint = "";
-//                    if (selectList.size() > 1) {
-//                        String card = selectList.get(0).getEleCardNumber();
-//                        int type = selectList.get(0).getType();
-//                        for (int i = 0; i < selectList.size(); i++) {
-//                            PayRecordBean payRecordBean = selectList.get(i);
-//                            if (payRecordBean.getType() == UnpayRecordFragment.CAN_MERGE && !payRecordBean.getEleCardNumber().equals(card)) {
-//                                hint = "不能同时为多个就诊人合并缴费";
-//                            }
-//                            if (payRecordBean.getType() != type) {
-//                                hint = "不能同时缴纳诊间费用和预约挂号、在线问诊、护理服务和预约体检项目费用";
-//                            }
-//                            if (payRecordBean.getType() == UnpayRecordFragment.CANNOT_MERGE) {
-//                                hint = "不能同时缴纳预约挂号、在线问诊、护理服务和预约体检项目费用";
-//                            }
-//                        }
-//                    }
-//                    if (!StringUtils.isEmpty(hint)) {
-//                        ToastUtils.showLong(hint);
-//                    } else {
-//                        boolean needDispatch = false;
-//                        for (int i = 0; i < getView().getSelectList().size(); i++) {
-//                            if (getView().getSelectList().get(i).getRecordState() == 8) {
-//                                needDispatch = true;
-//                            }
-//                        }
-//                        createOrder(needDispatch, getView().getDocument(), getView().getTotalPay());
-//                    }
-//                } else {
-//                    ToastUtils.showShort("请选择订单");
-//                }
-// 新需求
-//
-                if (getView().getSelectList().size() > 0) {
-                    boolean needDispatch = false;
-                    for (int i = 0; i < getView().getSelectList().size(); i++) {
-                        if (getView().getSelectList().get(i).getRecordState() == 8) {
-                            needDispatch = true;
+                List<PayRecordBean> selectList = getView().getSelectList();
+                if (selectList.size() > 0) {
+                    String hint = "";
+                    if (selectList.size() > 1) {
+                        String card = selectList.get(0).getEleCardNumber();
+                        int type = selectList.get(0).getType();
+                        for (int i = 0; i < selectList.size(); i++) {
+                            PayRecordBean payRecordBean = selectList.get(i);
+                            if (payRecordBean.getType() == UnpayRecordFragment.CAN_MERGE && !payRecordBean.getEleCardNumber().equals(card)) {
+                                hint = "不能同时为多个就诊人合并缴费";
+                            }
+                            if (payRecordBean.getType() != type) {
+                                hint = "不能同时缴纳诊间费用和预约挂号、在线问诊、护理服务和预约体检项目费用";
+                            }
+                            if (payRecordBean.getType() == UnpayRecordFragment.CANNOT_MERGE) {
+                                hint = "不能同时缴纳预约挂号、在线问诊、护理服务和预约体检项目费用";
+                            }
                         }
                     }
-                    createOrder(needDispatch, getView().getDocument(), getView().getTotalPay());
+                    if (!StringUtils.isEmpty(hint)) {
+                        ToastUtils.showLong(hint);
+                    } else {
+                        boolean needDispatch = false;
+                        for (int i = 0; i < getView().getSelectList().size(); i++) {
+                            if (getView().getSelectList().get(i).getRecordState() == 8) {
+                                needDispatch = true;
+                            }
+                        }
+                        createOrder(needDispatch, getView().getDocument(), getView().getTotalPay());
+                    }
                 } else {
                     ToastUtils.showShort("请选择订单");
                 }
+// 新需求
+//
+//                if (getView().getSelectList().size() > 0) {
+//                    boolean needDispatch = false;
+//                    for (int i = 0; i < getView().getSelectList().size(); i++) {
+//                        if (getView().getSelectList().get(i).getRecordState() == 8) {
+//                            needDispatch = true;
+//                        }
+//                    }
+//                    createOrder(needDispatch, getView().getDocument(), getView().getTotalPay());
+//                } else {
+//                    ToastUtils.showShort("请选择订单");
+//                }
                 break;
         }
     }
@@ -156,11 +159,8 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
                     ToastUtils.showShort("返回支付参数为空");
                     return;
                 }
-                JSONObject js = JSONObject.parseObject(data);
-                if (type == 1) {
-
-                }
-                if (type == 2) {
+                if(type==2){
+                    JSONObject js = JSONObject.parseObject(data);
                     if (!js.containsKey("return_msg")) {
                         return;
                     }
@@ -173,7 +173,7 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
 
                         @Override
                         public void onDealing() {
-                            ToastUtils.showShort("等待支付结果确认");
+//                            ToastUtils.showShort("等待支付结果确认");
                         }
 
                         @Override
@@ -183,9 +183,28 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
 
                         @Override
                         public void onCancel() {
-                            ToastUtils.showShort("取消支付");
+//                            ToastUtils.showShort("取消支付");
                         }
                     }).doPay();
+                }else if (type == 1) {
+                    WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
+                        @Override
+                        public void onSuccess() {
+                            getView().paySuccess();
+                            ToastUtils.showShort("支付成功");
+                        }
+
+                        @Override
+                        public void onError(int error_code) {
+                            ToastUtil.shortToast(getContext(),"支付失败"+error_code
+                            );
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+                    });
                 }
             }
 

@@ -13,14 +13,17 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.view.GeneralDialog;
+import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.AgreementActivity;
+import com.keydom.ih_doctor.activity.MainActivity;
 import com.keydom.ih_doctor.activity.personal.controller.MyServiceController;
 import com.keydom.ih_doctor.activity.personal.view.MyServiceView;
 import com.keydom.ih_doctor.adapter.ServiceRecyclrViewAdapter;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.bean.ServiceContentBean;
 import com.keydom.ih_doctor.constant.EventType;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -44,6 +47,7 @@ public class MyServiceActivity extends BaseControllerActivity<MyServiceControlle
     private RecyclerView articleListRv;
     private RefreshLayout refreshLayout;
     private ServiceRecyclrViewAdapter mAdapter;
+    private boolean isFirstLogin=false;
     /**
      * 我的服务对象列表
      */
@@ -52,8 +56,9 @@ public class MyServiceActivity extends BaseControllerActivity<MyServiceControlle
     /**
      * 启动
      */
-    public static void start(Context context) {
+    public static void start(Context context,boolean isFirstLogin) {
         Intent starter = new Intent(context, MyServiceActivity.class);
+        starter.putExtra("isFirstLogin",isFirstLogin);
         context.startActivity(starter);
     }
 
@@ -66,6 +71,16 @@ public class MyServiceActivity extends BaseControllerActivity<MyServiceControlle
     @Override
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         setTitle("我的服务");
+        isFirstLogin=getIntent().getBooleanExtra("isFirstLogin",false);
+        if(isFirstLogin){
+            setRightTxt("完成");
+            setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
+                @Override
+                public void OnRightTextClick(View v) {
+                    MainActivity.start(getContext(),false,false);
+                }
+            });
+        }
         EventBus.getDefault().register(this);
         articleListRv = (RecyclerView) this.findViewById(R.id.article_list_rv);
         refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
@@ -87,6 +102,7 @@ public class MyServiceActivity extends BaseControllerActivity<MyServiceControlle
             }
         });
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @SingleClick(1000)
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 MultiItemEntity entity = (MultiItemEntity) adapter.getData().get(position);

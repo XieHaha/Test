@@ -39,6 +39,7 @@ import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.ih_patient.bean.UserInfo;
 import com.keydom.ih_patient.callback.GeneralCallback;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.fragment.controller.TabMineController;
@@ -70,7 +71,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
     private TextView mineFunctionCard,jump_to_login_tv,mine_user_location_tv,search_edt,mine_user_phone_tv,mine_user_name,mine_user_sex_tv,mine_last_clinical_time,location_tv;
     private ImageView mine_setting_img,mine_user_head_img;
     private MyScrollView mineBoxSv;
-    private LinearLayout titleBarLayout,qr_code_layout;
+    private LinearLayout titleBarLayout,qr_code_layout,search_layout,location_layout;
     private RelativeLayout un_login_layout;
     private GeneralItemView mine_item_setting,mine_item_my_message,mine_item_my_chatgroup;
 
@@ -115,6 +116,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         qr_code_layout=view.findViewById(R.id.qr_code_layout);
         location_tv=view.findViewById(R.id.location_tv);
         qr_code_layout.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if(Global.getUserId()!=-1){
@@ -124,6 +126,10 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
                 }
             }
         });
+        location_layout=view.findViewById(R.id.location_layout);
+        location_layout.setOnClickListener(getController());
+        search_layout=view.findViewById(R.id.search_layout);
+        search_layout.setOnClickListener(getController());
         mineLocationControl = view.findViewById(R.id.mine_location_control);
         mineBoxSv = view.findViewById(R.id.mine_box_sv);
         un_login_layout=view.findViewById(R.id.un_login_layout);
@@ -252,6 +258,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
     public void updateCityChange(Event event) {
         if (event.getType() == EventType.UPDATECITY) {
             location_tv.setText(Global.getSelectedCityName());
+            lazyLoad();
         }
     }
 
@@ -403,6 +410,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         });
         TextView hospitalSearchTv=view.findViewById(R.id.hospital_search_tv);
         hospitalSearchTv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 if(hospitalSearchEdt.getText().toString().trim().equals("")){
@@ -423,12 +431,14 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
             }
         });
         backgroudView.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 hospitalPopupWindow.dismiss();
             }
         });
         cancelTv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 hospitalPopupWindow.dismiss();
@@ -436,6 +446,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         });
         TextView commitTv=view.findViewById(R.id.commit_tv);
         commitTv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 App.hospitalId=selectHospitalId;

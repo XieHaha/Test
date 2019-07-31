@@ -16,6 +16,7 @@ import com.keydom.ih_doctor.activity.online_diagnose.controller.PrescriptionTemp
 import com.keydom.ih_doctor.activity.online_diagnose.view.PrescriptionTempletView;
 import com.keydom.ih_doctor.adapter.PrescriptionTempletAdapter;
 import com.keydom.ih_doctor.bean.PrescriptionTempletBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -79,6 +80,7 @@ public class PrescriptionTempletActivity extends BaseControllerActivity<Prescrip
         type_tv.setOnClickListener(getController());
         prescriptionTempletAdapter = new PrescriptionTempletAdapter(dataList);
         search_tv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 searchTemplet(search_et.getText().toString().trim());
@@ -86,6 +88,7 @@ public class PrescriptionTempletActivity extends BaseControllerActivity<Prescrip
             }
         });
         prescriptionTempletAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @SingleClick(1000)
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 PrescriptionTempletDetailActivity.start(getContext(), prescriptionTempletAdapter.getData().get(position).getId(), prescriptionTempletAdapter.getData().get(position).getTemplateName());

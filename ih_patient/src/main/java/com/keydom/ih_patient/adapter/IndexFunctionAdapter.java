@@ -29,6 +29,7 @@ import com.orhanobut.logger.Logger;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
+
 /**
  * 方法角标适配器
  */
@@ -36,25 +37,25 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     private Context context;
     private List<IndexFunction> indexFunctionList;
     //菜单配置
-    public final String Setting="1";
+    public final String Setting = "1";
     //预约挂号
-    public final String DoctorRegister="22";
+    public final String DoctorRegister = "22";
     //诊间缴费
-    public final String  PaymentRecord="23";
+    public final String PaymentRecord = "23";
     //办卡绑卡
-    public final String Cardoperate="24";
+    public final String Cardoperate = "24";
     //在线问诊
-    public final String OnlineDiagnose="25";
+    public final String OnlineDiagnose = "25";
     //护理服务
-    public final String NurseService="26";
+    public final String NurseService = "26";
     //报告查询
-    public final String InspectionReport="27";
+    public final String InspectionReport = "27";
     //预约检查
-    public final String OrderExamination="28";
+    public final String OrderExamination = "28";
     //预约住院
-    public final String OrderHospitalCure="29";
+    public final String OrderHospitalCure = "29";
     //预约体检
-    public final String OrderPhysicalExamination="30";
+    public final String OrderPhysicalExamination = "30";
 
     /**
      * 构造方法
@@ -67,12 +68,13 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     public class VH extends RecyclerView.ViewHolder {
         public TextView funcName;
         public ImageView funcIcon;
+        public View redPointView;
 
         public VH(View v) {
             super(v);
             funcName = (TextView) v.findViewById(R.id.item_func_name);
             funcIcon = (ImageView) v.findViewById(R.id.item_func_icon);
-
+            redPointView = v.findViewById(R.id.item_redpoint_view);
         }
     }
 
@@ -88,13 +90,19 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
         if (indexFunctionList.get(position) instanceof IndexFunction) {
             vh.funcIcon.setImageResource(indexFunctionList.get(position).getFunctionIcon());
             vh.funcName.setText(indexFunctionList.get(position).getName());
+            if(indexFunctionList.get(position).isRedPointShow()){
+                vh.redPointView.setVisibility(View.VISIBLE);
+            }else {
+                vh.redPointView.setVisibility(View.GONE);
+
+            }
             vh.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (Global.getUserId() == -1) {
+                  /*  if (Global.getUserId() == -1) {
                         ToastUtil.shortToast(context, context.getResources().getString(R.string.unlogin_hint));
                         return;
-                    }
+                    }*/
                     switch (String.valueOf(indexFunctionList.get(position).getId())) {
                         case Setting:
                             context.startActivity(new Intent(context, FunctionConfigActivity.class));

@@ -1,2 +1,2 @@
 
-include ':ih_common', ':ih_doctor', ':ih_patient',  'faceplatform','faceplatform-ui','ocr_ui'
+include ':ih_common',  'faceplatform','faceplatform-ui','ocr_ui', ':ih_patient', ':ih_doctor'

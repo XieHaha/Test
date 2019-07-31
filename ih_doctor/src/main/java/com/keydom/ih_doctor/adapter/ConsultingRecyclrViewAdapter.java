@@ -17,6 +17,7 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.consulting_arrange.ConsultingArrangeActivity;
 import com.keydom.ih_doctor.activity.consulting_arrange.ConsultingChangeActivity;
 import com.keydom.ih_doctor.bean.ConsultingBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.ScheduingService;
 import com.keydom.ih_doctor.utils.CalculateTimeUtils;
 import com.keydom.ih_doctor.utils.ToastUtil;
@@ -112,12 +113,14 @@ public class ConsultingRecyclrViewAdapter extends BaseEmptyAdapter<ConsultingBea
                 setStop(this);
             }
             itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     ConsultingChangeActivity.start(mContext, ConsultingChangeActivity.CONSULTING_UPDATE, mDatas.get(position), null);
                 }
             });
             actionRl.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     HashMap<String, Object> map = new HashMap<>();

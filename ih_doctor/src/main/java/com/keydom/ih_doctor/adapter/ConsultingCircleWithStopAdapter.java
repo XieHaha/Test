@@ -19,6 +19,7 @@ import com.keydom.ih_doctor.activity.consulting_arrange.ConsultingChangeActivity
 import com.keydom.ih_doctor.bean.ConsultingBean;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.EventType;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.ScheduingService;
 import com.keydom.ih_doctor.utils.CalculateTimeUtils;
 import com.keydom.ih_doctor.utils.ToastUtil;
@@ -83,6 +84,7 @@ public class ConsultingCircleWithStopAdapter extends BaseEmptyAdapter<Consulting
                 itemIcon.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.point_green));
             }
             itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     if (((ArrangeCircleActivity) mContext).getType() == ArrangeCircleActivity.CONSULTING_STOP) {
@@ -94,6 +96,7 @@ public class ConsultingCircleWithStopAdapter extends BaseEmptyAdapter<Consulting
                 }
             });
             deleteImg.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
 

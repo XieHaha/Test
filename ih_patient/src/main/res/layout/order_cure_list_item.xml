@@ -14,6 +14,9 @@
             android:layout_marginLeft="@dimen/dp_19"
             android:textSize="@dimen/font_size_primary"
             android:textColor="#333333"
+            android:maxWidth="@dimen/dp_80"
+            android:lines="1"
+            android:ellipsize="end"
             android:layout_centerVertical="true"
             android:text="执笔一幅情画"/>
 
@@ -73,7 +76,10 @@
         android:layout_height="wrap_content"
         android:textColor="#666666"
         android:textSize="@dimen/font_size_primary"
-        android:text="呼吸内科医疗单元"/>
+        android:maxWidth="@dimen/dp_150"
+        android:lines="1"
+        android:ellipsize="end"
+        android:text="呼吸内科医疗单元sadasdasdasd"/>
     <TextView
         android:id="@+id/cure_doctor_label"
         android:layout_below="@+id/cure_department_label"
@@ -94,7 +100,10 @@
         android:layout_height="wrap_content"
         android:textColor="#666666"
         android:textSize="@dimen/font_size_primary"
-        android:text="范红"/>
+        android:maxWidth="@dimen/dp_80"
+        android:lines="1"
+        android:ellipsize="end"
+        android:text="范红ddddddddddddd"/>
     <TextView
         android:id="@+id/cure_time_tv"
         android:layout_alignParentRight="true"

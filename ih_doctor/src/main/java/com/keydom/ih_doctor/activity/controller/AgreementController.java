@@ -14,6 +14,7 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.AgreementActivity;
 import com.keydom.ih_doctor.activity.MainActivity;
 import com.keydom.ih_doctor.activity.view.AgreementView;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.MainApiService;
 import com.keydom.ih_doctor.net.PersonalApiService;
 
@@ -31,6 +32,7 @@ import java.util.HashMap;
  * 修改时间：18/11/16 上午9:09
  */
 public class AgreementController extends ControllerImpl<AgreementView> implements View.OnClickListener, IhTitleLayout.OnRightTextClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -54,7 +56,7 @@ public class AgreementController extends ControllerImpl<AgreementView> implement
     @Override
     public void OnRightTextClick(View v) {
         SharePreferenceManager.setIsAgreement(false);
-        MainActivity.start(getContext(),false);
+        MainActivity.start(getContext(),false,false);
     }
 
 

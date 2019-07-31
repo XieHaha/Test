@@ -134,7 +134,7 @@ public class OrderHospitalCureActivity extends BaseControllerActivity<OrderHospi
         confirm_order_layout=this.findViewById(R.id.confirm_order_layout);
         order_bottom_layout=this.findViewById(R.id.order_bottom_layout);
         order_name_edt.setEnabled(false);
-        order_phone_edt.setEnabled(false);
+//        order_phone_edt.setEnabled(false);
         cure_service_edt.setEnabled(false);
 
         if(!type.equals(Type.ORDERCUREAPPLY))
@@ -290,7 +290,12 @@ public class OrderHospitalCureActivity extends BaseControllerActivity<OrderHospi
         report_address_edt.setText("".equals(queryHospitalCureInfo.getReportAddress())||queryHospitalCureInfo.getReportAddress()==null?"":queryHospitalCureInfo.getReportAddress());
         report_kown_edt.setText("".equals(queryHospitalCureInfo.getReportNotice())||queryHospitalCureInfo.getReportNotice()==null?"":queryHospitalCureInfo.getReportNotice());
         if(queryHospitalCureInfo.getState()==4){
-            confirm_head_label_tv.setText("您已以“"+queryHospitalCureInfo.getNoPunctualReason()+"”为由拒绝住院申请，本院将近期致电联系您核实，请注意保持电话畅通");
+            String refuseReason="";
+            if(queryHospitalCureInfo.getNoPunctualReason()!=null&&queryHospitalCureInfo.getNoPunctualReason().length()>20)
+                refuseReason=queryHospitalCureInfo.getNoPunctualReason().substring(0,19)+"...";
+            else if(queryHospitalCureInfo.getNoPunctualReason()!=null&&queryHospitalCureInfo.getNoPunctualReason().length()<=20)
+                refuseReason=queryHospitalCureInfo.getNoPunctualReason();
+            confirm_head_label_tv.setText("您已以“"+refuseReason+"”为由拒绝住院申请，本院将近期致电联系您核实，请注意保持电话畅通");
         }else if(queryHospitalCureInfo.getState()==5){
             confirm_head_label_tv.setText("您已成功确定入院，请带上相关资料到入院服务中心报到");
         }else if(queryHospitalCureInfo.getState()==6||queryHospitalCureInfo.getState()==7){
@@ -342,7 +347,18 @@ public class OrderHospitalCureActivity extends BaseControllerActivity<OrderHospi
         map.put("admissionNumber",HospitalCureInfo.getNumber());
         map.put("applyTime",dateString);
         map.put("name",HospitalCureInfo.getName());
-        map.put("phoneNumber",HospitalCureInfo.getPhoneNumber());
+        if(relationshiper_phone_edt.getText().toString().trim()==null||"".equals(relationshiper_phone_edt.getText().toString().trim())){
+            ToastUtil.shortToast(getContext(),"请输入电话");
+            return null;
+        }else {
+            if(RegexUtils.isMobileExact(relationshiper_phone_edt.getText())){
+                map.put("phoneNumber",order_phone_edt.getText().toString());
+            }else {
+                ToastUtil.shortToast(getContext(),"请填写正确的电话");
+                return null;
+            }
+
+        }
         if(relationshiper_phone_edt.getText().toString().trim()==null||"".equals(relationshiper_phone_edt.getText().toString().trim())){
             ToastUtil.shortToast(getContext(),"请输入联系人电话");
             return null;

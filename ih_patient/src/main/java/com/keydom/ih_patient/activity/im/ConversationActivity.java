@@ -61,6 +61,7 @@ import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.InquiryBean;
 import com.keydom.ih_patient.bean.LocationInfo;
 import com.keydom.ih_patient.callback.GeneralCallback;
+import com.keydom.ih_patient.callback.MessageSingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
@@ -254,12 +255,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     private void initListener() {
         mMessageView.setOnConversationBehaviorListener(new IConversationBehaviorListener() {
+            @MessageSingleClick(1000)
             @Override
             public boolean onUserPortraitClick(Context context, IMMessage message) {
 
                 if (message.getDirect() == MsgDirectionEnum.Out) {
                     UserInfoOperateActivity.start(getContext(), UserInfoOperateActivity.READTYPE);
                 } else {//接受
+                    com.orhanobut.logger.Logger.e("进入跳转头像方法");
                     Intent intent = new Intent(getContext(), DoctorOrNurseDetailActivity.class);
                     intent.putExtra("type", 0);
                     intent.putExtra("doctorCode", message.getSessionId());
@@ -300,7 +303,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     }
                     //处置建议
                     else if (message.getAttachment() instanceof DisposalAdviceAttachment) {
-                        HandleProposeAcitivity.start(getContext(),((DisposalAdviceAttachment) message.getAttachment()).getContent());
+                        HandleProposeAcitivity.start(getContext(), ((DisposalAdviceAttachment) message.getAttachment()).getContent());
                     }
                 }
                 return false;
@@ -361,7 +364,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 //                mTitle.setText(ImClient.getUserInfoProvider().getUserInfo(sessionId) == null ? "问诊详情" : ImClient.getUserInfoProvider().getUserInfo(sessionId).getName() + "-问诊详情");
                 mTitle.setText("问诊详情");
             } else {
-                mTitle.setText(ImClient.getUserInfoProvider().getUserInfo(sessionId).getName());
+                if (ImClient.getUserInfoProvider().getUserInfo(sessionId).getName().length() > 15)
+                    mTitle.setText(ImClient.getUserInfoProvider().getUserInfo(sessionId).getName().substring(0, 5) + "..." + ImClient.getUserInfoProvider().getUserInfo(sessionId).getName().substring(ImClient.getUserInfoProvider().getUserInfo(sessionId).getName().length() - 3, ImClient.getUserInfoProvider().getUserInfo(sessionId).getName().length()));
+                else
+                    mTitle.setText(ImClient.getUserInfoProvider().getUserInfo(sessionId).getName());
             }
         }
 
@@ -390,7 +396,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 }
             }
         } else {
-            mMessageView.addPlugin(new VideoPlugin());
+            if (orderBean != null && orderBean.getInquisitionType() == 1)
+                mMessageView.addPlugin(new VideoPlugin());
             mRightText.setVisibility(View.VISIBLE);
             mRightText.setText("结束诊断");
         }
@@ -849,11 +856,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                             map.put("orderId", id);
                             if (type.equals(Type.WECHATPAY)) {
                                 map.put("type", 1);
+                                getController().inquiryPay(map, 1);
+
                             }
                             if (type.equals(Type.ALIPAY)) {
                                 map.put("type", 2);
+                                getController().inquiryPay(map, 2);
+
                             }
-                            getController().inquiryPay(map);
                         }
                     });
         }
@@ -873,11 +883,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     map.put("orderId", isPayOrderId);
                     if (type.equals(Type.WECHATPAY)) {
                         map.put("type", 1);
+                        getController().inquiryPay(map, 1);
                     }
                     if (type.equals(Type.ALIPAY)) {
                         map.put("type", 2);
+                        getController().inquiryPay(map, 2);
                     }
-                    getController().inquiryPay(map);
                 });
             } else {
                 if (deliveryAmount == null) {
@@ -1215,7 +1226,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         });
         bottomSheetDialog.show();
     }*/
- private void showPayDialog(boolean needAddress, String titleFee, double totalFee, String orderNum) {
+    private void showPayDialog(boolean needAddress, String titleFee, double totalFee, String orderNum) {
         String feeTv = new DecimalFormat("0.00").format(totalFee);
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
         bottomSheetDialog.setCancelable(false);
@@ -1308,8 +1319,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         Map<String, Object> map = new HashMap<>();
                         map.put("orderId", isPayOrderId);
                         map.put("type", payType[0]);
-                        map.put("addressId",mAddressId);
-                        getController().inquiryPay(map);
+                        map.put("addressId", mAddressId);
+                        getController().inquiryPay(map, payType[0]);
                         bottomSheetDialog.dismiss();
                     }
                 } else {
@@ -1317,8 +1328,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     Map<String, Object> map = new HashMap<>();
                     map.put("orderId", isPayOrderId);
                     map.put("type", payType[0]);
-                    map.put("addressId",0);
-                    getController().inquiryPay(map);
+                    map.put("addressId", 0);
+                    getController().inquiryPay(map, payType[0]);
                     bottomSheetDialog.dismiss();
                 }
 //                } else {

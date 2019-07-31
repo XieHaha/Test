@@ -40,6 +40,7 @@ public class HealthCommentAdapter extends RecyclerView.Adapter<HealthCommentAdap
     private List<HealthArticleCommentBean> commentBeanList;
     private Context context;
     private long userId;
+    private static GeneralDialog generalDialog;
 
     public HealthCommentAdapter(Context context, List<HealthArticleCommentBean> commentBeanList,long userId) {
         this.context = context;
@@ -99,29 +100,59 @@ public class HealthCommentAdapter extends RecyclerView.Adapter<HealthCommentAdap
         holder.delete_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new GeneralDialog(context, "确认要删除该条评论？", new GeneralDialog.OnCloseListener() {
-                    @Override
-                    public void onCommit() {
-                        HashMap<String, Object> map = new HashMap<>();
-                        map.put("id", commentBeanList.get(position).getId());
-                        ((ArticleDetailActivity) context).getController().showLoading();
-                        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ApiService.class).delComment(map), new HttpSubscriber<String>(((ArticleDetailActivity) context).getController().getContext(), ((ArticleDetailActivity) context).getController().getDisposable(), false) {
-                            @Override
-                            public void requestComplete(@Nullable String data) {
-                                ((ArticleDetailActivity) context).getController().hideLoading();
-                                commentBeanList.remove(position);
-                                notifyDataSetChanged();
-                            }
+                if(generalDialog==null){
+                    generalDialog=  new GeneralDialog(context, "确认要删除该条评论？", new GeneralDialog.OnCloseListener() {
+                        @Override
+                        public void onCommit() {
+                            HashMap<String, Object> map = new HashMap<>();
+                            map.put("id", commentBeanList.get(position).getId());
+                            ((ArticleDetailActivity) context).getController().showLoading();
+                            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ApiService.class).delComment(map), new HttpSubscriber<String>(((ArticleDetailActivity) context).getController().getContext(), ((ArticleDetailActivity) context).getController().getDisposable(), false) {
+                                @Override
+                                public void requestComplete(@Nullable String data) {
+                                    ((ArticleDetailActivity) context).getController().hideLoading();
+                                    commentBeanList.remove(position);
+                                    notifyDataSetChanged();
+                                }
 
-                            @Override
-                            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                                ((ArticleDetailActivity) context).getController().hideLoading();
-                                Toast.makeText(context,"删除失败"+msg,Toast.LENGTH_SHORT).show();
-                                return super.requestError(exception, code, msg);
-                            }
-                        });
-                    }
-                }).setTitle("提示").setPositiveButton("确认").show();
+                                @Override
+                                public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                                    ((ArticleDetailActivity) context).getController().hideLoading();
+                                    Toast.makeText(context,"删除失败"+msg,Toast.LENGTH_SHORT).show();
+                                    return super.requestError(exception, code, msg);
+                                }
+                            });
+                        }
+                    });
+                    generalDialog.setTitle("提示").setPositiveButton("确认").show();
+                }else {
+                    generalDialog.setOnCloseListener(new GeneralDialog.OnCloseListener() {
+                        @Override
+                        public void onCommit() {
+                            HashMap<String, Object> map = new HashMap<>();
+                            map.put("id", commentBeanList.get(position).getId());
+                            ((ArticleDetailActivity) context).getController().showLoading();
+                            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ApiService.class).delComment(map), new HttpSubscriber<String>(((ArticleDetailActivity) context).getController().getContext(), ((ArticleDetailActivity) context).getController().getDisposable(), false) {
+                                @Override
+                                public void requestComplete(@Nullable String data) {
+                                    ((ArticleDetailActivity) context).getController().hideLoading();
+                                    commentBeanList.remove(position);
+                                    notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                                    ((ArticleDetailActivity) context).getController().hideLoading();
+                                    Toast.makeText(context,"删除失败"+msg,Toast.LENGTH_SHORT).show();
+                                    return super.requestError(exception, code, msg);
+                                }
+                            });
+
+                        }
+                    });
+                    generalDialog.show();
+                }
+
             }
         });
         holder.iv_like.setOnClickListener(new View.OnClickListener() {
@@ -177,6 +208,9 @@ public class HealthCommentAdapter extends RecyclerView.Adapter<HealthCommentAdap
             replyItemll = (LinearLayout) itemView.findViewById(R.id.reply_item_ll);
             delete_tv=itemView.findViewById(R.id.delete_tv);
         }
+    }
+    public void deletedDialog(){
+        generalDialog=null;
     }
 
 }

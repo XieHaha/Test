@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="华西附院：唐晴·三小时前asdadadsadasdasdsad"
+                android:text="华西附院：唐晴·三小时前asdadadsad水水水水撒看见打死了就打死了的经历撒旦极乐世界了asdasdsad"
                 android:maxWidth="@dimen/dp_200"
                 android:lines="1"
                 android:ellipsize="end"

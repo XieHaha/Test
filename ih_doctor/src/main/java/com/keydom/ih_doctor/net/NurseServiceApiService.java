@@ -7,6 +7,7 @@ import com.keydom.ih_doctor.bean.HeadNurseServiceOrderDetailBean;
 import com.keydom.ih_doctor.bean.NurseBean;
 import com.keydom.ih_doctor.bean.NurseServiceListBean;
 import com.keydom.ih_doctor.bean.NursingProjectInfo;
+import com.keydom.ih_doctor.bean.OrderStatisticBean;
 
 import java.util.List;
 import java.util.Map;
@@ -58,6 +59,14 @@ public interface NurseServiceApiService {
     @GET("nursing/nursingServiceOrder/getNursingServiceRecordByNurseIdAndState")
     Observable<HttpResult<List<NurseServiceListBean>>> getCommonNurseServiceOrderList(@QueryMap Map<String, Object> maps);
 
+    /**
+     * 护士长获取为接单数量
+     *
+     * @param maps
+     * @return
+     */
+    @GET("nursing/nursingServiceOrder/getOrderStatistic")
+    Observable<HttpResult<OrderStatisticBean>> getOrderStatistic(@QueryMap Map<String, Object> maps);
 
     /**
      * 普通护士获取详情
@@ -68,7 +77,14 @@ public interface NurseServiceApiService {
     @GET("nursing/nursingServiceOrder/getNursingServiceRecordDetailByNurseIdAndState")
     Observable<HttpResult<CommonNurseServiceOrderDetailBean>> getNursingServiceRecordDetailByNurseIdAndState(@QueryMap Map<String, Object> maps);
 
-
+    /**
+     * 获取护理服务子订单详情
+     *
+     * @param subOrderNumber 子订单号
+     * @return
+     */
+    @GET("nursing/nursingServiceSubOrder/getSubOrderProjectsBySubOrderNumber")
+    Observable<HttpResult<List<NursingProjectInfo>>> getSubOrderProjectsBySubOrderNumber(@Query("subOrderNumber") String subOrderNumber);
     /**
      * 退单和退回修改
      *
@@ -96,13 +112,30 @@ public interface NurseServiceApiService {
     @POST("nursing/nursingServiceRecord/confirmNursingServiceRecordById")
     Observable<HttpResult<String>> confirmNursingServiceRecordById(@QueryMap Map<String, Object> maps);
 
+    /**
+     * 收受转单
+     *
+     * @return
+     */
+    @POST("nursing/nursingServiceRecord/acceptOrder")
+    Observable<HttpResult<String>> acceptOrder(@Body RequestBody body);
+
+    /**
+     * 取消转单
+     *
+     * @return
+     */
+    @POST("nursing/nursingServiceRecord/cancelTtransferOrder")
+    Observable<HttpResult<String>> cancelTtransferOrder(@Body RequestBody body);
+
+
 
     /**
      * 护士转单
      *
      * @return
      */
-    @POST("nursing/nursingServiceRecord/transferNurseOrder")
+    @POST("nursing/nursingServiceRecord/transferNurseOrder2")
     Observable<HttpResult<String>> transferNurseOrder(@Body RequestBody body);
 
 
@@ -152,6 +185,15 @@ public interface NurseServiceApiService {
      */
     @POST("nursing/nursingServiceSubOrder/nurseAddProjectToSubOrder")
     Observable<HttpResult<String>> nurseAddProjectToSubOrder(@Body RequestBody body);
+
+    /**
+     * 修改服务项目
+     *
+     * @param body
+     * @return
+     */
+    @POST("nursing/nursingServiceSubOrder/editSubOrder")
+    Observable<HttpResult<String>> editSubOrder(@Body RequestBody body);
 
 
     /**

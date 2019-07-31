@@ -9,10 +9,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.R;
+import com.keydom.ih_patient.activity.login.LoginActivity;
 import com.keydom.ih_patient.activity.payment_records.controller.PaymentRecordController;
 import com.keydom.ih_patient.activity.payment_records.view.PaymentRecordView;
 import com.keydom.ih_patient.adapter.ViewPagerAdapter;
+import com.keydom.ih_patient.constant.Global;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -72,5 +75,18 @@ public class PaymentRecordActivity extends BaseControllerActivity<PaymentRecordC
         paymentTb.setTabTextColors(getResources().getColor(R.color.title_bar_text_color), getResources().getColor(R.color.list_tab_color));
         paymentTb.setSelectedTabIndicatorColor(getResources().getColor(R.color.list_tab_color));
         paymentTb.setupWithViewPager(paymentVp);
+        if (Global.getUserId() == -1) {
+            new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？", new GeneralDialog.OnCloseListener() {
+                @Override
+                public void onCommit() {
+                    LoginActivity.start(getContext());
+                }
+            }, new GeneralDialog.CancelListener() {
+                @Override
+                public void onCancel() {
+                    finish();
+                }
+            }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
+        }
     }
 }

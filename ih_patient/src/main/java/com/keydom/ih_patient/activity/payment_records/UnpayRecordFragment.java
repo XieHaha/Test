@@ -2,6 +2,7 @@ package com.keydom.ih_patient.activity.payment_records;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.SpanUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerFragment;
@@ -29,6 +31,7 @@ import com.keydom.ih_patient.adapter.UnPayRecordAdapter;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.LocationInfo;
 import com.keydom.ih_patient.bean.PayRecordBean;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Type;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -100,12 +103,20 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
 
         mPay = view.findViewById(R.id.pay_tv);
         mPay.setOnClickListener(getController());
-        mCheckBox.setOnClickListener(v -> {
-            for (int i = 0; i < mUnPayRecordAdapter.getData().size(); i++) {
-                mUnPayRecordAdapter.getData().get(i).setSelect(mCheckBox.isChecked());
+
+       /*
+        mCheckBox.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
+            @Override
+            public void onClick(View v) {
+
+
+                for (int i = 0; i < mUnPayRecordAdapter.getData().size(); i++) {
+                    mUnPayRecordAdapter.getData().get(i).setSelect(mCheckBox.isChecked());
+                }
+                mUnPayRecordAdapter.notifyDataSetChanged();
             }
-            mUnPayRecordAdapter.notifyDataSetChanged();
-        });
+        });*/
     }
 
     @Override
@@ -116,18 +127,22 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mUnPayRecordAdapter);
         mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout));
-        mUnPayRecordAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            switch (view.getId()) {
-                case R.id.pay:
-                    PayRecordBean payRecordBean = (PayRecordBean) adapter.getData().get(position);
-                    getController().createOrder(payRecordBean.getRecordState() == 8, payRecordBean.getDocumentNo(), payRecordBean.getSumFee());
-                    break;
+        mUnPayRecordAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @SingleClick(1000)
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.pay:
+                        PayRecordBean payRecordBean = (PayRecordBean) adapter.getData().get(position);
+                        getController().createOrder(payRecordBean.getRecordState() == 8, payRecordBean.getDocumentNo(), payRecordBean.getSumFee());
+                        break;
+                }
             }
         });
         mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (mCheckBox.isPressed()) {
+             /*   if (mCheckBox.isPressed()) {
                     mTotalMoneyStr = new BigDecimal(0.00);
                     mPayRecordBeanList.clear();
                     for (int i = 0; i < mUnPayRecordAdapter.getData().size(); i++) {
@@ -140,59 +155,60 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                         mPayRecordBeanList.addAll(mUnPayRecordAdapter.getData());
                     }
                     refreshTotal();
-                }
+                }*/
                 //新需求
-//                if (mCheckBox.isPressed()) {
-//                    mTotalMoneyStr = new BigDecimal(0.00);
-//                    mPayRecordBeanList.clear();
-//                    if (isChecked && mUnPayRecordAdapter.getData().size() > 0) {
-//                        String card = mUnPayRecordAdapter.getData().get(0).getEleCardNumber();
-//                        int type = mUnPayRecordAdapter.getData().get(0).getType();
-//                        String hint = "";
-//                        for (int i = 0; i < mUnPayRecordAdapter.getData().size(); i++) {
-//                            PayRecordBean payRecordBean = mUnPayRecordAdapter.getData().get(i);
-//                            payRecordBean.setSelect(true);
-//                            if (payRecordBean.getType() == CAN_MERGE && !payRecordBean.getEleCardNumber().equals(card)) {
-//                                hint = "不能同时为多个就诊人合并缴费";
-//                                break;
-//                            }
-//                            if (payRecordBean.getType() != type) {
-//                                hint = "不能同时缴纳诊间费用和预约挂号、在线问诊、护理服务和预约体检项目费用";
-//                                break;
-//                            }
-//                            if (payRecordBean.getType() == CANNOT_MERGE && mPayRecordBeanList.size() > 1) {
-//                                hint = "不能同时缴纳预约挂号、在线问诊、护理服务和预约体检项目费用";
-//                                break;
-//                            }
-//                            mTotalMoneyStr = mTotalMoneyStr.add(mUnPayRecordAdapter.getData().get(i).getSumFee());
-//                            mPayRecordBeanList.add(mUnPayRecordAdapter.getData().get(i));
-//                        }
-//                        if (!StringUtils.isEmpty(hint)) {
-//                            ToastUtils.showLong(hint);
-//                            initPayInfo();
-//                            for (int i = 0; i < mUnPayRecordAdapter.getData().size(); i++) {
-//                                mUnPayRecordAdapter.getData().get(i).setSelect(false);
-//                            }
-//                            mCheckBox.setChecked(false);
-//                        }
-//                    } else {
-//                        for (int i = 0; i < mUnPayRecordAdapter.getData().size(); i++) {
-//                            mUnPayRecordAdapter.getData().get(i).setSelect(false);
-//                        }
-//                        mCheckBox.setChecked(false);
-//                        mType = 0;
-//                    }
-//                    new Handler().post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            mUnPayRecordAdapter.notifyDataSetChanged();
-//                        }
-//                    });
-//                    refreshTotal();
-//                }
+                if (mCheckBox.isPressed()) {
+                    mTotalMoneyStr = new BigDecimal(0.00);
+                    mPayRecordBeanList.clear();
+                    if (isChecked && mUnPayRecordAdapter.getData().size() > 0) {
+                        String card = mUnPayRecordAdapter.getData().get(0).getEleCardNumber();
+                        int type = mUnPayRecordAdapter.getData().get(0).getType();
+                        String hint = "";
+                        for (int i = 0; i < mUnPayRecordAdapter.getData().size(); i++) {
+                            PayRecordBean payRecordBean = mUnPayRecordAdapter.getData().get(i);
+                            payRecordBean.setSelect(true);
+                            if (payRecordBean.getType() == CAN_MERGE && !payRecordBean.getEleCardNumber().equals(card)) {
+                                hint = "不能同时为多个就诊人合并缴费";
+                                break;
+                            }
+                            if (payRecordBean.getType() != type) {
+                                hint = "不能同时缴纳诊间费用和预约挂号、在线问诊、护理服务和预约体检项目费用";
+                                break;
+                            }
+                            if (payRecordBean.getType() == CANNOT_MERGE && mPayRecordBeanList.size() > 1) {
+                                hint = "不能同时缴纳预约挂号、在线问诊、护理服务和预约体检项目费用";
+                                break;
+                            }
+                            mTotalMoneyStr = mTotalMoneyStr.add(mUnPayRecordAdapter.getData().get(i).getSumFee());
+                            mPayRecordBeanList.add(mUnPayRecordAdapter.getData().get(i));
+                        }
+                        if (!StringUtils.isEmpty(hint)) {
+                            ToastUtils.showLong(hint);
+                            initPayInfo();
+                            for (int i = 0; i < mUnPayRecordAdapter.getData().size(); i++) {
+                                mUnPayRecordAdapter.getData().get(i).setSelect(false);
+                            }
+                            mCheckBox.setChecked(false);
+                        }
+                    } else {
+                        for (int i = 0; i < mUnPayRecordAdapter.getData().size(); i++) {
+                            mUnPayRecordAdapter.getData().get(i).setSelect(false);
+                        }
+                        mCheckBox.setChecked(false);
+                        mType = 0;
+                    }
+                    new Handler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mUnPayRecordAdapter.notifyDataSetChanged();
+                        }
+                    });
+                    refreshTotal();
+                }
             }
         });
         mUnPayRecordAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @SingleClick(1000)
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 PayRecordBean payRecordBean = (PayRecordBean) adapter.getData().get(position);
@@ -275,7 +291,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         if (mHosptalCost != null && mHosptalCost.isChecked()) {
             String f = new DecimalFormat("0.00").format(total);
             mTotalPayTv.setText("去付款¥" + f + "元");
-           // mTotalPayTv.setText("去付款¥" + total + "元");
+            // mTotalPayTv.setText("去付款¥" + total + "元");
         }
         SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
                 .append("（配送费用").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color))
@@ -302,7 +318,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
 
     @Override
     public void onPriceChanged(PayRecordBean payRecordBean, int position) {
-        if (!payRecordBean.isSelect()) {
+     /*   if (!payRecordBean.isSelect()) {
             mTotalMoneyStr = mTotalMoneyStr.subtract(payRecordBean.getSumFee());
             mPayRecordBeanList.remove(payRecordBean);
         } else {
@@ -314,68 +330,68 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                 mCheckBox.setChecked(false);
             }
         });
+        refreshTotal();*/
+
+        if (mPayRecordBeanList.size() == 0) {
+            mType = payRecordBean.getType();
+        } else {
+            mType = mPayRecordBeanList.get(0).getType();
+        }
+
+        String card = "";
+        if (mPayRecordBeanList.size() == 0) {
+            card = payRecordBean.getEleCardNumber();
+        } else {
+            card = mPayRecordBeanList.get(0).getEleCardNumber();
+        }
+        if (payRecordBean.isSelect()) {
+            if (mType == CAN_MERGE) {
+                if (payRecordBean.getType() == mType) {
+                    if (card.equals(payRecordBean.getEleCardNumber())) {
+                        mTotalMoneyStr = mTotalMoneyStr.add(payRecordBean.getSumFee());
+                        mPayRecordBeanList.add(payRecordBean);
+                        mUnPayRecordAdapter.getData().get(position).setSelect(true);
+                        new Handler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mUnPayRecordAdapter.notifyItemChanged(position);
+                            }
+                        });
+                    } else {
+                        mUnPayRecordAdapter.getData().get(position).setSelect(false);
+                        ToastUtils.showLong("不能同时为多个就诊人合并缴费");
+                    }
+                } else {
+                    mUnPayRecordAdapter.getData().get(position).setSelect(false);
+                    ToastUtils.showLong("不能同时缴纳诊间费用和预约挂号、在线问诊、护理服务和预约体检项目费用");
+                }
+            }
+            if (mType == CANNOT_MERGE) {
+                if (mPayRecordBeanList.size() != 0) {
+                    mUnPayRecordAdapter.getData().get(position).setSelect(false);
+                    ToastUtils.showLong("不能同时缴纳预约挂号、在线问诊、护理服务和预约体检项目费用");
+                } else {
+                    mTotalMoneyStr = mTotalMoneyStr.add(payRecordBean.getSumFee());
+                    mPayRecordBeanList.add(payRecordBean);
+                    mUnPayRecordAdapter.getData().get(position).setSelect(true);
+                    new Handler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mUnPayRecordAdapter.notifyItemChanged(position);
+                        }
+                    });
+                }
+            }
+        } else {
+            mTotalMoneyStr = mTotalMoneyStr.subtract(payRecordBean.getSumFee());
+            mPayRecordBeanList.remove(payRecordBean);
+        }
+        mRefreshLayout.post(() -> {
+            if (mUnPayRecordAdapter.getData().size() != mPayRecordBeanList.size()) {
+                mCheckBox.setChecked(false);
+            }
+        });
         refreshTotal();
-//
-//        if (mPayRecordBeanList.size() == 0) {
-//            mType = payRecordBean.getType();
-//        } else {
-//            mType = mPayRecordBeanList.get(0).getType();
-//        }
-//
-//        String card = "";
-//        if (mPayRecordBeanList.size() == 0) {
-//            card = payRecordBean.getEleCardNumber();
-//        } else {
-//            card = mPayRecordBeanList.get(0).getEleCardNumber();
-//        }
-//        if (payRecordBean.isSelect()) {
-//            if (mType == CAN_MERGE) {
-//                if (payRecordBean.getType() == mType) {
-//                    if (card.equals(payRecordBean.getEleCardNumber())) {
-//                        mTotalMoneyStr = mTotalMoneyStr.add(payRecordBean.getSumFee());
-//                        mPayRecordBeanList.add(payRecordBean);
-//                        mUnPayRecordAdapter.getData().get(position).setSelect(true);
-//                        new Handler().post(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                mUnPayRecordAdapter.notifyItemChanged(position);
-//                            }
-//                        });
-//                    } else {
-//                        mUnPayRecordAdapter.getData().get(position).setSelect(false);
-//                        ToastUtils.showLong("不能同时为多个就诊人合并缴费");
-//                    }
-//                } else {
-//                    mUnPayRecordAdapter.getData().get(position).setSelect(false);
-//                    ToastUtils.showLong("不能同时缴纳诊间费用和预约挂号、在线问诊、护理服务和预约体检项目费用");
-//                }
-//            }
-//            if (mType == CANNOT_MERGE) {
-//                if (mPayRecordBeanList.size() != 0) {
-//                    mUnPayRecordAdapter.getData().get(position).setSelect(false);
-//                    ToastUtils.showLong("不能同时缴纳预约挂号、在线问诊、护理服务和预约体检项目费用");
-//                } else {
-//                    mTotalMoneyStr = mTotalMoneyStr.add(payRecordBean.getSumFee());
-//                    mPayRecordBeanList.add(payRecordBean);
-//                    mUnPayRecordAdapter.getData().get(position).setSelect(true);
-//                    new Handler().post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            mUnPayRecordAdapter.notifyItemChanged(position);
-//                        }
-//                    });
-//                }
-//            }
-//        } else {
-//            mTotalMoneyStr = mTotalMoneyStr.subtract(payRecordBean.getSumFee());
-//            mPayRecordBeanList.remove(payRecordBean);
-//        }
-//        mRefreshLayout.post(() -> {
-//            if (mUnPayRecordAdapter.getData().size() != mPayRecordBeanList.size()) {
-//                mCheckBox.setChecked(false);
-//            }
-//        });
-//        refreshTotal();
     }
 
     @Subscribe
@@ -485,6 +501,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
             }
         });
         wechat_pay_selected_img.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 ali_pay_selected_img.setImageResource(R.mipmap.pay_unselected_icon);
@@ -511,6 +528,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
             }
         });
         mTotalPayTv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
 //                if (isAgree[0]) {
@@ -533,6 +551,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
             }
         });
         pay_agreement_tv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 //跳转支付协议页面
@@ -540,6 +559,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
             }
         });
         close_img.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 bottomSheetDialog.dismiss();

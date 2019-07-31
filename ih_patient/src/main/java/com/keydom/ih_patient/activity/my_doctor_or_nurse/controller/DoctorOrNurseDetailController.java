@@ -13,8 +13,10 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ShareUtils;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
+import com.keydom.ih_patient.activity.login.LoginActivity;
 import com.keydom.ih_patient.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity;
 import com.keydom.ih_patient.activity.my_doctor_or_nurse.view.DoctorOrNurseDetailView;
 import com.keydom.ih_patient.bean.DoctorEvaluateItem;
@@ -22,6 +24,7 @@ import com.keydom.ih_patient.bean.DoctorHeadItem;
 import com.keydom.ih_patient.bean.DoctorMainBean;
 import com.keydom.ih_patient.bean.DoctorTeamItem;
 import com.keydom.ih_patient.bean.DoctorTextItem;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.UserService;
 import com.keydom.ih_patient.utils.ToastUtil;
@@ -40,6 +43,7 @@ import java.util.Map;
  * des:医生详情控制器
  */
 public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseDetailView> implements View.OnClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -55,19 +59,38 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
                 break;
             case R.id.video_inquiry_group:
                 //视频问诊
-                if (App.userInfo.getIdCard() != null && !"".equals(App.userInfo.getIdCard()))
-                    showApplyDialog(DiagnosesApplyDialog.VIDEODIAGNOSES);
+                if (Global.getUserId() == -1) {
+                    new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？", new GeneralDialog.OnCloseListener() {
+                        @Override
+                        public void onCommit() {
+                            LoginActivity.start(getContext());
+                        }
+                    }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
+                } else{
+                    if (App.userInfo.getIdCard() != null && !"".equals(App.userInfo.getIdCard()))
+                        showApplyDialog(DiagnosesApplyDialog.VIDEODIAGNOSES);
 
-                else
-                    ToastUtil.shortToast(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊");
+                    else
+                        ToastUtil.shortToast(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊");
+                }
+
                 break;
             case R.id.pic_inquiry_group:
                 //图文问诊
-                if (App.userInfo.getIdCard() != null && !"".equals(App.userInfo.getIdCard()))
-                    showApplyDialog(DiagnosesApplyDialog.PHOTODIAGNOSES);
+                if (Global.getUserId() == -1) {
+                    new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？", new GeneralDialog.OnCloseListener() {
+                        @Override
+                        public void onCommit() {
+                            LoginActivity.start(getContext());
+                        }
+                    }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
+                } else{
+                    if (App.userInfo.getIdCard() != null && !"".equals(App.userInfo.getIdCard()))
+                        showApplyDialog(DiagnosesApplyDialog.PHOTODIAGNOSES);
+                    else
+                        ToastUtil.shortToast(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊");
+                }
 
-                else
-                    ToastUtil.shortToast(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊");
                 break;
             case R.id.follow:
                 DoctorMainBean doctorMainBean = getView().getDoctorMainBean();

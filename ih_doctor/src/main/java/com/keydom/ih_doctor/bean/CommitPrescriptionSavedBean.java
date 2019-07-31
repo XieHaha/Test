@@ -52,6 +52,15 @@ public class CommitPrescriptionSavedBean {
         private String way;
         private String doctorAdvice;
         private long id;
+        private String packUnit;
+
+        public String getPackUnit() {
+            return packUnit;
+        }
+
+        public void setPackUnit(String packUnit) {
+            this.packUnit = packUnit;
+        }
 
         public String getDrugsName() {
             return drugsName;

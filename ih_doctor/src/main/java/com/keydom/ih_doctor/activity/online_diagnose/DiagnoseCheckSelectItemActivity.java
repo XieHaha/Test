@@ -20,6 +20,7 @@ import com.keydom.ih_doctor.adapter.DiagnoseOrderSecondaryListRecyclerAdapter;
 import com.keydom.ih_doctor.adapter.SecondaryListAdapter;
 import com.keydom.ih_doctor.bean.CheckOutItemBean;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -79,6 +80,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
         setRightTxt("确定");
         selectedDatas = (List<CheckOutItemBean>) getIntent().getSerializableExtra(Const.DATA);
         setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
+            @SingleClick(1000)
             @Override
             public void OnRightTextClick(View v) {
                 Intent intent = new Intent();

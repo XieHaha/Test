@@ -147,5 +147,17 @@ public interface CommonNurseServiceOrderDetailView extends BaseView {
 
     BaiduMapUtil getMapUtil();
 
+    Map<String, Object> getAcceptReciveMap();
+
+    Map<String, Object> getRefuseReciveMap();
+
+    Map<String, Object> getCancelChangeMap();
+
+    void acceptOrderSuccess(String data);
+
+    void refuseAcceptSuccess(String data);
+
+    void cancelChangeSuccess(String data);
+
 
 }

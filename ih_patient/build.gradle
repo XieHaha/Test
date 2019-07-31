@@ -3,18 +3,26 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'android-aspectjx'
+
+aspectjx {
+
+    exclude 'com/alipay'
+
+}
 android {
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
-    signingConfigs {
-/*        release_map {
+/*    signingConfigs {
+        release_map {
             keyAlias 'key0'
             keyPassword '111111'
-            storeFile file('D:/Truk/ih_key')
+            storeFile file('D:/local/localTruck/ih_key')
             storePassword '111111'
-        }*/
-    }
-    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+        }
+    }*/
+    compileSdkVersion 26
     defaultConfig {
         applicationId "com.keydom.ih_patient"
 
@@ -25,11 +33,11 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-       /* ndk {
-            //选择要添加的对应 cpu 类型的 .so 库。
-            abiFilters  'armeabi-v7a', 'arm64-v8a','x86','x86_64'
-            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'  ,'mips','mips64' 'armeabi',
-        }*/
+        /* ndk {
+             //选择要添加的对应 cpu 类型的 .so 库。
+             abiFilters  'armeabi-v7a', 'arm64-v8a','x86','x86_64'
+             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'  ,'mips','mips64' 'armeabi',
+         }*/
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,
@@ -44,7 +52,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable true
         }
-        debug{
+        debug {
             //signingConfig signingConfigs.release_map
         }
     }
@@ -63,6 +71,7 @@ android {
             jni.srcDirs = []
         }
     }
+    buildToolsVersion '28.0.2'
 }
 
 dependencies {
@@ -82,6 +91,8 @@ dependencies {
     implementation files('libs/tbs_sdk_thirdapp.jar')
     implementation project(':ocr_ui')
     implementation files('libs/ocr-sdk.jar')
+    api 'org.aspectj:aspectjrt:1.8.9'
+
 }
 repositories {
     mavenCentral()

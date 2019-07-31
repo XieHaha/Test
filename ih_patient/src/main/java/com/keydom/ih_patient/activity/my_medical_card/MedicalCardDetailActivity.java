@@ -78,7 +78,7 @@ public class MedicalCardDetailActivity extends BaseControllerActivity<MedicalCar
         contactor_name_tv.setText(medicalCardInfo.getContact()==null||"".equals(medicalCardInfo.getContact())?medicalCardInfo.getName():medicalCardInfo.getContact());
         contactor_phone_tv.setText(medicalCardInfo.getContactPhone()==null||"".equals(medicalCardInfo.getContactPhone())?medicalCardInfo.getPhoneNumber():medicalCardInfo.getContactPhone());
         contactor_relationship_tv.setText(medicalCardInfo.getRelationship()==null||"".equals(medicalCardInfo.getRelationship())?"本人":medicalCardInfo.getRelationship());
-
+/*
 
         String dateStr=medicalCardInfo.getBindTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -98,8 +98,13 @@ public class MedicalCardDetailActivity extends BaseControllerActivity<MedicalCar
             }
         } catch (ParseException e) {
             e.printStackTrace();
+        }*/
+        if(medicalCardInfo.getIsUnbind()==0){
+            card_detail_remove_bind.setVisibility(View.GONE);
+        }else if(medicalCardInfo.getIsUnbind()==1){
+            card_detail_remove_bind.setVisibility(View.VISIBLE);
+            card_detail_remove_bind.setOnClickListener(getController());
         }
-
         card_detail_real_name_status.setText(medicalCardInfo.getState()==1?"已实名认证":"未实名认证");
     }
 

@@ -12,6 +12,7 @@ import com.keydom.ih_doctor.activity.issue_information.view.NotificationListView
 import com.keydom.ih_doctor.bean.NotificationBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.TypeEnum;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.MainApiService;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -32,6 +33,7 @@ import java.util.List;
  * 修改时间：18/11/16 上午9:09
  */
 public class NotificationListController extends ControllerImpl<NotificationListView> implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
 

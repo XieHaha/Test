@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.activity.ArticleDetailActivity;
@@ -20,8 +21,10 @@ import com.keydom.ih_doctor.activity.personal.ArticleListActivity;
 import com.keydom.ih_doctor.bean.ArticleItemBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.TypeEnum;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -33,10 +36,12 @@ import java.util.List;
  * 修改时间：18/11/6 下午6:52
  */
 public class ArticleListRecyclrViewAdapter extends BaseEmptyAdapter<ArticleItemBean> {
-
-
-    public ArticleListRecyclrViewAdapter(List<ArticleItemBean> mDatas, Context context) {
+    private TypeEnum type;
+    private ArticleListActivity context;
+    public ArticleListRecyclrViewAdapter(List<ArticleItemBean> mDatas, ArticleListActivity context, TypeEnum type) {
         super(mDatas, context);
+        this.type=type;
+        this.context=context;
     }
 
 
@@ -62,6 +67,10 @@ public class ArticleListRecyclrViewAdapter extends BaseEmptyAdapter<ArticleItemB
         public TextView feedbackTv;
         public Button delete,update;
         public LinearLayout article_main_layout;
+        public RelativeLayout bottom_layout;
+        private TextView article_comment_num_tv;
+        private TextView remove_collect_article_tv;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -76,10 +85,37 @@ public class ArticleListRecyclrViewAdapter extends BaseEmptyAdapter<ArticleItemB
             delete = itemView.findViewById(R.id.delete);
             update=itemView.findViewById(R.id.update);
             article_main_layout = itemView.findViewById(R.id.article_main_layout);
+            bottom_layout=itemView.findViewById(R.id.bottom_layout);
+            article_comment_num_tv=itemView.findViewById(R.id.article_comment_num_tv);
+            remove_collect_article_tv=itemView.findViewById(R.id.remove_collect_article_tv);
+
 
         }
 
         public void bind(final int position) {
+            if(type==TypeEnum.MYCOLLECT){
+                bottom_layout.setVisibility(View.VISIBLE);
+                article_comment_num_tv.setText(mDatas.get(position).getCommentQuantity()+" 评论");
+                remove_collect_article_tv.setOnClickListener(new View.OnClickListener() {
+                    @SingleClick(1000)
+                    @Override
+                    public void onClick(View v) {
+                        new GeneralDialog(context, "你确定要取消该文章的收藏吗？", new GeneralDialog.OnCloseListener() {
+                            @Override
+                            public void onCommit() {
+                                HashMap<String, Object> map = new HashMap<>();
+                                map.put("doctorId", MyApplication.userInfo.getId());
+                                map.put("articleId", mDatas.get(position).getArticleId());
+                                map.put("isCollect",0);
+                                context.getController().removeCollect(map);
+                            }
+                        }).setTitle("提示").show();
+
+                    }
+                });
+            }else {
+                bottom_layout.setVisibility(View.GONE);
+            }
             communityArticleTag.setText(mDatas.get(position).getArticleType() == 1 ? "专家看法" : "成长指南");
             communityAuthorName.setText(mDatas.get(position).getSubmiter());
             communityItemDec.setText(mDatas.get(position).getContent());
@@ -87,6 +123,7 @@ public class ArticleListRecyclrViewAdapter extends BaseEmptyAdapter<ArticleItemB
             GlideUtils.load(communityItemImg, Const.IMAGE_HOST + CommonUtils.getIcon(mDatas.get(position).getImage()), 0, 0, false, null);
             GlideUtils.load(communityAuthorIcon, Const.IMAGE_HOST + mDatas.get(position).getAvatar(), 0, 0, false, null);
             article_main_layout.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     ArticleDetailActivity.startArticle(mContext, mDatas.get(position).getArticleId(), MyApplication.userInfo.getId(), MyApplication.userInfo.getName(), MyApplication.userInfo.getAvatar(), mDatas.get(position).getAuditResult() == 1 ? true : false);
@@ -140,6 +177,7 @@ public class ArticleListRecyclrViewAdapter extends BaseEmptyAdapter<ArticleItemB
             update.setLayoutParams(updateLayoutParams);
 
             delete.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View view) {
                     new GeneralDialog(mContext, "确认要删除该篇文章？", new GeneralDialog.OnCloseListener() {
@@ -151,6 +189,7 @@ public class ArticleListRecyclrViewAdapter extends BaseEmptyAdapter<ArticleItemB
                 }
             });
             update.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View view) {
                     ((ArticleListActivity) mContext).todoArticle(position, 0);

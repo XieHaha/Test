@@ -11,6 +11,7 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.ICD10Bean;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.EventType;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -57,6 +58,7 @@ public class ICD10ListAdapter extends BaseEmptyAdapter<ICD10Bean> {
             icdNameTv.setText(mDatas.get(position).getName());
             icdNumber.setText(mDatas.get(position).getCode());
             itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.GET_ICD_10_VALUE).setData(mDatas.get(position).getName()).build());

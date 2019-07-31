@@ -13,6 +13,7 @@ import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.bean.DiagnosesOrderBean;
+import com.keydom.ih_patient.callback.SingleClick;
 
 import java.util.List;
 
@@ -71,6 +72,7 @@ public class DiagnosesOrderAdapter extends BaseQuickAdapter<DiagnosesOrderBean,B
         TextView diagnoses_doctor_change_tv=helper.getView(R.id.diagnoses_doctor_change_tv);
         TextView wait_people_tv=helper.getView(R.id.wait_people_tv);
         back_diagnoses_tv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 if(iOnItemBtnClickListener!=null)
@@ -88,6 +90,7 @@ public class DiagnosesOrderAdapter extends BaseQuickAdapter<DiagnosesOrderBean,B
             back_diagnoses_tv.setVisibility(View.GONE);
         TextView pay_tv=helper.getView(R.id.pay_tv);
         pay_tv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 if(iOnItemBtnClickListener!=null)
@@ -116,6 +119,7 @@ public class DiagnosesOrderAdapter extends BaseQuickAdapter<DiagnosesOrderBean,B
             diagnoses_doctor_change_tv.setVisibility(View.GONE);
         TextView comment_tv=helper.getView(R.id.comment_tv);
         comment_tv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View view) {
                 if(iOnItemBtnClickListener!=null)

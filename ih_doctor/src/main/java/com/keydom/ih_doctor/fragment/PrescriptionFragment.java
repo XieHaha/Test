@@ -56,11 +56,13 @@ public class PrescriptionFragment extends BaseControllerFragment<PrescriptionFra
      * 搜索关键字
      */
     private String keyword = "";
+    private String startCode;
 
-    public static final PrescriptionFragment newInstance(TypeEnum type) {
+    public static final PrescriptionFragment newInstance(TypeEnum type,String startCode) {
         PrescriptionFragment fragment = new PrescriptionFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(Const.TYPE, type);
+        bundle.putString("startCode",startCode);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -69,6 +71,7 @@ public class PrescriptionFragment extends BaseControllerFragment<PrescriptionFra
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mType = (TypeEnum) getArguments().getSerializable(Const.TYPE);
+        startCode=getArguments().getString("startCode");
 
     }
 
@@ -115,6 +118,11 @@ public class PrescriptionFragment extends BaseControllerFragment<PrescriptionFra
         return map;
     }
 
+    @Override
+    public String getStartCod() {
+        return startCode;
+    }
+
     private int getState() {
         int state = -2;
         switch (mType) {
@@ -125,11 +133,12 @@ public class PrescriptionFragment extends BaseControllerFragment<PrescriptionFra
                 state = 0;
                 break;
             case CHECK_SEND:
-                if (SharePreferenceManager.getRoleId() == Const.ROLE_DOCTOR) {
+               /* if (SharePreferenceManager.getRoleId() == Const.ROLE_DOCTOR) {
                     state = 1;
                 } else {
                     state = 2;
-                }
+                }*/
+                state = 2;
                 break;
             case CHECK_TIME_OUT:
                 state = 4;
@@ -149,7 +158,7 @@ public class PrescriptionFragment extends BaseControllerFragment<PrescriptionFra
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        mAdapter = new PrescriptionRecyclrViewAdapter(getContext(), mType, dataList);
+        mAdapter = new PrescriptionRecyclrViewAdapter(getContext(), mType, dataList,startCode);
         communityAttentionRv = (RecyclerView) getView().findViewById(R.id.community_attention_rv);
         refreshLayout = (RefreshLayout) getView().findViewById(R.id.refreshLayout);
         communityAttentionRv.setAdapter(mAdapter);
@@ -171,6 +180,12 @@ public class PrescriptionFragment extends BaseControllerFragment<PrescriptionFra
         }
         super.onDestroy();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getController().getData(TypeEnum.REFRESH);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

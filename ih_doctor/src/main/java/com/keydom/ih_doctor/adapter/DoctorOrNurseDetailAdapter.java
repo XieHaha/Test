@@ -18,6 +18,7 @@ import com.keydom.ih_doctor.bean.DoctorEvaluateItem;
 import com.keydom.ih_doctor.bean.DoctorHeadItem;
 import com.keydom.ih_doctor.bean.DoctorTeamItem;
 import com.keydom.ih_doctor.bean.DoctorTextItem;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.view.RatingBarView;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -95,10 +96,11 @@ public class DoctorOrNurseDetailAdapter extends BaseMultiItemQuickAdapter<MultiI
                 DoctorTeamAdapter adapter = new DoctorTeamAdapter(mTeams);
                 recyclerView.setAdapter(adapter);
                 adapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+                    @SingleClick(1000)
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         if (view.getId() == R.id.group){
-                            DoctorOrNurseDetailActivity.startNursePage(mContext,teamItem.getUuid());
+                            DoctorOrNurseDetailActivity.startNursePage(mContext,mTeams.get(position).getUuid());
                         }
                     }
                 });

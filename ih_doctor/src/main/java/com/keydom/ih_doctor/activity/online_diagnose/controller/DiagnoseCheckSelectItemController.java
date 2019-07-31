@@ -10,6 +10,7 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.activity.online_diagnose.view.DiagnoseCheckSelectItemView;
 import com.keydom.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.DiagnoseApiService;
 
 import org.jetbrains.annotations.NotNull;
@@ -25,6 +26,7 @@ import java.util.List;
  * 修改时间：18/11/16 上午9:09
  */
 public class DiagnoseCheckSelectItemController extends ControllerImpl<DiagnoseCheckSelectItemView> implements View.OnClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
 

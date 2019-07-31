@@ -12,6 +12,7 @@ import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import java.util.List;
 
@@ -45,6 +46,7 @@ public class DiagnoseOrderDetailAdapter extends RecyclerView.Adapter<DiagnoseOrd
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         GlideUtils.load(holder.itemIcon, Const.IMAGE_HOST + data.get(position), 0, 0, false, null);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (data.get(position) != null && !"".equals(data.get(position))) {

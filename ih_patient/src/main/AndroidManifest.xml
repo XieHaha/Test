@@ -43,6 +43,7 @@
         android:roundIcon="@mipmap/template"
         android:supportsRtl="true"
         android:theme="@style/BaseThemes"
+
         tools:ignore="GoogleAppIndexingWarning">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
@@ -147,7 +148,7 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.global_search.SearchActivity"
-            android:launchMode="standard" />
+            android:launchMode="singleTop" />
         <!--会话界面-->
         <activity
             android:name=".activity.im.ConversationActivity"

@@ -8,13 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.bean.PrescriptionDrugBean;
 
 import java.util.List;
 
 /**
- * 处方适配器
+ * @Name：com.kentra.yxyz.adapter
+ * @Description：处方药品适配器
  * @Author：song
  * @Date：18/11/6 下午6:52
  * 修改人：xusong
@@ -25,9 +27,7 @@ public class MedicineRecyclrViewAdapter extends RecyclerView.Adapter<MedicineRec
 
     private Context context;
     private List<PrescriptionDrugBean> data;
-    /**
-     * 构造方法
-     */
+
     public MedicineRecyclrViewAdapter(Context context, List<PrescriptionDrugBean> data) {
         this.context = context;
         this.data = data;

@@ -12,13 +12,13 @@
         android:clickable="true"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/padding_left_right_dp"
-        android:paddingRight="@dimen/padding_left_right_dp"
-        android:paddingBottom="@dimen/dp_21"
+
         >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/padding_left_right_dp"
+            android:paddingRight="@dimen/padding_left_right_dp"
             android:paddingTop="@dimen/dp_23"
             android:paddingBottom="@dimen/dp_23">
 
@@ -92,7 +92,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/padding_left_right_dp"
+            android:paddingRight="@dimen/padding_left_right_dp">
 
             <TextView
                 android:id="@+id/community_item_title"
@@ -128,6 +130,8 @@
             android:id="@+id/feedback_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_left_right_dp"
+            android:layout_marginRight="@dimen/padding_left_right_dp"
             android:layout_marginTop="@dimen/dp_10"
             android:background="#F9F9F9"
             android:lineSpacingExtra="@dimen/dp_10"
@@ -136,6 +140,48 @@
             android:textColor="#777777"
             android:textSize="@dimen/font_size_auxiliary"
             android:visibility="gone" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="#EEEEEE"/>
+        <RelativeLayout
+            android:id="@+id/bottom_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_43"
+            android:gravity="center_vertical"
+            >
+            <TextView
+                android:id="@+id/article_comment_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+
+                android:drawableLeft="@mipmap/comment_black"
+                android:layout_marginLeft="@dimen/dp_19"
+                android:drawablePadding="@dimen/dp_8"
+                android:textSize="@dimen/dp_13"
+                android:textColor="#000000"
+                android:text="86 评论"/>
+
+            <TextView
+                android:id="@+id/remove_collect_article_tv"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/article_collect"
+                android:layout_marginRight="@dimen/dp_19"
+                android:drawablePadding="@dimen/dp_7"
+                android:textSize="@dimen/dp_13"
+                android:textColor="#000000"
+                android:text="取消收藏"/>
+
+        </RelativeLayout>
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="#F9F9F9 "/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"

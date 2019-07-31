@@ -17,6 +17,7 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.IssueArticleActivity;
 import com.keydom.ih_doctor.activity.SearchActivity;
 import com.keydom.ih_doctor.adapter.PatientViewPagerAdapter;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.SelectHospitalPopUtil;
 
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class CommunityFragment extends BaseFragment {
     private void initView() {
         searchButton = (Button) getView().findViewById(R.id.search_btn);
         searchButton.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 SearchActivity.start(getContext());
@@ -60,6 +62,7 @@ public class CommunityFragment extends BaseFragment {
         issueArticle = (ImageView) getView().findViewById(R.id.issue_article);
         topTitleLayout = (RelativeLayout) getView().findViewById(R.id.top_title_layout);
         issueArticle.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 IssueArticleActivity.start(getContext());
@@ -87,6 +90,7 @@ public class CommunityFragment extends BaseFragment {
         fragmentList.add(new CommunityAttentionFragment());
         topHospitalName = (TextView) getView().findViewById(R.id.top_hospital_name);
         topHospitalName.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 SelectHospitalPopUtil.getInstance().initPopWindow(getContext()).showHospitalPopupWindow(topTitleLayout);

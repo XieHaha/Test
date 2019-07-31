@@ -186,13 +186,16 @@ public class MyApplication extends CommonApp {
         }
         boolean enalbe = false;
         for (ServiceBean bean : accessInfoBean.getService()) {
-            for (String code : codes) {
-                if (code.equals(bean.getCode())) {
-                    if (bean.getState() == 1) {
-                        return true;
+            for (ServiceBean.DoctorServiceSubVoBean  doctorServiceSubVoBean:bean.getDoctorServiceSubVoList()) {
+                for (String code : codes) {
+                    if (code.equals(doctorServiceSubVoBean.getSubCode())) {
+                        if (bean.getState() == 1) {
+                            return true;
+                        }
                     }
                 }
             }
+
         }
         return false;
     }

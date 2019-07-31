@@ -11,15 +11,21 @@ import com.keydom.ih_patient.activity.my_message.controller.MyMessagaeController
 import com.keydom.ih_patient.activity.my_message.view.MyMessageView;
 import com.keydom.ih_patient.adapter.MyMessageAdapter;
 import com.keydom.ih_patient.bean.MessageBean;
+import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 我的消息页面
@@ -41,6 +47,7 @@ public class MyMessageActivity extends BaseControllerActivity<MyMessagaeControll
     private RecyclerView my_message_rv;
     private List<Object> dataList=new ArrayList<>();
     private MyMessageAdapter myMessageAdapter;
+    private int page=1;
     //启动类型 Type.NOTICEMESSAGE 通知公告  Type.MYMESSAGE 我的消息
     private String type;
     @Override
@@ -59,30 +66,73 @@ public class MyMessageActivity extends BaseControllerActivity<MyMessagaeControll
         if(Type.NOTICEMESSAGE.equals(type)){
             setTitle("通知公告");
             dataList= (List<Object>) getIntent().getSerializableExtra("dataList");
-            my_messag_refresh.setEnableRefresh(false);
+            my_messag_refresh.setEnableRefresh(true);
             myMessageAdapter=new MyMessageAdapter(getContext(),dataList);
         }else if(Type.MYMESSAGE.equals(type)){
             setTitle("我的消息");
-            my_messag_refresh.setEnableRefresh(false);
+            my_messag_refresh.setEnableRefresh(true);
             myMessageAdapter=new MyMessageAdapter(getContext(),dataList);
         }
         my_message_rv.setAdapter(myMessageAdapter);
+        my_messag_refresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                if(Type.MYMESSAGE.equals(type)){
+                    getController().getMyMessageList(getMessageMap());
+                }
+            }
+        });
+        my_messag_refresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                if(Type.MYMESSAGE.equals(type)){
+                    page=1;
+                    getController().getMyMessageList(getMessageMap());
+                }
+            }
+        });
 
+    }
+
+    private Map<String,Object> getMessageMap(){
+        Map<String,Object> map=new HashMap<>();
+        map.put("userId",Global.getUserId());
+        map.put("pageSize",8);
+        map.put("currentPage",page);
+        return map;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         if(Type.MYMESSAGE.equals(type)){
-            getController().getMyMessageList();
+            getController().getMyMessageList(getMessageMap());
         }
     }
 
     @Override
     public void getMessageListSuccess(List<MessageBean> messageList) {
-        dataList.clear();
-        dataList.addAll(messageList);
-        myMessageAdapter.notifyDataSetChanged();
+        my_messag_refresh.finishLoadMore();
+        my_messag_refresh.finishRefresh();
+        if(messageList!=null&&messageList.size()>0){
+            if(page==1){
+                dataList.clear();
+                dataList.addAll(messageList);
+                myMessageAdapter.notifyDataSetChanged();
+
+            }else {
+                dataList.addAll(messageList);
+                myMessageAdapter.notifyDataSetChanged();
+            }
+            page++;
+        }else {
+            if(page==1){
+                dataList.clear();
+                dataList.addAll(messageList);
+                myMessageAdapter.notifyDataSetChanged();
+            }
+        }
+
     }
 
     @Override

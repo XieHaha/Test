@@ -33,6 +33,7 @@ import com.keydom.ih_patient.bean.DiagnosesOrderBean;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.LocationInfo;
 import com.keydom.ih_patient.callback.GeneralCallback;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
@@ -103,6 +104,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         List<DiagnosesOrderBean> orderBeanArrayList = new ArrayList<>();
         diagnosesOrderAdapter = new DiagnosesOrderAdapter(orderBeanArrayList, this);
         diagnosesOrderAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @SingleClick(1000)
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Logger.e("click" + position + "  state=" + diagnosesOrderAdapter.getItem(position).getState());
@@ -187,10 +189,12 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                     payMap.put("orderId", item.getId());
                     if (Type.ALIPAY.equals(type)) {
                         payMap.put("type", 2);
+                        getController().inquiryPay(payMap, item,2);
                     } else if (Type.WECHATPAY.equals(type)) {
                         payMap.put("type", 1);
+                        getController().inquiryPay(payMap, item,1);
                     }
-                    getController().inquiryPay(payMap, item);
+
                 }
             });
 

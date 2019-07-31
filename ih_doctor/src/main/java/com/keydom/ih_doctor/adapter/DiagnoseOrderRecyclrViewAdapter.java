@@ -23,6 +23,7 @@ import com.keydom.ih_doctor.activity.prescription_check.DiagnosePrescriptionActi
 import com.keydom.ih_doctor.bean.InquiryBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.ServiceConst;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import java.util.List;
 
@@ -124,7 +125,7 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
                     orderTypeTv.setTextColor(mContext.getResources().getColor(R.color.font_order_type_image_with_video));
                     orderTypeTv.setCompoundDrawables(leftimg, null, null, null);
                 } else {
-                    Drawable leftimg = mContext.getResources().getDrawable(R.mipmap.diagnose_illustration);
+                    Drawable leftimg = mContext.getResources().getDrawable(R.mipmap.video_diagnoses_icon);
                     leftimg.setBounds(0, 0, leftimg.getMinimumWidth(), leftimg.getMinimumHeight());
                     orderTypeTv.setCompoundDrawables(leftimg, null, null, null);
                     orderTypeTv.setText("视频问诊");
@@ -227,6 +228,7 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     if (ImClient.getUserInfoProvider().getUserInfo(mDatas.get(position).getUserCode()) != null) {
@@ -248,6 +250,7 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
             });
 
             updatePrescription.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE, ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE})) {

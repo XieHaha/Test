@@ -48,6 +48,7 @@ public class SelectDialogUtils {
     public static void showRegionSelectDialog(Context context, String provinceName, String cityName, String areaName, GeneralCallback.SelectRegionListener selectRegionListener) {
         if (Global.getData() == null || Global.getProvinceItems() == null || Global.getCityItems() == null || Global.getAreaItems() == null) {
             Dialog loading = DialogCreator.createLoadingDialog(context, "请稍等");
+            loading.setCancelable(false);
             loading.show();
             ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getRegionList(), new HttpSubscriber<List<PackageData.ProvinceBean>>() {
                 @Override

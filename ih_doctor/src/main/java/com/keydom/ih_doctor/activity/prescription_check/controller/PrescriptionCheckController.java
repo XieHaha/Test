@@ -9,6 +9,7 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.prescription_check.view.PrescriptionCheckView;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.EventType;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -21,6 +22,7 @@ import org.greenrobot.eventbus.EventBus;
  * 修改时间：18/11/16 上午9:09
  */
 public class PrescriptionCheckController extends ControllerImpl<PrescriptionCheckView> implements View.OnClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

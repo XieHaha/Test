@@ -17,6 +17,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/name"
             android:textSize="@dimen/font_size_primary"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textColor="@color/title_bar_text_color"
             />
         <LinearLayout

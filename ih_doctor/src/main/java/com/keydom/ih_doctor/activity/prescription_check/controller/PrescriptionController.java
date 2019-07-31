@@ -12,6 +12,7 @@ import com.keydom.ih_doctor.activity.prescription_check.view.PrescriptionView;
 import com.keydom.ih_doctor.bean.PrescriptionDetailBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.m_interface.OnCheckDialogListener;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.PrescriptionService;
 import com.keydom.ih_doctor.utils.DialogUtils;
 import com.keydom.ih_doctor.utils.SignUtils;
@@ -31,7 +32,7 @@ import java.util.Map;
  */
 public class PrescriptionController extends ControllerImpl<PrescriptionView> implements View.OnClickListener {
 
-
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -68,17 +69,14 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
      * 获取处方详情
      */
     public void getPrescriptionDetail() {
-        showLoading();
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getDrugControlPrescriptionDetail(getView().getDetailMap()), new HttpSubscriber<PrescriptionDetailBean>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable PrescriptionDetailBean data) {
-                hideLoading();
                 getView().getDetailSuccess(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 getView().getDetailFailed(msg);
                 return super.requestError(exception, code, msg);
             }

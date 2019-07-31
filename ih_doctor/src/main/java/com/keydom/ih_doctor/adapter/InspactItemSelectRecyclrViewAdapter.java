@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 
 import java.util.List;
 
@@ -52,6 +53,7 @@ public class InspactItemSelectRecyclrViewAdapter extends RecyclerView.Adapter<In
             holder.itemSelect.setVisibility(View.GONE);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 data.get(position).setSelect(!data.get(position).isSelect());

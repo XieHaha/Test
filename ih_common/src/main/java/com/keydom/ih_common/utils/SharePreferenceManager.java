@@ -60,10 +60,10 @@ public class SharePreferenceManager {
     }
 
     public static boolean getIsAgreement() {
-        if (null != sp) {
+        /*if (null != sp) {
             return sp.getBoolean(IS_AGREEMENT, false);
-        }
-        return true;
+        }*/
+        return false;
     }
 
     public static void setIsFirst(boolean first) {

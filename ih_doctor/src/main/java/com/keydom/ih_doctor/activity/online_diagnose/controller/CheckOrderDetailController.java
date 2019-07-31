@@ -12,6 +12,7 @@ import com.keydom.ih_doctor.activity.online_diagnose.ApplyForCheckActivity;
 import com.keydom.ih_doctor.activity.online_diagnose.CheckOrderDetailActivity;
 import com.keydom.ih_doctor.activity.online_diagnose.view.CheckOrderDetailView;
 import com.keydom.ih_doctor.bean.CheckItemListBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.DiagnoseApiService;
 
 import org.jetbrains.annotations.NotNull;
@@ -25,6 +26,7 @@ import org.jetbrains.annotations.Nullable;
  * 修改时间：18/11/16 上午9:09
  */
 public class CheckOrderDetailController extends ControllerImpl<CheckOrderDetailView> implements View.OnClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
 

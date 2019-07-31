@@ -17,7 +17,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.R;
+import com.keydom.ih_patient.activity.login.LoginActivity;
 import com.keydom.ih_patient.activity.order_examination.controller.OrderExaminationController;
 import com.keydom.ih_patient.activity.order_examination.view.OrderExaminationView;
 import com.keydom.ih_patient.adapter.CardPopupWindowAdapter;
@@ -48,20 +50,20 @@ public class OrderExaminationActivity extends BaseControllerActivity<OrderExamin
     /**
      * fragment集合
      */
-    private List<android.support.v4.app.Fragment> fragmentList=new ArrayList<>();
+    private List<android.support.v4.app.Fragment> fragmentList = new ArrayList<>();
     /**
      * 标题集合
      */
-    private List<String> list=new ArrayList<>();
+    private List<String> list = new ArrayList<>();
 
     private RelativeLayout card_layout;
     private ImageView order_doc_down_img;
     /**
      * 就诊卡集合
      */
-    private List<MedicalCardInfo> cardList=new ArrayList<>();
+    private List<MedicalCardInfo> cardList = new ArrayList<>();
 
-    private TextView order_doc_name,order_card_num;
+    private TextView order_doc_name, order_card_num;
     /**
      * 就诊卡选择框
      */
@@ -73,9 +75,10 @@ public class OrderExaminationActivity extends BaseControllerActivity<OrderExamin
     /**
      * 启动
      */
-    public static void start(Context context){
-        context.startActivity(new Intent(context,OrderExaminationActivity.class));
+    public static void start(Context context) {
+        context.startActivity(new Intent(context, OrderExaminationActivity.class));
     }
+
     @Override
     public int getLayoutRes() {
         return R.layout.activity_order_examination_layout;
@@ -85,42 +88,55 @@ public class OrderExaminationActivity extends BaseControllerActivity<OrderExamin
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle("检查预约");
 
-        no_card_tv=this.findViewById(R.id.no_card_tv);
+        no_card_tv = this.findViewById(R.id.no_card_tv);
 
-        order_exa_base_layout=this.findViewById(R.id.order_exa_base_layout);
+        order_exa_base_layout = this.findViewById(R.id.order_exa_base_layout);
 
 
-        order_doc_name=this.findViewById(R.id.order_doc_name);
-        order_card_num=this.findViewById(R.id.order_card_num);
-        card_layout=this.findViewById(R.id.card_layout);
+        order_doc_name = this.findViewById(R.id.order_doc_name);
+        order_card_num = this.findViewById(R.id.order_card_num);
+        card_layout = this.findViewById(R.id.card_layout);
         card_layout.setOnClickListener(getController());
 
-        examination_order_tab=this.findViewById(R.id.examination_order_tab);
-        examination_order_vp=this.findViewById(R.id.examination_order_vp);
+        examination_order_tab = this.findViewById(R.id.examination_order_tab);
+        examination_order_vp = this.findViewById(R.id.examination_order_vp);
 
         list.add("未预约");
         list.add("已预约");
-        fm=getSupportFragmentManager();
+        fm = getSupportFragmentManager();
         fragmentList.add(new UnOrderExaFragment());
         fragmentList.add(new OrderExaFragment());
-        if(viewPagerAdapter==null){
-            viewPagerAdapter=new ViewPagerAdapter(fm,fragmentList,list);
+        if (viewPagerAdapter == null) {
+            viewPagerAdapter = new ViewPagerAdapter(fm, fragmentList, list);
         }
         examination_order_vp.setAdapter(viewPagerAdapter);
         examination_order_tab.setupWithViewPager(examination_order_vp);
-        order_doc_down_img=this.findViewById(R.id.order_doc_down_img);
-        getController().queryAllCard();
+        order_doc_down_img = this.findViewById(R.id.order_doc_down_img);
+        if (Global.getUserId() == -1) {
+            new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？", new GeneralDialog.OnCloseListener() {
+                @Override
+                public void onCommit() {
+                    LoginActivity.start(getContext());
+                }
+            }, new GeneralDialog.CancelListener() {
+                @Override
+                public void onCancel() {
+                    finish();
+                }
+            }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
+        } else
+            getController().queryAllCard();
     }
 
     @Override
-    public void toDoOrder(long inspectProjectId,String applyNumber) {
-        ExaminationDateChooseActivity.start(getContext(),inspectProjectId,applyNumber);
+    public void toDoOrder(long inspectProjectId, String applyNumber) {
+        ExaminationDateChooseActivity.start(getContext(), inspectProjectId, applyNumber);
     }
 
 
     @Override
     public void showCardPopupWindow() {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.general_popupwindow_layout,card_layout,false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.general_popupwindow_layout, card_layout, false);
         View backgroudView = view.findViewById(R.id.backgroud_view);
         backgroudView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,9 +145,9 @@ public class OrderExaminationActivity extends BaseControllerActivity<OrderExamin
             }
         });
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.popup_rv);
-        CardPopupWindowAdapter cardPopupWindowAdapter = new CardPopupWindowAdapter(this,cardList);
+        CardPopupWindowAdapter cardPopupWindowAdapter = new CardPopupWindowAdapter(this, cardList);
         recyclerView.setAdapter(cardPopupWindowAdapter);
-        cardpopupWindow = new PopupWindow(getContext(), null,ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        cardpopupWindow = new PopupWindow(getContext(), null, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         cardpopupWindow.setContentView(view);
         cardpopupWindow.setFocusable(true);
         cardpopupWindow.setWidth(card_layout.getWidth());
@@ -147,44 +163,34 @@ public class OrderExaminationActivity extends BaseControllerActivity<OrderExamin
     /**
      * 保存选中就诊卡
      */
-    public void saveSelectCard(MedicalCardInfo medicalCardInfo){
+    public void saveSelectCard(MedicalCardInfo medicalCardInfo) {
         order_doc_name.setText(medicalCardInfo.getName());
-        order_card_num.setText("".equals(medicalCardInfo.getEleCardNumber())||medicalCardInfo.getEleCardNumber()==null?"就诊卡号："+medicalCardInfo.getEntCardNumber():"就诊卡号："+medicalCardInfo.getEleCardNumber());
-        if("".equals(medicalCardInfo.getEleCardNumber())||medicalCardInfo.getEleCardNumber()==null){
+        order_card_num.setText("".equals(medicalCardInfo.getEleCardNumber()) || medicalCardInfo.getEleCardNumber() == null ? "就诊卡号：" + medicalCardInfo.getEntCardNumber() : "就诊卡号：" + medicalCardInfo.getEleCardNumber());
+        if ("".equals(medicalCardInfo.getEleCardNumber()) || medicalCardInfo.getEleCardNumber() == null) {
             Global.setSelectedCardNum(medicalCardInfo.getEntCardNumber());
-        }else {
+        } else {
             Global.setSelectedCardNum(medicalCardInfo.getEleCardNumber());
         }
         Logger.e("从saveSelectCard发送通知");
-        EventBus.getDefault().post(new Event(EventType.UPLOADEXAMINATION,null));
+        EventBus.getDefault().post(new Event(EventType.UPLOADEXAMINATION, null));
         cardpopupWindow.dismiss();
     }
 
 
-
     @Override
     public void getAllCard(List<MedicalCardInfo> dataList) {
-        if(dataList!=null&&dataList.size()!=0){
+        if (dataList != null && dataList.size() != 0) {
             cardList.clear();
             cardList.addAll(dataList);
             order_doc_name.setText(dataList.get(0).getName());
-            order_card_num.setText("".equals(dataList.get(0).getEleCardNumber())||dataList.get(0).getEleCardNumber()==null?"就诊卡号：":"就诊卡号："+dataList.get(0).getEleCardNumber());
+            order_card_num.setText("".equals(dataList.get(0).getEleCardNumber()) || dataList.get(0).getEleCardNumber() == null ? "就诊卡号：" : "就诊卡号：" + dataList.get(0).getEleCardNumber());
             Global.setSelectedCardNum(dataList.get(0).getEleCardNumber());
-            EventBus.getDefault().post(new Event(EventType.UPLOADEXAMINATION,null));
-        }else {
+            EventBus.getDefault().post(new Event(EventType.UPLOADEXAMINATION, null));
+        } else {
             no_card_tv.setVisibility(View.VISIBLE);
         }
 
     }
-
-
-
-
-
-
-
-
-
 
 
 }

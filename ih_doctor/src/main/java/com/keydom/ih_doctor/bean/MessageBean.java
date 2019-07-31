@@ -140,7 +140,7 @@ public class MessageBean implements Serializable {
                 setTitle("住院报到通知");
                 break;
             case "APPOINT_INQUIRY":
-                setTitle("在线问诊申请成功通知");
+                setTitle("待接诊/咨询通知");
                 break;
             case "CANCEL_APPOINT_INQUIRY":
                 setTitle("在线问诊取消通知");
@@ -158,10 +158,10 @@ public class MessageBean implements Serializable {
                 setTitle("在线问诊检验通知");
                 break;
             case "INSPECT_APPOINT_INQUIRY":
-                setTitle("在线问诊检查通知");
+                setTitle("问诊提醒");
                 break;
             case "APPOINT_NURSING":
-                setTitle("护理服务预约成功通知");
+                setTitle("护理服务接单通知");
                 break;
             case "CANCEL_APPOINT_NURSING":
                 setTitle("护理服务取消通知");
@@ -173,9 +173,6 @@ public class MessageBean implements Serializable {
                 setTitle("护理服务退回修改通知");
                 break;
             case "ACCEPTUSER_APPOINT_NURSING":
-                setTitle("护理服务接单通知");
-                break;
-            case "ACCEPT_APPOINT_NURSING":
                 setTitle("护理服务接收通知");
                 break;
             case "ACCEPTCHANGE_APPOINT_NURSING":
@@ -189,6 +186,11 @@ public class MessageBean implements Serializable {
                 break;
             case "PRESCRIPTION_APPOINT_INQUIRY":
                 setTitle("在线问诊处方通知");
+                break;
+            case "ACCEPTCHANGE_APPOINT_INQUIRY":
+                setTitle("问诊提醒");
+            case "CHANGE_APPOINT_INQUIRY":
+                setTitle("问诊提醒");
                 break;
         }
     }
@@ -606,13 +608,13 @@ public class MessageBean implements Serializable {
                 break;
             case "ACCEPT_APPOINT_NURSING":
                 result ="订单号: " + orderNum + "<br>"
-                        +"服务对象: " + doctorsName + "<br>"
+                        +"服务对象: " + userName + "<br>"
                         + "预约上门时间: " + visitTime + "<br>"
                         + "服务项目: " + visitProject + "<br>"
                         + "服务次数: " + visitNum + "<br>"
                         + "医院: " + hospitalName + "<br>"
                         + "服务费用: " + pay + "<br>"
-                        + "上门护士: " + userName + "<br>"
+                        + "上门护士: " +doctorsName  + "<br>"
                         + "<font color='#F83535'>上门护士"+userName+"已接收订单，并将于约定时间上门服务，请注意做好相应准备。</font>";
                 break;
             case "ACCEPTCHANGE_APPOINT_NURSING":

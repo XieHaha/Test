@@ -27,7 +27,7 @@
         android:layout_centerVertical="true"
         android:background="@null"
         android:text="发布"
-        android:textColor="@color/fontClickEnable"
+        android:textColor="@color/colorPrimary"
         android:textSize="@dimen/font_size_fuc" />
 
 </RelativeLayout>

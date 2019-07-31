@@ -307,8 +307,8 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
           /*  ToastUtil.shortToast(getContext(), "请至少选择一张病情图片依据");
             return null;*/
         }
-        if (desc_edt.getText().toString().trim().length() < 20) {
-            ToastUtil.shortToast(getContext(), "病情描述至少要求写入20字，请修改后再尝试提交");
+        if (desc_edt.getText().toString().trim().length() < 10) {
+            ToastUtil.shortToast(getContext(), "病情描述至少要求写入10字，请修改后再尝试提交");
             return null;
         } else {
             map.put("conditionDesc", desc_edt.getText().toString().trim());

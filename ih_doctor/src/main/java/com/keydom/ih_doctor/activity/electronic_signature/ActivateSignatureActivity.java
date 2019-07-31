@@ -12,6 +12,7 @@ import com.keydom.ih_doctor.activity.electronic_signature.controller.ApplySignat
 import com.keydom.ih_doctor.activity.electronic_signature.view.ApplySignatureView;
 import com.keydom.ih_doctor.bean.SignRegInfoBean;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.Nullable;
@@ -52,6 +53,7 @@ public class ActivateSignatureActivity extends BaseControllerActivity<ApplySigna
         setTitle("激活");
         setRightTxt("提交");
         setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
+            @SingleClick(1000)
             @Override
             public void OnRightTextClick(View v) {
                 ToastUtil.shortToast(ActivateSignatureActivity.this, "提交");

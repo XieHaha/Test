@@ -11,6 +11,7 @@ import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.location_manage.view.AddLocationView;
 import com.keydom.ih_patient.bean.PackageData;
 import com.keydom.ih_patient.callback.GeneralCallback;
+import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.net.LocationService;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
 import com.orhanobut.logger.Logger;
@@ -24,6 +25,7 @@ import java.util.Map;
  * 添加地址控制器
  */
 public class AddLocationController extends ControllerImpl<AddLocationView> implements View.OnClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View view) {
         switch (view.getId()){

@@ -109,12 +109,29 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
                 });
                 mWebView.loadUrl(url);
             } else {
-                RichText.from(url).bind(this)
-                        .showBorder(false)
-                        .size(ImageHolder.MATCH_PARENT, ImageHolder.WRAP_CONTENT)
-                        .into(mDecTv);
+                mWebView.setVisibility(View.VISIBLE);
+                mDecTv.setVisibility(View.GONE);
+
+                StringBuilder sb = new StringBuilder();
+                sb.append(getHtmlData(bean.getContent()));
+                mWebView.loadDataWithBaseURL(null, sb.toString(), "text/html", "UTF-8", null);
             }
         }
 
+    }
+
+    private String getHtmlData(String bodyHTML) {
+        String css = "<style type=\"text/css\"> img {"
+                + "width:100%;" +//限定图片宽度填充屏幕
+                "height:auto;" +//限定图片高度自动
+                "}" +
+                "body {" +
+                "word-wrap:break-word;" +//允许自动换行(汉字网页应该不需要这一属性,这个用来强制英文单词换行,类似于word/wps中的西文换行)
+                "}" +
+                "</style>";
+
+        String html = "<html><header>" + css + "</header>" + bodyHTML + "</html>";
+
+        return html;
     }
 }

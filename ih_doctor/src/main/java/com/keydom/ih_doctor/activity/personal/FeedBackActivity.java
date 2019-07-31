@@ -15,6 +15,7 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.personal.controller.FeedBackController;
 import com.keydom.ih_doctor.activity.personal.view.FeedBackView;
 import com.keydom.ih_doctor.adapter.GridViewPlusImgAdapter;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -71,6 +72,7 @@ public class FeedBackActivity extends BaseControllerActivity<FeedBackController>
         setTitle("意见反馈");
         setRightTxt("提交");
         setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
+            @SingleClick(1000)
             @Override
             public void OnRightTextClick(View v) {
                 if (checkFeedBack()) {

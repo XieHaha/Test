@@ -7,12 +7,16 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.adapter.ContactRecyclrViewAdapter;
@@ -21,6 +25,7 @@ import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.fragment.controller.PatientContactFragmentController;
 import com.keydom.ih_doctor.fragment.view.PatientContactFragmentView;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -83,7 +88,9 @@ public class PatientContactFragment extends BaseControllerFragment<PatientContac
         mSearchView.setQueryHint("搜索");
         mSearchView.setIconified(true);
         appCompatImageView = (AppCompatImageView) mSearchView.findViewById(android.support.v7.appcompat.R.id.search_button);
-        EditText editText = (EditText) mSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        EditText editText = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        editText.setFilters(new InputFilter[]{emojiFilter });
+        editText.setSingleLine(true);
         editText.setHintTextColor(ContextCompat.getColor(getContext(), R.color.click_txt));
         editText.setTextColor(ContextCompat.getColor(getContext(), R.color.primary_font_color));
         try {
@@ -129,6 +136,7 @@ public class PatientContactFragment extends BaseControllerFragment<PatientContac
 
 
         searchInputEv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 searchInputEv.setVisibility(View.GONE);
@@ -201,4 +209,24 @@ public class PatientContactFragment extends BaseControllerFragment<PatientContac
             getController().getUserList();
         }
     }
+
+    InputFilter emojiFilter = new InputFilter() {
+        /*Pattern emoji = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]",
+                Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);*/
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            if (CommonUtils.containsEmoji(source.toString())) {
+                Toast.makeText(getContext(), "不支持输入颜文字或表情", Toast.LENGTH_SHORT).show();
+                return "";
+            }
+            return null;
+          /*  Matcher emojiMatcher = emoji.matcher(source);
+            if (emojiMatcher.find()) {
+                Toast.makeText(context, "不支持输入表情", Toast.LENGTH_SHORT).show();
+                return "";
+            }
+            return null;*/
+        }
+    };
 }

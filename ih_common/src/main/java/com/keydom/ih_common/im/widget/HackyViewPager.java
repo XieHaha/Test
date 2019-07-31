@@ -33,6 +33,9 @@ public class HackyViewPager extends ViewPager {
         view.post(new Runnable() {
             @Override
             public void run() {
+                int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+                int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+                view.measure(w, h);
                 int height = view.getMeasuredHeight();
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) getLayoutParams();
                 if (params == null) {

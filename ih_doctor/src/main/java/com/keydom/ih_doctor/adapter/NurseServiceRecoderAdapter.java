@@ -21,6 +21,7 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.nurse_service.CommonNurseServiceOrderDetailActivity;
 import com.keydom.ih_doctor.activity.nurse_service.CommonNurseServiceWorkingOrderDetailActivity;
 import com.keydom.ih_doctor.bean.NurseServiceRecoderBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.NurseServiceApiService;
 import com.keydom.ih_doctor.utils.CalculateTimeUtils;
 import com.keydom.ih_doctor.utils.ToastUtil;
@@ -75,13 +76,14 @@ public class NurseServiceRecoderAdapter extends RecyclerView.Adapter<NurseServic
         holder.remark.setText(bean.getRemark());
 
         holder.baseInfoTipTv.setText("第" + CommonUtils.numberToChinese(bean.getServiceFrequency()) + "次服务");
-        holder.subOrderBox.removeAllViews();
+       /* holder.subOrderBox.removeAllViews();
         if (bean.getSubOrderDetails() != null && bean.getSubOrderDetails().size() > 0) {
             for (int i = 0; i < bean.getSubOrderDetails().size(); i++) {
                 holder.subOrderBox.addView(getSubOrderView(holder, bean.getSubOrderDetails().get(i), i + 1));
             }
-        }
+        }*/
         holder.baseInfoTipTv.setOnClickListener(new View.OnClickListener() {
+            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (holder.serviceOrderDetailLl.getVisibility() == View.VISIBLE) {
@@ -134,7 +136,7 @@ public class NurseServiceRecoderAdapter extends RecyclerView.Adapter<NurseServic
     }
 
 
-    private View getSubOrderView(final ViewHolder holder, NurseServiceRecoderBean.SubOrder bean, int position) {
+    private View getSubOrderView(final ViewHolder holder, NurseServiceRecoderBean bean, int position) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.nurse_service_sub_order_layout, null, true);
         TextView subOrderAmonutTv = view.findViewById(R.id.service_item_amount);
@@ -145,16 +147,16 @@ public class NurseServiceRecoderAdapter extends RecyclerView.Adapter<NurseServic
         TextView serviceItemCreateTime = view.findViewById(R.id.service_item_create_time);
         TextView serviceItemCreateUser = view.findViewById(R.id.service_item_create_user);
         TextView serviceItemPayStatus = view.findViewById(R.id.service_item_pay_status);
-        ImageView subOrderDelete = view.findViewById(R.id.sub_order_delete);
-        subOrderAmonutTv.setText(bean.getFrequency() + "次");
+//        ImageView subOrderDelete = view.findViewById(R.id.sub_order_delete);
+       /* subOrderAmonutTv.setText(bean.getFrequency() + "次");
         subOrderNumber.setText(bean.getSubOrderNumber());
         subServiceItem.setText(bean.getServerProject());
         serviceItemFee.setText("¥" + String.valueOf(bean.getFee()) + "元");
         serviceItemPayStatus.setText((bean.getPay() == NurseServiceRecoderBean.ALREADY_PAY) ? "已支付" : "未支付");
         serviceItemCreateTime.setText(bean.getCreateTime());
         serviceItemCreateUser.setText(bean.getNurseName());
-        subOrderTv.setText("新增子订单" + position);
-        if (bean.getPay() == NurseServiceRecoderBean.ALREADY_PAY) {
+        subOrderTv.setText("新增子订单" + position);*/
+       /* if (bean.getPay() == NurseServiceRecoderBean.ALREADY_PAY) {
             subOrderDelete.setVisibility(View.GONE);
         } else {
             subOrderDelete.setVisibility(View.VISIBLE);
@@ -208,7 +210,7 @@ public class NurseServiceRecoderAdapter extends RecyclerView.Adapter<NurseServic
                 }).show();
 
             }
-        });
+        });*/
         return view;
     }
 }

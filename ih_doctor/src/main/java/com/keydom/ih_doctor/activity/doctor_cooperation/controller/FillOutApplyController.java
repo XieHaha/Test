@@ -17,6 +17,7 @@ import com.keydom.ih_doctor.activity.doctor_cooperation.SelectDoctorActivity;
 import com.keydom.ih_doctor.activity.doctor_cooperation.view.FillOutApplyView;
 import com.keydom.ih_doctor.activity.online_diagnose.DiagnoseOrderSelectActivity;
 import com.keydom.ih_doctor.bean.DiagnoseFillOutResBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.GroupCooperateApiService;
 import com.keydom.ih_doctor.net.MainApiService;
 import com.luck.picture.lib.PictureSelector;
@@ -41,6 +42,7 @@ import okhttp3.RequestBody;
  * 修改时间：18/11/16 上午9:09
  */
 public class FillOutApplyController extends ControllerImpl<FillOutApplyView> implements View.OnClickListener, AdapterView.OnItemClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

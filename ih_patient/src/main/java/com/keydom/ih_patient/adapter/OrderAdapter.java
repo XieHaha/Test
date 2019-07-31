@@ -36,7 +36,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.VH>  {
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
         holder.exa_name.setText(dataList.get(position).getProjectName());
-        holder.exa_detail_tv.setText(dataList.get(position).getName()+"\n"+dataList.get(position).getSubclassName()+"\n"+dataList.get(position).getAppointmentTime()+" "+dataList.get(position).getCheckTime()+" \n"+dataList.get(position).getNumber()+" \n"+dataList.get(position).getHospitalAreaName()+" \n"+dataList.get(position).getCheckSite());
+        String name="";
+        if(dataList.get(position).getName().length()>15){
+            name=dataList.get(position).getName().substring(0,5)+"..."+dataList.get(position).getName().substring(dataList.get(position).getName().length()-3,dataList.get(position).getName().length());
+        }else {
+            name=dataList.get(position).getName();
+        }
+        holder.exa_detail_tv.setText(name+"\n"+dataList.get(position).getSubclassName()+"\n"+dataList.get(position).getAppointmentTime()+" "+dataList.get(position).getCheckTime()+" \n"+dataList.get(position).getNumber()+" \n"+dataList.get(position).getHospitalAreaName()+" \n"+dataList.get(position).getCheckSite());
 
     }
 

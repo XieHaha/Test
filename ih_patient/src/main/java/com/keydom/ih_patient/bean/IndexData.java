@@ -19,6 +19,56 @@ public class IndexData {
     private List<HeaderbannerBean> headerbanner;
     @JSONField(name = "notifications")
     private List<NotificationsBean> notifications;
+    @JSONField(name = "unFinishInquiry")
+    private int unFinishInquiry;
+    @JSONField(name = "unFinishNurse")
+    private int unFinishNurse;
+    @JSONField(name = "clinic")
+    private int clinic;
+    @JSONField(name = "unFinishAdmission")
+    private int unFinishAdmission;
+    @JSONField(name = "unFinishInspect")
+    private int unFinishInspect;
+
+    public int getUnFinishInquiry() {
+        return unFinishInquiry;
+    }
+
+    public void setUnFinishInquiry(int unFinishInquiry) {
+        this.unFinishInquiry = unFinishInquiry;
+    }
+
+    public int getUnFinishNurse() {
+        return unFinishNurse;
+    }
+
+    public void setUnFinishNurse(int unFinishNurse) {
+        this.unFinishNurse = unFinishNurse;
+    }
+
+    public int getClinic() {
+        return clinic;
+    }
+
+    public void setClinic(int clinic) {
+        this.clinic = clinic;
+    }
+
+    public int getUnFinishAdmission() {
+        return unFinishAdmission;
+    }
+
+    public void setUnFinishAdmission(int unFinishAdmission) {
+        this.unFinishAdmission = unFinishAdmission;
+    }
+
+    public int getUnFinishInspect() {
+        return unFinishInspect;
+    }
+
+    public void setUnFinishInspect(int unFinishInspect) {
+        this.unFinishInspect = unFinishInspect;
+    }
 
     public List<AdvertisementBean> getAdvertisement() {
         return advertisement;

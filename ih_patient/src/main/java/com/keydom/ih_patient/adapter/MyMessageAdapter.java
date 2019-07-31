@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.keydom.ih_patient.R;
+import com.keydom.ih_patient.activity.my_message.MyMessageActivity;
 import com.keydom.ih_patient.activity.my_message.NoticeDeatailActivity;
 import com.keydom.ih_patient.activity.nursing_order.NursingOrderActivity;
 import com.keydom.ih_patient.activity.online_diagnoses_order.OnlineDiagnonsesOrderActivity;
@@ -79,12 +80,13 @@ public class MyMessageAdapter extends RecyclerView.Adapter<MyMessageAdapter.VH> 
                     if (messageBean.getType() == 0)
                         NoticeDeatailActivity.start(context, messageBean);
                     else {
+                        ((MyMessageActivity)context).getController().updateMessageState(messageBean.getId());
                         switch (messageBean.getInfoType()){
                             case "APPOINT_REGISTR":
                                 //就诊提醒
                                 RegistrationRecordActivity.start(context);
                                 break;
-                            case "APPOINT_CHECK":
+                            case "APPOINT_CHECK_NOTICE":
                                 //检查预约提醒
                                 OrderExaminationActivity.start(context);
                                 break;

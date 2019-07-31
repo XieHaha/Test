@@ -90,6 +90,21 @@ public interface CommonNurseServiceWorkingOrderDetailView extends BaseView {
      */
     void addServiceItemFailed(String errMsg);
 
+
+    /**
+     * 修改子订单成功
+     *
+     * @param msg
+     */
+    void editServiceItemSuccess(String msg);
+
+    /**
+     * 修改子订单失败
+     *
+     * @param errMsg
+     */
+    void editServiceItemFailed(String errMsg);
+
     /**
      * 获取最大添加的子项目次数
      *
@@ -105,6 +120,8 @@ public interface CommonNurseServiceWorkingOrderDetailView extends BaseView {
     List<NursingProjectInfo> getSelectSubItem();
 
     BaiduMapUtil getMapUtil();
+
+    void getSubOrderDetail(List<NursingProjectInfo> data, String subOrderNumber, int frequency);
 
 
 }

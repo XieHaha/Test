@@ -18,6 +18,7 @@ import com.keydom.ih_patient.net.NursingService;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
+import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -61,14 +62,49 @@ public class NursingApplyOrderController extends ControllerImpl<NursingApplyOrde
 
         map.put("orderNumber",getView().getOrderNum());
         map.put("totalMoney",getView().getAllFee()+"");
+
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingService.class).patientPayByOrderNumber(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(),getDisposable(),false,false) {
             @Override
             public void requestComplete(@Nullable String data) {
                 //hideLoading();
-                try {
-                    JSONObject object = new JSONObject(data);
-                    Logger.e("return_msg:"+ object.getString("return_msg"));
-                    new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
+                if(type.equals("2")){
+                    try {
+                        JSONObject object = new JSONObject(data);
+                        Logger.e("return_msg:"+ object.getString("return_msg"));
+                        new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
+                            @Override
+                            public void onSuccess() {
+                                ToastUtil.shortToast(getContext(),"支付成功");
+                                EventBus.getDefault().post(new Event(EventType.CREATE_NURSING_SUCCESS,null));
+                                new GeneralDialog(getContext(), "护理服务预约成功，近期请留意订单状态", new GeneralDialog.OnCloseListener() {
+                                    @Override
+                                    public void onCommit() {
+
+                                        MainActivity.start(getContext(),false);
+                                    }
+                                }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
+                            }
+
+                            @Override
+                            public void onDealing() {
+
+                            }
+
+                            @Override
+                            public void onError(int error_code) {
+
+                            }
+
+                            @Override
+                            public void onCancel() {
+
+                            }
+                        }).doPay();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else if(type.equals("1")){
+                    WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
                         @Override
                         public void onSuccess() {
                             ToastUtil.shortToast(getContext(),"支付成功");
@@ -83,23 +119,18 @@ public class NursingApplyOrderController extends ControllerImpl<NursingApplyOrde
                         }
 
                         @Override
-                        public void onDealing() {
-
-                        }
-
-                        @Override
                         public void onError(int error_code) {
-
+                            ToastUtil.shortToast(getContext(),"支付失败"+error_code
+                            );
                         }
 
                         @Override
                         public void onCancel() {
 
                         }
-                    }).doPay();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    });
                 }
+
 
             }
         });

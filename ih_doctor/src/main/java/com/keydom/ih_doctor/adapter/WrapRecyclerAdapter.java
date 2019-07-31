@@ -16,6 +16,7 @@ import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.ArticleListBean;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 /**
@@ -89,12 +90,26 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             if (topArticle == null) {
                 return;
             }
-
-            ((HeadViewHolder) holder).headAutorTv.setText(topArticle.getHospitalName() + ":" + topArticle.getSubmiter() + "•" + CalculateTimeUtils.CalculateTime(topArticle.getSubmitTime()));
+            String author = "";
+            String hospitalName = "";
+            if (topArticle.getSubmiter().length() > 8) {
+                author = topArticle.getSubmiter().substring(0, 2) + "..." + topArticle.getSubmiter().substring(topArticle.getSubmiter().length() - 2, topArticle.getSubmiter().length());
+            } else {
+                author = topArticle.getSubmiter();
+            }
+            if (topArticle.getHospitalName().length() > 8) {
+                hospitalName = topArticle.getHospitalName().substring(0, 5) + "..." + topArticle.getHospitalName().substring(topArticle.getHospitalName().length() - 2, topArticle.getHospitalName().length());
+            } else {
+                hospitalName = topArticle.getHospitalName();
+            }
+            ((HeadViewHolder) holder).headAutorTv.setText(hospitalName + ":" + author + "•" + CalculateTimeUtils.CalculateTime(topArticle.getSubmitTime()));
             ((HeadViewHolder) holder).headTitleTv.setText(topArticle.getTitle());
             ((HeadViewHolder) holder).headTagTv.setText("置顶");
-            GlideUtils.load(((HeadViewHolder) holder).headImgIv, Const.IMAGE_HOST + topArticle.getArticleImage(), 0, 0, false, null);
+            String[] strArray = topArticle.getArticleImage().split(",");
+            if (strArray != null)
+                GlideUtils.load(((HeadViewHolder) holder).headImgIv, Const.IMAGE_HOST + strArray[0], 0, 0, false, null);
             ((HeadViewHolder) holder).headItemRl.setOnClickListener(new View.OnClickListener() {
+                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     ArticleDetailActivity.startArticle(context, topArticle.getId(), MyApplication.userInfo.getId(), MyApplication.userInfo.getName(), MyApplication.userInfo.getAvatar(), true);

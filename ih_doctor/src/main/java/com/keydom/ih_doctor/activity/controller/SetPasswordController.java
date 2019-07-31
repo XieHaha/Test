@@ -13,6 +13,7 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.SetPasswordActivity;
 import com.keydom.ih_doctor.activity.view.SetPasswordView;
 import com.keydom.ih_doctor.bean.LoginBean;
+import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.LoginApiService;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
@@ -32,6 +33,7 @@ import static com.keydom.ih_doctor.constant.Const.PHONE_NUM;
  * 修改时间：18/11/16 上午9:09
  */
 public class SetPasswordController extends ControllerImpl<SetPasswordView> implements View.OnClickListener {
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

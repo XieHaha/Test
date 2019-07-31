@@ -247,15 +247,7 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         String checkItemStr = "";
         String doctorInstructionStr = "";
         for (CheckOutItemBean item : bean.getItems()) {
-            if ("".equals(checkItemStr)) {
-                if (item.selectedItem() != null) {
-                    checkItemStr = item.selectedItem().getName();
-                }
-            } else {
-                if (item.selectedItem() != null) {
-                    checkItemStr = checkItemStr + " " + item.selectedItem().getName();
-                }
-            }
+            checkItemStr+=assembleProjectName(item.getItems());
             if ("".equals(doctorInstructionStr)) {
                 if (item.selectedItem() != null) {
                     doctorInstructionStr = doctorInstructionStr + item.getRemark();
@@ -282,6 +274,34 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         checkItemTv.setText(checkItemStr);
         doctorInstructionTv.setText(doctorInstructionStr);
         recyclerView.setVisibility(View.GONE);
+    }
+
+    private String assembleProjectName( List<CheckOutItemBean> items){
+        String assembleNameStr="";
+        for (CheckOutItemBean item : items) {
+            if(item.isSelect()){
+                if(item.getItems()!=null&&item.getItems().size()!=0){
+                    for(CheckOutItemBean secodItem : item.getItems()){
+                        if(secodItem.isSelect()){
+                            if ("".equals(assembleNameStr)) {
+                                assembleNameStr = assembleNameStr + secodItem.getName();
+                            } else {
+                                assembleNameStr = assembleNameStr + "," + secodItem.getName();
+                            }
+                        }
+
+                    }
+                }/*else {
+                    if ("".equals(assembleNameStr)) {
+                        assembleNameStr = assembleNameStr + item.getName();
+                    } else {
+                        assembleNameStr = assembleNameStr + "," + item.getName();
+                    }
+                }*/
+            }
+        }
+
+        return assembleNameStr;
     }
 
 
