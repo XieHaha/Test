@@ -94,8 +94,9 @@ public class WaitForAdmissionActivity extends BaseControllerActivity<WaitForAdmi
             @SingleClick(1000)
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                String url = Const.IMAGE_HOST + (String) adapter.getData().get(position);
-                CommonUtils.previewImage(getContext(),url);
+                /*String url = Const.IMAGE_HOST + (String) adapter.getData().get(position);
+                CommonUtils.previewImage(getContext(),url);*/
+                CommonUtils.previewImageList(getContext(),adapter.getData(),position,true);
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

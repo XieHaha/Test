@@ -131,21 +131,24 @@ public class NewGroupChatController extends ControllerImpl<NewGroupChatView> imp
      * 创建团队
      */
     public void foundGroupChat() {
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PatientManageApiService.class).foundGroupChat(HttpService.INSTANCE.object2Body(getView().getCreateGroupMap())), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
-            @Override
-            public void requestComplete(@Nullable String data) {
-                getView().createGroupSuccess(data);
-                hideLoading();
-            }
+        if(getView().getCreateGroupMap()!=null){
+            showLoading();
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PatientManageApiService.class).foundGroupChat(HttpService.INSTANCE.object2Body(getView().getCreateGroupMap())), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
+                @Override
+                public void requestComplete(@Nullable String data) {
+                    getView().createGroupSuccess(data);
+                    hideLoading();
+                }
 
-            @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                getView().createGroupFailed(msg);
-                hideLoading();
-                return super.requestError(exception, code, msg);
-            }
-        });
+                @Override
+                public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                    getView().createGroupFailed(msg);
+                    hideLoading();
+                    return super.requestError(exception, code, msg);
+                }
+            });
+        }
+
     }
 
 
@@ -172,18 +175,21 @@ public class NewGroupChatController extends ControllerImpl<NewGroupChatView> imp
      * 修改群资料
      */
     public void updateGroupChat() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PatientManageApiService.class).updateGroupChat(HttpService.INSTANCE.object2Body(getView().getCreateGroupMap())), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
-            @Override
-            public void requestComplete(@Nullable String data) {
-                getView().createGroupSuccess(data);
-            }
+        if(getView().getCreateGroupMap()!=null){
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PatientManageApiService.class).updateGroupChat(HttpService.INSTANCE.object2Body(getView().getCreateGroupMap())), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+                @Override
+                public void requestComplete(@Nullable String data) {
+                    getView().createGroupSuccess(data);
+                }
 
-            @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                getView().createGroupFailed(msg);
-                return super.requestError(exception, code, msg);
-            }
-        });
+                @Override
+                public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                    getView().createGroupFailed(msg);
+                    return super.requestError(exception, code, msg);
+                }
+            });
+        }
+
     }
 
 }

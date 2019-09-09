@@ -25,12 +25,14 @@ public class ChooseNursingController extends ControllerImpl<ChooseNursingView> {
             @Override
             public void requestComplete(@Nullable List<ChooseNursingBean> data) {
                 hideLoading();
+                getView().getTypeSuccess(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                 hideLoading();
                 ToastUtils.showShort(msg);
+                getView().getTypeFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });

@@ -31,7 +31,9 @@ import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.net.NursingOrderService;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
+import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
+import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -129,7 +131,24 @@ public class SentListController extends ControllerImpl<SentListView> implements 
                 }
                 JSONObject js = JSONObject.parseObject(data);
                 if (type.equals("1")) {
+                    WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
+                        @Override
+                        public void onSuccess() {
+                            getView().paySuccess();
+                            ToastUtils.showShort("支付成功");
+                        }
 
+                        @Override
+                        public void onError(int error_code) {
+                            ToastUtil.shortToast(getContext(), "支付失败" + error_code
+                            );
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+                    });
                 }
                 if (type.equals("2")) {
                     if (!js.containsKey("return_msg")) {

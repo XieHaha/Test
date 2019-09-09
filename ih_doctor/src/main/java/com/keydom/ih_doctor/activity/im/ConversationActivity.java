@@ -214,7 +214,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         if (extras != null) {
             isGetStatus = extras.getBoolean(DiagnoseOrderRecyclrViewAdapter.IS_ORDER);
         }
-        getController().getInquiryStatus();
+//        getController().getInquiryStatus();
     }
 
     /**
@@ -443,8 +443,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         if (!chatting) {
             mMessageView.removePlugin(mVideoPlugin);
             mMessageView.removePlugin(mEndInquiryPlugin);
-            if (orderBean != null && orderBean.getInquisitionType() == 1)
-                mMessageView.addPlugin(mVideoPlugin);
+//            if (orderBean != null && orderBean.getInquisitionType() == 1)
+            mMessageView.addPlugin(mVideoPlugin);
             mMessageView.addPlugin(mEndInquiryPlugin);
         }
         if (!chatting) {

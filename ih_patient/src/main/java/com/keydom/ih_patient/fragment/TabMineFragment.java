@@ -213,7 +213,10 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
 
     @Override
     public void lazyLoad() {
+        hospitalListFromService.clear();
+        hospitalList.clear();
         hospitalListFromService.addAll(Global.getHospitalList());
+
         hospitalList.addAll(Global.getHospitalList());
         chooseHospitalAdapter.notifyDataSetChanged();
         selectHospitalId=App.hospitalId;
@@ -259,6 +262,16 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         if (event.getType() == EventType.UPDATECITY) {
             location_tv.setText(Global.getSelectedCityName());
             lazyLoad();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateHospitalList(Event event) {
+        if (event.getType() == EventType.UPDATELOCALHOSPITALLIST) {
+            hospitalListFromService.clear();
+            hospitalListFromService.addAll(Global.getHospitalList());
+            hospitalList.clear();
+            hospitalList.addAll(Global.getHospitalList());
         }
     }
 

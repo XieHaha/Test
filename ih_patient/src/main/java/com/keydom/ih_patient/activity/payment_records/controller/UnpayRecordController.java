@@ -60,11 +60,13 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
                 if (refreshLayout.isRefreshing()) {
                     refreshLayout.finishRefresh();
                 }
-                ToastUtils.showLong(msg);
+                if (!"token解析失败".equals(msg))
+                    ToastUtils.showLong(msg);
                 return super.requestError(exception, code, msg);
             }
         });
     }
+
     @SingleClick(1000)
     @Override
     public void onClick(View v) {
@@ -159,7 +161,7 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
                     ToastUtils.showShort("返回支付参数为空");
                     return;
                 }
-                if(type==2){
+                if (type == 2) {
                     JSONObject js = JSONObject.parseObject(data);
                     if (!js.containsKey("return_msg")) {
                         return;
@@ -186,7 +188,7 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
 //                            ToastUtils.showShort("取消支付");
                         }
                     }).doPay();
-                }else if (type == 1) {
+                } else if (type == 1) {
                     WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
                         @Override
                         public void onSuccess() {
@@ -196,7 +198,7 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
 
                         @Override
                         public void onError(int error_code) {
-                            ToastUtil.shortToast(getContext(),"支付失败"+error_code
+                            ToastUtil.shortToast(getContext(), "支付失败" + error_code
                             );
                         }
 

@@ -73,26 +73,30 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                             modelNameTemp=modelName;
                             modelTypeTemp=modelType;
                             getView().updateTemplateList(prescriptionModelBeanList);
-                            SignUtils.sign(getContext(), getView().getSaveMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
+                            getView().saveCaseModel(false);
+                            save(modelNameTemp, modelTypeTemp, "", "","2");
+                           /* SignUtils.sign(getContext(), getView().getSaveMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
                                 @Override
                                 public void signSuccess(String signature, String jobId) {
                                     getView().saveCaseModel(false);
                                     save(modelNameTemp, modelTypeTemp, signature, jobId,"2");
                                 }
-                            });
+                            });*/
                         }
                     }).show();
                 }
                 break;
             case R.id.submit:
                 if (getView().checkPrescription()) {
-                    SignUtils.sign(getContext(), getView().getSaveMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
+                    getView().saveCaseModel(false);
+                    save(modelNameTemp, modelTypeTemp, "", "","1");
+                   /* SignUtils.sign(getContext(), getView().getSaveMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
                         @Override
                         public void signSuccess(String signature, String jobId) {
                             getView().saveCaseModel(false);
                             save(modelNameTemp, modelTypeTemp, signature, jobId,"1");
                         }
-                    });
+                    });*/
                 }
 
 

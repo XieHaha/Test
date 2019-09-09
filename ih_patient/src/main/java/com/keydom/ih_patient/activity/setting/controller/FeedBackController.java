@@ -69,7 +69,7 @@ public class FeedBackController extends ControllerImpl<FeedBackView> implements 
      */
     public void feedBack() {
         showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).feedBack(HttpService.INSTANCE.object2Body(getView().getFeedBackMap())), new HttpSubscriber<String>(getContext(),getDisposable(),false,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).feedBack(HttpService.INSTANCE.object2Body(getView().getFeedBackMap())), new HttpSubscriber<String>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable String data) {
                 getView().feedBackSuccess(data);
@@ -98,7 +98,8 @@ public class FeedBackController extends ControllerImpl<FeedBackView> implements 
                 ToastUtil.shortToast(mContext, "最多只能选择九张图片");
             }
 
-        }else
-            CommonUtils.previewImage(getContext(), getView().getPicUrl(position));
+        } else
+//            CommonUtils.previewImage(getContext(), getView().getPicUrl(position));
+            CommonUtils.previewImageList(getContext(), getView().getPicList(), position,true);
     }
 }

@@ -50,7 +50,7 @@ public class SelectDialogUtils {
             Dialog loading = DialogCreator.createLoadingDialog(context, "请稍等");
             loading.setCancelable(false);
             loading.show();
-            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getRegionList(), new HttpSubscriber<List<PackageData.ProvinceBean>>() {
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getRegionList(), new HttpSubscriber<List<PackageData.ProvinceBean>>(getContext()) {
                 @Override
                 public void requestComplete(@Nullable final List<PackageData.ProvinceBean> data) {
                     List<String> options1Items = new ArrayList<>();
@@ -149,7 +149,7 @@ public class SelectDialogUtils {
      * 查询所有民族并打开选择器
      */
     public static void showNationSelectDialog(Context context, String nationName, GeneralCallback.SelectNationListener selectNationListener) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getNationList("nation"), new HttpSubscriber<List<PackageData.NationBean>>() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getNationList("nation"), new HttpSubscriber<List<PackageData.NationBean>>(getContext()) {
             @Override
             public void requestComplete(@Nullable final List<PackageData.NationBean> data) {
                 int defaultPosition = 0;

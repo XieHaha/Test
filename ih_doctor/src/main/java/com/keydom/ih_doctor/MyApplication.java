@@ -10,7 +10,6 @@ import com.blankj.utilcode.util.Utils;
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.CommonApp;
 import com.keydom.ih_common.im.ImClient;
-import com.keydom.ih_common.utils.CrashHandler;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_doctor.activity.MainActivity;
 import com.keydom.ih_doctor.bean.AccessInfoBean;
@@ -59,6 +58,7 @@ public class MyApplication extends CommonApp {
     public static List<DeptBean> deptBeanList = new ArrayList<>();
     public static List<String> deptSpannerList = new ArrayList<>();
     public static boolean isNeedInit=true;
+    public static int receiveReferral=0;
 
 
     static {
@@ -91,7 +91,7 @@ public class MyApplication extends CommonApp {
             SDKInitializer.initialize(getApplicationContext());
             SharePreferenceManager.init(this, Const.SHAREPREFERENCE_NAME);
             initData();
-            CrashHandler.getInstance().init(getApplicationContext());
+            //CrashHandler.getInstance().init(getApplicationContext());
         }
     }
 

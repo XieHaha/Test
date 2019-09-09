@@ -144,7 +144,7 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
         mType = getIntent().getIntExtra(Const.TYPE, 0);
         orderBean = (InquiryBean) getIntent().getSerializableExtra(Const.DATA);
         initView();
-        setTitle("填写转诊申请");
+        setTitle("申请");
         if (orderBean != null) {
             addOrder(orderBean);
         }
@@ -276,6 +276,12 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
                         }else {
                             ToastUtil.shortToast(getContext(),"该医生未开通视频问诊服务");
                         }
+                    }else{
+                        doctorList.clear();
+                        doctorList.addAll(list);
+                        removeView();
+                        addDoctor();
+                        selectDoctor.setText("");
                     }
 
                     break;

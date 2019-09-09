@@ -198,13 +198,13 @@ public class NursingOrderFillInController extends ControllerImpl<NursingOrderFil
     /**
      * 修改护理订单提交
      */
-    public void patientRewriteOrderAndSubmit(Map<String, Object> map){
-        if (map!=null){
-            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingService.class).patientRewriteOrderAndSubmit(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(),getDisposable(),true,true) {
+    public void patientRewriteOrderAndSubmit(Map<String, Object> map) {
+        if (map != null) {
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingService.class).patientRewriteOrderAndSubmit(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), true, true) {
                 @Override
                 public void requestComplete(@Nullable Object data) {
                     ToastUtils.showShort("修改成功");
-                    Event event = new Event(EventType.CHANGE_NURSING_SUCCESS,null);
+                    Event event = new Event(EventType.CHANGE_NURSING_SUCCESS, null);
                     EventBus.getDefault().post(event);
                     ActivityUtils.finishActivity(NursingOrderFillInActivity.class);
                 }
@@ -223,12 +223,12 @@ public class NursingOrderFillInController extends ControllerImpl<NursingOrderFil
      */
     public void commitNursingProjectOrder(Map<String, Object> map) {
         if (map != null) {
-            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingService.class).patientCreateReservationOrder(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<NursingServiceOrderInfo>(getContext(),getDisposable(),true,true) {
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingService.class).patientCreateReservationOrder(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<NursingServiceOrderInfo>(getContext(), getDisposable(), true, true) {
                 @Override
                 public void requestComplete(@Nullable NursingServiceOrderInfo data) {
                     Logger.e("请求成功");
-                    String fileName="nurseEditData"+Global.getUserId()+"_"+App.hospitalId;
-                    LocalizationUtils.deleteFileFromLocal(getContext(),fileName);
+                    String fileName = "nurseEditData" + Global.getUserId() + "_" + App.hospitalId;
+                    LocalizationUtils.deleteFileFromLocal(getContext(), fileName);
                     getView().setIsNeedSaveEdit(false);
                     EventBus.getDefault().post(new Event(EventType.CREATE_NURSING_SUCCESS, null));
                     NursingApplyOrderActivity.start(getContext(), data);
@@ -256,8 +256,9 @@ public class NursingOrderFillInController extends ControllerImpl<NursingOrderFil
                 ToastUtil.shortToast(mContext, "最多只能选择九张图片");
             }
 
-        }else
-            CommonUtils.previewImage(getContext(), getView().getPicUrl(position));
+        } else
+//            CommonUtils.previewImage(getContext(), getView().getPicUrl(position));
+            CommonUtils.previewImageList(getContext(), getView().getPicList(), position, true);
     }
 
 }

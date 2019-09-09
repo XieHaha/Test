@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.doctor_cooperation.controller.DiagnoseCommonController;
 import com.keydom.ih_doctor.activity.doctor_cooperation.view.DiagnoseCommonView;
@@ -162,6 +163,8 @@ public class DiagnoseCommonActivity extends BaseControllerActivity<DiagnoseCommo
         }
         pageLoadingSuccess();
         mList.addAll(list);
+        if(mList.size()==0)
+            MyApplication.receiveReferral=0;
         diagnoseCommonRecyclrViewAdapter.notifyDataSetChanged();
         getController().currentPagePlus();
         refreshLayout.finishRefresh();
@@ -199,6 +202,7 @@ public class DiagnoseCommonActivity extends BaseControllerActivity<DiagnoseCommo
     public void Event(MessageEvent messageEvent) {
         if (messageEvent.getType() == EventType.DIAGNOSE_ORDER_UPDATE) {
             updateList(Long.valueOf(messageEvent.getData().toString()));
+            DiagnoseCommonActivity.startDiagnoseChangeRecoder(getContext());
         }
     }
 

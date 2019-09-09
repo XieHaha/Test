@@ -532,6 +532,23 @@ public class CommonUtils {
         PictureSelector.create((Activity) context).themeStyle(R.style.picture_default_style).openExternalPreview(0, mediaList);
     }
 
+    public static void previewImageList(Context context, List<String> pathList,int position,boolean isNeedAddhead) {
+        if (pathList == null || pathList.size()==0) {
+            return;
+        }
+        List<LocalMedia> mediaList = new ArrayList<>();
+        for (int i = 0; i <pathList.size() ; i++) {
+            LocalMedia media = new LocalMedia();
+            if(isNeedAddhead)
+            media.setPath(Const.IMAGE_HOST+pathList.get(i));
+            else
+                media.setPath(pathList.get(i));
+            mediaList.add(media);
+        }
+
+        PictureSelector.create((Activity) context).themeStyle(R.style.picture_default_style).openExternalPreview(position, mediaList);
+    }
+
     public static boolean checkPassword(String password) {
 //        String pattern = "[A-Za-z0-9]{6,20}";
         String pattern = "^[a-zA-Z0-9]{6,20}$";

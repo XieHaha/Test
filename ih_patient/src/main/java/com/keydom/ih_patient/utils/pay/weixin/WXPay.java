@@ -3,6 +3,7 @@ package com.keydom.ih_patient.utils.pay.weixin;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.orhanobut.logger.Logger;
 import com.tencent.mm.opensdk.constants.Build;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -21,7 +22,7 @@ public class WXPay {
     private IWXAPI mWXApi;
     private String mPayParam;
     private WXPayResultCallBack mCallback;
-    private final String appid="wxd0fdb824282375e3";
+    private final String appid="wx21ddbc498622a67f";
 
     public static final int NO_OR_LOW_WX = 1;   //未安装微信或微信版本过低
     public static final int ERROR_PAY_PARAM = 2;  //支付参数错误
@@ -62,10 +63,8 @@ public class WXPay {
      * 发起微信支付
      */
     public void doPay(Context context,String pay_param, WXPayResultCallBack callback) {
-        init(context,appid);
         mPayParam = pay_param;
         mCallback = callback;
-
         if(!check()) {
             if(mCallback != null) {
                 mCallback.onError(NO_OR_LOW_WX);
@@ -97,15 +96,15 @@ public class WXPay {
         req.appId = param.optString("appid");
         req.partnerId = param.optString("partnerid");
         req.prepayId = param.optString("prepayid");
-        if (TextUtils.isEmpty(param.optString("package"))){
+        if (TextUtils.isEmpty(param.optString("packages"))){
             req.packageValue ="Sign=WXPay";
         }else{
-            req.packageValue = param.optString("package");
+            req.packageValue = param.optString("packages");
         }
         req.nonceStr = param.optString("noncestr");
         req.timeStamp = param.optString("timestamp");
         req.sign = param.optString("sign");
-
+        Logger.e("checkArgs=" + req.checkArgs());
         mWXApi.sendReq(req);
     }
 
@@ -123,7 +122,9 @@ public class WXPay {
             mCallback.onCancel();
         }
 
+
         mCallback = null;
+
     }
 
     //检测是否支持微信支付

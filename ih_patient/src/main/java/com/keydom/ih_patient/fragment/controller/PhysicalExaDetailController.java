@@ -39,16 +39,13 @@ public class PhysicalExaDetailController extends ControllerImpl<PhysicalExaDetai
      * 获取体检详情
      */
     public void getPhysicalExaDetail(long id){
-        showLoading();
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).findhealthCheckCheckDetai(id), new HttpSubscriber<String>(getContext(),getDisposable(),false) {
             @Override
             public void requestComplete(@Nullable String data) {
                 getView().FillPhysicalDetail(data);
-                hideLoading();
             }
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 return super.requestError(exception, code, msg);
             }
         });

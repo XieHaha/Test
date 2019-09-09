@@ -61,7 +61,7 @@ public class TrendsFragmentController extends ControllerImpl<TrendsFragmentView>
         map.put("userId", userId);
         map.put("currentPage", currentPage);
         map.put("pageSize", pageSize);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).getTrendsArticle(map), new HttpSubscriber<List<ArticleListBean>>() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).getTrendsArticle(map), new HttpSubscriber<List<ArticleListBean>>(getContext()) {
             @Override
             public void requestComplete(@Nullable List<ArticleListBean> data) {
                 hideLoading();
@@ -87,7 +87,7 @@ public class TrendsFragmentController extends ControllerImpl<TrendsFragmentView>
         HashMap<String, Object> map = new HashMap<>();
         map.put("hospitalId", hospitalId);
 //        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).getstickArticle(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<ArticleListBean>() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).getstickArticle(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<ArticleListBean>(getContext()) {
             @Override
             public void requestComplete(@Nullable ArticleListBean data) {
                 hideLoading();

@@ -2,6 +2,7 @@ package com.keydom.ih_patient.net;
 
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_patient.bean.MessageBean;
+import com.keydom.ih_patient.bean.NoticeBean;
 
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,13 @@ public interface MessageService {
      */
     @GET("/api/messageNotification/userMessageInfos")
     Observable<HttpResult<List<MessageBean>>> userMessageInfos(@QueryMap Map<String,Object> map);
+
+    /**
+     * 公告列表查询
+     * @param map
+     */
+    @GET("/user/patient/getNoticeList")
+    Observable<HttpResult<NoticeBean>> getNoticeList(@QueryMap Map<String,Object> map);
 
     /**
      * 更新消息状态

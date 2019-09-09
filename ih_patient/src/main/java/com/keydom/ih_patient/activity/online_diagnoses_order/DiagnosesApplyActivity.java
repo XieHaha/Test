@@ -370,6 +370,11 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
     }
 
     @Override
+    public List<String> getPicList() {
+        return dataList;
+    }
+
+    @Override
     public int getType() {
         return info.getIsDoctor();
     }

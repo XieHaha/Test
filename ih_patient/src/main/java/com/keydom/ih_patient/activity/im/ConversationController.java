@@ -242,7 +242,24 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                     JSONObject js = new JSONObject(data);
 
                     if (type == 1) {
+                        WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
+                            @Override
+                            public void onSuccess() {
+                                getView().paySuccess();
+                                ToastUtils.showShort("支付成功");
+                            }
 
+                            @Override
+                            public void onError(int error_code) {
+                                ToastUtil.shortToast(getContext(), "支付失败" + error_code
+                                );
+                            }
+
+                            @Override
+                            public void onCancel() {
+
+                            }
+                        });
                     }
                     if (type == 2) {
                         if (!js.has("return_msg")) {

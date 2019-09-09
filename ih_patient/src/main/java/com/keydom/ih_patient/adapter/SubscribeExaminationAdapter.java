@@ -129,8 +129,8 @@ public class SubscribeExaminationAdapter extends BaseQuickAdapter<SubscribeExami
                     stateStr = "退款中";
                 else
                     stateStr = "已退款";
-                rightStr = "";
-                leftStr = "再次购买";
+                rightStr = "再次购买";
+                leftStr = "";
                 canDelete = true;
                 break;
         }

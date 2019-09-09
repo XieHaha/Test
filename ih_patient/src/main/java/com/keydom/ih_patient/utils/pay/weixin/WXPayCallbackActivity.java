@@ -45,6 +45,7 @@ public class WXPayCallbackActivity extends Activity implements IWXAPIEventHandle
 
     @Override
     public void onResp(BaseResp baseResp) {
+
         if(baseResp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             if(WXPay.getInstance() != null) {
                 if(baseResp.errStr != null) {

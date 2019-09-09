@@ -31,6 +31,15 @@ public class CheckOutItemBean implements Serializable {
     private List<CheckOutItemBean> items;
     private BigDecimal totalFee = BigDecimal.ZERO;
     private boolean select = false;
+    private boolean isAllSelect=false;
+
+    public boolean isAllSelect() {
+        return isAllSelect;
+    }
+
+    public void setAllSelect(boolean allSelect) {
+        isAllSelect = allSelect;
+    }
 
     public String getSpecimenName() {
         return specimenName;

@@ -352,6 +352,14 @@
                         android:text="接收对症的患者"
                         android:textColor="@color/index_text_color"
                         android:textSize="@dimen/dp_11" />
+                    <View
+                        android:id="@+id/cooperate_redpoint_view"
+                        android:layout_width="@dimen/dp_8"
+                        android:layout_height="@dimen/dp_8"
+                        android:layout_marginTop="@dimen/dp_5"
+                       android:layout_toRightOf="@+id/receive_diagnose_title"
+                        android:visibility="visible"
+                        android:background="@drawable/red_point_view_bg"/>
 
                 </RelativeLayout>
 

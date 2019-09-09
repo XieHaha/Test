@@ -101,6 +101,18 @@ public class UserInfo implements Serializable {
     private String countryCode;
     @JSONField(name = "certification")
     private String certification;
+
+    @JSONField(name = "token")
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     /**
      * nationName : 汉族
      * certificationName :

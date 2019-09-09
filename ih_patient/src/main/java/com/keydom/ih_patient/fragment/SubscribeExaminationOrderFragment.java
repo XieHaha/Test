@@ -27,6 +27,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -108,13 +109,14 @@ public class SubscribeExaminationOrderFragment extends BaseControllerFragment<Su
         }
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(Event event){
         if (event.getType() == EventType.UPDATESUBSCRIBEEXAM){
-            int state = (int) event.getData();
+            switchStatus();
+            /*int state = (int) event.getData();
             if (state == mStatus){
-                switchStatus();
-            }
+
+            }*/
         }
     }
 
@@ -125,7 +127,8 @@ public class SubscribeExaminationOrderFragment extends BaseControllerFragment<Su
 
     @Override
     public void paySuccess() {
-        getActivity().finish();
+//        getActivity().finish();
+        switchStatus();
     }
 
     /**

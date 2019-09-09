@@ -1,6 +1,7 @@
 package com.keydom.ih_doctor.activity.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.ih_doctor.bean.AgreementBean;
 
 /**
  * @Name：com.keydom.ih_doctor.activity.view
@@ -45,4 +46,8 @@ public interface AgreementView extends BaseView {
     long getServiceId();
 
     int getAgreementType();
+
+    void getOfficialDispatchSuccess(AgreementBean data);
+
+    void getOfficialDispatchFailed(String errMsg);
 }

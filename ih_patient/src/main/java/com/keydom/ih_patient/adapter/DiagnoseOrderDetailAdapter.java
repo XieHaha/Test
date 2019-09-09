@@ -48,8 +48,10 @@ public class DiagnoseOrderDetailAdapter extends RecyclerView.Adapter<DiagnoseOrd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (data.get(position) != null && !"".equals(data.get(position)))
-                    CommonUtils.previewImage(context, Const.IMAGE_HOST + data.get(position));
+                CommonUtils.previewImageList(context,data,position,true);
+              /*  if (data.get(position) != null && !"".equals(data.get(position)))
+                    CommonUtils.previewImage(context, Const.IMAGE_HOST + data.get(position));*/
+
             }
         });
 

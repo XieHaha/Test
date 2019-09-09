@@ -240,6 +240,10 @@ public class NewGroupChatActivity extends BaseControllerActivity<NewGroupChatCon
 
     @Override
     public Map<String, Object> getCreateGroupMap() {
+        if(getGroupName()==null||"".equals(getGroupName())){
+            ToastUtil.shortToast(getContext(),"群名称不能为空");
+            return null;
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("groupName", getGroupName());
         map.put("avatar", iconUrl);

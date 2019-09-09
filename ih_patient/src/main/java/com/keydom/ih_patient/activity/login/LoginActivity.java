@@ -45,6 +45,7 @@ import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.utils.LocalizationUtils;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.weixin.WXInit;
+import com.orhanobut.logger.Logger;
 import com.tencent.connect.auth.QQToken;
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
@@ -52,10 +53,19 @@ import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 /**
@@ -70,7 +80,7 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
     public final static int FLAG_ALIPAY_LOGIN = 2;
 
     public final static int ALI_LOGIN = 1;
-    public final static int WX_LOGIN = 2;
+    public final static int WX_LOGIN = 4;
     public final static int QQ_LOGIN = 3;
     private boolean isLoginLocked=false;
 
@@ -119,6 +129,7 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
         findViewById(R.id.wx_login).setOnClickListener(v -> WXLogin());
         findViewById(R.id.ali_login).setOnClickListener(v -> getController().getAliAuth());
         checkPermission();
+        EventBus.getDefault().register(getContext());
     }
 
     @Override
@@ -140,6 +151,7 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
             PushManager.setAlias(getContext(), data.getId()+"");
             EventBus.getDefault().post(new Event(EventType.UPDATELOGINSTATE,null));
             App.isNeedInit=false;
+            SharePreferenceManager.setToken("User " + data.getToken());
             MainActivity.start(this,false);
         }
     }
@@ -385,11 +397,38 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
             @Override
             public void onSuccess(String userInfo) {
 
+                OkHttpClient okHttpClient = new OkHttpClient();
+                final Request request = new Request.Builder().url(userInfo).get().build();
+                Call call = okHttpClient.newCall(request);
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        String responseInfo = response.body().string();
+                        String access = null;
+                        String openId = null;
+                        try {
+                            JSONObject jsonObject = new JSONObject(responseInfo);
+                            access = jsonObject.getString("access_token");
+                            openId = jsonObject.getString("openid");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if(openId!=null){
+                            Logger.e("微信登陆成功 openid==  "+openId);
+                            EventBus.getDefault().post(new Event(EventType.WXLOGINOPENID,openId));
+                        }
+                    }
+                });
             }
 
             @Override
             public void onError(int error_code, String error_msg) {
-
+                LogUtils.e("微信登陆失败"+error_msg);
             }
 
             @Override
@@ -397,6 +436,13 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
 
             }
         });
+    }
+    @Subscribe(threadMode =ThreadMode.MAIN)
+    public void getOpenId(Event event){
+        if(event.getType()==EventType.WXLOGINOPENID){
+            String openId= (String) event.getData();
+            getController().loginTrilateral(openId,WX_LOGIN);
+        }
     }
 
     @SuppressLint("HandlerLeak")
@@ -447,5 +493,11 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
         Thread authThread = new Thread(authRunnable);
         authThread.start();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(getContext());
     }
 }

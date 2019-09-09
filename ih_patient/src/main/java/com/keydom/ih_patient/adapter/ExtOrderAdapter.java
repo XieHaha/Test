@@ -74,7 +74,7 @@ public class ExtOrderAdapter extends RecyclerView.Adapter<ExtOrderAdapter.VH>{
         map.put("checkTime",checkTime);
         map.put("applyNumber",applyNumber);
         map.put("id",id);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).inspectMakeAppointment(map), new HttpSubscriber<ExaminationInfo>() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).inspectMakeAppointment(map), new HttpSubscriber<ExaminationInfo>(context) {
             @Override
             public void requestComplete(@Nullable ExaminationInfo data) {
                 context.completeOrder(data);

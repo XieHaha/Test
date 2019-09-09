@@ -4,6 +4,10 @@ import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.im.ImClient;
+import com.keydom.ih_common.net.ApiRequest;
+import com.keydom.ih_common.net.exception.ApiException;
+import com.keydom.ih_common.net.service.HttpService;
+import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.push.PushManager;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.view.GeneralDialog;
@@ -13,7 +17,11 @@ import com.keydom.ih_doctor.activity.UpdatePasswordActivity;
 import com.keydom.ih_doctor.activity.personal.view.MyVisitingCardView;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.m_interface.SingleClick;
+import com.keydom.ih_doctor.net.UserService;
 import com.keydom.ih_doctor.utils.LocalizationUtils;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @Name：com.keydom.ih_doctor.activity.controller
@@ -41,15 +49,7 @@ public class SettingController extends ControllerImpl<MyVisitingCardView> implem
                 new GeneralDialog(mContext, "是否确认退出?", new GeneralDialog.OnCloseListener() {
                     @Override
                     public void onCommit() {
-                        PushManager.deleteAlias(getContext());
-                        SharePreferenceManager.setToken("");
-                        SharePreferenceManager.setImToken("");
-                        SharePreferenceManager.setPhoneNumber("");
-                        SharePreferenceManager.setRoleId(-1);
-                        SharePreferenceManager.setPositionId(-1);
-                        LocalizationUtils.deleteFileFromLocal(getContext(), Const.USER_INFO);
-                        ImClient.loginOut();
-                        LoginActivity.start(getContext());
+                        loginoutFromService();
                     }
                 }).show();
                 break;
@@ -57,5 +57,39 @@ public class SettingController extends ControllerImpl<MyVisitingCardView> implem
                 break;
             default:
         }
+    }
+    /**
+     * 退出登录
+     */
+    private void loginoutFromService() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).logout(), new HttpSubscriber<Object>(getContext(),getDisposable(),false,false) {
+            @Override
+            public void requestComplete(@Nullable Object data) {
+
+                PushManager.deleteAlias(getContext());
+                SharePreferenceManager.setToken("Bearer ");
+                SharePreferenceManager.setImToken("");
+                SharePreferenceManager.setPhoneNumber("");
+                SharePreferenceManager.setRoleId(-1);
+                SharePreferenceManager.setPositionId(-1);
+                LocalizationUtils.deleteFileFromLocal(getContext(), Const.USER_INFO);
+                ImClient.loginOut();
+                LoginActivity.start(getContext());
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                PushManager.deleteAlias(getContext());
+                SharePreferenceManager.setToken("Bearer ");
+                SharePreferenceManager.setImToken("");
+                SharePreferenceManager.setPhoneNumber("");
+                SharePreferenceManager.setRoleId(-1);
+                SharePreferenceManager.setPositionId(-1);
+                LocalizationUtils.deleteFileFromLocal(getContext(), Const.USER_INFO);
+                ImClient.loginOut();
+                LoginActivity.start(getContext());
+                return super.requestError(exception, code, msg);
+            }
+        });
     }
 }

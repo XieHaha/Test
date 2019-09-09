@@ -45,7 +45,8 @@ public class PaiedRecordController extends ControllerImpl<PaiedRecordView> {
                 if (refreshLayout.isRefreshing()) {
                     refreshLayout.finishRefresh();
                 }
-                ToastUtils.showLong(msg);
+                if (!"token解析失败".equals(msg))
+                    ToastUtils.showLong(msg);
                 return super.requestError(exception, code, msg);
             }
         });

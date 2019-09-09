@@ -2,6 +2,7 @@ package com.keydom.ih_patient.activity.setting.view;
 
 import com.keydom.ih_common.base.BaseView;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -56,5 +57,7 @@ public interface FeedBackView extends BaseView {
     int getImgSize();
 
     String getPicUrl(int position);
+
+    List<String> getPicList();
 
 }

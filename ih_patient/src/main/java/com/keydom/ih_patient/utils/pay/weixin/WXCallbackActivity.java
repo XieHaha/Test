@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.keydom.ih_patient.R;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
@@ -16,6 +17,8 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
  * 微信回调页
  */
 public class WXCallbackActivity extends Activity implements IWXAPIEventHandler {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

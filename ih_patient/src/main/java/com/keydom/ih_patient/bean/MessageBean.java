@@ -659,6 +659,14 @@ public class MessageBean implements Serializable {
                         + "本次器材/耗材费用: " + pay + "<br>"
                         + "<font color='#F83535'>请进入“诊间缴费”，选择对应缴费项目进行支付。</font>";
                 break;
+            case  "APPOINT_CHECK":
+                result="订单号: " + orderNum + "<br>"
+                        + "检查时间: " + dateTime + "<br>"
+                        +"就诊人对象: " + userName + "<br>"
+                        + "检查项目: " + visitProject + "<br>"
+                        + "检查时段: " + visitTime + "<br>"
+                        + "号序: " + visitNum + "<br>"
+                        + "医院: " + hospitalName + "<br>";
         }
         return result;
     }

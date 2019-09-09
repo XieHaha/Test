@@ -94,6 +94,11 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     }
 
     @Override
+    public void lazyLoad() {
+        getController().getLocationList();
+    }
+
+    @Override
     public void getView(View view) {
         mRefreshLayout = view.findViewById(R.id.examination_refresh);
         mRecyclerView = view.findViewById(R.id.examination_rv);
@@ -138,9 +143,9 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     @Override
     public void onResume() {
         super.onResume();
-        getController().getLocationList();
         mRefreshLayout.autoRefresh();
     }
+
 
     /**
      * 获取请求map

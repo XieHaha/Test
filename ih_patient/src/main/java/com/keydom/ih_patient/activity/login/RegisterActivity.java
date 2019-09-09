@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.view.ClearEditText;
 import com.keydom.ih_common.view.MButton;
 import com.keydom.ih_common.view.MRadioButton;
@@ -106,6 +107,7 @@ public class RegisterActivity extends BaseControllerActivity<RegisterController>
         App.userInfo=data;
         LocalizationUtils.fileSave2Local(getContext(),data,"userInfo");
         Global.setUserId(data.getId());
+        SharePreferenceManager.setToken("User"+data.getToken());
         EventBus.getDefault().post(new Event(EventType.UPDATELOGINSTATE,null));
         Logger.e("savedUserId=="+Global.getUserId());
         registStepSecond.setVisibility(View.GONE);

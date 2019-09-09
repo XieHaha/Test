@@ -10,19 +10,26 @@ apply plugin: 'android-aspectjx'
 
 aspectjx {
 
-    exclude 'com/alipay'
+    exclude 'com.alipay'
 
 }
 android {
 
-/*    signingConfigs {
+    signingConfigs {
+        tianfuzhilian {
+            keyAlias 'tianfuzhilian'
+            keyPassword 'tianfuzhilian'
+            storeFile file('../tianfuzhilian_keystore.jks')
+            storePassword 'tianfuzhilian'
+        }
+
         ih_key {
             keyAlias 'key0'
             keyPassword '111111'
-            storeFile file('D:/local/localTruck/ih_key')
+            storeFile file('../ih_key')
             storePassword '111111'
         }
-    }*/
+    }
     compileSdkVersion 26
     defaultConfig {
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
@@ -49,13 +56,13 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            //signingConfig signingConfigs.ih_key
+            signingConfig signingConfigs.tianfuzhilian
             debuggable true
         }
 
         debug {
             minifyEnabled false
-            //signingConfig signingConfigs.ih_key
+            signingConfig signingConfigs.tianfuzhilian
         }
 
     }

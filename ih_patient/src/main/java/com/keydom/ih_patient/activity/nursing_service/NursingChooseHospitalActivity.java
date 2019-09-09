@@ -74,7 +74,7 @@ public class NursingChooseHospitalActivity extends BaseControllerActivity<Nursin
         context.startActivity(intent);
     }
 
-    private TextView choose_location_tv, nursing_service_notice_tv, cancel_tv, nursing_order_tv, notice_tv,overlay_name;
+    private TextView choose_location_tv, nursing_service_notice_tv, cancel_tv, nursing_order_tv, notice_tv,overlay_name,service_label;
     private MapView nursing_service_mv;
     private BaiduMap mMap;
     private CheckBox nursing_service_notice_ck;
@@ -101,6 +101,14 @@ public class NursingChooseHospitalActivity extends BaseControllerActivity<Nursin
         notice_tv = findViewById(R.id.notice_tv);
         overlay_name=findViewById(R.id.overlay_name);
         choose_location_tv.setOnClickListener(getController());
+        service_label=findViewById(R.id.service_label);
+        service_label.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonDocumentActivity.start(getContext(),CommonDocumentBean.CODE_13);
+
+            }
+        });
         nursing_service_notice_tv = findViewById(R.id.nursing_service_notice_tv);
         nursing_service_notice_tv.setOnClickListener(new View.OnClickListener() {
             @Override

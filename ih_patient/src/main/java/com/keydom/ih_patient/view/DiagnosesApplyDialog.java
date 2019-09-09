@@ -23,7 +23,7 @@ public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener
     public static final String PHOTODIAGNOSES = "photo_diagnoses";
     public static final String VIDEODIAGNOSES = "video_diagnoses";
     private Context context;
-    private TextView applu_fee_tv,discount_tv;
+    private TextView applu_fee_tv,discount_tv,service_label;
     private TextView doctor_name_tv;
     private TextView apply_type_tv;
     private TextView wait_num_tv;
@@ -95,6 +95,14 @@ public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener
             public void onClick(View v) {
                 //AgreementActivity.startOnLineDiagnoseAgreement(context);
                 CommonDocumentActivity.start(getContext(),CommonDocumentBean.CODE_1);
+            }
+        });
+        service_label=findViewById(R.id.service_label);
+        service_label.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonDocumentActivity.start(getContext(),CommonDocumentBean.CODE_14);
+
             }
         });
         canncel_apply_tv = findViewById(R.id.canncel_apply_tv);

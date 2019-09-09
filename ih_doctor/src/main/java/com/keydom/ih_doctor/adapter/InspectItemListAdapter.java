@@ -94,7 +94,6 @@ public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutItemBean, B
             }
         });
         inspactItemName.setOnClickListener(new View.OnClickListener() {
-            @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 Drawable rightImg, leftImg;

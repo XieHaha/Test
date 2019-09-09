@@ -88,16 +88,18 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
     private RefreshLayout refreshLayout;
     private RecyclerView work_function_rv;
     private WorkFunctionAdapter workFunctionAdapter;
+    private View receive_redpoint_view, cooperate_redpoint_view;
 
     private int auditNoPass = 0;
     private int noAudit = 0;
     private int receiveNurse = 0;
     private int receiveInquiry = 0;
-    private int visitNurse=0;
+    private int visitNurse = 0;
+    private int receiveReferral = 0;
 
-    private int RvWidth=0;
-    private int space=0;
-    private int itemWidth=0;
+    private int RvWidth = 0;
+    private int space = 0;
+    private int itemWidth = 0;
 
 
     @Override
@@ -107,7 +109,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
 
     @Override
     public void getHomeDataSuccess(HomeBean bean) {
-        getController().getHomeCountMsg();
+//        getController().getHomeCountMsg();
         if (refreshLayout.isRefreshing()) {
             refreshLayout.finishRefresh();
         }
@@ -121,7 +123,13 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         noAudit = homeBean.getNoAudit();
         receiveNurse = homeBean.getReceiveNurse();
         receiveInquiry = homeBean.getReceiveInquiry();
-        visitNurse=homeBean.getVisitNurse();
+        visitNurse = homeBean.getVisitNurse();
+        receiveReferral=homeBean.getReceiveReferral();
+        MyApplication.receiveReferral=receiveReferral;
+        if(receiveReferral>0)
+            cooperate_redpoint_view.setVisibility(View.VISIBLE);
+        else
+            cooperate_redpoint_view.setVisibility(View.GONE);
         MyApplication.userInfo = bean.getInfo();
         PushManager.setAlias(getContext(), (String) SharePreferenceManager.getPhoneNumber());
         MyApplication.accessInfoBean = bean.getAuth();
@@ -173,7 +181,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
                     dataList.get(i).setRedPointShow(false);
                 }
             }
-            if("上门护理".equals(dataList.get(i).getName())){
+            if ("上门护理".equals(dataList.get(i).getName())) {
                 if (visitNurse > 0) {
                     dataList.get(i).setRedPointShow(true);
                 } else {
@@ -182,6 +190,24 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
             }
         }
         workFunctionAdapter.setNewData(dataList);
+
+        if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
+            if (receiveNurse > 0 || visitNurse > 0)
+                receive_redpoint_view.setVisibility(View.VISIBLE);
+            else
+                receive_redpoint_view.setVisibility(View.GONE);
+        } else if (SharePreferenceManager.getRoleId() == Const.ROLE_MEDICINE) {
+            if (receiveInquiry > 0)
+                receive_redpoint_view.setVisibility(View.VISIBLE);
+            else
+                receive_redpoint_view.setVisibility(View.GONE);
+
+        } else {
+            if (receiveInquiry > 0)
+                receive_redpoint_view.setVisibility(View.VISIBLE);
+            else
+                receive_redpoint_view.setVisibility(View.GONE);
+        }
      /*   workFunctionRecyclerView.setPageMargin(0);
         workFunctionRecyclerView.setPageSize(1, 4);
         workFunctionRecyclerView.setIndicator(indicatorView);*/
@@ -302,16 +328,18 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
     @Override
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
+        receive_redpoint_view = getView().findViewById(R.id.receive_redpoint_view);
+        cooperate_redpoint_view = getView().findViewById(R.id.cooperate_redpoint_view);
         indicatorView = (PageIndicatorView) getView().findViewById(R.id.indicator);
         iconCircleImageView = (ImageView) getView().findViewById(R.id.user_icon);
-        work_function_rv=getView().findViewById(R.id.work_function_rv);
-        RvWidth=getRvWidth();
-        space=dip2px(getContext(),34);
-        itemWidth=(RvWidth-space*3)/4;
+        work_function_rv = getView().findViewById(R.id.work_function_rv);
+        RvWidth = getRvWidth();
+        space = dip2px(getContext(), 34);
+        itemWidth = (RvWidth - space * 3) / 4;
         work_function_rv.addItemDecoration(new SpacesItemDecoration(space));
-        LinearLayoutManager layoutManager=new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         work_function_rv.setLayoutManager(layoutManager);
-        workFunctionAdapter=new WorkFunctionAdapter(getContext(),dataList,itemWidth);
+        workFunctionAdapter = new WorkFunctionAdapter(getContext(), dataList, itemWidth);
         workFunctionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @SingleClick(1000)
             @Override
@@ -322,14 +350,14 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
                         break;
                     case "处方审核":
                         if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE, ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE})) {
-                            PrescriptionCheckActivity.start(getContext(),ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE);
+                            PrescriptionCheckActivity.start(getContext(), ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE);
                         } else {
                             getController().showNotAccessDialog();
                         }
                         break;
                     case "处方查询":
                         if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE, ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE})) {
-                            PrescriptionCheckActivity.start(getContext(),ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE);
+                            PrescriptionCheckActivity.start(getContext(), ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE);
                         } else {
                             getController().showNotAccessDialog();
                         }
@@ -338,7 +366,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
                         NotificationListActivity.start(getContext());
                         break;
                     case "医生协作":
-                        if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_COOPERATE_SERVICE_CODE_Z,ServiceConst.DOCTOR_COOPERATE_SERVICE_CODE_H, ServiceConst.NURSE_COOPERATE_SERVICE_CODE, ServiceConst.MEDICINE_COOPERATE_SERVICE_CODE})) {
+                        if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_COOPERATE_SERVICE_CODE_Z, ServiceConst.DOCTOR_COOPERATE_SERVICE_CODE_H, ServiceConst.NURSE_COOPERATE_SERVICE_CODE, ServiceConst.MEDICINE_COOPERATE_SERVICE_CODE})) {
                             DoctorCooperationActivity.start(getContext());
                         } else {
                             getController().showNotAccessDialog();
@@ -360,14 +388,14 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
                         }
                         break;
                     case "在线接诊":
-                        if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_ONLINE_DIAGNOSE_SERVICE_IMG_CODE,ServiceConst.DOCTOR_ONLINE_DIAGNOSE_SERVICE_VIDEO_CODE,ServiceConst.NURSE_IMG_CONSULT_SERVICE_CODE,ServiceConst.NURSE_VIDEO_CONSULT_SERVICE_CODE,ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_IMG,ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_VIDEO})) {
+                        if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_ONLINE_DIAGNOSE_SERVICE_IMG_CODE, ServiceConst.DOCTOR_ONLINE_DIAGNOSE_SERVICE_VIDEO_CODE, ServiceConst.NURSE_IMG_CONSULT_SERVICE_CODE, ServiceConst.NURSE_VIDEO_CONSULT_SERVICE_CODE, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_IMG, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_VIDEO})) {
                             DiagnoseOrderListActivity.startDiagnose(getContext());
                         } else {
                             getController().showNotAccessDialog();
                         }
                         break;
                     case "在线咨询":
-                        if (MyApplication.serviceEnable(new String[]{ServiceConst.NURSE_IMG_CONSULT_SERVICE_CODE,ServiceConst.NURSE_VIDEO_CONSULT_SERVICE_CODE, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_IMG,ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_VIDEO})) {
+                        if (MyApplication.serviceEnable(new String[]{ServiceConst.NURSE_IMG_CONSULT_SERVICE_CODE, ServiceConst.NURSE_VIDEO_CONSULT_SERVICE_CODE, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_IMG, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_VIDEO})) {
                             DiagnoseOrderListActivity.startConsult(getContext());
                         } else {
                             getController().showNotAccessDialog();
@@ -416,10 +444,23 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         });
         if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
             receiveOnlineName.setText("护理服务");
+            if (receiveNurse > 0 || visitNurse > 0)
+                receive_redpoint_view.setVisibility(View.VISIBLE);
+            else
+                receive_redpoint_view.setVisibility(View.GONE);
         } else if (SharePreferenceManager.getRoleId() == Const.ROLE_MEDICINE) {
             receiveOnlineName.setText("在线咨询");
+            if (receiveInquiry > 0)
+                receive_redpoint_view.setVisibility(View.VISIBLE);
+            else
+                receive_redpoint_view.setVisibility(View.GONE);
+
         } else {
             receiveOnlineName.setText("在线接诊");
+            if (receiveInquiry > 0)
+                receive_redpoint_view.setVisibility(View.VISIBLE);
+            else
+                receive_redpoint_view.setVisibility(View.GONE);
         }
         setReloadListener(new LoadDataLayout.OnReloadListener() {
             @Override
@@ -440,7 +481,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
     @Override
     public void lazyLoad() {
         pageLoading();
-        getController().getHome();
+//        getController().getHome();
     }
 
     @Override
@@ -485,7 +526,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         }
     }
 
-    private int getRvWidth(){
+    private int getRvWidth() {
         int w = View.MeasureSpec.makeMeasureSpec(0,
                 View.MeasureSpec.UNSPECIFIED);
         int h = View.MeasureSpec.makeMeasureSpec(0,
@@ -497,16 +538,15 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
 
     /**
      * 将dp转换成px
+     *
      * @param context
      * @param dpValue
      * @return
      */
-    public static int dip2px(Context context, float dpValue){
-        final float scale = context.getResources ().getDisplayMetrics ().density;
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
-
-
 
 
 }

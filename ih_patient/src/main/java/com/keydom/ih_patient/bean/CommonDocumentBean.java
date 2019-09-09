@@ -17,6 +17,9 @@ public class CommonDocumentBean {
     public static final String CODE_8 = "008";//注册用户协议
     public static final String CODE_9 = "009";//支付用户协议
     public static final String CODE_10 = "010";//在线问诊服务介绍
+    public static final String CODE_13 = "013";//护理服务保险条款
+    public static final String CODE_14 = "014";//在线问诊保险条款
+
     @JSONField(name = "linkUrl")
     private String url;
     @JSONField(name = "name")

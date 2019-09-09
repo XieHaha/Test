@@ -13,6 +13,7 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.view.CircleImageView;
+import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.doctor_cooperation.controller.DoctorCooperationController;
 import com.keydom.ih_doctor.activity.doctor_cooperation.view.DoctorCooperationView;
@@ -50,6 +51,7 @@ public class DoctorCooperationActivity extends BaseControllerActivity<DoctorCoop
     private TextView groupCut, changeDiagnoseRecoder, groupDiagnoseRecoder, doctorCoopreationName, doctorCoopreationDec, noGroupCreate;
     private ImageView groupEdit;
     private CircleImageView doctorCoopreationIcon;
+    private View cooperate_redpoint_view;
     /**
      * 团队列表
      */
@@ -74,6 +76,7 @@ public class DoctorCooperationActivity extends BaseControllerActivity<DoctorCoop
     }
 
     private void initView() {
+        cooperate_redpoint_view=this.findViewById(R.id.cooperate_redpoint_view);
         noGroupRl = this.findViewById(R.id.no_group_rl);
         groupRl = this.findViewById(R.id.doctor_coopreation_info_rl);
         groupExchangeRl = this.findViewById(R.id.group_exchange_rl);
@@ -103,6 +106,19 @@ public class DoctorCooperationActivity extends BaseControllerActivity<DoctorCoop
         groupDiagnoseRecoder.setOnClickListener(getController());
         noGroupCreate.setOnClickListener(getController());
         groupEdit.setOnClickListener(getController());
+        if(MyApplication.receiveReferral>0)
+            cooperate_redpoint_view.setVisibility(View.VISIBLE);
+        else
+            cooperate_redpoint_view.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(MyApplication.receiveReferral>0)
+            cooperate_redpoint_view.setVisibility(View.VISIBLE);
+        else
+            cooperate_redpoint_view.setVisibility(View.GONE);
     }
 
     @Override

@@ -273,6 +273,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/index_footer"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_36"
                 android:background="@color/primary_bg_color"
@@ -282,6 +283,9 @@
                 android:textSize="@dimen/dp_12" />
          </LinearLayout>
       </ScrollView>
+      <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"></com.scwang.smartrefresh.layout.footer.ClassicsFooter>
    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 

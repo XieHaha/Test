@@ -115,10 +115,11 @@ public class WelcomeActivity extends AppCompatActivity {
                                     ImPreferences.saveUserAccount(data.getUserCode());
                                     ImPreferences.saveUserToken(data.getImToken());
                                     MyApplication.userInfo = new UserInfo();
-                                    SharePreferenceManager.setToken(data.getToken());
+                                    SharePreferenceManager.setToken("Bearer " + data.getToken());
                                     SharePreferenceManager.setImToken(data.getImToken());
                                     SharePreferenceManager.setUserCode(data.getUserCode());
                                     SharePreferenceManager.setPhoneNumber(data.getPhoneNumber());
+                                    SharePreferenceManager.setHospitalId(data.getHospitalId());
                                     if (data.getRoleIds() != null && data.getRoleIds().size() > 0) {
                                         SharePreferenceManager.setRoleId(data.getRoleIds().get(0));
                                         SharePreferenceManager.setPositionId(data.getNurseMonitorState());

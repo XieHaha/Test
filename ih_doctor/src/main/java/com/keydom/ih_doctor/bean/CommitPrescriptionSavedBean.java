@@ -53,6 +53,30 @@ public class CommitPrescriptionSavedBean {
         private String doctorAdvice;
         private long id;
         private String packUnit;
+        /**
+         * 最大用药天数
+         */
+        private int maximumMedicationDays;
+        /**
+         * 最大门诊用量
+         */
+        private float singleMaximum;
+
+        public int getMaximumMedicationDays() {
+            return maximumMedicationDays;
+        }
+
+        public void setMaximumMedicationDays(int maximumMedicationDays) {
+            this.maximumMedicationDays = maximumMedicationDays;
+        }
+
+        public float getSingleMaximum() {
+            return singleMaximum;
+        }
+
+        public void setSingleMaximum(float singleMaximum) {
+            this.singleMaximum = singleMaximum;
+        }
 
         public String getPackUnit() {
             return packUnit;

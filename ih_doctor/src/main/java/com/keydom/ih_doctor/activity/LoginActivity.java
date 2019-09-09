@@ -87,10 +87,11 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
         MyApplication.userInfo = new UserInfo();
         SharePreferenceManager.setUserId(userIdEt.getText().toString());
         SharePreferenceManager.setUserPwd(userPwdEt.getText().toString());
-        SharePreferenceManager.setToken(info.getToken());
+        SharePreferenceManager.setToken("Bearer " + info.getToken());
         SharePreferenceManager.setImToken(info.getImToken());
         SharePreferenceManager.setUserCode(info.getUserCode());
         SharePreferenceManager.setPhoneNumber(info.getPhoneNumber());
+        SharePreferenceManager.setHospitalId(info.getHospitalId());
         if (info.getRoleIds() != null && info.getRoleIds().size() > 0) {
 //            if (info.getRoleIds().size() == 1) {
             SharePreferenceManager.setRoleId(info.getRoleIds().get(0));

@@ -91,7 +91,7 @@
                 android:layout_marginRight="@dimen/dp_30"
                 android:layout_marginLeft="@dimen/dp_30"
                 android:gravity="center_horizontal"
-                android:text="平台免费为患者提供医责险，最高赔付20万元保险条款。"
+                android:text="已为您购买医疗责任险，最高赔付20万元 《保险条款》"
                 android:textColor="#FF3939"
                 android:textSize="@dimen/dp_12" />
 

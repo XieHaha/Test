@@ -32,34 +32,38 @@ import java.util.Map;
 public class NurseChildRecordAdapter extends BaseQuickAdapter<NurseSubOrderBean, BaseViewHolder> {
     private Context context;
     private TypeEnum mType;
+
     public NurseChildRecordAdapter(Context context, @Nullable List<NurseSubOrderBean> data, TypeEnum type) {
         super(R.layout.nurse_service_sub_order_layout, data);
-        this.context=context;
-        mType=type;
+        this.context = context;
+        mType = type;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, NurseSubOrderBean item) {
         helper
-                .setText(R.id.service_item_amount ,item.getFrequency() + "次")
-                .setText(R.id.sub_order_number,item.getSubOrderNumber())
-                .setText(R.id.sub_service_item,item.getServerProject())
-                .setText(R.id.service_item_fee,"¥" + String.valueOf(item.getFee()) + "元")
-                .setText(R.id.sub_order_tv,"子订单(" + CommonUtils.numberToChinese(helper.getPosition()+1)+")")
-                .setText(R.id.service_item_create_time,item.getCreateTime())
-                .setText(R.id.service_item_create_user,item.getNurseName())
-                .setText(R.id.service_item_pay_status,item.getPay() == NurseServiceRecoderBean.ALREADY_PAY ? "已支付" : "未支付");
-        TextView subOrderDelete=helper.getView(R.id.child_record_delete_tv);
-        if(mType == TypeEnum.COMMON_NURSE_FRAGMENT_FINISH_ORDER){
+                .setText(R.id.service_item_amount, item.getFrequency() + "次")
+                .setText(R.id.sub_order_number, item.getSubOrderNumber())
+                .setText(R.id.sub_service_item, item.getServerProject())
+                .setText(R.id.service_item_fee, "¥" + String.valueOf(item.getFee()) + "元")
+                .setText(R.id.sub_order_tv, "子订单(" + CommonUtils.numberToChinese(helper.getPosition() + 1) + ")")
+                .setText(R.id.service_item_create_time, item.getCreateTime())
+                .setText(R.id.service_item_create_user, item.getNurseName())
+                .setText(R.id.service_item_pay_status, item.getPay() == NurseServiceRecoderBean.ALREADY_PAY ? "已支付" : "未支付");
+        TextView subOrderDelete = helper.getView(R.id.child_record_delete_tv);
+        if (mType == TypeEnum.COMMON_NURSE_FRAGMENT_FINISH_ORDER) {
             subOrderDelete.setVisibility(View.GONE);
-        }else {
-            subOrderDelete.setVisibility(View.VISIBLE);
+        } else {
+            if (item.getPay() == NurseServiceRecoderBean.ALREADY_PAY)
+                subOrderDelete.setVisibility(View.GONE);
+            else
+                subOrderDelete.setVisibility(View.VISIBLE);
             subOrderDelete.setOnClickListener(new View.OnClickListener() {
                 @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     if (item.getPay() == NurseServiceRecoderBean.ALREADY_PAY) {
-                        ToastUtil.shortToast(context,"订单已支付，不能删除");
+                        ToastUtil.shortToast(context, "订单已支付，不能删除");
                     } else {
                         new GeneralDialog(context, "是否删除子订单?", new GeneralDialog.OnCloseListener() {
                             @Override
@@ -109,20 +113,23 @@ public class NurseChildRecordAdapter extends BaseQuickAdapter<NurseSubOrderBean,
             });
         }
 
-        TextView subOrderUpdate=helper.getView(R.id.child_record_update_tv);
-        if(mType == TypeEnum.COMMON_NURSE_FRAGMENT_FINISH_ORDER){
+        TextView subOrderUpdate = helper.getView(R.id.child_record_update_tv);
+        if (mType == TypeEnum.COMMON_NURSE_FRAGMENT_FINISH_ORDER) {
             subOrderUpdate.setVisibility(View.GONE);
-        }else{
-            subOrderUpdate.setVisibility(View.VISIBLE);
+        } else {
+            if (item.getPay() == NurseServiceRecoderBean.ALREADY_PAY)
+            subOrderUpdate.setVisibility(View.GONE);
+            else
+                subOrderUpdate.setVisibility(View.VISIBLE);
             subOrderUpdate.setOnClickListener(new View.OnClickListener() {
                 @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
                     if (item.getPay() == NurseServiceRecoderBean.ALREADY_PAY) {
-                        ToastUtil.shortToast(context,"订单已支付，不能修改");
+                        ToastUtil.shortToast(context, "订单已支付，不能修改");
                     } else {
                         if (context instanceof CommonNurseServiceWorkingOrderDetailActivity) {
-                            ((CommonNurseServiceWorkingOrderDetailActivity) context).getController().getSubOrderProjectsBySubOrderNumber(item.getSubOrderNumber(),item.getFrequency());
+                            ((CommonNurseServiceWorkingOrderDetailActivity) context).getController().getSubOrderProjectsBySubOrderNumber(item.getSubOrderNumber(), item.getFrequency());
                         } else if (context instanceof CommonNurseServiceOrderDetailActivity) {
                             //((CommonNurseServiceOrderDetailActivity) context).getController().;
                         }

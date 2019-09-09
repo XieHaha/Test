@@ -1,6 +1,7 @@
 package com.keydom.ih_patient.net;
 
 import com.keydom.ih_common.net.result.HttpResult;
+import com.keydom.ih_patient.bean.HealthKnowledgeBean;
 import com.keydom.ih_patient.bean.IndexData;
 import com.keydom.ih_patient.bean.IndexFunction;
 
@@ -21,6 +22,12 @@ public interface IndexService {
      */
     @GET("user/patient/homePage")
     Observable<HttpResult<IndexData>> initIndexData(@QueryMap Map<String, Object> body);
+
+    /**
+     * 主页获取健康知识
+     */
+    @GET("user/patient/getHealthKnowledgeLimit")
+    Observable<HttpResult<HealthKnowledgeBean>> getHealthKnowledgeLimit(@QueryMap Map<String, Object> body);
 
     /**
      * 根据用户获取菜单接口

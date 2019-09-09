@@ -16,7 +16,6 @@ import com.keydom.ih_patient.activity.common_document.view.CommonDocumentView;
 import com.keydom.ih_patient.bean.CommonDocumentBean;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
-import com.zzhoujay.richtext.ImageHolder;
 import com.zzhoujay.richtext.RichText;
 
 import org.jetbrains.annotations.Nullable;
@@ -74,6 +73,11 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
                 break;
             case CommonDocumentBean.CODE_10:
                 setTitle("服务介绍");
+                break;
+            case  CommonDocumentBean.CODE_13:
+                setTitle("保险条款用户协议");
+            case CommonDocumentBean.CODE_14:
+                setTitle("保险条款用户协议");
                 break;
         }
         getController().getOfficialDispatchAllMsgByCode(code);

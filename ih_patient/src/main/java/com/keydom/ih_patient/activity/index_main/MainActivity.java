@@ -45,6 +45,7 @@ import com.keydom.ih_patient.activity.my_message.MyMessageActivity;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.UserIndexSave;
 import com.keydom.ih_patient.bean.UserInfo;
+import com.keydom.ih_patient.broadcast.InterceptorReceiver;
 import com.keydom.ih_patient.broadcast.NetWorkBroadCast;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
@@ -111,6 +112,9 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
         NetWorkBroadCast netWorkBroadCast = new NetWorkBroadCast();
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(netWorkBroadCast, intentFilter);
+        /*InterceptorReceiver interceptorReceiver=new InterceptorReceiver();
+        IntentFilter intentFilter1=new IntentFilter("common.action.interceptor");
+        registerReceiver(interceptorReceiver, intentFilter1);*/
         isNeedJump=getIntent().getBooleanExtra("isNeedJump",false);
         initLoginStatus();
         EventBus.getDefault().register(this);
@@ -173,10 +177,13 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
         UserInfo userInfo = (UserInfo) LocalizationUtils.readFileFromLocal(this, "userInfo");
         if (userInfo != null) {
             Logger.e("取到本地数据,用户ID为" + userInfo.getId());
-
+            SharePreferenceManager.setToken("User " + userInfo.getToken());
             ImClient.loginIM(userInfo.getId() + "", userInfo.getImToken(), new OnLoginListener() {
                 @Override
                 public void success(String msg) {
+
+
+
                     ImClient.getUserInfoProvider().setAccount(userInfo.getId() + "");
                     NimUserInfoCache.getInstance().buildCache();
                     TeamDataCache.getInstance().buildCache();

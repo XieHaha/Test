@@ -21,6 +21,7 @@ import com.keydom.ih_patient.activity.order_hospital_cure.OrderHospitalCureListA
 import com.keydom.ih_patient.activity.payment_records.PaymentRecordActivity;
 import com.keydom.ih_patient.bean.IndexData;
 import com.keydom.ih_patient.bean.MessageBean;
+import com.keydom.ih_patient.bean.NoticeBean;
 
 import java.util.List;
 
@@ -48,8 +49,8 @@ public class MyMessageAdapter extends RecyclerView.Adapter<MyMessageAdapter.VH> 
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-        if (dataList.get(position) instanceof IndexData.NotificationsBean) {
-            IndexData.NotificationsBean notificationsBean = (IndexData.NotificationsBean) dataList.get(position);
+        if (dataList.get(position) instanceof NoticeBean.Notice) {
+            NoticeBean.Notice notificationsBean = (NoticeBean.Notice) dataList.get(position);
             holder.massage_icon_img.setImageResource(R.mipmap.my_message_notification_icon);
             holder.message_type_tv.setText("医院通知");
             holder.message_title_tv.setText(notificationsBean.getTitle());
@@ -87,6 +88,11 @@ public class MyMessageAdapter extends RecyclerView.Adapter<MyMessageAdapter.VH> 
                                 RegistrationRecordActivity.start(context);
                                 break;
                             case "APPOINT_CHECK_NOTICE":
+                                //检查预约提醒
+                                OrderExaminationActivity.start(context);
+                                break;
+
+                            case "APPOINT_CHECK":
                                 //检查预约提醒
                                 OrderExaminationActivity.start(context);
                                 break;

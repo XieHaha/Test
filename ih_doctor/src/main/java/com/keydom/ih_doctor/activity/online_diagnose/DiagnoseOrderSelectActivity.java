@@ -73,7 +73,7 @@ public class DiagnoseOrderSelectActivity extends BaseControllerActivity<Diagnose
         articleListRv = (RecyclerView) this.findViewById(R.id.article_list_rv);
         refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
         doctorType = getIntent().getIntExtra("doctorType", 3);
-        diagnoseOrderSelectRecyclrViewAdapter = new DiagnoseOrderSelectRecyclrViewAdapter(this, mlist);
+        diagnoseOrderSelectRecyclrViewAdapter = new DiagnoseOrderSelectRecyclrViewAdapter(this, mlist,doctorType);
         articleListRv.setAdapter(diagnoseOrderSelectRecyclrViewAdapter);
         articleListRv.setLayoutManager(new LinearLayoutManager(this));
         articleListRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));

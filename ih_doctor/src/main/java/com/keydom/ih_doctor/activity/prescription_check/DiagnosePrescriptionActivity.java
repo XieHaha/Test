@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
@@ -101,6 +102,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     private CardView addMedicine;
     private RecyclerView recyclerView;
     private RelativeLayout rediagnoseRl;
+    private ScrollView mScroller;
     /**
      * 问诊单ID
      */
@@ -168,6 +170,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
      * 初始化界面
      */
     private void initView() {
+        mScroller=this.findViewById(R.id.mScroller);
         reDiagnoseRb = (MRadioButton) this.findViewById(R.id.re_diagnose_rb);
         rediagnoseRl = (RelativeLayout) this.findViewById(R.id.rediagnose_rl);
         recyclerView = (RecyclerView) this.findViewById(R.id.prescription_rv);
@@ -548,6 +551,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                 drugSavedBean.setDoctorAdvice(saveData.get(i).get(j).getDoctorAdvice());
                 drugSavedBean.setId(saveData.get(i).get(j).getId());
                 drugSavedBean.setPackUnit(saveData.get(i).get(j).getPackUnit());
+                drugSavedBean.setSingleMaximum(saveData.get(i).get(j).getSingleMaximum());
+                drugSavedBean.setMaximumMedicationDays(saveData.get(i).get(j).getMaximumMedicationDays());
                 items.add(drugSavedBean);
             }
             commitPrescriptionSavedBean.setItems(items);
@@ -666,7 +671,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
     @Override
     public boolean checkPrescription() {
-        if (StringUtils.isEmpty(simpleDiagnose.getInputStr()) || StringUtils.isEmpty(oversensitiveHistory.getInputStr()) || StringUtils.isEmpty(mainDec.getInputStr()) || StringUtils.isEmpty(checkRes.getInputStr()) || StringUtils.isEmpty(dealIdea.getInputStr()) || StringUtils.isEmpty(medicalHistory.getInputStr())) {
+        if (StringUtils.isEmpty(simpleDiagnose.getInputStr()) || StringUtils.isEmpty(mainDec.getInputStr())) {
             ToastUtil.shortToast(getContext(), "请完善诊断信息！");
             return false;
         }
@@ -789,6 +794,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     public void creatPrescription() {
         saveData.add(new ArrayList<>());
         prescriptionAdapter.setNewData(packagingData(saveData));
+        mScroller.fullScroll(ScrollView.FOCUS_DOWN);
         isHavePrescription = true;
     }
 

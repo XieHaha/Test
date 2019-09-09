@@ -49,6 +49,15 @@ public class HomeBean implements Serializable {
     private int receiveNurse;
     private int receiveInquiry;
     private int visitNurse;
+    private int receiveReferral;
+
+    public int getReceiveReferral() {
+        return receiveReferral;
+    }
+
+    public void setReceiveReferral(int receiveReferral) {
+        this.receiveReferral = receiveReferral;
+    }
 
     public int getAuditNoPass() {
         return auditNoPass;

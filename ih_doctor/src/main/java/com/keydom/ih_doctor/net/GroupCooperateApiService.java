@@ -89,6 +89,15 @@ public interface GroupCooperateApiService {
     @GET("user/hospitalDept/queryDoctorTeamAllUser")
     Observable<HttpResult<List<DeptDoctorBean>>> ihGroupQueryDoctorTeamAllUser(@QueryMap Map<String, Object> maps);
 
+    /**
+     * 查询用户医生团队下所有医生
+     *
+     * @param maps
+     * @return
+     */
+    @GET("user/hospitalDept/queryDoctorTeamAllUserAuthorization")
+    Observable<HttpResult<List<DeptDoctorBean>>> queryDoctorTeamAllUserAuthorization(@QueryMap Map<String, Object> maps);
+
 
 //*****************************************
 

@@ -37,24 +37,26 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.check_yes:
-                SignUtils.sign(getContext(), getView().getAuditMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
+                getView().auditPass("", "");
+               /* SignUtils.sign(getContext(), getView().getAuditMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
                     @Override
                     public void signSuccess(String signature, String jobId) {
                         getView().auditPass(signature, jobId);
                     }
-                });
+                });*/
 
                 break;
             case R.id.check_no:
                 DialogUtils.createCheckDialog(getContext(), new OnCheckDialogListener() {
                     @Override
                     public void commit(View v, String value) {
-                        SignUtils.sign(getContext(), getView().getAuditMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
+                        getView().auditReturn(value, "", "");
+                        /*SignUtils.sign(getContext(), getView().getAuditMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
                             @Override
                             public void signSuccess(String signature, String jobId) {
                                 getView().auditReturn(value, signature, jobId);
                             }
-                        });
+                        });*/
 
                     }
                 }).show();

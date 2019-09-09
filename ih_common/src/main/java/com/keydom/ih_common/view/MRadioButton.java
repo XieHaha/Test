@@ -15,6 +15,7 @@ import android.widget.RadioButton;
  * 修改时间：18/11/5 下午9:44
  */
 public class MRadioButton extends RadioButton {
+    public boolean isFinishEvent = false;
 
     public MRadioButton(Context context) {
         super(context);
@@ -32,13 +33,23 @@ public class MRadioButton extends RadioButton {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
+    public boolean isFinishEvent() {
+        return isFinishEvent;
+    }
+
+    public void setFinishEvent(boolean finishEvent) {
+        isFinishEvent = finishEvent;
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        if(event.getAction()==MotionEvent.ACTION_DOWN){
-            setChecked(isChecked()?false:true);
-            return false;
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            setChecked(isChecked() ? false : true);
+            if (isFinishEvent)
+                return true;
+            else
+                return false;
         }
         return super.onTouchEvent(event);
     }

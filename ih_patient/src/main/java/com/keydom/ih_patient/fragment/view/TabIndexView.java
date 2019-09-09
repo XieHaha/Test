@@ -2,6 +2,7 @@ package com.keydom.ih_patient.fragment.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.ih_patient.bean.CityBean;
+import com.keydom.ih_patient.bean.HealthKnowledgeBean;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.ih_patient.bean.IndexData;
 import com.keydom.ih_patient.bean.IndexFunction;
@@ -41,7 +42,7 @@ public interface TabIndexView extends BaseView {
     /**
      * 设置文章
      */
-    void setArticleData(List<IndexData.HealthKnowledgesBean> dataList);
+    void setArticleData(List<HealthKnowledgeBean.KnowledgeBean> dataList);
 
     void setRedPointView(IndexData indexData);
 

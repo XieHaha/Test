@@ -56,7 +56,7 @@ public class AttentionFragmentController extends ControllerImpl<AttentionFragmen
         map.put("userId", userId);
         map.put("currentPage", currentPage);
         map.put("pageSize", pageSize);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).getAttentionArticle(map), new HttpSubscriber<List<ArticleListBean>>() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).getAttentionArticle(map), new HttpSubscriber<List<ArticleListBean>>(getContext()) {
             @Override
             public void requestComplete(@Nullable List<ArticleListBean> data) {
                 hideLoading();
@@ -82,7 +82,7 @@ public class AttentionFragmentController extends ControllerImpl<AttentionFragmen
     public void getTopArticle(String hospitalId) {
         HashMap<String, String> map = new HashMap<>();
         map.put("hospitalId", hospitalId);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).getstickArticle(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<ArticleListBean>() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).getstickArticle(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<ArticleListBean>(getContext()) {
             @Override
             public void requestComplete(@Nullable ArticleListBean data) {
                 hideLoading();

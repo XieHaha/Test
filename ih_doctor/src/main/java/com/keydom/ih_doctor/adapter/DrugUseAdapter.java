@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
@@ -18,6 +19,7 @@ import com.keydom.ih_doctor.bean.DrugBean;
 import com.keydom.ih_doctor.bean.DrugUseConfigBean;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
+import com.orhanobut.logger.Logger;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -36,14 +38,14 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, DrugBean item) {
-        double dose=0;
-        if(item.getSingleDose()!=0){
-            dose=item.getSingleDose();
-        }else {
-            if(item.getDosage()!=null&&item.getDosage()!=0){
-                dose=item.getDosage();
-            }else {
-                dose=item.getSingleMaximum();
+        double dose = 0;
+        if (item.getSingleDose() != 0) {
+            dose = item.getSingleDose();
+        } else {
+            if (item.getDosage() != null && item.getDosage() != 0) {
+                dose = item.getDosage();
+            } else {
+                dose = item.getSingleMaximum();
             }
         }
         ischange = true;
@@ -59,6 +61,9 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
         ischange = false;
         item.setSingleDose(Double.parseDouble(df1.format(dose)));
         EditText doctor_entrust = helper.itemView.findViewById(R.id.doctor_entrust);
+        EditText medical_num_scaler_text_layout = helper.itemView.findViewById(R.id.medical_num_scaler_text_layout);
+        EditText medical_dosage_scaler_text_layout = helper.itemView.findViewById(R.id.medical_dosage_scaler_text_layout);
+        EditText eat_medical_day_scaler_text_layout = helper.itemView.findViewById(R.id.eat_medical_day_scaler_text_layout);
         TextView eat_medical_rate_tv = helper.itemView.findViewById(R.id.eat_medical_rate_tv);
         TextView dosage_unit_tv = helper.itemView.findViewById(R.id.dosage_unit_tv);
         TextView get_medical_way_tv = helper.itemView.findViewById(R.id.get_medical_way_tv);
@@ -68,6 +73,142 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
         RelativeLayout medical_dosage_scaler_add_layout = helper.itemView.findViewById(R.id.medical_dosage_scaler_add_layout);
         RelativeLayout eat_medical_day_scaler_minus_layout = helper.itemView.findViewById(R.id.eat_medical_day_scaler_minus_layout);
         RelativeLayout eat_medical_day_scaler_add_layout = helper.itemView.findViewById(R.id.eat_medical_day_scaler_add_layout);
+        medical_num_scaler_text_layout.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!ischange) {
+                    if ("".equals(s.toString())) {
+
+                    } else {
+                        item.setQuantity(Integer.valueOf(s.toString()));
+                       /* s.clear();
+                        s.append(Integer.valueOf(s.toString()) + "");*/
+
+//                        medical_num_scaler_text_layout.setSelection(String.valueOf(item.getQuantity()).length());
+//                        notifyDataSetChanged();
+
+                    }
+
+                }
+
+            }
+        });
+        medical_dosage_scaler_text_layout.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!ischange) {
+                    if ("".equals(s.toString())) {
+
+                    } else {
+                        if (s.toString().contains(".")) {
+                            if (s.toString().indexOf(".") == s.toString().length() - 1) {
+
+                            } else if (s.toString().indexOf(".") == s.toString().length() - 3) {
+                                ToastUtil.shortToast(mContext, "仅支持输入一位小数");
+                                String value=s.toString();
+                                value=value.substring(0,s.toString().indexOf(".")+2 );
+                              
+                                s.replace(0,s.length(),value);
+                                return;
+//                                s.replace(0,value.toString().length(),value,0,value.length());
+//                                notifyDataSetChanged();
+
+
+                            } else {
+                                if (item.getSingleMaximum()>0&&Double.parseDouble(df1.format(Double.valueOf(s.toString()))) > item.getSingleMaximum()) {
+                                    ToastUtil.shortToast(mContext, "输入的值超过最大单次剂量");// + item.getSingleMaximum()
+                                    s.replace(0,s.length(),item.getSingleMaximum()+"");
+                                   /* s.clear();
+                                    s.append(item.getSingleMaximum()+"");*/
+                                    return;
+                                } else {
+                                    item.setSingleDose(Double.parseDouble(df1.format(Double.valueOf(s.toString()))));
+                                    item.setQuantity(computeDosage(item.getSingleDose(), item.getTimes(), item.getDays(), item.getRate()));
+
+                                }
+                            }
+                        } else {
+                            if (item.getSingleMaximum()>0&&Double.parseDouble(df1.format(Double.valueOf(s.toString()))) > item.getSingleMaximum()) {
+                                ToastUtil.shortToast(mContext, "输入的值超过最大单次剂量") ;//+ item.getSingleMaximum()
+                                s.replace(0,s.length(),item.getSingleMaximum()+"");
+/*
+                                s.clear();
+                                s.append(item.getSingleMaximum()+"");*/
+                            } else {
+                                item.setSingleDose(Double.parseDouble(df1.format(Double.valueOf(s.toString()))));
+                                item.setQuantity(computeDosage(item.getSingleDose(), item.getTimes(), item.getDays(), item.getRate()));
+//                                s.replace(0,s.length(),df1.format(Double.valueOf(s.toString())));
+/*
+                                s.clear();
+                                s.append(df1.format(Double.valueOf(s.toString())));*/
+//                            notifyDataSetChanged();
+//                                medical_dosage_scaler_text_layout.setSelection(df1.format(Double.valueOf(s.toString())).length());
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+        });
+        eat_medical_day_scaler_text_layout.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!ischange) {
+                    if ("".equals(s.toString())) {
+
+                    } else {
+
+                        if (item.getMaximumMedicationDays() != 0 && Integer.valueOf(s.toString()) > item.getMaximumMedicationDays()) {
+                            ToastUtil.shortToast(mContext, "输入的值超过最大用药天数");// + item.getSingleMaximum()
+                            s.clear();
+                            s.append(item.getMaximumMedicationDays()+"");
+                        } else {
+                            item.setDays(Integer.valueOf(s.toString()));
+                            item.setQuantity(computeDosage(item.getSingleDose(), item.getTimes(), item.getDays(), item.getRate()));
+                           /* s.clear();
+                            s.append(item.getDays()+"");*/
+
+//                            notifyDataSetChanged();
+//                            eat_medical_day_scaler_text_layout.setSelection(String.valueOf(item.getDays()).length());
+
+                        }
+
+                    }
+
+                }
+
+            }
+        });
+
+
         doctor_entrust.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -86,6 +227,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
 
             }
         });
+
         medical_num_scaler_minus_layout.setOnClickListener(new View.OnClickListener() {
             @SingleClick(1000)
             @Override
@@ -116,7 +258,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                 if (item.getSingleDose() > 0.1) {
                     if (!ischange) {
                         item.setSingleDose(Double.parseDouble(df1.format(item.getSingleDose() - 0.1)));
-                        item.setQuantity(computeDosage(item.getSingleDose(),item.getTimes(),item.getDays(),item.getRate()));
+                        item.setQuantity(computeDosage(item.getSingleDose(), item.getTimes(), item.getDays(), item.getRate()));
                     }
                 }
                 notifyDataSetChanged();
@@ -130,7 +272,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                 if (item.getSingleMaximum() == 0 || Double.parseDouble(df1.format(item.getSingleDose() + 0.1)) <= item.getSingleMaximum()) {
                     if (!ischange) {
                         item.setSingleDose(Double.parseDouble(df1.format(item.getSingleDose() + 0.1)));
-                        item.setQuantity(computeDosage(item.getSingleDose(),item.getTimes(),item.getDays(),item.getRate()));
+                        item.setQuantity(computeDosage(item.getSingleDose(), item.getTimes(), item.getDays(), item.getRate()));
                     }
                     notifyDataSetChanged();
                 } else if (Double.parseDouble(df1.format(item.getSingleDose() + 0.1)) > item.getSingleMaximum()) {
@@ -146,7 +288,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                 if (item.getDays() > 0) {
                     if (!ischange) {
                         item.setDays(item.getDays() - 1);
-                        item.setQuantity(computeDosage(item.getSingleDose(),item.getTimes(),item.getDays(),item.getRate()));
+                        item.setQuantity(computeDosage(item.getSingleDose(), item.getTimes(), item.getDays(), item.getRate()));
                     }
                     notifyDataSetChanged();
                 }
@@ -160,7 +302,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                 if (item.getMaximumMedicationDays() == 0 || item.getDays() < item.getMaximumMedicationDays()) {
                     if (!ischange) {
                         item.setDays(item.getDays() + 1);
-                        item.setQuantity(computeDosage(item.getSingleDose(),item.getTimes(),item.getDays(),item.getRate()));
+                        item.setQuantity(computeDosage(item.getSingleDose(), item.getTimes(), item.getDays(), item.getRate()));
                     }
                     notifyDataSetChanged();
                 } else if (item.getDays() >= item.getMaximumMedicationDays()) {
@@ -224,8 +366,8 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
 
     }
 
-    public int computeDosage(double singleDose,float times, int day,float rate){
-        int result=new Double(Math.ceil(singleDose*times*day/rate)).intValue();
+    public int computeDosage(double singleDose, float times, int day, float rate) {
+        int result = new Double(Math.ceil(singleDose * times * day / rate)).intValue();
 
         return result;
     }

@@ -25,6 +25,7 @@ public class SharePreferenceManager {
     private static final String IS_AGREEMENT = "is_agreement";
     private static final String PHONE_NUMBER = "phone_number";
     private static final String SIGN_ID = "sign_id";
+    private static final String HOSPITAL_ID = "hospital_id";
     private static final String GESTURELOCKEDTIME = "gesture_locked_time";
 
     public static void setLockTime(long timeMillis) {
@@ -229,6 +230,20 @@ public class SharePreferenceManager {
 
         }
         return -1;
+    }
+
+
+    public static void setHospitalId(String hospitalId) {
+        if (null != sp) {
+            sp.edit().putString(HOSPITAL_ID, hospitalId).apply();
+        }
+    }
+
+    public static String getHospitalId() {
+        if (null != sp) {
+            return sp.getString(HOSPITAL_ID, "");
+        }
+        return "";
     }
 
 

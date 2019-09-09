@@ -122,6 +122,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private ImMessageView mMessageView;
     private double mPSfee;
     private double mPsTotal;
+    private boolean isWaitingForComment=false;
 
     /**
      * 问诊状态
@@ -396,8 +397,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 }
             }
         } else {
-            if (orderBean != null && orderBean.getInquisitionType() == 1)
-                mMessageView.addPlugin(new VideoPlugin());
+            if (orderBean != null && orderBean.getInquisitionType() == 1) {
+                if (!isWaitingForComment)
+                    mMessageView.addPlugin(new VideoPlugin());
+            }
+
             mRightText.setVisibility(View.VISIBLE);
             mRightText.setText("结束诊断");
         }
@@ -754,6 +758,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         if (data != null) {
             orderBean = data;
             calculateTime();
+        }else {
+            isWaitingForComment=true;
         }
         initStatus();
     }

@@ -7,6 +7,7 @@ import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_patient.activity.index_main.MainActivity;
 import com.keydom.ih_patient.bean.UserInfo;
 import com.keydom.ih_patient.utils.pay.weixin.WXInit;
+import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 import com.netease.nimlib.sdk.util.NIMUtil;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
@@ -32,8 +33,9 @@ public class App extends CommonApp {
             Utils.init(this);
             SDKInitializer.initialize(getApplicationContext());
             ZXingLibrary.initDisplayOpinion(getApplicationContext());
-            String appId = "";
+            String appId = "wx21ddbc498622a67f";
             WXInit.init(this, appId);
+            WXPay.init(this, appId);
             closeAndroidPDialog();
         }
     }

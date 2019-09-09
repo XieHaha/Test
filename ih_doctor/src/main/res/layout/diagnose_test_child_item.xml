@@ -29,7 +29,8 @@
         android:layout_centerVertical="true"
         android:button="@drawable/radio_btn_style"
         android:checked="false"
-        android:clickable="true"
+        android:focusable="false"
+        android:clickable="false"
         android:textColor="@color/agreement" />
 
 </RelativeLayout>

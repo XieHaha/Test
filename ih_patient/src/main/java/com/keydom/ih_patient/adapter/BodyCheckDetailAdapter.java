@@ -36,7 +36,8 @@ public class BodyCheckDetailAdapter extends BaseQuickAdapter<String, BaseViewHol
         photoImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CommonUtils.previewImage(context, Const.IMAGE_HOST+item);
+//                CommonUtils.previewImage(context, Const.IMAGE_HOST+item);
+                CommonUtils.previewImageList(context,getData(),helper.getPosition(),true);
             }
         });
 

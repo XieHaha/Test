@@ -14,9 +14,11 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.AgreementActivity;
 import com.keydom.ih_doctor.activity.MainActivity;
 import com.keydom.ih_doctor.activity.view.AgreementView;
+import com.keydom.ih_doctor.bean.AgreementBean;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.MainApiService;
 import com.keydom.ih_doctor.net.PersonalApiService;
+import com.keydom.ih_doctor.net.UserService;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -101,6 +103,31 @@ public class AgreementController extends ControllerImpl<AgreementView> implement
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                 hideLoading();
                 getView().enableServiceFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+
+    /**
+     * 获取协议内容
+     */
+    public void getOfficialDispatchAllMsgByCode(String  code) {
+        showLoading();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("code", code);
+        map.put("hospitalId",SharePreferenceManager.getHospitalId());
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getOfficialDispatchAllMsgByCode(map), new HttpSubscriber<AgreementBean>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable AgreementBean data) {
+                getView().getOfficialDispatchSuccess(data);
+                hideLoading();
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                hideLoading();
+                getView().getOfficialDispatchFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });

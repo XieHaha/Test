@@ -43,7 +43,7 @@ public class GroupMemberController extends ControllerImpl<GroupMemberView> imple
      * 获取团队中所有成员
      */
     public void ihGroupQueryDoctorTeamAllUser() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(GroupCooperateApiService.class).ihGroupQueryDoctorTeamAllUser(getView().getQueryMap()), new HttpSubscriber<List<DeptDoctorBean>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(GroupCooperateApiService.class).queryDoctorTeamAllUserAuthorization(getView().getQueryMap()), new HttpSubscriber<List<DeptDoctorBean>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable List<DeptDoctorBean> data) {
                 getView().getGroupMemberSuccess(data);

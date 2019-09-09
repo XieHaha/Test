@@ -20,18 +20,15 @@ public class PhysicalExaProcessController extends ControllerImpl<PhysicalExaProc
      * 获取体检评论
      */
     public void getPhysicalExaProcess(long id){
-        showLoading();
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).findhealthCheckCheckProcess(id), new HttpSubscriber<String>(getContext(),getDisposable(),false) {
             @Override
             public void requestComplete(@Nullable String data) {
                 getView().FillPhysicalProcess(data);
-                hideLoading();
 
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 getView().FillPhysicalProcessFailed(msg);
                 return super.requestError(exception, code, msg);
             }

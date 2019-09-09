@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
@@ -16,6 +17,7 @@ import com.keydom.ih_patient.bean.NursingOrderBean;
 import com.keydom.ih_patient.bean.OrderEvaluateBean;
 import com.keydom.ih_patient.bean.SubscribeExaminationBean;
 import com.keydom.ih_patient.constant.Type;
+import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.view.RatingBarView;
 
 import org.jetbrains.annotations.Nullable;
@@ -116,17 +118,22 @@ public class OrderEvaluateActivity extends BaseControllerActivity<OrderEvaluateC
      * 判断订单类型提交评价
      */
     private void switchEvaluateType(OrderEvaluateBean evaluateBean) {
-        switch (evaluateBean.getType()) {
-            case Type.SUBSCRIBE_EXAM_ORDER_EVALUATE:
-                getController().submitSubscribeExamEvaluate((SubscribeExaminationBean) evaluateBean.getObj(), mStar, getEvaluateContent());
-                break;
-            case Type.NURSING_ORDER_EVALUATE:
-                getController().submitNursingEvaluate((NursingOrderBean) evaluateBean.getObj(), mStar, getEvaluateContent());
-                break;
-            case Type.DIAGNOSES_ORDER_EVALUATE:
-                getController().doComment((DiagnosesOrderBean) evaluateBean.getObj(), mStar, getEvaluateContent());
-                break;
+        if("".equals(getEvaluateContent())){
+            ToastUtil.shortToast(getContext(),"请至少从以下标签中选择一个");
+        }else {
+            switch (evaluateBean.getType()) {
+                case Type.SUBSCRIBE_EXAM_ORDER_EVALUATE:
+                    getController().submitSubscribeExamEvaluate((SubscribeExaminationBean) evaluateBean.getObj(), mStar, getEvaluateContent());
+                    break;
+                case Type.NURSING_ORDER_EVALUATE:
+                    getController().submitNursingEvaluate((NursingOrderBean) evaluateBean.getObj(), mStar, getEvaluateContent());
+                    break;
+                case Type.DIAGNOSES_ORDER_EVALUATE:
+                    getController().doComment((DiagnosesOrderBean) evaluateBean.getObj(), mStar, getEvaluateContent());
+                    break;
+            }
         }
+
     }
 
     /**

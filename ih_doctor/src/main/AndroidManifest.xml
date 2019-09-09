@@ -92,7 +92,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.LoginActivity"></activity>
+        <activity android:name=".activity.LoginActivity">
+            <intent-filter><action android:name="com.keydom.ih_doctor.activity.LoginActivity" />
+                <category android:name="android.intent.category.DEFAULT" /></intent-filter>
+
+        </activity>
         <activity android:name=".activity.SetPasswordActivity"></activity>
         <activity android:name=".activity.UpdatePasswordActivity"></activity>
         <activity
@@ -127,7 +131,7 @@
             android:name=".activity.doctor_cooperation.SelectDoctorActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"></activity>
         <activity android:name=".activity.doctor_cooperation.DianoseCaseDetailActivity"></activity>
-        <activity android:name=".activity.doctor_cooperation.DiagnoseCommonActivity"></activity>
+        <activity android:name=".activity.doctor_cooperation.DiagnoseCommonActivity" android:launchMode="singleTop"></activity>
         <activity android:name=".activity.doctor_cooperation.FillOutApplyActivity"></activity>
         <activity android:name=".activity.doctor_cooperation.DiagnoseOrderDetailActivity"></activity>
         <activity android:name=".activity.online_diagnose.DiagnoseOrderSelectActivity"></activity>

@@ -117,7 +117,7 @@ public class WorkFragmentController extends ControllerImpl<WorkFragmentView> imp
     public void getHome() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("roleId", SharePreferenceManager.getRoleId());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).home(map), new HttpSubscriber<HomeBean>() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).home(map), new HttpSubscriber<HomeBean>(getContext()) {
             @Override
             public void requestComplete(@Nullable HomeBean data) {
                 getView().getHomeDataSuccess(data);

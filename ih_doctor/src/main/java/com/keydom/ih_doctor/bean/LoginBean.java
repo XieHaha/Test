@@ -20,6 +20,15 @@ public class LoginBean implements Serializable {
     private String phoneNumber;
     private String msspId;
     private int nurseMonitorState;
+    private String hospitalId;
+
+    public String getHospitalId() {
+        return hospitalId;
+    }
+
+    public void setHospitalId(String hospitalId) {
+        this.hospitalId = hospitalId;
+    }
 
     public String getMsspId() {
         return msspId;

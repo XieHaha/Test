@@ -8,8 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -204,6 +202,7 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
             }
 
         } else {
+            getSavedEditData();
             nursingProjectInfo = (NursingProjectInfo) getIntent().getSerializableExtra("nursingProjectInfo");
             if (nursingProjectInfo != null) {
                 if (nursingProjectInfo.getCateId() == Global.getProfessionalProjectTypeId())
@@ -229,8 +228,7 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
      * 初始化SDK
      */
     private void initLib() {
-//        FaceSDKManager.getInstance().initialize(this, Config.licenseID, Config.licenseFileName);
-        FaceSDKManager.getInstance().initialize(this, Config.testServiceLicenseID, Config.testServiceLicenseFileName);
+        FaceSDKManager.getInstance().initialize(this, Config.licenseID, Config.licenseFileName);
         FaceConfig faceConfig = FaceSDKManager.getInstance().getFaceConfig();
         List<LivenessTypeEnum> livenessList = new ArrayList<LivenessTypeEnum>();
         livenessList.add(LivenessTypeEnum.Eye);
@@ -285,7 +283,6 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
         mAdapter = new GridViewPlusImgAdapter(this, dataList);
         img_gv.setAdapter(mAdapter);
         img_gv.setOnItemClickListener(getController());
-        getSavedEditData();
 
         mRemark.addTextChangedListener(new TextWatcher() {
             @Override
@@ -391,10 +388,10 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
     @Override
     public Map<String, Object> getCommitMap() {
         Map<String, Object> map = new HashMap<>();
-        if (!isFacialRecognition) {
+        /*if (!isFacialRecognition) {
             ToastUtil.shortToast(getContext(), "请完成人脸识别操作");
             return null;
-        }
+        }*/
         if (serviceAddress != null && !"".equals(serviceAddress)) {
             map.put("serviceAddress", serviceAddress);
         } else {
@@ -465,10 +462,10 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
     @Override
     public Map<String, Object> getChangeMap() {
         Map<String, Object> map = new HashMap<>();
-        if (!isFacialRecognition) {
+       /* if (!isFacialRecognition) {
             ToastUtil.shortToast(getContext(), "请完成人脸识别操作");
             return null;
-        }
+        }*/
         if (!StringUtils.isEmpty(patientCardNum)) {
             map.put("serviceObject", patientCardNum);
         }
@@ -602,6 +599,11 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
     @Override
     public String getPicUrl(int position) {
         return Const.IMAGE_HOST + dataList.get(position);
+    }
+
+    @Override
+    public List<String> getPicList() {
+        return dataList;
     }
 
     @Override

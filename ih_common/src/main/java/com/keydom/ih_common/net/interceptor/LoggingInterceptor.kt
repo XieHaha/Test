@@ -16,7 +16,7 @@ class LoggingInterceptor : Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response { //这个chain里面包含了request和response，所以你要什么都可以从这里拿
-        val request = chain.request().newBuilder().addHeader("Authorization", "Bearer " + SharePreferenceManager.getToken()).build()
+        val request = chain.request().newBuilder().addHeader("Authorization", SharePreferenceManager.getToken()).build()
         val t1 = System.nanoTime()//请求发起的时间
         val method = request.method()
         val responseBuilder = Response.Builder()

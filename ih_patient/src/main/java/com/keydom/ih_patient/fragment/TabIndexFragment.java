@@ -33,6 +33,7 @@ import com.keydom.ih_patient.adapter.ChooseHospitalAdapter;
 import com.keydom.ih_patient.adapter.IndexFunctionAdapter;
 import com.keydom.ih_patient.bean.CityBean;
 import com.keydom.ih_patient.bean.Event;
+import com.keydom.ih_patient.bean.HealthKnowledgeBean;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.ih_patient.bean.IndexData;
 import com.keydom.ih_patient.bean.IndexFunction;
@@ -50,6 +51,7 @@ import com.keydom.ih_patient.view.GeneralArticleItem;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.stx.xhb.xbanner.XBanner;
 
@@ -92,6 +94,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     private int clinic = 0;
     private int unFinishAdmission = 0;
     private int unFinishInspect = 0;
+    private int page=1;
+    private TextView index_footer;
 
 
     @Override
@@ -106,9 +110,18 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         indexRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
+                page=1;
                 getController().fillViewData();
+                getController().fillHealthKnowledges(page);
+
             }
         });
+       /* indexRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                getController().fillHealthKnowledges(page);
+            }
+        });*/
         titleLayout = view.findViewById(R.id.title_layout);
         locationLayout = view.findViewById(R.id.location_layout);
         searchLayout = view.findViewById(R.id.search_layout);
@@ -150,8 +163,16 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                 selectHospitalName = hospitalAreaInfo.getName();
             }
         });
+        index_footer=view.findViewById(R.id.index_footer);
+        index_footer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getController().fillHealthKnowledges(page);
+            }
+        });
         bindInteractionEvents();
         EventBus.getDefault().register(this);
+
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -197,6 +218,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     public void updateLoginState(Event event) {
         if (event.getType() == EventType.UPDATELOGINSTATE) {
             getController().fillViewData();
+            getController().fillFunction();
+            getController().fillHealthKnowledges(page);
         }
     }
 
@@ -219,7 +242,10 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     public void updateHospitalChange(Event event) {
         if (event.getType() == EventType.UPDATEHOSPITAL) {
             searchEdt.setText(App.hospitalName);
+            page=1;
             getController().fillViewData();
+            getController().fillFunction();
+            getController().fillHealthKnowledges(page);
         }
     }
 
@@ -245,7 +271,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     @Override
     public void onResume() {
         super.onResume();
-        getController().fillViewData();
+//        getController().fillViewData();
     }
 
     @Override
@@ -455,68 +481,106 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
 
     @Override
-    public void setArticleData(final List<IndexData.HealthKnowledgesBean> dataList) {
+    public void setArticleData(final List<HealthKnowledgeBean.KnowledgeBean> dataList) {
+        if(page>1){
+            indexRefresh.finishLoadMore();
+        }
         if (dataList == null || dataList.size() == 0) {
-            if (empty_layout.getVisibility() == View.GONE)
-                empty_layout.setVisibility(View.VISIBLE);
-            empty_text.setText("暂无文章，我们正努力更新中");
-            empty_layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            if(page==1){
+                if (empty_layout.getVisibility() == View.GONE)
+                    empty_layout.setVisibility(View.VISIBLE);
+                empty_text.setText("暂无文章，我们正努力更新中");
+                empty_layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                }
-            });
-            topHealthRl.setOnClickListener(null);
-            healthZoneLayout.removeAllViews();
-        } else {
-            if (empty_layout.getVisibility() == View.VISIBLE) {
-                empty_layout.setVisibility(View.GONE);
+                    }
+                });
+                topHealthRl.setOnClickListener(null);
+                healthZoneLayout.removeAllViews();
             }
-            final int[] topReadNum = new int[1];
-            topReadNum[0] = dataList.get(0).getPageView();
-            indexNewArticleBanner.setData(dataList.get(0).getImageList(), null);
-            new_article_title_tv.setText(dataList.get(0).getTitle());
-            new_article_readernum_tv.setText("阅读人数：" + dataList.get(0).getPageView() + "  " + dataList.get(0).getCreateTime());
-            indexNewArticleBanner.loadImage(new XBanner.XBannerAdapter() {
-                @Override
-                public void loadBanner(XBanner banner, Object model, View view, int position) {
-                    Glide.with(getContext()).load(Const.IMAGE_HOST + dataList.get(0).getImageList().get(position)).into((ImageView) view);
+            index_footer.setText("我也是有底线的");
+            indexRefresh.setEnableLoadMore(false);
+            index_footer.setClickable(false);
+        } else {
+            if(page==1){
+                if (empty_layout.getVisibility() == View.VISIBLE) {
+                    empty_layout.setVisibility(View.GONE);
                 }
-            });
+                final int[] topReadNum = new int[1];
+                topReadNum[0] = dataList.get(0).getPageView();
+                indexNewArticleBanner.setData(dataList.get(0).getImage(), null);
+                new_article_title_tv.setText(dataList.get(0).getTitle());
+                new_article_readernum_tv.setText("阅读人数：" + dataList.get(0).getPageView() + "  " + dataList.get(0).getCreateTime());
+                indexNewArticleBanner.loadImage(new XBanner.XBannerAdapter() {
+                    @Override
+                    public void loadBanner(XBanner banner, Object model, View view, int position) {
+                        Glide.with(getContext()).load(Const.IMAGE_HOST + dataList.get(0).getImage().get(position)).into((ImageView) view);
+                    }
+                });
 
-            indexNewArticleBanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
-                @SingleClick(1000)
-                @Override
-                public void onItemClick(XBanner banner, Object model, View view, int position) {
-                    ArticleDetailActivity.startHealth(getContext(), dataList.get(0).getId(), Global.getUserId(), "", "");
-                }
-            });
-            topHealthRl.setOnClickListener(new View.OnClickListener() {
-                @SingleClick(1000)
-                @Override
-                public void onClick(View v) {
-                    ArticleDetailActivity.startHealth(getContext(), dataList.get(0).getId(), Global.getUserId(), "", "");
-                }
-            });
-            healthZoneLayout.removeAllViews();
-            for (int i = 1; i < dataList.size(); i++) {
-                final GeneralArticleItem generalArticleItem = new GeneralArticleItem(getContext());
-                generalArticleItem.setArticleId(dataList.get(i).getId());
-                generalArticleItem.setTitle(dataList.get(i).getTitle());
-                if (dataList.get(i).getImageList() != null) {
-                    generalArticleItem.setIcon(dataList.get(i).getImageList().get(0));
-                }
-                generalArticleItem.setReaderNum(dataList.get(i).getPageView(), dataList.get(i).getCreateTime());
-                generalArticleItem.setOnClickListener(new View.OnClickListener() {
+                indexNewArticleBanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
+                    @SingleClick(1000)
+                    @Override
+                    public void onItemClick(XBanner banner, Object model, View view, int position) {
+                        ArticleDetailActivity.startHealth(getContext(), dataList.get(0).getId(), Global.getUserId(), "", "");
+                    }
+                });
+                topHealthRl.setOnClickListener(new View.OnClickListener() {
                     @SingleClick(1000)
                     @Override
                     public void onClick(View v) {
-                        ArticleDetailActivity.startHealth(getContext(), generalArticleItem.getArticleId(), Global.getUserId(), "", "");
-                        //generalArticleItem.addReadNum();
+                        ArticleDetailActivity.startHealth(getContext(), dataList.get(0).getId(), Global.getUserId(), "", "");
                     }
                 });
-                healthZoneLayout.addView(generalArticleItem);
+                healthZoneLayout.removeAllViews();
+                for (int i = 1; i < dataList.size(); i++) {
+                    final GeneralArticleItem generalArticleItem = new GeneralArticleItem(getContext());
+                    generalArticleItem.setArticleId(dataList.get(i).getId());
+                    generalArticleItem.setTitle(dataList.get(i).getTitle());
+                    if (dataList.get(i).getImage() != null) {
+                        generalArticleItem.setIcon(dataList.get(i).getImage().get(0));
+                    }
+                    generalArticleItem.setReaderNum(dataList.get(i).getPageView(), dataList.get(i).getCreateTime());
+                    generalArticleItem.setOnClickListener(new View.OnClickListener() {
+                        @SingleClick(1000)
+                        @Override
+                        public void onClick(View v) {
+                            ArticleDetailActivity.startHealth(getContext(), generalArticleItem.getArticleId(), Global.getUserId(), "", "");
+                            //generalArticleItem.addReadNum();
+                        }
+                    });
+                    healthZoneLayout.addView(generalArticleItem);
+                }
+            }else {
+                for (int i = 0; i < dataList.size(); i++) {
+                    final GeneralArticleItem generalArticleItem = new GeneralArticleItem(getContext());
+                    generalArticleItem.setArticleId(dataList.get(i).getId());
+                    generalArticleItem.setTitle(dataList.get(i).getTitle());
+                    if (dataList.get(i).getImage() != null) {
+                        generalArticleItem.setIcon(dataList.get(i).getImage().get(0));
+                    }
+                    generalArticleItem.setReaderNum(dataList.get(i).getPageView(), dataList.get(i).getCreateTime());
+                    generalArticleItem.setOnClickListener(new View.OnClickListener() {
+                        @SingleClick(1000)
+                        @Override
+                        public void onClick(View v) {
+                            ArticleDetailActivity.startHealth(getContext(), generalArticleItem.getArticleId(), Global.getUserId(), "", "");
+                            //generalArticleItem.addReadNum();
+                        }
+                    });
+                    healthZoneLayout.addView(generalArticleItem);
+                }
             }
+            page++;
+            if(dataList.size()<10){
+                index_footer.setText("我也是有底线的");
+                index_footer.setClickable(false);
+            }else {
+                index_footer.setText("点击加载更多");
+                index_footer.setClickable(true);
+            }
+
         }
 
     }
@@ -528,6 +592,46 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         clinic = indexData.getClinic();
         unFinishAdmission = indexData.getUnFinishAdmission();
         unFinishInspect = indexData.getUnFinishInspect();
+        for (int i = 0; i <datalist.size() ; i++) {
+            if(datalist.get(i).getId()==23){
+                //诊间缴费
+                if(clinic>0){
+                    datalist.get(i).setRedPointShow(true);
+                }else {
+                    datalist.get(i).setRedPointShow(false);
+                }
+            }else if(datalist.get(i).getId()==25){
+                //在线问诊
+                if(unFinishInquiry>0){
+                    datalist.get(i).setRedPointShow(true);
+                }else {
+                    datalist.get(i).setRedPointShow(false);
+                }
+            }else if(datalist.get(i).getId()==28){
+                //检查项目
+                if(unFinishInspect>0){
+                    datalist.get(i).setRedPointShow(true);
+                }else {
+                    datalist.get(i).setRedPointShow(false);
+                }
+            }else if(datalist.get(i).getId()==26){
+                //护理订单
+                if(unFinishNurse>0){
+                    datalist.get(i).setRedPointShow(true);
+                }else {
+                    datalist.get(i).setRedPointShow(false);
+                }
+            }else if(datalist.get(i).getId()==29){
+                //住院预约
+                if(unFinishAdmission>0){
+                    datalist.get(i).setRedPointShow(true);
+                }else {
+                    datalist.get(i).setRedPointShow(false);
+                }
+            }
+        }
+        indexFunctionAdapter.notifyDataSetChanged();
+
 
     }
 
@@ -570,9 +674,10 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                 Global.getHospitalList().get(0).setSelected(true);
                 searchEdt.setText(hospitalList.get(0).getName());
             }
+            EventBus.getDefault().post(new Event(EventType.UPDATELOCALHOSPITALLIST,null));
             EventBus.getDefault().post(new Event(EventType.UPDATEHOSPITAL, null));
             chooseHospitalAdapter.notifyDataSetChanged();
-            getController().fillViewData();
+//            getController().fillViewData();
         } else {
             new GeneralDialog(getContext(), "该城市暂无服务医院，请切换城市", new GeneralDialog.OnCloseListener() {
                 @Override

@@ -212,6 +212,8 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
     @Override
     public void lazyLoad() {
         refreshUi();
+        hospitalListFromService.clear();
+        hospitalList.clear();
         hospitalListFromService.addAll(Global.getHospitalList());
         hospitalList.addAll(Global.getHospitalList());
         chooseHospitalAdapter.notifyDataSetChanged();
@@ -270,6 +272,15 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
         if (event.getType() == EventType.UPDATEHOSPITAL) {
             nursing_search_tv.setText(App.hospitalName);
             refreshUi();
+        }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateHospitalList(Event event) {
+        if (event.getType() == EventType.UPDATELOCALHOSPITALLIST) {
+            hospitalListFromService.clear();
+            hospitalListFromService.addAll(Global.getHospitalList());
+            hospitalList.clear();
+            hospitalList.addAll(Global.getHospitalList());
         }
     }
 

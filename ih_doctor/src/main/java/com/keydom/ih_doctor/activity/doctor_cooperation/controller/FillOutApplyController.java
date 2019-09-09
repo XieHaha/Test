@@ -118,7 +118,9 @@ public class FillOutApplyController extends ControllerImpl<FillOutApplyView> imp
             }
 
         } else {
-            CommonUtils.previewImage(getContext(), getView().getImgList().get(position));
+//            CommonUtils.previewImage(getContext(), getView().getImgList().get(position));
+            CommonUtils.previewImageList(getContext(),getView().getImgList(),position,false);
+
         }
     }
 }

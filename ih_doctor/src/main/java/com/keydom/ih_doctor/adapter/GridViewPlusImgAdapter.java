@@ -65,7 +65,8 @@ public class GridViewPlusImgAdapter extends BaseAdapter {
                 @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
-                    CommonUtils.previewImage(context, Const.IMAGE_HOST + list.get(position));
+//                    CommonUtils.previewImage(context, Const.IMAGE_HOST + list.get(position));
+                    CommonUtils.previewImageList(context,list,position,true);
                 }
             });
             GlideUtils.load(mImageView, Const.IMAGE_HOST + list.get(position), 0, 0, false, null);

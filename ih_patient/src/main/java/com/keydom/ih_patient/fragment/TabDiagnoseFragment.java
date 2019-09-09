@@ -229,8 +229,8 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
                     titleLayout.setBackgroundColor(Color.parseColor("#00FFFFFF"));
             }
         });
-        getController().getHomeData(getHomeQueryMap());
-        getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline));
+        /*getController().getHomeData(getHomeQueryMap());
+        getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline));*/
         EventBus.getDefault().register(this);
     }
 
@@ -238,6 +238,8 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
     public void lazyLoad() {
         refreshUi();
         diagnoses_online_search_tv.setText(App.hospitalName);
+        hospitalListFromService.clear();
+        hospitalList.clear();
         hospitalListFromService.addAll(Global.getHospitalList());
         hospitalList.addAll(Global.getHospitalList());
         chooseHospitalAdapter.notifyDataSetChanged();
@@ -261,6 +263,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
             diagnoses_online_search_tv.setText(App.hospitalName);
             getController().getHomeData(getHomeQueryMap());
         }
+        getController().getHomeData(getHomeQueryMap());
         getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline));
         getController().getBannerPicByHospitalId(getRequestMap());
         getController().queryHospitalAreaList();
@@ -288,6 +291,15 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
     public void updateHospitalChange(Event event) {
         if (event.getType() == EventType.UPDATEHOSPITAL) {
             refreshUi();
+        }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateHospitalList(Event event) {
+        if (event.getType() == EventType.UPDATELOCALHOSPITALLIST) {
+            hospitalListFromService.clear();
+            hospitalListFromService.addAll(Global.getHospitalList());
+            hospitalList.clear();
+            hospitalList.addAll(Global.getHospitalList());
         }
     }
 
@@ -335,6 +347,8 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
             map.put("isOnline", 1);
 
         }
+        if(areaId!=-1)
+            map.put("hospitalAreaId",areaId);
         map.put("isRecommend", 1);
         map.put("hospitalId", App.hospitalId);
         map.put("type", 0);
@@ -445,7 +459,9 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
                     public void onOptionsSelect(int options1, int option2, int options3, View v) {
                         areaId = data.get(options1).getId();
                         choose_area_tv.setText(data.get(options1).getName());
-
+                        choose_depart_tv.setText("全部科室");
+                        deptId=-1;
+                        getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline));
                     }
                 }).build();
             areaPickerView.setPicker(areaList);

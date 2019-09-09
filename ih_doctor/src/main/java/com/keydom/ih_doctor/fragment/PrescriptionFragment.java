@@ -185,7 +185,7 @@ public class PrescriptionFragment extends BaseControllerFragment<PrescriptionFra
     @Override
     public void onResume() {
         super.onResume();
-        getController().getData(TypeEnum.REFRESH);
+//        getController().getData(TypeEnum.REFRESH);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

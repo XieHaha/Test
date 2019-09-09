@@ -68,7 +68,7 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
                     }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
                 } else{
                     if (App.userInfo.getIdCard() != null && !"".equals(App.userInfo.getIdCard()))
-                        showApplyDialog(DiagnosesApplyDialog.VIDEODIAGNOSES);
+                        isCanDiagnose(1,getView().getCode());
 
                     else
                         ToastUtil.shortToast(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊");
@@ -86,17 +86,27 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
                     }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
                 } else{
                     if (App.userInfo.getIdCard() != null && !"".equals(App.userInfo.getIdCard()))
-                        showApplyDialog(DiagnosesApplyDialog.PHOTODIAGNOSES);
+                        isCanDiagnose(0,getView().getCode());
+
                     else
                         ToastUtil.shortToast(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊");
                 }
 
                 break;
             case R.id.follow:
-                DoctorMainBean doctorMainBean = getView().getDoctorMainBean();
-                if (doctorMainBean.getInfo() != null) {
-                    int isA = doctorMainBean.getInfo().getIsAttention() == 1 ? 0 : 1;
-                    setAttention(isA, doctorMainBean.getInfo().getUuid());
+                if (Global.getUserId() == -1) {
+                    new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？", new GeneralDialog.OnCloseListener() {
+                        @Override
+                        public void onCommit() {
+                            LoginActivity.start(getContext());
+                        }
+                    }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
+                } else {
+                    DoctorMainBean doctorMainBean = getView().getDoctorMainBean();
+                    if (doctorMainBean.getInfo() != null) {
+                        int isA = doctorMainBean.getInfo().getIsAttention() == 1 ? 0 : 1;
+                        setAttention(isA, doctorMainBean.getInfo().getUuid());
+                    }
                 }
                 break;
             default:
@@ -223,6 +233,35 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                 hideLoading();
+                ToastUtils.showShort(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 判断是否能问诊
+     */
+    public void isCanDiagnose(int type, String code) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("doctorCode", code);
+        map.put("type", type);
+        map.put("userId", Global.getUserId());
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getUserIsPlaceOrder(map), new HttpSubscriber<Integer>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable Integer data) {
+                if(data==1){
+                    if(type==0)
+                        showApplyDialog(DiagnosesApplyDialog.PHOTODIAGNOSES);
+                    else
+                        showApplyDialog(DiagnosesApplyDialog.VIDEODIAGNOSES);
+                }else
+                    ToastUtil.shortToast(getContext(),"当前无法对该医生进行问诊服务");
+
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }

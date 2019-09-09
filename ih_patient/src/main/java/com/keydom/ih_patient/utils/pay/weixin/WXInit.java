@@ -14,6 +14,17 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.URLEncoder;
+
+import map.baidu.ar.http.AsyncHttpClient;
+import map.baidu.ar.http.JsonHttpResponseHandler;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 /**
  * 微信支付
  * Created by tsy on 16/6/1.
@@ -30,23 +41,35 @@ public class WXInit {
     public static final int ERROR_PAY_PARAM = 2;  //支付参数错误
     public static final int ERROR_PAY = 3;  //支付失败
 
+    private String WX_APP_ID = "wx21ddbc498622a67f";
+    // 获取第一步的code后，请求以下链接获取access_token
+    private String GetCodeRequest = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+    // 获取用户个人信息
+    private String WX_APP_SECRET = "2b28023d0eb66b8237421db21f299e8e";
+
+
     /**
      * 支付回调监听
      */
     public interface WXPayResultCallBack {
         void onSuccess(); //支付成功
+
         void onError(int error_code);   //支付失败
+
         void onCancel();    //支付取消
     }
 
-    public interface WXLoginResultCallBack{
+    public interface WXLoginResultCallBack {
         void onSuccess(String userInfo); //登录成功
-        void onError(int error_code,String error_msg);   //登录失败
+
+        void onError(int error_code, String error_msg);   //登录失败
+
         void onCancel();//取消登录
     }
 
     /**
      * 初始化微信数据
+     *
      * @param context
      * @param wx_appid
      */
@@ -57,15 +80,17 @@ public class WXInit {
 
     /**
      * 初始化
+     *
      * @param context
      * @param wx_appid
      */
     public static void init(Context context, String wx_appid) {
-        if(mWXPay == null) {
+        if (mWXPay == null) {
             mWXPay = new WXInit(context, wx_appid);
         }
     }
-    public static WXInit getInstance(){
+
+    public static WXInit getInstance() {
         return mWXPay;
     }
 
@@ -75,11 +100,12 @@ public class WXInit {
 
     /**
      * 发起登录
+     *
      * @param loginCallback
      */
-    public void doLogin(WXLoginResultCallBack loginCallback){
+    public void doLogin(WXLoginResultCallBack loginCallback) {
         this.mLoginCallback = loginCallback;
-        if (mLoginCallback == null){
+        if (mLoginCallback == null) {
             ToastUtils.showShort("callback为空");
             return;
         }
@@ -92,23 +118,29 @@ public class WXInit {
     }
 
     /**
-     *  //登录回调响应
+     * //登录回调响应
+     *
      * @param baseResp
      */
 
     public void onLoginResp(BaseResp baseResp) {
-        if(mLoginCallback == null) {
+        if (mLoginCallback == null) {
             return;
         }
-
         switch (baseResp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
-                String code = String.valueOf(((SendAuth.Resp)baseResp).code);
+
+                String code = String.valueOf(((SendAuth.Resp) baseResp).code);
                 //获取用户信息
+
+                String get_access_token = getCodeRequest(code);
+
+                mLoginCallback.onSuccess(get_access_token);
+
 
                 break;
             case BaseResp.ErrCode.ERR_AUTH_DENIED://用户拒绝授权
-                mLoginCallback.onError(BaseResp.ErrCode.ERR_AUTH_DENIED,"用户拒绝授权");
+                mLoginCallback.onError(BaseResp.ErrCode.ERR_AUTH_DENIED, "用户拒绝授权");
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL://用户取消登录
                 mLoginCallback.onCancel();
@@ -127,8 +159,8 @@ public class WXInit {
         mPayParam = pay_param;
         mCallback = callback;
 
-        if(!check()) {
-            if(mCallback != null) {
+        if (!check()) {
+            if (mCallback != null) {
                 mCallback.onError(NO_OR_LOW_WX);
             }
             return;
@@ -139,16 +171,16 @@ public class WXInit {
             param = new JSONObject(mPayParam);
         } catch (JSONException e) {
             e.printStackTrace();
-            if(mCallback != null) {
+            if (mCallback != null) {
                 mCallback.onError(ERROR_PAY_PARAM);
             }
             return;
         }
-        if(TextUtils.isEmpty(param.optString("appid")) || TextUtils.isEmpty(param.optString("partnerid"))
+        if (TextUtils.isEmpty(param.optString("appid")) || TextUtils.isEmpty(param.optString("partnerid"))
                 || TextUtils.isEmpty(param.optString("prepayid")) ||
                 TextUtils.isEmpty(param.optString("noncestr")) || TextUtils.isEmpty(param.optString("timestamp")) ||
                 TextUtils.isEmpty(param.optString("sign"))) {
-            if(mCallback != null) {
+            if (mCallback != null) {
                 mCallback.onError(ERROR_PAY_PARAM);
             }
             return;
@@ -158,9 +190,9 @@ public class WXInit {
         req.appId = param.optString("appid");
         req.partnerId = param.optString("partnerid");
         req.prepayId = param.optString("prepayid");
-        if (TextUtils.isEmpty(param.optString("package"))){
-            req.packageValue ="Sign=WXInit";
-        }else{
+        if (TextUtils.isEmpty(param.optString("package"))) {
+            req.packageValue = "Sign=WXInit";
+        } else {
             req.packageValue = param.optString("package");
         }
         req.nonceStr = param.optString("noncestr");
@@ -172,15 +204,15 @@ public class WXInit {
 
     //支付回调响应
     public void onResp(int error_code) {
-        if(mCallback == null) {
+        if (mCallback == null) {
             return;
         }
 
-        if(error_code == 0) {   //成功
+        if (error_code == 0) {   //成功
             mCallback.onSuccess();
-        } else if(error_code == -1) {   //错误
+        } else if (error_code == -1) {   //错误
             mCallback.onError(ERROR_PAY);
-        } else if(error_code == -2) {   //取消
+        } else if (error_code == -2) {   //取消
             mCallback.onCancel();
         }
 
@@ -191,4 +223,34 @@ public class WXInit {
     private boolean check() {
         return mWXApi.isWXAppInstalled() && mWXApi.getWXAppSupportAPI() >= Build.PAY_SUPPORTED_SDK_INT;
     }
+
+
+    /**
+     * 获取access_token的URL（微信）
+     *
+     * @param code 授权时，微信回调给的
+     * @return URL
+     */
+    private String getCodeRequest(String code) {
+        String result = null;
+        GetCodeRequest = GetCodeRequest.replace("APPID",
+                urlEnodeUTF8(WX_APP_ID));
+        GetCodeRequest = GetCodeRequest.replace("SECRET",
+                urlEnodeUTF8(WX_APP_SECRET));
+        GetCodeRequest = GetCodeRequest.replace("CODE", urlEnodeUTF8(code));
+        result = GetCodeRequest;
+        return result;
+    }
+
+    private String urlEnodeUTF8(String str) {
+        String result = str;
+        try {
+            result = URLEncoder.encode(str, "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
 }

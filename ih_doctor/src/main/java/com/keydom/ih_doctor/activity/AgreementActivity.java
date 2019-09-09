@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -15,6 +16,7 @@ import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.controller.AgreementController;
 import com.keydom.ih_doctor.activity.view.AgreementView;
+import com.keydom.ih_doctor.bean.AgreementBean;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
@@ -102,8 +104,8 @@ public class AgreementActivity extends BaseControllerActivity<AgreementControlle
     /**
      * 设置协议内容
      */
-    private void setText() {
-        RichText.from(htmlStr).bind(this)
+    private void setText(String data) {
+        RichText.from(data).bind(this)
                 .showBorder(false)
                 .size(ImageHolder.MATCH_PARENT, ImageHolder.WRAP_CONTENT)
                 .into(qaTv);
@@ -133,12 +135,14 @@ public class AgreementActivity extends BaseControllerActivity<AgreementControlle
                 setTitle("言行医至问诊服务协议");
                 agreementTipTv.setText(Html.fromHtml("提交后即代表您同意<font color='#3F98F7'>《言行医至问诊服务协议》</font>"));
                 agreementTipTv.setOnClickListener(getController());
-                htmlStr = CommonUtils.getFromRaw(this, R.raw.diagnose_service);
+//                htmlStr = CommonUtils.getFromRaw(this, R.raw.diagnose_service);
+                getController().getOfficialDispatchAllMsgByCode("011");
             } else {
                 setTitle("言行医至护理服务协议");
                 agreementTipTv.setText(Html.fromHtml("提交后即代表您同意<font color='#3F98F7'>《言行医至护理服务协议》</font>"));
                 agreementTipTv.setOnClickListener(getController());
-                htmlStr = CommonUtils.getFromRaw(this, R.raw.nurse_service);
+//                htmlStr = CommonUtils.getFromRaw(this, R.raw.nurse_service);
+                getController().getOfficialDispatchAllMsgByCode("012");
             }
         } else if (mType == REGISTER_PAGE_AGREEMENT) {
             submitLin.setVisibility(View.GONE);
@@ -147,7 +151,6 @@ public class AgreementActivity extends BaseControllerActivity<AgreementControlle
             htmlStr = CommonUtils.getFromRaw(this, R.raw.register);
         }
 
-        setText();
     }
 
     @Override
@@ -181,5 +184,20 @@ public class AgreementActivity extends BaseControllerActivity<AgreementControlle
     @Override
     public int getAgreementType() {
         return mType;
+    }
+
+    @Override
+    public void getOfficialDispatchSuccess(AgreementBean data) {
+        if(null != data && !TextUtils.isEmpty(data.getContent())){
+            setText(data.getContent());
+        }else{
+            setText("");
+        }
+
+    }
+
+    @Override
+    public void getOfficialDispatchFailed(String errMsg) {
+        ToastUtil.shortToast(getContext(),"获取协议失败");
     }
 }

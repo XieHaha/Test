@@ -47,7 +47,8 @@ public class DiagnoseConditionImgAdapter extends RecyclerView.Adapter<DiagnoseCo
         holder.icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CommonUtils.previewImage(context, Const.IMAGE_HOST + data.get(position));
+//                CommonUtils.previewImage(context, Const.IMAGE_HOST + data.get(position));
+                CommonUtils.previewImageList(context,data,position,true);
             }
         });
     }

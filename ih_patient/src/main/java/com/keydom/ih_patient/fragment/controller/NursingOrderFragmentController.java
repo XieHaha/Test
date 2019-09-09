@@ -15,7 +15,9 @@ import com.keydom.ih_patient.bean.NursingOrderDetailBean;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.fragment.view.NursingOrderItemView;
 import com.keydom.ih_patient.net.NursingOrderService;
+import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
+import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -111,7 +113,24 @@ public class NursingOrderFragmentController extends ControllerImpl<NursingOrderI
                 }
                 JSONObject js = JSONObject.parseObject(data);
                 if (type.equals("1")) {
+                    WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
+                        @Override
+                        public void onSuccess() {
+                            getView().paySuccess();
+                            ToastUtil.shortToast(getContext(),"支付成功");
+                        }
 
+                        @Override
+                        public void onError(int error_code) {
+                            ToastUtil.shortToast(getContext(),"支付失败"+error_code
+                            );
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+                    });
                 }
                 if (type.equals("2")) {
                     if (!js.containsKey("return_msg")) {

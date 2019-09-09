@@ -156,6 +156,11 @@ public class FeedBackActivity extends BaseControllerActivity<FeedBackController>
         return Const.IMAGE_HOST+dataList.get(position);
     }
 
+    @Override
+    public List<String> getPicList() {
+        return dataList;
+    }
+
     private String getImageStr() {
         String imageStr = "";
         for (int i = 0; i < dataList.size(); i++) {

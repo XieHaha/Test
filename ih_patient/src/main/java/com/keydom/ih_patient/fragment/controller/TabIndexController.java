@@ -1,5 +1,6 @@
 package com.keydom.ih_patient.fragment.controller;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import com.keydom.ih_patient.activity.index_main.ChooseCityActivity;
 import com.keydom.ih_patient.activity.my_message.MyMessageActivity;
 import com.keydom.ih_patient.bean.CityBean;
 import com.keydom.ih_patient.bean.Event;
+import com.keydom.ih_patient.bean.HealthKnowledgeBean;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.ih_patient.bean.IndexData;
 import com.keydom.ih_patient.bean.IndexFunction;
@@ -76,7 +78,7 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
                 break;
             case R.id.more_tv:
                 if (getView().getNoticeList() != null && getView().getNoticeList().size() > 0)
-                    MyMessageActivity.start(getContext(), Type.NOTICEMESSAGE, DepartmentDataHelper.getNotificationsBeanAfterHandle(getView().getNoticeList()));
+                    MyMessageActivity.start(getContext(), Type.NOTICEMESSAGE,null);
                 else
                     ToastUtil.shortToast(getContext(),"暂无通知公告");
                 break;
@@ -191,12 +193,35 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
 
     }
 
+    /**
+     * 查找健康知识
+     */
+    public void fillHealthKnowledges(int currentPage) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("currentPage", currentPage);
+        map.put("pageSize", 10);
+        map.put("hospitalId", App.hospitalId);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(IndexService.class).getHealthKnowledgeLimit(map), new HttpSubscriber<HealthKnowledgeBean>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable HealthKnowledgeBean data) {
+                getView().setArticleData(data.getRecords());
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+//                getView().dataRequestFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+
+    }
+
 
     /**
      * 初始化医院列表
      */
     public void initHospitalList(String cityCode) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getHospitalList(cityCode, Global.getUserId()), new HttpSubscriber<List<HospitalAreaInfo>>() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getHospitalList(cityCode, Global.getUserId()), new HttpSubscriber<List<HospitalAreaInfo>>(getContext()) {
             @Override
             public void requestComplete(@Nullable List<HospitalAreaInfo> data) {
                 getView().getHospitalListSuccess(data);
@@ -216,10 +241,8 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
         getView().setPicBannerData(data.getHeaderbanner());
         getView().setAdBannerData(data.getAdvertisement());
         getView().setNoticeData(data.getNotifications());
-        getView().setArticleData(data.getHealthKnowledges());
+//        getView().setArticleData(data.getHealthKnowledges());
         getView().setRedPointView(data);
-        fillFunction();
-
 
     }
 

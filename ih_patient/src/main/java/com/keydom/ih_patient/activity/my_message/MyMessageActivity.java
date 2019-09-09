@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.my_message.controller.MyMessagaeController;
 import com.keydom.ih_patient.activity.my_message.view.MyMessageView;
 import com.keydom.ih_patient.adapter.MyMessageAdapter;
 import com.keydom.ih_patient.bean.MessageBean;
+import com.keydom.ih_patient.bean.NoticeBean;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.utils.ToastUtil;
@@ -65,7 +67,6 @@ public class MyMessageActivity extends BaseControllerActivity<MyMessagaeControll
 
         if(Type.NOTICEMESSAGE.equals(type)){
             setTitle("通知公告");
-            dataList= (List<Object>) getIntent().getSerializableExtra("dataList");
             my_messag_refresh.setEnableRefresh(true);
             myMessageAdapter=new MyMessageAdapter(getContext(),dataList);
         }else if(Type.MYMESSAGE.equals(type)){
@@ -79,6 +80,8 @@ public class MyMessageActivity extends BaseControllerActivity<MyMessagaeControll
             public void onLoadMore(RefreshLayout refreshLayout) {
                 if(Type.MYMESSAGE.equals(type)){
                     getController().getMyMessageList(getMessageMap());
+                }else if(Type.NOTICEMESSAGE.equals(type)){
+                    getController().getNoticeList(getNoticeMap());
                 }
             }
         });
@@ -88,6 +91,10 @@ public class MyMessageActivity extends BaseControllerActivity<MyMessagaeControll
                 if(Type.MYMESSAGE.equals(type)){
                     page=1;
                     getController().getMyMessageList(getMessageMap());
+                }
+                else if(Type.NOTICEMESSAGE.equals(type)){
+                    page=1;
+                    getController().getNoticeList(getNoticeMap());
                 }
             }
         });
@@ -101,13 +108,23 @@ public class MyMessageActivity extends BaseControllerActivity<MyMessagaeControll
         map.put("currentPage",page);
         return map;
     }
+    private Map<String,Object> getNoticeMap(){
+        Map<String,Object> map=new HashMap<>();
+        map.put("hospitalId",App.hospitalId);
+        map.put("pageSize",8);
+        map.put("currentPage",page);
+        return map;
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(Type.MYMESSAGE.equals(type)){
+        my_messag_refresh.autoRefresh();
+      /*  if(Type.MYMESSAGE.equals(type)){
             getController().getMyMessageList(getMessageMap());
-        }
+        }else if(Type.NOTICEMESSAGE.equals(type)){
+            getController().getNoticeList(getNoticeMap());
+        }*/
     }
 
     @Override
@@ -137,6 +154,35 @@ public class MyMessageActivity extends BaseControllerActivity<MyMessagaeControll
 
     @Override
     public void getMessageListFailed(String errMsg) {
+        ToastUtil.shortToast(getContext(),"接口异常:"+errMsg);
+    }
+
+    @Override
+    public void getNoticeSuccess(NoticeBean noticeBean) {
+        my_messag_refresh.finishLoadMore();
+        my_messag_refresh.finishRefresh();
+        if(noticeBean.getRecords()!=null&&noticeBean.getRecords().size()>0){
+            if(page==1){
+                dataList.clear();
+                dataList.addAll(noticeBean.getRecords());
+                myMessageAdapter.notifyDataSetChanged();
+
+            }else {
+                dataList.addAll(noticeBean.getRecords());
+                myMessageAdapter.notifyDataSetChanged();
+            }
+            page++;
+        }else {
+            if(page==1){
+                dataList.clear();
+                dataList.addAll(noticeBean.getRecords());
+                myMessageAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    @Override
+    public void getNoticeFailed(String errMsg) {
         ToastUtil.shortToast(getContext(),"接口异常:"+errMsg);
     }
 }

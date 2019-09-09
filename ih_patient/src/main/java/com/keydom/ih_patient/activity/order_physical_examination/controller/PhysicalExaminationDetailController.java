@@ -52,20 +52,17 @@ public class PhysicalExaminationDetailController extends ControllerImpl<Physical
      * 创建体检订单
      */
     public void createPhysicalExamOrder(long id) {
-        showLoading();
         Map<String, Object> map = new HashMap<>();
         map.put("healthCheckCombId", id);
         map.put("registerUserId", Global.getUserId());
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ReservationService.class).findhealthCheckComborelowerOrder(map), new HttpSubscriber<SubscribeExaminationBean>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable SubscribeExaminationBean data) {
-                hideLoading();
                 getView().choosePayWay(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 return super.requestError(exception, code, msg);
             }
         });
@@ -80,10 +77,9 @@ public class PhysicalExaminationDetailController extends ControllerImpl<Physical
         map.put("orderNumber", bean.getOrderNumber());
         map.put("type", type);
         map.put("totalMoney", bean.getFee());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ReservationService.class).findhealthCheckComboreGoPay(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ReservationService.class).findhealthCheckComboreGoPay(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable String data) {
-                hideLoading();
                 if (StringUtils.isEmpty(data)) {
                     ToastUtils.showShort("返回支付参数为空");
                     return;
@@ -140,7 +136,6 @@ public class PhysicalExaminationDetailController extends ControllerImpl<Physical
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }

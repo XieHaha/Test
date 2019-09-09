@@ -307,8 +307,9 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
             mImgAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    String url = Const.IMAGE_HOST + (String) adapter.getData().get(position);
-                    CommonUtils.previewImage(getContext(),url);
+                    CommonUtils.previewImageList(getContext(),adapter.getData(),position,true);
+                  /*  String url = Const.IMAGE_HOST + (String) adapter.getData().get(position);
+                    CommonUtils.previewImage(getContext(),url);*/
                 }
             });
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

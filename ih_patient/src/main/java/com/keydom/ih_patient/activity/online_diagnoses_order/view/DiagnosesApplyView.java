@@ -77,5 +77,7 @@ public interface DiagnosesApplyView extends BaseView {
 
     String getPicUrl(int position);
 
+    List<String> getPicList();
+
     int getType();
 }

@@ -73,6 +73,6 @@ public interface NursingService {
     /**
      * 修改护理订单
      */
-    @POST("nursing/nurseServiceCate/getAllNurseServiceCategoryByHospitalId")
+    @GET("nursing/nurseServiceCate/getAllNurseServiceCategoryByHospitalId")
     Observable<HttpResult<List<ChooseNursingBean>>> getAllNurseServiceCategoryByHospitalId(@Query("hospitalId") long hospitalId);
 }

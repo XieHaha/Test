@@ -154,6 +154,8 @@ public interface UserService {
      */
     @GET("user/online/getDoctorHome")
     Observable<HttpResult<DoctorMainBean>> getMyFollowDoctorDetail(@QueryMap Map<String,Object> map);
+    @GET("user/online/getUserIsPlaceOrder")
+    Observable<HttpResult<Integer>> getUserIsPlaceOrder(@QueryMap Map<String,Object> map);
 
     /**
      *     //获取医生/护士评价  doctorCode  type
@@ -301,5 +303,8 @@ public interface UserService {
 
     @GET("user/pageSearch")
     Observable<HttpResult<List<JSONObject>>> pageSearch(@QueryMap Map<String, Object> maps);
+
+    @GET("user/appuser/logout")
+    Observable<HttpResult<Object>> logout();
 
 }

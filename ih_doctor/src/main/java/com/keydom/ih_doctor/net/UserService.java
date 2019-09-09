@@ -1,6 +1,7 @@
 package com.keydom.ih_doctor.net;
 
 import com.keydom.ih_common.net.result.HttpResult;
+import com.keydom.ih_doctor.bean.AgreementBean;
 import com.keydom.ih_doctor.bean.DoctorEvaluateItem;
 import com.keydom.ih_doctor.bean.DoctorMainBean;
 
@@ -42,4 +43,12 @@ public interface UserService {
     @GET("user/hospitalUserCenter/attentionDoctor")
     Observable<HttpResult<Object>> attentionDoctor(@QueryMap Map<String, Object> map);
 
+    @GET("user/appuser/logout")
+    Observable<HttpResult<Object>> logout();
+
+    /*
+    * 获取用户协议
+    * */
+    @GET("api/officialDispatch/getOfficialDispatchAllMsgByCode")
+    Observable<HttpResult<AgreementBean>> getOfficialDispatchAllMsgByCode(@QueryMap Map<String, Object> map);
 }

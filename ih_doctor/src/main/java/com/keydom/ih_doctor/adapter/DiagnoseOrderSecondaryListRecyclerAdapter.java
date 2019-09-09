@@ -3,13 +3,18 @@ package com.keydom.ih_doctor.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_common.view.MRadioButton;
@@ -17,6 +22,7 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.CheckOutItemBean;
 import com.keydom.ih_doctor.m_interface.OnItemChangeListener;
 import com.keydom.ih_doctor.m_interface.SingleClick;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,16 +71,17 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
             ((GroupItemViewHolder) holder).deleteBtn.setVisibility(View.VISIBLE);
             ((GroupItemViewHolder) holder).deptName.setVisibility(View.VISIBLE);
             ((GroupItemViewHolder) holder).deptName.setVisibility(View.VISIBLE);
+            ((GroupItemViewHolder) holder).allChooseRb.setVisibility(View.GONE);
 
         } else {
             ((GroupItemViewHolder) holder).testItemFee.setVisibility(View.GONE);
             ((GroupItemViewHolder) holder).deleteBtn.setVisibility(View.GONE);
             ((GroupItemViewHolder) holder).deptName.setVisibility(View.GONE);
 
-            ((GroupItemViewHolder) holder).testItemFee.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.0f));
+            /*((GroupItemViewHolder) holder).testItemFee.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.0f));
             ((GroupItemViewHolder) holder).deleteBtn.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.0f));
             ((GroupItemViewHolder) holder).deptName.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.0f));
-            ((GroupItemViewHolder) holder).rightImg.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 5.0f));
+            ((GroupItemViewHolder) holder).rightImg.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 5.0f));*/
         }
         ((GroupItemViewHolder) holder).deptName.setText(bean.getDeptName());
         ((GroupItemViewHolder) holder).testItemFee.setText(String.valueOf(bean.getTotalFee()));
@@ -100,6 +107,26 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
         if (onItemChangeListener != null) {
             onItemChangeListener.changeItem(groupItemIndex);
         }
+//        ((GroupItemViewHolder) holder).allChooseRb.setFinishEvent(true);
+        ((GroupItemViewHolder) holder).allChooseRb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<CheckOutItemBean> subBeanList = dts.get(groupItemIndex).getSubItems();
+                for (int i = 0; i <subBeanList.size() ; i++) {
+                    subBeanList.get(i).setSelect(true);
+                }
+                bean.setSelect(false);
+                if (bean.getItems() != null) {
+                    for (int i = 0; i < bean.getItems().size(); i++) {
+                        if (bean.getItems().get(i).isSelect()) {
+                            bean.setSelect(true);
+                        }
+                    }
+                }
+                notifyDataSetChanged();
+            }
+        });
+
 
     }
 
@@ -139,6 +166,7 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
 
     @Override
     public void onSubItemClick(SubItemViewHolder holder, int groupItemIndex, int subItemIndex) {
+
         CheckOutItemBean bean = dts.get(groupItemIndex).getGroupItem();
         CheckOutItemBean subBean = dts.get(groupItemIndex).getSubItems().get(subItemIndex);
         subBean.setSelect(!subBean.isSelect());
@@ -159,6 +187,7 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
 
         public TextView itemName, deptName, testItemFee, rightImg;
         public ImageButton deleteBtn;
+        public TextView allChooseRb;
 
         public GroupItemViewHolder(View itemView) {
             super(itemView);
@@ -167,7 +196,7 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
             testItemFee = (TextView) itemView.findViewById(R.id.test_item_fee);
             deleteBtn = (ImageButton) itemView.findViewById(R.id.sub_item_delete_btn);
             rightImg = (TextView) itemView.findViewById(R.id.right_img);
-
+            allChooseRb=itemView.findViewById(R.id.all_choose_rb);
         }
     }
 

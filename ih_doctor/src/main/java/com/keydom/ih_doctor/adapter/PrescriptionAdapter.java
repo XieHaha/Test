@@ -139,8 +139,13 @@ public class PrescriptionAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                     public void onClick(View view) {
                         if (context.getSelectList().get(prescriptionBottomBean.getBottomPosition()).size() >= 5)
                             ToastUtil.shortToast(context, "最多添加五个药品");
-                        else
-                            DrugChooseActivity.start(context, context.getSelectList().get(prescriptionBottomBean.getBottomPosition()),prescriptionBottomBean.getBottomPosition());
+                        else{
+                            List<DrugBean> list=new ArrayList<>();
+                            for (int i = 0; i <context.getSelectList().size() ; i++) {
+                                list.addAll(context.getSelectList().get(i));
+                            }
+                            DrugChooseActivity.start(context,list,prescriptionBottomBean.getBottomPosition());
+                        }
                     }
                 });
                 break;

@@ -123,7 +123,8 @@ public class NursingApplyOrderActivity extends BaseControllerActivity<NursingApp
         img_gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CommonUtils.previewImage(getContext(), Const.IMAGE_HOST+dataList.get(position));
+                CommonUtils.previewImageList(getContext(),dataList,position,true);
+//                CommonUtils.previewImage(getContext(), Const.IMAGE_HOST+dataList.get(position));
             }
         });
         img_gv.setAdapter(mAdapter);

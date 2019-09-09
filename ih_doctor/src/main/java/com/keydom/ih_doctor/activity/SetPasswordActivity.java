@@ -57,7 +57,7 @@ public class SetPasswordActivity extends BaseControllerActivity<SetPasswordContr
     @Override
     public void updateSuccess(LoginBean userInfo) {
         SharePreferenceManager.setUserCode(userInfo.getUserCode());
-        SharePreferenceManager.setToken(userInfo.getToken());
+        SharePreferenceManager.setToken("Bearer " + userInfo.getToken());
         SharePreferenceManager.setImToken(userInfo.getImToken());
         SharePreferenceManager.setPhoneNumber(userInfo.getPhoneNumber());
         if (userInfo.getRoleIds() != null && userInfo.getRoleIds().size() > 0) {

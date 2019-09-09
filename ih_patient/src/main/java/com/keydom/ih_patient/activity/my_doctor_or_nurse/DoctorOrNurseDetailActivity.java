@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.SpanUtils;
@@ -22,7 +23,9 @@ import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.StatusBarUtils;
 import com.keydom.ih_common.view.CircleImageView;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.R;
+import com.keydom.ih_patient.activity.login.LoginActivity;
 import com.keydom.ih_patient.activity.my_doctor_or_nurse.controller.DoctorOrNurseDetailController;
 import com.keydom.ih_patient.activity.my_doctor_or_nurse.view.DoctorOrNurseDetailView;
 import com.keydom.ih_patient.activity.online_diagnoses_order.DiagnosesApplyActivity;
@@ -30,6 +33,7 @@ import com.keydom.ih_patient.adapter.DoctorOrNurseDetailAdapter;
 import com.keydom.ih_patient.bean.DoctorEvaluateItem;
 import com.keydom.ih_patient.bean.DoctorMainBean;
 import com.keydom.ih_patient.bean.DoctorTeamItem;
+import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.view.DiagnosesApplyDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -258,8 +262,18 @@ public class DoctorOrNurseDetailActivity extends BaseControllerActivity<DoctorOr
                     ActivityUtils.startActivity(i);
                     break;
                 case R.id.isLike:
-                    DoctorEvaluateItem evaluateItem = (DoctorEvaluateItem) adapter.getData().get(position);
-                    getController().doCommentLike(position, evaluateItem.getId(), evaluateItem.getIsLike() == 0 ? 1 : 0);
+                    if(Global.getUserId()!=-1){
+                        DoctorEvaluateItem evaluateItem = (DoctorEvaluateItem) adapter.getData().get(position);
+                        getController().doCommentLike(position, evaluateItem.getId(), evaluateItem.getIsLike() == 0 ? 1 : 0);
+                    }else {
+                        new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？", new GeneralDialog.OnCloseListener() {
+                            @Override
+                            public void onCommit() {
+                                LoginActivity.start(getContext());
+                            }
+                        }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
+                    }
+
                     break;
                 default:
             }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.doctor_cooperation.controller.GroupMemberController;
 import com.keydom.ih_doctor.activity.doctor_cooperation.view.GroupMemberView;
@@ -125,7 +126,9 @@ public class GroupMemberActivity extends BaseControllerActivity<GroupMemberContr
     @Override
     public Map<String, Object> getQueryMap() {
         Map<String, Object> map = new HashMap<>();
+        map.put("userCode", MyApplication.userInfo.getUserCode());
         map.put("groupId", groupId);
+
         return map;
     }
 

@@ -15,5 +15,6 @@ class AllException : BaseException {
      */
     override fun handleException(context: Context?, e: ApiException) {
         //TODO 此处用来处理一些特殊的全局异常(账号挤下线等)
+
     }
 }

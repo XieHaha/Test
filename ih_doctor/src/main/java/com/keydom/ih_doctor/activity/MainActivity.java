@@ -6,6 +6,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -40,6 +41,7 @@ import com.keydom.ih_doctor.bean.LoginBean;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.net.LoginApiService;
 import com.keydom.ih_doctor.net.MainApiService;
+import com.keydom.ih_doctor.push.InterceptorReceiver;
 import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.MainView;
 import com.netease.nimlib.sdk.NimIntent;
@@ -81,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean isNeedJump=false;
     private boolean isNeedJump2Service=false;
     private MainController mainController;
+    /*private IntentFilter intentFilter1;
+    private  InterceptorReceiver interceptorReceiver;*/
 
     /**
      * 跳转主页面<br/>
@@ -124,13 +128,16 @@ public class MainActivity extends AppCompatActivity {
         if(isNeedJump2Service){
             MyServiceActivity.start(this,true);
         }
-
+        /*interceptorReceiver =new InterceptorReceiver();
+        intentFilter1=new IntentFilter("common.action.interceptor");
+        registerReceiver(interceptorReceiver, intentFilter1);*/
 
     }
 
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
+//        unregisterReceiver(interceptorReceiver);
         super.onDestroy();
     }
 
@@ -340,10 +347,11 @@ public class MainActivity extends AppCompatActivity {
                                         TeamDataCache.getInstance().buildCache();
                                         ImPreferences.saveUserAccount(data.getUserCode());
                                         ImPreferences.saveUserToken(data.getImToken());
-                                        SharePreferenceManager.setToken(data.getToken());
+                                        SharePreferenceManager.setToken("Bearer " + data.getToken());
                                         SharePreferenceManager.setImToken(data.getImToken());
                                         SharePreferenceManager.setUserCode(data.getUserCode());
                                         SharePreferenceManager.setPhoneNumber(data.getPhoneNumber());
+                                        SharePreferenceManager.setHospitalId(data.getHospitalId());
                                         if (data.getRoleIds() != null && data.getRoleIds().size() > 0) {
                                             SharePreferenceManager.setRoleId(data.getRoleIds().get(0));
                                             SharePreferenceManager.setPositionId(data.getNurseMonitorState());

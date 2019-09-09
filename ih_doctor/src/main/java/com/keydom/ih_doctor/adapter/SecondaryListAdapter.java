@@ -186,7 +186,6 @@ public abstract class SecondaryListAdapter<GVH, SVH extends RecyclerView.ViewHol
                     .getSubItemIndex());
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
 
