@@ -1084,15 +1084,17 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         double total = d + orderfee.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         mPsTotal = total;
         if (mHosptalCost != null && mHosptalCost.isChecked()) {
-            String f = new DecimalFormat("0.00").format(total);
-            mTotalPayTv.setText("去付款¥" + f + "元");
+
             // mTotalPayTv.setText("去付款¥" + total + "元");
+            SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
+                    .append("（配送费用").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color))
+                    .append("¥" + fee + "元").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.nursing_status_red))
+                    .append("）").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color)).create();
+            mHosptalCost.setText(medicalTv);
         }
-        SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
-                .append("（配送费用").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color))
-                .append("¥" + fee + "元").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.nursing_status_red))
-                .append("）").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color)).create();
-        mHosptalCost.setText(medicalTv);
+        String f = new DecimalFormat("0.00").format(total);
+        mTotalPayTv.setText("去付款¥" + f + "元");
+
       /*  BigDecimal bd = new BigDecimal(fee);
         Double d = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         shippingFee = d;
@@ -1301,9 +1303,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 mPayAddress.setText("请选择配送详细地址和联系人");
                 mPayAddress.setTextColor(getResources().getColor(R.color.edit_hint_color));
                 mAddressId = 0;
-                SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
-                        .create();
-                mHosptalCost.setText(medicalTv);
+
+                if (mHosptalCost != null && mHosptalCost.isChecked()) {
+
+                    SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
+                            .create();
+                    mHosptalCost.setText(medicalTv);
+                }
+
             }
         }
     }
