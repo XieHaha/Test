@@ -16,6 +16,8 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
@@ -33,8 +35,10 @@ import com.keydom.ih_common.im.model.custom.ConsultationResultAttachment;
 import com.keydom.ih_common.im.model.custom.DisposalAdviceAttachment;
 import com.keydom.ih_common.im.model.custom.EndInquiryAttachment;
 import com.keydom.ih_common.im.model.custom.ExaminationAttachment;
+import com.keydom.ih_common.im.model.custom.GetDrugsAttachment;
 import com.keydom.ih_common.im.model.custom.InquiryAttachment;
 import com.keydom.ih_common.im.model.custom.InspectionAttachment;
+import com.keydom.ih_common.im.model.custom.ReceiveDrugsAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralApplyAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralDoctorAttachment;
 import com.keydom.ih_common.im.model.event.EndInquiryEvent;
@@ -43,6 +47,10 @@ import com.keydom.ih_common.im.model.event.ReferralApplyEvent;
 import com.keydom.ih_common.im.model.event.StartInquiryEvent;
 import com.keydom.ih_common.im.widget.ImMessageView;
 import com.keydom.ih_common.im.widget.plugin.VideoPlugin;
+import com.keydom.ih_common.net.ApiRequest;
+import com.keydom.ih_common.net.exception.ApiException;
+import com.keydom.ih_common.net.service.HttpService;
+import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.CalculateTimeUtils;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.R;
@@ -50,21 +58,32 @@ import com.keydom.ih_patient.activity.AgreementActivity;
 import com.keydom.ih_patient.activity.apply_for_order_detail.CheckOrderDetailActivity;
 import com.keydom.ih_patient.activity.apply_for_order_detail.TransferTreatmentOrderDetailActivity;
 import com.keydom.ih_patient.activity.location_manage.LocationManageActivity;
+import com.keydom.ih_patient.activity.logistic.FixHeightBottomSheetDialog;
 import com.keydom.ih_patient.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity;
 import com.keydom.ih_patient.activity.online_diagnoses_order.DianoseCaseDetailActivity;
 import com.keydom.ih_patient.activity.order_doctor_register.DoctorIndexActivity;
 import com.keydom.ih_patient.activity.order_evaluate.OrderEvaluateActivity;
+import com.keydom.ih_patient.activity.prescription.PrescriptionGetDetailActivity;
 import com.keydom.ih_patient.activity.prescription_check.PrescriptionDetailActivity;
 import com.keydom.ih_patient.activity.user_info_operate.UserInfoOperateActivity;
 import com.keydom.ih_patient.bean.DiagnosesOrderBean;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.InquiryBean;
 import com.keydom.ih_patient.bean.LocationInfo;
+import com.keydom.ih_patient.bean.PrescriptionDetailBean;
+import com.keydom.ih_patient.bean.PrescriptionDrugBean;
+import com.keydom.ih_patient.bean.entity.pharmacy.PharmacyBean;
+import com.keydom.ih_patient.bean.entity.pharmacy.PrescriptionItemEntity;
 import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.callback.MessageSingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
+import com.keydom.ih_patient.net.LocationService;
+import com.keydom.ih_patient.net.PrescriptionService;
+import com.keydom.ih_patient.utils.CommUtil;
+import com.keydom.ih_patient.utils.DataCacheUtil;
+import com.keydom.ih_patient.utils.GotoActivityUtil;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.msg.MsgService;
@@ -72,14 +91,18 @@ import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -155,6 +178,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private int endType;
     private InquiryBean orderBean;
 
+
+
+    /**
+     * 当前位置信息
+     */
+    LocationInfo mLocationInfo;
+
     /**
      * 转诊所需支付金额
      */
@@ -188,6 +218,28 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private String orderNum;
 
     /**
+     * 处方单单号
+     */
+    private String mPprescriptionId;
+
+    /**
+     * 处方类型
+     */
+    private String prescriptionType;
+    /**
+     * 外延地址ID
+     */
+    private long mWaiYanAddressId;
+    /**
+     * 药店名字和地址
+     */
+    String mPharmacyName = null;
+    String mPharmacyAddress = null;
+    /**
+     * 药店选中，详情bean
+     */
+    PharmacyBean mPharmacyBean = null;
+    /**
      * 其他界面带入的与IM无关参数，都在这里面
      */
     private Bundle bundle;
@@ -196,12 +248,56 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     private int doctorType;
     private RadioButton mHosptalCost;
+    private TextView mTypeTotalPayTv;
+
+    /**
+     * 新加
+     */
+    private TextView mTypePayAddress;
+    private TextView mPyName;
+    private double mTotalFee;
+
+    //父组件 药店自取/配送到家
+    LinearLayout mLinAddress;
+    LinearLayout mLinShop;
+    RelativeLayout mReZxingTitle;
+
+    //付款按钮
+    private TextView mWaiYanTotalPayTv;
     private TextView mTotalPayTv;
+    LinearLayout mLinPay;
+    TextView mTvShopPay;
+    TextView mTvGoPay;
+
+    //支付宝，微信，银联
+    ImageView aliPay;
+    ImageView wechatPay;
+    ImageView unionPay;
+
+    TextView mTvAliPay;
+    TextView mTvWechatPay;
+    TextView mTvUnionPay;
+    TextView pay_agreement_tv;
+    TextView mOrderPriceTv;
+
+    //配送费
+    TextView mDeliveryCostTv;
+
+    //外院选择按钮
+    RadioGroup mRadioGroup;
+    RadioButton mRadioSelf;
+    RadioButton mRadioHome;
+
+    int[] WaiPayType = {2};
+    String payWaiType = Type.ALIPAY;
+    List<PrescriptionItemEntity> drugs = new ArrayList<>();
+
 
     @Override
     protected void onResume() {
         super.onResume();
         getController().getLocationList();
+        getWaiYanLocationList();
         NIMClient.getService(MsgService.class).setChattingAccount(sessionId, SessionTypeEnum.P2P);
     }
 
@@ -228,6 +324,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
+
+        drugs = DataCacheUtil.getInstance().getPrescriptionItemEntity();
+
         myDoctor = getIntent().getIntExtra(Const.TYPE, -1);
         mBackImage = findViewById(R.id.left_image);
         mTitle = findViewById(R.id.title_center);
@@ -304,7 +403,17 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     }
                     //处置建议
                     else if (message.getAttachment() instanceof DisposalAdviceAttachment) {
-                        HandleProposeAcitivity.start(getContext(), ((DisposalAdviceAttachment) message.getAttachment()).getContent());
+						HandleProposeAcitivity.start(getContext(), ((DisposalAdviceAttachment) message.getAttachment()).getContent());
+                    }
+                    //取药
+                    else if(message.getAttachment() instanceof GetDrugsAttachment){
+                        GetDrugsAttachment getDrugsAttachment = (GetDrugsAttachment) message.getAttachment();
+                        GotoActivityUtil.gotoPrescriptionGetDetailActivity(ConversationActivity.this,getDrugsAttachment.getId(), PrescriptionGetDetailActivity.TAKE_MEDICINE);
+                    }
+                    //收药
+                    else if(message.getAttachment() instanceof ReceiveDrugsAttachment){
+                        ReceiveDrugsAttachment receiveDrugsAttachment = (ReceiveDrugsAttachment) message.getAttachment();
+                        GotoActivityUtil.gotoPrescriptionGetDetailActivity(ConversationActivity.this,receiveDrugsAttachment.getId(),PrescriptionGetDetailActivity.RECEIVE_MEDICINE);
                     }
                 }
                 return false;
@@ -326,10 +435,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     } else if (message.getAttachment() instanceof ConsultationResultAttachment) {
                         ConsultationResultAttachment attachment = (ConsultationResultAttachment) message.getAttachment();
                         isPayOrderId = Long.parseLong(attachment.getId());
+                        mPprescriptionId = attachment.getId();
                         orderFee = attachment.getAmount();
                         deliveryAmount = attachment.getDeliveryAmount();
                         orderNum = attachment.getOrderNum();
                         isPrescription = true;
+                        //prescriptionType=attachment.getPrescriptionType();
+                        prescriptionType = "1";
+                        Logger.e("prescriptionType=" + attachment.getPrescriptionType());
                     }
                     getController().isPay();
                 }
@@ -897,10 +1010,16 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     }
                 });
             } else {
-                if (deliveryAmount == null) {
-                    deliveryAmount = "0.0";
+                if (!CommUtil.isEmpty(prescriptionType)) {
+                    if (prescriptionType.equals("1")) {
+                        showPayTypeDialog(orderFee, Double.parseDouble(orderFee), orderNum, mPprescriptionId);
+                    } else {
+                        if (deliveryAmount == null) {
+                            deliveryAmount = "0.0";
+                        }
+                        showPayDialog(true, orderFee, Double.parseDouble(orderFee), orderNum);
+                    }
                 }
-                showPayDialog(true, orderFee, Double.parseDouble(orderFee), orderNum);
             }
         } else {
             new GeneralDialog(getContext(), "该订单已支付！", () -> {
@@ -1108,8 +1227,62 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             String address = locationInfo.getProvinceName() + locationInfo.getCityName() + locationInfo.getAreaName() + locationInfo.getAddress();
             mPayAddress.setText(address);
             mPayAddress.setTextColor(getResources().getColor(R.color.pay_unselected));
-            mAddressId = locationInfo.getId();
-            getController().getDistributionFee(mAddressId);
+            if (locationInfo.getId() != 0) {
+                mAddressId = locationInfo.getId();
+                getController().getDistributionFee(mAddressId);
+            }
+        }
+    }
+
+
+
+    /**
+     * 获取外延处方地址
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onReceiveEvent(Event event) {
+        if (event.getType() == EventType.WAI_PAY_SELECT_ADDRESS) {
+            mLocationInfo = (LocationInfo) event.getData();
+            String address = mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress();
+            mPayAddress.setText(address);
+            mWaiYanAddressId = mLocationInfo.getId();
+            Logger.e("地址=" + address);
+            getPrescriptionDetailDrugs(address,mPprescriptionId);
+        }
+    }
+
+    /**
+     * 获取药品
+     */
+    public void getPrescriptionDetailDrugs(String address,String id) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getDetailById(id), new HttpSubscriber<PrescriptionDetailBean>(getContext(), getDisposable(), true, true) {
+            @Override
+            public void requestComplete(@org.jetbrains.annotations.Nullable PrescriptionDetailBean data) {
+                if (null != data && !CommUtil.isEmpty(data.getList())) {
+                    getHttpFindDrugstores(address,data.getList());
+                }
+
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                ToastUtils.showShort(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onResultPharmacy(Event event) {
+        if (event.getType() == EventType.SELECTPHARMACY) {
+            Map<String, Object> map = (Map<String, Object>) event.getData();
+            mPharmacyName = (String) map.get("mName");
+            mPharmacyAddress = (String) map.get("mAddress");
+            mPharmacyBean = (PharmacyBean) map.get("pharmacy");
+            mPyName.setText(mPharmacyName);
+            refreshPriceView(Arrays.asList(mPharmacyBean));
         }
     }
 
@@ -1359,7 +1532,392 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             }
         });
         bottomSheetDialog.show();
-        addressSelectGroup.setVisibility(needAddress ? View.VISIBLE : View.GONE);
+    }
+
+    /**
+     * 展示支付弹框
+     */
+    private void showPayTypeDialog(String titleFee, double totalFee, String orderNum,String id) {
+        FixHeightBottomSheetDialog bottomWaiYanSheetDialog = new FixHeightBottomSheetDialog(this);
+        bottomWaiYanSheetDialog.setCancelable(false);
+        final boolean[] isAgree = {false};
+
+        bottomWaiYanSheetDialog.setCanceledOnTouchOutside(false);
+        View view = LayoutInflater.from(this).inflate(R.layout.pay_outside_dialog_layout, null, false);
+        bottomWaiYanSheetDialog.setContentView(view);
+        mOrderPriceTv = view.findViewById(R.id.order_price_tv);
+        mOrderPriceTv.setText("¥" + titleFee + "起");
+        LinearLayout addressSelect = view.findViewById(R.id.address_select);
+        mPayAddress = view.findViewById(R.id.tv_m_address);
+        mPyName = view.findViewById(R.id.tv_shop_name);
+        mDeliveryCostTv = view.findViewById(R.id.tv_logistic_fee);
+
+
+        //todo 跳转选择地址界面
+        addressSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LocationManageActivity.start(ConversationActivity.this, Type.WAI_PAY_SELECT_ADDRESS);
+            }
+        });
+
+        mTvAliPay = view.findViewById(R.id.ali_pay_tv);
+        mTvWechatPay = view.findViewById(R.id.wechat_pay_tv);
+        mTvUnionPay = view.findViewById(R.id.union_pay_tv);
+        pay_agreement_tv = view.findViewById(R.id.pay_agreement_tv);
+
+        //付款按钮
+        mWaiYanTotalPayTv = view.findViewById(R.id.pay_commit_tv);
+        mLinPay = view.findViewById(R.id.linear_pay);
+        mTvShopPay = view.findViewById(R.id.tv_shop_pay);
+        mTvGoPay = view.findViewById(R.id.tv_go_pay);
+
+
+        //支付宝，微信，银联
+        aliPay = view.findViewById(R.id.ali_pay_selected_img);
+        wechatPay = view.findViewById(R.id.wechat_pay_selected_img);
+        unionPay = view.findViewById(R.id.union_pay_selected_img);
+
+        //选择 药店自取/配送到家
+         mRadioGroup = view.findViewById(R.id.sex_rg);
+         mRadioSelf = view.findViewById(R.id.radio_self);
+         mRadioHome = view.findViewById(R.id.radio_home);
+        mRadioSelf.setChecked(true);
+
+        //父组件 药店自取/配送到家
+        mLinAddress = view.findViewById(R.id.address_select);
+        mLinShop = view.findViewById(R.id.linear_shop_select);
+        mReZxingTitle = view.findViewById(R.id.re_zxing_title);
+
+        mRadioGroup.setOnCheckedChangeListener(listen);
+        //todo 跳转选择药店界面
+        mLinShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GotoActivityUtil.gotoChoosePharmacyActivity(ConversationActivity.this,id);
+            }
+        });
+
+        ImageView close_img = view.findViewById(R.id.close_img);
+        aliPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                aliPay.setImageResource(R.mipmap.pay_selected_icon);
+                wechatPay.setImageResource(R.mipmap.pay_unselected_icon);
+                mTvAliPay.setTextColor(getResources().getColor(R.color.pay_selected));
+                mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                unionPay.setImageResource(R.mipmap.pay_unselected_icon);
+                mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                WaiPayType[0] = 2;
+                payWaiType = Type.ALIPAY;
+            }
+        });
+        wechatPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                aliPay.setImageResource(R.mipmap.pay_unselected_icon);
+                wechatPay.setImageResource(R.mipmap.pay_selected_icon);
+                mTvAliPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_selected));
+
+                unionPay.setImageResource(R.mipmap.pay_unselected_icon);
+                mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                WaiPayType[0] = 1;
+                payWaiType = Type.WECHATPAY;
+            }
+        });
+        unionPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aliPay.setImageResource(R.mipmap.pay_unselected_icon);
+                wechatPay.setImageResource(R.mipmap.pay_unselected_icon);
+                mTvAliPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                unionPay.setImageResource(R.mipmap.pay_selected_icon);
+                mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_selected));
+                WaiPayType[0] = 3;
+                payWaiType = Type.UNIONPAY;
+            }
+        });
+        mWaiYanTotalPayTv.setText("去付款¥" + totalFee + "元");
+        mWaiYanTotalPayTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mRadioHome.isChecked() && mWaiYanAddressId == 0) {
+                    ToastUtils.showShort("请选择配送地址");
+                } else {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("orderId", isPayOrderId);
+                    if (payWaiType.equals(Type.WECHATPAY)) {
+                        map.put("type", 1);
+                    }
+                    if (payWaiType.equals(Type.ALIPAY)) {
+                        map.put("type", 2);
+                    }
+
+                    updatePrescriptionOrder(true,map);
+                    bottomWaiYanSheetDialog.dismiss();
+                }
+            }
+        });
+        mTvShopPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)){
+                    ToastUtils.showShort("请选择药店");
+                }else{
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("orderId", isPayOrderId);
+                    if (payWaiType.equals(Type.WECHATPAY)) {
+                        map.put("type", 1);
+                    }
+                    if (payWaiType.equals(Type.ALIPAY)) {
+                        map.put("type", 2);
+                    }
+                    updatePrescriptionOrder(false,map);
+                    bottomWaiYanSheetDialog.dismiss();
+                }
+            }
+        });
+        mTvGoPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)) {
+                    ToastUtils.showShort("请选择药店");
+                } else {
+                //去支付
+                Map<String, Object> map = new HashMap<>();
+                map.put("orderId", isPayOrderId);
+                if (payWaiType.equals(Type.WECHATPAY)) {
+                    map.put("type", 1);
+                }
+                if (payWaiType.equals(Type.ALIPAY)) {
+                    map.put("type", 2);
+                }
+                if(null != mPharmacyBean){
+                    updatePrescriptionOrder(true,map);
+                }
+
+                bottomWaiYanSheetDialog.dismiss();
+                }
+                //   ToastUtils.showShort("暂未接入支付");
+            }
+        });
+
+
+        //  mTotalPayTv.setText("去付款¥" + totalFee + "元");
+//        mTotalPayTv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (needAddress && mAddressId == 0 && mHosptalCost.isChecked()) {
+//                    ToastUtils.showShort("请选择配送地址");
+//                } else {
+//                    //去支付
+//                    getController().pay(mAddressId, orderNum, payType[0], totalFee);
+//                    bottomSheetDialog.dismiss();
+//                }
+//            }
+//        });
+        pay_agreement_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //跳转支付协议页面
+                AgreementActivity.startPayAgreement(ConversationActivity.this);
+            }
+        });
+        close_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomWaiYanSheetDialog.dismiss();
+            }
+        });
+        bottomWaiYanSheetDialog.show();
+    }
+
+
+    public boolean isSendDrugsToHome = false;
+
+    private RadioGroup.OnCheckedChangeListener listen = new RadioGroup.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            switch (group.getCheckedRadioButtonId()) {
+                case R.id.radio_self:
+                    //todo 到店自取
+                    mLinAddress.setVisibility(View.GONE);
+                    mLinShop.setVisibility(View.VISIBLE);
+                    mReZxingTitle.setVisibility(View.VISIBLE);
+                    mWaiYanTotalPayTv.setVisibility(View.GONE);
+                    mLinPay.setVisibility(View.VISIBLE);
+
+
+                    aliPay.setImageResource(R.mipmap.pay_selected_icon);
+                    wechatPay.setImageResource(R.mipmap.pay_unselected_icon);
+                    mTvAliPay.setTextColor(getResources().getColor(R.color.pay_selected));
+                    mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                    unionPay.setImageResource(R.mipmap.pay_unselected_icon);
+                    mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                    WaiPayType[0] = 2;
+                    payWaiType = Type.ALIPAY;
+                    isSendDrugsToHome = false;
+                    break;
+                case R.id.radio_home:
+                    //todo 配送到家
+                    mLinAddress.setVisibility(View.VISIBLE);
+                    mLinShop.setVisibility(View.GONE);
+                    mReZxingTitle.setVisibility(View.GONE);
+
+                    mWaiYanTotalPayTv.setVisibility(View.VISIBLE);
+                    mLinPay.setVisibility(View.GONE);
+
+                    aliPay.setImageResource(R.mipmap.pay_selected_icon);
+                    wechatPay.setImageResource(R.mipmap.pay_unselected_icon);
+                    mTvAliPay.setTextColor(getResources().getColor(R.color.pay_selected));
+                    mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                    unionPay.setImageResource(R.mipmap.pay_unselected_icon);
+                    mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                    WaiPayType[0] = 2;
+                    payWaiType = Type.ALIPAY;
+                    isSendDrugsToHome = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    /**
+     * 获得药店名字获取配送费
+     */
+    private void getHttpFindDrugstores(String mAddress, List<List<PrescriptionDrugBean>> drugs) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("address", mAddress);
+        map.put("drugs", drugs);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getFindDrugstoresByDistribution(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<List<PharmacyBean>>(this, getDisposable(), true, true) {
+            @Override
+            public void requestComplete(@org.jetbrains.annotations.Nullable List<PharmacyBean> data) {
+                if (!CommUtil.isEmpty(data)) {
+                   refreshDeliveryCostView(data);
+                   refreshPriceView(data);
+                }
+
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                return super.requestError(exception, code, msg);
+            }
+        });
+
+    }
+
+    public void refreshDeliveryCostView(List<PharmacyBean> data) {
+        if(!CommUtil.isEmpty(data) && null != data.get(0)){
+            mDeliveryCostTv.setText("￥" + String.valueOf(data.get(0).getDeliveryCost()) + "元");
+        }
+
+    }
+
+    public void refreshPriceView(List<PharmacyBean> data) {
+        if(!CommUtil.isEmpty(data) && null != data.get(0)){
+            mPharmacyBean = data.get(0);
+            //BigDecimal deliveryCost = new BigDecimal(data.get(0).getDeliveryCost());
+            BigDecimal sumFee = new BigDecimal(data.get(0).getSumFee());
+            //四舍五入，保留两位小数
+            mOrderPriceTv.setText("￥" + sumFee.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + "元");
+            if (mRadioHome.isChecked()) {
+                mWaiYanTotalPayTv.setText("去付款¥" + sumFee.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + "元");
+            }
+
+        }
+
+    }
+
+    /**
+     * 外延处方获取地址列表
+     */
+    public void getWaiYanLocationList() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", Global.getUserId());
+
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LocationService.class).getAddressList(map), new HttpSubscriber<List<LocationInfo>>(ConversationActivity.this, getDisposable(), false) {
+            @Override
+            public void requestComplete(@org.jetbrains.annotations.Nullable List<LocationInfo> data) {
+                getWaiYanLocationList(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+
+    public void getWaiYanLocationList(List<LocationInfo> data) {
+        if (mPayAddress != null) {
+            boolean isDelete = false;
+            for (int i = 0; i < data.size(); i++) {
+                LocationInfo locationInfo = data.get(i);
+                if ((locationInfo.getProvinceName() + locationInfo.getCityName() + locationInfo.getAreaName() + locationInfo.getAddress()).equals(mPayAddress.getText().toString())) {
+                    isDelete = true;
+                    break;
+                }
+            }
+            if (!isDelete) {
+                mPayAddress.setText("请选择配送详细地址和联系人");
+                //   mPayAddress.setTextColor(getResources().getColor(R.color.edit_hint_color));
+            }
+        }
+    }
+
+    /**
+     * 更新处方订单
+     */
+    private void updatePrescriptionOrder(boolean isOnline,Map<String, Object> payMap) {
+        Map<String, Object> map = new HashMap<>();
+
+        if(isSendDrugsToHome){
+            map.put("consigneeAddress", mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress());
+            map.put("consigneeName", mLocationInfo.getAddressName());
+            map.put("consigneePhone", mLocationInfo.getPhone());
+            map.put("delivery", "1");
+
+        }else{
+            map.put("delivery", "0");
+        }
+        map.put("drugstore", mPharmacyBean.getDrugstore());
+        map.put("drugstoreCode", mPharmacyBean.getDrugstoreCode());
+        map.put("drugsStoreAddress", mPharmacyBean.getDrugstoreAddress());
+        map.put("isOnline", isOnline ? "0" :"1");
+        map.put("fee", mPharmacyBean.getSumFee());
+        map.put("id", mPprescriptionId);
+        map.put("orderNumber", orderNum);
+        map.put("items", mPharmacyBean.getDrugsDtos());
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).updatePrescriptionOrder(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(this, getDisposable(), true, true) {
+            @Override
+            public void requestComplete(@org.jetbrains.annotations.Nullable String data) {
+                if(isOnline){
+                    if (payWaiType.equals(Type.WECHATPAY)) {
+                        getController().inquiryPay(payMap,1);
+                    }
+                    if (payWaiType.equals(Type.ALIPAY)) {
+                        getController().inquiryPay(payMap,2);
+                    }
+
+                }else{
+                    paySuccess();
+                    ToastUtils.showShort("提交成功");
+                }
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                return super.requestError(exception, code, msg);
+            }
+        });
+
     }
 }
 

@@ -15,11 +15,16 @@ import com.keydom.ih_patient.bean.DiagnosesOrderBean;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.LocationInfo;
 import com.keydom.ih_patient.bean.PaymentOrderBean;
+import com.keydom.ih_patient.bean.PrescriptionDetailBean;
+import com.keydom.ih_patient.bean.PrescriptionDrugBean;
+import com.keydom.ih_patient.bean.entity.pharmacy.PharmacyBean;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.LocationService;
 import com.keydom.ih_patient.net.PayService;
+import com.keydom.ih_patient.net.PrescriptionService;
 import com.keydom.ih_patient.net.UserService;
+import com.keydom.ih_patient.utils.CommUtil;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
 import com.keydom.ih_patient.utils.pay.weixin.WXPay;
@@ -160,7 +165,7 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
     /**
      * 创建支付订单
      */
-    public void createOrder(boolean needDispatch, String document, BigDecimal fee) {
+    public void createOrder(boolean needDispatch, String document, BigDecimal fee,String prescriptionId,boolean isWaiYan) {
         Map<String, Object> map = new HashMap<>();
         map.put("registerUserId", Global.getUserId());
         map.put("documentNo", document);
@@ -168,7 +173,7 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PayService.class).generateOrder(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PaymentOrderBean>(getContext(), getDisposable(), true, true) {
             @Override
             public void requestComplete(@Nullable PaymentOrderBean data) {
-                getView().goPay(needDispatch, data.getOrderNumber(), data.getFee());
+                getView().goPay(needDispatch, data.getOrderNumber(),String.valueOf(data.getOrderId()), data.getFee(),prescriptionId,isWaiYan);
             }
 
             @Override
@@ -260,8 +265,8 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
     /**
      * 获取子订单群和判断子订单是否包含处方单
      */
-    public void getChildOrderBean(long inquiryId){
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getUnPaySubOrderInfo(inquiryId), new HttpSubscriber<ChildOrderBean>(getContext(),getDisposable(),false,false) {
+    public void getChildOrderBean(long inquiryId,String prescriptionId){
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getUnPaySubOrderInfo(inquiryId), new HttpSubscriber<ChildOrderBean>() {
             @Override
             public void requestComplete(@Nullable ChildOrderBean data) {
                 boolean isNeedAddress=false;
@@ -269,7 +274,7 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
                     isNeedAddress=true;
                 else
                     isNeedAddress=false;
-                createOrder(isNeedAddress,data.getOrderNumber(),new BigDecimal(data.getFee()));
+                createOrder(isNeedAddress,data.getOrderNumber(),new BigDecimal(data.getFee()),prescriptionId,data.isWaiYan());
             }
 
             @Override
@@ -323,6 +328,101 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
                 return super.requestError(exception, code, msg);
             }
         });
+    }
+
+
+    /**
+     * 更新处方订单
+     */
+    public void updatePrescriptionOrder(int payType,boolean isSendDrugsToHome, boolean isOnline, String prescriptionId, String orderNum, PharmacyBean pharmacyBean, LocationInfo locationInfo) {
+        Map<String, Object> map = new HashMap<>();
+
+        if(isSendDrugsToHome){
+            map.put("consigneeAddress", locationInfo.getProvinceName() + locationInfo.getCityName() + locationInfo.getAreaName() + locationInfo.getAddress());
+            map.put("consigneeName", locationInfo.getAddressName());
+            map.put("consigneePhone", locationInfo.getPhone());
+            map.put("delivery", "1");
+
+        }else{
+            map.put("delivery", "0");
+        }
+        map.put("drugstore", pharmacyBean.getDrugstore());
+        map.put("drugstoreCode", pharmacyBean.getDrugstoreCode());
+        map.put("drugsStoreAddress", pharmacyBean.getDrugstoreAddress());
+        map.put("isOnline", isOnline ? "0" :"1");
+        map.put("fee", pharmacyBean.getSumFee());
+        map.put("id", prescriptionId);
+        map.put("orderNumber", orderNum);
+        map.put("items", pharmacyBean.getDrugsDtos());
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).updatePrescriptionOrder(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(mContext, getDisposable(), true, false) {
+            @Override
+            public void requestComplete(@org.jetbrains.annotations.Nullable String data) {
+                if(isOnline){
+                    if(isSendDrugsToHome){
+                        pay(locationInfo.getId(),orderNum,payType,Double.valueOf(pharmacyBean.getSumFee()));
+                    }else{
+                        pay(0,orderNum,payType,Double.valueOf(pharmacyBean.getSumFee()));
+                    }
+                }else{
+                    getView().paySuccess();
+                    ToastUtils.showShort("提交成功");
+                }
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                return super.requestError(exception, code, msg);
+            }
+        });
+
+    }
+
+
+    /**
+     * 获取药品
+     */
+    public void getPrescriptionDetailDrugs(String address,String id) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getDetailById(id), new HttpSubscriber<PrescriptionDetailBean>(getContext(), getDisposable(), true, true) {
+            @Override
+            public void requestComplete(@org.jetbrains.annotations.Nullable PrescriptionDetailBean data) {
+                if (null != data && !CommUtil.isEmpty(data.getList())) {
+                    getHttpFindDrugstores(address,data.getList());
+                }
+
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                ToastUtils.showShort(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+
+    /**
+     * 获得药店名字获取配送费
+     */
+    private void getHttpFindDrugstores(String mAddress, List<List<PrescriptionDrugBean>> drugs) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("address", mAddress);
+        map.put("drugs", drugs);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getFindDrugstoresByDistribution(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<List<PharmacyBean>>(mContext, getDisposable(), true, true) {
+            @Override
+            public void requestComplete(@org.jetbrains.annotations.Nullable List<PharmacyBean> data) {
+                if (!CommUtil.isEmpty(data)) {
+                    getView().refreshDeliveryCostView(data);
+                    getView().refreshPriceView(data);
+                }
+
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                return super.requestError(exception, code, msg);
+            }
+        });
+
     }
 
 }

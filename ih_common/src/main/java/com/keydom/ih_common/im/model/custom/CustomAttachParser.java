@@ -48,6 +48,12 @@ public class CustomAttachParser implements MsgAttachmentParser {
             case ICustomAttachmentType.DISPOSAL_ADVICE:
                 attachment = new DisposalAdviceAttachment();
                 break;
+            case ICustomAttachmentType.GET_DRUGS:
+                attachment = new GetDrugsAttachment();
+                            break;
+            case ICustomAttachmentType.RECEIVE_DRUGS:
+                attachment = new ReceiveDrugsAttachment();
+                break;
             default:
         }
         if (attachment != null && data != null) {

@@ -71,14 +71,17 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
      * 获取处方详情
      */
     public void getPrescriptionDetail() {
+        showLoading();
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getDrugControlPrescriptionDetail(getView().getDetailMap()), new HttpSubscriber<PrescriptionDetailBean>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable PrescriptionDetailBean data) {
+                hideLoading();
                 getView().getDetailSuccess(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                hideLoading();
                 getView().getDetailFailed(msg);
                 return super.requestError(exception, code, msg);
             }

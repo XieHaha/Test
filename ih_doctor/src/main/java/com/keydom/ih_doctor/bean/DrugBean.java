@@ -13,6 +13,26 @@ import java.math.BigDecimal;
  * 修改人：xusong
  * 修改时间：19/1/17 下午4:55
  */
+
+
+/**
+ *
+ *       "manufacturerName": "四川制药",
+ *       "singleMaximum": "5",
+ *       "drugsName": "感冒药",
+ *       "spec": "1.2*50",
+ *       "packUnit": "袋",
+ *       "frequency": "一日1次",
+ *       "way": "口服1",
+ *       "usage": "内用1",
+ *       "dosageUnit": "袋",
+ *       "price": 0.01,
+ *       "id": 95,
+ *       "drugsCode": "21030020002",
+ *       "drugsId": 239,
+ *       "preparation": "中型",
+ *       "dosage": "21432"
+ * */
 public class DrugBean implements Serializable,MultiItemEntity {
     private static final long serialVersionUID = 1L;
     public final static int TYPE_BODY = 1;
@@ -48,7 +68,7 @@ public class DrugBean implements Serializable,MultiItemEntity {
     /**
      * 包装规格
      */
-    private Double dosage;
+    private String dosage;
     /**
      * 计量单位
      */
@@ -72,7 +92,7 @@ public class DrugBean implements Serializable,MultiItemEntity {
     /**
      * 最大门诊用量
      */
-        private float singleMaximum;
+    private String singleMaximum;
 
 
     /**
@@ -98,6 +118,50 @@ public class DrugBean implements Serializable,MultiItemEntity {
     private float times;
 
     private float rate;
+	
+	    /**
+     * 药品代码
+     */
+    private String drugsCode;
+    /**
+     * 药品名称
+     */
+
+    /**
+     * 剂型
+     */
+    private String preparation;
+
+    /**
+     * 总价格
+     */
+    private BigDecimal fee;
+
+
+    public String getDrugsCode() {
+        return drugsCode;
+    }
+
+    public void setDrugsCode(String drugsCode) {
+        this.drugsCode = drugsCode;
+    }
+
+    public String getPreparation() {
+        return preparation;
+    }
+
+    public void setPreparation(String preparation) {
+        this.preparation = preparation;
+    }
+
+    public BigDecimal getFee() {
+        return fee;
+    }
+
+    public void setFee(BigDecimal fee) {
+        this.fee = fee;
+    }
+
 
     public float getTimes() {
         return times;
@@ -187,11 +251,11 @@ public class DrugBean implements Serializable,MultiItemEntity {
         this.price = price;
     }
 
-    public Double getDosage() {
+    public String getDosage() {
         return dosage;
     }
 
-    public void setDosage(Double dosage) {
+    public void setDosage(String dosage) {
         this.dosage = dosage;
     }
 
@@ -227,11 +291,11 @@ public class DrugBean implements Serializable,MultiItemEntity {
         this.maximumMedicationDays = maximumMedicationDays;
     }
 
-    public float getSingleMaximum() {
+    public String getSingleMaximum() {
         return singleMaximum;
     }
 
-    public void setSingleMaximum(float singleMaximum) {
+    public void setSingleMaximum(String singleMaximum) {
         this.singleMaximum = singleMaximum;
     }
 

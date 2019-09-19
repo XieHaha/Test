@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
@@ -19,7 +18,6 @@ import com.keydom.ih_doctor.bean.DrugBean;
 import com.keydom.ih_doctor.bean.DrugUseConfigBean;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
-import com.orhanobut.logger.Logger;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -42,10 +40,10 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
         if (item.getSingleDose() != 0) {
             dose = item.getSingleDose();
         } else {
-            if (item.getDosage() != null && item.getDosage() != 0) {
-                dose = item.getDosage();
+            if (item.getDosage() != null && Double.valueOf(item.getDosage()) != 0) {
+                dose = Double.valueOf(item.getDosage());
             } else {
-                dose = item.getSingleMaximum();
+                dose = Double.valueOf(item.getSingleMaximum());
             }
         }
         ischange = true;
@@ -132,7 +130,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
 
 
                             } else {
-                                if (item.getSingleMaximum()>0&&Double.parseDouble(df1.format(Double.valueOf(s.toString()))) > item.getSingleMaximum()) {
+                                if (Double.parseDouble(item.getSingleMaximum())>0&&Double.parseDouble(df1.format(Double.valueOf(s.toString()))) > Double.parseDouble(item.getSingleMaximum())) {
                                     ToastUtil.shortToast(mContext, "输入的值超过最大单次剂量");// + item.getSingleMaximum()
                                     s.replace(0,s.length(),item.getSingleMaximum()+"");
                                    /* s.clear();
@@ -145,7 +143,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                                 }
                             }
                         } else {
-                            if (item.getSingleMaximum()>0&&Double.parseDouble(df1.format(Double.valueOf(s.toString()))) > item.getSingleMaximum()) {
+                            if (Double.parseDouble(item.getSingleMaximum())>0&&Double.parseDouble(df1.format(Double.valueOf(s.toString()))) > Double.parseDouble(item.getSingleMaximum())) {
                                 ToastUtil.shortToast(mContext, "输入的值超过最大单次剂量") ;//+ item.getSingleMaximum()
                                 s.replace(0,s.length(),item.getSingleMaximum()+"");
 /*
@@ -269,13 +267,13 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
             @SingleClick(1000)
             @Override
             public void onClick(View v) {
-                if (item.getSingleMaximum() == 0 || Double.parseDouble(df1.format(item.getSingleDose() + 0.1)) <= item.getSingleMaximum()) {
+                if (Double.valueOf(item.getSingleMaximum()) == 0 || Double.parseDouble(df1.format(item.getSingleDose() + 0.1)) <= Double.valueOf(item.getSingleMaximum())) {
                     if (!ischange) {
                         item.setSingleDose(Double.parseDouble(df1.format(item.getSingleDose() + 0.1)));
                         item.setQuantity(computeDosage(item.getSingleDose(), item.getTimes(), item.getDays(), item.getRate()));
                     }
                     notifyDataSetChanged();
-                } else if (Double.parseDouble(df1.format(item.getSingleDose() + 0.1)) > item.getSingleMaximum()) {
+                } else if (Double.parseDouble(df1.format(item.getSingleDose() + 0.1)) > Double.valueOf(item.getSingleMaximum())) {
                     ToastUtil.shortToast(mContext, "已达到最大单次剂量");
                 }
             }

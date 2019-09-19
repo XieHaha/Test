@@ -1,0 +1,34 @@
+[
+  {
+    "pharmacyName":"好康大药店",
+    "pharmacyAddress":"灌灌灌灌颠三倒四多对对对对对对5号",
+    "drugPrice":"12元",
+    "distance":"1060m"
+
+  },
+  {
+    "pharmacyName":"德仁堂大药店",
+       "pharmacyAddress":"yyyyy三倒四多对对对对对对5号",
+       "drugPrice":"678元",
+       "distance":"1220m"
+
+  },
+  {
+    "pharmacyName": "同安大药店",
+    "pharmacyAddress": "长颠三倒四多对对对对对对5号",
+    "drugPrice": "78元",
+    "distance": "500m"
+  },
+  {
+   "pharmacyName":"哈哈哈哈哈大药店",
+      "pharmacyAddress":"长城iiisssss对对对对5号",
+      "drugPrice":"500元",
+      "distance":"1000m"
+  },{
+    "pharmacyName":"坎坎坷坷扩扩扩扩扩大药店",
+       "pharmacyAddress":"长城路fffff广告对对对对对对5号",
+       "drugPrice":"656元",
+       "distance":"200m"
+  }
+]
+

@@ -13,12 +13,16 @@ import android.widget.TextView;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.card_operate.CardoperateActivity;
 import com.keydom.ih_patient.activity.function_config.FunctionConfigActivity;
+import com.keydom.ih_patient.activity.get_drug.GetDrugActivity;
 import com.keydom.ih_patient.activity.inspection_report.InspectionReportActivity;
+import com.keydom.ih_patient.activity.logistic.QueryLogisticActivity;
+import com.keydom.ih_patient.activity.logistic.TestPayActivity;
 import com.keydom.ih_patient.activity.order_doctor_register.OrderDoctorRegisterActivity;
 import com.keydom.ih_patient.activity.order_examination.OrderExaminationActivity;
 import com.keydom.ih_patient.activity.order_hospital_cure.OrderHospitalCureListActivity;
 import com.keydom.ih_patient.activity.order_physical_examination.OrderPhysicalExaminationActivity;
 import com.keydom.ih_patient.activity.payment_records.PaymentRecordActivity;
+import com.keydom.ih_patient.activity.prescription.PrescriptionGetDetailActivity;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.IndexFunction;
 import com.keydom.ih_patient.constant.EventType;
@@ -89,12 +93,22 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     public void onBindViewHolder(VH vh, final int position) {
         if (indexFunctionList.get(position) instanceof IndexFunction) {
             vh.funcIcon.setImageResource(indexFunctionList.get(position).getFunctionIcon());
-            vh.funcName.setText(indexFunctionList.get(position).getName());
+			
+			vh.funcName.setText(indexFunctionList.get(position).getName());
             if(indexFunctionList.get(position).isRedPointShow()){
                 vh.redPointView.setVisibility(View.VISIBLE);
             }else {
                 vh.redPointView.setVisibility(View.GONE);
 
+            }
+			
+                 //todo 暂时把这两个类型改成取药和物流
+            if (indexFunctionList.get(position).getName().equals("在线问诊")) {
+                vh.funcName.setText("取药收药");
+            } else if (indexFunctionList.get(position).getName().equals("护理服务")) {
+                vh.funcName.setText("物流查询");
+            } else {
+                vh.funcName.setText(indexFunctionList.get(position).getName());
             }
             vh.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -117,10 +131,14 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             CardoperateActivity.start(context);
                             break;
                         case OnlineDiagnose:
-                            EventBus.getDefault().post(new Event(EventType.SHOW_ONLINE_DIAGNOSE_PAGE, null));
+                            //todo  暂时走取药界面
+                            // EventBus.getDefault().post(new Event(EventType.SHOW_ONLINE_DIAGNOSE_PAGE, null))
+                            context.startActivity(new Intent(context, GetDrugActivity.class));
                             break;
                         case NurseService:
-                            EventBus.getDefault().post(new Event(EventType.SHOW_NURSE_SERVICE_PAGE, null));
+                            //TODO 暂时走物流界面
+                            //   EventBus.getDefault().post(new Event(EventType.SHOW_NURSE_SERVICE_PAGE, null));
+                            context.startActivity(new Intent(context, QueryLogisticActivity.class));
                             break;
                         case InspectionReport:
                             InspectionReportActivity.start(context);

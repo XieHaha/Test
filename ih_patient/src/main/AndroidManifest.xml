@@ -38,13 +38,22 @@
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:icon="@mipmap/template"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/template"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/BaseThemes"
 
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.get_drug.ZxingActivity"></activity>
+        <activity android:name=".activity.logistic.TestPayActivity" />
+        <activity android:name=".activity.prescription.ChoosePharmacyActivity" />
+        <activity android:name=".activity.logistic.LogisticDetailActivity" />
+        <activity android:name=".activity.logistic.QueryLogisticActivity" />
+        <activity android:name=".activity.get_drug.GetDrugActivity" />
+        <activity android:name=".activity.prescription.PrescriptionGetDetailActivity" /> <!-- <meta-data -->
+        <!-- android:name="com.baidu.lbsapi.API_KEY" -->
+        <!-- android:value="Gjk18IKzCYpDzIdO5VQcfYLaNmB8ZeBP" /> -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="Gjk18IKzCYpDzIdO5VQcfYLaNmB8ZeBP"></meta-data>

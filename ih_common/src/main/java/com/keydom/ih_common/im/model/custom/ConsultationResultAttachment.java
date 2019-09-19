@@ -41,6 +41,10 @@ public class ConsultationResultAttachment extends BaseCustomAttachment {
      */
     private String orderNum;
 
+    /**
+     * 处方类型
+     */
+    private String prescriptionType;
     public ConsultationResultAttachment() {
         super(ICustomAttachmentType.CONSULTATION_RESULT);
     }
@@ -55,6 +59,7 @@ public class ConsultationResultAttachment extends BaseCustomAttachment {
         id = data.getString("id");
         deliveryAmount = data.getString("deliveryAmount");
         orderNum = data.getString("orderNum");
+        prescriptionType=data.getString("type");
     }
 
     @Override
@@ -67,6 +72,7 @@ public class ConsultationResultAttachment extends BaseCustomAttachment {
         data.put("id", id);
         data.put("deliveryAmount", deliveryAmount);
         data.put("orderNum", orderNum);
+        data.put("type", prescriptionType);
         return data;
     }
 
@@ -126,6 +132,14 @@ public class ConsultationResultAttachment extends BaseCustomAttachment {
         this.orderNum = orderNum;
     }
 
+    public String getPrescriptionType() {
+        return prescriptionType;
+    }
+
+    public void setPrescriptionType(String prescriptionType) {
+        this.prescriptionType = prescriptionType;
+    }
+
     @Override
     public String toString() {
         return "ConsultationResultAttachment{" +
@@ -136,7 +150,7 @@ public class ConsultationResultAttachment extends BaseCustomAttachment {
                 ", payStatus=" + payStatus +
                 ", id='" + id + '\'' +
                 ", orderNum='" + orderNum + '\'' +
-                ", type=" + type +
+                ", prescriptionType='" + prescriptionType + '\'' +
                 '}';
     }
 }

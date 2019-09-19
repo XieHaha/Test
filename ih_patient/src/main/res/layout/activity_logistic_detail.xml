@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/primary_bg_color"
+   >
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/common_title_bar" />
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/primary_color"
+            android:layout_marginBottom="@dimen/dp_48"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/title_bar_dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:text="物流信息"
+                    android:textColor="#BBBBBB"
+                    android:textSize="14dp" />
+
+                <ImageView
+                    android:id="@+id/image_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:src="@mipmap/arrow_bottom" />
+            </RelativeLayout>
+            <View
+                android:background="@color/bg_color"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"/>
+            <RelativeLayout
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="@dimen/dp_74"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:textSize="14dp"
+                    android:text="运单号:"
+                    android:gravity="right"
+                    android:textColor="#999999"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_26"
+                    android:layout_toRightOf="@+id/tv_name"
+                    android:text="VC53289060015"
+                    android:textColor="#666666"
+                    android:textSize="14dp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_patient_name"
+                    android:layout_width="@dimen/dp_74"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:textSize="14dp"
+                    android:text="国内承运人:"
+                    android:gravity="right"
+                    android:textColor="#999999"
+                    />
+                <TextView
+                    android:id="@+id/tv_patient_content"
+                    android:layout_toRightOf="@+id/tv_patient_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_26"
+                    android:textSize="14dp"
+                    android:text="执笔一副情"
+                    android:textColor="#666666"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:id="@+id/tv_records_name"
+                    android:layout_width="@dimen/dp_74"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:textSize="14dp"
+                    android:text="预计送达:"
+                    android:gravity="right"
+                    android:textColor="#999999"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_records_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_26"
+                    android:layout_toRightOf="@+id/tv_records_name"
+                    android:text="9月28日 13:00前"
+                    android:textColor="#666666"
+                    android:textSize="14dp" />
+            </RelativeLayout>
+            <View
+                android:background="@color/primary_bg_color"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_18"/>
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/index_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></com.scwang.smartrefresh.layout.header.ClassicsHeader>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

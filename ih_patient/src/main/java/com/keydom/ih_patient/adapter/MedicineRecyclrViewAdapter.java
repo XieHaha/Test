@@ -27,7 +27,9 @@ public class MedicineRecyclrViewAdapter extends RecyclerView.Adapter<MedicineRec
 
     private Context context;
     private List<PrescriptionDrugBean> data;
-
+    /**
+     * 构造方法
+     */
     public MedicineRecyclrViewAdapter(Context context, List<PrescriptionDrugBean> data) {
         this.context = context;
         this.data = data;

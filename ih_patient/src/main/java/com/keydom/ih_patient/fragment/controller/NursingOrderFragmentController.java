@@ -33,18 +33,22 @@ import java.util.Map;
  */
 public class NursingOrderFragmentController extends ControllerImpl<NursingOrderItemView> {
 
+
     /**
      * 获取护理订单列表
      */
     public void getNursingListData(int state) {
+        showLoading();
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingOrderService.class).getNursingOrderData(Global.getUserId(), state, App.hospitalId), new HttpSubscriber<List<NursingOrderBean>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable List<NursingOrderBean> data) {
+                hideLoading();
                 getView().getDataSuccess(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                hideLoading();
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -56,9 +60,11 @@ public class NursingOrderFragmentController extends ControllerImpl<NursingOrderI
      * 获取单条详情
      */
     public void getDataList(long id, int state) {
+        showLoading();
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingOrderService.class).getNursingOrderDetail(id, state), new HttpSubscriber<NursingOrderDetailBean>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable NursingOrderDetailBean data) {
+                hideLoading();
                 if (data.getNursingServiceOrderDetailBaseDto() != null) {
                     data.setState(data.getNursingServiceOrderDetailBaseDto().getState());
                 }
@@ -67,6 +73,7 @@ public class NursingOrderFragmentController extends ControllerImpl<NursingOrderI
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                hideLoading();
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -77,9 +84,11 @@ public class NursingOrderFragmentController extends ControllerImpl<NursingOrderI
      * 退单
      */
     public void goChangeOrder(long id, int state) {
+        showLoading();
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingOrderService.class).getNursingOrderDetail(id, state), new HttpSubscriber<NursingOrderDetailBean>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable NursingOrderDetailBean data) {
+                hideLoading();
                 if (data.getNursingServiceOrderDetailBaseDto() != null) {
                     data.setState(data.getNursingServiceOrderDetailBaseDto().getState());
                 }
@@ -88,6 +97,7 @@ public class NursingOrderFragmentController extends ControllerImpl<NursingOrderI
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                hideLoading();
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -103,10 +113,11 @@ public class NursingOrderFragmentController extends ControllerImpl<NursingOrderI
         map.put("orderNumber", bean.getNursingServiceOrderDetailBaseDto().getOrderNumber());
         map.put("type", type);
         map.put("totalMoney", price);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingOrderService.class).nursingOrderPay(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false,true) {
+        showLoading();
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingOrderService.class).nursingOrderPay(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable String data) {
-
+                hideLoading();
                 if (StringUtils.isEmpty(data)) {
                     ToastUtils.showShort("返回支付参数为空");
                     return;
@@ -159,10 +170,12 @@ public class NursingOrderFragmentController extends ControllerImpl<NursingOrderI
                         }
                     }).doPay();
                 }
+                hideLoading();
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                hideLoading();
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }

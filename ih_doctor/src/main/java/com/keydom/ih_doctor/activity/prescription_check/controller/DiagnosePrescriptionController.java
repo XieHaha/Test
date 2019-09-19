@@ -10,27 +10,27 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_doctor.R;
-import com.keydom.ih_doctor.activity.online_diagnose.DrugChooseActivity;
 import com.keydom.ih_doctor.activity.online_diagnose.PrescriptionTempletActivity;
 import com.keydom.ih_doctor.activity.prescription_check.view.DiagnosePrescriptionView;
 import com.keydom.ih_doctor.bean.DiagnoseHandleBean;
 import com.keydom.ih_doctor.bean.DoctorPrescriptionDetailBean;
+import com.keydom.ih_doctor.bean.DrugBean;
 import com.keydom.ih_doctor.bean.PrescriptionMessageBean;
 import com.keydom.ih_doctor.bean.PrescriptionModelBean;
-import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.m_interface.OnModelAndCaseDialogListener;
 import com.keydom.ih_doctor.m_interface.OnModelDialogListener;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.DiagnoseApiService;
 import com.keydom.ih_doctor.net.PrescriptionService;
 import com.keydom.ih_doctor.utils.DialogUtils;
-import com.keydom.ih_doctor.utils.SignUtils;
 import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.BottomAddPrescriptionDialog;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +45,28 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
     BottomAddPrescriptionDialog dialog;
     private String modelNameTemp = "";
     private String modelTypeTemp = "";
-    @SingleClick(1000)
+    private String IsPrescriptionStyle = "0";
+    private BigDecimal sumDrugFee;
+
+    private List<DrugBean> selectDrugList = new ArrayList<DrugBean>();
+
+    public List<DrugBean> getSelectDrugList() {
+        return selectDrugList;
+    }
+
+    public void setSelectDrugList(List<DrugBean> selectDrugList) {
+        this.selectDrugList = selectDrugList;
+    }
+
+    public BigDecimal getSumDrugFee() {
+        return sumDrugFee;
+    }
+
+    public void setSumDrugFee(BigDecimal sumDrugFee) {
+        this.sumDrugFee = sumDrugFee;
+    }
+
+ 	@SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -65,6 +86,11 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
             case R.id.prescription_model_rl:
                 PrescriptionTempletActivity.start(getContext());
                 break;
+                //TODO : 待修改
+/*            case R.id.add_medicine:
+                DrugChooseActivity.start(getContext(), getView().getSelectList(), Integer.valueOf(IsPrescriptionStyle));
+                Logger.e("值="+IsPrescriptionStyle);
+                break;*/
             case R.id.submit_with_model:
                 if (getView().checkPrescription()) {
                     DialogUtils.savePrescriptionAndCaseDialog(getContext(), getView().getTemplateList(), new OnModelAndCaseDialogListener() {
@@ -84,6 +110,8 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                             });*/
                         }
                     }).show();
+                }else {
+                    ToastUtil.shortToast(getContext(), "请完善处方信息！");
                 }
                 break;
             case R.id.submit:
@@ -97,6 +125,8 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                             save(modelNameTemp, modelTypeTemp, signature, jobId,"1");
                         }
                     });*/
+                }else {
+                    ToastUtil.shortToast(getContext(), "请完善处方信息！");
                 }
 
 
@@ -110,6 +140,60 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
 //                } else {
 
 //                }
+                break;
+            case R.id.select_save:
+                if (!"".equals(modelNameTemp) && !"".equals(modelTypeTemp)) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("保存模版");
+                    builder.setMessage("已经保存了处方模版，是否替换！");
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            DialogUtils.saveModelDialog(getContext(), new OnModelDialogListener() {
+                                @Override
+                                public void dialogClick(View v, String modelType, String modelName) {
+                                    getView().savePrescriptionModel(true, modelNameTemp);
+                                    modelNameTemp = modelName;
+                                    modelTypeTemp = modelType;
+                                }
+                            }).show();
+                        }
+                    });
+                    builder.create().show();
+                } else {
+                    DialogUtils.saveModelDialog(getContext(), new OnModelDialogListener() {
+                        @Override
+                        public void dialogClick(View v, String modelType, String modelName) {
+                            getView().savePrescriptionModel(true, modelNameTemp);
+                            modelNameTemp = modelName;
+                            modelTypeTemp = modelType;
+                        }
+                    }).show();
+                }
+
+//                final List<String> list = new ArrayList<>();
+//                list.add("存为模版");
+//                list.add("不存为模版");
+//                OptionsPickerView pvOptions = new OptionsPickerBuilder(mContext, new OnOptionsSelectListener() {
+//                    @Override
+//                    public void onOptionsSelect(int options1, int option2, int options3, View v) {
+//                        getView().savePrescriptionModel(options1 == 0 ? true : false, list.get(options1));
+//                    }
+//                }).build();
+//                pvOptions.setPicker(list);
+//                pvOptions.show();
+                break;
+            case R.id.tv_hos:
+                IsPrescriptionStyle = "0";
+                break;
+            case R.id.tv_wai:
+                IsPrescriptionStyle = "1";
                 break;
             case R.id.add_common_prescription:
                 getView().addCommonPrescription();
@@ -151,6 +235,11 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
         map.put("saveTemplate",saveTemplate);
         map.put("signature", signature);
         map.put("signJobId", jobId);
+		map.put("prescriptionTemplateName", modelNameTemp);
+        map.put("prescriptionTemplateType", modelTypeTemp);
+        map.put("type", IsPrescriptionStyle);
+        map.put("fee", sumDrugFee.toString());
+        map.put("items", selectDrugList);
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).save(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PrescriptionMessageBean>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable PrescriptionMessageBean data) {

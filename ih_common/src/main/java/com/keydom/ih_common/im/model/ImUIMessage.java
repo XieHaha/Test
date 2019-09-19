@@ -5,9 +5,11 @@ import com.keydom.ih_common.im.model.custom.ConsultationResultAttachment;
 import com.keydom.ih_common.im.model.custom.DisposalAdviceAttachment;
 import com.keydom.ih_common.im.model.custom.EndInquiryAttachment;
 import com.keydom.ih_common.im.model.custom.ExaminationAttachment;
+import com.keydom.ih_common.im.model.custom.GetDrugsAttachment;
 import com.keydom.ih_common.im.model.custom.ICustomAttachmentType;
 import com.keydom.ih_common.im.model.custom.InquiryAttachment;
 import com.keydom.ih_common.im.model.custom.InspectionAttachment;
+import com.keydom.ih_common.im.model.custom.ReceiveDrugsAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralApplyAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralDoctorAttachment;
 import com.keydom.ih_common.im.model.def.SentStatus;
@@ -73,6 +75,10 @@ public class ImUIMessage implements MultiItemEntity {
                 return ICustomAttachmentType.END_INQUIRY;
             } else if (mMessage.getAttachment() instanceof DisposalAdviceAttachment) {
                 return ICustomAttachmentType.DISPOSAL_ADVICE;
+            } else if(mMessage.getAttachment() instanceof GetDrugsAttachment){
+                return ICustomAttachmentType.GET_DRUGS;
+            }else if(mMessage.getAttachment() instanceof ReceiveDrugsAttachment){
+                return ICustomAttachmentType.RECEIVE_DRUGS;
             } else {
                 return MsgTypeEnum.undef.getValue();
             }

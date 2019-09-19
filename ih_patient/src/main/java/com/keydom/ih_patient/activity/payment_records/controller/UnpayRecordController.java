@@ -18,10 +18,15 @@ import com.keydom.ih_patient.activity.payment_records.view.UnpayRecordView;
 import com.keydom.ih_patient.bean.LocationInfo;
 import com.keydom.ih_patient.bean.PayRecordBean;
 import com.keydom.ih_patient.bean.PaymentOrderBean;
+import com.keydom.ih_patient.bean.PrescriptionDetailBean;
+import com.keydom.ih_patient.bean.PrescriptionDrugBean;
+import com.keydom.ih_patient.bean.entity.pharmacy.PharmacyBean;
 import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.LocationService;
 import com.keydom.ih_patient.net.PayService;
+import com.keydom.ih_patient.net.PrescriptionService;
+import com.keydom.ih_patient.utils.CommUtil;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
 import com.keydom.ih_patient.utils.pay.weixin.WXPay;
@@ -100,7 +105,7 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
                                 needDispatch = true;
                             }
                         }
-                        createOrder(needDispatch, getView().getDocument(), getView().getTotalPay());
+                        createOrder(needDispatch, getView().getDocument(), getView().getTotalPay(),"",false);
                     }
                 } else {
                     ToastUtils.showShort("请选择订单");
@@ -122,10 +127,11 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
         }
     }
 
+
     /**
      * 创建支付订单
      */
-    public void createOrder(boolean needDispatch, String document, BigDecimal fee) {
+    public void createOrder(boolean needDispatch, String document, BigDecimal fee,String prescriptionId,boolean isWaiYan) {
         Map<String, Object> map = new HashMap<>();
         map.put("registerUserId", Global.getUserId());
         map.put("documentNo", document);
@@ -133,7 +139,12 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PayService.class).generateOrder(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PaymentOrderBean>(getContext(), getDisposable(), true, true) {
             @Override
             public void requestComplete(@Nullable PaymentOrderBean data) {
-                getView().goPay(needDispatch, data.getOrderNumber(), data.getFee());
+                if(isWaiYan){
+                    getView().goPay(needDispatch, data.getOrderNumber(),String.valueOf(data.getOrderId()), data.getFee(),prescriptionId,true);
+                }else{
+                    getView().goPay(needDispatch, data.getOrderNumber(),String.valueOf(data.getOrderId()), data.getFee(),prescriptionId,false);
+                }
+
             }
 
             @Override
@@ -175,17 +186,19 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
 
                         @Override
                         public void onDealing() {
-//                            ToastUtils.showShort("等待支付结果确认");
+                            ToastUtils.showShort("等待支付结果确认");
                         }
 
                         @Override
                         public void onError(int error_code) {
                             ToastUtils.showShort("支付失败");
+                            getView().refreshData();
                         }
 
                         @Override
                         public void onCancel() {
-//                            ToastUtils.showShort("取消支付");
+                            ToastUtils.showShort("取消支付");
+                            getView().refreshData();
                         }
                     }).doPay();
                 } else if (type == 1) {
@@ -261,5 +274,99 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
                 return super.requestError(exception, code, msg);
             }
         });
+    }
+
+
+    /**
+     * 获取药品
+     */
+    public void getPrescriptionDetailDrugs(String address,String id) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getDetailById(id), new HttpSubscriber<PrescriptionDetailBean>(getContext(), getDisposable(), true, true) {
+            @Override
+            public void requestComplete(@org.jetbrains.annotations.Nullable PrescriptionDetailBean data) {
+                if (null != data && !CommUtil.isEmpty(data.getList())) {
+                    getHttpFindDrugstores(address,data.getList());
+                }
+
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                ToastUtils.showShort(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 获得药店名字获取配送费
+     */
+    private void getHttpFindDrugstores(String mAddress, List<List<PrescriptionDrugBean>> drugs) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("address", mAddress);
+        map.put("drugs", drugs);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getFindDrugstoresByDistribution(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<List<PharmacyBean>>(mContext, getDisposable(), true, true) {
+            @Override
+            public void requestComplete(@org.jetbrains.annotations.Nullable List<PharmacyBean> data) {
+                if (!CommUtil.isEmpty(data)) {
+                    getView().refreshDeliveryCostView(data);
+                    getView().refreshPriceView(data);
+                }
+
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                return super.requestError(exception, code, msg);
+            }
+        });
+
+    }
+
+
+    /**
+     * 更新处方订单
+     */
+    public void updatePrescriptionOrder(int payType,boolean isSendDrugsToHome, boolean isOnline, String prescriptionId, String orderNum, PharmacyBean pharmacyBean, LocationInfo locationInfo) {
+        Map<String, Object> map = new HashMap<>();
+
+        if(isSendDrugsToHome){
+            map.put("consigneeAddress", locationInfo.getProvinceName() + locationInfo.getCityName() + locationInfo.getAreaName() + locationInfo.getAddress());
+            map.put("consigneeName", locationInfo.getAddressName());
+            map.put("consigneePhone", locationInfo.getPhone());
+            map.put("delivery", "1");
+
+        }else{
+            map.put("delivery", "0");
+        }
+        map.put("drugstore", pharmacyBean.getDrugstore());
+        map.put("drugstoreCode", pharmacyBean.getDrugstoreCode());
+        map.put("drugsStoreAddress", pharmacyBean.getDrugstoreAddress());
+        map.put("isOnline", isOnline ? "0" :"1");
+        map.put("fee", pharmacyBean.getSumFee());
+        map.put("id", prescriptionId);
+        map.put("orderNumber", orderNum);
+        map.put("items", pharmacyBean.getDrugsDtos());
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).updatePrescriptionOrder(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(mContext, getDisposable(), true, false) {
+            @Override
+            public void requestComplete(@org.jetbrains.annotations.Nullable String data) {
+                if(isOnline){
+                    if(isSendDrugsToHome){
+                        pay(locationInfo.getId(),orderNum,payType,Double.valueOf(pharmacyBean.getSumFee()));
+                    }else{
+                        pay(0,orderNum,payType,Double.valueOf(pharmacyBean.getSumFee()));
+                    }
+                }else{
+                    getView().paySuccess();
+                    ToastUtils.showShort("提交成功");
+                }
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                return super.requestError(exception, code, msg);
+            }
+        });
+
     }
 }

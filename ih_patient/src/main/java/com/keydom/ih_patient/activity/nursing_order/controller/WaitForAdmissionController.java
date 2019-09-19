@@ -91,9 +91,11 @@ public class WaitForAdmissionController extends ControllerImpl<WaitForAdmissionV
         map.put("orderNumber", bean.getNursingServiceOrderDetailBaseDto().getOrderNumber());
         map.put("type", type);
         map.put("totalMoney", price);
+        showLoading();
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingOrderService.class).nursingOrderPay(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable String data) {
+                hideLoading();
                 if (StringUtils.isEmpty(data)) {
                     ToastUtils.showShort("返回支付参数为空");
                     return;
@@ -146,10 +148,12 @@ public class WaitForAdmissionController extends ControllerImpl<WaitForAdmissionV
                         }
                     }).doPay();
                 }
+                hideLoading();
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                hideLoading();
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }

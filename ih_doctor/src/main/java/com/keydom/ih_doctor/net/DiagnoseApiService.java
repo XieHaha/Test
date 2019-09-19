@@ -1,5 +1,6 @@
 package com.keydom.ih_doctor.net;
 
+import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_doctor.bean.BodyCheckDetailInfo;
 import com.keydom.ih_doctor.bean.CheckItemListBean;
@@ -7,6 +8,7 @@ import com.keydom.ih_doctor.bean.CheckOutItemBean;
 import com.keydom.ih_doctor.bean.DiagnoseHandleBean;
 import com.keydom.ih_doctor.bean.DiagnosePatientInfoBean;
 import com.keydom.ih_doctor.bean.DrugBean;
+import com.keydom.ih_doctor.bean.DrugEntity;
 import com.keydom.ih_doctor.bean.ICD10Bean;
 import com.keydom.ih_doctor.bean.InquiryBean;
 import com.keydom.ih_doctor.bean.InspectionDetailInof;
@@ -152,9 +154,17 @@ public interface DiagnoseApiService {
 
 
     /**
-     * 获取药品里诶包
      *
-     * @param maps
+     *外延处方获取药品
+     * @param body
+     * @return
+     */
+    @POST(Const.OUTER + "/drugsSpec/findByParam")
+    Observable<HttpResult<DrugEntity>>WaiYanDrugsList(@Body RequestBody body);
+    /**
+     *
+     *获取药品里诶包
+     * @param
      * @return
      */
     @GET("user/prescription/drugsList")

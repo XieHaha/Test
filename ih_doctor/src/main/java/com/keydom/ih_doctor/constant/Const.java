@@ -106,6 +106,10 @@ public class Const {
      */
     public static final String DATA = "data";
     /**
+     * 数据传递key
+     */
+    public static final String IsPrescriptionStyle = "IsPrescriptionStyle";
+    /**
      * 标题
      */
     public static final String TITLE = "title";

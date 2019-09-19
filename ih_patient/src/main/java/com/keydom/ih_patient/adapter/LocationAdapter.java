@@ -110,12 +110,14 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.VH> {
 
             }
         });
-        if (Type.STARTLOCATIONWITHRESULT.equals(type) || Type.PAY_SELECT_ADDRESS.equals(type)) {
+        if (Type.STARTLOCATIONWITHRESULT.equals(type) || Type.PAY_SELECT_ADDRESS.equals(type)||Type.WAI_PAY_SELECT_ADDRESS.equals(type)) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (Type.PAY_SELECT_ADDRESS.equals(type)) {
                         EventBus.getDefault().post(new Event(EventType.PAY_SELECT_ADDRESS, infoList.get(position)));
+                    } else if(Type.WAI_PAY_SELECT_ADDRESS.equals(type)){
+                        EventBus.getDefault().post(new Event(EventType.WAI_PAY_SELECT_ADDRESS, infoList.get(position)));
                     } else {
                         EventBus.getDefault().post(new Event(EventType.SENDLOCATION, infoList.get(position)));
                     }

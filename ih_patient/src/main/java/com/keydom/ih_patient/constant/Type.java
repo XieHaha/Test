@@ -40,6 +40,7 @@ public class Type {
     public static final String STARTLOCATIONWITHRESULT="start_with_result";
     public static final String STARTLOCATIONWITHOUTRESULT="start_without_result";
     public static final String PAY_SELECT_ADDRESS="pay_select_address";
+    public static final String WAI_PAY_SELECT_ADDRESS="wai_pay_select_address";
 
     public static final String NURSING_ORDER_EVALUATE = "nursing_order_evaluate";//护理订单评价
     public static final String SUBSCRIBE_EXAM_ORDER_EVALUATE = "subscribe_exam_order_EVALUATE";//体检预约订单评价

@@ -69,11 +69,25 @@ public class DiagnosesOrderBean implements Serializable {
     @JSONField(name = "isSubOrderUnPay")
     private int isSubOrderUnPay;
 
+
+    @JSONField(name = "prescriptionId")
+    private String prescriptionId;
+
+    @JSONField(name = "waitInquiryCount")
     private int waitInquiryCount;
 
 
     @JSONField(name = "refundState")
     private int refundState;
+	
+	
+	public String getPrescriptionId() {
+        return prescriptionId;
+    }
+
+    public void setPrescriptionId(String prescriptionId) {
+        this.prescriptionId = prescriptionId;
+    }
 
     public int getRefundState() {
         return refundState;

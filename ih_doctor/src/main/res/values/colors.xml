@@ -74,5 +74,6 @@
     <color name="other_login_color">#3F98F7</color>
     <color name="tab_nol_color">#999999</color>
     <color name="mine_interval_bg">#EEEEEE</color>
-
+    <color name="wai_yan">#F7F7F7</color>
+    <color name="cu_black">#333333</color>
 </resources>

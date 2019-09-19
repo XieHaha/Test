@@ -7,6 +7,11 @@
 
     <include layout="@layout/common_title_bar" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="#F9F9F9" />
+
     <com.ganxin.library.LoadDataLayout
         android:id="@+id/loadDataLayout"
         android:layout_width="match_parent"

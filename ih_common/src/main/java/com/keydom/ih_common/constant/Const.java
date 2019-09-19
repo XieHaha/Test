@@ -46,10 +46,16 @@ public class Const {
      * 页面类型
      */
     public static final String TYPE = "comment";
-    /**y
+    /**
      * 是否审核
      */
     public static final String AUDIT = "is_audit";
+
+
+    /**
+     * 处方流转
+     */
+    public static final String OUTER = "outer";
     /**
      * 没有其他作用，仅做前期接口测试
      */

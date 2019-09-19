@@ -17,6 +17,7 @@ import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.LocationService;
 import com.keydom.ih_patient.net.PayService;
 import com.keydom.ih_patient.net.UserService;
+import com.keydom.ih_patient.utils.CommUtil;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
 import com.keydom.ih_patient.utils.pay.weixin.WXPay;
@@ -175,10 +176,15 @@ public class ConversationController extends ControllerImpl<ConversationView> {
      */
     public void isPay() {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).isPay(getView().getIsPayId() + ""),
-                new HttpSubscriber<Boolean>(getContext(), getDisposable(), true, false) {
+                new HttpSubscriber<Integer>(getContext(), getDisposable(), true, false) {
                     @Override
-                    public void requestComplete(@Nullable Boolean data) {
-                        getView().payType(data);
+                    public void requestComplete(@Nullable Integer data) {
+                        if(0 == data || 3 == data){ // 0和3是未支付
+                            getView().payType(false);
+                        }else{
+                            getView().payType(true);
+                        }
+
                     }
                 });
     }
@@ -312,7 +318,10 @@ public class ConversationController extends ControllerImpl<ConversationView> {
             @Override
             public void requestComplete(@Nullable String data) {
                 hideLoading();
-                getView().getDistributionFee(data);
+                if(!CommUtil.isEmpty(data)){
+                    getView().getDistributionFee(data);
+                }
+
             }
 
             @Override

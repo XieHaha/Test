@@ -112,13 +112,16 @@ public class SubscribeExaminationOrderController extends ControllerImpl<Subscrib
      * 创建支付订单
      */
     public void cancelExaminationOrder(SubscribeExaminationBean bean) {
+        showLoading();
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ReservationService.class).findhealthCheckComboreCancel(bean.getId()), new HttpSubscriber<Object>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable Object data) {
+                hideLoading();
                 new GeneralDialog(getContext(), getContext().getResources().getString(R.string.cancel_success),
                         () -> {
-                            EventBus.getDefault().post(new Event(EventType.UPDATESUBSCRIBEEXAM,null));
-
+                            EventBus.getDefault().post(new Event(EventType.UPDATESUBSCRIBEEXAM,ALL));
+                            EventBus.getDefault().post(new Event(EventType.UPDATESUBSCRIBEEXAM,PAY));
+                            EventBus.getDefault().post(new Event(EventType.UPDATESUBSCRIBEEXAM,COMPELETE));
                         })
                         .setPositiveButton("确认")
                         .setNegativeButtonIsGone(true)
@@ -127,6 +130,7 @@ public class SubscribeExaminationOrderController extends ControllerImpl<Subscrib
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                hideLoading();
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -191,9 +195,11 @@ public class SubscribeExaminationOrderController extends ControllerImpl<Subscrib
         map.put("orderNumber", bean.getOrderNumber());
         map.put("type", type);
         map.put("totalMoney",bean.getFee());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ReservationService.class).findhealthCheckComboreGoPay(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
+        showLoading();
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ReservationService.class).findhealthCheckComboreGoPay(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable String data) {
+                hideLoading();
                 if (StringUtils.isEmpty(data)){
                     ToastUtils.showShort("返回支付参数为空");
                     return;
@@ -250,6 +256,7 @@ public class SubscribeExaminationOrderController extends ControllerImpl<Subscrib
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                hideLoading();
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }

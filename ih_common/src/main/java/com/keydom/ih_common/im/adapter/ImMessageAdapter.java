@@ -40,6 +40,8 @@ public class ImMessageAdapter extends BaseMultiItemQuickAdapter<ImUIMessage, Bas
         addItemType(ICustomAttachmentType.REFERRAL_APPLY, R.layout.im_item_message_referral_apply);
         addItemType(ICustomAttachmentType.REFERRAL_DOCTOR, R.layout.im_item_message_referral_doctor);
         addItemType(ICustomAttachmentType.DISPOSAL_ADVICE, R.layout.im_item_message_disposal_advice);
+        addItemType(ICustomAttachmentType.GET_DRUGS, R.layout.im_item_message_get_drugs);
+        addItemType(ICustomAttachmentType.RECEIVE_DRUGS, R.layout.im_item_message_receive_drugs);
     }
 
     @Override

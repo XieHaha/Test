@@ -45,7 +45,15 @@ public class TabNurseController extends ControllerImpl<TabNurseView> implements 
                 getPatientHomePageByUserId();
                 break;
             case R.id.nurse_function_consulting_online:
-                NursingOnlineConsultActivity.start(getContext());
+                if (Global.getUserId() == -1) {
+                    new GeneralDialog(getContext(), "暂未登录，是否前往登录？", new GeneralDialog.OnCloseListener() {
+                        @Override
+                        public void onCommit() {
+                            LoginActivity.start(getContext());
+                        }
+                    }).setTitle("提示").setPositiveButton("确认").show();
+                } else
+                    NursingOnlineConsultActivity.start(getContext());
                 break;
             case R.id.nurse_function_base_nursing:
                 NursingActivity.start(getContext(), Type.BASENURSING, getView().getProjectTypeId("基础护理"));

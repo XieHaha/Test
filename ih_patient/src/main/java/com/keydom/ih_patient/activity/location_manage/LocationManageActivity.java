@@ -47,6 +47,7 @@ public class LocationManageActivity extends BaseControllerActivity<LocationManag
     //Type.PAY_SELECT_ADDRESS 从支付页面启动
     //Type.STARTLOCATIONWITHRESULT 启动页面需要返回选中地址的
     //Type.STARTLOCATIONWITHOUTRESULT 启动页面不需要返回选中地址的
+    //Type.WAI_PAY_SELECT_ADDRESS  外延处方去选择地址
     private String type;
     @Override
     public int getLayoutRes() {

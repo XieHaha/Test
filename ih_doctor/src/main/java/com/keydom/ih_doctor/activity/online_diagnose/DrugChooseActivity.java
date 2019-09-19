@@ -22,6 +22,7 @@ import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
+import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import java.io.Serializable;
@@ -57,6 +58,8 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
      */
     private List<DrugBean> selectList;
     private int position;
+	
+	private String IsPrescriptionStyle=null;//院内处方标识
 
     /**
      * 启动药品选择页面
@@ -68,6 +71,7 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
         Intent starter = new Intent(context, DrugChooseActivity.class);
         starter.putExtra(Const.DATA, (Serializable) list);
         starter.putExtra("position",position);
+		starter.putExtra(Const.IsPrescriptionStyle, position + "");
         ((Activity) context).startActivity(starter);
     }
 
@@ -79,12 +83,21 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
     @Override
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         selectList = (List<DrugBean>) getIntent().getSerializableExtra(Const.DATA);
-        position=getIntent().getIntExtra("position",0);
+		position=getIntent().getIntExtra("position",0);
+        IsPrescriptionStyle=getIntent().getStringExtra(Const.IsPrescriptionStyle);
+        getController().getIsPrescriptionType(IsPrescriptionStyle);
+        Logger.e("IsPrescriptionStyle="+IsPrescriptionStyle);
         setTitle("选择药品");
         setRightTxt("确定");
         initView();
         initList();
-        getController().drugsList(TypeEnum.REFRESH);
+        if(IsPrescriptionStyle.equals("0")){
+            getController().drugsList(TypeEnum.REFRESH);
+        }else if(IsPrescriptionStyle.equals("1")){
+            getController().drugsListWaiYan(TypeEnum.REFRESH);
+        }
+
+
         setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
             @SingleClick(1000)
             @Override
@@ -154,7 +167,14 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
         map.put("keyword", searchEt.getText().toString().trim());
         return map;
     }
-
+    @Override
+    public Map<String, Object> getDrugListWaiYanMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("currentPage", getController().getCurrentPage());
+        map.put("pageSize", Const.PAGE_SIZE);
+        map.put("param", searchEt.getText().toString().trim());
+        return map;
+    }
     @Override
     public void getDrugListSuccess(List<DrugBean> list, TypeEnum type) {
         if (type == TypeEnum.REFRESH) {

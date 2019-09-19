@@ -33,7 +33,7 @@ import java.util.Map;
 
 /**
  * @Name：com.keydom.ih_doctor.activity.personal
- * @Description：在线问诊处置建议页面（无用，处置建议功能集成到页面）
+ * @Description：在线问诊处置建议页面（无用，处置建议功能集成到诊断与处方页面）
  * @Author：song
  * @Date：18/11/14 上午10:37
  * 修改人：xusong

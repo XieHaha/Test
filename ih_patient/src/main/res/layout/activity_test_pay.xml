@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.logistic.TestPayActivity">
+
+
+    <Button
+        android:background="@drawable/ripple_bg"
+        android:id="@+id/btn_1"
+        android:layout_marginTop="@dimen/dp_80"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:text="按钮1"
+
+        />
+    <Button
+        android:id="@+id/btn_2"
+        android:layout_marginTop="@dimen/dp_80"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:text="按钮2"
+
+        />
+    <CheckBox
+        android:id="@+id/image_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dp_27"
+        android:scaleType="center"
+        android:layout_centerVertical="true"
+        android:button="@null"
+        android:background="@drawable/pay_checkbox_selector"
+        />
+</LinearLayout>

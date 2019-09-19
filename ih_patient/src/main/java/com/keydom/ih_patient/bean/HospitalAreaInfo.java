@@ -146,4 +146,24 @@ public class HospitalAreaInfo {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+    @Override
+    public String toString() {
+        return "HospitalAreaInfo{" +
+                "id=" + id +
+                ", priority='" + priority + '\'' +
+                ", hospitalCode='" + hospitalCode + '\'' +
+                ", hospitalName='" + hospitalName + '\'' +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", state=" + state +
+                ", level='" + level + '\'' +
+                ", nature='" + nature + '\'' +
+                ", remark='" + remark + '\'' +
+                ", isSelected=" + isSelected +
+                ", isConsult=" + isConsult +
+                '}';
+    }
 }

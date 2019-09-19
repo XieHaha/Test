@@ -3,6 +3,7 @@ package com.keydom.ih_patient.activity.online_diagnoses_order.view;
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.ih_patient.bean.DiagnosesOrderBean;
 import com.keydom.ih_patient.bean.LocationInfo;
+import com.keydom.ih_patient.bean.entity.pharmacy.PharmacyBean;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public interface OnlineDiagnonsesOrderView extends BaseView {
     /**
      * 发起支付
      */
-    void goPay(boolean needDispatch, String orderNum, double totalMoney);
+    void goPay(boolean needDispatch, String orderNum,String orderId, double totalMoney,String prescriptionId,boolean isWaiYan);
 
     /**
      * 支付成功
@@ -45,4 +46,11 @@ public interface OnlineDiagnonsesOrderView extends BaseView {
      */
     void getDistributionFee(String fee);
     void getLocationList(List<LocationInfo> data);
+
+
+    /**
+     * 刷新运费
+     * */
+    void refreshDeliveryCostView(List<PharmacyBean> data);
+    void refreshPriceView(List<PharmacyBean> data);
 }

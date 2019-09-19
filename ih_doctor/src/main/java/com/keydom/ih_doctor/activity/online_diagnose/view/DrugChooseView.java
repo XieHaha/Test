@@ -23,6 +23,12 @@ public interface DrugChooseView extends BaseView {
      * @return
      */
     Map<String, Object> getDrugListMap();
+    /**
+     * 获取药品列表请求参数
+     *
+     * @return
+     */
+    Map<String, Object> getDrugListWaiYanMap();
 
     /**
      * 获取药品列表成功

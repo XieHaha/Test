@@ -35,7 +35,6 @@ import com.keydom.ih_doctor.activity.online_diagnose.DiagnoseInputActivity;
 import com.keydom.ih_doctor.activity.patient_main_suit.PatientMainSuitActivity;
 import com.keydom.ih_doctor.activity.prescription_check.controller.DiagnosePrescriptionController;
 import com.keydom.ih_doctor.activity.prescription_check.view.DiagnosePrescriptionView;
-import com.keydom.ih_doctor.adapter.DrugDetailListAdapter;
 import com.keydom.ih_doctor.adapter.PrescriptionAdapter;
 import com.keydom.ih_doctor.bean.CommitPrescriptionSavedBean;
 import com.keydom.ih_doctor.bean.DiagnoseHandleBean;
@@ -97,7 +96,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     public static final int CREATE_HANDLE = 503;
     private MRadioButton reDiagnoseRb;
     private DiagnosePrescriptionItemView mainDec, medicalHistory, oversensitiveHistory, checkRes, simpleDiagnose, dealIdea;
-    private RelativeLayout addPrescriptionRl, prescriptionModelRl;
+    private RelativeLayout addPrescriptionRl, prescriptionModelRl, addPrescriptionItemRl;
     private TextView modalName, selectSave, submitWithModel, submit, feeCount;
     private CardView addMedicine;
     private RecyclerView recyclerView;
@@ -479,6 +478,13 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         prescription_type = 0;
         creatPrescription();
     }
+	
+	public void getInPrescription(){
+    }
+    public void getOutPrescription(){
+
+    }
+
 
     @Override
     public void savePrescriptionModel(boolean isModel, String value) {
@@ -517,6 +523,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         map.put("items", getCommitItems());
         map.put("cate", prescription_type);
         map.put("dept", MyApplication.userInfo.getDeptName());
+        map.put("saveTemplate", getSaveType());
         if (type == CREATE_PRESCRIPTION && inquiryBean != null) {
             map.put("inquiryId", inquiryBean.getId());
         } else if (type == UPDATE_PRESCRIPTION) {
@@ -551,7 +558,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                 drugSavedBean.setDoctorAdvice(saveData.get(i).get(j).getDoctorAdvice());
                 drugSavedBean.setId(saveData.get(i).get(j).getId());
                 drugSavedBean.setPackUnit(saveData.get(i).get(j).getPackUnit());
-                drugSavedBean.setSingleMaximum(saveData.get(i).get(j).getSingleMaximum());
+                drugSavedBean.setSingleMaximum(Float.valueOf(saveData.get(i).get(j).getSingleMaximum()));
                 drugSavedBean.setMaximumMedicationDays(saveData.get(i).get(j).getMaximumMedicationDays());
                 items.add(drugSavedBean);
             }
@@ -560,6 +567,17 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         }
 
         return commitPrescriptionSavedBeanList;
+    }
+	
+	    private int getSaveType() {
+        int i = 0;
+        if (saveCaseTemplate) {
+            i = i + 2;
+        }
+        if (savePrescriptionTemplate) {
+            i = i + 1;
+        }
+        return i;
     }
 
 

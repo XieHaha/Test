@@ -12,6 +12,8 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SpanUtils;
@@ -25,6 +27,7 @@ import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.AgreementActivity;
 import com.keydom.ih_patient.activity.location_manage.LocationManageActivity;
+import com.keydom.ih_patient.activity.logistic.FixHeightBottomSheetDialog;
 import com.keydom.ih_patient.activity.online_diagnoses_order.controller.OnlineDiagnonsesOrderController;
 import com.keydom.ih_patient.activity.online_diagnoses_order.view.OnlineDiagnonsesOrderView;
 import com.keydom.ih_patient.activity.order_evaluate.OrderEvaluateActivity;
@@ -32,11 +35,14 @@ import com.keydom.ih_patient.adapter.DiagnosesOrderAdapter;
 import com.keydom.ih_patient.bean.DiagnosesOrderBean;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.LocationInfo;
+import com.keydom.ih_patient.bean.entity.pharmacy.PharmacyBean;
 import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
+import com.keydom.ih_patient.utils.CommUtil;
+import com.keydom.ih_patient.utils.GotoActivityUtil;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
@@ -51,6 +57,7 @@ import org.jetbrains.annotations.Nullable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,6 +150,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     @Override
     public void onResume() {
         super.onResume();
+        getController().getLocationList();
         mRefreshLayout.autoRefresh();
     }
 
@@ -204,7 +212,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
             });
 
         }else if(item.getState()!=0&&item.getIsSubOrderUnPay()==1)
-            getController().getChildOrderBean(item.getId());
+            getController().getChildOrderBean(item.getId(),item.getPrescriptionId());
     }
 
     @Override
@@ -213,9 +221,14 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     }
 
     @Override
-    public void goPay(boolean needDispatch, String orderNum, double totalMoney) {
+    public void goPay(boolean needDispatch, String orderNum,String orderId, double totalMoney,String prescriptionId,boolean isWaiYan) {
         mTotalFee = totalMoney;
-        showPayDialog(needDispatch, String.valueOf(totalMoney), totalMoney, orderNum);
+        if(isWaiYan){
+            showPayTypeDialog(String.valueOf(totalMoney), totalMoney, orderNum, orderId,prescriptionId);
+        }else{
+            showPayDialog(needDispatch, String.valueOf(totalMoney), totalMoney, orderNum);
+        }
+
     }
 
     /**
@@ -340,115 +353,334 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         bottomSheetDialog.show();
         addressSelectGroup.setVisibility(needAddress ? View.VISIBLE : View.GONE);
     }
-    /*private void showPayDialog(boolean needAddress, String titleFee, double totalFee, String orderNum) {
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity(),R.style.BottomSheetDialog);
-        bottomSheetDialog.setCancelable(false);
+
+
+
+    TextView mOrderPriceTv;
+    private TextView mPyName;
+    //配送费
+    TextView mDeliveryCostTv;
+    TextView mTvAliPay;
+    TextView mTvWechatPay;
+    TextView mTvUnionPay;
+    TextView pay_agreement_tv;
+    private TextView mWaiYanTotalPayTv;
+    LinearLayout mLinPay;
+    TextView mTvShopPay;
+    TextView mTvGoPay;
+
+    //支付宝，微信，银联
+    ImageView aliPay;
+    ImageView wechatPay;
+    ImageView unionPay;
+    int[] WaiPayType = {2};
+    String payWaiType = Type.ALIPAY;
+
+    //外院选择按钮
+    RadioGroup mRadioGroup;
+    RadioButton mRadioSelf;
+    RadioButton mRadioHome;
+
+    //父组件 药店自取/配送到家
+    LinearLayout mLinAddress;
+    LinearLayout mLinShop;
+    RelativeLayout mReZxingTitle;
+
+    /**
+     * 外延地址ID
+     */
+    private long mWaiYanAddressId;
+
+    public boolean isSendDrugsToHome = false;
+
+    private String mPprescriptionId;
+
+
+
+    /**
+     * 展示支付弹框
+     */
+    private void showPayTypeDialog(String titleFee, double totalFee, String orderNum,String orderId,String prescriptionId) {
+        FixHeightBottomSheetDialog bottomWaiYanSheetDialog = new FixHeightBottomSheetDialog(getActivity());
+        bottomWaiYanSheetDialog.setCancelable(false);
         final boolean[] isAgree = {false};
-        int[] payType = {2};
-        bottomSheetDialog.setCanceledOnTouchOutside(false);
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.pay_ment_dialog_layout, null, false);
-        bottomSheetDialog.setContentView(view);
-        final TextView order_price_tv = view.findViewById(R.id.order_price_tv);
-        order_price_tv.setText("¥" + titleFee + "");
-        LinearLayout addressSelectGroup = view.findViewById(R.id.address_select_group);
+
+        mPprescriptionId = prescriptionId;
+
+        bottomWaiYanSheetDialog.setCanceledOnTouchOutside(false);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.pay_outside_dialog_layout, null, false);
+        bottomWaiYanSheetDialog.setContentView(view);
+        mOrderPriceTv = view.findViewById(R.id.order_price_tv);
+        mOrderPriceTv.setText("¥" + titleFee + "起");
         LinearLayout addressSelect = view.findViewById(R.id.address_select);
-        mPayAddress = view.findViewById(R.id.address);
-        mPayAddress.setText("请选择配送详细地址和联系人");
-        mPayAddress.setTextColor(getResources().getColor(R.color.edit_hint_color));
-        mAddressId = 0;
-        RadioButton selfRadio = view.findViewById(R.id.self);
-        mHosptalCost = view.findViewById(R.id.hospital);
-        addressSelectGroup.setVisibility(needAddress ? View.VISIBLE : View.GONE);
-        SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
-                .create();
-        mHosptalCost.setText(medicalTv);
+        mPayAddress = view.findViewById(R.id.tv_m_address);
+        mPyName = view.findViewById(R.id.tv_shop_name);
+        mDeliveryCostTv = view.findViewById(R.id.tv_logistic_fee);
+
+
+        //todo 跳转选择地址界面
         addressSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LocationManageActivity.start(getActivity(), Type.PAY_SELECT_ADDRESS);
+                LocationManageActivity.start(getActivity(), Type.WAI_PAY_SELECT_ADDRESS);
             }
         });
 
-        final TextView ali_pay_tv = view.findViewById(R.id.ali_pay_tv);
-        final TextView wechat_pay_tv = view.findViewById(R.id.wechat_pay_tv);
-        TextView pay_agreement_tv = view.findViewById(R.id.pay_agreement_tv);
-        mTotalPayTv = view.findViewById(R.id.pay_commit_tv);
-        final ImageView ali_pay_selected_img = view.findViewById(R.id.ali_pay_selected_img);
-        final ImageView wechat_pay_selected_img = view.findViewById(R.id.wechat_pay_selected_img);
-        CheckBox payAgreementCb = view.findViewById(R.id.pay_agreement_cb);
-        payAgreementCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mTvAliPay = view.findViewById(R.id.ali_pay_tv);
+        mTvWechatPay = view.findViewById(R.id.wechat_pay_tv);
+        mTvUnionPay = view.findViewById(R.id.union_pay_tv);
+        pay_agreement_tv = view.findViewById(R.id.pay_agreement_tv);
+
+        //付款按钮
+        mWaiYanTotalPayTv = view.findViewById(R.id.pay_commit_tv);
+        mLinPay = view.findViewById(R.id.linear_pay);
+        mTvShopPay = view.findViewById(R.id.tv_shop_pay);
+        mTvGoPay = view.findViewById(R.id.tv_go_pay);
+
+
+        //支付宝，微信，银联
+        aliPay = view.findViewById(R.id.ali_pay_selected_img);
+        wechatPay = view.findViewById(R.id.wechat_pay_selected_img);
+        unionPay = view.findViewById(R.id.union_pay_selected_img);
+
+        //选择 药店自取/配送到家
+        mRadioGroup = view.findViewById(R.id.sex_rg);
+        mRadioSelf = view.findViewById(R.id.radio_self);
+        mRadioHome = view.findViewById(R.id.radio_home);
+        mRadioSelf.setChecked(true);
+
+        //父组件 药店自取/配送到家
+        mLinAddress = view.findViewById(R.id.address_select);
+        mLinShop = view.findViewById(R.id.linear_shop_select);
+        mReZxingTitle = view.findViewById(R.id.re_zxing_title);
+
+        mRadioGroup.setOnCheckedChangeListener(listen);
+        //todo 跳转选择药店界面
+        mLinShop.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                isAgree[0] = b;
+            public void onClick(View v) {
+                GotoActivityUtil.gotoChoosePharmacyActivity(getActivity(),prescriptionId);
             }
         });
+
         ImageView close_img = view.findViewById(R.id.close_img);
-        ali_pay_selected_img.setOnClickListener(new View.OnClickListener() {
+        aliPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ali_pay_selected_img.setImageResource(R.mipmap.pay_selected_icon);
-                wechat_pay_selected_img.setImageResource(R.mipmap.pay_unselected_icon);
-                ali_pay_tv.setTextColor(getResources().getColor(R.color.pay_selected));
-                wechat_pay_tv.setTextColor(getResources().getColor(R.color.pay_unselected));
-                payType[0] = 2;
+                aliPay.setImageResource(R.mipmap.pay_selected_icon);
+                wechatPay.setImageResource(R.mipmap.pay_unselected_icon);
+                mTvAliPay.setTextColor(getResources().getColor(R.color.pay_selected));
+                mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                unionPay.setImageResource(R.mipmap.pay_unselected_icon);
+                mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                WaiPayType[0] = 2;
+                payWaiType = Type.ALIPAY;
             }
         });
-        wechat_pay_selected_img.setOnClickListener(new View.OnClickListener() {
+        wechatPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ali_pay_selected_img.setImageResource(R.mipmap.pay_unselected_icon);
-                wechat_pay_selected_img.setImageResource(R.mipmap.pay_selected_icon);
-                ali_pay_tv.setTextColor(getResources().getColor(R.color.pay_unselected));
-                wechat_pay_tv.setTextColor(getResources().getColor(R.color.pay_selected));
-                payType[0] = 1;
-            }
-        });
-        mTotalPayTv.setText("去付款¥" + totalFee + "元");
-        mTotalPayTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                if (isAgree[0]) {
-                    if (needAddress && mAddressId == 0 && mHosptalCost.isChecked()) {
-                        ToastUtils.showShort("请选择配送地址");
-                    } else {
-                        //去支付
-                        getController().pay(mAddressId, orderNum, payType[0], totalFee);
-                        bottomSheetDialog.dismiss();
-                    }
-//                } else {
-//                    ToastUtil.shortToast(getContext(), "请阅读并同意支付协议");
-//                }
+                aliPay.setImageResource(R.mipmap.pay_unselected_icon);
+                wechatPay.setImageResource(R.mipmap.pay_selected_icon);
+                mTvAliPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_selected));
 
+                unionPay.setImageResource(R.mipmap.pay_unselected_icon);
+                mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                WaiPayType[0] = 1;
+                payWaiType = Type.WECHATPAY;
             }
         });
+        unionPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aliPay.setImageResource(R.mipmap.pay_unselected_icon);
+                wechatPay.setImageResource(R.mipmap.pay_unselected_icon);
+                mTvAliPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                unionPay.setImageResource(R.mipmap.pay_selected_icon);
+                mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_selected));
+                WaiPayType[0] = 3;
+                payWaiType = Type.UNIONPAY;
+            }
+        });
+        mWaiYanTotalPayTv.setText("去付款¥" + totalFee + "元");
+        mWaiYanTotalPayTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mRadioHome.isChecked() && mWaiYanAddressId == 0) {
+                    ToastUtils.showShort("请选择配送地址");
+                } else {
+                    getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,true,prescriptionId,orderNum,mPharmacyBean,mLocationInfo);
+
+                    Logger.e("1=" + mWaiYanAddressId);
+                    Logger.e("2=" + orderNum);
+                    Logger.e("3=" + WaiPayType[0]);
+                    Logger.e("4=" + totalFee);
+                    bottomWaiYanSheetDialog.dismiss();
+                }
+            }
+        });
+        mTvShopPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)){
+                    ToastUtils.showShort("请选择药店");
+                }else{
+                    getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,false,prescriptionId,orderNum,mPharmacyBean,mLocationInfo);
+                    bottomWaiYanSheetDialog.dismiss();
+                }
+            }
+        });
+        mTvGoPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)) {
+                    ToastUtils.showShort("请选择药店");
+                } else {
+                    //去支付
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("orderId", orderId);
+                    if (payWaiType.equals(Type.WECHATPAY)) {
+                        map.put("type", 1);
+                    }
+                    if (payWaiType.equals(Type.ALIPAY)) {
+                        map.put("type", 2);
+                    }
+                    if(null != mPharmacyBean){
+                        getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,true,prescriptionId,orderNum,mPharmacyBean,mLocationInfo);
+                    }
+
+                    Logger.e("map="+map);
+                    bottomWaiYanSheetDialog.dismiss();
+                }
+                //   ToastUtils.showShort("暂未接入支付");
+            }
+        });
+
         pay_agreement_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //跳转支付协议页面
-                AgreementActivity.startPayAgreement(getContext());
+                AgreementActivity.startPayAgreement(getActivity());
             }
         });
         close_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bottomSheetDialog.dismiss();
+                bottomWaiYanSheetDialog.dismiss();
             }
         });
-        bottomSheetDialog.show();
-    }*/
+        bottomWaiYanSheetDialog.show();
+    }
 
+
+    private RadioGroup.OnCheckedChangeListener listen = new RadioGroup.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            switch (group.getCheckedRadioButtonId()) {
+                case R.id.radio_self:
+                    //todo 到店自取
+                    mLinAddress.setVisibility(View.GONE);
+                    mLinShop.setVisibility(View.VISIBLE);
+                    mReZxingTitle.setVisibility(View.VISIBLE);
+                    mWaiYanTotalPayTv.setVisibility(View.GONE);
+                    mLinPay.setVisibility(View.VISIBLE);
+
+
+                    aliPay.setImageResource(R.mipmap.pay_selected_icon);
+                    wechatPay.setImageResource(R.mipmap.pay_unselected_icon);
+                    mTvAliPay.setTextColor(getResources().getColor(R.color.pay_selected));
+                    mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                    unionPay.setImageResource(R.mipmap.pay_unselected_icon);
+                    mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                    WaiPayType[0] = 2;
+                    payWaiType = Type.ALIPAY;
+                    isSendDrugsToHome = false;
+                    break;
+                case R.id.radio_home:
+                    //todo 配送到家
+                    mLinAddress.setVisibility(View.VISIBLE);
+                    mLinShop.setVisibility(View.GONE);
+                    mReZxingTitle.setVisibility(View.GONE);
+
+                    mWaiYanTotalPayTv.setVisibility(View.VISIBLE);
+                    mLinPay.setVisibility(View.GONE);
+
+                    aliPay.setImageResource(R.mipmap.pay_selected_icon);
+                    wechatPay.setImageResource(R.mipmap.pay_unselected_icon);
+                    mTvAliPay.setTextColor(getResources().getColor(R.color.pay_selected));
+                    mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                    unionPay.setImageResource(R.mipmap.pay_unselected_icon);
+                    mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                    WaiPayType[0] = 2;
+                    payWaiType = Type.ALIPAY;
+                    isSendDrugsToHome = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    /**
+     * 药店名字和地址
+     */
+    String mPharmacyName = null;
+    String mPharmacyAddress = null;
+
+    /**
+     * 药店选中，详情bean
+     */
+    PharmacyBean mPharmacyBean = null;
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onResultPharmacy(Event event) {
+        if (event.getType() == EventType.SELECTPHARMACY) {
+            Map<String, Object> map = (Map<String, Object>) event.getData();
+            mPharmacyName = (String) map.get("mName");
+            mPharmacyAddress = (String) map.get("mAddress");
+            mPharmacyBean = (PharmacyBean) map.get("pharmacy");
+            mPyName.setText(mPharmacyName);
+            refreshPriceView(Arrays.asList(mPharmacyBean));
+        }
+    }
+
+    public void refreshPriceView(List<PharmacyBean> data) {
+        if(!CommUtil.isEmpty(data) && null != data.get(0)){
+            mPharmacyBean = data.get(0);
+            //BigDecimal deliveryCost = new BigDecimal(data.get(0).getDeliveryCost());
+            BigDecimal sumFee = new BigDecimal(data.get(0).getSumFee());
+            //四舍五入，保留两位小数
+            mOrderPriceTv.setText("￥" + sumFee.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + "元");
+            if (mRadioHome.isChecked()) {
+                mWaiYanTotalPayTv.setText("去付款¥" + sumFee.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + "元");
+            }
+
+        }
+
+    }
+
+    LocationInfo mLocationInfo;
     /**
      * 获取位置信息
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getLocation(Event event) {
         if (event.getType() == EventType.PAY_SELECT_ADDRESS) {
-            LocationInfo locationInfo = (LocationInfo) event.getData();
-            String address = locationInfo.getProvinceName() + locationInfo.getCityName() + locationInfo.getAreaName() + locationInfo.getAddress();
+            mLocationInfo = (LocationInfo) event.getData();
+            String address = mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress();
             mPayAddress.setText(address);
             mPayAddress.setTextColor(getResources().getColor(R.color.pay_unselected));
-            mAddressId = locationInfo.getId();
+            mAddressId = mLocationInfo.getId();
             getController().getDistributionFee(mAddressId);
+        }else if (event.getType() == EventType.WAI_PAY_SELECT_ADDRESS) {
+            mLocationInfo = (LocationInfo) event.getData();
+            String address = mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress();
+            mPayAddress.setText(address);
+            mWaiYanAddressId = mLocationInfo.getId();
+            Logger.e("地址=" + address);
+            getController().getPrescriptionDetailDrugs(address,mPprescriptionId);
         }
     }
 
@@ -469,10 +701,21 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                 mAddressId = 0;
                 SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
                         .create();
-                mHosptalCost.setText(medicalTv);
+                if(null != mHosptalCost){
+                    mHosptalCost.setText(medicalTv);
+                }
             }
         }
     }
+
+
+    public void refreshDeliveryCostView(List<PharmacyBean> data) {
+        if(!CommUtil.isEmpty(data) && null != data.get(0)){
+            mDeliveryCostTv.setText("￥" + String.valueOf(data.get(0).getDeliveryCost()) + "元");
+        }
+
+    }
+
 
     @Override
     public void getDistributionFee(String fee) {
@@ -498,6 +741,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     }
     @Override
     public void paySuccess() {
+        mRefreshLayout.autoRefresh();
     }
 
     @Override

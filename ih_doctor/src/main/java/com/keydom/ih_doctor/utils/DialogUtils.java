@@ -16,8 +16,6 @@ import android.widget.TextView;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.adapter.PrescriptionPagerAdapter;
-import com.keydom.ih_doctor.bean.PrescriptionBean;
-import com.keydom.ih_doctor.bean.PrescriptionModelBean;
 import com.keydom.ih_doctor.bean.PrescriptionTemplateBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.m_interface.OnCheckDialogListener;
@@ -342,6 +340,85 @@ public class DialogUtils {
     }
 
     public static String modelType = "";
+
+    public static Dialog saveModelDialog(final Context context, final OnModelDialogListener listener) {
+        modelType = "";
+        final Dialog dialog = new Dialog(context, R.style.loading_dialog);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.save_prescription_model_dialog_layout, null);
+        dialog.setContentView(view);
+        final ImageView cancel = (ImageView) view.findViewById(R.id.check_dialog_close);
+        final TextView commit = (TextView) view.findViewById(R.id.check_dialog_submit);
+        final TextView modelTypePersonal = (TextView) view.findViewById(R.id.model_type_personal);
+        final TextView modelTypeDept = (TextView) view.findViewById(R.id.model_type_dept);
+        final TextView modelTypeCommon = (TextView) view.findViewById(R.id.model_type_common);
+        final EditText modelNameInput = view.findViewById(R.id.model_name_et);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.hide();
+            }
+        });
+
+        modelTypePersonal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                modelType = "0";
+                modelTypePersonal.setBackground(context.getResources().getDrawable(R.drawable.model_selected));
+                modelTypePersonal.setTextColor(context.getResources().getColor(R.color.white));
+                modelTypeDept.setBackground(context.getResources().getDrawable(R.drawable.model_un_selected));
+                modelTypeDept.setTextColor(context.getResources().getColor(R.color.fontColorNavigate));
+                modelTypeCommon.setBackground(context.getResources().getDrawable(R.drawable.model_un_selected));
+                modelTypeCommon.setTextColor(context.getResources().getColor(R.color.fontColorNavigate));
+            }
+        });
+        modelTypeDept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                modelType = "1";
+                modelTypePersonal.setBackground(context.getResources().getDrawable(R.drawable.model_un_selected));
+                modelTypePersonal.setTextColor(context.getResources().getColor(R.color.fontColorNavigate));
+                modelTypeDept.setBackground(context.getResources().getDrawable(R.drawable.model_selected));
+                modelTypeDept.setTextColor(context.getResources().getColor(R.color.white));
+                modelTypeCommon.setBackground(context.getResources().getDrawable(R.drawable.model_un_selected));
+                modelTypeCommon.setTextColor(context.getResources().getColor(R.color.fontColorNavigate));
+            }
+        });
+
+        modelTypeCommon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                modelType = "2";
+                modelTypePersonal.setBackground(context.getResources().getDrawable(R.drawable.model_un_selected));
+                modelTypePersonal.setTextColor(context.getResources().getColor(R.color.fontColorNavigate));
+                modelTypeDept.setBackground(context.getResources().getDrawable(R.drawable.model_un_selected));
+                modelTypeDept.setTextColor(context.getResources().getColor(R.color.fontColorNavigate));
+                modelTypeCommon.setBackground(context.getResources().getDrawable(R.drawable.model_selected));
+                modelTypeCommon.setTextColor(context.getResources().getColor(R.color.white));
+            }
+        });
+
+        commit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (modelNameInput.getText().toString() == null || "".equals(modelNameInput.getText().toString())) {
+                    ToastUtil.shortToast(context, "请输入模版名称");
+                    return;
+                }
+                if (modelType == null || "".equals(modelType)) {
+                    ToastUtil.shortToast(context, "请选择模版类型");
+                    return;
+                }
+                listener.dialogClick(v, modelType, modelNameInput.getText().toString());
+                dialog.hide();
+            }
+        });
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        return dialog;
+    }
+
+
 
     /*
      *保存处方模板弹窗

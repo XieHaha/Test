@@ -476,7 +476,15 @@ public class CommonVideoCallActivity extends BaseActivity implements View.OnClic
         NimUserInfo userInfo = (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(sessionId);
         displayName = userInfo.getName();
         portrait = userInfo.getAvatar();
-        userType = userInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE).toString();
+        if(null == userInfo.getExtensionMap()){
+            if ("com.keydom.ih_patient".equals(getPackageName())) {
+                userType = ImMessageConstant.DOCTOR;
+            } else {
+                userType = ImMessageConstant.PATIENT;
+            }
+        }else{
+            userType = userInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE).toString();
+        }
         title.setText(displayName);
         name.setText(displayName);
         GlideUtils.load(avatar, portrait, R.mipmap.im_default_head_image, R.mipmap.im_default_head_image, true, null);

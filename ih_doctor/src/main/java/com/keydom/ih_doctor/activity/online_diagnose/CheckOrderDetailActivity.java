@@ -247,7 +247,15 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         String checkItemStr = "";
         String doctorInstructionStr = "";
         for (CheckOutItemBean item : bean.getItems()) {
-            checkItemStr+=assembleProjectName(item.getItems());
+            if ("".equals(checkItemStr)) {
+                if (item.selectedItem() != null) {
+                    checkItemStr = item.selectedItem().getName();
+                }
+            } else {
+                if (item.selectedItem() != null) {
+                    checkItemStr = checkItemStr + " " + item.selectedItem().getName();
+                }
+            }
             if ("".equals(doctorInstructionStr)) {
                 if (item.selectedItem() != null) {
                     doctorInstructionStr = doctorInstructionStr + item.getRemark();

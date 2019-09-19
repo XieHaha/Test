@@ -43,4 +43,14 @@ public interface ICustomAttachmentType {
      * 处置建议消息
      */
     int DISPOSAL_ADVICE = 12306;
+
+    /**
+     * 取药
+     */
+    int GET_DRUGS = 100101;
+
+    /**
+     * 收药
+     */
+    int RECEIVE_DRUGS = 100102;
 }

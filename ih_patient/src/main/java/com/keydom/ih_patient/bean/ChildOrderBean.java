@@ -20,6 +20,27 @@ public class ChildOrderBean {
     @JSONField(name = "isPrescription")
     private int isPrescription;
 
+    /** 是否是外延处方
+     *  1 是外延处方
+     *  0 是内延处方
+     *
+     * */
+    @JSONField(name = "isOutPrescription")
+    private int isOutPrescription;
+
+    public boolean isWaiYan(){
+        return 1 == isOutPrescription ? true : false ;
+    }
+
+
+    public int getIsOutPrescription() {
+        return isOutPrescription;
+    }
+
+    public void setIsOutPrescription(int isOutPrescription) {
+        this.isOutPrescription = isOutPrescription;
+    }
+
     public String getOrderNumber() {
         return orderNumber;
     }

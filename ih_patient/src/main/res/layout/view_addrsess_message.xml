@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/encode_view"
+    android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginTop="@dimen/dp_6"
+            android:id="@+id/image_dots_green"
+            android:layout_marginLeft="@dimen/dp_23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg_dots_green"/>
+         <TextView
+             android:id="@+id/tv_con"
+             android:layout_toRightOf="@+id/image_dots_green"
+             android:layout_marginLeft="@dimen/dp_23"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textColor="@color/pay_unselected"
+             android:textSize="@dimen/dp_14"
+             android:text="药品供应："
+             />
+            <TextView
+                android:id="@+id/tv_drug"
+                android:layout_toRightOf="@+id/tv_con"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/pay_unselected"
+                android:textSize="@dimen/dp_14"
+                    android:lines="2"
+                android:text="同和堂大药房（九方购物中心店）啊哈哈哈哈哈哈哈哈哈哈"
+                />
+        </RelativeLayout>
+
+        <View
+            style="@style/CommonLine"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginLeft="@dimen/dp_56"
+            android:layout_marginRight="@dimen/dp_20"
+          />
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginTop="@dimen/dp_6"
+                android:id="@+id/image_dots_red"
+                android:layout_marginLeft="@dimen/dp_23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bg_dots_red"/>
+            <TextView
+                android:id="@+id/tv_get"
+                android:layout_toRightOf="@+id/image_dots_red"
+                android:layout_marginLeft="@dimen/dp_23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/pay_unselected"
+                android:textSize="@dimen/dp_14"
+                android:text="取药地址："
+                />
+            <TextView
+                android:id="@+id/tv_get_address"
+                android:layout_toRightOf="@+id/tv_get"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/pay_unselected"
+                android:textSize="@dimen/dp_14"
+                android:lines="2"
+                android:text="成都市武侯区府城大道中段88号九方购物中心B1"
+                />
+        </RelativeLayout>
+
+    <View
+        style="@style/CommonLines"
+        android:layout_marginTop="@dimen/dp_26"
+
+        />
+</LinearLayout>

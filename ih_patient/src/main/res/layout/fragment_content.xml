@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    tools:context=".fragment.ContentFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginLeft="@dimen/dp_18"
+        android:layout_marginRight="@dimen/dp_22"
+        android:background="@color/mine_interval_bg" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:background="@color/primary_color">
+
+        <TextView
+            android:layout_marginLeft="@dimen/dp_21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="小计："
+            android:textColor="@color/title_bar_text_color"
+            android:textSize="@dimen/dp_14" />
+
+        <TextView
+            android:id="@+id/tv_subtotal_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_49"
+            android:text="￥23"
+            android:textColor="#FF3939"
+            android:textSize="@dimen/dp_14" />
+    </RelativeLayout>
+
+</LinearLayout>

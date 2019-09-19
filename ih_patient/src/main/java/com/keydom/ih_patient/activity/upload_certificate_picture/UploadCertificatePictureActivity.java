@@ -116,8 +116,13 @@ public class UploadCertificatePictureActivity extends BaseControllerActivity<Upl
                                     default:
                                         msg = String.valueOf(errorCode);
                                 }
-                                Logger.e(msg);
-//                                ToastUtil.shortToast(getContext(), "本地质量控制初始化错误，错误原因： " + msg);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ToastUtil.shortToast(getApplicationContext(), "本地质量控制初始化错误，错误原因： " + msg);
+                                    }
+                                });
+
                             }
                         });
                 break;

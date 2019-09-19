@@ -34,7 +34,17 @@ class ImMessageItemConsultationResultProvider(context: Context?, attrs: Attribut
         title.text = resultAttachment.title
         content.text = resultAttachment.content
         val userInfo = ImClient.getUserInfoProvider().getUserInfo(ImClient.getUserInfoProvider().account) as NimUserInfo
-        val type = userInfo.extensionMap[ImConstants.CALL_USER_TYPE].toString()
+
+        var type = ImMessageConstant.DOCTOR
+        if(null == userInfo.extensionMap){
+            if ("com.keydom.ih_patient" == context.packageName) {
+                type = ImMessageConstant.DOCTOR
+            } else {
+                type = ImMessageConstant.PATIENT
+            }
+        }else{
+            type = userInfo.extensionMap[ImConstants.CALL_USER_TYPE].toString()
+        }
         if (type == ImMessageConstant.DOCTOR) {
 
             amount.visibility = View.VISIBLE

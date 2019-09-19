@@ -60,10 +60,11 @@ public interface InquiryService {
      * 判断订单是否支付
      *
      * @param orderId
+     * 0,3是未支付状态
      * @return
      */
     @GET("user/online/isPay")
-    Observable<HttpResult<Boolean>> isPay(@Query("orderId") String orderId);
+    Observable<HttpResult<Integer>> isPay(@Query("orderId") String orderId);
 
     /**
      * 时都同意换诊

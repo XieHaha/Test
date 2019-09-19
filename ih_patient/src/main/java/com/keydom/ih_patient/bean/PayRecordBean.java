@@ -7,6 +7,25 @@ import java.math.BigDecimal;
  * des:缴费记录实体类
  */
 public class PayRecordBean {
+
+    /**
+     *   {
+     *     "patientNumber": "d9871661-a4a8-467a-8",
+     *     "recordState": 0,
+     *     "hospitalId": 1101049670463119400,
+     *     "date": "2019-08-08",
+     *     "selfPayment": 0.01,
+     *     "documentNo": "F1159303599067525122",
+     *     "shouldFee": 0.01,
+     *     "eleCardNumber": "d9871661-a4a8-467a-8",
+     *     "sumFee": 0.01,
+     *     "socialSecurityReimbursement": 0,
+     *     "name": "殷悦",
+     *     "payRegister": "缴费（问诊）",
+     *     "type": 2
+     *   }
+     * */
+
     private long hospitalId;
     private String patientNumber;
     private String documentNo;
@@ -17,10 +36,48 @@ public class PayRecordBean {
     private String payRegister;
     private BigDecimal socialSecurityReimbursement;
     private BigDecimal selfPayment;
-    private int recordState;//诊间缴费类型0问诊 1检查 2检验 3处方 4挂号 8
+
+    /**
+     * 获取类型说明 诊间缴费类型
+     * 0 图文问诊
+     * 1视频问诊
+     * 2护理
+     * 21护理服务项目子单
+     * 22护理服务耗材子单
+     * 3体检预约
+     * 4挂号
+     * 5 检查
+     * 6 检验
+     * 7诊缴费
+     * 8 院内处方
+     * 9合并
+     * 10外延处方
+     */
+    private int recordState;
     private boolean isSelect;
     private int type;
     private String eleCardNumber;
+    private String prescriptionId;
+    private boolean isWaiYan;
+
+    public boolean isWaiYan() {
+        if(recordState == 10){
+            isWaiYan = true;
+        }
+        return isWaiYan;
+    }
+
+    public void setWaiYan(boolean waiYan) {
+        isWaiYan = waiYan;
+    }
+
+    public String getPrescriptionId() {
+        return prescriptionId;
+    }
+
+    public void setPrescriptionId(String prescriptionId) {
+        this.prescriptionId = prescriptionId;
+    }
 
     public int getType() {
         return type;

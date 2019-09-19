@@ -96,6 +96,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -627,7 +628,16 @@ public class ImClient {
             }
         } else {
             Map<String, Object> extension = userInfo.getExtensionMap();
-            userType = extension.get(ImConstants.CALL_USER_TYPE).toString();
+            if(null == extension){
+                if ("com.keydom.ih_patient".equals(context.getPackageName())) {
+                    userType = ImMessageConstant.DOCTOR;
+                } else {
+                    userType = ImMessageConstant.PATIENT;
+                }
+            }else{
+                userType = extension.get(ImConstants.CALL_USER_TYPE).toString();
+            }
+
         }
         String path = "";
         switch (userType) {
@@ -699,7 +709,17 @@ public class ImClient {
                     public void accept(Boolean granted) throws Exception {
                         if (granted) {
                             NimUserInfo userInfo = (NimUserInfo) getUserInfoProvider().getUserInfo(sessionId);
-                            String type = userInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE).toString();
+                            String type;
+                            if(null == userInfo.getExtensionMap()){
+                                if ("com.keydom.ih_patient".equals(activity.getPackageName())) {
+                                    type = ImMessageConstant.DOCTOR;
+                                } else {
+                                    type = ImMessageConstant.PATIENT;
+                                }
+                            }else{
+                                type = userInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE).toString();
+                            }
+
                             String action = "";
                             if (ImMessageConstant.DOCTOR.equals(type)) {
                                 action = ImConstants.IM_INTENT_ACTION_VIDEO_DOCTOR;
@@ -730,7 +750,16 @@ public class ImClient {
      */
     public static void startVideoActivity(Context context, AVChatData avChatData) {
         NimUserInfo userInfo = (NimUserInfo) getUserInfoProvider().getUserInfo(avChatData.getAccount());
-        String type = userInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE).toString();
+        String type;
+        if(null == userInfo.getExtensionMap()){
+            if ("com.keydom.ih_patient".equals(context.getPackageName())) {
+                type = ImMessageConstant.DOCTOR;
+            } else {
+                type = ImMessageConstant.PATIENT;
+            }
+        }else{
+            type = userInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE).toString();
+        }
         String action = "";
         if (ImMessageConstant.DOCTOR.equals(type)) {
             action = ImConstants.IM_INTENT_ACTION_VIDEO_DOCTOR;

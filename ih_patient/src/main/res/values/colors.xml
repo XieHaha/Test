@@ -56,4 +56,8 @@
     <color name="goods_num_color">#FFA201</color>
     <color name="attention_num_color">#FB643B</color>
     <color name="edit_text_color">#666666</color>
+    <color name="bg_lines">#F9F9F9</color>
+    <color name="bg_line">#F5F5F5</color>
+    <color name="xia_green_line">#ff22e17e</color>
+    <color name="xia_gray_line">#ff22e17e</color>
 </resources>

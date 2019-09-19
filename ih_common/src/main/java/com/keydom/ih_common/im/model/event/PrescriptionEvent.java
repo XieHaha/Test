@@ -3,7 +3,7 @@ package com.keydom.ih_common.im.model.event;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
 /**
- * 处置意见，事件
+ * 处置意见，诊断与处方事件
  *
  * @author THINKPAD B
  */

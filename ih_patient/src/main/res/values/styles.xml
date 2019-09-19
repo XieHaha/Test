@@ -79,4 +79,17 @@
     <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
         <item name="behavior_peekHeight">500dp</item>
     </style>
+    
+        <!-- 横线 -->
+    <style name="CommonLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_1</item>
+        <item name="android:background">@color/bg_line</item>
+    </style>
+    <!-- 横线 -->
+    <style name="CommonLines">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_10</item>
+        <item name="android:background">@color/bg_lines</item>
+    </style>
 </resources>

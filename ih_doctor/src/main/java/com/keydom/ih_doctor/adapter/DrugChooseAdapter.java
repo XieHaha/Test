@@ -27,6 +27,15 @@ public class DrugChooseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder
     public DrugChooseAdapter(@Nullable List<DrugBean> data) {
         super(R.layout.choose_medical_item, data);
     }
+	
+	    public DrugChooseAdapter(@Nullable List<DrugBean> data, List<DrugBean> selectList) {
+        super(R.layout.choose_medical_item, data);
+        if (selectList == null) {
+            selectList = new ArrayList<>();
+        }
+        this.selectList = selectList;
+
+    }
 
     @Override
     protected void convert(BaseViewHolder helper, DrugBean item) {

@@ -68,4 +68,14 @@ public class IndexFunction implements Serializable {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "IndexFunction{" +
+                "functionIcon=" + functionIcon +
+                ", isSelected=" + isSelected +
+                ", id=" + id +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

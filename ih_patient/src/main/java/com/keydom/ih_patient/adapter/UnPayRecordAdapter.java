@@ -1,6 +1,7 @@
 package com.keydom.ih_patient.adapter;
 
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.CheckBox;
 
 import com.blankj.utilcode.util.StringUtils;
@@ -45,13 +46,23 @@ public class UnPayRecordAdapter extends BaseQuickAdapter<PayRecordBean, BaseView
                 .setText(R.id.money, item.getSumFee() + "")
                 .addOnClickListener(R.id.pay);
         CheckBox checkBox = helper.getView(R.id.select);
-        checkBox.setChecked(item.isSelect());
-        checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (checkBox.isPressed()) {
-                item.setSelect(isChecked);
-                checkBox.setChecked(false);  //新需求
-                mIOnSelectedChanged.onPriceChanged(item, helper.getAdapterPosition());
-            }
-        });
+
+        if(item.isWaiYan()){
+            checkBox.setVisibility(View.INVISIBLE);
+            checkBox.setChecked(false);
+            checkBox.setOnCheckedChangeListener(null);
+        }else{
+            checkBox.setVisibility(View.VISIBLE);
+            checkBox.setChecked(item.isSelect());
+            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (checkBox.isPressed()) {
+                    item.setSelect(isChecked);
+                    checkBox.setChecked(false);  //新需求
+                    mIOnSelectedChanged.onPriceChanged(item, helper.getAdapterPosition());
+                }
+            });
+        }
+
+
     }
 }

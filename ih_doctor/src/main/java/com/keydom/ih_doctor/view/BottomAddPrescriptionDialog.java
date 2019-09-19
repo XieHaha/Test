@@ -24,8 +24,9 @@ public class BottomAddPrescriptionDialog extends Dialog implements View.OnClickL
     private TextView addCommonPrescription, addPaediatricsPrescription;
     private Context mContext;
     private View.OnClickListener cancelListener;
+    private TextView mTvHos, mTvWai;
 
-    /**
+      /**
      * @param context
      */
     public BottomAddPrescriptionDialog(Context context) {
@@ -49,6 +50,11 @@ public class BottomAddPrescriptionDialog extends Dialog implements View.OnClickL
         cancelBtn.setOnClickListener(this);
         addCommonPrescription.setOnClickListener(this);
         addPaediatricsPrescription.setOnClickListener(this);
+
+        mTvHos = findViewById(R.id.tv_hos);
+        mTvWai = findViewById(R.id.tv_wai);
+        mTvHos.setOnClickListener(this);
+        mTvWai.setOnClickListener(this);
     }
 
     @Override
@@ -61,6 +67,26 @@ public class BottomAddPrescriptionDialog extends Dialog implements View.OnClickL
     @Override
     public void onClick(View v) {
         int id = v.getId();
+        switch (id) {
+            case R.id.dialog_close:
+                dismiss();
+                break;
+            case R.id.tv_hos:
+                mTvHos.setTextColor(mContext.getResources().getColor(R.color.tab_color));
+                mTvHos.setBackgroundColor(mContext.getResources().getColor(R.color.primary_bg_color));
+
+                mTvWai.setTextColor(mContext.getResources().getColor(R.color.cu_black));
+                mTvWai.setBackgroundColor(mContext.getResources().getColor(R.color.wai_yan));
+                break;
+            case R.id.tv_wai:
+                mTvWai.setTextColor(mContext.getResources().getColor(R.color.tab_color));
+                mTvWai.setBackgroundColor(mContext.getResources().getColor(R.color.primary_bg_color));
+
+                mTvHos.setTextColor(mContext.getResources().getColor(R.color.cu_black));
+                mTvHos.setBackgroundColor(mContext.getResources().getColor(R.color.wai_yan));
+                break;
+            default:
+        }
         if (id == R.id.dialog_close) {
             dismiss();
             return;
