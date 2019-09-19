@@ -14,7 +14,6 @@ import com.keydom.ih_doctor.activity.online_diagnose.PrescriptionTempletActivity
 import com.keydom.ih_doctor.activity.prescription_check.view.DiagnosePrescriptionView;
 import com.keydom.ih_doctor.bean.DiagnoseHandleBean;
 import com.keydom.ih_doctor.bean.DoctorPrescriptionDetailBean;
-import com.keydom.ih_doctor.bean.DrugBean;
 import com.keydom.ih_doctor.bean.PrescriptionMessageBean;
 import com.keydom.ih_doctor.bean.PrescriptionModelBean;
 import com.keydom.ih_doctor.m_interface.OnModelAndCaseDialogListener;
@@ -30,7 +29,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,16 +45,6 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
     private String modelTypeTemp = "";
     private String IsPrescriptionStyle = "0";
     private BigDecimal sumDrugFee;
-
-    private List<DrugBean> selectDrugList = new ArrayList<DrugBean>();
-
-    public List<DrugBean> getSelectDrugList() {
-        return selectDrugList;
-    }
-
-    public void setSelectDrugList(List<DrugBean> selectDrugList) {
-        this.selectDrugList = selectDrugList;
-    }
 
     public BigDecimal getSumDrugFee() {
         return sumDrugFee;
@@ -239,7 +227,6 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
         map.put("prescriptionTemplateType", modelTypeTemp);
         map.put("type", IsPrescriptionStyle);
         map.put("fee", sumDrugFee.toString());
-        map.put("items", selectDrugList);
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).save(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PrescriptionMessageBean>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable PrescriptionMessageBean data) {

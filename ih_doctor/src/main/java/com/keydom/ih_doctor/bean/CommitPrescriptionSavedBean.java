@@ -1,5 +1,6 @@
 package com.keydom.ih_doctor.bean;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class CommitPrescriptionSavedBean {
@@ -45,7 +46,6 @@ public class CommitPrescriptionSavedBean {
         private String frequency;
         private String dosage;
         private String dosageUnit;
-        private int quantity;
         private String spec;
         private String usage;
         private int days;
@@ -61,6 +61,16 @@ public class CommitPrescriptionSavedBean {
          * 最大门诊用量
          */
         private float singleMaximum;
+
+        /**
+         * 药品价格
+         */
+        private BigDecimal price = BigDecimal.ZERO;
+
+        /**
+         * 处方－药品数量
+         */
+        private int quantity;
 
         public int getMaximumMedicationDays() {
             return maximumMedicationDays;
@@ -172,6 +182,14 @@ public class CommitPrescriptionSavedBean {
 
         public void setId(long id) {
             this.id = id;
+        }
+
+        public BigDecimal getPrice() {
+            return price;
+        }
+
+        public void setPrice(BigDecimal price) {
+            this.price = price;
         }
     }
 }

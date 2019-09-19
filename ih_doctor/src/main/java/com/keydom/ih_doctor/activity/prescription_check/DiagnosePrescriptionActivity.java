@@ -421,6 +421,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         for (DrugBean bean : dataList) {
             bigDecimal = bigDecimal.add(bean.getPrice().multiply(new BigDecimal(bean.getQuantity())));
         }
+        getController().setSumDrugFee(bigDecimal);
 //        feeCount.setText("￥" + bigDecimal.toString());
         return bigDecimal.toString();
     }
@@ -560,6 +561,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                 drugSavedBean.setPackUnit(saveData.get(i).get(j).getPackUnit());
                 drugSavedBean.setSingleMaximum(Float.valueOf(saveData.get(i).get(j).getSingleMaximum()));
                 drugSavedBean.setMaximumMedicationDays(saveData.get(i).get(j).getMaximumMedicationDays());
+                drugSavedBean.setPrice(saveData.get(i).get(j).getPrice());
                 items.add(drugSavedBean);
             }
             commitPrescriptionSavedBean.setItems(items);
