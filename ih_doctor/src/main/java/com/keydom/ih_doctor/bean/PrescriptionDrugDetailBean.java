@@ -19,6 +19,17 @@ public class PrescriptionDrugDetailBean implements Serializable {
     private String name;
     private List<List<DrugBean>> items;
 
+    // 0 院内，1 院外
+    private int isOutPrescription;
+
+    public int getIsOutPrescription() {
+        return isOutPrescription;
+    }
+
+    public void setIsOutPrescription(int isOutPrescription) {
+        this.isOutPrescription = isOutPrescription;
+    }
+
     public long getId() {
         return id;
     }
