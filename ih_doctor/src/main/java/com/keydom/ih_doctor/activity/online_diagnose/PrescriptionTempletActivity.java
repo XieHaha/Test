@@ -3,26 +3,24 @@ package com.keydom.ih_doctor.activity.online_diagnose;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.widget.LinearLayout;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerActivity;
-import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.online_diagnose.controller.PrescriptionTempletController;
 import com.keydom.ih_doctor.activity.online_diagnose.view.PrescriptionTempletView;
-import com.keydom.ih_doctor.adapter.PrescriptionTempletAdapter;
-import com.keydom.ih_doctor.bean.PrescriptionTempletBean;
-import com.keydom.ih_doctor.m_interface.SingleClick;
+import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.constant.TypeEnum;
+import com.keydom.ih_doctor.fragment.PrescriptionTempletFragment;
 
 import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 /**
  *
  * @link
@@ -40,30 +38,21 @@ import java.util.List;
  */
 public class PrescriptionTempletActivity extends BaseControllerActivity<PrescriptionTempletController> implements PrescriptionTempletView {
 
-    /**
-     * 医院模版类型
-     */
-    public static final String HOSPITAL = "1";
-    /**
-     * 个人模版类型
-     */
-    public static final String PERSONAL = "0";
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private Fragment[] mFragmentArrays;
+    private String[] mTabTitles;
+    private int isOutPrescription = -1;
 
     /**
      * 开启处方模版页面
      * @param context
      */
-    public static void start(Context context) {
-        context.startActivity(new Intent(context, PrescriptionTempletActivity.class));
+    public static void start(Context context,int isOutPrescription) {
+        Intent intent = new Intent(context, PrescriptionTempletActivity.class);
+        intent.putExtra(Const.IS_OUT_PRESCRIPTION, isOutPrescription);
+        context.startActivity(intent);
     }
-
-    private TextView type_tv, search_tv;
-    private EditText search_et;
-    private RecyclerView recyclerView;
-    private PrescriptionTempletAdapter prescriptionTempletAdapter;
-    private List<PrescriptionTempletBean> dataList = new ArrayList<>();
-    private List<PrescriptionTempletBean> tempList = new ArrayList<>();
-    private String mType = PERSONAL;
 
     @Override
     public int getLayoutRes() {
@@ -73,68 +62,74 @@ public class PrescriptionTempletActivity extends BaseControllerActivity<Prescrip
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle("处方模板");
-        type_tv = findViewById(R.id.type_tv);
-        search_tv = findViewById(R.id.search_tv);
-        search_et = findViewById(R.id.search_et);
-        recyclerView = findViewById(R.id.recyclerView);
-        type_tv.setOnClickListener(getController());
-        prescriptionTempletAdapter = new PrescriptionTempletAdapter(dataList);
-        search_tv.setOnClickListener(new View.OnClickListener() {
-            @SingleClick(1000)
-            @Override
-            public void onClick(View v) {
-                searchTemplet(search_et.getText().toString().trim());
-                CommonUtils.hideSoftKeyboard(PrescriptionTempletActivity.this);
-            }
-        });
-        prescriptionTempletAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @SingleClick(1000)
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                PrescriptionTempletDetailActivity.start(getContext(), prescriptionTempletAdapter.getData().get(position).getId(), prescriptionTempletAdapter.getData().get(position).getTemplateName());
-            }
-        });
-        recyclerView.setAdapter(prescriptionTempletAdapter);
-        getController().getPrescriptionTempletList();
+        isOutPrescription = getIntent().getIntExtra(Const.IS_OUT_PRESCRIPTION, -1);
+        tabLayout = this.findViewById(R.id.tablayout);
+        viewPager = this.findViewById(R.id.tab_viewpager);
+        LinearLayout linearLayout = (LinearLayout) tabLayout.getChildAt(0);
+        linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,
+                R.drawable.layout_divider_vertical));
+        initFragment();
     }
 
     /**
-     * 关键字搜索模版
-     * @param key
+     * 设置fragment
      */
-    private void searchTemplet(String key) {
-        dataList.clear();
-        dataList.addAll(tempList);
-        Iterator<PrescriptionTempletBean> it = dataList.iterator();
-        while (it.hasNext()) {
-            if (!it.next().getTemplateName().contains(key)) {
-                it.remove();
-            }
+    private void initFragment() {
+        if(isOutPrescription < 0){ //都展示
+            mTabTitles = new String[2];
+            mFragmentArrays = new Fragment[2];
+            mTabTitles[0] = "院内处方";
+            mTabTitles[1] = "外延处方";
+            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+            mFragmentArrays[0] = PrescriptionTempletFragment.newInstance(TypeEnum.INSIDE_PRESCRIPTION);
+            mFragmentArrays[1] = PrescriptionTempletFragment.newInstance(TypeEnum.OUTSIDE_PRESCRIPTION);
+
+        }else if(isOutPrescription == 0){ //院内
+            mTabTitles = new String[1];
+            mFragmentArrays = new Fragment[1];
+            mTabTitles[0] = "院内处方";
+            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+            mFragmentArrays[0] = PrescriptionTempletFragment.newInstance(TypeEnum.INSIDE_PRESCRIPTION);
+        }else{ //外延
+            mTabTitles = new String[1];
+            mFragmentArrays = new Fragment[1];
+            mTabTitles[0] = "外延处方";
+            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+            mFragmentArrays[0] = PrescriptionTempletFragment.newInstance(TypeEnum.OUTSIDE_PRESCRIPTION);
         }
-        prescriptionTempletAdapter.notifyDataSetChanged();
+
+        viewPager.setOffscreenPageLimit(2);
+        PagerAdapter pagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
-    public void getTempletListSuccess(List<PrescriptionTempletBean> data) {
-        tempList.addAll(data);
-        this.dataList = data;
-        prescriptionTempletAdapter.setNewData(dataList);
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
-    @Override
-    public void getTempletListFailed(String errMsg) {
-        pageLoadingFail();
-    }
+    final class TabViewPagerAdapter extends FragmentPagerAdapter {
+        public TabViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentArrays[position];
+        }
 
 
-    @Override
-    public void setDept(String dept, String type) {
-        type_tv.setText(dept);
-        mType = type;
-    }
+        @Override
+        public int getCount() {
+            return mFragmentArrays.length;
+        }
 
-    @Override
-    public String getType() {
-        return mType;
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mTabTitles[position];
+
+        }
     }
 }

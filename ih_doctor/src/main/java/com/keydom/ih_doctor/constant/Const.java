@@ -213,5 +213,9 @@ public class Const {
      */
     public static final int SIGN_CHECK_PRESCRIPTION = 2;
 
+    /**
+     * 是否是外延处方
+     */
+    public static final String IS_OUT_PRESCRIPTION = "is_out_prescription";
 
 }

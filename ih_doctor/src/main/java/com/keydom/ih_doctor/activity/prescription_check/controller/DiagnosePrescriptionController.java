@@ -72,7 +72,7 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
 
                 break;
             case R.id.prescription_model_rl:
-                PrescriptionTempletActivity.start(getContext());
+                PrescriptionTempletActivity.start(getContext(),getView().getIsOutPrescription());
                 break;
                 //TODO : 待修改
 /*            case R.id.add_medicine:

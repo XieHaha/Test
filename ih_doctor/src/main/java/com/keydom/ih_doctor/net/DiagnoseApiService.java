@@ -119,11 +119,11 @@ public interface DiagnoseApiService {
     /**
      * 处方模板列表
      *
-     * @param type 0 个人 1 医院
+     * @param maps 0 个人 1 医院
      * @return
      */
     @GET("user/prescription/prescriptionTemplateList")
-    Observable<HttpResult<List<PrescriptionTempletBean>>> getPrescriptionTemplateList(@Query("type") String type);
+    Observable<HttpResult<List<PrescriptionTempletBean>>> getPrescriptionTemplateList(@QueryMap Map<String, Object> maps);
 
     /**
      * 处方模板明细列表

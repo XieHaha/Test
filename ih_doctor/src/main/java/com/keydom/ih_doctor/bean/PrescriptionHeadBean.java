@@ -7,6 +7,7 @@ public class PrescriptionHeadBean  implements MultiItemEntity {
     public final static int TYPE_HEAD = 0;
     private String titleName;
     private int position;
+    private int isOutPrescription;
     @Override
     public int getItemType() {
         return TYPE_HEAD;
@@ -26,5 +27,13 @@ public class PrescriptionHeadBean  implements MultiItemEntity {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    public int getIsOutPrescription() {
+        return isOutPrescription;
+    }
+
+    public void setIsOutPrescription(int isOutPrescription) {
+        this.isOutPrescription = isOutPrescription;
     }
 }

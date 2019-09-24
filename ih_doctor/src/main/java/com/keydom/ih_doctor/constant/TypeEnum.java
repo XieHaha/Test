@@ -48,5 +48,7 @@ public enum TypeEnum {
     CREATE_INSPECT_ORDER,//创建检查单
     UPDATE_INSPECT_ORDER,//修改检查单
     CREATE_TEST_ORDER,//创建检验单
-    UPDATE_TEST_ORDER;//修改检验单
+    UPDATE_TEST_ORDER,//修改检验单
+    INSIDE_PRESCRIPTION,//院内处方
+    OUTSIDE_PRESCRIPTION;//外延处方
 }

@@ -125,6 +125,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     private List<PrescriptionTemplateBean> templateList = new ArrayList<>();
     private List<CommitPrescriptionSavedBean> commitPrescriptionSavedBeanList = new ArrayList<>();
     private boolean isHavePrescription = false;
+    private int isOutPrescription = -1;
 
     /**
      * 启动处方修改页面
@@ -643,6 +644,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
             prescription_type = bean.getCate();
             saveData.clear();
             saveData = bean.getList();
+            isOutPrescription = bean.getType();
             prescriptionAdapter.setNewData(packagingData(bean.getList()));
             isHavePrescription = true;
         }
@@ -789,6 +791,9 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
             templateList.add(prescriptionTemplateBean);
             PrescriptionHeadBean prescriptionHeadBean = new PrescriptionHeadBean();
             prescriptionHeadBean.setPosition(i);
+            if(isOutPrescription >= 0){
+                prescriptionHeadBean.setIsOutPrescription(isOutPrescription);
+            }
             if (prescription_type == 0) {
                 prescriptionHeadBean.setTitleName("处方" + DateUtils.numberToCH(i + 1) + "（儿科）");
             } else {
@@ -831,5 +836,10 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                 templateList.get(i).setModelTypeTemp(prescriptionModelBeanList.get(i).getModelType());
             }
         }
+    }
+
+    @Override
+    public int getIsOutPrescription() {
+        return isOutPrescription;
     }
 }
