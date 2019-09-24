@@ -56,7 +56,7 @@ public class PrescriptionAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                 TextView select_save=helper.getView(R.id.select_save);
                 ImageView prescription_delete_img=helper.getView(R.id.prescription_delete_img);
                 PrescriptionHeadBean prescriptionHeadBean= (PrescriptionHeadBean) item;
-                helper.setText(R.id.modal_name,prescriptionHeadBean.getTitleName() +" - " + (prescriptionHeadBean.getIsOutPrescription() == 0 ? "院内" : "外延"));
+                helper.setText(R.id.modal_name,prescriptionHeadBean.getTitleName());
                 select_save.setOnClickListener(new View.OnClickListener() {
                     @SingleClick(1000)
                     @Override
