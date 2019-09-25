@@ -724,6 +724,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         if (saveData.size() == 0){
             isHavePrescription = false;
             prescription_type=-1;
+            isOutPrescription=-1;
         }
     }
 
