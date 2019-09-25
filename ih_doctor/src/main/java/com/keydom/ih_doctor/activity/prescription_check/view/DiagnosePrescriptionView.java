@@ -147,4 +147,6 @@ public interface DiagnosePrescriptionView extends BaseView {
     void updateTemplateList(List<PrescriptionModelBean> prescriptionModelBeanList);
 
     int getIsOutPrescription();
+
+    void setIsOutPrescription(int isOutPrescription);
 }

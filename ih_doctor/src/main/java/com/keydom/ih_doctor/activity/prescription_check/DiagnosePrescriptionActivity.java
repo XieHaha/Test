@@ -842,4 +842,9 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     public int getIsOutPrescription() {
         return isOutPrescription;
     }
+
+    @Override
+    public void setIsOutPrescription(int isOutPrescription) {
+        this.isOutPrescription = isOutPrescription;
+    }
 }

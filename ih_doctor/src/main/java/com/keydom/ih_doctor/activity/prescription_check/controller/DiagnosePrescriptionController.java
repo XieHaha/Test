@@ -43,7 +43,6 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
     BottomAddPrescriptionDialog dialog;
     private String modelNameTemp = "";
     private String modelTypeTemp = "";
-    private String IsPrescriptionStyle = "0";
     private BigDecimal sumDrugFee;
 
     public BigDecimal getSumDrugFee() {
@@ -178,10 +177,10 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
 //                pvOptions.show();
                 break;
             case R.id.tv_hos:
-                IsPrescriptionStyle = "0";
+                getView().setIsOutPrescription(0);
                 break;
             case R.id.tv_wai:
-                IsPrescriptionStyle = "1";
+                getView().setIsOutPrescription(1);
                 break;
             case R.id.add_common_prescription:
                 getView().addCommonPrescription();
@@ -225,7 +224,7 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
         map.put("signJobId", jobId);
 		map.put("prescriptionTemplateName", modelNameTemp);
         map.put("prescriptionTemplateType", modelTypeTemp);
-        map.put("type", IsPrescriptionStyle);
+        map.put("type", String.valueOf(getView().getIsOutPrescription()));
         map.put("fee", sumDrugFee.toString());
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).save(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PrescriptionMessageBean>(getContext(), getDisposable(), false) {
             @Override
