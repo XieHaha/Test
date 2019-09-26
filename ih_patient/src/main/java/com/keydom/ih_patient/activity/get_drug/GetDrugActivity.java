@@ -20,6 +20,7 @@ import com.keydom.ih_patient.adapter.GetDrugAdapter;
 import com.keydom.ih_patient.bean.entity.GetDrugBean;
 import com.keydom.ih_patient.bean.entity.GetDrugEntity;
 import com.keydom.ih_patient.constant.Const;
+import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.PrescriptionService;
 import com.keydom.ih_patient.utils.CommUtil;
 import com.keydom.ih_patient.utils.GotoActivityUtil;
@@ -157,6 +158,7 @@ public class GetDrugActivity extends BaseActivity {
         map.put("name", name);
         map.put("current", page);
         map.put("size", pageSize);
+        map.put("userId", Global.getUserId());
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getPrescriptionIdList(map), new HttpSubscriber<GetDrugBean>(this, getDisposable(), true, true) {
             @Override
             public void requestComplete(@Nullable GetDrugBean data) {
