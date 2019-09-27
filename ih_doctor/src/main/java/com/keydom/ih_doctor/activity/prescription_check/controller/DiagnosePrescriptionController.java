@@ -224,7 +224,11 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
         map.put("signJobId", jobId);
 		map.put("prescriptionTemplateName", modelNameTemp);
         map.put("prescriptionTemplateType", modelTypeTemp);
-        map.put("type", String.valueOf(getView().getIsOutPrescription()));
+        if(getView().getIsOutPrescription() == -1){
+            map.put("type", "0");//默认传0
+        }else{
+            map.put("type", String.valueOf(getView().getIsOutPrescription()));
+        }
         map.put("fee", sumDrugFee.toString());
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).save(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PrescriptionMessageBean>(getContext(), getDisposable(), false) {
             @Override
