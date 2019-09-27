@@ -1,6 +1,7 @@
 package com.keydom.ih_patient.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 电子处方内容
@@ -8,58 +9,98 @@ import java.io.Serializable;
  * @Date：18/11/29 下午2:16
  */
 public class PrescriptionDrugBean implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private long id;
 
+
+    private static final long serialVersionUID = -6933620290452367925L;
+    /**
+     * 药品id
+     */
+    private Long id;
+    /**
+     * 药品名称
+     */
     private String drugsName;
 
+    /**
+     * 给药途径
+     */
+    private String way;
+    /**
+     * 用法
+     */
     private String usage;
 
+    /**
+     * 用药频率
+     */
     private String frequency;
 
+    /**
+     * 规格
+     */
     private String spec;
 
-    private int quantity;
+    /**
+     * 厂商
+     */
+    private String manufacturerName;
 
-    private String dosageUnit;
+    /**
+     * 价格
+     */
+    private BigDecimal price;
 
-    private String way;
+    /**
+     * 总价格
+     */
+    private BigDecimal fee;
+
+    /**
+     * 单次剂量
+     */
+    private String dosage;
 
     private String singleDose;
 
-    private String dosage;
+    /**
+     * 单次剂量单位
+     */
+    private String dosageUnit;
+
+    /**
+     * 数量
+     */
+    private Integer quantity;
+
+    /**
+     * 用药天数
+     */
+    private Integer days;
+
+    private Integer maximumMedicationDays;
+
+    private String singleMaximum;
+
+    private Long drugsId;
 
     private String packUnit;
 
-    public String getSingleDose() {
-        return singleDose;
-    }
+    private String doctorAdvice;
 
-    public void setSingleDose(String singleDose) {
-        this.singleDose = singleDose;
-    }
+    /**
+     * 一天几次
+     */
+    private Double times;
 
-    public String getDosage() {
-        return dosage;
-    }
+    private Double rate;
 
-    public void setDosage(String dosage) {
-        this.dosage = dosage;
-    }
+    private Integer seq;
 
-    public String getPackUnit() {
-        return packUnit;
-    }
-
-    public void setPackUnit(String packUnit) {
-        this.packUnit = packUnit;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -69,6 +110,14 @@ public class PrescriptionDrugBean implements Serializable {
 
     public void setDrugsName(String drugsName) {
         this.drugsName = drugsName;
+    }
+
+    public String getWay() {
+        return way;
+    }
+
+    public void setWay(String way) {
+        this.way = way;
     }
 
     public String getUsage() {
@@ -95,12 +144,44 @@ public class PrescriptionDrugBean implements Serializable {
         this.spec = spec;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public String getManufacturerName() {
+        return manufacturerName;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setManufacturerName(String manufacturerName) {
+        this.manufacturerName = manufacturerName;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public BigDecimal getFee() {
+        return fee;
+    }
+
+    public void setFee(BigDecimal fee) {
+        this.fee = fee;
+    }
+
+    public String getDosage() {
+        return dosage;
+    }
+
+    public void setDosage(String dosage) {
+        this.dosage = dosage;
+    }
+
+    public String getSingleDose() {
+        return singleDose;
+    }
+
+    public void setSingleDose(String singleDose) {
+        this.singleDose = singleDose;
     }
 
     public String getDosageUnit() {
@@ -111,11 +192,83 @@ public class PrescriptionDrugBean implements Serializable {
         this.dosageUnit = dosageUnit;
     }
 
-    public String getWay() {
-        return way;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setWay(String way) {
-        this.way = way;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Integer getDays() {
+        return days;
+    }
+
+    public void setDays(Integer days) {
+        this.days = days;
+    }
+
+    public Integer getMaximumMedicationDays() {
+        return maximumMedicationDays;
+    }
+
+    public void setMaximumMedicationDays(Integer maximumMedicationDays) {
+        this.maximumMedicationDays = maximumMedicationDays;
+    }
+
+    public String getSingleMaximum() {
+        return singleMaximum;
+    }
+
+    public void setSingleMaximum(String singleMaximum) {
+        this.singleMaximum = singleMaximum;
+    }
+
+    public Long getDrugsId() {
+        return drugsId;
+    }
+
+    public void setDrugsId(Long drugsId) {
+        this.drugsId = drugsId;
+    }
+
+    public String getPackUnit() {
+        return packUnit;
+    }
+
+    public void setPackUnit(String packUnit) {
+        this.packUnit = packUnit;
+    }
+
+    public String getDoctorAdvice() {
+        return doctorAdvice;
+    }
+
+    public void setDoctorAdvice(String doctorAdvice) {
+        this.doctorAdvice = doctorAdvice;
+    }
+
+    public Double getTimes() {
+        return times;
+    }
+
+    public void setTimes(Double times) {
+        this.times = times;
+    }
+
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
+    }
+
+    public Integer getSeq() {
+        return seq;
+    }
+
+    public void setSeq(Integer seq) {
+        this.seq = seq;
     }
 }
