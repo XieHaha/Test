@@ -399,6 +399,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
         if (event.getType() == EventType.CHOOSE_PRESCRIPTION_TEMPLET) {
             PrescriptionDrugDetailBean bean = (PrescriptionDrugDetailBean) event.getData();
+            isOutPrescription = bean.getIsOutPrescription();
+
             if(prescription_type==-1){
                 prescription_type = bean.getCate();
                 saveData.add(bean.getItems().get(0));
