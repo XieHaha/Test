@@ -1545,6 +1545,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      * 展示支付弹框
      */
     private void showPayTypeDialog(String titleFee, double totalFee, String orderNum,String id) {
+        isSendDrugsToHome = false;
         FixHeightBottomSheetDialog bottomWaiYanSheetDialog = new FixHeightBottomSheetDialog(this);
         bottomWaiYanSheetDialog.setCancelable(false);
         final boolean[] isAgree = {false};
