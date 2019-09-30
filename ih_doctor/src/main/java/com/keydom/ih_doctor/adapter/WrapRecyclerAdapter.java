@@ -3,6 +3,7 @@ package com.keydom.ih_doctor.adapter;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,12 +93,12 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
             String author = "";
             String hospitalName = "";
-            if (topArticle.getSubmiter().length() > 8) {
+            if (!TextUtils.isEmpty(topArticle.getSubmiter()) && topArticle.getSubmiter().length() > 8) {
                 author = topArticle.getSubmiter().substring(0, 2) + "..." + topArticle.getSubmiter().substring(topArticle.getSubmiter().length() - 2, topArticle.getSubmiter().length());
             } else {
                 author = topArticle.getSubmiter();
             }
-            if (topArticle.getHospitalName().length() > 8) {
+            if (!TextUtils.isEmpty(topArticle.getHospitalName()) && topArticle.getHospitalName().length() > 8) {
                 hospitalName = topArticle.getHospitalName().substring(0, 5) + "..." + topArticle.getHospitalName().substring(topArticle.getHospitalName().length() - 2, topArticle.getHospitalName().length());
             } else {
                 hospitalName = topArticle.getHospitalName();
