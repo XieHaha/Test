@@ -6,6 +6,7 @@ import android.view.View;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
+import com.keydom.ih_common.net.service.HttpNewService;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.CommonUtils;
@@ -65,7 +66,7 @@ public class DrugChooseController extends ControllerImpl<DrugChooseView> impleme
 //        Map<String, Object> map = new HashMap<>();
 //        map.put("currentPage", 1);
 //        map.put("pageSize", 8);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).WaiYanDrugsList(HttpService.INSTANCE.object2Body(getView().getDrugListWaiYanMap())), new HttpSubscriber<DrugEntity>(getContext(),getDisposable(),false) {
+        ApiRequest.INSTANCE.request(HttpNewService.INSTANCE.createService(DiagnoseApiService.class).WaiYanDrugsList(HttpService.INSTANCE.object2Body(getView().getDrugListWaiYanMap())), new HttpSubscriber<DrugEntity>(getContext(),getDisposable(),false) {
             @Override
             public void requestComplete(@Nullable DrugEntity data) {
                 getView().getDrugListSuccess(data.getRecords(), type);
