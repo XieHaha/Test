@@ -125,7 +125,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     private List<PrescriptionTemplateBean> templateList = new ArrayList<>();
     private List<CommitPrescriptionSavedBean> commitPrescriptionSavedBeanList = new ArrayList<>();
     private boolean isHavePrescription = false;
-    private int isOutPrescription = -1;
+    private int isOutPrescription = 0;
 
     /**
      * 启动处方修改页面
@@ -726,7 +726,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         if (saveData.size() == 0){
             isHavePrescription = false;
             prescription_type=-1;
-            isOutPrescription=-1;
+            isOutPrescription=0;
         }
     }
 
@@ -794,9 +794,9 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
             templateList.add(prescriptionTemplateBean);
             PrescriptionHeadBean prescriptionHeadBean = new PrescriptionHeadBean();
             prescriptionHeadBean.setPosition(i);
-            if(isOutPrescription >= 0){
+
                 prescriptionHeadBean.setIsOutPrescription(isOutPrescription);
-            }
+
             if (prescription_type == 0) {
                 prescriptionHeadBean.setTitleName("处方" + DateUtils.numberToCH(i + 1) + "（儿科）");
             } else {
