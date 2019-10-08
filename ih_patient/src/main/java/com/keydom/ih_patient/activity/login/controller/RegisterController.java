@@ -4,7 +4,6 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.ControllerImpl;
@@ -21,7 +20,6 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.AgreementActivity;
 import com.keydom.ih_patient.activity.common_document.CommonDocumentActivity;
 import com.keydom.ih_patient.activity.index_main.MainActivity;
 import com.keydom.ih_patient.activity.login.view.IRegisterView;
@@ -55,7 +53,7 @@ public class RegisterController extends ControllerImpl<IRegisterView> implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.get_identifying_code_bt:
-                if (StringUtils.isEmpty(getView().getPhoneNum()) || !RegexUtils.isMobileExact(getView().getPhoneNum())) {
+                if (StringUtils.isEmpty(getView().getPhoneNum()) || getView().getPhoneNum().length() != 11) {
                     ToastUtil.shortToast(getContext(), "请填写正确的手机格式");
                 } else {
                     if (getView().getType() == 0) {
@@ -68,7 +66,7 @@ public class RegisterController extends ControllerImpl<IRegisterView> implements
 
                 break;
             case R.id.register_next_btn:
-                if (StringUtils.isEmpty(getView().getPhoneNum()) || !RegexUtils.isMobileExact(getView().getPhoneNum())) {
+                if (StringUtils.isEmpty(getView().getPhoneNum()) || getView().getPhoneNum().length() != 11) {
                     ToastUtil.shortToast(getContext(), "请填写正确的手机格式");
                 } else if (StringUtils.isEmpty(getView().getMsgCode())) {
                     ToastUtil.shortToast(getContext(), "请填写验证码");
