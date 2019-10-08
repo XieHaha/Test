@@ -67,11 +67,11 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
      * @param context
      * @param list    已经选择了的药品
      */
-    public static void start(Context context, List<DrugBean> list,int position) {
+    public static void start(Context context, List<DrugBean> list,int position,String isPrescriptionStyle) {
         Intent starter = new Intent(context, DrugChooseActivity.class);
         starter.putExtra(Const.DATA, (Serializable) list);
         starter.putExtra("position",position);
-		starter.putExtra(Const.IsPrescriptionStyle, position + "");
+		starter.putExtra(Const.IsPrescriptionStyle, isPrescriptionStyle);
         ((Activity) context).startActivity(starter);
     }
 

@@ -141,7 +141,7 @@ public class PrescriptionAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                             for (int i = 0; i <context.getSelectList().size() ; i++) {
                                 list.addAll(context.getSelectList().get(i));
                             }
-                            DrugChooseActivity.start(context,list,prescriptionBottomBean.getBottomPosition());
+                            DrugChooseActivity.start(context,list,prescriptionBottomBean.getBottomPosition(),String.valueOf(context.getIsOutPrescription()));
                         }
                     }
                 });
