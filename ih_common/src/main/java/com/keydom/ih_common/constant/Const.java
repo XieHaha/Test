@@ -74,8 +74,13 @@ public class Const {
 //    public static final String IMAGE_HOST = "https://www.tianfuzhl.com.cn/";
 
     //新验收服务器
-    public static final String RELEASE_HOST = "https://www.tianfuzhl.com/";
-    public static final String IMAGE_HOST = "https://www.tianfuzhl.com/";
+//    public static final String RELEASE_HOST = "https://www.tianfuzhl.com/";
+//    public static final String IMAGE_HOST = "https://www.tianfuzhl.com/";
+
+
+    //新验收服务器
+    public static final String RELEASE_HOST = "http://47.108.74.8:8080/";
+    public static final String IMAGE_HOST = "http://47.108.74.8:8080/";
 
 
 }

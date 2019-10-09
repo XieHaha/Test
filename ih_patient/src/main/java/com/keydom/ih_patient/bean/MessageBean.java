@@ -81,6 +81,16 @@ public class MessageBean implements Serializable {
     @JSONField(name = "type")
     private int type;
 
+    @JSONField(name = "content")
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public int getType() {
         return type;
@@ -206,6 +216,12 @@ public class MessageBean implements Serializable {
                 setTitle("检查预约提醒");
             case "CLINIC_PAY":
                 setTitle("诊间缴费通知");
+                break;
+            case "OUT_PRESCRIPTION_TO_STROR":
+                setTitle("处方到店自取通知");
+                break;
+            case "OUT_PRESCRIPTION_TO_HOME":
+                setTitle("处方配送到家通知");
                 break;
         }
     }
@@ -667,6 +683,27 @@ public class MessageBean implements Serializable {
                         + "检查时段: " + visitTime + "<br>"
                         + "号序: " + visitNum + "<br>"
                         + "医院: " + hospitalName + "<br>";
+                break;
+            case "OUT_PRESCRIPTION_TO_STROR":
+                result ="订单号: " + orderNum + "<br>"
+                        +"就诊人: " + userName + "<br>"
+                        + "开单医生: " + doctorsName + "<br>"
+                        + "开单科室: " + hospitalCat + "<br>"
+                        + "医院: " + hospitalName + "<br>"
+                        + "类型: " + visitProject + "<br>"
+                        + "费用: " + pay + "<br>"
+                        + "<font color='#F83535'>"+ content +"</font>";
+                break;
+            case "OUT_PRESCRIPTION_TO_HOME":
+                result ="订单号: " + orderNum + "<br>"
+                        +"就诊人: " + userName + "<br>"
+                        + "开单医生: " + doctorsName + "<br>"
+                        + "开单科室: " + hospitalCat + "<br>"
+                        + "医院: " + hospitalName + "<br>"
+                        + "类型: " + visitProject + "<br>"
+                        + "费用: " + pay + "<br>"
+                        + "<font color='#F83535'>"+ content +"</font>";
+                break;
         }
         return result;
     }
