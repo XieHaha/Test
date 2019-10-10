@@ -317,7 +317,13 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
             doctorSelectRecyclrViewAdapter = new DoctorSelectRecyclrViewAdapter(this, mList, tempList, false, isCancel);
         }
 
-        if (mType == DOCTOR_SLEECT_GROUP_MEMBER_ONLY_RESULT || mType == DOCTOR_SLEECT_ONE_SELF_DEPT_ONLY_RESULT || mType == DOCTOR_SLEECT_SELF_DEPT_ONLY_RESULT || mType == DOCTOR_SLEECT_SELF_DEPT || MyApplication.deptBeanList == null || MyApplication.deptBeanList.size() == 0) {
+        if( mType == DOCTOR_SELECT_OTHER_DEPT_WITH_DIAGNOSE_ONLY_RESULT && (MyApplication.deptBeanList == null || MyApplication.deptBeanList.size() == 0)){
+            List<String> mDeptList = new ArrayList<>();
+            mDeptList.add("请选择科室");
+            niceSpinner.attachDataSource(mDeptList);
+            niceSpinner.setEnabled(false);
+            deptId = -1;
+        }else if (mType == DOCTOR_SLEECT_GROUP_MEMBER_ONLY_RESULT || mType == DOCTOR_SLEECT_ONE_SELF_DEPT_ONLY_RESULT || mType == DOCTOR_SLEECT_SELF_DEPT_ONLY_RESULT || mType == DOCTOR_SLEECT_SELF_DEPT || MyApplication.deptBeanList == null || MyApplication.deptBeanList.size() == 0) {
             List<String> mDeptList = new ArrayList<>();
             if (MyApplication.userInfo.getDeptName() != null) {
                 mDeptList.add(MyApplication.userInfo.getDeptName());
