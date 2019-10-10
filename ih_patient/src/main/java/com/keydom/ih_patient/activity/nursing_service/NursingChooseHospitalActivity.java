@@ -3,6 +3,7 @@ package com.keydom.ih_patient.activity.nursing_service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -32,7 +33,6 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.AgreementActivity;
 import com.keydom.ih_patient.activity.common_document.CommonDocumentActivity;
 import com.keydom.ih_patient.activity.nursing_service.controller.NursingChooseHospitalController;
 import com.keydom.ih_patient.activity.nursing_service.view.NursingChooseHospitalView;
@@ -424,13 +424,19 @@ public class NursingChooseHospitalActivity extends BaseControllerActivity<Nursin
     @Override
     public void getBaseFee(BaseNurseFeeBean baseNurseFeeBean) {
         if(baseNurseFeeBean!=null){
-            String content="1、提交前请详细阅读服务描述<br>2、每次上门服务包括基础服务费<font color='#F83535'>¥" + baseNurseFeeBean.getFee() + "元。</font>";
+            String content="1、提交前请详细阅读服务描述<br>2、每次上门服务包括基础服务费<font color='#F83535'>¥" + (TextUtils.isEmpty(baseNurseFeeBean.getFee()) ? 0.01 : baseNurseFeeBean.getFee()) + "元。</font>";
 //            notice_tv.setText(content);
             RichText.from(content).bind(this)
                     .showBorder(false)
                     .size(ImageHolder.MATCH_PARENT, ImageHolder.WRAP_CONTENT)
                     .into(notice_tv);
-            Global.setBaseFee(new BigDecimal(baseNurseFeeBean.getFee()));
+
+            if(TextUtils.isEmpty(baseNurseFeeBean.getFee())){
+                Global.setBaseFee(new BigDecimal(0.01));
+            }else{
+                Global.setBaseFee(new BigDecimal(baseNurseFeeBean.getFee()));
+            }
+
         }else {
 //            notice_tv.setText("1、提交前请详细阅读服务描述  \n2、每次上门服务包括基础服务费¥0元。");
             String content="1、提交前请详细阅读服务描述<br>2、每次上门服务包括基础服务费<font color='#F83535'>¥0元。</font>";
