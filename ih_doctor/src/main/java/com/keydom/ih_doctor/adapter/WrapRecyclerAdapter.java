@@ -103,7 +103,20 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             } else {
                 hospitalName = topArticle.getHospitalName();
             }
-            ((HeadViewHolder) holder).headAutorTv.setText(hospitalName + ":" + author + "•" + CalculateTimeUtils.CalculateTime(topArticle.getSubmitTime()));
+            StringBuilder stringBuilder = new StringBuilder();
+            if(!TextUtils.isEmpty(hospitalName)){
+                stringBuilder.append(hospitalName + ":");
+            }
+
+            if(!TextUtils.isEmpty(author)){
+                stringBuilder.append(author + "•");
+            }
+
+            if(!TextUtils.isEmpty(topArticle.getSubmitTime())){
+                stringBuilder.append(CalculateTimeUtils.CalculateTime(topArticle.getSubmitTime()));
+            }
+
+            ((HeadViewHolder) holder).headAutorTv.setText(stringBuilder.toString());
             ((HeadViewHolder) holder).headTitleTv.setText(topArticle.getTitle());
             ((HeadViewHolder) holder).headTagTv.setText("置顶");
             String[] strArray = topArticle.getArticleImage().split(",");
