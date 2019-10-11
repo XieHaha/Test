@@ -2,10 +2,7 @@ package com.keydom.ih_patient.activity.upload_certificate_picture;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.widget.ImageView;
@@ -33,7 +30,6 @@ import com.keydom.ih_patient.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
@@ -119,7 +115,7 @@ public class UploadCertificatePictureActivity extends BaseControllerActivity<Upl
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        ToastUtil.shortToast(getApplicationContext(), "本地质量控制初始化错误，错误原因： " + msg);
+                                        //ToastUtil.shortToast(getApplicationContext(), "本地质量控制初始化错误，错误原因： " + msg);
                                     }
                                 });
 
