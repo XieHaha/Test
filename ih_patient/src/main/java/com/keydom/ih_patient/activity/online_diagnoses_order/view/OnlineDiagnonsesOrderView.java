@@ -53,4 +53,5 @@ public interface OnlineDiagnonsesOrderView extends BaseView {
      * */
     void refreshDeliveryCostView(List<PharmacyBean> data);
     void refreshPriceView(List<PharmacyBean> data);
+    void setPharmacyBeans(List<PharmacyBean> data);
 }

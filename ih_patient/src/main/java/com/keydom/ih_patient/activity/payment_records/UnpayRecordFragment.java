@@ -719,12 +719,25 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
 
     private String mPprescriptionId;
 
+    /**
+     * 药店选中，配送费
+     */
+    List<PharmacyBean> mPharmacyBeans = null;
+
 
 
     /**
      * 展示支付弹框
      */
     private void showPayTypeDialog(String titleFee, double totalFee, String orderNum,String orderId,String prescriptionId) {
+        isSendDrugsToHome = false;
+        WaiPayType[0] = 2;
+        payWaiType = Type.ALIPAY;
+        mPharmacyBean = null;
+        mPharmacyBeans = null;
+        mPharmacyName = null;
+        mPharmacyAddress = null;
+        mWaiYanAddressId = 0;
         FixHeightBottomSheetDialog bottomWaiYanSheetDialog = new FixHeightBottomSheetDialog(getActivity());
         bottomWaiYanSheetDialog.setCancelable(false);
         final boolean[] isAgree = {false};
@@ -835,7 +848,13 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                 if (mRadioHome.isChecked() && mWaiYanAddressId == 0) {
                     ToastUtils.showShort("请选择配送地址");
                 } else {
-                    getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,true,prescriptionId,orderNum,mPharmacyBean,mLocationInfo);
+                    PharmacyBean pharmacyBean;
+                    if(null != mPharmacyBean){
+                        pharmacyBean = mPharmacyBean;
+                    }else{
+                        pharmacyBean = mPharmacyBeans.get(0);
+                    }
+                    getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,true,prescriptionId,orderNum,pharmacyBean,mLocationInfo);
 
                     Logger.e("1=" + mWaiYanAddressId);
                     Logger.e("2=" + orderNum);
@@ -851,7 +870,13 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                 if(CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)){
                     ToastUtils.showShort("请选择药店");
                 }else{
-                    getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,false,prescriptionId,orderNum,mPharmacyBean,mLocationInfo);
+                    PharmacyBean pharmacyBean;
+                    if(null != mPharmacyBean){
+                        pharmacyBean = mPharmacyBean;
+                    }else{
+                        pharmacyBean = mPharmacyBeans.get(0);
+                    }
+                    getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,false,prescriptionId,orderNum,pharmacyBean,mLocationInfo);
                     bottomWaiYanSheetDialog.dismiss();
                 }
             }
@@ -871,8 +896,15 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     if (payWaiType.equals(Type.ALIPAY)) {
                         map.put("type", 2);
                     }
+
+                    PharmacyBean pharmacyBean;
                     if(null != mPharmacyBean){
-                        getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,true,prescriptionId,orderNum,mPharmacyBean,mLocationInfo);
+                        pharmacyBean = mPharmacyBean;
+                    }else{
+                        pharmacyBean = mPharmacyBeans.get(0);
+                    }
+                    if(null != pharmacyBean){
+                        getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,true,prescriptionId,orderNum,pharmacyBean,mLocationInfo);
                     }
 
                     Logger.e("map="+map);
@@ -921,7 +953,11 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     WaiPayType[0] = 2;
                     payWaiType = Type.ALIPAY;
                     isSendDrugsToHome = false;
+                    if(null != mPharmacyBean ){
+                        refreshPriceView(Arrays.asList(mPharmacyBean));
+                    }
                     break;
+
                 case R.id.radio_home:
                     //todo 配送到家
                     mLinAddress.setVisibility(View.VISIBLE);
@@ -940,6 +976,10 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     WaiPayType[0] = 2;
                     payWaiType = Type.ALIPAY;
                     isSendDrugsToHome = true;
+                    if(null != mPharmacyBeans && mPharmacyBeans.size() > 0){
+                        refreshDeliveryCostView(mPharmacyBeans);
+                        refreshPriceView(mPharmacyBeans);
+                    }
                     break;
                 default:
                     break;
@@ -972,7 +1012,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
 
     public void refreshPriceView(List<PharmacyBean> data) {
         if(!CommUtil.isEmpty(data) && null != data.get(0)){
-            mPharmacyBean = data.get(0);
+            //mPharmacyBean = data.get(0);
             //BigDecimal deliveryCost = new BigDecimal(data.get(0).getDeliveryCost());
             BigDecimal sumFee = new BigDecimal(data.get(0).getSumFee());
             //四舍五入，保留两位小数
@@ -1025,5 +1065,10 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void setPharmacyBeans(List<PharmacyBean> data){
+        mPharmacyBeans = data;
     }
 }

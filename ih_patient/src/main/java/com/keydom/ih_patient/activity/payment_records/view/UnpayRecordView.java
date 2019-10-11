@@ -53,6 +53,7 @@ public interface UnpayRecordView extends BaseView {
      * */
     void refreshDeliveryCostView(List<PharmacyBean> data);
     void refreshPriceView(List<PharmacyBean> data);
+    void setPharmacyBeans(List<PharmacyBean> data);
 
     //刷新列表
     void refreshData();

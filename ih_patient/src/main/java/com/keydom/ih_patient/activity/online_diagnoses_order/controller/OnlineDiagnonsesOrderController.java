@@ -411,6 +411,7 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
             @Override
             public void requestComplete(@org.jetbrains.annotations.Nullable List<PharmacyBean> data) {
                 if (!CommUtil.isEmpty(data)) {
+                    getView().setPharmacyBeans(data);
                     getView().refreshDeliveryCostView(data);
                     getView().refreshPriceView(data);
                 }

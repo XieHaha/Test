@@ -239,6 +239,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      * 药店选中，详情bean
      */
     PharmacyBean mPharmacyBean = null;
+
+    /**
+     * 药店选中，配送费
+     */
+    List<PharmacyBean> mPharmacyBeans = null;
     /**
      * 其他界面带入的与IM无关参数，都在这里面
      */
@@ -1546,6 +1551,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     private void showPayTypeDialog(String titleFee, double totalFee, String orderNum,String id) {
         isSendDrugsToHome = false;
+        WaiPayType[0] = 2;
+        payWaiType = Type.ALIPAY;
+        mPharmacyBean = null;
+        mPharmacyBeans = null;
+        mPharmacyName = null;
+        mPharmacyAddress = null;
+        mWaiYanAddressId = 0;
         FixHeightBottomSheetDialog bottomWaiYanSheetDialog = new FixHeightBottomSheetDialog(this);
         bottomWaiYanSheetDialog.setCancelable(false);
         final boolean[] isAgree = {false};
@@ -1768,6 +1780,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     WaiPayType[0] = 2;
                     payWaiType = Type.ALIPAY;
                     isSendDrugsToHome = false;
+                    if(null != mPharmacyBean ){
+                        refreshPriceView(Arrays.asList(mPharmacyBean));
+                    }
                     break;
                 case R.id.radio_home:
                     //todo 配送到家
@@ -1787,6 +1802,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     WaiPayType[0] = 2;
                     payWaiType = Type.ALIPAY;
                     isSendDrugsToHome = true;
+                    if(null != mPharmacyBeans && mPharmacyBeans.size() > 0){
+                        refreshDeliveryCostView(mPharmacyBeans);
+                        refreshPriceView(mPharmacyBeans);
+                    }
                     break;
                 default:
                     break;
@@ -1805,6 +1824,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             @Override
             public void requestComplete(@org.jetbrains.annotations.Nullable List<PharmacyBean> data) {
                 if (!CommUtil.isEmpty(data)) {
+                    mPharmacyBeans = data;
                    refreshDeliveryCostView(data);
                    refreshPriceView(data);
                 }
@@ -1828,7 +1848,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     public void refreshPriceView(List<PharmacyBean> data) {
         if(!CommUtil.isEmpty(data) && null != data.get(0)){
-            mPharmacyBean = data.get(0);
+            //PharmacyBean pharmacyBean = data.get(0);
             //BigDecimal deliveryCost = new BigDecimal(data.get(0).getDeliveryCost());
             BigDecimal sumFee = new BigDecimal(data.get(0).getSumFee());
             //四舍五入，保留两位小数
@@ -1895,14 +1915,21 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         }else{
             map.put("delivery", "0");
         }
-        map.put("drugstore", mPharmacyBean.getDrugstore());
-        map.put("drugstoreCode", mPharmacyBean.getDrugstoreCode());
-        map.put("drugsStoreAddress", mPharmacyBean.getDrugstoreAddress());
+        PharmacyBean pharmacyBean;
+        if(null != mPharmacyBean){
+            pharmacyBean = mPharmacyBean;
+        }else{
+            pharmacyBean = mPharmacyBeans.get(0);
+        }
+
+        map.put("drugstore", pharmacyBean.getDrugstore());
+        map.put("drugstoreCode", pharmacyBean.getDrugstoreCode());
+        map.put("drugsStoreAddress", pharmacyBean.getDrugstoreAddress());
         map.put("isOnline", isOnline ? "0" :"1");
-        map.put("fee", mPharmacyBean.getSumFee());
+        map.put("fee", pharmacyBean.getSumFee());
         map.put("id", mPprescriptionId);
         map.put("orderNumber", orderNum);
-        map.put("items", mPharmacyBean.getDrugsDtos());
+        map.put("items", pharmacyBean.getDrugsDtos());
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).updatePrescriptionOrder(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(this, getDisposable(), true, true) {
             @Override
             public void requestComplete(@org.jetbrains.annotations.Nullable String data) {

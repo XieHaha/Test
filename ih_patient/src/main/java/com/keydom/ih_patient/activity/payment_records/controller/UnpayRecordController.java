@@ -309,6 +309,7 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
             @Override
             public void requestComplete(@org.jetbrains.annotations.Nullable List<PharmacyBean> data) {
                 if (!CommUtil.isEmpty(data)) {
+                    getView().setPharmacyBeans(data);
                     getView().refreshDeliveryCostView(data);
                     getView().refreshPriceView(data);
                 }
