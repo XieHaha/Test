@@ -93,7 +93,7 @@ public class DiagnosePatientRecordAdapter extends BaseQuickAdapter<DiagnoseRecod
         itemLayout.measure(0, 0);
         layoutParams.height = itemLayout.getMeasuredHeight();
         lineView.setLayoutParams(layoutParams);
-        openImg.setOnClickListener(new View.OnClickListener() {
+/*        openImg.setOnClickListener(new View.OnClickListener() {
             @SingleClick(1000)
             @Override
             public void onClick(View view) {
@@ -119,8 +119,8 @@ public class DiagnosePatientRecordAdapter extends BaseQuickAdapter<DiagnoseRecod
                     function_prescription_tv.setClickable(true);
                 }
             }
-        });
-        closeImg.setOnClickListener(new View.OnClickListener() {
+        });*/
+/*        closeImg.setOnClickListener(new View.OnClickListener() {
             @SingleClick(1000)
             @Override
             public void onClick(View view) {
@@ -146,7 +146,27 @@ public class DiagnosePatientRecordAdapter extends BaseQuickAdapter<DiagnoseRecod
                     function_prescription_tv.setClickable(false);
                 }
             }
-        });
+        });*/
+
+
+        itemLayout.setBackgroundColor(context.getResources().getColor(R.color.primary_bg_color));
+        time_tv.setCompoundDrawablesWithIntrinsicBounds(context.getResources().getDrawable(R.mipmap.point_purple_blue), null, null, null);
+        if (map.containsKey("medical")) {
+            function_medical_record_tv.setVisibility(View.VISIBLE);
+            function_medical_record_tv.setClickable(true);
+        }
+        if (map.containsKey("inspect")) {
+            function_inspect_tv.setVisibility(View.VISIBLE);
+            function_inspect_tv.setClickable(true);
+        }
+        if (map.containsKey("checkout")) {
+            function_check_tv.setVisibility(View.VISIBLE);
+            function_check_tv.setClickable(true);
+        }
+        if (map.containsKey("prescription")) {
+            function_prescription_tv.setVisibility(View.VISIBLE);
+            function_prescription_tv.setClickable(true);
+        }
 
     }
 }
