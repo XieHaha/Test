@@ -12,20 +12,8 @@ import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.my_medical_card.controller.MedicalCardDetailController;
 import com.keydom.ih_patient.activity.my_medical_card.view.MedicalCardDetailView;
-import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
-import com.keydom.ih_patient.constant.EventType;
-import com.keydom.ih_patient.utils.DateUtils;
 import com.keydom.ih_patient.utils.ToastUtil;
-import com.orhanobut.logger.Logger;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * 就诊卡详情页面
@@ -99,9 +87,9 @@ public class MedicalCardDetailActivity extends BaseControllerActivity<MedicalCar
         } catch (ParseException e) {
             e.printStackTrace();
         }*/
-        if(medicalCardInfo.getIsUnbind()==0){
+        if(medicalCardInfo.getIsUnbind()==1){
             card_detail_remove_bind.setVisibility(View.GONE);
-        }else if(medicalCardInfo.getIsUnbind()==1){
+        }else if(medicalCardInfo.getIsUnbind()==0){
             card_detail_remove_bind.setVisibility(View.VISIBLE);
             card_detail_remove_bind.setOnClickListener(getController());
         }
