@@ -848,12 +848,8 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                 if (mRadioHome.isChecked() && mWaiYanAddressId == 0) {
                     ToastUtils.showShort("请选择配送地址");
                 } else {
-                    PharmacyBean pharmacyBean;
-                    if(null != mPharmacyBean){
-                        pharmacyBean = mPharmacyBean;
-                    }else{
-                        pharmacyBean = mPharmacyBeans.get(0);
-                    }
+                    PharmacyBean pharmacyBean = mPharmacyBeans.get(0);
+
                     getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,true,prescriptionId,orderNum,pharmacyBean,mLocationInfo);
 
                     Logger.e("1=" + mWaiYanAddressId);
@@ -870,12 +866,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                 if(CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)){
                     ToastUtils.showShort("请选择药店");
                 }else{
-                    PharmacyBean pharmacyBean;
-                    if(null != mPharmacyBean){
-                        pharmacyBean = mPharmacyBean;
-                    }else{
-                        pharmacyBean = mPharmacyBeans.get(0);
-                    }
+                    PharmacyBean pharmacyBean = mPharmacyBean;
                     getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,false,prescriptionId,orderNum,pharmacyBean,mLocationInfo);
                     bottomWaiYanSheetDialog.dismiss();
                 }
@@ -897,12 +888,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                         map.put("type", 2);
                     }
 
-                    PharmacyBean pharmacyBean;
-                    if(null != mPharmacyBean){
-                        pharmacyBean = mPharmacyBean;
-                    }else{
-                        pharmacyBean = mPharmacyBeans.get(0);
-                    }
+                    PharmacyBean pharmacyBean = mPharmacyBean;
                     if(null != pharmacyBean){
                         getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,true,prescriptionId,orderNum,pharmacyBean,mLocationInfo);
                     }

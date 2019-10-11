@@ -1905,21 +1905,17 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     private void updatePrescriptionOrder(boolean isOnline,Map<String, Object> payMap) {
         Map<String, Object> map = new HashMap<>();
-
+        PharmacyBean pharmacyBean;
         if(isSendDrugsToHome){
             map.put("consigneeAddress", mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress());
             map.put("consigneeName", mLocationInfo.getAddressName());
             map.put("consigneePhone", mLocationInfo.getPhone());
             map.put("delivery", "1");
+            pharmacyBean = mPharmacyBeans.get(0);
 
         }else{
             map.put("delivery", "0");
-        }
-        PharmacyBean pharmacyBean;
-        if(null != mPharmacyBean){
             pharmacyBean = mPharmacyBean;
-        }else{
-            pharmacyBean = mPharmacyBeans.get(0);
         }
 
         map.put("drugstore", pharmacyBean.getDrugstore());
