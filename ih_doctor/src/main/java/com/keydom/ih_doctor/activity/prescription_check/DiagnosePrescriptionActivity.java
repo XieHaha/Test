@@ -565,6 +565,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                 drugSavedBean.setSingleMaximum(Float.valueOf(saveData.get(i).get(j).getSingleMaximum()));
                 drugSavedBean.setMaximumMedicationDays(saveData.get(i).get(j).getMaximumMedicationDays());
                 drugSavedBean.setPrice(saveData.get(i).get(j).getPrice());
+                drugSavedBean.setDrugsCode(saveData.get(i).get(j).getDrugsCode());
+                drugSavedBean.setDrugsId(saveData.get(i).get(j).getDrugsId());
                 items.add(drugSavedBean);
             }
             commitPrescriptionSavedBean.setItems(items);

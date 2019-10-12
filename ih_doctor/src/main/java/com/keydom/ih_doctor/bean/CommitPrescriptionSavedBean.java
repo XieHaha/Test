@@ -72,6 +72,32 @@ public class CommitPrescriptionSavedBean {
          */
         private int quantity;
 
+        /**
+         * 药品代码
+         */
+        private String drugsCode;
+
+        /**
+         * 药品id
+         */
+        private Long drugsId;
+
+        public String getDrugsCode() {
+            return drugsCode;
+        }
+
+        public void setDrugsCode(String drugsCode) {
+            this.drugsCode = drugsCode;
+        }
+
+        public Long getDrugsId() {
+            return drugsId;
+        }
+
+        public void setDrugsId(Long drugsId) {
+            this.drugsId = drugsId;
+        }
+
         public int getMaximumMedicationDays() {
             return maximumMedicationDays;
         }
