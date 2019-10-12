@@ -361,10 +361,9 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
         if (!CommUtil.isEmpty(mDatas.get(position).getPrescriptionType())) {
             int num = position + 1;
             if (mDatas.get(position).getPrescriptionType().equals("0")) {
-
-                txt_title.setText("处方" + num + "普通");
-            } else {
                 txt_title.setText("处方" + num + "儿童");
+            } else {
+                txt_title.setText("处方" + num + "普通");
             }
         }
         //  txt_title.setText(mDatas.get(position).getPrescriptionType());
