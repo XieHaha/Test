@@ -109,7 +109,7 @@ public class MedicalCardDetailActivity extends BaseControllerActivity<MedicalCar
 
     @Override
     public void removeBindFailed(String msg) {
-
+        ToastUtil.shortToast(getContext(),msg);
     }
 
     @Override
