@@ -13,7 +13,13 @@ import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.my_medical_card.controller.MedicalCardDetailController;
 import com.keydom.ih_patient.activity.my_medical_card.view.MedicalCardDetailView;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
+import com.keydom.ih_patient.utils.DateUtils;
 import com.keydom.ih_patient.utils.ToastUtil;
+import com.orhanobut.logger.Logger;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 就诊卡详情页面
@@ -66,7 +72,6 @@ public class MedicalCardDetailActivity extends BaseControllerActivity<MedicalCar
         contactor_name_tv.setText(medicalCardInfo.getContact()==null||"".equals(medicalCardInfo.getContact())?medicalCardInfo.getName():medicalCardInfo.getContact());
         contactor_phone_tv.setText(medicalCardInfo.getContactPhone()==null||"".equals(medicalCardInfo.getContactPhone())?medicalCardInfo.getPhoneNumber():medicalCardInfo.getContactPhone());
         contactor_relationship_tv.setText(medicalCardInfo.getRelationship()==null||"".equals(medicalCardInfo.getRelationship())?"本人":medicalCardInfo.getRelationship());
-/*
 
         String dateStr=medicalCardInfo.getBindTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -78,7 +83,7 @@ public class MedicalCardDetailActivity extends BaseControllerActivity<MedicalCar
             card_detail_bind_card_time.setText(dateStr);
             SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd");
             String nowDateStr=df.format(new Date());
-            Logger.e("相差月份为："+DateUtils.getMonthDiff(dateStr,nowDateStr));
+            Logger.e("相差月份为："+ DateUtils.getMonthDiff(dateStr,nowDateStr));
             if(DateUtils.getMonthDiff(dateStr,nowDateStr)<Integer.parseInt(medicalCardInfo.getReleaseTime())){
                 card_detail_remove_bind.setVisibility(View.GONE);
             }else {
@@ -86,7 +91,7 @@ public class MedicalCardDetailActivity extends BaseControllerActivity<MedicalCar
             }
         } catch (ParseException e) {
             e.printStackTrace();
-        }*/
+        }
         if(medicalCardInfo.getIsUnbind()==1){
             card_detail_remove_bind.setVisibility(View.GONE);
         }else if(medicalCardInfo.getIsUnbind()==0){
