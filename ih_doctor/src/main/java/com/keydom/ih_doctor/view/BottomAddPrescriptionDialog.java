@@ -105,4 +105,9 @@ public class BottomAddPrescriptionDialog extends Dialog implements View.OnClickL
         this.cancelListener = cancelListener;
     }
 
+    public void reset() {
+        if(null != mTvHos){
+            mTvHos.performClick();
+        }
+    }
 }

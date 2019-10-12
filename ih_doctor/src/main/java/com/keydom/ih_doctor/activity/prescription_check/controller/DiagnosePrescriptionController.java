@@ -66,7 +66,9 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                         dialog = new BottomAddPrescriptionDialog(getContext());
                     }
                     dialog.setCancelListener(this);
+                    dialog.reset();
                     dialog.show();
+
                 }
 
                 break;
