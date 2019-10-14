@@ -114,8 +114,8 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         mPay = view.findViewById(R.id.pay_tv);
         mCheckBox.setOnClickListener(v -> {
             for (int i = 0; i < mUnPayRecordAdapter.getData().size(); i++) {
-                if(!mUnPayRecordAdapter.getData().get(i).isWaiYan()){
-                    mUnPayRecordAdapter.getData().get(i).setSelect(mCheckBox.isChecked());
+                if(mUnPayRecordAdapter.getData().get(i).isWaiYan()){
+                    mUnPayRecordAdapter.getData().get(i).setSelect(false);
                 }
             }
             mUnPayRecordAdapter.notifyDataSetChanged();
@@ -188,6 +188,11 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                             if (payRecordBean.getType() == CANNOT_MERGE && mPayRecordBeanList.size() > 1) {
                                 hint = "不能同时缴纳预约挂号、在线问诊、护理服务和预约体检项目费用";
                                 break;
+                            }
+
+                            if(payRecordBean.isWaiYan()){
+                                payRecordBean.setSelect(false);
+                                continue;
                             }
                             mTotalMoneyStr = mTotalMoneyStr.add(mUnPayRecordAdapter.getData().get(i).getSumFee());
                             mPayRecordBeanList.add(mUnPayRecordAdapter.getData().get(i));
