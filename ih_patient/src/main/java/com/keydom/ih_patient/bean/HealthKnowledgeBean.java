@@ -91,8 +91,8 @@ public class HealthKnowledgeBean implements Serializable {
         private String title;
         @JSONField(name ="summary")
         private String summary;
-        @JSONField(name ="image")
-        private List<String> image;
+        @JSONField(name ="imageList")
+        private List<String> imageList;
         @JSONField(name ="content")
         private String content;
         @JSONField(name ="creatorCode")
@@ -142,12 +142,12 @@ public class HealthKnowledgeBean implements Serializable {
             this.summary = summary;
         }
 
-        public List<String> getImage() {
-            return image;
+        public List<String> getImageList() {
+            return imageList;
         }
 
-        public void setImage(List<String> image) {
-            this.image = image;
+        public void setImageList(List<String> imageList) {
+            this.imageList = imageList;
         }
 
         public String getContent() {

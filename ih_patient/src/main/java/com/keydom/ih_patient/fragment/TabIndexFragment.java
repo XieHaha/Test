@@ -27,7 +27,6 @@ import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.index_main.ChooseCityActivity;
-import com.keydom.ih_patient.activity.my_message.MyMessageActivity;
 import com.keydom.ih_patient.activity.my_message.NoticeDeatailActivity;
 import com.keydom.ih_patient.adapter.ChooseHospitalAdapter;
 import com.keydom.ih_patient.adapter.IndexFunctionAdapter;
@@ -41,7 +40,6 @@ import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
-import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.fragment.controller.TabIndexController;
 import com.keydom.ih_patient.fragment.view.TabIndexView;
 import com.keydom.ih_patient.utils.DepartmentDataHelper;
@@ -51,7 +49,6 @@ import com.keydom.ih_patient.view.GeneralArticleItem;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.stx.xhb.xbanner.XBanner;
 
@@ -509,13 +506,13 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                 }
                 final int[] topReadNum = new int[1];
                 topReadNum[0] = dataList.get(0).getPageView();
-                indexNewArticleBanner.setData(dataList.get(0).getImage(), null);
+                indexNewArticleBanner.setData(dataList.get(0).getImageList(), null);
                 new_article_title_tv.setText(dataList.get(0).getTitle());
                 new_article_readernum_tv.setText("阅读人数：" + dataList.get(0).getPageView() + "  " + dataList.get(0).getCreateTime());
                 indexNewArticleBanner.loadImage(new XBanner.XBannerAdapter() {
                     @Override
                     public void loadBanner(XBanner banner, Object model, View view, int position) {
-                        Glide.with(getContext()).load(Const.IMAGE_HOST + dataList.get(0).getImage().get(position)).into((ImageView) view);
+                        Glide.with(getContext()).load(Const.IMAGE_HOST + dataList.get(0).getImageList().get(position)).into((ImageView) view);
                     }
                 });
 
@@ -538,8 +535,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                     final GeneralArticleItem generalArticleItem = new GeneralArticleItem(getContext());
                     generalArticleItem.setArticleId(dataList.get(i).getId());
                     generalArticleItem.setTitle(dataList.get(i).getTitle());
-                    if (dataList.get(i).getImage() != null) {
-                        generalArticleItem.setIcon(dataList.get(i).getImage().get(0));
+                    if (dataList.get(i).getImageList() != null) {
+                        generalArticleItem.setIcon(dataList.get(i).getImageList().get(0));
                     }
                     generalArticleItem.setReaderNum(dataList.get(i).getPageView(), dataList.get(i).getCreateTime());
                     generalArticleItem.setOnClickListener(new View.OnClickListener() {
@@ -557,8 +554,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                     final GeneralArticleItem generalArticleItem = new GeneralArticleItem(getContext());
                     generalArticleItem.setArticleId(dataList.get(i).getId());
                     generalArticleItem.setTitle(dataList.get(i).getTitle());
-                    if (dataList.get(i).getImage() != null) {
-                        generalArticleItem.setIcon(dataList.get(i).getImage().get(0));
+                    if (dataList.get(i).getImageList() != null) {
+                        generalArticleItem.setIcon(dataList.get(i).getImageList().get(0));
                     }
                     generalArticleItem.setReaderNum(dataList.get(i).getPageView(), dataList.get(i).getCreateTime());
                     generalArticleItem.setOnClickListener(new View.OnClickListener() {
