@@ -179,10 +179,10 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                 new HttpSubscriber<Integer>(getContext(), getDisposable(), true, false) {
                     @Override
                     public void requestComplete(@Nullable Integer data) {
-                        if(0 == data || 3 == data){ // 0和3是未支付
-                            getView().payType(false);
+                        if(0 == data || 3 == data){ // 0和3是未支付 , // 3是外延
+                            getView().payType(false,3 == data);
                         }else{
-                            getView().payType(true);
+                            getView().payType(true,false);
                         }
 
                     }

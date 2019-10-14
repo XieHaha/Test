@@ -87,7 +87,7 @@ interface ConversationView extends BaseView {
      *
      * @param isPay true已支付 false未支付
      */
-    void payType(boolean isPay);
+    void payType(boolean isPay,boolean isWaiYan);
 
     /**
      * 退诊成功

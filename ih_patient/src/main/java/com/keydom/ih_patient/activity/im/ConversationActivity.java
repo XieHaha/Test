@@ -445,8 +445,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         deliveryAmount = attachment.getDeliveryAmount();
                         orderNum = attachment.getOrderNum();
                         isPrescription = true;
-                        //prescriptionType=attachment.getPrescriptionType();
-                        prescriptionType = "1";
+                        if(TextUtils.isEmpty(attachment.getPrescriptionType())){
+                            prescriptionType = "0";
+                        }
+                        prescriptionType=attachment.getPrescriptionType();
                         Logger.e("prescriptionType=" + attachment.getPrescriptionType());
                     }
                     getController().isPay();
@@ -999,7 +1001,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     }
 
     @Override
-    public void payType(boolean isPay) {
+    public void payType(boolean isPay,boolean isWaiYan) {
         if (!isPay) {
             if (!isPrescription) {
                 SelectDialogUtils.showPayDialog(getContext(), orderFee, "", type -> {
@@ -1015,8 +1017,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     }
                 });
             } else {
-                if (!CommUtil.isEmpty(prescriptionType)) {
-                    if (prescriptionType.equals("1")) {
+                    if (isWaiYan) {
                         showPayTypeDialog(orderFee, Double.parseDouble(orderFee), orderNum, mPprescriptionId);
                     } else {
                         if (deliveryAmount == null) {
@@ -1024,7 +1025,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         }
                         showPayDialog(true, orderFee, Double.parseDouble(orderFee), orderNum);
                     }
-                }
             }
         } else {
             new GeneralDialog(getContext(), "该订单已支付！", () -> {
