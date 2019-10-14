@@ -130,7 +130,7 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
         if(seletedList!=null&&seletedList.size()>0){
             for (int i=0;i<seletedList.size();i++){
                 for (int j = 0; j <dataList.size() ; j++) {
-                    if(dataList.get(j).getId()==seletedList.get(i).getId())
+                    if(dataList.get(j).getDrugsId()==seletedList.get(i).getDrugsId())
                         dataList.get(j).setSelecte(true);
                 }
             }
