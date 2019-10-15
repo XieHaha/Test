@@ -79,4 +79,9 @@ public interface ILoginView extends BaseView {
      * 返回验证码
      */
     String getValidateCode();
+
+    /**
+     * 去修改密码
+     */
+    void toChangePwd(String msg);
 }

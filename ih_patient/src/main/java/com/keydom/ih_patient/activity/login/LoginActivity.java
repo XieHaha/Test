@@ -266,6 +266,12 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
     }
 
     @Override
+    public void toChangePwd(String msg) {
+        ToastUtil.shortToast(App.mApplication,msg);
+        UpdatePasswordActivity.start(getContext());
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if(keyCode == KeyEvent.KEYCODE_BACK){

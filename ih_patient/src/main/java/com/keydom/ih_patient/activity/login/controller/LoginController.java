@@ -1,7 +1,6 @@
 package com.keydom.ih_patient.activity.login.controller;
 
 import android.view.View;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -17,7 +16,6 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.SharePreferenceManager;
-import com.keydom.ih_patient.BuildConfig;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.login.RegisterActivity;
 import com.keydom.ih_patient.activity.login.UpdatePasswordActivity;
@@ -127,6 +125,8 @@ public class LoginController extends ControllerImpl<ILoginView> implements View.
                     ToastUtil.shortToast(getContext(), "密码验证不通过");
                     if (getView().isLoginLocked())
                         getValidateCode(getView().getAccountMobile());
+                }else if(code == 313){
+                    getView().toChangePwd(msg);
                 } else {
                     getView().showWarnning();
                     getView().loginFailed(msg);
