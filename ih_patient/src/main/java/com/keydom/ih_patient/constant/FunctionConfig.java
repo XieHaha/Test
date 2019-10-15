@@ -6,27 +6,33 @@ import com.keydom.ih_patient.R;
  * 首页功能配置类
  */
 public class FunctionConfig {
-    private static int ResourceId=R.mipmap.more_icon;
+    private static int ResourceId = R.mipmap.more_icon;
     //预约挂号
-    public static final int DoctorRegister=22;
+    public static final int DoctorRegister = 22;
     //诊间缴费
-    public static final int  PaymentRecord=23;
+    public static final int PaymentRecord = 23;
     //办卡绑卡
-    public static final int Cardoperate=24;
+    public static final int Cardoperate = 24;
     //在线问诊
-    public static final int OnlineDiagnose=25;
+    public static final int OnlineDiagnose = 25;
     //护理服务
-    public static final int NurseService=26;
+    public static final int NurseService = 26;
     //报告查询
-    public static final int InspectionReport=27;
+    public static final int InspectionReport = 27;
     //预约检查
-    public static final int OrderExamination=28;
+    public static final int OrderExamination = 28;
     //预约住院
-    public static final int OrderHospitalCure=29;
+    public static final int OrderHospitalCure = 29;
     //预约体检
-    public static final int OrderPhysicalExamination=30;
+    public static final int OrderPhysicalExamination = 30;
 
-    public static int getIcon(long id){
+    //取药用药
+    public static final int GetDrugs = 31;
+
+    //物流查询
+    public static final int ExpressInfo = 32;
+
+    public static int getIcon(long id) {
         if (id == DoctorRegister) {
             FunctionConfig.ResourceId = R.mipmap.consultation_orderby;
 
@@ -54,8 +60,16 @@ public class FunctionConfig {
         } else if (id == InspectionReport) {
             FunctionConfig.ResourceId = R.mipmap.report_query;
 
-        }else
-            FunctionConfig.ResourceId =R.mipmap.consultation_pay;
+        } else if (id == GetDrugs) {
+            FunctionConfig.ResourceId = R.mipmap.icon_get_drugs;
+
+        } else if (id == ExpressInfo) {
+            FunctionConfig.ResourceId = R.mipmap.icon_express_info;
+
+        } else {
+            FunctionConfig.ResourceId = R.mipmap.consultation_pay;
+
+        }
         return FunctionConfig.ResourceId;
     }
 }

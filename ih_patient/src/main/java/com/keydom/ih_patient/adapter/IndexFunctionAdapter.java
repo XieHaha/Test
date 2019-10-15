@@ -16,18 +16,14 @@ import com.keydom.ih_patient.activity.function_config.FunctionConfigActivity;
 import com.keydom.ih_patient.activity.get_drug.GetDrugActivity;
 import com.keydom.ih_patient.activity.inspection_report.InspectionReportActivity;
 import com.keydom.ih_patient.activity.logistic.QueryLogisticActivity;
-import com.keydom.ih_patient.activity.logistic.TestPayActivity;
 import com.keydom.ih_patient.activity.order_doctor_register.OrderDoctorRegisterActivity;
 import com.keydom.ih_patient.activity.order_examination.OrderExaminationActivity;
 import com.keydom.ih_patient.activity.order_hospital_cure.OrderHospitalCureListActivity;
 import com.keydom.ih_patient.activity.order_physical_examination.OrderPhysicalExaminationActivity;
 import com.keydom.ih_patient.activity.payment_records.PaymentRecordActivity;
-import com.keydom.ih_patient.activity.prescription.PrescriptionGetDetailActivity;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.IndexFunction;
 import com.keydom.ih_patient.constant.EventType;
-import com.keydom.ih_patient.constant.Global;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -60,6 +56,12 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     public final String OrderHospitalCure = "29";
     //预约体检
     public final String OrderPhysicalExamination = "30";
+
+    //取药用药
+    public final String GetDrugs = "31";
+
+    //物流查询
+    public final String ExpressInfo = "32";
 
     /**
      * 构造方法
@@ -101,15 +103,9 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                 vh.redPointView.setVisibility(View.GONE);
 
             }
-			
-                 //todo 暂时把这两个类型改成取药和物流
-            if (indexFunctionList.get(position).getName().equals("在线问诊")) {
-                vh.funcName.setText("取药收药");
-            } else if (indexFunctionList.get(position).getName().equals("护理服务")) {
-                vh.funcName.setText("物流查询");
-            } else {
-                vh.funcName.setText(indexFunctionList.get(position).getName());
-            }
+
+            vh.funcName.setText(indexFunctionList.get(position).getName());
+
             vh.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -131,14 +127,10 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             CardoperateActivity.start(context);
                             break;
                         case OnlineDiagnose:
-                            //todo  暂时走取药界面
-                            // EventBus.getDefault().post(new Event(EventType.SHOW_ONLINE_DIAGNOSE_PAGE, null))
-                            context.startActivity(new Intent(context, GetDrugActivity.class));
+                            EventBus.getDefault().post(new Event(EventType.SHOW_ONLINE_DIAGNOSE_PAGE, null));
                             break;
                         case NurseService:
-                            //TODO 暂时走物流界面
-                            //   EventBus.getDefault().post(new Event(EventType.SHOW_NURSE_SERVICE_PAGE, null));
-                            context.startActivity(new Intent(context, QueryLogisticActivity.class));
+                            EventBus.getDefault().post(new Event(EventType.SHOW_NURSE_SERVICE_PAGE, null));
                             break;
                         case InspectionReport:
                             InspectionReportActivity.start(context);
@@ -151,6 +143,12 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             break;
                         case OrderPhysicalExamination:
                             OrderPhysicalExaminationActivity.start(context);
+                            break;
+                        case GetDrugs:
+                            context.startActivity(new Intent(context, GetDrugActivity.class));
+                            break;
+                        case ExpressInfo:
+                            context.startActivity(new Intent(context, QueryLogisticActivity.class));
                             break;
                     }
                 }
