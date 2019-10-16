@@ -7,13 +7,13 @@ import com.keydom.ih_patient.bean.BannerBean;
 import com.keydom.ih_patient.bean.BodyCheckDetailInfo;
 import com.keydom.ih_patient.bean.BodyCheckRecordInfo;
 import com.keydom.ih_patient.bean.ChildOrderBean;
+import com.keydom.ih_patient.bean.CityBean;
 import com.keydom.ih_patient.bean.CommonDocumentBean;
+import com.keydom.ih_patient.bean.DiagnosesAndNurDepart;
 import com.keydom.ih_patient.bean.DiagnosesOrderBean;
 import com.keydom.ih_patient.bean.DoctorEvaluateItem;
 import com.keydom.ih_patient.bean.DoctorMainBean;
 import com.keydom.ih_patient.bean.DoctorOrNurseBean;
-import com.keydom.ih_patient.bean.CityBean;
-import com.keydom.ih_patient.bean.DiagnosesAndNurDepart;
 import com.keydom.ih_patient.bean.HistoryListBean;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.ih_patient.bean.InspectionDetailInof;
@@ -22,7 +22,7 @@ import com.keydom.ih_patient.bean.ManagerUserBean;
 import com.keydom.ih_patient.bean.MedicalRecordBean;
 import com.keydom.ih_patient.bean.PackageData;
 import com.keydom.ih_patient.bean.PayOrderBean;
-import com.keydom.ih_patient.bean.RecommendDocAndNurBean;
+import com.keydom.ih_patient.bean.RecommendPage;
 import com.keydom.ih_patient.bean.UserInfo;
 
 import java.util.List;
@@ -271,7 +271,7 @@ public interface UserService {
      *     //问诊咨询搜索医生或者护士
      */
     @GET("user/hospitalDept/listHomeRecommendDoctor")
-    Observable<HttpResult<List<RecommendDocAndNurBean>>> getListHomeRecommendDoctor(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<RecommendPage>> getListHomeRecommendDoctor(@QueryMap Map<String,Object> map);
 
     /**
      *     //获取手势密码

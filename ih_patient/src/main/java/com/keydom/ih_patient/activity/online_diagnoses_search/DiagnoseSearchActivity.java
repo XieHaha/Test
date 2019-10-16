@@ -17,7 +17,10 @@ import com.keydom.ih_patient.activity.online_diagnoses_search.controller.Diagnos
 import com.keydom.ih_patient.activity.online_diagnoses_search.view.DiagnoseSearchView;
 import com.keydom.ih_patient.adapter.DiagnoseSearchAdapter;
 import com.keydom.ih_patient.bean.RecommendDocAndNurBean;
+import com.keydom.ih_patient.constant.Const;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.utils.ToastUtil;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -44,16 +47,19 @@ public class DiagnoseSearchActivity extends BaseControllerActivity<DiagnoseSearc
     private static final int DOCTORTYPE=0;
     private static final int NURSETYPE=1;
     private EditText search_edt;
-    private TextView search_close_tv,search_empty_tv;
+    private TextView search_close_tv;
     private RecyclerView doctor_or_department_rv;
     private DiagnoseSearchAdapter diagnoseSearchAdapter;
     private List<RecommendDocAndNurBean> recommendList=new ArrayList<>();
     private int type;
     private int isOnline;
     private int isRecommend;
+
+    private RefreshLayout refreshLayout;
+
     @Override
     public int getLayoutRes() {
-        return R.layout.activity_register_search_layout;
+        return R.layout.activity_diagnose_search_layout;
     }
 
     @Override
@@ -64,7 +70,6 @@ public class DiagnoseSearchActivity extends BaseControllerActivity<DiagnoseSearc
         isRecommend = getIntent().getIntExtra("isRecommend",0);
         search_edt = this.findViewById(R.id.search_edt);
         search_close_tv = this.findViewById(R.id.search_close_tv);
-        search_empty_tv=findViewById(R.id.search_empty_tv);
         search_close_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,7 +100,9 @@ public class DiagnoseSearchActivity extends BaseControllerActivity<DiagnoseSearc
                         map.put("isRecommend",isRecommend);
                         map.put("keyworld", charSequence.toString());
                         map.put("type", DOCTORTYPE);
-                        getController().searchDoctor(map);
+                        map.put("currentPage", getController().getCurrentPage());
+                        map.put("pageSize", Const.PAGE_SIZE);
+                        getController().searchDoctor(map,TypeEnum.REFRESH);
                     }
                 } else {
                     if (charSequence.toString() != null && !"".equals(charSequence.toString())) {
@@ -105,7 +112,9 @@ public class DiagnoseSearchActivity extends BaseControllerActivity<DiagnoseSearc
                         map.put("isRecommend",isRecommend);
                         map.put("keyworld", charSequence.toString());
                         map.put("type", NURSETYPE);
-                        getController().searchDoctor(map);
+                        map.put("currentPage", getController().getCurrentPage());
+                        map.put("pageSize", Const.PAGE_SIZE);
+                        getController().searchDoctor(map,TypeEnum.REFRESH);
                     }
 
                 }
@@ -116,33 +125,30 @@ public class DiagnoseSearchActivity extends BaseControllerActivity<DiagnoseSearc
 
             }
         });
+        refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(getController());
+        refreshLayout.setOnLoadMoreListener(getController());
     }
 
     @Override
-    public void getSearchSuccess(List<RecommendDocAndNurBean> dataList) {
-        if(dataList!=null&&dataList.size()!=0){
-            if(doctor_or_department_rv.getVisibility()==View.GONE){
-                doctor_or_department_rv.setVisibility(View.VISIBLE);
-                search_empty_tv.setVisibility(View.GONE);
-            }
-            this.recommendList.clear();
-            this.recommendList.addAll(dataList);
-            diagnoseSearchAdapter.notifyDataSetChanged();
-        }else {
-            doctor_or_department_rv.setVisibility(View.GONE);
-            search_empty_tv.setVisibility(View.VISIBLE);
-            search_empty_tv.setText("未能查询相关数据");
+    public void getSearchSuccess(List<RecommendDocAndNurBean> dataList, TypeEnum type) {
+        if (type == TypeEnum.REFRESH) {
+            recommendList.clear();
         }
+        pageLoadingSuccess();
+        recommendList.addAll(dataList);
+        diagnoseSearchAdapter.notifyDataSetChanged();
+        refreshLayout.finishLoadMore();
+        refreshLayout.finishRefresh();
+        getController().currentPagePlus();
 
     }
 
     @Override
     public void getSearchFailed(String Msg) {
-        this.recommendList.clear();
-        diagnoseSearchAdapter.notifyDataSetChanged();
-        doctor_or_department_rv.setVisibility(View.GONE);
-        search_empty_tv.setVisibility(View.VISIBLE);
-        search_empty_tv.setText("查询失败");
         ToastUtil.shortToast(getContext(), "查询失败:"+Msg);
+        refreshLayout.finishLoadMore();
+        refreshLayout.finishRefresh();
+        pageLoadingFail();
     }
 }
