@@ -14,7 +14,7 @@ import com.keydom.ih_patient.activity.online_diagnoses_order.OnlineDiagnonsesOrd
 import com.keydom.ih_patient.bean.DiagnoseIndexBean;
 import com.keydom.ih_patient.bean.DiagnosesAndNurDepart;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
-import com.keydom.ih_patient.bean.RecommendDocAndNurBean;
+import com.keydom.ih_patient.bean.RecommendPage;
 import com.keydom.ih_patient.net.InquiryService;
 import com.keydom.ih_patient.net.OrderService;
 import com.keydom.ih_patient.net.UserService;
@@ -23,7 +23,6 @@ import com.orhanobut.logger.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,10 +47,10 @@ public class NursingOnlineConsultController extends ControllerImpl<NursingOnline
      * 获取推荐服务
      */
     public void getRecommendNurse(Map<String,Object> map){
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getListHomeRecommendDoctor(map), new HttpSubscriber<List<RecommendDocAndNurBean>>(getContext(),getDisposable(),false,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getListHomeRecommendDoctor(map), new HttpSubscriber<RecommendPage>(getContext(),getDisposable(),false,false) {
             @Override
-            public void requestComplete(@Nullable List<RecommendDocAndNurBean> data) {
-                getView().getRecommendSuccess(data);
+            public void requestComplete(@Nullable RecommendPage data) {
+                getView().getRecommendSuccess(data.getRecords());
             }
         });
     }

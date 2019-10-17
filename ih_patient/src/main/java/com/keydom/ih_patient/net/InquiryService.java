@@ -2,9 +2,8 @@ package com.keydom.ih_patient.net;
 
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_patient.bean.DiagnoseIndexBean;
-import com.keydom.ih_patient.bean.RecommendDocAndNurBean;
+import com.keydom.ih_patient.bean.RecommendPage;
 
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -26,5 +25,5 @@ public interface InquiryService {
      * 问诊医生列表
      */
     @GET("user/hospitalDept/listHomeRecommendDoctor")
-    Observable<HttpResult<List<RecommendDocAndNurBean>>> getListHomeRecommendDoctor(@QueryMap Map<String, Object> body);
+    Observable<HttpResult<RecommendPage>> getListHomeRecommendDoctor(@QueryMap Map<String, Object> body);
 }

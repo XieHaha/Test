@@ -6,6 +6,7 @@ import com.keydom.ih_patient.bean.DiagnoseIndexBean;
 import com.keydom.ih_patient.bean.DiagnosesAndNurDepart;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.ih_patient.bean.RecommendDocAndNurBean;
+import com.keydom.ih_patient.constant.TypeEnum;
 
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,7 @@ public interface TabDiagnosesView extends BaseView {
     /**
      * 获取记录成功
      */
-    void getRecommendSuccess(List<RecommendDocAndNurBean> recommendList);
+    void getRecommendSuccess(List<RecommendDocAndNurBean> recommendList, TypeEnum type);
 
     /**
      * 获取记录失败
