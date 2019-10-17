@@ -15,6 +15,7 @@ import com.keydom.ih_patient.bean.DiagnoseIndexBean;
 import com.keydom.ih_patient.bean.DiagnosesAndNurDepart;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.ih_patient.bean.RecommendPage;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.net.InquiryService;
 import com.keydom.ih_patient.net.OrderService;
 import com.keydom.ih_patient.net.UserService;
@@ -46,11 +47,11 @@ public class NursingOnlineConsultController extends ControllerImpl<NursingOnline
     /**
      * 获取推荐服务
      */
-    public void getRecommendNurse(Map<String,Object> map){
+    public void getRecommendNurse(Map<String,Object> map, TypeEnum type){
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getListHomeRecommendDoctor(map), new HttpSubscriber<RecommendPage>(getContext(),getDisposable(),false,false) {
             @Override
             public void requestComplete(@Nullable RecommendPage data) {
-                getView().getRecommendSuccess(data.getRecords());
+                getView().getRecommendSuccess(data.getRecords(), type);
             }
         });
     }

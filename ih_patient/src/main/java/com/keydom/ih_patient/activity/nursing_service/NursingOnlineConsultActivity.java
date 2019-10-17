@@ -41,8 +41,13 @@ import com.keydom.ih_patient.bean.RecommendDocAndNurBean;
 import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.decoding.Intents;
@@ -86,6 +91,8 @@ public class NursingOnlineConsultActivity extends BaseControllerActivity<Nursing
     private final int REQUEST_CODE = 100;
     private OptionsPickerView areaPickerView,deptPickerView;
     private int unpayTag=0;
+
+    private SmartRefreshLayout diagnose_index_refresh;
 
     @Override
     public int getLayoutRes() {
@@ -186,14 +193,31 @@ public class NursingOnlineConsultActivity extends BaseControllerActivity<Nursing
         online_doctor_sw.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton buttonView, boolean isChecked) {
+                getController().setCurrentPage(1);
                 isOnline = isChecked;
                 if (deptId == -1) {
-                    getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline));
+                    getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline), TypeEnum.REFRESH);
                 } else {
-                    getController().getRecommendNurse(getDepartmentRecommendNurseQueryMap(isOnline));
+                    getController().getRecommendNurse(getDepartmentRecommendNurseQueryMap(isOnline),TypeEnum.REFRESH);
                 }
             }
         });
+        diagnose_index_refresh = findViewById(R.id.diagnose_index_refresh);
+        diagnose_index_refresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                getController().setCurrentPage(1);
+                getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline),TypeEnum.REFRESH);
+            }
+
+        });
+        diagnose_index_refresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline),TypeEnum.LOAD_MORE);
+            }
+        });
+
        /* getController().getHomeData(getHomeQueryMap());
         getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline));*/
     }
@@ -201,8 +225,9 @@ public class NursingOnlineConsultActivity extends BaseControllerActivity<Nursing
     @Override
     protected void onResume() {
         super.onResume();
+        getController().setCurrentPage(1);
         getController().getHomeData(getHomeQueryMap());
-        getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline));
+        getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline),TypeEnum.REFRESH);
     }
 
     /**
@@ -228,6 +253,8 @@ public class NursingOnlineConsultActivity extends BaseControllerActivity<Nursing
         map.put("isRecommend", 1);
         map.put("hospitalId", App.hospitalId);
         map.put("type", 1);
+        map.put("currentPage", getController().getCurrentPage());
+        map.put("pageSize", com.keydom.ih_patient.constant.Const.PAGE_SIZE);
         return map;
     }
 
@@ -262,13 +289,29 @@ public class NursingOnlineConsultActivity extends BaseControllerActivity<Nursing
     }
 
     @Override
-    public void getRecommendSuccess(List<RecommendDocAndNurBean> recommendList) {
-        recommendDocAndNurAdapter.setNewData(recommendList);
+    public void getRecommendSuccess(List<RecommendDocAndNurBean> dataList,TypeEnum type) {
+        if (type == TypeEnum.REFRESH) {
+            recommendList.clear();
+        }
+        pageLoadingSuccess();
+        diagnose_index_refresh.finishLoadMore();
+        diagnose_index_refresh.finishRefresh();
+
+        if(null == dataList || dataList.size() == 0){
+            diagnose_index_refresh.setNoMoreData(true);
+        }else{
+            recommendList.addAll(dataList);
+            recommendDocAndNurAdapter.notifyDataSetChanged();
+            getController().currentPagePlus();
+        }
     }
 
     @Override
     public void getRecommendFailed(String errMsg) {
-
+        ToastUtil.shortToast(getContext(), "查询失败:"+errMsg);
+        diagnose_index_refresh.finishLoadMore();
+        diagnose_index_refresh.finishRefresh();
+        pageLoadingFail();
     }
 
     @Override
@@ -301,7 +344,7 @@ public class NursingOnlineConsultActivity extends BaseControllerActivity<Nursing
                 public void onOptionsSelect(int options1, int option2, int options3, View v) {
                     deptId = departmentList.get(options1).getItems().get(option2).getId();
                     choose_depart_tv.setText(departmentList.get(options1).getItems().get(option2).getName());
-                    getController().getRecommendNurse(getDepartmentRecommendNurseQueryMap(isOnline));
+                    getController().getRecommendNurse(getDepartmentRecommendNurseQueryMap(isOnline),TypeEnum.REFRESH);
                 }
             }).build();
             deptPickerView.setPicker(parentDepList, childDepList);
@@ -388,6 +431,7 @@ public class NursingOnlineConsultActivity extends BaseControllerActivity<Nursing
         commitTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getController().setCurrentPage(1);
                 nursing_online_search_tv.setText(selectHospitalName);
                 App.hospitalId = selectHospitalId;
                 App.hospitalName = selectHospitalName;
@@ -397,7 +441,7 @@ public class NursingOnlineConsultActivity extends BaseControllerActivity<Nursing
                 choose_area_tv.setText("院区");
                 areaId = -1;
                 getController().getHomeData(getHomeQueryMap());
-                getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline));
+                getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline),TypeEnum.REFRESH);
                 hospitalPopupWindow.dismiss();
             }
         });
