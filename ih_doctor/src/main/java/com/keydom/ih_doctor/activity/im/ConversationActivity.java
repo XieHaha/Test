@@ -454,7 +454,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 showUserFollowUp();
             }
         });
-        mMessageView.addPlugin(mUserFollowUpPlugin);
+        //mMessageView.addPlugin(mUserFollowUpPlugin);
     }
 
 
