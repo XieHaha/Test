@@ -13,6 +13,7 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -37,9 +38,12 @@ import com.keydom.ih_common.im.model.custom.InquiryAttachment;
 import com.keydom.ih_common.im.model.custom.InspectionAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralApplyAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralDoctorAttachment;
+import com.keydom.ih_common.im.model.custom.UserFollowUpAttachment;
 import com.keydom.ih_common.im.model.event.EndInquiryEvent;
 import com.keydom.ih_common.im.widget.ImMessageView;
 import com.keydom.ih_common.im.widget.plugin.EndInquiryPlugin;
+import com.keydom.ih_common.im.widget.plugin.PluginListener;
+import com.keydom.ih_common.im.widget.plugin.UserFollowUpPlugin;
 import com.keydom.ih_common.im.widget.plugin.VideoPlugin;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
@@ -56,7 +60,6 @@ import com.keydom.ih_doctor.activity.online_diagnose.ApplyForCheckActivity;
 import com.keydom.ih_doctor.activity.online_diagnose.CheckOrderDetailActivity;
 import com.keydom.ih_doctor.activity.online_diagnose.DiagnosePatientInfoActivity;
 import com.keydom.ih_doctor.activity.patient_manage.PatientDatumActivity;
-import com.keydom.ih_doctor.activity.personal.PersonalInfoActivity;
 import com.keydom.ih_doctor.activity.prescription_check.DiagnosePrescriptionActivity;
 import com.keydom.ih_doctor.activity.prescription_check.PrescriptionActivity;
 import com.keydom.ih_doctor.adapter.DiagnoseOrderRecyclrViewAdapter;
@@ -69,6 +72,7 @@ import com.keydom.ih_doctor.constant.ServiceConst;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.DiagnoseApiService;
 import com.keydom.ih_doctor.utils.ToastUtil;
+import com.keydom.ih_doctor.view.FixHeightBottomSheetDialog;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
@@ -164,6 +168,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     private VideoPlugin mVideoPlugin;
     private EndInquiryPlugin mEndInquiryPlugin;
+    private UserFollowUpPlugin mUserFollowUpPlugin;
 
     @Override
     protected void onResume() {
@@ -435,11 +440,18 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             mMessageView.hideExtension();
             mEndTheConsultationLl.setVisibility(View.VISIBLE);
         });
+        mUserFollowUpPlugin = new UserFollowUpPlugin(new PluginListener() {
+            @Override
+            public void onClick() {
+                showUserFollowUp();
+            }
+        });
     }
 
 
     private void initStatus() {
         mMessageView.getPluginAdapter().getPluginModule(0);
+        mMessageView.addPlugin(mUserFollowUpPlugin);
         if (!chatting) {
             mMessageView.removePlugin(mVideoPlugin);
             mMessageView.removePlugin(mEndInquiryPlugin);
@@ -937,6 +949,66 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         });
         builder.create().show();
     }
+
+
+    FixHeightBottomSheetDialog mFixHeightBottomSheetDialog;
+    /**
+     * 用户随访表
+     */
+    private void showUserFollowUp() {
+
+        if(null == mFixHeightBottomSheetDialog){
+            mFixHeightBottomSheetDialog = new FixHeightBottomSheetDialog(this);
+            mFixHeightBottomSheetDialog.setCancelable(false);
+            mFixHeightBottomSheetDialog.setCanceledOnTouchOutside(false);
+            View view = LayoutInflater.from(this).inflate(R.layout.user_follow_up_dialog_layout, null, false);
+            mFixHeightBottomSheetDialog.setContentView(view);
+            view.findViewById(R.id.user_follow_up_dialog_first_rl).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                    UserFollowUpAttachment userFollowUpAttachment = new UserFollowUpAttachment();
+                    userFollowUpAttachment.setId("1");
+                    userFollowUpAttachment.setDoctorName("伍齐鸣");
+                    userFollowUpAttachment.setFileName("糖尿病随访管理表");
+                    userFollowUpAttachment.setUrl("https://www.baidu.com/");
+                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId, SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
+
+                    mFixHeightBottomSheetDialog.dismiss();
+                }
+            });
+            view.findViewById(R.id.user_follow_up_dialog_second_rl).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    UserFollowUpAttachment userFollowUpAttachment = new UserFollowUpAttachment();
+                    userFollowUpAttachment.setId("2");
+                    userFollowUpAttachment.setDoctorName("伍齐鸣");
+                    userFollowUpAttachment.setFileName("慢性肺炎随访管理表");
+                    userFollowUpAttachment.setUrl("https://www.baidu.com/");
+                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId, SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
+
+                    mFixHeightBottomSheetDialog.dismiss();
+                }
+            });
+            view.findViewById(R.id.user_follow_up_dialog_third_rl).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    UserFollowUpAttachment userFollowUpAttachment = new UserFollowUpAttachment();
+                    userFollowUpAttachment.setId("3");
+                    userFollowUpAttachment.setDoctorName("伍齐鸣");
+                    userFollowUpAttachment.setFileName("高血压随访管理表");
+                    userFollowUpAttachment.setUrl("https://www.baidu.com/");
+                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId, SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
+
+                    mFixHeightBottomSheetDialog.dismiss();
+                }
+            });
+        }
+
+        mFixHeightBottomSheetDialog.show();
+    }
+
 
 }
 

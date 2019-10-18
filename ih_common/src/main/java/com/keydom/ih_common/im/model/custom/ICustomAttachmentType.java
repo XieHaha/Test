@@ -53,4 +53,9 @@ public interface ICustomAttachmentType {
      * 收药
      */
     int RECEIVE_DRUGS = 100102;
+
+    /**
+     * 随访表
+     */
+    int USER_FOLLOW_UP = 100103;
 }

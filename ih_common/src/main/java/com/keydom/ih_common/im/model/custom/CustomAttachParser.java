@@ -50,9 +50,12 @@ public class CustomAttachParser implements MsgAttachmentParser {
                 break;
             case ICustomAttachmentType.GET_DRUGS:
                 attachment = new GetDrugsAttachment();
-                            break;
+                break;
             case ICustomAttachmentType.RECEIVE_DRUGS:
                 attachment = new ReceiveDrugsAttachment();
+                break;
+            case ICustomAttachmentType.USER_FOLLOW_UP:
+                attachment = new UserFollowUpAttachment();
                 break;
             default:
         }

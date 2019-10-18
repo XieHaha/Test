@@ -12,6 +12,7 @@ import com.keydom.ih_common.im.model.custom.InspectionAttachment;
 import com.keydom.ih_common.im.model.custom.ReceiveDrugsAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralApplyAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralDoctorAttachment;
+import com.keydom.ih_common.im.model.custom.UserFollowUpAttachment;
 import com.keydom.ih_common.im.model.def.SentStatus;
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
@@ -79,6 +80,8 @@ public class ImUIMessage implements MultiItemEntity {
                 return ICustomAttachmentType.GET_DRUGS;
             }else if(mMessage.getAttachment() instanceof ReceiveDrugsAttachment){
                 return ICustomAttachmentType.RECEIVE_DRUGS;
+            }else if(mMessage.getAttachment() instanceof UserFollowUpAttachment){
+                return ICustomAttachmentType.USER_FOLLOW_UP;
             } else {
                 return MsgTypeEnum.undef.getValue();
             }

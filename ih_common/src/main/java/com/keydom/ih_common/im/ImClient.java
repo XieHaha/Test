@@ -96,7 +96,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -1138,6 +1137,18 @@ public class ImClient {
      * @param attachment  消息附件对象
      */
     public static IMMessage createDisposalAdviceMessage(String sessionId, SessionTypeEnum sessionType, String content, MsgAttachment attachment) {
+        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment, new CustomMessageConfig());
+    }
+
+    /**
+     * 创建一条随访表消息
+     *
+     * @param sessionId   聊天对象ID
+     * @param sessionType 会话类型
+     * @param content     消息简要描述，可通过{@link IMMessage#getContent()}获取，主要用于用户推送展示。
+     * @param attachment  消息附件对象
+     */
+    public static IMMessage createUserFollowUpMessage(String sessionId, SessionTypeEnum sessionType, String content, MsgAttachment attachment) {
         return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment, new CustomMessageConfig());
     }
 

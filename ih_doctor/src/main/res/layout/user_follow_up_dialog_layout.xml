@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_58">
+
+
+        <TextView
+            android:id="@+id/order_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="随访表"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dp_20" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_38"
+        android:background="#F2F2F2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:text="选择随访表"
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_primary" />
+
+        <TextView
+            android:id="@+id/order_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_21"
+            android:textColor="#3F98F7"
+            android:textSize="@dimen/font_size_primary" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/user_follow_up_dialog_first_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_63">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:src="@mipmap/ic_file_user_follow_up" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_105"
+            android:text="糖尿病随访管理表"
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_primary" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_92"
+            android:layout_marginRight="@dimen/dp_25"
+            android:background="#EEEEEE" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/user_follow_up_dialog_second_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_63">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:src="@mipmap/ic_file_user_follow_up" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_105"
+            android:text="慢性肺炎随访管理表"
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_primary" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_92"
+            android:layout_marginRight="@dimen/dp_25"
+            android:background="#EEEEEE" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/user_follow_up_dialog_third_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_63">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:src="@mipmap/ic_file_user_follow_up" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_105"
+            android:text="高血压随访管理表"
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_primary" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_92"
+            android:layout_marginRight="@dimen/dp_25"
+            android:background="#EEEEEE" />
+    </RelativeLayout>
+
+
+</LinearLayout>
