@@ -26,6 +26,8 @@ import org.jetbrains.annotations.Nullable;
  */
 public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumentController> implements CommonDocumentView {
     public static final String TYPE = "type";
+    public static final String URL = "url";
+    public static final String TITLE = "title";
     private TextView mDecTv;
     private WebView mWebView;
 
@@ -35,6 +37,16 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
     public static void start(Context ctx, String type) {
         Intent i = new Intent(ctx, CommonDocumentActivity.class);
         i.putExtra(TYPE, type);
+        ActivityUtils.startActivity(i);
+    }
+
+    /**
+     * 启动方法
+     */
+    public static void start(Context ctx, String title,String url) {
+        Intent i = new Intent(ctx, CommonDocumentActivity.class);
+        i.putExtra(TITLE, title);
+        i.putExtra(URL, url);
         ActivityUtils.startActivity(i);
     }
 
@@ -49,38 +61,48 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
         mWebView = findViewById(R.id.webView);
         RichText.initCacheDir(this);
         String code = getIntent().getStringExtra(TYPE);
-        switch (code){
-            case CommonDocumentBean.CODE_1:
-                setTitle("在线问诊用户协议");
-                break;
-            case CommonDocumentBean.CODE_2:
-                setTitle("护理服务用户协议");
-                break;
-            case CommonDocumentBean.CODE_3:
-                setTitle("入院注意事项");
-                break;
-            case CommonDocumentBean.CODE_4:
-                setTitle("体检中心介绍");
-                break;
-            case CommonDocumentBean.CODE_5:
-                setTitle("体检须知");
-                break;
-            case CommonDocumentBean.CODE_6:
-                setTitle("体检流程");
-                break;
-            case CommonDocumentBean.CODE_8:
-                setTitle("注册用户协议");
-                break;
-            case CommonDocumentBean.CODE_10:
-                setTitle("服务介绍");
-                break;
-            case  CommonDocumentBean.CODE_13:
-                setTitle("保险条款用户协议");
-            case CommonDocumentBean.CODE_14:
-                setTitle("保险条款用户协议");
-                break;
+        String url = getIntent().getStringExtra(URL);
+        String title = getIntent().getStringExtra(TITLE);
+        if(TextUtils.isEmpty(code)){
+            mWebView.setVisibility(View.VISIBLE);
+            mDecTv.setVisibility(View.GONE);
+            setTitle(title);
+            loadUrl(url);
+        }else{
+            switch (code){
+                case CommonDocumentBean.CODE_1:
+                    setTitle("在线问诊用户协议");
+                    break;
+                case CommonDocumentBean.CODE_2:
+                    setTitle("护理服务用户协议");
+                    break;
+                case CommonDocumentBean.CODE_3:
+                    setTitle("入院注意事项");
+                    break;
+                case CommonDocumentBean.CODE_4:
+                    setTitle("体检中心介绍");
+                    break;
+                case CommonDocumentBean.CODE_5:
+                    setTitle("体检须知");
+                    break;
+                case CommonDocumentBean.CODE_6:
+                    setTitle("体检流程");
+                    break;
+                case CommonDocumentBean.CODE_8:
+                    setTitle("注册用户协议");
+                    break;
+                case CommonDocumentBean.CODE_10:
+                    setTitle("服务介绍");
+                    break;
+                case  CommonDocumentBean.CODE_13:
+                    setTitle("保险条款用户协议");
+                case CommonDocumentBean.CODE_14:
+                    setTitle("保险条款用户协议");
+                    break;
+            }
+            getController().getOfficialDispatchAllMsgByCode(code);
         }
-        getController().getOfficialDispatchAllMsgByCode(code);
+
     }
 
     @Override
@@ -137,5 +159,26 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
         String html = "<html><header>" + css + "</header>" + bodyHTML + "</html>";
 
         return html;
+    }
+
+    public void loadUrl(String url){
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setSupportZoom(true);
+        mWebView.getSettings().setDefaultTextEncodingName("utf-8");
+        mWebView.getSettings().setDomStorageEnabled(true);//webview不能完全加载网页 或者不能很好的支持懒加载是添加此设置
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                WebView.HitTestResult hitTestResult = view.getHitTestResult();
+                //hitTestResult==null解决重定向问题
+                if (!TextUtils.isEmpty(url) && hitTestResult == null) {
+                    view.loadUrl(url);
+                    return true;
+                }
+                return super.shouldOverrideUrlLoading(view, url);
+            }
+
+        });
+        mWebView.loadUrl(url);
     }
 }

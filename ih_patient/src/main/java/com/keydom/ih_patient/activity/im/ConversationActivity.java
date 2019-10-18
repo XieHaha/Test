@@ -41,6 +41,7 @@ import com.keydom.ih_common.im.model.custom.InspectionAttachment;
 import com.keydom.ih_common.im.model.custom.ReceiveDrugsAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralApplyAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralDoctorAttachment;
+import com.keydom.ih_common.im.model.custom.UserFollowUpAttachment;
 import com.keydom.ih_common.im.model.event.EndInquiryEvent;
 import com.keydom.ih_common.im.model.event.PrescriptionEvent;
 import com.keydom.ih_common.im.model.event.ReferralApplyEvent;
@@ -57,6 +58,7 @@ import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.AgreementActivity;
 import com.keydom.ih_patient.activity.apply_for_order_detail.CheckOrderDetailActivity;
 import com.keydom.ih_patient.activity.apply_for_order_detail.TransferTreatmentOrderDetailActivity;
+import com.keydom.ih_patient.activity.common_document.CommonDocumentActivity;
 import com.keydom.ih_patient.activity.location_manage.LocationManageActivity;
 import com.keydom.ih_patient.activity.logistic.FixHeightBottomSheetDialog;
 import com.keydom.ih_patient.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity;
@@ -419,6 +421,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     else if(message.getAttachment() instanceof ReceiveDrugsAttachment){
                         ReceiveDrugsAttachment receiveDrugsAttachment = (ReceiveDrugsAttachment) message.getAttachment();
                         GotoActivityUtil.gotoPrescriptionGetDetailActivity(ConversationActivity.this,receiveDrugsAttachment.getId(),PrescriptionGetDetailActivity.RECEIVE_MEDICINE);
+                    }
+                    //随访表
+                    else if(message.getAttachment() instanceof UserFollowUpAttachment){
+                        UserFollowUpAttachment userFollowUpAttachment = (UserFollowUpAttachment) message.getAttachment();
+                        CommonDocumentActivity.start(getContext(),userFollowUpAttachment.getFileName(),userFollowUpAttachment.getUrl());
                     }
                 }
                 return false;

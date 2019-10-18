@@ -54,6 +54,7 @@ import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
+import com.keydom.ih_doctor.activity.common_document.CommonDocumentActivity;
 import com.keydom.ih_doctor.activity.doctor_cooperation.DianoseCaseDetailActivity;
 import com.keydom.ih_doctor.activity.doctor_cooperation.FillOutApplyActivity;
 import com.keydom.ih_doctor.activity.online_diagnose.ApplyForCheckActivity;
@@ -307,6 +308,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         HandleProposeAcitivity.start(getContext(), ((DisposalAdviceAttachment) message.getAttachment()).getContent());
 
                     }
+                    //随访表
+                    else if(message.getAttachment() instanceof UserFollowUpAttachment){
+                        UserFollowUpAttachment userFollowUpAttachment = (UserFollowUpAttachment) message.getAttachment();
+                        CommonDocumentActivity.start(getContext(),userFollowUpAttachment.getFileName(),userFollowUpAttachment.getUrl());
+                    }
                 }
                 return false;
             }
@@ -440,18 +446,21 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             mMessageView.hideExtension();
             mEndTheConsultationLl.setVisibility(View.VISIBLE);
         });
+
+
         mUserFollowUpPlugin = new UserFollowUpPlugin(new PluginListener() {
             @Override
             public void onClick() {
                 showUserFollowUp();
             }
         });
+        mMessageView.addPlugin(mUserFollowUpPlugin);
     }
 
 
     private void initStatus() {
         mMessageView.getPluginAdapter().getPluginModule(0);
-        mMessageView.addPlugin(mUserFollowUpPlugin);
+
         if (!chatting) {
             mMessageView.removePlugin(mVideoPlugin);
             mMessageView.removePlugin(mEndInquiryPlugin);
@@ -959,8 +968,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
         if(null == mFixHeightBottomSheetDialog){
             mFixHeightBottomSheetDialog = new FixHeightBottomSheetDialog(this);
-            mFixHeightBottomSheetDialog.setCancelable(false);
-            mFixHeightBottomSheetDialog.setCanceledOnTouchOutside(false);
+            mFixHeightBottomSheetDialog.setCancelable(true);
+            mFixHeightBottomSheetDialog.setCanceledOnTouchOutside(true);
             View view = LayoutInflater.from(this).inflate(R.layout.user_follow_up_dialog_layout, null, false);
             mFixHeightBottomSheetDialog.setContentView(view);
             view.findViewById(R.id.user_follow_up_dialog_first_rl).setOnClickListener(new View.OnClickListener() {

@@ -245,12 +245,20 @@
 
         <activity
             android:name=".activity.my_message.MyMessageActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.my_message.NoticeDeatailActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.patient_manage.WarrantListActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".activity.common_document.CommonDocumentActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
 
     </application>
