@@ -26,7 +26,8 @@ public class NursingOrderBean implements Serializable{
     private long id;
     private String serverName;
     private BigDecimal price;
-    private int frequency;
+    private int frequency; //服务总次数
+    private int serviceFrequency;//当前服务次数
     private String orderNumber;
     private String appointmentTime;
     private String serverObject;
@@ -197,5 +198,17 @@ public class NursingOrderBean implements Serializable{
 
     public void setPay(int pay) {
         this.pay = pay;
+    }
+
+    public int getServiceFrequency() {
+        return serviceFrequency;
+    }
+
+    public void setServiceFrequency(int serviceFrequency) {
+        this.serviceFrequency = serviceFrequency;
+    }
+
+    public boolean isFrequencyUsed(){
+        return frequency == serviceFrequency;
     }
 }

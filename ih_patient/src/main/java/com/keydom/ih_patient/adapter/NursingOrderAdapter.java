@@ -97,6 +97,9 @@ public class NursingOrderAdapter extends BaseQuickAdapter<NursingOrderBean, Base
                 if (item.getEquipmentOrSubOrderPay() == 0) {
                     goPayShow = true;
                 }
+                if(!item.isFrequencyUsed()){ //是否可以退单
+                    chargeBackShow = true;
+                }
                 break;
             case COMPLETE:
                 //已完成
