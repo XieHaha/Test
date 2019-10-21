@@ -1,6 +1,7 @@
 package com.keydom.ih_doctor.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Name：com.keydom.ih_doctor.bean
@@ -12,18 +13,23 @@ import java.io.Serializable;
  */
 public class EvaluationBean implements Serializable {
     private static final long serialVersionUID = 1L;
-    private long id;
     private String name;
     private int grade;
-    private String[] labels;
+    private List<String> labels;
+    /**
+     * id : 1184028963064811521
+     * likeAmount : null
+     * avatar : group1/M00/00/26/rBAA0l2lOLuABSoXAAFmXHNRwXI485.jpg
+     * isLike : null
+     * time : null
+     */
 
-    public long getId() {
-        return id;
-    }
+    private String id;
+    private Integer likeAmount;
+    private String avatar;
+    private Integer isLike;
+    private String time;
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -41,11 +47,51 @@ public class EvaluationBean implements Serializable {
         this.grade = grade;
     }
 
-    public String[] getLabels() {
+    public List<String> getLabels() {
         return labels;
     }
 
-    public void setLabels(String[] labels) {
+    public void setLabels(List<String> labels) {
         this.labels = labels;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Integer getLikeAmount() {
+        return likeAmount;
+    }
+
+    public void setLikeAmount(Integer likeAmount) {
+        this.likeAmount = likeAmount;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Integer getIsLike() {
+        return isLike;
+    }
+
+    public void setIsLike(Integer isLike) {
+        this.isLike = isLike;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

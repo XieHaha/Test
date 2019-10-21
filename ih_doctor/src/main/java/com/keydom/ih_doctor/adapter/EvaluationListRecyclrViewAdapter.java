@@ -81,8 +81,8 @@ public class EvaluationListRecyclrViewAdapter extends BaseEmptyAdapter<Evaluatio
             }
             evaluationValue.setText(evaluation);
             evaluationTagView.removeAllViews();
-            if (bean.getLabels() != null && bean.getLabels().length > 0) {
-                for (int i = 0; i < bean.getLabels().length; i++) {
+            if (bean.getLabels() != null && bean.getLabels().size() > 0) {
+                for (int i = 0; i < bean.getLabels().size(); i++) {
                     ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(
                             ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     lp.leftMargin = 5;
@@ -90,7 +90,7 @@ public class EvaluationListRecyclrViewAdapter extends BaseEmptyAdapter<Evaluatio
                     lp.topMargin = 5;
                     lp.bottomMargin = 5;
                     TextView view = new TextView(mContext);
-                    view.setText(bean.getLabels()[i]);
+                    view.setText(bean.getLabels().get(i));
                     view.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimensionPixelOffset(R.dimen.font_size_primary));
                     view.setTextColor(mContext.getResources().getColor(R.color.fontColorPrimary));
                     view.setBackgroundDrawable(mContext.getResources().getDrawable(R.mipmap.article_tag_bg));

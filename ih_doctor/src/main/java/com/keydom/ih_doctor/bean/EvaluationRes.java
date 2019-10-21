@@ -15,7 +15,12 @@ public class EvaluationRes implements Serializable {
     private static final long serialVersionUID = 1L;
     private int consultCount;
     private int inquiryCount;
-    private List<EvaluationBean> list;
+    private int total;
+    private int size;
+    private int current;
+    private int pages;
+
+    private List<EvaluationBean> records;
 
     public int getConsultCount() {
         return consultCount;
@@ -33,11 +38,43 @@ public class EvaluationRes implements Serializable {
         this.inquiryCount = inquiryCount;
     }
 
-    public List<EvaluationBean> getList() {
-        return list;
+    public int getTotal() {
+        return total;
     }
 
-    public void setList(List<EvaluationBean> list) {
-        this.list = list;
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public int getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(int current) {
+        this.current = current;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
+    public List<EvaluationBean> getRecords() {
+        return records;
+    }
+
+    public void setRecords(List<EvaluationBean> records) {
+        this.records = records;
     }
 }

@@ -122,7 +122,7 @@ public class MyEvaluationActivity extends BaseControllerActivity<MyEvaluationCon
             mList.clear();
         }
         pageLoadingSuccess();
-        mList.addAll(bean.getList());
+        mList.addAll(bean.getRecords());
         evaluationListRecyclrViewAdapter.notifyDataSetChanged();
         diagnose.setText("问诊(" + bean.getInquiryCount() + ")");
         consult.setText("咨询(" + bean.getConsultCount() + ")");

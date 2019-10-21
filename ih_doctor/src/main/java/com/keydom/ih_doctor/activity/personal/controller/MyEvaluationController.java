@@ -52,7 +52,7 @@ public class MyEvaluationController extends ControllerImpl<MyEvaluationView> imp
      */
     public void getEvaluation(final TypeEnum type) {
         HashMap<String, Object> map = new HashMap<>();
-//        map.put("commentType", getView().getType());
+        map.put("commentType", getView().getType());
         map.put("currentPage", getCurrentPage());
         map.put("pageSize", Const.PAGE_SIZE);
         if (getView().getReqType() == MyEvaluationActivity.TODAY_EVALUATION || getView().getReqType() == MyEvaluationActivity.TOTAL_EVALUATION) {
