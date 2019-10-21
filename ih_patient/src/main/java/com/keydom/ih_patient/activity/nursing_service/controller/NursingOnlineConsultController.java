@@ -100,19 +100,19 @@ public class NursingOnlineConsultController extends ControllerImpl<NursingOnline
                 getView().showHospitalPopupWindow();
                 break;
             case R.id.await_pay_cv:
-                OnlineDiagnonsesOrderActivity.start(getContext(),getView().getUnpaytag());
+                OnlineDiagnonsesOrderActivity.start(getContext(),getView().getUnpaytag(),1);
                 break;
             case R.id.await_diagnose_cv:
-                OnlineDiagnonsesOrderActivity.start(getContext(),OnlineDiagnonsesOrderActivity.WAITEDIAGNOSES);
+                OnlineDiagnonsesOrderActivity.start(getContext(),OnlineDiagnonsesOrderActivity.WAITEDIAGNOSES,1);
                 break;
             case R.id.diagnose_cv:
-                OnlineDiagnonsesOrderActivity.start(getContext(),OnlineDiagnonsesOrderActivity.DIAGNOSESING);
+                OnlineDiagnonsesOrderActivity.start(getContext(),OnlineDiagnonsesOrderActivity.DIAGNOSESING,1);
                 break;
             case R.id.finished_cv:
-                OnlineDiagnonsesOrderActivity.start(getContext(),OnlineDiagnonsesOrderActivity.COMPLETEDIAGNOSES);
+                OnlineDiagnonsesOrderActivity.start(getContext(),OnlineDiagnonsesOrderActivity.COMPLETEDIAGNOSES,1);
                 break;
             case R.id.await_evaluation_cv:
-                OnlineDiagnonsesOrderActivity.start(getContext(),OnlineDiagnonsesOrderActivity.COMPLETEDIAGNOSES);
+                OnlineDiagnonsesOrderActivity.start(getContext(),OnlineDiagnonsesOrderActivity.COMPLETEDIAGNOSES,1);
                 break;
         }
     }

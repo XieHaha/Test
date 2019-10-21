@@ -33,6 +33,17 @@ public class OnlineDiagnonsesOrderActivity extends BaseControllerActivity<Online
         intent.putExtra("index",index);
         context.startActivity(intent);
     }
+
+    /**
+     * 启动带type
+     */
+    public static void start(Context context,int index,int type){
+        Intent intent=new Intent(context,OnlineDiagnonsesOrderActivity.class);
+        intent.putExtra("index",index);
+        intent.putExtra("type",type);
+        context.startActivity(intent);
+    }
+
     public static final int WAITEDIAGNOSES=0;
     public static final int DIAGNOSESING=1;
     public static final int COMPLETEDIAGNOSES=2;
@@ -43,6 +54,7 @@ public class OnlineDiagnonsesOrderActivity extends BaseControllerActivity<Online
     private List<Fragment> fragmentList = new ArrayList<>();
     private List<String> list = new ArrayList<>();
     private int index;
+    private int type;//0 医生 1护士
     @Override
     public int getLayoutRes() {
         return R.layout.activity_subscirbe_examination_order;
@@ -51,13 +63,14 @@ public class OnlineDiagnonsesOrderActivity extends BaseControllerActivity<Online
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle("问诊订单");
         index=getIntent().getIntExtra("index",WAITEDIAGNOSES);
+        type=getIntent().getIntExtra("type",0);//0 医生 1护士
         getView();
         list.add("待诊");
         list.add("问诊中");
         list.add("完成");
-        fragmentList.add(OnlineDiagnonsesOrderFragment.newInstance(OnlineDiagnonsesOrderController.WAITINGDIAGNONSES));
-        fragmentList.add(OnlineDiagnonsesOrderFragment.newInstance(OnlineDiagnonsesOrderController.DIAGNONSING));
-        fragmentList.add(OnlineDiagnonsesOrderFragment.newInstance(OnlineDiagnonsesOrderController.COMPLETEIAGNONSES));
+        fragmentList.add(OnlineDiagnonsesOrderFragment.newInstance(OnlineDiagnonsesOrderController.WAITINGDIAGNONSES,type));
+        fragmentList.add(OnlineDiagnonsesOrderFragment.newInstance(OnlineDiagnonsesOrderController.DIAGNONSING,type));
+        fragmentList.add(OnlineDiagnonsesOrderFragment.newInstance(OnlineDiagnonsesOrderController.COMPLETEIAGNONSES,type));
         fm = getSupportFragmentManager();
         mViewPagerAdapter = new FragmentViewPagerAdapter(fm, fragmentList, list);
         mViewPager.setOffscreenPageLimit(4);

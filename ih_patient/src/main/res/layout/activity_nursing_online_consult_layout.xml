@@ -78,14 +78,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    mitem:itemName="待接诊"></com.keydom.ih_common.view.CountItemView>
+                    mitem:itemName="待服务"></com.keydom.ih_common.view.CountItemView>
 
                 <com.keydom.ih_common.view.CountItemView
                     android:id="@+id/diagnose_cv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    mitem:itemName="问诊中"></com.keydom.ih_common.view.CountItemView>
+                    mitem:itemName="服务中"></com.keydom.ih_common.view.CountItemView>
 
                 <com.keydom.ih_common.view.CountItemView
                     android:id="@+id/finished_cv"

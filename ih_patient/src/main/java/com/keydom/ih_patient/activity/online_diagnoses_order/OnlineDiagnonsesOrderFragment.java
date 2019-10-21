@@ -69,6 +69,7 @@ import static com.keydom.ih_common.im.ImClient.getUserInfoProvider;
  */
 public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<OnlineDiagnonsesOrderController> implements OnlineDiagnonsesOrderView, DiagnosesOrderAdapter.onItemBtnClickListener {
     public static final String STATUS = "subscribe_status";
+    public static final String TYPE = "type";
     private SmartRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
     private DiagnosesOrderAdapter diagnosesOrderAdapter;
@@ -83,6 +84,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     private double mTotalFee;
     private double mPSfee;
     private double mPsTotal;
+    private int mType;//0 医生 1护士
 
     /**
      * fragment创建方法
@@ -90,6 +92,18 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     public static OnlineDiagnonsesOrderFragment newInstance(int status) {
         Bundle args = new Bundle();
         args.putInt(STATUS, status);
+        OnlineDiagnonsesOrderFragment fragment = new OnlineDiagnonsesOrderFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    /**
+     * fragment创建方法
+     */
+    public static OnlineDiagnonsesOrderFragment newInstance(int status,int type) {
+        Bundle args = new Bundle();
+        args.putInt(STATUS, status);
+        args.putInt(TYPE, type);
         OnlineDiagnonsesOrderFragment fragment = new OnlineDiagnonsesOrderFragment();
         fragment.setArguments(args);
         return fragment;
@@ -138,6 +152,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         mRecyclerView.setAdapter(diagnosesOrderAdapter);
         assert getArguments() != null;
         mStatus = getArguments().getInt(STATUS);
+        mType = getArguments().getInt(TYPE);
 
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
             page = 1;
@@ -164,6 +179,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         map.put("hospitalId", App.hospitalId);
         map.put("currentPage", page);
         map.put("pageSize", 8);
+        map.put("type", mType);
         return map;
     }
 
