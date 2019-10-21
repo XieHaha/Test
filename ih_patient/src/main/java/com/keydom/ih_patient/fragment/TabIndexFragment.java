@@ -535,6 +535,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                     final GeneralArticleItem generalArticleItem = new GeneralArticleItem(getContext());
                     generalArticleItem.setArticleId(dataList.get(i).getId());
                     generalArticleItem.setTitle(dataList.get(i).getTitle());
+                    generalArticleItem.setLabel(dataList.get(i).getLablelist());
                     if (dataList.get(i).getImageList() != null) {
                         generalArticleItem.setIcon(dataList.get(i).getImageList().get(0));
                     }

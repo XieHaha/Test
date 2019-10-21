@@ -103,8 +103,8 @@ public class HealthKnowledgeBean implements Serializable {
         private int pageView;
         @JSONField(name ="remark")
         private String remark;
-        @JSONField(name ="labels")
-        private List<String> labels;
+        @JSONField(name ="lablelist")
+        private List<String> lablelist;
         @JSONField(name ="commentQuantity")
         private int commentQuantity;
         @JSONField(name ="isDel")
@@ -190,12 +190,12 @@ public class HealthKnowledgeBean implements Serializable {
             this.remark = remark;
         }
 
-        public List<String> getLabels() {
-            return labels;
+        public List<String> getLablelist() {
+            return lablelist;
         }
 
-        public void setLabels(List<String> labels) {
-            this.labels = labels;
+        public void setLablelist(List<String> lablelist) {
+            this.lablelist = lablelist;
         }
 
         public int getCommentQuantity() {

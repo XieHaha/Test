@@ -70,4 +70,10 @@
         <attr name="indicatorWidth" format="integer"/>
         <attr name="gravity" format="integer"/>
     </declare-styleable>
+
+
+    <declare-styleable name="auto_wrap_tabview">
+        <attr name="vertical_dash" format="dimension"></attr>
+        <attr name="horizontal_dash" format="dimension"></attr>
+    </declare-styleable>
 </resources>

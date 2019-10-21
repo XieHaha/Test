@@ -8,14 +8,20 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.keydom.ih_common.constant.Const;
+import com.keydom.ih_common.widget.autowrap.AutoWrapTabView;
+import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
+import com.keydom.ih_patient.adapter.MainLabelAdapter;
+
+import java.util.List;
 
 /**
  * 文章item
  */
 public class GeneralArticleItem extends RelativeLayout {
     private ImageView articleIconImg;
-    private TextView articleTitleTv,articleLabelTv,articleReaderNumTv;
+    private TextView articleTitleTv,articleReaderNumTv;
+    private AutoWrapTabView mAutoWrapTabV;
     private long articleId=0;
     private int readNum;
     private String dateStr;
@@ -29,7 +35,7 @@ public class GeneralArticleItem extends RelativeLayout {
         LayoutInflater.from(context).inflate(R.layout.general_article_item,this,true);
         articleIconImg=findViewById(R.id.article_icon_img);
         articleTitleTv=findViewById(R.id.article_title_tv);
-        articleLabelTv=findViewById(R.id.article_label_tv);
+        mAutoWrapTabV=findViewById(R.id.article_label_v);
         articleReaderNumTv=findViewById(R.id.article_readernum_tv);
     }
 
@@ -52,10 +58,11 @@ public class GeneralArticleItem extends RelativeLayout {
 
     /**
      * 设置label
-     * @param labelStr
+     * @param labels
      */
-    public void setLabel(String labelStr){
-        articleLabelTv.setText(labelStr);
+    public void setLabel(List<String> labels){
+        MainLabelAdapter labelAdapter = new MainLabelAdapter(labels, App.mApplication);
+        mAutoWrapTabV.setAdapter(labelAdapter);
     }
 
     /**
