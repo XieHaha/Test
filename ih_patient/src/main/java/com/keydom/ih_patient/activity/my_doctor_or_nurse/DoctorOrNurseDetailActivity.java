@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.SpanUtils;
@@ -34,6 +33,7 @@ import com.keydom.ih_patient.bean.DoctorEvaluateItem;
 import com.keydom.ih_patient.bean.DoctorMainBean;
 import com.keydom.ih_patient.bean.DoctorTeamItem;
 import com.keydom.ih_patient.constant.Global;
+import com.keydom.ih_patient.utils.GotoActivityUtil;
 import com.keydom.ih_patient.view.DiagnosesApplyDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -245,6 +245,13 @@ public class DoctorOrNurseDetailActivity extends BaseControllerActivity<DoctorOr
             mJobTime.setText(info.getSchedu() == null || "".equals(info.getSchedu()) ? "暂无排班信息" : "今日" + info.getSchedu());
             Bitmap image = CodeUtils.createImage(info.getQrcode(), 400, 400, null);
             mQrCode.setImageBitmap(image);
+            mQrCode.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    GotoActivityUtil.gotoZxingActivity(DoctorOrNurseDetailActivity.this, info.getQrcode());
+                }
+            });
+
             if (info.getIsAttention() == 1) {
                 mFollowTv.setText("已关注");
             }

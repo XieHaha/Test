@@ -45,7 +45,7 @@ public class ZxingActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("取药码");
+        setTitle("二维码");
 
         imageView = findViewById(R.id.image_zxing);
         //getHttpPrescriptionCreateQRCode();

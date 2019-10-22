@@ -16,13 +16,6 @@
         android:background="@color/primary_color"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_38"
-            android:gravity="center"
-            android:text="向商家出示二维码"
-            android:textSize="@dimen/dp_18" />
 
         <ImageView
             android:id="@+id/image_zxing"
