@@ -34,7 +34,6 @@ import com.keydom.ih_common.push.PushManager;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.StatusBarUtils;
 import com.keydom.ih_patient.App;
-import com.keydom.ih_patient.BuildConfig;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.controller.MainController;
 import com.keydom.ih_patient.activity.index_main.Controller.IndexMainController;
@@ -45,7 +44,6 @@ import com.keydom.ih_patient.activity.my_message.MyMessageActivity;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.UserIndexSave;
 import com.keydom.ih_patient.bean.UserInfo;
-import com.keydom.ih_patient.broadcast.InterceptorReceiver;
 import com.keydom.ih_patient.broadcast.NetWorkBroadCast;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
@@ -327,21 +325,29 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
 //                    ToastUtil.shortToast(getContext(),result);
                     Logger.e(result);
-                    try {
-                        JSONObject jsonObject = new JSONObject(result);
-                        JSONArray array = jsonObject.getJSONArray("typeAndNames");
-                        JSONObject typeObj = array.getJSONObject(0);
-                        int type;
-                        if (typeObj.getInt("type") == 1)
-                            type = 0;
-                        else
-                            type = 1;
-                        String code = jsonObject.getString("userCode");
-                        DoctorOrNurseDetailActivity.startDoctorPage(MainActivity.this, type, code);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(MainActivity.this, "解析数据失败,请确认你扫描的是医生的名片二维码", Toast.LENGTH_LONG).show();
+                    if(result.startsWith("?")){
+                        String temp = result.replace("?","");
+                        String[] keyValue = temp.split("&");
+                        String[] values = keyValue[0].split("=");
+                        DoctorOrNurseDetailActivity.startDoctorPage(getContext(), 0, values[1]);
+                    }else{
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            JSONArray array = jsonObject.getJSONArray("typeAndNames");
+                            JSONObject typeObj = array.getJSONObject(0);
+                            int type;
+                            if (typeObj.getInt("type") == 1)
+                                type = 0;
+                            else
+                                type = 1;
+                            String code = jsonObject.getString("userCode");
+                            DoctorOrNurseDetailActivity.startDoctorPage(MainActivity.this, type, code);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this, "解析数据失败,请确认你扫描的是医生的名片二维码", Toast.LENGTH_LONG).show();
+                        }
                     }
+
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                     Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
                 }
