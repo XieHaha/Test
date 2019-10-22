@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.RegexUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.PhoneUtils;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.electronic_signature.controller.ApplySignatureController;
@@ -74,7 +74,7 @@ public class ChangeSignatureActivity extends BaseControllerActivity<ApplySignatu
             @Override
             public void OnRightTextClick(View v) {
                 String phoneNum = phone_input_et.getText().toString().trim();
-                if (RegexUtils.isMobileSimple(phoneNum)) {
+                if (PhoneUtils.isMobileEnable(phoneNum)) {
                     getController().changeMobile(phoneNum);
                 } else {
                     ToastUtil.shortToast(getContext(), "请输入正确的手机号");

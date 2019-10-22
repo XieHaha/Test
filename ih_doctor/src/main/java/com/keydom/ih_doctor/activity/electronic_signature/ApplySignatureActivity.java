@@ -8,8 +8,8 @@ import android.widget.EditText;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.blankj.utilcode.util.RegexUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.PhoneUtils;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_common.view.MButton;
 import com.keydom.ih_doctor.MyApplication;
@@ -69,7 +69,7 @@ public class ApplySignatureActivity extends BaseControllerActivity<ApplySignatur
             @Override
             public void onClick(View v) {
                 String phoneNum = phone_input_et.getText().toString().trim();
-                if (RegexUtils.isMobileSimple(phoneNum)) {
+                if (PhoneUtils.isMobileEnable(phoneNum)) {
                     getController().sendCode(phoneNum);
                 } else {
                     ToastUtil.shortToast(getContext(), "请输入正确的手机号");

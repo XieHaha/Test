@@ -2,7 +2,6 @@ package com.keydom.ih_patient.activity.login.controller;
 
 import android.view.View;
 
-import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.im.utils.MD5;
@@ -10,6 +9,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.PhoneUtils;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.login.view.UpdatePasswordView;
 import com.keydom.ih_patient.net.LoginService;
@@ -30,14 +30,14 @@ public class UpdatePasswordController extends ControllerImpl<UpdatePasswordView>
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.get_code_bt:
-                if (StringUtils.isEmpty(getView().getPhoneNum()) || !RegexUtils.isMobileExact(getView().getPhoneNum())) {
+                if (StringUtils.isEmpty(getView().getPhoneNum()) || !PhoneUtils.isMobileEnable(getView().getPhoneNum())) {
                     ToastUtil.shortToast(getContext(), "请填写正确的手机格式");
                 } else {
                     getMsgCode(getView().getPhoneNum());
                 }
                 break;
             case R.id.register_next_btn:
-                if (StringUtils.isEmpty(getView().getPhoneNum()) || !RegexUtils.isMobileExact(getView().getPhoneNum())) {
+                if (StringUtils.isEmpty(getView().getPhoneNum()) || !PhoneUtils.isMobileEnable(getView().getPhoneNum())) {
                     ToastUtil.shortToast(getContext(), "请填写正确的手机格式");
                 } else if (StringUtils.isEmpty(getView().getMsgCode())) {
                     ToastUtil.shortToast(getContext(), "请填写验证码");

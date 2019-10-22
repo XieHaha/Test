@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import com.blankj.utilcode.util.RegexUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.PhoneUtils;
 import com.keydom.ih_common.view.MButton;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.personal.controller.MyRealNameCertifyController;
@@ -102,7 +103,7 @@ public class MyRealNameCertifyActivity extends BaseControllerActivity<MyRealName
 
     @Override
     public boolean checkPhone() {
-        if (!RegexUtils.isMobileSimple(phoneEt.getText().toString())) {
+        if (!PhoneUtils.isMobileEnable(phoneEt.getText().toString())) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("无法获取");
             builder.setMessage("请输入正确的手机号！");
@@ -123,7 +124,7 @@ public class MyRealNameCertifyActivity extends BaseControllerActivity<MyRealName
             return false;
         }
 
-        if (!RegexUtils.isMobileSimple(phoneEt.getText().toString())) {
+        if (!PhoneUtils.isMobileEnable(phoneEt.getText().toString())) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("无法提交");

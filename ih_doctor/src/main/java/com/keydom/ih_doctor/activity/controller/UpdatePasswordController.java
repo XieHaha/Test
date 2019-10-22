@@ -3,7 +3,6 @@ package com.keydom.ih_doctor.activity.controller;
 import android.app.Dialog;
 import android.view.View;
 
-import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
@@ -11,6 +10,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.DialogCreator;
+import com.keydom.ih_common.utils.PhoneUtils;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.AgreementActivity;
 import com.keydom.ih_doctor.activity.view.UpdatePasswordView;
@@ -37,13 +37,13 @@ public class UpdatePasswordController extends ControllerImpl<UpdatePasswordView>
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.get_identifying_code_bt) {
-            if (RegexUtils.isMobileSimple(getView().getPhoneNo())) {
+            if (PhoneUtils.isMobileEnable(getView().getPhoneNo())) {
                 sendCode(getView().getPhoneNo());
             } else {
                 ToastUtil.shortToast(getContext(), "请输入正确的手机号");
             }
         } else if (v.getId() == R.id.next_step) {
-            if (!RegexUtils.isMobileSimple(getView().getPhoneNo())) {
+            if (!PhoneUtils.isMobileEnable(getView().getPhoneNo())) {
                 ToastUtil.shortToast(getContext(), "请输入获取验证码的手机号");
             } else if (StringUtils.isEmpty(getView().getIdentifyingCode())) {
                 ToastUtil.shortToast(getContext(), "请输入验证码");

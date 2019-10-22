@@ -5,14 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.RegexUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.PhoneUtils;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
@@ -351,7 +350,7 @@ public class OrderHospitalCureActivity extends BaseControllerActivity<OrderHospi
             ToastUtil.shortToast(getContext(),"请输入电话");
             return null;
         }else {
-            if(RegexUtils.isMobileExact(relationshiper_phone_edt.getText())){
+            if(PhoneUtils.isMobileEnable(relationshiper_phone_edt.getText().toString())){
                 map.put("phoneNumber",order_phone_edt.getText().toString());
             }else {
                 ToastUtil.shortToast(getContext(),"请填写正确的电话");
@@ -363,7 +362,7 @@ public class OrderHospitalCureActivity extends BaseControllerActivity<OrderHospi
             ToastUtil.shortToast(getContext(),"请输入联系人电话");
             return null;
         }else {
-            if(RegexUtils.isMobileExact(relationshiper_phone_edt.getText())){
+            if(PhoneUtils.isMobileEnable(relationshiper_phone_edt.getText().toString())){
                 map.put("contactPhone",relationshiper_phone_edt.getText().toString().trim());
             }else {
                 ToastUtil.shortToast(getContext(),"请填写正确的联系人电话");

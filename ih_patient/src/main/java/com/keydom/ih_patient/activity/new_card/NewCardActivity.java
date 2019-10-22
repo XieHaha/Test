@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.PhoneUtils;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
@@ -262,7 +262,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
             return null;
         }
         if (contactor_phone_edt.getText().toString().trim() != null && !"".equals(contactor_phone_edt.getText().toString().trim())) {
-            if (RegexUtils.isMobileExact(contactor_phone_edt.getText().toString().trim())) {
+            if (PhoneUtils.isMobileEnable(contactor_phone_edt.getText().toString().trim())) {
                 map.put("contactPhone", contactor_phone_edt.getText().toString().trim());
             } else {
                 ToastUtil.shortToast(getContext(), "请填写正确的手机格式");
@@ -347,7 +347,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
             return null;
         }
         if (contactor_phone_edt.getText().toString().trim() != null && !"".equals(contactor_phone_edt.getText().toString().trim())) {
-            if (RegexUtils.isMobileExact(contactor_phone_edt.getText().toString().trim())) {
+            if (PhoneUtils.isMobileEnable(contactor_phone_edt.getText().toString().trim())) {
                 map.put("contactPhone", contactor_phone_edt.getText().toString().trim());
             } else {
                 ToastUtil.shortToast(getContext(), "请填写正确的手机格式");

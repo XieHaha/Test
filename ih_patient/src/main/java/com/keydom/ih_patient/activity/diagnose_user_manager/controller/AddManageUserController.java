@@ -16,6 +16,7 @@ import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.utils.PhoneUtils;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.diagnose_user_manager.AnamnesisActivity;
 import com.keydom.ih_patient.activity.diagnose_user_manager.view.AddManageUserView;
@@ -100,7 +101,7 @@ public class AddManageUserController extends ControllerImpl<AddManageUserView> i
             ToastUtils.showShort("请选择出生日期");
             return;
         }
-        if (StringUtils.isEmpty(manager.getPhone()) || manager.getPhone().length() < 11 || !RegexUtils.isMobileExact(manager.getPhone())) {
+        if (StringUtils.isEmpty(manager.getPhone()) || manager.getPhone().length() < 11 || !PhoneUtils.isMobileEnable(manager.getPhone())) {
             ToastUtils.showShort("请输入正确的11位手机号");
             return;
         }

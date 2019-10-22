@@ -17,6 +17,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.PhoneUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
@@ -53,7 +54,7 @@ public class RegisterController extends ControllerImpl<IRegisterView> implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.get_identifying_code_bt:
-                if (StringUtils.isEmpty(getView().getPhoneNum()) || getView().getPhoneNum().length() != 11) {
+                if (StringUtils.isEmpty(getView().getPhoneNum()) || !PhoneUtils.isMobileEnable(getView().getPhoneNum())) {
                     ToastUtil.shortToast(getContext(), "请填写正确的手机格式");
                 } else {
                     if (getView().getType() == 0) {
@@ -66,7 +67,7 @@ public class RegisterController extends ControllerImpl<IRegisterView> implements
 
                 break;
             case R.id.register_next_btn:
-                if (StringUtils.isEmpty(getView().getPhoneNum()) || getView().getPhoneNum().length() != 11) {
+                if (StringUtils.isEmpty(getView().getPhoneNum()) || !PhoneUtils.isMobileEnable(getView().getPhoneNum())) {
                     ToastUtil.shortToast(getContext(), "请填写正确的手机格式");
                 } else if (StringUtils.isEmpty(getView().getMsgCode())) {
                     ToastUtil.shortToast(getContext(), "请填写验证码");

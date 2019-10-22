@@ -4,13 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.PhoneUtils;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.location_manage.controller.AddLocationController;
@@ -142,7 +141,7 @@ public class AddLocationActivity extends BaseControllerActivity<AddLocationContr
             ToastUtil.shortToast(getContext(), "请选择姓名");
             return null;
         }
-        if (StringUtils.isEmpty(add_phone_edt.getText().toString()) || add_phone_edt.getText().toString().length() < 11 || !RegexUtils.isMobileExact(add_phone_edt.getText().toString())){
+        if (StringUtils.isEmpty(add_phone_edt.getText().toString()) || add_phone_edt.getText().toString().length() < 11 || !PhoneUtils.isMobileEnable(add_phone_edt.getText().toString())){
             ToastUtil.shortToast(getContext(), "请输入正确的11位手机号");
             return null;
         }else{
@@ -188,7 +187,7 @@ public class AddLocationActivity extends BaseControllerActivity<AddLocationContr
         }
 
         if (add_phone_edt.getText().toString().trim() != null && !"".equals(add_phone_edt.getText().toString().trim())) {
-            if (!RegexUtils.isMobileExact(add_phone_edt.getText().toString().trim())) {
+            if (!PhoneUtils.isMobileEnable(add_phone_edt.getText().toString().trim())) {
                 ToastUtil.shortToast(getContext(), "请填入正确的手机格式");
                 return null;
             } else
