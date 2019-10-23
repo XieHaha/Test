@@ -187,6 +187,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/order_doctor_register_ai_consulting"
             android:layout_width="@dimen/dp_128"
             android:layout_height="@dimen/dp_50"
             android:layout_alignParentRight="true"

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
+import com.keydom.ih_patient.activity.common_document.CommonDocumentActivity;
 import com.keydom.ih_patient.activity.order_doctor_register.controller.OrderDoctorRegisterController;
 import com.keydom.ih_patient.activity.order_doctor_register.view.OrderDoctorRegisterView;
 import com.keydom.ih_patient.adapter.HospitalAreaPopupWindowAdapter;
@@ -81,6 +82,12 @@ public class OrderDoctorRegisterActivity extends BaseControllerActivity<OrderDoc
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+        findViewById(R.id.order_doctor_register_ai_consulting).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonDocumentActivity.start(getContext(),"智能导诊","https://robot-lib-achieve.zuoshouyisheng.com/?app_id=5daebc4a9ea2ea355d2505d3");
             }
         });
         getController().queryHospitalAreaList();
