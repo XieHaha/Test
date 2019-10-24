@@ -1,11 +1,11 @@
 package com.keydom.ih_patient.net;
 
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_patient.bean.PayRecordBean;
 import com.keydom.ih_patient.bean.PayRecordDetailBean;
 import com.keydom.ih_patient.bean.PaymentOrderBean;
 
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -25,7 +25,7 @@ public interface PayService {
      * 获取缴费列表
      */
     @GET("pay/consultationPay/getConsultationPayList")
-    Observable<HttpResult<List<PayRecordBean>>> getConsultationPayList(@QueryMap Map<String, Object> body);
+    Observable<HttpResult<PageBean<PayRecordBean>>> getConsultationPayList(@QueryMap Map<String, Object> body);
 
     /**
      * 获取缴费详情

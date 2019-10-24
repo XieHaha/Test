@@ -15,6 +15,7 @@ import com.keydom.ih_patient.adapter.PayRecordAdapter;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.PayRecordBean;
 import com.keydom.ih_patient.constant.EventType;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -83,15 +84,20 @@ public class PaiedRecordFragment extends BaseControllerFragment<PaiedRecordContr
             ActivityUtils.startActivity(i);
         });
 
-        mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout,mState));
-        getController().getConsultationPayList(mRefreshLayout,mState);
+        mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout,mState,TypeEnum.REFRESH));
+        mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout,mState,TypeEnum.LOAD_MORE));
+        getController().getConsultationPayList(mRefreshLayout,mState,TypeEnum.REFRESH);
     }
 
     @Override
-    public void paymentListCallBack(List<PayRecordBean> list) {
-        if (mRefreshLayout.isRefreshing()){
-            mRefreshLayout.finishRefresh();
+    public void paymentListCallBack(List<PayRecordBean> list, TypeEnum typeEnum) {
+        mRefreshLayout.finishLoadMore();
+        mRefreshLayout.finishRefresh();
+        pageLoadingSuccess();
+        if (typeEnum == TypeEnum.REFRESH) {
+            mPayRecordAdapter.replaceData(list);
+        }else{
+            mPayRecordAdapter.addData(list);
         }
-        mPayRecordAdapter.setNewData(list);
     }
 }

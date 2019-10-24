@@ -4,6 +4,7 @@ import com.keydom.ih_common.base.BaseView;
 import com.keydom.ih_patient.bean.LocationInfo;
 import com.keydom.ih_patient.bean.PayRecordBean;
 import com.keydom.ih_patient.bean.entity.pharmacy.PharmacyBean;
+import com.keydom.ih_patient.constant.TypeEnum;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -15,7 +16,7 @@ public interface UnpayRecordView extends BaseView {
     /**
      * 获取记录回调
      */
-    void paymentListCallBack(List<PayRecordBean> list);
+    void paymentListCallBack(List<PayRecordBean> list, TypeEnum typeEnum);
 
     /**
      * 获取总价

@@ -38,6 +38,7 @@ import com.keydom.ih_patient.bean.entity.pharmacy.PharmacyBean;
 import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Type;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.utils.CommUtil;
 import com.keydom.ih_patient.utils.GotoActivityUtil;
 import com.orhanobut.logger.Logger;
@@ -136,7 +137,8 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         mUnPayRecordAdapter = new UnPayRecordAdapter(new ArrayList<>(), this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mUnPayRecordAdapter);
-        mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout));
+        mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout,TypeEnum.REFRESH));
+        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout,TypeEnum.LOAD_MORE));
         mUnPayRecordAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @SingleClick(1000)
             @Override
@@ -266,12 +268,12 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                 ActivityUtils.startActivity(i);
             }
         });
-        getController().getConsultationPayList(mRefreshLayout);
+        getController().getConsultationPayList(mRefreshLayout,TypeEnum.REFRESH);
     }
 
     @Override
     public void refreshData(){
-        getController().getConsultationPayList(mRefreshLayout);
+        getController().getConsultationPayList(mRefreshLayout,TypeEnum.REFRESH);
     }
 
 
@@ -288,17 +290,23 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
     }
 
     @Override
-    public void paymentListCallBack(List<PayRecordBean> list) {
+    public void paymentListCallBack(List<PayRecordBean> list, TypeEnum typeEnum) {
         if (mRefreshLayout.isRefreshing()) {
             initPayInfo();
             mCheckBox.setChecked(false);
-            mRefreshLayout.finishRefresh();
         }
         if (list.size() != 0) {
             mType = list.get(0).getType();
         }
-        mPayRecordBeanData = list;
-        mUnPayRecordAdapter.setNewData(list);
+
+        mRefreshLayout.finishLoadMore();
+        mRefreshLayout.finishRefresh();
+        pageLoadingSuccess();
+        if (typeEnum == TypeEnum.REFRESH) {
+            mUnPayRecordAdapter.replaceData(list);
+        }else{
+            mUnPayRecordAdapter.addData(list);
+        }
     }
 
     @Override
@@ -336,7 +344,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
 
     @Override
     public void paySuccess() {
-        getController().getConsultationPayList(mRefreshLayout);
+        getController().getConsultationPayList(mRefreshLayout,TypeEnum.REFRESH);
         ActivityUtils.startActivity(PaymentSuccessActivity.class);
     }
 
