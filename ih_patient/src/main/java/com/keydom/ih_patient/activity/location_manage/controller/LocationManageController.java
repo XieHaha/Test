@@ -3,6 +3,7 @@ package com.keydom.ih_patient.activity.location_manage.controller;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -16,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,14 +32,16 @@ public class LocationManageController extends ControllerImpl<LocationManageView>
      * 获取地址列表
      */
     public void initLocationList(){
-        Map<String,Object> map=new HashMap<>();
-        map.put("userId",Global.getUserId());
         showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LocationService.class).getAddressList(map), new HttpSubscriber<List<LocationInfo>>(getContext(),getDisposable(),false) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", Global.getUserId());
+        map.put("currentPage", "1");
+        map.put("pageSize", 50);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LocationService.class).getAddressList(map), new HttpSubscriber<PageBean<LocationInfo>>(getContext(),getDisposable(),false) {
             @Override
-            public void requestComplete(@Nullable List<LocationInfo> data) {
+            public void requestComplete(@Nullable PageBean<LocationInfo> data) {
                 hideLoading();
-                getView().getLocationList(data);
+                getView().getLocationList(data.getRecords());
             }
 
             @Override

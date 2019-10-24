@@ -262,14 +262,16 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
      * 获取地址列表
      */
     public void getLocationList() {
+        showLoading();
         Map<String, Object> map = new HashMap<>();
         map.put("userId", Global.getUserId());
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LocationService.class).getAddressList(map), new HttpSubscriber<List<LocationInfo>>(getContext(), getDisposable(), false) {
+        map.put("currentPage", "1");
+        map.put("pageSize", 50);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LocationService.class).getAddressList(map), new HttpSubscriber<PageBean<LocationInfo>>(getContext(), getDisposable(), false) {
             @Override
-            public void requestComplete(@Nullable List<LocationInfo> data) {
+            public void requestComplete(@Nullable PageBean<LocationInfo> data) {
                 hideLoading();
-                getView().getLocationList(data);
+                getView().getLocationList(data.getRecords());
             }
 
             @Override

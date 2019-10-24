@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -28,7 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -337,14 +337,16 @@ public class ConversationController extends ControllerImpl<ConversationView> {
      * 获取地址列表
      */
     public void getLocationList() {
+        showLoading();
         Map<String, Object> map = new HashMap<>();
         map.put("userId", Global.getUserId());
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LocationService.class).getAddressList(map), new HttpSubscriber<List<LocationInfo>>(getContext(), getDisposable(), false) {
+        map.put("currentPage", "1");
+        map.put("pageSize", 50);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LocationService.class).getAddressList(map), new HttpSubscriber<PageBean<LocationInfo>>(getContext(), getDisposable(), false) {
             @Override
-            public void requestComplete(@org.jetbrains.annotations.Nullable List<LocationInfo> data) {
+            public void requestComplete(@org.jetbrains.annotations.Nullable PageBean<LocationInfo> data) {
                 hideLoading();
-                getView().getLocationList(data);
+                getView().getLocationList(data.getRecords());
             }
 
             @Override

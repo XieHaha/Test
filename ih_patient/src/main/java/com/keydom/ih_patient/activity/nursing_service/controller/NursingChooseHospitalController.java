@@ -3,6 +3,7 @@ package com.keydom.ih_patient.activity.nursing_service.controller;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -85,10 +86,12 @@ public class NursingChooseHospitalController extends ControllerImpl<NursingChoos
     public void getDefaultServiceAddress(){
         Map<String,Object> map=new HashMap<>();
         map.put("userId",Global.getUserId());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LocationService.class).getAddressList(map), new HttpSubscriber<List<LocationInfo>>(getContext(),getDisposable(),false) {
+        map.put("currentPage", "1");
+        map.put("pageSize", 50);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LocationService.class).getAddressList(map), new HttpSubscriber<PageBean<LocationInfo>>(getContext(),getDisposable(),false) {
             @Override
-            public void requestComplete(@Nullable List<LocationInfo> data) {
-                getView().getDefaultAddressSuccess(data);
+            public void requestComplete(@Nullable PageBean<LocationInfo> data) {
+                getView().getDefaultAddressSuccess(data.getRecords());
             }
 
             @Override

@@ -27,6 +27,7 @@ import com.keydom.ih_common.activity.DiagnoseOrderDetailActivity;
 import com.keydom.ih_common.activity.HandleProposeAcitivity;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.InquiryStatus;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.config.ImConstants;
@@ -1874,11 +1875,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     public void getWaiYanLocationList() {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", Global.getUserId());
-
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LocationService.class).getAddressList(map), new HttpSubscriber<List<LocationInfo>>(ConversationActivity.this, getDisposable(), false) {
+        map.put("currentPage", "1");
+        map.put("pageSize", 50);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LocationService.class).getAddressList(map), new HttpSubscriber<PageBean<LocationInfo>>(ConversationActivity.this, getDisposable(), false) {
             @Override
-            public void requestComplete(@org.jetbrains.annotations.Nullable List<LocationInfo> data) {
-                getWaiYanLocationList(data);
+            public void requestComplete(@org.jetbrains.annotations.Nullable PageBean<LocationInfo> data) {
+                getWaiYanLocationList(data.getRecords());
             }
 
             @Override

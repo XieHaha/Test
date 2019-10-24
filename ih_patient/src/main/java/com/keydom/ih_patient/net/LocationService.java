@@ -1,9 +1,9 @@
 package com.keydom.ih_patient.net;
 
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_patient.bean.LocationInfo;
 
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -22,7 +22,7 @@ public interface LocationService {
      * 获取用户地址
      */
     @GET("user/patient/getAddressList")
-    Observable<HttpResult<List<LocationInfo>>> getAddressList(@QueryMap Map<String, Object> body);
+    Observable<HttpResult<PageBean<LocationInfo>>> getAddressList(@QueryMap Map<String, Object> body);
 
     /**
      * 添加地址
