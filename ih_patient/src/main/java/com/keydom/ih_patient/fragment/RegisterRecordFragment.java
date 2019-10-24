@@ -13,6 +13,7 @@ import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.RegistrationRecordInfo;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Type;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.fragment.controller.RegisterRecordContrller;
 import com.keydom.ih_patient.fragment.view.RegisterRecordView;
 import com.keydom.ih_patient.utils.ToastUtil;
@@ -68,9 +69,9 @@ public class RegisterRecordFragment extends BaseControllerFragment<RegisterRecor
             public void onRefresh(RefreshLayout refreshLayout) {
                 page=1;
                 if(Type.DONEREGISTRATIONRECORD.equals(type)){
-                    getController().queryRegistrationRecordList("1",page,8);
+                    getController().queryRegistrationRecordList("1", TypeEnum.REFRESH);
                 }else {
-                    getController().queryRegistrationRecordList("0",page,8);
+                    getController().queryRegistrationRecordList("0", TypeEnum.REFRESH);
                 }
             }
         });
@@ -78,9 +79,9 @@ public class RegisterRecordFragment extends BaseControllerFragment<RegisterRecor
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {
                 if(Type.DONEREGISTRATIONRECORD.equals(type)){
-                    getController().queryRegistrationRecordList("1",page,8);
+                    getController().queryRegistrationRecordList("1", TypeEnum.LOAD_MORE);
                 }else {
-                    getController().queryRegistrationRecordList("0",page,8);
+                    getController().queryRegistrationRecordList("0", TypeEnum.LOAD_MORE);
                 }
             }
         });
@@ -95,30 +96,25 @@ public class RegisterRecordFragment extends BaseControllerFragment<RegisterRecor
     }
 
     @Override
-    public void getRegistrarionRecordListSuccess(List<RegistrationRecordInfo> dataList) {
+    public void getRegistrarionRecordListSuccess(List<RegistrationRecordInfo> dataList , TypeEnum typeEnum) {
+        containt_refresh.finishLoadMore();
+        containt_refresh.finishRefresh();
+        pageLoadingSuccess();
         if(dataList.size()!=0){
-            if(page==1){
+
+            if (typeEnum == TypeEnum.REFRESH) {
                 this.dataList.clear();
-                this.dataList.addAll(dataList);
-            }else {
-                this.dataList.addAll(dataList);
             }
-            page++;
+            this.dataList.addAll(dataList);
+            registerRecordAdapter.notifyDataSetChanged();
         }
-        registerRecordAdapter.notifyDataSetChanged();
-        if(containt_refresh.isLoading())
-            containt_refresh.finishLoadMore();
-        if(containt_refresh.isRefreshing())
-            containt_refresh.finishRefresh();
     }
 
     @Override
     public void getRegistrarionRecordListFailed(String errMsg) {
-        if(containt_refresh.isLoading())
-            containt_refresh.finishLoadMore();
-        if(containt_refresh.isRefreshing())
-            containt_refresh.finishRefresh();
-        ToastUtil.shortToast(getContext(),"获取订单列表失败："+errMsg);
+        containt_refresh.finishLoadMore();
+        containt_refresh.finishRefresh();
+        ToastUtil.shortToast(getContext(),errMsg);
     }
 
 

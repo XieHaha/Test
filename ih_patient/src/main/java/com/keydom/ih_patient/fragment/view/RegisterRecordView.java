@@ -2,6 +2,7 @@ package com.keydom.ih_patient.fragment.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.ih_patient.bean.RegistrationRecordInfo;
+import com.keydom.ih_patient.constant.TypeEnum;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface RegisterRecordView extends BaseView {
     /**
      * 获取记录成功
      */
-    void getRegistrarionRecordListSuccess(List<RegistrationRecordInfo> dataList);
+    void getRegistrarionRecordListSuccess(List<RegistrationRecordInfo> dataList, TypeEnum typeEnum);
 
     /**
      * 获取记录失败

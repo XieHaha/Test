@@ -1,5 +1,6 @@
 package com.keydom.ih_patient.net;
 
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_patient.bean.DateInfo;
 import com.keydom.ih_patient.bean.DepartmentSchedulingBean;
@@ -167,7 +168,7 @@ public interface OrderService {
      * 挂号订单列表
      */
     @GET("reservation/registrationRecord/list")
-    Observable<HttpResult<List<RegistrationRecordInfo>>> list(@QueryMap Map<String, Object> body);
+    Observable<HttpResult<PageBean<RegistrationRecordInfo>>> list(@QueryMap Map<String, Object> body);
 
     /**
      * 生成挂号订单号
