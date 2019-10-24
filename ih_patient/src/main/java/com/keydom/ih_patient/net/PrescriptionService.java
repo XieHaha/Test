@@ -1,5 +1,6 @@
 package com.keydom.ih_patient.net;
 
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_patient.bean.PrescriptionDetailBean;
@@ -30,7 +31,7 @@ public interface PrescriptionService {
      * //获取患者处方订单列表
      */
     @GET("user/prescription/listPatient")
-    Observable<HttpResult<List<PrescriptionTitleBean>>> prescriptionListPatient(@QueryMap Map<String, Object> map);
+    Observable<HttpResult<PageBean<PrescriptionTitleBean>>> prescriptionListPatient(@QueryMap Map<String, Object> map);
 
     /**
      * 获取患者处方详情

@@ -18,6 +18,8 @@ import com.keydom.ih_patient.activity.prescription_check.view.PrescriptionView;
 import com.keydom.ih_patient.adapter.MedicalRecordPopupWindowAdapter;
 import com.keydom.ih_patient.adapter.PrescriptionListAdapter;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
+import com.keydom.ih_patient.constant.TypeEnum;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -43,6 +45,7 @@ public class PrescriptionListActivity extends BaseControllerActivity<Prescriptio
     private List<MedicalCardInfo> cardList = new ArrayList<>();
     MedicalRecordPopupWindowAdapter exaReportCardPopupWindowAdapter = new MedicalRecordPopupWindowAdapter(cardList);
     private RecyclerView mRecyclerView;
+    private RefreshLayout refreshLayout;
     private PrescriptionListAdapter mAdapter;
 
     @Override
@@ -60,6 +63,10 @@ public class PrescriptionListActivity extends BaseControllerActivity<Prescriptio
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new PrescriptionListAdapter(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
+
+        refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(getController());
+        refreshLayout.setOnLoadMoreListener(getController());
         getController().fillData();
     }
 
@@ -71,7 +78,7 @@ public class PrescriptionListActivity extends BaseControllerActivity<Prescriptio
         exaReportCardPopupWindowAdapter.setOnItemClickListener((adapter, view1, position) -> {
             MedicalCardInfo cardInfo = (MedicalCardInfo) adapter.getData().get(position);
             choosePatientTv.setText(cardInfo.getName());
-            getController().getPrescriptionList(cardInfo.getEleCardNumber());
+            getController().getPrescriptionList(cardInfo.getEleCardNumber(),TypeEnum.REFRESH);
             choosePatientTv.setText(cardInfo.getName());
             cardpopupWindow.dismiss();
         });
@@ -86,13 +93,22 @@ public class PrescriptionListActivity extends BaseControllerActivity<Prescriptio
     public void fillDataList(List<MedicalCardInfo> dataList) {
         exaReportCardPopupWindowAdapter.setNewData(dataList);
         if (dataList != null && dataList.size() > 0) {
-            getController().getPrescriptionList(dataList.get(0).getEleCardNumber());
+            getController().getPrescriptionList(dataList.get(0).getEleCardNumber(),TypeEnum.REFRESH);
             choosePatientTv.setText(dataList.get(0).getName());
         }
     }
 
     @Override
-    public void listDataCallBack(List<MultiItemEntity> data) {
-        mAdapter.setNewData(data);
+    public void listDataCallBack(List<MultiItemEntity> data, TypeEnum typeEnum) {
+        refreshLayout.finishLoadMore();
+        refreshLayout.finishRefresh();
+        pageLoadingSuccess();
+        if (typeEnum == TypeEnum.REFRESH) {
+            mAdapter.replaceData(data);
+        }else{
+            mAdapter.addData(data);
+        }
+        mAdapter.notifyDataSetChanged();
+
     }
 }

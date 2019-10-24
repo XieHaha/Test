@@ -3,6 +3,7 @@ package com.keydom.ih_patient.activity.prescription_check.view;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
+import com.keydom.ih_patient.constant.TypeEnum;
 
 import java.util.List;
 
@@ -24,5 +25,5 @@ public interface PrescriptionView extends BaseView {
     /**
      * 获取处方列表
      */
-    void listDataCallBack(List<MultiItemEntity> data);
+    void listDataCallBack(List<MultiItemEntity> data, TypeEnum typeEnum);
 }

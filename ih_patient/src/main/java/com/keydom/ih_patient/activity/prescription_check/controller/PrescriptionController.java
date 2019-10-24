@@ -5,6 +5,7 @@ import android.view.View;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -14,9 +15,14 @@ import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.prescription_check.view.PrescriptionView;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
 import com.keydom.ih_patient.bean.PrescriptionTitleBean;
+import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.Global;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.net.CardService;
 import com.keydom.ih_patient.net.PrescriptionService;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -30,7 +36,10 @@ import java.util.Map;
  * created date: 2019/1/17 on 20:03
  * des:处方控制器
  */
-public class PrescriptionController extends ControllerImpl<PrescriptionView> implements View.OnClickListener{
+public class PrescriptionController extends ControllerImpl<PrescriptionView> implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener {
+
+    private String mCardNumber;
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -67,16 +76,22 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
     /**
      * 获取记录列表
      */
-    public void getPrescriptionList(String cardNumber){
+    public void getPrescriptionList(String cardNumber,final TypeEnum typeEnum){
+        mCardNumber = cardNumber;
+        if (typeEnum == TypeEnum.REFRESH) {
+            setCurrentPage(1);
+        }
         Map<String,Object> map = new HashMap<>();
         map.put("hospitalId", App.hospitalId);
         map.put("cardNumber", cardNumber);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).prescriptionListPatient(map), new HttpSubscriber<List<PrescriptionTitleBean>>(getContext(),getDisposable(),true,true) {
+        map.put("currentPage", getCurrentPage());
+        map.put("pageSize", Const.PAGE_SIZE);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).prescriptionListPatient(map), new HttpSubscriber<PageBean<PrescriptionTitleBean>>(getContext(),getDisposable(),true,true) {
             @Override
-            public void requestComplete(@Nullable List<PrescriptionTitleBean> data) {
+            public void requestComplete(@Nullable PageBean<PrescriptionTitleBean> data) {
                 hideLoading();
-                List<MultiItemEntity> entities = translateList(data);
-                getView().listDataCallBack(entities);
+                List<MultiItemEntity> entities = translateList(data.getRecords());
+                getView().listDataCallBack(entities,typeEnum);
             }
 
             @Override
@@ -111,5 +126,21 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
             entities.add(data.get(i));
         }
         return entities;
+    }
+
+
+
+
+    @Override
+    public void onLoadMore(RefreshLayout refreshLayout) {
+        currentPagePlus();
+        getPrescriptionList(mCardNumber, TypeEnum.LOAD_MORE);
+
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshLayout) {
+        setCurrentPage(1);
+        getPrescriptionList(mCardNumber,TypeEnum.REFRESH);
     }
 }
