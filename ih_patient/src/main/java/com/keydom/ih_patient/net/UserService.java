@@ -136,7 +136,7 @@ public interface UserService {
      * 获取病历记录列表
      */
     @GET("user/online/listMedicalRecord")
-    Observable<HttpResult<List<MedicalRecordBean>>> getIndCountryAlLList(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<PageBean<MedicalRecordBean>>> getIndCountryAlLList(@QueryMap Map<String,Object> map);
 
     /**
      * 获取病历详情

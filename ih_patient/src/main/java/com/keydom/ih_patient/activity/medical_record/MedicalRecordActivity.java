@@ -20,6 +20,8 @@ import com.keydom.ih_patient.adapter.MedicalRecordAdapter;
 import com.keydom.ih_patient.adapter.MedicalRecordPopupWindowAdapter;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
 import com.keydom.ih_patient.bean.MedicalRecordBean;
+import com.keydom.ih_patient.constant.TypeEnum;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -39,6 +41,7 @@ public class MedicalRecordActivity  extends BaseControllerActivity<MedicalRecord
      */
     private List<MedicalCardInfo> cardList=new ArrayList<>();
     private RecyclerView mRecyclerView;
+    private RefreshLayout refreshLayout;
 
     MedicalRecordPopupWindowAdapter exaReportCardPopupWindowAdapter = new MedicalRecordPopupWindowAdapter(cardList);
     private MedicalRecordAdapter mAdapter;
@@ -63,6 +66,10 @@ public class MedicalRecordActivity  extends BaseControllerActivity<MedicalRecord
             i.putExtra(MedicalRecordDetailActivity.MEDICAL_ID,bean.getMedicalId());
             ActivityUtils.startActivity(i);
         });
+
+        refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(getController());
+        refreshLayout.setOnLoadMoreListener(getController());
         getController().fillData();
     }
 
@@ -74,7 +81,7 @@ public class MedicalRecordActivity  extends BaseControllerActivity<MedicalRecord
         exaReportCardPopupWindowAdapter.setOnItemClickListener((adapter, view1, position) -> {
             MedicalCardInfo cardInfo = (MedicalCardInfo) adapter.getData().get(position);
             choosePatientTv.setText(cardInfo.getName());
-            getController().getIndAllData(cardInfo.getEleCardNumber());
+            getController().getIndAllData(cardInfo.getEleCardNumber(), TypeEnum.REFRESH);
             cardpopupWindow.dismiss();
         });
         cardpopupWindow = new PopupWindow(getContext(), null, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -88,13 +95,21 @@ public class MedicalRecordActivity  extends BaseControllerActivity<MedicalRecord
     public void fillDataList(List<MedicalCardInfo> dataList) {
         exaReportCardPopupWindowAdapter.setNewData(dataList);
         if (dataList!=null && dataList.size()>0){
-            getController().getIndAllData(dataList.get(0).getEleCardNumber());
+            getController(). getIndAllData(dataList.get(0).getEleCardNumber(), TypeEnum.REFRESH);
             choosePatientTv.setText(dataList.get(0).getName());
         }
     }
 
     @Override
-    public void getRecordList(List<MedicalRecordBean> list) {
-        mAdapter.setNewData(list);
+    public void getRecordList(List<MedicalRecordBean> list, TypeEnum typeEnum) {
+
+        pageLoadingSuccess();
+        if (typeEnum == TypeEnum.REFRESH) {
+            mAdapter.replaceData(list);
+        }else{
+            mAdapter.addData(list);
+        }
+        refreshLayout.finishLoadMore();
+        refreshLayout.finishRefresh();
     }
 }

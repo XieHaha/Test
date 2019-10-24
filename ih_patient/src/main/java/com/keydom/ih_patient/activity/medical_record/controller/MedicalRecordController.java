@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -13,9 +14,14 @@ import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.medical_record.view.MedicalRecordView;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
 import com.keydom.ih_patient.bean.MedicalRecordBean;
+import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.Global;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.net.CardService;
 import com.keydom.ih_patient.net.UserService;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -27,7 +33,10 @@ import java.util.List;
  * created date: 2019/1/4 on 13:04
  * des:处方记录控制器
  */
-public class MedicalRecordController extends ControllerImpl<MedicalRecordView> implements View.OnClickListener{
+public class MedicalRecordController extends ControllerImpl<MedicalRecordView> implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener {
+
+    private String mCardNumber;
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -65,15 +74,21 @@ public class MedicalRecordController extends ControllerImpl<MedicalRecordView> i
      * 获取电子处方记录
      */
     //type 0诊疗 1咨询 diagnosis 诊断
-    public void getIndAllData(String cardNumber){
+    public void getIndAllData(String cardNumber,final TypeEnum typeEnum){
         showLoading();
+        mCardNumber =cardNumber;
+        if (typeEnum == TypeEnum.REFRESH) {
+            setCurrentPage(1);
+        }
         HashMap<String, Object> map = new HashMap<>();
         map.put("cardNumber",cardNumber);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getIndCountryAlLList(map), new HttpSubscriber<List<MedicalRecordBean>>(getContext(),getDisposable(),false) {
+        map.put("currentPage", getCurrentPage());
+        map.put("pageSize", Const.PAGE_SIZE);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getIndCountryAlLList(map), new HttpSubscriber<PageBean<MedicalRecordBean>>(getContext(),getDisposable(),false) {
             @Override
-            public void requestComplete(@Nullable List<MedicalRecordBean> data) {
+            public void requestComplete(@Nullable PageBean<MedicalRecordBean> data) {
                 hideLoading();
-                getView().getRecordList(data);
+                getView().getRecordList(data.getRecords(),typeEnum);
             }
 
             @Override
@@ -83,5 +98,18 @@ public class MedicalRecordController extends ControllerImpl<MedicalRecordView> i
                 return super.requestError(exception, code, msg);
             }
         });
+    }
+
+    @Override
+    public void onLoadMore(RefreshLayout refreshLayout) {
+        currentPagePlus();
+        getIndAllData(mCardNumber,TypeEnum.LOAD_MORE);
+
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshLayout) {
+        setCurrentPage(1);
+        getIndAllData(mCardNumber,TypeEnum.REFRESH);
     }
 }

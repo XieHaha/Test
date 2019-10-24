@@ -3,6 +3,7 @@ package com.keydom.ih_patient.activity.medical_record.view;
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
 import com.keydom.ih_patient.bean.MedicalRecordBean;
+import com.keydom.ih_patient.constant.TypeEnum;
 
 import java.util.List;
 
@@ -24,5 +25,5 @@ public interface MedicalRecordView extends BaseView {
     /**
      * 获取电子处方记录回调
      */
-    void getRecordList(List<MedicalRecordBean> list);
+    void getRecordList(List<MedicalRecordBean> list , TypeEnum typeEnum);
 }

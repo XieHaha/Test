@@ -64,7 +64,6 @@ public class MyDoctorOrNurseActivity extends BaseControllerActivity<MyDoctorOrNu
             ToastUtils.showShort("未选择TYPE");
         }
         mRecyclerView = findViewById(R.id.recyclerView);
-        refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new MyDoctorOrNurseAdapter(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
@@ -81,7 +80,7 @@ public class MyDoctorOrNurseActivity extends BaseControllerActivity<MyDoctorOrNu
                 }
             });
         });
-
+        refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
         refreshLayout.setOnRefreshListener(getController());
         refreshLayout.setOnLoadMoreListener(getController());
 
