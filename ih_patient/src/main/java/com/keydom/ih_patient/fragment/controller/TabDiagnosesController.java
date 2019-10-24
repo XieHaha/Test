@@ -3,6 +3,7 @@ package com.keydom.ih_patient.fragment.controller;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -16,7 +17,7 @@ import com.keydom.ih_patient.bean.BannerBean;
 import com.keydom.ih_patient.bean.DiagnoseIndexBean;
 import com.keydom.ih_patient.bean.DiagnosesAndNurDepart;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
-import com.keydom.ih_patient.bean.RecommendPage;
+import com.keydom.ih_patient.bean.RecommendDocAndNurBean;
 import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.TypeEnum;
@@ -123,9 +124,9 @@ public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> imp
      * 获取护士数据
      */
     public void getRecommendNurse(Map<String, Object> map, TypeEnum type) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getListHomeRecommendDoctor(map), new HttpSubscriber<RecommendPage>(getContext(),getDisposable(),false,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getListHomeRecommendDoctor(map), new HttpSubscriber<PageBean<RecommendDocAndNurBean>>(getContext(),getDisposable(),false,false) {
             @Override
-            public void requestComplete(@Nullable RecommendPage data) {
+            public void requestComplete(@Nullable PageBean<RecommendDocAndNurBean> data) {
                 getView().getRecommendSuccess(data.getRecords(),type);
             }
         });

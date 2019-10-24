@@ -30,6 +30,7 @@ public class DoctorOrNurseBean{
     private String content;
     private long time;
 
+
     public int getContentNum() {
         return contentNum;
     }

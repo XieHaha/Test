@@ -2,6 +2,7 @@ package com.keydom.ih_patient.activity.my_doctor_or_nurse.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.ih_patient.bean.DoctorOrNurseBean;
+import com.keydom.ih_patient.constant.TypeEnum;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface MyDoctorOrNurseView extends BaseView {
     /**
      * 获取我的关注列表
      */
-    void myFollowsCallBack(List<DoctorOrNurseBean> list);
+    void myFollowsCallBack(List<DoctorOrNurseBean> list , TypeEnum typeEnum);
 
     /**
      * 返回我的关注

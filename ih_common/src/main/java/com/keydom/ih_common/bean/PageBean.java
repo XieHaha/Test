@@ -1,10 +1,11 @@
-package com.keydom.ih_patient.bean;
+package com.keydom.ih_common.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class PageBean implements Serializable {
+public class PageBean <T> implements Serializable {
 
 
     private static final long serialVersionUID = -6675238008855798308L;
@@ -16,6 +17,17 @@ public class PageBean implements Serializable {
     private int current;
     @JSONField(name ="pages")
     private String pages;
+
+    @JSONField(name ="records")
+    private List<T> records;
+
+    public List<T> getRecords() {
+        return records;
+    }
+
+    public void setRecords(List<T> records) {
+        this.records = records;
+    }
 
     public String getTotal() {
         return total;

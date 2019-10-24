@@ -2,6 +2,7 @@ package com.keydom.ih_patient.activity.my_doctor_or_nurse.controller;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
@@ -10,8 +11,13 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.activity.my_doctor_or_nurse.view.MyDoctorOrNurseView;
 import com.keydom.ih_patient.bean.DoctorOrNurseBean;
+import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.Global;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.net.UserService;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -24,27 +30,40 @@ import java.util.Map;
  * created date: 2019/1/2 on 14:25
  * des:我的关注医生控制器
  */
-public class MyDoctorOrNurseController extends ControllerImpl<MyDoctorOrNurseView> {
+public class MyDoctorOrNurseController extends ControllerImpl<MyDoctorOrNurseView> implements OnRefreshListener, OnLoadMoreListener {
+
+    private int requestType;
+
     /**
      * 获取我的关注列表
      */
-    public void getMyFollowList(int type) {
+    public void getMyFollowList(int type,final TypeEnum typeEnum) {
+        requestType = type;
+        if (typeEnum == TypeEnum.REFRESH) {
+            setCurrentPage(1);
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("type", type);
         map.put("userId", Global.getUserId());
         map.put("hospitalId", App.hospitalId);
+        map.put("currentPage", getCurrentPage());
+        map.put("pageSize", Const.PAGE_SIZE);
         showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getMyFollowList(map), new HttpSubscriber<List<DoctorOrNurseBean>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getMyFollowList(map), new HttpSubscriber<PageBean<DoctorOrNurseBean>>(getContext(), getDisposable(), false) {
             @Override
-            public void requestComplete(@Nullable List<DoctorOrNurseBean> data) {
+            public void requestComplete(@Nullable PageBean<DoctorOrNurseBean> data) {
                 hideLoading();
-                if (data != null && data.size()!=0) {
-                    for (int i = 0; i < data.size(); i++) {
-                        data.get(i).setType(type);
+                if(null != data){
+                    List<DoctorOrNurseBean> list = data.getRecords();
+                    if (list != null && list.size()!=0) {
+                        for (int i = 0; i < list.size(); i++) {
+                            list.get(i).setType(type);
+                        }
+                        getView().myFollowsCallBack(list,typeEnum);
+                        getChatList();
                     }
-                    getView().myFollowsCallBack(data);
-                    getChatList();
                 }
+
             }
 
             @Override
@@ -76,5 +95,19 @@ public class MyDoctorOrNurseController extends ControllerImpl<MyDoctorOrNurseVie
             }
             getView().mateFollows(data);
         });
+    }
+
+
+    @Override
+    public void onLoadMore(RefreshLayout refreshLayout) {
+        currentPagePlus();
+        getMyFollowList(requestType,TypeEnum.LOAD_MORE);
+
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshLayout) {
+        setCurrentPage(1);
+        getMyFollowList(requestType,TypeEnum.REFRESH);
     }
 }

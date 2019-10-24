@@ -12,6 +12,8 @@ import com.keydom.ih_patient.activity.my_doctor_or_nurse.controller.MyDoctorOrNu
 import com.keydom.ih_patient.activity.my_doctor_or_nurse.view.MyDoctorOrNurseView;
 import com.keydom.ih_patient.adapter.MyDoctorOrNurseAdapter;
 import com.keydom.ih_patient.bean.DoctorOrNurseBean;
+import com.keydom.ih_patient.constant.TypeEnum;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -28,6 +30,7 @@ public class MyDoctorOrNurseActivity extends BaseControllerActivity<MyDoctorOrNu
     public static final int DOCTOR = 1;
     public static final int NURSE = 2;
 
+    private RefreshLayout refreshLayout;
     private RecyclerView mRecyclerView;
     private MyDoctorOrNurseAdapter mAdapter;
     /**
@@ -37,7 +40,7 @@ public class MyDoctorOrNurseActivity extends BaseControllerActivity<MyDoctorOrNu
     /**
      * 关注列表
      */
-    private List<DoctorOrNurseBean> followsList;
+    private List<DoctorOrNurseBean> followsList = new ArrayList<>();
     /**
      * 请求type
      */
@@ -61,10 +64,11 @@ public class MyDoctorOrNurseActivity extends BaseControllerActivity<MyDoctorOrNu
             ToastUtils.showShort("未选择TYPE");
         }
         mRecyclerView = findViewById(R.id.recyclerView);
+        refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new MyDoctorOrNurseAdapter(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
-        getController().getMyFollowList(requestType);
+        getController().getMyFollowList(requestType, TypeEnum.REFRESH);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             DoctorOrNurseBean bean = (DoctorOrNurseBean) adapter.getData().get(position);
             ImClient.getUserInfoProvider().getUserInfoAsync(bean.getImNumber(), (success, result, code) -> {
@@ -78,11 +82,21 @@ public class MyDoctorOrNurseActivity extends BaseControllerActivity<MyDoctorOrNu
             });
         });
 
+        refreshLayout.setOnRefreshListener(getController());
+        refreshLayout.setOnLoadMoreListener(getController());
+
     }
 
     @Override
-    public void myFollowsCallBack(List<DoctorOrNurseBean> list) {
-        followsList = list;
+    public void myFollowsCallBack(List<DoctorOrNurseBean> list,TypeEnum typeEnum) {
+        pageLoadingSuccess();
+        if (typeEnum == TypeEnum.REFRESH) {
+            this.followsList.clear();
+        }
+        this.followsList.addAll(list);
+        mAdapter.notifyDataSetChanged();
+        refreshLayout.finishLoadMore();
+        refreshLayout.finishRefresh();
     }
 
     @Override

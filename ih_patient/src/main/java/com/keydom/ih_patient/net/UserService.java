@@ -1,6 +1,7 @@
 package com.keydom.ih_patient.net;
 
 import com.alibaba.fastjson.JSONObject;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.bean.SearchResultBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_patient.bean.BannerBean;
@@ -22,7 +23,7 @@ import com.keydom.ih_patient.bean.ManagerUserBean;
 import com.keydom.ih_patient.bean.MedicalRecordBean;
 import com.keydom.ih_patient.bean.PackageData;
 import com.keydom.ih_patient.bean.PayOrderBean;
-import com.keydom.ih_patient.bean.RecommendPage;
+import com.keydom.ih_patient.bean.RecommendDocAndNurBean;
 import com.keydom.ih_patient.bean.UserInfo;
 
 import java.util.List;
@@ -147,7 +148,7 @@ public interface UserService {
      *     //获取医生/护士列表
      */
     @GET("user/registerUserDoctor/getMyDoctor")
-    Observable<HttpResult<List<DoctorOrNurseBean>>> getMyFollowList(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<PageBean<DoctorOrNurseBean>>> getMyFollowList(@QueryMap Map<String,Object> map);
 
     /**
      *     //获取医生/护士主页  doctorCode  type
@@ -271,7 +272,7 @@ public interface UserService {
      *     //问诊咨询搜索医生或者护士
      */
     @GET("user/hospitalDept/listHomeRecommendDoctor")
-    Observable<HttpResult<RecommendPage>> getListHomeRecommendDoctor(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<PageBean<RecommendDocAndNurBean>>> getListHomeRecommendDoctor(@QueryMap Map<String,Object> map);
 
     /**
      *     //获取手势密码

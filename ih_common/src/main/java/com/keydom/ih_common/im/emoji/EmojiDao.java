@@ -75,8 +75,8 @@ public class EmojiDao {
     public static String CopySqliteFileFromRawToDatabases(String SqliteFileName) throws IOException {
         // 第一次运行应用程序时，加载数据库到data/data/当前包的名称/database/<db_name>
         //复制的话这里需要换成自己项目的包名*
-        File dir = new File("data/data/" + "com.keydom.ih_doctor" + "/databases");
-//        File dir = new File("data/data/" + "com.keydom.ih_patient" + "/databases");
+//        File dir = new File("data/data/" + "com.keydom.ih_doctor" + "/databases");
+        File dir = new File("data/data/" + "com.keydom.ih_patient" + "/databases");
         if (!dir.exists() || !dir.isDirectory()) {
             dir.mkdir();
         }
