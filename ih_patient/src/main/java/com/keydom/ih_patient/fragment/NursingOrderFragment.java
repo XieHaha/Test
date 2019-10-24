@@ -26,6 +26,7 @@ import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Type;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.fragment.controller.NursingOrderFragmentController;
 import com.keydom.ih_patient.fragment.view.NursingOrderItemView;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
@@ -95,8 +96,9 @@ public class NursingOrderFragment extends BaseControllerFragment<NursingOrderFra
         mRecyclerView.setAdapter(mAdapter);
         assert getArguments() != null;
         mStatus = getArguments().getInt(STATUS);
-        switchState(mStatus);
-        mRefreshLayout.setOnRefreshListener(refreshLayout -> switchState(mStatus));
+
+        mRefreshLayout.setOnRefreshListener(refreshLayout -> switchState(mStatus,TypeEnum.REFRESH));
+        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> switchState(mStatus,TypeEnum.LOAD_MORE));
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @SingleClick(1000)
             @Override
@@ -140,7 +142,7 @@ public class NursingOrderFragment extends BaseControllerFragment<NursingOrderFra
                     break;
             }
         }});
-
+        switchState(mStatus,TypeEnum.REFRESH);
     }
 
     /**
@@ -157,35 +159,41 @@ public class NursingOrderFragment extends BaseControllerFragment<NursingOrderFra
      * 根据状态更新列表
      * @param state
      */
-    private void switchState(int state) {
-        getController().getNursingListData(state);
+    private void switchState(int state, TypeEnum typeEnum) {
+        getController().getNursingListData(state,typeEnum);
     }
 
     @Override
-    public void getDataSuccess(List<NursingOrderBean> data) {
-        if (mRefreshLayout.isRefreshing()) {
-            mRefreshLayout.finishRefresh();
-        }
+    public void getDataSuccess(List<NursingOrderBean> data, TypeEnum typeEnum) {
+        mRefreshLayout.finishLoadMore();
+        mRefreshLayout.finishRefresh();
         mAdapter.removeAllFooterView();
-        mAdapter.setNewData(data);
         if (data!=null && data.size()!=0){
             ImageView footer = new ImageView(getActivity());
             footer.setImageResource(R.mipmap.colorful_line);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             footer.setLayoutParams(params);
             mAdapter.addFooterView(footer);
+
+
+            pageLoadingSuccess();
+            if (typeEnum == TypeEnum.REFRESH) {
+                mAdapter.replaceData(data);
+            }else{
+                mAdapter.addData(data);
+            }
         }
     }
 
     @Override
     public void paySuccess() {
-        switchState(mStatus);
+        switchState(mStatus,TypeEnum.REFRESH);
     }
 
     @Subscribe
     public void orderPaySuccess(Event event) {
         if (event.getType() == EventType.NURSING_PAY_SUCCESS || event.getType() == EventType.CREATE_NURSING_SUCCESS  || event.getType() == EventType.CHANGE_NURSING_SUCCESS || event.getType() == EventType.Evaluted_success) {
-            switchState(mStatus);
+            switchState(mStatus,TypeEnum.REFRESH);
         }
     }
 
@@ -232,7 +240,7 @@ public class NursingOrderFragment extends BaseControllerFragment<NursingOrderFra
     @Subscribe
     public void chargeBackSuccess(Event event) {
         if (event.getType() == EventType.CHARGEBACKSUCCESS ) {
-            switchState(mStatus);
+            switchState(mStatus,TypeEnum.REFRESH);
         }
     }
 

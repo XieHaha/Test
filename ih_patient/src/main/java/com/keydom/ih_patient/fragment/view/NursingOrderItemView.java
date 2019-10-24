@@ -3,6 +3,7 @@ package com.keydom.ih_patient.fragment.view;
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.ih_patient.bean.NursingOrderBean;
 import com.keydom.ih_patient.bean.NursingOrderDetailBean;
+import com.keydom.ih_patient.constant.TypeEnum;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface NursingOrderItemView extends BaseView {
     /**
      * 获取数据成功
      */
-    void getDataSuccess(List<NursingOrderBean> data);
+    void getDataSuccess(List<NursingOrderBean> data, TypeEnum typeEnum);
 
     /**
      * 支付成功

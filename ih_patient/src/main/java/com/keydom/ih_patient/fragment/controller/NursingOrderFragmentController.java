@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -12,7 +13,9 @@ import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.activity.nursing_service.NursingOrderFillInActivity;
 import com.keydom.ih_patient.bean.NursingOrderBean;
 import com.keydom.ih_patient.bean.NursingOrderDetailBean;
+import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.Global;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.fragment.view.NursingOrderItemView;
 import com.keydom.ih_patient.net.NursingOrderService;
 import com.keydom.ih_patient.utils.ToastUtil;
@@ -24,7 +27,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,13 +39,22 @@ public class NursingOrderFragmentController extends ControllerImpl<NursingOrderI
     /**
      * 获取护理订单列表
      */
-    public void getNursingListData(int state) {
+    public void getNursingListData(int state, final TypeEnum typeEnum) {
         showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingOrderService.class).getNursingOrderData(Global.getUserId(), state, App.hospitalId), new HttpSubscriber<List<NursingOrderBean>>(getContext(), getDisposable(), false) {
+        if (typeEnum == TypeEnum.REFRESH) {
+            setCurrentPage(1);
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("patientId", Global.getUserId());
+        map.put("state", state);
+        map.put("hospitalId", App.hospitalId);
+        map.put("currentPage", getCurrentPage());
+        map.put("pageSize", Const.PAGE_SIZE);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingOrderService.class).getNursingOrderData(map), new HttpSubscriber<PageBean<NursingOrderBean>>(getContext(), getDisposable(), false) {
             @Override
-            public void requestComplete(@Nullable List<NursingOrderBean> data) {
+            public void requestComplete(@Nullable PageBean<NursingOrderBean> data) {
                 hideLoading();
-                getView().getDataSuccess(data);
+                getView().getDataSuccess(data.getRecords(),typeEnum);
             }
 
             @Override

@@ -1,11 +1,12 @@
 package com.keydom.ih_patient.net;
 
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_patient.bean.NursingOrderBean;
 import com.keydom.ih_patient.bean.NursingOrderChargeBackBean;
 import com.keydom.ih_patient.bean.NursingOrderDetailBean;
 
-import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -13,6 +14,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * created date: 2018/12/19 on 10:33
@@ -24,7 +26,7 @@ public interface NursingOrderService {
      * 获取护理订单列表
      */
     @GET("nursing/nursingServiceOrder/getPatientOrderByPatientAndState")
-    Observable<HttpResult<List<NursingOrderBean>>> getNursingOrderData(@Query("patientId") long userId, @Query("state") int state,@Query("hospitalId") long hospitalId);
+    Observable<HttpResult<PageBean<NursingOrderBean>>> getNursingOrderData(@QueryMap Map<String, Object> body);
 
     /**
      * 获取护理详情
