@@ -29,6 +29,9 @@ public class RegisterRecordContrller extends ControllerImpl<RegisterRecordView> 
      * 获取挂号列表
      */
     public void queryRegistrationRecordList(String state,final TypeEnum typeEnum){
+        if (typeEnum == TypeEnum.REFRESH) {
+            setCurrentPage(1);
+        }
         Map<String,Object> map=new HashMap<>();
         map.put("userId",Global.getUserId());
         map.put("hospitalId", App.hospitalId);

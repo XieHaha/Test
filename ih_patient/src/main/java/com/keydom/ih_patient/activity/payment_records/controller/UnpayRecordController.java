@@ -51,6 +51,9 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
      * 获取未缴费记录
      */
     public void getConsultationPayList(SmartRefreshLayout refreshLayout, final TypeEnum typeEnum) {
+        if (typeEnum == TypeEnum.REFRESH) {
+            setCurrentPage(1);
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("hospitalId", App.hospitalId);
         map.put("registerUserId", Global.getUserId());

@@ -30,6 +30,9 @@ public class PaiedRecordController extends ControllerImpl<PaiedRecordView> {
      * 获取缴费记录
      */
     public void getConsultationPayList(SmartRefreshLayout refreshLayout,int state, final TypeEnum typeEnum) {
+        if (typeEnum == TypeEnum.REFRESH) {
+            setCurrentPage(1);
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("hospitalId", App.hospitalId);
         map.put("registerUserId", Global.getUserId());
