@@ -76,13 +76,13 @@ public interface UserService {
      * 获取检验报告列表
      */
     @GET("user/checkoutRecord/getCheckoutRecordPage")
-    Observable<HttpResult<List<InspectionRecordInfo>>> getCheckoutRecordPage(@Query("partientNumber") String patientNumber);
+    Observable<HttpResult<PageBean<InspectionRecordInfo>>> getCheckoutRecordPage(@QueryMap Map<String,Object> map);
 
     /**
      * 获取检查报告列表
      */
     @GET("user/inspectRecord/getInspectRecordPage")
-    Observable<HttpResult<List<BodyCheckRecordInfo>>> getInspectRecordPage(@Query("partientNumber") String patientNumber);
+    Observable<HttpResult<List<BodyCheckRecordInfo>>> getInspectRecordPage(@QueryMap Map<String,Object> map);
 
     /**
      * 获取检验报告详情

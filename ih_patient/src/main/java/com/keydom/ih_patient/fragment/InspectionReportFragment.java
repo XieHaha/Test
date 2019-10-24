@@ -13,12 +13,14 @@ import com.keydom.ih_patient.activity.inspection_report.InspectionReportActivity
 import com.keydom.ih_patient.adapter.InspectionReportAdapter;
 import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.constant.Type;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.fragment.controller.InspectionReportFmController;
 import com.keydom.ih_patient.fragment.view.InspectionReportFmView;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.jetbrains.annotations.NotNull;
@@ -52,42 +54,55 @@ public class InspectionReportFragment extends BaseControllerFragment<InspectionR
         containt_rv=view.findViewById(R.id.containt_rv);
         inspectionReportAdapter=new InspectionReportAdapter(getContext(),dataList);
         containt_rv.setAdapter(inspectionReportAdapter);
-        containt_refresh.setEnableLoadMore(false);
         containt_refresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
                 if(Type.INSPECTIONTYPE.equals(type)){
-                    getController().getInspectionReportList(selectedCardNum);
+                    getController().getInspectionReportList(selectedCardNum, TypeEnum.REFRESH);
                 }else {
-                    getController().getBodyCheckReportList(selectedCardNum);
+                    getController().getBodyCheckReportList(selectedCardNum, TypeEnum.REFRESH);
                 }
             }
         });
+        containt_refresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                if(Type.INSPECTIONTYPE.equals(type)){
+                    getController().getInspectionReportList(selectedCardNum, TypeEnum.LOAD_MORE);
+                }else {
+                    getController().getBodyCheckReportList(selectedCardNum, TypeEnum.LOAD_MORE);
+                }
+            }
+        });
+
         emptyLayout=view.findViewById(R.id.state_retry2);
         emptyTv=view.findViewById(R.id.empty_text);
         emptyLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(Type.INSPECTIONTYPE.equals(type)){
-                    getController().getInspectionReportList(selectedCardNum);
+                    getController().getInspectionReportList(selectedCardNum, TypeEnum.REFRESH);
                 }else {
-                    getController().getBodyCheckReportList(selectedCardNum);
+                    getController().getBodyCheckReportList(selectedCardNum, TypeEnum.REFRESH);
                 }
             }
         });
     }
 
     @Override
-    public void getDataListSuccess(List<Object> dataList) {
+    public void getDataListSuccess(List<Object> dataList,TypeEnum typeEnum) {
+        pageLoadingSuccess();
+        containt_refresh.finishLoadMore();
         containt_refresh.finishRefresh();
         if(dataList!=null&&dataList.size()!=0){
             if(containt_refresh.getVisibility()==View.GONE){
                 containt_refresh.setVisibility(View.VISIBLE);
                 emptyLayout.setVisibility(View.GONE);
             }
-            this.dataList.clear();
+            if (typeEnum == TypeEnum.REFRESH) {
+                this.dataList.clear();
+            }
             this.dataList.addAll(dataList);
-            inspectionReportAdapter.updateShowList(this.dataList);
             inspectionReportAdapter.notifyDataSetChanged();
         }else {
             containt_refresh.setVisibility(View.GONE);
@@ -134,9 +149,9 @@ public class InspectionReportFragment extends BaseControllerFragment<InspectionR
     public void refreshSelectedCard(String cardNum) {
         selectedCardNum=cardNum;
         if(Type.INSPECTIONTYPE.equals(type)){
-            getController().getInspectionReportList(selectedCardNum);
+            getController().getInspectionReportList(selectedCardNum,TypeEnum.REFRESH);
         }else {
-            getController().getBodyCheckReportList(selectedCardNum);
+            getController().getBodyCheckReportList(selectedCardNum,TypeEnum.REFRESH);
         }
     }
 }
