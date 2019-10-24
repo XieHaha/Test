@@ -182,6 +182,7 @@ public class NursingOrderFragment extends BaseControllerFragment<NursingOrderFra
             }else{
                 mAdapter.addData(data);
             }
+            getController().currentPagePlus();
         }
     }
 
