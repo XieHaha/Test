@@ -2,6 +2,7 @@ package com.keydom.ih_patient.fragment.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.ih_patient.bean.SubscribeExaminationBean;
+import com.keydom.ih_patient.constant.TypeEnum;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface SubscribeExaminationOrderView extends BaseView {
     /**
      * 获取数据成功回调
      */
-    void getDataSuccess(List<SubscribeExaminationBean> data);
+    void getDataSuccess(List<SubscribeExaminationBean> data, TypeEnum typeEnum);
 
     /**
      * 获取数据失败回调

@@ -19,6 +19,7 @@ import com.keydom.ih_patient.bean.SubscribeExaminationBean;
 import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Type;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.fragment.controller.SubscribeExaminationOrderController;
 import com.keydom.ih_patient.fragment.view.SubscribeExaminationOrderView;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
@@ -84,28 +85,39 @@ public class SubscribeExaminationOrderFragment extends BaseControllerFragment<Su
         mStatus = getArguments().getInt(STATUS);
         switchStatus();
         mRefreshLayout.setOnRefreshListener(refreshLayout -> switchStatus());
+        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> switchStatusLoadMore());
     }
 
     /**
      * 根据状态获取列表数据
      */
     private void switchStatus() {
-        getController().getExaminationData(mStatus);
+        getController().getExaminationData(mStatus,TypeEnum.REFRESH);
+    }
+
+    private void switchStatusLoadMore() {
+        getController().getExaminationData(mStatus,TypeEnum.LOAD_MORE);
     }
 
     @Override
-    public void getDataSuccess(final List<SubscribeExaminationBean> data) {
-        if (mRefreshLayout.isRefreshing()){
-            mRefreshLayout.finishRefresh();
-        }
+    public void getDataSuccess(final List<SubscribeExaminationBean> data, TypeEnum typeEnum) {
+        mRefreshLayout.finishLoadMore();
+        mRefreshLayout.finishRefresh();
+        pageLoadingSuccess();
         mAdapter.removeAllFooterView();
-        mAdapter.setNewData(data);
         if (data!=null && data.size()!=0){
             ImageView footer = new ImageView(getActivity());
             footer.setImageResource(R.mipmap.colorful_line);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             footer.setLayoutParams(params);
             mAdapter.addFooterView(footer);
+
+            if (typeEnum == TypeEnum.REFRESH) {
+                mAdapter.replaceData(data);
+            }else{
+                mAdapter.addData(data);
+            }
+            mAdapter.notifyDataSetChanged();
         }
     }
 
@@ -123,6 +135,8 @@ public class SubscribeExaminationOrderFragment extends BaseControllerFragment<Su
     @Override
     public void getDataFailed(String msg) {
         ToastUtil.shortToast(getContext(), msg);
+        mRefreshLayout.finishLoadMore();
+        mRefreshLayout.finishRefresh();
     }
 
     @Override

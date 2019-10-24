@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -15,8 +16,10 @@ import com.keydom.ih_patient.activity.order_physical_examination.PhysicalExamina
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.PhysicalExaInfo;
 import com.keydom.ih_patient.bean.SubscribeExaminationBean;
+import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.fragment.view.SubscribeExaminationOrderView;
 import com.keydom.ih_patient.net.ReservationService;
 import com.keydom.ih_patient.utils.ToastUtil;
@@ -28,7 +31,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,13 +46,22 @@ public class SubscribeExaminationOrderController extends ControllerImpl<Subscrib
     /**
      * 获取体检列表
      */
-    public void getExaminationData(int status) {
+    public void getExaminationData(int status,final TypeEnum typeEnum) {
         showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ReservationService.class).getExaminationOrderList(Global.getUserId(), status, App.hospitalId), new HttpSubscriber<List<SubscribeExaminationBean>>(getContext(), getDisposable(), false) {
+        if (typeEnum == TypeEnum.REFRESH) {
+            setCurrentPage(1);
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("registerUserId", Global.getUserId());
+        map.put("state", status);
+        map.put("hospitalId", App.hospitalId);
+        map.put("currentPage", getCurrentPage());
+        map.put("pageSize", Const.PAGE_SIZE);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ReservationService.class).getExaminationOrderList(map), new HttpSubscriber<PageBean<SubscribeExaminationBean>>(getContext(), getDisposable(), false) {
             @Override
-            public void requestComplete(@Nullable List<SubscribeExaminationBean> data) {
+            public void requestComplete(@Nullable PageBean<SubscribeExaminationBean> data) {
                 hideLoading();
-                getView().getDataSuccess(data);
+                getView().getDataSuccess(data.getRecords(),typeEnum);
             }
 
             @Override

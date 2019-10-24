@@ -1,11 +1,11 @@
 package com.keydom.ih_patient.net;
 
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_patient.bean.DoctorInfo;
 import com.keydom.ih_patient.bean.PhysicalExaInfo;
 import com.keydom.ih_patient.bean.SubscribeExaminationBean;
 
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -25,7 +25,7 @@ public interface ReservationService {
      *     //获取体检预约订单列表
      */
     @GET("reservation/healthCheckComboOrder/getAllList")
-    Observable<HttpResult<List<SubscribeExaminationBean>>> getExaminationOrderList(@Query("registerUserId") long registerUserId, @Query("state") int state, @Query("hospitalId") long hospitalId);
+    Observable<HttpResult<PageBean<SubscribeExaminationBean>>> getExaminationOrderList(@QueryMap Map<String,Object> map);
 
     /**
      *     //删除体检预约订单
