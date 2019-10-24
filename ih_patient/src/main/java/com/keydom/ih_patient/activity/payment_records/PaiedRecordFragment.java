@@ -99,5 +99,6 @@ public class PaiedRecordFragment extends BaseControllerFragment<PaiedRecordContr
         }else{
             mPayRecordAdapter.addData(list);
         }
+        getController().currentPagePlus();
     }
 }
