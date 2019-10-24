@@ -15,6 +15,7 @@ import com.keydom.ih_patient.activity.nursing_service.view.NursingView;
 import com.keydom.ih_patient.adapter.NursingProjectAdapter;
 import com.keydom.ih_patient.bean.NursingProjectInfo;
 import com.keydom.ih_patient.constant.Type;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -49,7 +50,6 @@ public class NursingActivity extends BaseControllerActivity<NursingController> i
     private RecyclerView conten_rv;
     private NursingProjectAdapter nursingProjectAdapter;
     private List<NursingProjectInfo> dataList=new ArrayList<>();
-    private int currentPage=1;
 
     @Override
     public int getLayoutRes() {
@@ -72,15 +72,14 @@ public class NursingActivity extends BaseControllerActivity<NursingController> i
         conten_refresh_layout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                currentPage=1;
-                getController().getNurseServiceProjectByCateId(String.valueOf(nursingTypeId), String.valueOf(currentPage));
+                getController().getNurseServiceProjectByCateId(String.valueOf(nursingTypeId),TypeEnum.REFRESH);
                 refreshLayout.finishRefresh();
             }
         });
         conten_refresh_layout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {
-                getController().getNurseServiceProjectByCateId(String.valueOf(nursingTypeId), String.valueOf(currentPage));
+                getController().getNurseServiceProjectByCateId(String.valueOf(nursingTypeId), TypeEnum.LOAD_MORE);
                 refreshLayout.finishLoadMore();
             }
         });
@@ -89,7 +88,7 @@ public class NursingActivity extends BaseControllerActivity<NursingController> i
         emptyLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getController().getNurseServiceProjectByCateId(String.valueOf(nursingTypeId), String.valueOf(currentPage));
+                getController().getNurseServiceProjectByCateId(String.valueOf(nursingTypeId),TypeEnum.REFRESH);
             }
         });
         emptyTv=findViewById(R.id.empty_text);
@@ -106,23 +105,27 @@ public class NursingActivity extends BaseControllerActivity<NursingController> i
             }
         });
         conten_rv.setAdapter(nursingProjectAdapter);
-        getController().getNurseServiceProjectByCateId(String.valueOf(nursingTypeId), String.valueOf(currentPage));
+        getController().getNurseServiceProjectByCateId(String.valueOf(nursingTypeId),TypeEnum.REFRESH);
     }
 
     @Override
-    public void getNursingProjectSuccess(List<NursingProjectInfo> dataList) {
+    public void getNursingProjectSuccess(List<NursingProjectInfo> dataList, TypeEnum typeEnum) {
+        conten_refresh_layout.finishLoadMore();
+        conten_refresh_layout.finishRefresh();
+        pageLoadingSuccess();
         if(dataList.size()!=0){
 
             if(emptyLayout.getVisibility()==View.VISIBLE)
                 emptyLayout.setVisibility(View.GONE);
-            if(currentPage==1){
-                nursingProjectAdapter.setNewData(dataList);
-            }else {
+
+            if (typeEnum == TypeEnum.REFRESH) {
+                nursingProjectAdapter.replaceData(dataList);
+            }else{
                 nursingProjectAdapter.addData(dataList);
             }
-            currentPage++;
+            getController().currentPagePlus();
         }else {
-            if(currentPage==1){
+            if(typeEnum == TypeEnum.REFRESH){
                 emptyLayout.setVisibility(View.VISIBLE);
                 emptyTv.setText("暂无数据");
                 emptyLayout.setClickable(false);
@@ -134,7 +137,8 @@ public class NursingActivity extends BaseControllerActivity<NursingController> i
 
     @Override
     public void getNursingProjectFailed(String errMsg) {
-        currentPage=1;
+        conten_refresh_layout.finishLoadMore();
+        conten_refresh_layout.finishRefresh();
         emptyLayout.setVisibility(View.VISIBLE);
         emptyTv.setText("加载失败 点击重试");
         emptyLayout.setClickable(true);

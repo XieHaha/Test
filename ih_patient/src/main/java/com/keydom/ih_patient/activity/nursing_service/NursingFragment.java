@@ -14,6 +14,7 @@ import com.keydom.ih_patient.activity.nursing_service.controller.NursingControll
 import com.keydom.ih_patient.activity.nursing_service.view.NursingView;
 import com.keydom.ih_patient.adapter.NursingProjectChooseAdapter;
 import com.keydom.ih_patient.bean.NursingProjectInfo;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -36,7 +37,6 @@ public class NursingFragment extends BaseControllerFragment<NursingController> i
     private SmartRefreshLayout mRefresh;
     private List<NursingProjectInfo> selectProjectList;
     private NursingProjectChooseAdapter mAdapter;
-    private int currentPage = 1;
 
     /**
      * fragment创建方法
@@ -69,11 +69,10 @@ public class NursingFragment extends BaseControllerFragment<NursingController> i
         long id = getArguments().getLong(ID);
         selectProjectList = (List<NursingProjectInfo>) getArguments().getSerializable(LIST);
         mRefresh.setOnRefreshListener(refreshLayout -> {
-            currentPage = 1;
-            getController().getNurseServiceProjectByCateId(String.valueOf(id), String.valueOf(currentPage));
+            getController().getNurseServiceProjectByCateId(String.valueOf(id), TypeEnum.REFRESH);
         });
-        mRefresh.setOnLoadMoreListener(refreshLayout -> getController().getNurseServiceProjectByCateId(String.valueOf(id), String.valueOf(currentPage)));
-        getController().getNurseServiceProjectByCateId(String.valueOf(id), String.valueOf(currentPage));
+        mRefresh.setOnLoadMoreListener(refreshLayout -> getController().getNurseServiceProjectByCateId(String.valueOf(id), TypeEnum.LOAD_MORE));
+        getController().getNurseServiceProjectByCateId(String.valueOf(id), TypeEnum.REFRESH);
         mAdapter.setOnItemChildClickListener((adapter, view1, position) -> {
             switch (view1.getId()) {
                 case R.id.service_selected_img:
@@ -122,7 +121,7 @@ public class NursingFragment extends BaseControllerFragment<NursingController> i
     }
 
     @Override
-    public void getNursingProjectSuccess(List<NursingProjectInfo> dataList) {
+    public void getNursingProjectSuccess(List<NursingProjectInfo> dataList, TypeEnum typeEnum) {
         for (int i = 0; i < dataList.size(); i++) {
             Logger.e("第" + i + "项cateId=" + dataList.get(i).getCateId());
             NursingProjectInfo projectInfo = dataList.get(i);
@@ -133,18 +132,16 @@ public class NursingFragment extends BaseControllerFragment<NursingController> i
                 }
             }
         }
-        if (mRefresh.isRefreshing()) {
-            mRefresh.finishRefresh();
-        }
-        if (mRefresh.isLoading()) {
-            mRefresh.finishLoadMore();
-        }
-        if (currentPage == 1) {
-            mAdapter.setNewData(dataList);
-        } else {
+
+        mRefresh.finishLoadMore();
+        mRefresh.finishRefresh();
+        pageLoadingSuccess();
+        if (typeEnum == TypeEnum.REFRESH) {
+            mAdapter.replaceData(dataList);
+        }else{
             mAdapter.addData(dataList);
         }
-        currentPage += 1;
+        getController().currentPagePlus();
     }
 
     @Override

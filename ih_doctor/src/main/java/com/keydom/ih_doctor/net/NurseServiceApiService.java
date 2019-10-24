@@ -1,5 +1,6 @@
 package com.keydom.ih_doctor.net;
 
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_doctor.bean.CategoryBean;
 import com.keydom.ih_doctor.bean.CommonNurseServiceOrderDetailBean;
@@ -164,7 +165,7 @@ public interface NurseServiceApiService {
      * @return
      */
     @GET("nursing/nurseServiceProject/getNurseServiceProjectByCateId")
-    Observable<HttpResult<List<NursingProjectInfo>>> getNurseServiceProjectByCateId(@QueryMap Map<String, Object> bodyMap);
+    Observable<HttpResult<PageBean<NursingProjectInfo>>> getNurseServiceProjectByCateId(@QueryMap Map<String, Object> bodyMap);
 
 
     /**

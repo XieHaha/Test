@@ -2,6 +2,7 @@ package com.keydom.ih_doctor.fragment.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.ih_doctor.bean.NursingProjectInfo;
+import com.keydom.ih_doctor.constant.TypeEnum;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface NursingView extends BaseView {
      *
      * @param dataList 护理服务项目
      */
-    void getNursingProjectSuccess(List<NursingProjectInfo> dataList);
+    void getNursingProjectSuccess(List<NursingProjectInfo> dataList, TypeEnum typeEnum);
 
     /**
      * 获取护理服务项目失败

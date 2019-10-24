@@ -1,6 +1,7 @@
 package com.keydom.ih_patient.activity.nursing_service.controller;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -8,13 +9,14 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.activity.nursing_service.view.NursingView;
 import com.keydom.ih_patient.bean.NursingProjectInfo;
+import com.keydom.ih_patient.constant.Const;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.net.NursingService;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,16 +28,19 @@ public class NursingController extends ControllerImpl<NursingView> {
      * 获取基础护理或者专科护理或者产后护理
      * @param id 护理类型ID
      */
-    public void getNurseServiceProjectByCateId(String id,String currentPage){
+    public void getNurseServiceProjectByCateId(String id, final TypeEnum typeEnum){
+        if (typeEnum == TypeEnum.REFRESH) {
+            setCurrentPage(1);
+        }
         Map<String,Object> map=new HashMap<>();
         map.put("id",id);
         map.put("hospitalId", App.hospitalId);
-        map.put("currentPage",currentPage);
-        map.put("pageSize","8");
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingService.class).getNurseServiceProjectByCateId(map), new HttpSubscriber<List<NursingProjectInfo>>(getContext(),getDisposable(),false,false) {
+        map.put("currentPage", getCurrentPage());
+        map.put("pageSize", Const.PAGE_SIZE);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingService.class).getNurseServiceProjectByCateId(map), new HttpSubscriber<PageBean<NursingProjectInfo>>(getContext(),getDisposable(),false,false) {
             @Override
-            public void requestComplete(@Nullable List<NursingProjectInfo> data) {
-                getView().getNursingProjectSuccess(data);
+            public void requestComplete(@Nullable PageBean<NursingProjectInfo> data) {
+                getView().getNursingProjectSuccess(data.getRecords(),typeEnum);
             }
 
             @Override

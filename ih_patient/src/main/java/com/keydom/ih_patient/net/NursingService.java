@@ -1,5 +1,6 @@
 package com.keydom.ih_patient.net;
 
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_patient.bean.BaseNurseFeeBean;
 import com.keydom.ih_patient.bean.ChooseNursingBean;
@@ -33,7 +34,7 @@ public interface NursingService {
      * 获取基础护理或者专科护理或产后护理
      */
     @GET("nursing/nurseServiceProject/getNurseServiceProjectByCateId")
-    Observable<HttpResult<List<NursingProjectInfo>>> getNurseServiceProjectByCateId(@QueryMap Map<String,Object> bodyMap);
+    Observable<HttpResult<PageBean<NursingProjectInfo>>> getNurseServiceProjectByCateId(@QueryMap Map<String,Object> bodyMap);
 
     /**
      * 获取服务区域内医院坐标
