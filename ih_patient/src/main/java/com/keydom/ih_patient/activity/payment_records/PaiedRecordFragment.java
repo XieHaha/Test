@@ -85,7 +85,7 @@ public class PaiedRecordFragment extends BaseControllerFragment<PaiedRecordContr
         });
 
         mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout,mState,TypeEnum.REFRESH));
-        mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout,mState,TypeEnum.LOAD_MORE));
+        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout,mState,TypeEnum.LOAD_MORE));
         getController().getConsultationPayList(mRefreshLayout,mState,TypeEnum.REFRESH);
     }
 
