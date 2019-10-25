@@ -4,6 +4,7 @@ import com.keydom.ih_common.base.BaseView;
 import com.keydom.ih_patient.bean.DiagnosesOrderBean;
 import com.keydom.ih_patient.bean.LocationInfo;
 import com.keydom.ih_patient.bean.entity.pharmacy.PharmacyBean;
+import com.keydom.ih_patient.constant.TypeEnum;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface OnlineDiagnonsesOrderView extends BaseView {
     /**
      * 获取问诊订单成功
      */
-    void getDiagnosesOrderListSuccess(List<DiagnosesOrderBean> orderBeanArrayList);
+    void getDiagnosesOrderListSuccess(List<DiagnosesOrderBean> orderBeanArrayList, TypeEnum typeEnum);
 
     /**
      * 获取问诊订单失败

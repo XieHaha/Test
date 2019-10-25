@@ -19,8 +19,10 @@ import com.keydom.ih_patient.bean.PaymentOrderBean;
 import com.keydom.ih_patient.bean.PrescriptionDetailBean;
 import com.keydom.ih_patient.bean.PrescriptionDrugBean;
 import com.keydom.ih_patient.bean.entity.pharmacy.PharmacyBean;
+import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.net.LocationService;
 import com.keydom.ih_patient.net.PayService;
 import com.keydom.ih_patient.net.PrescriptionService;
@@ -54,12 +56,17 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
      * 获取问诊订单列表
 
      */
-    public void getlistPatientInquisition(Map<String, Object> map, int status) {
+    public void getlistPatientInquisition(Map<String, Object> map, int status, final TypeEnum typeEnum) {
+        if (typeEnum == TypeEnum.REFRESH) {
+            setCurrentPage(1);
+        }
         map.put("state", status);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getlistPatientInquisition(map), new HttpSubscriber<List<DiagnosesOrderBean>>(getContext(),getDisposable(),false,false) {
+        map.put("currentPage", getCurrentPage());
+        map.put("pageSize", Const.PAGE_SIZE);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getlistPatientInquisition(map), new HttpSubscriber<PageBean<DiagnosesOrderBean>>(getContext(),getDisposable(),false,false) {
             @Override
-            public void requestComplete(@Nullable List<DiagnosesOrderBean> data) {
-                getView().getDiagnosesOrderListSuccess(data);
+            public void requestComplete(@Nullable PageBean<DiagnosesOrderBean> data) {
+                getView().getDiagnosesOrderListSuccess(data.getRecords(),typeEnum);
             }
 
             @Override

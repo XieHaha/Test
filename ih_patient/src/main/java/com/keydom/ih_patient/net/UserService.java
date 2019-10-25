@@ -198,7 +198,7 @@ public interface UserService {
      * 问诊订单列表查询
      */
     @GET("user/online/listPatientInquisition")
-    Observable<HttpResult<List<DiagnosesOrderBean>>> getlistPatientInquisition(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<PageBean<DiagnosesOrderBean>>> getlistPatientInquisition(@QueryMap Map<String,Object> map);
 
     /**
      * 获取医院下的所有科室

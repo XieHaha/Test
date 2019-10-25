@@ -41,6 +41,7 @@ import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.utils.CommUtil;
 import com.keydom.ih_patient.utils.GotoActivityUtil;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
@@ -156,9 +157,9 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
 
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
             page = 1;
-            getController().getlistPatientInquisition(getMap(), mStatus);
+            getController().getlistPatientInquisition(getMap(), mStatus,TypeEnum.REFRESH);
         });
-        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getlistPatientInquisition(getMap(), mStatus));
+        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getlistPatientInquisition(getMap(), mStatus,TypeEnum.LOAD_MORE));
         EventBus.getDefault().register(this);
     }
 
@@ -190,7 +191,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     public void refreshList(Event event) {
         if (EventType.REFRESHDIAGNOSESORDER == event.getType()) {
             page = 1;
-            getController().getlistPatientInquisition(getMap(), mStatus);
+            getController().getlistPatientInquisition(getMap(), mStatus,TypeEnum.REFRESH);
         }
     }
 
@@ -788,30 +789,24 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     }
 
     @Override
-    public void getDiagnosesOrderListSuccess(List<DiagnosesOrderBean> orderBeanArrayList) {
-        if (mRefreshLayout.isRefreshing()) {
-            mRefreshLayout.finishRefresh();
-        }
-        if ((mRefreshLayout.isLoading())) {
-            mRefreshLayout.finishLoadMore();
-        }
-        if (page == 1) {
+    public void getDiagnosesOrderListSuccess(List<DiagnosesOrderBean> orderBeanArrayList, TypeEnum typeEnum) {
+        mRefreshLayout.finishLoadMore();
+        mRefreshLayout.finishRefresh();
+        pageLoadingSuccess();
+
+        if (typeEnum == TypeEnum.REFRESH) {
             diagnosesOrderAdapter.setNewData(orderBeanArrayList);
-        } else {
+        }else{
             diagnosesOrderAdapter.addData(orderBeanArrayList);
         }
         if (orderBeanArrayList != null && orderBeanArrayList.size() != 0)
-            page += 1;
+            getController().currentPagePlus();
     }
 
     @Override
     public void getDiagnosesOrderListFailed(String errMsg) {
-        if (mRefreshLayout.isRefreshing()) {
-            mRefreshLayout.finishRefresh();
-        }
-        if ((mRefreshLayout.isLoading())) {
-            mRefreshLayout.finishLoadMore();
-        }
+        mRefreshLayout.finishLoadMore();
+        mRefreshLayout.finishRefresh();
         ToastUtil.shortToast(getContext(), "数据获取失败" + errMsg);
     }
 
