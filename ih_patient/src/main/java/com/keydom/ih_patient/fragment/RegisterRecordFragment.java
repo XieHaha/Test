@@ -107,6 +107,7 @@ public class RegisterRecordFragment extends BaseControllerFragment<RegisterRecor
             }
             this.dataList.addAll(dataList);
             registerRecordAdapter.notifyDataSetChanged();
+            getController().currentPagePlus();
         }
     }
 

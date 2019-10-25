@@ -89,13 +89,14 @@ public class MyDoctorOrNurseActivity extends BaseControllerActivity<MyDoctorOrNu
     @Override
     public void myFollowsCallBack(List<DoctorOrNurseBean> list,TypeEnum typeEnum) {
         pageLoadingSuccess();
+        refreshLayout.finishLoadMore();
+        refreshLayout.finishRefresh();
         if (typeEnum == TypeEnum.REFRESH) {
             this.followsList.clear();
         }
         this.followsList.addAll(list);
         mAdapter.notifyDataSetChanged();
-        refreshLayout.finishLoadMore();
-        refreshLayout.finishRefresh();
+        getController().currentPagePlus();
     }
 
     @Override

@@ -118,6 +118,7 @@ public class SubscribeExaminationOrderFragment extends BaseControllerFragment<Su
                 mAdapter.addData(data);
             }
             mAdapter.notifyDataSetChanged();
+            getController().currentPagePlus();
         }
     }
 

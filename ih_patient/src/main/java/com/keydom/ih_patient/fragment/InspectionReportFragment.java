@@ -104,6 +104,8 @@ public class InspectionReportFragment extends BaseControllerFragment<InspectionR
             }
             this.dataList.addAll(dataList);
             inspectionReportAdapter.notifyDataSetChanged();
+            getController().currentPagePlus();
+
         }else {
             containt_refresh.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.VISIBLE);

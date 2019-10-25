@@ -307,6 +307,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         }else{
             mUnPayRecordAdapter.addData(list);
         }
+        getController().currentPagePlus();
     }
 
     @Override

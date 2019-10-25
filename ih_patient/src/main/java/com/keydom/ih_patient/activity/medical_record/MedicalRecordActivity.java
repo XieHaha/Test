@@ -102,14 +102,14 @@ public class MedicalRecordActivity  extends BaseControllerActivity<MedicalRecord
 
     @Override
     public void getRecordList(List<MedicalRecordBean> list, TypeEnum typeEnum) {
-
+        refreshLayout.finishLoadMore();
+        refreshLayout.finishRefresh();
         pageLoadingSuccess();
         if (typeEnum == TypeEnum.REFRESH) {
             mAdapter.replaceData(list);
         }else{
             mAdapter.addData(list);
         }
-        refreshLayout.finishLoadMore();
-        refreshLayout.finishRefresh();
+        getController().currentPagePlus();
     }
 }
