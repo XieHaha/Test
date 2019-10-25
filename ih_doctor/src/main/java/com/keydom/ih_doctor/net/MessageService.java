@@ -1,9 +1,9 @@
 package com.keydom.ih_doctor.net;
 
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_doctor.bean.MessageBean;
 
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -28,7 +28,7 @@ public interface MessageService {
      * @param map
      */
     @GET("/api/messageNotification/userMessageInfos")
-    Observable<HttpResult<List<MessageBean>>> userMessageInfos(@QueryMap Map<String, Object> map);
+    Observable<HttpResult<PageBean<MessageBean>>> userMessageInfos(@QueryMap Map<String, Object> map);
 
     /**
      * 更新消息状态

@@ -1,6 +1,7 @@
 package com.keydom.ih_patient.activity.my_message.controller;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -8,13 +9,11 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_patient.activity.my_message.view.MyMessageView;
 import com.keydom.ih_patient.bean.MessageBean;
 import com.keydom.ih_patient.bean.NoticeBean;
-import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.MessageService;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,10 +26,10 @@ public class MyMessagaeController extends ControllerImpl<MyMessageView> {
      * @param messageMap
      */
     public void getMyMessageList(Map<String, Object> messageMap){
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MessageService.class).userMessageInfos(messageMap), new HttpSubscriber<List<MessageBean>>(getContext(),getDisposable(),false,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MessageService.class).userMessageInfos(messageMap), new HttpSubscriber<PageBean<MessageBean>>(getContext(),getDisposable(),false,false) {
             @Override
-            public void requestComplete(@Nullable List<MessageBean> data) {
-                getView().getMessageListSuccess(data);
+            public void requestComplete(@Nullable PageBean<MessageBean> data) {
+                getView().getMessageListSuccess(data.getRecords());
             }
 
             @Override
