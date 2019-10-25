@@ -96,7 +96,6 @@ public class MyDoctorOrNurseActivity extends BaseControllerActivity<MyDoctorOrNu
         }
         this.followsList.addAll(list);
         mAdapter.notifyDataSetChanged();
-        getController().currentPagePlus();
     }
 
     @Override

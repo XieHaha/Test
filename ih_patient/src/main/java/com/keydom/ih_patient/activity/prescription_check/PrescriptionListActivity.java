@@ -109,6 +109,5 @@ public class PrescriptionListActivity extends BaseControllerActivity<Prescriptio
             mAdapter.addData(data);
         }
         mAdapter.notifyDataSetChanged();
-        getController().currentPagePlus();
     }
 }

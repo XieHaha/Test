@@ -110,6 +110,5 @@ public class MedicalRecordActivity  extends BaseControllerActivity<MedicalRecord
         }else{
             mAdapter.addData(list);
         }
-        getController().currentPagePlus();
     }
 }
