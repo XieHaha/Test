@@ -1,5 +1,6 @@
 package com.keydom.ih_doctor.net;
 
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_doctor.bean.GroupResBean;
 import com.keydom.ih_doctor.bean.ImPatientInfo;
@@ -36,7 +37,7 @@ public interface PatientManageApiService {
      * @return
      */
     @GET("Inquiry/groupChat/getRegList")
-    Observable<HttpResult<List<ImPatientInfo>>> getRegList(@QueryMap Map<String, Object> maps);
+    Observable<HttpResult<PageBean<ImPatientInfo>>> getRegList(@QueryMap Map<String, Object> maps);
 
 
     /**

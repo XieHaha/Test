@@ -16,17 +16,18 @@ import android.widget.Toast;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.utils.CommonUtils;
-import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.adapter.ContactRecyclrViewAdapter;
 import com.keydom.ih_doctor.bean.ImPatientInfo;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.EventType;
+import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.fragment.controller.PatientContactFragmentController;
 import com.keydom.ih_doctor.fragment.view.PatientContactFragmentView;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.ToastUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -61,6 +62,7 @@ public class PatientContactFragment extends BaseControllerFragment<PatientContac
     private SearchView mSearchView;
     private TextView searchInputEv;
     private AppCompatImageView appCompatImageView;
+    private SmartRefreshLayout mRefreshV;
 
     @Override
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -80,6 +82,7 @@ public class PatientContactFragment extends BaseControllerFragment<PatientContac
         contactRv = (RecyclerView) getView().findViewById(R.id.all_contact_rv);
         mSearchView = (SearchView) getView().findViewById(R.id.search);
         searchInputEv = (TextView) getView().findViewById(R.id.search_input_ev);
+        mRefreshV = (SmartRefreshLayout) getView().findViewById(R.id.refreshLayout);
         contactRv.setNestedScrollingEnabled(false);
         contactRv.setAdapter(contactRecyclrViewAdapter);
         contactRv.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -145,6 +148,9 @@ public class PatientContactFragment extends BaseControllerFragment<PatientContac
                     appCompatImageView.performClick();
             }
         });
+
+        mRefreshV.setOnRefreshListener(refreshLayout -> getController().getUserList(TypeEnum.REFRESH));
+        mRefreshV.setOnLoadMoreListener(refreshLayout -> getController().getUserList(TypeEnum.LOAD_MORE));
     }
 
     /**
@@ -171,11 +177,18 @@ public class PatientContactFragment extends BaseControllerFragment<PatientContac
     }
 
     @Override
-    public void getUserListSuccess(List<ImPatientInfo> list) {
-        mList.clear();
-        filterList = list;
+    public void getUserListSuccess(List<ImPatientInfo> list, TypeEnum typeEnum) {
+        mRefreshV.finishLoadMore();
+        mRefreshV.finishRefresh();
+        pageLoadingSuccess();
+
+        if (typeEnum == TypeEnum.REFRESH) {
+            mList.clear();
+        }
         mList.addAll(list);
+        filterList = list;
         contactRecyclrViewAdapter.notifyDataSetChanged();
+        getController().currentPagePlus();
     }
 
     @Override
@@ -193,7 +206,7 @@ public class PatientContactFragment extends BaseControllerFragment<PatientContac
 
     @Override
     public void lazyLoad() {
-        getController().getUserList();
+        getController().getUserList(TypeEnum.REFRESH);
     }
 
     @Override
@@ -206,7 +219,7 @@ public class PatientContactFragment extends BaseControllerFragment<PatientContac
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
         if (messageEvent.getType() == EventType.PATIENT_UPDATE_USER_LIST) {
-            getController().getUserList();
+            getController().getUserList(TypeEnum.REFRESH);
         }
     }
 

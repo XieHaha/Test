@@ -24,7 +24,6 @@ import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.view.IhTitleLayout;
-import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.patient_manage.controller.ChoosePatientController;
 import com.keydom.ih_doctor.activity.patient_manage.view.ChoosePatientView;
@@ -33,8 +32,10 @@ import com.keydom.ih_doctor.bean.ImPatientInfo;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
+import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.view.TagView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -43,9 +44,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Stack;
 
@@ -53,6 +52,7 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
 
     private TextView searchInputEv;
     private RecyclerView patientRv;
+    private SmartRefreshLayout mRefreshV;
     private AppCompatImageView appCompatImageView;
     /**
      * 患者列表适配器
@@ -116,6 +116,7 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
         flowLayout = this.findViewById(R.id.selected_patient_fl);
         mSearchView = this.findViewById(R.id.search);
         searchInputEv = this.findViewById(R.id.search_input_ev);
+        mRefreshV = this.findViewById(R.id.choose_patient_refresh_v);
         setIcon(mSearchView, "搜索", "");
         choosePatientRecyclrViewAdapter = new ChoosePatientRecyclrViewAdapter(this, mList);
         patientRv.setAdapter(choosePatientRecyclrViewAdapter);
@@ -158,6 +159,9 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
                 return false;
             }
         });
+
+        mRefreshV.setOnRefreshListener(refreshLayout -> getController().getUserList(TypeEnum.REFRESH));
+        mRefreshV.setOnLoadMoreListener(refreshLayout -> getController().getUserList(TypeEnum.LOAD_MORE));
     }
 
     /**
@@ -198,12 +202,12 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
         });
         initView();
         pageLoading();
-        getController().getUserList();
+        getController().getUserList(TypeEnum.REFRESH);
         setReloadListener(new LoadDataLayout.OnReloadListener() {
             @Override
             public void onReload(View v, int status) {
                 pageLoading();
-                getController().getUserList();
+                getController().getUserList(TypeEnum.REFRESH);
             }
         });
     }
@@ -215,7 +219,9 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
     }
 
     @Override
-    public void getUserListSuccess(List<ImPatientInfo> list) {
+    public void getUserListSuccess(List<ImPatientInfo> list,TypeEnum typeEnum) {
+        mRefreshV.finishLoadMore();
+        mRefreshV.finishRefresh();
         pageLoadingSuccess();
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
@@ -227,14 +233,19 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
                 }
             }
         }
-        mList.clear();
+        if (typeEnum == TypeEnum.REFRESH) {
+            mList.clear();
+        }
         mList.addAll(list);
         filterList = list;
         choosePatientRecyclrViewAdapter.notifyDataSetChanged();
+        getController().currentPagePlus();
     }
 
     @Override
     public void getUserListFailed(String errMsg) {
+        mRefreshV.finishLoadMore();
+        mRefreshV.finishRefresh();
         pageLoadingFail();
     }
 
@@ -264,12 +275,7 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
         chooseStack.push(view);
     }
 
-    @Override
-    public Map<String, Object> getListMap() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("doctorId", MyApplication.userInfo.getId());
-        return map;
-    }
+
 
     /**
      * 添加患者
@@ -314,7 +320,7 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
             removeTag(info);
 
         } else if (messageEvent.getType() == EventType.PATIENT_UPDATE_USER_LIST) {
-            getController().getUserList();
+            getController().getUserList(TypeEnum.REFRESH);
         }
     }
 

@@ -2,9 +2,9 @@ package com.keydom.ih_doctor.activity.patient_manage.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.ih_doctor.bean.ImPatientInfo;
+import com.keydom.ih_doctor.constant.TypeEnum;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ChoosePatientView extends BaseView {
     /**
@@ -12,7 +12,7 @@ public interface ChoosePatientView extends BaseView {
      *
      * @param list 患者列表
      */
-    void getUserListSuccess(List<ImPatientInfo> list);
+    void getUserListSuccess(List<ImPatientInfo> list, TypeEnum typeEnum);
 
     /**
      * 获取患者失败
@@ -21,10 +21,5 @@ public interface ChoosePatientView extends BaseView {
      */
     void getUserListFailed(String errMsg);
 
-    /**
-     * 获取患者请求参数
-     *
-     * @return 请求参数
-     */
-    Map<String, Object> getListMap();
+
 }

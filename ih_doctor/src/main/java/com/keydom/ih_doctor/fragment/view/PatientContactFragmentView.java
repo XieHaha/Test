@@ -2,6 +2,7 @@ package com.keydom.ih_doctor.fragment.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.ih_doctor.bean.ImPatientInfo;
+import com.keydom.ih_doctor.constant.TypeEnum;
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public interface PatientContactFragmentView extends BaseView {
      *
      * @param list 联系人列表
      */
-    void getUserListSuccess(List<ImPatientInfo> list);
+    void getUserListSuccess(List<ImPatientInfo> list, TypeEnum typeEnum);
 
     /**
      * 获取用户失败
