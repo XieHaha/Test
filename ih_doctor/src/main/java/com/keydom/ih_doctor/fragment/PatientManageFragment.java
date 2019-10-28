@@ -13,15 +13,9 @@ import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.adapter.PatientViewPagerAdapter;
-import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.bean.PermissionBean;
-import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.fragment.controller.PatientManageFragmentController;
 import com.keydom.ih_doctor.fragment.view.PatientManageFragmentView;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +39,7 @@ public class PatientManageFragment extends BaseControllerFragment<PatientManageF
     private RelativeLayout authorizeRl, createGroupRl, topTitleLayout;
     private TextView topHospitalName;
     private Button searchButton;
-    private RefreshLayout refreshLayout;
+    //private RefreshLayout refreshLayout;
     private int currentTab = 0;
     private int buildingGroupState=0;
     private int empowerState=0;
@@ -57,7 +51,7 @@ public class PatientManageFragment extends BaseControllerFragment<PatientManageF
         topTitleLayout = (RelativeLayout) getView().findViewById(R.id.top_title_layout);
         topHospitalName.setOnClickListener(getController());
         searchButton = (Button) getView().findViewById(R.id.search_btn);
-        refreshLayout = getView().findViewById(R.id.refreshLayout);
+        //refreshLayout = getView().findViewById(R.id.refreshLayout);
         searchButton.setOnClickListener(getController());
         list.add("消息");
         list.add("所有人");
@@ -67,7 +61,7 @@ public class PatientManageFragment extends BaseControllerFragment<PatientManageF
         fragmentList.add(new PatientContactFragment());
         fragmentList.add(new PatientGroupFragment());
         initView();
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+/*        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
                 EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.PATIENT_UPDATE_USER_LIST).build());
@@ -75,7 +69,7 @@ public class PatientManageFragment extends BaseControllerFragment<PatientManageF
                 refreshLayout.finishRefresh(1500);
                 getController().getPermission(MyApplication.userInfo.getId()+"");
             }
-        });
+        });*/
 
     }
 

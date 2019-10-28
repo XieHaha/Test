@@ -54,7 +54,7 @@
         android:layout_height="@dimen/dp_10"
         android:background="@color/line_color" />
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+<!--    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -167,5 +167,112 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
             </android.support.v4.view.ViewPager>
         </android.support.design.widget.CoordinatorLayout>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/common_bottom_line_bg"
+            app:elevation="@dimen/dp_0"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_90"
+                android:orientation="horizontal"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <RelativeLayout
+                    android:id="@+id/authorize_rl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/common_white_click_bg"
+                    android:gravity="center_vertical"
+                    app:layout_scrollFlags="scroll|enterAlways">
+
+                    <ImageView
+                        android:id="@+id/jurisdiction_mng"
+                        android:layout_width="@dimen/dp_23"
+                        android:layout_height="@dimen/dp_23"
+                        android:layout_centerHorizontal="true"
+                        android:src="@mipmap/jurisdiction" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/jurisdiction_mng"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_12"
+                        android:text="授权管理"
+                        android:textSize="@dimen/dp_16" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/create_group_rl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/common_white_click_bg"
+                    android:clickable="true"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/create_group_icon"
+                        android:layout_width="@dimen/dp_23"
+                        android:layout_height="@dimen/dp_23"
+                        android:layout_centerHorizontal="true"
+                        android:src="@mipmap/create_group" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/create_group_icon"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_12"
+                        android:text="创建群"
+                        android:textSize="@dimen/dp_16" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/line_color"
+                app:layout_scrollFlags="scroll|enterAlways" />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/patient_tab"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:background="@drawable/common_bottom_line_bg"
+                app:tabIndicatorColor="@color/tab_color"
+                app:tabIndicatorHeight="1dp"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/tab_color"
+                app:tabTextAppearance="@style/TabLayoutTextStyle"
+                app:tabTextColor="@android:color/black"></android.support.design.widget.TabLayout>
+
+        </LinearLayout>
+
+        <com.keydom.ih_common.widget.DecoratorViewPager
+            android:id="@+id/patient_vp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        </com.keydom.ih_common.widget.DecoratorViewPager>
+    </LinearLayout>
 </LinearLayout>
