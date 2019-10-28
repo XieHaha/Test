@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.personal.controller.MyEvaluationController;
 import com.keydom.ih_doctor.activity.personal.view.MyEvaluationView;
@@ -124,8 +125,13 @@ public class MyEvaluationActivity extends BaseControllerActivity<MyEvaluationCon
         pageLoadingSuccess();
         mList.addAll(bean.getRecords());
         evaluationListRecyclrViewAdapter.notifyDataSetChanged();
-        diagnose.setText("问诊(" + bean.getInquiryCount() + ")");
-        consult.setText("咨询(" + bean.getConsultCount() + ")");
+        if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
+            diagnose.setText("护理(" + bean.getInquiryCount() + ")");
+            consult.setText("咨询(" + bean.getConsultCount() + ")");
+        }else{
+            diagnose.setText("问诊(" + bean.getInquiryCount() + ")");
+            consult.setText("咨询(" + bean.getConsultCount() + ")");
+        }
         getController().currentPagePlus();
         refreshLayout.finishLoadMore();
         refreshLayout.finishRefresh();
