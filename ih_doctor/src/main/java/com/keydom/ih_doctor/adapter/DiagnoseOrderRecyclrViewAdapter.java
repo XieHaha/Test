@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
+import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
@@ -121,14 +122,22 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
                 if (bean.getInquisitionType() == 0) {
                     Drawable leftimg = mContext.getResources().getDrawable(R.mipmap.diagnose_illustration);
                     leftimg.setBounds(0, 0, leftimg.getMinimumWidth(), leftimg.getMinimumHeight());
-                    orderTypeTv.setText("图文问诊");
+                    if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
+                        orderTypeTv.setText("图文咨询");
+                    }else{
+                        orderTypeTv.setText("图文问诊");
+                    }
                     orderTypeTv.setTextColor(mContext.getResources().getColor(R.color.font_order_type_image_with_video));
                     orderTypeTv.setCompoundDrawables(leftimg, null, null, null);
                 } else {
                     Drawable leftimg = mContext.getResources().getDrawable(R.mipmap.video_diagnoses_icon);
                     leftimg.setBounds(0, 0, leftimg.getMinimumWidth(), leftimg.getMinimumHeight());
                     orderTypeTv.setCompoundDrawables(leftimg, null, null, null);
-                    orderTypeTv.setText("视频问诊");
+                    if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
+                        orderTypeTv.setText("视频咨询");
+                    }else{
+                        orderTypeTv.setText("视频问诊");
+                    }
                     orderTypeTv.setTextColor(mContext.getResources().getColor(R.color.font_order_type_image_with_video));
                 }
             }
