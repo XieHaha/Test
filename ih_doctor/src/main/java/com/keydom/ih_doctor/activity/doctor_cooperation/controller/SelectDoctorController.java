@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -12,6 +13,7 @@ import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.activity.doctor_cooperation.SelectDoctorActivity;
 import com.keydom.ih_doctor.activity.doctor_cooperation.view.SelectDoctorView;
 import com.keydom.ih_doctor.bean.DeptDoctorBean;
+import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.GroupCooperateApiService;
 
@@ -43,11 +45,14 @@ public class SelectDoctorController extends ControllerImpl<SelectDoctorView> imp
     /**
      * 获取医护人员列表
      */
-    public void getDoctorList() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(GroupCooperateApiService.class).listDoctor(getView().getQueryMap()), new HttpSubscriber<List<DeptDoctorBean>>(getContext(), getDisposable(), false) {
+    public void getDoctorList(final TypeEnum typeEnum) {
+        if (typeEnum == TypeEnum.REFRESH) {
+            setCurrentPage(1);
+        }
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(GroupCooperateApiService.class).listDoctor(getView().getQueryMap()), new HttpSubscriber<PageBean<DeptDoctorBean>>(getContext(), getDisposable(), false) {
             @Override
-            public void requestComplete(@Nullable List<DeptDoctorBean> data) {
-                getView().getDoctorListSuccess(data);
+            public void requestComplete(@Nullable PageBean<DeptDoctorBean> data) {
+                getView().getDoctorListSuccess(data.getRecords(),typeEnum);
             }
 
             @Override
@@ -68,7 +73,7 @@ public class SelectDoctorController extends ControllerImpl<SelectDoctorView> imp
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(GroupCooperateApiService.class).ihGroupQueryDoctorTeamAllUser(map), new HttpSubscriber<List<DeptDoctorBean>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable List<DeptDoctorBean> data) {
-                getView().getDoctorListSuccess(data);
+                getView().getDoctorListSuccess(data,TypeEnum.REFRESH);
             }
 
             @Override
@@ -106,7 +111,7 @@ public class SelectDoctorController extends ControllerImpl<SelectDoctorView> imp
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         getView().selectDept(position);
         ((SelectDoctorActivity) getContext()).pageLoading();
-        getDoctorList();
+        getDoctorList(TypeEnum.REFRESH);
     }
 
     @Override

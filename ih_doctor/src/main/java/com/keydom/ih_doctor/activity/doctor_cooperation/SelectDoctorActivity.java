@@ -27,7 +27,9 @@ import com.keydom.ih_doctor.activity.doctor_cooperation.view.SelectDoctorView;
 import com.keydom.ih_doctor.adapter.DoctorSelectRecyclrViewAdapter;
 import com.keydom.ih_doctor.bean.DeptDoctorBean;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.utils.ToastUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.angmarch.views.NiceSpinner;
 
@@ -141,6 +143,7 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
     private LinearLayout filterDoctorRl;
     private ImageView consultingOpen, consultingClose, consultingActionBg;
     private RelativeLayout actionRl;
+    private SmartRefreshLayout mRefreshLayout;
     /**
      * orderType 单子类型    0不需要校验   1图文问诊、2视频问诊
      * @param context
@@ -299,6 +302,7 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
         actionRl = this.findViewById(R.id.action_rl);
         recyclerView = this.findViewById(R.id.select_doctor_rv);
         filterDoctorRl = this.findViewById(R.id.filter_doctor_rl);
+        mRefreshLayout = this.findViewById(R.id.refreshLayout);
         actionRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -307,7 +311,7 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
                 } else {
                     open();
                 }
-                getController().getDoctorList();
+                getController().getDoctorList(TypeEnum.REFRESH);
             }
         });
         if (mType == DOCTOR_SELECT_OTHER_DEPT_ONLY_RESULT || mType == DOCTOR_SELECT_OTHER_DEPT_WITH_DIAGNOSE_ONLY_RESULT || mType == DOCTOR_SLEECT_GROUP_MEMBER_ONLY_RESULT) {
@@ -381,7 +385,7 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
         if (mType == DOCTOR_SLEECT_GROUP_MEMBER_ONLY_RESULT) {
             getController().ihGroupQueryDoctorTeamAllUser();
         } else {
-            getController().getDoctorList();
+            getController().getDoctorList(TypeEnum.REFRESH);
 
         }
         setReloadListener(new LoadDataLayout.OnReloadListener() {
@@ -391,11 +395,16 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
                 if (mType == DOCTOR_SLEECT_GROUP_MEMBER_ONLY_RESULT) {
                     getController().ihGroupQueryDoctorTeamAllUser();
                 } else {
-                    getController().getDoctorList();
+                    getController().getDoctorList(TypeEnum.REFRESH);
 
                 }
             }
         });
+
+        mRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            getController().getDoctorList(TypeEnum.REFRESH);
+        });
+        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getDoctorList(TypeEnum.LOAD_MORE));
     }
 
 
@@ -454,6 +463,8 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
             map.put("isFilterUnInquiry", 1);
         }
         map.put("type", (mType == DOCTOR_SLEECT_SELF_DEPT ? ALL_USER : DOCTOR));
+        map.put("currentPage", getController().getCurrentPage());
+        map.put("pageSize", Const.PAGE_SIZE);
         return map;
     }
 
@@ -466,13 +477,19 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
     }
 
     @Override
-    public void getDoctorListSuccess(List<DeptDoctorBean> list) {
-        mList.clear();
-        mTempList.clear();
+    public void getDoctorListSuccess(List<DeptDoctorBean> list, TypeEnum typeEnum) {
+        mRefreshLayout.finishLoadMore();
+        mRefreshLayout.finishRefresh();
         pageLoadingSuccess();
-        mList.addAll(getWithOutMeList(list));
-        mTempList.addAll(getWithOutMeList(list));
+
+        if (typeEnum == TypeEnum.REFRESH) {
+            mList.clear();
+            mTempList.clear();
+        }
+        mList.addAll(list);
+        mTempList.addAll(list);
         doctorSelectRecyclrViewAdapter.notifyDataSetChanged();
+        getController().currentPagePlus();
     }
 
     /**
@@ -509,6 +526,8 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
 
     @Override
     public void getDoctorListFailed(String errMsg) {
+        mRefreshLayout.finishLoadMore();
+        mRefreshLayout.finishRefresh();
         pageLoadingFail();
     }
 

@@ -2,6 +2,7 @@ package com.keydom.ih_doctor.activity.doctor_cooperation.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.ih_doctor.bean.DeptDoctorBean;
+import com.keydom.ih_doctor.constant.TypeEnum;
 
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,7 @@ public interface SelectDoctorView extends BaseView {
      *
      * @param list 人员列表数据
      */
-    void getDoctorListSuccess(List<DeptDoctorBean> list);
+    void getDoctorListSuccess(List<DeptDoctorBean> list, TypeEnum typeEnum);
 
     /**
      * 获取医护人员列表失败

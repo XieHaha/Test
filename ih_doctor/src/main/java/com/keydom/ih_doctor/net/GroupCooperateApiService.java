@@ -1,5 +1,6 @@
 package com.keydom.ih_doctor.net;
 
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_doctor.bean.ChangeDiagnoseRecoderBean;
 import com.keydom.ih_doctor.bean.DeptDoctorBean;
@@ -186,7 +187,7 @@ public interface GroupCooperateApiService {
      * @return
      */
     @GET("user/hospitalDept/listDoctor")
-    Observable<HttpResult<List<DeptDoctorBean>>> listDoctor(@QueryMap Map<String, Object> maps);
+    Observable<HttpResult<PageBean<DeptDoctorBean>>> listDoctor(@QueryMap Map<String, Object> maps);
 
 
 }
