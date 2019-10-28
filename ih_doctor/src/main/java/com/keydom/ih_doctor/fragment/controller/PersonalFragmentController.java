@@ -3,7 +3,7 @@ package com.keydom.ih_doctor.fragment.controller;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
-import com.keydom.ih_doctor.m_interface.SingleClick;
+import com.keydom.ih_common.constant.Global;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -26,6 +26,8 @@ import com.keydom.ih_doctor.activity.personal.SettingActivity;
 import com.keydom.ih_doctor.bean.PersonalHomeBean;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.fragment.view.PersonalFragmentView;
+import com.keydom.ih_doctor.m_interface.SingleClick;
+import com.keydom.ih_doctor.net.MessageService;
 import com.keydom.ih_doctor.net.PersonalApiService;
 import com.keydom.ih_doctor.utils.SelectHospitalPopUtil;
 
@@ -134,6 +136,24 @@ public class PersonalFragmentController extends ControllerImpl<PersonalFragmentV
             }
         });
 
+    }
+
+    /**
+     * 获取我的消息条数
+     */
+    public void getMyUnreadMessageNum() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MessageService.class).countMessage(Global.getUserId()), new HttpSubscriber<Integer>(getContext(),getDisposable(),false,false) {
+            @Override
+            public void requestComplete(@Nullable Integer data) {
+                getView().getUnreadMessagaCountSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                getView().getUnreadMessageCountFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
     }
 
 }

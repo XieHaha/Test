@@ -49,4 +49,14 @@ public interface PersonalFragmentView extends BaseView {
      * @return 标题栏对象
      */
     RelativeLayout getTitleLayout();
+
+    /**
+     * 获取未读消息成功
+     */
+    void getUnreadMessagaCountSuccess(Integer count);
+
+    /**
+     * 获取未读消息失败
+     */
+    void getUnreadMessageCountFailed(String errMsg);
 }

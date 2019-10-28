@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.constant.Global;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_common.view.CountItemView;
@@ -22,6 +23,7 @@ import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.fragment.controller.PersonalFragmentController;
 import com.keydom.ih_doctor.fragment.view.PersonalFragmentView;
+import com.keydom.ih_doctor.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -91,7 +93,7 @@ public class PersonalFragment extends BaseControllerFragment<PersonalFragmentCon
         myEvaluation = (GeneralItemView) getView().findViewById(R.id.my_evaluation);
         myPurse = (GeneralItemView) getView().findViewById(R.id.my_purse);
         mySetting = (GeneralItemView) getView().findViewById(R.id.my_setting);
-        myMessage=getView().findViewById(R.id.my_message);
+        myMessage=(GeneralItemView) getView().findViewById(R.id.my_message);
         myFeedback = (GeneralItemView) getView().findViewById(R.id.my_feedback);
         mySign = (GeneralItemView) getView().findViewById(R.id.my_sign);
         settingIv = (ImageView) getView().findViewById(R.id.setting_iv);
@@ -130,6 +132,13 @@ public class PersonalFragment extends BaseControllerFragment<PersonalFragmentCon
             }
         });
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(Global.getUserId()!=-1)
+            getController().getMyUnreadMessageNum();
     }
 
     @Override
@@ -208,6 +217,20 @@ public class PersonalFragment extends BaseControllerFragment<PersonalFragmentCon
     public RelativeLayout getTitleLayout() {
         return topTitleLayout;
     }
+
+    @Override
+    public void getUnreadMessagaCountSuccess(Integer count) {
+        if(count>0)
+            myMessage.setRedpointVisiable(true);
+        else
+            myMessage.setRedpointVisiable(false);
+    }
+
+    @Override
+    public void getUnreadMessageCountFailed(String errMsg) {
+        ToastUtil.shortToast(getContext(),"拉取未读信息失败");
+    }
+
 
     /**
      * 显示完善信息按钮
