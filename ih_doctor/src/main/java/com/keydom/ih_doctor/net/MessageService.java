@@ -18,10 +18,10 @@ public interface MessageService {
 
     /**
      * 查询用户未读总条数
-     * @param userId 用户ID
+     * @param doctorPhone 医生电话号码
      */
     @GET("/api/messageNotification/countMessage")
-    Observable<HttpResult<Integer>> countMessage(@Query("userId") long userId);
+    Observable<HttpResult<Integer>> countMessage(@Query("doctorPhone") String doctorPhone);
 
     /**
      * 用户消息列表查询

@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.constant.Global;
 import com.keydom.ih_common.push.PushManager;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
@@ -85,6 +86,7 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
     @Override
     public void loginSuccess(LoginBean info) {
         MyApplication.userInfo = new UserInfo();
+        Global.setUserId(info.getId());
         SharePreferenceManager.setUserId(userIdEt.getText().toString());
         SharePreferenceManager.setUserPwd(userPwdEt.getText().toString());
         SharePreferenceManager.setToken("Bearer " + info.getToken());

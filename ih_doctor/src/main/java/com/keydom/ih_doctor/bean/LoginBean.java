@@ -18,9 +18,34 @@ public class LoginBean implements Serializable {
     private String imToken;
     private String userCode;
     private String phoneNumber;
+
+    private Integer id;
+    private String name;
+
+    /**
+     * 实名姓名
+     */
+    private String certificationName;
+    /**
+     * 用户编号(用户电子签名)
+     */
     private String msspId;
-    private int nurseMonitorState;
+    /**
+     * 职位code  护士长
+     */
+    private Integer nurseMonitorState;
+
+    /**
+     * 医院id
+     */
     private String hospitalId;
+
+    /**
+     * 医院名称
+     *
+     * @param source
+     */
+    private String hospitalName;
 
     public String getHospitalId() {
         return hospitalId;
@@ -84,5 +109,41 @@ public class LoginBean implements Serializable {
 
     public void setImToken(String imToken) {
         this.imToken = imToken;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCertificationName() {
+        return certificationName;
+    }
+
+    public void setCertificationName(String certificationName) {
+        this.certificationName = certificationName;
+    }
+
+    public void setNurseMonitorState(Integer nurseMonitorState) {
+        this.nurseMonitorState = nurseMonitorState;
+    }
+
+    public String getHospitalName() {
+        return hospitalName;
+    }
+
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
     }
 }

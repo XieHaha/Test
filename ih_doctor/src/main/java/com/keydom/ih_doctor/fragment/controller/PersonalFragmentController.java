@@ -3,11 +3,11 @@ package com.keydom.ih_doctor.fragment.controller;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
-import com.keydom.ih_common.constant.Global;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.SearchActivity;
@@ -142,7 +142,7 @@ public class PersonalFragmentController extends ControllerImpl<PersonalFragmentV
      * 获取我的消息条数
      */
     public void getMyUnreadMessageNum() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MessageService.class).countMessage(Global.getUserId()), new HttpSubscriber<Integer>(getContext(),getDisposable(),false,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MessageService.class).countMessage(SharePreferenceManager.getPhoneNumber()), new HttpSubscriber<Integer>(getContext(),getDisposable(),false,false) {
             @Override
             public void requestComplete(@Nullable Integer data) {
                 getView().getUnreadMessagaCountSuccess(data);
