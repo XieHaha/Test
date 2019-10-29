@@ -27,6 +27,7 @@ public class SharePreferenceManager {
     private static final String SIGN_ID = "sign_id";
     private static final String HOSPITAL_ID = "hospital_id";
     private static final String GESTURELOCKEDTIME = "gesture_locked_time";
+    private static final String ID_CARD = "id_card";
 
     public static void setLockTime(long timeMillis) {
         if (null != sp) {
@@ -246,6 +247,19 @@ public class SharePreferenceManager {
         return "";
     }
 
+    public static void setIdCard(String idCard) {
+        if (null != sp) {
+            sp.edit().putString(ID_CARD, idCard).apply();
+        }
+    }
+
+    public static String getIdCard() {
+        if (null != sp) {
+            return sp.getString(ID_CARD, "");
+        }
+        return "";
+    }
+
 
     public static void clearData() {
         setToken("");
@@ -255,6 +269,7 @@ public class SharePreferenceManager {
         setSignId("");
         setRoleId(0);
         setPositionId(0);
+        setIdCard("");
     }
 
 

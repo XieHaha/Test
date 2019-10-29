@@ -47,6 +47,18 @@ public class LoginBean implements Serializable {
      */
     private String hospitalName;
 
+    //身份证号
+    //判断是否为空，来验证是否实名认证
+    private String idCard;
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
     public String getHospitalId() {
         return hospitalId;
     }

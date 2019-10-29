@@ -55,4 +55,9 @@ public interface MyRealNameCertifyView extends BaseView {
      */
     boolean checkRealMap();
 
+    /**
+     * 身份证号
+     */
+    String getIdCard();
+
 }

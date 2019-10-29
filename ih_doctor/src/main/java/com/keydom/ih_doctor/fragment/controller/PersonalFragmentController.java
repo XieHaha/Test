@@ -1,5 +1,6 @@
 package com.keydom.ih_doctor.fragment.controller;
 
+import android.text.TextUtils;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
@@ -30,6 +31,7 @@ import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.MessageService;
 import com.keydom.ih_doctor.net.PersonalApiService;
 import com.keydom.ih_doctor.utils.SelectHospitalPopUtil;
+import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -72,7 +74,11 @@ public class PersonalFragmentController extends ControllerImpl<PersonalFragmentV
                 MyIncomeActivity.start(mContext);
                 break;
             case R.id.my_service:
-                MyServiceActivity.start(mContext,false);
+                if(!TextUtils.isEmpty(SharePreferenceManager.getIdCard())){
+                    MyServiceActivity.start(mContext,false);
+                }else{
+                    ToastUtil.shortToast(mContext,"还未实名认证，请实名认证再开通相关服务");
+                }
                 break;
             case R.id.my_setting:
                 SettingActivity.start(mContext);

@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.widget.EditText;
 
 import com.blankj.utilcode.util.RegexUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.PhoneUtils;
+import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.view.MButton;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.personal.controller.MyRealNameCertifyController;
@@ -79,6 +81,7 @@ public class MyRealNameCertifyActivity extends BaseControllerActivity<MyRealName
 
     @Override
     public void realNameSuccess(String msg) {
+        SharePreferenceManager.setIdCard(idCardEt.getText().toString().trim());
         ToastUtil.shortToast(this, "认证成功");
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
@@ -140,5 +143,13 @@ public class MyRealNameCertifyActivity extends BaseControllerActivity<MyRealName
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String getIdCard() {
+        if(null != idCardEt && !TextUtils.isEmpty(idCardEt.getText().toString().trim())){
+            return idCardEt.getText().toString().trim();
+        }
+        return "";
     }
 }
