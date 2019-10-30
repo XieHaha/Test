@@ -28,6 +28,7 @@ public class SharePreferenceManager {
     private static final String HOSPITAL_ID = "hospital_id";
     private static final String GESTURELOCKEDTIME = "gesture_locked_time";
     private static final String ID_CARD = "id_card";
+    private static final String AUTONY_STATE = "autony_state";
 
     public static void setLockTime(long timeMillis) {
         if (null != sp) {
@@ -260,6 +261,23 @@ public class SharePreferenceManager {
         return "";
     }
 
+    public static void setAutonyState(int autonyState) {
+        if (null != sp) {
+            sp.edit().putInt(AUTONY_STATE, autonyState).apply();
+        }
+    }
+
+    public static int getAutonyState() {
+        if (null != sp) {
+            return sp.getInt(AUTONY_STATE, 0);
+        }
+        return 0;
+    }
+
+    //是否实名认证
+    public static boolean isAutony(){
+        return 1 == getAutonyState();
+    }
 
     public static void clearData() {
         setToken("");
@@ -270,6 +288,7 @@ public class SharePreferenceManager {
         setRoleId(0);
         setPositionId(0);
         setIdCard("");
+        setAutonyState(0);
     }
 
 

@@ -42,6 +42,7 @@ import com.keydom.ih_doctor.fragment.view.WorkFragmentView;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.LocalizationUtils;
 import com.keydom.ih_doctor.utils.SpacesItemDecoration;
+import com.keydom.ih_doctor.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -344,64 +345,68 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
             @SingleClick(1000)
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (dataList.get(position).getName()) {
-                    case "门诊排班":
-                        ConsultingArrangeActivity.start(getContext());
-                        break;
-                    case "处方审核":
-                        if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE, ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE})) {
-                            PrescriptionCheckActivity.start(getContext(), ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE);
-                        } else {
-                            getController().showNotAccessDialog();
-                        }
-                        break;
-                    case "处方查询":
-                        if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE, ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE})) {
-                            PrescriptionCheckActivity.start(getContext(), ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE);
-                        } else {
-                            getController().showNotAccessDialog();
-                        }
-                        break;
-                    case "发布信息":
-                        NotificationListActivity.start(getContext());
-                        break;
-                    case "医生协作":
-                        if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_COOPERATE_SERVICE_CODE_Z, ServiceConst.DOCTOR_COOPERATE_SERVICE_CODE_H, ServiceConst.NURSE_COOPERATE_SERVICE_CODE, ServiceConst.MEDICINE_COOPERATE_SERVICE_CODE})) {
-                            DoctorCooperationActivity.start(getContext());
-                        } else {
-                            getController().showNotAccessDialog();
-                        }
+                if(SharePreferenceManager.isAutony()){
+                    switch (dataList.get(position).getName()) {
+                        case "门诊排班":
+                            ConsultingArrangeActivity.start(getContext());
+                            break;
+                        case "处方审核":
+                            if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE, ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE})) {
+                                PrescriptionCheckActivity.start(getContext(), ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE);
+                            } else {
+                                getController().showNotAccessDialog();
+                            }
+                            break;
+                        case "处方查询":
+                            if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE, ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE})) {
+                                PrescriptionCheckActivity.start(getContext(), ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE);
+                            } else {
+                                getController().showNotAccessDialog();
+                            }
+                            break;
+                        case "发布信息":
+                            NotificationListActivity.start(getContext());
+                            break;
+                        case "医生协作":
+                            if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_COOPERATE_SERVICE_CODE_Z, ServiceConst.DOCTOR_COOPERATE_SERVICE_CODE_H, ServiceConst.NURSE_COOPERATE_SERVICE_CODE, ServiceConst.MEDICINE_COOPERATE_SERVICE_CODE})) {
+                                DoctorCooperationActivity.start(getContext());
+                            } else {
+                                getController().showNotAccessDialog();
+                            }
 
-                        break;
-                    case "护理接单":
-                        if (MyApplication.serviceEnable(new String[]{ServiceConst.NURSE_SERVICE_CODE})) {
-                            NurseServiceOrderListActivity.headNurseStart(getContext());
-                        } else {
-                            getController().showNotAccessDialog();
-                        }
-                        break;
-                    case "上门护理":
-                        if (MyApplication.serviceEnable(new String[]{ServiceConst.NURSE_SERVICE_CODE})) {
-                            NurseServiceOrderListActivity.commonNurseStart(getContext());
-                        } else {
-                            getController().showNotAccessDialog();
-                        }
-                        break;
-                    case "在线接诊":
-                        if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_ONLINE_DIAGNOSE_SERVICE_IMG_CODE, ServiceConst.DOCTOR_ONLINE_DIAGNOSE_SERVICE_VIDEO_CODE, ServiceConst.NURSE_IMG_CONSULT_SERVICE_CODE, ServiceConst.NURSE_VIDEO_CONSULT_SERVICE_CODE, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_IMG, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_VIDEO})) {
-                            DiagnoseOrderListActivity.startDiagnose(getContext());
-                        } else {
-                            getController().showNotAccessDialog();
-                        }
-                        break;
-                    case "在线咨询":
-                        if (MyApplication.serviceEnable(new String[]{ServiceConst.NURSE_IMG_CONSULT_SERVICE_CODE, ServiceConst.NURSE_VIDEO_CONSULT_SERVICE_CODE, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_IMG, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_VIDEO})) {
-                            DiagnoseOrderListActivity.startConsult(getContext());
-                        } else {
-                            getController().showNotAccessDialog();
-                        }
+                            break;
+                        case "护理接单":
+                            if (MyApplication.serviceEnable(new String[]{ServiceConst.NURSE_SERVICE_CODE})) {
+                                NurseServiceOrderListActivity.headNurseStart(getContext());
+                            } else {
+                                getController().showNotAccessDialog();
+                            }
+                            break;
+                        case "上门护理":
+                            if (MyApplication.serviceEnable(new String[]{ServiceConst.NURSE_SERVICE_CODE})) {
+                                NurseServiceOrderListActivity.commonNurseStart(getContext());
+                            } else {
+                                getController().showNotAccessDialog();
+                            }
+                            break;
+                        case "在线接诊":
+                            if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_ONLINE_DIAGNOSE_SERVICE_IMG_CODE, ServiceConst.DOCTOR_ONLINE_DIAGNOSE_SERVICE_VIDEO_CODE, ServiceConst.NURSE_IMG_CONSULT_SERVICE_CODE, ServiceConst.NURSE_VIDEO_CONSULT_SERVICE_CODE, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_IMG, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_VIDEO})) {
+                                DiagnoseOrderListActivity.startDiagnose(getContext());
+                            } else {
+                                getController().showNotAccessDialog();
+                            }
+                            break;
+                        case "在线咨询":
+                            if (MyApplication.serviceEnable(new String[]{ServiceConst.NURSE_IMG_CONSULT_SERVICE_CODE, ServiceConst.NURSE_VIDEO_CONSULT_SERVICE_CODE, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_IMG, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_VIDEO})) {
+                                DiagnoseOrderListActivity.startConsult(getContext());
+                            } else {
+                                getController().showNotAccessDialog();
+                            }
 
-                    default:
+                        default:
+                    }
+                }else{
+                    ToastUtil.shortToast(getActivity(),"还未实名认证，请实名认证再开通相关服务");
                 }
             }
         });

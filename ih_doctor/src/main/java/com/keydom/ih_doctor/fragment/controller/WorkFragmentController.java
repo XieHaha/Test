@@ -6,7 +6,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
@@ -53,30 +52,40 @@ public class WorkFragmentController extends ControllerImpl<WorkFragmentView> imp
 
         switch (v.getId()) {
             case R.id.receive_online_re:
-                if (!MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_ONLINE_DIAGNOSE_SERVICE_IMG_CODE,ServiceConst.DOCTOR_ONLINE_DIAGNOSE_SERVICE_VIDEO_CODE, ServiceConst.NURSE_IMG_CONSULT_SERVICE_CODE,ServiceConst.NURSE_VIDEO_CONSULT_SERVICE_CODE, ServiceConst.NURSE_SERVICE_CODE, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_IMG,ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_VIDEO})) {
-                    showNotAccessDialog();
-                    return;
-                }
-                if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
-                    if (SharePreferenceManager.getPositionId() == Const.HEAD_NURSE_CODE) {
-                        NurseServiceOrderListActivity.headNurseStart(getContext());
-                    } else {
-                        NurseServiceOrderListActivity.commonNurseStart(getContext());
+                if(SharePreferenceManager.isAutony()){
+                    if (!MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_ONLINE_DIAGNOSE_SERVICE_IMG_CODE,ServiceConst.DOCTOR_ONLINE_DIAGNOSE_SERVICE_VIDEO_CODE, ServiceConst.NURSE_IMG_CONSULT_SERVICE_CODE,ServiceConst.NURSE_VIDEO_CONSULT_SERVICE_CODE, ServiceConst.NURSE_SERVICE_CODE, ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_IMG,ServiceConst.MEDICINE_CONSULT_SERVICE_CODE_VIDEO})) {
+                        showNotAccessDialog();
+                        return;
                     }
-                } else if (SharePreferenceManager.getRoleId() == Const.ROLE_DOCTOR) {
-                    DiagnoseOrderListActivity.startDiagnose(getContext());
-                } else if (SharePreferenceManager.getRoleId() == Const.ROLE_MEDICINE) {
-                    DiagnoseOrderListActivity.startConsult(getContext());
-                } else {
-                    showNotAccessDialog();
+                    if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
+                        if (SharePreferenceManager.getPositionId() == Const.HEAD_NURSE_CODE) {
+                            NurseServiceOrderListActivity.headNurseStart(getContext());
+                        } else {
+                            NurseServiceOrderListActivity.commonNurseStart(getContext());
+                        }
+                    } else if (SharePreferenceManager.getRoleId() == Const.ROLE_DOCTOR) {
+                        DiagnoseOrderListActivity.startDiagnose(getContext());
+                    } else if (SharePreferenceManager.getRoleId() == Const.ROLE_MEDICINE) {
+                        DiagnoseOrderListActivity.startConsult(getContext());
+                    } else {
+                        showNotAccessDialog();
+                    }
+                }else{
+                    ToastUtil.shortToast(mContext,"还未实名认证，请实名认证再开通相关服务");
                 }
+
                 break;
             case R.id.cooperate_online_re:
-                if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_COOPERATE_SERVICE_CODE_Z,ServiceConst.DOCTOR_COOPERATE_SERVICE_CODE_H, ServiceConst.NURSE_COOPERATE_SERVICE_CODE, ServiceConst.MEDICINE_COOPERATE_SERVICE_CODE})) {
-                    DoctorCooperationActivity.start(getContext());
-                } else {
-                    showNotAccessDialog();
+                if(SharePreferenceManager.isAutony()){
+                    if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_COOPERATE_SERVICE_CODE_Z,ServiceConst.DOCTOR_COOPERATE_SERVICE_CODE_H, ServiceConst.NURSE_COOPERATE_SERVICE_CODE, ServiceConst.MEDICINE_COOPERATE_SERVICE_CODE})) {
+                        DoctorCooperationActivity.start(getContext());
+                    } else {
+                        showNotAccessDialog();
+                    }
+                }else{
+                    ToastUtil.shortToast(mContext,"还未实名认证，请实名认证再开通相关服务");
                 }
+
                 break;
             case R.id.calculator_re:
                 ToastUtil.shortToast(getContext(), "计算器");

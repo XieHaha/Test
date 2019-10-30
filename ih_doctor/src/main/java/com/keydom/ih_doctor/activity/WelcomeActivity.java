@@ -120,6 +120,8 @@ public class WelcomeActivity extends AppCompatActivity {
                                     SharePreferenceManager.setUserCode(data.getUserCode());
                                     SharePreferenceManager.setPhoneNumber(data.getPhoneNumber());
                                     SharePreferenceManager.setHospitalId(data.getHospitalId());
+                                    SharePreferenceManager.setIdCard(data.getIdCard());
+                                    SharePreferenceManager.setAutonyState(data.getAutonymState());
                                     if (data.getRoleIds() != null && data.getRoleIds().size() > 0) {
                                         SharePreferenceManager.setRoleId(data.getRoleIds().get(0));
                                         SharePreferenceManager.setPositionId(data.getNurseMonitorState());

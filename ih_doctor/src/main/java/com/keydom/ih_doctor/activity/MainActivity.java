@@ -6,7 +6,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -17,7 +16,6 @@ import android.view.KeyEvent;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.keydom.ih_common.im.ImClient;
-import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.im.manager.ImPreferences;
 import com.keydom.ih_common.im.manager.NimUserInfoCache;
 import com.keydom.ih_common.im.manager.TeamDataCache;
@@ -41,7 +39,6 @@ import com.keydom.ih_doctor.bean.LoginBean;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.net.LoginApiService;
 import com.keydom.ih_doctor.net.MainApiService;
-import com.keydom.ih_doctor.push.InterceptorReceiver;
 import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.MainView;
 import com.netease.nimlib.sdk.NimIntent;
@@ -352,6 +349,8 @@ public class MainActivity extends AppCompatActivity {
                                         SharePreferenceManager.setUserCode(data.getUserCode());
                                         SharePreferenceManager.setPhoneNumber(data.getPhoneNumber());
                                         SharePreferenceManager.setHospitalId(data.getHospitalId());
+                                        SharePreferenceManager.setAutonyState(data.getAutonymState());
+                                        SharePreferenceManager.setIdCard(data.getIdCard());
                                         if (data.getRoleIds() != null && data.getRoleIds().size() > 0) {
                                             SharePreferenceManager.setRoleId(data.getRoleIds().get(0));
                                             SharePreferenceManager.setPositionId(data.getNurseMonitorState());

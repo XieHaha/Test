@@ -47,6 +47,25 @@ public class LoginBean implements Serializable {
      */
     private String hospitalName;
 
+
+    /**
+     * 实名认证状态 0未认证 1已认证
+     */
+    private Integer autonymState = 0;
+
+    public Integer getAutonymState() {
+        return autonymState;
+    }
+
+    public void setAutonymState(Integer autonymState) {
+        this.autonymState = autonymState;
+    }
+
+    //是否实名认证
+    public boolean isAutony(){
+        return 1 == autonymState;
+    }
+
     //身份证号
     //判断是否为空，来验证是否实名认证
     private String idCard;

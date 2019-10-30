@@ -81,7 +81,7 @@ public class MyRealNameCertifyActivity extends BaseControllerActivity<MyRealName
 
     @Override
     public void realNameSuccess(String msg) {
-        SharePreferenceManager.setIdCard(idCardEt.getText().toString().trim());
+        SharePreferenceManager.setAutonyState(1);
         ToastUtil.shortToast(this, "认证成功");
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);

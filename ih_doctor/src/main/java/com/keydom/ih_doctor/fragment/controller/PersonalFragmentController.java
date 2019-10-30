@@ -1,6 +1,5 @@
 package com.keydom.ih_doctor.fragment.controller;
 
-import android.text.TextUtils;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
@@ -74,7 +73,7 @@ public class PersonalFragmentController extends ControllerImpl<PersonalFragmentV
                 MyIncomeActivity.start(mContext);
                 break;
             case R.id.my_service:
-                if(!TextUtils.isEmpty(SharePreferenceManager.getIdCard())){
+                if(SharePreferenceManager.isAutony()){
                     MyServiceActivity.start(mContext,false);
                 }else{
                     ToastUtil.shortToast(mContext,"还未实名认证，请实名认证再开通相关服务");
