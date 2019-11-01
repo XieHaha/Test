@@ -1,7 +1,6 @@
 package com.keydom.ih_doctor.view;
 
 import android.content.Context;
-import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -77,7 +76,7 @@ public class PrescriptionDetailView extends RelativeLayout {
         deptName.setText(bean.getDept());
         address.setText(bean.getAddress());
         phoneNum.setText(bean.getPhoneNumber());
-        feeType.setText(bean.getFee());
+        feeType.setText("自费");
         diagnose.setText(bean.getDiagnosis());
         date.setText(bean.getTime());
         doctorName.setText(bean.getDoctorName());
