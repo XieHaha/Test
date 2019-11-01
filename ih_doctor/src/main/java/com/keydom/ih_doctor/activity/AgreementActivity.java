@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
-import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.controller.AgreementController;
@@ -148,7 +147,8 @@ public class AgreementActivity extends BaseControllerActivity<AgreementControlle
             submitLin.setVisibility(View.GONE);
             setRightImgVisibility(false);
             setTitle("用户服务协议");
-            htmlStr = CommonUtils.getFromRaw(this, R.raw.register);
+            //htmlStr = CommonUtils.getFromRaw(this, R.raw.register);
+            getController().getOfficialDispatchAllMsgByCode("008");
         }
 
     }
