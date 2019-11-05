@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.WelcomeActivity">
 
+
     <RelativeLayout
         android:id="@+id/welcome_rootview"
         android:layout_width="match_parent"
