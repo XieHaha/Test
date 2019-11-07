@@ -130,6 +130,7 @@ public class DoctorCooperationActivity extends BaseControllerActivity<DoctorCoop
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
         setTitle("医生协作");
+        setRightImgVisibility(false);
         setRightTxt("新建团队");
         setRightBtnListener(getController());
         initView();
@@ -160,7 +161,7 @@ public class DoctorCooperationActivity extends BaseControllerActivity<DoctorCoop
     /**
      * 根据是否有团队决定显示哪个页面
      */
-    private void showGroupView() {
+    private void  showGroupView() {
         currentGroupId = SharePreferenceManager.getGroup();
         if (groupList.size() > 0) {
             groupRl.setVisibility(View.VISIBLE);
