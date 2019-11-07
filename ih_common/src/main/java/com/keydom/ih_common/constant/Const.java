@@ -63,8 +63,8 @@ public class Const {
 //    public static final String RELEASE_HOST = "http://110.191.238.12:12014/";
 //    public static final String IMAGE_HOST = "http://110.191.238.12:12005/";
     //开发服务器
-//    public static final String RELEASE_HOST = "http://110.191.238.12:12004/";
-//    public static final String IMAGE_HOST = "http://110.191.238.12:12005/";
+//    public static final String RELEASE_HOST = "http://110.191.238.12:12013/";
+//    public static final String IMAGE_HOST = "http://110.191.238.12:12013/";
     //验收服务器
 //    public static final String RELEASE_HOST = "http://110.191.238.12:12013/";
 //    public static final String IMAGE_HOST = "http://110.191.238.12:12013/";
