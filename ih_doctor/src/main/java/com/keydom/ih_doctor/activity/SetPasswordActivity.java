@@ -36,6 +36,8 @@ public class SetPasswordActivity extends BaseControllerActivity<SetPasswordContr
     private Button updateFinishBtn;
     private EditText passwordEt;
     private EditText rePasswordEt;
+    private boolean isFromLogin = false;
+
 
     /**
      * 启动修改密码页面
@@ -46,6 +48,19 @@ public class SetPasswordActivity extends BaseControllerActivity<SetPasswordContr
     public static void start(Context context, String phoneNo) {
         Intent starter = new Intent(context, SetPasswordActivity.class);
         starter.putExtra(Const.PHONE_NUM, phoneNo);
+        context.startActivity(starter);
+    }
+
+    /**
+     * 启动修改密码页面
+     *
+     * @param context
+     * @param phoneNo 电话号码
+     */
+    public static void start(Context context, String phoneNo,boolean isFromLogin) {
+        Intent starter = new Intent(context, SetPasswordActivity.class);
+        starter.putExtra(Const.PHONE_NUM, phoneNo);
+        starter.putExtra(Const.IS_FROM_LOGIN, isFromLogin);
         context.startActivity(starter);
     }
 
@@ -97,7 +112,12 @@ public class SetPasswordActivity extends BaseControllerActivity<SetPasswordContr
                 }
             });
         } else {
-            MainActivity.start(SetPasswordActivity.this,false,false);
+            if(isFromLogin){
+                finish();
+            }else{
+                MainActivity.start(SetPasswordActivity.this,false,false);
+            }
+
         }
 
 
@@ -125,5 +145,7 @@ public class SetPasswordActivity extends BaseControllerActivity<SetPasswordContr
         passwordEt = (EditText) this.findViewById(R.id.password_input_et);
         rePasswordEt = (EditText) this.findViewById(R.id.re_password_input_et);
         updateFinishBtn.setOnClickListener(getController());
+
+        isFromLogin = getIntent().getBooleanExtra(Const.IS_FROM_LOGIN,false);
     }
 }

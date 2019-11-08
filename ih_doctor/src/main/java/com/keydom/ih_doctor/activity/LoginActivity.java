@@ -23,10 +23,12 @@ import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.controller.LoginController;
+import com.keydom.ih_doctor.activity.personal.PersonalInfoActivity;
 import com.keydom.ih_doctor.activity.view.LoginView;
 import com.keydom.ih_doctor.bean.LoginBean;
 import com.keydom.ih_doctor.bean.UserInfo;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.utils.ToastUtil;
 
 /**
@@ -102,7 +104,12 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
             SharePreferenceManager.setPositionId(info.getNurseMonitorState());
             PushManager.setAlias(getContext(), info.getPhoneNumber());
             MyApplication.isNeedInit=false;
-            MainActivity.start(LoginActivity.this,false,false);
+            if(info.isAutony()){
+                MainActivity.start(LoginActivity.this,false,false);
+            }else{
+                PersonalInfoActivity.start(LoginActivity.this, TypeEnum.FIRST_FINISH_INFO);
+            }
+
             CommonUtils.hideSoftKeyboard(this);
 //            } else {
 //                DialogUtils.showSingleAlertDialog(LoginActivity.this, info.getRoleIds(), new OnSelectRoleListener() {
@@ -146,7 +153,8 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
             SharePreferenceManager.setIsAgreement(true);
             SharePreferenceManager.setFirstFinishInfo(true);
             SharePreferenceManager.setIsFirst(true);
-            SetPasswordActivity.start(getContext(), userIdEt.getText().toString());
+            userPwdEt.setText("");
+            SetPasswordActivity.start(getContext(), userIdEt.getText().toString(),true);
         } else if (code == 305 || code == 307) {
             showCodeEt();
             getController().getLoginCode(getUserName());

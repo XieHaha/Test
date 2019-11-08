@@ -218,4 +218,9 @@ public class Const {
      */
     public static final String IS_OUT_PRESCRIPTION = "is_out_prescription";
 
+    /**
+     * 是否来自登录
+     */
+    public static final String IS_FROM_LOGIN = "is_from_login";
+
 }
