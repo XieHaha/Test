@@ -50,4 +50,7 @@ public interface DoctorCooperationView extends BaseView {
      */
     int getIsCreate();
 
+
+    //团队交流红点
+    void showOrHideGroupExchangeRedPoint(boolean isShow);
 }

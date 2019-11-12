@@ -23,6 +23,7 @@ import com.keydom.ih_common.bean.MessageEvent;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.constant.EventType;
 import com.keydom.ih_common.im.config.ImConstants;
+import com.keydom.ih_common.im.listener.OnRecentContactListener;
 import com.keydom.ih_common.im.listener.OnRecentContactsListener;
 import com.keydom.ih_common.im.listener.OnTimeListener;
 import com.keydom.ih_common.im.listener.QueryMessageListener;
@@ -436,6 +437,21 @@ public class ImClient {
                         }
                     }
                 });
+    }
+
+
+    /**
+     * 查询联系人聊天数据<br>
+     * 最后一条消息，未读消息数等，都在RecentContact里面
+     * @param contactId   会话id ，对方帐号或群组id。
+     * @param sessionType 会话类型。
+     * @return RecentContact ，如果没有，则返回null。
+     * @param listener 回调
+     */
+    public static void queryRecentContact(String contactId, SessionTypeEnum sessionType,final OnRecentContactListener listener) {
+        if(null != listener){
+            listener.onRecentResult(NIMClient.getService(MsgService.class).queryRecentContact(contactId,sessionType));
+        }
     }
 
     /**
@@ -1183,6 +1199,18 @@ public class ImClient {
 
         }
         return permissionsResult;
+    }
+
+
+    /**
+     * 将指定最近联系人的未读数清零(标记已读)。<br>
+     * 调用该接口后，会触发通知
+     *
+     * @param account     聊天对象帐号
+     * @param sessionType 会话类型
+     */
+    public static void clearUnreadCount(String account, SessionTypeEnum sessionType){
+        NIMClient.getService(MsgService.class).clearUnreadCount(account,sessionType);
     }
 }
 

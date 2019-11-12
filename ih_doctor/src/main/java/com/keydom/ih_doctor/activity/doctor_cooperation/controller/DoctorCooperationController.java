@@ -27,6 +27,7 @@ import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.GroupCooperateApiService;
 import com.keydom.ih_doctor.view.BottomGroupCutDialog;
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -78,6 +79,8 @@ public class DoctorCooperationController extends ControllerImpl<DoctorCooperatio
                 Bundle bundle = new Bundle();
                 bundle.putString("teamName", bean.getGroupName());
                 ImClient.startTeamChart(getContext(), bean.getTid(), bundle);
+                ImClient.clearUnreadCount( bean.getTid(), SessionTypeEnum.Team);
+                getView().showOrHideGroupExchangeRedPoint(false);
                 break;
             case R.id.group_member_rl:
                 if (getView().getCurrentGroup() == null) {

@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.im.ImClient;
+import com.keydom.ih_common.im.listener.OnRecentContactListener;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.view.CircleImageView;
@@ -22,6 +24,8 @@ import com.keydom.ih_doctor.bean.GroupInfoRes;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
+import com.netease.nimlib.sdk.msg.model.RecentContact;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -52,6 +56,7 @@ public class DoctorCooperationActivity extends BaseControllerActivity<DoctorCoop
     private ImageView groupEdit;
     private CircleImageView doctorCoopreationIcon;
     private View cooperate_redpoint_view;
+    private View group_exchange_redpoint_view;
     /**
      * 团队列表
      */
@@ -66,6 +71,11 @@ public class DoctorCooperationActivity extends BaseControllerActivity<DoctorCoop
     private int currentGroupId = -1;
 
     /**
+     * 当前属于的团队TID
+     */
+    private String currentTId = "";
+
+    /**
      * 启动医生协作主页
      *
      * @param context
@@ -77,6 +87,7 @@ public class DoctorCooperationActivity extends BaseControllerActivity<DoctorCoop
 
     private void initView() {
         cooperate_redpoint_view=this.findViewById(R.id.cooperate_redpoint_view);
+        group_exchange_redpoint_view=this.findViewById(R.id.group_exchange_redpoint_view);
         noGroupRl = this.findViewById(R.id.no_group_rl);
         groupRl = this.findViewById(R.id.doctor_coopreation_info_rl);
         groupExchangeRl = this.findViewById(R.id.group_exchange_rl);
@@ -177,9 +188,19 @@ public class DoctorCooperationActivity extends BaseControllerActivity<DoctorCoop
      * 设置当前团队信息
      */
     private void showGroupInfo(GroupInfoBean groupInfoBean) {
+        currentTId = groupInfoBean.getTid();
         doctorCoopreationName.setText(groupInfoBean.getGroupName());
         doctorCoopreationDec.setText(groupInfoBean.getGroupAdept());
         GlideUtils.load(doctorCoopreationIcon, Const.IMAGE_HOST + groupInfoBean.getAvatar(), 0, 0, false, null);
+        ImClient.queryRecentContact(currentTId, SessionTypeEnum.Team, new OnRecentContactListener() {
+            @Override
+            public void onRecentResult(RecentContact recentContact) {
+                if(recentContact.getUnreadCount()>0)
+                    group_exchange_redpoint_view.setVisibility(View.VISIBLE);
+                else
+                    group_exchange_redpoint_view.setVisibility(View.GONE);
+            }
+        });
     }
 
     /**
@@ -206,6 +227,16 @@ public class DoctorCooperationActivity extends BaseControllerActivity<DoctorCoop
     @Override
     public int getIsCreate() {
         return isCreate;
+    }
+
+    @Override
+    public void showOrHideGroupExchangeRedPoint(boolean isShow) {
+        if(isShow){
+            group_exchange_redpoint_view.setVisibility(View.VISIBLE);
+        }else{
+            group_exchange_redpoint_view.setVisibility(View.GONE);
+        }
+
     }
 
 

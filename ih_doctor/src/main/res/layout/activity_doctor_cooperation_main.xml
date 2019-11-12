@@ -160,6 +160,15 @@
                         android:text="团队交流"
                         android:textColor="@color/primary_font_color"
                         android:textSize="@dimen/font_size_primary" />
+
+                    <View
+                        android:id="@+id/group_exchange_redpoint_view"
+                        android:layout_width="@dimen/dp_8"
+                        android:layout_height="@dimen/dp_8"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:layout_toRightOf="@+id/group_exchange_name"
+                        android:visibility="gone"
+                        android:background="@drawable/red_point_view_bg"/>
                 </RelativeLayout>
 
 
