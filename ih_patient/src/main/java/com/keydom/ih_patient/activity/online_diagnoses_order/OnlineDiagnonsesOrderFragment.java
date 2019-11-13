@@ -166,7 +166,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     @Override
     public void onResume() {
         super.onResume();
-        getController().getLocationList();
+       // getController().getLocationList();
         mRefreshLayout.autoRefresh();
     }
 
