@@ -166,7 +166,7 @@ public class RegisterController extends ControllerImpl<IRegisterView> implements
      */
     private void getMsgCode(String s) {
         showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).sendCode(s), new HttpSubscriber<Object>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).sendCode(s,null), new HttpSubscriber<Object>(getContext(), getDisposable(), false) {
 
             @Override
             public void requestComplete(@Nullable Object data) {

@@ -24,7 +24,7 @@ public interface LoginService {
      * 发送验证码
      */
     @GET("user/appuser/sendCode")
-    Observable<HttpResult<Object>> sendCode(@Query("phoneNumber") String phoneNumber);
+    Observable<HttpResult<Object>> sendCode(@Query("phoneNumber") String phoneNumber,@Query("type") String type);
 
     /**
      * 验证码

@@ -1,6 +1,9 @@
 package com.keydom.ih_patient.activity.certification.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.ih_patient.bean.IdCardBean;
+
+import java.util.ArrayList;
 
 /**
  * 验证view
@@ -56,4 +59,33 @@ public interface CertificateView  extends BaseView {
      * 获取验证码
      */
     String getMessageCode();
+
+
+    void goToIdCardFrontDiscriminate();
+
+    void goToIdCardBackDiscriminate();
+
+    /**
+     * 获取图片返回url
+     */
+    ArrayList<String> getUrlList();
+
+    IdCardBean getResult();
+
+
+    /**
+     * 上传图片成功
+     */
+    void uploadImgSuccess(String data, String type);
+
+    /**
+     * 上传失败
+     */
+    void uploadImgFailed(String msg,String type);
+
+
+    /**
+     * 获取type
+     */
+    boolean isPhoneCertificate();
 }
