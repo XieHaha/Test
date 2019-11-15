@@ -23,6 +23,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.bean.MainLoadingEvent;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.im.manager.ImPreferences;
@@ -105,6 +106,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
             finish();
             return;
         }
+        getController().showLoading();
         mainView = (MainView) this.findViewById(R.id.main_view);
         mainView.initModule();
         NetWorkBroadCast netWorkBroadCast = new NetWorkBroadCast();
@@ -468,4 +470,10 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
             builder.create().show();
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(MainLoadingEvent mainLoadingEvent) {
+         getController().hideLoading();
+    }
+
 }

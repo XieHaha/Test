@@ -1,10 +1,9 @@
 package com.keydom.ih_patient.fragment.controller;
 
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.MainLoadingEvent;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -20,7 +19,6 @@ import com.keydom.ih_patient.bean.HealthKnowledgeBean;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.ih_patient.bean.IndexData;
 import com.keydom.ih_patient.bean.IndexFunction;
-import com.keydom.ih_patient.callback.MessageSingleClick;
 import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.FunctionConfig;
@@ -243,7 +241,7 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
         getView().setNoticeData(data.getNotifications());
 //        getView().setArticleData(data.getHealthKnowledges());
         getView().setRedPointView(data);
-
+        EventBus.getDefault().post(new MainLoadingEvent());
     }
 
     /**

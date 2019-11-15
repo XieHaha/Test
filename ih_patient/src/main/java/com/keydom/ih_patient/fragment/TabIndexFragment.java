@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.keydom.ih_common.activity.ArticleDetailActivity;
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.bean.MainLoadingEvent;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.App;
@@ -279,6 +280,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
     @Override
     public void dataRequestFailed(String msg) {
+        EventBus.getDefault().post(new MainLoadingEvent());
         indexRefresh.finishRefresh();
         ToastUtil.shortToast(getContext(), "首页数据加载失败：" + msg);
         final List<Integer> imgesUrlTop = new ArrayList<>();
