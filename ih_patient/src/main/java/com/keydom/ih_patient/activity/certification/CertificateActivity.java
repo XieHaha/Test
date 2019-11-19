@@ -26,6 +26,7 @@ import com.keydom.ih_common.view.MButton;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.certification.controller.CertificateController;
 import com.keydom.ih_patient.activity.certification.view.CertificateView;
+import com.keydom.ih_patient.activity.new_card.NewCardActivity;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.IdCardBean;
 import com.keydom.ih_patient.constant.EventType;
@@ -86,7 +87,7 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         type=getIntent().getStringExtra("type");
-        getController().getType(type);
+        getController().setType(type);
         getTitleLayout().initViewsVisible(true,true,true);
         getTitleLayout().setRightTitle("提交");
         alertDialog = new AlertDialog.Builder(this);
@@ -115,7 +116,7 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
             getTitleLayout().hideRightLl(true);
             getTitleLayout().setOnRightTextClickListener(getController());
         }else {
-            setTitle("身份证验证");
+            setTitle("实名认证");
             upload_pic_positive_tv.setText("[上传正面照]");
             upload_pic_reverse_tv.setText("[上传反面照]");
             upload_certificate_pic_commit.setText("下一步");
@@ -180,7 +181,8 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
             finish();
         }else{
             if (getUrlList().size() == 2) {
-                getController().inspecteIdCard();
+                //getController().inspecteIdCard();
+                NewCardActivity.start(getContext(), "card_id_card", getUrlList(),getResult(),true);
             } else {
                 ToastUtil.shortToast(getContext(), "证件图片上传未完成，请检查并完成上传");
             }

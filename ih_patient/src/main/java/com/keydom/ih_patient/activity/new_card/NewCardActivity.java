@@ -51,6 +51,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     private String provinceName, cityName, areaName;
     private String nation, birthTime, validityPeriod;
     private IdCardBean result;
+    private boolean isOnlyIdCard;
 
     /**
      * 启动
@@ -65,6 +66,20 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         context.startActivity(intent);
     }
 
+    /**
+     * 启动
+     */
+    public static void start(Context context, String type, List<String> urlList, IdCardBean result,boolean isOnlyIdCard) {
+        Intent intent = new Intent(context, NewCardActivity.class);
+        intent.putExtra("type", type);
+        intent.putExtra("isOnlyIdCard", isOnlyIdCard);
+        intent.putStringArrayListExtra("urlList", (ArrayList<String>) urlList);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("result", result);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
     @Override
     public int getLayoutRes() {
         return R.layout.activity_new_card_layout;
@@ -72,7 +87,12 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        setTitle("新增就诊卡");
+        isOnlyIdCard = getIntent().getBooleanExtra("isOnlyIdCard",false);
+        if(isOnlyIdCard){
+            setTitle("实名认证");
+        }else{
+            setTitle("新增就诊卡");
+        }
         new_card_operate_layout = this.findViewById(R.id.new_card_operate_layout);
         new_card_audit_layout = this.findViewById(R.id.new_card_audit_layout);
         certificate_type_tv = this.findViewById(R.id.certificate_type_tv);
@@ -116,7 +136,16 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         id_card_validity_period_tv.setOnClickListener(getController());
         if (type.equals("card_id_card")) {
             certificate_type_tv.setText("身份证");
-            id_card_region_layout.setVisibility(View.VISIBLE);
+            if(isOnlyIdCard){
+                contactor_phone_layout.setVisibility(View.GONE);
+                contactor_name_layout.setVisibility(View.GONE);
+                contactor_relationship_layout.setVisibility(View.GONE);
+            }else{
+                contactor_phone_layout.setVisibility(View.VISIBLE);
+                contactor_name_layout.setVisibility(View.VISIBLE);
+                contactor_relationship_layout.setVisibility(View.VISIBLE);
+            }
+            id_card_region_layout.setVisibility(View.GONE);
             id_card_address_detail_layout.setVisibility(View.VISIBLE);
             id_card_validity_period_layout.setVisibility(View.VISIBLE);
             other_certificate_address_now_layout.setVisibility(View.GONE);

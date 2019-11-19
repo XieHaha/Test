@@ -1,6 +1,8 @@
 package com.keydom.ih_patient.fragment.controller;
 
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.view.GeneralDialog;
@@ -13,7 +15,14 @@ import com.keydom.ih_patient.fragment.view.CardCreateView;
 /**
  * 办卡控制器
  */
-public class CardCreatController extends ControllerImpl<CardCreateView> implements View.OnClickListener {
+public class CardCreatController extends ControllerImpl<CardCreateView> implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+    private CheckBox[] mCheckBoxes ;
+
+    public void setCheckBox(CheckBox[] checkBoxes){
+        mCheckBoxes = checkBoxes;
+    }
+
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -41,6 +50,27 @@ public class CardCreatController extends ControllerImpl<CardCreateView> implemen
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(isChecked) {
+            for (int i = 0; i < mCheckBoxes.length; i++) {
+                //不等于当前选中的就变成false
+                if (mCheckBoxes[i].getId() == buttonView.getId()) {
+                    mCheckBoxes[i].setChecked(true);
+                } else {
+                    mCheckBoxes[i].setChecked(false);
+                }
+            }
+        }else{
+            for (int i = 0; i < mCheckBoxes.length; i++) {
+                //不等于当前选中的就变成false
+                if (mCheckBoxes[i].getId() == buttonView.getId()) {
+                    mCheckBoxes[i].setChecked(true);
+                }
+            }
         }
     }
 }

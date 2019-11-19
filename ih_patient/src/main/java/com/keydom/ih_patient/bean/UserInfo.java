@@ -99,6 +99,8 @@ public class UserInfo implements Serializable {
     private String cityCode;
     @JSONField(name = "countryCode")
     private String countryCode;
+
+    //实名认证 0表示是 1表示否
     @JSONField(name = "certification")
     private String certification;
 
@@ -450,5 +452,9 @@ public class UserInfo implements Serializable {
 
     public void setImToken(String imToken) {
         this.imToken = imToken;
+    }
+
+    public boolean isCertification(){
+        return certification.equals("0");
     }
 }

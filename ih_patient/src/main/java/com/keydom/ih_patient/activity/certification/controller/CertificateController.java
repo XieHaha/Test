@@ -10,6 +10,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.PhoneUtils;
 import com.keydom.ih_common.view.IhTitleLayout;
+import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.certification.view.CertificateView;
 import com.keydom.ih_patient.constant.Global;
@@ -39,7 +40,20 @@ public class CertificateController extends ControllerImpl<CertificateView> imple
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.get_message_bt:
-                getMsgCode(getView().getPhoneNum());
+                if (PhoneUtils.isMobileEnable(getView().getPhoneNum())) {
+                    if (type.equals("phone_certificate")) {
+                        getMsgCode(getView().getPhoneNum());
+                    } else {
+                        if (getView().getPhoneNum().equals(App.userInfo.getPhoneNumber())) {
+                            getMsgCode(getView().getPhoneNum());
+                        } else {
+                            ToastUtil.shortToast(getContext(), "请输入已绑定的电话号码");
+                        }
+                    }
+
+                } else {
+                    ToastUtil.shortToast(getContext(), "请输入正确的电话号码");
+                }
                 break;
             case R.id.pic_positive_img:
                 getView().goToIdCardFrontDiscriminate();
@@ -53,17 +67,18 @@ public class CertificateController extends ControllerImpl<CertificateView> imple
 
                 break;
             case R.id.upload_certificate_pic_commit:
-                if(PhoneUtils.isMobileEnable(getView().getPhoneNum())){
-                    if(!TextUtils.isEmpty(getView().getMessageCode())){
+                if (PhoneUtils.isMobileEnable(getView().getPhoneNum())) {
+                    if (!TextUtils.isEmpty(getView().getMessageCode())) {
                         if (getView().getUrlList().size() == 2) {
                             inspecteMsgCode();
                         } else {
                             ToastUtil.shortToast(getContext(), "证件图片上传未完成，请检查并完成上传");
                         }
-                    }else{
+                    } else {
                         ToastUtil.shortToast(getContext(), "请输入正确的验证码");
                     }
-                }else{
+
+                } else {
                     ToastUtil.shortToast(getContext(), "请输入正确的电话号码");
                 }
                 break;
@@ -78,13 +93,13 @@ public class CertificateController extends ControllerImpl<CertificateView> imple
     @Override
     public void OnRightTextClick(View v) {
         if (type.equals("phone_certificate")) {
-            if(PhoneUtils.isMobileEnable(getView().getPhoneNum())){
-                if(!TextUtils.isEmpty(getView().getMessageCode())){
+            if (PhoneUtils.isMobileEnable(getView().getPhoneNum())) {
+                if (!TextUtils.isEmpty(getView().getMessageCode())) {
                     inspecteMsgCode();
-                }else{
+                } else {
                     ToastUtil.shortToast(getContext(), "请输入正确的验证码");
                 }
-            }else{
+            } else {
                 ToastUtil.shortToast(getContext(), "请输入正确的电话号码");
             }
         } else {
@@ -92,7 +107,7 @@ public class CertificateController extends ControllerImpl<CertificateView> imple
         }
     }
 
-    public void getType(String type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -124,8 +139,8 @@ public class CertificateController extends ControllerImpl<CertificateView> imple
      * 获取验证码
      */
     private void getMsgCode(String s) {
-        String type = getView().isPhoneCertificate()? null : "2" ;
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).sendCode(s,type), new HttpSubscriber<Object>(getContext(), getDisposable(), false) {
+        String type = getView().isPhoneCertificate() ? null : "2";
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).sendCode(s, type), new HttpSubscriber<Object>(getContext(), getDisposable(), false) {
 
             @Override
             public void requestComplete(@Nullable Object data) {

@@ -1,48 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <ImageView
-        android:layout_marginTop="@dimen/dp_30"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_160"
         android:layout_marginLeft="@dimen/dp_34"
+        android:layout_marginTop="@dimen/dp_30"
         android:layout_marginRight="@dimen/dp_34"
-        android:src="@mipmap/create_card_manage"/>
+        android:src="@mipmap/create_card_manage" />
+
     <View
-        android:layout_marginTop="@dimen/dp_10"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
-        android:background="@color/primary_bg_color"/>
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/primary_bg_color" />
+
+    <RadioGroup
+        android:id="@+id/bind_card_root_rb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/fragment_create_card_to_bind_myself_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="本人办卡"
+            android:textColor="@color/title_bar_text_color"
+            android:textSize="@dimen/font_size_primary" />
+
+        <RadioButton
+            android:id="@+id/fragment_create_card_to_bind_others_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_26"
+            android:checked="false"
+            android:text="为他人办卡"
+            android:textColor="@color/title_bar_text_color"
+            android:textSize="@dimen/font_size_primary" />
+    </RadioGroup>
+
     <TextView
         android:id="@+id/send_id_card_tv"
-        android:layout_marginTop="@dimen/dp_25"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_61"
-        android:layout_marginLeft="@dimen/dp_19"
-        android:layout_marginRight="@dimen/dp_19"
         android:layout_gravity="center_horizontal"
-        android:textSize="@dimen/dp_17"
-        android:gravity="center"
-        android:textColor="@color/primary_color"
-        android:text="@string/creat_or_bind_card_func_send_id_card"
+        android:layout_marginLeft="@dimen/dp_19"
+        android:layout_marginTop="@dimen/dp_25"
+        android:layout_marginRight="@dimen/dp_19"
         android:background="@mipmap/fill_personal_bt_bg"
-        />
+        android:gravity="center"
+        android:text="@string/creat_or_bind_card_func_send_id_card"
+        android:textColor="@color/primary_color"
+        android:textSize="@dimen/dp_17" />
 
     <TextView
         android:id="@+id/send_other_certificates_tv"
-        android:layout_marginTop="@dimen/dp_14"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_61"
-        android:layout_marginLeft="@dimen/dp_18"
-        android:layout_marginRight="@dimen/dp_18"
         android:layout_gravity="center_horizontal"
-        android:textSize="@dimen/dp_17"
-        android:gravity="center"
-        android:textColor="@color/title_bar_text_color"
-        android:text="@string/creat_or_bind_card_func_send_other_certificates"
+        android:layout_marginLeft="@dimen/dp_18"
+        android:layout_marginTop="@dimen/dp_14"
+        android:layout_marginRight="@dimen/dp_18"
         android:background="@mipmap/complete_register_bt_bg"
-        />
+        android:gravity="center"
+        android:text="@string/creat_or_bind_card_func_send_other_certificates"
+        android:textColor="@color/title_bar_text_color"
+        android:textSize="@dimen/dp_17" />
 </LinearLayout>
