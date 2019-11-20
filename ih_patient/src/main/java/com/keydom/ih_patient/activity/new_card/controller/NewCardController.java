@@ -36,52 +36,78 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import static com.baidu.mapapi.BMapManager.getContext;
-
 /**
  * 添加新卡控制器
  */
-public class NewCardController extends ControllerImpl<NewCardView> implements View.OnClickListener{
+public class NewCardController extends ControllerImpl<NewCardView> implements View.OnClickListener {
+
+    String type;
+    boolean isOnlyIdCard;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public boolean isOnlyIdCard() {
+        return isOnlyIdCard;
+    }
+
+    public void setOnlyIdCard(boolean onlyIdCard) {
+        isOnlyIdCard = onlyIdCard;
+    }
+
     @Override
     public void onClick(View view) {
-        if(view.getId()==R.id.new_card_commit){
-            commit();
-        }else if (view.getId()==R.id.user_birth_tv){
-            WindowUtils.hiddingInputMethod(view,getContext());
-            showDateDialog(Type.BIRTHDATE,getView().getBirthTime());
-        }else if (view.getId()==R.id.id_card_validity_period_tv){
-            WindowUtils.hiddingInputMethod(view,getContext());
-            showDateDialog(Type.ORDERCUREAPPLY,getView().getValidityPeriod());
-        }else if(view.getId()==R.id.id_card_region_tv||view.getId()==R.id.other_certificate_address_now_tv){
-            WindowUtils.hiddingInputMethod(view,getContext());
-            SelectDialogUtils.showRegionSelectDialog(getContext(),getView().getProvinceName(),getView().getCityName(),getView().getAreaName(),new GeneralCallback.SelectRegionListener() {
+        if (view.getId() == R.id.new_card_commit) {
+            if (type.equals("card_id_card")) {
+                if (isOnlyIdCard) {
+                    certificateCommit();
+                } else {
+                    commit();
+                }
+            } else {
+                commit();
+            }
+
+        } else if (view.getId() == R.id.user_birth_tv) {
+            WindowUtils.hiddingInputMethod(view, getContext());
+            showDateDialog(Type.BIRTHDATE, getView().getBirthTime());
+        } else if (view.getId() == R.id.id_card_validity_period_tv) {
+            WindowUtils.hiddingInputMethod(view, getContext());
+            showDateDialog(Type.ORDERCUREAPPLY, getView().getValidityPeriod());
+        } else if (view.getId() == R.id.id_card_region_tv || view.getId() == R.id.other_certificate_address_now_tv) {
+            WindowUtils.hiddingInputMethod(view, getContext());
+            SelectDialogUtils.showRegionSelectDialog(getContext(), getView().getProvinceName(), getView().getCityName(), getView().getAreaName(), new GeneralCallback.SelectRegionListener() {
                 @Override
                 public void getSelectedRegion(List<PackageData.ProvinceBean> data, int position1, int position2, int position3) {
-                    getView().saveRegion(data,position1,position2,position3);
+                    getView().saveRegion(data, position1, position2, position3);
                 }
             });
-        }else if(view.getId()==R.id.user_national_tv){
-            WindowUtils.hiddingInputMethod(view,getContext());
-            SelectDialogUtils.showNationSelectDialog(getContext(),getView().getNation(), new GeneralCallback.SelectNationListener() {
+        } else if (view.getId() == R.id.user_national_tv) {
+            WindowUtils.hiddingInputMethod(view, getContext());
+            SelectDialogUtils.showNationSelectDialog(getContext(), getView().getNation(), new GeneralCallback.SelectNationListener() {
                 @Override
                 public void getSelectedNation(PackageData.NationBean nationBean) {
                     getView().saveNation(nationBean);
                 }
             });
-        }
-        else if(view.getId()==R.id.user_sex_tv){
-            WindowUtils.hiddingInputMethod(view,getContext());
-            final List<String> sexList=new ArrayList<>();
+        } else if (view.getId() == R.id.user_sex_tv) {
+            WindowUtils.hiddingInputMethod(view, getContext());
+            final List<String> sexList = new ArrayList<>();
             sexList.add("男");
             sexList.add("女");
 //            sexList.add("未知的性别");
-            OptionsPickerView sexPickerView=new OptionsPickerBuilder(getContext(),new OnOptionsSelectListener() {
+            OptionsPickerView sexPickerView = new OptionsPickerBuilder(getContext(), new OnOptionsSelectListener() {
                 @Override
-                public void onOptionsSelect(int options1, int option2, int options3 ,View v) {
-                    if(sexList.get(options1).equals("男")){
-                        getView().setSex("男","0");
-                    }else if(sexList.get(options1).equals("女")){
-                        getView().setSex("女","1");
+                public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                    if (sexList.get(options1).equals("男")) {
+                        getView().setSex("男", "0");
+                    } else if (sexList.get(options1).equals("女")) {
+                        getView().setSex("女", "1");
                     }/*else if(sexList.get(options1).equals("未知的性别")){
                         getView().setSex("未知的性别","2");
                     }*/
@@ -91,12 +117,13 @@ public class NewCardController extends ControllerImpl<NewCardView> implements Vi
             sexPickerView.show();
         }
     }
-    public void matchNation(String nationName){
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getNationList("nation"), new HttpSubscriber<List<PackageData.NationBean>>(getContext(),getDisposable(),false,false) {
+
+    public void matchNation(String nationName) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getNationList("nation"), new HttpSubscriber<List<PackageData.NationBean>>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable final List<PackageData.NationBean> data) {
                 for (int i = 0; i < data.size(); i++) {
-                    if(data.get(i).getNationName().contains(nationName)){
+                    if (data.get(i).getNationName().contains(nationName)) {
                         getView().matchNation(data.get(i));
                         break;
                     }
@@ -110,14 +137,15 @@ public class NewCardController extends ControllerImpl<NewCardView> implements Vi
             }
         });
     }
-    private void showDateDialog(final String type,String dateStr) {
+
+    private void showDateDialog(final String type, String dateStr) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
         try {
-            if(dateStr!=null) {
-                date=formatter.parse(dateStr);
-            }else
-                date=new Date();
+            if (dateStr != null) {
+                date = formatter.parse(dateStr);
+            } else
+                date = new Date();
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
             TimePickerView pvTime = new TimePickerBuilder(getContext(), new OnTimeSelectListener() {
@@ -142,11 +170,35 @@ public class NewCardController extends ControllerImpl<NewCardView> implements Vi
     /**
      * 提交
      */
-    public void commit(){
-        Map<String,Object> map=getView().getParams();
-        if(map!=null){
+    public void commit() {
+        Map<String, Object> map = getView().getParams();
+        if (map != null) {
             showLoading();
-            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(CardService.class).newCard(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(),getDisposable(),false) {
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(CardService.class).newCard(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), false) {
+                @Override
+                public void requestComplete(@Nullable Object data) {
+                    hideLoading();
+                    getView().commitSuccess();
+                }
+
+                @Override
+                public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                    hideLoading();
+                    getView().commitFailed(msg);
+                    return super.requestError(exception, code, msg);
+                }
+            });
+        }
+    }
+
+    /**
+     * 实名认证提交
+     */
+    public void certificateCommit() {
+        Map<String, Object> map = getView().getParams();
+        if (map != null) {
+            showLoading();
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).patientValidateByIdCard(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), false) {
                 @Override
                 public void requestComplete(@Nullable Object data) {
                     hideLoading();

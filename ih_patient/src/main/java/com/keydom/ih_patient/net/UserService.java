@@ -308,4 +308,11 @@ public interface UserService {
     @GET("user/appuser/logout")
     Observable<HttpResult<Object>> logout();
 
+
+    /**
+     * 实名认证后台接口
+     */
+    @POST("user/authentication/patientValidateByIdCard")
+    Observable<HttpResult<Object>> patientValidateByIdCard(@Body RequestBody body);
+
 }

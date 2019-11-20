@@ -33,6 +33,11 @@ public interface NewCardView extends BaseView {
     Map<String,Object> sendTypeCardParams();
 
     /**
+     * 获取实名认证信息
+     */
+    Map<String,Object> getCertificateParams();
+
+    /**
      * 获取其他证件类型
      */
     Map<String,Object> sendTypeOtherCerTificateParams();

@@ -20,6 +20,7 @@ import com.keydom.ih_patient.activity.user_info_operate.view.UserInfoOperateView
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.PackageData;
 import com.keydom.ih_patient.bean.UserInfo;
+import com.keydom.ih_patient.bean.event.CertificateSuccess;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.utils.LocalizationUtils;
@@ -110,7 +111,7 @@ public class UserInfoOperateActivity extends BaseControllerActivity<UserInfoOper
         user_id_card_pic_tv = this.findViewById(R.id.user_id_card_pic_tv);
         if (EDITTYPE.equals(type))
             user_id_card_pic_tv.setOnClickListener(getController());
-        EventBus.getDefault().register(getContext());
+        EventBus.getDefault().register(this);
         getController().initUserData();
     }
 
@@ -164,7 +165,7 @@ public class UserInfoOperateActivity extends BaseControllerActivity<UserInfoOper
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(getContext());
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -245,11 +246,11 @@ public class UserInfoOperateActivity extends BaseControllerActivity<UserInfoOper
                 cityName = data.getCityName();
                 areaName = data.getCountyName();
             }
-            user_real_name_status_tv.setText(data.getIdCard() == null || "".equals(data.getIdCard()) ? "未认证" : "已认证");
-            if (data.getIdCard() == null || "".equals(data.getIdCard())) {
-                user_real_name_status_tv.setClickable(true);
-            } else {
+            user_real_name_status_tv.setText(data.isCertification() ? "已认证" : "未认证");
+            if (data.isCertification()) {
                 user_real_name_status_tv.setClickable(false);
+            } else {
+                user_real_name_status_tv.setClickable(true);
             }
             user_phone_tv.setText(data.getPhoneNumber() == null || "".equals(data.getPhoneNumber()) ? "点击绑定手机号" : data.getPhoneNumber());
             if (data.getCountryName() != null && !"".equals(data.getCountryName())) {
@@ -336,5 +337,18 @@ public class UserInfoOperateActivity extends BaseControllerActivity<UserInfoOper
 
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+
+    /**
+     * 认证成功
+     *
+     * @param success 事件
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onCertificateSuccess(CertificateSuccess success) {
+        user_real_name_status_tv.setText("已认证");
+        user_real_name_status_tv.setClickable(false);
+        reloadData();
     }
 }

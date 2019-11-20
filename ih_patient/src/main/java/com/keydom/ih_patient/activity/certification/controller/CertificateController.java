@@ -139,17 +139,20 @@ public class CertificateController extends ControllerImpl<CertificateView> imple
      * 获取验证码
      */
     private void getMsgCode(String s) {
+        showLoading();
         String type = getView().isPhoneCertificate() ? null : "2";
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).sendCode(s, type), new HttpSubscriber<Object>(getContext(), getDisposable(), false) {
 
             @Override
             public void requestComplete(@Nullable Object data) {
                 getView().getMsgCodeSuccess();
+                hideLoading();
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                 getView().getMsgCodeFailed(msg);
+                hideLoading();
                 return super.requestError(exception, code, msg);
 
             }

@@ -19,10 +19,12 @@ import com.keydom.ih_patient.activity.new_card.controller.NewCardController;
 import com.keydom.ih_patient.activity.new_card.view.NewCardView;
 import com.keydom.ih_patient.bean.IdCardBean;
 import com.keydom.ih_patient.bean.PackageData;
+import com.keydom.ih_patient.bean.event.CertificateSuccess;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.utils.DateUtils;
 import com.keydom.ih_patient.utils.ToastUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
 
 import java.text.SimpleDateFormat;
@@ -42,6 +44,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     private LinearLayout contactor_name_layout, contactor_phone_layout, contactor_relationship_layout, id_card_validity_period_layout;
     private TextView certificate_type_tv, user_birth_tv, id_card_validity_period_tv;
     private String type, birthDateStr, idCardValidityPeriodDateStr;
+    private String idCardValidityStartDateStr;
     private Date birthDate, idCardValidityPeriodDate;
     private TextView new_card_commit, user_sex_tv, user_national_tv, other_certificate_address_now_tv, id_card_region_tv;
     private InterceptorEditText userName_edt, certificate_id_edt;
@@ -87,12 +90,16 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        type = getIntent().getStringExtra("type");
+        cardUrlList = getIntent().getStringArrayListExtra("urlList");
         isOnlyIdCard = getIntent().getBooleanExtra("isOnlyIdCard",false);
         if(isOnlyIdCard){
             setTitle("实名认证");
         }else{
             setTitle("新增就诊卡");
         }
+        getController().setOnlyIdCard(isOnlyIdCard);
+        getController().setType(type);
         new_card_operate_layout = this.findViewById(R.id.new_card_operate_layout);
         new_card_audit_layout = this.findViewById(R.id.new_card_audit_layout);
         certificate_type_tv = this.findViewById(R.id.certificate_type_tv);
@@ -109,8 +116,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
 
         new_card_commit = this.findViewById(R.id.new_card_commit);
         new_card_commit.setOnClickListener(getController());
-        type = getIntent().getStringExtra("type");
-        cardUrlList = getIntent().getStringArrayListExtra("urlList");
+
 
 
         userName_edt = this.findViewById(R.id.userName_edt);
@@ -177,6 +183,9 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
                 idCardValidityPeriodDateStr=result.getExpiryDate();
                 id_card_validity_period_tv.setText(result.getExpiryDate().substring(0,4)+"-"+result.getExpiryDate().substring(4,6)+"-"+result.getExpiryDate().substring(6));
             }
+            if(result.getSignDate() != null && !"".equals(result.getSignDate())){
+                idCardValidityStartDateStr= result.getSignDate();
+            }
 
         } else {
             certificate_type_tv.setText("户口簿");
@@ -194,8 +203,13 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
 
     @Override
     public void commitSuccess() {
-        new_card_operate_layout.setVisibility(View.GONE);
-        new_card_audit_layout.setVisibility(View.VISIBLE);
+        if (type.equals("card_id_card") && isOnlyIdCard) {
+            EventBus.getDefault().post(new CertificateSuccess());
+            finish();
+        }else{
+            new_card_operate_layout.setVisibility(View.GONE);
+            new_card_audit_layout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -206,7 +220,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     @Override
     public Map<String, Object> getParams() {
         if (type.equals("card_id_card")) {
-            return sendTypeCardParams();
+            return isOnlyIdCard ? getCertificateParams():sendTypeCardParams();
         } else {
             return sendTypeOtherCerTificateParams();
         }
@@ -307,6 +321,84 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
             ToastUtil.shortToast(getContext(), "请输入与患者的关系");
             return null;
         }
+        if (DateUtils.compareDateWithNow(birthDateStr)) {
+            ToastUtil.shortToast(getContext(), "出生日期填不该晚于当天，请核实");
+            return null;
+        }
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> getCertificateParams() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", Global.getUserId());
+        map.put("cardImage", cardUrlList.get(0));
+        map.put("cardImageBack",cardUrlList.get(1));
+        if (userName_edt.getText().toString().trim() != null && !"".equals(userName_edt.getText().toString().trim())) {
+            map.put("name", userName_edt.getText().toString().trim());
+        } else {
+            ToastUtil.shortToast(getContext(), "请输入姓名");
+            return null;
+        }
+
+        if (!"".equals(sexStr)) {
+            map.put("sex", sexStr);
+        } else {
+            ToastUtil.shortToast(getContext(), "请填入性别");
+            return null;
+        }
+        if (!"".equals(nationStr)) {
+            map.put("nation", nationStr);
+        } else {
+            ToastUtil.shortToast(getContext(), "请输入民族");
+            return null;
+        }
+        if (birthDateStr != null && !"".equals(birthDateStr)) {
+            map.put("birthDate", birthDateStr);
+        } else {
+            ToastUtil.shortToast(getContext(), "请选择出生日期");
+            return null;
+        }
+
+
+        if (type.equals("card_id_card")) {
+            map.put("cardType", "card_type_01");
+        } else {
+            map.put("cardType", "card_type_02");
+        }
+        if (certificate_id_edt.getText().toString().trim() != null && !"".equals(certificate_id_edt.getText().toString().trim())) {
+            if (!RegexUtils.isIDCard15(certificate_id_edt.getText().toString().trim()) && !RegexUtils.isIDCard18(certificate_id_edt.getText().toString().trim())) {
+                ToastUtils.showShort("请输入正确的身份证号");
+                return null;
+            } else
+                map.put("cardNumber", certificate_id_edt.getText().toString().trim());
+        } else {
+            ToastUtil.shortToast(getContext(), "请输入证件号码");
+            return null;
+        }
+
+        if (di_card_address_detail_edt.getText().toString().trim() != null && !"".equals(di_card_address_detail_edt.getText().toString().trim())) {
+            map.put("detailAddress", di_card_address_detail_edt.getText().toString().trim());
+        } else {
+            ToastUtil.shortToast(getContext(), "请输入身份证详细地址");
+            return null;
+        }
+        if (idCardValidityPeriodDateStr != null && !"".equals(idCardValidityPeriodDateStr)) {
+            map.put("cardValidEnd", idCardValidityPeriodDateStr);
+        } else {
+            ToastUtil.shortToast(getContext(), "请选择身份证有效截止日期");
+            return null;
+        }
+
+        if (idCardValidityStartDateStr != null && !"".equals(idCardValidityStartDateStr)) {
+            map.put("cardValidBegin", idCardValidityStartDateStr);
+        }
+
+        if (DateUtils.compareDate(birthDateStr, idCardValidityPeriodDateStr)) {
+            ToastUtil.shortToast(getContext(), "身份证有效截止日期应该晚于出生日期，请核实");
+            return null;
+        }
+
         if (DateUtils.compareDateWithNow(birthDateStr)) {
             ToastUtil.shortToast(getContext(), "出生日期填不该晚于当天，请核实");
             return null;

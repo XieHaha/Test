@@ -29,12 +29,15 @@ import com.keydom.ih_patient.activity.certification.view.CertificateView;
 import com.keydom.ih_patient.activity.new_card.NewCardActivity;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.IdCardBean;
+import com.keydom.ih_patient.bean.event.CertificateSuccess;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.utils.FileUtil;
 import com.keydom.ih_patient.utils.LocalizationUtils;
 import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
@@ -170,7 +173,7 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
         }
         get_message_bt.setOnClickListener(getController());
 
-
+        EventBus.getDefault().register(getContext());
     }
 
     @Override
@@ -326,6 +329,7 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
     protected void onDestroy() {
         // 释放本地质量控制模型
         CameraNativeHelper.release();
+        EventBus.getDefault().unregister(getContext());
         super.onDestroy();
 
     }
@@ -408,6 +412,11 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
                             mResultBean.setExpiryDate(result.getExpiryDate().toString());
                         else
                             mResultBean.setExpiryDate("");
+
+                        if (result.getSignDate() != null)
+                            mResultBean.setSignDate(result.getSignDate().toString());
+                        else
+                            mResultBean.setSignDate("");
                     }
                 }
             }
@@ -431,5 +440,16 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
                         .show();
             }
         });
+    }
+
+
+    /**
+     * 认证成功
+     *
+     * @param success 事件
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onCertificateSuccess(CertificateSuccess success) {
+         finish();
     }
 }
