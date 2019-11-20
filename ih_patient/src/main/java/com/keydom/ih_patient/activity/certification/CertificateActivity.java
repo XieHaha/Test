@@ -30,6 +30,7 @@ import com.keydom.ih_patient.activity.new_card.NewCardActivity;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.IdCardBean;
 import com.keydom.ih_patient.bean.event.CertificateSuccess;
+import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.utils.FileUtil;
 import com.keydom.ih_patient.utils.LocalizationUtils;
@@ -185,7 +186,7 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
         }else{
             if (getUrlList().size() == 2) {
                 //getController().inspecteIdCard();
-                NewCardActivity.start(getContext(), "card_id_card", getUrlList(),getResult(),true);
+                NewCardActivity.start(getContext(), Const.CARD_ID_CARD, getUrlList(),getResult(),true);
             } else {
                 ToastUtil.shortToast(getContext(), "证件图片上传未完成，请检查并完成上传");
             }

@@ -22,4 +22,12 @@ public class Const {
      */
     public static final int PAGE_SIZE = 8;
 
+    /**
+     * 实名认证type
+     */
+    public static final String CERTIFICATE_TYPE = "certificate_type";
+    public static final String CARD_ID_CARD = "card_id_card";
+    public static final String CARD_OTHER_CERTIFICATE = "card_other_certificate";
+    public static final String CARD_GET_INFO = "card_get_info";
+
 }

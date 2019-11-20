@@ -235,7 +235,7 @@ public class UserInfoOperateActivity extends BaseControllerActivity<UserInfoOper
                 provinceName = data.getProvinceName();
                 cityName = "";
                 areaName = "";
-            } else if (data.getCountyName() == null || "".equals(data.getCountyName())) {
+            } else if (data.getCountryName() == null || "".equals(data.getCountryName())) {
                 user_region_tv.setText(data.getProvinceName() + "-" + data.getCityName());
                 provinceName = data.getProvinceName();
                 cityName = data.getCityName();

@@ -11,6 +11,7 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.new_card.NewCardActivity;
 import com.keydom.ih_patient.activity.upload_certificate_picture.view.UploadCertificatePictureView;
+import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.net.UploadService;
 import com.keydom.ih_patient.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
@@ -39,14 +40,14 @@ public class UploadCertificatePictureController extends ControllerImpl<UploadCer
                 switch (type) {
                     case "card_id_card":
                         if (getView().getUrlList().size() == 2) {
-                            NewCardActivity.start(getContext(), type, getView().getUrlList(),getView().getResult());
+                            NewCardActivity.start(getContext(), Const.CARD_ID_CARD, getView().getUrlList(),getView().getResult());
                         } else {
                             ToastUtil.shortToast(getContext(), "证件图片上传未完成，请检查并完成上传");
                         }
                         break;
                     case "card_other_certificate":
                         if (getView().getUrlList().size() == 2) {
-                            NewCardActivity.start(getContext(), type, getView().getUrlList(),null);
+                            NewCardActivity.start(getContext(), Const.CARD_OTHER_CERTIFICATE, getView().getUrlList(),null);
                         } else {
                             ToastUtil.shortToast(getContext(), "证件图片上传未完成，请检查并完成上传");
                         }

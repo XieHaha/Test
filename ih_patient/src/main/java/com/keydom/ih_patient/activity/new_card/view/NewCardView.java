@@ -1,6 +1,7 @@
 package com.keydom.ih_patient.activity.new_card.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.ih_patient.bean.IdCardInfo;
 import com.keydom.ih_patient.bean.PackageData;
 
 import java.util.Date;
@@ -89,4 +90,15 @@ public interface NewCardView extends BaseView {
      * 匹配民族
      */
     void matchNation(PackageData.NationBean nationBean);
+
+
+    /**
+     * 获取ID信息成功
+     */
+    void getIdCardSuccess(IdCardInfo idCardInfo);
+
+    /**
+     * 获取ID信息失败
+     */
+    void getIdCardFailed(String msg);
 }

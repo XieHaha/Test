@@ -38,6 +38,9 @@ public class CardCreateFragment extends BaseControllerFragment<CardCreatControll
         alertDialog = new AlertDialog.Builder(getContext());
         send_id_card_tv = view.findViewById(R.id.send_id_card_tv);
         send_other_certificates_tv = view.findViewById(R.id.send_other_certificates_tv);
+        send_id_card_tv.setOnClickListener(getController());
+        send_other_certificates_tv.setOnClickListener(getController());
+
         mRadioGroup = (RadioGroup) view.findViewById(R.id.bind_card_root_rb);
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -45,9 +48,11 @@ public class CardCreateFragment extends BaseControllerFragment<CardCreatControll
                 if (checkedId == R.id.fragment_create_card_to_bind_myself_rb) {
                     send_id_card_tv.setText("下一步");
                     send_other_certificates_tv.setVisibility(View.GONE);
+                    getController().setBindMyself(true);
                 } else {
                     send_id_card_tv.setText(R.string.creat_or_bind_card_func_send_id_card);
                     send_other_certificates_tv.setVisibility(View.VISIBLE);
+                    getController().setBindMyself(false);
                 }
             }
         });

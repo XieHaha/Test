@@ -3,6 +3,7 @@ package com.keydom.ih_patient.activity.new_card;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -18,8 +19,10 @@ import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.new_card.controller.NewCardController;
 import com.keydom.ih_patient.activity.new_card.view.NewCardView;
 import com.keydom.ih_patient.bean.IdCardBean;
+import com.keydom.ih_patient.bean.IdCardInfo;
 import com.keydom.ih_patient.bean.PackageData;
 import com.keydom.ih_patient.bean.event.CertificateSuccess;
+import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.utils.DateUtils;
 import com.keydom.ih_patient.utils.ToastUtil;
@@ -57,11 +60,11 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     private boolean isOnlyIdCard;
 
     /**
-     * 启动
+     * 启动， 为他人办卡
      */
     public static void start(Context context, String type, List<String> urlList, IdCardBean result) {
         Intent intent = new Intent(context, NewCardActivity.class);
-        intent.putExtra("type", type);
+        intent.putExtra(Const.CERTIFICATE_TYPE, type);
         intent.putStringArrayListExtra("urlList", (ArrayList<String>) urlList);
         Bundle bundle = new Bundle();
         bundle.putSerializable("result", result);
@@ -70,16 +73,26 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     }
 
     /**
-     * 启动
+     * 启动 ， 实名认证
      */
     public static void start(Context context, String type, List<String> urlList, IdCardBean result,boolean isOnlyIdCard) {
         Intent intent = new Intent(context, NewCardActivity.class);
-        intent.putExtra("type", type);
+        intent.putExtra(Const.CERTIFICATE_TYPE, type);
         intent.putExtra("isOnlyIdCard", isOnlyIdCard);
         intent.putStringArrayListExtra("urlList", (ArrayList<String>) urlList);
         Bundle bundle = new Bundle();
         bundle.putSerializable("result", result);
         intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
+
+    /**
+     * 启动 ， 为本人办卡
+     */
+    public static void start(Context context, String type) {
+        Intent intent = new Intent(context, NewCardActivity.class);
+        intent.putExtra(Const.CERTIFICATE_TYPE, type);
         context.startActivity(intent);
     }
 
@@ -90,10 +103,11 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        type = getIntent().getStringExtra("type");
+        type = getIntent().getStringExtra(Const.CERTIFICATE_TYPE);
         cardUrlList = getIntent().getStringArrayListExtra("urlList");
         isOnlyIdCard = getIntent().getBooleanExtra("isOnlyIdCard",false);
-        if(isOnlyIdCard){
+
+        if(App.userInfo.isCertification() && isOnlyIdCard){
             setTitle("实名认证");
         }else{
             setTitle("新增就诊卡");
@@ -140,7 +154,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         di_card_address_detail_edt = this.findViewById(R.id.di_card_address_detail_edt);
         id_card_validity_period_tv = this.findViewById(R.id.id_card_validity_period_tv);
         id_card_validity_period_tv.setOnClickListener(getController());
-        if (type.equals("card_id_card")) {
+        if (type.equals(Const.CARD_ID_CARD)) {
             certificate_type_tv.setText("身份证");
             if(isOnlyIdCard){
                 contactor_phone_layout.setVisibility(View.GONE);
@@ -187,6 +201,18 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
                 idCardValidityStartDateStr= result.getSignDate();
             }
 
+        }else if(type.equals(Const.CARD_GET_INFO)){
+            certificate_type_tv.setText("身份证");
+            contactor_phone_layout.setVisibility(View.VISIBLE);
+            contactor_name_layout.setVisibility(View.VISIBLE);
+            contactor_relationship_layout.setVisibility(View.VISIBLE);
+            id_card_region_layout.setVisibility(View.GONE);
+            id_card_address_detail_layout.setVisibility(View.VISIBLE);
+            id_card_validity_period_layout.setVisibility(View.VISIBLE);
+            other_certificate_address_now_layout.setVisibility(View.GONE);
+            other_certificate_address_detail_layout.setVisibility(View.GONE);
+
+            getController().getIdCardInfo();
         } else {
             certificate_type_tv.setText("户口簿");
             id_card_region_layout.setVisibility(View.GONE);
@@ -203,7 +229,8 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
 
     @Override
     public void commitSuccess() {
-        if (type.equals("card_id_card") && isOnlyIdCard) {
+        if (type.equals(Const.CARD_ID_CARD) && isOnlyIdCard) {
+            App.userInfo.setCertification(true);
             EventBus.getDefault().post(new CertificateSuccess());
             finish();
         }else{
@@ -219,8 +246,10 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
 
     @Override
     public Map<String, Object> getParams() {
-        if (type.equals("card_id_card")) {
+        if (type.equals(Const.CARD_ID_CARD)) {
             return isOnlyIdCard ? getCertificateParams():sendTypeCardParams();
+        } else if(type.equals(Const.CARD_GET_INFO)){
+            return sendTypeCardParams();
         } else {
             return sendTypeOtherCerTificateParams();
         }
@@ -260,7 +289,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         }
 
 
-        if (type.equals("card_id_card")) {
+        if (type.equals(Const.CARD_ID_CARD) || type.equals(Const.CARD_GET_INFO)) {
             map.put("cardType", "card_type_01");
         } else {
             map.put("cardType", "card_type_02");
@@ -275,13 +304,14 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
             ToastUtil.shortToast(getContext(), "请输入证件号码");
             return null;
         }
-        if (!"".equals(regionStr)) {
+        //TODO ： 暂时屏蔽
+/*        if (!"".equals(regionStr)) {
             map.put("addressCode", regionStr);
             map.put("idCardAddress", provinceName + "-" + cityName + "-" + areaName);
         } else {
             ToastUtil.shortToast(getContext(), "请输入身份证所在地");
             return null;
-        }
+        }*/
         if (di_card_address_detail_edt.getText().toString().trim() != null && !"".equals(di_card_address_detail_edt.getText().toString().trim())) {
             map.put("detailAddress", di_card_address_detail_edt.getText().toString().trim());
         } else {
@@ -361,7 +391,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         }
 
 
-        if (type.equals("card_id_card")) {
+        if (type.equals(Const.CARD_ID_CARD)) {
             map.put("cardType", "card_type_01");
         } else {
             map.put("cardType", "card_type_02");
@@ -437,7 +467,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
             ToastUtil.shortToast(getContext(), "请选择出生日期");
             return null;
         }
-        if (type.equals("card_id_card")) {
+        if (type.equals(Const.CARD_ID_CARD)) {
             map.put("cardType", "card_type_01");
         } else {
             map.put("cardType", "card_type_02");
@@ -514,7 +544,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     @Override
     public void saveRegion(List<PackageData.ProvinceBean> data, int options1, int option2, int options3) {
         if (data.get(options1).getCity().size() == 0) {
-            if (type.equals("card_id_card")) {
+            if (type.equals(Const.CARD_ID_CARD)) {
                 id_card_region_tv.setTextColor(getResources().getColor(R.color.primary_font_color));
                 id_card_region_tv.setText(data.get(options1).getName());
             } else {
@@ -527,7 +557,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
             areaName = "";
 
         } else if (data.get(options1).getCity().get(option2).getArea().size() == 0) {
-            if (type.equals("card_id_card")) {
+            if (type.equals(Const.CARD_ID_CARD)) {
                 id_card_region_tv.setTextColor(getResources().getColor(R.color.primary_font_color));
                 id_card_region_tv.setText(data.get(options1).getName() + "-" + data.get(options1).getCity().get(option2).getName());
             } else {
@@ -540,7 +570,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
             areaName = "";
         } else {
 
-            if (type.equals("card_id_card")) {
+            if (type.equals(Const.CARD_ID_CARD)) {
                 id_card_region_tv.setTextColor(getResources().getColor(R.color.primary_font_color));
                 id_card_region_tv.setText(data.get(options1).getName() + "-" + data.get(options1).getCity().get(option2).getName() + "-" + data.get(options1).getCity().get(option2).getArea().get(options3).getName());
             } else {
@@ -603,5 +633,62 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     public void matchNation(PackageData.NationBean nationBean) {
         user_national_tv.setText(nationBean.getNationName());
         nationStr=nationBean.getNotionCode();
+    }
+
+    @Override
+    public void getIdCardSuccess(IdCardInfo idCardInfo) {
+
+        if(null != idCardInfo){
+
+            if(!TextUtils.isEmpty(idCardInfo.getName())){
+                userName_edt.setText(idCardInfo.getName());
+            }
+
+            if(!TextUtils.isEmpty(idCardInfo.getSex())){
+                sexStr = idCardInfo.getSex();
+                user_sex_tv.setText("0".equals(sexStr)? "男" : "女");
+            }
+
+
+            if(!TextUtils.isEmpty(idCardInfo.getNation())){
+                nationStr = idCardInfo.getNation();
+            }
+
+            if(!TextUtils.isEmpty(idCardInfo.getNationName())){
+                user_national_tv.setText(idCardInfo.getNationName());
+            }
+
+            if(!TextUtils.isEmpty(idCardInfo.getCardNumber())){
+                certificate_id_edt.setText(idCardInfo.getCardNumber());
+            }
+
+            if(!TextUtils.isEmpty(idCardInfo.getDetailAddress())){
+                di_card_address_detail_edt.setText(idCardInfo.getDetailAddress());
+            }
+
+            if(!TextUtils.isEmpty(idCardInfo.getBirthDate())){
+                birthDateStr = DateUtils.getYMDfromYMDHMSNoFormat(idCardInfo.getBirthDate());
+                user_birth_tv.setText(DateUtils.getYMDfromYMDHMS(idCardInfo.getBirthDate()));
+            }
+
+
+            cardUrlList = new ArrayList<>();
+            if(!TextUtils.isEmpty(idCardInfo.getCardImage()) && !TextUtils.isEmpty(idCardInfo.getCardImageBack())){
+                cardUrlList.add(idCardInfo.getCardImage());
+                cardUrlList.add(idCardInfo.getCardImageBack());
+            }
+
+            if(!TextUtils.isEmpty(idCardInfo.getCardValidEnd())){
+                idCardValidityPeriodDateStr = idCardInfo.getCardValidEnd();
+                id_card_validity_period_tv.setText(idCardInfo.getCardValidEnd());
+            }
+
+        }
+
+    }
+
+    @Override
+    public void getIdCardFailed(String msg) {
+        ToastUtil.shortToast(this,msg);
     }
 }

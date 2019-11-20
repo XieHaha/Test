@@ -184,6 +184,24 @@ public class DateUtils {
     }
 
     /**
+     * 时间格式 yyyy-MM-dd HH:mm:ss 转 yyyy-MM-dd
+     *
+     * @param dateStr
+     * @return
+     */
+    public static String getYMDfromYMDHMSNoFormat(String dateStr) {
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat valueSf = new SimpleDateFormat("yyyyMMdd");
+        Date valueDate = null;
+        try {
+            valueDate = sf.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return valueSf.format(valueDate);
+    }
+
+    /**
      * 比较日期
      *
      * @param firstDate

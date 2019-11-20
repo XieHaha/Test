@@ -457,4 +457,8 @@ public class UserInfo implements Serializable {
     public boolean isCertification(){
         return certification.equals("0");
     }
+
+    public void setCertification(boolean isCertification){
+        certification = isCertification? "0":  "1" ;
+    }
 }

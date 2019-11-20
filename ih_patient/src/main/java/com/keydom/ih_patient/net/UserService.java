@@ -17,6 +17,7 @@ import com.keydom.ih_patient.bean.DoctorMainBean;
 import com.keydom.ih_patient.bean.DoctorOrNurseBean;
 import com.keydom.ih_patient.bean.HistoryListBean;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
+import com.keydom.ih_patient.bean.IdCardInfo;
 import com.keydom.ih_patient.bean.InspectionDetailInof;
 import com.keydom.ih_patient.bean.InspectionRecordInfo;
 import com.keydom.ih_patient.bean.ManagerUserBean;
@@ -315,4 +316,10 @@ public interface UserService {
     @POST("user/authentication/patientValidateByIdCard")
     Observable<HttpResult<Object>> patientValidateByIdCard(@Body RequestBody body);
 
+
+
+
+
+    @GET("user/applyElectronicCard/queryUserInformation")
+    Observable<HttpResult<IdCardInfo>> queryUserInformation(@QueryMap Map<String, Object> maps);
 }

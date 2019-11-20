@@ -13,10 +13,13 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.new_card.view.NewCardView;
+import com.keydom.ih_patient.bean.IdCardInfo;
 import com.keydom.ih_patient.bean.PackageData;
 import com.keydom.ih_patient.callback.GeneralCallback;
+import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.net.CardService;
 import com.keydom.ih_patient.net.UserService;
@@ -33,6 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,7 +67,7 @@ public class NewCardController extends ControllerImpl<NewCardView> implements Vi
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.new_card_commit) {
-            if (type.equals("card_id_card")) {
+            if (type.equals(Const.CARD_ID_CARD)) {
                 if (isOnlyIdCard) {
                     certificateCommit();
                 } else {
@@ -214,4 +218,30 @@ public class NewCardController extends ControllerImpl<NewCardView> implements Vi
             });
         }
     }
+
+
+    /**
+     * 实名认证提交
+     */
+    public void getIdCardInfo() {
+        showLoading();
+        Map<String, Object> map = new HashMap<String,Object>();
+        map.put("userId", App.userInfo.getId());
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).queryUserInformation(map), new HttpSubscriber<IdCardInfo>(getContext(), getDisposable(), false) {
+                @Override
+                public void requestComplete(@Nullable IdCardInfo data) {
+                    hideLoading();
+                    getView().getIdCardSuccess(data);
+                }
+
+                @Override
+                public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                    hideLoading();
+                    getView().getIdCardFailed(msg);
+                    return super.requestError(exception, code, msg);
+                }
+            });
+    }
+
+
 }
