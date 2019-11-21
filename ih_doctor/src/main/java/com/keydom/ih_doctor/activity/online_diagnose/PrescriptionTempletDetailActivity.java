@@ -17,7 +17,6 @@ import com.keydom.ih_doctor.bean.DrugBean;
 import com.keydom.ih_doctor.bean.Event;
 import com.keydom.ih_doctor.bean.PrescriptionDrugDetailBean;
 import com.keydom.ih_doctor.constant.EventType;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
@@ -123,6 +122,6 @@ public class PrescriptionTempletDetailActivity extends BaseControllerActivity<Pr
 
     @Override
     public void getTempletDetailListFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 }

@@ -22,6 +22,7 @@ import com.baidu.ocr.ui.camera.CameraNativeHelper;
 import com.baidu.ocr.ui.camera.CameraView;
 import com.bumptech.glide.Glide;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.MButton;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.certification.controller.CertificateController;
@@ -34,7 +35,6 @@ import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.utils.FileUtil;
 import com.keydom.ih_patient.utils.LocalizationUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -153,7 +153,7 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            //ToastUtil.shortToast(getApplicationContext(), "本地质量控制初始化错误，错误原因： " + msg);
+                                            //ToastUtil.showMessage(getApplicationContext(), "本地质量控制初始化错误，错误原因： " + msg);
                                         }
                                     });
 
@@ -188,7 +188,7 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
                 //getController().inspecteIdCard();
                 NewCardActivity.start(getContext(), Const.CARD_ID_CARD, getUrlList(),getResult(),true);
             } else {
-                ToastUtil.shortToast(getContext(), "证件图片上传未完成，请检查并完成上传");
+                ToastUtil.showMessage(getContext(), "证件图片上传未完成，请检查并完成上传");
             }
         }
 
@@ -196,18 +196,18 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
 
     @Override
     public void msgInspectFailed(String msg) {
-        ToastUtil.shortToast(this,msg);
+        ToastUtil.showMessage(this,msg);
     }
 
     @Override
     public void getMsgCodeSuccess() {
         get_message_bt.startTimer();
-        ToastUtil.shortToast(this,"验证码已发送，注意查看");
+        ToastUtil.showMessage(this,"验证码已发送，注意查看");
     }
 
     @Override
     public void getMsgCodeFailed(String errMsg) {
-        ToastUtil.shortToast(this,errMsg);
+        ToastUtil.showMessage(this,errMsg);
     }
 
     @Override
@@ -219,7 +219,7 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
 
     @Override
     public void idCardCertificateFailed(String errMsg) {
-        ToastUtil.shortToast(this,errMsg);
+        ToastUtil.showMessage(this,errMsg);
     }
 
     @Override
@@ -312,10 +312,10 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
     @Override
     public void uploadImgFailed(String msg, String type) {
         if (type.equals("positive")) {
-            ToastUtil.shortToast(getContext(), "证件照片一上传失败：" + msg + "请重新上传");
+            ToastUtil.showMessage(getContext(), "证件照片一上传失败：" + msg + "请重新上传");
             upload_pic_positive_tv.setText("[上传失败,重新上传]");
         } else {
-            ToastUtil.shortToast(getContext(), "证件照片二上传失败：" + msg + "请重新上传");
+            ToastUtil.showMessage(getContext(), "证件照片二上传失败：" + msg + "请重新上传");
             upload_pic_reverse_tv.setText("[上传失败,重新上传]");
         }
     }

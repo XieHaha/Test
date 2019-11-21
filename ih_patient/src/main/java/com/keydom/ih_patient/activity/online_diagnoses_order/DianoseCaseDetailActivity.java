@@ -9,12 +9,12 @@ import android.widget.TextView;
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.online_diagnoses_order.controller.DianoseCaseDetailController;
 import com.keydom.ih_patient.activity.online_diagnoses_order.view.DianoseCaseDetailView;
 import com.keydom.ih_patient.bean.DiagnoseCaseBean;
 import com.keydom.ih_patient.constant.Const;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -71,7 +71,7 @@ public class DianoseCaseDetailActivity extends BaseControllerActivity<DianoseCas
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         medicalId = getIntent().getStringExtra(Const.DATA);
         if (medicalId == null || "".equals(medicalId)) {
-            ToastUtil.shortToast(this, "查不到该病例");
+            ToastUtil.showMessage(this, "查不到该病例");
             return;
         }
         setTitle("门诊病历记录");
@@ -96,7 +96,7 @@ public class DianoseCaseDetailActivity extends BaseControllerActivity<DianoseCas
 
     @Override
     public void getDetailFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
         pageLoadingFail();
     }
 
@@ -114,7 +114,7 @@ public class DianoseCaseDetailActivity extends BaseControllerActivity<DianoseCas
      */
     private void setInfo(DiagnoseCaseBean bean) {
         if (bean == null) {
-            ToastUtil.shortToast(this, "病历不存在");
+            ToastUtil.showMessage(this, "病历不存在");
             finish();
             return;
         }

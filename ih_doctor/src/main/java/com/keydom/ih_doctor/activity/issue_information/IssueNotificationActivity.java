@@ -24,7 +24,6 @@ import com.keydom.ih_doctor.adapter.GridViewPlusImgAdapter;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -107,7 +106,7 @@ public class IssueNotificationActivity extends BaseControllerActivity<IssueNotif
             ArticleDetailActivity.startNotification(IssueNotificationActivity.this, Long.parseLong(successMsg), MyApplication.userInfo.getHospitalId());
             finish();
         } else {
-            ToastUtil.shortToast(getContext(), "数据错误");
+            ToastUtil.showMessage(getContext(), "数据错误");
         }
     }
 
@@ -159,9 +158,9 @@ public class IssueNotificationActivity extends BaseControllerActivity<IssueNotif
     @Override
     public void uploadImgFailed(String errMsg) {
         if (errMsg == null || "".equals(errMsg.trim())) {
-            ToastUtil.shortToast(this, errMsg);
+            ToastUtil.showMessage(this, errMsg);
         } else {
-            ToastUtil.shortToast(this, "图片上传失败!");
+            ToastUtil.showMessage(this, "图片上传失败!");
         }
     }
 

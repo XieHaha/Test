@@ -11,7 +11,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.DrugBean;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -85,7 +84,7 @@ public class DrugTempletAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolde
                     if (selectList != null && selectList.size() < 5) {
                         selectList.add(item);
                     } else {
-                        ToastUtil.shortToast(mContext, "每个处方最多限5种药品");
+                        ToastUtil.showMessage(mContext, "每个处方最多限5种药品");
                     }
 
                 }

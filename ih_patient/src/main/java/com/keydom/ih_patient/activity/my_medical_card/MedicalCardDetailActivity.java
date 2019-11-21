@@ -9,12 +9,12 @@ import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.my_medical_card.controller.MedicalCardDetailController;
 import com.keydom.ih_patient.activity.my_medical_card.view.MedicalCardDetailView;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
 import com.keydom.ih_patient.utils.DateUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 
 import java.text.ParseException;
@@ -103,13 +103,13 @@ public class MedicalCardDetailActivity extends BaseControllerActivity<MedicalCar
 
     @Override
     public void removeBindSuccess() {
-        ToastUtil.shortToast(getContext(),"解绑成功");
+        ToastUtil.showMessage(getContext(),"解绑成功");
         finish();
     }
 
     @Override
     public void removeBindFailed(String msg) {
-        ToastUtil.shortToast(getContext(),msg);
+        ToastUtil.showMessage(getContext(),msg);
     }
 
     @Override

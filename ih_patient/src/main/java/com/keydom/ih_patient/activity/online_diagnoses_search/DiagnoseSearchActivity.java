@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.online_diagnoses_search.controller.DiagnoseSearchController;
@@ -19,7 +20,6 @@ import com.keydom.ih_patient.adapter.DiagnoseSearchAdapter;
 import com.keydom.ih_patient.bean.RecommendDocAndNurBean;
 import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.TypeEnum;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import org.jetbrains.annotations.Nullable;
@@ -146,7 +146,7 @@ public class DiagnoseSearchActivity extends BaseControllerActivity<DiagnoseSearc
 
     @Override
     public void getSearchFailed(String Msg) {
-        ToastUtil.shortToast(getContext(), "查询失败:"+Msg);
+        ToastUtil.showMessage(getContext(), "查询失败:"+Msg);
         refreshLayout.finishLoadMore();
         refreshLayout.finishRefresh();
         pageLoadingFail();

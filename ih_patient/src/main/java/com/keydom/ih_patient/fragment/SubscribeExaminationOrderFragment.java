@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.order_evaluate.OrderEvaluateActivity;
@@ -23,7 +24,6 @@ import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.fragment.controller.SubscribeExaminationOrderController;
 import com.keydom.ih_patient.fragment.view.SubscribeExaminationOrderView;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -135,7 +135,7 @@ public class SubscribeExaminationOrderFragment extends BaseControllerFragment<Su
 
     @Override
     public void getDataFailed(String msg) {
-        ToastUtil.shortToast(getContext(), msg);
+        ToastUtil.showMessage(getContext(), msg);
         mRefreshLayout.finishLoadMore();
         mRefreshLayout.finishRefresh();
     }

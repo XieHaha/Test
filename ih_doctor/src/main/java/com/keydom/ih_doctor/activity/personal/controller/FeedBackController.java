@@ -13,7 +13,6 @@ import com.keydom.ih_doctor.activity.personal.FeedBackActivity;
 import com.keydom.ih_doctor.activity.personal.view.FeedBackView;
 import com.keydom.ih_doctor.net.MainApiService;
 import com.keydom.ih_doctor.net.PersonalApiService;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -97,7 +96,7 @@ public class FeedBackController extends ControllerImpl<FeedBackView> implements 
                         .maxSelectNum(FeedBackActivity.IMAGE_LIMIT - getView().getImgSize())
                         .forResult(PictureConfig.CHOOSE_REQUEST);
             } else {
-                ToastUtil.shortToast(mContext, "最多只能选择" + FeedBackActivity.IMAGE_LIMIT + "张图片");
+                ToastUtil.showMessage(mContext, "最多只能选择" + FeedBackActivity.IMAGE_LIMIT + "张图片");
             }
 
         }

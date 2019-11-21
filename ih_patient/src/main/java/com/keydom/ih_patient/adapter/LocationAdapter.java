@@ -14,6 +14,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.location_manage.AddLocationActivity;
@@ -24,7 +25,6 @@ import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.net.LocationService;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
@@ -162,7 +162,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.VH> {
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                ToastUtil.shortToast(context, "设置默认地址失败，请稍后重试。");
+                ToastUtil.showMessage(context, "设置默认地址失败，请稍后重试。");
                 notifyDataSetChanged();
                 return super.requestError(exception, code, msg);
             }

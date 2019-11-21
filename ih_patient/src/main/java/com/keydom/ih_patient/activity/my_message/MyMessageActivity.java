@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.my_message.controller.MyMessagaeController;
@@ -15,7 +16,6 @@ import com.keydom.ih_patient.bean.MessageBean;
 import com.keydom.ih_patient.bean.NoticeBean;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -154,7 +154,7 @@ public class MyMessageActivity extends BaseControllerActivity<MyMessagaeControll
 
     @Override
     public void getMessageListFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),"接口异常:"+errMsg);
+        ToastUtil.showMessage(getContext(),"接口异常:"+errMsg);
     }
 
     @Override
@@ -183,6 +183,6 @@ public class MyMessageActivity extends BaseControllerActivity<MyMessagaeControll
 
     @Override
     public void getNoticeFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),"接口异常:"+errMsg);
+        ToastUtil.showMessage(getContext(),"接口异常:"+errMsg);
     }
 }

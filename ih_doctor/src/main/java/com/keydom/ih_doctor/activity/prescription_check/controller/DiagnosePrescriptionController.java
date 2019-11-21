@@ -22,7 +22,6 @@ import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.DiagnoseApiService;
 import com.keydom.ih_doctor.net.PrescriptionService;
 import com.keydom.ih_doctor.utils.DialogUtils;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.BottomAddPrescriptionDialog;
 
 import org.jetbrains.annotations.NotNull;
@@ -100,7 +99,7 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                         }
                     }).show();
                 }else {
-                    ToastUtil.shortToast(getContext(), "请完善处方信息！");
+                    ToastUtil.showMessage(getContext(), "请完善处方信息！");
                 }
                 break;
             case R.id.submit:
@@ -115,7 +114,7 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                         }
                     });*/
                 }else {
-                    ToastUtil.shortToast(getContext(), "请完善处方信息！");
+                    ToastUtil.showMessage(getContext(), "请完善处方信息！");
                 }
 
 
@@ -200,7 +199,7 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                 if (getView().checkSubmit()) {
                     doctorHandleSuggest();
                 } else {
-                    ToastUtil.shortToast(getContext(), "请输入处置建议");
+                    ToastUtil.showMessage(getContext(), "请输入处置建议");
                 }
                 break;
 

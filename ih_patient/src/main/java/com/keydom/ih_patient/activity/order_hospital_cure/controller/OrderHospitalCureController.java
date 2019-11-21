@@ -3,7 +3,6 @@ package com.keydom.ih_patient.activity.order_hospital_cure.controller;
 import android.support.design.widget.BottomSheetDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
@@ -14,9 +13,9 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.AgreementActivity;
 import com.keydom.ih_patient.activity.common_document.CommonDocumentActivity;
 import com.keydom.ih_patient.activity.order_hospital_cure.view.OrderHospitalCureView;
 import com.keydom.ih_patient.bean.CommonDocumentBean;
@@ -27,7 +26,6 @@ import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.OrderService;
 import com.keydom.ih_patient.net.UserService;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -130,7 +128,7 @@ public class OrderHospitalCureController extends ControllerImpl<OrderHospitalCur
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                 hideLoading();
-                ToastUtil.shortToast(getContext(),"获取地区列表失败："+msg+"，请稍后重试");
+                ToastUtil.showMessage(getContext(),"获取地区列表失败："+msg+"，请稍后重试");
                 return super.requestError(exception, code, msg);
             }
         });
@@ -195,7 +193,7 @@ public class OrderHospitalCureController extends ControllerImpl<OrderHospitalCur
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                 hideLoading();
-                ToastUtil.shortToast(getContext(),"获取地区列表失败："+msg+"，请稍后重试");
+                ToastUtil.showMessage(getContext(),"获取地区列表失败："+msg+"，请稍后重试");
                 return super.requestError(exception, code, msg);
             }
         });

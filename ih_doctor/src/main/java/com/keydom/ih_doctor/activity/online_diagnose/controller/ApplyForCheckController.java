@@ -20,7 +20,6 @@ import com.keydom.ih_doctor.bean.CheckOutItemBean;
 import com.keydom.ih_doctor.bean.OrderApplyResponse;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.DiagnoseApiService;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -45,7 +44,7 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
             case R.id.apply_test_add_tv:
                 if (getView().isInspect()) {
                     if (getView().getInspactItemList() == null) {
-                        ToastUtil.shortToast(getContext(), "没有查询到检查项目");
+                        ToastUtil.showMessage(getContext(), "没有查询到检查项目");
                     } else {
 //                        ChooseInspectItemActivity.start(getContext(), getView().getInspactItemList(), getView().getInspactSelectItemList());
                         ChooseInspectItemActivity.start(getContext(), getView().getInspactItemList(), null);
@@ -140,14 +139,14 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
             if (getView().isSaveInspactOrder()) {
                 saveInspect();
             } else {
-                ToastUtil.shortToast(getContext(), "请完善检查项目后再提交！");
+                ToastUtil.showMessage(getContext(), "请完善检查项目后再提交！");
             }
 
         } else {
             if (getView().isSaveCheckOutOrder()) {
                 saveCheckout();
             } else {
-                ToastUtil.shortToast(getContext(), "请完善检验项目后再提交！");
+                ToastUtil.showMessage(getContext(), "请完善检验项目后再提交！");
             }
 
         }

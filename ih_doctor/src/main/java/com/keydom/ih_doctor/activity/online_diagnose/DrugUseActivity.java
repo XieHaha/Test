@@ -24,7 +24,6 @@ import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.PrescriptionService;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
@@ -143,7 +142,7 @@ public class DrugUseActivity extends BaseActivity {
                     ActivityUtils.finishActivity(DrugChooseActivity.class);
                     finish();
                 } else {
-                    ToastUtil.shortToast(DrugUseActivity.this, "请完善药品信息");
+                    ToastUtil.showMessage(DrugUseActivity.this, "请完善药品信息");
                 }
             }
         });

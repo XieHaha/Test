@@ -11,6 +11,7 @@ import com.baidu.ocr.sdk.OnResultListener;
 import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.fragment.controller.CardCreatController;
@@ -57,11 +58,9 @@ public class CardCreateFragment extends BaseControllerFragment<CardCreatControll
             }
         });
 
-        if(App.userInfo.isCertification()){
-            mRadioGroup.setVisibility(View.VISIBLE);
-            send_id_card_tv.setText("下一步");
-            send_other_certificates_tv.setVisibility(View.GONE);
-        }else{
+        if (App.userInfo.isCertification()) {
+             getController().isApplyElectronicCard();
+        } else {
             mRadioGroup.setVisibility(View.GONE);
             send_id_card_tv.setText(R.string.creat_or_bind_card_func_send_id_card);
             send_other_certificates_tv.setVisibility(View.VISIBLE);
@@ -99,5 +98,23 @@ public class CardCreateFragment extends BaseControllerFragment<CardCreatControll
                         .show();
             }
         });
+    }
+
+    @Override
+    public void isApplyElectronicCardSuccess(String data) {
+        if ("false".equals(data)) {
+            mRadioGroup.setVisibility(View.VISIBLE);
+            send_id_card_tv.setText("下一步");
+            send_other_certificates_tv.setVisibility(View.GONE);
+        } else {
+            mRadioGroup.setVisibility(View.GONE);
+            send_id_card_tv.setText(R.string.creat_or_bind_card_func_send_id_card);
+            send_other_certificates_tv.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void isApplyElectronicCardFailed(String msg) {
+        ToastUtil.showMessage(getActivity(), msg);
     }
 }

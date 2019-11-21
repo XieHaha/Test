@@ -27,7 +27,6 @@ import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.utils.CalculateTimeUtils;
 import com.keydom.ih_doctor.utils.DateUtils;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
@@ -283,7 +282,7 @@ public class ConsultingChangeActivity extends BaseControllerActivity<ConsultingC
     private void selectTwo() {
         if (type == CONSULTING_STOP || type == CONSULTING_STOP_UPDATE) {
             if (startTimeStr == null) {
-                ToastUtil.shortToast(this, "请先选择开始时间！");
+                ToastUtil.showMessage(this, "请先选择开始时间！");
                 return;
             }
             if (circulatePvTime == null) {
@@ -445,13 +444,13 @@ public class ConsultingChangeActivity extends BaseControllerActivity<ConsultingC
 
     @Override
     public void reqFailed(String errMsg) {
-        ToastUtil.shortToast(this, "操作失败");
+        ToastUtil.showMessage(this, "操作失败");
     }
 
     @Override
     public HashMap<String, Object> getChangeMap() {
         if (startTimeStr == null || endTimeStr == null || dataStr == null) {
-            ToastUtil.shortToast(this, "请完善信息后再提交");
+            ToastUtil.showMessage(this, "请完善信息后再提交");
             return null;
         }
         HashMap<String, Object> map = new HashMap<>();
@@ -468,13 +467,13 @@ public class ConsultingChangeActivity extends BaseControllerActivity<ConsultingC
         if (mList != null) {
             for (int i = 0; i < mList.size(); i++) {
                 if (String.valueOf(week).equals(mList.get(i).getWeek())) {
-                    ToastUtil.shortToast(this, "不可添加重复的循环排班");
+                    ToastUtil.showMessage(this, "不可添加重复的循环排班");
                     return null;
                 }
             }
         }
         if (startTimeStr == null || endTimeStr == null) {
-            ToastUtil.shortToast(this, "请完善信息后再提交");
+            ToastUtil.showMessage(this, "请完善信息后再提交");
             return null;
         }
         HashMap<String, Object> map = new HashMap<>();
@@ -491,7 +490,7 @@ public class ConsultingChangeActivity extends BaseControllerActivity<ConsultingC
     @Override
     public HashMap<String, Object> getAddStopMap() {
         if (startTimeStr == null) {
-            ToastUtil.shortToast(this, "请选择停诊开始时间");
+            ToastUtil.showMessage(this, "请选择停诊开始时间");
             return null;
         }
         HashMap<String, Object> map = new HashMap<>();

@@ -16,7 +16,6 @@ import com.keydom.ih_common.view.MButton;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.personal.controller.MyRealNameCertifyController;
 import com.keydom.ih_doctor.activity.personal.view.MyRealNameCertifyView;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -82,7 +81,7 @@ public class MyRealNameCertifyActivity extends BaseControllerActivity<MyRealName
     @Override
     public void realNameSuccess(String msg) {
         SharePreferenceManager.setAutonyState(1);
-        ToastUtil.shortToast(this, "认证成功");
+        ToastUtil.showMessage(this, "认证成功");
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
         finish();
@@ -90,18 +89,18 @@ public class MyRealNameCertifyActivity extends BaseControllerActivity<MyRealName
 
     @Override
     public void realNameFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
     public void getCodeSuccess(String msg) {
         getIdentifyingCodeBt.startTimer();
-        ToastUtil.shortToast(this, "验证码发送成功");
+        ToastUtil.showMessage(this, "验证码发送成功");
     }
 
     @Override
     public void getCodeFailed(String msg) {
-        ToastUtil.shortToast(this, msg);
+        ToastUtil.showMessage(this, msg);
     }
 
     @Override

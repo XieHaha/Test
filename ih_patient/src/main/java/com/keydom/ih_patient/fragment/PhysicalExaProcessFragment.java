@@ -5,11 +5,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.fragment.controller.PhysicalExaProcessController;
 import com.keydom.ih_patient.fragment.view.PhysicalExaProcessView;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.zzhoujay.richtext.ImageHolder;
 import com.zzhoujay.richtext.RichText;
 
@@ -43,6 +43,6 @@ public class PhysicalExaProcessFragment extends BaseControllerFragment<PhysicalE
 
     @Override
     public void FillPhysicalProcessFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),"获取体检流程失败："+errMsg);
+        ToastUtil.showMessage(getContext(),"获取体检流程失败："+errMsg);
     }
 }

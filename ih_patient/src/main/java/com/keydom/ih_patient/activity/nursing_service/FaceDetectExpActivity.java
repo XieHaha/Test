@@ -8,11 +8,11 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.NursingService;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
@@ -46,7 +46,7 @@ public class FaceDetectExpActivity extends FaceLivenessActivity {
                         EventBus.getDefault().post(new Event(EventType.FACIALRECOGNITION,null));
                         finish();
                     }else {
-                        ToastUtil.shortToast(FaceDetectExpActivity.this,"验证不通过，请确认是本人操作");
+                        ToastUtil.showMessage(FaceDetectExpActivity.this,"验证不通过，请确认是本人操作");
                         finish();
                     }
 
@@ -54,7 +54,7 @@ public class FaceDetectExpActivity extends FaceLivenessActivity {
 
                 @Override
                 public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                    ToastUtil.shortToast(FaceDetectExpActivity.this,"验证失败"+msg+"请稍后重试");
+                    ToastUtil.showMessage(FaceDetectExpActivity.this,"验证失败"+msg+"请稍后重试");
                     finish();
                     return super.requestError(exception, code, msg);
                 }
@@ -63,7 +63,7 @@ public class FaceDetectExpActivity extends FaceLivenessActivity {
         } else if (status == FaceStatusEnum.Error_DetectTimeout ||
                 status == FaceStatusEnum.Error_LivenessTimeout ||
                 status == FaceStatusEnum.Error_Timeout) {
-            ToastUtil.shortToast(this,"人脸图像采集超时");
+            ToastUtil.showMessage(this,"人脸图像采集超时");
         }
     }
 

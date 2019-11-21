@@ -8,12 +8,12 @@ import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.inspection_report.controller.InspectionDetailController;
 import com.keydom.ih_patient.activity.inspection_report.view.InspectionDetailView;
 import com.keydom.ih_patient.adapter.InspectionDetailAdapter;
 import com.keydom.ih_patient.bean.InspectionDetailInof;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -73,7 +73,7 @@ public class InspectionDetailActivity extends BaseControllerActivity<InspectionD
 
     @Override
     public void getInspectionDetailFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),checkoutName+"检验报告单详情获取失败"+errMsg);
+        ToastUtil.showMessage(getContext(),checkoutName+"检验报告单详情获取失败"+errMsg);
         finish();
     }
 }

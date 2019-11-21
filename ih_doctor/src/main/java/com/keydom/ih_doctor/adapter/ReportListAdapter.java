@@ -17,7 +17,6 @@ import com.keydom.ih_doctor.bean.BodyCheckDetailInfo;
 import com.keydom.ih_doctor.bean.ReportItemBean;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.DiagnoseApiService;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -63,7 +62,7 @@ public class ReportListAdapter extends BaseQuickAdapter<ReportItemBean, BaseView
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                ToastUtil.shortToast(mContext,"无法打开该检查单"+msg);
+                ToastUtil.showMessage(mContext,"无法打开该检查单"+msg);
                 return super.requestError(exception, code, msg);
             }
         });

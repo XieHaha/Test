@@ -21,7 +21,6 @@ import com.keydom.ih_doctor.bean.HeadNurseServiceOrderDetailBean;
 import com.keydom.ih_doctor.bean.NursingProjectInfo;
 import com.keydom.ih_doctor.m_interface.OnAddServiceItemDialogListener;
 import com.keydom.ih_doctor.m_interface.OnNurseServiceItemResultListener;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -123,7 +122,7 @@ public class AddNurseServiceDialog extends Dialog implements View.OnClickListene
                 break;
             case R.id.inquiry_scaler_add_layout:
                 if (serviceAmount == limit + 1) {
-                    ToastUtil.shortToast(getContext(), "次数已经达到上限！");
+                    ToastUtil.showMessage(getContext(), "次数已经达到上限！");
                 } else {
                     serviceAmount++;
                     serviceTimes.setText(String.valueOf(serviceAmount));
@@ -135,7 +134,7 @@ public class AddNurseServiceDialog extends Dialog implements View.OnClickListene
                 break;
             case R.id.add_btn:
                 if (serviceAmount == 0 || selectList == null || selectList.size() == 0) {
-                    ToastUtil.shortToast(getContext(), "请选择正确的项目和服务次数后再提交！");
+                    ToastUtil.showMessage(getContext(), "请选择正确的项目和服务次数后再提交！");
                     return;
                 }
                 setAddBtnEnable(false);

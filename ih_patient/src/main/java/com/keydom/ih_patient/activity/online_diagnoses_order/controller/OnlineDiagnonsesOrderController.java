@@ -8,6 +8,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.activity.online_diagnoses_order.view.OnlineDiagnonsesOrderView;
@@ -28,7 +29,6 @@ import com.keydom.ih_patient.net.PayService;
 import com.keydom.ih_patient.net.PrescriptionService;
 import com.keydom.ih_patient.net.UserService;
 import com.keydom.ih_patient.utils.CommUtil;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
 import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 import com.orhanobut.logger.Logger;
@@ -92,7 +92,7 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
                             new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
                                 @Override
                                 public void onSuccess() {
-                                    ToastUtil.shortToast(getContext(), "支付成功");
+                                    ToastUtil.showMessage(getContext(), "支付成功");
                                     new GeneralDialog(getContext(), "问诊订单支付成功，近期请留意订单状态以及接诊医生给你发送的消息", new GeneralDialog.OnCloseListener() {
                                         @Override
                                         public void onCommit() {
@@ -123,7 +123,7 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
                         WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
                             @Override
                             public void onSuccess() {
-                                ToastUtil.shortToast(getContext(), "支付成功");
+                                ToastUtil.showMessage(getContext(), "支付成功");
                                 new GeneralDialog(getContext(), "问诊订单支付成功，近期请留意订单状态以及接诊医生给你发送的消息", new GeneralDialog.OnCloseListener() {
                                     @Override
                                     public void onCommit() {
@@ -134,7 +134,7 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
 
                             @Override
                             public void onError(int error_code) {
-                                ToastUtil.shortToast(getContext(),"支付失败"+error_code
+                                ToastUtil.showMessage(getContext(),"支付失败"+error_code
                                 );
                             }
 
@@ -221,7 +221,7 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
 
                         @Override
                         public void onError(int error_code) {
-                            ToastUtil.shortToast(getContext(),"支付失败"+error_code
+                            ToastUtil.showMessage(getContext(),"支付失败"+error_code
                             );
                         }
 

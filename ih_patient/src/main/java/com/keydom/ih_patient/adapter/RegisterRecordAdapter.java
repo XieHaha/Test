@@ -14,6 +14,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.order_doctor_register.RegistrationRecordDetailActivity;
@@ -24,7 +25,6 @@ import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.net.OrderService;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
 import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 import com.orhanobut.logger.Logger;
@@ -152,7 +152,7 @@ public class RegisterRecordAdapter extends RecyclerView.Adapter<RegisterRecordAd
                         new Alipay(context, object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
                             @Override
                             public void onSuccess() {
-                                ToastUtil.shortToast(context, "支付成功");
+                                ToastUtil.showMessage(context, "支付成功");
                                 EventBus.getDefault().post(new Event(EventType.DOCTORREGISTERORDERPAYED, null));
                             }
 
@@ -163,7 +163,7 @@ public class RegisterRecordAdapter extends RecyclerView.Adapter<RegisterRecordAd
 
                             @Override
                             public void onError(int error_code) {
-                                ToastUtil.shortToast(context, "支付失败" + error_code
+                                ToastUtil.showMessage(context, "支付失败" + error_code
                                 );
                             }
 
@@ -185,7 +185,7 @@ public class RegisterRecordAdapter extends RecyclerView.Adapter<RegisterRecordAd
 
                         @Override
                         public void onError(int error_code) {
-                            ToastUtil.shortToast(context, "支付失败" + error_code
+                            ToastUtil.showMessage(context, "支付失败" + error_code
                             );
                         }
 
@@ -200,7 +200,7 @@ public class RegisterRecordAdapter extends RecyclerView.Adapter<RegisterRecordAd
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                ToastUtil.shortToast(context, "拉取订单失败，请重试");
+                ToastUtil.showMessage(context, "拉取订单失败，请重试");
                 return super.requestError(exception, code, msg);
             }
         });
@@ -217,14 +217,14 @@ public class RegisterRecordAdapter extends RecyclerView.Adapter<RegisterRecordAd
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).backno(map), new HttpSubscriber<Object>() {
             @Override
             public void requestComplete(@Nullable Object data) {
-                ToastUtil.shortToast(context, "退号成功");
+                ToastUtil.showMessage(context, "退号成功");
                 dataList.remove(position);
                 notifyDataSetChanged();
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                ToastUtil.shortToast(context, "退号失败：" + msg);
+                ToastUtil.showMessage(context, "退号失败：" + msg);
                 return super.requestError(exception, code, msg);
             }
         });

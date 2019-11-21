@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.location_manage.controller.LocationManageController;
@@ -21,7 +22,6 @@ import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.LocationInfo;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Type;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -128,7 +128,7 @@ public class LocationManageActivity extends BaseControllerActivity<LocationManag
 
     @Override
     public void getLocationListFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),errMsg);
+        ToastUtil.showMessage(getContext(),errMsg);
         if(locationRv.getVisibility()==View.VISIBLE){
             locationRv.setVisibility(View.GONE);
             comment_empty_layout.setVisibility(View.VISIBLE);

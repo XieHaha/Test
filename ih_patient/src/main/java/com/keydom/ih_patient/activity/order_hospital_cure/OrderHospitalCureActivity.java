@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.PhoneUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
@@ -21,7 +22,6 @@ import com.keydom.ih_patient.bean.HospitalCureInfo;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.utils.DateUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 
 import org.jetbrains.annotations.Nullable;
@@ -239,13 +239,13 @@ public class OrderHospitalCureActivity extends BaseControllerActivity<OrderHospi
 
     @Override
     public void applyHealthCureSuccess() {
-        ToastUtil.shortToast(getContext(),"申请成功，正在审核中");
+        ToastUtil.showMessage(getContext(),"申请成功，正在审核中");
         finish();
     }
 
     @Override
     public void applyHealthCureFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),errMsg);
+        ToastUtil.showMessage(getContext(),errMsg);
     }
 
     @Override
@@ -304,30 +304,30 @@ public class OrderHospitalCureActivity extends BaseControllerActivity<OrderHospi
 
     @Override
     public void getHealthCureFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),"入院单获取失败");
+        ToastUtil.showMessage(getContext(),"入院单获取失败");
         finish();
     }
 
     @Override
     public void updateStatusSuccess() {
-        ToastUtil.shortToast(getContext(),"提交成功");
+        ToastUtil.showMessage(getContext(),"提交成功");
         finish();
     }
 
     @Override
     public void updateStatusFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),"提交失败："+errMsg);
+        ToastUtil.showMessage(getContext(),"提交失败："+errMsg);
     }
 
     @Override
     public void cancellationApplySuccess() {
-        ToastUtil.shortToast(getContext(),"取消成功");
+        ToastUtil.showMessage(getContext(),"取消成功");
         finish();
     }
 
     @Override
     public void cancellationApplyFailed(String msg) {
-        ToastUtil.shortToast(getContext(),"取消失败："+msg);
+        ToastUtil.showMessage(getContext(),"取消失败："+msg);
     }
 
     @Override
@@ -347,37 +347,37 @@ public class OrderHospitalCureActivity extends BaseControllerActivity<OrderHospi
         map.put("applyTime",dateString);
         map.put("name",HospitalCureInfo.getName());
         if(relationshiper_phone_edt.getText().toString().trim()==null||"".equals(relationshiper_phone_edt.getText().toString().trim())){
-            ToastUtil.shortToast(getContext(),"请输入电话");
+            ToastUtil.showMessage(getContext(),"请输入电话");
             return null;
         }else {
             if(PhoneUtils.isMobileEnable(relationshiper_phone_edt.getText().toString())){
                 map.put("phoneNumber",order_phone_edt.getText().toString());
             }else {
-                ToastUtil.shortToast(getContext(),"请填写正确的电话");
+                ToastUtil.showMessage(getContext(),"请填写正确的电话");
                 return null;
             }
 
         }
         if(relationshiper_phone_edt.getText().toString().trim()==null||"".equals(relationshiper_phone_edt.getText().toString().trim())){
-            ToastUtil.shortToast(getContext(),"请输入联系人电话");
+            ToastUtil.showMessage(getContext(),"请输入联系人电话");
             return null;
         }else {
             if(PhoneUtils.isMobileEnable(relationshiper_phone_edt.getText().toString())){
                 map.put("contactPhone",relationshiper_phone_edt.getText().toString().trim());
             }else {
-                ToastUtil.shortToast(getContext(),"请填写正确的联系人电话");
+                ToastUtil.showMessage(getContext(),"请填写正确的联系人电话");
                 return null;
             }
 
         }
         if(orderRegionName==null||"".equals(orderRegionName)){
-            ToastUtil.shortToast(getContext(),"请选择居住地区");
+            ToastUtil.showMessage(getContext(),"请选择居住地区");
             return null;
         }else {
             map.put("district",orderRegionName);
         }
         if(orderRegionCode==null||"".equals(orderRegionCode)){
-            ToastUtil.shortToast(getContext(),"请选择居住地区");
+            ToastUtil.showMessage(getContext(),"请选择居住地区");
             return null;
         }else {
             map.put("districtCode",orderRegionCode);
@@ -386,13 +386,13 @@ public class OrderHospitalCureActivity extends BaseControllerActivity<OrderHospi
             map.put("address",order_address_edt.getText().toString().trim());
 
         }else {
-            ToastUtil.shortToast(getContext(),"请输入详细居住地址");
+            ToastUtil.showMessage(getContext(),"请输入详细居住地址");
             return null;
         }
         map.put("admissionDept",HospitalCureInfo.getAdmissionDept());
         map.put("admissionTime",HospitalCureInfo.getIssuingTime());
         if(healthTypeCode!=-1){
-            /*ToastUtil.shortToast(getContext(),"请选择医保类型");
+            /*ToastUtil.showMessage(getContext(),"请选择医保类型");
             return null;*/
             map.put("healthType",healthTypeCode);
         }
@@ -400,18 +400,18 @@ public class OrderHospitalCureActivity extends BaseControllerActivity<OrderHospi
             map.put("healthNumber",health_care_card_num.getText().toString().trim());
 
         }/*else {
-            ToastUtil.shortToast(getContext(),"请输入医保卡号");
+            ToastUtil.showMessage(getContext(),"请输入医保卡号");
             return null;
         }*/
 
         if(healthCareRegionName==null||"".equals(healthCareRegionName)){
-            /*ToastUtil.shortToast(getContext(),"请选择医保来源地");
+            /*ToastUtil.showMessage(getContext(),"请选择医保来源地");
             return null;*/
         }else {
             map.put("healthSource",healthCareRegionName);
         }
         if(healthCareRegionCode==null||"".equals(healthCareRegionCode)){
-           /* ToastUtil.shortToast(getContext(),"请选择医保来源地");
+           /* ToastUtil.showMessage(getContext(),"请选择医保来源地");
             return null;*/
         }else {
             map.put("healthSourceCode",healthCareRegionCode);

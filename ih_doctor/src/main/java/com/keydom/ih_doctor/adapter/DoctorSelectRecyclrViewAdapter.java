@@ -15,7 +15,6 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.DeptDoctorBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -127,7 +126,7 @@ public class DoctorSelectRecyclrViewAdapter extends BaseEmptyAdapter<DeptDoctorB
                 @Override
                 public void onClick(View v) {
                     if (orderType!=0&&bean.getProjectStatus() != 3 && bean.getProjectStatus() != orderType) {
-                        ToastUtil.shortToast(mContext, "该医生没有开通此类型问诊服务！");
+                        ToastUtil.showMessage(mContext, "该医生没有开通此类型问诊服务！");
                         return;
                     }
                     if (selectOne) {
@@ -139,7 +138,7 @@ public class DoctorSelectRecyclrViewAdapter extends BaseEmptyAdapter<DeptDoctorB
                     } else {
                         if (selectPos != -1) {
                             if (aleardExist != -1) {
-                                ToastUtil.shortToast(mContext, "已经存在于团队的人员不可取消");
+                                ToastUtil.showMessage(mContext, "已经存在于团队的人员不可取消");
                                 return;
                             }
                             selectList.remove(selectPos);

@@ -21,7 +21,6 @@ import com.keydom.ih_doctor.bean.NurseSubOrderBean;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.NurseServiceApiService;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -63,7 +62,7 @@ public class NurseChildRecordAdapter extends BaseQuickAdapter<NurseSubOrderBean,
                 @Override
                 public void onClick(View v) {
                     if (item.getPay() == NurseServiceRecoderBean.ALREADY_PAY) {
-                        ToastUtil.shortToast(context, "订单已支付，不能删除");
+                        ToastUtil.showMessage(context, "订单已支付，不能删除");
                     } else {
                         new GeneralDialog(context, "是否删除子订单?", new GeneralDialog.OnCloseListener() {
                             @Override
@@ -100,7 +99,7 @@ public class NurseChildRecordAdapter extends BaseQuickAdapter<NurseSubOrderBean,
                                             ((CommonNurseServiceOrderDetailActivity) context).getController().hideLoading();
                                         }
 
-                                        ToastUtil.shortToast(context, msg);
+                                        ToastUtil.showMessage(context, msg);
                                         return super.requestError(exception, code, msg);
                                     }
                                 });
@@ -126,7 +125,7 @@ public class NurseChildRecordAdapter extends BaseQuickAdapter<NurseSubOrderBean,
                 @Override
                 public void onClick(View v) {
                     if (item.getPay() == NurseServiceRecoderBean.ALREADY_PAY) {
-                        ToastUtil.shortToast(context, "订单已支付，不能修改");
+                        ToastUtil.showMessage(context, "订单已支付，不能修改");
                     } else {
                         if (context instanceof CommonNurseServiceWorkingOrderDetailActivity) {
                             ((CommonNurseServiceWorkingOrderDetailActivity) context).getController().getSubOrderProjectsBySubOrderNumber(item.getSubOrderNumber(), item.getFrequency());

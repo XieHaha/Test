@@ -28,7 +28,6 @@ import com.keydom.ih_doctor.adapter.DoctorSelectRecyclrViewAdapter;
 import com.keydom.ih_doctor.bean.DeptDoctorBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.TypeEnum;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.angmarch.views.NiceSpinner;
@@ -281,7 +280,7 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
                     if (getAddList().size() > 0) {
                         getController().addDoctorList();
                     } else {
-                        ToastUtil.shortToast(SelectDoctorActivity.this, "请选择要添加的医生");
+                        ToastUtil.showMessage(SelectDoctorActivity.this, "请选择要添加的医生");
                     }
 
                 } else {
@@ -541,7 +540,7 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
 
     @Override
     public void addDoctorFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override

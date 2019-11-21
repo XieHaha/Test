@@ -5,13 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.order_doctor_register.DoctorIndexActivity;
 import com.keydom.ih_patient.adapter.DoctorSchedulAdapter;
 import com.keydom.ih_patient.bean.DoctorSchedulingBean;
 import com.keydom.ih_patient.fragment.controller.DoctorSchedulController;
 import com.keydom.ih_patient.fragment.view.DoctorSchedulView;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -83,6 +83,6 @@ public class DoctorSchedulFragment extends BaseControllerFragment<DoctorSchedulC
     @Override
     public void getDoctorSchedulingListFailde(String errMsg) {
         containt_refresh.finishRefresh();
-        ToastUtil.shortToast(getContext(),"获取门诊排班失败"+errMsg+"，请下拉刷新");
+        ToastUtil.showMessage(getContext(),"获取门诊排班失败"+errMsg+"，请下拉刷新");
     }
 }

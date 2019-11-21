@@ -16,7 +16,6 @@ import com.keydom.ih_doctor.activity.personal.controller.FeedBackController;
 import com.keydom.ih_doctor.activity.personal.view.FeedBackView;
 import com.keydom.ih_doctor.adapter.GridViewPlusImgAdapter;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -111,7 +110,7 @@ public class FeedBackActivity extends BaseControllerActivity<FeedBackController>
 
     @Override
     public void feedBackFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
@@ -123,9 +122,9 @@ public class FeedBackActivity extends BaseControllerActivity<FeedBackController>
     @Override
     public void uploadFailed(String errMsg) {
         if(errMsg==null||"".equals(errMsg.trim())){
-            ToastUtil.shortToast(this, errMsg);
+            ToastUtil.showMessage(this, errMsg);
         }else{
-            ToastUtil.shortToast(this, "图片上传失败!");
+            ToastUtil.showMessage(this, "图片上传失败!");
         }
     }
 
@@ -149,12 +148,12 @@ public class FeedBackActivity extends BaseControllerActivity<FeedBackController>
     @Override
     public boolean checkFeedBack() {
         if (titleEt.getText().toString() == null || "".equals(titleEt.getText().toString())) {
-            ToastUtil.shortToast(this, "请输入标题");
+            ToastUtil.showMessage(this, "请输入标题");
             return false;
         }
 
         if (contentEt.getText().toString() == null || "".equals(contentEt.getText().toString())) {
-            ToastUtil.shortToast(this, "请输入反馈内容");
+            ToastUtil.showMessage(this, "请输入反馈内容");
             return false;
         }
         return true;

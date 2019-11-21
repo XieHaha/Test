@@ -18,20 +18,23 @@ import com.baidu.ocr.ui.camera.CameraNativeHelper;
 import com.baidu.ocr.ui.camera.CameraView;
 import com.bumptech.glide.Glide;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.upload_certificate_picture.controller.UploadCertificatePictureController;
 import com.keydom.ih_patient.activity.upload_certificate_picture.view.UploadCertificatePictureView;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.IdCardBean;
+import com.keydom.ih_patient.bean.event.CertificateSuccess;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.utils.FileUtil;
 import com.keydom.ih_patient.utils.LocalizationUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
@@ -115,7 +118,7 @@ public class UploadCertificatePictureActivity extends BaseControllerActivity<Upl
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        //ToastUtil.shortToast(getApplicationContext(), "本地质量控制初始化错误，错误原因： " + msg);
+                                        //ToastUtil.showMessage(getApplicationContext(), "本地质量控制初始化错误，错误原因： " + msg);
                                     }
                                 });
 
@@ -138,12 +141,15 @@ public class UploadCertificatePictureActivity extends BaseControllerActivity<Upl
                 break;
         }
 
+        EventBus.getDefault().register(this);
+
     }
 
     @Override
     protected void onDestroy() {
         // 释放本地质量控制模型
         CameraNativeHelper.release();
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
 
     }
@@ -167,7 +173,7 @@ public class UploadCertificatePictureActivity extends BaseControllerActivity<Upl
             EventBus.getDefault().post(event);
             finish();
         } else {
-            ToastUtil.shortToast(getContext(), "证件图片上传未完成，请检查并完成上传");
+            ToastUtil.showMessage(getContext(), "证件图片上传未完成，请检查并完成上传");
         }
 
     }
@@ -186,10 +192,10 @@ public class UploadCertificatePictureActivity extends BaseControllerActivity<Upl
     @Override
     public void uploadImgFailed(String msg, String type) {
         if (type.equals("positive")) {
-            ToastUtil.shortToast(getContext(), "证件照片一上传失败：" + msg + "请重新上传");
+            ToastUtil.showMessage(getContext(), "证件照片一上传失败：" + msg + "请重新上传");
             upload_pic_positive_tv.setText("[上传失败,重新上传]");
         } else {
-            ToastUtil.shortToast(getContext(), "证件照片二上传失败：" + msg + "请重新上传");
+            ToastUtil.showMessage(getContext(), "证件照片二上传失败：" + msg + "请重新上传");
             upload_pic_reverse_tv.setText("[上传失败,重新上传]");
         }
     }
@@ -361,4 +367,14 @@ public class UploadCertificatePictureActivity extends BaseControllerActivity<Upl
         });
     }
 
+
+    /**
+     * 认证成功
+     *
+     * @param success 事件
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onCertificateSuccess(CertificateSuccess success) {
+        finish();
+    }
 }

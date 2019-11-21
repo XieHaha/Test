@@ -13,6 +13,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.new_card.view.NewCardView;
@@ -24,7 +25,6 @@ import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.net.CardService;
 import com.keydom.ih_patient.net.UserService;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.WindowUtils;
 import com.orhanobut.logger.Logger;
 
@@ -119,6 +119,8 @@ public class NewCardController extends ControllerImpl<NewCardView> implements Vi
             }).build();
             sexPickerView.setPicker(sexList);
             sexPickerView.show();
+        }else if(view.getId() == R.id.new_card_layout_cancel_commit_tv){
+            getView().finishMySelf();
         }
     }
 
@@ -136,7 +138,7 @@ public class NewCardController extends ControllerImpl<NewCardView> implements Vi
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                ToastUtil.shortToast(getContext(), "民族匹配失败：" + msg + "，请自行选择");
+                ToastUtil.showMessage(getContext(), "民族匹配失败：" + msg + "，请自行选择");
                 return super.requestError(exception, code, msg);
             }
         });

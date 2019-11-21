@@ -14,6 +14,7 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.order_doctor_register.controller.ChooseDoctorController;
@@ -25,7 +26,6 @@ import com.keydom.ih_patient.bean.DepartmentSchedulingBean;
 import com.keydom.ih_patient.bean.HospitaldepartmentsInfo;
 import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.constant.Global;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -193,7 +193,7 @@ public class ChooseDoctorActivity extends BaseControllerActivity<ChooseDoctorCon
 
     @Override
     public void getDateListFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "获取排班日期失败：" + errMsg);
+        ToastUtil.showMessage(getContext(), "获取排班日期失败：" + errMsg);
         dateLayout.setVisibility(View.GONE);
         order_doctor_rv.setVisibility(View.GONE);
         emptyLayout.setVisibility(View.VISIBLE);
@@ -227,7 +227,7 @@ public class ChooseDoctorActivity extends BaseControllerActivity<ChooseDoctorCon
 
     @Override
     public void getDoctorListFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "获取医生列表失败：" + errMsg);
+        ToastUtil.showMessage(getContext(), "获取医生列表失败：" + errMsg);
         order_doctor_rv.setVisibility(View.GONE);
         emptyLayout.setVisibility(View.VISIBLE);
         emptyTv.setText("数据获取失败，点击重试");
@@ -250,11 +250,11 @@ public class ChooseDoctorActivity extends BaseControllerActivity<ChooseDoctorCon
         if (departmentList != null && departmentList.size() != 0)
             showChooseDepartmentDialog();
         else
-            ToastUtil.shortToast(getContext(),"暂无更多科室");
+            ToastUtil.showMessage(getContext(),"暂无更多科室");
     }
 
     @Override
     public void getDepartmentFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "获取科室列表失败：" + errMsg);
+        ToastUtil.showMessage(getContext(), "获取科室列表失败：" + errMsg);
     }
 }

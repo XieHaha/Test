@@ -21,7 +21,6 @@ import com.keydom.ih_doctor.activity.online_diagnose.view.DiagnoseHandleProposal
 import com.keydom.ih_doctor.bean.DiagnoseHandleBean;
 import com.keydom.ih_doctor.bean.InquiryBean;
 import com.keydom.ih_doctor.constant.Const;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
@@ -112,7 +111,7 @@ public class DiagnoseHandleProposalActivity extends BaseControllerActivity<Diagn
 
     @Override
     public void handleFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override

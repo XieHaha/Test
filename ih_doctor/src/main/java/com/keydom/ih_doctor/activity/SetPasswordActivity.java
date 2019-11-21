@@ -21,7 +21,6 @@ import com.keydom.ih_doctor.activity.controller.SetPasswordController;
 import com.keydom.ih_doctor.activity.view.SetPasswordView;
 import com.keydom.ih_doctor.bean.LoginBean;
 import com.keydom.ih_doctor.constant.Const;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 /**
  * @Name：com.kentra.yxyz.activity
@@ -108,7 +107,7 @@ public class SetPasswordActivity extends BaseControllerActivity<SetPasswordContr
                 @Override
                 public void failed(String errMsg) {
                     LoginActivity.start(SetPasswordActivity.this);
-                    ToastUtil.shortToast(SetPasswordActivity.this, "即时通讯账号异常，请检查后重新登录");
+                    ToastUtil.showMessage(SetPasswordActivity.this, "即时通讯账号异常，请检查后重新登录");
                 }
             });
         } else {
@@ -125,7 +124,7 @@ public class SetPasswordActivity extends BaseControllerActivity<SetPasswordContr
 
     @Override
     public void updateFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), errMsg);
+        ToastUtil.showMessage(getContext(), errMsg);
     }
 
     @Override

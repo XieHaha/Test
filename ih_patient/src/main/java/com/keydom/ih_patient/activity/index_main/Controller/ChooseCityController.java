@@ -7,6 +7,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.index_main.ChooseCityActivity;
 import com.keydom.ih_patient.activity.index_main.view.ChooseCityView;
@@ -14,7 +15,6 @@ import com.keydom.ih_patient.bean.CityBean;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.UserService;
 import com.keydom.ih_patient.utils.DepartmentDataHelper;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -54,7 +54,7 @@ public class ChooseCityController extends ControllerImpl<ChooseCityView> impleme
                     Global.setSelectedCityCode(Global.getLocationCityCode());
                     ((ChooseCityActivity)getContext()).finish();
                 }else {
-                    ToastUtil.shortToast(getContext(),"当前城市下暂无服务医院，请从下列城市中选择");
+                    ToastUtil.showMessage(getContext(),"当前城市下暂无服务医院，请从下列城市中选择");
                 }
 
                 break;

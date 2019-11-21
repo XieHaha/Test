@@ -46,6 +46,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.prescription.view.AddressMessageView;
@@ -67,7 +68,6 @@ import com.keydom.ih_patient.utils.CommUtil;
 import com.keydom.ih_patient.utils.DataCacheUtil;
 import com.keydom.ih_patient.utils.GotoActivityUtil;
 import com.keydom.ih_patient.utils.MapUtil;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.view.MyViewPager;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -511,7 +511,7 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
                             locationClient.start();
                         } else {
                             Logger.e("权限未打开");
-                            ToastUtil.shortToast(PrescriptionGetDetailActivity.this, "未打开定位权限，无法定位到您当前所在城市");
+                            ToastUtil.showMessage(PrescriptionGetDetailActivity.this, "未打开定位权限，无法定位到您当前所在城市");
 
                         }
                     }
@@ -768,7 +768,7 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
         OnGetGeoCoderResultListener listener = new OnGetGeoCoderResultListener() {
             public void onGetGeoCodeResult(GeoCodeResult result) {
                 if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR)
-                    ToastUtil.shortToast(PrescriptionGetDetailActivity.this, "服务位置定位失败");
+                    ToastUtil.showMessage(PrescriptionGetDetailActivity.this, "服务位置定位失败");
                 else {
                     mLat = result.getLocation().latitude;
                     mLng = result.getLocation().longitude;

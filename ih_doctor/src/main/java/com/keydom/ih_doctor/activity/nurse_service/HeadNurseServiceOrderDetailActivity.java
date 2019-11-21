@@ -27,7 +27,6 @@ import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.utils.BaiduMapUtil;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.DrivingRouteOverlay;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -237,7 +236,7 @@ public class HeadNurseServiceOrderDetailActivity extends BaseControllerActivity<
 
     @Override
     public void backOrderSuccess(String msg) {
-        ToastUtil.shortToast(this, "操作成功");
+        ToastUtil.showMessage(this, "操作成功");
         EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
         EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.UPDATENURSENUM).build());
         finish();
@@ -250,12 +249,12 @@ public class HeadNurseServiceOrderDetailActivity extends BaseControllerActivity<
             EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.UPDATENURSENUM).build());
             finish();
         }
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
     public void receiveSuccess(String msg) {
-        ToastUtil.shortToast(this, "操作成功");
+        ToastUtil.showMessage(this, "操作成功");
         EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
         EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.UPDATENURSENUM).build());
         finish();
@@ -269,7 +268,7 @@ public class HeadNurseServiceOrderDetailActivity extends BaseControllerActivity<
             EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.UPDATENURSENUM).build());
             finish();
         }
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
 

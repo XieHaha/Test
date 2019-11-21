@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.order_doctor_register.controller.ChooseMedicalCardController;
@@ -19,7 +20,6 @@ import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -141,7 +141,7 @@ public class ChooseMedicalCardActivity extends BaseControllerActivity<ChooseMedi
 
     @Override
     public void getAllCardFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "就诊卡列表失败" + errMsg);
+        ToastUtil.showMessage(getContext(), "就诊卡列表失败" + errMsg);
     }
 
     @Override
@@ -152,7 +152,7 @@ public class ChooseMedicalCardActivity extends BaseControllerActivity<ChooseMedi
 
     @Override
     public void createOrderNumFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "生成订单失败" + errMsg);
+        ToastUtil.showMessage(getContext(), "生成订单失败" + errMsg);
     }
 
     @Override
@@ -164,7 +164,7 @@ public class ChooseMedicalCardActivity extends BaseControllerActivity<ChooseMedi
         if (selectCardInfo != null)
             map.put("orderNumber", selectCardInfo.getEleCardNumber());
         else {
-            ToastUtil.shortToast(getContext(), "请选择就诊卡");
+            ToastUtil.showMessage(getContext(), "请选择就诊卡");
             return null;
         }
         map.put("totalMoney", doctorSchedulingBean.getRegistrationFee());

@@ -17,10 +17,8 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.UpdatePasswordActivity;
 import com.keydom.ih_doctor.activity.view.LoginView;
 import com.keydom.ih_doctor.bean.LoginBean;
-import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.LoginApiService;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -43,16 +41,16 @@ public class LoginController extends ControllerImpl<LoginView> implements View.O
             case R.id.login_btn:
                 if (getView().isCode()) {
                     if (StringUtils.isEmpty(getView().getCode())) {
-                        ToastUtil.shortToast(getContext(), "请输入验证码");
+                        ToastUtil.showMessage(getContext(), "请输入验证码");
                         return;
                     }
                     if (StringUtils.isEmpty(getView().getUserName()) || StringUtils.isEmpty(getView().getPassword())) {
-                        ToastUtil.shortToast(getContext(), "请输入正确的用户名和密码");
+                        ToastUtil.showMessage(getContext(), "请输入正确的用户名和密码");
                         return;
                     }
                 } else {
                     if (StringUtils.isEmpty(getView().getUserName()) || StringUtils.isEmpty(getView().getPassword())) {
-                        ToastUtil.shortToast(getContext(), "请输入正确的用户名和密码");
+                        ToastUtil.showMessage(getContext(), "请输入正确的用户名和密码");
                         return;
                     }
                 }

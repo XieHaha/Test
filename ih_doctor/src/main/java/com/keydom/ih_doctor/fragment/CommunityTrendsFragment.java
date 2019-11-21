@@ -18,7 +18,6 @@ import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.fragment.controller.TrendsFragmentController;
 import com.keydom.ih_doctor.fragment.view.TrendsFragmentView;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.WrapRecyclerView;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -97,7 +96,7 @@ public class CommunityTrendsFragment extends BaseControllerFragment<TrendsFragme
 
     @Override
     public void getTopFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), errMsg);
+        ToastUtil.showMessage(getContext(), errMsg);
     }
 
     @Override

@@ -17,7 +17,6 @@ import com.keydom.ih_doctor.bean.MaterialBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
@@ -80,7 +79,7 @@ public class MaterialUseActivity extends BaseActivity {
                     ActivityUtils.finishActivity(MaterialChooseActivity.class);
                     finish();
                 } else {
-                    ToastUtil.shortToast(MaterialUseActivity.this, "请完善药品信息");
+                    ToastUtil.showMessage(MaterialUseActivity.this, "请完善药品信息");
                 }
             }
         });

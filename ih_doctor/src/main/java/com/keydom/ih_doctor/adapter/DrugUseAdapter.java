@@ -17,7 +17,6 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.DrugBean;
 import com.keydom.ih_doctor.bean.DrugUseConfigBean;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -119,7 +118,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                             if (s.toString().indexOf(".") == s.toString().length() - 1) {
 
                             } else if (s.toString().indexOf(".") == s.toString().length() - 3) {
-                                ToastUtil.shortToast(mContext, "仅支持输入一位小数");
+                                ToastUtil.showMessage(mContext, "仅支持输入一位小数");
                                 String value=s.toString();
                                 value=value.substring(0,s.toString().indexOf(".")+2 );
                               
@@ -131,7 +130,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
 
                             } else {
                                 if (Double.parseDouble(item.getSingleMaximum())>0&&Double.parseDouble(df1.format(Double.valueOf(s.toString()))) > Double.parseDouble(item.getSingleMaximum())) {
-                                    ToastUtil.shortToast(mContext, "输入的值超过最大单次剂量");// + item.getSingleMaximum()
+                                    ToastUtil.showMessage(mContext, "输入的值超过最大单次剂量");// + item.getSingleMaximum()
                                     s.replace(0,s.length(),item.getSingleMaximum()+"");
                                    /* s.clear();
                                     s.append(item.getSingleMaximum()+"");*/
@@ -144,7 +143,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                             }
                         } else {
                             if (Double.parseDouble(item.getSingleMaximum())>0&&Double.parseDouble(df1.format(Double.valueOf(s.toString()))) > Double.parseDouble(item.getSingleMaximum())) {
-                                ToastUtil.shortToast(mContext, "输入的值超过最大单次剂量") ;//+ item.getSingleMaximum()
+                                ToastUtil.showMessage(mContext, "输入的值超过最大单次剂量") ;//+ item.getSingleMaximum()
                                 s.replace(0,s.length(),item.getSingleMaximum()+"");
 /*
                                 s.clear();
@@ -185,7 +184,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                     } else {
 
                         if (item.getMaximumMedicationDays() != 0 && Integer.valueOf(s.toString()) > item.getMaximumMedicationDays()) {
-                            ToastUtil.shortToast(mContext, "输入的值超过最大用药天数");// + item.getSingleMaximum()
+                            ToastUtil.showMessage(mContext, "输入的值超过最大用药天数");// + item.getSingleMaximum()
                             s.clear();
                             s.append(item.getMaximumMedicationDays()+"");
                         } else {
@@ -274,7 +273,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                     }
                     notifyDataSetChanged();
                 } else if (Double.parseDouble(df1.format(item.getSingleDose() + 0.1)) > Double.valueOf(item.getSingleMaximum())) {
-                    ToastUtil.shortToast(mContext, "已达到最大单次剂量");
+                    ToastUtil.showMessage(mContext, "已达到最大单次剂量");
                 }
             }
         });
@@ -304,7 +303,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                     }
                     notifyDataSetChanged();
                 } else if (item.getDays() >= item.getMaximumMedicationDays()) {
-                    ToastUtil.shortToast(mContext, "已达到最大用药天数");
+                    ToastUtil.showMessage(mContext, "已达到最大用药天数");
                 }
             }
         });

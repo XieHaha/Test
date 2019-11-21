@@ -22,7 +22,6 @@ import com.keydom.ih_doctor.activity.view.CommonInputView;
 import com.keydom.ih_doctor.bean.PersonalInfoBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -149,7 +148,7 @@ public class CommonInputActivity extends BaseControllerActivity<CommonInputContr
                 } else {
                     String str = CommonUtils.filterEmoji(inputEt.getText().toString());
                     if (leastSize != 0 && str.length() < leastSize) {
-                        ToastUtil.shortToast(CommonInputActivity.this, "请至少填写" + leastSize + "个字");
+                        ToastUtil.showMessage(CommonInputActivity.this, "请至少填写" + leastSize + "个字");
                         return;
                     }
                     save();
@@ -193,7 +192,7 @@ public class CommonInputActivity extends BaseControllerActivity<CommonInputContr
 
     @Override
     public void updateFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override

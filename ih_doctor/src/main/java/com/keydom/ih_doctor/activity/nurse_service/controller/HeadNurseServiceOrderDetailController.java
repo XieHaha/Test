@@ -46,7 +46,6 @@ import com.keydom.ih_doctor.m_interface.OnNurseResultListener;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.NurseServiceApiService;
 import com.keydom.ih_doctor.utils.DialogUtils;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.jetbrains.annotations.NotNull;
@@ -305,7 +304,7 @@ public class HeadNurseServiceOrderDetailController extends ControllerImpl<HeadNu
         OnGetGeoCoderResultListener mListener = new OnGetGeoCoderResultListener() {
             public void onGetGeoCodeResult(GeoCodeResult result) {
                 if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-                    ToastUtil.shortToast(getContext(), "没有搜索到地址");
+                    ToastUtil.showMessage(getContext(), "没有搜索到地址");
                     return;
                 }
                 if (CommonUtils.isInstalled(getContext(), "com.baidu.BaiduMap")) {
@@ -313,14 +312,14 @@ public class HeadNurseServiceOrderDetailController extends ControllerImpl<HeadNu
                     i1.setData(Uri.parse("baidumap://map/direction?region=" + MyApplication.userInfo.getCityName() + "&origin=" + currentLocation.getLatitude() + "," + currentLocation.getLongitude() + "&title=我的位置" + "&destination=" + address + "&coord_type=bd09ll&mode=driving&src=andr.baidu.openAPIdemo"));
                     getContext().startActivity(i1);
                 } else {
-                    ToastUtil.shortToast(getContext(), "请安装百度地图");
+                    ToastUtil.showMessage(getContext(), "请安装百度地图");
                 }
             }
 
             @Override
             public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
                 if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-                    ToastUtil.shortToast(getContext(), "没有搜索到地址");
+                    ToastUtil.showMessage(getContext(), "没有搜索到地址");
                     return;
                 }
                 if (CommonUtils.isInstalled(getContext(), "com.baidu.BaiduMap")) {
@@ -328,7 +327,7 @@ public class HeadNurseServiceOrderDetailController extends ControllerImpl<HeadNu
                     i1.setData(Uri.parse("baidumap://map/direction?region=" + MyApplication.userInfo.getCityName() + "&origin=" + currentLocation.getLatitude() + "," + currentLocation.getLongitude() + "&title=我的位置" + "&destination=" + address + "&coord_type=bd09ll&mode=driving&src=andr.baidu.openAPIdemo"));
                     getContext().startActivity(i1);
                 } else {
-                    ToastUtil.shortToast(getContext(), "请安装百度地图");
+                    ToastUtil.showMessage(getContext(), "请安装百度地图");
                 }
             }
         };
@@ -346,7 +345,7 @@ public class HeadNurseServiceOrderDetailController extends ControllerImpl<HeadNu
      */
     public void callPhone(String phoneNum) {
         if (phoneNum == null || "".equals(phoneNum)) {
-            ToastUtil.shortToast(getContext(), "电话号码为空");
+            ToastUtil.showMessage(getContext(), "电话号码为空");
             return;
         }
         RxPermissions rxPermissions = new RxPermissions((AppCompatActivity) getContext());

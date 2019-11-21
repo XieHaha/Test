@@ -16,7 +16,6 @@ import com.keydom.ih_doctor.activity.IssueArticleActivity;
 import com.keydom.ih_doctor.activity.view.IssueArticleView;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.MainApiService;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -56,7 +55,7 @@ public class IssueArticleController extends ControllerImpl<IssueArticleView> imp
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (getView().getLastItemClick(position)) {
             if (getView().getImageLimit() <= 0) {
-                ToastUtil.shortToast(getContext(), "最多只能上传9张图片");
+                ToastUtil.showMessage(getContext(), "最多只能上传9张图片");
                 return;
             }
             PictureSelector.create((Activity) getContext())
@@ -75,7 +74,7 @@ public class IssueArticleController extends ControllerImpl<IssueArticleView> imp
      */
     public void issueArticle(HashMap<String, Object> map) {
         if (map == null) {
-            ToastUtil.shortToast(getContext(), "请完成文章内容!");
+            ToastUtil.showMessage(getContext(), "请完成文章内容!");
             return;
         }
         showLoading();

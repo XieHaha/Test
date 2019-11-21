@@ -19,6 +19,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.PhoneUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.common_document.CommonDocumentActivity;
@@ -34,7 +35,6 @@ import com.keydom.ih_patient.net.LoginService;
 import com.keydom.ih_patient.net.UserService;
 import com.keydom.ih_patient.utils.LocalizationUtils;
 import com.keydom.ih_patient.utils.RegularUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -55,7 +55,7 @@ public class RegisterController extends ControllerImpl<IRegisterView> implements
         switch (view.getId()) {
             case R.id.get_identifying_code_bt:
                 if (StringUtils.isEmpty(getView().getPhoneNum()) || !PhoneUtils.isMobileEnable(getView().getPhoneNum())) {
-                    ToastUtil.shortToast(getContext(), "请填写正确的手机格式");
+                    ToastUtil.showMessage(getContext(), "请填写正确的手机格式");
                 } else {
                     if (getView().getType() == 0) {
                         getMsgCode(getView().getPhoneNum());
@@ -68,9 +68,9 @@ public class RegisterController extends ControllerImpl<IRegisterView> implements
                 break;
             case R.id.register_next_btn:
                 if (StringUtils.isEmpty(getView().getPhoneNum()) || !PhoneUtils.isMobileEnable(getView().getPhoneNum())) {
-                    ToastUtil.shortToast(getContext(), "请填写正确的手机格式");
+                    ToastUtil.showMessage(getContext(), "请填写正确的手机格式");
                 } else if (StringUtils.isEmpty(getView().getMsgCode())) {
-                    ToastUtil.shortToast(getContext(), "请填写验证码");
+                    ToastUtil.showMessage(getContext(), "请填写验证码");
                 } else {
                     if (getView().isBind()) {
                         verificationCodeTeral();
@@ -82,18 +82,18 @@ public class RegisterController extends ControllerImpl<IRegisterView> implements
             case R.id.next_step:
                 if (isAgreement) {
                     if (StringUtils.isEmpty(getView().getPassWord()) || StringUtils.isEmpty(getView().getAccount())) {
-                        ToastUtil.shortToast(getContext(), "请确认已填入账号和密码");
+                        ToastUtil.showMessage(getContext(), "请确认已填入账号和密码");
                     } else if (!getView().getPassWord().equals(getView().getRePassWord())) {
-                        ToastUtil.shortToast(getContext(), "密码输入不一致，请重新输入");
+                        ToastUtil.showMessage(getContext(), "密码输入不一致，请重新输入");
                     } else {
                         if (RegularUtils.PassWordValidate(getView().getPassWord())) {
                             doRegister();
                         } else {
-                            ToastUtil.shortToast(getContext(), "密码不符合要求格式，请重新输入");
+                            ToastUtil.showMessage(getContext(), "密码不符合要求格式，请重新输入");
                         }
                     }
         /*else if(!RegularUtils.PassWordValidate(getView().getPassWord())){
-                        ToastUtil.shortToast(getContext(),"密码格式不正确，密码需包含字母、数字、符号");
+                        ToastUtil.showMessage(getContext(),"密码格式不正确，密码需包含字母、数字、符号");
                     }*/
                 } else {
                     Toast.makeText(getContext(), "需要阅读并同意用户服务协议才能完成注册", Toast.LENGTH_SHORT).show();
@@ -130,7 +130,7 @@ public class RegisterController extends ControllerImpl<IRegisterView> implements
             @Override
             public void requestComplete(@Nullable UserInfo data) {
                 hideLoading();
-                ToastUtil.shortToast(getContext(), "注册成功");
+                ToastUtil.showMessage(getContext(), "注册成功");
                 ImClient.loginIM(data.getId() + "", data.getImToken(), new OnLoginListener() {
                     @Override
                     public void success(String msg) {
@@ -145,7 +145,7 @@ public class RegisterController extends ControllerImpl<IRegisterView> implements
 
                     @Override
                     public void failed(String errMsg) {
-//                        ToastUtil.shortToast(getContext(), "IM登录失败" + errMsg);
+//                        ToastUtil.showMessage(getContext(), "IM登录失败" + errMsg);
                         Logger.e(errMsg);
                     }
                 });
@@ -248,7 +248,7 @@ public class RegisterController extends ControllerImpl<IRegisterView> implements
             @Override
             public void requestComplete(@Nullable UserInfo data) {
                 if (getView().isBind()) {
-                    ToastUtil.shortToast(getContext(), "绑定成功" + data.getId());
+                    ToastUtil.showMessage(getContext(), "绑定成功" + data.getId());
                     ImClient.loginIM(data.getId() + "", data.getImToken(), new OnLoginListener() {
                         @Override
                         public void success(String msg) {
@@ -267,7 +267,7 @@ public class RegisterController extends ControllerImpl<IRegisterView> implements
 
                         @Override
                         public void failed(String errMsg) {
-                            ToastUtil.shortToast(getContext(), "IM登录失败" + errMsg);
+                            ToastUtil.showMessage(getContext(), "IM登录失败" + errMsg);
                             Logger.e(errMsg);
                         }
                     });

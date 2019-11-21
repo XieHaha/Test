@@ -34,6 +34,7 @@ import com.keydom.ih_common.minterface.OnLoginListener;
 import com.keydom.ih_common.push.PushManager;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.StatusBarUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.controller.MainController;
@@ -50,7 +51,6 @@ import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.utils.LocalizationUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.view.MainView;
 import com.netease.nimlib.sdk.NimIntent;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
@@ -153,7 +153,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                     intent.putExtra(Intents.Scan.SCAN_FORMATS, "QR_CODE");
                     startActivityForResult(intent, REQUEST_CODE);
                 } else {
-                    ToastUtil.shortToast(getContext(), "未获取摄像头使用权限，无法使用二维码功能");
+                    ToastUtil.showMessage(getContext(), "未获取摄像头使用权限，无法使用二维码功能");
                 }
             });
 
@@ -236,7 +236,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                             locationClient.start();
                         } else {
                             Logger.e("权限未打开");
-                            ToastUtil.shortToast(getContext(), "未打开定位权限，无法定位到您当前所在城市");
+                            ToastUtil.showMessage(getContext(), "未打开定位权限，无法定位到您当前所在城市");
 
                         }
                     }
@@ -297,7 +297,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
      */
     private void exitApp() {
         isExitApp = true;
-        ToastUtil.shortToast(MainActivity.this, "再按一次返回退出");
+        ToastUtil.showMessage(MainActivity.this, "再按一次返回退出");
         new CountDownTimer(2000, 1000) {
 
             @Override
@@ -325,7 +325,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                 }
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
-//                    ToastUtil.shortToast(getContext(),result);
+//                    ToastUtil.showMessage(getContext(),result);
                     Logger.e(result);
                     if(result.startsWith("?")){
                         String temp = result.replace("?","");

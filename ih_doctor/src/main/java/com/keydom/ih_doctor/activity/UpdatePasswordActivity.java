@@ -16,7 +16,6 @@ import com.keydom.ih_common.view.MButton;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.controller.UpdatePasswordController;
 import com.keydom.ih_doctor.activity.view.UpdatePasswordView;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 /**
  * @Name：com.kentra.yxyz.activity
@@ -94,7 +93,7 @@ public class UpdatePasswordActivity extends BaseControllerActivity<UpdatePasswor
 
     @Override
     public void getIdentifyingCodeFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), errMsg);
+        ToastUtil.showMessage(getContext(), errMsg);
     }
 
     @Override

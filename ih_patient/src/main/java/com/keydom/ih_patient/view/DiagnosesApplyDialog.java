@@ -9,12 +9,10 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.AgreementActivity;
 import com.keydom.ih_patient.activity.common_document.CommonDocumentActivity;
 import com.keydom.ih_patient.bean.CommonDocumentBean;
-import com.keydom.ih_patient.constant.Type;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 /**
  * 问诊订单对话框
@@ -128,7 +126,7 @@ public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener
                 }
                 this.dismiss();
             } else
-                ToastUtil.shortToast(context, "请先阅读并同意在线问诊用户协议");
+                ToastUtil.showMessage(context, "请先阅读并同意在线问诊用户协议");
 
         }
     }

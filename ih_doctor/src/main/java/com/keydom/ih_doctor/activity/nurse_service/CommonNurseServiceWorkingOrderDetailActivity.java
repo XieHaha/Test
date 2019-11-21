@@ -37,7 +37,6 @@ import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.m_interface.OnAddServiceItemDialogListener;
 import com.keydom.ih_doctor.utils.BaiduMapUtil;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.AddNurseServiceDialog;
 import com.keydom.ih_doctor.view.DrivingRouteOverlay;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -116,7 +115,7 @@ public class CommonNurseServiceWorkingOrderDetailActivity extends BaseController
      */
     private void setInfo(HeadNurseServiceOrderDetailBean bean) {
         if (bean == null) {
-            ToastUtil.shortToast(this, "加载失败");
+            ToastUtil.showMessage(this, "加载失败");
             finish();
             return;
         }
@@ -354,7 +353,7 @@ public class CommonNurseServiceWorkingOrderDetailActivity extends BaseController
 
     @Override
     public void addServiceItemSuccess(String msg) {
-        ToastUtil.shortToast(this, "添加成功");
+        ToastUtil.showMessage(this, "添加成功");
         if (addServiceItemList != null)
             addServiceItemList.clear();
         getController().getNurseServiceOrderDetail();
@@ -363,7 +362,7 @@ public class CommonNurseServiceWorkingOrderDetailActivity extends BaseController
 
     @Override
     public void addServiceItemFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override

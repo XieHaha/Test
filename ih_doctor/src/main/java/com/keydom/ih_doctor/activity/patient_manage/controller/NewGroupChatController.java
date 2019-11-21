@@ -19,7 +19,6 @@ import com.keydom.ih_doctor.bean.GroupResBean;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.MainApiService;
 import com.keydom.ih_doctor.net.PatientManageApiService;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureMimeType;
 
@@ -39,14 +38,14 @@ public class NewGroupChatController extends ControllerImpl<NewGroupChatView> imp
         switch (view.getId()) {
             case R.id.group_name:
                 if (!getView().isUpdate()) {
-                    ToastUtil.shortToast(getContext(), "您无法修改该群资料！");
+                    ToastUtil.showMessage(getContext(), "您无法修改该群资料！");
                 } else {
                     CommonInputActivity.start(getContext(), NewGroupChatActivity.GROUP_NAME, "群聊名称", getView().getGroupName(), 20);
                 }
                 break;
             case R.id.group_icon_tv:
                 if (!getView().isUpdate()) {
-                    ToastUtil.shortToast(getContext(), "您无法修改该群资料！");
+                    ToastUtil.showMessage(getContext(), "您无法修改该群资料！");
                 } else {
                     PictureSelector.create((Activity) getContext())
                             .openGallery(PictureMimeType.ofImage()).maxSelectNum(1)
@@ -55,7 +54,7 @@ public class NewGroupChatController extends ControllerImpl<NewGroupChatView> imp
                 break;
             case R.id.group_icon:
                 if (!getView().isUpdate()) {
-                    ToastUtil.shortToast(getContext(), "您无法修改该群资料！");
+                    ToastUtil.showMessage(getContext(), "您无法修改该群资料！");
                 } else {
                     PictureSelector.create((Activity) getContext())
                             .openGallery(PictureMimeType.ofImage()).maxSelectNum(1)
@@ -64,14 +63,14 @@ public class NewGroupChatController extends ControllerImpl<NewGroupChatView> imp
                 break;
             case R.id.group_doctor:
                 if (!getView().isUpdate()) {
-                    ToastUtil.shortToast(getContext(), "您无法修改该群资料！");
+                    ToastUtil.showMessage(getContext(), "您无法修改该群资料！");
                 } else {
                     SelectDoctorActivity.startActivitySelfDeptOnlyResult(getContext(), getView().getSelectDoctors(), true);
                 }
                 break;
             case R.id.patient_name:
                 if (!getView().isUpdate()) {
-                    ToastUtil.shortToast(getContext(), "您无法修改该群资料！");
+                    ToastUtil.showMessage(getContext(), "您无法修改该群资料！");
                 } else {
                     ChoosePatientActivity.start(getContext(), getView().getSelectPatient());
                 }
@@ -84,7 +83,7 @@ public class NewGroupChatController extends ControllerImpl<NewGroupChatView> imp
     @Override
     public void OnRightTextClick(View v) {
         if (!getView().isUpdate()) {
-            ToastUtil.shortToast(getContext(), "您无法修改该群资料！");
+            ToastUtil.showMessage(getContext(), "您无法修改该群资料！");
             return;
         }
         if (getView().submitCheck()) {

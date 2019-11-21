@@ -7,17 +7,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.online_diagnoses_order.controller.TypePatientController;
 import com.keydom.ih_patient.activity.online_diagnoses_order.view.TypePatientView;
 import com.keydom.ih_patient.adapter.ChoosePatientAdapter;
-import com.keydom.ih_patient.adapter.RegistrationCardAdapter;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.ManagerUserBean;
-import com.keydom.ih_patient.bean.MedicalCardInfo;
 import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.constant.EventType;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
@@ -49,7 +47,7 @@ public class TypePatientFragment extends BaseControllerFragment<TypePatientContr
                     EventBus.getDefault().post(new Event(EventType.SENDSELECTDIAGNOSESPATIENT,selectedPatientInfo));
                     getActivity().finish();
                 }else {
-                    ToastUtil.shortToast(getContext(),"请选择就诊卡");
+                    ToastUtil.showMessage(getContext(),"请选择就诊卡");
                 }
             }
         });

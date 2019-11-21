@@ -16,6 +16,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.SharePreferenceManager;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.login.RegisterActivity;
 import com.keydom.ih_patient.activity.login.UpdatePasswordActivity;
@@ -24,7 +25,6 @@ import com.keydom.ih_patient.bean.UserInfo;
 import com.keydom.ih_patient.net.LoginService;
 import com.keydom.ih_patient.net.PayService;
 import com.keydom.ih_patient.net.UserService;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 
 import org.jetbrains.annotations.NotNull;
@@ -49,7 +49,7 @@ public class LoginController extends ControllerImpl<ILoginView> implements View.
         switch (v.getId()) {
             case R.id.login_btn:
                 if (StringUtils.isEmpty(getView().getAccount()) || StringUtils.isEmpty(getView().getPassword())) {
-                    ToastUtil.shortToast(getContext(), "请检查账号或者密码是否已填写");
+                    ToastUtil.showMessage(getContext(), "请检查账号或者密码是否已填写");
                 } else {
 
                     getView().hideWarnning();
@@ -57,7 +57,7 @@ public class LoginController extends ControllerImpl<ILoginView> implements View.
                    /* if(RegularUtils.PassWordValidate(getView().getPassword())){
 
                     }else {
-                        ToastUtil.shortToast(getContext(), "密码格式不正确，请重新填写");
+                        ToastUtil.showMessage(getContext(), "密码格式不正确，请重新填写");
                     }*/
 
                 }
@@ -119,10 +119,10 @@ public class LoginController extends ControllerImpl<ILoginView> implements View.
                     getView().loginLocked();
                     getValidateCode(getView().getAccountMobile());
                 } else if (code == 307) {
-                    ToastUtil.shortToast(getContext(), "验证码错误,请重新填写");
+                    ToastUtil.showMessage(getContext(), "验证码错误,请重新填写");
                     getValidateCode(getView().getAccountMobile());
                 } else if (code == 201) {
-                    ToastUtil.shortToast(getContext(), "密码验证不通过");
+                    ToastUtil.showMessage(getContext(), "密码验证不通过");
                     if (getView().isLoginLocked())
                         getValidateCode(getView().getAccountMobile());
                 }else if(code == 313){

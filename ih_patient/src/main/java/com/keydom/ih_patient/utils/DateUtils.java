@@ -7,6 +7,7 @@ import android.view.View;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.keydom.ih_common.utils.ToastUtil;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -127,7 +128,7 @@ public class DateUtils {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 if ("服务时间段".equals(endTimeList.get(options1).get(options2).get(options3))) {
-                    ToastUtil.shortToast(context,"当前不在服务时间段，请重新选择上门时间");
+                    ToastUtil.showMessage(context,"当前不在服务时间段，请重新选择上门时间");
                 } else
                     dateIntervalSelectedListener.getSelectedDateInterval(dateList.get(options1), startTimeList.get(options1).get(options2), endTimeList.get(options1).get(options2).get(options3));
             }

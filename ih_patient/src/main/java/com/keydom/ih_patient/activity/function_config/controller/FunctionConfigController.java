@@ -3,6 +3,7 @@ package com.keydom.ih_patient.activity.function_config.controller;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.function_config.FunctionConfigActivity;
@@ -10,7 +11,6 @@ import com.keydom.ih_patient.activity.function_config.view.FunctionConfigView;
 import com.keydom.ih_patient.bean.IndexFunction;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.utils.LocalizationUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class FunctionConfigController extends ControllerImpl<FunctionConfigView>
         if(selectedFunctionlist!=null&&allFunctionlist!=null){
             getView().fillFunctionData(allFunctionlist,selectedFunctionlist);
         }else
-            ToastUtil.shortToast(getContext(),"获取菜单配置失败");
+            ToastUtil.showMessage(getContext(),"获取菜单配置失败");
 
     }
 

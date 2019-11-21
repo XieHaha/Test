@@ -6,7 +6,6 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_doctor.bean.InquiryBean;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -47,7 +46,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                             getView().acceptFailed(msg);
                             return true;
                         }
-                        ToastUtil.shortToast(getContext(), msg);
+                        ToastUtil.showMessage(getContext(), msg);
                         return false;
                     }
                 });
@@ -66,7 +65,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
 
                     @Override
                     public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                        ToastUtil.shortToast(getContext(), msg);
+                        ToastUtil.showMessage(getContext(), msg);
                         return super.requestError(exception, code, msg);
                     }
                 });
@@ -83,7 +82,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
 
                     @Override
                     public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                        ToastUtil.shortToast(getContext(), msg);
+                        ToastUtil.showMessage(getContext(), msg);
                         return super.requestError(exception, code, msg);
                     }
                 });

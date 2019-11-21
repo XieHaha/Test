@@ -20,6 +20,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.adapter.ChoosePharmacyAdapter;
@@ -35,7 +36,6 @@ import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.net.PrescriptionService;
 import com.keydom.ih_patient.utils.CommUtil;
 import com.keydom.ih_patient.utils.DataCacheUtil;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -197,7 +197,7 @@ public class ChoosePharmacyActivity extends BaseActivity {
                     EventBus.getDefault().post(new Event(EventType.SELECTPHARMACY, map));
                     finish();
                 } else {
-                    ToastUtil.shortToast(ChoosePharmacyActivity.this, "请选择药店");
+                    ToastUtil.showMessage(ChoosePharmacyActivity.this, "请选择药店");
                 }
 
             }

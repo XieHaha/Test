@@ -18,7 +18,6 @@ import com.keydom.ih_doctor.bean.CategoryBean;
 import com.keydom.ih_doctor.bean.NursingProjectInfo;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.fragment.NursingFragment;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -137,13 +136,13 @@ public class ChooseNursingServiceActivity extends BaseControllerActivity<ChooseN
             nursing_project_vp.setOffscreenPageLimit(categoryBeans.size());//设置page数量
             nursing_project_tablayout.setupWithViewPager(nursing_project_vp);
         } else {
-            ToastUtil.shortToast(ChooseNursingServiceActivity.this, "类型获取失败，请重试！");
+            ToastUtil.showMessage(ChooseNursingServiceActivity.this, "类型获取失败，请重试！");
         }
     }
 
     @Override
     public void getCotegoryFailed(String errMsg) {
-        ToastUtil.shortToast(ChooseNursingServiceActivity.this, "类型获取失败，请重试！");
+        ToastUtil.showMessage(ChooseNursingServiceActivity.this, "类型获取失败，请重试！");
         finish();
     }
 }

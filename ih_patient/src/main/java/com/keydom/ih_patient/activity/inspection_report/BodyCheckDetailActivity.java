@@ -9,12 +9,12 @@ import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.inspection_report.controller.BodyCheckDetailController;
 import com.keydom.ih_patient.activity.inspection_report.view.BodyCheckDetailView;
 import com.keydom.ih_patient.adapter.BodyCheckDetailAdapter;
 import com.keydom.ih_patient.bean.BodyCheckDetailInfo;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -91,7 +91,7 @@ public class BodyCheckDetailActivity extends BaseControllerActivity<BodyCheckDet
 
     @Override
     public void getBodyCheckDetailFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),checkoutName+"检查报告单详情获取失败"+errMsg);
+        ToastUtil.showMessage(getContext(),checkoutName+"检查报告单详情获取失败"+errMsg);
         finish();
     }
 }

@@ -17,7 +17,6 @@ import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.bean.SignRegInfoBean;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -123,7 +122,7 @@ public class SignatureActivity extends BaseControllerActivity<ApplySignatureCont
                         case "0x8120000B"://用户已激活且在设备上有证书但证书已废止 引导用户找回证书
                         default:
                             isCart = false;
-                            ToastUtil.shortToast(getContext(), userStateResult.getErrMsg());
+                            ToastUtil.showMessage(getContext(), userStateResult.getErrMsg());
                             break;
                     }
                 }
@@ -173,7 +172,7 @@ public class SignatureActivity extends BaseControllerActivity<ApplySignatureCont
 
     @Override
     public void getUserFailed(String errMsg) {
-        ToastUtil.shortToast(SignatureActivity.this, errMsg);
+        ToastUtil.showMessage(SignatureActivity.this, errMsg);
         finish();
     }
 

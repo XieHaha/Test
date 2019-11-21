@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.utils.GlideUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_common.view.GridViewForScrollView;
 import com.keydom.ih_common.view.IhTitleLayout;
@@ -28,7 +28,6 @@ import com.keydom.ih_patient.bean.ManagerUserBean;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
 import com.keydom.ih_patient.bean.PayOrderBean;
 import com.keydom.ih_patient.constant.EventType;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.view.DiagnosesApplyDialog;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -243,12 +242,12 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
 
         }
         if (!isCardPatientMatch&&medicalCardInfo!=null)
-            ToastUtil.shortToast(getContext(), "该卡没有对应的就诊人，请重新换一张就诊卡或者创建对应就诊人");
+            ToastUtil.showMessage(getContext(), "该卡没有对应的就诊人，请重新换一张就诊卡或者创建对应就诊人");
     }
 
     @Override
     public void getPatientListFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "匹配就诊人既往病史失败" + errMsg + "请手动选择");
+        ToastUtil.showMessage(getContext(), "匹配就诊人既往病史失败" + errMsg + "请手动选择");
     }
 
     @Override
@@ -286,7 +285,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
 
     @Override
     public void uploadFailed(String msg) {
-        ToastUtil.shortToast(getContext(), "图片上传失败" + msg);
+        ToastUtil.showMessage(getContext(), "图片上传失败" + msg);
     }
 
     @Override
@@ -298,17 +297,17 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         if (managerUserBean != null) {
             map.put("patientId", managerUserBean.getId());
         } else {
-            ToastUtil.shortToast(getContext(), "暂无选中就诊人，请尝试重新选取");
+            ToastUtil.showMessage(getContext(), "暂无选中就诊人，请尝试重新选取");
             return null;
         }
         if (!"".equals(getImageStr())) {
             map.put("conditionData", getImageStr());
         } else {
-          /*  ToastUtil.shortToast(getContext(), "请至少选择一张病情图片依据");
+          /*  ToastUtil.showMessage(getContext(), "请至少选择一张病情图片依据");
             return null;*/
         }
         if (desc_edt.getText().toString().trim().length() < 10) {
-            ToastUtil.shortToast(getContext(), "病情描述至少要求写入10字，请修改后再尝试提交");
+            ToastUtil.showMessage(getContext(), "病情描述至少要求写入10字，请修改后再尝试提交");
             return null;
         } else {
             map.put("conditionDesc", desc_edt.getText().toString().trim());
@@ -332,12 +331,12 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
 
     @Override
     public void getOrderInfoFailed(String msg) {
-        ToastUtil.shortToast(getContext(), "获取订单失败" + msg);
+        ToastUtil.showMessage(getContext(), "获取订单失败" + msg);
     }
 
     @Override
     public void applyDiagnosesFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "申请失败" + errMsg);
+        ToastUtil.showMessage(getContext(), "申请失败" + errMsg);
     }
 
     @Override

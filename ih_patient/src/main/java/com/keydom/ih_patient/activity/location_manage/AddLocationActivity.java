@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.StringUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.PhoneUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.location_manage.controller.AddLocationController;
@@ -19,7 +20,6 @@ import com.keydom.ih_patient.bean.LocationInfo;
 import com.keydom.ih_patient.bean.PackageData;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -138,11 +138,11 @@ public class AddLocationActivity extends BaseControllerActivity<AddLocationContr
         if (add_name_edt.getText().toString().trim() != null && !"".equals(add_name_edt.getText().toString().trim())) {
             locationInfo.setAddressName(add_name_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请选择姓名");
+            ToastUtil.showMessage(getContext(), "请选择姓名");
             return null;
         }
         if (StringUtils.isEmpty(add_phone_edt.getText().toString()) || add_phone_edt.getText().toString().length() < 11 || !PhoneUtils.isMobileEnable(add_phone_edt.getText().toString())){
-            ToastUtil.shortToast(getContext(), "请输入正确的11位手机号");
+            ToastUtil.showMessage(getContext(), "请输入正确的11位手机号");
             return null;
         }else{
             locationInfo.setPhone(add_phone_edt.getText().toString());
@@ -150,11 +150,11 @@ public class AddLocationActivity extends BaseControllerActivity<AddLocationContr
         if (add_address_edt.getText().toString().trim() != null && !"".equals(add_address_edt.getText().toString().trim())) {
             locationInfo.setAddress(add_address_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请填写详细地址");
+            ToastUtil.showMessage(getContext(), "请填写详细地址");
             return null;
         }
         if (locationInfo.getProvinceCode() == null || "".equals(locationInfo.getProvinceCode())) {
-            ToastUtil.shortToast(getContext(), "请选择区域");
+            ToastUtil.showMessage(getContext(), "请选择区域");
             return null;
         }
         Map<String, Object> map = new HashMap<>();
@@ -177,38 +177,38 @@ public class AddLocationActivity extends BaseControllerActivity<AddLocationContr
         locationInfo.setUserId(Global.getUserId());
         if (add_name_edt.getText().toString().trim() != null && !"".equals(add_name_edt.getText().toString().trim())) {
             if (add_name_edt.getText().toString().trim().length() > 12) {
-                ToastUtil.shortToast(getContext(), "姓名长度不能超过12位");
+                ToastUtil.showMessage(getContext(), "姓名长度不能超过12位");
                 return null;
             } else
                 locationInfo.setAddressName(add_name_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请选择姓名");
+            ToastUtil.showMessage(getContext(), "请选择姓名");
             return null;
         }
 
         if (add_phone_edt.getText().toString().trim() != null && !"".equals(add_phone_edt.getText().toString().trim())) {
             if (!PhoneUtils.isMobileEnable(add_phone_edt.getText().toString().trim())) {
-                ToastUtil.shortToast(getContext(), "请填入正确的手机格式");
+                ToastUtil.showMessage(getContext(), "请填入正确的手机格式");
                 return null;
             } else
                 locationInfo.setPhone(add_phone_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请选择联系电话");
+            ToastUtil.showMessage(getContext(), "请选择联系电话");
             return null;
         }
 
         if (add_address_edt.getText().toString().trim() != null && !"".equals(add_address_edt.getText().toString().trim())) {
             if (add_address_edt.getText().toString().trim().length() > 200) {
-                ToastUtil.shortToast(getContext(), "详细地址长度不能超过200位");
+                ToastUtil.showMessage(getContext(), "详细地址长度不能超过200位");
                 return null;
             } else
                 locationInfo.setAddress(add_address_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请填写详细地址");
+            ToastUtil.showMessage(getContext(), "请填写详细地址");
             return null;
         }
         if (locationInfo.getProvinceCode() == null || "".equals(locationInfo.getProvinceCode())) {
-            ToastUtil.shortToast(getContext(), "请选择区域");
+            ToastUtil.showMessage(getContext(), "请选择区域");
             return null;
         }
         Map<String, Object> map = new HashMap<>();
@@ -232,7 +232,7 @@ public class AddLocationActivity extends BaseControllerActivity<AddLocationContr
 
     @Override
     public void addFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "添加失败：" + errMsg);
+        ToastUtil.showMessage(getContext(), "添加失败：" + errMsg);
     }
 
     @Override
@@ -243,7 +243,7 @@ public class AddLocationActivity extends BaseControllerActivity<AddLocationContr
 
     @Override
     public void editFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "修改失败：" + errMsg);
+        ToastUtil.showMessage(getContext(), "修改失败：" + errMsg);
     }
 
     @Override

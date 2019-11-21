@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.bean.IndexFunction;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -80,7 +80,7 @@ public class FunctionConfigAdapter extends RecyclerView.Adapter<FunctionConfigAd
                             dataList.get(position).setSelected(true);
                             holder.funcAddOrDelImg.setImageResource(R.mipmap.function_del);
                         }else
-                            ToastUtil.shortToast(context,"最多可以在首页配置七个菜单");
+                            ToastUtil.showMessage(context,"最多可以在首页配置七个菜单");
 
                     }
                     EventBus.getDefault().post(dataList.get(position));

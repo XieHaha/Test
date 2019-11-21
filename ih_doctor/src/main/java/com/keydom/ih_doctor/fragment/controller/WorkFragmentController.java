@@ -28,7 +28,6 @@ import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.MainApiService;
 import com.keydom.ih_doctor.net.PersonalApiService;
 import com.keydom.ih_doctor.utils.SelectHospitalPopUtil;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -71,7 +70,7 @@ public class WorkFragmentController extends ControllerImpl<WorkFragmentView> imp
                         showNotAccessDialog();
                     }
                 }else{
-                    ToastUtil.shortToast(mContext,"还未实名认证，请实名认证再开通相关服务");
+                    ToastUtil.showMessage(mContext,"还未实名认证，请实名认证再开通相关服务");
                 }
 
                 break;
@@ -83,21 +82,21 @@ public class WorkFragmentController extends ControllerImpl<WorkFragmentView> imp
                         showNotAccessDialog();
                     }
                 }else{
-                    ToastUtil.shortToast(mContext,"还未实名认证，请实名认证再开通相关服务");
+                    ToastUtil.showMessage(mContext,"还未实名认证，请实名认证再开通相关服务");
                 }
 
                 break;
             case R.id.calculator_re:
-                ToastUtil.shortToast(getContext(), "计算器");
+                ToastUtil.showMessage(getContext(), "计算器");
                 break;
             case R.id.dianose_tool_re:
-                ToastUtil.shortToast(getContext(), "诊断工具");
+                ToastUtil.showMessage(getContext(), "诊断工具");
                 break;
             case R.id.medical_science_re:
-                ToastUtil.shortToast(getContext(), "万方医学");
+                ToastUtil.showMessage(getContext(), "万方医学");
                 break;
             case R.id.guide_re:
-                ToastUtil.shortToast(getContext(), "医药指南");
+                ToastUtil.showMessage(getContext(), "医药指南");
                 break;
             case R.id.edit:
                 PersonalInfoActivity.start(getContext());

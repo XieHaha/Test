@@ -1214,7 +1214,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         bottomSheetDialog.dismiss();
                     }
                 } else {
-                    ToastUtil.shortToast(getContext(), "请阅读并同意支付协议");
+                    ToastUtil.showMessage(getContext(), "请阅读并同意支付协议");
                 }
 
             }
@@ -1405,7 +1405,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 *//*if (isAgree[0]) {
 
                 } else {
-                    ToastUtil.shortToast(getContext(), "请阅读并同意支付协议");
+                    ToastUtil.showMessage(getContext(), "请阅读并同意支付协议");
                 }*//*
 
             }
@@ -1533,7 +1533,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 }
 //                } else {
                 //取消支付协议
-//                    ToastUtil.shortToast(getContext(), "请阅读并同意支付协议");
+//                    ToastUtil.showMessage(getContext(), "请阅读并同意支付协议");
 //                }
 
             }

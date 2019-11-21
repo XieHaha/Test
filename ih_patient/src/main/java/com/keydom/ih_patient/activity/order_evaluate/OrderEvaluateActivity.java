@@ -5,10 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.order_evaluate.controller.OrderEvaluateController;
 import com.keydom.ih_patient.activity.order_evaluate.view.OrderEvaluateView;
@@ -17,7 +17,6 @@ import com.keydom.ih_patient.bean.NursingOrderBean;
 import com.keydom.ih_patient.bean.OrderEvaluateBean;
 import com.keydom.ih_patient.bean.SubscribeExaminationBean;
 import com.keydom.ih_patient.constant.Type;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.view.RatingBarView;
 
 import org.jetbrains.annotations.Nullable;
@@ -119,7 +118,7 @@ public class OrderEvaluateActivity extends BaseControllerActivity<OrderEvaluateC
      */
     private void switchEvaluateType(OrderEvaluateBean evaluateBean) {
         if("".equals(getEvaluateContent())){
-            ToastUtil.shortToast(getContext(),"请至少从以下标签中选择一个");
+            ToastUtil.showMessage(getContext(),"请至少从以下标签中选择一个");
         }else {
             switch (evaluateBean.getType()) {
                 case Type.SUBSCRIBE_EXAM_ORDER_EVALUATE:

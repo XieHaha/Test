@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.common_document.CommonDocumentActivity;
@@ -24,7 +25,6 @@ import com.keydom.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.ih_patient.bean.HospitaldepartmentsInfo;
 import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.constant.Global;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 
 import org.jetbrains.annotations.Nullable;
@@ -187,7 +187,7 @@ public class OrderDoctorRegisterActivity extends BaseControllerActivity<OrderDoc
             hospitalAreapopupWindow.showAsDropDown(top_layout);
             backgroudView.setVisibility(View.VISIBLE);
         }else
-            ToastUtil.shortToast(getContext(),"该医院只有一个院区，无法切换");
+            ToastUtil.showMessage(getContext(),"该医院只有一个院区，无法切换");
 
     }
 

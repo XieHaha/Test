@@ -51,6 +51,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.CalculateTimeUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
@@ -72,7 +73,6 @@ import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.constant.ServiceConst;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.DiagnoseApiService;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.FixHeightBottomSheetDialog;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.msg.MsgService;
@@ -267,13 +267,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                                 if (data != null) {
                                     CheckOrderDetailActivity.startInspactOrder(context, ((ExaminationAttachment) message.getAttachment()).getId(), orderBean);
                                 } else {
-                                    ToastUtil.shortToast(context, "检查报告单不存在");
+                                    ToastUtil.showMessage(context, "检查报告单不存在");
                                 }
                             }
 
                             @Override
                             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                                ToastUtil.shortToast(context, msg);
+                                ToastUtil.showMessage(context, msg);
                                 return super.requestError(exception, code, msg);
                             }
                         });
@@ -286,13 +286,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                                 if (data != null) {
                                     CheckOrderDetailActivity.startTestOrder(context, ((InspectionAttachment) message.getAttachment()).getId(), orderBean);
                                 } else {
-                                    ToastUtil.shortToast(context, "检验报告单不存在");
+                                    ToastUtil.showMessage(context, "检验报告单不存在");
                                 }
                             }
 
                             @Override
                             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                                ToastUtil.shortToast(context, msg);
+                                ToastUtil.showMessage(context, msg);
                                 return super.requestError(exception, code, msg);
                             }
                         });
@@ -328,13 +328,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                             if (data != null) {
                                 CheckOrderDetailActivity.startInspactOrder(context, ((ExaminationAttachment) message.getAttachment()).getId(), orderBean);
                             } else {
-                                ToastUtil.shortToast(context, "检查报告单不存在");
+                                ToastUtil.showMessage(context, "检查报告单不存在");
                             }
                         }
 
                         @Override
                         public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                            ToastUtil.shortToast(context, msg);
+                            ToastUtil.showMessage(context, msg);
                             return super.requestError(exception, code, msg);
                         }
                     });
@@ -347,13 +347,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                             if (data != null) {
                                 CheckOrderDetailActivity.startTestOrder(context, ((InspectionAttachment) message.getAttachment()).getId(), orderBean);
                             } else {
-                                ToastUtil.shortToast(context, "检验报告单不存在");
+                                ToastUtil.showMessage(context, "检验报告单不存在");
                             }
                         }
 
                         @Override
                         public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                            ToastUtil.shortToast(context, msg);
+                            ToastUtil.showMessage(context, msg);
                             return super.requestError(exception, code, msg);
                         }
                     });
@@ -374,13 +374,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                             if (data != null) {
                                 CheckOrderDetailActivity.startInspactOrder(context, ((ExaminationAttachment) message.getAttachment()).getId(), orderBean);
                             } else {
-                                ToastUtil.shortToast(context, "检查报告单不存在");
+                                ToastUtil.showMessage(context, "检查报告单不存在");
                             }
                         }
 
                         @Override
                         public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                            ToastUtil.shortToast(context, msg);
+                            ToastUtil.showMessage(context, msg);
                             return super.requestError(exception, code, msg);
                         }
                     });
@@ -393,13 +393,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                             if (data != null) {
                                 CheckOrderDetailActivity.startTestOrder(context, ((InspectionAttachment) message.getAttachment()).getId(), orderBean);
                             } else {
-                                ToastUtil.shortToast(context, "检验报告单不存在");
+                                ToastUtil.showMessage(context, "检验报告单不存在");
                             }
                         }
 
                         @Override
                         public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                            ToastUtil.shortToast(context, msg);
+                            ToastUtil.showMessage(context, msg);
                             return super.requestError(exception, code, msg);
                         }
                     });
@@ -839,7 +839,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     @Override
     public void stopReferralSuccess() {
-        ToastUtil.shortToast(getContext(), "取消转诊成功");
+        ToastUtil.showMessage(getContext(), "取消转诊成功");
         getController().getInquiryStatus();
     }
 

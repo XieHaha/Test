@@ -31,6 +31,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.push.PushManager;
 import com.keydom.ih_common.utils.SharePreferenceManager;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.ClearEditText;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
@@ -43,7 +44,6 @@ import com.keydom.ih_patient.bean.UserInfo;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.utils.LocalizationUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.weixin.WXInit;
 import com.orhanobut.logger.Logger;
 import com.tencent.connect.auth.QQToken;
@@ -191,7 +191,7 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
 
     @Override
     public void loginFailed(String msg) {
-        ToastUtil.shortToast(this,msg);
+        ToastUtil.showMessage(this,msg);
     }
 
     @Override
@@ -220,7 +220,7 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
 
     @Override
     public void getValidateCodeFailed(String errMsg) {
-        ToastUtil.shortToast(this,errMsg);
+        ToastUtil.showMessage(this,errMsg);
         validateImg.setPadding(20,5,5,20);
         validateImg.setImageResource(R.drawable.refresh);
     }
@@ -267,7 +267,7 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
 
     @Override
     public void toChangePwd(String msg) {
-        ToastUtil.shortToast(App.mApplication,msg);
+        ToastUtil.showMessage(App.mApplication,msg);
         UpdatePasswordActivity.start(getContext());
     }
 
@@ -293,7 +293,7 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
      */
     private void exitApp() {
         isExitApp = true;
-        ToastUtil.shortToast(LoginActivity.this,"再按一次返回退出");
+        ToastUtil.showMessage(LoginActivity.this,"再按一次返回退出");
         new CountDownTimer(2000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {

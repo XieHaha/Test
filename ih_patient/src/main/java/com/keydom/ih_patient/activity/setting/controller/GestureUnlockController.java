@@ -9,12 +9,12 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.PhoneUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.setting.view.GestureUnlockView;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.LoginService;
 import com.keydom.ih_patient.net.UserService;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 
 import org.jetbrains.annotations.NotNull;
@@ -30,9 +30,9 @@ public class GestureUnlockController extends ControllerImpl<GestureUnlockView> i
             case R.id.register_next_btn:
                 Logger.e("register_next_btn->click");
                 if (StringUtils.isEmpty(getView().getPhoneNum()) || !PhoneUtils.isMobileEnable(getView().getPhoneNum())) {
-                    ToastUtil.shortToast(getContext(), "请填写正确的手机格式");
+                    ToastUtil.showMessage(getContext(), "请填写正确的手机格式");
                 } else if (StringUtils.isEmpty(getView().getMsgCode())) {
-                    ToastUtil.shortToast(getContext(), "请填写验证码");
+                    ToastUtil.showMessage(getContext(), "请填写验证码");
                 } else {
                     inspecteMsgCode();
                 }
@@ -40,7 +40,7 @@ public class GestureUnlockController extends ControllerImpl<GestureUnlockView> i
             case R.id.get_code_bt:
                 Logger.e("get_code_bt->click");
                 if (StringUtils.isEmpty(getView().getPhoneNum()) || !PhoneUtils.isMobileEnable(getView().getPhoneNum())) {
-                    ToastUtil.shortToast(getContext(), "请填写正确的手机格式");
+                    ToastUtil.showMessage(getContext(), "请填写正确的手机格式");
                 } else {
                     getMsgCode(getView().getPhoneNum());
                 }
@@ -102,13 +102,13 @@ public class GestureUnlockController extends ControllerImpl<GestureUnlockView> i
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).setPassword(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(),getDisposable(),false,false) {
             @Override
             public void requestComplete(@Nullable Object data) {
-                ToastUtil.shortToast(getContext(),"手势密码设置成功");
+                ToastUtil.showMessage(getContext(),"手势密码设置成功");
                 getView().setPasswordSuccess();
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                ToastUtil.shortToast(getContext(),"手势密码设置失败"+msg);
+                ToastUtil.showMessage(getContext(),"手势密码设置失败"+msg);
                 return super.requestError(exception, code, msg);
             }
         });

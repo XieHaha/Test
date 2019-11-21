@@ -57,7 +57,6 @@ import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.constant.ServiceConst;
 import com.keydom.ih_doctor.utils.DateUtils;
 import com.keydom.ih_doctor.utils.LocalizationUtils;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.DiagnosePrescriptionItemView;
 import com.keydom.ih_doctor.view.SwipeItemLayout;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
@@ -411,7 +410,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                     saveData.add(bean.getItems().get(0));
                     prescriptionAdapter.setNewData(packagingData(saveData));
                 }else
-                    ToastUtil.shortToast(getContext(),"选择的处方模板与当前处方类型不一致，请重新选择");
+                    ToastUtil.showMessage(getContext(),"选择的处方模板与当前处方类型不一致，请重新选择");
             }
         }
     }
@@ -627,7 +626,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
     @Override
     public void saveFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     /**
@@ -684,7 +683,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
     @Override
     public void handleFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
@@ -698,16 +697,16 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     @Override
     public boolean checkPrescription() {
         if (StringUtils.isEmpty(simpleDiagnose.getInputStr()) || StringUtils.isEmpty(mainDec.getInputStr())) {
-            ToastUtil.shortToast(getContext(), "请完善诊断信息！");
+            ToastUtil.showMessage(getContext(), "请完善诊断信息！");
             return false;
         }
         if (saveData.size() == 0) {
-            ToastUtil.shortToast(getContext(), "请添加处方！");
+            ToastUtil.showMessage(getContext(), "请添加处方！");
             return false;
         } else {
             for (int i = 0; i < saveData.size(); i++) {
                 if (saveData.get(i).size() == 0) {
-                    ToastUtil.shortToast(getContext(), "处方" + DateUtils.numberToCH(i + 1) + "还未添加药品！");
+                    ToastUtil.showMessage(getContext(), "处方" + DateUtils.numberToCH(i + 1) + "还未添加药品！");
                     return false;
                 }
             }

@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.inspection_report.InspectionReportActivity;
 import com.keydom.ih_patient.adapter.InspectionReportAdapter;
@@ -16,7 +17,6 @@ import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.fragment.controller.InspectionReportFmController;
 import com.keydom.ih_patient.fragment.view.InspectionReportFmView;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -133,7 +133,7 @@ public class InspectionReportFragment extends BaseControllerFragment<InspectionR
             emptyLayout.setClickable(false);
         }else {
             emptyTv.setText("数据加载失败，点击重试");
-            ToastUtil.shortToast(getContext(),"列表加载失败："+errMsg);
+            ToastUtil.showMessage(getContext(),"列表加载失败："+errMsg);
             emptyLayout.setClickable(true);
         }
 

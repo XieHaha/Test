@@ -24,7 +24,6 @@ import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.bean.ServiceContentBean;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -155,7 +154,7 @@ public class MyServiceActivity extends BaseControllerActivity<MyServiceControlle
 
     @Override
     public void enableServiceFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
@@ -166,7 +165,7 @@ public class MyServiceActivity extends BaseControllerActivity<MyServiceControlle
 
     @Override
     public void disableServiceFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override

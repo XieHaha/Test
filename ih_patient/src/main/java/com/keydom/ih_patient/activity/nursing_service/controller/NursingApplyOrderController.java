@@ -6,6 +6,7 @@ import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.index_main.MainActivity;
@@ -16,7 +17,6 @@ import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.net.NursingService;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
 import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 import com.orhanobut.logger.Logger;
@@ -74,7 +74,7 @@ public class NursingApplyOrderController extends ControllerImpl<NursingApplyOrde
                         new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
                             @Override
                             public void onSuccess() {
-                                ToastUtil.shortToast(getContext(),"支付成功");
+                                ToastUtil.showMessage(getContext(),"支付成功");
                                 EventBus.getDefault().post(new Event(EventType.CREATE_NURSING_SUCCESS,null));
                                 new GeneralDialog(getContext(), "护理服务预约成功，近期请留意订单状态", new GeneralDialog.OnCloseListener() {
                                     @Override
@@ -107,7 +107,7 @@ public class NursingApplyOrderController extends ControllerImpl<NursingApplyOrde
                     WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
                         @Override
                         public void onSuccess() {
-                            ToastUtil.shortToast(getContext(),"支付成功");
+                            ToastUtil.showMessage(getContext(),"支付成功");
                             EventBus.getDefault().post(new Event(EventType.CREATE_NURSING_SUCCESS,null));
                             new GeneralDialog(getContext(), "护理服务预约成功，近期请留意订单状态", new GeneralDialog.OnCloseListener() {
                                 @Override
@@ -120,7 +120,7 @@ public class NursingApplyOrderController extends ControllerImpl<NursingApplyOrde
 
                         @Override
                         public void onError(int error_code) {
-                            ToastUtil.shortToast(getContext(),"支付失败"+error_code
+                            ToastUtil.showMessage(getContext(),"支付失败"+error_code
                             );
                         }
 

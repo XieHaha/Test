@@ -49,7 +49,6 @@ import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.NurseServiceApiService;
 import com.keydom.ih_doctor.utils.CalculateTimeUtils;
 import com.keydom.ih_doctor.utils.DialogUtils;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -279,7 +278,7 @@ public class CommonNurseServiceOrderDetailController extends ControllerImpl<Comm
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                 hideLoading();
-                ToastUtil.shortToast(getContext(),"操作失败"+msg);
+                ToastUtil.showMessage(getContext(),"操作失败"+msg);
                 EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
                 return super.requestError(exception, code, msg);
             }
@@ -301,7 +300,7 @@ public class CommonNurseServiceOrderDetailController extends ControllerImpl<Comm
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                 hideLoading();
-                ToastUtil.shortToast(getContext(),"操作失败"+msg);
+                ToastUtil.showMessage(getContext(),"操作失败"+msg);
                 EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
                 return super.requestError(exception, code, msg);
             }
@@ -444,7 +443,7 @@ public class CommonNurseServiceOrderDetailController extends ControllerImpl<Comm
         OnGetGeoCoderResultListener mListener = new OnGetGeoCoderResultListener() {
             public void onGetGeoCodeResult(GeoCodeResult result) {
                 if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-                    ToastUtil.shortToast(getContext(), "没有搜索到地址");
+                    ToastUtil.showMessage(getContext(), "没有搜索到地址");
                     return;
                 }
                 if (CommonUtils.isInstalled(getContext(), "com.baidu.BaiduMap")) {
@@ -452,14 +451,14 @@ public class CommonNurseServiceOrderDetailController extends ControllerImpl<Comm
                     i1.setData(Uri.parse("baidumap://map/direction?region=" + MyApplication.userInfo.getCityName() + "&origin=" + currentLocation.getLatitude() + "," + currentLocation.getLongitude() + "&title=我的位置" + "&destination=" + address + "&coord_type=bd09ll&mode=driving&src=andr.baidu.openAPIdemo"));
                     getContext().startActivity(i1);
                 } else {
-                    ToastUtil.shortToast(getContext(), "请安装百度地图");
+                    ToastUtil.showMessage(getContext(), "请安装百度地图");
                 }
             }
 
             @Override
             public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
                 if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-                    ToastUtil.shortToast(getContext(), "没有搜索到地址");
+                    ToastUtil.showMessage(getContext(), "没有搜索到地址");
                     return;
                 }
                 if (CommonUtils.isInstalled(getContext(), "com.baidu.BaiduMap")) {
@@ -467,7 +466,7 @@ public class CommonNurseServiceOrderDetailController extends ControllerImpl<Comm
                     i1.setData(Uri.parse("baidumap://map/direction?region=" + MyApplication.userInfo.getCityName() + "&origin=" + currentLocation.getLatitude() + "," + currentLocation.getLongitude() + "&title=我的位置" + "&destination=" + address + "&coord_type=bd09ll&mode=driving&src=andr.baidu.openAPIdemo"));
                     getContext().startActivity(i1);
                 } else {
-                    ToastUtil.shortToast(getContext(), "请安装百度地图");
+                    ToastUtil.showMessage(getContext(), "请安装百度地图");
                 }
             }
         };
@@ -485,7 +484,7 @@ public class CommonNurseServiceOrderDetailController extends ControllerImpl<Comm
      */
     public void callPhone(String phoneNum) {
         if (phoneNum == null || "".equals(phoneNum)) {
-            ToastUtil.shortToast(getContext(), "电话号码为空");
+            ToastUtil.showMessage(getContext(), "电话号码为空");
             return;
         }
         RxPermissions rxPermissions = new RxPermissions((AppCompatActivity) getContext());

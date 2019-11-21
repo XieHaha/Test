@@ -21,7 +21,6 @@ import com.keydom.ih_doctor.bean.PrescriptionHeadBean;
 import com.keydom.ih_doctor.m_interface.OnModelDialogListener;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.DialogUtils;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -135,7 +134,7 @@ public class PrescriptionAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                     @Override
                     public void onClick(View view) {
                         if (context.getSelectList().get(prescriptionBottomBean.getBottomPosition()).size() >= 5)
-                            ToastUtil.shortToast(context, "最多添加五个药品");
+                            ToastUtil.showMessage(context, "最多添加五个药品");
                         else{
                             List<DrugBean> list=new ArrayList<>();
                             for (int i = 0; i <context.getSelectList().size() ; i++) {

@@ -13,7 +13,6 @@ import com.keydom.ih_doctor.activity.inspection_report.controller.InspectionDeta
 import com.keydom.ih_doctor.activity.inspection_report.view.InspectionDetailView;
 import com.keydom.ih_doctor.adapter.InspectionDetailAdapter;
 import com.keydom.ih_doctor.bean.InspectionDetailInof;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -94,7 +93,7 @@ public class InspectionDetailActivity extends BaseControllerActivity<InspectionD
 
     @Override
     public void getInspectionDetailFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "检验报告单详情获取失败" + errMsg);
+        ToastUtil.showMessage(getContext(), "检验报告单详情获取失败" + errMsg);
         finish();
     }
 }

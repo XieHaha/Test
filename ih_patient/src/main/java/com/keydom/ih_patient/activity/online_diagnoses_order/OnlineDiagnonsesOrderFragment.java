@@ -22,6 +22,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.config.ImConstants;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
@@ -45,7 +46,6 @@ import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.utils.CommUtil;
 import com.keydom.ih_patient.utils.GotoActivityUtil;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -143,7 +143,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                             ImClient.startConversation(getContext(), diagnosesOrderAdapter.getItem(position).getDoctorCode(), null);
 
                         } else
-                            ToastUtil.shortToast(getContext(), "医生账号异常");
+                            ToastUtil.showMessage(getContext(), "医生账号异常");
                     }
                 }
 
@@ -349,7 +349,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                 }
 //                } else {
                 //取消支付协议
-//                    ToastUtil.shortToast(getContext(), "请阅读并同意支付协议");
+//                    ToastUtil.showMessage(getContext(), "请阅读并同意支付协议");
 //                }
 
             }
@@ -807,18 +807,18 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     public void getDiagnosesOrderListFailed(String errMsg) {
         mRefreshLayout.finishLoadMore();
         mRefreshLayout.finishRefresh();
-        ToastUtil.shortToast(getContext(), "数据获取失败" + errMsg);
+        ToastUtil.showMessage(getContext(), "数据获取失败" + errMsg);
     }
 
     @Override
     public void returnBackSuccess() {
-        ToastUtil.shortToast(getContext(), "退单成功");
+        ToastUtil.showMessage(getContext(), "退单成功");
         EventBus.getDefault().post(new Event(EventType.REFRESHDIAGNOSESORDER, null));
     }
 
     @Override
     public void returnBackFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "退单失败" + errMsg);
+        ToastUtil.showMessage(getContext(), "退单失败" + errMsg);
     }
 
     @Override

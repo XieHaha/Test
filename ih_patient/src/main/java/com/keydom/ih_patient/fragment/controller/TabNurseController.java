@@ -2,7 +2,6 @@ package com.keydom.ih_patient.fragment.controller;
 
 import android.view.View;
 
-import com.blankj.utilcode.util.ActivityUtils;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
@@ -24,7 +23,6 @@ import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.fragment.view.TabNurseView;
 import com.keydom.ih_patient.net.NursingService;
 import com.keydom.ih_patient.net.UserService;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

@@ -111,7 +111,7 @@ public class SignUtils {
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                ToastUtil.shortToast(context, msg);
+                ToastUtil.showMessage(context, msg);
                 return super.requestError(exception, code, msg);
             }
         });

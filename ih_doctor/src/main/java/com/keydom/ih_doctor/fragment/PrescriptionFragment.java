@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
-import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.adapter.PrescriptionRecyclrViewAdapter;
@@ -17,7 +16,6 @@ import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.fragment.controller.PrescriptionFragmentController;
 import com.keydom.ih_doctor.fragment.view.PrescriptionFragmentView;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -98,7 +96,7 @@ public class PrescriptionFragment extends BaseControllerFragment<PrescriptionFra
     public void getDataFailed(String errMsg) {
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadMore();
-        ToastUtil.shortToast(getContext(), errMsg);
+        ToastUtil.showMessage(getContext(), errMsg);
 
     }
 

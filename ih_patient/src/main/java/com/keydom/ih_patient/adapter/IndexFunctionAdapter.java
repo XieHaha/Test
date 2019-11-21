@@ -110,7 +110,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                 @Override
                 public void onClick(View view) {
                   /*  if (Global.getUserId() == -1) {
-                        ToastUtil.shortToast(context, context.getResources().getString(R.string.unlogin_hint));
+                        ToastUtil.showMessage(context, context.getResources().getString(R.string.unlogin_hint));
                         return;
                     }*/
                     switch (String.valueOf(indexFunctionList.get(position).getId())) {

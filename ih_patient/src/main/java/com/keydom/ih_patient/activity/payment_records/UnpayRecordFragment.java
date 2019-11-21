@@ -667,7 +667,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                 }
 //                } else {
                 //取消支付协议
-//                    ToastUtil.shortToast(getContext(), "请阅读并同意支付协议");
+//                    ToastUtil.showMessage(getContext(), "请阅读并同意支付协议");
 //                }
 
             }

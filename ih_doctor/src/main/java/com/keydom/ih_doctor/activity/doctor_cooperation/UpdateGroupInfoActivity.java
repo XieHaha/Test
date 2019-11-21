@@ -22,7 +22,6 @@ import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.constant.TypeEnum;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -93,7 +92,7 @@ public class UpdateGroupInfoActivity extends BaseControllerActivity<UpdateGroupI
         } else if (TypeEnum.GROUP_UPDATE == mType) {
             setTitle("修改团队信息");
         } else {
-            ToastUtil.shortToast(this, "参数错误");
+            ToastUtil.showMessage(this, "参数错误");
             finish();
         }
         initView();
@@ -169,7 +168,7 @@ public class UpdateGroupInfoActivity extends BaseControllerActivity<UpdateGroupI
 
     @Override
     public void uploadFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
@@ -182,7 +181,7 @@ public class UpdateGroupInfoActivity extends BaseControllerActivity<UpdateGroupI
 
     @Override
     public void addFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
@@ -194,9 +193,9 @@ public class UpdateGroupInfoActivity extends BaseControllerActivity<UpdateGroupI
     @Override
     public void updateFailed(String errMsg) {
         if(errMsg==null||"".equals(errMsg.trim())){
-            ToastUtil.shortToast(this, errMsg);
+            ToastUtil.showMessage(this, errMsg);
         }else{
-            ToastUtil.shortToast(this, "保存失败!");
+            ToastUtil.showMessage(this, "保存失败!");
         }
     }
 
@@ -210,12 +209,12 @@ public class UpdateGroupInfoActivity extends BaseControllerActivity<UpdateGroupI
         mBean.setGroupName(groupName.getText().toString());
         mBean.setGroupAdept(groupBeGood.getText().toString());
         if (mBean.getGroupName() == null || "".equals(mBean.getGroupName())) {
-            ToastUtil.shortToast(this, "请输入团队名称");
+            ToastUtil.showMessage(this, "请输入团队名称");
             return false;
         }
 
         if (mBean.getGroupAdept() == null || "".equals(mBean.getGroupAdept())) {
-            ToastUtil.shortToast(this, "请输入团队擅长");
+            ToastUtil.showMessage(this, "请输入团队擅长");
             return false;
         }
 

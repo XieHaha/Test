@@ -18,7 +18,6 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.InquiryBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import java.io.Serializable;
 import java.util.List;
@@ -88,7 +87,7 @@ public class DiagnoseOrderSelectRecyclrViewAdapter extends BaseEmptyAdapter<Inqu
                 @Override
                 public void onClick(View v) {
                     if (mDatas.get(position).getType() != (doctorType - 1) && doctorType != 3) {
-                        ToastUtil.shortToast(mContext, "选择的医生没有开通这个服务！");
+                        ToastUtil.showMessage(mContext, "选择的医生没有开通这个服务！");
                         return;
                     }
                     Intent intent = new Intent();

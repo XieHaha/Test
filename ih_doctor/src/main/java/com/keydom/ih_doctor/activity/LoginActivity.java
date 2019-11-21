@@ -29,7 +29,6 @@ import com.keydom.ih_doctor.bean.LoginBean;
 import com.keydom.ih_doctor.bean.UserInfo;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.TypeEnum;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 /**
  * @Name：com.kentra.yxyz.activity
@@ -159,7 +158,7 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
             showCodeEt();
             getController().getLoginCode(getUserName());
         } else {
-            ToastUtil.shortToast(getContext(), msg);
+            ToastUtil.showMessage(getContext(), msg);
         }
 
     }
@@ -173,7 +172,7 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
 
     @Override
     public void getLoginCodeFailed(String msg) {
-        ToastUtil.shortToast(getContext(), msg);
+        ToastUtil.showMessage(getContext(), msg);
     }
 
     @Override

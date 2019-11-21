@@ -31,7 +31,6 @@ import com.keydom.ih_doctor.bean.MaterialBean;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -197,7 +196,7 @@ public class FinishNurseServiceActivity extends BaseControllerActivity<FinishNur
 
     @Override
     public void finishFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
@@ -239,18 +238,18 @@ public class FinishNurseServiceActivity extends BaseControllerActivity<FinishNur
     @Override
     public boolean finishCheck() {
         if (!checkMap.containsValue(true)) {
-            ToastUtil.shortToast(this, "请选择本次服务内容！");
+            ToastUtil.showMessage(this, "请选择本次服务内容！");
             return false;
         }
         if (baseInfo.getFrequency() > baseInfo.getServiceFrequency()) {
             if (nextVisitTime.getText().toString() == null || "".equals(nextVisitTime.getText().toString())) {
-                ToastUtil.shortToast(this, "请选择下次预约时间！");
+                ToastUtil.showMessage(this, "请选择下次预约时间！");
                 return false;
             }
         }
 
         if (currentNurseServiceInput.getText().toString() == null || "".equals(currentNurseServiceInput.getText().toString())) {
-            ToastUtil.shortToast(this, "请输入本次护理内容！");
+            ToastUtil.showMessage(this, "请输入本次护理内容！");
             return false;
         }
 

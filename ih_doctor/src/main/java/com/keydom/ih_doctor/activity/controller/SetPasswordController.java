@@ -15,7 +15,6 @@ import com.keydom.ih_doctor.activity.view.SetPasswordView;
 import com.keydom.ih_doctor.bean.LoginBean;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.LoginApiService;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -39,13 +38,13 @@ public class SetPasswordController extends ControllerImpl<SetPasswordView> imple
         switch (v.getId()) {
             case R.id.update_finish_btn:
                 if (StringUtils.isEmpty(getView().getPassword()) || StringUtils.isEmpty(getView().getRePassword())) {
-                    ToastUtil.shortToast(getContext(), "请输入密码");
+                    ToastUtil.showMessage(getContext(), "请输入密码");
                 } else if (!getView().getPassword().equals(getView().getRePassword())) {
-                    ToastUtil.shortToast(getContext(), "两次输入的密码不匹配");
+                    ToastUtil.showMessage(getContext(), "两次输入的密码不匹配");
                 } else if (!CommonUtils.checkPassword(getView().getPassword())) {
-                    ToastUtil.shortToast(getContext(), "密码为6-20位数字和字母组合，请修改后重试！");
+                    ToastUtil.showMessage(getContext(), "密码为6-20位数字和字母组合，请修改后重试！");
                 } else if (!isDigit(getView().getPassword())) {
-                    ToastUtil.shortToast(getContext(), "密码为6-20位数字和字母组合，请修改后重试！");
+                    ToastUtil.showMessage(getContext(), "密码为6-20位数字和字母组合，请修改后重试！");
                 } else {
                     setPassword(((SetPasswordActivity) getContext()).getIntent().getStringExtra(PHONE_NUM), getView().getPassword());
                 }

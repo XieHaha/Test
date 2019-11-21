@@ -27,7 +27,6 @@ import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.m_interface.OnCheckDialogListener;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.InputFlagDialog;
 import com.keydom.ih_doctor.view.TagView;
 import com.luck.picture.lib.PictureSelector;
@@ -113,7 +112,7 @@ public class IssueArticleActivity extends BaseControllerActivity<IssueArticleCon
             ArticleDetailActivity.startArticle(IssueArticleActivity.this, Long.parseLong(successMsg), MyApplication.userInfo.getId(), MyApplication.userInfo.getName(), MyApplication.userInfo.getAvatar(), false);
             finish();
         } else {
-            ToastUtil.shortToast(getContext(), "数据错误");
+            ToastUtil.showMessage(getContext(), "数据错误");
         }
     }
 
@@ -182,9 +181,9 @@ public class IssueArticleActivity extends BaseControllerActivity<IssueArticleCon
     @Override
     public void uploadImgFailed(String errMsg) {
         if(errMsg==null||"".equals(errMsg.trim())){
-            ToastUtil.shortToast(this, errMsg);
+            ToastUtil.showMessage(this, errMsg);
         }else{
-            ToastUtil.shortToast(this, "图片上传失败!");
+            ToastUtil.showMessage(this, "图片上传失败!");
         }
     }
 
@@ -210,7 +209,7 @@ public class IssueArticleActivity extends BaseControllerActivity<IssueArticleCon
 
     @Override
     public void articleInfoFailed(String msg) {
-        ToastUtil.shortToast(this, msg);
+        ToastUtil.showMessage(this, msg);
     }
 
     @Override
@@ -233,7 +232,7 @@ public class IssueArticleActivity extends BaseControllerActivity<IssueArticleCon
             @Override
             public void OnRightTextClick(View v) {
                 if (dataList.size() == 0) {
-                    ToastUtil.shortToast(IssueArticleActivity.this, "至少添加一张图片");
+                    ToastUtil.showMessage(IssueArticleActivity.this, "至少添加一张图片");
                     return;
                 }
                 getController().issueArticle(getArticleMap());
@@ -254,7 +253,7 @@ public class IssueArticleActivity extends BaseControllerActivity<IssueArticleCon
 
     private void addTag(String tag) {
         if (tagIsExist(tag)) {
-            ToastUtil.shortToast(this, "标签已存在");
+            ToastUtil.showMessage(this, "标签已存在");
             return;
         }
         ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(
@@ -306,7 +305,7 @@ public class IssueArticleActivity extends BaseControllerActivity<IssueArticleCon
                         addTag(value);
                         inputFlagDialog.dismiss();
                     } else {
-                        ToastUtil.shortToast(getContext(), "请输入标签");
+                        ToastUtil.showMessage(getContext(), "请输入标签");
                     }
                 }
             });

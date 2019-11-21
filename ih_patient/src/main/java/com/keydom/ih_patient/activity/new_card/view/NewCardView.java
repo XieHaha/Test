@@ -101,4 +101,7 @@ public interface NewCardView extends BaseView {
      * 获取ID信息失败
      */
     void getIdCardFailed(String msg);
+
+
+    void finishMySelf();
 }

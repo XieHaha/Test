@@ -24,6 +24,7 @@ import com.keydom.ih_common.activity.ArticleDetailActivity;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.bean.MainLoadingEvent;
 import com.keydom.ih_common.constant.Const;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
@@ -44,7 +45,6 @@ import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.fragment.controller.TabIndexController;
 import com.keydom.ih_patient.fragment.view.TabIndexView;
 import com.keydom.ih_patient.utils.DepartmentDataHelper;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.view.FunctionRvItemDecoration;
 import com.keydom.ih_patient.view.GeneralArticleItem;
 import com.orhanobut.logger.Logger;
@@ -282,7 +282,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     public void dataRequestFailed(String msg) {
         EventBus.getDefault().post(new MainLoadingEvent());
         indexRefresh.finishRefresh();
-        ToastUtil.shortToast(getContext(), "首页数据加载失败：" + msg);
+        ToastUtil.showMessage(getContext(), "首页数据加载失败：" + msg);
         final List<Integer> imgesUrlTop = new ArrayList<>();
         imgesUrlTop.add(R.drawable.ad_pic_1);
         indexFirstBanner.setData(imgesUrlTop, null);
@@ -453,7 +453,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             indexNoticeBanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
                 @Override
                 public void onItemClick(XBanner banner, Object model, View view, int position) {
-                    ToastUtil.shortToast(getContext(), "暂无通知");
+                    ToastUtil.showMessage(getContext(), "暂无通知");
                 }
             });
 

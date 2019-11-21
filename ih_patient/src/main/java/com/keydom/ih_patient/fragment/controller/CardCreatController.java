@@ -3,6 +3,10 @@ package com.keydom.ih_patient.fragment.controller;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.net.ApiRequest;
+import com.keydom.ih_common.net.exception.ApiException;
+import com.keydom.ih_common.net.service.HttpService;
+import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
@@ -12,6 +16,13 @@ import com.keydom.ih_patient.activity.upload_certificate_picture.UploadCertifica
 import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.fragment.view.CardCreateView;
+import com.keydom.ih_patient.net.UserService;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 办卡控制器
@@ -65,5 +76,30 @@ public class CardCreatController extends ControllerImpl<CardCreateView> implemen
         }
     }
 
+
+
+    /**
+     * 是否已经办卡
+     */
+    public void isApplyElectronicCard() {
+        showLoading();
+        Map<String, Object> map = new HashMap<String,Object>();
+        map.put("userId",  Global.getUserId());
+        map.put("hospitalId", App.hospitalId);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).isApplyElectronicCard(map), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                hideLoading();
+                getView().isApplyElectronicCardSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                hideLoading();
+                getView().isApplyElectronicCardFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
 
 }

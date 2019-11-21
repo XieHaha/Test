@@ -19,7 +19,6 @@ import com.keydom.ih_doctor.bean.AgreementBean;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.zzhoujay.richtext.ImageHolder;
 import com.zzhoujay.richtext.RichText;
 
@@ -161,7 +160,7 @@ public class AgreementActivity extends BaseControllerActivity<AgreementControlle
 
     @Override
     public void openFailed(String errMsg) {
-        ToastUtil.shortToast(AgreementActivity.this, errMsg);
+        ToastUtil.showMessage(AgreementActivity.this, errMsg);
     }
 
     @Override
@@ -173,7 +172,7 @@ public class AgreementActivity extends BaseControllerActivity<AgreementControlle
 
     @Override
     public void enableServiceFailed(String errMsg) {
-        ToastUtil.shortToast(AgreementActivity.this, errMsg);
+        ToastUtil.showMessage(AgreementActivity.this, errMsg);
     }
 
     @Override
@@ -198,6 +197,6 @@ public class AgreementActivity extends BaseControllerActivity<AgreementControlle
 
     @Override
     public void getOfficialDispatchFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),"获取协议失败");
+        ToastUtil.showMessage(getContext(),"获取协议失败");
     }
 }

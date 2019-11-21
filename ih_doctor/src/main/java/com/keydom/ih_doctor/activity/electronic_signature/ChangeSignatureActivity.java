@@ -18,7 +18,6 @@ import com.keydom.ih_doctor.bean.SignRegInfoBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
@@ -77,7 +76,7 @@ public class ChangeSignatureActivity extends BaseControllerActivity<ApplySignatu
                 if (PhoneUtils.isMobileEnable(phoneNum)) {
                     getController().changeMobile(phoneNum);
                 } else {
-                    ToastUtil.shortToast(getContext(), "请输入正确的手机号");
+                    ToastUtil.showMessage(getContext(), "请输入正确的手机号");
                 }
             }
         });
@@ -126,7 +125,7 @@ public class ChangeSignatureActivity extends BaseControllerActivity<ApplySignatu
 
     @Override
     public void changeMobileFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override

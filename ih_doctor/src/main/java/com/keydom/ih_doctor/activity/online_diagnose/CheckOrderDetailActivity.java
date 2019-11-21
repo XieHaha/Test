@@ -23,7 +23,6 @@ import com.keydom.ih_doctor.bean.CheckItemListBean;
 import com.keydom.ih_doctor.bean.CheckOutItemBean;
 import com.keydom.ih_doctor.bean.InquiryBean;
 import com.keydom.ih_doctor.constant.Const;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -350,7 +349,7 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
     @Override
     public void getCheckOutDetailFailed(String errMsg) {
         pageLoadingFail();
-        ToastUtil.shortToast(this, "订单不存在");
+        ToastUtil.showMessage(this, "订单不存在");
         finish();
     }
 
@@ -364,7 +363,7 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
     @Override
     public void getInspactDetailFailed(String errMsg) {
         pageLoadingFail();
-        ToastUtil.shortToast(this, "订单不存在");
+        ToastUtil.showMessage(this, "订单不存在");
         finish();
     }
 

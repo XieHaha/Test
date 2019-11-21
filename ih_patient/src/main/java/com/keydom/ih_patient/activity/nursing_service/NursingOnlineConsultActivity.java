@@ -22,6 +22,7 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.CountItemView;
 import com.keydom.ih_common.view.SwitchButton;
 import com.keydom.ih_patient.App;
@@ -42,7 +43,6 @@ import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.TypeEnum;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -143,7 +143,7 @@ public class NursingOnlineConsultActivity extends BaseControllerActivity<Nursing
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (recommendDocAndNurAdapter.getData().get(position).getIsInquiry() == 0)
-                    ToastUtil.shortToast(getContext(), "该护士暂未开通咨询服务");
+                    ToastUtil.showMessage(getContext(), "该护士暂未开通咨询服务");
                 else {
                     Logger.e(recommendDocAndNurAdapter.getData().get(position).getUuid());
                     Intent intent = new Intent(NursingOnlineConsultActivity.this, DoctorOrNurseDetailActivity.class);
@@ -172,7 +172,7 @@ public class NursingOnlineConsultActivity extends BaseControllerActivity<Nursing
                             intent.putExtra(Intents.Scan.SCAN_FORMATS, "QR_CODE");
                             startActivityForResult(intent, REQUEST_CODE);
                         } else
-                            ToastUtil.shortToast(getContext(), "未获取摄像头使用权限，无法使用二维码功能");
+                            ToastUtil.showMessage(getContext(), "未获取摄像头使用权限，无法使用二维码功能");
                     }
                 });
             }
@@ -308,7 +308,7 @@ public class NursingOnlineConsultActivity extends BaseControllerActivity<Nursing
 
     @Override
     public void getRecommendFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "查询失败:"+errMsg);
+        ToastUtil.showMessage(getContext(), "查询失败:"+errMsg);
         diagnose_index_refresh.finishLoadMore();
         diagnose_index_refresh.finishRefresh();
         pageLoadingFail();
@@ -350,7 +350,7 @@ public class NursingOnlineConsultActivity extends BaseControllerActivity<Nursing
             deptPickerView.setPicker(parentDepList, childDepList);
             deptPickerView.show();
         } else {
-            ToastUtil.shortToast(getContext(), "没有查询到科室信息");
+            ToastUtil.showMessage(getContext(), "没有查询到科室信息");
         }
 
     }
@@ -483,7 +483,7 @@ public class NursingOnlineConsultActivity extends BaseControllerActivity<Nursing
             areaPickerView.setPicker(areaList);
             areaPickerView.show();
         } else {
-            ToastUtil.shortToast(getContext(), "该医院没有下属院区");
+            ToastUtil.showMessage(getContext(), "该医院没有下属院区");
         }
 
     }
@@ -495,7 +495,7 @@ public class NursingOnlineConsultActivity extends BaseControllerActivity<Nursing
 
     @Override
     public void getAreaListFailed(String msg) {
-        ToastUtil.shortToast(getContext(), "接口异常" + msg);
+        ToastUtil.showMessage(getContext(), "接口异常" + msg);
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ShareUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
@@ -27,7 +28,6 @@ import com.keydom.ih_patient.bean.DoctorTextItem;
 import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.UserService;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.view.DiagnosesApplyDialog;
 
 import org.jetbrains.annotations.NotNull;
@@ -71,7 +71,7 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
                         isCanDiagnose(1,getView().getCode());
 
                     else
-                        ToastUtil.shortToast(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊");
+                        ToastUtil.showMessage(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊");
                 }
 
                 break;
@@ -89,7 +89,7 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
                         isCanDiagnose(0,getView().getCode());
 
                     else
-                        ToastUtil.shortToast(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊");
+                        ToastUtil.showMessage(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊");
                 }
 
                 break;
@@ -256,7 +256,7 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
                     else
                         showApplyDialog(DiagnosesApplyDialog.VIDEODIAGNOSES);
                 }else
-                    ToastUtil.shortToast(getContext(),"当前无法对该医生进行问诊服务");
+                    ToastUtil.showMessage(getContext(),"当前无法对该医生进行问诊服务");
 
             }
 

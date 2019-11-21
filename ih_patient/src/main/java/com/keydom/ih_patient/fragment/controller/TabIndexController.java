@@ -8,6 +8,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.global_search.SearchActivity;
@@ -29,7 +30,6 @@ import com.keydom.ih_patient.net.IndexService;
 import com.keydom.ih_patient.net.UserService;
 import com.keydom.ih_patient.utils.DepartmentDataHelper;
 import com.keydom.ih_patient.utils.LocalizationUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -64,7 +64,7 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
                 if (Global.getUserId() != -1) {
                     EventBus.getDefault().post(new Event(EventType.STARTTOQR, null));
                 } else {
-                    ToastUtil.shortToast(getContext(), "你未登录,请登录后尝试");
+                    ToastUtil.showMessage(getContext(), "你未登录,请登录后尝试");
                 }
                 break;
             case R.id.empty_layout:
@@ -78,7 +78,7 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
                 if (getView().getNoticeList() != null && getView().getNoticeList().size() > 0)
                     MyMessageActivity.start(getContext(), Type.NOTICEMESSAGE,null);
                 else
-                    ToastUtil.shortToast(getContext(),"暂无通知公告");
+                    ToastUtil.showMessage(getContext(),"暂无通知公告");
                 break;
             default:
         }

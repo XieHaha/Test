@@ -8,14 +8,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.ClearEditText;
 import com.keydom.ih_common.view.MButton;
 import com.keydom.ih_common.view.PasswordEditText;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.login.controller.UpdatePasswordController;
 import com.keydom.ih_patient.activity.login.view.UpdatePasswordView;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 /**
  * 更新密码页面
@@ -68,7 +69,7 @@ public class UpdatePasswordActivity extends BaseControllerActivity<UpdatePasswor
 
     @Override
     public void msgInspectFailed(String msg) {
-        ToastUtil.shortToast(this,msg);
+        ToastUtil.showMessage(this,msg);
 
     }
 
@@ -80,18 +81,18 @@ public class UpdatePasswordActivity extends BaseControllerActivity<UpdatePasswor
 
     @Override
     public void registerFailed(String msg) {
-        ToastUtil.shortToast(this,msg);
+        ToastUtil.showMessage(this,msg);
     }
 
     @Override
     public void getMsgCodeSuccess() {
-        ToastUtil.shortToast(this,"验证码已发送，请注意查看");
+        ToastUtil.showMessage(this,"验证码已发送，请注意查看");
         getCodeBt.startTimer();
     }
 
     @Override
     public void getMsgCodeFailed(String errMsg) {
-        ToastUtil.shortToast(this,errMsg);
+        ToastUtil.showMessage(this,errMsg);
     }
 
     @Override

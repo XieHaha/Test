@@ -23,7 +23,6 @@ import com.keydom.ih_doctor.bean.ImPatientInfo;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
 
@@ -216,9 +215,9 @@ public class NewGroupChatActivity extends BaseControllerActivity<NewGroupChatCon
     @Override
     public void uploadFailed(String errMsg) {
         if(errMsg==null||"".equals(errMsg.trim())){
-            ToastUtil.shortToast(this, errMsg);
+            ToastUtil.showMessage(this, errMsg);
         }else{
-            ToastUtil.shortToast(this, "头像上传失败!");
+            ToastUtil.showMessage(this, "头像上传失败!");
         }
     }
 
@@ -230,7 +229,7 @@ public class NewGroupChatActivity extends BaseControllerActivity<NewGroupChatCon
 
     @Override
     public void createGroupFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
@@ -241,7 +240,7 @@ public class NewGroupChatActivity extends BaseControllerActivity<NewGroupChatCon
     @Override
     public Map<String, Object> getCreateGroupMap() {
         if(getGroupName()==null||"".equals(getGroupName())){
-            ToastUtil.shortToast(getContext(),"群名称不能为空");
+            ToastUtil.showMessage(getContext(),"群名称不能为空");
             return null;
         }
         Map<String, Object> map = new HashMap<>();

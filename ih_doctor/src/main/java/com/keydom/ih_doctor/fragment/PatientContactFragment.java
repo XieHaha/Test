@@ -26,7 +26,6 @@ import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.fragment.controller.PatientContactFragmentController;
 import com.keydom.ih_doctor.fragment.view.PatientContactFragmentView;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -201,7 +200,7 @@ public class PatientContactFragment extends BaseControllerFragment<PatientContac
 
     @Override
     public void getUserListFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), errMsg);
+        ToastUtil.showMessage(getContext(), errMsg);
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.order_doctor_register.controller.RegisterSearchController;
@@ -20,7 +21,6 @@ import com.keydom.ih_patient.bean.DoctorInfo;
 import com.keydom.ih_patient.bean.HospitaldepartmentsInfo;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -147,7 +147,7 @@ public class RegisterSearchActivity extends BaseControllerActivity<RegisterSearc
         doctor_or_department_rv.setVisibility(View.GONE);
         search_empty_tv.setVisibility(View.VISIBLE);
         search_empty_tv.setText("查询失败");
-        ToastUtil.shortToast(getContext(), "查询失败:"+Msg);
+        ToastUtil.showMessage(getContext(), "查询失败:"+Msg);
     }
 
     @Override
@@ -171,10 +171,10 @@ public class RegisterSearchActivity extends BaseControllerActivity<RegisterSearc
     public void getSearchDoctorFailed(String Msg) {
         this.dataList.clear();
         registerDoctorSearchAdapter.notifyDataSetChanged();
-        ToastUtil.shortToast(getContext(), "查询失败:"+Msg);
+        ToastUtil.showMessage(getContext(), "查询失败:"+Msg);
         search_empty_tv.setVisibility(View.VISIBLE);
         search_empty_tv.setText("查询失败");
-        ToastUtil.shortToast(getContext(), "查询失败:"+Msg);
+        ToastUtil.showMessage(getContext(), "查询失败:"+Msg);
     }
     public List<HospitaldepartmentsInfo> getDepartmentList(){
         return departmentList;

@@ -30,7 +30,6 @@ import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.bean.PatientInfoBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
@@ -218,7 +217,7 @@ public class PatientDatumActivity extends BaseControllerActivity<PatientDatumCon
     @Override
     public void updatePatientInfoFailed(String errMsg) {
         getController().getPatientInfo();
-        ToastUtil.shortToast(this, "修改失败" + errMsg);
+        ToastUtil.showMessage(this, "修改失败" + errMsg);
 
     }
 

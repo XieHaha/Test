@@ -78,7 +78,7 @@ public class DialogUtils {
             @Override
             public void onClick(View v) {
                 if (checkDialogInput.getText().toString() == null || "".equals(checkDialogInput.getText().toString())) {
-                    ToastUtil.shortToast(context, "请输入审核意见");
+                    ToastUtil.showMessage(context, "请输入审核意见");
                     return;
                 }
                 dialog.dismiss();
@@ -115,7 +115,7 @@ public class DialogUtils {
             @Override
             public void onClick(View v) {
                 if (nurseName.getText().toString() == null || "".equals(nurseName.getText().toString())) {
-                    ToastUtil.shortToast(context, "请完善信息后提交");
+                    ToastUtil.showMessage(context, "请完善信息后提交");
                     return;
                 }
                 map.put(SELECT_USER, nurseName.getText().toString());
@@ -164,7 +164,7 @@ public class DialogUtils {
             @Override
             public void onClick(View v) {
                 if (nurseName.getText().toString() == null || "".equals(nurseName.getText().toString())) {
-                    ToastUtil.shortToast(context, "请完善信息后提交");
+                    ToastUtil.showMessage(context, "请完善信息后提交");
                     return;
                 }
                 map.put(SELECT_USER, nurseName.getText().toString());
@@ -205,7 +205,7 @@ public class DialogUtils {
             @Override
             public void onClick(View v) {
                 if (returnDialogInput.getText().toString() == null || "".equals(returnDialogInput.getText().toString())) {
-                    ToastUtil.shortToast(context, "请输入退回原因");
+                    ToastUtil.showMessage(context, "请输入退回原因");
                     return;
                 }
                 listener.commit(v, returnDialogInput.getText().toString());
@@ -237,7 +237,7 @@ public class DialogUtils {
             @Override
             public void onClick(View v) {
                 if (returnDialogInput.getText().toString() == null || "".equals(returnDialogInput.getText().toString())) {
-                    ToastUtil.shortToast(context, "请输入退单原因");
+                    ToastUtil.showMessage(context, "请输入退单原因");
                     return;
                 }
                 listener.commit(v, returnDialogInput.getText().toString());
@@ -320,7 +320,7 @@ public class DialogUtils {
             @Override
             public void onClick(View v) {
                 if (map == null || visitTime.getText().toString() == null || "".equals(visitTime.getText().toString())) {
-                    ToastUtil.shortToast(context, "请完善信息后提交");
+                    ToastUtil.showMessage(context, "请完善信息后提交");
                     return;
                 }
                 map.put(INPUT_VALUE, input.getText().toString() == null ? "" : input.getText().toString());
@@ -402,11 +402,11 @@ public class DialogUtils {
             @Override
             public void onClick(View v) {
                 if (modelNameInput.getText().toString() == null || "".equals(modelNameInput.getText().toString())) {
-                    ToastUtil.shortToast(context, "请输入模版名称");
+                    ToastUtil.showMessage(context, "请输入模版名称");
                     return;
                 }
                 if (modelType == null || "".equals(modelType)) {
-                    ToastUtil.shortToast(context, "请选择模版类型");
+                    ToastUtil.showMessage(context, "请选择模版类型");
                     return;
                 }
                 listener.dialogClick(v, modelType, modelNameInput.getText().toString());
@@ -504,11 +504,11 @@ public class DialogUtils {
             @Override
             public void onClick(View v) {
                 if (modelNameInput.getText().toString() == null || "".equals(modelNameInput.getText().toString())) {
-                    ToastUtil.shortToast(context, "请输入模版名称");
+                    ToastUtil.showMessage(context, "请输入模版名称");
                     return;
                 }
                 if (modelType == null || "".equals(modelType)) {
-                    ToastUtil.shortToast(context, "请选择模版类型");
+                    ToastUtil.showMessage(context, "请选择模版类型");
                     return;
                 }
                 dialog.hide();
@@ -600,19 +600,19 @@ public class DialogUtils {
             @Override
             public void onClick(View v) {
                 if (modelNameInput.getText().toString() == null || "".equals(modelNameInput.getText().toString())) {
-                    ToastUtil.shortToast(context, "请输入病例模版名称");
+                    ToastUtil.showMessage(context, "请输入病例模版名称");
                     return;
                 }
                 if (modelType == null || "".equals(modelType)) {
-                    ToastUtil.shortToast(context, "请选择病例模版类型");
+                    ToastUtil.showMessage(context, "请选择病例模版类型");
                     return;
                 }
                 for (int i = 0; i <prescriptionPagerAdapter.getModelList().size() ; i++) {
                     if("".equals(prescriptionPagerAdapter.getModelList().get(i).getModelType())&&!"".equals( prescriptionPagerAdapter.getModelList().get(i).getModelName())){
-                        ToastUtil.shortToast(context, "处方模板"+DateUtils.numberToCH(i+1)+"数据未填写完整");
+                        ToastUtil.showMessage(context, "处方模板"+DateUtils.numberToCH(i+1)+"数据未填写完整");
                         return;
                     }else if(!"".equals(prescriptionPagerAdapter.getModelList().get(i).getModelType())&&"".equals( prescriptionPagerAdapter.getModelList().get(i).getModelName())){
-                        ToastUtil.shortToast(context, "处方模板"+DateUtils.numberToCH(i+1)+"数据未填写完整");
+                        ToastUtil.showMessage(context, "处方模板"+DateUtils.numberToCH(i+1)+"数据未填写完整");
                         return;
                     }
 

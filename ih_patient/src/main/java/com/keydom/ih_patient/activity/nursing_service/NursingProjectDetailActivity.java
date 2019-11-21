@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.utils.GlideUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
@@ -24,8 +25,6 @@ import com.keydom.ih_patient.activity.nursing_service.controller.NursingProjectD
 import com.keydom.ih_patient.activity.nursing_service.view.NursingProjectDetailView;
 import com.keydom.ih_patient.bean.NursingProjectInfo;
 import com.keydom.ih_patient.constant.Global;
-import com.keydom.ih_patient.utils.ToastUtil;
-import com.zzhoujay.richtext.ImageHolder;
 import com.zzhoujay.richtext.RichText;
 
 import org.jetbrains.annotations.Nullable;
@@ -88,7 +87,7 @@ public class NursingProjectDetailActivity extends BaseControllerActivity<Nursing
                         NursingChooseHospitalActivity.start(getContext(),nursingProjectInfo);
 
                     else
-                        ToastUtil.shortToast(getContext(),"您还未实名认证，前往个人中心实名认证后才能预约护理服务");
+                        ToastUtil.showMessage(getContext(),"您还未实名认证，前往个人中心实名认证后才能预约护理服务");
                 }
 
             }

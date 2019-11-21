@@ -11,7 +11,6 @@ import android.view.View;
 
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
-import com.keydom.ih_common.utils.DialogCreator;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.issue_information.controller.NotificationListController;
@@ -22,7 +21,6 @@ import com.keydom.ih_doctor.bean.NotificationBean;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.SwipeItemLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -130,7 +128,7 @@ public class NotificationListActivity extends BaseControllerActivity<Notificatio
 
     @Override
     public void deleteNotificationFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
 

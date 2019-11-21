@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.adapter.RegisterRecordAdapter;
 import com.keydom.ih_patient.bean.Event;
@@ -16,7 +17,6 @@ import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.fragment.controller.RegisterRecordContrller;
 import com.keydom.ih_patient.fragment.view.RegisterRecordView;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -115,7 +115,7 @@ public class RegisterRecordFragment extends BaseControllerFragment<RegisterRecor
     public void getRegistrarionRecordListFailed(String errMsg) {
         containt_refresh.finishLoadMore();
         containt_refresh.finishRefresh();
-        ToastUtil.shortToast(getContext(),errMsg);
+        ToastUtil.showMessage(getContext(),errMsg);
     }
 
 

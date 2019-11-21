@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.constant.Const;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_patient.App;
@@ -24,7 +25,6 @@ import com.keydom.ih_patient.bean.event.CertificateSuccess;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.utils.LocalizationUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -291,7 +291,7 @@ public class UserInfoOperateActivity extends BaseControllerActivity<UserInfoOper
 
     @Override
     public void uploadImgFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "头像上传失败：" + errMsg);
+        ToastUtil.showMessage(getContext(), "头像上传失败：" + errMsg);
     }
 
     @Override

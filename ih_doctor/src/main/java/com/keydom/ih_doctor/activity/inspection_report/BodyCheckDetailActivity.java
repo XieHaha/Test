@@ -14,7 +14,6 @@ import com.keydom.ih_doctor.activity.inspection_report.controller.BodyCheckDetai
 import com.keydom.ih_doctor.activity.inspection_report.view.BodyCheckDetailView;
 import com.keydom.ih_doctor.adapter.BodyCheckDetailAdapter;
 import com.keydom.ih_doctor.bean.BodyCheckDetailInfo;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -105,7 +104,7 @@ public class BodyCheckDetailActivity extends BaseControllerActivity<BodyCheckDet
             date_tv.setText(bodyCheckDetailInfo.getResultTime() != null && !"".equals(bodyCheckDetailInfo.getResultTime()) ? bodyCheckDetailInfo.getResultTime() : "");
             bodyCheckDetailAdapter.setNewData(bodyCheckDetailInfo.getImageList());
         } else {
-            ToastUtil.shortToast(getContext(), "检查报告单详情获取失败");
+            ToastUtil.showMessage(getContext(), "检查报告单详情获取失败");
             finish();
         }
 
@@ -113,7 +112,7 @@ public class BodyCheckDetailActivity extends BaseControllerActivity<BodyCheckDet
 
     @Override
     public void getBodyCheckDetailFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "检查报告单详情获取失败" + errMsg);
+        ToastUtil.showMessage(getContext(), "检查报告单详情获取失败" + errMsg);
         finish();
     }
 }

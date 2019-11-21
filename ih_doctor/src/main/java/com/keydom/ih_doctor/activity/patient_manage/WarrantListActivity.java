@@ -15,7 +15,6 @@ import com.keydom.ih_doctor.adapter.WarrantListAdapter;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.bean.WarrantDoctorBean;
 import com.keydom.ih_doctor.constant.EventType;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -73,7 +72,7 @@ public class WarrantListActivity extends BaseControllerActivity<WarrantListContr
 
     @Override
     public void getWarrantListFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),"列表获取失败"+errMsg);
+        ToastUtil.showMessage(getContext(),"列表获取失败"+errMsg);
     }
 
     @Override

@@ -32,7 +32,6 @@ import com.keydom.ih_doctor.activity.patient_manage.PatientDatumActivity;
 import com.keydom.ih_doctor.activity.view.SearchView;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.TypeEnum;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -142,7 +141,7 @@ public class SearchActivity extends BaseControllerActivity<SearchController> imp
                     if (patientCode != null && !"".equals(patientCode)) {
                         PatientDatumActivity.start(SearchActivity.this, String.valueOf(((SearchResultBean.PatientBean) item).getPatientCode()));
                     } else {
-                        ToastUtil.shortToast(SearchActivity.this, "无法查看，患者数据错误，请联系管理员");
+                        ToastUtil.showMessage(SearchActivity.this, "无法查看，患者数据错误，请联系管理员");
                     }
                 }
                 if (item instanceof SearchResultBean.OrderBean) {

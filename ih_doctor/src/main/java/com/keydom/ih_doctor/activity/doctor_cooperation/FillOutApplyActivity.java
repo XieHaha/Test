@@ -29,7 +29,6 @@ import com.keydom.ih_doctor.bean.DeptDoctorBean;
 import com.keydom.ih_doctor.bean.DiagnoseFillOutResBean;
 import com.keydom.ih_doctor.bean.InquiryBean;
 import com.keydom.ih_doctor.constant.Const;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -153,16 +152,16 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
             @Override
             public void OnRightTextClick(View v) {
                 if (doctorList == null || doctorList.size() <= 0) {
-                    ToastUtil.shortToast(FillOutApplyActivity.this, "请选择医生");
+                    ToastUtil.showMessage(FillOutApplyActivity.this, "请选择医生");
                     return;
                 }
                 if (orderBean == null) {
-                    ToastUtil.shortToast(FillOutApplyActivity.this, "请选择问诊订单");
+                    ToastUtil.showMessage(FillOutApplyActivity.this, "请选择问诊订单");
                     return;
                 }
                 String str = CommonUtils.filterEmoji(explainInputEt.getText().toString().trim());
                 if (str == null || str.length() < 20) {
-                    ToastUtil.shortToast(FillOutApplyActivity.this, "转诊说明至少20字!");
+                    ToastUtil.showMessage(FillOutApplyActivity.this, "转诊说明至少20字!");
                     return;
                 }
                 getController().submit();
@@ -264,7 +263,7 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
                             addDoctor();
                             selectDoctor.setText("");
                         }else {
-                            ToastUtil.shortToast(getContext(),"该医生未开通图文问诊服务");
+                            ToastUtil.showMessage(getContext(),"该医生未开通图文问诊服务");
                         }
                     }else  if(orderBean!=null&&orderBean.getInquisitionType()==1){
                         if(list.get(0).getProjectStatus()==2||list.get(0).getProjectStatus()==3){
@@ -274,7 +273,7 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
                             addDoctor();
                             selectDoctor.setText("");
                         }else {
-                            ToastUtil.shortToast(getContext(),"该医生未开通视频问诊服务");
+                            ToastUtil.showMessage(getContext(),"该医生未开通视频问诊服务");
                         }
                     }else{
                         doctorList.clear();
@@ -339,9 +338,9 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
     @Override
     public void uploadFailed(String errMsg) {
         if(errMsg==null||"".equals(errMsg.trim())){
-            ToastUtil.shortToast(this, errMsg);
+            ToastUtil.showMessage(this, errMsg);
         }else{
-            ToastUtil.shortToast(this, "图片上传失败!");
+            ToastUtil.showMessage(this, "图片上传失败!");
         }
     }
 
@@ -358,7 +357,7 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
 
     @Override
     public void saveFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override

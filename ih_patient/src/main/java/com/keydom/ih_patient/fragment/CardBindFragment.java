@@ -3,13 +3,13 @@ package com.keydom.ih_patient.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
@@ -17,7 +17,6 @@ import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.fragment.controller.CardBindController;
 import com.keydom.ih_patient.fragment.view.CardBindView;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
@@ -101,7 +100,7 @@ public class CardBindFragment extends BaseControllerFragment<CardBindController>
 
     @Override
     public void bindFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), errMsg);
+        ToastUtil.showMessage(getContext(), errMsg);
     }
 
     @Override
@@ -120,7 +119,7 @@ public class CardBindFragment extends BaseControllerFragment<CardBindController>
                 map.put("idCard", idcard);
         }
         if (nameStr == null || "".equals(nameStr) || cardNumEdt.getText().toString() == null || "".equals(cardNumEdt.getText().toString())) {
-            ToastUtil.shortToast(getContext(), "请完善绑卡信息");
+            ToastUtil.showMessage(getContext(), "请完善绑卡信息");
             return null;
         }
         map.put("name", nameStr);

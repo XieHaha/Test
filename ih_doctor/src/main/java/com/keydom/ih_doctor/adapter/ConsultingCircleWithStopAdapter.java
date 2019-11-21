@@ -22,7 +22,6 @@ import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.ScheduingService;
 import com.keydom.ih_doctor.utils.CalculateTimeUtils;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
@@ -116,13 +115,13 @@ public class ConsultingCircleWithStopAdapter extends BaseEmptyAdapter<Consulting
                                         mDatas.remove(mDatas.get(position));
                                         notifyDataSetChanged();
                                         EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.CONSULTING_UPDATE).build());
-                                        ToastUtil.shortToast(mContext, "删除成功");
+                                        ToastUtil.showMessage(mContext, "删除成功");
                                     }
 
                                     @Override
                                     public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                                         ((ArrangeCircleActivity) mContext).getController().hideLoading();
-                                        ToastUtil.shortToast(mContext, "删除失败");
+                                        ToastUtil.showMessage(mContext, "删除失败");
                                         return super.requestError(exception, code, msg);
                                     }
                                 });
@@ -148,7 +147,7 @@ public class ConsultingCircleWithStopAdapter extends BaseEmptyAdapter<Consulting
                                     @Override
                                     public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                                         ((ArrangeCircleActivity) mContext).getController().hideLoading();
-                                        ToastUtil.shortToast(mContext, "删除失败");
+                                        ToastUtil.showMessage(mContext, "删除失败");
                                         return super.requestError(exception, code, msg);
                                     }
                                 });

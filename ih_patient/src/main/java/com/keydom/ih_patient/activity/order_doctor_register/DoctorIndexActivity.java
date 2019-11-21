@@ -19,6 +19,7 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.ShareUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity;
@@ -29,7 +30,6 @@ import com.keydom.ih_patient.bean.DoctorInfo;
 import com.keydom.ih_patient.fragment.DoctorDescripeFragment;
 import com.keydom.ih_patient.fragment.DoctorSchedulFragment;
 import com.keydom.ih_patient.utils.StatusBarUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import org.jetbrains.annotations.Nullable;
@@ -199,6 +199,6 @@ public class DoctorIndexActivity extends BaseControllerActivity<DoctorIndexContr
 
     @Override
     public void getDoctorDetailFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "医生数据获取失败" + errMsg);
+        ToastUtil.showMessage(getContext(), "医生数据获取失败" + errMsg);
     }
 }

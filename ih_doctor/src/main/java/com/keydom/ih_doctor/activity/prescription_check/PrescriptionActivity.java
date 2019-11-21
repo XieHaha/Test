@@ -4,37 +4,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
-import com.keydom.ih_common.utils.CommonUtils;
-import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.prescription_check.controller.PrescriptionController;
 import com.keydom.ih_doctor.activity.prescription_check.view.PrescriptionView;
-import com.keydom.ih_doctor.adapter.MedicineRecyclrViewAdapter;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.bean.PrescriptionDetailBean;
-import com.keydom.ih_doctor.bean.PrescriptionDrugBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.PrescriptionDetailView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -162,7 +152,7 @@ public class PrescriptionActivity extends BaseControllerActivity<PrescriptionCon
 
     @Override
     public void auditFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override

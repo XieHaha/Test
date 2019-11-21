@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.order_doctor_register.controller.RegistrationRecordDetailController;
 import com.keydom.ih_patient.activity.order_doctor_register.view.RegistrationRecordDetailView;
 import com.keydom.ih_patient.bean.RegistrationRecordInfo;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.zzhoujay.richtext.ImageHolder;
 import com.zzhoujay.richtext.RichText;
 
@@ -77,6 +77,6 @@ public class RegistrationRecordDetailActivity extends BaseControllerActivity<Reg
 
     @Override
     public void getRegistrationRecordDetailFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "订单详情获取失败:" + errMsg);
+        ToastUtil.showMessage(getContext(), "订单详情获取失败:" + errMsg);
     }
 }

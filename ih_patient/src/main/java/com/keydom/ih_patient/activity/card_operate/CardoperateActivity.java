@@ -17,6 +17,7 @@ import com.keydom.ih_patient.activity.card_operate.controller.CardOperateControl
 import com.keydom.ih_patient.activity.card_operate.view.CardOperateView;
 import com.keydom.ih_patient.adapter.ViewPagerAdapter;
 import com.keydom.ih_patient.bean.Event;
+import com.keydom.ih_patient.bean.event.CertificateSuccess;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.fragment.CardBindFragment;
 import com.keydom.ih_patient.fragment.CardCreateFragment;
@@ -87,6 +88,18 @@ public class CardoperateActivity extends BaseControllerActivity<CardOperateContr
             bind_success_layout.setVisibility(View.VISIBLE);
         }
     }
+
+    /**
+     * 认证成功
+     *
+     * @param success 事件
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onCertificateSuccess(CertificateSuccess success) {
+        card_operate_layout.setVisibility(View.GONE);
+        bind_success_layout.setVisibility(View.VISIBLE);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

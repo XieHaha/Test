@@ -28,7 +28,6 @@ import com.keydom.ih_doctor.bean.DiagnoseOrderDetailBean;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -249,7 +248,7 @@ public class DiagnoseOrderDetailActivity extends BaseControllerActivity<Diagnose
 
     @Override
     public void operationFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override

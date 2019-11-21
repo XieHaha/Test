@@ -9,6 +9,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.activity.nursing_service.NursingOrderFillInActivity;
 import com.keydom.ih_patient.bean.NursingOrderBean;
@@ -18,7 +19,6 @@ import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.fragment.view.NursingOrderItemView;
 import com.keydom.ih_patient.net.NursingOrderService;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
 import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 
@@ -139,12 +139,12 @@ public class NursingOrderFragmentController extends ControllerImpl<NursingOrderI
                         @Override
                         public void onSuccess() {
                             getView().paySuccess();
-                            ToastUtil.shortToast(getContext(),"支付成功");
+                            ToastUtil.showMessage(getContext(),"支付成功");
                         }
 
                         @Override
                         public void onError(int error_code) {
-                            ToastUtil.shortToast(getContext(),"支付失败"+error_code
+                            ToastUtil.showMessage(getContext(),"支付失败"+error_code
                             );
                         }
 

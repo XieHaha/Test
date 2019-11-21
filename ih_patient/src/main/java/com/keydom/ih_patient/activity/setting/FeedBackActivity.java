@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.widget.EditText;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.constant.Const;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GridViewForScrollView;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_common.view.InterceptorEditText;
@@ -18,7 +18,6 @@ import com.keydom.ih_patient.activity.setting.controller.FeedBackController;
 import com.keydom.ih_patient.activity.setting.view.FeedBackView;
 import com.keydom.ih_patient.adapter.GridViewPlusImgAdapter;
 import com.keydom.ih_patient.constant.Global;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -99,7 +98,7 @@ public class FeedBackActivity extends BaseControllerActivity<FeedBackController>
 
     @Override
     public void feedBackFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
@@ -110,7 +109,7 @@ public class FeedBackActivity extends BaseControllerActivity<FeedBackController>
 
     @Override
     public void uploadFailed(String msg) {
-        ToastUtil.shortToast(this, "提交失败"+msg);
+        ToastUtil.showMessage(this, "提交失败"+msg);
     }
 
     @Override
@@ -135,12 +134,12 @@ public class FeedBackActivity extends BaseControllerActivity<FeedBackController>
     @Override
     public boolean checkFeedBack() {
         if (titleEt.getText().toString() == null || "".equals(titleEt.getText().toString())) {
-            ToastUtil.shortToast(this, "请输入标题");
+            ToastUtil.showMessage(this, "请输入标题");
             return false;
         }
 
         if (contentEt.getText().toString() == null || "".equals(contentEt.getText().toString())) {
-            ToastUtil.shortToast(this, "请输入反馈内容");
+            ToastUtil.showMessage(this, "请输入反馈内容");
             return false;
         }
         return true;

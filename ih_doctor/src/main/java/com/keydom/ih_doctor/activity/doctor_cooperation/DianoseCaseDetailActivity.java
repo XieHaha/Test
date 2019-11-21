@@ -16,7 +16,6 @@ import com.keydom.ih_doctor.activity.doctor_cooperation.controller.DianoseCaseDe
 import com.keydom.ih_doctor.activity.doctor_cooperation.view.DianoseCaseDetailView;
 import com.keydom.ih_doctor.bean.DiagnoseCaseBean;
 import com.keydom.ih_doctor.constant.Const;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -75,7 +74,7 @@ public class DianoseCaseDetailActivity extends BaseControllerActivity<DianoseCas
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         medicalId = getIntent().getStringExtra(Const.DATA);
         if (medicalId == null || "".equals(medicalId)) {
-            ToastUtil.shortToast(this, "查不到该病例");
+            ToastUtil.showMessage(this, "查不到该病例");
             return;
         }
         setTitle("门诊病历记录");
@@ -100,7 +99,7 @@ public class DianoseCaseDetailActivity extends BaseControllerActivity<DianoseCas
 
     @Override
     public void getDetailFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
         pageLoadingFail();
     }
 
@@ -118,7 +117,7 @@ public class DianoseCaseDetailActivity extends BaseControllerActivity<DianoseCas
      */
     private void setInfo(DiagnoseCaseBean bean) {
         if (bean == null) {
-            ToastUtil.shortToast(this, "病历不存在");
+            ToastUtil.showMessage(this, "病历不存在");
             finish();
             return;
         }

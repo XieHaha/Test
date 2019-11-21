@@ -19,7 +19,6 @@ import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.constant.TypeEnum;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -134,7 +133,7 @@ public class DiagnoseCommonActivity extends BaseControllerActivity<DiagnoseCommo
         } else if (mType == TypeEnum.DIAGNOSE_GROUP_RECODER) {
             setTitle("会诊记录");
         } else {
-            ToastUtil.shortToast(this, "参数错误");
+            ToastUtil.showMessage(this, "参数错误");
             finish();
         }
         recyclerView = this.findViewById(R.id.diagnose_list_rv);

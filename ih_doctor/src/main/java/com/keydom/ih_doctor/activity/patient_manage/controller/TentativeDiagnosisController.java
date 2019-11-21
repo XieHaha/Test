@@ -18,7 +18,6 @@ import com.keydom.ih_doctor.activity.patient_manage.view.TentativeDiagnosisView;
 import com.keydom.ih_doctor.bean.WarrantDetailBean;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.PatientManageApiService;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -47,7 +46,7 @@ public class TentativeDiagnosisController extends ControllerImpl<TentativeDiagno
                 if (getView().getType() == TentativeDiagnosisActivity.TYPECREAT)
                     SelectDoctorActivity.startActivityOfGroupMemberOnlyResult(getContext());
                 else
-                    ToastUtil.shortToast(getContext(), "当前不能切换其他医生");
+                    ToastUtil.showMessage(getContext(), "当前不能切换其他医生");
                 break;
             case R.id.patient_name:
                 ChoosePatientActivity.start(getContext(), getView().getSelectPatient());

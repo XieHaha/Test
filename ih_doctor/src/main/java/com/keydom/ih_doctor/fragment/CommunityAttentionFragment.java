@@ -18,7 +18,6 @@ import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.fragment.controller.AttentionFragmentController;
 import com.keydom.ih_doctor.fragment.view.AttentionFragmentView;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.WrapRecyclerView;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -95,7 +94,7 @@ public class CommunityAttentionFragment extends BaseControllerFragment<Attention
 
     @Override
     public void articleLikeFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), errMsg);
+        ToastUtil.showMessage(getContext(), errMsg);
     }
 
     @Override

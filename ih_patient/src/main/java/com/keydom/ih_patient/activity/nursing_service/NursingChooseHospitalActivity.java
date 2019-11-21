@@ -30,6 +30,7 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
@@ -44,7 +45,6 @@ import com.keydom.ih_patient.bean.LocationInfo;
 import com.keydom.ih_patient.bean.NursingProjectInfo;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 import com.zzhoujay.richtext.ImageHolder;
 import com.zzhoujay.richtext.RichText;
@@ -123,25 +123,25 @@ public class NursingChooseHospitalActivity extends BaseControllerActivity<Nursin
             @Override
             public void onClick(View view) {
                 if(!isCanContinue){
-                    ToastUtil.shortToast(getContext(), "正在拉取服务医院，请稍等");
+                    ToastUtil.showMessage(getContext(), "正在拉取服务医院，请稍等");
                     return;
                 }else {
                     if (serviceAddress == null) {
-                        ToastUtil.shortToast(getContext(), "您还未选择服务地址");
+                        ToastUtil.showMessage(getContext(), "您还未选择服务地址");
                         return;
                     }
                     if (!isHasServiceHospital) {
-                        ToastUtil.shortToast(getContext(), "当前服务范围内暂无可服务医院，无法提供预约服务");
+                        ToastUtil.showMessage(getContext(), "当前服务范围内暂无可服务医院，无法提供预约服务");
                         return;
                     }
                     if(hospitalAreaId==-1){
-                        ToastUtil.shortToast(getContext(), "当前医院不在服务范围内，请从地图上选取服务范围内的医院");
+                        ToastUtil.showMessage(getContext(), "当前医院不在服务范围内，请从地图上选取服务范围内的医院");
                         return;
                     }
                     if (isAgreement) {
                         NursingOrderFillInActivity.start(getContext(), nursingProjectInfo, serviceAddress, hospitalAreaId, false, null);
                     } else {
-                        ToastUtil.shortToast(getContext(), "您还未阅读并同意护理服务相关用户协议");
+                        ToastUtil.showMessage(getContext(), "您还未阅读并同意护理服务相关用户协议");
                     }
 
                 }
@@ -252,7 +252,7 @@ public class NursingChooseHospitalActivity extends BaseControllerActivity<Nursin
                                 nursingProjectInfo = null;
                             }
                             hospitalAreaId = hospitalAreaBean.getId();
-                            ToastUtil.shortToast(getContext(), "当前医院已经切换至" + finalHintStr);
+                            ToastUtil.showMessage(getContext(), "当前医院已经切换至" + finalHintStr);
                         }
                     })
                             .setTitle("提示")
@@ -406,7 +406,7 @@ public class NursingChooseHospitalActivity extends BaseControllerActivity<Nursin
 
             if (!isSelectedLocationAvailable) {
                 selectedLocation = null;
-                ToastUtil.shortToast(getContext(), "当前选中地址已被删除，请重新选择");
+                ToastUtil.showMessage(getContext(), "当前选中地址已被删除，请重新选择");
                 choose_location_tv.setText("选择服务地址");
                 serviceAddress = null;
                 mMap.clear();
@@ -418,7 +418,7 @@ public class NursingChooseHospitalActivity extends BaseControllerActivity<Nursin
 
     @Override
     public void getDefaultAddressFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "获取默认地址失败，请选择服务地址");
+        ToastUtil.showMessage(getContext(), "获取默认地址失败，请选择服务地址");
     }
 
     @Override
@@ -451,7 +451,7 @@ public class NursingChooseHospitalActivity extends BaseControllerActivity<Nursin
     @Override
     public void getBaseFeeFailed(String errMsg) {
         notice_tv.setText("获取注意事项失败");
-        ToastUtil.shortToast(getContext(), "获取注意事项失败" + errMsg);
+        ToastUtil.showMessage(getContext(), "获取注意事项失败" + errMsg);
 
     }
 
@@ -463,7 +463,7 @@ public class NursingChooseHospitalActivity extends BaseControllerActivity<Nursin
         OnGetGeoCoderResultListener listener = new OnGetGeoCoderResultListener() {
             public void onGetGeoCodeResult(GeoCodeResult result) {
                 if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR)
-                    ToastUtil.shortToast(getContext(), "服务位置定位失败");
+                    ToastUtil.showMessage(getContext(), "服务位置定位失败");
                 else {
                     Logger.e("获取地理编码结果:  lat=" + result.getLocation().latitude + "lng=" + result.getLocation().longitude);
                     MapStatus mMapStatus = new MapStatus.Builder()

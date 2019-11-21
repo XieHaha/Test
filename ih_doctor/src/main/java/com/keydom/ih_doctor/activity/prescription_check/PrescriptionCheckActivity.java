@@ -15,15 +15,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
-import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.prescription_check.controller.PrescriptionCheckController;
 import com.keydom.ih_doctor.activity.prescription_check.view.PrescriptionCheckView;
-import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.ServiceConst;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.fragment.PrescriptionFragment;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -79,7 +76,7 @@ public class PrescriptionCheckActivity extends BaseControllerActivity<Prescripti
             setTitle("处方审核");
             initDrugControl();
         } else {
-            ToastUtil.shortToast(this, "无该模块权限");
+            ToastUtil.showMessage(this, "无该模块权限");
             finish();
         }
 

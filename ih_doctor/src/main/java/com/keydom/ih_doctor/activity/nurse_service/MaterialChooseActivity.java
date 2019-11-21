@@ -21,7 +21,6 @@ import com.keydom.ih_doctor.bean.MaterialBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import java.io.Serializable;
@@ -83,7 +82,7 @@ public class MaterialChooseActivity extends BaseControllerActivity<MaterialChoos
             @Override
             public void OnRightTextClick(View v) {
                 if (materialChooseAdapter.getSelectList() == null || materialChooseAdapter.getSelectList().size() == 0) {
-                    ToastUtil.shortToast(MaterialChooseActivity.this, "请选择耗材、器材后再提交");
+                    ToastUtil.showMessage(MaterialChooseActivity.this, "请选择耗材、器材后再提交");
                     return;
                 } else {
                     MaterialUseActivity.start(MaterialChooseActivity.this, materialChooseAdapter.getSelectList());

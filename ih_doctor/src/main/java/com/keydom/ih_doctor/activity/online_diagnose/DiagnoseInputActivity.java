@@ -23,7 +23,6 @@ import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -177,7 +176,7 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
 
     @Override
     public void getICDListFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
         refreshLayout.finishLoadMore();
         refreshLayout.finishRefresh();
     }

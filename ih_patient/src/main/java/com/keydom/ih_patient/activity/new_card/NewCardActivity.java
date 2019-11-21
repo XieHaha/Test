@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.PhoneUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
@@ -25,7 +26,6 @@ import com.keydom.ih_patient.bean.event.CertificateSuccess;
 import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.utils.DateUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
@@ -50,6 +50,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     private String idCardValidityStartDateStr;
     private Date birthDate, idCardValidityPeriodDate;
     private TextView new_card_commit, user_sex_tv, user_national_tv, other_certificate_address_now_tv, id_card_region_tv;
+    private TextView mCancelCommitTv;
     private InterceptorEditText userName_edt, certificate_id_edt;
     private InterceptorEditText other_certificate_address_detail_edt, di_card_address_detail_edt, contactor_name_edt, contactor_phone_edt, contactor_relationship_edt;
     private ArrayList<String> cardUrlList;
@@ -117,6 +118,8 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         new_card_operate_layout = this.findViewById(R.id.new_card_operate_layout);
         new_card_audit_layout = this.findViewById(R.id.new_card_audit_layout);
         certificate_type_tv = this.findViewById(R.id.certificate_type_tv);
+        mCancelCommitTv = this.findViewById(R.id.new_card_layout_cancel_commit_tv);
+        mCancelCommitTv.setOnClickListener(getController());
 
         other_certificate_address_now_layout = this.findViewById(R.id.other_certificate_address_now_layout);
         other_certificate_address_detail_layout = this.findViewById(R.id.other_certificate_address_detail_layout);
@@ -241,7 +244,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
 
     @Override
     public void commitFailed(String msg) {
-        ToastUtil.shortToast(getContext(), "提交失败:" + msg);
+        ToastUtil.showMessage(getContext(), "提交失败:" + msg);
     }
 
     @Override
@@ -265,26 +268,26 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         if (userName_edt.getText().toString().trim() != null && !"".equals(userName_edt.getText().toString().trim())) {
             map.put("name", userName_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请输入姓名");
+            ToastUtil.showMessage(getContext(), "请输入姓名");
             return null;
         }
 
         if (!"".equals(sexStr)) {
             map.put("sex", sexStr);
         } else {
-            ToastUtil.shortToast(getContext(), "请填入性别");
+            ToastUtil.showMessage(getContext(), "请填入性别");
             return null;
         }
         if (!"".equals(nationStr)) {
             map.put("nation", nationStr);
         } else {
-            ToastUtil.shortToast(getContext(), "请输入民族");
+            ToastUtil.showMessage(getContext(), "请输入民族");
             return null;
         }
         if (birthDateStr != null && !"".equals(birthDateStr)) {
             map.put("birthDate", birthDateStr);
         } else {
-            ToastUtil.shortToast(getContext(), "请选择出生日期");
+            ToastUtil.showMessage(getContext(), "请选择出生日期");
             return null;
         }
 
@@ -301,7 +304,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
             } else
                 map.put("cardNumber", certificate_id_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请输入证件号码");
+            ToastUtil.showMessage(getContext(), "请输入证件号码");
             return null;
         }
         //TODO ： 暂时屏蔽
@@ -309,50 +312,50 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
             map.put("addressCode", regionStr);
             map.put("idCardAddress", provinceName + "-" + cityName + "-" + areaName);
         } else {
-            ToastUtil.shortToast(getContext(), "请输入身份证所在地");
+            ToastUtil.showMessage(getContext(), "请输入身份证所在地");
             return null;
         }*/
         if (di_card_address_detail_edt.getText().toString().trim() != null && !"".equals(di_card_address_detail_edt.getText().toString().trim())) {
             map.put("detailAddress", di_card_address_detail_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请输入身份证详细地址");
+            ToastUtil.showMessage(getContext(), "请输入身份证详细地址");
             return null;
         }
         if (idCardValidityPeriodDateStr != null && !"".equals(idCardValidityPeriodDateStr)) {
             map.put("cardValidEnd", idCardValidityPeriodDateStr);
         } else {
-            ToastUtil.shortToast(getContext(), "请选择身份证有效截止日期");
+            ToastUtil.showMessage(getContext(), "请选择身份证有效截止日期");
             return null;
         }
         if (DateUtils.compareDate(birthDateStr, idCardValidityPeriodDateStr)) {
-            ToastUtil.shortToast(getContext(), "身份证有效截止日期应该晚于出生日期，请核实");
+            ToastUtil.showMessage(getContext(), "身份证有效截止日期应该晚于出生日期，请核实");
             return null;
         }
         if (contactor_name_edt.getText().toString().trim() != null && !"".equals(contactor_name_edt.getText().toString().trim())) {
             map.put("contact", contactor_name_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请输入联系人姓名");
+            ToastUtil.showMessage(getContext(), "请输入联系人姓名");
             return null;
         }
         if (contactor_phone_edt.getText().toString().trim() != null && !"".equals(contactor_phone_edt.getText().toString().trim())) {
             if (PhoneUtils.isMobileEnable(contactor_phone_edt.getText().toString().trim())) {
                 map.put("contactPhone", contactor_phone_edt.getText().toString().trim());
             } else {
-                ToastUtil.shortToast(getContext(), "请填写正确的手机格式");
+                ToastUtil.showMessage(getContext(), "请填写正确的手机格式");
                 return null;
             }
         } else {
-            ToastUtil.shortToast(getContext(), "请输入联系人联系电话");
+            ToastUtil.showMessage(getContext(), "请输入联系人联系电话");
             return null;
         }
         if (contactor_relationship_edt.getText().toString().trim() != null && !"".equals(contactor_relationship_edt.getText().toString().trim())) {
             map.put("relationship", contactor_relationship_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请输入与患者的关系");
+            ToastUtil.showMessage(getContext(), "请输入与患者的关系");
             return null;
         }
         if (DateUtils.compareDateWithNow(birthDateStr)) {
-            ToastUtil.shortToast(getContext(), "出生日期填不该晚于当天，请核实");
+            ToastUtil.showMessage(getContext(), "出生日期填不该晚于当天，请核实");
             return null;
         }
         return map;
@@ -367,26 +370,26 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         if (userName_edt.getText().toString().trim() != null && !"".equals(userName_edt.getText().toString().trim())) {
             map.put("name", userName_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请输入姓名");
+            ToastUtil.showMessage(getContext(), "请输入姓名");
             return null;
         }
 
         if (!"".equals(sexStr)) {
             map.put("sex", sexStr);
         } else {
-            ToastUtil.shortToast(getContext(), "请填入性别");
+            ToastUtil.showMessage(getContext(), "请填入性别");
             return null;
         }
         if (!"".equals(nationStr)) {
             map.put("nation", nationStr);
         } else {
-            ToastUtil.shortToast(getContext(), "请输入民族");
+            ToastUtil.showMessage(getContext(), "请输入民族");
             return null;
         }
         if (birthDateStr != null && !"".equals(birthDateStr)) {
             map.put("birthDate", birthDateStr);
         } else {
-            ToastUtil.shortToast(getContext(), "请选择出生日期");
+            ToastUtil.showMessage(getContext(), "请选择出生日期");
             return null;
         }
 
@@ -403,20 +406,20 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
             } else
                 map.put("cardNumber", certificate_id_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请输入证件号码");
+            ToastUtil.showMessage(getContext(), "请输入证件号码");
             return null;
         }
 
         if (di_card_address_detail_edt.getText().toString().trim() != null && !"".equals(di_card_address_detail_edt.getText().toString().trim())) {
             map.put("detailAddress", di_card_address_detail_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请输入身份证详细地址");
+            ToastUtil.showMessage(getContext(), "请输入身份证详细地址");
             return null;
         }
         if (idCardValidityPeriodDateStr != null && !"".equals(idCardValidityPeriodDateStr)) {
             map.put("cardValidEnd", idCardValidityPeriodDateStr);
         } else {
-            ToastUtil.shortToast(getContext(), "请选择身份证有效截止日期");
+            ToastUtil.showMessage(getContext(), "请选择身份证有效截止日期");
             return null;
         }
 
@@ -425,12 +428,12 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         }
 
         if (DateUtils.compareDate(birthDateStr, idCardValidityPeriodDateStr)) {
-            ToastUtil.shortToast(getContext(), "身份证有效截止日期应该晚于出生日期，请核实");
+            ToastUtil.showMessage(getContext(), "身份证有效截止日期应该晚于出生日期，请核实");
             return null;
         }
 
         if (DateUtils.compareDateWithNow(birthDateStr)) {
-            ToastUtil.shortToast(getContext(), "出生日期填不该晚于当天，请核实");
+            ToastUtil.showMessage(getContext(), "出生日期填不该晚于当天，请核实");
             return null;
         }
         return map;
@@ -445,26 +448,26 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         if (userName_edt.getText().toString().trim() != null && !"".equals(userName_edt.getText().toString().trim())) {
             map.put("name", userName_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请输入姓名");
+            ToastUtil.showMessage(getContext(), "请输入姓名");
             return null;
         }
 
         if (!"".equals(sexStr)) {
             map.put("sex", sexStr);
         } else {
-            ToastUtil.shortToast(getContext(), "请填入性别");
+            ToastUtil.showMessage(getContext(), "请填入性别");
             return null;
         }
         if (!"".equals(nationStr)) {
             map.put("nation", nationStr);
         } else {
-            ToastUtil.shortToast(getContext(), "请输入民族");
+            ToastUtil.showMessage(getContext(), "请输入民族");
             return null;
         }
         if (birthDateStr != null && !"".equals(birthDateStr)) {
             map.put("birthDate", birthDateStr);
         } else {
-            ToastUtil.shortToast(getContext(), "请选择出生日期");
+            ToastUtil.showMessage(getContext(), "请选择出生日期");
             return null;
         }
         if (type.equals(Const.CARD_ID_CARD)) {
@@ -475,47 +478,47 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         if (certificate_id_edt.getText().toString().trim() != null && !"".equals(certificate_id_edt.getText().toString().trim())) {
             map.put("cardNumber", certificate_id_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请输入证件号码");
+            ToastUtil.showMessage(getContext(), "请输入证件号码");
             return null;
         }
         if (!"".equals(regionStr)) {
             map.put("addressCode", regionStr);
             map.put("address", provinceName + "-" + cityName + "-" + areaName);
         } else {
-            ToastUtil.shortToast(getContext(), "请输入现住址");
+            ToastUtil.showMessage(getContext(), "请输入现住址");
             return null;
         }
         if (other_certificate_address_detail_edt.getText().toString().trim() != null && !"".equals(other_certificate_address_detail_edt.getText().toString().trim())) {
             map.put("detailAddress", other_certificate_address_detail_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请输入详细地址");
+            ToastUtil.showMessage(getContext(), "请输入详细地址");
             return null;
         }
         if (contactor_name_edt.getText().toString().trim() != null && !"".equals(contactor_name_edt.getText().toString().trim())) {
             map.put("contact", contactor_name_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请输入联系人姓名");
+            ToastUtil.showMessage(getContext(), "请输入联系人姓名");
             return null;
         }
         if (contactor_phone_edt.getText().toString().trim() != null && !"".equals(contactor_phone_edt.getText().toString().trim())) {
             if (PhoneUtils.isMobileEnable(contactor_phone_edt.getText().toString().trim())) {
                 map.put("contactPhone", contactor_phone_edt.getText().toString().trim());
             } else {
-                ToastUtil.shortToast(getContext(), "请填写正确的手机格式");
+                ToastUtil.showMessage(getContext(), "请填写正确的手机格式");
                 return null;
             }
         } else {
-            ToastUtil.shortToast(getContext(), "请输入联系人联系电话");
+            ToastUtil.showMessage(getContext(), "请输入联系人联系电话");
             return null;
         }
         if (contactor_relationship_edt.getText().toString().trim() != null && !"".equals(contactor_relationship_edt.getText().toString().trim())) {
             map.put("relationship", contactor_relationship_edt.getText().toString().trim());
         } else {
-            ToastUtil.shortToast(getContext(), "请输入与患者的关系");
+            ToastUtil.showMessage(getContext(), "请输入与患者的关系");
             return null;
         }
         if (DateUtils.compareDateWithNow(birthDateStr)) {
-            ToastUtil.shortToast(getContext(), "出生日期填不该晚于当天，请核实");
+            ToastUtil.showMessage(getContext(), "出生日期填不该晚于当天，请核实");
             return null;
         }
         return map;
@@ -689,6 +692,11 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
 
     @Override
     public void getIdCardFailed(String msg) {
-        ToastUtil.shortToast(this,msg);
+        ToastUtil.showMessage(this,msg);
+    }
+
+    @Override
+    public void finishMySelf() {
+        finish();
     }
 }

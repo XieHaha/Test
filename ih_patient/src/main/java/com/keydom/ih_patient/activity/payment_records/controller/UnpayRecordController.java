@@ -11,6 +11,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.payment_records.PaymentRecordActivity;
@@ -30,7 +31,6 @@ import com.keydom.ih_patient.net.LocationService;
 import com.keydom.ih_patient.net.PayService;
 import com.keydom.ih_patient.net.PrescriptionService;
 import com.keydom.ih_patient.utils.CommUtil;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
 import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -218,7 +218,7 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
 
                         @Override
                         public void onError(int error_code) {
-                            ToastUtil.shortToast(getContext(), "支付失败" + error_code
+                            ToastUtil.showMessage(getContext(), "支付失败" + error_code
                             );
                         }
 

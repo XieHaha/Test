@@ -7,31 +7,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.keydom.ih_common.net.ApiRequest;
-import com.keydom.ih_common.net.exception.ApiException;
-import com.keydom.ih_common.net.service.HttpService;
-import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.CommonUtils;
-import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_doctor.R;
-import com.keydom.ih_doctor.activity.nurse_service.CommonNurseServiceOrderDetailActivity;
-import com.keydom.ih_doctor.activity.nurse_service.CommonNurseServiceWorkingOrderDetailActivity;
 import com.keydom.ih_doctor.bean.NurseServiceRecoderBean;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.net.NurseServiceApiService;
 import com.keydom.ih_doctor.utils.CalculateTimeUtils;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Name：com.kentra.yxyz.adapter
@@ -202,7 +187,7 @@ public class NurseServiceRecoderAdapter extends RecyclerView.Adapter<NurseServic
                                     ((CommonNurseServiceOrderDetailActivity) context).getController().hideLoading();
                                 }
 
-                                ToastUtil.shortToast(context, msg);
+                                ToastUtil.showMessage(context, msg);
                                 return super.requestError(exception, code, msg);
                             }
                         });

@@ -30,7 +30,6 @@ import com.keydom.ih_doctor.bean.WarrantDetailBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.utils.CalculateTimeUtils;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
@@ -289,7 +288,7 @@ public class TentativeDiagnosisActivity extends BaseControllerActivity<Tentative
 
     @Override
     public void authSuccess(String msg) {
-        ToastUtil.shortToast(this, "授权成功");
+        ToastUtil.showMessage(this, "授权成功");
         EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.PATIENT_UPDATE_USER_LIST).build());
         EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.UPDATEWARRANTLIST).build());
         finish();
@@ -297,7 +296,7 @@ public class TentativeDiagnosisActivity extends BaseControllerActivity<Tentative
 
     @Override
     public void authFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override

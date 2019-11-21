@@ -13,7 +13,6 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_doctor.activity.issue_information.view.IssueNotificationView;
 import com.keydom.ih_doctor.net.MainApiService;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -42,7 +41,7 @@ public class IssueNotificationController extends ControllerImpl<IssueNotificatio
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (getView().getLastItemClick(position)) {
             if (getView().getImageLimit() <= 0) {
-                ToastUtil.shortToast(getContext(), "最多只可上传9张图片");
+                ToastUtil.showMessage(getContext(), "最多只可上传9张图片");
                 return;
             }
             PictureSelector.create((Activity) getContext())
@@ -60,7 +59,7 @@ public class IssueNotificationController extends ControllerImpl<IssueNotificatio
      */
     public void issueArticle(HashMap<String, Object> map) {
         if (map == null) {
-            ToastUtil.shortToast(getContext(), "请完成文章内容!");
+            ToastUtil.showMessage(getContext(), "请完成文章内容!");
             return;
         }
         showLoading();

@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.constant.Const;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.CountItemView;
 import com.keydom.ih_common.view.SwitchButton;
 import com.keydom.ih_patient.App;
@@ -48,7 +49,6 @@ import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.fragment.controller.TabDiagnosesController;
 import com.keydom.ih_patient.fragment.view.TabDiagnosesView;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.view.MyNestedScollView;
 import com.keydom.ih_patient.view.NestScollViewInterface;
 import com.orhanobut.logger.Logger;
@@ -179,7 +179,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (recommendDocAndNurAdapter.getData().get(position).getIsInquiry() == 0)
-                    ToastUtil.shortToast(getContext(), "该医生暂未开通问诊服务");
+                    ToastUtil.showMessage(getContext(), "该医生暂未开通问诊服务");
                 else {
                     Logger.e(recommendDocAndNurAdapter.getData().get(position).getUuid());
                     Intent intent = new Intent(getContext(), DoctorOrNurseDetailActivity.class);
@@ -203,7 +203,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
                 if(Global.getUserId()!=-1){
                     EventBus.getDefault().post(new Event(EventType.STARTTOQR, null));
                 }else {
-                    ToastUtil.shortToast(getContext(),"你未登录,请登录后尝试");
+                    ToastUtil.showMessage(getContext(),"你未登录,请登录后尝试");
                 }
             }
         });
@@ -419,7 +419,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
 
     @Override
     public void getRecommendFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "查询失败:"+errMsg);
+        ToastUtil.showMessage(getContext(), "查询失败:"+errMsg);
         diagnose_index_refresh.finishLoadMore();
         diagnose_index_refresh.finishRefresh();
         pageLoadingFail();
@@ -462,7 +462,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
             deptPickerView.setPicker(parentDepList, childDepList);
             deptPickerView.show();
         } else {
-            ToastUtil.shortToast(getContext(), "没有查询到科室信息");
+            ToastUtil.showMessage(getContext(), "没有查询到科室信息");
         }
 
     }
@@ -497,7 +497,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
             areaPickerView.setPicker(areaList);
             areaPickerView.show();
         } else {
-            ToastUtil.shortToast(getContext(), "该医院没有下属院区");
+            ToastUtil.showMessage(getContext(), "该医院没有下属院区");
         }
 
     }
@@ -669,7 +669,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
 
     @Override
     public void getAreaListFailed(String msg) {
-        ToastUtil.shortToast(getContext(), "接口异常" + msg);
+        ToastUtil.showMessage(getContext(), "接口异常" + msg);
     }
 
     @Override

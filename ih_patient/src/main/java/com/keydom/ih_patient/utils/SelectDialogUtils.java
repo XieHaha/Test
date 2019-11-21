@@ -19,6 +19,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.DialogCreator;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.AgreementActivity;
 import com.keydom.ih_patient.bean.PackageData;
@@ -113,7 +114,7 @@ public class SelectDialogUtils {
                 @Override
                 public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                     loading.hide();
-                    ToastUtil.shortToast(getContext(), "获取地区列表失败：" + msg + "，请稍后重试");
+                    ToastUtil.showMessage(getContext(), "获取地区列表失败：" + msg + "，请稍后重试");
                     return super.requestError(exception, code, msg);
                 }
             });
@@ -172,7 +173,7 @@ public class SelectDialogUtils {
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                ToastUtil.shortToast(getContext(), "获取民族列表失败：" + msg + "，请稍后重试");
+                ToastUtil.showMessage(getContext(), "获取民族列表失败：" + msg + "，请稍后重试");
                 return super.requestError(exception, code, msg);
             }
         });
@@ -266,7 +267,7 @@ public class SelectDialogUtils {
 
                     bottomSheetDialog.dismiss();
 //                } else {
-//                    ToastUtil.shortToast(getContext(), "请阅读并同意支付协议");
+//                    ToastUtil.showMessage(getContext(), "请阅读并同意支付协议");
 //                }
 
             }
@@ -317,7 +318,7 @@ public class SelectDialogUtils {
             @Override
             public void onClick(View v) {
                 if (checkDialogInput.getText().toString() == null || "".equals(checkDialogInput.getText().toString())) {
-                    ToastUtil.shortToast(context, "请输入审核意见");
+                    ToastUtil.showMessage(context, "请输入审核意见");
                     return;
                 }
                 dialog.dismiss();

@@ -7,6 +7,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
@@ -17,7 +18,6 @@ import com.keydom.ih_patient.bean.PaymentOrderBean;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.CardService;
 import com.keydom.ih_patient.net.OrderService;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
 import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 import com.orhanobut.logger.Logger;
@@ -110,7 +110,7 @@ public class ChooseMedicalCardController extends ControllerImpl<ChooseMedicalCar
                         new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
                             @Override
                             public void onSuccess() {
-                                ToastUtil.shortToast(getContext(), "支付成功");
+                                ToastUtil.showMessage(getContext(), "支付成功");
                                 new GeneralDialog(getContext(), "挂号成功，可在挂号订单中进行查看", new GeneralDialog.OnCloseListener() {
                                     @Override
                                     public void onCommit() {
@@ -126,7 +126,7 @@ public class ChooseMedicalCardController extends ControllerImpl<ChooseMedicalCar
 
                             @Override
                             public void onError(int error_code) {
-                                ToastUtil.shortToast(getContext(), "支付失败" + error_code
+                                ToastUtil.showMessage(getContext(), "支付失败" + error_code
                                 );
                             }
 
@@ -142,7 +142,7 @@ public class ChooseMedicalCardController extends ControllerImpl<ChooseMedicalCar
                     WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
                         @Override
                         public void onSuccess() {
-                            ToastUtil.shortToast(getContext(), "支付成功");
+                            ToastUtil.showMessage(getContext(), "支付成功");
                             new GeneralDialog(getContext(), "挂号成功，可在挂号订单中进行查看", new GeneralDialog.OnCloseListener() {
                                 @Override
                                 public void onCommit() {
@@ -153,7 +153,7 @@ public class ChooseMedicalCardController extends ControllerImpl<ChooseMedicalCar
 
                         @Override
                         public void onError(int error_code) {
-                            ToastUtil.shortToast(getContext(),"支付失败"+error_code
+                            ToastUtil.showMessage(getContext(),"支付失败"+error_code
                             );
                         }
 
@@ -168,7 +168,7 @@ public class ChooseMedicalCardController extends ControllerImpl<ChooseMedicalCar
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                ToastUtil.shortToast(getContext(), "拉取订单失败，请重试");
+                ToastUtil.showMessage(getContext(), "拉取订单失败，请重试");
                 return super.requestError(exception, code, msg);
             }
         });

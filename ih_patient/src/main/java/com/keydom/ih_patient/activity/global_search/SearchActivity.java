@@ -8,16 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.keydom.ih_common.activity.ArticleDetailActivity;
 import com.keydom.ih_common.adapter.SearchResultAdapter;
 import com.keydom.ih_common.base.BaseControllerActivity;
@@ -34,7 +31,6 @@ import com.keydom.ih_patient.activity.order_doctor_register.ChooseDoctorActivity
 import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.TypeEnum;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -135,11 +131,11 @@ public class SearchActivity extends BaseControllerActivity<SearchController> imp
             @Override
             public void click(MultiItemEntity item) {
                 if (item instanceof SearchResultBean.UserBean) {
-//                    ToastUtil.shortToast(SearchActivity.this, "医生详情");
+//                    ToastUtil.showMessage(SearchActivity.this, "医生详情");
                     DoctorOrNurseDetailActivity.startDoctorPage(getContext(), 1, ((SearchResultBean.UserBean) item).getUserCode());
                 }
                 if (item instanceof SearchResultBean.DeptBean) {
-//                    ToastUtil.shortToast(SearchActivity.this, "科室详情");
+//                    ToastUtil.showMessage(SearchActivity.this, "科室详情");
                     ChooseDoctorActivity.start(getContext(), ((SearchResultBean.DeptBean) item).getHospitalAreaId(), ((SearchResultBean.DeptBean) item).getHospitalAreaName(), ((SearchResultBean.DeptBean) item).getId(), ((SearchResultBean.DeptBean) item).getName(), null);
                 }
                 if (item instanceof SearchResultBean.ArticleBean) {

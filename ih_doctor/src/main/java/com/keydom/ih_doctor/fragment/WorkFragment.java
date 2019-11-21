@@ -42,7 +42,6 @@ import com.keydom.ih_doctor.fragment.view.WorkFragmentView;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.LocalizationUtils;
 import com.keydom.ih_doctor.utils.SpacesItemDecoration;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -406,7 +405,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
                         default:
                     }
                 }else{
-                    ToastUtil.shortToast(getActivity(),"还未实名认证，请实名认证再开通相关服务");
+                    ToastUtil.showMessage(getActivity(),"还未实名认证，请实名认证再开通相关服务");
                 }
             }
         });

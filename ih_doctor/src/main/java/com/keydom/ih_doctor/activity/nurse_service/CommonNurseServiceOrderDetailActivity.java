@@ -33,7 +33,6 @@ import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.utils.BaiduMapUtil;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.DrivingRouteOverlay;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -295,7 +294,7 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
      */
     private void setInfo(HeadNurseServiceOrderDetailBean bean, boolean transfered, boolean needAccept) {
         if (bean == null) {
-            ToastUtil.shortToast(this, "加载失败");
+            ToastUtil.showMessage(this, "加载失败");
             finish();
             return;
         }
@@ -391,7 +390,7 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
     public void getDetailFailed(String errMsg) {
         pageLoadingFail();
         if("当前订单不属于您".equals(errMsg)){
-            ToastUtil.shortToast(getContext(),errMsg);
+            ToastUtil.showMessage(getContext(),errMsg);
             EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NURSE_SERVICE_ORDER_UPDATE).build());
             finish();
         }
@@ -406,7 +405,7 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
 
     @Override
     public void receiveFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
@@ -417,7 +416,7 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
 
     @Override
     public void goFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
@@ -428,7 +427,7 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
 
     @Override
     public void transferFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
@@ -440,7 +439,7 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
 
     @Override
     public void arriveFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     private void showChangeAndReceiveView() {

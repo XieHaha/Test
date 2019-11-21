@@ -15,7 +15,6 @@ import com.keydom.ih_doctor.bean.DiagnoseRecoderBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.CalculateTimeUtils;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import java.util.List;
 
@@ -80,7 +79,7 @@ public class DiagnoseRecoderRecyclrViewAdapter extends BaseEmptyAdapter<Diagnose
                     if (bean.getMedicalId() != null || !"".equals(bean.getMedicalId())) {
                         DianoseCaseDetailActivity.start(mContext, bean.getMedicalId());
                     } else {
-                        ToastUtil.shortToast(mContext, "查询不到问诊病历记录");
+                        ToastUtil.showMessage(mContext, "查询不到问诊病历记录");
                     }
                 }
             });

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.SharePreferenceManager;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.ClearEditText;
 import com.keydom.ih_common.view.MButton;
 import com.keydom.ih_common.view.MRadioButton;
@@ -26,7 +27,6 @@ import com.keydom.ih_patient.bean.UserInfo;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.utils.LocalizationUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -98,7 +98,7 @@ public class RegisterActivity extends BaseControllerActivity<RegisterController>
 
     @Override
     public void msgInspectFailed(String msg) {
-        ToastUtil.shortToast(this,msg);
+        ToastUtil.showMessage(this,msg);
 
     }
 
@@ -116,18 +116,18 @@ public class RegisterActivity extends BaseControllerActivity<RegisterController>
 
     @Override
     public void registerFailed(String msg) {
-        ToastUtil.shortToast(this,msg);
+        ToastUtil.showMessage(this,msg);
     }
 
     @Override
     public void getMsgCodeSuccess() {
-        ToastUtil.shortToast(this,"验证码已发送，请注意查看");
+        ToastUtil.showMessage(this,"验证码已发送，请注意查看");
         getIdentifyingCodeBt.startTimer();
     }
 
     @Override
     public void getMsgCodeFailed(String errMsg) {
-        ToastUtil.shortToast(this,errMsg);
+        ToastUtil.showMessage(this,errMsg);
     }
 
     @Override

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.constant.Const;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.CountItemView;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.App;
@@ -37,7 +38,6 @@ import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.fragment.controller.TabNurseController;
 import com.keydom.ih_patient.fragment.view.TabNurseView;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.view.MyScollerView;
 import com.keydom.ih_patient.view.ScollerViewInterface;
 import com.orhanobut.logger.Logger;
@@ -121,7 +121,7 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
                 if(Global.getUserId()!=-1){
                     EventBus.getDefault().post(new Event(EventType.STARTTOQR, null));
                 }else {
-                    ToastUtil.shortToast(getContext(),"你未登录,请登录后尝试");
+                    ToastUtil.showMessage(getContext(),"你未登录,请登录后尝试");
                 }
             }
         });
@@ -192,7 +192,7 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
                     if (App.userInfo.getIdCard() != null && !"".equals(App.userInfo.getIdCard()))
                         NursingChooseHospitalActivity.start(getContext(), null);
                     else
-                        ToastUtil.shortToast(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约护理服务");
+                        ToastUtil.showMessage(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约护理服务");
                 }
             }
         });

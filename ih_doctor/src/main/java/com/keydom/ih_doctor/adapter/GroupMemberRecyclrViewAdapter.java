@@ -64,7 +64,7 @@ public class GroupMemberRecyclrViewAdapter extends BaseEmptyAdapter<DeptDoctorBe
                 @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
-//                    ToastUtil.shortToast(mContext, "跳转到医生详情页面");
+//                    ToastUtil.showMessage(mContext, "跳转到医生详情页面");
                     DoctorOrNurseDetailActivity.startNursePage(mContext,bean.getUuid());
                 }
             });

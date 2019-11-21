@@ -23,7 +23,6 @@ import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.fragment.controller.PersonalFragmentController;
 import com.keydom.ih_doctor.fragment.view.PersonalFragmentView;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -228,7 +227,7 @@ public class PersonalFragment extends BaseControllerFragment<PersonalFragmentCon
 
     @Override
     public void getUnreadMessageCountFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),"拉取未读信息失败");
+        ToastUtil.showMessage(getContext(),"拉取未读信息失败");
     }
 
 

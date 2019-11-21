@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.im.utils.MD5;
 import com.keydom.ih_common.utils.SharePreferenceManager;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.ClearEditText;
 import com.keydom.ih_common.view.MButton;
 import com.keydom.ih_patient.App;
@@ -22,7 +23,6 @@ import com.keydom.ih_patient.activity.setting.view.GestureUnlockView;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.view.UnlockView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -126,7 +126,7 @@ public class GestureUnlockActivity extends BaseControllerActivity<GestureUnlockC
                     if (!"".equals(recordType))
                         EventBus.getDefault().post(new Event(EventType.TURNTORECORD, recordType));
                     else
-                        ToastUtil.shortToast(getContext(),"重置成功");
+                        ToastUtil.showMessage(getContext(),"重置成功");
                     finish();
                 }
             }
@@ -141,11 +141,11 @@ public class GestureUnlockActivity extends BaseControllerActivity<GestureUnlockC
                     title_label_tv.setTextColor(Color.parseColor("#FF3939"));
                     if (Global.getLockCount() < 4) {
                         Global.setLockCount(Global.getLockCount() + 1);
-                        ToastUtil.shortToast(getContext(), "密码输入错误，你还可以尝试" + (5 - Global.getLockCount()) + "次");
+                        ToastUtil.showMessage(getContext(), "密码输入错误，你还可以尝试" + (5 - Global.getLockCount()) + "次");
                     } else {
                         SharePreferenceManager.setLockTime(System.currentTimeMillis());
 //                        Global.setLockTimeMillis(System.currentTimeMillis());
-                        ToastUtil.shortToast(getContext(), "已锁定，请于五分钟后再尝试");
+                        ToastUtil.showMessage(getContext(), "已锁定，请于五分钟后再尝试");
                         finish();
                     }
 
@@ -163,19 +163,19 @@ public class GestureUnlockActivity extends BaseControllerActivity<GestureUnlockC
 
     @Override
     public void msgInspectFailed(String msg) {
-        ToastUtil.shortToast(this, msg);
+        ToastUtil.showMessage(this, msg);
 
     }
 
     @Override
     public void getMsgCodeSuccess() {
-        ToastUtil.shortToast(this, "验证码已发送，请注意查看");
+        ToastUtil.showMessage(this, "验证码已发送，请注意查看");
         getCodeBt.startTimer();
     }
 
     @Override
     public void getMsgCodeFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override

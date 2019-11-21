@@ -14,6 +14,7 @@ import com.keydom.ih_common.im.manager.ImPreferences;
 import com.keydom.ih_common.im.manager.NimUserInfoCache;
 import com.keydom.ih_common.im.manager.TeamDataCache;
 import com.keydom.ih_common.minterface.OnLoginListener;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.BuildConfig;
 import com.keydom.ih_patient.R;
@@ -24,7 +25,6 @@ import com.keydom.ih_patient.bean.UserIndexSave;
 import com.keydom.ih_patient.bean.UserInfo;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.utils.LocalizationUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -115,7 +115,7 @@ public class WelcomeActivity extends BaseControllerActivity<WelcomeController> i
                             locationClient.start();
                         }else {
                             Logger.e("权限未打开");
-                            ToastUtil.shortToast(getContext(),"未打开定位权限，无法定位到您当前所在城市");
+                            ToastUtil.showMessage(getContext(),"未打开定位权限，无法定位到您当前所在城市");
                             MainActivity.start(getContext(),false);
                             finish();
                         }

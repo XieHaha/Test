@@ -13,7 +13,6 @@ import com.keydom.ih_doctor.activity.my_message.controller.MyMessagaeController;
 import com.keydom.ih_doctor.activity.my_message.view.MyMessageView;
 import com.keydom.ih_doctor.adapter.MyMessageAdapter;
 import com.keydom.ih_doctor.bean.MessageBean;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -121,6 +120,6 @@ public class MyMessageActivity extends BaseControllerActivity<MyMessagaeControll
 
     @Override
     public void getMessageListFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),"接口异常:"+errMsg);
+        ToastUtil.showMessage(getContext(),"接口异常:"+errMsg);
     }
 }

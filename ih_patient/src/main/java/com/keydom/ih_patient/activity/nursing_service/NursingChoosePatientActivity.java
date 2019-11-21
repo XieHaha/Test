@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.nursing_service.controller.NursingChoosePatientController;
 import com.keydom.ih_patient.activity.nursing_service.view.NursingChoosePatientView;
@@ -16,7 +17,6 @@ import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
 import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.constant.EventType;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
@@ -60,7 +60,7 @@ public class NursingChoosePatientActivity extends BaseControllerActivity<Nursing
                     EventBus.getDefault().post(new Event(EventType.SENDSELECTNURSINGPATIENT,selectedCardInfo));
                     finish();
                 }else {
-                    ToastUtil.shortToast(getContext(),"请选择就诊卡");
+                    ToastUtil.showMessage(getContext(),"请选择就诊卡");
                 }
             }
         });

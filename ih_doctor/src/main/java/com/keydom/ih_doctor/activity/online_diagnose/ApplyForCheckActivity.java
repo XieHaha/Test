@@ -34,7 +34,6 @@ import com.keydom.ih_doctor.bean.SubmitInspectOrderReqBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.m_interface.OnItemChangeListener;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
@@ -435,7 +434,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
 
     @Override
     public void saveTestOrderFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
 
     }
 
@@ -459,7 +458,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
 
     @Override
     public void saveInspactOrderFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
@@ -469,7 +468,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
 
     @Override
     public void getInspactItemListFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
@@ -593,7 +592,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
 
     @Override
     public void deleteOrderFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
 

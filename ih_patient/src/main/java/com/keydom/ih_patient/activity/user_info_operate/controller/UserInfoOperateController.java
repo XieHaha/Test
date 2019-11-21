@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.support.design.widget.BottomSheetDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
@@ -15,6 +14,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.certification.CertificateActivity;
@@ -28,7 +28,6 @@ import com.keydom.ih_patient.net.UploadService;
 import com.keydom.ih_patient.net.UserService;
 import com.keydom.ih_patient.utils.NoFastClickUtils;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -124,7 +123,7 @@ public class UserInfoOperateController extends ControllerImpl<UserInfoOperateVie
                 if (NoFastClickUtils.isFastClick()) {
                     findAllCountry();
                 } else
-                    ToastUtil.shortToast(getContext(), "请勿频繁点击");
+                    ToastUtil.showMessage(getContext(), "请勿频繁点击");
                 break;
             case R.id.user_nation_tv:
                 if (NoFastClickUtils.isFastClick()) {
@@ -139,7 +138,7 @@ public class UserInfoOperateController extends ControllerImpl<UserInfoOperateVie
                         }
                     });
                 } else
-                    ToastUtil.shortToast(getContext(), "请勿频繁点击");
+                    ToastUtil.showMessage(getContext(), "请勿频繁点击");
 
                 break;
             case R.id.user_id_card_pic_tv:
@@ -163,9 +162,9 @@ public class UserInfoOperateController extends ControllerImpl<UserInfoOperateVie
             @Override
             public void onClick(View view) {
                 if (nameEdt.getText().toString().trim().length() > 64) {
-                    ToastUtil.shortToast(getContext(), "姓名最多支持64位长度，请重新输入");
+                    ToastUtil.showMessage(getContext(), "姓名最多支持64位长度，请重新输入");
                 } else if (nameEdt.getText().toString().trim().length() == 0) {
-                    ToastUtil.shortToast(getContext(), "请输入姓名");
+                    ToastUtil.showMessage(getContext(), "请输入姓名");
                 } else {
 
 
@@ -223,7 +222,7 @@ public class UserInfoOperateController extends ControllerImpl<UserInfoOperateVie
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                 hideLoading();
-                ToastUtil.shortToast(getContext(),msg);
+                ToastUtil.showMessage(getContext(),msg);
                 return super.requestError(exception, code, msg);
             }
         });
@@ -261,7 +260,7 @@ public class UserInfoOperateController extends ControllerImpl<UserInfoOperateVie
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                ToastUtil.shortToast(getContext(), "获取国籍列表失败：" + msg + "，请稍后重试");
+                ToastUtil.showMessage(getContext(), "获取国籍列表失败：" + msg + "，请稍后重试");
                 return super.requestError(exception, code, msg);
             }
         });

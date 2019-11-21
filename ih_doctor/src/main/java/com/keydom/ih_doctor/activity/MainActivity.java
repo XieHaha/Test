@@ -39,7 +39,6 @@ import com.keydom.ih_doctor.bean.LoginBean;
 import com.keydom.ih_doctor.constant.TypeEnum;
 import com.keydom.ih_doctor.net.LoginApiService;
 import com.keydom.ih_doctor.net.MainApiService;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.MainView;
 import com.netease.nimlib.sdk.NimIntent;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
@@ -171,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void exitApp() {
         isExitApp = true;
-        ToastUtil.shortToast(this, "再按一次返回退出");
+        ToastUtil.showMessage(this, "再按一次返回退出");
         new CountDownTimer(2000, 1000) {
 
             @Override
@@ -334,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void requestComplete(@org.jetbrains.annotations.Nullable final LoginBean data) {
                             if (data.getUserCode() == null || data.getImToken() == null || "".equals(data.getUserCode()) || "".equals(data.getImToken())) {
-                                ToastUtil.shortToast(MainActivity.this, "帐号错误，请检查后重试！");
+                                ToastUtil.showMessage(MainActivity.this, "帐号错误，请检查后重试！");
                             } else {
                                 ImClient.loginIM(data.getUserCode(), data.getImToken(), new OnLoginListener() {
                                     @Override
@@ -374,7 +373,7 @@ public class MainActivity extends AppCompatActivity {
 
                                     @Override
                                     public void failed(String errMsg) {
-                                        ToastUtil.shortToast(MainActivity.this, "聊天服务器登录失败");
+                                        ToastUtil.showMessage(MainActivity.this, "聊天服务器登录失败");
                                         EventBus.getDefault().post(new com.keydom.ih_common.bean.MessageEvent.Buidler().setType(com.keydom.ih_common.constant.EventType.OFFLINE).build());
                                     }
                                 });

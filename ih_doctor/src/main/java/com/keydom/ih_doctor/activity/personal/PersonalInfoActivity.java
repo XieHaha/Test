@@ -26,7 +26,6 @@ import com.keydom.ih_doctor.bean.PersonalInfoBean;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.constant.TypeEnum;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
 
@@ -215,7 +214,7 @@ public class PersonalInfoActivity extends BaseControllerActivity<PersonalInfoCon
 
     @Override
     public void updateInfoFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
@@ -231,9 +230,9 @@ public class PersonalInfoActivity extends BaseControllerActivity<PersonalInfoCon
     @Override
     public void uploadImgFailed(String errMsg) {
         if(errMsg==null||"".equals(errMsg.trim())){
-            ToastUtil.shortToast(this, errMsg);
+            ToastUtil.showMessage(this, errMsg);
         }else{
-            ToastUtil.shortToast(this, "保存失败!");
+            ToastUtil.showMessage(this, "保存失败!");
         }
 
     }

@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.common_document.CommonDocumentActivity;
 import com.keydom.ih_patient.activity.order_physical_examination.controller.OrderPhysicalExaminationController;
@@ -17,7 +18,6 @@ import com.keydom.ih_patient.activity.order_physical_examination.view.OrderPhysi
 import com.keydom.ih_patient.adapter.PhysicalExaminationAdapter;
 import com.keydom.ih_patient.bean.CommonDocumentBean;
 import com.keydom.ih_patient.bean.PhysicalExaInfo;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -105,6 +105,6 @@ public class OrderPhysicalExaminationActivity extends BaseControllerActivity<Ord
             errTv.setVisibility(View.VISIBLE);
         errTv.setClickable(true);
         errTv.setText("体检套餐获取失败，点击重试");
-        ToastUtil.shortToast(getContext(),"接口异常"+errMsg);
+        ToastUtil.showMessage(getContext(),"接口异常"+errMsg);
     }
 }

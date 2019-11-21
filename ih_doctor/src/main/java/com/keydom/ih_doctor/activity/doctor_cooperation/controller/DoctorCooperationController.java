@@ -110,15 +110,15 @@ public class DoctorCooperationController extends ControllerImpl<DoctorCooperatio
                 DiagnoseCommonActivity.startDiagnoseChangeReceive(getContext());
                 break;
             case R.id.group_diagnose_recoder:
-//                ToastUtil.shortToast(getContext(), "会诊记录");
+//                ToastUtil.showMessage(getContext(), "会诊记录");
 //                DiagnoseCommonActivity.start(getContext(),TypeEnum.DIAGNOSE_GROUP_RECODER);
                 break;
             case R.id.group_diagnose_rl:
-//                ToastUtil.shortToast(getContext(), "发起会诊");
+//                ToastUtil.showMessage(getContext(), "发起会诊");
 //                FillOutApplyActivity.start(getContext(),TypeEnum.FILLOUT_APPLY_GROUP);
                 break;
             case R.id.receive_group_diagnose_rl:
-//                ToastUtil.shortToast(getContext(), "接受会诊");
+//                ToastUtil.showMessage(getContext(), "接受会诊");
 //                DiagnoseCommonActivity.start(getContext(),TypeEnum.DIAGNOSE_GROUP_RECEIVE);
                 break;
             case R.id.group_cut:

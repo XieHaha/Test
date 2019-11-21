@@ -12,7 +12,6 @@ import com.keydom.ih_doctor.activity.doctor_cooperation.view.DiagnoseOrderDetail
 import com.keydom.ih_doctor.bean.DiagnoseOrderDetailBean;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.GroupCooperateApiService;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -44,7 +43,7 @@ public class DiagnoseOrderDetailController extends ControllerImpl<DiagnoseOrderD
             getView().hideDialog();
         } else if (v.getId() == R.id.check_dialog_submit) {
             if ("".equals(getView().getDialogValue())) {
-                ToastUtil.shortToast(getContext(), "请输入审核意见");
+                ToastUtil.showMessage(getContext(), "请输入审核意见");
             } else {
                 getView().hideDialog();
                 operate(BACK_OPERATE);

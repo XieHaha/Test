@@ -10,6 +10,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.bean.InquiryBean;
@@ -19,7 +20,6 @@ import com.keydom.ih_patient.net.LocationService;
 import com.keydom.ih_patient.net.PayService;
 import com.keydom.ih_patient.net.UserService;
 import com.keydom.ih_patient.utils.CommUtil;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
 import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 import com.orhanobut.logger.Logger;
@@ -92,7 +92,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
 
                     @Override
                     public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                        ToastUtil.shortToast(getContext(), msg);
+                        ToastUtil.showMessage(getContext(), msg);
                         return true;
                     }
                 });
@@ -113,7 +113,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                             new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
                                 @Override
                                 public void onSuccess() {
-                                    ToastUtil.shortToast(getContext(), "支付成功");
+                                    ToastUtil.showMessage(getContext(), "支付成功");
                                     new GeneralDialog(getContext(), "支付成功", new GeneralDialog.OnCloseListener() {
                                         @Override
                                         public void onCommit() {
@@ -129,7 +129,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
 
                                 @Override
                                 public void onError(int error_code) {
-                                    ToastUtil.shortToast(getContext(), "支付失败" + error_code);
+                                    ToastUtil.showMessage(getContext(), "支付失败" + error_code);
                                 }
 
                                 @Override
@@ -144,7 +144,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                         WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
                             @Override
                             public void onSuccess() {
-                                ToastUtil.shortToast(getContext(), "支付成功");
+                                ToastUtil.showMessage(getContext(), "支付成功");
                                 new GeneralDialog(getContext(), "支付成功", new GeneralDialog.OnCloseListener() {
                                     @Override
                                     public void onCommit() {
@@ -155,7 +155,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
 
                             @Override
                             public void onError(int error_code) {
-                                ToastUtil.shortToast(getContext(),"支付失败"+error_code
+                                ToastUtil.showMessage(getContext(),"支付失败"+error_code
                                 );
                             }
 
@@ -257,7 +257,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
 
                             @Override
                             public void onError(int error_code) {
-                                ToastUtil.shortToast(getContext(), "支付失败" + error_code
+                                ToastUtil.showMessage(getContext(), "支付失败" + error_code
                                 );
                             }
 

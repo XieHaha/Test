@@ -22,6 +22,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.constant.Const;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_common.view.GridViewForScrollView;
 import com.keydom.ih_common.view.InterceptorEditText;
@@ -41,7 +42,6 @@ import com.keydom.ih_patient.constant.Config;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.utils.LocalizationUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -326,7 +326,7 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
             optionsPickerView.setPicker(parentDepList, childDepList);
             optionsPickerView.show();
         } else {
-            ToastUtil.shortToast(getContext(), "没有查询到科室信息");
+            ToastUtil.showMessage(getContext(), "没有查询到科室信息");
         }
 
     }
@@ -382,20 +382,20 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
 
     @Override
     public void uploadImgFailed(String msg) {
-        ToastUtil.shortToast(getContext(), "图片上传失败" + msg);
+        ToastUtil.showMessage(getContext(), "图片上传失败" + msg);
     }
 
     @Override
     public Map<String, Object> getCommitMap() {
         Map<String, Object> map = new HashMap<>();
         /*if (!isFacialRecognition) {
-            ToastUtil.shortToast(getContext(), "请完成人脸识别操作");
+            ToastUtil.showMessage(getContext(), "请完成人脸识别操作");
             return null;
         }*/
         if (serviceAddress != null && !"".equals(serviceAddress)) {
             map.put("serviceAddress", serviceAddress);
         } else {
-            ToastUtil.shortToast(getContext(), "未选择服务地址");
+            ToastUtil.showMessage(getContext(), "未选择服务地址");
             return null;
         }
         if (projectList.size() != 0) {
@@ -407,20 +407,20 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
             Logger.e("serviceIds==" + serviceIds);
             map.put("serviceIds", serviceIds);
         } else {
-            ToastUtil.shortToast(getContext(), "请选择服务项目");
+            ToastUtil.showMessage(getContext(), "请选择服务项目");
             return null;
         }
         if (visitTime != null && !"".equals(visitTime) && visitPeriod != null && !"".equals(visitPeriod)) {
             map.put("visitTime", visitTime);
             map.put("visitPeriod", visitPeriod);
         } else {
-            ToastUtil.shortToast(getContext(), "请选择上门时间");
+            ToastUtil.showMessage(getContext(), "请选择上门时间");
             return null;
         }
         if (patientCardNum != null && !"".equals(patientCardNum)) {
             map.put("serviceObject", patientCardNum);
         } else {
-            ToastUtil.shortToast(getContext(), "请选择服务对象");
+            ToastUtil.showMessage(getContext(), "请选择服务对象");
             return null;
         }
         if (!StringUtils.isEmpty(deptId)) {
@@ -430,7 +430,7 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
 //            if (deptId != null && !"".equals(deptId)) {
 //                map.put("deptId", deptId);
 //            } else {
-//                ToastUtil.shortToast(getContext(), "请选择科室");
+//                ToastUtil.showMessage(getContext(), "请选择科室");
 //                return null;
 //            }
 //        }
@@ -440,7 +440,7 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
         map.put("userId", Global.getUserId());
         map.put("fee", String.valueOf(allProjectFees));
         if (mRemark.getText().toString().trim() != null && mRemark.getText().toString().trim().length() < 10) {
-            ToastUtil.shortToast(getContext(), "请填写病情依据，至少10字");
+            ToastUtil.showMessage(getContext(), "请填写病情依据，至少10字");
             return null;
         } else
             map.put("conditionDesc", mRemark.getText().toString().trim());
@@ -463,7 +463,7 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
     public Map<String, Object> getChangeMap() {
         Map<String, Object> map = new HashMap<>();
        /* if (!isFacialRecognition) {
-            ToastUtil.shortToast(getContext(), "请完成人脸识别操作");
+            ToastUtil.showMessage(getContext(), "请完成人脸识别操作");
             return null;
         }*/
         if (!StringUtils.isEmpty(patientCardNum)) {
@@ -475,7 +475,7 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
             map.put("visitTime", visitTime);
             map.put("visitPeriod", visitPeriod);
         } else {
-            ToastUtil.shortToast(getContext(), "请重新选择上门时间");
+            ToastUtil.showMessage(getContext(), "请重新选择上门时间");
             return null;
         }
         map.put("conditionDesc", mRemark.getText().toString().trim() != null && !"".equals(mRemark.getText().toString().trim()) ? mRemark.getText().toString().trim() : "");

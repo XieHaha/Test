@@ -317,9 +317,18 @@ public interface UserService {
     Observable<HttpResult<Object>> patientValidateByIdCard(@Body RequestBody body);
 
 
-
-
-
+    /**
+     * 获取已实名的信息
+     *
+     * */
     @GET("user/applyElectronicCard/queryUserInformation")
     Observable<HttpResult<IdCardInfo>> queryUserInformation(@QueryMap Map<String, Object> maps);
+
+
+    /**
+     * 获取是否已经办过卡
+     *
+     * */
+    @GET("user/applyElectronicCard/isApplyElectronicCard")
+    Observable<HttpResult<String>> isApplyElectronicCard(@QueryMap Map<String, Object> maps);
 }

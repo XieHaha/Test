@@ -10,10 +10,10 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.activity.setting.view.FeedBackView;
 import com.keydom.ih_patient.net.UploadService;
 import com.keydom.ih_patient.net.UserService;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -95,7 +95,7 @@ public class FeedBackController extends ControllerImpl<FeedBackView> implements 
                         .maxSelectNum(9 - getView().getImgSize())
                         .forResult(PictureConfig.CHOOSE_REQUEST);
             } else {
-                ToastUtil.shortToast(mContext, "最多只能选择九张图片");
+                ToastUtil.showMessage(mContext, "最多只能选择九张图片");
             }
 
         } else

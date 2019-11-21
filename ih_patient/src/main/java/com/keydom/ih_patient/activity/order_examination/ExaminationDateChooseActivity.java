@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.order_examination.controller.ExaminationDateChooseController;
 import com.keydom.ih_patient.activity.order_examination.view.ExaminationDateChooseView;
@@ -25,7 +26,6 @@ import com.keydom.ih_patient.bean.ExaminationInfo;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.ih_patient.bean.SoruInfo;
 import com.keydom.ih_patient.callback.GeneralCallback;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -193,7 +193,7 @@ public class ExaminationDateChooseActivity extends BaseControllerActivity<Examin
         surplus_of_exa_num_tv.setVisibility(View.GONE);
         orderExaRv.setVisibility(View.GONE);
         state_retry2.setVisibility(View.VISIBLE);
-        ToastUtil.shortToast(getContext(), errMsg);
+        ToastUtil.showMessage(getContext(), errMsg);
         empty_text.setText("获取检查排班数据失败，点击重试");
         state_retry2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -252,7 +252,7 @@ public class ExaminationDateChooseActivity extends BaseControllerActivity<Examin
 
     @Override
     public void completeOrderFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(), "预约失败" + errMsg);
+        ToastUtil.showMessage(getContext(), "预约失败" + errMsg);
         getController().queryfindSoruInfoList(selectedDate, selectedAreaId);
     }
 

@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.card_operate.CardoperateActivity;
@@ -16,7 +17,6 @@ import com.keydom.ih_patient.activity.my_medical_card.controller.MyMedicalCardCo
 import com.keydom.ih_patient.activity.my_medical_card.view.MyMedicalCardView;
 import com.keydom.ih_patient.adapter.MyMedicalCardAdapter;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.view.FunctionRvItemDecoration;
 import com.orhanobut.logger.Logger;
 
@@ -102,7 +102,7 @@ public class MyMedicalCardActivity extends BaseControllerActivity<MyMedicalCardC
 
     @Override
     public void fillDataListFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),errMsg);
+        ToastUtil.showMessage(getContext(),errMsg);
         if(myMedicalCardRv.getVisibility()==View.VISIBLE){
             myMedicalCardRv.setVisibility(View.GONE);
             comment_empty_layout.setVisibility(View.VISIBLE);

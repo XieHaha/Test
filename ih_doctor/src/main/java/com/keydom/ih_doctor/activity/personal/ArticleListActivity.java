@@ -12,10 +12,8 @@ import android.view.View;
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CostomToastUtils;
-import com.keydom.ih_common.utils.DialogCreator;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.IssueArticleActivity;
-import com.keydom.ih_doctor.activity.issue_information.IssueNotificationActivity;
 import com.keydom.ih_doctor.activity.personal.controller.ArticleListController;
 import com.keydom.ih_doctor.activity.personal.view.ArticleListView;
 import com.keydom.ih_doctor.adapter.ArticleListRecyclrViewAdapter;
@@ -24,7 +22,6 @@ import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.constant.TypeEnum;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.keydom.ih_doctor.view.SwipeItemLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -164,7 +161,7 @@ public class ArticleListActivity extends BaseControllerActivity<ArticleListContr
 
     @Override
     public void deleteArticleFailed(String errMsg) {
-        ToastUtil.shortToast(this, errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
@@ -185,7 +182,7 @@ public class ArticleListActivity extends BaseControllerActivity<ArticleListContr
 
     @Override
     public void removeCollectFailed(String msg) {
-        ToastUtil.shortToast(getContext(),"取消收藏失败："+msg);
+        ToastUtil.showMessage(getContext(),"取消收藏失败："+msg);
     }
 
     Dialog dialog;

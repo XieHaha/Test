@@ -17,6 +17,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.nursing_service.ChooseNursingServiceActivity;
@@ -36,7 +37,6 @@ import com.keydom.ih_patient.net.OrderService;
 import com.keydom.ih_patient.net.UploadService;
 import com.keydom.ih_patient.utils.DateUtils;
 import com.keydom.ih_patient.utils.LocalizationUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -90,7 +90,7 @@ public class NursingOrderFillInController extends ControllerImpl<NursingOrderFil
 //                    if (getView().isHaveProfessionalProject()) {
 //                        queryDataList(getView().getHospitalAreaId());
 //                    } else {
-//                        ToastUtil.shortToast(getContext(), "当前选择护理项目中没有专科护理服务，无需指定科室");
+//                        ToastUtil.showMessage(getContext(), "当前选择护理项目中没有专科护理服务，无需指定科室");
 //                    }
 //                }
                 break;
@@ -110,7 +110,7 @@ public class NursingOrderFillInController extends ControllerImpl<NursingOrderFil
                         if (aBoolean) {
                             getContext().startActivity(new Intent(getContext(), FaceDetectExpActivity.class));
                         } else
-                            ToastUtil.shortToast(getContext(), "未获取摄像头使用权限，无法使用二维码功能");
+                            ToastUtil.showMessage(getContext(), "未获取摄像头使用权限，无法使用二维码功能");
                     }
                 });
 
@@ -237,7 +237,7 @@ public class NursingOrderFillInController extends ControllerImpl<NursingOrderFil
                 @Override
                 public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                     Logger.e("请求失败" + msg);
-                    ToastUtil.shortToast(getContext(), msg);
+                    ToastUtil.showMessage(getContext(), msg);
                     return super.requestError(exception, code, msg);
                 }
             });
@@ -253,7 +253,7 @@ public class NursingOrderFillInController extends ControllerImpl<NursingOrderFil
                         .maxSelectNum(9 - getView().getImgSize())
                         .forResult(PictureConfig.CHOOSE_REQUEST);
             } else {
-                ToastUtil.shortToast(mContext, "最多只能选择九张图片");
+                ToastUtil.showMessage(mContext, "最多只能选择九张图片");
             }
 
         } else

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.online_diagnoses_order.controller.TypeCardController;
 import com.keydom.ih_patient.activity.online_diagnoses_order.view.TypeCardView;
@@ -15,7 +16,6 @@ import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
 import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.constant.EventType;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
@@ -49,7 +49,7 @@ public class TypeCardFragment extends BaseControllerFragment<TypeCardController>
                     EventBus.getDefault().post(new Event(EventType.SENDSELECTNURSINGPATIENT,selectedCardInfo));
                     getActivity().finish();
                 }else {
-                    ToastUtil.shortToast(getContext(),"请选择就诊卡");
+                    ToastUtil.showMessage(getContext(),"请选择就诊卡");
                 }
             }
         });
@@ -84,6 +84,6 @@ public class TypeCardFragment extends BaseControllerFragment<TypeCardController>
 
     @Override
     public void getAllCardFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),"接口异常："+errMsg);
+        ToastUtil.showMessage(getContext(),"接口异常："+errMsg);
     }
 }

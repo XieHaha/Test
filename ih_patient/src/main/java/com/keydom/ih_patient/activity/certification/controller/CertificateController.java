@@ -9,6 +9,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.PhoneUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
@@ -17,7 +18,6 @@ import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.LoginService;
 import com.keydom.ih_patient.net.UploadService;
 import com.keydom.ih_patient.net.UserService;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -47,12 +47,12 @@ public class CertificateController extends ControllerImpl<CertificateView> imple
                         if (getView().getPhoneNum().equals(App.userInfo.getPhoneNumber())) {
                             getMsgCode(getView().getPhoneNum());
                         } else {
-                            ToastUtil.shortToast(getContext(), "请输入已绑定的电话号码");
+                            ToastUtil.showMessage(getContext(), "请输入已绑定的电话号码");
                         }
                     }
 
                 } else {
-                    ToastUtil.shortToast(getContext(), "请输入正确的电话号码");
+                    ToastUtil.showMessage(getContext(), "请输入正确的电话号码");
                 }
                 break;
             case R.id.pic_positive_img:
@@ -72,14 +72,14 @@ public class CertificateController extends ControllerImpl<CertificateView> imple
                         if (getView().getUrlList().size() == 2) {
                             inspecteMsgCode();
                         } else {
-                            ToastUtil.shortToast(getContext(), "证件图片上传未完成，请检查并完成上传");
+                            ToastUtil.showMessage(getContext(), "证件图片上传未完成，请检查并完成上传");
                         }
                     } else {
-                        ToastUtil.shortToast(getContext(), "请输入正确的验证码");
+                        ToastUtil.showMessage(getContext(), "请输入正确的验证码");
                     }
 
                 } else {
-                    ToastUtil.shortToast(getContext(), "请输入正确的电话号码");
+                    ToastUtil.showMessage(getContext(), "请输入正确的电话号码");
                 }
                 break;
             case R.id.upload_pic_positive_tv:
@@ -97,10 +97,10 @@ public class CertificateController extends ControllerImpl<CertificateView> imple
                 if (!TextUtils.isEmpty(getView().getMessageCode())) {
                     inspecteMsgCode();
                 } else {
-                    ToastUtil.shortToast(getContext(), "请输入正确的验证码");
+                    ToastUtil.showMessage(getContext(), "请输入正确的验证码");
                 }
             } else {
-                ToastUtil.shortToast(getContext(), "请输入正确的电话号码");
+                ToastUtil.showMessage(getContext(), "请输入正确的电话号码");
             }
         } else {
             inspecteIdCard();

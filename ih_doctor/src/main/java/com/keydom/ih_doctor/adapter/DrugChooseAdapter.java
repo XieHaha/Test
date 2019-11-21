@@ -11,12 +11,10 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.DrugBean;
 import com.keydom.ih_doctor.m_interface.SingleClick;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
 public class DrugChooseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {

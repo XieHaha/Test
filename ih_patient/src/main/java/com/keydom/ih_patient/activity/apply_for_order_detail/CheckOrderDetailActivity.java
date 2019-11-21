@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.apply_for_order_detail.controller.CheckOrderDetailController;
 import com.keydom.ih_patient.activity.apply_for_order_detail.view.CheckOrderDetailView;
@@ -20,7 +21,6 @@ import com.keydom.ih_patient.adapter.TestDetailItemListAdapter;
 import com.keydom.ih_patient.bean.CheckItemListBean;
 import com.keydom.ih_patient.bean.CheckOutItemBean;
 import com.keydom.ih_patient.bean.InquiryBean;
-import com.keydom.ih_patient.utils.ToastUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -261,7 +261,7 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
     @Override
     public void getCheckOutDetailFailed(String errMsg) {
         pageLoadingFail();
-        ToastUtil.shortToast(this, "订单不存在");
+        ToastUtil.showMessage(this, "订单不存在");
         finish();
     }
 
@@ -274,7 +274,7 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
     @Override
     public void getInspactDetailFailed(String errMsg) {
         pageLoadingFail();
-        ToastUtil.shortToast(this, "订单不存在");
+        ToastUtil.showMessage(this, "订单不存在");
         finish();
     }
 

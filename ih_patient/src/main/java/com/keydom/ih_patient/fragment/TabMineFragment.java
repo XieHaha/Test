@@ -23,6 +23,7 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.constant.Const;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralItemView;
 import com.keydom.ih_common.view.MyScrollView;
 import com.keydom.ih_patient.App;
@@ -45,7 +46,6 @@ import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.fragment.controller.TabMineController;
 import com.keydom.ih_patient.fragment.view.TabMineView;
 import com.keydom.ih_patient.utils.LocalizationUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.keydom.ih_patient.view.MineFunctionItemView;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -122,7 +122,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
                 if(Global.getUserId()!=-1){
                     EventBus.getDefault().post(new Event(EventType.STARTTOQR, null));
                 }else {
-                    ToastUtil.shortToast(getContext(),"你未登录,请登录后尝试");
+                    ToastUtil.showMessage(getContext(),"你未登录,请登录后尝试");
                 }
             }
         });
@@ -495,7 +495,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
 
     @Override
     public void getUnreadMessageCountFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),"拉取未读信息失败");
+        ToastUtil.showMessage(getContext(),"拉取未读信息失败");
     }
 
     @Override

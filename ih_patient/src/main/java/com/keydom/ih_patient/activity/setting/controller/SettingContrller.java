@@ -10,6 +10,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.push.PushManager;
 import com.keydom.ih_common.utils.SharePreferenceManager;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.login.UpdatePasswordActivity;
@@ -20,7 +21,6 @@ import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.UserService;
 import com.keydom.ih_patient.utils.LocalizationUtils;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -43,14 +43,14 @@ public class SettingContrller extends ControllerImpl<SettingView> implements Vie
                         }
                     }).setTitle("提示").setPositiveButton("确认").show();
                 } else {
-                    ToastUtil.shortToast(getContext(), getContext().getString(R.string.unlogin_hint));
+                    ToastUtil.showMessage(getContext(), getContext().getString(R.string.unlogin_hint));
                 }
                 break;
             case R.id.jump_to_change_password_tv:
                 if (Global.getUserId() != -1) {
                     UpdatePasswordActivity.start(getContext());
                 } else {
-                    ToastUtil.shortToast(getContext(), getContext().getString(R.string.unlogin_hint));
+                    ToastUtil.showMessage(getContext(), getContext().getString(R.string.unlogin_hint));
                 }
                 break;
             case R.id.gesture_unlock_tv:

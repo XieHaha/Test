@@ -16,7 +16,6 @@ import com.keydom.ih_doctor.activity.AgreementActivity;
 import com.keydom.ih_doctor.activity.view.UpdatePasswordView;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.LoginApiService;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -40,15 +39,15 @@ public class UpdatePasswordController extends ControllerImpl<UpdatePasswordView>
             if (PhoneUtils.isMobileEnable(getView().getPhoneNo())) {
                 sendCode(getView().getPhoneNo());
             } else {
-                ToastUtil.shortToast(getContext(), "请输入正确的手机号");
+                ToastUtil.showMessage(getContext(), "请输入正确的手机号");
             }
         } else if (v.getId() == R.id.next_step) {
             if (!PhoneUtils.isMobileEnable(getView().getPhoneNo())) {
-                ToastUtil.shortToast(getContext(), "请输入获取验证码的手机号");
+                ToastUtil.showMessage(getContext(), "请输入获取验证码的手机号");
             } else if (StringUtils.isEmpty(getView().getIdentifyingCode())) {
-                ToastUtil.shortToast(getContext(), "请输入验证码");
+                ToastUtil.showMessage(getContext(), "请输入验证码");
             } else if (!getView().getIsAgreement()) {
-                ToastUtil.shortToast(getContext(), "请勾选用户服务协议");
+                ToastUtil.showMessage(getContext(), "请勾选用户服务协议");
             } else {
                 verificationCode(getView().getPhoneNo(), getView().getIdentifyingCode());
             }

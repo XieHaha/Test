@@ -11,7 +11,6 @@ import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.consulting_arrange.view.ConsultingChangeView;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.ScheduingService;
-import com.keydom.ih_doctor.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -59,7 +58,7 @@ public class ConsultingChangeController extends ControllerImpl<ConsultingChangeV
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                 hideLoading();
                 getView().reqFailed(msg);
-                ToastUtil.shortToast(getContext(), "修改失败");
+                ToastUtil.showMessage(getContext(), "修改失败");
                 return super.requestError(exception, code, msg);
             }
         });

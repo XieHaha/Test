@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.adapter.PhysicalExaCommentsAdapter;
 import com.keydom.ih_patient.bean.PhysicalExaCommentsInfo;
@@ -12,7 +13,6 @@ import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.Type;
 import com.keydom.ih_patient.fragment.controller.PhysicalExaCommentsController;
 import com.keydom.ih_patient.fragment.view.PhysicalExaCommentsView;
-import com.keydom.ih_patient.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -99,6 +99,6 @@ public class PhysicalExaCommentsFragment extends BaseControllerFragment<Physical
 
     @Override
     public void updateCommentsListFailed(String errMsg) {
-        ToastUtil.shortToast(getContext(),"获取评论失败："+errMsg);
+        ToastUtil.showMessage(getContext(),"获取评论失败："+errMsg);
     }
 }

@@ -19,7 +19,6 @@ import com.keydom.ih_doctor.activity.personal.controller.MyVisitingCardControlle
 import com.keydom.ih_doctor.activity.personal.view.MyVisitingCardView;
 import com.keydom.ih_doctor.bean.UserCard;
 import com.keydom.ih_doctor.constant.Const;
-import com.keydom.ih_doctor.utils.ToastUtil;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 /**
@@ -78,7 +77,7 @@ public class MyVisitingCardActivity extends BaseControllerActivity<MyVisitingCar
                 ShareUtils.showShareUtils(MyVisitingCardActivity.this, new ShareUtils.IOnShareCallBack() {
                     @Override
                     public void onShareSelect(int type) {
-                        ToastUtil.shortToast(getContext(), "分享");
+                        ToastUtil.showMessage(getContext(), "分享");
                     }
                 });
 
