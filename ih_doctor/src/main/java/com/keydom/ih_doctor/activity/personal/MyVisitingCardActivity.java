@@ -12,6 +12,7 @@ import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.ShareUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_doctor.R;

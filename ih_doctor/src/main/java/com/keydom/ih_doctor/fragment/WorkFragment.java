@@ -19,6 +19,7 @@ import com.keydom.ih_common.push.PushManager;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.PageIndicatorView;
 import com.keydom.ih_common.view.PageRecyclerView;
 import com.keydom.ih_doctor.MyApplication;

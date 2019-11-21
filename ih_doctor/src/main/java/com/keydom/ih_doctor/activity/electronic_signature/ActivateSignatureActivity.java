@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.electronic_signature.controller.ApplySignatureController;

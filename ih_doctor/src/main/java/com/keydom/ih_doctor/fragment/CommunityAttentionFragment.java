@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import com.blankj.utilcode.util.ToastUtils;
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.adapter.CommunityRecyclrViewAdapter;

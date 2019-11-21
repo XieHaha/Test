@@ -15,6 +15,7 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.Article;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_common.view.GridViewForScrollView;
 import com.keydom.ih_common.view.IhTitleLayout;

@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.nurse_service.controller.ChooseNursingController;
 import com.keydom.ih_doctor.activity.nurse_service.view.ChooseNursingView;

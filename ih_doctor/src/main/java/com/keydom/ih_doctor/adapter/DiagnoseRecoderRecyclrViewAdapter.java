@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.doctor_cooperation.DianoseCaseDetailActivity;
 import com.keydom.ih_doctor.bean.DiagnoseRecoderBean;

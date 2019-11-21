@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.bean.DrugBean;
 import com.keydom.ih_doctor.m_interface.SingleClick;

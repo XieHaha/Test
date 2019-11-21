@@ -12,6 +12,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.activity.electronic_signature.ApplySignatureActivity;
 import com.keydom.ih_doctor.activity.electronic_signature.SignatureActivity;

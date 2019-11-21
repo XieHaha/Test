@@ -12,6 +12,7 @@ import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.constant.Global;
 import com.keydom.ih_common.utils.GlideUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_common.view.CountItemView;
 import com.keydom.ih_common.view.GeneralItemView;

@@ -12,6 +12,7 @@ import android.view.View;
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CostomToastUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.IssueArticleActivity;
 import com.keydom.ih_doctor.activity.personal.controller.ArticleListController;

@@ -14,6 +14,7 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.NoticeInfoBean;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GridViewForScrollView;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_doctor.MyApplication;

@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
-
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.SharePreferenceManager;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.my_message.controller.MyMessagaeController;
 import com.keydom.ih_doctor.activity.my_message.view.MyMessageView;

@@ -19,6 +19,7 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.CostomToastUtils;
 import com.keydom.ih_common.utils.GlideUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.doctor_cooperation.controller.DiagnoseOrderDetailController;

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.SharePreferenceManager;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.ClearEditText;
 import com.keydom.ih_common.view.MButton;
 import com.keydom.ih_doctor.R;

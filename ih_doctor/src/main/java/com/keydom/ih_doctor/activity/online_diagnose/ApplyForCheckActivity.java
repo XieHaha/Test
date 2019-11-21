@@ -17,6 +17,7 @@ import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.model.custom.ExaminationAttachment;
 import com.keydom.ih_common.im.model.custom.InspectionAttachment;
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.im.ConversationActivity;
