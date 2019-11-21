@@ -239,6 +239,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         }else{
             new_card_operate_layout.setVisibility(View.GONE);
             new_card_audit_layout.setVisibility(View.VISIBLE);
+            EventBus.getDefault().post(new CertificateSuccess());
         }
     }
 

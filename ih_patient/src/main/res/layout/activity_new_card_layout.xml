@@ -498,7 +498,7 @@
                 android:layout_marginBottom="@dimen/dp_31"
                 android:background="@mipmap/complete_register_bt_bg"
                 android:gravity="center"
-                android:text="@string/creat_or_bind_card_func_send_other_certificates"
+                android:text="错误，重新上传"
                 android:textColor="@color/title_bar_text_color"
                 android:textSize="@dimen/dp_17" />
         </LinearLayout>

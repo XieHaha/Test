@@ -75,7 +75,7 @@ public class CardoperateActivity extends BaseControllerActivity<CardOperateContr
         }
         cardOperateVp.setAdapter(viewPagerAdapter);
         cardOperateTab.setupWithViewPager(cardOperateVp);
-        EventBus.getDefault().register(getContext());
+        EventBus.getDefault().register(this);
     }
 
     /**
@@ -96,13 +96,12 @@ public class CardoperateActivity extends BaseControllerActivity<CardOperateContr
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onCertificateSuccess(CertificateSuccess success) {
-        card_operate_layout.setVisibility(View.GONE);
-        bind_success_layout.setVisibility(View.VISIBLE);
+        finish();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(getContext());
+        EventBus.getDefault().unregister(this);
     }
 }

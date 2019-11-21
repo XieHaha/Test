@@ -58,7 +58,7 @@ public class CardCreateFragment extends BaseControllerFragment<CardCreatControll
             }
         });
 
-        if (App.userInfo.isCertification()) {
+        if (null != App.userInfo && App.userInfo.isCertification()) {
              getController().isApplyElectronicCard();
         } else {
             mRadioGroup.setVisibility(View.GONE);
