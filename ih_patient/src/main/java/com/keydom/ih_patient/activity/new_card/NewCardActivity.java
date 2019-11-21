@@ -108,7 +108,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         cardUrlList = getIntent().getStringArrayListExtra("urlList");
         isOnlyIdCard = getIntent().getBooleanExtra("isOnlyIdCard",false);
 
-        if(App.userInfo.isCertification() && isOnlyIdCard){
+        if(type.equals(Const.CARD_ID_CARD) && isOnlyIdCard){
             setTitle("实名认证");
         }else{
             setTitle("新增就诊卡");
