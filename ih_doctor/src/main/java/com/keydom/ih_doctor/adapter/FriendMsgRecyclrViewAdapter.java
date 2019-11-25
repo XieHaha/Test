@@ -91,7 +91,10 @@ public class FriendMsgRecyclrViewAdapter extends BaseEmptyAdapter<RecentContact>
                             friendAgeTv.setText(CalculateTimeUtils.getAgeByBirth(userInfo.getBirthday()) + "岁");
                         } catch (ParseException e) {
                             e.printStackTrace();
+                            friendAgeTv.setText("");
                         }
+                    }else{
+                        friendAgeTv.setText("");
                     }
                     if (userInfo.getGenderEnum() == GenderEnum.MALE) {
                         sexImage.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.patient_cicle_blue));
