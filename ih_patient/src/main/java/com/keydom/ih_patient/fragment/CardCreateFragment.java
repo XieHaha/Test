@@ -110,6 +110,7 @@ public class CardCreateFragment extends BaseControllerFragment<CardCreatControll
             mRadioGroup.setVisibility(View.GONE);
             send_id_card_tv.setText(R.string.creat_or_bind_card_func_send_id_card);
             send_other_certificates_tv.setVisibility(View.VISIBLE);
+            getController().setBindMyself(false);
         }
     }
 
