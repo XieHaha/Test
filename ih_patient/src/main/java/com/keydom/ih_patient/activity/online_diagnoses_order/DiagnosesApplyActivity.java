@@ -228,7 +228,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
     }
 
     @SuppressLint("CheckResult")
-    private void initPremissions() {
+    public void initPremissions() {
         RxPermissions rxPermissions = new RxPermissions(this);
         rxPermissions.request(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Boolean>() {

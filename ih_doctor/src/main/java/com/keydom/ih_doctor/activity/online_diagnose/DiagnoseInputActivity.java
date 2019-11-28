@@ -1,5 +1,7 @@
 package com.keydom.ih_doctor.activity.online_diagnose;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -7,11 +9,20 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.iflytek.cloud.ErrorCode;
+import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.ui.RecognizerDialog;
+import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
@@ -24,7 +35,9 @@ import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
 import com.keydom.ih_doctor.m_interface.SingleClick;
+import com.keydom.ih_doctor.utils.JsonUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -32,6 +45,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * @Name：com.keydom.ih_doctor.activity.personal
@@ -63,6 +78,54 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
      * 查询到的列表
      */
     private List<ICD10Bean> mList = new ArrayList<>();
+
+
+    private ImageView mVoiceInputIv;
+
+    // 语音听写UI
+    private RecognizerDialog mIatDialog;
+
+    /**
+     * 初始化监听器。
+     */
+    private InitListener mInitListener = new InitListener() {
+
+        @Override
+        public void onInit(int code) {
+
+            if (code != ErrorCode.SUCCESS) {
+                Log.e("xunfei","初始化失败，错误码：" + code+",请点击网址https://www.xfyun.cn/document/error-code查询解决方案");
+            }
+        }
+    };
+
+    /**
+     * 听写UI监听器
+     */
+    private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
+        public void onResult(RecognizerResult results, boolean isLast) {
+            if(null != diagnoseInputEt){
+                String text = JsonUtils.handleXunFeiJson(results);
+                if(TextUtils.isEmpty(diagnoseInputEt.getText().toString())){
+                    diagnoseInputEt.setText(text);
+                    diagnoseInputEt.setSelection(diagnoseInputEt.getText().length());
+                }else{
+                    diagnoseInputEt.setText(diagnoseInputEt.getText().toString() + text);
+                    diagnoseInputEt.setSelection(diagnoseInputEt.getText().length());
+                }
+            }
+
+        }
+
+        /**
+         * 识别回调错误.
+         */
+        public void onError(SpeechError error) {
+            ToastUtil.showMessage(DiagnoseInputActivity.this,error.getPlainDescription(true));
+
+        }
+
+    };
 
     public static void start(Context context, String content) {
         Intent starter = new Intent(context, DiagnoseInputActivity.class);
@@ -144,6 +207,7 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
         refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
         diagnoseInputEt = this.findViewById(R.id.diagnose_input_et);
         recyclerView = this.findViewById(R.id.icd_rv);
+        mVoiceInputIv = this.findViewById(R.id.diagnose_input_layout_voice_input_iv);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setSmoothScrollbarEnabled(true);
         layoutManager.setAutoMeasureEnabled(true);
@@ -154,6 +218,40 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
         refreshLayout.setOnLoadMoreListener(getController());
         searchTv.setOnClickListener(getController());
         showICD10List();
+
+        // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
+        // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
+        mIatDialog = new RecognizerDialog(this, mInitListener);
+        mIatDialog.setListener(mRecognizerDialogListener);
+        mVoiceInputIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initPremissions();
+            }
+        });
+    }
+
+    @SuppressLint("CheckResult")
+    public void initPremissions() {
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean granted) throws Exception {
+                        if (granted) {
+                            if(mIatDialog.isShowing()){
+                                mIatDialog.dismiss();
+                            }
+                            mIatDialog.show();
+                            ToastUtil.showMessage(DiagnoseInputActivity.this,"请开始说话…");
+
+                        } else {
+                            ToastUtil.showMessage(DiagnoseInputActivity.this,"请开启录音需要的权限");
+
+                        }
+                    }
+                });
+
     }
 
     /**
