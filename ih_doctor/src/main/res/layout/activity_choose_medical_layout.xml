@@ -34,10 +34,21 @@
             android:textCursorDrawable="@null"
             android:hint="搜索药品关键字、适应症、关联词"
             android:paddingLeft="@dimen/dp_18"
+            android:paddingRight="@dimen/dp_20"
             android:singleLine="true"
             android:textColor="@color/primary_font_color"
             android:textColorHint="#BBBBBB"
             android:textSize="@dimen/font_size_primary" />
+
+        <ImageView
+            android:id="@+id/choose_medical_layout_voice_input_iv"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_alignBottom="@id/search_et"
+            android:layout_alignRight="@id/search_et"
+            android:layout_marginRight="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_4"
+            android:src="@drawable/im_voice_toggle_selector" />
 
         <TextView
             android:id="@+id/search_tv"
