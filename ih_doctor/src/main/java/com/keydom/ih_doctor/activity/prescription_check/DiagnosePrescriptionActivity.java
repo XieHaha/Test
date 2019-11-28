@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -116,7 +115,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     private boolean savePrescriptionTemplate = false;
     private boolean saveCaseTemplate = false;
     private String isReturnVisit = "1";
-    private EditText handle_entrust_et;
+    private DiagnosePrescriptionItemView handleEntrust;
     private Button submit_btn;
     private boolean isNeedLocalSave = true;
     private boolean isChange = false;
@@ -207,6 +206,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         checkRes = (DiagnosePrescriptionItemView) this.findViewById(R.id.check_res);
         simpleDiagnose = (DiagnosePrescriptionItemView) this.findViewById(R.id.simple_diagnose);
         dealIdea = (DiagnosePrescriptionItemView) this.findViewById(R.id.deal_idea);
+        handleEntrust = this.findViewById(R.id.handle_entrust_et);
         addPrescriptionRl = (RelativeLayout) this.findViewById(R.id.add_prescription_rl);
         prescriptionModelRl = (RelativeLayout) this.findViewById(R.id.prescription_model_rl);
         modalName = (TextView) this.findViewById(R.id.modal_name);
@@ -215,6 +215,14 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         submit = (TextView) this.findViewById(R.id.submit);
         feeCount = (TextView) this.findViewById(R.id.fee_count);
         addMedicine = (CardView) this.findViewById(R.id.add_medicine);
+
+        handleEntrust.setFragmentActivity(this);
+        mainDec.setFragmentActivity(this);
+        medicalHistory.setFragmentActivity(this);
+        oversensitiveHistory.setFragmentActivity(this);
+        checkRes.setFragmentActivity(this);
+        simpleDiagnose.setFragmentActivity(this);
+        dealIdea.setFragmentActivity(this);
         addPrescriptionRl.setOnClickListener(getController());
         prescriptionModelRl.setOnClickListener(getController());
         addMedicine.setOnClickListener(getController());
@@ -284,7 +292,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
             }
         });
         submit_btn = this.findViewById(R.id.submit_btn);
-        handle_entrust_et = this.findViewById(R.id.handle_entrust_et);
+
         submit_btn.setOnClickListener(getController());
     }
 
@@ -664,7 +672,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     public Map<String, Object> getHandleMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("inquiryId", inquiryBean.getId());
-        map.put("suggest", handle_entrust_et.getText().toString());
+        map.put("suggest", handleEntrust.getInputStr());
         return map;
     }
 
@@ -689,7 +697,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
     @Override
     public boolean checkSubmit() {
-        if ("".equals(handle_entrust_et.getText().toString())) {
+        if ("".equals(handleEntrust.getInputStr())) {
             return false;
         }
         return true;

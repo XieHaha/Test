@@ -430,7 +430,16 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <RelativeLayout
+                    <com.keydom.ih_doctor.view.DiagnosePrescriptionItemView
+                        android:id="@+id/handle_entrust_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        mitem:itemInputHint="请输入初诊判断以及相应的处置建议（300字以内）"
+                        mitem:itemTip="处置建议">
+
+                    </com.keydom.ih_doctor.view.DiagnosePrescriptionItemView>
+
+                    <!--<RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="true"
@@ -484,7 +493,7 @@
                             android:textColor="@color/edit_font_color"
                             android:textCursorDrawable="@null"
                             android:textSize="@dimen/font_size_auxiliary" />
-                    </RelativeLayout>
+                    </RelativeLayout>-->
 
                     <Button
                         android:id="@+id/submit_btn"
