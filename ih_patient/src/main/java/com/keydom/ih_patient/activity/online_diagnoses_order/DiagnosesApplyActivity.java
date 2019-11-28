@@ -1,13 +1,24 @@
 package com.keydom.ih_patient.activity.online_diagnoses_order;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.iflytek.cloud.ErrorCode;
+import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.ui.RecognizerDialog;
+import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.utils.GlideUtils;
@@ -28,10 +39,12 @@ import com.keydom.ih_patient.bean.ManagerUserBean;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
 import com.keydom.ih_patient.bean.PayOrderBean;
 import com.keydom.ih_patient.constant.EventType;
+import com.keydom.ih_patient.utils.JsonUtils;
 import com.keydom.ih_patient.view.DiagnosesApplyDialog;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,6 +55,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * 在线问诊申请页面
@@ -74,6 +89,53 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
     private GridViewPlusImgAdapter mAdapter;
     public List<String> dataList = new ArrayList<>();
     private PayOrderBean orderInfo;
+    private ImageView mVoiceInputIv;
+
+    // 语音听写UI
+    private RecognizerDialog mIatDialog;
+
+    /**
+     * 初始化监听器。
+     */
+    private InitListener mInitListener = new InitListener() {
+
+        @Override
+        public void onInit(int code) {
+
+            if (code != ErrorCode.SUCCESS) {
+                Log.e("xunfei","初始化失败，错误码：" + code+",请点击网址https://www.xfyun.cn/document/error-code查询解决方案");
+            }
+        }
+    };
+
+    /**
+     * 听写UI监听器
+     */
+    private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
+        public void onResult(RecognizerResult results, boolean isLast) {
+            if(null != desc_edt){
+                String text = JsonUtils.handleXunFeiJson(results);
+                if(TextUtils.isEmpty(desc_edt.getText().toString())){
+                    desc_edt.setText(text);
+                    desc_edt.setSelection(desc_edt.getText().length());
+                }else{
+                    desc_edt.setText(desc_edt.getText().toString() + text);
+                    desc_edt.setSelection(desc_edt.getText().length());
+                }
+            }
+
+        }
+
+        /**
+         * 识别回调错误.
+         */
+        public void onError(SpeechError error) {
+            ToastUtil.showMessage(DiagnosesApplyActivity.this,error.getPlainDescription(true));
+
+        }
+
+    };
+
     @Override
     public int getLayoutRes() {
         return R.layout.activity_diagnoses_apply_layout;
@@ -97,6 +159,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
             }
         });
         name_tv = findViewById(R.id.name_tv);
+        mVoiceInputIv = findViewById(R.id.diagnoses_apply_layout_voice_input_iv);
         desc_font_num_tv = findViewById(R.id.desc_font_num_tv);
         job_title_tv = findViewById(R.id.job_title_tv);
         photo_diagnoses_tv = findViewById(R.id.photo_diagnoses_tv);
@@ -151,6 +214,40 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
             GlideUtils.load(head_img, info.getAvatar() == null ? "" : Const.IMAGE_HOST + info.getAvatar(), 0, R.mipmap.test_doctor_head_icon, false, null);
         }
         EventBus.getDefault().register(getContext());
+
+        // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
+        // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
+        mIatDialog = new RecognizerDialog(this, mInitListener);
+        mIatDialog.setListener(mRecognizerDialogListener);
+        mVoiceInputIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initPremissions();
+            }
+        });
+    }
+
+    @SuppressLint("CheckResult")
+    private void initPremissions() {
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean granted) throws Exception {
+                        if (granted) {
+                            if(mIatDialog.isShowing()){
+                                mIatDialog.dismiss();
+                            }
+                            mIatDialog.show();
+                            ToastUtil.showMessage(DiagnosesApplyActivity.this,"请开始说话…");
+
+                        } else {
+                            ToastUtil.showMessage(DiagnosesApplyActivity.this,"请开启录音需要的权限");
+
+                        }
+                    }
+                });
+
     }
 
     /**

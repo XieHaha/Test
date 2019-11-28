@@ -97,6 +97,7 @@ dependencies {
     implementation files('libs/ocr-sdk.jar')
     implementation files('libs/component_common_sdk_1.0.0.jar')
     api 'org.aspectj:aspectjrt:1.8.9'
+    implementation files('libs/Msc.jar')
 
 }
 repositories {

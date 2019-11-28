@@ -33,3 +33,7 @@
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 -keep class okio.**{*;}
 -dontwarn okio.**
+
+# xunfei
+-keep class com.iflytek.**{*;}
+-keepattributes Signature

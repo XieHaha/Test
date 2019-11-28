@@ -23,4 +23,7 @@
     <string name="card_dec">扫描二维码，关注我，向我咨询、问诊、预约挂号，我会及时为您提供健康服务。</string>
     <string name="create_group"><u>新建团队</u></string>
 
+
+    <!-- 讯飞SDK appid -->
+    <string name="xunfei_app_id">5dd938d5</string>
 </resources>

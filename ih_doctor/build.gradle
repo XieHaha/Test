@@ -86,6 +86,7 @@ dependencies {
     implementation files('libs/msspprovider_signed.jar')
 //    api rootProject.ext.dependencies["Aspectj"]
     implementation 'org.aspectj:aspectjrt:1.8.9'
+    implementation files('libs/Msc.jar')
 }
 
 repositories {

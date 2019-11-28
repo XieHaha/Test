@@ -2,6 +2,7 @@ package com.keydom.ih_patient;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.blankj.utilcode.util.Utils;
+import com.iflytek.cloud.SpeechUtility;
 import com.keydom.ih_common.CommonApp;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_patient.activity.index_main.MainActivity;
@@ -32,6 +33,7 @@ public class App extends CommonApp {
         if (NIMUtil.isMainProcess(this)) {
             Utils.init(this);
             SDKInitializer.initialize(getApplicationContext());
+            SpeechUtility.createUtility(this, "appid=" + getString(R.string.xunfei_app_id));
             ZXingLibrary.initDisplayOpinion(getApplicationContext());
             String appId = "wx21ddbc498622a67f";
             WXInit.init(this, appId);

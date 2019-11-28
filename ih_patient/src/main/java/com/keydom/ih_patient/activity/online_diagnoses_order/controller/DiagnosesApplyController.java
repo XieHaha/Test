@@ -253,4 +253,5 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
 //            CommonUtils.previewImage(getContext(), getView().getPicUrl(position));
             CommonUtils.previewImageList(getContext(), getView().getPicList(), position, true);
     }
+
 }
