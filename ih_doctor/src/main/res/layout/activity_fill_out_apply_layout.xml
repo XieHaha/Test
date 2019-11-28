@@ -137,7 +137,6 @@
             </LinearLayout>
 
 
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -170,26 +169,43 @@
                     android:layout_below="@id/explain_tip_tv"
                     android:background="@color/line_color" />
 
-                <com.keydom.ih_common.view.InterceptorEditText
-                    android:id="@+id/explain_input_et"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_150"
                     android:layout_below="@id/explain_line"
-                    android:layout_centerHorizontal="true"
                     android:layout_marginLeft="@dimen/padding_left_right_dp"
                     android:layout_marginTop="@dimen/dp_16"
                     android:layout_marginRight="@dimen/padding_left_right_dp"
-                    android:layout_marginBottom="@dimen/dp_19"
-                    android:textCursorDrawable="@null"
-                    android:background="@drawable/check_dialog_input_bg"
-                    android:gravity="left|top"
-                    android:hint="请详细描述您的疑问或症状，疾病，和身体情况（最多支持输入500字）"
-                    android:maxLength="500"
-                    android:minHeight="@dimen/dp_144"
-                    android:padding="@dimen/dp_13"
-                    android:singleLine="false"
-                    android:textColor="@color/edit_font_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:layout_marginBottom="@dimen/dp_19">
+
+                    <com.keydom.ih_common.view.InterceptorEditText
+                        android:id="@+id/explain_input_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_150"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/check_dialog_input_bg"
+                        android:gravity="left|top"
+                        android:hint="请详细描述您的疑问或症状，疾病，和身体情况（最多支持输入500字）"
+                        android:maxLength="500"
+                        android:minHeight="@dimen/dp_144"
+                        android:padding="@dimen/dp_13"
+                        android:singleLine="false"
+                        android:textColor="@color/edit_font_color"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <ImageView
+                        android:id="@+id/fill_out_apply_layout_voice_input_iv"
+                        android:layout_width="20dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="@dimen/dp_5"
+                        android:layout_marginBottom="@dimen/dp_5"
+                        android:src="@drawable/im_voice_toggle_selector" />
+                </RelativeLayout>
+
+
             </RelativeLayout>
 
             <View
@@ -210,7 +226,6 @@
                     android:background="#71A4FF" />
 
 
-
                 <TextView
                     android:id="@+id/disease_condition_tip_tv"
                     android:layout_width="wrap_content"
@@ -229,10 +244,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@id/disease_condition_tip_tv"
                     android:layout_alignBottom="@id/disease_condition_tip_tv"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/padding_left_right_dp"
                     android:layout_toRightOf="@id/disease_condition_tip_tv"
                     android:gravity="center_vertical"
-                    android:layout_centerVertical="true"
                     android:text="（检查报告、处方或其他病情资料）"
                     android:textColor="#BBBBBB"
                     android:textSize="@dimen/font_size_primary" />

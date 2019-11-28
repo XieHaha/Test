@@ -1,11 +1,15 @@
 package com.keydom.ih_doctor.activity.doctor_cooperation;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -13,6 +17,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.iflytek.cloud.ErrorCode;
+import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.ui.RecognizerDialog;
+import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
@@ -30,15 +40,19 @@ import com.keydom.ih_doctor.bean.DeptDoctorBean;
 import com.keydom.ih_doctor.bean.DiagnoseFillOutResBean;
 import com.keydom.ih_doctor.bean.InquiryBean;
 import com.keydom.ih_doctor.constant.Const;
+import com.keydom.ih_doctor.utils.JsonUtils;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * @Name：com.keydom.ih_doctor.activity.personal
@@ -101,6 +115,55 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
     private LinearLayout diagnoseOrderLl, doctorBox;
 
 
+
+    private ImageView mVoiceInputIv;
+
+    // 语音听写UI
+    private RecognizerDialog mIatDialog;
+
+    /**
+     * 初始化监听器。
+     */
+    private InitListener mInitListener = new InitListener() {
+
+        @Override
+        public void onInit(int code) {
+
+            if (code != ErrorCode.SUCCESS) {
+                Log.e("xunfei","初始化失败，错误码：" + code+",请点击网址https://www.xfyun.cn/document/error-code查询解决方案");
+            }
+        }
+    };
+
+    /**
+     * 听写UI监听器
+     */
+    private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
+        public void onResult(RecognizerResult results, boolean isLast) {
+            if(null != explainInputEt){
+                String text = JsonUtils.handleXunFeiJson(results);
+                if(TextUtils.isEmpty(explainInputEt.getText().toString())){
+                    explainInputEt.setText(text);
+                    explainInputEt.setSelection(explainInputEt.getText().length());
+                }else{
+                    explainInputEt.setText(explainInputEt.getText().toString() + text);
+                    explainInputEt.setSelection(explainInputEt.getText().length());
+                }
+            }
+
+        }
+
+        /**
+         * 识别回调错误.
+         */
+        public void onError(SpeechError error) {
+            ToastUtil.showMessage(FillOutApplyActivity.this,error.getPlainDescription(true));
+
+        }
+
+    };
+
+
     private void initView() {
         selectDoctor = this.findViewById(R.id.select_doctor);
         doctorBox = this.findViewById(R.id.doctor_box);
@@ -108,11 +171,46 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
         explainInputEt = this.findViewById(R.id.explain_input_et);
         photoGv = this.findViewById(R.id.photo_gv);
         diagnoseOrderLl = this.findViewById(R.id.diagnose_order_ll);
+        mVoiceInputIv = this.findViewById(R.id.fill_out_apply_layout_voice_input_iv);
         mAdapter = new DiagnoseChangePlusImgAdapter(this, gridList);
         photoGv.setAdapter(mAdapter);
         photoGv.setOnItemClickListener(getController());
         selectDoctor.setOnClickListener(getController());
         selectDiagnoseOrder.setOnClickListener(getController());
+
+        // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
+        // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
+        mIatDialog = new RecognizerDialog(this, mInitListener);
+        mIatDialog.setListener(mRecognizerDialogListener);
+        mVoiceInputIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initPremissions();
+            }
+        });
+    }
+
+    @SuppressLint("CheckResult")
+    public void initPremissions() {
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean granted) throws Exception {
+                        if (granted) {
+                            if(mIatDialog.isShowing()){
+                                mIatDialog.dismiss();
+                            }
+                            mIatDialog.show();
+                            ToastUtil.showMessage(FillOutApplyActivity.this,"请开始说话…");
+
+                        } else {
+                            ToastUtil.showMessage(FillOutApplyActivity.this,"请开启录音需要的权限");
+
+                        }
+                    }
+                });
+
     }
 
     /**
