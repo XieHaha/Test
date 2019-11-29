@@ -1,13 +1,18 @@
 package com.keydom.ih_patient.activity.nursing_service;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,6 +25,12 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.iflytek.cloud.ErrorCode;
+import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.ui.RecognizerDialog;
+import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.utils.ToastUtil;
@@ -30,6 +41,7 @@ import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.nursing_service.controller.NursingOrderFillInController;
 import com.keydom.ih_patient.activity.nursing_service.view.NursingOrderFillInView;
+import com.keydom.ih_patient.activity.online_diagnoses_order.DiagnosesApplyActivity;
 import com.keydom.ih_patient.adapter.GridViewPlusImgAdapter;
 import com.keydom.ih_patient.adapter.NursingSelectProjectAdapter;
 import com.keydom.ih_patient.bean.Event;
@@ -41,11 +53,13 @@ import com.keydom.ih_patient.bean.NursingProjectInfo;
 import com.keydom.ih_patient.constant.Config;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
+import com.keydom.ih_patient.utils.JsonUtils;
 import com.keydom.ih_patient.utils.LocalizationUtils;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.orhanobut.logger.Logger;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -59,6 +73,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * created date: 2018/12/24 on 19:13
@@ -117,6 +133,53 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
     private GridViewPlusImgAdapter mAdapter;
     public List<String> dataList = new ArrayList<>();
     private boolean isNeedSaveEdit = true;
+
+    private ImageView mVoiceInputIv;
+
+    // 语音听写UI
+    private RecognizerDialog mIatDialog;
+
+    /**
+     * 初始化监听器。
+     */
+    private InitListener mInitListener = new InitListener() {
+
+        @Override
+        public void onInit(int code) {
+
+            if (code != ErrorCode.SUCCESS) {
+                Log.e("xunfei","初始化失败，错误码：" + code+",请点击网址https://www.xfyun.cn/document/error-code查询解决方案");
+            }
+        }
+    };
+
+    /**
+     * 听写UI监听器
+     */
+    private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
+        public void onResult(RecognizerResult results, boolean isLast) {
+            if(null != mRemark){
+                String text = JsonUtils.handleXunFeiJson(results);
+                if(TextUtils.isEmpty(mRemark.getText().toString())){
+                    mRemark.setText(text);
+                    mRemark.setSelection(mRemark.getText().length());
+                }else{
+                    mRemark.setText(mRemark.getText().toString() + text);
+                    mRemark.setSelection(mRemark.getText().length());
+                }
+            }
+
+        }
+
+        /**
+         * 识别回调错误.
+         */
+        public void onError(SpeechError error) {
+            ToastUtil.showMessage(NursingOrderFillInActivity.this,error.getPlainDescription(true));
+
+        }
+
+    };
 
     @Override
     public int getLayoutRes() {
@@ -299,6 +362,41 @@ public class NursingOrderFillInActivity extends BaseControllerActivity<NursingOr
             public void afterTextChanged(Editable editable) {
             }
         });
+
+        mVoiceInputIv = findViewById(R.id.nursing_order_layout_voice_input_iv);
+        // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
+        // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
+        mIatDialog = new RecognizerDialog(this, mInitListener);
+        mIatDialog.setListener(mRecognizerDialogListener);
+        mVoiceInputIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initPremissions();
+            }
+        });
+    }
+
+    @SuppressLint("CheckResult")
+    public void initPremissions() {
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean granted) throws Exception {
+                        if (granted) {
+                            if(mIatDialog.isShowing()){
+                                mIatDialog.dismiss();
+                            }
+                            mIatDialog.show();
+                            ToastUtil.showMessage(App.mApplication,"请开始说话…");
+
+                        } else {
+                            ToastUtil.showMessage(App.mApplication,"请开启录音需要的权限");
+
+                        }
+                    }
+                });
+
     }
 
     /**
