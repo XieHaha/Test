@@ -142,14 +142,24 @@
                     android:layout_below="@id/current_nurse_service_tip"
                     android:layout_marginLeft="@dimen/dp_19"
                     android:background="@drawable/check_dialog_input_bg"
-                    android:textCursorDrawable="@null"
                     android:gravity="left|top"
                     android:hint="请输入本次护理情况及患者反馈"
                     android:maxLength="100"
                     android:padding="@dimen/dp_13"
                     android:singleLine="false"
                     android:textColor="@color/edit_font_color"
+                    android:textCursorDrawable="@null"
                     android:textSize="@dimen/font_size_primary" />
+
+                <ImageView
+                    android:id="@+id/finish_nurse_service_voice_input_iv"
+                    android:layout_width="20dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_15"
+                    android:src="@drawable/im_voice_toggle_selector" />
 
             </RelativeLayout>
 

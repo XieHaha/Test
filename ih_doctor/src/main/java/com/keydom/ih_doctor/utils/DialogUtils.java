@@ -1,11 +1,17 @@
 package com.keydom.ih_doctor.utils;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -13,8 +19,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.iflytek.cloud.ErrorCode;
+import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.ui.RecognizerDialog;
+import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.adapter.PrescriptionPagerAdapter;
 import com.keydom.ih_doctor.bean.PrescriptionTemplateBean;
@@ -26,6 +39,7 @@ import com.keydom.ih_doctor.m_interface.OnModelDialogListener;
 import com.keydom.ih_doctor.m_interface.OnNurseResultListener;
 import com.keydom.ih_doctor.m_interface.OnSelectRoleListener;
 import com.keydom.ih_doctor.view.CustomTopBar;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.jaaksi.pickerview.picker.MixedTimePicker;
 
@@ -34,6 +48,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.reactivex.functions.Consumer;
 
 
 /**
@@ -251,6 +267,7 @@ public class DialogUtils {
     }
 
     public static Dialog createServiceSureDialog(final Context context, final OnExtraOptionDialogListener listener) {
+        AppCompatActivity appCompatActivity = (AppCompatActivity) context;
         final Dialog dialog = new Dialog(context, R.style.loading_dialog);
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.nurse_service_confirm_dialog_layout, null);
@@ -259,7 +276,64 @@ public class DialogUtils {
         final TextView commit = (TextView) view.findViewById(R.id.dialog_submit);
         final EditText input = (EditText) view.findViewById(R.id.dialog_input);
         final TextView visitTime = (TextView) view.findViewById(R.id.visit_time);
+        final ImageView voiceInputIv = (ImageView) view.findViewById(R.id.nurse_service_confirm_dialog_layout_voice_input_iv);
         final Map<String, Object> map = new HashMap<>();
+
+        // 语音听写UI
+        RecognizerDialog mIatDialog;
+
+        /**
+         * 初始化监听器。
+         */
+        InitListener mInitListener = new InitListener() {
+
+            @Override
+            public void onInit(int code) {
+
+                if (code != ErrorCode.SUCCESS) {
+                    Log.e("xunfei","初始化失败，错误码：" + code+",请点击网址https://www.xfyun.cn/document/error-code查询解决方案");
+                }
+            }
+        };
+
+        /**
+         * 听写UI监听器
+         */
+        RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
+            public void onResult(RecognizerResult results, boolean isLast) {
+                if(null != input){
+                    String text = JsonUtils.handleXunFeiJson(results);
+                    if(TextUtils.isEmpty(input.getText().toString())){
+                        input.setText(text);
+                        input.setSelection(input.getText().length());
+                    }else{
+                        input.setText(input.getText().toString() + text);
+                        input.setSelection(input.getText().length());
+                    }
+                }
+
+            }
+
+            /**
+             * 识别回调错误.
+             */
+            public void onError(SpeechError error) {
+                ToastUtil.showMessage(MyApplication.mApplication,error.getPlainDescription(true));
+
+            }
+
+        };
+
+        // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
+        // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
+        mIatDialog = new RecognizerDialog(context, mInitListener);
+        mIatDialog.setListener(mRecognizerDialogListener);
+        voiceInputIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initPremissions(appCompatActivity,mIatDialog);
+            }
+        });
 
 
         MixedTimePicker datePicker = new MixedTimePicker.Builder(context, MixedTimePicker.TYPE_DATE, new MixedTimePicker.OnTimeSelectListener() {
@@ -339,6 +413,30 @@ public class DialogUtils {
         dialog.setCanceledOnTouchOutside(true);
         return dialog;
     }
+
+    @SuppressLint("CheckResult")
+    public static void initPremissions(FragmentActivity activity , RecognizerDialog mIatDialog) {
+        RxPermissions rxPermissions = new RxPermissions(activity);
+        rxPermissions.request(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean granted) throws Exception {
+                        if (granted) {
+                            if(mIatDialog.isShowing()){
+                                mIatDialog.dismiss();
+                            }
+                            mIatDialog.show();
+                            ToastUtil.showMessage(MyApplication.mApplication,"请开始说话…");
+
+                        } else {
+                            ToastUtil.showMessage(MyApplication.mApplication,"请开启录音需要的权限");
+
+                        }
+                    }
+                });
+
+    }
+
 
     public static String modelType = "";
 

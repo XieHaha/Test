@@ -73,30 +73,47 @@
         android:textColor="#999999"
         android:textSize="@dimen/font_size_primary" />
 
-    <com.keydom.ih_common.view.InterceptorEditText
-        android:id="@+id/dialog_input"
+    <RelativeLayout
+        android:id="@+id/nurse_service_confirm_dialog_layout_input_root_rl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_96"
         android:layout_below="@id/dialog_service_material_tip_tv"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/padding_left_right_dp"
         android:layout_marginTop="@dimen/dp_17"
-        android:maxLength="50"
-        android:layout_marginRight="@dimen/padding_left_right_dp"
-        android:background="@drawable/check_dialog_input_bg"
-        android:gravity="left|top"
-        android:hint="请输入需携带的器材与耗材"
-        android:textCursorDrawable="@null"
-        android:padding="@dimen/dp_13"
-        android:singleLine="false"
-        android:textColor="@color/edit_font_color"
-        android:textSize="@dimen/font_size_primary" />
+        android:layout_marginRight="@dimen/padding_left_right_dp">
+
+        <com.keydom.ih_common.view.InterceptorEditText
+            android:id="@+id/dialog_input"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_96"
+            android:background="@drawable/check_dialog_input_bg"
+            android:gravity="left|top"
+            android:hint="请输入需携带的器材与耗材"
+            android:maxLength="50"
+            android:padding="@dimen/dp_13"
+            android:singleLine="false"
+            android:textColor="@color/edit_font_color"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/font_size_primary" />
+
+        <ImageView
+            android:id="@+id/nurse_service_confirm_dialog_layout_voice_input_iv"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:src="@drawable/im_voice_toggle_selector" />
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/dialog_submit"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_42"
-        android:layout_below="@id/dialog_input"
+        android:layout_below="@id/nurse_service_confirm_dialog_layout_input_root_rl"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/padding_left_right_dp"
         android:layout_marginTop="@dimen/dp_24"

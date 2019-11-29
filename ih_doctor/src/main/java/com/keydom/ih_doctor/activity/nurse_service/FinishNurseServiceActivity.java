@@ -1,5 +1,7 @@
 package com.keydom.ih_doctor.activity.nurse_service;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -7,16 +9,25 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.iflytek.cloud.ErrorCode;
+import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.ui.RecognizerDialog;
+import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.ToastUtil;
@@ -32,6 +43,8 @@ import com.keydom.ih_doctor.bean.MaterialBean;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
 import com.keydom.ih_doctor.constant.EventType;
+import com.keydom.ih_doctor.utils.JsonUtils;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -43,6 +56,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * @Name：com.keydom.ih_doctor.activity
@@ -76,6 +91,53 @@ public class FinishNurseServiceActivity extends BaseControllerActivity<FinishNur
     private List<DetailEquipment> detailEquipments = new ArrayList<>();
     private List<MaterialBean> materialBeans = new ArrayList<>();
     private Map<String, Boolean> checkMap = new HashMap<>();
+
+    private ImageView mVoiceInputIv;
+
+    // 语音听写UI
+    private RecognizerDialog mIatDialog;
+
+    /**
+     * 初始化监听器。
+     */
+    private InitListener mInitListener = new InitListener() {
+
+        @Override
+        public void onInit(int code) {
+
+            if (code != ErrorCode.SUCCESS) {
+                Log.e("xunfei","初始化失败，错误码：" + code+",请点击网址https://www.xfyun.cn/document/error-code查询解决方案");
+            }
+        }
+    };
+
+    /**
+     * 听写UI监听器
+     */
+    private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
+        public void onResult(RecognizerResult results, boolean isLast) {
+            if(null != currentNurseServiceInput){
+                String text = JsonUtils.handleXunFeiJson(results);
+                if(TextUtils.isEmpty(currentNurseServiceInput.getText().toString())){
+                    currentNurseServiceInput.setText(text);
+                    currentNurseServiceInput.setSelection(currentNurseServiceInput.getText().length());
+                }else{
+                    currentNurseServiceInput.setText(currentNurseServiceInput.getText().toString() + text);
+                    currentNurseServiceInput.setSelection(currentNurseServiceInput.getText().length());
+                }
+            }
+
+        }
+
+        /**
+         * 识别回调错误.
+         */
+        public void onError(SpeechError error) {
+            ToastUtil.showMessage(MyApplication.mApplication,error.getPlainDescription(true));
+
+        }
+
+    };
 
 
     /**
@@ -119,6 +181,42 @@ public class FinishNurseServiceActivity extends BaseControllerActivity<FinishNur
         } else {
             nextVisitRl.setVisibility(View.GONE);
         }
+
+
+        mVoiceInputIv = this.findViewById(R.id.finish_nurse_service_voice_input_iv);
+        // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
+        // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
+        mIatDialog = new RecognizerDialog(this, mInitListener);
+        mIatDialog.setListener(mRecognizerDialogListener);
+        mVoiceInputIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initPremissions();
+            }
+        });
+    }
+
+    @SuppressLint("CheckResult")
+    public void initPremissions() {
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean granted) throws Exception {
+                        if (granted) {
+                            if(mIatDialog.isShowing()){
+                                mIatDialog.dismiss();
+                            }
+                            mIatDialog.show();
+                            ToastUtil.showMessage(MyApplication.mApplication,"请开始说话…");
+
+                        } else {
+                            ToastUtil.showMessage(MyApplication.mApplication,"请开启录音需要的权限");
+
+                        }
+                    }
+                });
+
     }
 
     private void initAdapter() {
