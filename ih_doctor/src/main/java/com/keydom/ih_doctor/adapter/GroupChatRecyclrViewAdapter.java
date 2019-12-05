@@ -11,13 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.ToastUtils;
-import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.model.event.RecentContactEvent;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.doctor_cooperation.UpdateGroupInfoActivity;
+import com.keydom.ih_doctor.activity.im.DoctorTeamChatActivity;
 import com.keydom.ih_doctor.activity.patient_manage.NewGroupChatActivity;
 import com.keydom.ih_doctor.bean.GroupInfoBean;
 import com.keydom.ih_doctor.constant.Const;
@@ -91,7 +90,8 @@ public class GroupChatRecyclrViewAdapter extends BaseEmptyAdapter<Team> {
                 @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
-                    ImClient.startTeamChart(mContext, team.getId(), null);
+                    DoctorTeamChatActivity.startTeamChat(mContext, team.getId());
+                    //ImClient.startTeamChart(mContext, team.getId(), null);
                 }
             });
             if (!Const.CHECK_AND_ACCEP) {

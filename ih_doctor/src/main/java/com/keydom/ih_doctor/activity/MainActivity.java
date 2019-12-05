@@ -32,6 +32,7 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.controller.MainController;
+import com.keydom.ih_doctor.activity.im.DoctorTeamChatActivity;
 import com.keydom.ih_doctor.activity.my_message.MyMessageActivity;
 import com.keydom.ih_doctor.activity.personal.MyServiceActivity;
 import com.keydom.ih_doctor.activity.personal.PersonalInfoActivity;
@@ -265,7 +266,8 @@ public class MainActivity extends AppCompatActivity {
                     ImClient.startConversation(this, messages.get(0).getSessionId(), bundle);
                     break;
                 case Team:
-                    ImClient.startTeamChart(this, messages.get(0).getSessionId(), null);
+                    //ImClient.startTeamChart(this, messages.get(0).getSessionId(), null);
+                    DoctorTeamChatActivity.startTeamChat(this, messages.get(0).getSessionId());
                     break;
                 default:
             }

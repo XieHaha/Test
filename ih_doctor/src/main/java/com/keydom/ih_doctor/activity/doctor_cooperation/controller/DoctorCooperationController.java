@@ -21,6 +21,7 @@ import com.keydom.ih_doctor.activity.doctor_cooperation.FillOutApplyActivity;
 import com.keydom.ih_doctor.activity.doctor_cooperation.GroupMemberActivity;
 import com.keydom.ih_doctor.activity.doctor_cooperation.UpdateGroupInfoActivity;
 import com.keydom.ih_doctor.activity.doctor_cooperation.view.DoctorCooperationView;
+import com.keydom.ih_doctor.activity.im.DoctorTeamChatActivity;
 import com.keydom.ih_doctor.bean.GroupInfoBean;
 import com.keydom.ih_doctor.bean.GroupInfoRes;
 import com.keydom.ih_doctor.constant.TypeEnum;
@@ -78,7 +79,8 @@ public class DoctorCooperationController extends ControllerImpl<DoctorCooperatio
                 }
                 Bundle bundle = new Bundle();
                 bundle.putString("teamName", bean.getGroupName());
-                ImClient.startTeamChart(getContext(), bean.getTid(), bundle);
+                DoctorTeamChatActivity.startTeamChat(getContext(), bean.getTid());
+                //ImClient.startTeamChart(getContext(), bean.getTid(), bundle);
                 ImClient.clearUnreadCount( bean.getTid(), SessionTypeEnum.Team);
                 getView().showOrHideGroupExchangeRedPoint(false);
                 break;

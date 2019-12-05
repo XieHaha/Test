@@ -14,6 +14,7 @@ import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_doctor.R;
+import com.keydom.ih_doctor.activity.im.DoctorTeamChatActivity;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.utils.CalculateTimeUtils;
 import com.netease.nimlib.sdk.NIMClient;
@@ -122,7 +123,8 @@ public class FriendMsgRecyclrViewAdapter extends BaseEmptyAdapter<RecentContact>
                 public void onClick(View v) {
                     if (mDatas.get(position).getSessionType() == SessionTypeEnum.Team) {
                         chatNum.setVisibility(View.GONE);
-                        ImClient.startTeamChart(mContext, mDatas.get(position).getContactId(), null);
+                        DoctorTeamChatActivity.startTeamChat(mContext, mDatas.get(position).getContactId());
+                        //ImClient.startTeamChart(mContext, mDatas.get(position).getContactId(), null);
                     } else if (mDatas.get(position).getSessionType() == SessionTypeEnum.P2P) {
                         chatNum.setVisibility(View.GONE);
                         Bundle bundle = new Bundle();
