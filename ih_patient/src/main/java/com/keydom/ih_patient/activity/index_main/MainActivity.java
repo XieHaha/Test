@@ -38,6 +38,7 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.controller.MainController;
+import com.keydom.ih_patient.activity.im.PatientTeamChatActivity;
 import com.keydom.ih_patient.activity.index_main.Controller.IndexMainController;
 import com.keydom.ih_patient.activity.index_main.view.IndexMainView;
 import com.keydom.ih_patient.activity.login.LoginActivity;
@@ -416,7 +417,8 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                     ImClient.startConversation(this, messages.get(0).getSessionId(), bundle);
                     break;
                 case Team:
-                    ImClient.startTeamChart(this, messages.get(0).getSessionId(), null);
+                    PatientTeamChatActivity.startTeamChat(this, messages.get(0).getSessionId());
+                    //ImClient.startTeamChart(this, messages.get(0).getSessionId(), null);
                     break;
                 default:
             }

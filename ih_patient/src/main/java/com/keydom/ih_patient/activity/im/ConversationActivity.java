@@ -88,6 +88,7 @@ import com.keydom.ih_patient.utils.CommUtil;
 import com.keydom.ih_patient.utils.DataCacheUtil;
 import com.keydom.ih_patient.utils.GotoActivityUtil;
 import com.keydom.ih_patient.utils.SelectDialogUtils;
+import com.keydom.ih_patient.view.im_plugin.VoiceInputPlugin;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
@@ -300,6 +301,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     String payWaiType = Type.ALIPAY;
     List<PrescriptionItemEntity> drugs = new ArrayList<>();
 
+    private VoiceInputPlugin mVoiceInputPlugin;
 
     @Override
     protected void onResume() {
@@ -503,6 +505,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mBackImage.setOnClickListener(this);
         mRightText.setOnClickListener(this);
         mRightText2.setOnClickListener(this);
+
+        mVoiceInputPlugin = new VoiceInputPlugin(this);
+        mMessageView.addPlugin(mVoiceInputPlugin);
     }
 
 

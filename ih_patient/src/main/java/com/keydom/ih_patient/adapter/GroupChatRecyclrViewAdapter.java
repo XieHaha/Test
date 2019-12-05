@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.model.event.RecentContactEvent;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_patient.R;
+import com.keydom.ih_patient.activity.im.PatientTeamChatActivity;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
 import com.netease.nimlib.sdk.team.model.Team;
@@ -76,7 +76,8 @@ public class GroupChatRecyclrViewAdapter extends BaseEmptyAdapter<Team> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ImClient.startTeamChart(mContext, team.getId(), null);
+                    PatientTeamChatActivity.startTeamChat(mContext, team.getId());
+                    //ImClient.startTeamChart(mContext, team.getId(), null);
                 }
             });
             /*if (!Const.CHECK_AND_ACCEP) {

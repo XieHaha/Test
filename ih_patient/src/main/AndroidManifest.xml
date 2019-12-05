@@ -298,7 +298,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.keydom.ih_common.im.activity.TeamChatActivity"
+            android:name=".activity.im.PatientTeamChatActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
