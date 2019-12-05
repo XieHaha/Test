@@ -1,4 +1,4 @@
-package com.keydom.ih_common.im.activity;
+package com.keydom.ih_doctor.activity.im;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,17 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.keydom.ih_common.R;
-import com.keydom.ih_common.base.BaseActivity;
 import com.keydom.ih_common.im.ImClient;
+import com.keydom.ih_common.im.activity.TeamChatActivity;
 import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.im.listener.IConversationBehaviorListener;
 import com.keydom.ih_common.im.model.ImMessageConstant;
-import com.keydom.ih_common.im.widget.ImMessageView;
 import com.keydom.ih_common.im.widget.plugin.EmojiPlugin;
 import com.keydom.ih_common.utils.SharePreferenceManager;
-import com.netease.nimlib.sdk.NIMClient;
-import com.netease.nimlib.sdk.msg.MsgService;
+import com.keydom.ih_doctor.R;
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
@@ -25,28 +22,8 @@ import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 
 import org.jetbrains.annotations.Nullable;
 
-public class TeamChatActivity extends BaseActivity {
+public class DoctorTeamChatActivity extends TeamChatActivity {
 
-    protected ImMessageView mMessageView;
-
-    protected String teamName = "";
-
-    @Override
-    public int getLayoutRes() {
-        return R.layout.activity_team_chat;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        NIMClient.getService(MsgService.class).setChattingAccount(MsgService.MSG_CHATTING_ACCOUNT_ALL, SessionTypeEnum.None);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        NIMClient.getService(MsgService.class).setChattingAccount(MsgService.MSG_CHATTING_ACCOUNT_NONE, SessionTypeEnum.None);
-    }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
@@ -58,6 +35,8 @@ public class TeamChatActivity extends BaseActivity {
         initListener();
     }
 
+
+
     private void initListener() {
         mMessageView.setOnConversationBehaviorListener(new IConversationBehaviorListener() {
             @Override
@@ -66,7 +45,7 @@ public class TeamChatActivity extends BaseActivity {
                     if (message.getDirect() == MsgDirectionEnum.Out) {
                         Intent intent = new Intent("com.keydom.ih_patient.activity.user_info_operate.UserInfoOperateActivity");
                         intent.putExtra("type", "read_type");
-                       startActivity(intent);
+                        startActivity(intent);
                     }else {
                         NimUserInfo patientInfo = (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(message.getFromAccount());
                         if ((ImMessageConstant.DOCTOR).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))){
@@ -127,11 +106,4 @@ public class TeamChatActivity extends BaseActivity {
 
         }
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mMessageView.onActivityPluginResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
 }

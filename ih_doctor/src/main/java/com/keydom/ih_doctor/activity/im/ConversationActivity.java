@@ -74,6 +74,7 @@ import com.keydom.ih_doctor.constant.ServiceConst;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 import com.keydom.ih_doctor.net.DiagnoseApiService;
 import com.keydom.ih_doctor.view.FixHeightBottomSheetDialog;
+import com.keydom.ih_doctor.view.im_plugin.VoiceInputPlugin;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
@@ -170,6 +171,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private VideoPlugin mVideoPlugin;
     private EndInquiryPlugin mEndInquiryPlugin;
     private UserFollowUpPlugin mUserFollowUpPlugin;
+    private VoiceInputPlugin mVoiceInputPlugin;
 
     @Override
     protected void onResume() {
@@ -455,6 +457,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             }
         });
         //mMessageView.addPlugin(mUserFollowUpPlugin);
+
+        mVoiceInputPlugin = new VoiceInputPlugin(this);
+        mMessageView.addPlugin(mVoiceInputPlugin);
     }
 
 

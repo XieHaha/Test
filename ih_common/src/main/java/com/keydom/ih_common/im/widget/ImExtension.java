@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -29,6 +30,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.R;
+import com.keydom.ih_common.event.VoiceInputEvent;
 import com.keydom.ih_common.im.adapter.PluginAdapter;
 import com.keydom.ih_common.im.emoji.EmojiAdapter;
 import com.keydom.ih_common.im.emoji.EmojiBean;
@@ -44,6 +46,10 @@ import com.keydom.ih_common.im.widget.plugin.ImagePlugin;
 import com.luck.picture.lib.PictureSelector;
 import com.netease.nimlib.sdk.media.record.IAudioRecordCallback;
 import com.netease.nimlib.sdk.media.record.RecordType;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -272,6 +278,9 @@ public class ImExtension extends LinearLayout {
     }
 
     private void initListener() {
+
+        EventBus.getDefault().register(this);
+
         mVoiceToggle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -405,6 +414,20 @@ public class ImExtension extends LinearLayout {
                 }
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(VoiceInputEvent voiceInputEvent) {
+        if(null != voiceInputEvent && !TextUtils.isEmpty(voiceInputEvent.getVoiceStr())){
+            if(TextUtils.isEmpty(mEditText.getText().toString())){
+                mEditText.setText(voiceInputEvent.getVoiceStr());
+                mEditText.setSelection(mEditText.getText().length());
+            }else{
+                mEditText.setText(mEditText.getText().toString() + voiceInputEvent.getVoiceStr());
+                mEditText.setSelection(mEditText.getText().length());
+            }
+
+        }
     }
 
     private void initCallback() {
@@ -628,6 +651,7 @@ public class ImExtension extends LinearLayout {
     }
 
     public void onDestroy() {
+        EventBus.getDefault().unregister(this);
         if (AudioRecorderManager.getInstance().getAudioRecorder() != null) {
             AudioRecorderManager.getInstance().getAudioRecorder().destroyAudioRecorder();
         }
