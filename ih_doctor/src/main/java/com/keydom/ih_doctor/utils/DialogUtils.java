@@ -38,6 +38,7 @@ import com.keydom.ih_doctor.m_interface.OnModelAndCaseDialogListener;
 import com.keydom.ih_doctor.m_interface.OnModelDialogListener;
 import com.keydom.ih_doctor.m_interface.OnNurseResultListener;
 import com.keydom.ih_doctor.m_interface.OnSelectRoleListener;
+import com.keydom.ih_doctor.view.CustomRecognizerDialog;
 import com.keydom.ih_doctor.view.CustomTopBar;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -280,7 +281,7 @@ public class DialogUtils {
         final Map<String, Object> map = new HashMap<>();
 
         // 语音听写UI
-        RecognizerDialog mIatDialog;
+        CustomRecognizerDialog mIatDialog;
 
         /**
          * 初始化监听器。
@@ -326,7 +327,7 @@ public class DialogUtils {
 
         // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
-        mIatDialog = new RecognizerDialog(context, mInitListener);
+        mIatDialog = new CustomRecognizerDialog(context, mInitListener);
         mIatDialog.setListener(mRecognizerDialogListener);
         voiceInputIv.setOnClickListener(new View.OnClickListener() {
             @Override

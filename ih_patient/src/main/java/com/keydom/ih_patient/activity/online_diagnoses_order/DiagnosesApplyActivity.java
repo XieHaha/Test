@@ -17,7 +17,6 @@ import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.constant.Const;
@@ -40,6 +39,7 @@ import com.keydom.ih_patient.bean.MedicalCardInfo;
 import com.keydom.ih_patient.bean.PayOrderBean;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.utils.JsonUtils;
+import com.keydom.ih_patient.view.CustomRecognizerDialog;
 import com.keydom.ih_patient.view.DiagnosesApplyDialog;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -92,7 +92,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
     private ImageView mVoiceInputIv;
 
     // 语音听写UI
-    private RecognizerDialog mIatDialog;
+    private CustomRecognizerDialog mIatDialog;
 
     /**
      * 初始化监听器。
@@ -217,7 +217,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
 
         // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
-        mIatDialog = new RecognizerDialog(this, mInitListener);
+        mIatDialog = new CustomRecognizerDialog(this, mInitListener);
         mIatDialog.setListener(mRecognizerDialogListener);
         mVoiceInputIv.setOnClickListener(new View.OnClickListener() {
             @Override

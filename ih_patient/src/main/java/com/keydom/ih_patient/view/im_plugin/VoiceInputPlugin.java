@@ -16,7 +16,6 @@ import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.keydom.ih_common.event.VoiceInputEvent;
 import com.keydom.ih_common.im.listener.IPluginModule;
@@ -25,6 +24,7 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.utils.JsonUtils;
+import com.keydom.ih_patient.view.CustomRecognizerDialog;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,7 +36,7 @@ public class VoiceInputPlugin implements IPluginModule {
     private boolean permissionsResult;
 
     // 语音听写UI
-    private RecognizerDialog mIatDialog;
+    private CustomRecognizerDialog mIatDialog;
 
 
     /**
@@ -77,7 +77,7 @@ public class VoiceInputPlugin implements IPluginModule {
 
 
     public VoiceInputPlugin(Context context) {
-        mIatDialog = new RecognizerDialog(context, mInitListener);
+        mIatDialog = new CustomRecognizerDialog(context, mInitListener);
         mIatDialog.setListener(mRecognizerDialogListener);
 
     }
