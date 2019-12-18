@@ -36,7 +36,7 @@ public interface OrderService {
      * 获取全部预约
      */
     @GET("reservation/inspectAppointment/findAppointmentAll")
-    Observable<HttpResult<List<ExaminationInfo>>> findAppointmentAll(@QueryMap Map<String, Object> body);
+    Observable<HttpResult<PageBean<ExaminationInfo>>> findAppointmentAll(@QueryMap Map<String, Object> body);
 
     /**
      * 根据医院查找地区id

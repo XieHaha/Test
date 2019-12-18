@@ -13,11 +13,13 @@ import com.keydom.ih_patient.adapter.OrderAdapter;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.ExaminationInfo;
 import com.keydom.ih_patient.constant.EventType;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.fragment.controller.OrderExaController;
 import com.keydom.ih_patient.fragment.view.OrderExaView;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
@@ -54,10 +56,17 @@ public class OrderExaFragment extends BaseControllerFragment<OrderExaController>
         containtRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                getController().QueryAllAppointment();
+                getController().QueryAllAppointment(TypeEnum.REFRESH);
             }
         });
-        containtRefresh.setEnableLoadMore(false);
+        containtRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                getController().QueryAllAppointment(TypeEnum.LOAD_MORE);
+            }
+        });
+        containtRefresh.setEnableRefresh(true);
+        containtRefresh.setEnableLoadMore(true);
         containRv=view.findViewById(R.id.containt_rv);
         orderAdapter=new OrderAdapter((OrderExaminationActivity) getActivity(),dataList);
         containRv.setAdapter(orderAdapter);
@@ -68,7 +77,7 @@ public class OrderExaFragment extends BaseControllerFragment<OrderExaController>
     @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
     public void uploadExamination(Event event){
         if(EventType.UPLOADEXAMINATION==event.getType()){
-            getController().QueryAllAppointment();
+            getController().QueryAllAppointment(TypeEnum.REFRESH);
         }
     }
     @Override
@@ -76,26 +85,38 @@ public class OrderExaFragment extends BaseControllerFragment<OrderExaController>
         super.onResume();
     }
     @Override
-    public void fillExaminationList(List<ExaminationInfo> dataList) {
+    public void fillExaminationList(List<ExaminationInfo> dataList, TypeEnum typeEnum) {
+        containtRefresh.finishLoadMore();
         containtRefresh.finishRefresh();
         if(dataList!=null&&dataList.size()!=0){
             if(containtRefresh.getVisibility()==View.GONE){
                 containtRefresh.setVisibility(View.VISIBLE);
                 state_retry2.setVisibility(View.GONE);
             }
-            this.dataList.clear();
-            this.dataList.addAll(dataList);
-            orderAdapter.notifyDataSetChanged();
+            if (typeEnum == TypeEnum.REFRESH) {
+                this.dataList.clear();
+                this.dataList.addAll(dataList);
+                orderAdapter.notifyDataSetChanged();
+            } else {
+                this.dataList.addAll(dataList);
+                orderAdapter.notifyDataSetChanged();
+            }
+            getController().currentPagePlus();
+            pageLoadingSuccess();
         } else {
-            containtRefresh.setVisibility(View.GONE);
-            state_retry2.setVisibility(View.VISIBLE);
-            empty_text.setText("暂无预约完成项目，请先前往预约");
+
+            if (typeEnum == TypeEnum.REFRESH) {
+                containtRefresh.setVisibility(View.GONE);
+                state_retry2.setVisibility(View.VISIBLE);
+                empty_text.setText("暂无预约完成项目，请先前往预约");
+            }
         }
 
     }
 
     @Override
     public void fillExaminationListFailed(String errMsg) {
+        containtRefresh.finishLoadMore();
         containtRefresh.finishRefresh();
         if(containtRefresh.getVisibility()==View.VISIBLE){
             containtRefresh.setVisibility(View.GONE);
@@ -107,7 +128,7 @@ public class OrderExaFragment extends BaseControllerFragment<OrderExaController>
                 state_retry2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        getController().QueryAllAppointment();
+                        getController().QueryAllAppointment(TypeEnum.REFRESH);
                     }
                 });
             }
