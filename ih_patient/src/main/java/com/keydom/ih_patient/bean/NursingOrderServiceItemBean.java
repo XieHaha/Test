@@ -24,6 +24,16 @@ public class NursingOrderServiceItemBean implements MultiItemEntity{
     private boolean isTop;
     private boolean isBottom;
 
+    private String qualificationsCard;
+
+    public String getQualificationsCard() {
+        return qualificationsCard;
+    }
+
+    public void setQualificationsCard(String qualificationsCard) {
+        this.qualificationsCard = qualificationsCard;
+    }
+
     public boolean isTop() {
         return isTop;
     }

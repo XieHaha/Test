@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_patient.R;
+import com.keydom.ih_patient.activity.common_document.CommonDocumentActivity;
 import com.keydom.ih_patient.bean.NursingOrderService2Bean;
 import com.keydom.ih_patient.bean.NursingOrderService3Bean;
 import com.keydom.ih_patient.bean.NursingOrderServiceBean;
@@ -114,7 +115,16 @@ public class NursingOrderServiceAdapter extends BaseMultiItemQuickAdapter<MultiI
                 helper.setText(R.id.mark, mark)
                         .setText(R.id.content, StringUtils.isEmpty(serviceItemBean.getContent())?"":serviceItemBean.getContent())
                         .setText(R.id.time, serviceItemBean.getAcceptTime()+"")
-                        .setGone(R.id.img_group, serviceItemBean.getUserImage() != null);
+                        .setGone(R.id.img_group, serviceItemBean.getUserImage() != null)
+                        .setOnClickListener(R.id.mark, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(!StringUtils.isEmpty(serviceItemBean.getQualificationsCard())){
+                                    CommonDocumentActivity.start(mContext,StringUtils.isEmpty(serviceItemBean.getMark()) ? "" : serviceItemBean.getMark(),serviceItemBean.getQualificationsCard());
+                                }
+
+                            }
+                        });
                 break;
 
             case TYPE_LEVEL_2:
