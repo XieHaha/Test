@@ -60,6 +60,7 @@ public class MyRealNameCertifyActivity extends BaseControllerActivity<MyRealName
         idCardEt = this.findViewById(R.id.id_card_et);
         getIdentifyingCodeBt = this.findViewById(R.id.get_identifying_code_bt);
         getIdentifyingCodeBt.setOnClickListener(getController());
+        phoneEt.setText(SharePreferenceManager.getPhoneNumber());
     }
 
     @Override
