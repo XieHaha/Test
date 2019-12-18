@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.common_document.controller.CommonDocumentController;
 import com.keydom.ih_patient.activity.common_document.view.CommonDocumentView;
@@ -67,7 +68,12 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
             mWebView.setVisibility(View.VISIBLE);
             mDecTv.setVisibility(View.GONE);
             setTitle(title);
-            loadUrl(url);
+            if(!url.startsWith("http")){
+                loadUrl(Const.RELEASE_HOST + url);
+            }else{
+                loadUrl(url);
+            }
+
         }else{
             switch (code){
                 case CommonDocumentBean.CODE_1:
