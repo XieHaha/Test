@@ -60,4 +60,7 @@
     <color name="bg_line">#F5F5F5</color>
     <color name="xia_green_line">#ff22e17e</color>
     <color name="xia_gray_line">#ff22e17e</color>
+
+    <!--mian yang hospital-->
+    <color name="index_top_text">#924e0a</color>
 </resources>
