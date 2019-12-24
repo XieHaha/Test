@@ -13,6 +13,7 @@ import com.keydom.ih_patient.net.OrderService;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +36,11 @@ public class OrderExaController extends ControllerImpl<OrderExaView> {
             }
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                getView().fillExaminationListFailed(msg);
+                if(300 == code){
+                    getView().fillExaminationList(new ArrayList<>(),typeEnum);
+                }else{
+                    getView().fillExaminationListFailed(msg);
+                }
                 return super.requestError(exception, code, msg);
             }
         });
