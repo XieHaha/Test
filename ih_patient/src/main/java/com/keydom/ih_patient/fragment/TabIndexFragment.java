@@ -72,6 +72,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     private LayoutInflater mLayountInflater;
     private XBanner indexFirstBanner, indexSecondBanner, indexNoticeBanner, indexNewArticleBanner;
     private RecyclerView indexFunctionRv;
+    private RecyclerView mFirstVIPRv;
+    private RecyclerView mSecondVIPRv;
     private IndexFunctionAdapter indexFunctionAdapter;
     private LinearLayout locationLayout, searchLayout, qrLayout, healthZoneLayout, titleLayout;
     private TextView locationTv, new_article_title_tv, new_article_readernum_tv;
@@ -138,12 +140,30 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         searchEdt.setOnClickListener(getController());
         indexFirstBanner = view.findViewById(R.id.index_first_banner);
         indexFunctionRv = view.findViewById(R.id.index_function_rv);
+        mFirstVIPRv = view.findViewById(R.id.fragment_tab_index_first_vip_rv);
+        mSecondVIPRv = view.findViewById(R.id.fragment_tab_index_second_vip_rv);
         new_article_title_tv = view.findViewById(R.id.new_article_title_tv);
         new_article_readernum_tv = view.findViewById(R.id.new_article_readernum_tv);
+
         indexFunctionRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
         indexFunctionRv.addItemDecoration(new FunctionRvItemDecoration(70, 30));
         indexFunctionAdapter = new IndexFunctionAdapter(getContext(), datalist);
         indexFunctionRv.setAdapter(indexFunctionAdapter);
+        indexFunctionRv.setNestedScrollingEnabled(false);
+
+        mFirstVIPRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        mFirstVIPRv.addItemDecoration(new FunctionRvItemDecoration(70, 30));
+        //indexFunctionAdapter = new IndexFunctionAdapter(getContext(), datalist);
+        mFirstVIPRv.setAdapter(indexFunctionAdapter);
+        mFirstVIPRv.setNestedScrollingEnabled(false);
+
+
+        mSecondVIPRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        mSecondVIPRv.addItemDecoration(new FunctionRvItemDecoration(70, 30));
+        //indexFunctionAdapter = new IndexFunctionAdapter(getContext(), datalist);
+        mSecondVIPRv.setAdapter(indexFunctionAdapter);
+        mSecondVIPRv.setNestedScrollingEnabled(false);
+
         indexSecondBanner = view.findViewById(R.id.index_second_banner);
         indexNoticeBanner = view.findViewById(R.id.index_notice_xbanner);
         indexNewArticleBanner = view.findViewById(R.id.new_article_banner);
