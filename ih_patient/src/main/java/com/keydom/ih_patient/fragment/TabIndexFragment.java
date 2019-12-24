@@ -75,10 +75,14 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     private RecyclerView mFirstVIPRv;
     private RecyclerView mSecondVIPRv;
     private IndexFunctionAdapter indexFunctionAdapter;
+    private IndexFunctionAdapter mFirstVIPFunctionAdapter;
+    private IndexFunctionAdapter mSecondVIPFunctionAdapter;
     private LinearLayout locationLayout, searchLayout, qrLayout, healthZoneLayout, titleLayout;
     private TextView locationTv, new_article_title_tv, new_article_readernum_tv;
     private TextView searchEdt, empty_text, more_tv;
     private List<IndexFunction> datalist = new ArrayList<>();
+    private List<IndexFunction> mFirstVIPDatas = new ArrayList<>();
+    private List<IndexFunction> mSecondVIPDatas = new ArrayList<>();
     private RelativeLayout topHealthRl, empty_layout;
 
     private List<HospitalAreaInfo> hospitalListFromService = new ArrayList<>();
@@ -96,6 +100,34 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     private int unFinishInspect = 0;
     private int page=1;
     private TextView index_footer;
+
+
+    public void initVipFunction(){
+
+        mFirstVIPDatas.add(new IndexFunction(2131493053,"产后康复"));
+        mFirstVIPDatas.add(new IndexFunction(2131493053,"羊水穿刺预约"));
+        mFirstVIPDatas.add(new IndexFunction(2131493053,"孕妇学校"));
+        mFirstVIPDatas.add(new IndexFunction(2131493053,"无痛分娩预约"));
+        mFirstVIPDatas.add(new IndexFunction(2131493053,"产科住院预约"));
+        mFirstVIPDatas.add(new IndexFunction(2131493053,"儿童保健"));
+
+        mSecondVIPDatas.add(new IndexFunction(2131493053,"健康管理"));
+        mSecondVIPDatas.add(new IndexFunction(2131493053,"健康档案"));
+        mSecondVIPDatas.add(new IndexFunction(2131493053,"病案邮寄"));
+
+        mFirstVIPRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        mFirstVIPRv.addItemDecoration(new FunctionRvItemDecoration(70, 30));
+        mFirstVIPFunctionAdapter = new IndexFunctionAdapter(getContext(), mFirstVIPDatas);
+        mFirstVIPRv.setAdapter(mFirstVIPFunctionAdapter);
+        mFirstVIPRv.setNestedScrollingEnabled(false);
+
+
+        mSecondVIPRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        mSecondVIPRv.addItemDecoration(new FunctionRvItemDecoration(70, 30));
+        mSecondVIPFunctionAdapter = new IndexFunctionAdapter(getContext(), mSecondVIPDatas);
+        mSecondVIPRv.setAdapter(mSecondVIPFunctionAdapter);
+        mSecondVIPRv.setNestedScrollingEnabled(false);
+    }
 
 
     @Override
@@ -150,19 +182,6 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         indexFunctionAdapter = new IndexFunctionAdapter(getContext(), datalist);
         indexFunctionRv.setAdapter(indexFunctionAdapter);
         indexFunctionRv.setNestedScrollingEnabled(false);
-
-        mFirstVIPRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
-        mFirstVIPRv.addItemDecoration(new FunctionRvItemDecoration(70, 30));
-        //indexFunctionAdapter = new IndexFunctionAdapter(getContext(), datalist);
-        mFirstVIPRv.setAdapter(indexFunctionAdapter);
-        mFirstVIPRv.setNestedScrollingEnabled(false);
-
-
-        mSecondVIPRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
-        mSecondVIPRv.addItemDecoration(new FunctionRvItemDecoration(70, 30));
-        //indexFunctionAdapter = new IndexFunctionAdapter(getContext(), datalist);
-        mSecondVIPRv.setAdapter(indexFunctionAdapter);
-        mSecondVIPRv.setNestedScrollingEnabled(false);
 
         indexSecondBanner = view.findViewById(R.id.index_second_banner);
         indexNoticeBanner = view.findViewById(R.id.index_notice_xbanner);
@@ -603,6 +622,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
         }
 
+        initVipFunction();
     }
 
     @Override

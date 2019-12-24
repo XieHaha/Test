@@ -9,6 +9,15 @@ import java.io.Serializable;
  */
 public class IndexFunction implements Serializable {
     private static final long serialVersionUID = 4885467120119438003L;
+
+    public IndexFunction() {
+    }
+
+    public IndexFunction(int functionIcon, String name) {
+        this.functionIcon = functionIcon;
+        this.name = name;
+    }
+
     private int functionIcon;
     private boolean isSelected;
     @JSONField(name = "id")
