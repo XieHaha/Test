@@ -11,6 +11,7 @@ import com.keydom.ih_patient.activity.index_main.MainActivity;
 import com.keydom.ih_patient.adapter.ViewPagerAdapter;
 import com.keydom.ih_patient.fragment.TabDiagnoseFragment;
 import com.keydom.ih_patient.fragment.TabIndexFragment;
+import com.keydom.ih_patient.fragment.TabMemberFragment;
 import com.keydom.ih_patient.fragment.TabMineFragment;
 import com.keydom.ih_patient.fragment.TabNurseFragment;
 import com.keydom.ih_patient.view.MainView;
@@ -34,6 +35,7 @@ public class MainController implements View.OnClickListener,ViewPager.OnPageChan
     private TabDiagnoseFragment tabDiagnoseFragment;
     private TabNurseFragment tabNurseFragment;
     private TabMineFragment tabMineFragment;
+    private TabMemberFragment tabMemberFragment;
 
     /**
      * 构造方法
@@ -71,20 +73,15 @@ public class MainController implements View.OnClickListener,ViewPager.OnPageChan
                 StatusBarUtils.setWindowStatusBarColor(mContext,R.color.primary_color);
                 mainView.setCurrentItem(0, false);
                 break;
-            case R.id.tab_diagnose:
+            case R.id.tab_member:
                 mContext.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
                 StatusBarUtils.setWindowStatusBarColor(mContext,R.color.primary_color);
                 mainView.setCurrentItem(1, false);
                 break;
-            case R.id.tab_nurse:
-                mContext.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                StatusBarUtils.setWindowStatusBarColor(mContext,R.color.primary_color);
-                mainView.setCurrentItem(2, false);
-                break;
             case R.id.tab_mine:
                 mContext.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
                 StatusBarUtils.setWindowStatusBarColor(mContext,R.color.mine_color);
-                mainView.setCurrentItem(3, false);
+                mainView.setCurrentItem(2, false);
                 break;
         }
     }
@@ -95,12 +92,11 @@ public class MainController implements View.OnClickListener,ViewPager.OnPageChan
     private void setViewPager() {
         final List<Fragment> fragments = new ArrayList<>();
         tabIndexFragment = new TabIndexFragment();
-        tabDiagnoseFragment = new TabDiagnoseFragment();
-        tabNurseFragment = new TabNurseFragment();
+        tabMemberFragment = new TabMemberFragment();
         tabMineFragment = new TabMineFragment();
+
         fragments.add(tabIndexFragment);
-        fragments.add(tabDiagnoseFragment);
-        fragments.add(tabNurseFragment);
+        fragments.add(tabMemberFragment);
         fragments.add(tabMineFragment);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(mContext.getSupportFragmentManager(),fragments);
         mainView.setViewPagerAdapter(viewPagerAdapter);

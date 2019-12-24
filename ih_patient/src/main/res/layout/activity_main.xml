@@ -35,20 +35,6 @@
 
             </FrameLayout>
 
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <Button
-                    android:id="@+id/tab_diagnose"
-                    style="@style/ActionBarItem"
-                    android:drawableTop="@drawable/tab_diagnose"
-                    android:drawablePadding="@dimen/dp_5"
-                    android:textSize="@dimen/dp_11"
-                    android:text="在线问诊"/>
-
-            </FrameLayout>
 
             <FrameLayout
                 android:layout_width="0dp"
@@ -56,12 +42,12 @@
                 android:layout_weight="1">
 
                 <Button
-                    android:id="@+id/tab_nurse"
+                    android:id="@+id/tab_member"
                     style="@style/ActionBarItem"
                     android:drawableTop="@drawable/tab_nurse"
                     android:drawablePadding="@dimen/dp_5"
                     android:textSize="@dimen/dp_11"
-                    android:text="护理服务"/>
+                    android:text="会员"/>
 
             </FrameLayout>
 

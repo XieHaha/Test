@@ -40,12 +40,29 @@ public class MainView extends RelativeLayout {
     /**
      * 初始化
      */
-    public void initModule() {
+/*    public void initModule() {
         mBtnListID = new int[] {
                 R.id.tab_index, R.id.tab_diagnose, R.id.tab_nurse, R.id.tab_mine
         };
         mBtnList = new Button[4];
         for (int i = 0; i < 4; i++) {
+            mBtnList[i] = (Button) findViewById(mBtnListID[i]);
+        }
+        mViewContainer = (ScrollControlViewPager) findViewById(R.id.viewpager);
+        mBtnList[0].setTextColor(getResources().getColor(R.color.tab_sel_color));
+        mBtnList[0].setSelected(true);
+    }*/
+
+
+    /**
+     * 初始化
+     */
+    public void initModule() {
+        mBtnListID = new int[] {
+                R.id.tab_index, R.id.tab_member, R.id.tab_mine
+        };
+        mBtnList = new Button[3];
+        for (int i = 0; i < mBtnList.length; i++) {
             mBtnList[i] = (Button) findViewById(mBtnListID[i]);
         }
         mViewContainer = (ScrollControlViewPager) findViewById(R.id.viewpager);
@@ -94,7 +111,7 @@ public class MainView extends RelativeLayout {
      * @param index
      */
     public void setButtonColor(int index) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < mBtnList.length; i++) {
             if (index == i) {
                 mBtnList[i].setSelected(true);
                 mBtnList[i].setTextColor(getResources().getColor(R.color.tab_sel_color));
