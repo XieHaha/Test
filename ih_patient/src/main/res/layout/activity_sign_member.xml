@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <LinearLayout
+        android:id="@+id/id_card_certificate_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/primary_bg_color" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_56"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableLeft="@mipmap/point_icon_2"
+                android:drawablePadding="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_30"
+                android:text="姓名             "
+                android:textColor="@color/primary_font_color"
+                android:textSize="@dimen/font_size_primary" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/id_card_name_edt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="@dimen/dp_26"
+                android:layout_toRightOf="@+id/name_label"
+                android:background="@null"
+                android:drawablePadding="@dimen/dp_13"
+                android:gravity="center_vertical"
+                android:hint="请输入姓名"
+                android:maxLength="20"
+                android:paddingRight="@dimen/dp_30"
+                android:textColor="@color/primary_font_color"
+                android:textSize="@dimen/dp_15" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_56"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/num_label"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableLeft="@mipmap/point_icon_2"
+                android:drawablePadding="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_30"
+                android:text="身份证号码"
+                android:textColor="@color/primary_font_color"
+                android:textSize="@dimen/font_size_primary" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/id_card_num_edt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="@dimen/dp_26"
+                android:layout_toRightOf="@+id/num_label"
+                android:background="@null"
+                android:drawablePadding="@dimen/dp_13"
+                android:gravity="center_vertical"
+                android:hint="请输入身份证号码"
+                android:maxLength="20"
+                android:paddingRight="@dimen/dp_30"
+                android:textColor="@color/primary_font_color"
+                android:textSize="@dimen/dp_15" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/phone_certificate_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/primary_bg_color" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_56">
+
+            <TextView
+                android:id="@+id/phone_label"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableLeft="@mipmap/point_icon_2"
+                android:drawablePadding="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_30"
+                android:text="电话号码"
+                android:textColor="@color/primary_font_color"
+                android:textSize="@dimen/font_size_primary" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/phone_num_edt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="@dimen/dp_26"
+                android:layout_toRightOf="@+id/phone_label"
+                android:background="@null"
+                android:drawablePadding="@dimen/dp_13"
+                android:gravity="center_vertical"
+                android:hint="请输入电话号码"
+                android:maxLength="11"
+                android:paddingRight="@dimen/dp_30"
+                android:textColor="@color/primary_font_color"
+                android:textSize="@dimen/dp_15" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_56">
+
+            <TextView
+                android:id="@+id/message_label"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableLeft="@mipmap/point_icon_2"
+                android:drawablePadding="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_30"
+                android:text="验证码"
+                android:textColor="@color/primary_font_color"
+                android:textSize="@dimen/font_size_primary" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/message_edt"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_26"
+                android:layout_toRightOf="@+id/message_label"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请输入验证码"
+                android:textColor="@color/primary_font_color"
+                android:textSize="@dimen/dp_13" />
+
+            <com.keydom.ih_common.view.MButton
+                android:id="@+id/get_message_bt"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="@dimen/dp_90"
+                android:layout_height="@dimen/dp_37"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginRight="@dimen/dp_19"
+                android:background="@drawable/login_btn"
+                android:gravity="center"
+                android:text="@string/register_code_btn_text"
+                android:textColor="@color/primary_bg_color"
+                android:textSize="@dimen/dp_11" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/certificate_layout_photot_upload_root_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/primary_bg_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:drawableLeft="@mipmap/point_icon_5"
+                android:drawablePadding="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_30"
+                android:text="身份证"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textColor="@color/primary_font_color"
+                android:textSize="@dimen/font_size_primary" />
+
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_174"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/pic_positive_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_103"
+                        android:background="#F9F9F9"
+                        android:paddingTop="@dimen/dp_30"
+                        android:paddingBottom="@dimen/dp_30"
+                        android:src="@mipmap/camera_icon" />
+
+                    <TextView
+                        android:id="@+id/upload_pic_positive_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/pic_positive_img"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:text=""
+                        android:textColor="#3F98F7"
+                        android:textSize="@dimen/dp_12" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/pic_reverse_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_103"
+                        android:background="#F9F9F9"
+                        android:paddingTop="@dimen/dp_30"
+                        android:paddingBottom="@dimen/dp_30"
+                        android:src="@mipmap/camera_icon" />
+
+                    <TextView
+                        android:id="@+id/upload_pic_reverse_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/pic_reverse_img"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:text=""
+                        android:textColor="#3F98F7"
+                        android:textSize="@dimen/dp_12" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/upload_certificate_pic_commit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_58"
+                android:layout_marginLeft="@dimen/dp_19"
+                android:layout_marginRight="@dimen/dp_19"
+                android:background="@mipmap/fill_personal_bt_bg"
+                android:gravity="center"
+                android:text="@string/medical_card_detail_remove_bind"
+                android:textColor="@color/primary_color"
+                android:textSize="@dimen/dp_17" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

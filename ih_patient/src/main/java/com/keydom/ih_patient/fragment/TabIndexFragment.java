@@ -154,6 +154,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                 getController().fillHealthKnowledges(page);
             }
         });*/
+        view.findViewById(R.id.fragment_tab_index_open_vip_ll).setOnClickListener(getController());
         titleLayout = view.findViewById(R.id.title_layout);
         locationLayout = view.findViewById(R.id.location_layout);
         searchLayout = view.findViewById(R.id.search_layout);

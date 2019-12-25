@@ -126,6 +126,7 @@
                     app:pointsPosition="RIGHT" />
 
                 <LinearLayout
+                    android:id="@+id/fragment_tab_index_open_vip_ll"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginLeft="9dp"
