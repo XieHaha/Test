@@ -211,6 +211,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         EventBus.getDefault().register(this);
 
         super.onViewCreated(view, savedInstanceState);
+
+        initVipFunction();
     }
 
     @Override
@@ -622,7 +624,6 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
         }
 
-        initVipFunction();
     }
 
     @Override
