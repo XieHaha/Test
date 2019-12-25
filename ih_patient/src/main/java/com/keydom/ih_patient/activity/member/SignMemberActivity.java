@@ -34,6 +34,7 @@ public class SignMemberActivity extends BaseControllerActivity<SignMemberControl
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        getTitleLayout().initViewsVisible(true,true,false);
+        setTitle("仁医金卡签约");
     }
 }
