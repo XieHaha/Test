@@ -1,92 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <LinearLayout
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_41"
-        android:orientation="horizontal"
-        android:background="@color/primary_color">
+        android:background="@color/primary_color"
+        android:orientation="horizontal">
+
         <LinearLayout
             android:id="@+id/location_layout"
             android:layout_width="@dimen/dp_50"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
             <ImageView
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
-                android:src="@mipmap/location"/>
+                android:src="@mipmap/location" />
+
             <TextView
                 android:id="@+id/location_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/font_size_auxiliary"
-                android:lines="1"
                 android:ellipsize="end"
+                android:lines="1"
+                android:text=""
                 android:textColor="@color/fontColorNavigate"
-                android:text=""/>
+                android:textSize="@dimen/font_size_auxiliary" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_gravity="center_vertical"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="@drawable/main_title_searchedt_bg">
+
             <TextView
                 android:id="@+id/search_edt"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_29"
                 android:layout_weight="1"
-                android:text=""
-                android:lines="1"
-                android:ellipsize="end"
-                android:textSize="@dimen/dp_12"
-                android:paddingLeft="@dimen/dp_12"
                 android:drawableRight="@mipmap/arrow_bottom"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:lines="1"
+                android:paddingLeft="@dimen/dp_12"
                 android:paddingRight="@dimen/dp_10"
-                android:gravity="center" />
+                android:text=""
+                android:textSize="@dimen/dp_12" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/search_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:layout_marginLeft="@dimen/dp_18"
             android:layout_marginRight="@dimen/dp_20"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
             <ImageView
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
-                android:src="@mipmap/search"/>
+                android:src="@mipmap/search" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/font_size_auxiliary"
+                android:text="@string/main_search_text"
                 android:textColor="@color/fontColorNavigate"
-                android:text="@string/main_search_text"/>
+                android:textSize="@dimen/font_size_auxiliary" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/qr_code_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:layout_marginRight="@dimen/dp_20"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
             <ImageView
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
-                android:src="@mipmap/qr_scan"/>
+                android:src="@mipmap/qr_scan" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/font_size_auxiliary"
+                android:text="@string/main_qrcode_text"
                 android:textColor="@color/fontColorNavigate"
-                android:text="@string/main_qrcode_text"/>
+                android:textSize="@dimen/font_size_auxiliary" />
         </LinearLayout>
     </LinearLayout>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="200dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/light_brown_corner_bg"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="仁医金卡"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="VIP"
+                    android:textColor="@color/white"
+                    android:textSize="25sp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="会员专项特权 "
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_58"
+                        android:layout_height="@dimen/dp_58"
+                        android:src="@mipmap/mine_my_doctor" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_58"
+                        android:layout_height="@dimen/dp_58"
+                        android:layout_marginLeft="30dp"
+                        android:src="@mipmap/mine_my_doctor" />
+
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_58"
+                        android:layout_height="@dimen/dp_58"
+                        android:layout_marginLeft="30dp"
+                        android:src="@mipmap/mine_my_doctor" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="注意事项"
+                    android:textColor="@color/black"
+                    android:textSize="19sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="16dp"
+                    android:lineSpacingExtra="5dp"
+                    android:text="@string/vip_desc"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@color/index_top_text"
+                    android:gravity="center"
+                    android:text="立即开通"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
 
 </LinearLayout>
