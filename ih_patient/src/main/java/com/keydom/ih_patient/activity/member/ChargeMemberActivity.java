@@ -23,7 +23,7 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
 
     @Override
     public int getLayoutRes() {
-        return R.layout.activity_sign_member;
+        return R.layout.activity_charge_member;
     }
 
     @Override
@@ -33,6 +33,7 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        getTitleLayout().initViewsVisible(true,true,false);
+        setTitle("仁医金卡续约");
     }
 }
