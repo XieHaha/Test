@@ -67,6 +67,7 @@ public class SettingContrller extends ControllerImpl<SettingView> implements Vie
             ImClient.loginOut();
             Logger.e("本地用户数据清除成功");
             Global.setUserId(-1);
+            Global.setMember(0);
         }
         PushManager.setAlias(getContext(), "");
         //EventBus.getDefault().post(new Event(EventType.LOGOUT,null));

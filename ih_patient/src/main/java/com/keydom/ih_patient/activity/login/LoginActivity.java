@@ -147,6 +147,7 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
                 isLoginLocked=false;
             LocalizationUtils.fileSave2Local(getContext(),data,"userInfo");
             Global.setUserId(data.getId());
+            Global.setMember(data.getMember());
             App.userInfo=data;
             PushManager.setAlias(getContext(), data.getId()+"");
             EventBus.getDefault().post(new Event(EventType.UPDATELOGINSTATE,null));

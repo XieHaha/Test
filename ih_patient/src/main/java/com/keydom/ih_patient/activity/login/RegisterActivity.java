@@ -107,6 +107,7 @@ public class RegisterActivity extends BaseControllerActivity<RegisterController>
         App.userInfo=data;
         LocalizationUtils.fileSave2Local(getContext(),data,"userInfo");
         Global.setUserId(data.getId());
+        Global.setMember(data.getMember());
         SharePreferenceManager.setToken("User"+data.getToken());
         EventBus.getDefault().post(new Event(EventType.UPDATELOGINSTATE,null));
         Logger.e("savedUserId=="+Global.getUserId());

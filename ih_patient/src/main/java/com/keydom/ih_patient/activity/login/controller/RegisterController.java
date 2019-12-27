@@ -259,6 +259,7 @@ public class RegisterController extends ControllerImpl<IRegisterView> implements
                             ImPreferences.saveUserToken(data.getImToken());
                             LocalizationUtils.fileSave2Local(getContext(),data,"userInfo");
                             Global.setUserId(data.getId());
+                            Global.setMember(data.getMember());
                             EventBus.getDefault().post(new Event(EventType.UPDATELOGINSTATE,null));
                             App.userInfo=data;
                             SharePreferenceManager.setUserCode(data.getUserAccount());

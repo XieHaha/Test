@@ -44,6 +44,16 @@ public class Global  {
     private static String locationCityName=null;
     private static double latitude=0;
     private static double longitude=0;
+    private static int member=0;
+
+
+    public static void setMember(int member) {
+        Global.member = member;
+    }
+
+    public static boolean isMember() {
+        return member > 0;
+    }
 
     public static String getLocationAddress() {
         return locationAddress;

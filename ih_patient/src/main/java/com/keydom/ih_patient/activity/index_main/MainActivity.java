@@ -191,6 +191,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                     ImPreferences.saveUserAccount(userInfo.getId() + "");
                     ImPreferences.saveUserToken(userInfo.getImToken());
                     Global.setUserId(userInfo.getId());
+                    Global.setMember(userInfo.getMember());
                     App.userInfo = userInfo;
                     PushManager.setAlias(getContext(), userInfo.getId()+"");
                     App.isNeedInit=false;
@@ -203,6 +204,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                     Logger.e(errMsg);
                     Logger.e("IM登陆失败");
                     Global.setUserId(-1);
+                    Global.setMember(0);
                 }
             });
             String filename = "user_index_" + Global.getUserId();
@@ -210,6 +212,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
         } else {
             Logger.e("没有取到数据");
             Global.setUserId(-1);
+            Global.setMember(0);
         }
         initLocation();
 
@@ -450,6 +453,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
             if (LocalizationUtils.deleteFileFromLocal(getContext(), "userInfo")) {
                 Logger.e("本地用户数据清除成功");
                 Global.setUserId(-1);
+                Global.setMember(0);
             }
             ImClient.loginOut();
             EventBus.getDefault().post(new Event(EventType.UPDATELOGINSTATE,null));

@@ -70,6 +70,10 @@ import java.util.List;
 public class TabIndexFragment extends BaseControllerFragment<TabIndexController> implements TabIndexView {
 
     private LayoutInflater mLayountInflater;
+    private LinearLayout mMemberRootLl;
+    private RelativeLayout mTopRightRootRl;
+    private RelativeLayout mTopLeftRootRl;
+    private TextView mTopRightTitleTv;
     private XBanner indexFirstBanner, indexSecondBanner, indexNoticeBanner, indexNewArticleBanner;
     private RecyclerView indexFunctionRv;
     private RecyclerView mFirstVIPRv;
@@ -103,6 +107,137 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
 
     public void initVipFunction(){
+        mMemberRootLl.setVisibility(View.GONE);
+        indexFunctionRv.setVisibility(View.GONE);
+        mFirstVIPRv.setVisibility(View.VISIBLE);
+        mSecondVIPRv.setVisibility(View.VISIBLE);
+
+        mTopRightTitleTv.setText("产检预约");
+
+        mTopRightRootRl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        mTopLeftRootRl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    public void initNormal(){
+        mMemberRootLl.setVisibility(View.VISIBLE);
+        indexFunctionRv.setVisibility(View.VISIBLE);
+        mFirstVIPRv.setVisibility(View.GONE);
+        mSecondVIPRv.setVisibility(View.GONE);
+
+        mTopRightTitleTv.setText("护理服务");
+
+        mTopRightRootRl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        mTopLeftRootRl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+
+    @Override
+    public int getLayoutRes() {
+        return R.layout.fragment_tab_index;
+    }
+
+    @Override
+    public void onViewCreated(@NotNull View view, @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        indexRefresh = view.findViewById(R.id.index_refresh);
+        mMemberRootLl = view.findViewById(R.id.fragment_tab_index_open_vip_ll);
+        mMemberRootLl.setOnClickListener(getController());
+        titleLayout = view.findViewById(R.id.title_layout);
+        locationLayout = view.findViewById(R.id.location_layout);
+        searchLayout = view.findViewById(R.id.search_layout);
+        qrLayout = view.findViewById(R.id.qr_code_layout);
+        locationTv = view.findViewById(R.id.location_tv);
+        searchEdt = view.findViewById(R.id.search_edt);
+        searchEdt.setOnClickListener(getController());
+        indexFirstBanner = view.findViewById(R.id.index_first_banner);
+        indexFunctionRv = view.findViewById(R.id.index_function_rv);
+        mFirstVIPRv = view.findViewById(R.id.fragment_tab_index_first_vip_rv);
+        mSecondVIPRv = view.findViewById(R.id.fragment_tab_index_second_vip_rv);
+        new_article_title_tv = view.findViewById(R.id.new_article_title_tv);
+        new_article_readernum_tv = view.findViewById(R.id.new_article_readernum_tv);
+        indexSecondBanner = view.findViewById(R.id.index_second_banner);
+        indexNoticeBanner = view.findViewById(R.id.index_notice_xbanner);
+        indexNewArticleBanner = view.findViewById(R.id.new_article_banner);
+        healthZoneLayout = view.findViewById(R.id.health_zone_layout);
+        topHealthRl = view.findViewById(R.id.top_health_rl);
+        empty_layout = view.findViewById(R.id.empty_layout);
+        empty_text = view.findViewById(R.id.empty_text);
+        more_tv = view.findViewById(R.id.more_tv);
+        index_footer=view.findViewById(R.id.index_footer);
+        mTopLeftRootRl=view.findViewById(R.id.fragment_tab_index_top_left_rl);
+        mTopRightRootRl=view.findViewById(R.id.fragment_tab_index_top_right_rl);
+        mTopRightTitleTv=view.findViewById(R.id.fragment_tab_index_top_right_title_tv);
+
+
+        indexRefresh.setEnableLoadMore(false);
+        indexRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                page=1;
+                getController().fillViewData();
+                getController().fillHealthKnowledges(page);
+
+            }
+        });
+       /* indexRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                getController().fillHealthKnowledges(page);
+            }
+        });*/
+
+
+        if (Global.getSelectedCityCode() != null && !"".equals(Global.getSelectedCityCode())) {
+            locationTv.setText(Global.getSelectedCityName());
+        } else {
+            if (Global.getLocationCity() != null && !"".equals(Global.getLocationCity())) {
+                locationTv.setText(Global.getLocationCity());
+            } else {
+                locationTv.setText("选择城市");
+            }
+        }
+
+        more_tv.setOnClickListener(getController());
+        chooseHospitalAdapter = new ChooseHospitalAdapter(getContext(), hospitalList, new GeneralCallback.SelectHospitalListener() {
+            @Override
+            public void getSelectedHospital(HospitalAreaInfo hospitalAreaInfo) {
+                Logger.e("getHospitalSuccess-->HospitalId==" + hospitalAreaInfo.getId() + "   HospitalName==" + hospitalAreaInfo.getName());
+                selectHospitalId = hospitalAreaInfo.getId();
+                selectHospitalName = hospitalAreaInfo.getName();
+            }
+        });
+
+        index_footer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getController().fillHealthKnowledges(page);
+            }
+        });
+
+        indexFunctionRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        indexFunctionRv.addItemDecoration(new FunctionRvItemDecoration(70, 30));
+        indexFunctionAdapter = new IndexFunctionAdapter(getContext(), datalist);
+        indexFunctionRv.setAdapter(indexFunctionAdapter);
+        indexFunctionRv.setNestedScrollingEnabled(false);
 
         mFirstVIPDatas.add(new IndexFunction(2131493053,"产后康复"));
         mFirstVIPDatas.add(new IndexFunction(2131493053,"羊水穿刺预约"));
@@ -127,93 +262,24 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mSecondVIPFunctionAdapter = new IndexFunctionAdapter(getContext(), mSecondVIPDatas);
         mSecondVIPRv.setAdapter(mSecondVIPFunctionAdapter);
         mSecondVIPRv.setNestedScrollingEnabled(false);
-    }
 
+        memberLayoutShow();
 
-    @Override
-    public int getLayoutRes() {
-        return R.layout.fragment_tab_index;
-    }
-
-    @Override
-    public void onViewCreated(@NotNull View view, @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        indexRefresh = view.findViewById(R.id.index_refresh);
-        indexRefresh.setEnableLoadMore(false);
-        indexRefresh.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshLayout) {
-                page=1;
-                getController().fillViewData();
-                getController().fillHealthKnowledges(page);
-
-            }
-        });
-       /* indexRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshLayout) {
-                getController().fillHealthKnowledges(page);
-            }
-        });*/
-        view.findViewById(R.id.fragment_tab_index_open_vip_ll).setOnClickListener(getController());
-        titleLayout = view.findViewById(R.id.title_layout);
-        locationLayout = view.findViewById(R.id.location_layout);
-        searchLayout = view.findViewById(R.id.search_layout);
-        qrLayout = view.findViewById(R.id.qr_code_layout);
-        locationTv = view.findViewById(R.id.location_tv);
-        if (Global.getSelectedCityCode() != null && !"".equals(Global.getSelectedCityCode())) {
-            locationTv.setText(Global.getSelectedCityName());
-        } else {
-            if (Global.getLocationCity() != null && !"".equals(Global.getLocationCity())) {
-                locationTv.setText(Global.getLocationCity());
-            } else {
-                locationTv.setText("选择城市");
-            }
-        }
-        searchEdt = view.findViewById(R.id.search_edt);
-        searchEdt.setOnClickListener(getController());
-        indexFirstBanner = view.findViewById(R.id.index_first_banner);
-        indexFunctionRv = view.findViewById(R.id.index_function_rv);
-        mFirstVIPRv = view.findViewById(R.id.fragment_tab_index_first_vip_rv);
-        mSecondVIPRv = view.findViewById(R.id.fragment_tab_index_second_vip_rv);
-        new_article_title_tv = view.findViewById(R.id.new_article_title_tv);
-        new_article_readernum_tv = view.findViewById(R.id.new_article_readernum_tv);
-
-        indexFunctionRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
-        indexFunctionRv.addItemDecoration(new FunctionRvItemDecoration(70, 30));
-        indexFunctionAdapter = new IndexFunctionAdapter(getContext(), datalist);
-        indexFunctionRv.setAdapter(indexFunctionAdapter);
-        indexFunctionRv.setNestedScrollingEnabled(false);
-
-        indexSecondBanner = view.findViewById(R.id.index_second_banner);
-        indexNoticeBanner = view.findViewById(R.id.index_notice_xbanner);
-        indexNewArticleBanner = view.findViewById(R.id.new_article_banner);
-        healthZoneLayout = view.findViewById(R.id.health_zone_layout);
-        topHealthRl = view.findViewById(R.id.top_health_rl);
-        empty_layout = view.findViewById(R.id.empty_layout);
-        empty_text = view.findViewById(R.id.empty_text);
-        more_tv = view.findViewById(R.id.more_tv);
-        more_tv.setOnClickListener(getController());
-        chooseHospitalAdapter = new ChooseHospitalAdapter(getContext(), hospitalList, new GeneralCallback.SelectHospitalListener() {
-            @Override
-            public void getSelectedHospital(HospitalAreaInfo hospitalAreaInfo) {
-                Logger.e("getHospitalSuccess-->HospitalId==" + hospitalAreaInfo.getId() + "   HospitalName==" + hospitalAreaInfo.getName());
-                selectHospitalId = hospitalAreaInfo.getId();
-                selectHospitalName = hospitalAreaInfo.getName();
-            }
-        });
-        index_footer=view.findViewById(R.id.index_footer);
-        index_footer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getController().fillHealthKnowledges(page);
-            }
-        });
         bindInteractionEvents();
         EventBus.getDefault().register(this);
 
         super.onViewCreated(view, savedInstanceState);
 
-        initVipFunction();
+
+
+    }
+
+    private void memberLayoutShow() {
+        if (Global.isMember()) {
+            initVipFunction();
+        } else {
+            initNormal();
+        }
     }
 
     @Override
@@ -260,6 +326,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             getController().fillViewData();
             getController().fillFunction();
             getController().fillHealthKnowledges(page);
+            memberLayoutShow();
         }
     }
 

@@ -14,6 +14,10 @@ public class TabMemberController extends ControllerImpl<TabMemberView> implement
             case R.id.fragment_tab_member_open_now_tv:
                 ChargeMemberActivity.start(getContext());
                 break;
+            case R.id.fragment_tab_member_func_charge_record_tv:
+                break;
+            case R.id.fragment_tab_member_func_charge_tv:
+                break;
             default:
                 break;
         }

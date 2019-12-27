@@ -103,7 +103,8 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -136,6 +137,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/fragmnet_tab_member_member_inst_root_ll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -204,6 +206,62 @@
                     android:text="立即开通"
                     android:textColor="@color/white" />
 
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/fragment_tab_member_desc_root_ll"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="余额 8952.00元"
+                    android:textColor="@color/index_top_text"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="到期日 2020-03-09"
+                    android:textColor="@color/index_top_text"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fragment_tab_member_func_root_ll"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/fragment_tab_member_func_charge_record_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="缴费记录"
+                    android:textColor="@color/index_top_text"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/fragment_tab_member_func_charge_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="续约"
+                    android:textColor="@color/index_top_text"
+                    android:textSize="14sp" />
             </LinearLayout>
 
         </LinearLayout>

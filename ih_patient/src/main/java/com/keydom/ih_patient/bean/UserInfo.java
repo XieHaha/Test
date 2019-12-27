@@ -158,6 +158,8 @@ public class UserInfo implements Serializable {
     @JSONField(name = "imToken")
     private String imToken;
 
+    private int member = 1; // 0 非会员，1会员
+
     public long getId() {
         return id;
     }
@@ -454,11 +456,23 @@ public class UserInfo implements Serializable {
         this.imToken = imToken;
     }
 
-    public boolean isCertification(){
+    public boolean isCertification() {
         return certification.equals("0");
     }
 
-    public void setCertification(boolean isCertification){
-        certification = isCertification? "0":  "1" ;
+    public void setCertification(boolean isCertification) {
+        certification = isCertification ? "0" : "1";
+    }
+
+    public boolean isMember() {
+        return member > 0;
+    }
+
+    public int getMember() {
+        return member;
+    }
+
+    public void setMember(int member) {
+        this.member = member;
     }
 }

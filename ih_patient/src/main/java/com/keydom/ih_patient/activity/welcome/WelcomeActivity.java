@@ -55,6 +55,7 @@ public class WelcomeActivity extends BaseControllerActivity<WelcomeController> i
         if (userInfo != null) {
             Logger.e("取到本地数据,用户ID为" + userInfo.getId());
             Global.setUserId(userInfo.getId());
+            Global.setMember(userInfo.getMember());
             App.userInfo = userInfo;
             ImClient.loginIM(userInfo.getUserAccount(), userInfo.getImToken(), new OnLoginListener() {
                 @Override
@@ -90,6 +91,7 @@ public class WelcomeActivity extends BaseControllerActivity<WelcomeController> i
         } else {
             Logger.e("没有取到数据");
             Global.setUserId(-1);
+            Global.setMember(0);
             initLocation();
         }
 
