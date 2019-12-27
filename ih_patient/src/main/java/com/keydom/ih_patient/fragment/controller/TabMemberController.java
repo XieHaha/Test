@@ -5,6 +5,7 @@ import android.view.View;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.member.ChargeMemberActivity;
+import com.keydom.ih_patient.activity.member.ChargeMemberRecordActivity;
 import com.keydom.ih_patient.activity.member.SignMemberActivity;
 import com.keydom.ih_patient.fragment.view.TabMemberView;
 
@@ -16,6 +17,7 @@ public class TabMemberController extends ControllerImpl<TabMemberView> implement
                 SignMemberActivity.start(getContext());
                 break;
             case R.id.fragment_tab_member_func_charge_record_tv:
+                ChargeMemberRecordActivity.start(getContext());
                 break;
             case R.id.fragment_tab_member_func_charge_tv:
                 ChargeMemberActivity.start(getContext());

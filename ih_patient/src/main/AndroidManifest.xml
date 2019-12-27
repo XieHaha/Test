@@ -446,6 +446,9 @@
         <activity
             android:name=".activity.member.ChargeMemberActivity"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.member.ChargeMemberRecordActivity"
+            android:launchMode="singleTop" />
         <!--百度地图-->
         <service
             android:name="com.baidu.location.f"
