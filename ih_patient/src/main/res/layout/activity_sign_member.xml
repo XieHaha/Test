@@ -113,6 +113,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/sign_member_ali_pay_root_rl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_63">
 
@@ -152,6 +153,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/sign_member_wechat_pay_root_rl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_63">
 
