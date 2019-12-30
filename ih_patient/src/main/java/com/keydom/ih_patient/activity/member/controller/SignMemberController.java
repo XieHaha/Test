@@ -1,5 +1,6 @@
 package com.keydom.ih_patient.activity.member.controller;
 
+import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.fastjson.JSONObject;
@@ -34,6 +35,16 @@ public class SignMemberController extends ControllerImpl<SignMemberView> impleme
                 getView().showAliPaySelected();
                 break;
             case R.id.pay_commit_tv:
+                if(TextUtils.isEmpty(getView().getName())){
+                    ToastUtil.showMessage(getContext(),"姓名不能空");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(getView().getID())){
+                    ToastUtil.showMessage(getContext(),"身份证号不能为空");
+                    return;
+                }
+
                 pay(0, "", getView().getPayType(), 20000);
                 break;
         }

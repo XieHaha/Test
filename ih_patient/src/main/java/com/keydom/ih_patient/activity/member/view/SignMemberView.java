@@ -8,6 +8,10 @@ public interface SignMemberView extends BaseView {
 
     void showWechatPaySelected();
 
+    String getName();
+
+    String getID();
+
     int getPayType();
 
     void paySuccess();

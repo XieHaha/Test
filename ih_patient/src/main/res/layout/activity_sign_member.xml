@@ -29,7 +29,7 @@
             android:textSize="@dimen/font_size_primary" />
 
         <com.keydom.ih_common.view.InterceptorEditText
-            android:id="@+id/id_card_name_edt"
+            android:id="@+id/sign_member_name_edt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -62,7 +62,7 @@
             android:textSize="@dimen/font_size_primary" />
 
         <com.keydom.ih_common.view.InterceptorEditText
-            android:id="@+id/id_card_num_edt"
+            android:id="@+id/sign_member_id_num_edt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"

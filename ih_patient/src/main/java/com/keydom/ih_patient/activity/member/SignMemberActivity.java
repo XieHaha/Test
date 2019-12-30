@@ -3,12 +3,12 @@ package com.keydom.ih_patient.activity.member;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
-import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.member.controller.SignMemberController;
 import com.keydom.ih_patient.activity.member.view.SignMemberView;
@@ -18,6 +18,8 @@ import org.jetbrains.annotations.Nullable;
 public class SignMemberActivity extends BaseControllerActivity<SignMemberController> implements SignMemberView {
 
 
+    EditText mNameEt;
+    EditText mIDEt;
     TextView mAliPayTv;
     TextView mWechatPayTv;
     ImageView mAliPayIv;
@@ -52,6 +54,8 @@ public class SignMemberActivity extends BaseControllerActivity<SignMemberControl
     public void initData(@Nullable Bundle savedInstanceState) {
         getTitleLayout().initViewsVisible(true,true,false);
         setTitle("仁医金卡签约");
+        mNameEt = findViewById(R.id.sign_member_name_edt);
+        mIDEt = findViewById(R.id.sign_member_id_num_edt);
         mWechatPayRootRl = findViewById(R.id.sign_member_wechat_pay_root_rl);
         mAliPayRootRl = findViewById(R.id.sign_member_ali_pay_root_rl);
         mAliPayTv = findViewById(R.id.ali_pay_tv);
@@ -84,12 +88,30 @@ public class SignMemberActivity extends BaseControllerActivity<SignMemberControl
     }
 
     @Override
+    public String getName() {
+        String name = "";
+        if(null != mNameEt){
+            name = mNameEt.getText().toString();
+        }
+        return name;
+    }
+
+    @Override
+    public String getID() {
+        String id = "";
+        if(null != mIDEt){
+            id = mIDEt.getText().toString();
+        }
+        return id;
+    }
+
+    @Override
     public int getPayType() {
         return payType;
     }
 
     @Override
     public void paySuccess() {
-        ToastUtil.showMessage(this,"支付成功");
+
     }
 }
