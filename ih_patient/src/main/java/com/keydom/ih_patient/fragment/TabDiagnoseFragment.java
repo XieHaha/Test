@@ -245,7 +245,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
 
     @Override
     public void lazyLoad() {
-        refreshData();
+        //refreshData();
     }
 
     private void refreshData() {

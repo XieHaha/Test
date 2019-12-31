@@ -207,10 +207,15 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
             }
         });
         EventBus.getDefault().register(this);
+        refreshData();
     }
 
     @Override
     public void lazyLoad() {
+        //refreshData();
+    }
+
+    private void refreshData() {
         refreshUi();
         hospitalListFromService.clear();
         hospitalList.clear();
