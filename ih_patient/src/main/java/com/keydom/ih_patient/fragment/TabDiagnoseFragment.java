@@ -240,10 +240,15 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
         /*getController().getHomeData(getHomeQueryMap());
         getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline));*/
         EventBus.getDefault().register(this);
+        refreshData();
     }
 
     @Override
     public void lazyLoad() {
+        refreshData();
+    }
+
+    private void refreshData() {
         refreshUi();
         diagnoses_online_search_tv.setText(App.hospitalName);
         hospitalListFromService.clear();

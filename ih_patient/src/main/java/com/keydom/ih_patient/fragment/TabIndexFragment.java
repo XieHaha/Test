@@ -28,6 +28,7 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
+import com.keydom.ih_patient.activity.diagnose_main.DiagnoseMainActivity;
 import com.keydom.ih_patient.activity.index_main.ChooseCityActivity;
 import com.keydom.ih_patient.activity.my_message.NoticeDeatailActivity;
 import com.keydom.ih_patient.adapter.ChooseHospitalAdapter;
@@ -123,7 +124,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mTopLeftRootRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DiagnoseMainActivity.start(getContext());
             }
         });
     }
@@ -145,7 +146,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mTopLeftRootRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DiagnoseMainActivity.start(getContext());
             }
         });
     }
