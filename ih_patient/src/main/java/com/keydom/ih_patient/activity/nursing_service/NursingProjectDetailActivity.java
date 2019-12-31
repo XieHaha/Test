@@ -169,8 +169,8 @@ public class NursingProjectDetailActivity extends BaseControllerActivity<Nursing
             // 设置不可以缩放
             webSettings.setSupportZoom(true);
             webSettings.setDisplayZoomControls(false);
-
-            webSettings.setTextSize(WebSettings.TextSize.NORMAL);
+            webSettings.setTextZoom(100);
+            webSettings.setTextSize(WebSettings.TextSize.LARGEST);
 
             //自适应屏幕
             webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
