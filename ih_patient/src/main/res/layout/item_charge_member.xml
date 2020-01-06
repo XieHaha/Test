@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_125"
+    android:layout_height="@dimen/dp_52"
+    android:background="@drawable/my_doc_nur_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/item_charge_member_price_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="¥1000"
+        android:textColor="@color/red"
+        android:textSize="25sp" />
+
+    <EditText
+        android:hint="1000的倍数"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" />
+
+
+</LinearLayout>
