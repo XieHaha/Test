@@ -416,10 +416,9 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
             diagnose_index_refresh.setNoMoreData(true);
         }else{
             recommendList.addAll(dataList);
-            recommendDocAndNurAdapter.notifyDataSetChanged();
             getController().currentPagePlus();
         }
-
+        recommendDocAndNurAdapter.notifyDataSetChanged();
     }
 
     @Override
