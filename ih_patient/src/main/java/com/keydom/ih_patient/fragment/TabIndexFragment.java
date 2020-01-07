@@ -922,11 +922,14 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
     @Override
     public void getCityListSuccess(List<Object> data) {
-        CityBean.itemBean city = (CityBean.itemBean) data.get(1);
-        Global.setSelectedCityName(city.getName());
-        Global.setSelectedCityCode(city.getCode());
-        locationTv.setText(city.getName());
-        getController().initHospitalList(city.getCode());
+        if(null != data && data.size() > 0){
+            CityBean.itemBean city = (CityBean.itemBean) data.get(1);
+            Global.setSelectedCityName(city.getName());
+            Global.setSelectedCityCode(city.getCode());
+            locationTv.setText(city.getName());
+            getController().initHospitalList(city.getCode());
+        }
+
     }
 
     @Override
