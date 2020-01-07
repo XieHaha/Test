@@ -1,10 +1,14 @@
 package com.keydom.ih_patient.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetDialog;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +31,8 @@ public class CommonPayDialog extends BottomSheetDialog implements View.OnClickLi
     private ImageView mClose;//close_img
     private TextView mCost;//order_price_tv
 
+    private Context mContext;
+
     /**
      * 监听接口
      */
@@ -42,10 +48,13 @@ public class CommonPayDialog extends BottomSheetDialog implements View.OnClickLi
     /**
      * 构建方法
      */
+
     public CommonPayDialog(@NonNull Context context, iOnCommitOnClick iOnCommitOnClick) {
         super(context);
+        this.mContext = context;
         this.mIOnCommitOnClick = iOnCommitOnClick;
     }
+
 
     /**
      * 设置金额
@@ -60,7 +69,28 @@ public class CommonPayDialog extends BottomSheetDialog implements View.OnClickLi
         setContentView(R.layout.common_go_pay_dialog);
         setCanceledOnTouchOutside(false);
         setCancelable(false);
+        int screenHeight = getScreenHeight((Activity) mContext);
+        int statusBarHeight = getStatusBarHeight(mContext);
+        int dialogHeight = screenHeight - statusBarHeight;
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, dialogHeight == 0 ? ViewGroup.LayoutParams.MATCH_PARENT : dialogHeight);
         initView();
+    }
+
+
+    private static int getScreenHeight(Activity activity) {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        return displaymetrics.heightPixels;
+    }
+
+    private static int getStatusBarHeight(Context context) {
+        int statusBarHeight = 0;
+        Resources res = context.getResources();
+        int resourceId = res.getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            statusBarHeight = res.getDimensionPixelSize(resourceId);
+        }
+        return statusBarHeight;
     }
 
     /**
