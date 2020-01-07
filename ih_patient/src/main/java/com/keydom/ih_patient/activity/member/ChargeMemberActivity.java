@@ -45,6 +45,8 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
         mDatas.add("10000");
         mDatas.add("20000");
         mDatas.add("0");
+
+        getController().init();
     }
 
     @Override
@@ -53,11 +55,17 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
         setTitle("仁医金卡续约");
 
         mPricesRv = findViewById(R.id.charge_member_rv);
+        findViewById(R.id.charge_member_commit_charge_tv).setOnClickListener(getController());
 
 
         mAdapter = new ChargeMemberAdapter(mDatas);
         mPricesRv.setLayoutManager(new GridLayoutManager(this,3));
         mPricesRv.setAdapter(mAdapter);
+
+    }
+
+    @Override
+    public void paySuccess() {
 
     }
 }
