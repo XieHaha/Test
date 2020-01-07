@@ -46,7 +46,7 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
         mDatas.add("20000");
         mDatas.add("0");
 
-        getController().init();
+
     }
 
     @Override
@@ -61,6 +61,8 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
         mAdapter = new ChargeMemberAdapter(mDatas);
         mPricesRv.setLayoutManager(new GridLayoutManager(this,3));
         mPricesRv.setAdapter(mAdapter);
+
+        getController().init();
 
     }
 
