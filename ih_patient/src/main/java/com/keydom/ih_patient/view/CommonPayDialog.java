@@ -32,6 +32,7 @@ public class CommonPayDialog extends BottomSheetDialog implements View.OnClickLi
     private TextView mCost;//order_price_tv
 
     private Context mContext;
+    private double mMoney;
 
     /**
      * 监听接口
@@ -55,12 +56,19 @@ public class CommonPayDialog extends BottomSheetDialog implements View.OnClickLi
         this.mIOnCommitOnClick = iOnCommitOnClick;
     }
 
+    public CommonPayDialog(@NonNull Context context, double money, iOnCommitOnClick iOnCommitOnClick) {
+        super(context);
+        this.mContext = context;
+        this.mIOnCommitOnClick = iOnCommitOnClick;
+        this.mMoney = money;
+    }
+
 
     /**
      * 设置金额
      */
-    public void setCost(double money){
-        mCost.setText("¥"+money+"元");
+    public void setCost(double money) {
+        mCost.setText("¥" + money + "元");
     }
 
     @Override
@@ -74,6 +82,7 @@ public class CommonPayDialog extends BottomSheetDialog implements View.OnClickLi
         int dialogHeight = screenHeight - statusBarHeight;
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, dialogHeight == 0 ? ViewGroup.LayoutParams.MATCH_PARENT : dialogHeight);
         initView();
+        if(mMoney > 0)setCost(mMoney);
     }
 
 
@@ -106,9 +115,11 @@ public class CommonPayDialog extends BottomSheetDialog implements View.OnClickLi
         mCost = this.findViewById(R.id.order_price_tv);
 
         mClose.setOnClickListener(this);
-        mWxPayImg.setOnClickListener(this);
-        mAliPayImg.setOnClickListener(this);
+        this.findViewById(R.id.common_go_pay_dialog_ali_root_rl).setOnClickListener(this);
+        this.findViewById(R.id.common_go_pay_dialog_wechat_root_rl).setOnClickListener(this);
         mCommit.setOnClickListener(this);
+
+        mAliPayImg.setSelected(true);
     }
 
     @Override
@@ -117,24 +128,28 @@ public class CommonPayDialog extends BottomSheetDialog implements View.OnClickLi
             case R.id.close_img:
                 this.dismiss();
                 break;
-            case R.id.ali_pay_selected_img:
+            case R.id.common_go_pay_dialog_ali_root_rl:
                 mAliPayText.setTextColor(getContext().getResources().getColor(R.color.pay_selected));
                 mWxPayText.setTextColor(getContext().getResources().getColor(R.color.pay_unselected));
                 mAliPayImg.setSelected(true);
-                mWxPayText.setSelected(false);
+                mWxPayImg.setSelected(false);
                 break;
-            case R.id.wechat_pay_selected_img:
+            case R.id.common_go_pay_dialog_wechat_root_rl:
                 mWxPayText.setTextColor(getContext().getResources().getColor(R.color.pay_selected));
                 mAliPayText.setTextColor(getContext().getResources().getColor(R.color.pay_unselected));
                 mAliPayImg.setSelected(false);
-                mWxPayText.setSelected(true);
+                mWxPayImg.setSelected(true);
                 break;
             case R.id.pay_commit:
                 if (mAliPayImg.isSelected()) {
-                    mIOnCommitOnClick.commitPay(ALI_PAY);
+                    if(null != mIOnCommitOnClick){
+                        mIOnCommitOnClick.commitPay(ALI_PAY);
+                    }
                     dismiss();
                 } else if (mWxPayImg.isSelected()) {
-                    mIOnCommitOnClick.commitPay(WX_PAY);
+                    if(null != mIOnCommitOnClick){
+                        mIOnCommitOnClick.commitPay(WX_PAY);
+                    }
                     dismiss();
                 } else {
                     ToastUtils.showShort("请选择支付方式");

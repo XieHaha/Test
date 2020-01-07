@@ -46,6 +46,7 @@
             android:textSize="@dimen/font_size_primary"/>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/common_go_pay_dialog_ali_root_rl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_63">
         <ImageView
@@ -70,7 +71,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_45"
-            android:src="@mipmap/pay_selected_icon"/>
+            android:src="@drawable/pay_selector"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
@@ -80,6 +81,7 @@
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/common_go_pay_dialog_wechat_root_rl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_63">
         <ImageView
@@ -124,5 +126,6 @@
         android:textSize="@dimen/dp_17"
         android:textColor="@color/primary_color"
         android:gravity="center"
+        android:text="去支付"
         android:background="@mipmap/pay_commit_bg"/>
 </LinearLayout>
