@@ -128,34 +128,22 @@
                 <LinearLayout
                     android:id="@+id/fragment_tab_index_open_vip_ll"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="9dp"
+                    android:layout_height="75dp"
                     android:layout_marginTop="@dimen/dp_6"
-                    android:layout_marginRight="9dp"
-                    android:background="@drawable/brown_corner_bg"
-                    android:gravity="center">
+                    android:background="@mipmap/member_ad_bg"
+                    android:gravity="center"
+                    android:paddingLeft="36dp"
+                    android:paddingRight="36dp">
 
-                    <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@mipmap/mine_my_nurse" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_6"
-                        android:text="开通绿色通道服务，就医不愁"
-                        android:textColor="@color/index_top_text" />
+                        android:layout_marginLeft="48dp"
+                        android:text="开通绿色通道服务，就医不愁   |   立即开通 >"
+                        android:textColor="@color/index_top_text"
+                        android:textSize="11sp" />
 
-
-                    <TextView
-                        android:layout_width="75dp"
-                        android:layout_height="25dp"
-                        android:layout_marginLeft="@dimen/dp_25"
-                        android:background="@drawable/light_brown_corner_bg"
-                        android:gravity="center"
-                        android:text="立即开通"
-                        android:textColor="@color/white" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -184,7 +172,7 @@
                             android:layout_height="@dimen/dp_58"
                             android:layout_centerVertical="true"
                             android:scaleType="fitXY"
-                            android:src="@mipmap/mine_my_doctor" />
+                            android:src="@mipmap/vip_mine_my_doctor_icon" />
 
                         <TextView
                             android:id="@+id/fragment_tab_index_top_left_title_tv"
@@ -230,7 +218,7 @@
                             android:layout_width="@dimen/dp_58"
                             android:layout_height="@dimen/dp_58"
                             android:layout_centerVertical="true"
-                            android:background="@mipmap/mine_my_nurse"
+                            android:background="@mipmap/vip_mine_my_nurse_icon"
                             android:scaleType="fitXY" />
 
                         <TextView
@@ -258,50 +246,6 @@
                 </LinearLayout>
 
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_10"
-                    android:background="@color/primary_bg_color" />
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/fragment_tab_index_first_vip_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingTop="@dimen/dp_6"
-                    android:visibility="gone" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_10"
-                    android:background="@color/primary_bg_color" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/fragment_tab_index_second_vip_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingTop="@dimen/dp_6"
-                    android:visibility="gone" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_10"
-                    android:background="@color/primary_bg_color" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/index_function_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingTop="@dimen/dp_6" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:background="@color/primary_bg_color" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_42"
@@ -328,6 +272,69 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_10"
                     android:background="@color/primary_bg_color" />
+
+
+                <LinearLayout
+                    android:id="@+id/fragment_tab_index_first_vip_root_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/fragment_tab_index_first_vip_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:paddingTop="@dimen/dp_6" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_10"
+                        android:background="@color/primary_bg_color" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/fragment_tab_index_second_vip_root_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/fragment_tab_index_second_vip_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:paddingTop="@dimen/dp_6" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_10"
+                        android:background="@color/primary_bg_color" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/fragment_tab_index_function_root_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/index_function_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:paddingTop="@dimen/dp_6" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:background="@color/primary_bg_color" />
+                </LinearLayout>
+
 
                 <com.stx.xhb.xbanner.XBanner
                     android:id="@+id/index_second_banner"

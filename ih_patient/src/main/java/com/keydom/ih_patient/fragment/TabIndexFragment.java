@@ -107,12 +107,16 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     private int page=1;
     private TextView index_footer;
 
+    private LinearLayout mFirstVIPRootLl;
+    private LinearLayout mSecondVIPRootLl;
+    private LinearLayout mIndexFunctionRootLl;
+
 
     public void initVipFunction(){
         mMemberRootLl.setVisibility(View.GONE);
-        indexFunctionRv.setVisibility(View.GONE);
-        mFirstVIPRv.setVisibility(View.VISIBLE);
-        mSecondVIPRv.setVisibility(View.VISIBLE);
+        mIndexFunctionRootLl.setVisibility(View.GONE);
+        mFirstVIPRootLl.setVisibility(View.VISIBLE);
+        mSecondVIPRootLl.setVisibility(View.VISIBLE);
 
         mTopRightTitleTv.setText("产检预约");
 
@@ -132,9 +136,9 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
     public void initNormal(){
         mMemberRootLl.setVisibility(View.VISIBLE);
-        indexFunctionRv.setVisibility(View.VISIBLE);
-        mFirstVIPRv.setVisibility(View.GONE);
-        mSecondVIPRv.setVisibility(View.GONE);
+        mIndexFunctionRootLl.setVisibility(View.VISIBLE);
+        mFirstVIPRootLl.setVisibility(View.GONE);
+        mSecondVIPRootLl.setVisibility(View.GONE);
 
         mTopRightTitleTv.setText("护理服务");
 
@@ -160,6 +164,9 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
     @Override
     public void onViewCreated(@NotNull View view, @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        mFirstVIPRootLl = view.findViewById(R.id.fragment_tab_index_first_vip_root_ll);
+        mSecondVIPRootLl = view.findViewById(R.id.fragment_tab_index_second_vip_root_ll);
+        mIndexFunctionRootLl = view.findViewById(R.id.fragment_tab_index_function_root_ll);
         indexRefresh = view.findViewById(R.id.index_refresh);
         mMemberRootLl = view.findViewById(R.id.fragment_tab_index_open_vip_ll);
         mMemberRootLl.setOnClickListener(getController());
