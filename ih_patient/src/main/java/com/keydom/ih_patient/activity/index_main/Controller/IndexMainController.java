@@ -1,10 +1,13 @@
 package com.keydom.ih_patient.activity.index_main.Controller;
 
+import android.view.View;
+
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.index_main.view.IndexMainView;
 import com.keydom.ih_patient.bean.CityBean;
 import com.keydom.ih_patient.constant.Global;
@@ -18,12 +21,12 @@ import java.util.List;
 /**
  * 菜单控制器
  */
-public class IndexMainController extends ControllerImpl<IndexMainView> {
+public class IndexMainController extends ControllerImpl<IndexMainView> implements View.OnClickListener {
     /**
      * 初始化位置
      */
     public void initLocation(String keyWord) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).findByKeyword(keyWord), new HttpSubscriber<List<CityBean.itemBean>>(getContext(),getDisposable(),false,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).findByKeyword(keyWord), new HttpSubscriber<List<CityBean.itemBean>>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable List<CityBean.itemBean> data) {
                 if (data != null && data.size() != 0) {
@@ -46,5 +49,13 @@ public class IndexMainController extends ControllerImpl<IndexMainView> {
                 return super.requestError(exception, code, msg);
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tab_member:
+                break;
+        }
     }
 }

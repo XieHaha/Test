@@ -37,5 +37,6 @@
     <color name="font_red">#FF3939</color>
     <color name="diagnose_font_red">#FF1E00</color>
     <color name="diagnose_font_yellow">#FFC700</color>
+    <color name="bottom_member_blue">#2D82FF</color>
 
 </resources>

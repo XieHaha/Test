@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <com.keydom.ih_patient.view.MainView
         android:id="@+id/main_view"
         android:layout_width="match_parent"
@@ -13,73 +13,93 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <LinearLayout
-            android:id="@+id/index_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_53"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
 
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+            <LinearLayout
+                android:id="@+id/index_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_53"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/tab_index"
-                    style="@style/ActionBarItem"
-                    android:drawableTop="@drawable/tab_index"
-                    android:drawablePadding="@dimen/dp_5"
-                    android:textSize="@dimen/dp_11"
-                    android:text="首页" />
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
-            </FrameLayout>
+                    <Button
+                        android:id="@+id/tab_index"
+                        style="@style/ActionBarItem"
+                        android:drawableTop="@drawable/tab_index"
+                        android:drawablePadding="@dimen/dp_5"
+                        android:text="首页"
+                        android:textSize="@dimen/dp_11" />
 
-
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <Button
-                    android:id="@+id/tab_member"
-                    style="@style/ActionBarItem"
-                    android:drawableTop="@drawable/tab_nurse"
-                    android:drawablePadding="@dimen/dp_5"
-                    android:textSize="@dimen/dp_11"
-                    android:text="会员"/>
-
-            </FrameLayout>
+                </FrameLayout>
 
 
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
-                <Button
-                    android:id="@+id/tab_mine"
-                    style="@style/ActionBarItem"
-                    android:drawableTop="@drawable/tab_mine"
-                    android:drawablePadding="@dimen/dp_5"
-                    android:textSize="@dimen/dp_11"
-                    android:text="我的"/>
 
-            </FrameLayout>
-        </LinearLayout>
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/tab_mine"
+                        style="@style/ActionBarItem"
+                        android:drawableTop="@drawable/tab_mine"
+                        android:drawablePadding="@dimen/dp_5"
+                        android:text="我的"
+                        android:textSize="@dimen/dp_11" />
+
+                </FrameLayout>
+            </LinearLayout>
 
             <com.keydom.ih_common.view.ScrollControlViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/index_tabs">
-            </com.keydom.ih_common.view.ScrollControlViewPager>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:layout_above="@+id/index_tabs"
-            android:background="#D2D2D2"/>
-</RelativeLayout>
+                android:layout_above="@+id/index_tabs"></com.keydom.ih_common.view.ScrollControlViewPager>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_above="@+id/index_tabs"
+                android:background="#D2D2D2" />
+
+            <LinearLayout
+                android:id="@+id/tab_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="65dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/vip_logo_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="会员"
+                    android:textColor="@color/bottom_member_blue"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
     </com.keydom.ih_patient.view.MainView>
 
 

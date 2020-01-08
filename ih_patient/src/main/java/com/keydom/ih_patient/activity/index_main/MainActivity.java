@@ -14,7 +14,6 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -33,7 +32,6 @@ import com.keydom.ih_common.im.model.AVChatExtras;
 import com.keydom.ih_common.minterface.OnLoginListener;
 import com.keydom.ih_common.push.PushManager;
 import com.keydom.ih_common.utils.SharePreferenceManager;
-import com.keydom.ih_common.utils.StatusBarUtils;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
@@ -110,6 +108,9 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
         getController().showLoading();
         mainView = (MainView) this.findViewById(R.id.main_view);
         mainView.initModule();
+
+        this.findViewById(R.id.tab_member).setOnClickListener(getController());
+
         NetWorkBroadCast netWorkBroadCast = new NetWorkBroadCast();
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(netWorkBroadCast, intentFilter);
@@ -159,13 +160,13 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
             });
 
         } else if (event.getType() == EventType.SHOW_NURSE_SERVICE_PAGE) {
-            this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+/*            this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             StatusBarUtils.setWindowStatusBarColor(this, R.color.primary_color);
-            mainView.setCurrentItem(2, false);
+            mainView.setCurrentItem(2, false);*/
         } else if (event.getType() == EventType.SHOW_ONLINE_DIAGNOSE_PAGE) {
-            this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+/*            this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             StatusBarUtils.setWindowStatusBarColor(this, R.color.primary_color);
-            mainView.setCurrentItem(1, false);
+            mainView.setCurrentItem(1, false);*/
 
         }
     }

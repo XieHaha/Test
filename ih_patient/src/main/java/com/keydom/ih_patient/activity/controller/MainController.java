@@ -73,15 +73,12 @@ public class MainController implements View.OnClickListener,ViewPager.OnPageChan
                 StatusBarUtils.setWindowStatusBarColor(mContext,R.color.primary_color);
                 mainView.setCurrentItem(0, false);
                 break;
-            case R.id.tab_member:
-                mContext.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                StatusBarUtils.setWindowStatusBarColor(mContext,R.color.primary_color);
-                mainView.setCurrentItem(1, false);
-                break;
             case R.id.tab_mine:
                 mContext.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
                 StatusBarUtils.setWindowStatusBarColor(mContext,R.color.mine_color);
-                mainView.setCurrentItem(2, false);
+                mainView.setCurrentItem(1, false);
+                break;
+            case R.id.tab_member:
                 break;
         }
     }
@@ -92,11 +89,9 @@ public class MainController implements View.OnClickListener,ViewPager.OnPageChan
     private void setViewPager() {
         final List<Fragment> fragments = new ArrayList<>();
         tabIndexFragment = new TabIndexFragment();
-        tabMemberFragment = new TabMemberFragment();
         tabMineFragment = new TabMineFragment();
 
         fragments.add(tabIndexFragment);
-        fragments.add(tabMemberFragment);
         fragments.add(tabMineFragment);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(mContext.getSupportFragmentManager(),fragments);
         mainView.setViewPagerAdapter(viewPagerAdapter);

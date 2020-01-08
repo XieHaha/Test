@@ -59,9 +59,9 @@ public class MainView extends RelativeLayout {
      */
     public void initModule() {
         mBtnListID = new int[] {
-                R.id.tab_index, R.id.tab_member, R.id.tab_mine
+                R.id.tab_index, R.id.tab_mine
         };
-        mBtnList = new Button[3];
+        mBtnList = new Button[mBtnListID.length];
         for (int i = 0; i < mBtnList.length; i++) {
             mBtnList[i] = (Button) findViewById(mBtnListID[i]);
         }
