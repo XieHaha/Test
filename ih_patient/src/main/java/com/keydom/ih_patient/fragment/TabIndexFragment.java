@@ -110,6 +110,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     private LinearLayout mFirstVIPRootLl;
     private LinearLayout mSecondVIPRootLl;
     private LinearLayout mIndexFunctionRootLl;
+    private ImageView mTopRightIconIv;
 
 
     public void initVipFunction(){
@@ -119,6 +120,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mSecondVIPRootLl.setVisibility(View.VISIBLE);
 
         mTopRightTitleTv.setText("产检预约");
+        mTopRightIconIv.setImageResource(R.mipmap.vip_antenatal_care_icon);
 
         mTopRightRootRl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +143,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mSecondVIPRootLl.setVisibility(View.GONE);
 
         mTopRightTitleTv.setText("护理服务");
+        mTopRightIconIv.setImageResource(R.mipmap.vip_mine_my_nurse_icon);
 
         mTopRightRootRl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,6 +167,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
     @Override
     public void onViewCreated(@NotNull View view, @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        mTopRightIconIv = view.findViewById(R.id.fragment_tab_index_top_right_icon_iv);
         mFirstVIPRootLl = view.findViewById(R.id.fragment_tab_index_first_vip_root_ll);
         mSecondVIPRootLl = view.findViewById(R.id.fragment_tab_index_second_vip_root_ll);
         mIndexFunctionRootLl = view.findViewById(R.id.fragment_tab_index_function_root_ll);
@@ -248,16 +252,22 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         indexFunctionRv.setAdapter(indexFunctionAdapter);
         indexFunctionRv.setNestedScrollingEnabled(false);
 
-        mFirstVIPDatas.add(new IndexFunction(2131493053,"产后康复"));
-        mFirstVIPDatas.add(new IndexFunction(2131493053,"羊水穿刺预约"));
-        mFirstVIPDatas.add(new IndexFunction(2131493053,"孕妇学校"));
-        mFirstVIPDatas.add(new IndexFunction(2131493053,"无痛分娩预约"));
-        mFirstVIPDatas.add(new IndexFunction(2131493053,"产科住院预约"));
-        mFirstVIPDatas.add(new IndexFunction(2131493053,"儿童保健"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_postpartum_recovery_icon,"产后康复"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_amniocentesis_icon,"羊水穿刺预约"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_pregnancy_school_icon,"孕妇学校"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetrical_medical_records_icon,"产科病历"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_painless_labor_icon,"无痛分娩预约"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetric_order_icon,"产科住院预约"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_child_health_icon,"儿童保健"));
 
-        mSecondVIPDatas.add(new IndexFunction(2131493053,"健康管理"));
-        mSecondVIPDatas.add(new IndexFunction(2131493053,"健康档案"));
-        mSecondVIPDatas.add(new IndexFunction(2131493053,"病案邮寄"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_orderby,"预约挂号"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_pay,"诊间缴费"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_management_icon,"健康管理"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_medical_record_mail_icon,"病案邮寄"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.appointment_register_icon,"检验检查预约"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_record_icon,"健康档案"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.create_code_icon,"办卡绑卡"));
+
 
         mFirstVIPRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
         mFirstVIPRv.addItemDecoration(new FunctionRvItemDecoration(70, 30));
