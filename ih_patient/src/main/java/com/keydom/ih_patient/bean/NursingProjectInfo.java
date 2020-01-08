@@ -16,6 +16,10 @@ public class NursingProjectInfo implements Serializable {
     private String name;
     @JSONField(name = "icon")
     private String icon;
+    @JSONField(name = "hotImg")
+    private String hotImg;
+    @JSONField(name = "detailImg")
+    private String detailImg;
     @JSONField(name = "summary")
     private String summary;
     @JSONField(name = "intro")
@@ -211,6 +215,19 @@ public class NursingProjectInfo implements Serializable {
         this.times = times;
     }
 
+    public String getHotImg() {
+        return hotImg;
+    }
 
+    public void setHotImg(String hotImg) {
+        this.hotImg = hotImg;
+    }
 
+    public String getDetailImg() {
+        return detailImg;
+    }
+
+    public void setDetailImg(String detailImg) {
+        this.detailImg = detailImg;
+    }
 }

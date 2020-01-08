@@ -111,7 +111,7 @@ public class NursingProjectDetailActivity extends BaseControllerActivity<Nursing
             emptyLayout.setVisibility(View.GONE);
         }
         exa_price_tv.setText("￥"+nursingProjectInfo.getFee()+"元");
-        GlideUtils.load(project_icon_img, nursingProjectInfo.getIcon() == null ? "" : Const.IMAGE_HOST+nursingProjectInfo.getIcon(), 0, 0, false, null);
+        GlideUtils.load(project_icon_img, nursingProjectInfo.getDetailImg() == null ? "" : Const.IMAGE_HOST+nursingProjectInfo.getDetailImg(), 0, 0, false, null);
         if(nursingProjectInfo.getIntro()!=null&&!"".equals(nursingProjectInfo.getIntro())){
             detail_wv_layout.setVisibility(View.VISIBLE);
             service_desc_tv.setVisibility(View.GONE);

@@ -168,6 +168,10 @@ public class NursingIndexInfo {
         private String name;
         @JSONField(name = "icon")
         private String icon;
+        @JSONField(name = "hotImg")
+        private String hotImg;
+        @JSONField(name = "detailImg")
+        private String detailImg;
         @JSONField(name = "summary")
         private String summary;
         @JSONField(name = "intro")
@@ -221,6 +225,22 @@ public class NursingIndexInfo {
 
         public void setFee(BigDecimal fee) {
             this.fee = fee;
+        }
+
+        public String getHotImg() {
+            return hotImg;
+        }
+
+        public void setHotImg(String hotImg) {
+            this.hotImg = hotImg;
+        }
+
+        public String getDetailImg() {
+            return detailImg;
+        }
+
+        public void setDetailImg(String detailImg) {
+            this.detailImg = detailImg;
         }
     }
 }

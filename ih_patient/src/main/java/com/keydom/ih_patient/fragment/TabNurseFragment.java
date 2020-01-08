@@ -72,7 +72,7 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
     private RelativeLayout hot_service_one_layout, hot_service_two_layout, hot_service_three_layout, hot_service_four_layout, hot_service_five_layout, hot_service_six_layout;
     private TextView hot_service_one_name_tv, hot_service_one_dsc_tv, hot_service_one_price_tv, hot_service_two_name_tv, hot_service_two_dsc_tv, hot_service_two_price_tv, hot_service_three_name_tv, hot_service_three_dsc_tv, hot_service_three_price_tv;
     private TextView hot_service_four_name_tv, hot_service_four_dsc_tv, hot_service_four_price_tv, hot_service_five_name_tv, hot_service_five_dsc_tv, hot_service_five_price_tv, hot_service_six_name_tv, hot_service_six_dsc_tv, hot_service_six_price_tv;
-    private ImageView hot_service_one_img, hot_service_two_img, hot_service_three_img, hot_service_six_img;
+    private ImageView hot_service_one_img, hot_service_two_img, hot_service_three_img,hot_service_four_img,hot_service_five_img, hot_service_six_img;
     private Map<String, Long> projectTypeMap = new HashMap<>();
     private long first_hot_project_id, second_hot_project_id, third_hot_project_id, fourth_hot_project_id, fifth_hot_project_id, sixth_hot_project_id;
     private String first_hot_project_name, second_hot_project_name, third_hot_project_name, fourth_hot_project_name, fifth_hot_project_name, sixth_hot_project_name;
@@ -164,6 +164,8 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
         hot_service_one_img = getView().findViewById(R.id.hot_service_one_img);
         hot_service_two_img = getView().findViewById(R.id.hot_service_two_img);
         hot_service_three_img = getView().findViewById(R.id.hot_service_three_img);
+        hot_service_four_img = getView().findViewById(R.id.hot_service_four_img);
+        hot_service_five_img = getView().findViewById(R.id.hot_service_five_img);
         hot_service_six_img = getView().findViewById(R.id.hot_service_six_img);
 
         emptyLayout = getView().findViewById(R.id.state_retry2);
@@ -347,11 +349,12 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
             hot_service_one_name_tv.setText(data.getNurseProjectDetailDtos().get(0).getName());
             hot_service_one_dsc_tv.setText(data.getNurseProjectDetailDtos().get(0).getSummary());
             hot_service_one_price_tv.setText("¥" + data.getNurseProjectDetailDtos().get(0).getFee() + "元");
-            Glide.with(getContext()).load(Const.IMAGE_HOST + data.getNurseProjectDetailDtos().get(0).getIcon()).into(hot_service_one_img);
             first_hot_project_id = data.getNurseProjectDetailDtos().get(0).getId();
             first_hot_project_name = data.getNurseProjectDetailDtos().get(0).getName();
             hot_service_one_layout.setOnClickListener(getController());
 
+            if(null != data.getNurseProjectDetailDtos().get(0).getHotImg())
+                Glide.with(getContext()).load(Const.IMAGE_HOST + data.getNurseProjectDetailDtos().get(0).getHotImg()).into(hot_service_one_img);
         }
 
 
@@ -359,11 +362,11 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
             hot_service_two_name_tv.setText(data.getNurseProjectDetailDtos().get(1).getName());
             hot_service_two_dsc_tv.setText(data.getNurseProjectDetailDtos().get(1).getSummary());
             hot_service_two_price_tv.setText("¥" + data.getNurseProjectDetailDtos().get(1).getFee() + "元");
-            Glide.with(getContext()).load(Const.IMAGE_HOST + data.getNurseProjectDetailDtos().get(1).getIcon()).into(hot_service_two_img);
             second_hot_project_id = data.getNurseProjectDetailDtos().get(1).getId();
             second_hot_project_name = data.getNurseProjectDetailDtos().get(1).getName();
             hot_service_two_layout.setOnClickListener(getController());
-
+            if(null != data.getNurseProjectDetailDtos().get(1).getHotImg())
+                Glide.with(getContext()).load(Const.IMAGE_HOST + data.getNurseProjectDetailDtos().get(1).getHotImg()).into(hot_service_two_img);
 
         }
 
@@ -372,11 +375,11 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
             hot_service_three_name_tv.setText(data.getNurseProjectDetailDtos().get(2).getName());
             hot_service_three_dsc_tv.setText(data.getNurseProjectDetailDtos().get(2).getSummary());
             hot_service_three_price_tv.setText("¥" + data.getNurseProjectDetailDtos().get(2).getFee() + "元");
-            Glide.with(getContext()).load(Const.IMAGE_HOST + data.getNurseProjectDetailDtos().get(2).getIcon()).into(hot_service_three_img);
             third_hot_project_id = data.getNurseProjectDetailDtos().get(2).getId();
             third_hot_project_name = data.getNurseProjectDetailDtos().get(2).getName();
             hot_service_three_layout.setOnClickListener(getController());
-
+            if(null != data.getNurseProjectDetailDtos().get(2).getHotImg())
+                Glide.with(getContext()).load(Const.IMAGE_HOST + data.getNurseProjectDetailDtos().get(2).getHotImg()).into(hot_service_three_img);
 
         }
 
@@ -388,6 +391,8 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
             fourth_hot_project_id = data.getNurseProjectDetailDtos().get(3).getId();
             fourth_hot_project_name = data.getNurseProjectDetailDtos().get(3).getName();
             hot_service_four_layout.setOnClickListener(getController());
+            if(null != data.getNurseProjectDetailDtos().get(3).getHotImg())
+                Glide.with(getContext()).load(Const.IMAGE_HOST + data.getNurseProjectDetailDtos().get(3).getHotImg()).into(hot_service_four_img);
 
         }
 
@@ -399,7 +404,8 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
             fifth_hot_project_id = data.getNurseProjectDetailDtos().get(4).getId();
             fifth_hot_project_name = data.getNurseProjectDetailDtos().get(4).getName();
             hot_service_five_layout.setOnClickListener(getController());
-
+            if(null != data.getNurseProjectDetailDtos().get(4).getHotImg())
+                Glide.with(getContext()).load(Const.IMAGE_HOST + data.getNurseProjectDetailDtos().get(4).getHotImg()).into(hot_service_five_img);
         }
 
 
@@ -407,10 +413,11 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
             hot_service_six_name_tv.setText(data.getNurseProjectDetailDtos().get(5).getName());
             hot_service_six_dsc_tv.setText(data.getNurseProjectDetailDtos().get(5).getSummary());
             hot_service_six_price_tv.setText("¥" + data.getNurseProjectDetailDtos().get(5).getFee() + "元");
-            Glide.with(getContext()).load(Const.IMAGE_HOST + data.getNurseProjectDetailDtos().get(5).getIcon()).into(hot_service_six_img);
             sixth_hot_project_id = data.getNurseProjectDetailDtos().get(5).getId();
             sixth_hot_project_name = data.getNurseProjectDetailDtos().get(5).getName();
             hot_service_six_layout.setOnClickListener(getController());
+            if(null != data.getNurseProjectDetailDtos().get(5).getHotImg())
+                Glide.with(getContext()).load(Const.IMAGE_HOST + data.getNurseProjectDetailDtos().get(5).getHotImg()).into(hot_service_six_img);
         }
 
     }
