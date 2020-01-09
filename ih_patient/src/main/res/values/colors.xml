@@ -67,4 +67,7 @@
     <color name="vip_balance_text">#BD761C</color>
     <color name="vip_agreement_desc_text">#ff033333</color>
     <color name="vip_agreement_text">#00A8F1</color>
+    <color name="vip_line">#fff3d9a2</color>
+    <color name="vip_detail_balance_text">#ffe9b954</color>
+    <color name="vip_detail_balance_number_text">#ff777777</color>
 </resources>

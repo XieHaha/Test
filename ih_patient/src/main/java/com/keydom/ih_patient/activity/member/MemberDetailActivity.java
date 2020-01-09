@@ -14,7 +14,9 @@ import com.keydom.ih_patient.activity.member.controller.MemberDetailController;
 import com.keydom.ih_patient.activity.member.view.MemberDetailView;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.constant.EventType;
+import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.fragment.TabMemberFragment;
+import com.keydom.ih_patient.fragment.VIPMemberDetailFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -30,6 +32,7 @@ public class MemberDetailActivity extends BaseControllerActivity<MemberDetailCon
     private Fragment mCurrentFragment;
 
     private TabMemberFragment mTabMemberFragment;
+    private VIPMemberDetailFragment mVIPMemberDetailFragment;
 
     /**
      * 启动
@@ -57,8 +60,9 @@ public class MemberDetailActivity extends BaseControllerActivity<MemberDetailCon
         setTitle("仁医金卡签约");
 
         mTabMemberFragment = new TabMemberFragment();
+        mVIPMemberDetailFragment = new VIPMemberDetailFragment();
 
-        switchFragment(mTabMemberFragment);
+        memberShow();
 
         EventBus.getDefault().register(this);
     }
@@ -98,6 +102,16 @@ public class MemberDetailActivity extends BaseControllerActivity<MemberDetailCon
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRecieve(Event event) {
         if (event.getType() == EventType.UPDATELOGINSTATE) {
+            memberShow();
+        }
+    }
+
+
+    private void memberShow() {
+        if (Global.isMember()) {
+            switchFragment(mVIPMemberDetailFragment);
+        } else {
+            switchFragment(mTabMemberFragment);
         }
     }
 }
