@@ -63,4 +63,8 @@
 
     <!--mian yang hospital-->
     <color name="index_top_text">#9B560E</color>
+    <color name="vip_button_text">#AA6507</color>
+    <color name="vip_balance_text">#BD761C</color>
+    <color name="vip_agreement_desc_text">#ff033333</color>
+    <color name="vip_agreement_text">#00A8F1</color>
 </resources>

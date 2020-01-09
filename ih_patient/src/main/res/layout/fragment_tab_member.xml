@@ -7,7 +7,8 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@color/white">
 
         <LinearLayout
@@ -16,161 +17,194 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_width="200dp"
-                android:layout_height="110dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="22dp"
-                android:background="@drawable/light_brown_corner_bg"
-                android:padding="5dp">
+                android:layout_width="wrap_content"
+                android:layout_height="204dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="22dp">
+
+                <ImageView
+                    android:layout_width="320dp"
+                    android:layout_height="204dp"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/vip_card_bg" />
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="82dp"
+                    android:layout_marginTop="37.5dp"
+                    android:src="@mipmap/vip_card_name_icon" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="195.5dp"
+                    android:layout_marginTop="12.5dp"
+                    android:src="@mipmap/vip_card_title_icon" />
+
+                <ImageView
+                    android:id="@+id/fragment_tab_member_balance_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginTop="79dp"
+                    android:src="@mipmap/vip_balance_icon" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="37dp"
+                    android:layout_marginTop="79dp"
+                    android:layout_toRightOf="@id/fragment_tab_member_balance_iv"
+                    android:src="@mipmap/vip_desc_icon" />
+
+
+                <TextView
+                    android:id="@+id/fragment_tab_member_price_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/fragment_tab_member_balance_iv"
+                    android:layout_marginLeft="28dp"
+                    android:layout_marginTop="16.5dp"
+                    android:text="20000元"
+                    android:textColor="@color/vip_balance_text"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="仁医金卡"
-                    android:textColor="@color/white" />
+                    android:layout_below="@id/fragment_tab_member_balance_iv"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="16.5dp"
+                    android:layout_toRightOf="@id/fragment_tab_member_price_tv"
+                    android:text="享受12个月绿色通道就医服务"
+                    android:textColor="@color/vip_balance_text"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:text="VIP"
-                    android:textColor="@color/white"
-                    android:textSize="25sp" />
+                    android:layout_below="@id/fragment_tab_member_price_tv"
+                    android:layout_marginLeft="26.5dp"
+                    android:layout_marginTop="30dp"
+                    android:text="请尽快开通享受绿色服务吧"
+                    android:textColor="@color/vip_balance_text"
+                    android:textSize="10sp" />
+
             </RelativeLayout>
 
+            <TextView
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="33dp"
+                android:text="会员专项特权 "
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
             <LinearLayout
-                android:id="@+id/fragmnet_tab_member_member_inst_root_ll"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="@dimen/dp_58"
+                    android:layout_height="@dimen/dp_58"
+                    android:src="@mipmap/mine_my_doctor" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_58"
+                    android:layout_height="@dimen/dp_58"
+                    android:layout_marginLeft="30dp"
+                    android:src="@mipmap/mine_my_doctor" />
+
+
+                <ImageView
+                    android:layout_width="@dimen/dp_58"
+                    android:layout_height="@dimen/dp_58"
+                    android:layout_marginLeft="30dp"
+                    android:src="@mipmap/mine_my_doctor" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/primary_bg_color" />
+
+            <TextView
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="18dp"
+                android:text="注意事项"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/primary_bg_color" />
+
+            <TextView
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="47dp"
+                android:lineSpacingExtra="15dp"
+                android:text="@string/vip_desc"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
+                android:layout_marginBottom="28.5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:text="会员专项特权 "
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:orientation="horizontal">
-
-
-                    <ImageView
-                        android:layout_width="@dimen/dp_58"
-                        android:layout_height="@dimen/dp_58"
-                        android:src="@mipmap/mine_my_doctor" />
-
-                    <ImageView
-                        android:layout_width="@dimen/dp_58"
-                        android:layout_height="@dimen/dp_58"
-                        android:layout_marginLeft="30dp"
-                        android:src="@mipmap/mine_my_doctor" />
-
-
-                    <ImageView
-                        android:layout_width="@dimen/dp_58"
-                        android:layout_height="@dimen/dp_58"
-                        android:layout_marginLeft="30dp"
-                        android:src="@mipmap/mine_my_doctor" />
-
-                </LinearLayout>
+                    android:text="查看会员全系详情"
+                    android:textColor="@color/vip_agreement_desc_text"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="注意事项"
-                    android:textColor="@color/black"
-                    android:textSize="19sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="16dp"
-                    android:lineSpacingExtra="5dp"
-                    android:text="@string/vip_desc"
-                    android:textSize="14dp" />
-
-                <TextView
-                    android:id="@+id/fragment_tab_member_open_now_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="50dp"
-                    android:background="@color/index_top_text"
+                    android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="立即开通"
-                    android:textColor="@color/white" />
+                    android:text="《会员服务协议》"
+                    android:textColor="@color/vip_agreement_text"
+                    android:textSize="12sp" />
+
 
             </LinearLayout>
 
-
-            <LinearLayout
-                android:id="@+id/fragment_tab_member_desc_root_ll"
-                android:layout_width="match_parent"
-                android:layout_height="74dp"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="余额 8952.00元"
-                    android:textColor="@color/index_top_text"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="到期日 2020-03-09"
-                    android:textColor="@color/index_top_text"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/fragment_tab_member_func_root_ll"
-                android:layout_width="match_parent"
-                android:layout_height="74dp"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/fragment_tab_member_func_charge_record_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="缴费记录"
-                    android:textColor="@color/index_top_text"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/fragment_tab_member_func_charge_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="续约"
-                    android:textColor="@color/index_top_text"
-                    android:textSize="14sp" />
-            </LinearLayout>
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
+
+    <TextView
+        android:id="@+id/fragment_tab_member_get_vip_tv"
+        android:layout_width="328dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@mipmap/vip_button_bg"
+        android:paddingLeft="123.5dp"
+        android:paddingTop="13dp"
+        android:text="立即开通"
+        android:textColor="@color/vip_button_text" />
 
 </LinearLayout>
