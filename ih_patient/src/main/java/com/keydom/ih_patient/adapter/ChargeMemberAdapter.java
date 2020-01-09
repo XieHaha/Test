@@ -25,8 +25,11 @@ public class ChargeMemberAdapter extends BaseQuickAdapter<String,BaseViewHolder>
     protected void convert(BaseViewHolder helper, String item) {
         if("0".equals(item)){
             helper.getView(R.id.item_charge_member_price_tv).setVisibility(View.GONE);
+            helper.getView(R.id.item_charge_member_price_et).setVisibility(View.VISIBLE);
         }else{
             helper.setText(R.id.item_charge_member_price_tv, "¥" + item);
+            helper.getView(R.id.item_charge_member_price_tv).setVisibility(View.VISIBLE);
+            helper.getView(R.id.item_charge_member_price_et).setVisibility(View.GONE);
         }
 
     }

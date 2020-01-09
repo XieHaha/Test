@@ -57,10 +57,16 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
         mPricesRv = findViewById(R.id.charge_member_rv);
         findViewById(R.id.charge_member_commit_charge_tv).setOnClickListener(getController());
 
-
         mAdapter = new ChargeMemberAdapter(mDatas);
-        mPricesRv.setLayoutManager(new GridLayoutManager(this,3));
+
+        GridLayoutManager mGridLayoutManager = new GridLayoutManager(getContext(),3);
+        mPricesRv.setLayoutManager(mGridLayoutManager);
         mPricesRv.setAdapter(mAdapter);
+
+
+        mGridLayoutManager.setSmoothScrollbarEnabled(true);
+        mPricesRv.setHasFixedSize(true);
+        mPricesRv.setNestedScrollingEnabled(false);
 
         getController().init();
 
