@@ -145,6 +145,17 @@ public class IhTitleLayout extends LinearLayout {
         }
     }
 
+    /**
+     * 设置标题颜色
+     *
+     * @param color
+     */
+    public void setAppTitleColor(int color) {
+            mViewHolder.tvCenterTitle.setTextColor(color);
+    }
+
+
+
     public void setRightTitle(String text) {
         if (!TextUtils.isEmpty(text)) {
             mViewHolder.llRightComplete.setVisibility(VISIBLE);

@@ -28,12 +28,6 @@ public class SignMemberController extends ControllerImpl<SignMemberView> impleme
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.sign_member_wechat_pay_root_rl:
-                getView().showWechatPaySelected();
-                break;
-            case R.id.sign_member_ali_pay_root_rl:
-                getView().showAliPaySelected();
-                break;
             case R.id.pay_commit_tv:
                 if(TextUtils.isEmpty(getView().getName())){
                     ToastUtil.showMessage(getContext(),"姓名不能空");
@@ -45,7 +39,7 @@ public class SignMemberController extends ControllerImpl<SignMemberView> impleme
                     return;
                 }
 
-                pay(0, "", getView().getPayType(), 20000);
+                //pay(0, "", getView().getPayType(), 20000);
                 break;
         }
     }

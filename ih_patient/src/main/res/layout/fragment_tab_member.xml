@@ -68,7 +68,7 @@
                     android:layout_below="@id/fragment_tab_member_balance_iv"
                     android:layout_marginLeft="28dp"
                     android:layout_marginTop="16.5dp"
-                    android:text="20000元"
+                    android:text="@string/vip_price"
                     android:textColor="@color/vip_balance_text"
                     android:textSize="14sp" />
 
@@ -79,7 +79,7 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="16.5dp"
                     android:layout_toRightOf="@id/fragment_tab_member_price_tv"
-                    android:text="享受12个月绿色通道就医服务"
+                    android:text="@string/vip_service_desc"
                     android:textColor="@color/vip_balance_text"
                     android:textSize="14sp" />
 

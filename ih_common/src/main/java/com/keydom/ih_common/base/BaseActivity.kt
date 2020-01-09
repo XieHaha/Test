@@ -155,6 +155,15 @@ abstract class BaseActivity : AppCompatActivity(), BaseActivityInterFace {
         titleLayout?.setAppTitle(title.toString())
     }
 
+
+
+    /**
+     * 设置标白色
+     */
+    fun setWhiteBar() {
+        titleLayout?.setWhiteBar()
+    }
+
     /**
      * 获取标题栏对象
      */

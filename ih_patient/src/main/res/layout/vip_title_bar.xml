@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.keydom.ih_common.view.IhTitleLayout
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_dp"
+        android:background="@mipmap/vip_member_tool_bg">
+
+    </com.keydom.ih_common.view.IhTitleLayout>
+</merge>
