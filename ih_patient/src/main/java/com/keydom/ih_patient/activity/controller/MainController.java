@@ -5,15 +5,11 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.keydom.ih_common.utils.StatusBarUtils;
-import com.keydom.ih_common.view.ScrollControlViewPager;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.index_main.MainActivity;
 import com.keydom.ih_patient.adapter.ViewPagerAdapter;
-import com.keydom.ih_patient.fragment.TabDiagnoseFragment;
 import com.keydom.ih_patient.fragment.TabIndexFragment;
-import com.keydom.ih_patient.fragment.TabMemberFragment;
 import com.keydom.ih_patient.fragment.TabMineFragment;
-import com.keydom.ih_patient.fragment.TabNurseFragment;
 import com.keydom.ih_patient.view.MainView;
 
 import java.util.ArrayList;
@@ -29,13 +25,9 @@ import java.util.List;
 public class MainController implements View.OnClickListener,ViewPager.OnPageChangeListener{
 
     private MainView mainView;
-    private ScrollControlViewPager scrollControlViewPager;
     private MainActivity mContext;
     private TabIndexFragment tabIndexFragment;
-    private TabDiagnoseFragment tabDiagnoseFragment;
-    private TabNurseFragment tabNurseFragment;
     private TabMineFragment tabMineFragment;
-    private TabMemberFragment tabMemberFragment;
 
     /**
      * 构造方法

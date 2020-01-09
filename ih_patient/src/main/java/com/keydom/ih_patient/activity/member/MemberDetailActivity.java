@@ -12,7 +12,13 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.member.controller.MemberDetailController;
 import com.keydom.ih_patient.activity.member.view.MemberDetailView;
+import com.keydom.ih_patient.bean.Event;
+import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.fragment.TabMemberFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class MemberDetailActivity extends BaseControllerActivity<MemberDetailController> implements MemberDetailView {
 
@@ -53,6 +59,14 @@ public class MemberDetailActivity extends BaseControllerActivity<MemberDetailCon
         mTabMemberFragment = new TabMemberFragment();
 
         switchFragment(mTabMemberFragment);
+
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -78,5 +92,12 @@ public class MemberDetailActivity extends BaseControllerActivity<MemberDetailCon
             }
         }
         mCurrentFragment = fragment;
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRecieve(Event event) {
+        if (event.getType() == EventType.UPDATELOGINSTATE) {
+        }
     }
 }
