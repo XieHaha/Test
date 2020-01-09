@@ -456,6 +456,9 @@
         <activity
             android:name=".activity.nurse_main.NurseMainActivity"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.member.MemberDetailActivity"
+            android:launchMode="singleTop" />
         <!--百度地图-->
         <service
             android:name="com.baidu.location.f"

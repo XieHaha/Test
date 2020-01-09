@@ -9,6 +9,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.index_main.view.IndexMainView;
+import com.keydom.ih_patient.activity.member.MemberDetailActivity;
 import com.keydom.ih_patient.bean.CityBean;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.UserService;
@@ -55,6 +56,7 @@ public class IndexMainController extends ControllerImpl<IndexMainView> implement
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tab_member:
+                MemberDetailActivity.start(getContext());
                 break;
         }
     }
