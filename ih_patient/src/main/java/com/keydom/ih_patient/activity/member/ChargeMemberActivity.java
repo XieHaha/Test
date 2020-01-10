@@ -41,12 +41,10 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
         mDatas = new ArrayList<String>();
         mDatas.add("1000");
         mDatas.add("2000");
+        mDatas.add("3000");
+        mDatas.add("4000");
         mDatas.add("5000");
-        mDatas.add("10000");
-        mDatas.add("20000");
         mDatas.add("0");
-
-
     }
 
     @Override

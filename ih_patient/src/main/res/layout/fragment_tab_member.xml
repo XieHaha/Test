@@ -58,7 +58,7 @@
                     android:layout_marginLeft="37dp"
                     android:layout_marginTop="79dp"
                     android:layout_toRightOf="@id/fragment_tab_member_balance_iv"
-                    android:src="@mipmap/vip_desc_icon" />
+                    android:src="@mipmap/vip_card_desc_icon" />
 
 
                 <TextView
