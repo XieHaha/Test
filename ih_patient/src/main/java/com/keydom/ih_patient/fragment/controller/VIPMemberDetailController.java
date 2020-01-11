@@ -39,7 +39,7 @@ public class VIPMemberDetailController extends ControllerImpl<VIPMemberDetailVie
      * 办理会员卡
      */
     public void getMyVipCard() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(VIPCardService.class).getMyVipCard(String.valueOf(Global.getUserId())), new HttpSubscriber<VIPDetailBean>(getContext(), getDisposable(), true, false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(VIPCardService.class).getMyVipCard(Global.getUserId()), new HttpSubscriber<VIPDetailBean>(getContext(), getDisposable(), true, false) {
 
             @Override
             public void requestComplete(@Nullable VIPDetailBean data) {

@@ -3,9 +3,11 @@ package com.keydom.ih_patient.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.adapter.MemberFunctionAdapter;
 import com.keydom.ih_patient.bean.VIPCardInfoListItem;
@@ -74,12 +76,19 @@ public class TabMemberFragment extends BaseControllerFragment<TabMemberControlle
     @Override
     public void getMyVipCardSuccess(VIPCardInfoResponse data) {
 
-        if (null != data && null != data.getInfoList() && data.getInfoList().size() > 0) {
+        if (null != data) {
 
-            mDatas.addAll(data.getInfoList());
-            mAdapter = new MemberFunctionAdapter(getContext(), mDatas);
+            if(null != data.getInfoList() && data.getInfoList().size() > 0){
+                mDatas.addAll(data.getInfoList());
+                mAdapter = new MemberFunctionAdapter(getContext(), mDatas);
 
-            initAdapter();
+                initAdapter();
+            }
+
+            if(!TextUtils.isEmpty(data.getId())){
+                SharePreferenceManager.setVIPCardTypeID(data.getId());
+            }
+
         }
 
     }

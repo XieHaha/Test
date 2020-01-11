@@ -29,6 +29,21 @@ public class SharePreferenceManager {
     private static final String GESTURELOCKEDTIME = "gesture_locked_time";
     private static final String ID_CARD = "id_card";
     private static final String AUTONY_STATE = "autony_state";
+    private static final String VIP_CARD_TYPE_ID = "vip_card_type_id";
+
+    public static void setVIPCardTypeID(String cardTypeID) {
+        if (null != sp) {
+            sp.edit().putString(VIP_CARD_TYPE_ID, cardTypeID).apply();
+        }
+    }
+
+    public static String getVIPCardTypeID() {
+        if (null != sp) {
+            return sp.getString(VIP_CARD_TYPE_ID, "");
+        }
+        return "";
+    }
+
 
     public static void setLockTime(long timeMillis) {
         if (null != sp) {

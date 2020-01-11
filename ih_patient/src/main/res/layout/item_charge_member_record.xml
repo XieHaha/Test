@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_f9_bg_bottom_divider"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/padding_left_right_dp"
+    android:paddingTop="@dimen/dp_29"
+    android:paddingRight="@dimen/padding_left_right_dp"
+    android:paddingBottom="@dimen/dp_24">
+
+
+    <TextView
+        android:id="@+id/item_charge_member_record_date_tv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_size_primary" />
+
+    <TextView
+        android:id="@+id/item_charge_member_record_money_tv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/nursing_status_red"
+        android:textSize="@dimen/font_size_primary" />
+</LinearLayout>

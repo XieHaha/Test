@@ -7,20 +7,16 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
-import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.activity.member.view.ChargeMemberRecordView;
-import com.keydom.ih_patient.bean.PayRecordBean;
+import com.keydom.ih_patient.bean.RenewalRecordItem;
 import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.TypeEnum;
-import com.keydom.ih_patient.net.PayService;
+import com.keydom.ih_patient.net.VIPCardService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ChargeMemberRecordController extends ControllerImpl<ChargeMemberRecordView> {
 
@@ -28,19 +24,13 @@ public class ChargeMemberRecordController extends ControllerImpl<ChargeMemberRec
     /**
      * 获取缴费记录
      */
-    public void getConsultationPayList(SmartRefreshLayout refreshLayout, int state, final TypeEnum typeEnum) {
+    public void getRenewalRecord(SmartRefreshLayout refreshLayout, int state, final TypeEnum typeEnum) {
         if (typeEnum == TypeEnum.REFRESH) {
             setCurrentPage(1);
         }
-        Map<String, Object> map = new HashMap<>();
-        map.put("hospitalId", App.hospitalId);
-        map.put("registerUserId", Global.getUserId());
-        map.put("state", state);
-        map.put("currentPage", getCurrentPage());
-        map.put("pageSize", Const.PAGE_SIZE);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PayService.class).getConsultationPayList(map), new HttpSubscriber<PageBean<PayRecordBean>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(VIPCardService.class).getRenewalRecord(Global.getUserId(),getCurrentPage(),Const.PAGE_SIZE), new HttpSubscriber<PageBean<RenewalRecordItem>>(getContext(), getDisposable(), false) {
             @Override
-            public void requestComplete(@Nullable PageBean<PayRecordBean> data) {
+            public void requestComplete(@Nullable PageBean<RenewalRecordItem> data) {
                 if (data != null) {
                     getView().paymentListCallBack(data.getRecords(),typeEnum);
                 }

@@ -12,8 +12,9 @@ import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.member.controller.ChargeMemberRecordController;
 import com.keydom.ih_patient.activity.member.view.ChargeMemberRecordView;
 import com.keydom.ih_patient.activity.payment_records.PaymentDetailActivity;
-import com.keydom.ih_patient.adapter.PayRecordAdapter;
+import com.keydom.ih_patient.adapter.ChargeMemberRecordAdapter;
 import com.keydom.ih_patient.bean.PayRecordBean;
+import com.keydom.ih_patient.bean.RenewalRecordItem;
 import com.keydom.ih_patient.constant.TypeEnum;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -28,7 +29,7 @@ public class ChargeMemberRecordActivity extends BaseControllerActivity<ChargeMem
     private RecyclerView mRecyclerView;
     private SmartRefreshLayout mRefreshLayout;
 
-    private PayRecordAdapter mPayRecordAdapter;
+    private ChargeMemberRecordAdapter mChargeMemberRecordAdapter;
 
     /**
      * 启动
@@ -56,10 +57,10 @@ public class ChargeMemberRecordActivity extends BaseControllerActivity<ChargeMem
         mRecyclerView=findViewById(R.id.paied_record_rv);
         mRefreshLayout=findViewById(R.id.paied_record_refresh);
 
-        mPayRecordAdapter = new PayRecordAdapter(new ArrayList<>());
+        mChargeMemberRecordAdapter = new ChargeMemberRecordAdapter(new ArrayList<>());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mPayRecordAdapter);
-        mPayRecordAdapter.setOnItemClickListener((adapter, view, position) -> {
+        mRecyclerView.setAdapter(mChargeMemberRecordAdapter);
+        mChargeMemberRecordAdapter.setOnItemClickListener((adapter, view, position) -> {
             PayRecordBean payRecordBean = (PayRecordBean) adapter.getData().get(position);
             String docNum = payRecordBean.getDocumentNo();
             Intent i = new Intent(this, PaymentDetailActivity.class);
@@ -67,20 +68,20 @@ public class ChargeMemberRecordActivity extends BaseControllerActivity<ChargeMem
             ActivityUtils.startActivity(i);
         });
 
-        mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout,1, TypeEnum.REFRESH));
-        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout,1,TypeEnum.LOAD_MORE));
-        getController().getConsultationPayList(mRefreshLayout,1,TypeEnum.REFRESH);
+        mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getRenewalRecord(mRefreshLayout,1, TypeEnum.REFRESH));
+        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getRenewalRecord(mRefreshLayout,1,TypeEnum.LOAD_MORE));
+        getController().getRenewalRecord(mRefreshLayout,1,TypeEnum.REFRESH);
     }
 
     @Override
-    public void paymentListCallBack(List<PayRecordBean> list, TypeEnum typeEnum) {
+    public void paymentListCallBack(List<RenewalRecordItem> list, TypeEnum typeEnum) {
         mRefreshLayout.finishLoadMore();
         mRefreshLayout.finishRefresh();
         pageLoadingSuccess();
         if (typeEnum == TypeEnum.REFRESH) {
-            mPayRecordAdapter.replaceData(list);
+            mChargeMemberRecordAdapter.replaceData(list);
         }else{
-            mPayRecordAdapter.addData(list);
+            mChargeMemberRecordAdapter.addData(list);
         }
         getController().currentPagePlus();
     }

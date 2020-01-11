@@ -13,7 +13,7 @@ import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.global_search.SearchActivity;
 import com.keydom.ih_patient.activity.index_main.ChooseCityActivity;
-import com.keydom.ih_patient.activity.member.SignMemberActivity;
+import com.keydom.ih_patient.activity.member.MemberDetailActivity;
 import com.keydom.ih_patient.activity.my_message.MyMessageActivity;
 import com.keydom.ih_patient.bean.CityBean;
 import com.keydom.ih_patient.bean.Event;
@@ -54,7 +54,7 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fragment_tab_index_open_vip_ll:
-                SignMemberActivity.start(getContext());
+                MemberDetailActivity.start(getContext());
                 break;
             case R.id.location_layout:
                 ChooseCityActivity.start(getContext());

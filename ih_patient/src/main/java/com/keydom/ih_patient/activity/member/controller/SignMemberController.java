@@ -34,8 +34,8 @@ public class SignMemberController extends ControllerImpl<SignMemberView> impleme
         switch (v.getId()) {
             case R.id.pay_commit_tv:
 
-                if(!SharePreferenceManager.isAutony()){
-                    ToastUtil.showMessage(getContext(),"还未实名认证，请实名认证再开通相关服务");
+                if (null == App.userInfo || !App.userInfo.isCertification()) {
+                    ToastUtil.showMessage(getContext(), "还未实名认证，请实名认证再开通相关服务");
                     return;
                 }
 
@@ -50,7 +50,7 @@ public class SignMemberController extends ControllerImpl<SignMemberView> impleme
                     return;
                 }
 
-                addCardForMobile(getView().getName(),getView().getID());
+                addCardForMobile(getView().getName(), getView().getID());
                 break;
         }
     }
@@ -64,7 +64,7 @@ public class SignMemberController extends ControllerImpl<SignMemberView> impleme
         map.put("cardHolder", cardHolder);
         map.put("hospitalId", App.hospitalId);
         map.put("idCard", idCard);
-        map.put("cardTypeId", "1");
+        map.put("cardTypeId", SharePreferenceManager.getVIPCardTypeID());
         map.put("registerUserId", Global.getUserId());
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(VIPCardService.class).addCardForMobile(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), true, false) {
 

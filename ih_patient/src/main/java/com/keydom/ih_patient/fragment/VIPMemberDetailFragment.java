@@ -70,6 +70,11 @@ public class VIPMemberDetailFragment extends BaseControllerFragment<VIPMemberDet
 
     @Override
     public void getMyVipCardSuccess(VIPDetailBean data) {
+        refreshData(data);
+    }
+
+
+    public void refreshData(VIPDetailBean data) {
         if (null != data) {
             if (!TextUtils.isEmpty(data.getCardNumber()))
                 mCardNumTv.setText(data.getCardNumber());
@@ -85,10 +90,5 @@ public class VIPMemberDetailFragment extends BaseControllerFragment<VIPMemberDet
             mBalanceTv.setText(String.valueOf(data.getSurplusAmount()));
 
         }
-    }
-
-
-    public void refreshData() {
-
     }
 }

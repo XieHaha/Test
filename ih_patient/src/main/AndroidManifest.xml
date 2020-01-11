@@ -441,6 +441,7 @@
 
         <activity
             android:name=".activity.member.SignMemberActivity"
+            android:windowSoftInputMode = "stateHidden|adjustPan"
             android:launchMode="singleTop" />
 
         <activity
