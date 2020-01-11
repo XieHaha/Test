@@ -79,8 +79,8 @@ public class Const {
 
 
     //小程序环境
-    public static final String RELEASE_HOST = "http://192.168.2.19:8888/";
-    public static final String IMAGE_HOST = "http://192.168.2.19:8888/";
+    public static final String RELEASE_HOST = "http://110.191.238.12:12013/";
+    public static final String IMAGE_HOST = "http://110.191.238.12:12013/";
 
 
     //演示环境
