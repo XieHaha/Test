@@ -5,6 +5,7 @@ import com.blankj.utilcode.util.Utils;
 import com.iflytek.cloud.SpeechUtility;
 import com.keydom.ih_common.CommonApp;
 import com.keydom.ih_common.im.ImClient;
+import com.keydom.ih_common.utils.CustomActivityLifecycleCallback;
 import com.keydom.ih_patient.activity.index_main.MainActivity;
 import com.keydom.ih_patient.bean.UserInfo;
 import com.keydom.ih_patient.utils.pay.weixin.WXInit;
@@ -39,8 +40,10 @@ public class App extends CommonApp {
             WXInit.init(this, appId);
             WXPay.init(this, appId);
             closeAndroidPDialog();
+            registerActivityLifecycleCallbacks(new CustomActivityLifecycleCallback());
         }
     }
+
 
     /**
      * 去掉在Android P上的提醒弹窗 （Detected problems with API compatibility(visit g.co/dev/appcompat for more info)
@@ -65,4 +68,5 @@ public class App extends CommonApp {
             e.printStackTrace();
         }
     }
+
 }

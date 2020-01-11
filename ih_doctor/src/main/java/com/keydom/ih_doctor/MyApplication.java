@@ -11,6 +11,7 @@ import com.ganxin.library.LoadDataLayout;
 import com.iflytek.cloud.SpeechUtility;
 import com.keydom.ih_common.CommonApp;
 import com.keydom.ih_common.im.ImClient;
+import com.keydom.ih_common.utils.CustomActivityLifecycleCallback;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_doctor.activity.MainActivity;
 import com.keydom.ih_doctor.bean.AccessInfoBean;
@@ -93,6 +94,7 @@ public class MyApplication extends CommonApp {
             SpeechUtility.createUtility(this, "appid=" + getString(R.string.xunfei_app_id));
             SharePreferenceManager.init(this, Const.SHAREPREFERENCE_NAME);
             initData();
+            registerActivityLifecycleCallbacks(new CustomActivityLifecycleCallback());
             //CrashHandler.getInstance().init(getApplicationContext());
         }
     }

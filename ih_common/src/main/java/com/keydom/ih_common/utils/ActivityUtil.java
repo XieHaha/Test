@@ -1,9 +1,14 @@
 package com.keydom.ih_common.utils;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import java.util.List;
+
+import static android.content.Context.ACTIVITY_SERVICE;
 
 /**
  * Activity跳转工具类
@@ -158,6 +163,26 @@ public class ActivityUtil {
 	 */
 	public static void finish(Activity curActivity) {
 		curActivity.finish();
+	}
+
+
+
+	/**
+	 *
+	 * @Description: TODO 判断activity是否在应用的最顶层
+	 * @param context 上下文
+	 * @return boolean true为在最顶层，false为否
+	 */
+	public static boolean isTop(Activity context) {
+		ActivityManager am = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
+		List<ActivityManager.RunningTaskInfo> appTask = am.getRunningTasks(1);
+		return appTask.size() > 0 && appTask.get(0).topActivity.equals(context.getComponentName());
+	}
+
+	public static boolean isTop(Context context,Activity activity) {
+		ActivityManager am = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
+		List<ActivityManager.RunningTaskInfo> appTask = am.getRunningTasks(1);
+		return appTask.size() > 0 && appTask.get(0).topActivity.equals(activity.getComponentName());
 	}
 
 }

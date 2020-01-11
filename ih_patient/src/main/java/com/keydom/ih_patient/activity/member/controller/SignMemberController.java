@@ -21,6 +21,7 @@ import com.keydom.ih_patient.net.PayService;
 import com.keydom.ih_patient.net.VIPCardService;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
 import com.keydom.ih_patient.utils.pay.weixin.WXPay;
+import com.keydom.ih_patient.view.CommonPayDialog;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,6 +30,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SignMemberController extends ControllerImpl<SignMemberView> implements View.OnClickListener {
+
+    CommonPayDialog mCommonPayDialog;
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -50,9 +55,28 @@ public class SignMemberController extends ControllerImpl<SignMemberView> impleme
                     return;
                 }
 
-                addCardForMobile(getView().getName(), getView().getID());
+                if (!getView().isCheckAgreement()) {
+                    ToastUtil.showMessage(getContext(), "请阅读并同意相关会员服务协议");
+                    return;
+                }
+
+                if (mCommonPayDialog.isShowing()) {
+                    mCommonPayDialog.dismiss();
+                }
+                mCommonPayDialog.show();
                 break;
         }
+    }
+
+
+    public void init() {
+        mCommonPayDialog = new CommonPayDialog(getContext(), 20000, new CommonPayDialog.iOnCommitOnClick() {
+            @Override
+            public void commitPay(String type) {
+                //pay(0, "0", Integer.valueOf(type), 0.01);
+                addCardForMobile(getView().getName(), getView().getID());
+            }
+        });
     }
 
 

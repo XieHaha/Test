@@ -9,6 +9,8 @@ public interface SignMemberView extends BaseView {
 
     String getID();
 
+    boolean isCheckAgreement();
+
     void paySuccess();
 
     void addCardForMobileSuccess();
