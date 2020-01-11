@@ -58,12 +58,11 @@
 
 
                     <TextView
-                        android:id="@+id/fragment_tab_member_price_tv"
+                        android:id="@+id/fragment_tab_member_card_num_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="24dp"
                         android:layout_marginTop="82dp"
-                        android:text="999 888 777 666 555"
                         android:textColor="@color/vip_balance_text"
                         android:textSize="21sp" />
 
@@ -72,23 +71,22 @@
                         android:id="@+id/fragment_vip_member_detail_card_name_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/fragment_tab_member_price_tv"
+                        android:layout_below="@id/fragment_tab_member_card_num_tv"
                         android:layout_marginLeft="24dp"
                         android:layout_marginTop="54dp"
                         android:layout_marginBottom="24dp"
-                        android:text="持卡人：有点儿淡"
                         android:textColor="@color/vip_balance_text"
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/fragment_vip_member_detail_card_date_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/fragment_tab_member_price_tv"
+                        android:layout_below="@id/fragment_tab_member_card_num_tv"
                         android:layout_marginLeft="32dp"
                         android:layout_marginTop="54dp"
                         android:layout_marginBottom="24dp"
                         android:layout_toRightOf="@id/fragment_vip_member_detail_card_name_tv"
-                        android:text="有效期：2019年12月30日"
                         android:textColor="@color/vip_balance_text"
                         android:textSize="12sp" />
 
@@ -128,11 +126,11 @@
 
 
                     <TextView
+                        android:id="@+id/fragment_vip_member_detail_balance_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="13dp"
                         android:ellipsize="end"
-                        android:text="10000"
                         android:textColor="@color/vip_detail_balance_number_text"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -170,11 +168,11 @@
 
 
                     <TextView
+                        android:id="@+id/fragment_vip_member_detail_date_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="13dp"
                         android:ellipsize="end"
-                        android:text="2019-12-30"
                         android:textColor="@color/vip_detail_balance_number_text"
                         android:textSize="18sp" />
                 </LinearLayout>

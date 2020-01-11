@@ -11,10 +11,14 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.member.view.SignMemberView;
+import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.PayService;
+import com.keydom.ih_patient.net.VIPCardService;
 import com.keydom.ih_patient.utils.pay.alipay.Alipay;
 import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 
@@ -29,19 +33,53 @@ public class SignMemberController extends ControllerImpl<SignMemberView> impleme
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pay_commit_tv:
-                if(TextUtils.isEmpty(getView().getName())){
-                    ToastUtil.showMessage(getContext(),"姓名不能空");
+
+                if(!SharePreferenceManager.isAutony()){
+                    ToastUtil.showMessage(getContext(),"还未实名认证，请实名认证再开通相关服务");
                     return;
                 }
 
-                if(TextUtils.isEmpty(getView().getID())){
-                    ToastUtil.showMessage(getContext(),"身份证号不能为空");
+
+                if (TextUtils.isEmpty(getView().getName())) {
+                    ToastUtil.showMessage(getContext(), "姓名不能空");
                     return;
                 }
 
-                //pay(0, "", getView().getPayType(), 20000);
+                if (TextUtils.isEmpty(getView().getID())) {
+                    ToastUtil.showMessage(getContext(), "身份证号不能为空");
+                    return;
+                }
+
+                addCardForMobile(getView().getName(),getView().getID());
                 break;
         }
+    }
+
+
+    /**
+     * 办理会员卡
+     */
+    public void addCardForMobile(String cardHolder, String idCard) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("cardHolder", cardHolder);
+        map.put("hospitalId", App.hospitalId);
+        map.put("idCard", idCard);
+        map.put("cardTypeId", "1");
+        map.put("registerUserId", Global.getUserId());
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(VIPCardService.class).addCardForMobile(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), true, false) {
+
+            @Override
+            public void requestComplete(@Nullable Object data) {
+                getView().addCardForMobileSuccess();
+            }
+
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                ToastUtils.showShort(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
     }
 
 

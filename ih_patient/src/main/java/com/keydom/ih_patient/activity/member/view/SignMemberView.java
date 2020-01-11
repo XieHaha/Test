@@ -10,4 +10,6 @@ public interface SignMemberView extends BaseView {
     String getID();
 
     void paySuccess();
+
+    void addCardForMobileSuccess();
 }

@@ -158,7 +158,16 @@ public class UserInfo implements Serializable {
     @JSONField(name = "imToken")
     private String imToken;
 
-    private int member = 1; // 0 非会员，1会员
+    @JSONField(name = "isVip")
+    private int isVip = 0; // 0 非会员，1会员
+
+    public int getIsVip() {
+        return isVip;
+    }
+
+    public void setIsVip(int isVip) {
+        this.isVip = isVip;
+    }
 
     public long getId() {
         return id;
@@ -465,14 +474,14 @@ public class UserInfo implements Serializable {
     }
 
     public boolean isMember() {
-        return member > 0;
+        return isVip > 0;
     }
 
     public int getMember() {
-        return member;
+        return isVip;
     }
 
-    public void setMember(int member) {
-        this.member = member;
+    public void setMember(int isVip) {
+        this.isVip = isVip;
     }
 }
