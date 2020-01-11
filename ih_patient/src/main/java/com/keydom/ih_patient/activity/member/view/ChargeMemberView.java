@@ -4,5 +4,5 @@ import com.keydom.ih_common.base.BaseView;
 
 public interface ChargeMemberView extends BaseView {
 
-    void paySuccess();
+    void renewalCardSuccess();
 }

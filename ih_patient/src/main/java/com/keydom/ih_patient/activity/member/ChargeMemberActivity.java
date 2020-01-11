@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.member.controller.ChargeMemberController;
@@ -49,7 +50,7 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        getTitleLayout().initViewsVisible(true,true,false);
+        getTitleLayout().initViewsVisible(true, true, false);
         setTitle("仁医金卡续约");
 
         mPricesRv = findViewById(R.id.charge_member_rv);
@@ -57,7 +58,7 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
 
         mAdapter = new ChargeMemberAdapter(mDatas);
 
-        GridLayoutManager mGridLayoutManager = new GridLayoutManager(getContext(),3);
+        GridLayoutManager mGridLayoutManager = new GridLayoutManager(getContext(), 3);
         mPricesRv.setLayoutManager(mGridLayoutManager);
         mPricesRv.setAdapter(mAdapter);
 
@@ -71,7 +72,7 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
     }
 
     @Override
-    public void paySuccess() {
-
+    public void renewalCardSuccess() {
+        ToastUtils.showShort("续约成功");
     }
 }

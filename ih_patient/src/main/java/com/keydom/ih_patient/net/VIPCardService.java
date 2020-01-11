@@ -1,6 +1,7 @@
 package com.keydom.ih_patient.net;
 
 import com.keydom.ih_common.net.result.HttpResult;
+import com.keydom.ih_patient.bean.VIPCardInfoResponse;
 import com.keydom.ih_patient.bean.VIPDetailBean;
 
 import io.reactivex.Observable;
@@ -19,6 +20,12 @@ public interface VIPCardService {
      */
     @GET("user/vipCard/getMyVipCard")
     Observable<HttpResult<VIPDetailBean>> getMyVipCard(@Query("registerUserId") String id);
+
+    /**
+     * 获取当前会员卡权益
+     */
+    @GET("user/vipCardInfo/getVipCard")
+    Observable<HttpResult<VIPCardInfoResponse>> getVipCard();
 
     /**
      * 办理会员卡-移动端
