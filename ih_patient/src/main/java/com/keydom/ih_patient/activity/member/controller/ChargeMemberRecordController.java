@@ -22,7 +22,7 @@ public class ChargeMemberRecordController extends ControllerImpl<ChargeMemberRec
 
 
     /**
-     * 获取缴费记录
+     * 续约记录
      */
     public void getRenewalRecord(SmartRefreshLayout refreshLayout, int state, final TypeEnum typeEnum) {
         if (typeEnum == TypeEnum.REFRESH) {

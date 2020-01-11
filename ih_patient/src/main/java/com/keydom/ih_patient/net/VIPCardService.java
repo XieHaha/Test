@@ -18,7 +18,7 @@ public interface VIPCardService {
 
 
     /**
-     * 获取当前用户的会员卡
+     * 获取当前用户的会员卡信息
      */
     @GET("user/vipCard/getMyVipCard")
     Observable<HttpResult<VIPDetailBean>> getMyVipCard(@Query("registerUserId") long id);

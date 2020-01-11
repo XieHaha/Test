@@ -64,6 +64,7 @@ public class CommonPayDialog extends BottomSheetDialog implements View.OnClickLi
     }
 
 
+
     /**
      * 设置金额
      */

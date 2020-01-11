@@ -36,7 +36,7 @@ public class VIPMemberDetailController extends ControllerImpl<VIPMemberDetailVie
 
 
     /**
-     * 办理会员卡
+     * 获得会员信息
      */
     public void getMyVipCard() {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(VIPCardService.class).getMyVipCard(Global.getUserId()), new HttpSubscriber<VIPDetailBean>(getContext(), getDisposable(), true, false) {

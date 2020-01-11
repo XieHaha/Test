@@ -11,10 +11,14 @@ import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.adapter.MemberFunctionAdapter;
 import com.keydom.ih_patient.bean.IndexFunction;
 import com.keydom.ih_patient.bean.VIPDetailBean;
+import com.keydom.ih_patient.bean.event.ChargeMemberSuccess;
 import com.keydom.ih_patient.fragment.controller.VIPMemberDetailController;
 import com.keydom.ih_patient.fragment.view.VIPMemberDetailView;
 import com.keydom.ih_patient.utils.DateUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -53,8 +57,15 @@ public class VIPMemberDetailFragment extends BaseControllerFragment<VIPMemberDet
         view.findViewById(R.id.fragment_vip_member_detail_charge_record_ll).setOnClickListener(getController());
 
         getController().getMyVipCard();
+
+        EventBus.getDefault().register(this);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
@@ -90,5 +101,10 @@ public class VIPMemberDetailFragment extends BaseControllerFragment<VIPMemberDet
             mBalanceTv.setText(String.valueOf(data.getSurplusAmount()));
 
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRecieve(ChargeMemberSuccess success) {
+        getController().getMyVipCard();
     }
 }

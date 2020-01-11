@@ -31,7 +31,7 @@ public class TabMemberController extends ControllerImpl<TabMemberView> implement
 
 
     /**
-     * 办理会员卡
+     * 获取当前会员卡权益
      */
     public void getMyVipCard() {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(VIPCardService.class).getVipCard(), new HttpSubscriber<VIPCardInfoResponse>(getContext(), getDisposable(), true, false) {
