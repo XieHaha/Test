@@ -26,7 +26,6 @@ public class ChargeMemberController extends ControllerImpl<ChargeMemberView> imp
     CommonPayDialog mCommonPayDialog;
 
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -38,7 +37,12 @@ public class ChargeMemberController extends ControllerImpl<ChargeMemberView> imp
                     return;
                 }
 
-                mCommonPayDialog = new CommonPayDialog(getContext(),price, new CommonPayDialog.iOnCommitOnClick() {
+                if (0 == price) {
+                    ToastUtils.showShort("请选择或输入金额");
+                    return;
+                }
+
+                mCommonPayDialog = new CommonPayDialog(getContext(), price, new CommonPayDialog.iOnCommitOnClick() {
                     @Override
                     public void commitPay(String type) {
                         //pay(0, "0", Integer.valueOf(type), 0.01);

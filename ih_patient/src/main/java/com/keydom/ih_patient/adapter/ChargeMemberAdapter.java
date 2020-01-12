@@ -37,8 +37,8 @@ public class ChargeMemberAdapter extends BaseQuickAdapter<ChargeMemberPriceItemB
             helper.getView(R.id.item_charge_member_price_tv).setVisibility(View.GONE);
             helper.getView(R.id.item_charge_member_price_et).setVisibility(View.VISIBLE);
             helper.getView(R.id.item_charge_member_root_rl).setOnClickListener(null);
-            ((EditText)helper.getView(R.id.item_charge_member_price_et)).setKeyListener(DigitsKeyListener.getInstance("123456789"));
-            ((EditText)helper.getView(R.id.item_charge_member_price_et)).addTextChangedListener(new TextWatcher() {
+            ((EditText) helper.getView(R.id.item_charge_member_price_et)).setKeyListener(DigitsKeyListener.getInstance("1234567890"));
+            ((EditText) helper.getView(R.id.item_charge_member_price_et)).addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -52,9 +52,15 @@ public class ChargeMemberAdapter extends BaseQuickAdapter<ChargeMemberPriceItemB
                 @Override
                 public void afterTextChanged(Editable s) {
                     String str = s.toString();
-                    if(!TextUtils.isEmpty(str)){
-                        item.setPrice(Integer.valueOf(s.toString()));
+                    if (TextUtils.isEmpty(str)) {
+                        return;
                     }
+
+                    if ("0".equals(str)) {
+                        return;
+                    }
+
+                    item.setPrice(Integer.valueOf(s.toString()));
                 }
             });
         } else {
@@ -81,9 +87,9 @@ public class ChargeMemberAdapter extends BaseQuickAdapter<ChargeMemberPriceItemB
 
     private void setAllItemState(ChargeMemberPriceItemBean data) {
         for (ChargeMemberPriceItemBean item : mDatas) {
-            if(data.equals(item)){
+            if (data.equals(item)) {
                 item.setSelected(!data.isSelected());
-            }else{
+            } else {
                 item.setSelected(false);
             }
         }

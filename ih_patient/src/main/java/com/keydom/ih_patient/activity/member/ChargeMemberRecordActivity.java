@@ -70,7 +70,7 @@ public class ChargeMemberRecordActivity extends BaseControllerActivity<ChargeMem
 
         mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getRenewalRecord(mRefreshLayout,1, TypeEnum.REFRESH));
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getRenewalRecord(mRefreshLayout,1,TypeEnum.LOAD_MORE));
-        getController().getRenewalRecord(mRefreshLayout,1,TypeEnum.REFRESH);
+        mRefreshLayout.autoRefresh();
     }
 
     @Override
