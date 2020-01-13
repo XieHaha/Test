@@ -461,6 +461,9 @@
         <activity
             android:name=".activity.member.MemberDetailActivity"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.pregnancy.PregnancyActivity"
+            android:launchMode="singleTop" />
         <!--百度地图-->
         <service
             android:name="com.baidu.location.f"

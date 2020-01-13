@@ -32,6 +32,7 @@ import com.keydom.ih_patient.activity.diagnose_main.DiagnoseMainActivity;
 import com.keydom.ih_patient.activity.index_main.ChooseCityActivity;
 import com.keydom.ih_patient.activity.my_message.NoticeDeatailActivity;
 import com.keydom.ih_patient.activity.nurse_main.NurseMainActivity;
+import com.keydom.ih_patient.activity.pregnancy.PregnancyActivity;
 import com.keydom.ih_patient.adapter.ChooseHospitalAdapter;
 import com.keydom.ih_patient.adapter.IndexFunctionAdapter;
 import com.keydom.ih_patient.bean.CityBean;
@@ -125,7 +126,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mTopRightRootRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                PregnancyActivity.start(getActivity());
             }
         });
         mTopLeftRootRl.setOnClickListener(new View.OnClickListener() {
