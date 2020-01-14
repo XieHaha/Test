@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.pregnancy.controller.PregnancyController;
-import com.keydom.ih_patient.activity.pregnancy.view.PregnancyView;
+import com.keydom.ih_patient.activity.pregnancy.controller.PregnancyDetailController;
+import com.keydom.ih_patient.activity.pregnancy.view.PregnancyDetailView;
 import com.keydom.ih_patient.adapter.PregnancyRecordAdapter;
 import com.keydom.ih_patient.bean.RenewalRecordItem;
 import com.keydom.ih_patient.constant.TypeEnum;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PregnancyActivity extends BaseControllerActivity<PregnancyController> implements PregnancyView {
+public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDetailController> implements PregnancyDetailView {
 
     private RecyclerView mRecyclerView;
     private SmartRefreshLayout mRefreshLayout;
@@ -45,7 +45,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
      * 启动
      */
     public static void start(Context context) {
-        Intent intent = new Intent(context, PregnancyActivity.class);
+        Intent intent = new Intent(context, PregnancyDetailActivity.class);
         context.startActivity(intent);
     }
 
@@ -63,7 +63,6 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
     public void initData(@Nullable Bundle savedInstanceState) {
         getTitleLayout().initViewsVisible(true, true, false);
         getTitleLayout().setWhiteBar();
-        getTitleLayout().setBackgroundColor(getResources().getColor(R.color.vip_pregnancy_tool_bar_bg));
         setTitle("产检预约");
 
         mRecyclerView = findViewById(R.id.pregnancy_records_rv);
@@ -88,9 +87,6 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getRenewalRecord(mRefreshLayout, 1, TypeEnum.REFRESH));
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getRenewalRecord(mRefreshLayout, 1, TypeEnum.LOAD_MORE));
         mRefreshLayout.autoRefresh();
-
-
-        findViewById(R.id.pregnancy_order_root_Ll).setOnClickListener(getController());
     }
 
 

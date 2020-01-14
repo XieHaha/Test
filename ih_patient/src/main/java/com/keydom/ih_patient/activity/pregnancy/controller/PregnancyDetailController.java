@@ -9,9 +9,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
-import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.pregnancy.PregnancyDetailActivity;
-import com.keydom.ih_patient.activity.pregnancy.view.PregnancyView;
+import com.keydom.ih_patient.activity.pregnancy.view.PregnancyDetailView;
 import com.keydom.ih_patient.bean.RenewalRecordItem;
 import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.Global;
@@ -22,17 +20,15 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class PregnancyController extends ControllerImpl<PregnancyView> implements View.OnClickListener {
+public class PregnancyDetailController extends ControllerImpl<PregnancyDetailView> implements View.OnClickListener {
+
 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.pregnancy_order_root_Ll:
-                PregnancyDetailActivity.start(getContext());
-                break;
-        }
+
     }
+
 
 
     /**
@@ -42,11 +38,11 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
         if (typeEnum == TypeEnum.REFRESH) {
             setCurrentPage(1);
         }
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(VIPCardService.class).getRenewalRecord(Global.getUserId(), getCurrentPage(), Const.PAGE_SIZE), new HttpSubscriber<PageBean<RenewalRecordItem>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(VIPCardService.class).getRenewalRecord(Global.getUserId(),getCurrentPage(), Const.PAGE_SIZE), new HttpSubscriber<PageBean<RenewalRecordItem>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable PageBean<RenewalRecordItem> data) {
                 if (data != null) {
-                    getView().paymentListSuccess(data.getRecords(), typeEnum);
+                    getView().paymentListSuccess(data.getRecords(),typeEnum);
                 }
             }
 
