@@ -6,7 +6,7 @@
 
     <include layout="@layout/common_title_bar" />
 
-    <ScrollView
+    <com.keydom.ih_patient.view.MyScollerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true">
@@ -178,10 +178,11 @@
                 android:textColor="@color/vip_pregnancy_week_text"
                 android:textSize="14sp" />
 
+
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/pregnancy_detail_time_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
                 android:layout_marginBottom="25dp" />
 
             <View
@@ -217,7 +218,7 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </com.keydom.ih_patient.view.MyScollerView>
 
 
 </LinearLayout>
