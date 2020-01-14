@@ -73,4 +73,5 @@
     <color name="vip_pregnancy_week_text">#ff999999</color>
     <color name="vip_pregnancy_counts_text">#ff666666</color>
     <color name="vip_pregnancy_tool_bar_bg">#ff6565</color>
+    <color name="vip_pregnancy_detail_tool_bar_bg">#fee4c9</color>
 </resources>
