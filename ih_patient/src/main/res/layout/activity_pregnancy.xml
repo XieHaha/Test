@@ -161,6 +161,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="21dp"
                     android:layout_marginBottom="23dp"
                     android:orientation="vertical">
 
@@ -182,7 +183,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="25.5dp"
-                            android:text="怀孕20周    |    "
+                            android:text="怀孕20周"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:text="|"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
@@ -200,6 +210,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginTop="13.5dp"
                         android:layout_marginRight="20dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
@@ -209,7 +220,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="50.5dp"
-                            android:text="第三次产检    |    "
+                            android:text="第三次产检"
+                            android:textColor="@color/vip_pregnancy_week_text"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:text="|"
                             android:textColor="@color/vip_pregnancy_week_text"
                             android:textSize="12sp" />
 
@@ -227,6 +247,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginTop="13.5dp"
                         android:layout_marginRight="20dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
@@ -236,13 +257,23 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="50.5dp"
+                            android:background="@drawable/red_corner_bg"
+                            android:paddingLeft="13dp"
+                            android:paddingTop="7dp"
+                            android:paddingRight="13dp"
+                            android:paddingBottom="7dp"
                             android:text="立即预约"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:background="@drawable/gray_line_corner_bg"
+                            android:paddingLeft="13dp"
+                            android:paddingTop="7dp"
+                            android:paddingRight="13dp"
+                            android:paddingBottom="7dp"
                             android:text="检查预约"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
@@ -252,8 +283,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
+                            android:background="@drawable/red_corner_bg"
+                            android:paddingLeft="13dp"
+                            android:paddingTop="7dp"
+                            android:paddingRight="13dp"
+                            android:paddingBottom="7dp"
                             android:text="门诊预约"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -264,10 +300,51 @@
                     android:layout_height="@dimen/dp_10"
                     android:background="@color/primary_bg_color" />
 
-                <android.support.v7.widget.RecyclerView
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="16.5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/gray_corner_bg"
+                        android:paddingLeft="24dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="24dp"
+                        android:paddingBottom="7dp"
+                        android:text="全部"
+                        android:textColor="@color/vip_pregnancy_counts_text"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="17.5dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="已完成两次产检"
+                        android:textColor="@color/vip_pregnancy_counts_text"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/primary_bg_color" />
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/white" />
 
             </LinearLayout>
         </com.keydom.ih_patient.view.MyScollerView>

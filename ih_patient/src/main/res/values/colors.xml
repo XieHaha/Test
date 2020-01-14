@@ -71,4 +71,5 @@
     <color name="vip_detail_balance_text">#ffe9b954</color>
     <color name="vip_detail_balance_number_text">#ff777777</color>
     <color name="vip_pregnancy_week_text">#ff999999</color>
+    <color name="vip_pregnancy_counts_text">#ff666666</color>
 </resources>
