@@ -51,7 +51,7 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
 
     @Override
     public int getLayoutRes() {
-        return R.layout.activity_pregnancy;
+        return R.layout.activity_pregnancy_detail;
     }
 
     @Override
