@@ -250,4 +250,16 @@ public class DateUtils {
         }
         return false;
     }
+
+
+    /**
+     * String 转 Date
+     *
+     * @param date
+     * @return
+     */
+    public static String dateToString(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.format(date);
+    }
 }

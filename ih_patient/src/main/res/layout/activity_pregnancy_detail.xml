@@ -197,6 +197,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/pregnancy_order_date_root_rl"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_56">
 
@@ -210,6 +211,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/pregnancy_order_date_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
@@ -217,8 +219,8 @@
                     android:drawablePadding="@dimen/dp_13"
                     android:gravity="center_vertical"
                     android:paddingRight="@dimen/dp_23"
-                    android:text="2019年12月17日"
-                    android:textColor="@color/black"
+                    android:text="请选择时间"
+                    android:textColor="@color/tab_nol_color"
                     android:textSize="14sp" />
             </RelativeLayout>
 
