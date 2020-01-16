@@ -7,4 +7,10 @@ import com.keydom.ih_common.base.BaseView;
  */
 public interface CardOperateView extends BaseView {
 
+
+    void getHealthCardStateFailed(String msg);
+
+    void getHealthCardStateSuccess(Boolean data);
+
+    boolean isBind();
 }

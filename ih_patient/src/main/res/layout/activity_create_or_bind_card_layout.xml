@@ -17,6 +17,7 @@
             android:layout_height="@dimen/dp_10"
             android:background="@color/primary_bg_color"/>
         <LinearLayout
+            android:id="@+id/create_orbind_card_health_card_root_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -41,7 +42,6 @@
                 android:layout_marginBottom="@dimen/dp_20"
                 android:paddingRight="@dimen/dp_19"
                 android:drawablePadding="@dimen/dp_12"
-                android:text="@string/creat_or_bind_card_top_right_label"
                 android:textSize="@dimen/font_size_primary"
                 android:textColor="@color/other_login_color"
                 android:drawableRight="@mipmap/exa_report_right"/>

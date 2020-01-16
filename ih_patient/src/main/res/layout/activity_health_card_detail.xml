@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar"></include>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_38"
+        android:layout_marginTop="@dimen/dp_38"
+        android:layout_marginRight="@dimen/dp_35"
+        android:background="@drawable/my_doc_nur_bg">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/user_number_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/health_card_detail_qr_code_iv"
+                android:layout_alignRight="@id/health_card_detail_qr_code_iv"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_6"
+                android:minHeight="@dimen/dp_43">
+
+                <TextView
+                    android:id="@+id/user_number_tip_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_18"
+                    android:drawableLeft="@mipmap/point_purple"
+                    android:drawablePadding="@dimen/dp_12"
+                    android:gravity="center_vertical"
+                    android:text="姓名"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/dp_13" />
+
+                <TextView
+                    android:id="@+id/health_card_detail_name_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/user_number_tip_tv"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_toRightOf="@id/user_number_tip_tv"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:textColor="@color/primary_font_color"
+                    android:textColorHint="@color/fontColorDirection"
+                    android:textCursorDrawable="@drawable/edit_cursor"
+                    android:textSize="@dimen/dp_13" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/activate_code_rl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_43"
+                android:layout_below="@id/user_number_rl"
+                android:layout_alignLeft="@id/health_card_detail_qr_code_iv"
+                android:layout_alignRight="@id/health_card_detail_qr_code_iv"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/phone_number_tip_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/health_card_detail_card_id_tv"
+                    android:layout_alignBottom="@id/health_card_detail_card_id_tv"
+                    android:drawableLeft="@mipmap/point_green"
+                    android:drawablePadding="@dimen/dp_12"
+                    android:gravity="center_vertical"
+                    android:text="卡号"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/dp_13" />
+
+                <TextView
+                    android:id="@+id/health_card_detail_card_id_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_43"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_toRightOf="@id/phone_number_tip_tv"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:textColor="@color/primary_font_color"
+                    android:textColorHint="@color/fontColorDirection"
+                    android:textCursorDrawable="@drawable/edit_cursor"
+                    android:textSize="@dimen/dp_13" />
+
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/health_card_detail_qr_code_iv"
+                android:layout_width="@dimen/dp_192"
+                android:layout_height="@dimen/dp_192"
+                android:layout_below="@id/activate_code_rl"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginBottom="@dimen/dp_32" />
+
+            <ImageView
+                android:id="@+id/health_card_detail_qr_icon_iv"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/activate_code_rl"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="96dp"
+                android:src="@mipmap/health_card_qr_middle_icon"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -5,7 +5,7 @@ import com.keydom.ih_common.base.BaseView;
 /**
  * 更新密码view
  */
-public interface UpdatePasswordView extends BaseView  {
+public interface UpdatePasswordView extends BaseView {
     /**
      * 发送消息成功
      */
@@ -60,4 +60,15 @@ public interface UpdatePasswordView extends BaseView  {
      * 修改成功
      */
     void completeUpdate();
+
+
+    /**
+     * 绑定健康成功
+     */
+    void addCardSuccess(Boolean data);
+
+    /**
+     * 绑定健康卡失败
+     */
+    void addCardFailed(String msg);
 }
