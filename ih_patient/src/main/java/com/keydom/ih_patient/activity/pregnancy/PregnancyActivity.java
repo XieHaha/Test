@@ -129,9 +129,10 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
                 }
             }
 
-            mFinishOrderCountsTv.setText("已完成" + list.size() + "次产检");
+
 
             if (typeEnum == TypeEnum.REFRESH) {
+                mFinishOrderCountsTv.setText("已完成" + list.size() + "次产检");
                 mAdapter.replaceData(list);
             } else {
                 mAdapter.addData(list);
