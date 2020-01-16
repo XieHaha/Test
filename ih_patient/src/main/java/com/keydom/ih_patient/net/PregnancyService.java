@@ -16,4 +16,8 @@ public interface PregnancyService {
      */
     @GET("medicine/antepartum/app/listPersonInspectionRecord")
     Observable<HttpResult<PageBean<PregnancyRecordItem>>> listPersonInspectionRecord(@Query("cardNumber") String cardNumber, @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
+
+
+    @GET("medicine/antepartum/app/pregnantCare/detail")
+    Observable<HttpResult<Object>> getPregnancyDetail(@Query("cardNumber") String cardNumber, @Query("date") String date);
 }
