@@ -12,11 +12,10 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.pregnancy.PregnancyDetailActivity;
 import com.keydom.ih_patient.activity.pregnancy.view.PregnancyView;
-import com.keydom.ih_patient.bean.RenewalRecordItem;
+import com.keydom.ih_patient.bean.PregnancyRecordItem;
 import com.keydom.ih_patient.constant.Const;
-import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.constant.TypeEnum;
-import com.keydom.ih_patient.net.VIPCardService;
+import com.keydom.ih_patient.net.PregnancyService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.jetbrains.annotations.NotNull;
@@ -36,17 +35,17 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
 
 
     /**
-     * 续约记录
+     * APP-获取个人产检列表
      */
-    public void getRenewalRecord(SmartRefreshLayout refreshLayout, int state, final TypeEnum typeEnum) {
+    public void listPersonInspectionRecord(SmartRefreshLayout refreshLayout, String cardNumber, final TypeEnum typeEnum) {
         if (typeEnum == TypeEnum.REFRESH) {
             setCurrentPage(1);
         }
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(VIPCardService.class).getRenewalRecord(Global.getUserId(), getCurrentPage(), Const.PAGE_SIZE), new HttpSubscriber<PageBean<RenewalRecordItem>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).listPersonInspectionRecord(cardNumber, getCurrentPage(), Const.PAGE_SIZE), new HttpSubscriber<PageBean<PregnancyRecordItem>>(getContext(), getDisposable(), false,false) {
             @Override
-            public void requestComplete(@Nullable PageBean<RenewalRecordItem> data) {
+            public void requestComplete(@Nullable PageBean<PregnancyRecordItem> data) {
                 if (data != null) {
-                    getView().paymentListSuccess(data.getRecords(), typeEnum);
+                    getView().listPersonInspectionRecordSuccess(data.getRecords(), typeEnum);
                 }
             }
 

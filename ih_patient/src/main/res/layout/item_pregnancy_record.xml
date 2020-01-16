@@ -17,12 +17,14 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/item_pregnancy_record_is_finish_iv"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:src="@drawable/pay_selector" />
 
         <TextView
+            android:id="@+id/item_pregnancy_record_weeks_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25.5dp"
@@ -40,6 +42,7 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/item_pregnancy_record_projects_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -60,6 +63,7 @@
 
 
         <TextView
+            android:id="@+id/item_pregnancy_record_times_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50.5dp"
@@ -77,6 +81,7 @@
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/item_pregnancy_record_dates_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"

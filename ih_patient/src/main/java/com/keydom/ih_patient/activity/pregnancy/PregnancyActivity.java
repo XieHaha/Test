@@ -13,7 +13,7 @@ import com.keydom.ih_patient.activity.pregnancy.controller.PregnancyController;
 import com.keydom.ih_patient.activity.pregnancy.view.PregnancyView;
 import com.keydom.ih_patient.adapter.PregnancyRecordAdapter;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
-import com.keydom.ih_patient.bean.RenewalRecordItem;
+import com.keydom.ih_patient.bean.PregnancyRecordItem;
 import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.TypeEnum;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -43,7 +43,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
 
     private PregnancyRecordAdapter mAdapter;
 
-    MedicalCardInfo mMedicalCardInfo;
+    String mCardNumber;
 
     /**
      * 启动
@@ -71,7 +71,9 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         getTitleLayout().setBackgroundColor(getResources().getColor(R.color.vip_pregnancy_tool_bar_bg));
         setTitle("产检预约");
 
-        mMedicalCardInfo = (MedicalCardInfo) getIntent().getSerializableExtra(Const.MEDICAL_CARD_INFO);
+        MedicalCardInfo mMedicalCardInfo = (MedicalCardInfo) getIntent().getSerializableExtra(Const.MEDICAL_CARD_INFO);
+        //mCardNumber = mMedicalCardInfo.getEleCardNumber();
+        mCardNumber = "37e0fcd8-c38f-43e4-b";
 
         mRecyclerView = findViewById(R.id.pregnancy_records_rv);
         mRefreshLayout = findViewById(R.id.pregnancy_refresh);
@@ -92,8 +94,8 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
 
-        mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getRenewalRecord(mRefreshLayout, 1, TypeEnum.REFRESH));
-        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getRenewalRecord(mRefreshLayout, 1, TypeEnum.LOAD_MORE));
+        mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().listPersonInspectionRecord(mRefreshLayout, mCardNumber, TypeEnum.REFRESH));
+        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().listPersonInspectionRecord(mRefreshLayout, mCardNumber, TypeEnum.LOAD_MORE));
         mRefreshLayout.autoRefresh();
 
 
@@ -102,7 +104,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
 
 
     @Override
-    public void paymentListSuccess(List<RenewalRecordItem> list, TypeEnum typeEnum) {
+    public void listPersonInspectionRecordSuccess(List<PregnancyRecordItem> list, TypeEnum typeEnum) {
         mRefreshLayout.finishLoadMore();
         mRefreshLayout.finishRefresh();
         pageLoadingSuccess();
