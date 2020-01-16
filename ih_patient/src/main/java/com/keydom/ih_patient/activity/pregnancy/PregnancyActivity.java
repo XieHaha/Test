@@ -5,14 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.pregnancy.controller.PregnancyController;
 import com.keydom.ih_patient.activity.pregnancy.view.PregnancyView;
 import com.keydom.ih_patient.adapter.PregnancyRecordAdapter;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
+import com.keydom.ih_patient.bean.PregnancyDetailBean;
 import com.keydom.ih_patient.bean.PregnancyRecordItem;
 import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.TypeEnum;
@@ -39,6 +43,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
     private TextView mOrderCheckTv;
     private TextView mOrderDoctorTv;
     private TextView mFinishOrderCountsTv;
+    private ImageView mIsOrderIv;
 
 
     private PregnancyRecordAdapter mAdapter;
@@ -50,7 +55,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
      */
     public static void start(Context context, MedicalCardInfo medicalCardInfo) {
         Intent intent = new Intent(context, PregnancyActivity.class);
-        intent.putExtra(Const.MEDICAL_CARD_INFO,medicalCardInfo);
+        intent.putExtra(Const.MEDICAL_CARD_INFO, medicalCardInfo);
         context.startActivity(intent);
     }
 
@@ -88,6 +93,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         mOrderNowTv = findViewById(R.id.pregnancy_order_now_tv);
         mOrderCheckTv = findViewById(R.id.pregnancy_order_check_tv);
         mOrderDoctorTv = findViewById(R.id.pregnancy_order_doctor_tv);
+        mIsOrderIv = findViewById(R.id.pregnancy_is_order_iv);
         mFinishOrderCountsTv = findViewById(R.id.pregnancy_finish_order_counts_tv);
 
         mAdapter = new PregnancyRecordAdapter(new ArrayList<>());
@@ -100,6 +106,8 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
 
 
         findViewById(R.id.pregnancy_order_root_Ll).setOnClickListener(getController());
+
+        getController().getPregnancyDetail(mCardNumber);
     }
 
 
@@ -108,11 +116,72 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         mRefreshLayout.finishLoadMore();
         mRefreshLayout.finishRefresh();
         pageLoadingSuccess();
-        if (typeEnum == TypeEnum.REFRESH) {
-            mAdapter.replaceData(list);
-        } else {
-            mAdapter.addData(list);
+
+
+        if (null != list) {
+
+            for (int i = 0; i < list.size(); i++) {
+                PregnancyRecordItem data = list.get(i);
+                if (!data.isIsFinsh()) {
+                    orderNext(data);
+                    list.remove(i);
+                    break;
+                }
+            }
+
+            mFinishOrderCountsTv.setText("已完成" + list.size() + "次产检");
+
+            if (typeEnum == TypeEnum.REFRESH) {
+                mAdapter.replaceData(list);
+            } else {
+                mAdapter.addData(list);
+            }
+
+            getController().currentPagePlus();
         }
-        getController().currentPagePlus();
+
+    }
+
+    @Override
+    public void listPersonInspectionRecordFailed(String msg) {
+        ToastUtils.showShort(msg);
+    }
+
+    @Override
+    public void getPregnancyDetailSuccess(PregnancyDetailBean data) {
+        if (null != data) {
+            mBabyHeightTv.setText(data.getBabyLength() + "mm");
+            mBabyWeightTv.setText(data.getBabyWeight() + "g");
+            mLastDaysTv.setText(data.getShowDate());
+            mBabyMeettingDaysTv.setText(data.getPregnantDay());
+        }
+    }
+
+    @Override
+    public void getPregnancyDetailFailed(String msg) {
+        ToastUtils.showShort(msg);
+    }
+
+
+    public void orderNext(PregnancyRecordItem data) {
+        if (null != data) {
+            mLastWeeksTv.setText(data.getPreWeek());
+            mOrderCheckProjectsTv.setText(data.getProjectName());
+            mOrderCountsTimesTv.setText(data.getTimes());
+            mOrderDatesTv.setText(data.getPrenatalDate());
+
+            if (data.isAppointed()) {
+                mOrderNowTv.setVisibility(View.GONE);
+                mOrderCheckTv.setVisibility(View.VISIBLE);
+                mOrderDoctorTv.setVisibility(View.VISIBLE);
+                mIsOrderIv.setSelected(true);
+            } else {
+                mOrderNowTv.setVisibility(View.VISIBLE);
+                mOrderCheckTv.setVisibility(View.GONE);
+                mOrderDoctorTv.setVisibility(View.GONE);
+                mIsOrderIv.setSelected(false);
+            }
+
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.keydom.ih_patient.net;
 
 import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
+import com.keydom.ih_patient.bean.PregnancyDetailBean;
 import com.keydom.ih_patient.bean.PregnancyRecordItem;
 
 import io.reactivex.Observable;
@@ -18,6 +19,9 @@ public interface PregnancyService {
     Observable<HttpResult<PageBean<PregnancyRecordItem>>> listPersonInspectionRecord(@Query("cardNumber") String cardNumber, @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
 
 
+    /**
+     * 获取宝妈关怀信息
+     */
     @GET("medicine/antepartum/app/pregnantCare/detail")
-    Observable<HttpResult<Object>> getPregnancyDetail(@Query("cardNumber") String cardNumber, @Query("date") String date);
+    Observable<HttpResult<PregnancyDetailBean>> getPregnancyDetail(@Query("cardNumber") String cardNumber);
 }

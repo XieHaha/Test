@@ -2,7 +2,6 @@ package com.keydom.ih_patient.activity.pregnancy.controller;
 
 import android.view.View;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
@@ -12,6 +11,7 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.pregnancy.PregnancyDetailActivity;
 import com.keydom.ih_patient.activity.pregnancy.view.PregnancyView;
+import com.keydom.ih_patient.bean.PregnancyDetailBean;
 import com.keydom.ih_patient.bean.PregnancyRecordItem;
 import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.TypeEnum;
@@ -41,7 +41,7 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
         if (typeEnum == TypeEnum.REFRESH) {
             setCurrentPage(1);
         }
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).listPersonInspectionRecord(cardNumber, getCurrentPage(), Const.PAGE_SIZE), new HttpSubscriber<PageBean<PregnancyRecordItem>>(getContext(), getDisposable(), false,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).listPersonInspectionRecord(cardNumber, getCurrentPage(), Const.PAGE_SIZE), new HttpSubscriber<PageBean<PregnancyRecordItem>>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable PageBean<PregnancyRecordItem> data) {
                 if (data != null) {
@@ -51,10 +51,31 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                if (!"token解析失败".equals(msg))
-                    ToastUtils.showLong(msg);
+                getView().listPersonInspectionRecordFailed(msg);
                 refreshLayout.finishLoadMore();
                 refreshLayout.finishRefresh();
+                return super.requestError(exception, code, msg);
+            }
+        });
+
+    }
+
+
+    /**
+     * 获取宝妈关怀信息
+     */
+    public void getPregnancyDetail(String cardNumber) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getPregnancyDetail(cardNumber), new HttpSubscriber<PregnancyDetailBean>(getContext(), getDisposable(), true, false) {
+            @Override
+            public void requestComplete(@Nullable PregnancyDetailBean data) {
+                if (data != null) {
+                    getView().getPregnancyDetailSuccess(data);
+                }
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                getView().getPregnancyDetailFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });

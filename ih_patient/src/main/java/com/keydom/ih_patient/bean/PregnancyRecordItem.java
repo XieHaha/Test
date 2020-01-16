@@ -24,7 +24,11 @@ public class PregnancyRecordItem implements Serializable {
     private String projectName;
     private String preWeek;
     private int projectId;
-    private String isAppoint;
+    private String isAppoint;//0 没有预约，1已预约
+
+    public boolean isAppointed(){
+        return "1".equals(isAppoint);
+    }
 
     public String getRecordId() {
         return recordId;
