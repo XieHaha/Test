@@ -12,21 +12,19 @@ import android.widget.TextView;
 
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.card_operate.CardoperateActivity;
+import com.keydom.ih_patient.activity.diagnose_main.DiagnoseMainActivity;
 import com.keydom.ih_patient.activity.function_config.FunctionConfigActivity;
 import com.keydom.ih_patient.activity.get_drug.GetDrugActivity;
 import com.keydom.ih_patient.activity.inspection_report.InspectionReportActivity;
 import com.keydom.ih_patient.activity.logistic.QueryLogisticActivity;
+import com.keydom.ih_patient.activity.nurse_main.NurseMainActivity;
 import com.keydom.ih_patient.activity.order_doctor_register.OrderDoctorRegisterActivity;
 import com.keydom.ih_patient.activity.order_examination.OrderExaminationActivity;
 import com.keydom.ih_patient.activity.order_hospital_cure.OrderHospitalCureListActivity;
 import com.keydom.ih_patient.activity.order_physical_examination.OrderPhysicalExaminationActivity;
 import com.keydom.ih_patient.activity.payment_records.PaymentRecordActivity;
-import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.IndexFunction;
-import com.keydom.ih_patient.constant.EventType;
 import com.orhanobut.logger.Logger;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -127,10 +125,10 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             CardoperateActivity.start(context);
                             break;
                         case OnlineDiagnose:
-                            EventBus.getDefault().post(new Event(EventType.SHOW_ONLINE_DIAGNOSE_PAGE, null));
+                            DiagnoseMainActivity.start(context);
                             break;
                         case NurseService:
-                            EventBus.getDefault().post(new Event(EventType.SHOW_NURSE_SERVICE_PAGE, null));
+                            NurseMainActivity.start(context);
                             break;
                         case InspectionReport:
                             InspectionReportActivity.start(context);

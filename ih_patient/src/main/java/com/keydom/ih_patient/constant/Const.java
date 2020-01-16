@@ -29,5 +29,7 @@ public class Const {
     public static final String CARD_ID_CARD = "card_id_card";
     public static final String CARD_OTHER_CERTIFICATE = "card_other_certificate";
     public static final String CARD_GET_INFO = "card_get_info";
+    public static final String IS_NEED_TO_PREGNANCY = "is_need_to_pregnancy";
+    public static final String MEDICAL_CARD_INFO = "medical_card_info";
 
 }

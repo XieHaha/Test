@@ -32,7 +32,7 @@ import com.keydom.ih_patient.activity.diagnose_main.DiagnoseMainActivity;
 import com.keydom.ih_patient.activity.index_main.ChooseCityActivity;
 import com.keydom.ih_patient.activity.my_message.NoticeDeatailActivity;
 import com.keydom.ih_patient.activity.nurse_main.NurseMainActivity;
-import com.keydom.ih_patient.activity.pregnancy.PregnancyActivity;
+import com.keydom.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
 import com.keydom.ih_patient.adapter.ChooseHospitalAdapter;
 import com.keydom.ih_patient.adapter.IndexFunctionAdapter;
 import com.keydom.ih_patient.bean.CityBean;
@@ -126,7 +126,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mTopRightRootRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PregnancyActivity.start(getActivity());
+                ChoosePatientActivity.start(getActivity(),-1);
             }
         });
         mTopLeftRootRl.setOnClickListener(new View.OnClickListener() {
@@ -261,13 +261,13 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetric_order_icon,"产科住院预约"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_child_health_icon,"儿童保健"));
 
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_orderby,"预约挂号"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_pay,"诊间缴费"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_orderby,22,"预约挂号"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_pay,23,"诊间缴费"));
         mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_management_icon,"健康管理"));
         mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_medical_record_mail_icon,"病案邮寄"));
         mSecondVIPDatas.add(new IndexFunction(R.mipmap.appointment_register_icon,"检验检查预约"));
         mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_record_icon,"健康档案"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.create_code_icon,"办卡绑卡"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.create_code_icon,24,"办卡绑卡"));
 
 
         mFirstVIPRv.setLayoutManager(new GridLayoutManager(getContext(), 4));

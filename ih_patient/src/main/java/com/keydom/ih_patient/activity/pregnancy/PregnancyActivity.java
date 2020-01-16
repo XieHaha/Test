@@ -12,7 +12,9 @@ import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.pregnancy.controller.PregnancyController;
 import com.keydom.ih_patient.activity.pregnancy.view.PregnancyView;
 import com.keydom.ih_patient.adapter.PregnancyRecordAdapter;
+import com.keydom.ih_patient.bean.MedicalCardInfo;
 import com.keydom.ih_patient.bean.RenewalRecordItem;
+import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.TypeEnum;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -41,11 +43,14 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
 
     private PregnancyRecordAdapter mAdapter;
 
+    MedicalCardInfo mMedicalCardInfo;
+
     /**
      * 启动
      */
-    public static void start(Context context) {
+    public static void start(Context context, MedicalCardInfo medicalCardInfo) {
         Intent intent = new Intent(context, PregnancyActivity.class);
+        intent.putExtra(Const.MEDICAL_CARD_INFO,medicalCardInfo);
         context.startActivity(intent);
     }
 
@@ -65,6 +70,8 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         getTitleLayout().setWhiteBar();
         getTitleLayout().setBackgroundColor(getResources().getColor(R.color.vip_pregnancy_tool_bar_bg));
         setTitle("产检预约");
+
+        mMedicalCardInfo = (MedicalCardInfo) getIntent().getSerializableExtra(Const.MEDICAL_CARD_INFO);
 
         mRecyclerView = findViewById(R.id.pregnancy_records_rv);
         mRefreshLayout = findViewById(R.id.pregnancy_refresh);

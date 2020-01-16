@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 public class MedicalCardInfo implements Serializable {
 
+    private static final long serialVersionUID = -460434702513807292L;
     @JSONField(name = "name")
     private String name;
     @JSONField(name = "sex")

@@ -18,6 +18,12 @@ public class IndexFunction implements Serializable {
         this.name = name;
     }
 
+    public IndexFunction(int functionIcon, long id, String name) {
+        this.functionIcon = functionIcon;
+        this.id = id;
+        this.name = name;
+    }
+
     private int functionIcon;
     private boolean isSelected;
     @JSONField(name = "id")
