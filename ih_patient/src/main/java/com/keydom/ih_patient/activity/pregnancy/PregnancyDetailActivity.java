@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.pregnancy.controller.PregnancyDetailController;
@@ -61,7 +63,7 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
      */
     public static void start(Context context, PregnancyDetailBean pregnancyDetailBean) {
         Intent intent = new Intent(context, PregnancyDetailActivity.class);
-        intent.putExtra(pregnancyDetailStr,pregnancyDetailBean);
+        intent.putExtra(pregnancyDetailStr, pregnancyDetailBean);
         context.startActivity(intent);
     }
 
@@ -104,7 +106,7 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
         mOrderCheckRootLl.setOnClickListener(getController());
         mOrderDiagnoseRootLl.setOnClickListener(getController());
 
-        if(null != mPregnancyDetailBean){
+        if (null != mPregnancyDetailBean) {
             mWeeksTv.setText(mPregnancyDetailBean.getShowDate());
             mDescTv.setText(mPregnancyDetailBean.getContext());
         }
@@ -129,7 +131,6 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
     }
 
 
-
     @Override
     public void getCheckProjectsSuccess(List<CheckProjectsItem> data) {
         checkProjectsItems = data;
@@ -144,6 +145,22 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
     public void getCheckProjectsTimesSuccess(List<PregnancyOrderTime> data) {
         mAdapter.addData(data);
         mAdapter.notifyDataSetChanged();
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                PregnancyOrderTime pregnancyOrderTime = (PregnancyOrderTime) adapter.getData().get(position);
+                pregnancyOrderTime.setSelected(!pregnancyOrderTime.isSelected());
+                for (int i = 0; i < adapter.getData().size(); i++) {
+                    PregnancyOrderTime data = (PregnancyOrderTime) adapter.getData().get(i);
+                    if(position == i){
+                        continue;
+                    }else{
+                        data.setSelected(false);
+                    }
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
