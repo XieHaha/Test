@@ -24,4 +24,20 @@ public interface PregnancyService {
      */
     @GET("medicine/antepartum/app/pregnantCare/detail")
     Observable<HttpResult<PregnancyDetailBean>> getPregnancyDetail(@Query("cardNumber") String cardNumber);
+
+
+    /**
+     * 获取产检检验检查项目
+     */
+    @GET("medicine/antepartum/listInspectionProject")
+    Observable<HttpResult<Object>> getCheckProjects();
+
+
+    /**
+     * 获取产检时间列表
+     */
+    @GET("medicine/antepartum/listAntepartumTime")
+    Observable<HttpResult<Object>> getCheckProjectsTimes(@Query("projectId") String projectId);
+
+
 }
