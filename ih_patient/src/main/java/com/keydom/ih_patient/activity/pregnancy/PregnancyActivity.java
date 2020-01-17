@@ -51,6 +51,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
     String mCardNumber;
 
     private PregnancyDetailBean mPregnancyDetailBean;
+    private String mRecordId;
 
     /**
      * 启动
@@ -125,6 +126,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
             for (int i = 0; i < list.size(); i++) {
                 PregnancyRecordItem data = list.get(i);
                 if (!data.isIsFinsh()) {
+                    mRecordId = data.getRecordId();
                     orderNext(data);
                     list.remove(i);
                     break;
@@ -169,6 +171,11 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
     @Override
     public PregnancyDetailBean getPregnancyDetail() {
         return mPregnancyDetailBean;
+    }
+
+    @Override
+    public String getRecordID() {
+        return mRecordId;
     }
 
 

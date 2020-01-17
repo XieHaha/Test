@@ -10,7 +10,10 @@ import com.keydom.ih_patient.bean.PregnancyRecordItem;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface PregnancyService {
@@ -43,5 +46,11 @@ public interface PregnancyService {
     @GET("medicine/antepartum/listAntepartumTime")
     Observable<HttpResult<List<PregnancyOrderTime>>> getCheckProjectsTimes(@Query("projectId") String projectId);
 
+
+    /**
+     * 产检预约
+     */
+    @POST("medicine/antepartum/app/appointProductInspection")
+    Observable<HttpResult<Object>> commitPregnancy(@Body RequestBody body);
 
 }

@@ -54,16 +54,19 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
 
 
     public static String pregnancyDetailStr = "PregnancyDetailBean";
+    public static String recordId = "RecordId";
 
     private PregnancyDetailBean mPregnancyDetailBean;
+    private String mRecordId;
 
 
     /**
      * 启动
      */
-    public static void start(Context context, PregnancyDetailBean pregnancyDetailBean) {
+    public static void start(Context context, PregnancyDetailBean pregnancyDetailBean,String recordId) {
         Intent intent = new Intent(context, PregnancyDetailActivity.class);
         intent.putExtra(pregnancyDetailStr, pregnancyDetailBean);
+        intent.putExtra(recordId, recordId);
         context.startActivity(intent);
     }
 
@@ -85,6 +88,7 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
         setTitle("产检预约");
 
         mPregnancyDetailBean = (PregnancyDetailBean) getIntent().getSerializableExtra(pregnancyDetailStr);
+        mRecordId = (String) getIntent().getSerializableExtra(recordId);
 
         mWeeksTv = findViewById(R.id.pregnancy_detail_weeks_tv);
         mDescTv = findViewById(R.id.pregnancy_detail_desc_tv);
@@ -101,6 +105,7 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
         mRecyclerView.setAdapter(mAdapter);
 
 
+        findViewById(R.id.pregnancy_detail_order_tv).setOnClickListener(getController());
         findViewById(R.id.pregnancy_order_date_root_rl).setOnClickListener(getController());
         findViewById(R.id.pregnancy_check_projects_root_rl).setOnClickListener(getController());
         mOrderCheckRootLl.setOnClickListener(getController());
@@ -143,6 +148,7 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
 
     @Override
     public void getCheckProjectsTimesSuccess(List<PregnancyOrderTime> data) {
+        mAdapter.getData().clear();
         mAdapter.addData(data);
         mAdapter.notifyDataSetChanged();
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -193,6 +199,31 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
     public void setOrderDiagnose(boolean isOrderDiagnose) {
         this.isOrderDiagnose = isOrderDiagnose;
         mDignoseIv.setSelected(isOrderDiagnose);
+    }
+
+    @Override
+    public void commitPregnancySuccess(Object data) {
+
+    }
+
+    @Override
+    public String getRecordID() {
+        return mRecordId;
+    }
+
+    @Override
+    public int getAppointType() {
+        return 0;
+    }
+
+    @Override
+    public int getPrenatalProjectId() {
+        return 0;
+    }
+
+    @Override
+    public String getTimeInterval() {
+        return null;
     }
 
 

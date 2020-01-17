@@ -32,4 +32,14 @@ public interface PregnancyDetailView extends BaseView {
     boolean isOrderDiagnose();
 
     void setOrderDiagnose(boolean isOrderDiagnose);
+
+    void commitPregnancySuccess(Object data);
+
+    String getRecordID();
+
+    int getAppointType();
+
+    int getPrenatalProjectId();
+
+    String getTimeInterval();
 }

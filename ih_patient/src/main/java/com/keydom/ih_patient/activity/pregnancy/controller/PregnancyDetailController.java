@@ -6,6 +6,7 @@ import android.view.View;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
@@ -25,7 +26,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PregnancyDetailController extends ControllerImpl<PregnancyDetailView> implements View.OnClickListener {
 
@@ -44,6 +47,34 @@ public class PregnancyDetailController extends ControllerImpl<PregnancyDetailVie
                 break;
             case R.id.pregnancy_detail_order_diagnose_root_ll:
                 getView().setOrderDiagnose(!getView().isOrderDiagnose());
+                break;
+            case R.id.pregnancy_detail_order_tv:
+                if (TextUtils.isEmpty(getView().getRecordID())) {
+                    ToastUtils.showShort("");
+                    return;
+                }
+
+                if (getView().getAppointType() > 0) {
+                    ToastUtils.showShort("请选择预约事项");
+                    return;
+                }
+
+                if (getView().getPrenatalProjectId() > 0) {
+                    ToastUtils.showShort("请选择检查项目");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(getView().getSelectedDate())) {
+                    ToastUtils.showShort("请选择日期");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(getView().getTimeInterval())) {
+                    ToastUtils.showShort("请选择时间段");
+                    return;
+                }
+
+                commitPregnancy();
                 break;
         }
     }
@@ -73,7 +104,7 @@ public class PregnancyDetailController extends ControllerImpl<PregnancyDetailVie
 
 
     /**
-     * 获取宝妈关怀信息
+     * 获取检查项目
      */
     public void getCheckProjects() {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getCheckProjects(), new HttpSubscriber<List<CheckProjectsItem>>(getContext(), getDisposable(), true, false) {
@@ -94,7 +125,7 @@ public class PregnancyDetailController extends ControllerImpl<PregnancyDetailVie
 
 
     /**
-     * 获取宝妈关怀信息
+     * 获取检查时间
      */
     public void getCheckProjectsTimes(String projectId) {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getCheckProjectsTimes(projectId), new HttpSubscriber<List<PregnancyOrderTime>>(getContext(), getDisposable(), true, false) {
@@ -108,6 +139,34 @@ public class PregnancyDetailController extends ControllerImpl<PregnancyDetailVie
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                 getView().getCheckProjectsTimesFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+
+    /**
+     * 续约
+     */
+    public void commitPregnancy() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("recordId", getView().getRecordID());
+        map.put("appointType", getView().getAppointType());
+        map.put("prenatalProjectId", getView().getPrenatalProjectId());
+        map.put("prenatalDate", getView().getSelectedDate());
+        map.put("timeInterval", getView().getTimeInterval());
+
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).commitPregnancy(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), true, false) {
+
+            @Override
+            public void requestComplete(@Nullable Object data) {
+                getView().commitPregnancySuccess(data);
+            }
+
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }
         });
