@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/common_white_click_bg"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/padding_left_right_dp"
+    android:paddingTop="@dimen/dp_20"
+    android:paddingRight="@dimen/padding_left_right_dp"
+    android:paddingBottom="@dimen/dp_20">
+
+    <ImageView
+        android:id="@+id/inspact_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@mipmap/point_green" />
+
+    <TextView
+        android:id="@+id/inspact_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="唐琳专家团队"
+        android:layout_toRightOf="@id/inspact_icon"
+        android:layout_toLeftOf="@id/inspact_select"
+        android:textColor="@color/font_select"
+        android:textSize="@dimen/font_size_primary" />
+
+    <ImageView
+        android:id="@+id/inspact_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@mipmap/group_selected" />
+
+
+</RelativeLayout>

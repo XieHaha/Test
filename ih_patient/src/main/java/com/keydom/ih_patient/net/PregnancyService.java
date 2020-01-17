@@ -2,8 +2,12 @@ package com.keydom.ih_patient.net;
 
 import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
+import com.keydom.ih_patient.bean.CheckProjectsItem;
 import com.keydom.ih_patient.bean.PregnancyDetailBean;
+import com.keydom.ih_patient.bean.PregnancyOrderTime;
 import com.keydom.ih_patient.bean.PregnancyRecordItem;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -30,14 +34,14 @@ public interface PregnancyService {
      * 获取产检检验检查项目
      */
     @GET("medicine/antepartum/listInspectionProject")
-    Observable<HttpResult<Object>> getCheckProjects();
+    Observable<HttpResult<List<CheckProjectsItem>>> getCheckProjects();
 
 
     /**
      * 获取产检时间列表
      */
     @GET("medicine/antepartum/listAntepartumTime")
-    Observable<HttpResult<Object>> getCheckProjectsTimes(@Query("projectId") String projectId);
+    Observable<HttpResult<List<PregnancyOrderTime>>> getCheckProjectsTimes(@Query("projectId") String projectId);
 
 
 }

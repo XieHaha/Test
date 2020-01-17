@@ -470,6 +470,9 @@
         <activity
             android:name=".activity.health_card.HealthCardDetailActivity"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.pregnancy.ChooseInspectItemActivity"
+            android:launchMode="singleTop" />
         <!--百度地图-->
         <service
             android:name="com.baidu.location.f"

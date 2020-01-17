@@ -6,19 +6,26 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.pregnancy.controller.PregnancyDetailController;
 import com.keydom.ih_patient.activity.pregnancy.view.PregnancyDetailView;
 import com.keydom.ih_patient.adapter.PrenancyOrderTimeAdapter;
+import com.keydom.ih_patient.bean.CheckProjectsItem;
+import com.keydom.ih_patient.bean.PregnancyOrderTime;
+import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.utils.DateUtils;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDetailController> implements PregnancyDetailView {
 
@@ -27,8 +34,19 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
 
     private RecyclerView mRecyclerView;
     private TextView mDateTv;
+    private TextView mCheckProjectsTv;
+    private ImageView mCheckProjectsIv;
+    private ImageView mDignoseIv;
+    private LinearLayout mOrderCheckRootLl;
+    private LinearLayout mOrderDiagnoseRootLl;
 
-    private String mCurrentDate;
+    private String mCurrentDate = "";
+
+    private List<CheckProjectsItem> checkProjectsItems;
+
+    private boolean isOrderCheck = false;
+    private boolean isOrderDiagnose = false;
+
 
     /**
      * 启动
@@ -57,18 +75,23 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
 
         mRecyclerView = findViewById(R.id.pregnancy_detail_time_rv);
         mDateTv = findViewById(R.id.pregnancy_order_date_tv);
-
-        findViewById(R.id.pregnancy_order_date_root_rl).setOnClickListener(getController());
+        mCheckProjectsTv = findViewById(R.id.pregnancy_check_projects_tv);
+        mOrderCheckRootLl = findViewById(R.id.pregnancy_detail_order_check_root_ll);
+        mOrderDiagnoseRootLl = findViewById(R.id.pregnancy_detail_order_diagnose_root_ll);
+        mDignoseIv = findViewById(R.id.pregnancy_detail_order_diagnose_iv);
+        mCheckProjectsIv = findViewById(R.id.pregnancy_detail_order_check_iv);
 
         mAdapter = new PrenancyOrderTimeAdapter(new ArrayList<>());
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mRecyclerView.setAdapter(mAdapter);
 
 
-        mAdapter.addData("8:00-10:00");
-        mAdapter.addData("10:00-12:00");
-        mAdapter.notifyDataSetChanged();
+        findViewById(R.id.pregnancy_order_date_root_rl).setOnClickListener(getController());
+        findViewById(R.id.pregnancy_check_projects_root_rl).setOnClickListener(getController());
+        mOrderCheckRootLl.setOnClickListener(getController());
+        mOrderDiagnoseRootLl.setOnClickListener(getController());
 
+        getController().getCheckProjects();
     }
 
 
@@ -86,4 +109,77 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
     public String getSelectedDate() {
         return mCurrentDate;
     }
+
+
+
+    @Override
+    public void getCheckProjectsSuccess(List<CheckProjectsItem> data) {
+        checkProjectsItems = data;
+    }
+
+    @Override
+    public void getCheckProjectsFailed(String msg) {
+        ToastUtils.showShort(msg);
+    }
+
+    @Override
+    public void getCheckProjectsTimesSuccess(List<PregnancyOrderTime> data) {
+        mAdapter.addData(data);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getCheckProjectsTimesFailed(String msg) {
+        ToastUtils.showShort(msg);
+    }
+
+    @Override
+    public List<CheckProjectsItem> getCheckProjects() {
+        return checkProjectsItems != null ? checkProjectsItems : new ArrayList<CheckProjectsItem>();
+    }
+
+    @Override
+    public boolean isOrderChecks() {
+        return isOrderCheck;
+    }
+
+    @Override
+    public void setChecks(boolean isOrderChecks) {
+        this.isOrderCheck = isOrderChecks;
+        mCheckProjectsIv.setSelected(isOrderChecks);
+    }
+
+    @Override
+    public boolean isOrderDiagnose() {
+        return isOrderDiagnose;
+    }
+
+    @Override
+    public void setOrderDiagnose(boolean isOrderDiagnose) {
+        this.isOrderDiagnose = isOrderDiagnose;
+        mDignoseIv.setSelected(isOrderDiagnose);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case ChooseInspectItemActivity.CHOOSE_INSPECT_ITEM:
+                    List<CheckProjectsItem> projectsItems = (List<CheckProjectsItem>) data.getSerializableExtra(Const.DATA);
+                    if (null != projectsItems && projectsItems.size() > 0) {
+                        mCheckProjectsTv.setText(projectsItems.get(0).getAntepartumExamProjectName());
+                        mCheckProjectsTv.setTextColor(getResources().getColor(R.color.black));
+                        getController().getCheckProjectsTimes(String.valueOf(projectsItems.get(0).getId()));
+                    } else {
+                        mCheckProjectsTv.setText("请选择检验检查项目");
+                        mCheckProjectsTv.setTextColor(getResources().getColor(R.color.tab_nol_color));
+                    }
+                    break;
+            }
+        }
+    }
+
+
 }

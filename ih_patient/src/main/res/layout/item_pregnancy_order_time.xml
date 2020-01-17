@@ -12,16 +12,17 @@
 
 
     <ImageView
+        android:id="@+id/item_pregnancy_order_time_iv"
         android:layout_width="@dimen/dp_27"
         android:layout_height="@dimen/dp_27"
         android:layout_marginRight="17dp"
         android:src="@drawable/pay_selector" />
 
     <TextView
+        android:id="@+id/item_pregnancy_order_time_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:text="8：00~8：30"
         android:textColor="@color/vip_pregnancy_week_text"
         android:textSize="@dimen/font_size_primary" />
 </LinearLayout>
