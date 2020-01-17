@@ -17,4 +17,6 @@ public interface PregnancyView extends BaseView {
 
     void getPregnancyDetailFailed(String msg);
 
+    PregnancyDetailBean getPregnancyDetail();
+
 }

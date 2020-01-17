@@ -17,6 +17,7 @@ import com.keydom.ih_patient.activity.pregnancy.controller.PregnancyDetailContro
 import com.keydom.ih_patient.activity.pregnancy.view.PregnancyDetailView;
 import com.keydom.ih_patient.adapter.PrenancyOrderTimeAdapter;
 import com.keydom.ih_patient.bean.CheckProjectsItem;
+import com.keydom.ih_patient.bean.PregnancyDetailBean;
 import com.keydom.ih_patient.bean.PregnancyOrderTime;
 import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.utils.DateUtils;
@@ -34,6 +35,8 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
 
     private RecyclerView mRecyclerView;
     private TextView mDateTv;
+    private TextView mWeeksTv;
+    private TextView mDescTv;
     private TextView mCheckProjectsTv;
     private ImageView mCheckProjectsIv;
     private ImageView mDignoseIv;
@@ -48,11 +51,17 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
     private boolean isOrderDiagnose = false;
 
 
+    public static String pregnancyDetailStr = "PregnancyDetailBean";
+
+    private PregnancyDetailBean mPregnancyDetailBean;
+
+
     /**
      * 启动
      */
-    public static void start(Context context) {
+    public static void start(Context context, PregnancyDetailBean pregnancyDetailBean) {
         Intent intent = new Intent(context, PregnancyDetailActivity.class);
+        intent.putExtra(pregnancyDetailStr,pregnancyDetailBean);
         context.startActivity(intent);
     }
 
@@ -73,6 +82,10 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
         getTitleLayout().setBackgroundColor(getResources().getColor(R.color.vip_pregnancy_detail_tool_bar_bg));
         setTitle("产检预约");
 
+        mPregnancyDetailBean = (PregnancyDetailBean) getIntent().getSerializableExtra(pregnancyDetailStr);
+
+        mWeeksTv = findViewById(R.id.pregnancy_detail_weeks_tv);
+        mDescTv = findViewById(R.id.pregnancy_detail_desc_tv);
         mRecyclerView = findViewById(R.id.pregnancy_detail_time_rv);
         mDateTv = findViewById(R.id.pregnancy_order_date_tv);
         mCheckProjectsTv = findViewById(R.id.pregnancy_check_projects_tv);
@@ -90,6 +103,11 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
         findViewById(R.id.pregnancy_check_projects_root_rl).setOnClickListener(getController());
         mOrderCheckRootLl.setOnClickListener(getController());
         mOrderDiagnoseRootLl.setOnClickListener(getController());
+
+        if(null != mPregnancyDetailBean){
+            mWeeksTv.setText(mPregnancyDetailBean.getShowDate());
+            mDescTv.setText(mPregnancyDetailBean.getContext());
+        }
 
         getController().getCheckProjects();
     }

@@ -50,6 +50,8 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
 
     String mCardNumber;
 
+    private PregnancyDetailBean mPregnancyDetailBean;
+
     /**
      * 启动
      */
@@ -151,6 +153,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
     @Override
     public void getPregnancyDetailSuccess(PregnancyDetailBean data) {
         if (null != data) {
+            mPregnancyDetailBean = data;
             mBabyHeightTv.setText(data.getBabyLength() + "mm");
             mBabyWeightTv.setText(data.getBabyWeight() + "g");
             mLastDaysTv.setText(data.getShowDate());
@@ -161,6 +164,11 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
     @Override
     public void getPregnancyDetailFailed(String msg) {
         ToastUtils.showShort(msg);
+    }
+
+    @Override
+    public PregnancyDetailBean getPregnancyDetail() {
+        return mPregnancyDetailBean;
     }
 
 
