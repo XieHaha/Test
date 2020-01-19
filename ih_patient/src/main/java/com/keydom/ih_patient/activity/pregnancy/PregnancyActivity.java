@@ -113,6 +113,9 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
 
 
         findViewById(R.id.pregnancy_order_root_Ll).setOnClickListener(getController());
+        mOrderNowTv.setOnClickListener(getController());
+        mOrderCheckTv.setOnClickListener(getController());
+        mOrderDoctorTv.setOnClickListener(getController());
 
         getController().getPregnancyDetail(mCardNumber);
 
@@ -144,7 +147,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
 
             for (int i = 0; i < list.size(); i++) {
                 PregnancyRecordItem data = list.get(i);
-                if (!data.isIsFinsh()) {
+                if (!data.isFinsh()) {
                     mRecordId = data.getRecordId();
                     orderNext(data);
                     list.remove(i);

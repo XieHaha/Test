@@ -26,6 +26,15 @@ public class PregnancyRecordItem implements Serializable {
     private int projectId;
     private String isAppoint;//0 没有预约，1已预约
 
+
+    public boolean isFinsh() {
+        return isFinsh;
+    }
+
+    public void setFinsh(boolean finsh) {
+        isFinsh = finsh;
+    }
+    
     public boolean isAppointed(){
         return "1".equals(isAppoint);
     }
@@ -36,14 +45,6 @@ public class PregnancyRecordItem implements Serializable {
 
     public void setRecordId(String recordId) {
         this.recordId = recordId;
-    }
-
-    public boolean isIsFinsh() {
-        return isFinsh;
-    }
-
-    public void setIsFinsh(boolean isFinsh) {
-        this.isFinsh = isFinsh;
     }
 
     public String getTimes() {

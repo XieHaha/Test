@@ -73,6 +73,9 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
         context.startActivity(intent);
     }
 
+
+
+
     @Override
     public int getLayoutRes() {
         return R.layout.activity_pregnancy_detail;

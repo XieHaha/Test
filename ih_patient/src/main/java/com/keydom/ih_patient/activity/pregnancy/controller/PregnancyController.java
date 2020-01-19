@@ -28,6 +28,11 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pregnancy_order_root_Ll:
+
+                break;
+            case R.id.pregnancy_order_now_tv:
+            case R.id.pregnancy_order_check_tv:
+            case R.id.pregnancy_order_doctor_tv:
                 PregnancyDetailActivity.start(getContext(),getView().getPregnancyDetail(),getView().getRecordID());
                 break;
         }

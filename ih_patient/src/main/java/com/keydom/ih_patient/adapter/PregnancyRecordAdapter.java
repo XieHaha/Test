@@ -27,7 +27,7 @@ public class PregnancyRecordAdapter extends BaseQuickAdapter<PregnancyRecordItem
 
         if (null != item) {
 
-            helper.getView(R.id.item_pregnancy_record_is_finish_iv).setSelected(item.isIsFinsh());
+            helper.getView(R.id.item_pregnancy_record_is_finish_iv).setSelected(item.isFinsh());
 
             helper.setText(R.id.item_pregnancy_record_weeks_tv, StringUtils.isEmpty(item.getPreWeek()) ? "" : item.getPreWeek())
                     .setText(R.id.item_pregnancy_record_projects_tv, StringUtils.isEmpty(item.getProjectName()) ? "" : item.getProjectName())
