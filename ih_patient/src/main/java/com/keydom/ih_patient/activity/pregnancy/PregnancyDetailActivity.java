@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -46,6 +47,8 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
     private ImageView mDignoseIv;
     private LinearLayout mOrderCheckRootLl;
     private LinearLayout mOrderDiagnoseRootLl;
+    private RelativeLayout mCheckProjectsRootRl;
+    private TextView mCommitOrderTv;
 
     private String mCurrentDate = "";
 
@@ -57,23 +60,27 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
 
     public static String PREGNANCY_DETAIL = "pregnancy_detail";
     public static String RECORD_ID = "record_id";
+    public static String PREGNANCY_ORDER_TYPE = "pregnancy_order_type"; //1：检验检查；2：产检门诊；12：检验检查和产检门诊
+    public static final int PREGNANCY_ORDER_TYPE_ALL = 12;//12：检验检查和产检门诊
+    public static final int PREGNANCY_ORDER_TYPE_CHECK = 1;//1：检验检查
+    public static final int PREGNANCY_ORDER_TYPE_DIAGNOSE = 2;//2：产检门诊
 
     private PregnancyDetailBean mPregnancyDetailBean;
     private String mRecordId;
     private long mPrenatalProjectId;
+    private int mPrenancyType;
 
 
     /**
      * 启动
      */
-    public static void start(Context context, PregnancyDetailBean pregnancyDetailBean, String recordId) {
+    public static void start(Context context, PregnancyDetailBean pregnancyDetailBean, String recordId, int type) {
         Intent intent = new Intent(context, PregnancyDetailActivity.class);
         intent.putExtra(PREGNANCY_DETAIL, pregnancyDetailBean);
+        intent.putExtra(PREGNANCY_ORDER_TYPE, type);
         intent.putExtra(RECORD_ID, recordId);
         context.startActivity(intent);
     }
-
-
 
 
     @Override
@@ -95,6 +102,7 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
 
         mPregnancyDetailBean = (PregnancyDetailBean) getIntent().getSerializableExtra(PREGNANCY_DETAIL);
         mRecordId = (String) getIntent().getSerializableExtra(RECORD_ID);
+        mPrenancyType = getIntent().getIntExtra(PREGNANCY_ORDER_TYPE, PREGNANCY_ORDER_TYPE_ALL);
 
         mWeeksTv = findViewById(R.id.pregnancy_detail_weeks_tv);
         mDescTv = findViewById(R.id.pregnancy_detail_desc_tv);
@@ -105,24 +113,55 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
         mOrderDiagnoseRootLl = findViewById(R.id.pregnancy_detail_order_diagnose_root_ll);
         mDignoseIv = findViewById(R.id.pregnancy_detail_order_diagnose_iv);
         mCheckProjectsIv = findViewById(R.id.pregnancy_detail_order_check_iv);
+        mCommitOrderTv = findViewById(R.id.pregnancy_detail_order_tv);
+        mCheckProjectsRootRl = findViewById(R.id.pregnancy_check_projects_root_rl);
 
         mAdapter = new PrenancyOrderTimeAdapter(new ArrayList<>());
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mRecyclerView.setAdapter(mAdapter);
 
 
-        findViewById(R.id.pregnancy_detail_order_tv).setOnClickListener(getController());
+        mCommitOrderTv.setOnClickListener(getController());
         findViewById(R.id.pregnancy_order_date_root_rl).setOnClickListener(getController());
-        findViewById(R.id.pregnancy_check_projects_root_rl).setOnClickListener(getController());
+        mCheckProjectsRootRl.setOnClickListener(getController());
         mOrderCheckRootLl.setOnClickListener(getController());
         mOrderDiagnoseRootLl.setOnClickListener(getController());
+
 
         if (null != mPregnancyDetailBean) {
             mWeeksTv.setText(mPregnancyDetailBean.getShowDate());
             mDescTv.setText(mPregnancyDetailBean.getContext());
         }
 
-        getController().getCheckProjects();
+        showLayoutAndLogic(mPrenancyType);
+
+
+    }
+
+    private void showLayoutAndLogic(int type) {
+        switch (type) {
+            case PREGNANCY_ORDER_TYPE_ALL:
+                mOrderCheckRootLl.setVisibility(View.VISIBLE);
+                mOrderDiagnoseRootLl.setVisibility(View.VISIBLE);
+                mCheckProjectsRootRl.setVisibility(View.VISIBLE);
+                getController().getCheckProjects();
+                break;
+            case PREGNANCY_ORDER_TYPE_CHECK:
+                setChecks(true);
+                mOrderCheckRootLl.setVisibility(View.VISIBLE);
+                mOrderDiagnoseRootLl.setVisibility(View.GONE);
+                mCheckProjectsRootRl.setVisibility(View.VISIBLE);
+                getController().getCheckProjects();
+                break;
+            case PREGNANCY_ORDER_TYPE_DIAGNOSE:
+                mPrenatalProjectId = 1;
+                setOrderDiagnose(true);
+                mOrderCheckRootLl.setVisibility(View.GONE);
+                mOrderDiagnoseRootLl.setVisibility(View.VISIBLE);
+                mCheckProjectsRootRl.setVisibility(View.GONE);
+                getController().getCheckProjectsTimes(String.valueOf(mPrenatalProjectId));
+                break;
+        }
     }
 
 

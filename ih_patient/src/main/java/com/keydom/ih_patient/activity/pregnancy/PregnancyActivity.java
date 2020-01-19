@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -48,6 +49,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
     private TextView mOrderDoctorTv;
     private TextView mFinishOrderCountsTv;
     private ImageView mIsOrderIv;
+    private LinearLayout mOrderRootLl;
 
 
     private PregnancyRecordAdapter mAdapter;
@@ -102,6 +104,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         mOrderDoctorTv = findViewById(R.id.pregnancy_order_doctor_tv);
         mIsOrderIv = findViewById(R.id.pregnancy_is_order_iv);
         mFinishOrderCountsTv = findViewById(R.id.pregnancy_finish_order_counts_tv);
+        mOrderRootLl = findViewById(R.id.pregnancy_order_root_Ll);
 
         mAdapter = new PregnancyRecordAdapter(new ArrayList<>());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -112,7 +115,6 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         mRefreshLayout.autoRefresh();
 
 
-        findViewById(R.id.pregnancy_order_root_Ll).setOnClickListener(getController());
         mOrderNowTv.setOnClickListener(getController());
         mOrderCheckTv.setOnClickListener(getController());
         mOrderDoctorTv.setOnClickListener(getController());
@@ -209,6 +211,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
             mOrderDatesTv.setText(data.getPrenatalDate());
 
             if (data.isAppointed()) {
+                mOrderRootLl.setOnClickListener(getController());
                 mOrderNowTv.setVisibility(View.GONE);
                 mOrderCheckTv.setVisibility(View.VISIBLE);
                 mOrderDoctorTv.setVisibility(View.VISIBLE);
