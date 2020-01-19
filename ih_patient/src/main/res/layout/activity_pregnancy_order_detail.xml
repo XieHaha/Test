@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <com.keydom.ih_patient.view.MyScollerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="211dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/pergnancy_detail_top_bg" />
+
+
+                <LinearLayout
+                    android:layout_width="335dp"
+                    android:layout_height="120dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="183.5dp"
+                    android:background="@drawable/pregnancy_detail_bg"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/pregnancy_order_detail_weeks_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/pregnancy_order_detail_desc_tv"
+                        android:layout_width="300dp"
+                        android:layout_height="33dp"
+                        android:layout_marginTop="26dp"
+                        android:textColor="@color/vip_pregnancy_week_text"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="28dp"
+                android:text="产检项目"
+                android:textColor="@color/vip_pregnancy_week_text"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="35dp"
+                android:drawableLeft="@mipmap/point_icon_4"
+                android:drawablePadding="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:lineSpacingExtra="10dp"
+                android:paddingLeft="@dimen/dp_30"
+                android:text="血压、体重、宫底高度、腹围、胎心率、B超胎
+儿畸形筛查（18-24）、胎儿心脏彩超"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginBottom="25dp"
+                android:drawableLeft="@mipmap/point_icon_3"
+                android:drawablePadding="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:lineSpacingExtra="10dp"
+                android:paddingLeft="@dimen/dp_30"
+                android:text="需花费时间约50分钟"
+                android:textSize="14sp" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/primary_bg_color" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/pregnancy_order_detail_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp" />
+
+        </LinearLayout>
+
+    </com.keydom.ih_patient.view.MyScollerView>
+
+
+</LinearLayout>
+

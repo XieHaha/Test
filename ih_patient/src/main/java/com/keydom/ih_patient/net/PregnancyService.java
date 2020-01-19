@@ -4,6 +4,7 @@ import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.ih_patient.bean.CheckProjectsItem;
 import com.keydom.ih_patient.bean.PregnancyDetailBean;
+import com.keydom.ih_patient.bean.PregnancyOrderDetailItem;
 import com.keydom.ih_patient.bean.PregnancyOrderTime;
 import com.keydom.ih_patient.bean.PregnancyRecordItem;
 
@@ -52,5 +53,12 @@ public interface PregnancyService {
      */
     @POST("medicine/antepartum/app/appointProductInspection")
     Observable<HttpResult<Object>> commitPregnancy(@Body RequestBody body);
+
+
+    /**
+     * 获取产检详情
+     */
+    @GET("medicine/antepartum/detailProductInspection")
+    Observable<HttpResult<List<PregnancyOrderDetailItem>>> getDetailProductInspection(@Query("recordId") String recordId);
 
 }

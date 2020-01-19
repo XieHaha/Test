@@ -32,4 +32,15 @@ public class Const {
     public static final String IS_NEED_TO_PREGNANCY = "is_need_to_pregnancy";
     public static final String MEDICAL_CARD_INFO = "medical_card_info";
 
+
+    /**
+     * 产检预约
+     */
+    public static final String PREGNANCY_DETAIL = "pregnancy_detail";
+    public static final String RECORD_ID = "record_id";
+    public static String PREGNANCY_ORDER_TYPE = "pregnancy_order_type"; //1：检验检查；2：产检门诊；12：检验检查和产检门诊
+    public static final int PREGNANCY_ORDER_TYPE_ALL = 12;//12：检验检查和产检门诊
+    public static final int PREGNANCY_ORDER_TYPE_CHECK = 1;//1：检验检查
+    public static final int PREGNANCY_ORDER_TYPE_DIAGNOSE = 2;//2：产检门诊
+
 }

@@ -10,6 +10,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.pregnancy.PregnancyDetailActivity;
+import com.keydom.ih_patient.activity.pregnancy.PregnancyOrderDetailActivity;
 import com.keydom.ih_patient.activity.pregnancy.view.PregnancyView;
 import com.keydom.ih_patient.bean.PregnancyDetailBean;
 import com.keydom.ih_patient.bean.PregnancyRecordItem;
@@ -28,16 +29,16 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pregnancy_order_root_Ll:
-
+                PregnancyOrderDetailActivity.start(getContext(),getView().getPregnancyDetail(),getView().getRecordID());
                 break;
             case R.id.pregnancy_order_now_tv:
-                PregnancyDetailActivity.start(getContext(),getView().getPregnancyDetail(),getView().getRecordID(),PregnancyDetailActivity.PREGNANCY_ORDER_TYPE_ALL);
+                PregnancyDetailActivity.start(getContext(),getView().getPregnancyDetail(),getView().getRecordID(),Const.PREGNANCY_ORDER_TYPE_ALL);
                 break;
             case R.id.pregnancy_order_check_tv:
-                PregnancyDetailActivity.start(getContext(),getView().getPregnancyDetail(),getView().getRecordID(),PregnancyDetailActivity.PREGNANCY_ORDER_TYPE_CHECK);
+                PregnancyDetailActivity.start(getContext(),getView().getPregnancyDetail(),getView().getRecordID(),Const.PREGNANCY_ORDER_TYPE_CHECK);
                 break;
             case R.id.pregnancy_order_doctor_tv:
-                PregnancyDetailActivity.start(getContext(),getView().getPregnancyDetail(),getView().getRecordID(),PregnancyDetailActivity.PREGNANCY_ORDER_TYPE_DIAGNOSE);
+                PregnancyDetailActivity.start(getContext(),getView().getPregnancyDetail(),getView().getRecordID(),Const.PREGNANCY_ORDER_TYPE_DIAGNOSE);
                 break;
         }
     }

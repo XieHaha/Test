@@ -58,12 +58,6 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
     private boolean isOrderDiagnose = false;
 
 
-    public static String PREGNANCY_DETAIL = "pregnancy_detail";
-    public static String RECORD_ID = "record_id";
-    public static String PREGNANCY_ORDER_TYPE = "pregnancy_order_type"; //1：检验检查；2：产检门诊；12：检验检查和产检门诊
-    public static final int PREGNANCY_ORDER_TYPE_ALL = 12;//12：检验检查和产检门诊
-    public static final int PREGNANCY_ORDER_TYPE_CHECK = 1;//1：检验检查
-    public static final int PREGNANCY_ORDER_TYPE_DIAGNOSE = 2;//2：产检门诊
 
     private PregnancyDetailBean mPregnancyDetailBean;
     private String mRecordId;
@@ -76,9 +70,9 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
      */
     public static void start(Context context, PregnancyDetailBean pregnancyDetailBean, String recordId, int type) {
         Intent intent = new Intent(context, PregnancyDetailActivity.class);
-        intent.putExtra(PREGNANCY_DETAIL, pregnancyDetailBean);
-        intent.putExtra(PREGNANCY_ORDER_TYPE, type);
-        intent.putExtra(RECORD_ID, recordId);
+        intent.putExtra(Const.PREGNANCY_DETAIL, pregnancyDetailBean);
+        intent.putExtra(Const.PREGNANCY_ORDER_TYPE, type);
+        intent.putExtra(Const.RECORD_ID, recordId);
         context.startActivity(intent);
     }
 
@@ -100,9 +94,9 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
         getTitleLayout().setBackgroundColor(getResources().getColor(R.color.vip_pregnancy_detail_tool_bar_bg));
         setTitle("产检预约");
 
-        mPregnancyDetailBean = (PregnancyDetailBean) getIntent().getSerializableExtra(PREGNANCY_DETAIL);
-        mRecordId = (String) getIntent().getSerializableExtra(RECORD_ID);
-        mPrenancyType = getIntent().getIntExtra(PREGNANCY_ORDER_TYPE, PREGNANCY_ORDER_TYPE_ALL);
+        mPregnancyDetailBean = (PregnancyDetailBean) getIntent().getSerializableExtra(Const.PREGNANCY_DETAIL);
+        mRecordId = (String) getIntent().getSerializableExtra(Const.RECORD_ID);
+        mPrenancyType = getIntent().getIntExtra(Const.PREGNANCY_ORDER_TYPE, Const.PREGNANCY_ORDER_TYPE_ALL);
 
         mWeeksTv = findViewById(R.id.pregnancy_detail_weeks_tv);
         mDescTv = findViewById(R.id.pregnancy_detail_desc_tv);
@@ -140,20 +134,20 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
 
     private void showLayoutAndLogic(int type) {
         switch (type) {
-            case PREGNANCY_ORDER_TYPE_ALL:
+            case Const.PREGNANCY_ORDER_TYPE_ALL:
                 mOrderCheckRootLl.setVisibility(View.VISIBLE);
                 mOrderDiagnoseRootLl.setVisibility(View.VISIBLE);
                 mCheckProjectsRootRl.setVisibility(View.VISIBLE);
                 getController().getCheckProjects();
                 break;
-            case PREGNANCY_ORDER_TYPE_CHECK:
+            case Const.PREGNANCY_ORDER_TYPE_CHECK:
                 setChecks(true);
                 mOrderCheckRootLl.setVisibility(View.VISIBLE);
                 mOrderDiagnoseRootLl.setVisibility(View.GONE);
                 mCheckProjectsRootRl.setVisibility(View.VISIBLE);
                 getController().getCheckProjects();
                 break;
-            case PREGNANCY_ORDER_TYPE_DIAGNOSE:
+            case Const.PREGNANCY_ORDER_TYPE_DIAGNOSE:
                 mPrenatalProjectId = 1;
                 setOrderDiagnose(true);
                 mOrderCheckRootLl.setVisibility(View.GONE);

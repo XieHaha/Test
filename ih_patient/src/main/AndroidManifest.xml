@@ -473,6 +473,9 @@
         <activity
             android:name=".activity.pregnancy.ChooseInspectItemActivity"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.pregnancy.PregnancyOrderDetailActivity"
+            android:launchMode="singleTop" />
         <!--百度地图-->
         <service
             android:name="com.baidu.location.f"
