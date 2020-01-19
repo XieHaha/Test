@@ -21,9 +21,11 @@ import com.keydom.ih_patient.adapter.PrenancyOrderTimeAdapter;
 import com.keydom.ih_patient.bean.CheckProjectsItem;
 import com.keydom.ih_patient.bean.PregnancyDetailBean;
 import com.keydom.ih_patient.bean.PregnancyOrderTime;
+import com.keydom.ih_patient.bean.event.PregnancyOrderSuccess;
 import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.utils.DateUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -53,20 +55,21 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
     private boolean isOrderDiagnose = false;
 
 
-    public static String pregnancyDetailStr = "PregnancyDetailBean";
-    public static String recordId = "RecordId";
+    public static String PREGNANCY_DETAIL = "pregnancy_detail";
+    public static String RECORD_ID = "record_id";
 
     private PregnancyDetailBean mPregnancyDetailBean;
     private String mRecordId;
+    private long mPrenatalProjectId;
 
 
     /**
      * 启动
      */
-    public static void start(Context context, PregnancyDetailBean pregnancyDetailBean,String recordId) {
+    public static void start(Context context, PregnancyDetailBean pregnancyDetailBean, String recordId) {
         Intent intent = new Intent(context, PregnancyDetailActivity.class);
-        intent.putExtra(pregnancyDetailStr, pregnancyDetailBean);
-        intent.putExtra(recordId, recordId);
+        intent.putExtra(PREGNANCY_DETAIL, pregnancyDetailBean);
+        intent.putExtra(RECORD_ID, recordId);
         context.startActivity(intent);
     }
 
@@ -87,8 +90,8 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
         getTitleLayout().setBackgroundColor(getResources().getColor(R.color.vip_pregnancy_detail_tool_bar_bg));
         setTitle("产检预约");
 
-        mPregnancyDetailBean = (PregnancyDetailBean) getIntent().getSerializableExtra(pregnancyDetailStr);
-        mRecordId = (String) getIntent().getSerializableExtra(recordId);
+        mPregnancyDetailBean = (PregnancyDetailBean) getIntent().getSerializableExtra(PREGNANCY_DETAIL);
+        mRecordId = (String) getIntent().getSerializableExtra(RECORD_ID);
 
         mWeeksTv = findViewById(R.id.pregnancy_detail_weeks_tv);
         mDescTv = findViewById(R.id.pregnancy_detail_desc_tv);
@@ -158,9 +161,9 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
                 pregnancyOrderTime.setSelected(!pregnancyOrderTime.isSelected());
                 for (int i = 0; i < adapter.getData().size(); i++) {
                     PregnancyOrderTime data = (PregnancyOrderTime) adapter.getData().get(i);
-                    if(position == i){
+                    if (position == i) {
                         continue;
-                    }else{
+                    } else {
                         data.setSelected(false);
                     }
                 }
@@ -203,7 +206,9 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
 
     @Override
     public void commitPregnancySuccess(Object data) {
-
+        EventBus.getDefault().post(new PregnancyOrderSuccess());
+        ToastUtils.showShort("预约成功");
+        finish();
     }
 
     @Override
@@ -213,16 +218,38 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
 
     @Override
     public int getAppointType() {
+
+        if (isOrderCheck && isOrderDiagnose) {
+
+            return 12;
+
+        } else if (isOrderCheck && !isOrderDiagnose) {
+
+            return 1;
+
+        } else if (!isOrderCheck && isOrderDiagnose) {
+
+            return 2;
+
+        }
+
         return 0;
     }
 
     @Override
-    public int getPrenatalProjectId() {
-        return 0;
+    public long getPrenatalProjectId() {
+        return mPrenatalProjectId;
     }
 
     @Override
     public String getTimeInterval() {
+        if (null != mAdapter && null != mAdapter.getData() && mAdapter.getData().size() > 0) {
+            for (PregnancyOrderTime data : mAdapter.getData()) {
+                if (data.isSelected()) {
+                    return data.getTimeInterval();
+                }
+            }
+        }
         return null;
     }
 
@@ -235,9 +262,10 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
                 case ChooseInspectItemActivity.CHOOSE_INSPECT_ITEM:
                     List<CheckProjectsItem> projectsItems = (List<CheckProjectsItem>) data.getSerializableExtra(Const.DATA);
                     if (null != projectsItems && projectsItems.size() > 0) {
+                        mPrenatalProjectId = projectsItems.get(0).getId();
                         mCheckProjectsTv.setText(projectsItems.get(0).getAntepartumExamProjectName());
                         mCheckProjectsTv.setTextColor(getResources().getColor(R.color.black));
-                        getController().getCheckProjectsTimes(String.valueOf(projectsItems.get(0).getId()));
+                        getController().getCheckProjectsTimes(String.valueOf(mPrenatalProjectId));
                     } else {
                         mCheckProjectsTv.setText("请选择检验检查项目");
                         mCheckProjectsTv.setTextColor(getResources().getColor(R.color.tab_nol_color));

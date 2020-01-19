@@ -50,16 +50,16 @@ public class PregnancyDetailController extends ControllerImpl<PregnancyDetailVie
                 break;
             case R.id.pregnancy_detail_order_tv:
                 if (TextUtils.isEmpty(getView().getRecordID())) {
-                    ToastUtils.showShort("");
+                    ToastUtils.showShort("请确认是否存在该预约");
                     return;
                 }
 
-                if (getView().getAppointType() > 0) {
+                if (getView().getAppointType() <= 0) {
                     ToastUtils.showShort("请选择预约事项");
                     return;
                 }
 
-                if (getView().getPrenatalProjectId() > 0) {
+                if (getView().getPrenatalProjectId() <= 0) {
                     ToastUtils.showShort("请选择检查项目");
                     return;
                 }

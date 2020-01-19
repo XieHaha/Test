@@ -39,7 +39,7 @@ public interface PregnancyDetailView extends BaseView {
 
     int getAppointType();
 
-    int getPrenatalProjectId();
+    long getPrenatalProjectId();
 
     String getTimeInterval();
 }

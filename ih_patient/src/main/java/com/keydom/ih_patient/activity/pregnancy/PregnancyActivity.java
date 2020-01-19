@@ -18,10 +18,14 @@ import com.keydom.ih_patient.adapter.PregnancyRecordAdapter;
 import com.keydom.ih_patient.bean.MedicalCardInfo;
 import com.keydom.ih_patient.bean.PregnancyDetailBean;
 import com.keydom.ih_patient.bean.PregnancyRecordItem;
+import com.keydom.ih_patient.bean.event.PregnancyOrderSuccess;
 import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.TypeEnum;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -111,8 +115,23 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         findViewById(R.id.pregnancy_order_root_Ll).setOnClickListener(getController());
 
         getController().getPregnancyDetail(mCardNumber);
+
+        EventBus.getDefault().register(this);
     }
 
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRecieve(PregnancyOrderSuccess event) {
+        getController().listPersonInspectionRecord(mRefreshLayout, mCardNumber, TypeEnum.REFRESH);
+        getController().getPregnancyDetail(mCardNumber);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     public void listPersonInspectionRecordSuccess(List<PregnancyRecordItem> list, TypeEnum typeEnum) {
