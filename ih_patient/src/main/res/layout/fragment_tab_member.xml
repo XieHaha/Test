@@ -1,190 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ganxin.library.LoadDataLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loadDataLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
 
-    <android.support.v4.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/white"
-        android:fillViewport="true">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="204dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="22dp">
-
-                <ImageView
-                    android:layout_width="320dp"
-                    android:layout_height="204dp"
-                    android:layout_centerInParent="true"
-                    android:background="@mipmap/vip_card_bg" />
-
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="82dp"
-                    android:layout_marginTop="37.5dp"
-                    android:src="@mipmap/vip_card_name_icon" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="200dp"
-                    android:layout_marginTop="12.5dp"
-                    android:src="@mipmap/vip_card_title_icon" />
-
-                <ImageView
-                    android:id="@+id/fragment_tab_member_balance_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="42dp"
-                    android:layout_marginTop="79dp"
-                    android:src="@mipmap/vip_balance_icon" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="37dp"
-                    android:layout_marginTop="79dp"
-                    android:layout_toRightOf="@id/fragment_tab_member_balance_iv"
-                    android:src="@mipmap/vip_card_desc_icon" />
-
-
-                <TextView
-                    android:id="@+id/fragment_tab_member_card_price_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/fragment_tab_member_balance_iv"
-                    android:layout_marginLeft="28dp"
-                    android:layout_marginTop="16.5dp"
-                    android:textColor="@color/vip_balance_text"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/fragment_tab_member_card_desc_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/fragment_tab_member_balance_iv"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="16.5dp"
-                    android:layout_toRightOf="@id/fragment_tab_member_card_price_tv"
-                    android:textColor="@color/vip_balance_text"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/fragment_tab_member_card_price_tv"
-                    android:layout_marginLeft="26.5dp"
-                    android:layout_marginTop="30dp"
-                    android:text="请尽快开通享受绿色服务吧"
-                    android:textColor="@color/vip_balance_text"
-                    android:textSize="10sp" />
-
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="33dp"
-                android:text="会员专项特权 "
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/fragment_tab_member_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_10"
-                android:background="@color/primary_bg_color" />
-
-            <TextView
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="18dp"
-                android:text="注意事项"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/primary_bg_color" />
-
-            <TextView
-                android:id="@+id/fragment_tab_member_card_note_tv"
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="47dp"
-                android:lineSpacingExtra="15dp"
-                android:textSize="14sp" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:layout_marginBottom="28.5dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="204dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="22dp">
+
+                    <ImageView
+                        android:layout_width="320dp"
+                        android:layout_height="204dp"
+                        android:layout_centerInParent="true"
+                        android:background="@mipmap/vip_card_bg" />
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="82dp"
+                        android:layout_marginTop="37.5dp"
+                        android:src="@mipmap/vip_card_name_icon" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="200dp"
+                        android:layout_marginTop="12.5dp"
+                        android:src="@mipmap/vip_card_title_icon" />
+
+                    <ImageView
+                        android:id="@+id/fragment_tab_member_balance_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="42dp"
+                        android:layout_marginTop="79dp"
+                        android:src="@mipmap/vip_balance_icon" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="37dp"
+                        android:layout_marginTop="79dp"
+                        android:layout_toRightOf="@id/fragment_tab_member_balance_iv"
+                        android:src="@mipmap/vip_card_desc_icon" />
+
+
+                    <TextView
+                        android:id="@+id/fragment_tab_member_card_price_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/fragment_tab_member_balance_iv"
+                        android:layout_marginLeft="28dp"
+                        android:layout_marginTop="16.5dp"
+                        android:textColor="@color/vip_balance_text"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_tab_member_card_desc_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/fragment_tab_member_balance_iv"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="16.5dp"
+                        android:layout_toRightOf="@id/fragment_tab_member_card_price_tv"
+                        android:textColor="@color/vip_balance_text"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/fragment_tab_member_card_price_tv"
+                        android:layout_marginLeft="26.5dp"
+                        android:layout_marginTop="30dp"
+                        android:text="请尽快开通享受绿色服务吧"
+                        android:textColor="@color/vip_balance_text"
+                        android:textSize="10sp" />
+
+                </RelativeLayout>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:text="查看会员全系详情"
-                    android:textColor="@color/vip_agreement_desc_text"
-                    android:textSize="12sp" />
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="33dp"
+                    android:text="会员专项特权 "
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fragment_tab_member_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_10"
+                    android:background="@color/primary_bg_color" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="18dp"
+                    android:text="注意事项"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/primary_bg_color" />
+
+                <TextView
+                    android:id="@+id/fragment_tab_member_card_note_tv"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="47dp"
+                    android:lineSpacingExtra="15dp"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="64dp"
+                    android:layout_marginBottom="28.5dp"
                     android:gravity="center"
-                    android:text="《会员服务协议》"
-                    android:textColor="@color/vip_agreement_text"
-                    android:textSize="12sp" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="查看会员全系详情"
+                        android:textColor="@color/vip_agreement_desc_text"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="《会员服务协议》"
+                        android:textColor="@color/vip_agreement_text"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
 
 
             </LinearLayout>
 
-
-        </LinearLayout>
-
-    </android.support.v4.widget.NestedScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
 
-    <TextView
-        android:id="@+id/fragment_tab_member_get_vip_tv"
-        android:layout_width="328dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@mipmap/vip_button_bg"
-        android:paddingLeft="123.5dp"
-        android:paddingTop="13dp"
-        android:text="立即开通"
-        android:textColor="@color/vip_button_text" />
+        <TextView
+            android:id="@+id/fragment_tab_member_get_vip_tv"
+            android:layout_width="328dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@mipmap/vip_button_bg"
+            android:paddingLeft="123.5dp"
+            android:paddingTop="13dp"
+            android:text="立即开通"
+            android:textColor="@color/vip_button_text" />
+    </LinearLayout>
 
-</LinearLayout>
+
+</com.ganxin.library.LoadDataLayout>
+

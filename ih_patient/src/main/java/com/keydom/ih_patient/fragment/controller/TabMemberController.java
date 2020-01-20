@@ -34,7 +34,7 @@ public class TabMemberController extends ControllerImpl<TabMemberView> implement
      * 获取当前会员卡权益
      */
     public void getMyVipCard() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(VIPCardService.class).getVipCard(), new HttpSubscriber<VIPCardInfoResponse>(getContext(), getDisposable(), true, false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(VIPCardService.class).getVipCard(), new HttpSubscriber<VIPCardInfoResponse>(getContext(), getDisposable(), false, false) {
 
             @Override
             public void requestComplete(@Nullable VIPCardInfoResponse data) {
@@ -45,6 +45,7 @@ public class TabMemberController extends ControllerImpl<TabMemberView> implement
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                 ToastUtils.showShort(msg);
+                getView().getMyVipCardFail(msg);
                 return super.requestError(exception, code, msg);
             }
         });

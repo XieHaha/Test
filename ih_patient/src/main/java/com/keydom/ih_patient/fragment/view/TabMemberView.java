@@ -7,5 +7,7 @@ public interface TabMemberView extends BaseView {
 
     void getMyVipCardSuccess(VIPCardInfoResponse data);
 
+    void getMyVipCardFail(String msg);
+
     VIPCardInfoResponse getVipCardInfo();
 }

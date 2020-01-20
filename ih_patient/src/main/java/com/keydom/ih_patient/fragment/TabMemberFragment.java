@@ -53,6 +53,7 @@ public class TabMemberFragment extends BaseControllerFragment<TabMemberControlle
         view.findViewById(R.id.fragment_tab_member_get_vip_tv).setOnClickListener(getController());
 
         getController().getMyVipCard();
+        pageLoading();
     }
 
 
@@ -104,8 +105,17 @@ public class TabMemberFragment extends BaseControllerFragment<TabMemberControlle
                 SharePreferenceManager.setVIPCardTypeID(data.getId());
             }
 
+            pageLoadingSuccess();
+
+        }else{
+            pageEmpty();
         }
 
+    }
+
+    @Override
+    public void getMyVipCardFail(String msg) {
+        pageLoadingFail();
     }
 
     @Override
