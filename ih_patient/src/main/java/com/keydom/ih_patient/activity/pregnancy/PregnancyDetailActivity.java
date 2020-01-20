@@ -20,7 +20,6 @@ import com.keydom.ih_patient.activity.pregnancy.controller.PregnancyDetailContro
 import com.keydom.ih_patient.activity.pregnancy.view.PregnancyDetailView;
 import com.keydom.ih_patient.adapter.PrenancyOrderTimeAdapter;
 import com.keydom.ih_patient.bean.CheckProjectsItem;
-import com.keydom.ih_patient.bean.PregnancyDetailBean;
 import com.keydom.ih_patient.bean.PregnancyOrderTime;
 import com.keydom.ih_patient.bean.event.PregnancyOrderSuccess;
 import com.keydom.ih_patient.constant.Const;
@@ -40,8 +39,6 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
 
     private RecyclerView mRecyclerView;
     private TextView mDateTv;
-    private TextView mWeeksTv;
-    private TextView mDescTv;
     private TextView mCheckProjectsTv;
     private ImageView mCheckProjectsIv;
     private ImageView mDignoseIv;
@@ -59,7 +56,6 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
 
 
 
-    private PregnancyDetailBean mPregnancyDetailBean;
     private String mRecordId;
     private long mPrenatalProjectId;
     private int mPrenancyType;
@@ -68,9 +64,8 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
     /**
      * 启动
      */
-    public static void start(Context context, PregnancyDetailBean pregnancyDetailBean, String recordId, int type) {
+    public static void start(Context context, String recordId, int type) {
         Intent intent = new Intent(context, PregnancyDetailActivity.class);
-        intent.putExtra(Const.PREGNANCY_DETAIL, pregnancyDetailBean);
         intent.putExtra(Const.PREGNANCY_ORDER_TYPE, type);
         intent.putExtra(Const.RECORD_ID, recordId);
         context.startActivity(intent);
@@ -90,16 +85,11 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         getTitleLayout().initViewsVisible(true, true, false);
-        getTitleLayout().setWhiteBar();
-        getTitleLayout().setBackgroundColor(getResources().getColor(R.color.vip_pregnancy_detail_tool_bar_bg));
         setTitle("产检预约");
 
-        mPregnancyDetailBean = (PregnancyDetailBean) getIntent().getSerializableExtra(Const.PREGNANCY_DETAIL);
         mRecordId = (String) getIntent().getSerializableExtra(Const.RECORD_ID);
         mPrenancyType = getIntent().getIntExtra(Const.PREGNANCY_ORDER_TYPE, Const.PREGNANCY_ORDER_TYPE_ALL);
 
-        mWeeksTv = findViewById(R.id.pregnancy_detail_weeks_tv);
-        mDescTv = findViewById(R.id.pregnancy_detail_desc_tv);
         mRecyclerView = findViewById(R.id.pregnancy_detail_time_rv);
         mDateTv = findViewById(R.id.pregnancy_order_date_tv);
         mCheckProjectsTv = findViewById(R.id.pregnancy_check_projects_tv);
@@ -122,10 +112,6 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
         mOrderDiagnoseRootLl.setOnClickListener(getController());
 
 
-        if (null != mPregnancyDetailBean) {
-            mWeeksTv.setText(mPregnancyDetailBean.getShowDate());
-            mDescTv.setText(mPregnancyDetailBean.getContext());
-        }
 
         showLayoutAndLogic(mPrenancyType);
 

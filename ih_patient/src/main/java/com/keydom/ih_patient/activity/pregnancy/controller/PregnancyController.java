@@ -32,13 +32,13 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
                 PregnancyOrderDetailActivity.start(getContext(),getView().getPregnancyDetail(),getView().getRecordID());
                 break;
             case R.id.pregnancy_order_now_tv:
-                PregnancyDetailActivity.start(getContext(),getView().getPregnancyDetail(),getView().getRecordID(),Const.PREGNANCY_ORDER_TYPE_ALL);
+                PregnancyDetailActivity.start(getContext(),getView().getRecordID(),Const.PREGNANCY_ORDER_TYPE_ALL);
                 break;
             case R.id.pregnancy_order_check_tv:
-                PregnancyDetailActivity.start(getContext(),getView().getPregnancyDetail(),getView().getRecordID(),Const.PREGNANCY_ORDER_TYPE_CHECK);
+                PregnancyDetailActivity.start(getContext(),getView().getRecordID(),Const.PREGNANCY_ORDER_TYPE_CHECK);
                 break;
             case R.id.pregnancy_order_doctor_tv:
-                PregnancyDetailActivity.start(getContext(),getView().getPregnancyDetail(),getView().getRecordID(),Const.PREGNANCY_ORDER_TYPE_DIAGNOSE);
+                PregnancyDetailActivity.start(getContext(),getView().getRecordID(),Const.PREGNANCY_ORDER_TYPE_DIAGNOSE);
                 break;
         }
     }
