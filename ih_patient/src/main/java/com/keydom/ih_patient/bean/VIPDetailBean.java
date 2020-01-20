@@ -52,7 +52,7 @@ public class VIPDetailBean implements Serializable {
     private int refundStatus;
     private String renewalTime;
     private double renewalAmount;
-    private int paymentMethod;
+    private String paymentMethod;
     private String createTime;
     private String updateTime;
     private int isDel;
@@ -209,11 +209,11 @@ public class VIPDetailBean implements Serializable {
         this.renewalAmount = renewalAmount;
     }
 
-    public int getPaymentMethod() {
+    public String getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(int paymentMethod) {
+    public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
