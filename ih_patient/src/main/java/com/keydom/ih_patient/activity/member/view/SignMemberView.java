@@ -13,5 +13,4 @@ public interface SignMemberView extends BaseView {
 
     void paySuccess();
 
-    void addCardForMobileSuccess();
 }

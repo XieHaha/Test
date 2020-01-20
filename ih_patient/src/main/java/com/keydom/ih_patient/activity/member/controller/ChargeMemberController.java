@@ -2,17 +2,24 @@ package com.keydom.ih_patient.activity.member.controller;
 
 import android.view.View;
 
+import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.member.view.ChargeMemberView;
 import com.keydom.ih_patient.bean.VIPDetailBean;
+import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.VIPCardService;
+import com.keydom.ih_patient.utils.pay.alipay.Alipay;
+import com.keydom.ih_patient.utils.pay.weixin.WXPay;
 import com.keydom.ih_patient.view.CommonPayDialog;
 
 import org.jetbrains.annotations.NotNull;
@@ -44,9 +51,9 @@ public class ChargeMemberController extends ControllerImpl<ChargeMemberView> imp
 
                 mCommonPayDialog = new CommonPayDialog(getContext(), price, new CommonPayDialog.iOnCommitOnClick() {
                     @Override
-                    public void commitPay(String type) {
-                        //pay(0, "0", Integer.valueOf(type), 0.01);
-                        renewalCard(price);
+                    public void commitPay(int type) {
+                        //renewalCard(price,type);
+                        renewalCard(0.01,type);
                     }
                 });
                 mCommonPayDialog.show();
@@ -78,45 +85,21 @@ public class ChargeMemberController extends ControllerImpl<ChargeMemberView> imp
     /**
      * 续约
      */
-    public void renewalCard(double price) {
+    public void renewalCard(double price, int payType) {
         Map<String, Object> map = new HashMap<>();
         map.put("renewalAmount", price);
         map.put("registerUserId", Global.getUserId());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(VIPCardService.class).renewalCard(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), true, false) {
+        map.put("payType", payType);
+        map.put("hospitalId", App.hospitalId);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(VIPCardService.class).renewalCard(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), true, false) {
 
-            @Override
-            public void requestComplete(@Nullable Object data) {
-                getView().renewalCardSuccess();
-            }
-
-
-            @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                ToastUtils.showShort(msg);
-                return super.requestError(exception, code, msg);
-            }
-        });
-    }
-
-
-    /**
-     * 发起支付   //支付方式 1微信 2支付宝
-     */
-/*    public void pay(long addressId, String orderNumber, int type, double totalMoney) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("addressId", addressId);
-        map.put("orderNumber", orderNumber);
-        map.put("type", type);
-        map.put("totalMoney", totalMoney);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PayService.class).patientPayByOrderNumber(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), true, true) {
             @Override
             public void requestComplete(@Nullable String data) {
-                hideLoading();
                 if (StringUtils.isEmpty(data)) {
                     ToastUtils.showShort("返回支付参数为空");
                     return;
                 }
-                if (type == 2) {
+                if (payType == Const.ALI_PAY) {
                     JSONObject js = JSONObject.parseObject(data);
                     if (!js.containsKey("return_msg")) {
                         return;
@@ -143,7 +126,7 @@ public class ChargeMemberController extends ControllerImpl<ChargeMemberView> imp
                             ToastUtils.showShort("取消支付");
                         }
                     }).doPay();
-                } else if (type == 1) {
+                } else if (payType == Const.WECHAT_PAY) {
                     WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
                         @Override
                         public void onSuccess() {
@@ -165,11 +148,13 @@ public class ChargeMemberController extends ControllerImpl<ChargeMemberView> imp
                 }
             }
 
+
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }
         });
-    }*/
+    }
+
 }

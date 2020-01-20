@@ -20,8 +20,8 @@ import com.keydom.ih_patient.R;
  * des:公共支付弹框
  */
 public class CommonPayDialog extends BottomSheetDialog implements View.OnClickListener {
-    public static String WX_PAY = "1";
-    public static String ALI_PAY = "2";
+    public static final int WX_PAY = 1;
+    public static final int ALI_PAY = 2;
 
     private TextView mAliPayText;//ali_pay_tv
     private ImageView mAliPayImg;//ali_pay_selected_img
@@ -43,7 +43,7 @@ public class CommonPayDialog extends BottomSheetDialog implements View.OnClickLi
      * 提交支付监听
      */
     public interface iOnCommitOnClick {
-        void commitPay(String type);
+        void commitPay(int type);
     }
 
     /**

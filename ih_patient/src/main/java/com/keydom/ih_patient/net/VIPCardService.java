@@ -38,13 +38,13 @@ public interface VIPCardService {
     /**
      * 办理会员卡-移动端
      */
-    @POST("user/vipCard/addCardForMobile")
-    Observable<HttpResult<Object>> addCardForMobile(@Body RequestBody body);
+    @POST("user/vipCardOrder/addCardForMobile")
+    Observable<HttpResult<String>> addCardForMobile(@Body RequestBody body);
 
 
     /**
      * 续约
      */
-    @POST("user/vipCard/renewalCard")
-    Observable<HttpResult<Object>> renewalCard(@Body RequestBody body);
+    @POST("user/vipCardOrder/renewalCard")
+    Observable<HttpResult<String>> renewalCard(@Body RequestBody body);
 }

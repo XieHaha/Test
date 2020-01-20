@@ -43,4 +43,11 @@ public class Const {
     public static final int PREGNANCY_ORDER_TYPE_CHECK = 1;//1：检验检查
     public static final int PREGNANCY_ORDER_TYPE_DIAGNOSE = 2;//2：产检门诊
 
+
+    /**
+     * 支付
+     *
+     * */
+    public static final int ALI_PAY = 2;//支付宝支付
+    public static final int WECHAT_PAY = 1;//微信支付
 }

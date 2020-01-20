@@ -5,7 +5,7 @@ import com.keydom.ih_patient.bean.VIPDetailBean;
 
 public interface ChargeMemberView extends BaseView {
 
-    void renewalCardSuccess();
+    void paySuccess();
 
     double getSelectedPrice();
 

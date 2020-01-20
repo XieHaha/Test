@@ -93,15 +93,11 @@ public class SignMemberActivity extends BaseControllerActivity<SignMemberControl
 
     @Override
     public void paySuccess() {
-
-    }
-
-    @Override
-    public void addCardForMobileSuccess() {
         Global.setMember(1);
         EventBus.getDefault().post(new Event(EventType.UPDATELOGINSTATE, null));
         ActivityStackManager.getInstance().finishActivity(MemberDetailActivity.class);
         MemberDetailActivity.start(this);
         finish();
     }
+
 }
