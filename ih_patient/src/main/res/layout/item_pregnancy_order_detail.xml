@@ -89,6 +89,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/pregnancy_order_detail_check_projects_root_rl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_56">
 

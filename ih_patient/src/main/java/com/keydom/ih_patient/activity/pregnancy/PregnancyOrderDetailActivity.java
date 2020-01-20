@@ -14,13 +14,12 @@ import com.keydom.ih_patient.activity.pregnancy.controller.PregnancyOrderDetailC
 import com.keydom.ih_patient.activity.pregnancy.view.PregnancyOrderDetailView;
 import com.keydom.ih_patient.adapter.PregnancyOrderDetailAdapter;
 import com.keydom.ih_patient.bean.PregnancyDetailBean;
-import com.keydom.ih_patient.bean.PregnancyOrderDetailItem;
+import com.keydom.ih_patient.bean.PregnancyOrderBean;
 import com.keydom.ih_patient.constant.Const;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PregnancyOrderDetailActivity extends BaseControllerActivity<PregnancyOrderDetailController> implements PregnancyOrderDetailView {
 
@@ -87,9 +86,13 @@ public class PregnancyOrderDetailActivity extends BaseControllerActivity<Pregnan
 
 
     @Override
-    public void getDetailProductInspectionSuccess(List<PregnancyOrderDetailItem> data) {
-        mAdapter.addData(data);
-        mAdapter.notifyDataSetChanged();
+    public void getDetailProductInspectionSuccess(PregnancyOrderBean data) {
+
+        if(null != data && null != data.getData()){
+            mAdapter.addData(data.getData());
+            mAdapter.notifyDataSetChanged();
+        }
+
     }
 
     @Override
