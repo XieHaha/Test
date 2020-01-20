@@ -80,7 +80,7 @@ public class PregnancyOrderDetailActivity extends BaseControllerActivity<Pregnan
             mDescTv.setText(mPregnancyDetailBean.getContext());
         }
 
-
+        pageLoading();
         getController().getPregnancyOrderDetails(mRecordId);
     }
 
@@ -89,6 +89,7 @@ public class PregnancyOrderDetailActivity extends BaseControllerActivity<Pregnan
     public void getDetailProductInspectionSuccess(PregnancyOrderBean data) {
 
         if (null != data && null != data.getData()) {
+            pageLoadingSuccess();
             for (int i = 0; i < data.getData().size(); i++) {
                 PregnancyOrderDetailItem item = data.getData().get(i);
 
@@ -98,6 +99,8 @@ public class PregnancyOrderDetailActivity extends BaseControllerActivity<Pregnan
             }
 
             mAdapter.notifyDataSetChanged();
+        }else{
+            pageEmpty();
         }
 
     }
@@ -105,6 +108,7 @@ public class PregnancyOrderDetailActivity extends BaseControllerActivity<Pregnan
     @Override
     public void getDetailProductInspectionFailed(String msg) {
         ToastUtils.showShort(msg);
+        pageLoadingFail();
     }
 
 

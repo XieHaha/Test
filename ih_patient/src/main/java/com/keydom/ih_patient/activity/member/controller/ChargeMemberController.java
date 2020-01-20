@@ -66,7 +66,7 @@ public class ChargeMemberController extends ControllerImpl<ChargeMemberView> imp
      * 获得会员信息
      */
     public void getMyVipCard() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(VIPCardService.class).getMyVipCard(Global.getUserId()), new HttpSubscriber<VIPDetailBean>(getContext(), getDisposable(), true, false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(VIPCardService.class).getMyVipCard(Global.getUserId()), new HttpSubscriber<VIPDetailBean>(getContext(), getDisposable(), false, false) {
 
             @Override
             public void requestComplete(@Nullable VIPDetailBean data) {
@@ -77,6 +77,7 @@ public class ChargeMemberController extends ControllerImpl<ChargeMemberView> imp
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
                 ToastUtils.showShort(msg);
+                getView().getMyVipCardFail(msg);
                 return super.requestError(exception, code, msg);
             }
         });

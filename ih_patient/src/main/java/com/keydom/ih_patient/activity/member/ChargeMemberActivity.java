@@ -78,6 +78,7 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
         mPricesRv.setNestedScrollingEnabled(false);
 
         getController().getMyVipCard();
+        pageLoading();
     }
 
     @Override
@@ -104,10 +105,18 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
     @Override
     public void getMyVipCardSuccess(VIPDetailBean data) {
         if (null != data) {
+            pageLoadingSuccess();
             if (null != data.getEndTime()) {
                 mEndDateTv.setText(DateUtils.getYMDfromYMDHMS(data.getEndTime()));
             }
             mBalanceTv.setText(data.getSurplusAmount() + "元");
+        }else{
+            pageEmpty();
         }
+    }
+
+    @Override
+    public void getMyVipCardFail(String msg) {
+        pageLoadingFail();
     }
 }

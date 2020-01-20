@@ -10,4 +10,6 @@ public interface ChargeMemberView extends BaseView {
     double getSelectedPrice();
 
     void getMyVipCardSuccess(VIPDetailBean data);
+
+    void getMyVipCardFail(String msg);
 }

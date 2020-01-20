@@ -6,6 +6,12 @@
 
     <include layout="@layout/common_title_bar" />
 
+    <com.ganxin.library.LoadDataLayout
+        android:id="@+id/loadDataLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
     <com.keydom.ih_patient.view.MyScollerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -111,7 +117,7 @@
         </LinearLayout>
 
     </com.keydom.ih_patient.view.MyScollerView>
-
+    </com.ganxin.library.LoadDataLayout>
 
 </LinearLayout>
 

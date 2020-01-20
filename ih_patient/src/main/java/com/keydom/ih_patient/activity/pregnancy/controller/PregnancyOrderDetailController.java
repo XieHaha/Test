@@ -33,7 +33,7 @@ public class PregnancyOrderDetailController extends ControllerImpl<PregnancyOrde
      * 获取产检详情
      */
     public void getPregnancyOrderDetails(String recordId) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getDetailProductInspection(recordId), new HttpSubscriber<PregnancyOrderBean>(getContext(), getDisposable(), true, false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getDetailProductInspection(recordId), new HttpSubscriber<PregnancyOrderBean>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable PregnancyOrderBean data) {
                 if (data != null) {

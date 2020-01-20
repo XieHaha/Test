@@ -7,130 +7,134 @@
 
     <include layout="@layout/common_title_bar" />
 
-
-    <android.support.v4.widget.NestedScrollView
+    <com.ganxin.library.LoadDataLayout
+        android:id="@+id/loadDataLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_38"
-                android:background="#F2F2F2"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dp_20"
-                android:text="我的仁医金卡"
-                android:textColor="#666666"
-                android:textSize="@dimen/font_size_primary" />
+            android:background="@color/white"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_56">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:drawablePadding="@dimen/dp_18"
-                    android:gravity="center"
-                    android:text="余额"
-                    android:textColor="@color/primary_font_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_38"
+                    android:background="#F2F2F2"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_20"
+                    android:text="我的仁医金卡"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/font_size_primary" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_56">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:drawablePadding="@dimen/dp_18"
+                        android:gravity="center"
+                        android:text="余额"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+
+
+                    <TextView
+                        android:id="@+id/charge_member_balance_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:drawablePadding="@dimen/dp_18"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/red"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_56">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:drawablePadding="@dimen/dp_18"
+                        android:gravity="center"
+                        android:text="到期日"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+
+
+                    <TextView
+                        android:id="@+id/charge_member_end_date_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:drawablePadding="@dimen/dp_18"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/bar_grey"
+                        android:textSize="@dimen/font_size_primary" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_38"
+                    android:background="#F2F2F2"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_20"
+                    android:text="选择充值金额"
+                    android:textColor="#666666"
                     android:textSize="@dimen/font_size_primary" />
 
 
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/charge_member_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:paddingLeft="35dp"
+                    android:paddingRight="35dp" />
+
+
                 <TextView
-                    android:id="@+id/charge_member_balance_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:drawablePadding="@dimen/dp_18"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/red"
-                    android:textSize="25sp" />
+                    android:id="@+id/charge_member_commit_charge_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_52"
+                    android:layout_marginLeft="@dimen/dp_21"
+                    android:layout_marginRight="@dimen/dp_21"
+                    android:background="@mipmap/pay_commit_bg"
+                    android:gravity="center"
+                    android:text="续约充值"
+                    android:textColor="@color/primary_color"
+                    android:textSize="@dimen/dp_17" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/dp_21"
+                    android:layout_marginTop="27dp"
+                    android:layout_marginRight="@dimen/dp_21"
+                    android:layout_marginBottom="@dimen/dp_50"
+                    android:text="@string/vip_charge_desc"
+                    android:textColor="@color/vip_detail_balance_number_text"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_56">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:drawablePadding="@dimen/dp_18"
-                    android:gravity="center"
-                    android:text="到期日"
-                    android:textColor="@color/primary_font_color"
-                    android:textSize="@dimen/font_size_primary" />
-
-
-                <TextView
-                    android:id="@+id/charge_member_end_date_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:drawablePadding="@dimen/dp_18"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/bar_grey"
-                    android:textSize="@dimen/font_size_primary" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_38"
-                android:background="#F2F2F2"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dp_20"
-                android:text="选择充值金额"
-                android:textColor="#666666"
-                android:textSize="@dimen/font_size_primary" />
-
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/charge_member_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:paddingLeft="35dp"
-                android:paddingRight="35dp" />
-
-
-            <TextView
-                android:id="@+id/charge_member_commit_charge_tv"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_52"
-                android:layout_marginLeft="@dimen/dp_21"
-                android:layout_marginRight="@dimen/dp_21"
-                android:background="@mipmap/pay_commit_bg"
-                android:gravity="center"
-                android:text="续约充值"
-                android:textColor="@color/primary_color"
-                android:textSize="@dimen/dp_17" />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="@dimen/dp_21"
-                android:layout_marginTop="27dp"
-                android:layout_marginRight="@dimen/dp_21"
-                android:layout_marginBottom="@dimen/dp_50"
-                android:text="@string/vip_charge_desc"
-                android:textColor="@color/vip_detail_balance_number_text"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-    </android.support.v4.widget.NestedScrollView>
-
+        </android.support.v4.widget.NestedScrollView>
+    </com.ganxin.library.LoadDataLayout>
 </LinearLayout>
