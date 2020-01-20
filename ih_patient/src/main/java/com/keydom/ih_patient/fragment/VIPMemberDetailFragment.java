@@ -56,6 +56,7 @@ public class VIPMemberDetailFragment extends BaseControllerFragment<VIPMemberDet
         view.findViewById(R.id.fragment_vip_member_detail_charge_ll).setOnClickListener(getController());
         view.findViewById(R.id.fragment_vip_member_detail_charge_record_ll).setOnClickListener(getController());
 
+        pageLoading();
         getController().getMyVipCard();
 
         EventBus.getDefault().register(this);
@@ -81,7 +82,13 @@ public class VIPMemberDetailFragment extends BaseControllerFragment<VIPMemberDet
 
     @Override
     public void getMyVipCardSuccess(VIPDetailBean data) {
+        pageLoadingSuccess();
         refreshData(data);
+    }
+
+    @Override
+    public void getMyVipCardFail(String msg) {
+        pageLoadingFail();
     }
 
 

@@ -11,6 +11,10 @@
         android:layout_weight="1"
         android:background="@color/white"
         android:fillViewport="true">
+        <com.ganxin.library.LoadDataLayout
+            android:id="@+id/loadDataLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -252,6 +256,8 @@
 
 
         </LinearLayout>
+
+        </com.ganxin.library.LoadDataLayout>
 
     </android.support.v4.widget.NestedScrollView>
 

@@ -7,4 +7,5 @@ public interface VIPMemberDetailView extends BaseView {
 
 
     void getMyVipCardSuccess(VIPDetailBean data);
+    void getMyVipCardFail(String msg);
 }
