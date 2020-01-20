@@ -37,9 +37,9 @@ public class SignMemberActivity extends BaseControllerActivity<SignMemberControl
     /**
      * 启动
      */
-    public static void start(Context context,VIPCardInfoResponse vipCardInfoResponse) {
+    public static void start(Context context, VIPCardInfoResponse vipCardInfoResponse) {
         Intent intent = new Intent(context, SignMemberActivity.class);
-        intent.putExtra(VIP_CARD_INFO,vipCardInfoResponse);
+        intent.putExtra(VIP_CARD_INFO, vipCardInfoResponse);
         context.startActivity(intent);
     }
 
@@ -73,8 +73,9 @@ public class SignMemberActivity extends BaseControllerActivity<SignMemberControl
 
         getController().init();
 
-        if(null != mVIPCardInfo){
+        if (null != mVIPCardInfo) {
             mPriceTv.setText(mVIPCardInfo.getPrice() + "元");
+            mToPayTv.setText("去付款" + mVIPCardInfo.getPrice() + "元");
             mDescTv.setText(TextUtils.isEmpty(mVIPCardInfo.getDescription()) ? "" : mVIPCardInfo.getDescription());
         }
     }
