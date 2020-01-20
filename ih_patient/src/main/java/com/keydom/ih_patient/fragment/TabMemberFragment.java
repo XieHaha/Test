@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.utils.SharePreferenceManager;
@@ -24,10 +25,15 @@ import java.util.List;
 public class TabMemberFragment extends BaseControllerFragment<TabMemberController> implements TabMemberView {
 
     RecyclerView mRecyclerView;
+    TextView mPriceTv;
+    TextView mDescTv;
+    TextView mNoteTv;
 
     MemberFunctionAdapter mAdapter;
 
     List<VIPCardInfoListItem> mDatas;
+
+    VIPCardInfoResponse mVIPCardInfo;
 
     @Override
     public int getLayoutRes() {
@@ -39,6 +45,9 @@ public class TabMemberFragment extends BaseControllerFragment<TabMemberControlle
         super.onViewCreated(view, savedInstanceState);
 
         mRecyclerView = view.findViewById(R.id.fragment_tab_member_rv);
+        mPriceTv = view.findViewById(R.id.fragment_tab_member_card_price_tv);
+        mDescTv = view.findViewById(R.id.fragment_tab_member_card_desc_tv);
+        mNoteTv = view.findViewById(R.id.fragment_tab_member_card_note_tv);
 
 
         view.findViewById(R.id.fragment_tab_member_get_vip_tv).setOnClickListener(getController());
@@ -78,18 +87,29 @@ public class TabMemberFragment extends BaseControllerFragment<TabMemberControlle
 
         if (null != data) {
 
-            if(null != data.getInfoList() && data.getInfoList().size() > 0){
+            mVIPCardInfo = data;
+
+            mPriceTv.setText(data.getPrice() + "元");
+            mDescTv.setText(TextUtils.isEmpty(data.getDescription()) ? "" : data.getDescription());
+            mNoteTv.setText(TextUtils.isEmpty(data.getNote()) ? "" : data.getNote());
+
+            if (null != data.getInfoList() && data.getInfoList().size() > 0) {
                 mDatas.addAll(data.getInfoList());
                 mAdapter = new MemberFunctionAdapter(getContext(), mDatas);
 
                 initAdapter();
             }
 
-            if(!TextUtils.isEmpty(data.getId())){
+            if (!TextUtils.isEmpty(data.getId())) {
                 SharePreferenceManager.setVIPCardTypeID(data.getId());
             }
 
         }
 
+    }
+
+    @Override
+    public VIPCardInfoResponse getVipCardInfo() {
+        return mVIPCardInfo;
     }
 }

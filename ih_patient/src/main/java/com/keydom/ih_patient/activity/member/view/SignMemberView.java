@@ -1,6 +1,7 @@
 package com.keydom.ih_patient.activity.member.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.ih_patient.bean.VIPCardInfoResponse;
 
 public interface SignMemberView extends BaseView {
 
@@ -13,4 +14,5 @@ public interface SignMemberView extends BaseView {
 
     void paySuccess();
 
+    VIPCardInfoResponse getVipCardInfo();
 }

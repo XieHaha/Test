@@ -6,4 +6,6 @@ import com.keydom.ih_patient.bean.VIPCardInfoResponse;
 public interface TabMemberView extends BaseView {
 
     void getMyVipCardSuccess(VIPCardInfoResponse data);
+
+    VIPCardInfoResponse getVipCardInfo();
 }

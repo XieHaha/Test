@@ -70,7 +70,7 @@ public class SignMemberController extends ControllerImpl<SignMemberView> impleme
 
 
     public void init() {
-        mCommonPayDialog = new CommonPayDialog(getContext(), 20000, new CommonPayDialog.iOnCommitOnClick() {
+        mCommonPayDialog = new CommonPayDialog(getContext(), getView().getVipCardInfo().getPrice(), new CommonPayDialog.iOnCommitOnClick() {
             @Override
             public void commitPay(int type) {
                 addCardForMobile(getView().getName(), getView().getID(),type);

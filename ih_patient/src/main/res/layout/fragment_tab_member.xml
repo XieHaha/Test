@@ -62,31 +62,30 @@
 
 
                 <TextView
-                    android:id="@+id/fragment_tab_member_card_num_tv"
+                    android:id="@+id/fragment_tab_member_card_price_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/fragment_tab_member_balance_iv"
                     android:layout_marginLeft="28dp"
                     android:layout_marginTop="16.5dp"
-                    android:text="@string/vip_price"
                     android:textColor="@color/vip_balance_text"
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/fragment_tab_member_card_desc_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/fragment_tab_member_balance_iv"
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="16.5dp"
-                    android:layout_toRightOf="@id/fragment_tab_member_card_num_tv"
-                    android:text="@string/vip_service_desc"
+                    android:layout_toRightOf="@id/fragment_tab_member_card_price_tv"
                     android:textColor="@color/vip_balance_text"
                     android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/fragment_tab_member_card_num_tv"
+                    android:layout_below="@id/fragment_tab_member_card_price_tv"
                     android:layout_marginLeft="26.5dp"
                     android:layout_marginTop="30dp"
                     android:text="请尽快开通享受绿色服务吧"
@@ -134,12 +133,12 @@
                 android:background="@color/primary_bg_color" />
 
             <TextView
+                android:id="@+id/fragment_tab_member_card_note_tv"
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="47dp"
                 android:lineSpacingExtra="15dp"
-                android:text="@string/vip_desc"
                 android:textSize="14sp" />
 
             <LinearLayout

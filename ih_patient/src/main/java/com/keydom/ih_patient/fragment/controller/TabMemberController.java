@@ -22,7 +22,7 @@ public class TabMemberController extends ControllerImpl<TabMemberView> implement
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_tab_member_get_vip_tv:
-                SignMemberActivity.start(getContext());
+                SignMemberActivity.start(getContext(),getView().getVipCardInfo());
                 break;
             default:
                 break;
