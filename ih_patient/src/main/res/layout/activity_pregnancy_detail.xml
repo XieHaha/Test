@@ -7,10 +7,9 @@
 
     <include layout="@layout/common_title_bar" />
 
-    <com.keydom.ih_patient.view.MyScollerView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -212,7 +211,7 @@
 
         </LinearLayout>
 
-    </com.keydom.ih_patient.view.MyScollerView>
+    </android.support.v4.widget.NestedScrollView>
 
 
 </LinearLayout>

@@ -73,6 +73,7 @@ public class PregnancyOrderDetailActivity extends BaseControllerActivity<Pregnan
         mAdapter = new PregnancyOrderDetailAdapter(new ArrayList<>());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setNestedScrollingEnabled(false);
 
 
         if (null != mPregnancyDetailBean) {

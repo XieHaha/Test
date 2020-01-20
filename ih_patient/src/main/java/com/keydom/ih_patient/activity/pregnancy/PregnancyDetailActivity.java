@@ -103,6 +103,7 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
         mAdapter = new PrenancyOrderTimeAdapter(new ArrayList<>());
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setNestedScrollingEnabled(false);
 
 
         mCommitOrderTv.setOnClickListener(getController());
