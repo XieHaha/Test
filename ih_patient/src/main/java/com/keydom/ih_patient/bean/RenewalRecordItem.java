@@ -18,7 +18,7 @@ public class RenewalRecordItem implements Serializable {
     private String vipCardId;
     private String renewalTime;
     private double renewalAmount;
-    private double paymentMethod;
+    private String paymentMethod;
     private String createTime;
 
     public String getId() {
@@ -53,11 +53,11 @@ public class RenewalRecordItem implements Serializable {
         this.renewalAmount = renewalAmount;
     }
 
-    public double getPaymentMethod() {
+    public String getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(double paymentMethod) {
+    public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
