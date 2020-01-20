@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -15,6 +16,7 @@ import com.keydom.ih_patient.activity.pregnancy.view.PregnancyOrderDetailView;
 import com.keydom.ih_patient.adapter.PregnancyOrderDetailAdapter;
 import com.keydom.ih_patient.bean.PregnancyDetailBean;
 import com.keydom.ih_patient.bean.PregnancyOrderBean;
+import com.keydom.ih_patient.bean.PregnancyOrderDetailItem;
 import com.keydom.ih_patient.constant.Const;
 
 import org.jetbrains.annotations.Nullable;
@@ -32,7 +34,6 @@ public class PregnancyOrderDetailActivity extends BaseControllerActivity<Pregnan
 
     private PregnancyDetailBean mPregnancyDetailBean;
     private String mRecordId;
-
 
 
     /**
@@ -84,12 +85,18 @@ public class PregnancyOrderDetailActivity extends BaseControllerActivity<Pregnan
     }
 
 
-
     @Override
     public void getDetailProductInspectionSuccess(PregnancyOrderBean data) {
 
-        if(null != data && null != data.getData()){
-            mAdapter.addData(data.getData());
+        if (null != data && null != data.getData()) {
+            for (int i = 0; i < data.getData().size(); i++) {
+                PregnancyOrderDetailItem item = data.getData().get(i);
+
+                if(!TextUtils.isEmpty(item.getTimeInterval())){
+                    mAdapter.addData(item);
+                }
+            }
+
             mAdapter.notifyDataSetChanged();
         }
 
@@ -99,7 +106,6 @@ public class PregnancyOrderDetailActivity extends BaseControllerActivity<Pregnan
     public void getDetailProductInspectionFailed(String msg) {
         ToastUtils.showShort(msg);
     }
-
 
 
 }
