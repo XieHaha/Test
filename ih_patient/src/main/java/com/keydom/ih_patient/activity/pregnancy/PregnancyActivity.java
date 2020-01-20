@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.pregnancy.controller.PregnancyController;
@@ -86,8 +87,8 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         setTitle("产检预约");
 
         MedicalCardInfo mMedicalCardInfo = (MedicalCardInfo) getIntent().getSerializableExtra(Const.MEDICAL_CARD_INFO);
-        //mCardNumber = mMedicalCardInfo.getEleCardNumber();
-        mCardNumber = "37e0fcd8-c38f-43e4-b";
+        mCardNumber = mMedicalCardInfo.getEleCardNumber();
+        //mCardNumber = "37e0fcd8-c38f-43e4-b";
 
         mRecyclerView = findViewById(R.id.pregnancy_records_rv);
         mRefreshLayout = findViewById(R.id.pregnancy_refresh);
@@ -112,18 +113,25 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
 
         mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().listPersonInspectionRecord(mRefreshLayout, mCardNumber, TypeEnum.REFRESH));
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().listPersonInspectionRecord(mRefreshLayout, mCardNumber, TypeEnum.LOAD_MORE));
-        mRefreshLayout.autoRefresh();
 
 
         mOrderNowTv.setOnClickListener(getController());
         mOrderCheckTv.setOnClickListener(getController());
         mOrderDoctorTv.setOnClickListener(getController());
 
+        pageLoading();
+        getController().listPersonInspectionRecord(mRefreshLayout, mCardNumber, TypeEnum.REFRESH);
         getController().getPregnancyDetail(mCardNumber);
+
+        setReloadListener(new LoadDataLayout.OnReloadListener() {
+            @Override
+            public void onReload(View v, int status) {
+                getController().getPregnancyDetail(mCardNumber);
+            }
+        });
 
         EventBus.getDefault().register(this);
     }
-
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -158,7 +166,6 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
             }
 
 
-
             if (typeEnum == TypeEnum.REFRESH) {
                 mFinishOrderCountsTv.setText("已完成" + list.size() + "次产检");
                 mAdapter.replaceData(list);
@@ -178,18 +185,22 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
 
     @Override
     public void getPregnancyDetailSuccess(PregnancyDetailBean data) {
+        pageLoadingSuccess();
         if (null != data) {
             mPregnancyDetailBean = data;
             mBabyHeightTv.setText(data.getBabyLength() + "mm");
             mBabyWeightTv.setText(data.getBabyWeight() + "g");
             mLastDaysTv.setText(data.getShowDate());
             mBabyMeettingDaysTv.setText(data.getPregnantDay());
+        } else {
+            pageEmpty();
         }
     }
 
     @Override
     public void getPregnancyDetailFailed(String msg) {
         ToastUtils.showShort(msg);
+        pageLoadingFail();
     }
 
     @Override

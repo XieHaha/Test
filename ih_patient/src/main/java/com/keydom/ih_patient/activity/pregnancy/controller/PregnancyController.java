@@ -75,7 +75,7 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
      * 获取宝妈关怀信息
      */
     public void getPregnancyDetail(String cardNumber) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getPregnancyDetail(cardNumber), new HttpSubscriber<PregnancyDetailBean>(getContext(), getDisposable(), true, false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getPregnancyDetail(cardNumber), new HttpSubscriber<PregnancyDetailBean>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable PregnancyDetailBean data) {
                 if (data != null) {
