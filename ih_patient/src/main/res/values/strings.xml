@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">言行医至患者端</string>
+    <string name="app_name">仁医用户端</string>
     <string name="unlogin_hint">您暂未登录，请从(我的) 页面登录后再查看</string>
     <string name="login_phone_hint">请输入账户或手机号</string>
     <string name="login_password_hint">请输入密码</string>
