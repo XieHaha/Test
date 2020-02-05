@@ -48,6 +48,7 @@ import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.fragment.controller.TabIndexController;
 import com.keydom.ih_patient.fragment.view.TabIndexView;
 import com.keydom.ih_patient.utils.DepartmentDataHelper;
+import com.keydom.ih_patient.view.DiagnosesApplyDialog;
 import com.keydom.ih_patient.view.FunctionRvItemDecoration;
 import com.keydom.ih_patient.view.GeneralArticleItem;
 import com.orhanobut.logger.Logger;
@@ -113,6 +114,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     private LinearLayout mIndexFunctionRootLl;
     private ImageView mTopRightIconIv;
 
+    private DiagnosesApplyDialog mVIPDialog;
+
 
     public void initVipFunction(){
         mMemberRootLl.setVisibility(View.GONE);
@@ -132,7 +135,12 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mTopLeftRootRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiagnoseMainActivity.start(getContext());
+                if(null == mVIPDialog){
+                    mVIPDialog = new DiagnosesApplyDialog(getContext(), DiagnosesApplyDialog.VIP_DIAGNOSES, () -> {
+                        //DiagnosesApplyActivity.start(getContext(), type, mDoctorMainBean.getInfo());
+                    });
+                }
+                mVIPDialog.show();
             }
         });
     }

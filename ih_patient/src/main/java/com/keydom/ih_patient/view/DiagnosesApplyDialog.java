@@ -20,6 +20,7 @@ import com.keydom.ih_patient.bean.CommonDocumentBean;
 public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener {
     public static final String PHOTODIAGNOSES = "photo_diagnoses";
     public static final String VIDEODIAGNOSES = "video_diagnoses";
+    public static final String VIP_DIAGNOSES = "vip_diagnoses";
     private Context context;
     private TextView applu_fee_tv,discount_tv,service_label;
     private TextView doctor_name_tv;
@@ -35,6 +36,8 @@ public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener
     private OnCommitListener onCommitListener;
     private boolean isAgreeNotice = false;
     private ImageView icon_f;
+    private TextView mVIPTipsTv;
+    private TextView mVIPNoDrugsTv;
 
     /**
      * 构建方法
@@ -46,6 +49,14 @@ public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener
         this.disCount=disCount;
         this.doctorName = doctorName;
         this.waitNum = waitNum;
+        this.diagnosesType = diagnosesType;
+        this.onCommitListener = onCommitListener;
+    }
+
+
+    public DiagnosesApplyDialog(@NonNull Context context,  String diagnosesType, OnCommitListener onCommitListener) {
+        super(context,com.keydom.ih_common.R.style.dialog);
+        this.context = context;
         this.diagnosesType = diagnosesType;
         this.onCommitListener = onCommitListener;
     }
@@ -65,29 +76,58 @@ public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener
         icon_f=findViewById(R.id.icon_f);
         applu_fee_tv = findViewById(R.id.applu_fee_tv);
         discount_tv=findViewById(R.id.discount_tv);
-        if(disCount<1.0){
-            float resultFee=Float.valueOf(fee)*disCount;
-            String feeStr= String.format("%.2f",resultFee);
-            applu_fee_tv.setText(fee != null ? "¥" + feeStr+ "/次":"" );
-            discount_tv.setVisibility(View.VISIBLE);
-            discount_tv.setText("复诊患者首次问诊费用"+disCount*10+"折优惠");
-        }else {
-            applu_fee_tv.setText(fee != null ? "¥" + fee+ "/次":"" );
-            discount_tv.setVisibility(View.GONE);
-        }
         doctor_name_tv = findViewById(R.id.doctor_name_tv);
-        doctor_name_tv.setText(doctorName != null ? doctorName : "");
         apply_type_tv = findViewById(R.id.apply_type_tv);
-        if (PHOTODIAGNOSES.equals(diagnosesType)) {
-            icon_f.setImageResource(R.mipmap.dialog_pic_icon);
-            apply_type_tv.setText("通过图文进行问诊咨询");
-        } else if (VIDEODIAGNOSES.equals(diagnosesType)) {
-            icon_f.setImageResource(R.mipmap.dialog_video_icon);
-            apply_type_tv.setText("通过视频进行问诊咨询");
-        }
         wait_num_tv = findViewById(R.id.wait_num_tv);
-        wait_num_tv.setText("前面排队待诊人数：" + waitNum + "人");
         notice_tv = findViewById(R.id.notice_tv);
+        service_label=findViewById(R.id.service_label);
+        canncel_apply_tv = findViewById(R.id.canncel_apply_tv);
+        commit_apply_tv = findViewById(R.id.commit_apply_tv);
+        notice_ck = findViewById(R.id.notice_ck);
+        mVIPTipsTv = findViewById(R.id.diagnoses_apply_layout_vip_tips_tv);
+        mVIPNoDrugsTv = findViewById(R.id.diagnoses_apply_layout_vip_no_drugs_tv);
+
+        if (VIP_DIAGNOSES.equals(diagnosesType)) {
+            icon_f.setImageResource(R.mipmap.dialog_vip_icon);
+            applu_fee_tv.setVisibility(View.GONE);
+            discount_tv.setVisibility(View.GONE);
+            apply_type_tv.setVisibility(View.GONE);
+            wait_num_tv.setVisibility(View.GONE);
+            doctor_name_tv.setVisibility(View.GONE);
+            mVIPTipsTv.setVisibility(View.VISIBLE);
+            mVIPNoDrugsTv.setVisibility(View.VISIBLE);
+
+        }else{
+            if (PHOTODIAGNOSES.equals(diagnosesType)) {
+                icon_f.setImageResource(R.mipmap.dialog_pic_icon);
+                apply_type_tv.setText("通过图文进行问诊咨询");
+            } else if (VIDEODIAGNOSES.equals(diagnosesType)) {
+                icon_f.setImageResource(R.mipmap.dialog_video_icon);
+                apply_type_tv.setText("通过视频进行问诊咨询");
+            }
+
+            if(disCount<1.0){
+                float resultFee=Float.valueOf(fee)*disCount;
+                String feeStr= String.format("%.2f",resultFee);
+                applu_fee_tv.setText(fee != null ? "¥" + feeStr+ "/次":"" );
+                discount_tv.setVisibility(View.VISIBLE);
+                discount_tv.setText("复诊患者首次问诊费用"+disCount*10+"折优惠");
+            }else {
+                applu_fee_tv.setText(fee != null ? "¥" + fee+ "/次":"" );
+                discount_tv.setVisibility(View.GONE);
+            }
+
+            doctor_name_tv.setText(doctorName != null ? doctorName : "");
+
+            wait_num_tv.setText("前面排队待诊人数：" + waitNum + "人");
+        }
+
+
+
+
+
+
+
         notice_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +135,7 @@ public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener
                 CommonDocumentActivity.start(getContext(),CommonDocumentBean.CODE_1);
             }
         });
-        service_label=findViewById(R.id.service_label);
+
         service_label.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,11 +143,11 @@ public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener
 
             }
         });
-        canncel_apply_tv = findViewById(R.id.canncel_apply_tv);
+
         canncel_apply_tv.setOnClickListener(this);
-        commit_apply_tv = findViewById(R.id.commit_apply_tv);
+
         commit_apply_tv.setOnClickListener(this);
-        notice_ck = findViewById(R.id.notice_ck);
+
         notice_ck.setOnCheckedChangeListener((compoundButton, b) -> {
             isAgreeNotice = b;
         });
