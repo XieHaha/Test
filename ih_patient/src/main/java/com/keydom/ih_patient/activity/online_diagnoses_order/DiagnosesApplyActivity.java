@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.iflytek.cloud.ErrorCode;
@@ -69,9 +70,13 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
     public static void start(Context context, String type, DoctorMainBean.InfoBean info) {
         Intent intent = new Intent(context, DiagnosesApplyActivity.class);
         intent.putExtra("type", type);
+
         Bundle bundle = new Bundle();
-        bundle.putSerializable("info", info);
-        intent.putExtras(bundle);
+        if(null != info){
+            bundle.putSerializable("info", info);
+            intent.putExtras(bundle);
+        }
+
         context.startActivity(intent);
     }
 
@@ -79,6 +84,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
             depart_tv, adept_tv, inquisition_num_tv, good_evaluate_num_tv,
             average_reply_time_tv, choose_patient_card_tv, choose_patient_tv, conmit_tv, desc_font_num_tv;
     private InterceptorEditText desc_edt;
+    private RelativeLayout mDoctorRootRl;
     private CircleImageView head_img;
     private GridViewForScrollView img_gv;
     private String type;
@@ -148,6 +154,8 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         info = (DoctorMainBean.InfoBean) getIntent().getSerializableExtra("info");
         if (DiagnosesApplyDialog.VIDEODIAGNOSES.equals(type)) {
             setTitle("视频问诊");
+        } else if(DiagnosesApplyDialog.VIP_DIAGNOSES.equals(type)){
+            setTitle("在线问诊");
         } else {
             setTitle("图文问诊");
         }
@@ -176,6 +184,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         conmit_tv = findViewById(R.id.conmit_tv);
         conmit_tv.setOnClickListener(getController());
         desc_edt = findViewById(R.id.desc_edt);
+        mDoctorRootRl = findViewById(R.id.diagnoses_apply_layout_doctor_root_rl);
         desc_edt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -197,6 +206,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         img_gv.setAdapter(mAdapter);
         img_gv.setOnItemClickListener(getController());
         if (info != null) {
+            mDoctorRootRl.setVisibility(View.VISIBLE);
             if (info.getIsInquiry() == 0) {
                 photo_diagnoses_tv.setVisibility(View.INVISIBLE);
                 video_diagnoses_tv.setVisibility(View.INVISIBLE);
@@ -212,6 +222,8 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
             adept_tv.setText("擅长：" + info.getAdept());
             depart_tv.setText("科室： " + info.getDeptName());
             GlideUtils.load(head_img, info.getAvatar() == null ? "" : Const.IMAGE_HOST + info.getAvatar(), 0, R.mipmap.test_doctor_head_icon, false, null);
+        }else{
+            mDoctorRootRl.setVisibility(View.GONE);
         }
         EventBus.getDefault().register(getContext());
 
@@ -410,9 +422,17 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
             map.put("conditionDesc", desc_edt.getText().toString().trim());
 
         }
-        map.put("doctorCode", info.getUuid());
+
+        if(null != info){
+            map.put("doctorCode", info.getUuid());
+        }else{
+            map.put("doctorCode", 1);
+        }
+
 
         if (DiagnosesApplyDialog.VIDEODIAGNOSES.equals(type)) {
+            map.put("type", 1);
+        }else if(DiagnosesApplyDialog.VIP_DIAGNOSES.equals(type)){
             map.put("type", 1);
         } else {
             map.put("type", 0);
@@ -454,6 +474,8 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         String payDesc = "";
         if (DiagnosesApplyDialog.VIDEODIAGNOSES.equals(type)) {
             payDesc = "视频问诊-" + info.getName();
+        } else if(DiagnosesApplyDialog.VIP_DIAGNOSES.equals(type)){
+            payDesc = "视频问诊";
         } else {
             payDesc = "图文问诊-" + info.getName();
         }
@@ -472,7 +494,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
 
     @Override
     public int getType() {
-        return info.getIsDoctor();
+        return null == info ? com.keydom.ih_patient.constant.Const.PATIENT_TYPE_ALL : info.getIsDoctor();
     }
 
 

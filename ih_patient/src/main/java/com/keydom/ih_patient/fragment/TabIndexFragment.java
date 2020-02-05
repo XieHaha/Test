@@ -33,6 +33,7 @@ import com.keydom.ih_patient.activity.index_main.ChooseCityActivity;
 import com.keydom.ih_patient.activity.my_message.NoticeDeatailActivity;
 import com.keydom.ih_patient.activity.nurse_main.NurseMainActivity;
 import com.keydom.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
+import com.keydom.ih_patient.activity.online_diagnoses_order.DiagnosesApplyActivity;
 import com.keydom.ih_patient.adapter.ChooseHospitalAdapter;
 import com.keydom.ih_patient.adapter.IndexFunctionAdapter;
 import com.keydom.ih_patient.bean.CityBean;
@@ -129,7 +130,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mTopRightRootRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChoosePatientActivity.start(getActivity(),-1);
+                ChoosePatientActivity.start(getActivity(), com.keydom.ih_patient.constant.Const.PATIENT_TYPE_CARD);
             }
         });
         mTopLeftRootRl.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +138,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             public void onClick(View v) {
                 if(null == mVIPDialog){
                     mVIPDialog = new DiagnosesApplyDialog(getContext(), DiagnosesApplyDialog.VIP_DIAGNOSES, () -> {
-                        //DiagnosesApplyActivity.start(getContext(), type, mDoctorMainBean.getInfo());
+                        DiagnosesApplyActivity.start(getContext(), DiagnosesApplyDialog.VIP_DIAGNOSES,null);
                     });
                 }
                 mVIPDialog.show();

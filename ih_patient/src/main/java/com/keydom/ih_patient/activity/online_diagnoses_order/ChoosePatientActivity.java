@@ -50,16 +50,20 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
 
-        type = getIntent().getIntExtra("type", 0);
+        type = getIntent().getIntExtra("type", Const.PATIENT_TYPE_PERSON);
         mTabLayout = findViewById(R.id.choose_patient_tab);
         mViewPager = findViewById(R.id.choose_patient_vp);
-        if (type == 1) {
+        if (type == Const.PATIENT_TYPE_ALL) {
             setTitle("选择就诊人");
             list.add("就诊卡(问诊)");
             list.add("就诊人(咨询)");
-            fragmentList.add(new TypeCardFragment());
+            TypeCardFragment typeCardFragment = new TypeCardFragment();
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(Const.IS_NEED_TO_PREGNANCY, false);
+            typeCardFragment.setArguments(bundle);
+            fragmentList.add(typeCardFragment);
             fragmentList.add(new TypePatientFragment());
-        } else if (type == -1) {
+        } else if (type == Const.PATIENT_TYPE_CARD) {
             setTitle("选择就诊卡");
             list.add("就诊卡");
 

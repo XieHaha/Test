@@ -50,4 +50,14 @@ public class Const {
      * */
     public static final int ALI_PAY = 2;//支付宝支付
     public static final int WECHAT_PAY = 1;//微信支付
+
+
+
+    /**
+     * 选择就诊卡或就诊人
+     *
+     * */
+    public static final int PATIENT_TYPE_ALL = 1;//就诊卡和就诊人
+    public static final int PATIENT_TYPE_CARD = -1;//就诊卡
+    public static final int PATIENT_TYPE_PERSON = 0;//就诊人
 }
