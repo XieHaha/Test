@@ -461,7 +461,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
                 receive_redpoint_view.setVisibility(View.GONE);
 
         } else {
-            receiveOnlineName.setText("在线接诊");
+            receiveOnlineName.setText("网络门诊 （会员）");
             if (receiveInquiry > 0)
                 receive_redpoint_view.setVisibility(View.VISIBLE);
             else

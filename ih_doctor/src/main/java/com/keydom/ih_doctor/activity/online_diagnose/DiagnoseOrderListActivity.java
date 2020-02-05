@@ -43,6 +43,7 @@ public class DiagnoseOrderListActivity extends BaseControllerActivity<DiagnoseOr
     private ViewPager viewPager;
     private Fragment[] mFragmentArrays;
     private String[] mTabTitles;
+    private boolean mIsVIPDiag;
     /**
      * fragment类型
      */
@@ -65,8 +66,18 @@ public class DiagnoseOrderListActivity extends BaseControllerActivity<DiagnoseOr
      * @param context
      */
     public static void startConsult(Context context) {
+        startConsult(context,false);
+    }
+
+    /**
+     * 启动咨询单列表页面
+     *
+     * @param context
+     */
+    public static void startConsult(Context context,boolean isVIP) {
         Intent starter = new Intent(context, DiagnoseOrderListActivity.class);
         starter.putExtra(Const.TYPE, CONSULT);
+        starter.putExtra(Const.IS_VIP_ONLINE_DIAG, isVIP);
         context.startActivity(starter);
     }
 
@@ -78,11 +89,18 @@ public class DiagnoseOrderListActivity extends BaseControllerActivity<DiagnoseOr
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         type = getIntent().getIntExtra(Const.TYPE, 0);
-        if (type == DIAGNOSE) {
-            setTitle("问诊订单");
-        } else {
-            setTitle("咨询订单");
+        mIsVIPDiag = getIntent().getBooleanExtra(Const.TYPE, false);
+
+        if(mIsVIPDiag){
+            setTitle("分诊订单");
+        }else{
+            if (type == DIAGNOSE) {
+                setTitle("问诊订单");
+            } else {
+                setTitle("咨询订单");
+            }
         }
+
         tabLayout = this.findViewById(R.id.tablayout);
         viewPager = this.findViewById(R.id.tab_viewpager);
         LinearLayout linearLayout = (LinearLayout) tabLayout.getChildAt(0);

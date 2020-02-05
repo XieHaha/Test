@@ -223,4 +223,9 @@ public class Const {
      */
     public static final String IS_FROM_LOGIN = "is_from_login";
 
+    /**
+     * 是否是分诊
+     */
+    public static final String IS_VIP_ONLINE_DIAG = "is_vip_online_diag";
+
 }

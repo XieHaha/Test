@@ -209,7 +209,7 @@
                                     android:layout_toRightOf="@id/cooperate_online"
                                     android:gravity="center_vertical"
                                     android:paddingLeft="@dimen/dp_17"
-                                    android:text="医生协作"
+                                    android:text="院内MDT"
                                     android:textColor="@color/primary_font_color"
                                     android:textSize="@dimen/font_size_primary" />
                                 <View
