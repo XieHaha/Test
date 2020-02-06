@@ -8,7 +8,9 @@ import android.view.View;
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_doctor.R;
+import com.keydom.ih_doctor.adapter.BaseEmptyAdapter;
 import com.keydom.ih_doctor.adapter.DiagnoseOrderRecyclrViewAdapter;
+import com.keydom.ih_doctor.adapter.VIPDiagnoseOrderRecyclrViewAdapter;
 import com.keydom.ih_doctor.bean.InquiryBean;
 import com.keydom.ih_doctor.bean.MessageEvent;
 import com.keydom.ih_doctor.constant.Const;
@@ -41,7 +43,7 @@ public class DiagnoseOrderFragment extends BaseControllerFragment<DiagnoseOrderF
     /**
      * 问诊单适配器
      */
-    private DiagnoseOrderRecyclrViewAdapter mAdapter;
+    private BaseEmptyAdapter mAdapter;
     private RefreshLayout refreshLayout;
     /**
      * 问诊单列表
@@ -57,10 +59,20 @@ public class DiagnoseOrderFragment extends BaseControllerFragment<DiagnoseOrderF
     private int state = -1;
 
 
+    private boolean isVIPDiag = false;
+
+
     public static final DiagnoseOrderFragment newInstance(TypeEnum type) {
+
+        return newInstance(type,false);
+    }
+
+
+    public static final DiagnoseOrderFragment newInstance(TypeEnum type,boolean isVIPDiag) {
         DiagnoseOrderFragment fragment = new DiagnoseOrderFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(Const.TYPE, type);
+        bundle.putBoolean(Const.IS_VIP_ONLINE_DIAG, isVIPDiag);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -120,7 +132,11 @@ public class DiagnoseOrderFragment extends BaseControllerFragment<DiagnoseOrderF
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        mAdapter = new DiagnoseOrderRecyclrViewAdapter(getContext(), dataList);
+        if(isVIPDiag){
+            mAdapter = new VIPDiagnoseOrderRecyclrViewAdapter(getContext(), dataList);
+        }else{
+            mAdapter = new DiagnoseOrderRecyclrViewAdapter(getContext(), dataList);
+        }
         recyclerView = (RecyclerView) getView().findViewById(R.id.common_rv);
         refreshLayout = (RefreshLayout) getView().findViewById(R.id.refreshLayout);
         recyclerView.setAdapter(mAdapter);

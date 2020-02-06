@@ -121,9 +121,9 @@ public class DiagnoseOrderListActivity extends BaseControllerActivity<DiagnoseOr
         mTabTitles[1] = "问诊中";
         mTabTitles[2] = "完成";
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        mFragmentArrays[0] = DiagnoseOrderFragment.newInstance(TypeEnum.ONLINE_DIAGNOSE_WAITTING);
-        mFragmentArrays[1] = DiagnoseOrderFragment.newInstance(TypeEnum.ONLINE_DIAGNOSEINT);
-        mFragmentArrays[2] = DiagnoseOrderFragment.newInstance(TypeEnum.ONLINE_DIAGNOSE_FINISH);
+        mFragmentArrays[0] = DiagnoseOrderFragment.newInstance(TypeEnum.ONLINE_DIAGNOSE_WAITTING,mIsVIPDiag);
+        mFragmentArrays[1] = DiagnoseOrderFragment.newInstance(TypeEnum.ONLINE_DIAGNOSEINT,mIsVIPDiag);
+        mFragmentArrays[2] = DiagnoseOrderFragment.newInstance(TypeEnum.ONLINE_DIAGNOSE_FINISH,mIsVIPDiag);
         viewPager.setOffscreenPageLimit(3);
         PagerAdapter pagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
