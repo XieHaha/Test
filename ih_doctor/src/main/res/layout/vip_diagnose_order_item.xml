@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/common_white_click_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/common_bottom_line_bg">
+
+        <TextView
+            android:id="@+id/vip_diag_order_item_date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:drawableLeft="@mipmap/point_blue"
+            android:drawablePadding="@dimen/dp_10"
+            android:gravity="center"
+            android:textColor="@color/primary_font_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/vip_diag_order_status_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@mipmap/patient_cicle_green"
+            android:drawablePadding="@dimen/dp_6"
+            android:gravity="right|center_vertical"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="104.5dp"
+        android:background="@drawable/common_bottom_line_bg"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/vip_diag_order_item_patient_info_tip_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:gravity="center"
+            android:text="患者信息："
+            android:textColor="@color/action_bar_txt_color"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/vip_diag_order_item_patient_info_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:layout_toRightOf="@id/vip_diag_order_item_patient_info_tip_tv"
+            android:textColor="@color/cu_black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/vip_diag_order_item_vip_desc_tip_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vip_diag_order_item_patient_info_tip_tv"
+            android:layout_marginTop="18dp"
+            android:text="分诊说明："
+            android:textColor="@color/action_bar_txt_color"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/vip_diag_order_item_vip_desc_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vip_diag_order_item_patient_info_tv"
+            android:layout_marginTop="18dp"
+            android:layout_toRightOf="@id/vip_diag_order_item_vip_desc_tip_tv"
+            android:textColor="@color/cu_black"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="87.5dp"
+        android:background="@drawable/common_bottom_line_bg"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/vip_diag_order_item_send_tip_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:drawableLeft="@mipmap/point_green"
+            android:drawablePadding="@dimen/dp_10"
+            android:gravity="center"
+            android:text="申请："
+            android:textColor="@color/action_bar_txt_color"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/vip_diag_order_item_send_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:layout_toRightOf="@id/vip_diag_order_item_send_tip_tv"
+            android:textColor="@color/cu_black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/vip_diag_order_item_vip_accept_tip_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vip_diag_order_item_send_tip_tv"
+            android:layout_marginTop="18dp"
+            android:drawableLeft="@mipmap/point_red"
+            android:drawablePadding="@dimen/dp_10"
+            android:text="接收："
+            android:textColor="@color/action_bar_txt_color"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/vip_diag_order_item_vip_accept_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vip_diag_order_item_send_tv"
+            android:layout_marginTop="18dp"
+            android:layout_toRightOf="@id/vip_diag_order_item_vip_accept_tip_tv"
+            android:textColor="@color/cu_black"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+</LinearLayout>
