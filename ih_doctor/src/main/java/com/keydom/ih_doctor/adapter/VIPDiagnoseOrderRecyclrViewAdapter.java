@@ -3,7 +3,6 @@ package com.keydom.ih_doctor.adapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_doctor.R;
+import com.keydom.ih_doctor.activity.online_diagnose.DiagnoseTriageOrderDetailActivity;
 import com.keydom.ih_doctor.bean.InquiryBean;
 import com.keydom.ih_doctor.m_interface.SingleClick;
 
@@ -211,9 +211,13 @@ public class VIPDiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<Inquiry
                     @Override
                     public void onClick(View v) {
                         if (ImClient.getUserInfoProvider().getUserInfo(mDatas.get(position).getUserCode()) != null) {
-                            Bundle bundle = new Bundle();
-                            bundle.putBoolean(IS_ORDER, true);
-                            ImClient.startConversation(mContext, mDatas.get(position).getUserCode(), bundle);
+                            //TODO: 待添加跳转逻辑
+                /*            if (mDatas.get(position).getType() == TypeEnum.DIAGNOSE_CHANGE_RECEIVE) {
+                                DiagnoseTriageOrderDetailActivity.startWithAction(mContext, bean.getId());
+                            } else {
+                                DiagnoseTriageOrderDetailActivity.startCommon(mContext, bean.getId());
+                            }*/
+                            DiagnoseTriageOrderDetailActivity.startWithAction(mContext, bean.getId());
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                             builder.setTitle("未获取到该用户信息");
