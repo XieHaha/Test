@@ -12,6 +12,8 @@ import com.keydom.ih_patient.utils.StatusBarUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.ButterKnife;
+
 /**
  * @Name：yxyz
  * @Description：Activity基础类，这里负责初始化、权限申请、验证、提示等操作
@@ -34,6 +36,7 @@ abstract public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutRes());
+        ButterKnife.bind(this);
         ViewMap=new HashMap<>();
         initView();
     }

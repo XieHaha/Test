@@ -97,5 +97,7 @@ dependencies {
     api rootProject.ext.dependencies["jpush"]
     api rootProject.ext.dependencies["jcore"]
     api 'com.github.hani-momanii:SuperNova-Emoji:1.1'
+    //注解
+    api 'com.jakewharton:butterknife:8.8.0'
 
 }

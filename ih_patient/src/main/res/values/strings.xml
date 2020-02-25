@@ -156,6 +156,7 @@
     <!-- 讯飞SDK appid -->
     <string name="xunfei_app_id">5ddf3dda</string>
 
+    <!--无痛分娩预约-->
     <string name="txt_visit_name">就诊人:</string>
     <string name="txt_visit_name_hint">请选择就诊人</string>
     <string name="txt_age">年龄:</string>
@@ -172,6 +173,17 @@
     <string name="txt_painless_delivery_note">《无痛分娩注意事项》</string>
     <string name="txt_painless_delivery_reserve">无痛分娩预约</string>
 
+    <!--产科住院预约-->
+    <string name="txt_obstetric_hospital_reserve">产科住院预约</string>
+    <string name="txt_hospital_date">预约住院日期:</string>
+    <string name="txt_hospital_date_hint">请选择就诊日期</string>
+    <string name="txt_bed">住院床位:</string>
+    <string name="txt_bed_hint">请选择床位类型</string>
+    <string name="txt_doctor">手术医生:</string>
+    <string name="txt_doctor_hint">请选择手术医生</string>
+    <string name="txt_anesthetist">麻醉师:</string>
+    <string name="txt_anesthetist_hint">请选择麻醉师</string>
+    <string name="txt_obstetric_hospital_note">《入院注意事项》</string>
 
     <!--vip-->
     <string name="vip_desc">• 如需详细了解服务内容，请到医院仁医中心，有专人接待\n• 仁医中心服务电话：0816-2333592\n• 服务期间，不得单方面解除签约并提前申请退费\n• 办理退费时，请本人带上仁医金卡和发票到仁医中心办理</string>

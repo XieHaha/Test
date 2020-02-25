@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import butterknife.ButterKnife
 import com.ganxin.library.LoadDataLayout
 import com.keydom.ih_common.R
 import com.keydom.ih_common.utils.StatusBarUtils
@@ -28,6 +29,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseActivityInterFace {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         super.onCreate(savedInstanceState)
         setContentView(layoutRes)
+        ButterKnife.bind(this)
         initTitle()
         loadDataLayout = this.findViewById<View>(R.id.loadDataLayout) as LoadDataLayout?
         initController()

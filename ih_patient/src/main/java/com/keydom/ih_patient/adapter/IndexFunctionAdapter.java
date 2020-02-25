@@ -18,6 +18,7 @@ import com.keydom.ih_patient.activity.get_drug.GetDrugActivity;
 import com.keydom.ih_patient.activity.inspection_report.InspectionReportActivity;
 import com.keydom.ih_patient.activity.logistic.QueryLogisticActivity;
 import com.keydom.ih_patient.activity.nurse_main.NurseMainActivity;
+import com.keydom.ih_patient.activity.obstetric_hospital.ReserveObstetricHospitalActivity;
 import com.keydom.ih_patient.activity.order_doctor_register.OrderDoctorRegisterActivity;
 import com.keydom.ih_patient.activity.order_examination.OrderExaminationActivity;
 import com.keydom.ih_patient.activity.order_hospital_cure.OrderHospitalCureListActivity;
@@ -40,7 +41,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     //无痛分娩
     public final String PainlessDelivery = "19";
     //产科住院
-    public final String test = "20";
+    public final String ObstetricHospital = "20";
     //预约挂号
     public final String DoctorRegister = "22";
     //诊间缴费
@@ -90,7 +91,8 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.index_function_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.index_function_item,
+                parent, false);
         return new VH(v);
     }
 
@@ -99,10 +101,10 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
         if (indexFunctionList.get(position) instanceof IndexFunction) {
             vh.funcIcon.setImageResource(indexFunctionList.get(position).getFunctionIcon());
 
-			vh.funcName.setText(indexFunctionList.get(position).getName());
-            if(indexFunctionList.get(position).isRedPointShow()){
+            vh.funcName.setText(indexFunctionList.get(position).getName());
+            if (indexFunctionList.get(position).isRedPointShow()) {
                 vh.redPointView.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 vh.redPointView.setVisibility(View.GONE);
 
             }
@@ -113,15 +115,20 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                 @Override
                 public void onClick(View view) {
                   /*  if (Global.getUserId() == -1) {
-                        ToastUtil.showMessage(context, context.getResources().getString(R.string.unlogin_hint));
+                        ToastUtil.showMessage(context, context.getResources().getString(R.string
+                        .unlogin_hint));
                         return;
                     }*/
                     switch (String.valueOf(indexFunctionList.get(position).getId())) {
                         case Setting:
-                            context.startActivity(new Intent(context, FunctionConfigActivity.class));
+                            context.startActivity(new Intent(context,
+                                    FunctionConfigActivity.class));
                             break;
                         case PainlessDelivery:
                             ReservePainlessDeliveryActivity.start(context);
+                            break;
+                        case ObstetricHospital:
+                            ReserveObstetricHospitalActivity.start(context);
                             break;
                         case DoctorRegister:
                             OrderDoctorRegisterActivity.start(context);
