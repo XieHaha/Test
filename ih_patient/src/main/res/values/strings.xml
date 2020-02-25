@@ -12,6 +12,7 @@
     <string name="register_code_hint">验证码</string>
     <string name="register_code_btn_text">获取验证码</string>
     <string name="register_next_btn_text">下一步</string>
+    <string name="txt_reserve">预约</string>
     <string name="main_location_text">成都市</string>
     <string name="main_search_text">搜索</string>
     <string name="main_qrcode_text">扫码</string>
@@ -154,6 +155,22 @@
 
     <!-- 讯飞SDK appid -->
     <string name="xunfei_app_id">5ddf3dda</string>
+
+    <string name="txt_visit_name">就诊人:</string>
+    <string name="txt_visit_name_hint">请选择就诊人</string>
+    <string name="txt_age">年龄:</string>
+    <string name="txt_age_hint">请输入年龄</string>
+    <string name="txt_last_menstruation">末次月经:</string>
+    <string name="txt_last_menstruation_hint">请选择末次月经时间</string>
+    <string name="txt_due_date">预产期:</string>
+    <string name="txt_due_date_hint">请选择预产期</string>
+    <string name="txt_fetus">胎数:</string>
+    <string name="txt_fetus_hint">请选择胎数</string>
+    <string name="txt_phone">联系电话:</string>
+    <string name="txt_phone_hint">请输入电话号码</string>
+    <string name="txt_painless_delivery_read">我已阅读并同意</string>
+    <string name="txt_painless_delivery_note">《无痛分娩注意事项》</string>
+    <string name="txt_painless_delivery_reserve">无痛分娩预约</string>
 
 
     <!--vip-->

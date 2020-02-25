@@ -476,6 +476,7 @@
         <activity
             android:name=".activity.pregnancy.PregnancyOrderDetailActivity"
             android:launchMode="singleTop" />
+        <activity android:name=".activity.reserve_painless_delivery.ReservePainlessDeliveryActivity" />
         <!--百度地图-->
         <service
             android:name="com.baidu.location.f"

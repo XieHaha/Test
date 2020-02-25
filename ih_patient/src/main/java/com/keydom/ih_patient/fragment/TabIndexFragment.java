@@ -149,7 +149,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     public void initNormal(){
         mMemberRootLl.setVisibility(View.VISIBLE);
         mIndexFunctionRootLl.setVisibility(View.VISIBLE);
-        mFirstVIPRootLl.setVisibility(View.GONE);
+        //todo 临时展示
+        mFirstVIPRootLl.setVisibility(View.VISIBLE);
         mSecondVIPRootLl.setVisibility(View.GONE);
 
         mTopRightTitleTv.setText("护理服务");
@@ -266,8 +267,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_amniocentesis_icon,"羊水穿刺预约"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_pregnancy_school_icon,"孕妇学校"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetrical_medical_records_icon,"产科病历"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_painless_labor_icon,"无痛分娩预约"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetric_order_icon,"产科住院预约"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_painless_labor_icon,19,"无痛分娩预约"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetric_order_icon,20,"产科住院预约"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_child_health_icon,"儿童保健"));
 
         mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_orderby,22,"预约挂号"));

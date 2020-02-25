@@ -23,6 +23,7 @@ import com.keydom.ih_patient.activity.order_examination.OrderExaminationActivity
 import com.keydom.ih_patient.activity.order_hospital_cure.OrderHospitalCureListActivity;
 import com.keydom.ih_patient.activity.order_physical_examination.OrderPhysicalExaminationActivity;
 import com.keydom.ih_patient.activity.payment_records.PaymentRecordActivity;
+import com.keydom.ih_patient.activity.reserve_painless_delivery.ReservePainlessDeliveryActivity;
 import com.keydom.ih_patient.bean.IndexFunction;
 import com.orhanobut.logger.Logger;
 
@@ -36,6 +37,10 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     private List<IndexFunction> indexFunctionList;
     //菜单配置
     public final String Setting = "1";
+    //无痛分娩
+    public final String PainlessDelivery = "19";
+    //产科住院
+    public final String test = "20";
     //预约挂号
     public final String DoctorRegister = "22";
     //诊间缴费
@@ -93,7 +98,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     public void onBindViewHolder(VH vh, final int position) {
         if (indexFunctionList.get(position) instanceof IndexFunction) {
             vh.funcIcon.setImageResource(indexFunctionList.get(position).getFunctionIcon());
-			
+
 			vh.funcName.setText(indexFunctionList.get(position).getName());
             if(indexFunctionList.get(position).isRedPointShow()){
                 vh.redPointView.setVisibility(View.VISIBLE);
@@ -114,6 +119,9 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                     switch (String.valueOf(indexFunctionList.get(position).getId())) {
                         case Setting:
                             context.startActivity(new Intent(context, FunctionConfigActivity.class));
+                            break;
+                        case PainlessDelivery:
+                            ReservePainlessDeliveryActivity.start(context);
                             break;
                         case DoctorRegister:
                             OrderDoctorRegisterActivity.start(context);
