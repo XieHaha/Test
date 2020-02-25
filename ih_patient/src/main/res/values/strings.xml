@@ -184,6 +184,8 @@
     <string name="txt_anesthetist">麻醉师:</string>
     <string name="txt_anesthetist_hint">请选择麻醉师</string>
     <string name="txt_obstetric_hospital_note">《入院注意事项》</string>
+    <string name="txt_reserve_date">预约日期:</string>
+    <string name="txt_notice">备注:</string>
 
     <!--检验检查预约-->
     <string name="txt_check_reserve">检验检查预约</string>

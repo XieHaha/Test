@@ -25,6 +25,7 @@ import com.keydom.ih_patient.activity.my_doctor_or_nurse.MyDoctorOrNurseActivity
 import com.keydom.ih_patient.activity.my_medical_card.MyMedicalCardActivity;
 import com.keydom.ih_patient.activity.my_message.MyMessageActivity;
 import com.keydom.ih_patient.activity.nursing_order.NursingOrderActivity;
+import com.keydom.ih_patient.activity.obstetric_hospital.ObstetricHospitalListActivity;
 import com.keydom.ih_patient.activity.online_diagnoses_order.OnlineDiagnonsesOrderActivity;
 import com.keydom.ih_patient.activity.order_doctor_register.RegistrationRecordActivity;
 import com.keydom.ih_patient.activity.payment_records.PaymentRecordActivity;
@@ -287,7 +288,7 @@ public class TabMineController extends ControllerImpl<TabMineView> implements Vi
                 break;
             case R.id.item_obstetric:
                 if (Global.getUserId() != -1) {
-                    ChatGoupActivity.start(getContext());
+                    ObstetricHospitalListActivity.start(getContext());
                 } else {
                     ToastUtil.showMessage(getContext(),
                             getContext().getString(R.string.unlogin_hint));
