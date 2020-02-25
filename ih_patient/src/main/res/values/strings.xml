@@ -185,6 +185,12 @@
     <string name="txt_anesthetist_hint">请选择麻醉师</string>
     <string name="txt_obstetric_hospital_note">《入院注意事项》</string>
 
+    <!--检验检查预约-->
+    <string name="txt_check_reserve">检验检查预约</string>
+    <!--我的 页面-->
+    <string name="txt_reserve_msg">预约信息</string>
+    <string name="txt_reserve_register">挂号预约</string>
+
     <!--vip-->
     <string name="vip_desc">• 如需详细了解服务内容，请到医院仁医中心，有专人接待\n• 仁医中心服务电话：0816-2333592\n• 服务期间，不得单方面解除签约并提前申请退费\n• 办理退费时，请本人带上仁医金卡和发票到仁医中心办理</string>
     <string name="vip_price">20000元</string>

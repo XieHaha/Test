@@ -479,6 +479,7 @@
         <activity
             android:name=".activity.obstetric_hospital.ReserveObstetricHospitalActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".activity.reserve_painless_delivery.PainlessDeliveryListActivity" />
         <!--百度地图-->
         <service
             android:name="com.baidu.location.f"

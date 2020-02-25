@@ -259,7 +259,7 @@
                             android:layout_marginLeft="@dimen/dp_6"
                             android:layout_marginTop="@dimen/dp_14"
                             android:layout_toRightOf="@+id/first_title_left_icon"
-                            android:text="@string/mine_function_type_diagnosis"
+                            android:text="@string/txt_reserve_msg"
                             android:textColor="@color/fontColorPrimary"
                             android:textSize="@dimen/font_size_primary" />
                         <LinearLayout
@@ -268,29 +268,38 @@
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp_72">
                             <com.keydom.ih_patient.view.MineFunctionItemView
+                                android:id="@+id/item_register"
                                 android:layout_marginTop="@dimen/dp_5"
-                                android:id="@+id/mine_case_record"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                funcitem:itemTitle="@string/mine_function_item_case_record"
+                                funcitem:itemTitle="@string/txt_reserve_register"
                                 funcitem:iconImg="@mipmap/mine_case_record"
                                 />
                             <com.keydom.ih_patient.view.MineFunctionItemView
+                                android:id="@+id/item_check"
                                 android:layout_marginTop="@dimen/dp_5"
                                 android:layout_marginLeft="@dimen/dp_20"
-                                android:id="@+id/mine_inspection_report"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                funcitem:itemTitle="@string/mine_function_item_inspection_report"
+                                funcitem:itemTitle="@string/txt_check_reserve"
                                 funcitem:iconImg="@mipmap/mine_inspection_report"
                                 />
                             <com.keydom.ih_patient.view.MineFunctionItemView
+                                android:id="@+id/item_obstetric"
                                 android:layout_marginTop="@dimen/dp_5"
-                                android:layout_marginLeft="@dimen/dp_20"
-                                android:id="@+id/mine_electronic_prescription"
+                                android:layout_marginStart="@dimen/dp_20"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                funcitem:itemTitle="@string/mine_function_item_electronic_prescription"
+                                funcitem:itemTitle="@string/txt_obstetric_hospital_reserve"
+                                funcitem:iconImg="@mipmap/mine_electronic_prescription"
+                                />
+                            <com.keydom.ih_patient.view.MineFunctionItemView
+                                android:id="@+id/item_painless_delivery"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:layout_marginLeft="@dimen/dp_20"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                funcitem:itemTitle="@string/txt_painless_delivery_reserve"
                                 funcitem:iconImg="@mipmap/mine_electronic_prescription"
                                 />
                         </LinearLayout>
