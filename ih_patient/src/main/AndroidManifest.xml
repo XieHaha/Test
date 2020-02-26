@@ -506,6 +506,7 @@
             android:screenOrientation="behind"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".activity.obstetric_hospital.ObstetricHospitalListActivity" />
+        <activity android:name=".activity.postpartum_rehabilitation.RehabilitationRecordActivity" />
     </application>
 
 </manifest>

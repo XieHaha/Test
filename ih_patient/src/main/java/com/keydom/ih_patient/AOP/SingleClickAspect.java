@@ -2,12 +2,8 @@ package com.keydom.ih_patient.AOP;
 
 import android.view.View;
 
-
-import com.blankj.utilcode.util.ToastUtils;
-import com.keydom.ih_patient.callback.MessageSingleClick;
 import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.utils.XClickUtil;
-import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.orhanobut.logger.Logger;
 
 import org.aspectj.lang.ProceedingJoinPoint;

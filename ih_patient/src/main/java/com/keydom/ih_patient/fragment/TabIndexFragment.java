@@ -107,7 +107,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     private int clinic = 0;
     private int unFinishAdmission = 0;
     private int unFinishInspect = 0;
-    private int page=1;
+    private int page = 1;
     private TextView index_footer;
 
     private LinearLayout mFirstVIPRootLl;
@@ -118,7 +118,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     private DiagnosesApplyDialog mVIPDialog;
 
 
-    public void initVipFunction(){
+    public void initVipFunction() {
         mMemberRootLl.setVisibility(View.GONE);
         mIndexFunctionRootLl.setVisibility(View.GONE);
         mFirstVIPRootLl.setVisibility(View.VISIBLE);
@@ -130,15 +130,18 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mTopRightRootRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChoosePatientActivity.start(getActivity(), com.keydom.ih_patient.constant.Const.PATIENT_TYPE_CARD);
+                ChoosePatientActivity.start(getActivity(),
+                        com.keydom.ih_patient.constant.Const.PATIENT_TYPE_CARD);
             }
         });
         mTopLeftRootRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(null == mVIPDialog){
-                    mVIPDialog = new DiagnosesApplyDialog(getContext(), DiagnosesApplyDialog.VIP_DIAGNOSES, () -> {
-                        DiagnosesApplyActivity.start(getContext(), DiagnosesApplyDialog.VIP_DIAGNOSES,null);
+                if (null == mVIPDialog) {
+                    mVIPDialog = new DiagnosesApplyDialog(getContext(),
+                            DiagnosesApplyDialog.VIP_DIAGNOSES, () -> {
+                        DiagnosesApplyActivity.start(getContext(),
+                                DiagnosesApplyDialog.VIP_DIAGNOSES, null);
                     });
                 }
                 mVIPDialog.show();
@@ -146,7 +149,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         });
     }
 
-    public void initNormal(){
+    public void initNormal() {
         mMemberRootLl.setVisibility(View.VISIBLE);
         mIndexFunctionRootLl.setVisibility(View.VISIBLE);
         //todo 临时展示
@@ -177,7 +180,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     }
 
     @Override
-    public void onViewCreated(@NotNull View view, @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NotNull View view,
+                              @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         mTopRightIconIv = view.findViewById(R.id.fragment_tab_index_top_right_icon_iv);
         mFirstVIPRootLl = view.findViewById(R.id.fragment_tab_index_first_vip_root_ll);
         mSecondVIPRootLl = view.findViewById(R.id.fragment_tab_index_second_vip_root_ll);
@@ -206,17 +210,17 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         empty_layout = view.findViewById(R.id.empty_layout);
         empty_text = view.findViewById(R.id.empty_text);
         more_tv = view.findViewById(R.id.more_tv);
-        index_footer=view.findViewById(R.id.index_footer);
-        mTopLeftRootRl=view.findViewById(R.id.fragment_tab_index_top_left_rl);
-        mTopRightRootRl=view.findViewById(R.id.fragment_tab_index_top_right_rl);
-        mTopRightTitleTv=view.findViewById(R.id.fragment_tab_index_top_right_title_tv);
+        index_footer = view.findViewById(R.id.index_footer);
+        mTopLeftRootRl = view.findViewById(R.id.fragment_tab_index_top_left_rl);
+        mTopRightRootRl = view.findViewById(R.id.fragment_tab_index_top_right_rl);
+        mTopRightTitleTv = view.findViewById(R.id.fragment_tab_index_top_right_title_tv);
 
 
         indexRefresh.setEnableLoadMore(false);
         indexRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                page=1;
+                page = 1;
                 getController().fillViewData();
                 getController().fillHealthKnowledges(page);
 
@@ -241,10 +245,12 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         }
 
         more_tv.setOnClickListener(getController());
-        chooseHospitalAdapter = new ChooseHospitalAdapter(getContext(), hospitalList, new GeneralCallback.SelectHospitalListener() {
+        chooseHospitalAdapter = new ChooseHospitalAdapter(getContext(), hospitalList,
+                new GeneralCallback.SelectHospitalListener() {
             @Override
             public void getSelectedHospital(HospitalAreaInfo hospitalAreaInfo) {
-                Logger.e("getHospitalSuccess-->HospitalId==" + hospitalAreaInfo.getId() + "   HospitalName==" + hospitalAreaInfo.getName());
+                Logger.e("getHospitalSuccess-->HospitalId==" + hospitalAreaInfo.getId() + "   " +
+                        "HospitalName==" + hospitalAreaInfo.getName());
                 selectHospitalId = hospitalAreaInfo.getId();
                 selectHospitalName = hospitalAreaInfo.getName();
             }
@@ -263,21 +269,22 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         indexFunctionRv.setAdapter(indexFunctionAdapter);
         indexFunctionRv.setNestedScrollingEnabled(false);
 
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_postpartum_recovery_icon,"产后康复"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_amniocentesis_icon,"羊水穿刺预约"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_pregnancy_school_icon,"孕妇学校"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetrical_medical_records_icon,"产科病历"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_painless_labor_icon,19,"无痛分娩预约"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetric_order_icon,20,"产科住院预约"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_child_health_icon,"儿童保健"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_postpartum_recovery_icon, 15, "产后康复"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_amniocentesis_icon, "羊水穿刺预约"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_pregnancy_school_icon, "孕妇学校"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetrical_medical_records_icon,
+                "产科病历"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_painless_labor_icon, 19, "无痛分娩预约"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetric_order_icon, 20, "产科住院预约"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_child_health_icon, "儿童保健"));
 
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_orderby,22,"预约挂号"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_pay,23,"诊间缴费"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_management_icon,"健康管理"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_medical_record_mail_icon,"病案邮寄"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.appointment_register_icon,"检验检查预约"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_record_icon,"健康档案"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.create_code_icon,24,"办卡绑卡"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_orderby, 22, "预约挂号"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_pay, 23, "诊间缴费"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_management_icon, "健康管理"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_medical_record_mail_icon, "病案邮寄"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.appointment_register_icon, "检验检查预约"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_record_icon, "健康档案"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.create_code_icon, 24, "办卡绑卡"));
 
 
         mFirstVIPRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
@@ -299,7 +306,6 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         EventBus.getDefault().register(this);
 
         super.onViewCreated(view, savedInstanceState);
-
 
 
     }
@@ -326,12 +332,14 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             } else {
                 getController().queryCityListByKeyword("");
                 /*locationTv.setText("选择城市");
-                new GeneralDialog(getContext(), "获取当前位置失败，请选择所在城市", new GeneralDialog.OnCloseListener() {
+                new GeneralDialog(getContext(), "获取当前位置失败，请选择所在城市", new GeneralDialog
+                .OnCloseListener() {
                     @Override
                     public void onCommit() {
                         ChooseCityActivity.start(getContext());
                     }
-                }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();*/
+                }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true)
+                .setPositiveButton("确认").show();*/
             }
 
         }
@@ -379,7 +387,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     public void updateHospitalChange(Event event) {
         if (event.getType() == EventType.UPDATEHOSPITAL) {
             searchEdt.setText(App.hospitalName);
-            page=1;
+            page = 1;
             getController().fillViewData();
             getController().fillFunction();
             getController().fillHealthKnowledges(page);
@@ -408,7 +416,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     @Override
     public void onResume() {
         super.onResume();
-//        getController().fillViewData();
+        //        getController().fillViewData();
     }
 
     @Override
@@ -480,7 +488,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                         Uri content_url = Uri.parse(List.get(position).getPictureUrl());
                         intent.setData(content_url);
                         startActivity(intent);
-                    } else Logger.e("地址非法");
+                    } else
+                        Logger.e("地址非法");
 
 
                 }
@@ -490,40 +499,40 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
     @Override
     public void setFunctionRvData(List<IndexFunction> dataList) {
-        for (int i = 0; i <dataList.size() ; i++) {
-            if(dataList.get(i).getId()==23){
+        for (int i = 0; i < dataList.size(); i++) {
+            if (dataList.get(i).getId() == 23) {
                 //诊间缴费
-                if(clinic>0){
+                if (clinic > 0) {
                     dataList.get(i).setRedPointShow(true);
-                }else {
+                } else {
                     dataList.get(i).setRedPointShow(false);
                 }
-            }else if(dataList.get(i).getId()==25){
+            } else if (dataList.get(i).getId() == 25) {
                 //在线问诊
-                if(unFinishInquiry>0){
+                if (unFinishInquiry > 0) {
                     dataList.get(i).setRedPointShow(true);
-                }else {
+                } else {
                     dataList.get(i).setRedPointShow(false);
                 }
-            }else if(dataList.get(i).getId()==28){
+            } else if (dataList.get(i).getId() == 28) {
                 //检查项目
-                if(unFinishInspect>0){
+                if (unFinishInspect > 0) {
                     dataList.get(i).setRedPointShow(true);
-                }else {
+                } else {
                     dataList.get(i).setRedPointShow(false);
                 }
-            }else if(dataList.get(i).getId()==26){
+            } else if (dataList.get(i).getId() == 26) {
                 //护理订单
-                if(unFinishNurse>0){
+                if (unFinishNurse > 0) {
                     dataList.get(i).setRedPointShow(true);
-                }else {
+                } else {
                     dataList.get(i).setRedPointShow(false);
                 }
-            }else if(dataList.get(i).getId()==29){
+            } else if (dataList.get(i).getId() == 29) {
                 //住院预约
-                if(unFinishAdmission>0){
+                if (unFinishAdmission > 0) {
                     dataList.get(i).setRedPointShow(true);
-                }else {
+                } else {
                     dataList.get(i).setRedPointShow(false);
                 }
             }
@@ -554,7 +563,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                             Uri content_url = Uri.parse(List.get(position).getPictureUrl());
                             intent.setData(content_url);
                             startActivity(intent);
-                        } else Logger.e("地址非法");
+                        } else
+                            Logger.e("地址非法");
 
 
                     }
@@ -610,7 +620,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             indexNoticeBanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
                 @Override
                 public void onItemClick(XBanner banner, Object model, View view, int position) {
-                    NoticeDeatailActivity.start(getContext(), (IndexData.NotificationsBean) DepartmentDataHelper.getNotificationsBeanAfterHandle(List).get(position));
+                    NoticeDeatailActivity.start(getContext(),
+                            (IndexData.NotificationsBean) DepartmentDataHelper.getNotificationsBeanAfterHandle(List).get(position));
                 }
             });
         }
@@ -620,11 +631,11 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
     @Override
     public void setArticleData(final List<HealthKnowledgeBean.KnowledgeBean> dataList) {
-        if(page>1){
+        if (page > 1) {
             indexRefresh.finishLoadMore();
         }
         if (dataList == null || dataList.size() == 0) {
-            if(page==1){
+            if (page == 1) {
                 if (empty_layout.getVisibility() == View.GONE)
                     empty_layout.setVisibility(View.VISIBLE);
                 empty_text.setText("暂无文章，我们正努力更新中");
@@ -641,7 +652,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             indexRefresh.setEnableLoadMore(false);
             index_footer.setClickable(false);
         } else {
-            if(page==1){
+            if (page == 1) {
                 if (empty_layout.getVisibility() == View.VISIBLE) {
                     empty_layout.setVisibility(View.GONE);
                 }
@@ -661,50 +672,58 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                     @SingleClick(1000)
                     @Override
                     public void onItemClick(XBanner banner, Object model, View view, int position) {
-                        ArticleDetailActivity.startHealth(getContext(), dataList.get(0).getId(), Global.getUserId(), "", "");
+                        ArticleDetailActivity.startHealth(getContext(), dataList.get(0).getId(),
+                                Global.getUserId(), "", "");
                     }
                 });
                 topHealthRl.setOnClickListener(new View.OnClickListener() {
                     @SingleClick(1000)
                     @Override
                     public void onClick(View v) {
-                        ArticleDetailActivity.startHealth(getContext(), dataList.get(0).getId(), Global.getUserId(), "", "");
+                        ArticleDetailActivity.startHealth(getContext(), dataList.get(0).getId(),
+                                Global.getUserId(), "", "");
                     }
                 });
                 healthZoneLayout.removeAllViews();
                 for (int i = 1; i < dataList.size(); i++) {
-                    final GeneralArticleItem generalArticleItem = new GeneralArticleItem(getContext());
+                    final GeneralArticleItem generalArticleItem =
+                            new GeneralArticleItem(getContext());
                     generalArticleItem.setArticleId(dataList.get(i).getId());
                     generalArticleItem.setTitle(dataList.get(i).getTitle());
                     generalArticleItem.setLabel(dataList.get(i).getLablelist());
                     if (dataList.get(i).getImageList() != null) {
                         generalArticleItem.setIcon(dataList.get(i).getImageList().get(0));
                     }
-                    generalArticleItem.setReaderNum(dataList.get(i).getPageView(), dataList.get(i).getCreateTime());
+                    generalArticleItem.setReaderNum(dataList.get(i).getPageView(),
+                            dataList.get(i).getCreateTime());
                     generalArticleItem.setOnClickListener(new View.OnClickListener() {
                         @SingleClick(1000)
                         @Override
                         public void onClick(View v) {
-                            ArticleDetailActivity.startHealth(getContext(), generalArticleItem.getArticleId(), Global.getUserId(), "", "");
+                            ArticleDetailActivity.startHealth(getContext(),
+                                    generalArticleItem.getArticleId(), Global.getUserId(), "", "");
                             //generalArticleItem.addReadNum();
                         }
                     });
                     healthZoneLayout.addView(generalArticleItem);
                 }
-            }else {
+            } else {
                 for (int i = 0; i < dataList.size(); i++) {
-                    final GeneralArticleItem generalArticleItem = new GeneralArticleItem(getContext());
+                    final GeneralArticleItem generalArticleItem =
+                            new GeneralArticleItem(getContext());
                     generalArticleItem.setArticleId(dataList.get(i).getId());
                     generalArticleItem.setTitle(dataList.get(i).getTitle());
                     if (dataList.get(i).getImageList() != null) {
                         generalArticleItem.setIcon(dataList.get(i).getImageList().get(0));
                     }
-                    generalArticleItem.setReaderNum(dataList.get(i).getPageView(), dataList.get(i).getCreateTime());
+                    generalArticleItem.setReaderNum(dataList.get(i).getPageView(),
+                            dataList.get(i).getCreateTime());
                     generalArticleItem.setOnClickListener(new View.OnClickListener() {
                         @SingleClick(1000)
                         @Override
                         public void onClick(View v) {
-                            ArticleDetailActivity.startHealth(getContext(), generalArticleItem.getArticleId(), Global.getUserId(), "", "");
+                            ArticleDetailActivity.startHealth(getContext(),
+                                    generalArticleItem.getArticleId(), Global.getUserId(), "", "");
                             //generalArticleItem.addReadNum();
                         }
                     });
@@ -712,10 +731,10 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                 }
             }
             page++;
-            if(dataList.size()<10){
+            if (dataList.size() < 10) {
                 index_footer.setText("我也是有底线的");
                 index_footer.setClickable(false);
-            }else {
+            } else {
                 index_footer.setText("点击加载更多");
                 index_footer.setClickable(true);
             }
@@ -731,40 +750,40 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         clinic = indexData.getClinic();
         unFinishAdmission = indexData.getUnFinishAdmission();
         unFinishInspect = indexData.getUnFinishInspect();
-        for (int i = 0; i <datalist.size() ; i++) {
-            if(datalist.get(i).getId()==23){
+        for (int i = 0; i < datalist.size(); i++) {
+            if (datalist.get(i).getId() == 23) {
                 //诊间缴费
-                if(clinic>0){
+                if (clinic > 0) {
                     datalist.get(i).setRedPointShow(true);
-                }else {
+                } else {
                     datalist.get(i).setRedPointShow(false);
                 }
-            }else if(datalist.get(i).getId()==25){
+            } else if (datalist.get(i).getId() == 25) {
                 //在线问诊
-                if(unFinishInquiry>0){
+                if (unFinishInquiry > 0) {
                     datalist.get(i).setRedPointShow(true);
-                }else {
+                } else {
                     datalist.get(i).setRedPointShow(false);
                 }
-            }else if(datalist.get(i).getId()==28){
+            } else if (datalist.get(i).getId() == 28) {
                 //检查项目
-                if(unFinishInspect>0){
+                if (unFinishInspect > 0) {
                     datalist.get(i).setRedPointShow(true);
-                }else {
+                } else {
                     datalist.get(i).setRedPointShow(false);
                 }
-            }else if(datalist.get(i).getId()==26){
+            } else if (datalist.get(i).getId() == 26) {
                 //护理订单
-                if(unFinishNurse>0){
+                if (unFinishNurse > 0) {
                     datalist.get(i).setRedPointShow(true);
-                }else {
+                } else {
                     datalist.get(i).setRedPointShow(false);
                 }
-            }else if(datalist.get(i).getId()==29){
+            } else if (datalist.get(i).getId() == 29) {
                 //住院预约
-                if(unFinishAdmission>0){
+                if (unFinishAdmission > 0) {
                     datalist.get(i).setRedPointShow(true);
-                }else {
+                } else {
                     datalist.get(i).setRedPointShow(false);
                 }
             }
@@ -813,17 +832,18 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                 Global.getHospitalList().get(0).setSelected(true);
                 searchEdt.setText(hospitalList.get(0).getName());
             }
-            EventBus.getDefault().post(new Event(EventType.UPDATELOCALHOSPITALLIST,null));
+            EventBus.getDefault().post(new Event(EventType.UPDATELOCALHOSPITALLIST, null));
             EventBus.getDefault().post(new Event(EventType.UPDATEHOSPITAL, null));
             chooseHospitalAdapter.notifyDataSetChanged();
-//            getController().fillViewData();
+            //            getController().fillViewData();
         } else {
             new GeneralDialog(getContext(), "该城市暂无服务医院，请切换城市", new GeneralDialog.OnCloseListener() {
                 @Override
                 public void onCommit() {
                     ChooseCityActivity.start(getContext());
                 }
-            }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
+            }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton(
+                    "确认").show();
         }
     }
 
@@ -842,7 +862,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                 hospitalList.get(i).setSelected(true);
         }
         chooseHospitalAdapter.notifyDataSetChanged();
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.index_choose_hospital_popup_layout, titleLayout, false);
+        View view =
+                LayoutInflater.from(getContext()).inflate(R.layout.index_choose_hospital_popup_layout, titleLayout, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.hospital_list_rv);
         TextView cancelTv = view.findViewById(R.id.cancel_tv);
         View backgroudView = view.findViewById(R.id.backgroud_view);
@@ -927,7 +948,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             }
         });
         recyclerView.setAdapter(chooseHospitalAdapter);
-        hospitalPopupWindow = new PopupWindow(getContext(), null, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        hospitalPopupWindow = new PopupWindow(getContext(), null,
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         hospitalPopupWindow.setContentView(view);
         hospitalPopupWindow.setFocusable(true);
         hospitalPopupWindow.setWidth(titleLayout.getWidth());
@@ -950,7 +972,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
     @Override
     public void getCityListSuccess(List<Object> data) {
-        if(null != data && data.size() > 0){
+        if (null != data && data.size() > 0) {
             CityBean.itemBean city = (CityBean.itemBean) data.get(1);
             Global.setSelectedCityName(city.getName());
             Global.setSelectedCityCode(city.getCode());
