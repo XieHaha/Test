@@ -507,6 +507,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".activity.obstetric_hospital.ObstetricHospitalListActivity" />
         <activity android:name=".activity.postpartum_rehabilitation.RehabilitationRecordActivity" />
+        <activity android:name=".activity.hospital_payment.HospitalPaymentActivity" />
     </application>
 
 </manifest>

@@ -15,6 +15,7 @@ import com.keydom.ih_patient.activity.card_operate.CardoperateActivity;
 import com.keydom.ih_patient.activity.diagnose_main.DiagnoseMainActivity;
 import com.keydom.ih_patient.activity.function_config.FunctionConfigActivity;
 import com.keydom.ih_patient.activity.get_drug.GetDrugActivity;
+import com.keydom.ih_patient.activity.hospital_payment.HospitalPaymentActivity;
 import com.keydom.ih_patient.activity.inspection_report.InspectionReportActivity;
 import com.keydom.ih_patient.activity.logistic.QueryLogisticActivity;
 import com.keydom.ih_patient.activity.nurse_main.NurseMainActivity;
@@ -45,6 +46,8 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     public final String PainlessDelivery = "19";
     //产科住院
     public final String ObstetricHospital = "20";
+    //儿童保健
+    public final String ChildHealthCare = "21";
     //预约挂号
     public final String DoctorRegister = "22";
     //诊间缴费
@@ -135,6 +138,9 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             break;
                         case ObstetricHospital:
                             ReserveObstetricHospitalActivity.start(context);
+                            break;
+                        case ChildHealthCare:
+                            HospitalPaymentActivity.start(context);
                             break;
                         case DoctorRegister:
                             OrderDoctorRegisterActivity.start(context);

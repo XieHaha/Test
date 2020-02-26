@@ -247,14 +247,14 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         more_tv.setOnClickListener(getController());
         chooseHospitalAdapter = new ChooseHospitalAdapter(getContext(), hospitalList,
                 new GeneralCallback.SelectHospitalListener() {
-            @Override
-            public void getSelectedHospital(HospitalAreaInfo hospitalAreaInfo) {
-                Logger.e("getHospitalSuccess-->HospitalId==" + hospitalAreaInfo.getId() + "   " +
-                        "HospitalName==" + hospitalAreaInfo.getName());
-                selectHospitalId = hospitalAreaInfo.getId();
-                selectHospitalName = hospitalAreaInfo.getName();
-            }
-        });
+                    @Override
+                    public void getSelectedHospital(HospitalAreaInfo hospitalAreaInfo) {
+                        Logger.e("getHospitalSuccess-->HospitalId==" + hospitalAreaInfo.getId() + "   " +
+                                "HospitalName==" + hospitalAreaInfo.getName());
+                        selectHospitalId = hospitalAreaInfo.getId();
+                        selectHospitalName = hospitalAreaInfo.getName();
+                    }
+                });
 
         index_footer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -276,7 +276,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                 "产科病历"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_painless_labor_icon, 19, "无痛分娩预约"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetric_order_icon, 20, "产科住院预约"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_child_health_icon, "儿童保健"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_child_health_icon, 21, "儿童保健"));
 
         mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_orderby, 22, "预约挂号"));
         mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_pay, 23, "诊间缴费"));
