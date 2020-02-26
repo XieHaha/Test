@@ -109,6 +109,15 @@ public class TabMineController extends ControllerImpl<TabMineView> implements Vi
                 }
 
                 break;
+            case R.id.mine_medical_mail_order:
+                if (Global.getUserId() != -1) {
+                    //病例邮寄订单
+                } else {
+                    ToastUtil.showMessage(getContext(),
+                            getContext().getString(R.string.unlogin_hint));
+                }
+
+                break;
             //            case R.id.mine_inspection_report:
             //                if (Global.getUserId() != -1) {
             //                    if(isCanGesture()){

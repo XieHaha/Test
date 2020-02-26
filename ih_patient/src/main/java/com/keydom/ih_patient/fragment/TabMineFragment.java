@@ -2,7 +2,6 @@ package com.keydom.ih_patient.fragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
@@ -69,11 +68,11 @@ import java.util.List;
  */
 public class TabMineFragment extends BaseControllerFragment<TabMineController> implements TabMineView {
     private MineFunctionItemView mineLocationControl, mine_registered_mail_order,
+            mine_medical_mail_order,
             mine_booking_order, mine_people_order, mine_payment_records, mine_physician_orders;
     private MineFunctionItemView itemRegister, itemCheck, itemObstetric, itemPainlessDelivery;
-    private TextView mineFunctionCard, jump_to_login_tv, mine_user_location_tv, search_edt,
-            mine_user_phone_tv, mine_user_name, mine_user_sex_tv, mine_last_clinical_time,
-            location_tv;
+    private TextView mineFunctionCard, jump_to_login_tv, search_edt, mine_user_name, location_tv;
+    private TextView tvName, tvSex;
     private ImageView mine_setting_img, mine_user_head_img;
     private MyScrollView mineBoxSv;
     private LinearLayout titleBarLayout, qr_code_layout, search_layout, location_layout;
@@ -144,13 +143,13 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         un_login_layout = view.findViewById(R.id.un_login_layout);
         jump_to_login_tv = view.findViewById(R.id.jump_to_login_tv);
         jump_to_login_tv.setOnClickListener(getController());
-        mine_user_location_tv = view.findViewById(R.id.mine_user_location_tv);
-        mine_user_phone_tv = view.findViewById(R.id.mine_user_phone_tv);
+        //        mine_user_location_tv = view.findViewById(R.id.mine_user_location_tv);
+        //        mine_user_phone_tv = view.findViewById(R.id.mine_user_phone_tv);
         search_edt = view.findViewById(R.id.search_edt);
         search_edt.setOnClickListener(getController());
         mine_user_name = view.findViewById(R.id.mine_user_name);
-        mine_user_sex_tv = view.findViewById(R.id.mine_user_sex_tv);
-        mine_last_clinical_time = view.findViewById(R.id.mine_last_clinical_time);
+        //        mine_user_sex_tv = view.findViewById(R.id.mine_user_sex_tv);
+        //        mine_last_clinical_time = view.findViewById(R.id.mine_last_clinical_time);
         mine_user_head_img = view.findViewById(R.id.mine_user_head_img);
         mine_user_head_img.setOnClickListener(getController());
         mine_item_setting = view.findViewById(R.id.mine_item_setting);
@@ -163,11 +162,13 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         mine_setting_img = view.findViewById(R.id.mine_setting_img);
         mine_setting_img.setOnClickListener(getController());
         mineBoxSv.setOnScrollListener(getController());
-        titleBarLayout = (LinearLayout) view.findViewById(R.id.mine_top);
+        titleBarLayout = view.findViewById(R.id.mine_top);
         mine_payment_records = view.findViewById(R.id.mine_payment_records);
         mine_payment_records.setOnClickListener(getController());
         mine_registered_mail_order = view.findViewById(R.id.mine_registered_mail_order);
         mine_registered_mail_order.setOnClickListener(getController());
+        mine_medical_mail_order = view.findViewById(R.id.mine_medical_mail_order);
+        mine_medical_mail_order.setOnClickListener(getController());
         mine_booking_order = view.findViewById(R.id.mine_booking_order);
         mine_booking_order.setOnClickListener(getController());
         mine_people_order = view.findViewById(R.id.mine_people_control);
@@ -178,6 +179,9 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         mine_item_my_message.setOnClickListener(getController());
         mine_item_my_chatgroup = view.findViewById(R.id.mine_item_my_chatgroup);
         mine_item_my_chatgroup.setOnClickListener(getController());
+
+        tvName = view.findViewById(R.id.tv_name);
+        tvSex = view.findViewById(R.id.tv_sex);
 
         itemRegister = view.findViewById(R.id.item_register);
         itemCheck = view.findViewById(R.id.item_check);
@@ -349,43 +353,50 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
                         Glide.with(getContext()).load(Const.IMAGE_HOST + userInfo.getUserImage()).into(mine_user_head_img);
                         imgStr = Const.IMAGE_HOST + userInfo.getUserImage();
                     }
-                    mine_user_location_tv.setText(userInfo.getAddress() != null && !"".equals(userInfo.getAddress()) ? userInfo.getAddress() : "");
-                    if (userInfo.getProvinceName() != null && !"".equals(userInfo.getProvinceName())) {
-                        if (userInfo.getCityName() != null && !"".equals(userInfo.getCityName())) {
-                            mine_user_location_tv.setText(userInfo.getProvinceName() + " " + userInfo.getCityName());
-                        } else {
-                            mine_user_location_tv.setText(userInfo.getProvinceName());
-                        }
-                    } else {
-                        mine_user_location_tv.setText("还未完善地址信息");
-                    }
-                    mine_user_location_tv.setTextColor(Color.parseColor("#333333"));
-                    mine_user_phone_tv.setText(userInfo.getPhoneNumber() != null && !"".equals(userInfo.getPhoneNumber()) ? userInfo.getPhoneNumber() : "");
-                    mine_user_phone_tv.setTextColor(Color.parseColor("#333333"));
+                    //                    mine_user_location_tv.setText(userInfo.getAddress() !=
+                    //                    null && !"".equals(userInfo.getAddress()) ? userInfo
+                    //                    .getAddress() : "");
+                    //                    if (userInfo.getProvinceName() != null && !"".equals
+                    //                    (userInfo.getProvinceName())) {
+                    //                        if (userInfo.getCityName() != null && !"".equals
+                    //                        (userInfo.getCityName())) {
+                    //                            mine_user_location_tv.setText(userInfo
+                    //                            .getProvinceName() + " " + userInfo.getCityName
+                    //                            ());
+                    //                        } else {
+                    //                            mine_user_location_tv.setText(userInfo
+                    //                            .getProvinceName());
+                    //                        }
+                    //                    } else {
+                    //                        mine_user_location_tv.setText("还未完善地址信息");
+                    //                    }
+                    //                    mine_user_location_tv.setTextColor(Color.parseColor
+                    //                    ("#333333"));
+                    //                    mine_user_phone_tv.setText(userInfo.getPhoneNumber() !=
+                    //                    null && !"".equals(userInfo.getPhoneNumber()) ?
+                    //                    userInfo.getPhoneNumber() : "");
+                    //                    mine_user_phone_tv.setTextColor(Color.parseColor
+                    //                    ("#333333"));
                     mine_user_name.setText(userInfo.getUserName() != null && !"".equals(userInfo.getUserName()) ? userInfo.getUserName() : "");
-                    if (userInfo.getSex() != null && !"".equals(userInfo.getSex())) {
-                        mine_user_sex_tv.setText("0".equals(userInfo.getSex()) ? "男" : "女");
-                    } else
-                        mine_user_sex_tv.setText("");
-                    mine_last_clinical_time.setText(userInfo.getConsultTime() != null ?
-                            "最近就诊时间：" + userInfo.getConsultTime() : "最近就诊时间：");
                 } else {
                     un_login_layout.setVisibility(View.VISIBLE);
                     mine_user_head_img.setPadding((int) getContext().getResources().getDimension(R.dimen.dp_21), (int) getContext().getResources().getDimension(R.dimen.dp_21), (int) getContext().getResources().getDimension(R.dimen.dp_21), (int) getContext().getResources().getDimension(R.dimen.dp_21));
                     Glide.with(getContext()).load(R.mipmap.unlogin_uer_head).into(mine_user_head_img);
-                    mine_user_location_tv.setText("暂无法获得信息");
-                    mine_user_location_tv.setTextColor(Color.parseColor("#BBBBBB"));
-                    mine_user_phone_tv.setTextColor(Color.parseColor("#BBBBBB"));
-                    mine_user_phone_tv.setText("暂无法获得信息");
+                    //                    mine_user_location_tv.setText("暂无法获得信息");
+                    //                    mine_user_location_tv.setTextColor(Color.parseColor
+                    //                    ("#BBBBBB"));
+                    //                    mine_user_phone_tv.setTextColor(Color.parseColor
+                    //                    ("#BBBBBB"));
+                    //                    mine_user_phone_tv.setText("暂无法获得信息");
                 }
             } else {
                 un_login_layout.setVisibility(View.VISIBLE);
                 mine_user_head_img.setPadding((int) getContext().getResources().getDimension(R.dimen.dp_21), (int) getContext().getResources().getDimension(R.dimen.dp_21), (int) getContext().getResources().getDimension(R.dimen.dp_21), (int) getContext().getResources().getDimension(R.dimen.dp_21));
                 Glide.with(getContext()).load(R.mipmap.unlogin_uer_head).into(mine_user_head_img);
-                mine_user_location_tv.setText("暂无法获得信息");
-                mine_user_location_tv.setTextColor(Color.parseColor("#BBBBBB"));
-                mine_user_phone_tv.setTextColor(Color.parseColor("#BBBBBB"));
-                mine_user_phone_tv.setText("暂无法获得信息");
+                //                mine_user_location_tv.setText("暂无法获得信息");
+                //                mine_user_location_tv.setTextColor(Color.parseColor("#BBBBBB"));
+                //                mine_user_phone_tv.setTextColor(Color.parseColor("#BBBBBB"));
+                //                mine_user_phone_tv.setText("暂无法获得信息");
             }
 
         }
