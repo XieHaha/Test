@@ -54,18 +54,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_reserve_date"
+            android:text="@string/txt_addressee"
             android:textColor="@color/edit_hint_color"
             android:textSize="@dimen/sp_14" />
 
         <TextView
-            android:id="@+id/tv_date"
+            android:id="@+id/tv_addressee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_112"
             android:textColor="@color/edit_text_color"
             android:textSize="@dimen/sp_14"
-            tools:text="日期" />
+            tools:text="名字" />
 
     </RelativeLayout>
 
@@ -79,18 +79,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_bed"
+            android:text="@string/txt_phone"
             android:textColor="@color/edit_hint_color"
             android:textSize="@dimen/sp_14" />
 
         <TextView
-            android:id="@+id/tv_bed"
+            android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_112"
             android:textColor="@color/edit_text_color"
             android:textSize="@dimen/sp_14"
-            tools:text="床位" />
+            tools:text="电话" />
 
     </RelativeLayout>
 
@@ -104,18 +104,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_doctor"
+            android:text="@string/txt_receive_address"
             android:textColor="@color/edit_hint_color"
             android:textSize="@dimen/sp_14" />
 
         <TextView
-            android:id="@+id/tv_doctor"
+            android:id="@+id/tv_receive_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_112"
             android:textColor="@color/edit_text_color"
             android:textSize="@dimen/sp_14"
-            tools:text="手术医生" />
+            tools:text="地址" />
 
     </RelativeLayout>
 
@@ -129,18 +129,68 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_anesthetist"
+            android:text="@string/txt_copy_purpose"
             android:textColor="@color/edit_hint_color"
             android:textSize="@dimen/sp_14" />
 
         <TextView
-            android:id="@+id/tv_anesthetist"
+            android:id="@+id/tv_copy_purpose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_112"
             android:textColor="@color/edit_text_color"
             android:textSize="@dimen/sp_14"
-            tools:text="麻醉师" />
+            tools:text="目的" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:paddingStart="@dimen/dp_20"
+        android:paddingEnd="@dimen/dp_20">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_copy_quantity"
+            android:textColor="@color/edit_hint_color"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/tv_copy_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_112"
+            android:textColor="@color/edit_text_color"
+            android:textSize="@dimen/sp_14"
+            tools:text="份数" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:paddingStart="@dimen/dp_20"
+        android:paddingEnd="@dimen/dp_20">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_copy_content"
+            android:textColor="@color/edit_hint_color"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/tv_copy_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_112"
+            android:textColor="@color/edit_text_color"
+            android:textSize="@dimen/sp_14"
+            tools:text="内容" />
 
     </RelativeLayout>
 
@@ -155,16 +205,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_notice"
+            android:text="@string/txt_price"
             android:textColor="@color/edit_hint_color"
             android:textSize="@dimen/sp_14" />
 
         <TextView
-            android:id="@+id/tv_notice"
+            android:id="@+id/tv_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_112"
-            android:textColor="@color/edit_text_color"
+            android:textColor="@color/nursing_status_red"
             android:textSize="@dimen/sp_14"
             tools:text="备注" />
 

@@ -47,17 +47,19 @@ public class MedicalMailOrderAdapter extends RecyclerView.Adapter<MedicalMailOrd
     }
 
     public class VH extends RecyclerView.ViewHolder {
-        private TextView tvName, tvBed, tvDoctor, tvNotice, tvAnesthetist, tvDate, tvStatus;
+        private TextView tvName, tvAddressee, tvReceiveAddress, tvPhone, tvCopyPurpose,
+                tvCopyContent, tvCopyQuantity, tvPrice;
 
         public VH(View v) {
             super(v);
             tvName = v.findViewById(R.id.tv_name);
-            tvBed = v.findViewById(R.id.tv_bed);
-            tvDoctor = v.findViewById(R.id.tv_doctor);
-            tvNotice = v.findViewById(R.id.tv_notice);
-            tvAnesthetist = v.findViewById(R.id.tv_anesthetist);
-            tvDate = v.findViewById(R.id.tv_date);
-            tvStatus = v.findViewById(R.id.tv_status);
+            tvPhone = v.findViewById(R.id.tv_phone);
+            tvAddressee = v.findViewById(R.id.tv_addressee);
+            tvReceiveAddress = v.findViewById(R.id.tv_receive_address);
+            tvCopyPurpose = v.findViewById(R.id.tv_copy_purpose);
+            tvCopyQuantity = v.findViewById(R.id.tv_copy_quantity);
+            tvCopyContent = v.findViewById(R.id.tv_copy_content);
+            tvPrice = v.findViewById(R.id.tv_price);
         }
     }
 }
