@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.card_operate.CardoperateActivity;
+import com.keydom.ih_patient.activity.child_health.ChildHealthActivity;
 import com.keydom.ih_patient.activity.diagnose_main.DiagnoseMainActivity;
 import com.keydom.ih_patient.activity.function_config.FunctionConfigActivity;
 import com.keydom.ih_patient.activity.get_drug.GetDrugActivity;
-import com.keydom.ih_patient.activity.hospital_payment.HospitalPaymentActivity;
 import com.keydom.ih_patient.activity.inspection_report.InspectionReportActivity;
 import com.keydom.ih_patient.activity.logistic.QueryLogisticActivity;
 import com.keydom.ih_patient.activity.nurse_main.NurseMainActivity;
@@ -140,7 +140,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             ReserveObstetricHospitalActivity.start(context);
                             break;
                         case ChildHealthCare:
-                            HospitalPaymentActivity.start(context);
+                            ChildHealthActivity.start(context);
                             break;
                         case DoctorRegister:
                             OrderDoctorRegisterActivity.start(context);

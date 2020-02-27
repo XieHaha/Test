@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_220"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_90"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@mipmap/mine_person_message_bg">
+
+        <ImageView
+            android:id="@+id/mine_user_head_img"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/dp_27"
+            android:layout_marginTop="@dimen/dp_20"
+            android:padding="@dimen/dp_21"
+            android:scaleType="fitXY"
+            android:src="@mipmap/unlogin_uer_head" />
+
+
+        <ImageView
+            android:id="@+id/mine_setting_img"
+            android:layout_width="@dimen/dp_19"
+            android:layout_height="@dimen/dp_19"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_32"
+            android:src="@mipmap/icon_change" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_13"
+            android:layout_toEndOf="@id/mine_user_head_img"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/mine_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:maxWidth="@dimen/dp_120"
+                android:textColor="@color/fontColorPrimary"
+                android:textSize="@dimen/sp_14"
+                tools:text="名字" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_11"
+                android:text=""
+                android:textColor="@color/title_bar_text_color"
+                android:textSize="@dimen/sp_12"
+                tools:text="卡号:111111" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_color"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:background="@color/primary_color"
+            android:elevation="@dimen/dp_2"
+            android:orientation="vertical"
+            android:outlineSpotShadowColor="@color/line_color"
+            android:paddingBottom="@dimen/dp_29">
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="@dimen/dp_90"
+                android:layout_height="@dimen/dp_28"
+                android:layout_marginStart="@dimen/dp_17"
+                android:layout_marginTop="@dimen/dp_17"
+                android:background="@drawable/corner20_fbd54e_bg"
+                android:elevation="@dimen/dp_2"
+                android:gravity="center"
+                android:outlineSpotShadowColor="@color/color_987700"
+                android:text="即将进行"
+                android:textColor="@color/primary_color"
+                android:textSize="@dimen/sp_14" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginTop="@dimen/dp_19"
+                android:background="@color/color_f1f1f1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_21"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_17"
+                android:paddingEnd="@dimen/dp_17">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/nursing_project_unselect" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_18"
+                    android:layout_weight="1"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="@dimen/dp_75"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_marginStart="@dimen/dp_18"
+                    android:background="@drawable/corner3_fff2f2_bg"
+                    android:gravity="center"
+                    android:text="立即预约"
+                    android:textColor="@color/vip_pregnancy_tool_bar_bg"
+                    android:textSize="@dimen/sp_10" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_13"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"
+                    android:src="@mipmap/point_green" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_11"
+                    android:textColor="@color/tab_nol_color"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="生长体格" />
+
+                <View
+                    android:layout_width="1.5dp"
+                    android:layout_height="@dimen/dp_17"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:background="@color/edit_hint_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_11"
+                    android:textColor="@color/tab_nol_color"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="体重、身高、头围" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_13"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"
+                    android:src="@mipmap/point_green" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_11"
+                    android:textColor="@color/tab_nol_color"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="生长体格" />
+
+                <View
+                    android:layout_width="1.5dp"
+                    android:layout_height="@dimen/dp_17"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:background="@color/edit_hint_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_11"
+                    android:textColor="@color/tab_nol_color"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="体重、身高、头围" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_33"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_20"
+            android:paddingEnd="0dp">
+
+            <TextView
+                android:layout_width="@dimen/dp_75"
+                android:layout_height="@dimen/dp_28"
+                android:background="@drawable/corner20_f1f1f1_bg"
+                android:gravity="center"
+                android:text="全部"
+                android:textColor="@color/title_bar_text_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:background="@drawable/corner20_f1f1f1_bg"
+                android:gravity="center"
+                android:textColor="@color/title_bar_text_color"
+                android:textSize="@dimen/sp_14"
+                tools:text="该宝宝已完成两次保健" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_16"
+            android:background="@color/color_f1f1f1" />
+
+    </LinearLayout>
+
+</LinearLayout>
