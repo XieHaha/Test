@@ -54,4 +54,7 @@ public class Type {
 
     public static final String NOTHOSPITALIZED = "not_hospitalized";
     public static final String HOSPITALIZED = "hospitalized";
+
+    public static final String NOTMEDICALMAILED = "not_medicalmailed";
+    public static final String MEDICALMAILED = "medicalmailed";
 }

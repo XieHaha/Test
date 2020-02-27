@@ -27,13 +27,13 @@ public class ObstetricController extends ControllerImpl<ObstetricView> {
         //        (getContext(), getDisposable(), false) {
         //            @Override
         //            public void requestComplete(@Nullable PageBean<RegistrationRecordInfo> data) {
-        //                getView().getObstetricListSuccess(data.getRecords(), typeEnum);
+        //                getView().getMedicalMailedSuccess(data.getRecords(), typeEnum);
         //            }
         //
         //            @Override
         //            public boolean requestError(@NotNull ApiException exception, int code,
         //                                        @NotNull String msg) {
-        //                getView().getObstetricListFailed(msg);
+        //                getView().getMedicalMailedFailed(msg);
         //                return super.requestError(exception, code, msg);
         //            }
         //        });

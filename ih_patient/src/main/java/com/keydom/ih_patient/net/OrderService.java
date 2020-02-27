@@ -181,4 +181,14 @@ public interface OrderService {
      */
     @POST("reservation/hospitalRegisFee/hospitalFeeByOrderNumber")
     Observable<HttpResult<String>> hospitalFeeByOrderNumber(@Body RequestBody body);
+    /**
+     * 病案已邮寄订单
+     */
+    @POST("medicine/medicalSendInfo/listSend")
+    Observable<HttpResult<PageBean<String>>> medicalMailedOrder(@Body RequestBody body);
+    /**
+     * 病案未邮寄订单
+     */
+    @POST("medicine/medicalSendInfo/listWait")
+    Observable<HttpResult<PageBean<String>>> medicalNotMailedOrder(@Body RequestBody body);
 }

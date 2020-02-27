@@ -20,6 +20,7 @@ import com.keydom.ih_patient.activity.global_search.SearchActivity;
 import com.keydom.ih_patient.activity.index_main.ChooseCityActivity;
 import com.keydom.ih_patient.activity.location_manage.LocationManageActivity;
 import com.keydom.ih_patient.activity.login.LoginActivity;
+import com.keydom.ih_patient.activity.medical_mail.MedicalMailListActivity;
 import com.keydom.ih_patient.activity.my_chat_group.ChatGoupActivity;
 import com.keydom.ih_patient.activity.my_doctor_or_nurse.MyDoctorOrNurseActivity;
 import com.keydom.ih_patient.activity.my_medical_card.MyMedicalCardActivity;
@@ -111,7 +112,7 @@ public class TabMineController extends ControllerImpl<TabMineView> implements Vi
                 break;
             case R.id.mine_medical_mail_order:
                 if (Global.getUserId() != -1) {
-                    //病例邮寄订单
+                    MedicalMailListActivity.start(getContext());
                 } else {
                     ToastUtil.showMessage(getContext(),
                             getContext().getString(R.string.unlogin_hint));

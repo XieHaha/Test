@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 挂号记录适配器
+ * 产科住院
  */
 public class ObstetricRecordAdapter extends RecyclerView.Adapter<ObstetricRecordAdapter.VH> {
     private Context context;
