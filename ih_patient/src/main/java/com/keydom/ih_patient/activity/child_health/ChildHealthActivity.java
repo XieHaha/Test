@@ -36,7 +36,7 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.nested_scroll_view)
-    MyNestedScollView scollView;
+    MyNestedScollView scrollView;
     @BindView(R.id.smart_refresh)
     SmartRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler_view)
@@ -71,7 +71,7 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapter);
 
-        scollView.setScrollViewListener((scrollView, x, y, oldX, oldY) -> getController().transTitleBar(y));
+        scrollView.setScrollViewListener((scrollView, x, y, oldX, oldY) -> getController().transTitleBar(y));
         swipeRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getChildHealthList(TypeEnum.REFRESH));
         swipeRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getChildHealthList(TypeEnum.LOAD_MORE));
 
