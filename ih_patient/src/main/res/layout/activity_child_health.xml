@@ -33,11 +33,19 @@
 
                 <include layout="@layout/view_child_health_header" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view"
+
+                <com.ganxin.library.LoadDataLayout
+                    android:id="@+id/loadDataLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+                    android:layout_height="match_parent">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+                </com.ganxin.library.LoadDataLayout>
 
                 <com.scwang.smartrefresh.layout.footer.ClassicsFooter
                     android:layout_width="match_parent"

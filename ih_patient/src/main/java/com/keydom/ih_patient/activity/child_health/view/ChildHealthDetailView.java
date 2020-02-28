@@ -7,5 +7,9 @@ import com.keydom.ih_common.base.BaseView;
  * @des 儿童保健预约详情view
  */
 public interface ChildHealthDetailView extends BaseView {
+
+    /**
+     * 数据绑定
+     */
     void bindDetailData(String data);
 }

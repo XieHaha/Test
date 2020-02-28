@@ -63,6 +63,7 @@ public class ChildHealthDetailActivity extends BaseControllerActivity<ChildHealt
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle(getString(R.string.txt_child_maintain));
+        setReloadListener((v, status) -> getController().getChildHealthDetail());
     }
 
     @Override
