@@ -8,4 +8,6 @@ import com.keydom.ih_common.base.BaseView;
  */
 public interface ChildHealthView extends BaseView {
     void transTitleBar(boolean direction, float scale);
+
+    void finishPage();
 }

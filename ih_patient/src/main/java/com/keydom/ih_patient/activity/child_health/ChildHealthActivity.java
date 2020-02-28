@@ -25,7 +25,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * @date 20/2/27 11:37
@@ -46,6 +45,8 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     SmartRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.iv_online)
+    ImageView ivOnline;
 
     private ChildHealthAdapter adapter;
     private ArrayList<String> data;
@@ -81,14 +82,12 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapter);
 
+        adapter.setOnItemClickListener(getController());
+        ivOnline.setOnClickListener(getController());
+        ivBack.setOnClickListener(getController());
         scrollView.setScrollViewListener((scrollView, x, y, oldX, oldY) -> getController().transTitleBar(y));
         swipeRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getChildHealthList(TypeEnum.REFRESH));
         swipeRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getChildHealthList(TypeEnum.LOAD_MORE));
-    }
-
-    @OnClick(R.id.iv_back)
-    public void onViewClicked() {
-        finish();
     }
 
 
@@ -99,5 +98,10 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         layoutBg.setAlpha(scale);
         statusBar.setAlpha(scale);
         StatusBarUtils.setStatusBarColor(this, direction);
+    }
+
+    @Override
+    public void finishPage() {
+        finish();
     }
 }

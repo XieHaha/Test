@@ -47,6 +47,15 @@
 
         <include layout="@layout/child_health_title_bar" />
 
+        <ImageView
+            android:id="@+id/iv_online"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_60"
+            android:src="@mipmap/icon_online_consultation" />
+
     </RelativeLayout>
 
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>

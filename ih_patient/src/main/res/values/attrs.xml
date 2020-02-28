@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="generaltitle">
-        <attr name="leftImgRec" format="integer"/>
-        <attr name="titleName" format="string"/>
-        <attr name="rightString" format="string"/>
-        <attr name="rightDrawableTop" format="integer"/>
-        <attr name="isRightTvVisiable" format="boolean"/>
-        <attr name="isLeftImgVisiable" format="boolean"/>
+        <attr name="leftImgRec" format="integer" />
+        <attr name="titleName" format="string" />
+        <attr name="rightString" format="string" />
+        <attr name="rightDrawableTop" format="integer" />
+        <attr name="isRightTvVisiable" format="boolean" />
+        <attr name="isLeftImgVisiable" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="FlowLayout">
-        <attr name="width_space" format="dimension"/>
-        <attr name="height_space" format="dimension"/>
+        <attr name="width_space" format="dimension" />
+        <attr name="height_space" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="RatingBarView">
 
-        <attr name="starImageSize" format="dimension"/>
-        <attr name="starCount" format="integer"/>
-        <attr name="starEmpty" format="reference"/>
-        <attr name="starFill" format="reference"/>
-        <attr name="canTouch" format="boolean"/>
+        <attr name="starImageSize" format="dimension" />
+        <attr name="starCount" format="integer" />
+        <attr name="starEmpty" format="reference" />
+        <attr name="starFill" format="reference" />
+        <attr name="canTouch" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ChildCareItemLayout">
+        <attr name="item_image" format="reference" />
+        <attr name="item_title" format="reference" />
     </declare-styleable>
 
 </resources>
