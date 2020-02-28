@@ -75,7 +75,8 @@ public class CommonUtils {
      * @return
      */
     public static boolean isNetworkConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
         return ni != null && ni.isConnectedOrConnecting();
     }
@@ -87,7 +88,8 @@ public class CommonUtils {
      */
     public static int getNetworkType(Context context) {
         int netType = 0;
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo == null) {
             return netType;
@@ -178,7 +180,8 @@ public class CommonUtils {
      */
     public static void hideKeyboard(Activity activity) {
         if (activity != null) {
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm =
+                    (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             if (imm.isActive()) {
                 imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
             }
@@ -192,7 +195,8 @@ public class CommonUtils {
      */
     public static void showKeyboard(Activity activity) {
         if (activity != null) {
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm =
+                    (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             if (!imm.isActive()) {
                 imm.showSoftInputFromInputMethod(activity.getCurrentFocus().getWindowToken(), 0);
             }
@@ -290,34 +294,38 @@ public class CommonUtils {
     }
 
     public static boolean checkStr(String value) {
-        Pattern pattern = Pattern.compile("[^a-zA-Z0-9\\u4E00-\\u9FA5_,.?!:;…~_\\-\"\"/@*+'()<>{}/[/]()<>{}\\[\\]=＝×%&$|\\/#\"` ，\\n \\s 。？！：；……～“”、“（）”、（——）‘’＠‘·’＆＊＃《》￥《〈〉》〈＄〉［］［］｛｝｛｝％／＼｀．]");
-//        Pattern pattern = Pattern.compile("[^a-zA-Z0-9\\u4E00-\\u9FA5_,.?!:;…~_\\-\"\"/@*+'()<>{}/[/]()<>{}\\[\\]=＝×%&$|\\/#¥£¢€\"` ，\\n \\s 。？！：；……～“”、“（）”、（——）‘’＠‘·’＆＊＃《》￥《〈〉》〈＄〉［］￡［］｛｝｛【】【】％〖〗〖〗／〔〕〔〕＼『』『』「」「」｜﹁﹂｀．]");
-        Matcher matcher=  pattern.matcher(value);
+        Pattern pattern = Pattern.compile("[^a-zA-Z0-9\\u4E00-\\u9FA5_,.?!:;…~_\\-\"\"/@*+'()" +
+                "<>{}/[/]()<>{}\\[\\]=＝×%&$|\\/#\"` ，\\n \\s " +
+                "。？！：；……～“”、“（）”、（——）‘’＠‘·’＆＊＃《》￥《〈〉》〈＄〉［］［］｛｝｛｝％／＼｀．]");
+        //        Pattern pattern = Pattern.compile("[^a-zA-Z0-9\\u4E00-\\u9FA5_,.?!:;
+        //        …~_\\-\"\"/@*+'()<>{}/[/]()<>{}\\[\\]=＝×%&$|\\/#¥£¢€\"` ，\\n \\s
+        //        。？！：；……～“”、“（）”、（——）‘’＠‘·’＆＊＃《》￥《〈〉》〈＄〉［］￡［］｛｝｛【】【】％〖〗〖〗／〔〕〔〕＼『』『』「」「」｜﹁﹂｀．]");
+        Matcher matcher = pattern.matcher(value);
         return matcher.find();
     }
 
     public static boolean containsEmoji(String value) {
-        Log.e("Emoji",value);
+        Log.e("Emoji", value);
         boolean flag = false;
         if (value == null || "".equals(value) || "\n".equals(value) || " ".equals(value)) {
             return false;
         }
         return checkStr(value);
-//        try {
-//            Pattern p = Pattern
-//                    .compile("[^\\u0000-\\uFFFF]");
-//            Matcher m = p.matcher(value);
-//            flag = m.find();
-//        } catch (Exception e) {
-//            flag = false;
-//        }
-//        if (containsEmoji2(value)) {
-//            return true;
-//        }
-//        if (!containsEmoji3(value)) {
-//            return true;
-//        }
-//        return flag;
+        //        try {
+        //            Pattern p = Pattern
+        //                    .compile("[^\\u0000-\\uFFFF]");
+        //            Matcher m = p.matcher(value);
+        //            flag = m.find();
+        //        } catch (Exception e) {
+        //            flag = false;
+        //        }
+        //        if (containsEmoji2(value)) {
+        //            return true;
+        //        }
+        //        if (!containsEmoji3(value)) {
+        //            return true;
+        //        }
+        //        return flag;
     }
 
     public static boolean containsEmoji3(String value) {
@@ -374,19 +382,19 @@ public class CommonUtils {
                     buf = new StringBuilder(source.length());
                 }
                 buf.append("～");
-//                buf.append(stringToUnicode(codePoint));
+                //                buf.append(stringToUnicode(codePoint));
 
             }
         }
         if (buf == null) {
             return "";
         } else {
-//            if (buf.length() == len) {
-//                buf = null;
-//                return source;
-//            } else {
+            //            if (buf.length() == len) {
+            //                buf = null;
+            //                return source;
+            //            } else {
             return buf.toString();
-//            }
+            //            }
         }
     }
 
@@ -521,6 +529,20 @@ public class CommonUtils {
         return false;
     }
 
+    /**
+     * 获取包名
+     */
+    public static synchronized String getPackageName(Context context) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.packageName;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void previewImage(Context context, String path) {
         if (path == null || "".equals(path)) {
             return;
@@ -532,15 +554,16 @@ public class CommonUtils {
         PictureSelector.create((Activity) context).themeStyle(R.style.picture_default_style).openExternalPreview(0, mediaList);
     }
 
-    public static void previewImageList(Context context, List<String> pathList,int position,boolean isNeedAddhead) {
-        if (pathList == null || pathList.size()==0) {
+    public static void previewImageList(Context context, List<String> pathList, int position,
+                                        boolean isNeedAddhead) {
+        if (pathList == null || pathList.size() == 0) {
             return;
         }
         List<LocalMedia> mediaList = new ArrayList<>();
-        for (int i = 0; i <pathList.size() ; i++) {
+        for (int i = 0; i < pathList.size(); i++) {
             LocalMedia media = new LocalMedia();
-            if(isNeedAddhead)
-            media.setPath(Const.IMAGE_HOST+pathList.get(i));
+            if (isNeedAddhead)
+                media.setPath(Const.IMAGE_HOST + pathList.get(i));
             else
                 media.setPath(pathList.get(i));
             mediaList.add(media);
@@ -550,7 +573,7 @@ public class CommonUtils {
     }
 
     public static boolean checkPassword(String password) {
-//        String pattern = "[A-Za-z0-9]{6,20}";
+        //        String pattern = "[A-Za-z0-9]{6,20}";
         String pattern = "^[a-zA-Z0-9]{6,20}$";
         return Pattern.matches(pattern, password);
     }
@@ -590,8 +613,10 @@ public class CommonUtils {
     public static void hideSoftKeyboard(Activity activity) {
         View view = activity.getCurrentFocus();
         if (view != null) {
-            InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            InputMethodManager inputMethodManager =
+                    (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 
@@ -635,7 +660,8 @@ public class CommonUtils {
         for (int i = 0; i < keywords.length; i++) {
             int index = content.indexOf(keywords[i]);
             while (index >= 0) {
-                spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#3F98F7")), index, index + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#3F98F7")),
+                        index, index + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 index = content.indexOf(keywords[i], index + 1);
             }
         }

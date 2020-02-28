@@ -43,6 +43,7 @@ import com.keydom.ih_common.im.manager.AudioPlayerManager;
 import com.keydom.ih_common.im.manager.AudioRecorderManager;
 import com.keydom.ih_common.im.widget.plugin.CameraPlugin;
 import com.keydom.ih_common.im.widget.plugin.ImagePlugin;
+import com.keydom.ih_common.utils.CommonUtils;
 import com.luck.picture.lib.PictureSelector;
 import com.netease.nimlib.sdk.media.record.IAudioRecordCallback;
 import com.netease.nimlib.sdk.media.record.RecordType;
@@ -116,7 +117,7 @@ public class ImExtension extends LinearLayout {
 
     public void setActivity(AppCompatActivity activity) {
         mActivity = activity;
-//        AndroidBug5497Workaround.Companion.assistActivity(activity, 0);
+        //        AndroidBug5497Workaround.Companion.assistActivity(activity, 0);
     }
 
     public void setMessageInfo(String accountId) {
@@ -134,7 +135,8 @@ public class ImExtension extends LinearLayout {
     }
 
     public boolean isExtensionExpanded() {
-        return mPluginAdapter.getVisibility() == VISIBLE /*|| mEmojiAdapter.visibility == View.VISIBLE*/ || isSoftShowing();
+        return mPluginAdapter.getVisibility() == VISIBLE /*|| mEmojiAdapter.visibility == View
+        .VISIBLE*/ || isSoftShowing();
     }
 
     public void setExtensionBarVisibility(int visibility) {
@@ -150,7 +152,8 @@ public class ImExtension extends LinearLayout {
         return mPluginAdapter;
     }
 
-    public void startActivityForPluginResult(Intent intent, int requestCode, IPluginModule pluginModule) {
+    public void startActivityForPluginResult(Intent intent, int requestCode,
+                                             IPluginModule pluginModule) {
         if ((requestCode & -256) != 0) {
             throw new IllegalArgumentException("requestCode does not over 255.");
         } else {
@@ -182,11 +185,14 @@ public class ImExtension extends LinearLayout {
     private List<EmojiBean> mListEmoji;
 
     public void bindEmojiData(ViewGroup viewGroup) {
-        mListEmoji = EmojiDao.getInstance().getEmojiBean();
+        String packageName = CommonUtils.getPackageName(getContext());
+        mListEmoji = EmojiDao.getInstance(packageName).getEmojiBean();
         homeEmoji = (LinearLayout) viewGroup.findViewById(R.id.home_emoji);
         ViewPager vpEmoji = (ViewPager) viewGroup.findViewById(R.id.vp_emoji);
         final IndicatorView indEmoji = (IndicatorView) viewGroup.findViewById(R.id.ind_emoji);
-        LinearLayout.LayoutParams layoutParams12 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams layoutParams12 =
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
         LayoutInflater inflater = LayoutInflater.from(getContext());
         //将RecyclerView放至ViewPager中：
         int pageSize = EVERY_PAGE_SIZE;
@@ -208,15 +214,18 @@ public class ImExtension extends LinearLayout {
         List<View> viewList = new ArrayList<View>();
         for (int index = 0; index < pageCount; index++) {
             //每个页面创建一个recycleview
-            RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.item_emoji_vprecy, vpEmoji, false);
+            RecyclerView recyclerView =
+                    (RecyclerView) inflater.inflate(R.layout.item_emoji_vprecy, vpEmoji, false);
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));
             EmojiAdapter entranceAdapter;
             if (index == pageCount - 1) {
                 //最后一页的数据
-                List<EmojiBean> lastPageList = mListEmoji.subList(index * EVERY_PAGE_SIZE, mListEmoji.size());
+                List<EmojiBean> lastPageList = mListEmoji.subList(index * EVERY_PAGE_SIZE,
+                        mListEmoji.size());
                 entranceAdapter = new EmojiAdapter(lastPageList, index, EVERY_PAGE_SIZE);
             } else {
-                entranceAdapter = new EmojiAdapter(mListEmoji.subList(index * EVERY_PAGE_SIZE, (index + 1) * EVERY_PAGE_SIZE), index, EVERY_PAGE_SIZE);
+                entranceAdapter = new EmojiAdapter(mListEmoji.subList(index * EVERY_PAGE_SIZE,
+                        (index + 1) * EVERY_PAGE_SIZE), index, EVERY_PAGE_SIZE);
             }
             entranceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
@@ -251,13 +260,14 @@ public class ImExtension extends LinearLayout {
     private void initView() {
         setOrientation(VERTICAL);
         setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
-        mExtensionBar = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.im_ext_extension_bar, this, false);
+        mExtensionBar =
+                (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.im_ext_extension_bar, this, false);
         mMainBar = mExtensionBar.findViewById(R.id.im_ext_main_bar);
         mVoiceToggle = mExtensionBar.findViewById(R.id.im_voice_toggle);
         mContainerLayout = mExtensionBar.findViewById(R.id.im_container_layout);
         mEditText = mExtensionBar.findViewById(R.id.im_edit_text);
         mVoiceInputToggle = mContainerLayout.findViewById(R.id.im_audio_input_toggle);
-//        mEmoticonToggle = mExtensionBar.findViewById(R.id.im_emoticon_toggle);
+        //        mEmoticonToggle = mExtensionBar.findViewById(R.id.im_emoticon_toggle);
         mPluginToggle = mExtensionBar.findViewById(R.id.im_plugin_toggle);
 
         mPluginSend = mExtensionBar.findViewById(R.id.im_plugin_send);
@@ -298,7 +308,7 @@ public class ImExtension extends LinearLayout {
                 }
             }
         });
-//        mEditText.addTextChangedListener(EmojiTextListener(mEditText));
+        //        mEditText.addTextChangedListener(EmojiTextListener(mEditText));
         mEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -361,13 +371,15 @@ public class ImExtension extends LinearLayout {
                         break;
                     case MotionEvent.ACTION_MOVE:
                         if (mLastTouchY - event.getY() > mOffsetLimit && !mUpDirection) {
-                            Log.e(TAG, "mLastTouchY - event.getY()=" + (mLastTouchY - event.getY()));
+                            Log.e(TAG,
+                                    "mLastTouchY - event.getY()=" + (mLastTouchY - event.getY()));
                             AudioRecorderManager.getInstance().cancelAudioRecord(true);
                             mUpDirection = true;
                             ((Button) v).setText(R.string.im_ext_extension_bar_audio_input);
                             AudioRecorderManager.getInstance().setUpDirection(mUpDirection);
                         } else if (event.getY() - mLastTouchY > -mOffsetLimit && mUpDirection) {
-                            Log.e(TAG, "event.getY() - mLastTouchY=" + (event.getY() - mLastTouchY));
+                            Log.e(TAG,
+                                    "event.getY() - mLastTouchY=" + (event.getY() - mLastTouchY));
                             mUpDirection = false;
                             ((Button) v).setText(R.string.im_ext_extension_bar_audio_input_hover);
                             AudioRecorderManager.getInstance().setUpDirection(mUpDirection);
@@ -418,11 +430,11 @@ public class ImExtension extends LinearLayout {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(VoiceInputEvent voiceInputEvent) {
-        if(null != voiceInputEvent && !TextUtils.isEmpty(voiceInputEvent.getVoiceStr())){
-            if(TextUtils.isEmpty(mEditText.getText().toString())){
+        if (null != voiceInputEvent && !TextUtils.isEmpty(voiceInputEvent.getVoiceStr())) {
+            if (TextUtils.isEmpty(mEditText.getText().toString())) {
                 mEditText.setText(voiceInputEvent.getVoiceStr());
                 mEditText.setSelection(mEditText.getText().length());
-            }else{
+            } else {
                 mEditText.setText(mEditText.getText().toString() + voiceInputEvent.getVoiceStr());
                 mEditText.setSelection(mEditText.getText().length());
             }
@@ -473,7 +485,8 @@ public class ImExtension extends LinearLayout {
             public void onRecordReachedMaxTime(int maxTime) {
                 Log.e(TAG, "onRecordReachedMaxTime");
                 AudioRecorderManager.getInstance().setTimeoutView(-1);
-                AudioRecorderManager.getInstance().getAudioRecorder().handleEndRecord(true, maxTime);
+                AudioRecorderManager.getInstance().getAudioRecorder().handleEndRecord(true,
+                        maxTime);
 
             }
         };
@@ -520,7 +533,7 @@ public class ImExtension extends LinearLayout {
         if (mPluginAdapter.isInitialZed()) {
             if (mPluginAdapter.getVisibility() == VISIBLE) {
                 hidePluginBoard();
-//                showInputKeyBoard(mEditText);
+                //                showInputKeyBoard(mEditText);
             } else {
                 showPluginBoard();
             }
@@ -592,13 +605,15 @@ public class ImExtension extends LinearLayout {
     }
 
     private void showInputKeyBoard(EditText editText) {
-        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm =
+                (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(editText, InputMethodManager.RESULT_SHOWN);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
     private void hideInputKeyBoard(EditText editText) {
-        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm =
+                (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
         mEditText.clearFocus();
     }
