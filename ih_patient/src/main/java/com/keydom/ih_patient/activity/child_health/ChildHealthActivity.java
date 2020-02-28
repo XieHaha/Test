@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,6 +16,7 @@ import com.keydom.ih_patient.activity.child_health.controller.ChildHealthControl
 import com.keydom.ih_patient.activity.child_health.view.ChildHealthView;
 import com.keydom.ih_patient.adapter.ChildHealthAdapter;
 import com.keydom.ih_patient.constant.TypeEnum;
+import com.keydom.ih_patient.utils.StatusBarUtils;
 import com.keydom.ih_patient.view.MyNestedScollView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -31,6 +34,8 @@ import butterknife.OnClick;
 public class ChildHealthActivity extends BaseControllerActivity<ChildHealthController> implements ChildHealthView {
     @BindView(R.id.layout_title)
     RelativeLayout layoutBg;
+    @BindView(R.id.status_bar)
+    View statusBar;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -59,8 +64,13 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        statusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                StatusBarUtils.getStateBarHeight(this)));
+        StatusBarUtils.setStatusBarTranslucent(this);
         tvTitle.setText("儿童保健");
         layoutBg.setAlpha(0);
+        statusBar.setAlpha(0);
+        StatusBarUtils.setStatusBarColor(this, true);
         //模拟数据
         data = new ArrayList<>();
         data.add("");
@@ -74,7 +84,6 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         scrollView.setScrollViewListener((scrollView, x, y, oldX, oldY) -> getController().transTitleBar(y));
         swipeRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getChildHealthList(TypeEnum.REFRESH));
         swipeRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getChildHealthList(TypeEnum.LOAD_MORE));
-
     }
 
     @OnClick(R.id.iv_back)
@@ -85,13 +94,10 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
 
     @Override
     public void transTitleBar(boolean direction, float scale) {
-        if (direction) {
-            tvTitle.setSelected(false);
-            ivBack.setSelected(false);
-        } else {
-            tvTitle.setSelected(true);
-            ivBack.setSelected(true);
-        }
+        tvTitle.setSelected(!direction);
+        ivBack.setSelected(!direction);
         layoutBg.setAlpha(scale);
+        statusBar.setAlpha(scale);
+        StatusBarUtils.setStatusBarColor(this, direction);
     }
 }

@@ -35,7 +35,6 @@ public class ChildHealthController extends ControllerImpl<ChildHealthView> imple
         } else {
             scale = 1;
         }
-
         getView().transTitleBar(up, scale);
     }
 
