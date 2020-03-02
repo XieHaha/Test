@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_18"
-                android:drawableStart="@mipmap/icon_accolade_grey"
+                android:drawableStart="@drawable/selector_accolade"
                 android:drawablePadding="@dimen/dp_5"
                 android:gravity="center"
                 android:textColor="@color/edit_hint_color"

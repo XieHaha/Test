@@ -26,6 +26,7 @@ import com.keydom.ih_patient.activity.order_hospital_cure.OrderHospitalCureListA
 import com.keydom.ih_patient.activity.order_physical_examination.OrderPhysicalExaminationActivity;
 import com.keydom.ih_patient.activity.payment_records.PaymentRecordActivity;
 import com.keydom.ih_patient.activity.postpartum_rehabilitation.RehabilitationRecordActivity;
+import com.keydom.ih_patient.activity.pregnant_woman.PregnantWomanActivity;
 import com.keydom.ih_patient.activity.reserve_painless_delivery.ReservePainlessDeliveryActivity;
 import com.keydom.ih_patient.bean.IndexFunction;
 import com.orhanobut.logger.Logger;
@@ -42,6 +43,8 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     public final String Setting = "1";
     //产后康复
     public final String Rehabilitation = "15";
+    //孕妇学校
+    public final String PregnantWoman = "17";
     //无痛分娩
     public final String PainlessDelivery = "19";
     //产科住院
@@ -132,6 +135,9 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             break;
                         case Rehabilitation:
                             RehabilitationRecordActivity.start(context);
+                            break;
+                        case PregnantWoman:
+                            PregnantWomanActivity.start(context);
                             break;
                         case PainlessDelivery:
                             ReservePainlessDeliveryActivity.start(context);

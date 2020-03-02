@@ -511,6 +511,7 @@
             android:screenOrientation="behind"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".activity.child_health.ChildHealthDetailActivity" />
+        <activity android:name=".activity.pregnant_woman.PregnantWomanActivity" />
     </application>
 
 </manifest>

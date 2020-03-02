@@ -231,6 +231,11 @@
     <string name="txt_growth_and_development_other">生长发育评估及其他</string>
     <string name="txt_precautions">注意事项</string>
 
+    <!--孕妇学校-->
+    <string name="txt_pregnant_woman_school">孕妇学校</string>
+    <string name="txt_class_time">上课时间：</string>
+    <string name="txt_suit_pregnancy">适合孕周：</string>
+
     <!--vip-->
     <string name="vip_desc">• 如需详细了解服务内容，请到医院仁医中心，有专人接待\n• 仁医中心服务电话：0816-2333592\n• 服务期间，不得单方面解除签约并提前申请退费\n• 办理退费时，请本人带上仁医金卡和发票到仁医中心办理</string>
     <string name="vip_price">20000元</string>

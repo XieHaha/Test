@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv_type"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/dp_24"
+    android:layout_marginStart="@dimen/dp_7"
+    android:layout_marginEnd="@dimen/dp_7"
+    android:background="@drawable/corner20_f1f1f1_bg"
+    android:gravity="center"
+    android:paddingStart="@dimen/dp_18"
+    android:paddingEnd="@dimen/dp_18"
+    android:textColor="@color/tab_nol_color"
+    android:textSize="@dimen/sp_12"
+    tools:text="类型">
+
+</TextView>
