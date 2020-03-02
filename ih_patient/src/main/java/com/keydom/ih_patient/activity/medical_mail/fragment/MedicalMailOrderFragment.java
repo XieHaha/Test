@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.medical_mail.controller.MedicalOrderController;
-import com.keydom.ih_patient.activity.medical_mail.view.MedicalOrderView;
+import com.keydom.ih_patient.activity.medical_mail.controller.MedicalMailOrderController;
+import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailOrderView;
 import com.keydom.ih_patient.adapter.MedicalMailOrderAdapter;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.constant.EventType;
@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * 病案邮寄
  */
-public class MedicalMailOrderFragment extends BaseControllerFragment<MedicalOrderController> implements MedicalOrderView {
+public class MedicalMailOrderFragment extends BaseControllerFragment<MedicalMailOrderController> implements MedicalMailOrderView {
     private String type;
     private SmartRefreshLayout refreshLayout;
     private RecyclerView recyclerView;
@@ -44,7 +44,7 @@ public class MedicalMailOrderFragment extends BaseControllerFragment<MedicalOrde
 
     @Override
     public int getLayoutRes() {
-        return R.layout.fragment_medical_mail;
+        return R.layout.fragment_medical_mail_order;
     }
 
     @Nullable

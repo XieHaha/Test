@@ -10,9 +10,9 @@ import android.support.v4.view.ViewPager;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.medical_mail.controller.MedicalMailController;
+import com.keydom.ih_patient.activity.medical_mail.controller.MedicalMailListController;
 import com.keydom.ih_patient.activity.medical_mail.fragment.MedicalMailOrderFragment;
-import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailView;
+import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailListView;
 import com.keydom.ih_patient.adapter.ViewPagerAdapter;
 import com.keydom.ih_patient.constant.Type;
 
@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * 病案邮寄订单
  */
-public class MedicalMailListActivity extends BaseControllerActivity<MedicalMailController> implements MedicalMailView {
+public class MedicalMailListActivity extends BaseControllerActivity<MedicalMailListController> implements MedicalMailListView {
     /**
      * 启动
      */
@@ -41,7 +41,7 @@ public class MedicalMailListActivity extends BaseControllerActivity<MedicalMailC
 
     @Override
     public int getLayoutRes() {
-        return R.layout.activity_medical_mail_order;
+        return R.layout.activity_medical_mail_list;
     }
 
     @Override

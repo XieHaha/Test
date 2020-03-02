@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -105,7 +104,6 @@ public class PregnantWomanActivity extends BaseControllerActivity<PregnantWomanC
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 totalDy += dy;
-                Log.i("dun", "dy:" + dy);
                 if (totalDy > (viewHeight - recyHeight)) {
                     levitateRecyclerView.setVisibility(View.VISIBLE);
                 } else {

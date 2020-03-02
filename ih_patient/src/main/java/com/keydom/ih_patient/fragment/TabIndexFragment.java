@@ -42,7 +42,6 @@ import com.keydom.ih_patient.bean.HealthKnowledgeBean;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.ih_patient.bean.IndexData;
 import com.keydom.ih_patient.bean.IndexFunction;
-import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.callback.SingleClick;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
@@ -54,8 +53,6 @@ import com.keydom.ih_patient.view.FunctionRvItemDecoration;
 import com.keydom.ih_patient.view.GeneralArticleItem;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.stx.xhb.xbanner.XBanner;
 
 import org.greenrobot.eventbus.EventBus;
@@ -127,50 +124,30 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mTopRightTitleTv.setText("产检预约");
         mTopRightIconIv.setImageResource(R.mipmap.vip_antenatal_care_icon);
 
-        mTopRightRootRl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ChoosePatientActivity.start(getActivity(),
-                        com.keydom.ih_patient.constant.Const.PATIENT_TYPE_CARD);
+        mTopRightRootRl.setOnClickListener(v -> ChoosePatientActivity.start(getActivity(),
+                com.keydom.ih_patient.constant.Const.PATIENT_TYPE_CARD));
+        mTopLeftRootRl.setOnClickListener(v -> {
+            if (null == mVIPDialog) {
+                mVIPDialog = new DiagnosesApplyDialog(getContext(),
+                        DiagnosesApplyDialog.VIP_DIAGNOSES,
+                        () -> DiagnosesApplyActivity.start(getContext(),
+                                DiagnosesApplyDialog.VIP_DIAGNOSES, null));
             }
-        });
-        mTopLeftRootRl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null == mVIPDialog) {
-                    mVIPDialog = new DiagnosesApplyDialog(getContext(),
-                            DiagnosesApplyDialog.VIP_DIAGNOSES, () -> {
-                        DiagnosesApplyActivity.start(getContext(),
-                                DiagnosesApplyDialog.VIP_DIAGNOSES, null);
-                    });
-                }
-                mVIPDialog.show();
-            }
+            mVIPDialog.show();
         });
     }
 
     public void initNormal() {
         mMemberRootLl.setVisibility(View.VISIBLE);
         mIndexFunctionRootLl.setVisibility(View.VISIBLE);
-        //todo 临时展示
-        mFirstVIPRootLl.setVisibility(View.VISIBLE);
+        mFirstVIPRootLl.setVisibility(View.GONE);
         mSecondVIPRootLl.setVisibility(View.GONE);
 
         mTopRightTitleTv.setText("护理服务");
         mTopRightIconIv.setImageResource(R.mipmap.vip_mine_my_nurse_icon);
 
-        mTopRightRootRl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NurseMainActivity.start(getContext());
-            }
-        });
-        mTopLeftRootRl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DiagnoseMainActivity.start(getContext());
-            }
-        });
+        mTopRightRootRl.setOnClickListener(v -> NurseMainActivity.start(getContext()));
+        mTopLeftRootRl.setOnClickListener(v -> DiagnoseMainActivity.start(getContext()));
     }
 
 
@@ -217,14 +194,11 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
 
         indexRefresh.setEnableLoadMore(false);
-        indexRefresh.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshLayout) {
-                page = 1;
-                getController().fillViewData();
-                getController().fillHealthKnowledges(page);
+        indexRefresh.setOnRefreshListener(refreshLayout -> {
+            page = 1;
+            getController().fillViewData();
+            getController().fillHealthKnowledges(page);
 
-            }
         });
        /* indexRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
@@ -246,22 +220,15 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
         more_tv.setOnClickListener(getController());
         chooseHospitalAdapter = new ChooseHospitalAdapter(getContext(), hospitalList,
-                new GeneralCallback.SelectHospitalListener() {
-                    @Override
-                    public void getSelectedHospital(HospitalAreaInfo hospitalAreaInfo) {
-                        Logger.e("getHospitalSuccess-->HospitalId==" + hospitalAreaInfo.getId() + "   " +
-                                "HospitalName==" + hospitalAreaInfo.getName());
-                        selectHospitalId = hospitalAreaInfo.getId();
-                        selectHospitalName = hospitalAreaInfo.getName();
-                    }
+                hospitalAreaInfo -> {
+                    Logger.e("getHospitalSuccess-->HospitalId==" + hospitalAreaInfo.getId() + "  " +
+                            " " +
+                            "HospitalName==" + hospitalAreaInfo.getName());
+                    selectHospitalId = hospitalAreaInfo.getId();
+                    selectHospitalName = hospitalAreaInfo.getName();
                 });
 
-        index_footer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getController().fillHealthKnowledges(page);
-            }
-        });
+        index_footer.setOnClickListener(v -> getController().fillHealthKnowledges(page));
 
         indexFunctionRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
         indexFunctionRv.addItemDecoration(new FunctionRvItemDecoration(70, 30));
@@ -271,20 +238,20 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_postpartum_recovery_icon, 15, "产后康复"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_amniocentesis_icon, "羊水穿刺预约"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_pregnancy_school_icon, 17,"孕妇学校"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_pregnancy_school_icon, 17, "孕妇学校"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetrical_medical_records_icon,
                 "产科病历"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_painless_labor_icon, 19, "无痛分娩预约"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetric_order_icon, 20, "产科住院预约"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_child_health_icon, 21, "儿童保健"));
 
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_orderby, 22, "预约挂号"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_pay, 23, "诊间缴费"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_management_icon, "健康管理"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_medical_record_mail_icon, "病案邮寄"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.appointment_register_icon, "检验检查预约"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_record_icon, "健康档案"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.create_code_icon, 24, "办卡绑卡"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_orderby, 101, "预约挂号"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_pay, 102, "诊间缴费"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_management_icon, 103, "健康管理"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_medical_record_mail_icon, 104, "病案邮寄"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.appointment_register_icon, 105, "检验检查预约"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_record_icon, 106, "健康档案"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.create_code_icon, 107, "办卡绑卡"));
 
 
         mFirstVIPRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
@@ -311,7 +278,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     }
 
     private void memberLayoutShow() {
-        if (Global.isMember()) {
+        //TODO 临时展示
+        if (!Global.isMember()) {
             initVipFunction();
         } else {
             initNormal();

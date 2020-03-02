@@ -5,6 +5,6 @@ import com.keydom.ih_common.base.BaseView;
 /**
  * 病案view
  */
-public interface MedicalMailView extends BaseView {
+public interface MedicalMailListView extends BaseView {
 
 }

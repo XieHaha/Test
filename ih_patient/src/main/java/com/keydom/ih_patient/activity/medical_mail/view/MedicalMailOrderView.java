@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 病案邮寄view
  */
-public interface MedicalOrderView extends BaseView {
+public interface MedicalMailOrderView extends BaseView {
 
     /**
      * 已邮寄 成功

@@ -7,7 +7,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_patient.App;
-import com.keydom.ih_patient.activity.medical_mail.view.MedicalOrderView;
+import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailOrderView;
 import com.keydom.ih_patient.constant.Const;
 import com.keydom.ih_patient.constant.TypeEnum;
 import com.keydom.ih_patient.net.OrderService;
@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * 病案邮寄
  */
-public class MedicalOrderController extends ControllerImpl<MedicalOrderView> {
+public class MedicalMailOrderController extends ControllerImpl<MedicalMailOrderView> {
 
     /**
      * 获取病案已邮寄
