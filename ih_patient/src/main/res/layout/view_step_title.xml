@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_75"
+    android:background="@color/other_login_color"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/layout_base"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_base"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_auth_base"
+            android:textColor="@color/step_line_color"
+            android:textSize="@dimen/sp_13" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_18"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_base"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/selector_step_iv" />
+
+            <View
+                android:id="@+id/view_base"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/iv_base"
+                android:background="@drawable/selector_line" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_two"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_mail_apply"
+            android:textColor="@color/step_line_color"
+            android:textSize="@dimen/sp_13" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_18"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/selector_step_iv" />
+
+            <View
+                android:id="@+id/view_two_left"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/iv_two"
+                android:background="@drawable/selector_line" />
+
+            <View
+                android:id="@+id/view_two_right"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/iv_two"
+                android:background="@drawable/selector_line" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_three"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_mail_receive"
+            android:textColor="@color/step_line_color"
+            android:textSize="@dimen/sp_13" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_18"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/selector_step_iv" />
+
+            <View
+                android:id="@+id/view_three_left"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/iv_three"
+                android:background="@drawable/selector_line" />
+
+            <View
+                android:id="@+id/view_three_right"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/iv_three"
+                android:background="@drawable/selector_line" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_end"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_order_confirm"
+            android:textColor="@color/step_line_color"
+            android:textSize="@dimen/sp_13" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_18"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/selector_step_iv" />
+
+            <View
+                android:id="@+id/view_end"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/iv_end"
+                android:background="@drawable/selector_line" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

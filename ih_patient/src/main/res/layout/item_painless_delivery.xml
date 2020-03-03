@@ -125,7 +125,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_phone"
+            android:text="@string/txt_phone_colon"
             android:textColor="@color/edit_hint_color"
             android:textSize="@dimen/sp_14" />
 

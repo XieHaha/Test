@@ -211,7 +211,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_16"
                 android:gravity="end"
-                android:text="@string/txt_phone"
+                android:text="@string/txt_phone_colon"
                 android:textColor="@color/tab_nol_color"
                 android:textSize="@dimen/sp_14" />
 

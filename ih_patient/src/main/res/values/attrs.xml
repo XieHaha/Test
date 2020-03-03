@@ -28,4 +28,8 @@
         <attr name="item_title" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="MedicalAuthLayout">
+        <attr name="tvHint" format="reference" />
+    </declare-styleable>
+
 </resources>

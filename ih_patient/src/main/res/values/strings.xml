@@ -40,6 +40,7 @@
     <string name="mine_function_card">我的就诊卡</string>
     <string name="mine_click_hint">就诊时请点击</string>
     <string name="mine_change">切换</string>
+    <string name="txt_next">下一步</string>
 
 
     <string name="mine_function_type_diagnosis">诊疗信息</string>
@@ -131,6 +132,7 @@
     <string name="manage_user_birthday_hint">请选择出生日期</string>
     <string name="manage_user_birthday">出生日期</string>
     <string name="manage_user_id_card_hint">请输入身份证信息</string>
+    <string name="manage_user_id_card_number_hint">请输入身份证号码</string>
     <string name="marriageChildbearingHistory">婚育史</string>
     <string name="historySurgeryOrTrauma">手术或外伤史</string>
     <string name="familyHistory">家族史</string>
@@ -173,7 +175,7 @@
     <string name="txt_due_date_hint">请选择预产期</string>
     <string name="txt_fetus">胎数:</string>
     <string name="txt_fetus_hint">请选择胎数</string>
-    <string name="txt_phone">联系电话:</string>
+    <string name="txt_phone_colon">联系电话:</string>
     <string name="txt_phone_hint">请输入电话号码</string>
     <string name="txt_painless_delivery_read">我已阅读并同意</string>
     <string name="txt_painless_delivery_note">《无痛分娩注意事项》</string>
@@ -221,6 +223,19 @@
     <string name="txt_copy_content">复印内容:</string>
     <string name="txt_price">价格:</string>
 
+    <string name="txt_auth_base">身份认证</string>
+    <string name="txt_mail_apply">邮寄申请</string>
+    <string name="txt_mail_receive">收件信息</string>
+    <string name="txt_order_confirm">订单确认</string>
+    <string name="txt_upload_id_card">请上传患者本人证件照</string>
+    <string name="txt_select_visit_people">选择就诊人</string>
+    <string name="txt_id_card_front">[患者身份证正面]</string>
+    <string name="txt_id_card_back">[患者身份证反面]</string>
+    <string name="txt_id_card_hand">[患者手持身份证照]</string>
+    <string name="txt_id_card_reload">[重新上传]</string>
+    <string name="txt_id_card">身份证</string>
+    <string name="txt_phone">联系电话</string>
+
     <!--儿童保健-->
     <string name="txt_child_maintain">儿童保养</string>
     <string name="txt_reserve_time">预约时间</string>
@@ -235,6 +250,7 @@
     <string name="txt_pregnant_woman_school">孕妇学校</string>
     <string name="txt_class_time">上课时间：</string>
     <string name="txt_suit_pregnancy">适合孕周：</string>
+
 
     <!--vip-->
     <string name="vip_desc">• 如需详细了解服务内容，请到医院仁医中心，有专人接待\n• 仁医中心服务电话：0816-2333592\n• 服务期间，不得单方面解除签约并提前申请退费\n• 办理退费时，请本人带上仁医金卡和发票到仁医中心办理</string>

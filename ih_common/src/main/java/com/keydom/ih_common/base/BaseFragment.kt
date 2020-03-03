@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import butterknife.ButterKnife
+import butterknife.Unbinder
 import com.ganxin.library.LoadDataLayout
 import com.keydom.ih_common.R
 
@@ -13,9 +15,16 @@ abstract class BaseFragment : Fragment(), BaseFragmentInterFace {
     protected var isViewInitiated: Boolean = false
     protected var isVisibleToUser: Boolean = false
     protected var isDataInitiated: Boolean = false
+    /**
+     * 注解
+     */
+    protected var unbinder: Unbinder? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val inflate = inflater.inflate(layoutRes, container, false)
         getView(inflate)
+
+        unbinder = ButterKnife.bind(this, inflate)
         isViewInitiated = true;
         loadDataLayout = inflate.findViewById<View>(R.id.loadDataLayout) as LoadDataLayout?
         return inflate
@@ -70,6 +79,11 @@ abstract class BaseFragment : Fragment(), BaseFragmentInterFace {
     fun setReloadListener(listener: LoadDataLayout.OnReloadListener) {
         loadDataLayout?.let { it.setOnReloadListener(listener) }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unbinder?.unbind()
     }
 
 }
