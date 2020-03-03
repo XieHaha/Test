@@ -216,12 +216,19 @@
 
     <!--病案邮寄订单-->
     <string name="txt_medical_mail">病案邮寄</string>
-    <string name="txt_addressee">收件人:</string>
-    <string name="txt_receive_address">收件地址:</string>
-    <string name="txt_copy_purpose">复印目的:</string>
-    <string name="txt_copy_quantity">复印份数:</string>
-    <string name="txt_copy_content">复印内容:</string>
-    <string name="txt_price">价格:</string>
+    <string name="txt_addressee_colon">收件人:</string>
+    <string name="txt_receive_address_colon">收件地址:</string>
+    <string name="txt_copy_purpose_colon">复印目的:</string>
+    <string name="txt_copy_purpose">复印目的</string>
+    <string name="txt_copy_purpose_hint">请选择复印目的</string>
+    <string name="txt_copy_quantity_colon">复印份数:</string>
+    <string name="txt_copy_quantity">复印份数</string>
+    <string name="txt_copy_quantity_hint">请输入复印份数</string>
+    <string name="txt_copy_content_colon">复印内容:</string>
+    <string name="txt_copy_content">复印内容</string>
+    <string name="txt_copy_content_detail">病案复印详细</string>
+    <string name="txt_copy_content_hint">请选择复印内容</string>
+    <string name="txt_price_colon">价格:</string>
 
     <string name="txt_auth_base">身份认证</string>
     <string name="txt_mail_apply">邮寄申请</string>
@@ -234,7 +241,31 @@
     <string name="txt_id_card_hand">[患者手持身份证照]</string>
     <string name="txt_id_card_reload">[重新上传]</string>
     <string name="txt_id_card">身份证</string>
+    <string name="txt_patient_id_card">患者身份证</string>
+    <string name="txt_patient_name">患者姓名</string>
     <string name="txt_phone">联系电话</string>
+    <string name="txt_patient_medical_info">患者病案信息</string>
+    <string name="txt_leave_hospital_time">出院时间</string>
+    <string name="txt_ward_number">病区号</string>
+    <string name="txt_ward_number_hint">请输入病区号</string>
+    <string name="txt_in_hospital_number">住院号</string>
+    <string name="txt_in_hospital_time">住院时间</string>
+    <string name="txt_in_hospital_number_hint">请输入住院号</string>
+
+    <string name="txt_recv_info">收件人信息</string>
+    <string name="txt_recv_name">收件人姓名</string>
+    <string name="txt_recv_phone">收件人电话</string>
+    <string name="txt_recv_address">收件城市、区域</string>
+    <string name="txt_select_address">选择地址</string>
+    <string name="txt_recv_city_hint">请选择城市</string>
+    <string name="txt_recv_city_detail">收件人详细地址（精确到门牌号）</string>
+    <string name="txt_recv_address_detail_hint">请输入详细地址</string>
+
+    <string name="txt_mianyang_hospital">绵阳市人民医院</string>
+    <string name="txt_medical_mail_apply">病案邮递申请</string>
+    <string name="txt_recv_type">收取方式</string>
+    <string name="txt_need_pay">需支付</string>
+    <string name="txt_go_pay">去支付</string>
 
     <!--儿童保健-->
     <string name="txt_child_maintain">儿童保养</string>

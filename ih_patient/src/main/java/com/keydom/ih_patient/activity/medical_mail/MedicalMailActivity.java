@@ -156,14 +156,14 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
         transaction.commit();
     }
 
-    int info = -1;
+    int index = -1;
 
     private void updatePage(boolean add) {
         if (add) {
-            info++;
-            replaceFragment(fragments.get(info));
+            index++;
+            replaceFragment(fragments.get(index));
         } else {
-            info--;
+            index--;
         }
     }
 
@@ -176,7 +176,7 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
 
 
     /**
-     * info 回退
+     * index 回退
      */
     private void goBack() {
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {

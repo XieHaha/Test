@@ -3,7 +3,6 @@ package com.keydom.ih_patient.activity.medical_mail.controller;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
-import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailOneView;
 import com.keydom.ih_patient.bean.Event;
@@ -21,7 +20,6 @@ public class MedicalMailOneController extends ControllerImpl<MedicalMailOneView>
             case R.id.tv_select_visit:
                 break;
             case R.id.layout_front:
-                ToastUtil.showMessage(getContext(), "ceshi ");
                 break;
             case R.id.layout_back:
                 break;
