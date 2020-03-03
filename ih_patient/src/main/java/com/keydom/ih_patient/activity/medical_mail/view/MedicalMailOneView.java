@@ -1,6 +1,7 @@
 package com.keydom.ih_patient.activity.medical_mail.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.ih_patient.bean.MedicalMailApplyBean;
 
 /**
  * @date 20/3/2 15:55
@@ -36,5 +37,6 @@ public interface MedicalMailOneView extends BaseView {
      */
     void uploadImgFailed(String msg, String type);
 
+    MedicalMailApplyBean getApplyData();
 
 }

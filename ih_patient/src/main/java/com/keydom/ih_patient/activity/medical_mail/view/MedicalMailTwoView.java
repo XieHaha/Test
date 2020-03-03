@@ -7,4 +7,19 @@ import com.keydom.ih_common.base.BaseView;
  * @des 病案邮寄-邮寄申请
  */
 public interface MedicalMailTwoView extends BaseView {
+    String getName();
+
+    String getIdCard();
+
+    String getLeaveTime();
+
+    String getWardNumber();
+
+    String getInHospitalNumber();
+
+    String getCopyPurpose();
+
+    String getCopyQuantity();
+
+    String getCopyContent();
 }

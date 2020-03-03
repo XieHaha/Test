@@ -24,6 +24,7 @@ import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailOneView;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.IdCardBean;
 import com.keydom.ih_patient.bean.ManagerUserBean;
+import com.keydom.ih_patient.bean.MedicalMailApplyBean;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.utils.FileUtil;
 import com.keydom.ih_patient.utils.LocalizationUtils;
@@ -65,6 +66,10 @@ public class MedicalMailOneFragment extends BaseControllerFragment<MedicalMailOn
     @BindView(R.id.tv_next)
     TextView tvNext;
 
+    /**
+     * 输入数据
+     */
+    private MedicalMailApplyBean applyBean;
     /**
      * 所选就诊人信息
      */
@@ -125,6 +130,11 @@ public class MedicalMailOneFragment extends BaseControllerFragment<MedicalMailOn
     @Override
     public String getPhone() {
         return etPhone.getText().toString();
+    }
+
+    @Override
+    public MedicalMailApplyBean getApplyData() {
+        return applyBean;
     }
 
     @Override
@@ -372,8 +382,8 @@ public class MedicalMailOneFragment extends BaseControllerFragment<MedicalMailOn
 
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         EventBus.getDefault().unregister(this);
     }
 }

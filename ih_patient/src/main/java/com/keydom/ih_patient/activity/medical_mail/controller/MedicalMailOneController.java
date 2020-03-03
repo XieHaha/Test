@@ -11,6 +11,7 @@ import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.diagnose_user_manager.ManageUserActivity;
 import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailOneView;
 import com.keydom.ih_patient.bean.Event;
+import com.keydom.ih_patient.bean.MedicalMailApplyBean;
 import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.net.UploadService;
 
@@ -76,7 +77,18 @@ public class MedicalMailOneController extends ControllerImpl<MedicalMailOneView>
         //            ToastUtil.showMessage(getContext(), "患者联系方式不能为空");
         //            return;
         //        }
-        EventBus.getDefault().post(new Event(EventType.MEDICAL_STEP_ONE, ""));
+
+        MedicalMailApplyBean bean = getView().getApplyData();
+        if (bean == null) {
+            bean = new MedicalMailApplyBean();
+        }
+        bean.setFrontUrl(getView().getFrontUrl());
+        bean.setBackUrl(getView().getBackUrl());
+        bean.setHandUrl(getView().getHandUrl());
+        bean.setPatientName(getView().getName());
+        bean.setPatientIdCard(getView().getIdCard());
+        bean.setPatientPhone(getView().getPhone());
+        EventBus.getDefault().post(new Event(EventType.MEDICAL_STEP_ONE, bean));
     }
 
     /**

@@ -45,4 +45,44 @@ public class MedicalMailTwoFragment extends BaseControllerFragment<MedicalMailTw
     public void initData(@Nullable Bundle savedInstanceState) {
         tvNext.setOnClickListener(getController());
     }
+
+    @Override
+    public String getName() {
+        return etName.getText().toString();
+    }
+
+    @Override
+    public String getIdCard() {
+        return etIdCard.getText().toString();
+    }
+
+    @Override
+    public String getLeaveTime() {
+        return etLeaveHospitalTime.getText().toString();
+    }
+
+    @Override
+    public String getWardNumber() {
+        return etWardNumber.getText().toString();
+    }
+
+    @Override
+    public String getInHospitalNumber() {
+        return etHospitalNumber.getText().toString();
+    }
+
+    @Override
+    public String getCopyPurpose() {
+        return tvCopyPurpose.getText().toString();
+    }
+
+    @Override
+    public String getCopyQuantity() {
+        return etCopyQuantity.getText().toString();
+    }
+
+    @Override
+    public String getCopyContent() {
+        return tvCopyContent.getText().toString();
+    }
 }

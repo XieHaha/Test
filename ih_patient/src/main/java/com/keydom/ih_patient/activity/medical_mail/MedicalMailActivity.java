@@ -22,6 +22,7 @@ import com.keydom.ih_patient.activity.medical_mail.fragment.MedicalMailThreeFrag
 import com.keydom.ih_patient.activity.medical_mail.fragment.MedicalMailTwoFragment;
 import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailView;
 import com.keydom.ih_patient.bean.Event;
+import com.keydom.ih_patient.bean.MedicalMailApplyBean;
 import com.keydom.ih_patient.constant.EventType;
 
 import org.greenrobot.eventbus.EventBus;
@@ -76,6 +77,8 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
     @BindView(R.id.layout_frame_root)
     FrameLayout layoutFrameRoot;
 
+    private MedicalMailApplyBean applyBean;
+
     private FragmentManager manager;
     private MedicalMailOneFragment oneFragment;
     private MedicalMailTwoFragment twoFragment;
@@ -125,6 +128,7 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStepOneConfirm(Event event) {
         if (event.getType() == EventType.MEDICAL_STEP_ONE) {
+            applyBean = (MedicalMailApplyBean) event.getData();
             updatePage(true);
         }
     }
