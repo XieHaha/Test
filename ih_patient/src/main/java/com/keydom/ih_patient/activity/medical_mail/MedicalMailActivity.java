@@ -165,6 +165,35 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
         } else {
             index--;
         }
+        step(index);
+    }
+
+    private void step(int step) {
+        switch (step) {
+            case 0:
+                layoutBase.setSelected(true);
+                viewBase.setSelected(false);
+                layoutTwo.setSelected(false);
+                break;
+            case 1:
+                layoutTwo.setSelected(true);
+                viewBase.setSelected(true);
+                layoutThree.setSelected(false);
+                viewTwoRight.setSelected(false);
+                break;
+            case 2:
+                layoutThree.setSelected(true);
+                viewTwoRight.setSelected(true);
+                layoutEnd.setSelected(false);
+                viewThreeRight.setSelected(false);
+                break;
+            case 3:
+                layoutEnd.setSelected(true);
+                viewThreeRight.setSelected(true);
+                break;
+            default:
+                break;
+        }
     }
 
 

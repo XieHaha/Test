@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_75"
     android:background="@color/other_login_color"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    tools:ignore="DisableBaselineAlignment">
 
     <LinearLayout
         android:id="@+id/layout_base"
@@ -32,14 +34,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:src="@drawable/selector_step_iv" />
+                android:src="@drawable/selector_step_iv"
+                tools:ignore="ContentDescription" />
 
             <View
                 android:id="@+id/view_base"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/iv_base"
+                android:layout_toEndOf="@id/iv_base"
                 android:background="@drawable/selector_line" />
         </RelativeLayout>
 
@@ -71,7 +74,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:src="@drawable/selector_step_iv" />
+                android:src="@drawable/selector_step_iv"
+                tools:ignore="ContentDescription" />
 
             <View
                 android:id="@+id/view_two_left"
@@ -118,14 +122,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:src="@drawable/selector_step_iv" />
+                android:src="@drawable/selector_step_iv"
+                tools:ignore="ContentDescription" />
 
             <View
                 android:id="@+id/view_three_left"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/iv_three"
+                android:layout_toStartOf="@id/iv_three"
                 android:background="@drawable/selector_line" />
 
             <View
@@ -133,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/iv_three"
+                android:layout_toEndOf="@id/iv_three"
                 android:background="@drawable/selector_line" />
         </RelativeLayout>
 
@@ -165,14 +170,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:src="@drawable/selector_step_iv" />
+                android:src="@drawable/selector_step_iv"
+                tools:ignore="ContentDescription" />
 
             <View
                 android:id="@+id/view_end"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/iv_end"
+                android:layout_toStartOf="@id/iv_end"
                 android:background="@drawable/selector_line" />
         </RelativeLayout>
 
