@@ -3,9 +3,9 @@ package com.keydom.ih_patient.activity.medical_mail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -29,9 +29,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -80,11 +77,11 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
     private MedicalMailApplyBean applyBean;
 
     private FragmentManager manager;
+    private FragmentTransaction transaction;
     private MedicalMailOneFragment oneFragment;
     private MedicalMailTwoFragment twoFragment;
     private MedicalMailThreeFragment threeFragment;
     private MedicalMailEndFragment endFragment;
-    private List<Fragment> fragments;
 
     /**
      * 启动
@@ -106,92 +103,137 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
         tvTitle.setText(getString(R.string.txt_medical_mail));
 
         manager = getSupportFragmentManager();
-        initFragment();
-
-
+        tabOneView();
         ivBack.setOnClickListener(getController());
-    }
-
-    private void initFragment() {
-        fragments = new ArrayList<>();
-        oneFragment = new MedicalMailOneFragment();
-        twoFragment = new MedicalMailTwoFragment();
-        threeFragment = new MedicalMailThreeFragment();
-        endFragment = new MedicalMailEndFragment();
-        fragments.add(oneFragment);
-        fragments.add(twoFragment);
-        fragments.add(threeFragment);
-        fragments.add(endFragment);
-        updatePage(true);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStepOneConfirm(Event event) {
         if (event.getType() == EventType.MEDICAL_STEP_ONE) {
             applyBean = (MedicalMailApplyBean) event.getData();
-            updatePage(true);
+            tabTwoView();
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStepTwoConfirm(Event event) {
         if (event.getType() == EventType.MEDICAL_STEP_TWO) {
-            updatePage(true);
+            tabThreeView();
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStepThreeConfirm(Event event) {
         if (event.getType() == EventType.MEDICAL_STEP_THREE) {
-            updatePage(true);
+            tabEndView();
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStepEndConfirm(Event event) {
         if (event.getType() == EventType.MEDICAL_STEP_END) {
+            //提交
         }
     }
 
-    protected final void replaceFragment(Fragment fragment) {
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.layout_frame_root, fragment);
-        transaction.addToBackStack(fragment.getClass().getName());
-        transaction.commit();
-    }
-
-    int index = -1;
-
-    private void updatePage(boolean add) {
-        if (add) {
-            index++;
-            replaceFragment(fragments.get(index));
+    private void tabOneView() {
+        transaction = manager.beginTransaction();
+        hideAll(transaction);
+        if (oneFragment == null) {
+            oneFragment = new MedicalMailOneFragment();
+            transaction.add(R.id.layout_frame_root, oneFragment);
         } else {
-            index--;
+            transaction.show(oneFragment);
+            oneFragment.onResume();
         }
-        step(index);
+        transaction.commitAllowingStateLoss();
+        step(0);
+    }
+
+    private void tabTwoView() {
+        transaction = manager.beginTransaction();
+        hideAll(transaction);
+        if (twoFragment == null) {
+            twoFragment = new MedicalMailTwoFragment();
+            transaction.add(R.id.layout_frame_root, twoFragment);
+        } else {
+            transaction.show(twoFragment);
+            twoFragment.onResume();
+        }
+        transaction.commitAllowingStateLoss();
+        step(1);
+    }
+
+    private void tabThreeView() {
+        transaction = manager.beginTransaction();
+        hideAll(transaction);
+        if (threeFragment == null) {
+            threeFragment = new MedicalMailThreeFragment();
+            transaction.add(R.id.layout_frame_root, threeFragment);
+        } else {
+            transaction.show(threeFragment);
+            threeFragment.onResume();
+        }
+        transaction.commitAllowingStateLoss();
+        step(2);
+    }
+
+    private void tabEndView() {
+        transaction = manager.beginTransaction();
+        hideAll(transaction);
+        if (endFragment == null) {
+            endFragment = new MedicalMailEndFragment();
+            transaction.add(R.id.layout_frame_root, endFragment);
+        } else {
+            transaction.show(endFragment);
+            endFragment.onResume();
+        }
+        transaction.commitAllowingStateLoss();
+        step(3);
+    }
+
+    /**
+     * 隐藏所有碎片
+     */
+    private void hideAll(FragmentTransaction transaction) {
+        if (oneFragment != null) {
+            transaction.hide(oneFragment);
+        }
+        if (twoFragment != null) {
+            transaction.hide(twoFragment);
+        }
+        if (threeFragment != null) {
+            transaction.hide(threeFragment);
+        }
+        if (endFragment != null) {
+            transaction.hide(endFragment);
+        }
     }
 
     private void step(int step) {
         switch (step) {
             case 0:
+                curPage = 0;
                 layoutBase.setSelected(true);
                 viewBase.setSelected(false);
                 layoutTwo.setSelected(false);
                 break;
             case 1:
+                curPage = 1;
                 layoutTwo.setSelected(true);
                 viewBase.setSelected(true);
                 layoutThree.setSelected(false);
                 viewTwoRight.setSelected(false);
                 break;
             case 2:
+                curPage = 2;
                 layoutThree.setSelected(true);
                 viewTwoRight.setSelected(true);
                 layoutEnd.setSelected(false);
                 viewThreeRight.setSelected(false);
                 break;
             case 3:
+                curPage = 3;
                 layoutEnd.setSelected(true);
                 viewThreeRight.setSelected(true);
                 break;
@@ -201,28 +243,36 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
     }
 
 
-    @Override
-    public boolean finishPage() {
-        goBack();
-        return false;
-    }
-
+    int curPage;
 
     /**
-     * index 回退
+     * 页面逻辑处理
      */
-    private void goBack() {
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
-            finish();
-        } else {
-            updatePage(false);
-            super.onBackPressed();
+    private boolean finishPage() {
+        if (curPage == 3) {
+            curPage = 2;
+            tabThreeView();
+            return false;
+        } else if (curPage == 2) {
+            curPage = 1;
+            tabTwoView();
+            return false;
+        } else if (curPage == 1) {
+            curPage = 0;
+            tabOneView();
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void onBackPressed() {
-        goBack();
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (!finishPage()) {
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 

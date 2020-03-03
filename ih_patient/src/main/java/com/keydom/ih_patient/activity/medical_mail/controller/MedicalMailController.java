@@ -15,7 +15,6 @@ public class MedicalMailController extends ControllerImpl<MedicalMailView> imple
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_back:
-                getView().finishPage();
                 break;
         }
     }
