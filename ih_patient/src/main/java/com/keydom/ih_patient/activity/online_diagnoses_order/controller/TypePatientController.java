@@ -12,7 +12,6 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.diagnose_user_manager.AddManageUserActivity;
-import com.keydom.ih_patient.activity.diagnose_user_manager.ManageUserActivity;
 import com.keydom.ih_patient.activity.online_diagnoses_order.view.TypePatientView;
 import com.keydom.ih_patient.bean.ManagerUserBean;
 import com.keydom.ih_patient.constant.Global;

@@ -7,4 +7,34 @@ import com.keydom.ih_common.base.BaseView;
  * @des 病案邮寄-身份认证
  */
 public interface MedicalMailOneView extends BaseView {
+
+    String getFrontUrl();
+
+    String getBackUrl();
+
+    String getHandUrl();
+
+    String getName();
+
+    String getIdCard();
+
+    String getPhone();
+
+    void goToIdCardFrontDiscriminate();
+
+    void goToIdCardBackDiscriminate();
+
+    void goToIdCardHandDiscriminate();
+
+    /**
+     * 上传图片成功
+     */
+    void uploadImgSuccess(String data, String type);
+
+    /**
+     * 上传失败
+     */
+    void uploadImgFailed(String msg, String type);
+
+
 }
