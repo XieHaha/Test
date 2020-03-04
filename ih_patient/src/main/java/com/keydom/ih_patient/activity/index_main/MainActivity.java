@@ -84,17 +84,17 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
     private boolean isExitApp = false;
     private MainController mainController;
     private MainView mainView;
-    private int index = 0;
     private final int REQUEST_CODE = 100;
     private LocationClient locationClient;
-    private boolean isNeedJump=false;
+    private boolean isNeedJump = false;
 
     /**
      * 启动页面
      */
-    public static void start(Context context,boolean isNeedJump) {
-        Intent starter = new Intent(context, MainActivity.class);//.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
-        starter.putExtra("isNeedJump",isNeedJump);
+    public static void start(Context context, boolean isNeedJump) {
+        Intent starter = new Intent(context, MainActivity.class);//.setFlags(Intent
+        // .FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
+        starter.putExtra("isNeedJump", isNeedJump);
         starter.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(starter);
     }
@@ -106,7 +106,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
             return;
         }
         getController().showLoading();
-        mainView = (MainView) this.findViewById(R.id.main_view);
+        mainView = this.findViewById(R.id.main_view);
         mainView.initModule();
 
         this.findViewById(R.id.tab_member).setOnClickListener(getController());
@@ -117,11 +117,9 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
         /*InterceptorReceiver interceptorReceiver=new InterceptorReceiver();
         IntentFilter intentFilter1=new IntentFilter("common.action.interceptor");
         registerReceiver(interceptorReceiver, intentFilter1);*/
-        isNeedJump=getIntent().getBooleanExtra("isNeedJump",false);
+        isNeedJump = getIntent().getBooleanExtra("isNeedJump", false);
         initLoginStatus();
         EventBus.getDefault().register(this);
-
-
     }
 
     @Override
@@ -160,11 +158,13 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
             });
 
         } else if (event.getType() == EventType.SHOW_NURSE_SERVICE_PAGE) {
-/*            this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+/*            this.getWindow().getDecorView().setSystemUiVisibility(View
+.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             StatusBarUtils.setWindowStatusBarColor(this, R.color.primary_color);
             mainView.setCurrentItem(2, false);*/
         } else if (event.getType() == EventType.SHOW_ONLINE_DIAGNOSE_PAGE) {
-/*            this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+/*            this.getWindow().getDecorView().setSystemUiVisibility(View
+.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             StatusBarUtils.setWindowStatusBarColor(this, R.color.primary_color);
             mainView.setCurrentItem(1, false);*/
 
@@ -183,9 +183,6 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
             ImClient.loginIM(userInfo.getId() + "", userInfo.getImToken(), new OnLoginListener() {
                 @Override
                 public void success(String msg) {
-
-
-
                     ImClient.getUserInfoProvider().setAccount(userInfo.getId() + "");
                     NimUserInfoCache.getInstance().buildCache();
                     TeamDataCache.getInstance().buildCache();
@@ -194,10 +191,10 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                     Global.setUserId(userInfo.getId());
                     Global.setMember(userInfo.getMember());
                     App.userInfo = userInfo;
-                    PushManager.setAlias(getContext(), userInfo.getId()+"");
-                    App.isNeedInit=false;
-                    if(isNeedJump)
-                        MyMessageActivity.start(getContext(),Type.MYMESSAGE,null);
+                    PushManager.setAlias(getContext(), userInfo.getId() + "");
+                    App.isNeedInit = false;
+                    if (isNeedJump)
+                        MyMessageActivity.start(getContext(), Type.MYMESSAGE, null);
                 }
 
                 @Override
@@ -209,7 +206,8 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                 }
             });
             String filename = "user_index_" + Global.getUserId();
-            UserIndexSave userIndexSave = (UserIndexSave) LocalizationUtils.readFileFromLocal(getContext(), filename);
+            UserIndexSave userIndexSave =
+                    (UserIndexSave) LocalizationUtils.readFileFromLocal(getContext(), filename);
         } else {
             Logger.e("没有取到数据");
             Global.setUserId(-1);
@@ -225,7 +223,9 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
     @SuppressLint("CheckResult")
     private void initLocation() {
         RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        rxPermissions.request(Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean granted) throws Exception {
@@ -271,14 +271,12 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
         }
     }
 
-
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
 
     }
-
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -295,7 +293,6 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
     /**
      * 退出app
@@ -330,14 +327,14 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                 }
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
-//                    ToastUtil.showMessage(getContext(),result);
+                    //                    ToastUtil.showMessage(getContext(),result);
                     Logger.e(result);
-                    if(result.startsWith("?")){
-                        String temp = result.replace("?","");
+                    if (result.startsWith("?")) {
+                        String temp = result.replace("?", "");
                         String[] keyValue = temp.split("&");
                         String[] values = keyValue[0].split("=");
                         DoctorOrNurseDetailActivity.startDoctorPage(getContext(), 0, values[1]);
-                    }else{
+                    } else {
                         try {
                             JSONObject jsonObject = new JSONObject(result);
                             JSONArray array = jsonObject.getJSONArray("typeAndNames");
@@ -348,10 +345,12 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                             else
                                 type = 1;
                             String code = jsonObject.getString("userCode");
-                            DoctorOrNurseDetailActivity.startDoctorPage(MainActivity.this, type, code);
+                            DoctorOrNurseDetailActivity.startDoctorPage(MainActivity.this, type,
+                                    code);
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(MainActivity.this, "解析数据失败,请确认你扫描的是医生的名片二维码", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "解析数据失败,请确认你扫描的是医生的名片二维码",
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -412,7 +411,8 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
      * 解析通知消息
      */
     private void parseNotifyIntent(Intent intent) {
-        ArrayList<IMMessage> messages = (ArrayList<IMMessage>) intent.getSerializableExtra(NimIntent.EXTRA_NOTIFY_CONTENT);
+        ArrayList<IMMessage> messages =
+                (ArrayList<IMMessage>) intent.getSerializableExtra(NimIntent.EXTRA_NOTIFY_CONTENT);
         if (messages != null && messages.size() <= 1) {
             switch (messages.get(0).getSessionType()) {
                 case P2P:
@@ -457,7 +457,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                 Global.setMember(0);
             }
             ImClient.loginOut();
-            EventBus.getDefault().post(new Event(EventType.UPDATELOGINSTATE,null));
+            EventBus.getDefault().post(new Event(EventType.UPDATELOGINSTATE, null));
             AlertDialog.Builder builder = new AlertDialog.Builder(ActivityUtils.getTopActivity());
             builder.setTitle("重新登陆");
             builder.setMessage("该账号在其他设备登陆，是否重新登陆！");
@@ -465,7 +465,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
             builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                   start(getContext(),false);
+                    start(getContext(), false);
                 }
             });
             builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
@@ -480,7 +480,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MainLoadingEvent mainLoadingEvent) {
-         getController().hideLoading();
+        getController().hideLoading();
     }
 
 }

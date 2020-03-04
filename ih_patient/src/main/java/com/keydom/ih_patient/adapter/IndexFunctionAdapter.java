@@ -16,6 +16,7 @@ import com.keydom.ih_patient.activity.child_health.ChildHealthActivity;
 import com.keydom.ih_patient.activity.diagnose_main.DiagnoseMainActivity;
 import com.keydom.ih_patient.activity.function_config.FunctionConfigActivity;
 import com.keydom.ih_patient.activity.get_drug.GetDrugActivity;
+import com.keydom.ih_patient.activity.health_manager.HealthManagerActivity;
 import com.keydom.ih_patient.activity.inspection_report.InspectionReportActivity;
 import com.keydom.ih_patient.activity.logistic.QueryLogisticActivity;
 import com.keydom.ih_patient.activity.medical_mail.MedicalMailActivity;
@@ -56,6 +57,8 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     public final String DoctorRegister = "101";
     //诊间缴费
     public final String PaymentRecord = "102";
+    //健康管理
+    public final String HealthManager = "103";
     //病案邮寄
     public final String MedicalMail = "104";
     //办卡绑卡
@@ -156,6 +159,9 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             break;
                         case PaymentRecord:
                             PaymentRecordActivity.start(context);
+                            break;
+                        case HealthManager:
+                            HealthManagerActivity.start(context);
                             break;
                         case MedicalMail:
                             MedicalMailActivity.start(context);

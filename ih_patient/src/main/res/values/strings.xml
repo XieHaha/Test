@@ -282,6 +282,16 @@
     <string name="txt_class_time">上课时间：</string>
     <string name="txt_suit_pregnancy">适合孕周：</string>
 
+    <!--健康管理-->
+    <string name="txt_health_management">健康管理</string>
+    <string name="txt_my_health_management">我的健康管理档案</string>
+    <string name="txt_my_health_manager">我的健康管理师</string>
+    <string name="txt_abnormal_sign_data">异常体征数据</string>
+    <string name="txt_blood_oxygen">血氧</string>
+    <string name="txt_blood_glucose">血糖</string>
+    <string name="txt_blood_pressure">血压</string>
+    <string name="txt_heart_rate">心率</string>
+
 
     <!--vip-->
     <string name="vip_desc">• 如需详细了解服务内容，请到医院仁医中心，有专人接待\n• 仁医中心服务电话：0816-2333592\n• 服务期间，不得单方面解除签约并提前申请退费\n• 办理退费时，请本人带上仁医金卡和发票到仁医中心办理</string>
