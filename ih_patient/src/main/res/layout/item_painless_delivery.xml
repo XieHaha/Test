@@ -16,6 +16,7 @@
         android:paddingEnd="@dimen/dp_20">
 
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -24,6 +25,7 @@
             tools:text="名字" />
 
         <TextView
+            android:id="@+id/tv_cancel"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_24"
             android:background="@drawable/corner3_stroke_3f98f7"
@@ -32,9 +34,9 @@
             android:gravity="center"
             android:paddingStart="@dimen/dp_12"
             android:paddingEnd="@dimen/dp_12"
+            android:text="@string/txt_cancel"
             android:textColor="@color/other_login_color"
-            android:textSize="@dimen/sp_12"
-            tools:text="状态" />
+            android:textSize="@dimen/sp_12" />
     </LinearLayout>
 
     <View
@@ -57,6 +59,7 @@
             android:textSize="@dimen/sp_14" />
 
         <TextView
+            android:id="@+id/tv_due_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_112"
@@ -81,6 +84,7 @@
             android:textSize="@dimen/sp_14" />
 
         <TextView
+            android:id="@+id/tv_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_112"
@@ -105,6 +109,7 @@
             android:textSize="@dimen/sp_14" />
 
         <TextView
+            android:id="@+id/tv_fetus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_112"
@@ -130,6 +135,7 @@
             android:textSize="@dimen/sp_14" />
 
         <TextView
+            android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_112"

@@ -5,17 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
-import com.keydom.ih_common.base.BaseActivity;
+import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_patient.R;
+import com.keydom.ih_patient.activity.reserve_painless_delivery.controller.PainlessDeliveryListController;
+import com.keydom.ih_patient.activity.reserve_painless_delivery.view.PainlessDeliveryListView;
 import com.keydom.ih_patient.adapter.PainlessDeliveryAdapter;
-import com.keydom.ih_patient.bean.PainlessDeliveryInfo;
+import com.keydom.ih_patient.bean.PainlessDeliveryBean;
+import com.keydom.ih_patient.constant.TypeEnum;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -23,7 +25,7 @@ import butterknife.BindView;
  * @date 20/2/25 13:52
  * @des 无痛分娩预约列表
  */
-public class PainlessDeliveryListActivity extends BaseActivity implements OnRefreshListener {
+public class PainlessDeliveryListActivity extends BaseControllerActivity<PainlessDeliveryListController> implements PainlessDeliveryListView {
     @BindView(R.id.smart_refresh)
     SmartRefreshLayout smartRefreshLayout;
     @BindView(R.id.recycler_view)
@@ -31,11 +33,18 @@ public class PainlessDeliveryListActivity extends BaseActivity implements OnRefr
 
     private PainlessDeliveryAdapter adapter;
 
-    private ArrayList<PainlessDeliveryInfo> data;
+    private ArrayList<PainlessDeliveryBean> data;
 
     @Override
     public int getLayoutRes() {
         return R.layout.activity_painless_delivery_list;
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        smartRefreshLayout.autoRefresh();
     }
 
     /**
@@ -48,19 +57,30 @@ public class PainlessDeliveryListActivity extends BaseActivity implements OnRefr
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle(getString(R.string.txt_painless_delivery_reserve));
-        smartRefreshLayout.setOnRefreshListener(this);
-        //假数据
-        PainlessDeliveryInfo info = new PainlessDeliveryInfo();
-        data = new ArrayList<>();
-        data.add(info);
-        data.add(info);
-        data.add(info);
         adapter = new PainlessDeliveryAdapter(R.layout.item_painless_delivery, data);
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapter);
+
+        smartRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getPainlessDeliveryList(TypeEnum.REFRESH));
+
     }
 
     @Override
-    public void onRefresh(RefreshLayout refreshLayout) {
-        refreshLayout.finishRefresh();
+    public void requestSuccess(List<PainlessDeliveryBean> list, TypeEnum typeEnum) {
+        smartRefreshLayout.finishLoadMore();
+        smartRefreshLayout.finishRefresh();
+        if (typeEnum == TypeEnum.REFRESH) {
+            adapter.replaceData(list);
+        } else {
+            adapter.addData(list);
+        }
+        getController().currentPagePlus();
+
+    }
+
+    @Override
+    public void requestFailed() {
+        smartRefreshLayout.finishLoadMore();
+        smartRefreshLayout.finishRefresh();
     }
 }

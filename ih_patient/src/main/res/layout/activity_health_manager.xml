@@ -167,6 +167,7 @@
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@mipmap/icon_recv_city"
                                 android:drawablePadding="@dimen/dp_7"
+                                android:gravity="bottom"
                                 android:text="@string/txt_blood_oxygen"
                                 android:textColor="@color/edit_hint_color"
                                 android:textSize="@dimen/sp_14" />
@@ -197,6 +198,7 @@
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@mipmap/icon_recv_city"
                                 android:drawablePadding="@dimen/dp_7"
+                                android:gravity="bottom"
                                 android:text="@string/txt_blood_glucose"
                                 android:textColor="@color/edit_hint_color"
                                 android:textSize="@dimen/sp_14" />
@@ -247,6 +249,7 @@
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@mipmap/icon_recv_city"
                                 android:drawablePadding="@dimen/dp_7"
+                                android:gravity="bottom"
                                 android:text="@string/txt_blood_pressure"
                                 android:textColor="@color/edit_hint_color"
                                 android:textSize="@dimen/sp_14" />
@@ -270,10 +273,10 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:text="mmhg"
                                     android:textColor="@color/primary_font_color"
                                     android:textSize="@dimen/sp_14"
-                                    android:textStyle="bold"
-                                    tools:text="mmhg" />
+                                    android:textStyle="bold" />
 
                             </LinearLayout>
 
@@ -291,6 +294,7 @@
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@mipmap/icon_recv_city"
                                 android:drawablePadding="@dimen/dp_7"
+                                android:gravity="bottom"
                                 android:text="@string/txt_heart_rate"
                                 android:textColor="@color/edit_hint_color"
                                 android:textSize="@dimen/sp_14" />

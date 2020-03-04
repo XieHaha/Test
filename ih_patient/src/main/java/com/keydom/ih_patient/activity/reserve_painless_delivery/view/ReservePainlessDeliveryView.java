@@ -1,6 +1,9 @@
 package com.keydom.ih_patient.activity.reserve_painless_delivery.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.ih_patient.bean.ManagerUserBean;
+
+import java.util.Date;
 
 /**
  * @auth 顿顿
@@ -9,38 +12,49 @@ import com.keydom.ih_common.base.BaseView;
  */
 public interface ReservePainlessDeliveryView extends BaseView {
 
+    void setSelect();
+
+    boolean isSelect();
+
+    void setMenstruation(Date menstruation);
+
+    void setDueDate(Date dueDate);
+
     /**
      * 预约成功
      */
     void reserveSuccess();
 
+    void reserveFailed();
+
     /**
      * 获取就诊人
      */
-    void getVisitUser();
+    ManagerUserBean getVisitUser();
 
     /**
      * 获取年龄
      */
-    void getAge();
+    String getAge();
 
     /**
      * 末次月经
      */
-    void getLastDate();
+    String getLastDate();
 
     /**
      * 预产期
      */
-    void getDueDate();
+    String getDueDate();
 
     /**
      * 胎数
      */
-    void getFutes();
+    String getFetus();
 
     /**
      * 电话
      */
-    void getPhone();
+    String getPhone();
+
 }

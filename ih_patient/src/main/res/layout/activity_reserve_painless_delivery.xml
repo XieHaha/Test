@@ -45,8 +45,9 @@
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_weight="1"
                 android:gravity="end|center_vertical"
-                android:text="@string/txt_visit_name_hint"
-                android:textColor="@color/edit_hint_color"
+                android:hint="@string/txt_visit_name_hint"
+                android:textColor="@color/primary_font_color"
+                android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
 
             <ImageView
@@ -186,7 +187,8 @@
                 android:layout_weight="1"
                 android:gravity="end"
                 android:hint="@string/txt_fetus_hint"
-                android:textColor="@color/title_bar_text_color"
+                android:textColor="@color/primary_font_color"
+                android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
 
             <ImageView
@@ -245,6 +247,7 @@
             android:gravity="center">
 
             <RelativeLayout
+                android:id="@+id/layout_select"
                 android:layout_width="@dimen/dp_24"
                 android:layout_height="@dimen/dp_24">
 
@@ -260,7 +263,7 @@
                     android:layout_height="@dimen/dp_24"
                     android:layout_centerInParent="true"
                     android:src="@mipmap/hospital_item_select"
-                    android:visibility="visible" />
+                    android:visibility="invisible" />
             </RelativeLayout>
 
             <TextView

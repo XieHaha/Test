@@ -41,6 +41,7 @@
     <string name="mine_click_hint">就诊时请点击</string>
     <string name="mine_change">切换</string>
     <string name="txt_next">下一步</string>
+    <string name="txt_cancel">取消</string>
 
 
     <string name="mine_function_type_diagnosis">诊疗信息</string>
