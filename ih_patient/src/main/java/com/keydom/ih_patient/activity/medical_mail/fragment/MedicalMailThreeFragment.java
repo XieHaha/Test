@@ -8,8 +8,17 @@ import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.medical_mail.controller.MedicalMailThreeController;
 import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailThreeView;
+import com.keydom.ih_patient.bean.Event;
+import com.keydom.ih_patient.bean.LocationInfo;
+import com.keydom.ih_patient.bean.MedicalMailApplyBean;
+import com.keydom.ih_patient.bean.PackageData;
+import com.keydom.ih_patient.constant.EventType;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -30,6 +39,10 @@ public class MedicalMailThreeFragment extends BaseControllerFragment<MedicalMail
     @BindView(R.id.tv_next)
     TextView tvNext;
 
+    private MedicalMailApplyBean applyBean;
+
+    private String provinceName, cityName, areaName;
+
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_medical_mail_three;
@@ -38,7 +51,82 @@ public class MedicalMailThreeFragment extends BaseControllerFragment<MedicalMail
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        tvCity.setOnClickListener(getController());
+        tvSelectAddress.setOnClickListener(getController());
         tvNext.setOnClickListener(getController());
     }
 
+    public void setApplyBean(MedicalMailApplyBean applyBean) {
+        this.applyBean = applyBean;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSelectAddress(Event event) {
+        if (event.getType() == EventType.SENDLOCATION) {
+            LocationInfo info = (LocationInfo) event.getData();
+            bindData(info);
+        }
+    }
+
+    private void bindData(LocationInfo info) {
+
+    }
+
+    @Override
+    public void saveRegion(List<PackageData.ProvinceBean> data, int options1, int option2,
+                           int options3) {
+        if (data.get(options1).getCity().size() == 0) {
+            provinceName = data.get(options1).getName();
+            cityName = "";
+            areaName = "";
+        } else if (data.get(options1).getCity().get(option2).getArea().size() == 0) {
+            provinceName = data.get(options1).getName();
+            cityName = data.get(options1).getCity().get(option2).getName();
+            areaName = "";
+        } else {
+            provinceName = data.get(options1).getName();
+            cityName = data.get(options1).getCity().get(option2).getName();
+            areaName = data.get(options1).getCity().get(option2).getArea().get(options3).getName();
+        }
+    }
+
+    @Override
+    public String getProvinceName() {
+        return provinceName;
+    }
+
+    @Override
+    public String getCityName() {
+        return cityName;
+    }
+
+    @Override
+    public String getAreaName() {
+        return areaName;
+    }
+
+    @Override
+    public String getRecvName() {
+        return etName.getText().toString();
+    }
+
+    @Override
+    public String getRecvPhone() {
+        return etPhone.getText().toString();
+    }
+
+    @Override
+    public String getRecvCity() {
+        return tvCity.getText().toString();
+    }
+
+    @Override
+    public String getRecvCityDetail() {
+        return etAddressDetail.getText().toString();
+    }
+
+    @Override
+    public MedicalMailApplyBean getApplyData() {
+        return applyBean;
+    }
 }

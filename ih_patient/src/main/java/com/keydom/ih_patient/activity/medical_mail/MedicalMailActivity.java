@@ -23,7 +23,6 @@ import com.keydom.ih_patient.activity.medical_mail.fragment.MedicalMailTwoFragme
 import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailView;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.MedicalMailApplyBean;
-import com.keydom.ih_patient.constant.EventType;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -108,31 +107,20 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onStepOneConfirm(Event event) {
-        if (event.getType() == EventType.MEDICAL_STEP_ONE) {
-            applyBean = (MedicalMailApplyBean) event.getData();
-            tabTwoView();
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onStepTwoConfirm(Event event) {
-        if (event.getType() == EventType.MEDICAL_STEP_TWO) {
-            tabThreeView();
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onStepThreeConfirm(Event event) {
-        if (event.getType() == EventType.MEDICAL_STEP_THREE) {
-            tabEndView();
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onStepEndConfirm(Event event) {
-        if (event.getType() == EventType.MEDICAL_STEP_END) {
-            //提交
+    public void onStepConfirm(Event event) {
+        applyBean = (MedicalMailApplyBean) event.getData();
+        switch (event.getType()) {
+            case MEDICAL_STEP_ONE:
+                tabTwoView();
+                break;
+            case MEDICAL_STEP_TWO:
+                tabThreeView();
+                break;
+            case MEDICAL_STEP_THREE:
+                tabEndView();
+                break;
+            case MEDICAL_STEP_END:
+                break;
         }
     }
 
@@ -155,9 +143,11 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
         hideAll(transaction);
         if (twoFragment == null) {
             twoFragment = new MedicalMailTwoFragment();
+            twoFragment.setApplyBean(applyBean);
             transaction.add(R.id.layout_frame_root, twoFragment);
         } else {
             transaction.show(twoFragment);
+            twoFragment.setApplyBean(applyBean);
             twoFragment.onResume();
         }
         transaction.commitAllowingStateLoss();
@@ -169,10 +159,11 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
         hideAll(transaction);
         if (threeFragment == null) {
             threeFragment = new MedicalMailThreeFragment();
+            threeFragment.setApplyBean(applyBean);
             transaction.add(R.id.layout_frame_root, threeFragment);
         } else {
             transaction.show(threeFragment);
-            threeFragment.onResume();
+            threeFragment.setApplyBean(applyBean);
         }
         transaction.commitAllowingStateLoss();
         step(2);
@@ -183,9 +174,11 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
         hideAll(transaction);
         if (endFragment == null) {
             endFragment = new MedicalMailEndFragment();
+            endFragment.setApplyBean(applyBean);
             transaction.add(R.id.layout_frame_root, endFragment);
         } else {
             transaction.show(endFragment);
+            endFragment.setApplyBean(applyBean);
             endFragment.onResume();
         }
         transaction.commitAllowingStateLoss();

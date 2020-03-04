@@ -8,6 +8,7 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailTwoView;
 import com.keydom.ih_patient.bean.Event;
+import com.keydom.ih_patient.bean.MedicalMailApplyBean;
 import com.keydom.ih_patient.constant.EventType;
 
 import org.greenrobot.eventbus.EventBus;
@@ -32,6 +33,8 @@ public class MedicalMailTwoController extends ControllerImpl<MedicalMailTwoView>
             ToastUtil.showMessage(getContext(), "患者姓名不能为空");
             return;
         }
-        EventBus.getDefault().post(new Event(EventType.MEDICAL_STEP_TWO, ""));
+        MedicalMailApplyBean bean = getView().getApplyData();
+        bean.setPatientName(getView().getName());
+        EventBus.getDefault().post(new Event(EventType.MEDICAL_STEP_TWO, bean));
     }
 }

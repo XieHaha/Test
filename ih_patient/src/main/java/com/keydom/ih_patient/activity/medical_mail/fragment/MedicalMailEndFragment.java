@@ -7,6 +7,7 @@ import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.medical_mail.controller.MedicalMailEndController;
 import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailEndView;
+import com.keydom.ih_patient.bean.MedicalMailApplyBean;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -16,7 +17,6 @@ import butterknife.BindView;
  * 病案邮寄-订单确认
  */
 public class MedicalMailEndFragment extends BaseControllerFragment<MedicalMailEndController> implements MedicalMailEndView {
-
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_phone)
@@ -40,6 +40,8 @@ public class MedicalMailEndFragment extends BaseControllerFragment<MedicalMailEn
     @BindView(R.id.tv_pay)
     TextView tvPay;
 
+    private MedicalMailApplyBean applyBean;
+
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_medical_mail_end;
@@ -49,5 +51,9 @@ public class MedicalMailEndFragment extends BaseControllerFragment<MedicalMailEn
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         tvPay.setOnClickListener(getController());
+    }
+
+    public void setApplyBean(MedicalMailApplyBean applyBean) {
+        this.applyBean = applyBean;
     }
 }

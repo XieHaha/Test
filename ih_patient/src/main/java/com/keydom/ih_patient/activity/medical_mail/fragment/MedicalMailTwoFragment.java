@@ -8,6 +8,7 @@ import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.medical_mail.controller.MedicalMailTwoController;
 import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailTwoView;
+import com.keydom.ih_patient.bean.MedicalMailApplyBean;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -36,6 +37,8 @@ public class MedicalMailTwoFragment extends BaseControllerFragment<MedicalMailTw
     @BindView(R.id.tv_next)
     TextView tvNext;
 
+    private MedicalMailApplyBean applyBean;
+
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_medical_mail_two;
@@ -44,6 +47,24 @@ public class MedicalMailTwoFragment extends BaseControllerFragment<MedicalMailTw
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         tvNext.setOnClickListener(getController());
+        bindData();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            bindData();
+        }
+    }
+
+    private void bindData() {
+        etName.setText(applyBean.getPatientName());
+        etIdCard.setText(applyBean.getPatientIdCard());
+    }
+
+    public void setApplyBean(MedicalMailApplyBean applyBean) {
+        this.applyBean = applyBean;
     }
 
     @Override
@@ -84,5 +105,10 @@ public class MedicalMailTwoFragment extends BaseControllerFragment<MedicalMailTw
     @Override
     public String getCopyContent() {
         return tvCopyContent.getText().toString();
+    }
+
+    @Override
+    public MedicalMailApplyBean getApplyData() {
+        return applyBean;
     }
 }
