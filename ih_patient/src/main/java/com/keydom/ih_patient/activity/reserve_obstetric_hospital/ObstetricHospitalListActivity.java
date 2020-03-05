@@ -1,4 +1,4 @@
-package com.keydom.ih_patient.activity.obstetric_hospital;
+package com.keydom.ih_patient.activity.reserve_obstetric_hospital;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,9 @@ import android.support.v4.view.ViewPager;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.obstetric_hospital.controller.ObstetricHospitalController;
-import com.keydom.ih_patient.activity.obstetric_hospital.fragment.ObstetricHospitalFragment;
-import com.keydom.ih_patient.activity.obstetric_hospital.view.ObstetricHospitalView;
+import com.keydom.ih_patient.activity.reserve_obstetric_hospital.controller.ObstetricHospitalController;
+import com.keydom.ih_patient.activity.reserve_obstetric_hospital.fragment.ObstetricHospitalFragment;
+import com.keydom.ih_patient.activity.reserve_obstetric_hospital.view.ObstetricHospitalView;
 import com.keydom.ih_patient.adapter.ViewPagerAdapter;
 import com.keydom.ih_patient.constant.Type;
 

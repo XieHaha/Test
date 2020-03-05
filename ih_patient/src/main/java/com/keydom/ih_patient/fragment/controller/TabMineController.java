@@ -26,7 +26,7 @@ import com.keydom.ih_patient.activity.my_doctor_or_nurse.MyDoctorOrNurseActivity
 import com.keydom.ih_patient.activity.my_medical_card.MyMedicalCardActivity;
 import com.keydom.ih_patient.activity.my_message.MyMessageActivity;
 import com.keydom.ih_patient.activity.nursing_order.NursingOrderActivity;
-import com.keydom.ih_patient.activity.obstetric_hospital.ObstetricHospitalListActivity;
+import com.keydom.ih_patient.activity.reserve_obstetric_hospital.ObstetricHospitalListActivity;
 import com.keydom.ih_patient.activity.online_diagnoses_order.OnlineDiagnonsesOrderActivity;
 import com.keydom.ih_patient.activity.order_doctor_register.RegistrationRecordActivity;
 import com.keydom.ih_patient.activity.payment_records.PaymentRecordActivity;

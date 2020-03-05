@@ -21,7 +21,7 @@ import com.keydom.ih_patient.activity.inspection_report.InspectionReportActivity
 import com.keydom.ih_patient.activity.logistic.QueryLogisticActivity;
 import com.keydom.ih_patient.activity.medical_mail.MedicalMailActivity;
 import com.keydom.ih_patient.activity.nurse_main.NurseMainActivity;
-import com.keydom.ih_patient.activity.obstetric_hospital.ReserveObstetricHospitalActivity;
+import com.keydom.ih_patient.activity.reserve_obstetric_hospital.ReserveObstetricHospitalActivity;
 import com.keydom.ih_patient.activity.order_doctor_register.OrderDoctorRegisterActivity;
 import com.keydom.ih_patient.activity.order_examination.OrderExaminationActivity;
 import com.keydom.ih_patient.activity.order_hospital_cure.OrderHospitalCureListActivity;

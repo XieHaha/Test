@@ -1,4 +1,4 @@
-package com.keydom.ih_patient.activity.obstetric_hospital.view;
+package com.keydom.ih_patient.activity.reserve_obstetric_hospital.view;
 
 import com.keydom.ih_common.base.BaseView;
 

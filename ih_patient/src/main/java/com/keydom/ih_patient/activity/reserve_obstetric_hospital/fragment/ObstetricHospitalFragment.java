@@ -1,4 +1,4 @@
-package com.keydom.ih_patient.activity.obstetric_hospital.fragment;
+package com.keydom.ih_patient.activity.reserve_obstetric_hospital.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.obstetric_hospital.controller.ObstetricController;
-import com.keydom.ih_patient.activity.obstetric_hospital.view.ObstetricView;
+import com.keydom.ih_patient.activity.reserve_obstetric_hospital.controller.ObstetricController;
+import com.keydom.ih_patient.activity.reserve_obstetric_hospital.view.ObstetricView;
 import com.keydom.ih_patient.adapter.ObstetricRecordAdapter;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.constant.EventType;

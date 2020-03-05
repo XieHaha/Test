@@ -1,4 +1,4 @@
-package com.keydom.ih_patient.activity.obstetric_hospital;
+package com.keydom.ih_patient.activity.reserve_obstetric_hospital;
 
 import android.content.Context;
 import android.content.Intent;
