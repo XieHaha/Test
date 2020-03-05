@@ -278,7 +278,7 @@ public class DoctorOrNurseDetailActivity extends BaseControllerActivity<DoctorOr
                             public void onCommit() {
                                 LoginActivity.start(getContext());
                             }
-                        }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
+                        }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
                     }
 
                     break;

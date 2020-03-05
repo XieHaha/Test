@@ -65,7 +65,7 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
                         public void onCommit() {
                             LoginActivity.start(getContext());
                         }
-                    }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
+                    }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
                 } else{
                     if (App.userInfo.getIdCard() != null && !"".equals(App.userInfo.getIdCard()))
                         isCanDiagnose(1,getView().getCode());
@@ -83,7 +83,7 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
                         public void onCommit() {
                             LoginActivity.start(getContext());
                         }
-                    }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
+                    }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
                 } else{
                     if (App.userInfo.getIdCard() != null && !"".equals(App.userInfo.getIdCard()))
                         isCanDiagnose(0,getView().getCode());
@@ -100,7 +100,7 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
                         public void onCommit() {
                             LoginActivity.start(getContext());
                         }
-                    }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
+                    }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
                 } else {
                     DoctorMainBean doctorMainBean = getView().getDoctorMainBean();
                     if (doctorMainBean.getInfo() != null) {

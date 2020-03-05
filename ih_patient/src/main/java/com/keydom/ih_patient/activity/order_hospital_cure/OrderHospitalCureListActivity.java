@@ -67,7 +67,7 @@ public class OrderHospitalCureListActivity extends BaseControllerActivity<OrderH
                 public void onCancel() {
                     finish();
                 }
-            }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
+            }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
         }
     }
 

@@ -81,7 +81,7 @@ public class NursingProjectDetailActivity extends BaseControllerActivity<Nursing
                         public void onCommit() {
                             LoginActivity.start(getContext());
                         }
-                    }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
+                    }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
                 } else{
                     if(App.userInfo.getIdCard()!=null&&!"".equals(App.userInfo.getIdCard()))
                         NursingChooseHospitalActivity.start(getContext(),nursingProjectInfo);

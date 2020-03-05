@@ -40,7 +40,7 @@ public class MineFunctionItemView extends RelativeLayout {
     /**
      * 设置图片
      */
-    private void setIconImg(int ResourceId){
+    public void setIconImg(int ResourceId){
         iconImg.setImageResource(ResourceId);
     }
 

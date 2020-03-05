@@ -32,6 +32,9 @@ public class PainlessDeliveryListController extends ControllerImpl<PainlessDeliv
         cancelPainlessDelivery(bean.getId(), position);
     }
 
+    /**
+     * 获取无痛分娩预约列表
+     */
     public void getPainlessDeliveryList(TypeEnum typeEnum) {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PainlessDeliveryService.class).getPainlessDeliveryList(), new HttpSubscriber<PageBean<PainlessDeliveryBean>>(getContext(), getDisposable(), false) {
             @Override
@@ -48,6 +51,9 @@ public class PainlessDeliveryListController extends ControllerImpl<PainlessDeliv
         });
     }
 
+    /**
+     * 取消无痛分娩预约
+     */
     public void cancelPainlessDelivery(String id, int position) {
         Map<String, String> map = new HashMap<>();
         map.put("medicinePainlessLaborId", id);

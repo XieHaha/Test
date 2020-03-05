@@ -50,7 +50,7 @@ public class CardCreatController extends ControllerImpl<CardCreateView> implemen
                         public void onCommit() {
                             LoginActivity.start(getContext());
                         }
-                    }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
+                    }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
                 } else{
                     if(App.userInfo.isCertification() && isBindMyself){
                         NewCardActivity.start(getContext(), Const.CARD_GET_INFO);
@@ -67,7 +67,7 @@ public class CardCreatController extends ControllerImpl<CardCreateView> implemen
                         public void onCommit() {
                             LoginActivity.start(getContext());
                         }
-                    }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
+                    }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
                 } else
                     UploadCertificatePictureActivity.start(getContext(), "card_other_certificate");
                 break;

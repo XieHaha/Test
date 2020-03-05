@@ -72,7 +72,8 @@ public class TabMineController extends ControllerImpl<TabMineView> implements Vi
                 }
 
                 break;
-            case R.id.mine_setting_img:
+            case R.id.iv_setting_vip:
+            case R.id.iv_setting:
                 if (Global.getUserId() != -1) {
                     UserInfoOperateActivity.start(getContext(), UserInfoOperateActivity.EDITTYPE);
                 } else {
@@ -256,7 +257,8 @@ public class TabMineController extends ControllerImpl<TabMineView> implements Vi
                             getContext().getString(R.string.unlogin_hint));
                 }
                 break;
-            case R.id.mine_user_head_img:
+            case R.id.iv_user_header_vip:
+            case R.id.iv_user_header:
                 if (Global.getUserId() != -1) {
                     CommonUtils.previewImage(getContext(), getView().getImgStr());
                 } else {

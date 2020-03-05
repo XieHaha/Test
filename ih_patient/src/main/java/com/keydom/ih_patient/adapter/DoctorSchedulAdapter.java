@@ -60,7 +60,7 @@ public class DoctorSchedulAdapter extends RecyclerView.Adapter<DoctorSchedulAdap
                             public void onCommit() {
                                 LoginActivity.start(context);
                             }
-                        }).setTitle("提示").setCancel(false).setPositiveButton("登陆").show();
+                        }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
                     } else
                         ChooseMedicalCardActivity.start(context, dataList.get(position), doctorName, doctorId, dataList.get(position).getDescribe(), dataList.get(position).getDeptId(), dataList.get(position).getRegisterBackNo());
                 }
