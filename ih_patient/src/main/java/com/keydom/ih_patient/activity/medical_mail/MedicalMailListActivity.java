@@ -54,13 +54,13 @@ public class MedicalMailListActivity extends BaseControllerActivity<MedicalMailL
         fm = getSupportFragmentManager();
         MedicalMailOrderFragment notHospitalized = new MedicalMailOrderFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("type", Type.NOTHOSPITALIZED);
+        bundle.putString("type", Type.NOTMEDICALMAILED);
         notHospitalized.setArguments(bundle);
         fragmentList.add(notHospitalized);
 
         MedicalMailOrderFragment hospitalized = new MedicalMailOrderFragment();
         Bundle bundle_f = new Bundle();
-        bundle_f.putString("type", Type.HOSPITALIZED);
+        bundle_f.putString("type", Type.MEDICALMAILED);
         hospitalized.setArguments(bundle_f);
         fragmentList.add(hospitalized);
         if (viewPagerAdapter == null) {

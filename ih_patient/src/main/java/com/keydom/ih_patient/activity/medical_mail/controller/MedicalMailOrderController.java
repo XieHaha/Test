@@ -26,7 +26,7 @@ public class MedicalMailOrderController extends ControllerImpl<MedicalMailOrderV
     /**
      * 获取病案已邮寄
      */
-    public void queryMedicalMailed(String name, final TypeEnum typeEnum) {
+    public void queryMedicalMailed(final TypeEnum typeEnum) {
         if (typeEnum == TypeEnum.REFRESH) {
             setCurrentPage(1);
         }
@@ -34,7 +34,7 @@ public class MedicalMailOrderController extends ControllerImpl<MedicalMailOrderV
         map.put("startTime", "");
         map.put("endTime", "");
         map.put("logisticsNo", "");
-        map.put("name", "");
+        map.put("name", App.userInfo.getUserName());
         map.put("currentPage", getCurrentPage());
         map.put("pageSize", Const.PAGE_SIZE);
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).medicalMailedOrder(HttpService.INSTANCE.json2Body(map)),
@@ -58,13 +58,13 @@ public class MedicalMailOrderController extends ControllerImpl<MedicalMailOrderV
     /**
      * 获取病案未邮寄
      */
-    public void queryMedicalNotMailed(String name, final TypeEnum typeEnum) {
+    public void queryMedicalNotMailed(final TypeEnum typeEnum) {
         if (typeEnum == TypeEnum.REFRESH) {
             setCurrentPage(1);
         }
         Map<String, Object> map = new HashMap<>();
-        map.put("cardNumber", App.hospitalId);
-        map.put("name", name);
+        map.put("cardNumber", "");
+        map.put("name", App.userInfo.getUserName());
         map.put("currentPage", getCurrentPage());
         map.put("pageSize", Const.PAGE_SIZE);
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).medicalNotMailedOrder(HttpService.INSTANCE.json2Body(map)),

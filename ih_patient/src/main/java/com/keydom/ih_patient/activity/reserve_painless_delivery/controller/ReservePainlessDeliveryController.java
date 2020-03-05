@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.alibaba.fastjson.JSON;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.blankj.utilcode.util.KeyboardUtils;
@@ -19,7 +18,6 @@ import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.diagnose_user_manager.ManageUserActivity;
 import com.keydom.ih_patient.activity.reserve_painless_delivery.view.ReservePainlessDeliveryView;
 import com.keydom.ih_patient.bean.ManagerUserBean;
-import com.keydom.ih_patient.bean.dto.MedicinePainlessLaborDto;
 import com.keydom.ih_patient.constant.Global;
 import com.keydom.ih_patient.net.PainlessDeliveryService;
 
@@ -95,29 +93,29 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
             return;
         }
 
-        MedicinePainlessLaborDto dto = new MedicinePainlessLaborDto();
-        dto.setAge(Integer.valueOf(getView().getAge()));
-        dto.setPatientId(bean.getId());
-        dto.setPatientName(bean.getName());
-        dto.setPhoneNumber(getView().getPhone());
-        dto.setLastMenstrualPeriodTime(getView().getLastDate());
-        dto.setExpectedDateOfConfinement(getView().getDueDate());
-        dto.setEmbryoNumber(1);
-        dto.setEleCardNumber(bean.getCardId());
-        dto.setAppointmentDate("");
-        dto.setHospitalId(App.hospitalId);
-        dto.setRegisterUserId(Global.getUserId());
+        Map<String, Object> map = new HashMap<>();
+        map.put("age", Integer.valueOf(getView().getAge()));
+        //胎数
+        map.put("embryoNumber", 1);
+        map.put("hospitalId", App.hospitalId);
+        map.put("patientId", bean.getId());
+        map.put("registerUserId", Global.getUserId());
+        //预约时间
+        map.put("appointmentDate", getView().getDueDate());
+        map.put("eleCardNumber", bean.getCardId());
+        map.put("expectedDateOfConfinement", getView().getDueDate());
+        map.put("lastMenstrualPeriodTime", getView().getLastDate());
+        map.put("patientName", bean.getName());
+        map.put("phoneNumber", getView().getPhone());
 
         //预约
-        commitPainlessDelivery(dto);
+        commitPainlessDelivery(map);
     }
 
     /**
      * 无痛分娩预约
      */
-    private void commitPainlessDelivery(MedicinePainlessLaborDto dto) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("medicinePainlessLaborDto", JSON.toJSONString(dto));
+    private void commitPainlessDelivery(Map<String, Object> map) {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PainlessDeliveryService.class).commitPainlessDelivery(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), true, true) {
             @Override
             public void requestComplete(@Nullable String data) {

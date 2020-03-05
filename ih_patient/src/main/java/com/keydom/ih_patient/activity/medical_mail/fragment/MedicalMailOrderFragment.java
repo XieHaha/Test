@@ -70,9 +70,9 @@ public class MedicalMailOrderFragment extends BaseControllerFragment<MedicalMail
             public void onRefresh(RefreshLayout refreshLayout) {
                 page = 1;
                 if (Type.NOTMEDICALMAILED.equals(type)) {
-                    getController().queryMedicalNotMailed("0", TypeEnum.REFRESH);
+                    getController().queryMedicalNotMailed(TypeEnum.REFRESH);
                 } else {
-                    getController().queryMedicalMailed("1", TypeEnum.REFRESH);
+                    //                    getController().queryMedicalMailed("1", TypeEnum.REFRESH);
                 }
             }
         });
@@ -80,9 +80,10 @@ public class MedicalMailOrderFragment extends BaseControllerFragment<MedicalMail
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {
                 if (Type.NOTMEDICALMAILED.equals(type)) {
-                    getController().queryMedicalNotMailed("0", TypeEnum.LOAD_MORE);
+                    getController().queryMedicalNotMailed(TypeEnum.LOAD_MORE);
                 } else {
-                    getController().queryMedicalMailed("1", TypeEnum.LOAD_MORE);
+                    //                    getController().queryMedicalMailed("1", TypeEnum
+                    //                    .LOAD_MORE);
                 }
             }
         });
