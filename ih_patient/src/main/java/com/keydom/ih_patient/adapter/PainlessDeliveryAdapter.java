@@ -26,6 +26,7 @@ public class PainlessDeliveryAdapter extends BaseQuickAdapter<PainlessDeliveryBe
                 .setText(R.id.tv_due_date, item.getExpectedDateOfConfinement())
                 .setText(R.id.tv_age, String.valueOf(item.getAge()))
                 .setText(R.id.tv_fetus, String.valueOf(item.getEmbryoNumber()))
-                .setText(R.id.tv_phone, item.getPhoneNumber());
+                .setText(R.id.tv_phone, item.getPhoneNumber())
+                .addOnClickListener(R.id.tv_cancel);
     }
 }

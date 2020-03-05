@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.reserve_painless_delivery.controller.PainlessDeliveryListController;
 import com.keydom.ih_patient.activity.reserve_painless_delivery.view.PainlessDeliveryListView;
@@ -33,8 +34,6 @@ public class PainlessDeliveryListActivity extends BaseControllerActivity<Painles
 
     private PainlessDeliveryAdapter adapter;
 
-    private ArrayList<PainlessDeliveryBean> data;
-
     @Override
     public int getLayoutRes() {
         return R.layout.activity_painless_delivery_list;
@@ -57,7 +56,8 @@ public class PainlessDeliveryListActivity extends BaseControllerActivity<Painles
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle(getString(R.string.txt_painless_delivery_reserve));
-        adapter = new PainlessDeliveryAdapter(R.layout.item_painless_delivery, data);
+        adapter = new PainlessDeliveryAdapter(R.layout.item_painless_delivery, new ArrayList<>());
+        adapter.setOnItemChildClickListener(getController());
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapter);
 
@@ -79,8 +79,21 @@ public class PainlessDeliveryListActivity extends BaseControllerActivity<Painles
     }
 
     @Override
-    public void requestFailed() {
+    public void requestFailed(String msg) {
         smartRefreshLayout.finishLoadMore();
         smartRefreshLayout.finishRefresh();
+        ToastUtil.showMessage(this, msg);
+    }
+
+    @Override
+    public void cancelSuccess(int position) {
+        adapter.getData().remove(position);
+        adapter.notifyItemRemoved(position);
+        adapter.notifyItemRangeChanged(position, adapter.getItemCount() - position);
+    }
+
+    @Override
+    public void cancelFailed(String msg) {
+        ToastUtil.showMessage(this, msg);
     }
 }

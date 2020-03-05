@@ -13,5 +13,9 @@ import java.util.List;
 public interface PainlessDeliveryListView extends BaseView {
     void requestSuccess(List<PainlessDeliveryBean> data, TypeEnum typeEnum);
 
-    void requestFailed();
+    void requestFailed(String msg);
+
+    void cancelSuccess(int position);
+
+    void cancelFailed(String msg);
 }

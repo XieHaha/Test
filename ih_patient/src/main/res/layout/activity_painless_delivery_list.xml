@@ -37,6 +37,11 @@
                     android:layout_height="match_parent"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_10"
+                    android:background="@color/primary_bg_color" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

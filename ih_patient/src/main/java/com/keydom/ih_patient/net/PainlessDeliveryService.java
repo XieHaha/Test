@@ -9,6 +9,7 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * @date 20/3/4 16:19
@@ -27,4 +28,10 @@ public interface PainlessDeliveryService {
      */
     @GET("medicine/medicinePainlessLabor/list")
     Observable<HttpResult<PageBean<PainlessDeliveryBean>>> getPainlessDeliveryList();
+
+    /**
+     * 无痛分娩预约列表
+     */
+    @GET("medicine/medicinePainlessLabor/confirm")
+    Observable<HttpResult<String>> cancelPainlessDelivery(@Query("medicinePainlessLaborId") String id);
 }
