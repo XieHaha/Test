@@ -198,6 +198,12 @@
 
     <!--检验检查预约-->
     <string name="txt_check_reserve">检验检查预约</string>
+    <string name="txt_check_project_colon">检查项目:</string>
+    <string name="txt_check_time_colon">检查时段:</string>
+    <string name="txt_check_number_colon">号序:</string>
+    <string name="txt_check_area_colon">院区:</string>
+    <string name="txt_check_address_colon">检查地点:</string>
+
     <!--我的 页面-->
     <string name="txt_reserve_msg">预约信息</string>
     <string name="txt_reserve_register">挂号预约</string>

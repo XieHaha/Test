@@ -57,4 +57,7 @@ public class Type {
 
     public static final String NOTMEDICALMAILED = "not_medicalmailed";
     public static final String MEDICALMAILED = "medicalmailed";
+
+    public static final String EXAMINATION = "examination";//检查
+    public static final String INSPECT = "inspect";//检验
 }

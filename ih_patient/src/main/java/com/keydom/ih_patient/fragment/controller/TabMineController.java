@@ -26,6 +26,7 @@ import com.keydom.ih_patient.activity.my_doctor_or_nurse.MyDoctorOrNurseActivity
 import com.keydom.ih_patient.activity.my_medical_card.MyMedicalCardActivity;
 import com.keydom.ih_patient.activity.my_message.MyMessageActivity;
 import com.keydom.ih_patient.activity.nursing_order.NursingOrderActivity;
+import com.keydom.ih_patient.activity.reserve_examination.ExaminationReserveListActivity;
 import com.keydom.ih_patient.activity.reserve_obstetric_hospital.ObstetricHospitalListActivity;
 import com.keydom.ih_patient.activity.online_diagnoses_order.OnlineDiagnonsesOrderActivity;
 import com.keydom.ih_patient.activity.order_doctor_register.RegistrationRecordActivity;
@@ -100,11 +101,10 @@ public class TabMineController extends ControllerImpl<TabMineView> implements Vi
                             getContext().getString(R.string.unlogin_hint));
                 }
                 break;
+            case R.id.item_register:
             case R.id.mine_registered_mail_order:
                 if (Global.getUserId() != -1) {
                     RegistrationRecordActivity.start(getContext());
-                    //                    GestureVerificationUtils.isGesturePassed(getContext(),
-                    //                    TabMineFragment.REGISTRATIONRECORD);
                 } else {
                     ToastUtil.showMessage(getContext(),
                             getContext().getString(R.string.unlogin_hint));
@@ -282,17 +282,9 @@ public class TabMineController extends ControllerImpl<TabMineView> implements Vi
             case R.id.location_layout:
                 ChooseCityActivity.start(getContext());
                 break;
-            case R.id.item_register:
-                if (Global.getUserId() != -1) {
-                    ChatGoupActivity.start(getContext());
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
-                }
-                break;
             case R.id.item_check:
                 if (Global.getUserId() != -1) {
-                    ChatGoupActivity.start(getContext());
+                    ExaminationReserveListActivity.start(getContext());
                 } else {
                     ToastUtil.showMessage(getContext(),
                             getContext().getString(R.string.unlogin_hint));
