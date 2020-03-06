@@ -26,18 +26,21 @@ import java.util.Map;
 /**
  * 预约挂号控制器
  */
-public class OrderDoctorRegisterController extends ControllerImpl<OrderDoctorRegisterView> implements View.OnClickListener{
+public class OrderDoctorRegisterController extends ControllerImpl<OrderDoctorRegisterView> implements View.OnClickListener {
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.top_layout:
                 getView().showHospitalAreaPopupWindow();
                 break;
+            case R.id.max_search_layout:
             case R.id.search_layout:
-                RegisterSearchActivity.start(getContext(),Type.SEARCHDOCTORANDDEPARTMENTS,1,"",getView().getDepartmentList());
+                RegisterSearchActivity.start(getContext(), Type.SEARCHDOCTORANDDEPARTMENTS, 1, ""
+                        , getView().getDepartmentList());
                 break;
             case R.id.llRightComplete:
-                RegisterSearchActivity.start(getContext(),Type.SEARCHDOCTORANDDEPARTMENTS,1,"",getView().getDepartmentList());
+                RegisterSearchActivity.start(getContext(), Type.SEARCHDOCTORANDDEPARTMENTS, 1, ""
+                        , getView().getDepartmentList());
                 break;
         }
     }
@@ -45,16 +48,17 @@ public class OrderDoctorRegisterController extends ControllerImpl<OrderDoctorReg
     /**
      * 查询科室
      */
-    public void QueryDataList(Map<String,Object> map){
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).getDepartmentList(map), new HttpSubscriber<List<HospitaldepartmentsInfo>>(getContext(),getDisposable(),false) {
+    public void QueryDataList(Map<String, Object> map) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).getDepartmentList(map), new HttpSubscriber<List<HospitaldepartmentsInfo>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable List<HospitaldepartmentsInfo> data) {
                 hideLoading();
-                getView().upLoadData(DepartmentDataHelper.getDataAfterHandle(data),data);
+                getView().upLoadData(DepartmentDataHelper.getDataAfterHandle(data), data);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 hideLoading();
                 getView().getDepartmentFailed(msg);
                 return super.requestError(exception, code, msg);
@@ -65,20 +69,19 @@ public class OrderDoctorRegisterController extends ControllerImpl<OrderDoctorReg
     /**
      * 查询医院
      */
-    public void queryHospitalAreaList(){
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).findHospitalAreaList(App.hospitalId), new HttpSubscriber<List<HospitalAreaInfo>>(getContext(),getDisposable(),false) {
-                @Override
-                public void requestComplete(@Nullable List<HospitalAreaInfo> data) {
-                    getView().getAreaList(data);
-                }
+    public void queryHospitalAreaList() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).findHospitalAreaList(App.hospitalId), new HttpSubscriber<List<HospitalAreaInfo>>(getContext(), getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable List<HospitalAreaInfo> data) {
+                getView().getAreaList(data);
+            }
 
-                @Override
-                public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                    hideLoading();
-                    getView().getAreaListFailed(msg);
-                    return super.requestError(exception, code, msg);
-                }
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                getView().getAreaListFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
         });
     }
 }

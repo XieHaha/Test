@@ -1,6 +1,7 @@
 package com.keydom.ih_patient.activity.order_doctor_register.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.ih_patient.bean.ReserveSelectDepartBean;
 
 import java.util.Date;
 
@@ -12,4 +13,18 @@ public interface RegistrationReserveView extends BaseView {
     long getCurrentUserId();
 
     void setVisitDate(Date visitDate);
+
+    String getVisitDate();
+
+    /**
+     * 1、上午   2、下午  3、晚上
+     */
+    void setSelectTimeInterVal(int timeInterVal);
+
+    /**
+     * 数据集合
+     */
+    ReserveSelectDepartBean getReserveSelectDepart();
+
+    long getDoctorId();
 }

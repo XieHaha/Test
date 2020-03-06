@@ -10,9 +10,10 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.order_doctor_register.controller.RegistrationReserveController;
 import com.keydom.ih_patient.activity.order_doctor_register.view.RegistrationReserveView;
+import com.keydom.ih_patient.bean.DoctorInfo;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.ManagerUserBean;
-import com.keydom.ih_patient.constant.EventType;
+import com.keydom.ih_patient.bean.ReserveSelectDepartBean;
 import com.keydom.ih_patient.utils.DateUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -54,7 +55,18 @@ public class RegistrationReserveActivity extends BaseControllerActivity<Registra
     @BindView(R.id.tv_night)
     TextView tvNight;
 
+    /**
+     * 就诊人
+     */
     private ManagerUserBean userBean;
+    /**
+     * 科室、院区、科室列表数据集合
+     */
+    private ReserveSelectDepartBean departBean;
+    /**
+     * 医生信息
+     */
+    private DoctorInfo doctorInfo;
 
     /**
      * 启动
@@ -85,9 +97,23 @@ public class RegistrationReserveActivity extends BaseControllerActivity<Registra
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUserSelected(Event event) {
-        if (event.getType() == EventType.SENDPATIENTINFO && event.getData() != null) {
-            userBean = (ManagerUserBean) event.getData();
-            tvVisitName.setText(userBean.getName());
+        if (event.getData() != null) {
+            switch (event.getType()) {
+                case SENDPATIENTINFO:
+                    userBean = (ManagerUserBean) event.getData();
+                    tvVisitName.setText(userBean.getName());
+                    break;
+                case SELECT_DEPART:
+                    departBean = (ReserveSelectDepartBean) event.getData();
+                    tvDepart.setText(departBean.getSecondDepartmentName());
+                    break;
+                case SELECT_DOCTOR:
+                    doctorInfo = (DoctorInfo) event.getData();
+                    tvDoctor.setText(doctorInfo.getName());
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -99,6 +125,47 @@ public class RegistrationReserveActivity extends BaseControllerActivity<Registra
     @Override
     public void setVisitDate(Date visitDate) {
         tvDate.setText(DateUtils.dateToString(visitDate));
+    }
+
+    @Override
+    public String getVisitDate() {
+        return tvDate.getText().toString();
+    }
+
+    @Override
+    public void setSelectTimeInterVal(int timeInterVal) {
+        switch (timeInterVal) {
+            case 1:
+                tvMorning.setSelected(true);
+                tvAfternoon.setSelected(false);
+                tvNight.setSelected(false);
+                break;
+            case 2:
+                tvMorning.setSelected(false);
+                tvAfternoon.setSelected(true);
+                tvNight.setSelected(false);
+                break;
+            case 3:
+                tvMorning.setSelected(false);
+                tvAfternoon.setSelected(false);
+                tvNight.setSelected(true);
+                break;
+            default:
+                tvMorning.setSelected(true);
+                tvAfternoon.setSelected(false);
+                tvNight.setSelected(false);
+                break;
+        }
+    }
+
+    @Override
+    public ReserveSelectDepartBean getReserveSelectDepart() {
+        return departBean;
+    }
+
+    @Override
+    public long getDoctorId() {
+        return doctorInfo == null ? -1 : doctorInfo.getId();
     }
 
     @Override

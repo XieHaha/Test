@@ -164,6 +164,7 @@
 
     <!--公用-->
     <string name="txt_sure">确定</string>
+    <string name="txt_search">搜索</string>
 
     <!--无痛分娩预约-->
     <string name="txt_visit_name">就诊人:</string>

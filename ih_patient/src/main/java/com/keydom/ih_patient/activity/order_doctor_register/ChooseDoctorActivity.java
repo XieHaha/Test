@@ -23,10 +23,15 @@ import com.keydom.ih_patient.adapter.DoctorAdapter;
 import com.keydom.ih_patient.adapter.OrderExtDateAdapter;
 import com.keydom.ih_patient.bean.DateInfo;
 import com.keydom.ih_patient.bean.DepartmentSchedulingBean;
+import com.keydom.ih_patient.bean.DoctorInfo;
+import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.HospitaldepartmentsInfo;
+import com.keydom.ih_patient.bean.ReserveSelectDepartBean;
 import com.keydom.ih_patient.callback.GeneralCallback;
+import com.keydom.ih_patient.constant.EventType;
 import com.keydom.ih_patient.constant.Global;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
@@ -39,10 +44,13 @@ import java.util.Map;
  * 选择医生页面
  */
 public class ChooseDoctorActivity extends BaseControllerActivity<ChooseDoctorController> implements ChooseDoctorView {
+    public static final String IS_SELECT = "is_select";
+
     /**
      * 启动
      */
-    public static void start(Context context, long areaId, String areaName, long departmentId, String departmentName, List<HospitaldepartmentsInfo> departmentList) {
+    public static void start(Context context, long areaId, String areaName, long departmentId,
+                             String departmentName, List<HospitaldepartmentsInfo> departmentList) {
         Intent intent = new Intent(context, ChooseDoctorActivity.class);
         intent.putExtra("areaId", areaId);
         intent.putExtra("areaName", areaName);
@@ -54,8 +62,26 @@ public class ChooseDoctorActivity extends BaseControllerActivity<ChooseDoctorCon
         context.startActivity(intent);
     }
 
-    private TextView chosed_department_tv, tvRightComplete, selected_hospital_area_tv, search_doctor_tv, emptyTv;
-    private LinearLayout llLeftGoBack, dateLayout,llRightComplete;
+    public static void start(Context context, ReserveSelectDepartBean bean, String selectedDate,
+                             long doctorId,
+                             boolean isSelect) {
+        Intent intent = new Intent(context, ChooseDoctorActivity.class);
+        intent.putExtra(IS_SELECT, isSelect);
+        intent.putExtra("selectedDate", selectedDate);
+        intent.putExtra("doctorId", doctorId);
+        intent.putExtra("areaId", bean.getSelectedAreaId());
+        intent.putExtra("areaName", bean.getSelectedAreaName());
+        intent.putExtra("departmentId", bean.getId());
+        intent.putExtra("departmentName", bean.getSecondDepartmentName());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("departmentList", (Serializable) bean.getDepartmentList());
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
+    private TextView chosed_department_tv, tvRightComplete, tvSelectComplete,
+            selected_hospital_area_tv, search_doctor_tv, emptyTv;
+    private LinearLayout llLeftGoBack, dateLayout, llRightComplete;
     private RelativeLayout emptyLayout;
     private RecyclerView order_doctor_date_rv, order_doctor_rv;
     private OrderExtDateAdapter orderExtDateAdapter;
@@ -63,8 +89,9 @@ public class ChooseDoctorActivity extends BaseControllerActivity<ChooseDoctorCon
     private List<HospitaldepartmentsInfo> departmentList;
     private DoctorAdapter doctorAdapter;
     private List<DepartmentSchedulingBean> doctorList = new ArrayList<>();
-    private long SelectedDepartmentId, areaId;
+    private long SelectedDepartmentId, areaId, doctorId;
     private String departmentName, areaName, selectedDate;
+    private boolean isSelect;
 
     @Override
     public int getLayoutRes() {
@@ -73,11 +100,15 @@ public class ChooseDoctorActivity extends BaseControllerActivity<ChooseDoctorCon
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        isSelect = getIntent().getBooleanExtra(IS_SELECT, false);
+        doctorId = getIntent().getLongExtra("doctorId", -1);
+        selectedDate = getIntent().getStringExtra("selectedDate");
         areaId = getIntent().getLongExtra("areaId", -1);
         areaName = getIntent().getStringExtra("areaName");
         SelectedDepartmentId = getIntent().getLongExtra("departmentId", -1);
         departmentName = getIntent().getStringExtra("departmentName");
-        departmentList = (List<HospitaldepartmentsInfo>) getIntent().getSerializableExtra("departmentList");
+        departmentList = (List<HospitaldepartmentsInfo>) getIntent().getSerializableExtra(
+                "departmentList");
         dateLayout = this.findViewById(R.id.date_layout);
         emptyLayout = this.findViewById(R.id.state_retry2);
         emptyTv = this.findViewById(R.id.empty_text);
@@ -98,11 +129,41 @@ public class ChooseDoctorActivity extends BaseControllerActivity<ChooseDoctorCon
             }
         });
         tvRightComplete = this.findViewById(R.id.tvRightComplete);
+        tvSelectComplete = this.findViewById(R.id.tvSelectComplete);
+
         selected_hospital_area_tv = this.findViewById(R.id.selected_hospital_area_tv);
-        if (Global.getHospitalAreaInfo() != null)
-            selected_hospital_area_tv.setText("当前为" + Global.getHospitalAreaInfo().getHospitalName() + "-" + areaName);
-        else
-            selected_hospital_area_tv.setText("当前为" + App.hospitalName + "-" + areaName);
+        if (isSelect) {
+            tvRightComplete.setVisibility(View.GONE);
+            dateLayout.setVisibility(View.GONE);
+            selected_hospital_area_tv.setVisibility(View.GONE);
+            tvSelectComplete.setVisibility(View.VISIBLE);
+            getController().getDoctorList(selectedDate, SelectedDepartmentId);
+        } else {
+            tvRightComplete.setVisibility(View.VISIBLE);
+            dateLayout.setVisibility(View.VISIBLE);
+            selected_hospital_area_tv.setVisibility(View.VISIBLE);
+            tvSelectComplete.setVisibility(View.GONE);
+            if (Global.getHospitalAreaInfo() != null) {
+                selected_hospital_area_tv.setText("当前为" + Global.getHospitalAreaInfo().getHospitalName() + "-" + areaName);
+            } else {
+                selected_hospital_area_tv.setText("当前为" + App.hospitalName + "-" + areaName);
+            }
+            //排班日期
+            order_doctor_date_rv = this.findViewById(R.id.order_doctor_date_rv);
+            order_doctor_date_rv.setLayoutManager(new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));
+            orderExtDateAdapter = new OrderExtDateAdapter(getContext(), dateList,
+                    new GeneralCallback.dateAdapterCallBack() {
+                        @Override
+                        public void getSelectedDate(int position) {
+                            if (dateList.size() != 0 && dateList != null) {
+                                selectedDate = dateList.get(position).getDate();
+                                getController().getDoctorList(selectedDate, SelectedDepartmentId);
+                            }
+                        }
+                    });
+            order_doctor_date_rv.setAdapter(orderExtDateAdapter);
+        }
         llLeftGoBack = this.findViewById(R.id.llLeftGoBack);
         llLeftGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,59 +173,53 @@ public class ChooseDoctorActivity extends BaseControllerActivity<ChooseDoctorCon
         });
         search_doctor_tv = this.findViewById(R.id.search_doctor_tv);
         search_doctor_tv.setOnClickListener(getController());
-        llRightComplete=findViewById(R.id.llRightComplete);
+        llRightComplete = findViewById(R.id.llRightComplete);
         llRightComplete.setOnClickListener(getController());
-        order_doctor_date_rv = this.findViewById(R.id.order_doctor_date_rv);
-        order_doctor_date_rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        orderExtDateAdapter = new OrderExtDateAdapter(getContext(), dateList, new GeneralCallback.dateAdapterCallBack() {
-            @Override
-            public void getSelectedDate(int position) {
-                if (dateList.size() != 0 && dateList != null) {
-                    selectedDate = dateList.get(position).getDate();
-                    getController().getDoctorList(selectedDate, SelectedDepartmentId);
-                }
-            }
-        });
-        order_doctor_date_rv.setAdapter(orderExtDateAdapter);
+
         order_doctor_rv = this.findViewById(R.id.order_doctor_rv);
         doctorAdapter = new DoctorAdapter(getContext(), doctorList);
+        doctorAdapter.setCurDoctorId(doctorId);
+        doctorAdapter.setSelect(isSelect);
         order_doctor_rv.setAdapter(doctorAdapter);
-        getController().queryDateList(SelectedDepartmentId);
+        if (!isSelect) {
+            getController().queryDateList(SelectedDepartmentId);
+        }
     }
 
     /**
      * 选择科室弹框
      */
     private void showChooseDepartmentDialog() {
-
         List<String> parentDepList = new ArrayList<>();
         final List<List<String>> childDepList = new ArrayList<>();
         for (int i = 0; i < departmentList.size(); i++) {
-            if(departmentList.get(i).getName().length()>6){
-                parentDepList.add(departmentList.get(i).getName().substring(0,2)+"..."+departmentList.get(i).getName().substring(departmentList.get(i).getName().length()-3,departmentList.get(i).getName().length()));
-            }else {
+            if (departmentList.get(i).getName().length() > 6) {
+                parentDepList.add(departmentList.get(i).getName().substring(0, 2) + "..." + departmentList.get(i).getName().substring(departmentList.get(i).getName().length() - 3, departmentList.get(i).getName().length()));
+            } else {
                 parentDepList.add(departmentList.get(i).getName());
             }
 
             List<String> parendChildList = new ArrayList<>();
             for (int j = 0; j < departmentList.get(i).getHdList().size(); j++) {
-                if(departmentList.get(i).getHdList().get(j).getName().length()>10){
-                    parendChildList.add(departmentList.get(i).getHdList().get(j).getName().substring(0,4)+"..."+departmentList.get(i).getHdList().get(j).getName().substring(departmentList.get(i).getHdList().get(j).getName().length()-3,departmentList.get(i).getHdList().get(j).getName().length()));
-                }else {
+                if (departmentList.get(i).getHdList().get(j).getName().length() > 10) {
+                    parendChildList.add(departmentList.get(i).getHdList().get(j).getName().substring(0, 4) + "..." + departmentList.get(i).getHdList().get(j).getName().substring(departmentList.get(i).getHdList().get(j).getName().length() - 3, departmentList.get(i).getHdList().get(j).getName().length()));
+                } else {
                     parendChildList.add(departmentList.get(i).getHdList().get(j).getName());
 
                 }
             }
             childDepList.add(parendChildList);
         }
-        OptionsPickerView optionsPickerView = new OptionsPickerBuilder(getContext(), new OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                chosed_department_tv.setText(childDepList.get(options1).get(option2));
-                SelectedDepartmentId = departmentList.get(options1).getHdList().get(option2).getId();
-                getController().queryDateList(SelectedDepartmentId);
-            }
-        }).build();
+        OptionsPickerView optionsPickerView = new OptionsPickerBuilder(getContext(),
+                new OnOptionsSelectListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                        chosed_department_tv.setText(childDepList.get(options1).get(option2));
+                        SelectedDepartmentId =
+                                departmentList.get(options1).getHdList().get(option2).getId();
+                        getController().queryDateList(SelectedDepartmentId);
+                    }
+                }).build();
         optionsPickerView.setPicker(parentDepList, childDepList);
         optionsPickerView.show();
     }
@@ -173,7 +228,11 @@ public class ChooseDoctorActivity extends BaseControllerActivity<ChooseDoctorCon
     public void getDateListSuccess(List<DateInfo> dateInfoList) {
         if (dateInfoList != null && dateInfoList.size() != 0) {
             if (dateLayout.getVisibility() == View.GONE) {
-                dateLayout.setVisibility(View.VISIBLE);
+                if (isSelect) {
+                    dateLayout.setVisibility(View.GONE);
+                } else {
+                    dateLayout.setVisibility(View.VISIBLE);
+                }
                 order_doctor_rv.setVisibility(View.VISIBLE);
                 emptyLayout.setVisibility(View.GONE);
             }
@@ -250,11 +309,28 @@ public class ChooseDoctorActivity extends BaseControllerActivity<ChooseDoctorCon
         if (departmentList != null && departmentList.size() != 0)
             showChooseDepartmentDialog();
         else
-            ToastUtil.showMessage(getContext(),"暂无更多科室");
+            ToastUtil.showMessage(getContext(), "暂无更多科室");
     }
 
     @Override
     public void getDepartmentFailed(String errMsg) {
         ToastUtil.showMessage(getContext(), "获取科室列表失败：" + errMsg);
+    }
+
+    @Override
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    @Override
+    public void defineSelect() {
+        int position = doctorAdapter.getCurPosition();
+        if (position == -1) {
+            ToastUtil.showMessage(this, R.string.txt_select_doctor_hint);
+        } else {
+            DoctorInfo doctorInfo = doctorList.get(position).getHUser();
+            EventBus.getDefault().post(new Event(EventType.SELECT_DOCTOR, doctorInfo));
+            finish();
+        }
     }
 }

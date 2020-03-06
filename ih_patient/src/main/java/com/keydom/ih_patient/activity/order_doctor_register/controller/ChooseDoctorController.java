@@ -31,12 +31,18 @@ import java.util.Map;
 public class ChooseDoctorController extends ControllerImpl<ChooseDoctorView> implements View.OnClickListener {
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.search_doctor_tv:
-                RegisterSearchActivity.start(getContext(),Type.SEARCHDOCTOR,getView().getSelectedDepartmentId(),"",null);
+                RegisterSearchActivity.start(getContext(), Type.SEARCHDOCTOR,
+                        getView().getSelectedDepartmentId(), "", null);
                 break;
             case R.id.llRightComplete:
-                RegisterSearchActivity.start(getContext(),Type.SEARCHDOCTOR,getView().getSelectedDepartmentId(),"",null);
+                if (getView().isSelect()) {
+                    getView().defineSelect();
+                } else {
+                    RegisterSearchActivity.start(getContext(), Type.SEARCHDOCTOR,
+                            getView().getSelectedDepartmentId(), "", null);
+                }
                 break;
         }
     }
@@ -44,18 +50,19 @@ public class ChooseDoctorController extends ControllerImpl<ChooseDoctorView> imp
     /**
      * 查询全部医生
      */
-    public void queryDateList(long deptId){
-        Map<String,Object> map=new HashMap<>();
-        map.put("hospitalId",App.hospitalId);
-        map.put("deptId",deptId);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).getDateList(map), new HttpSubscriber<List<DateInfo>>(getContext(),getDisposable(),false) {
+    public void queryDateList(long deptId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("hospitalId", App.hospitalId);
+        map.put("deptId", deptId);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).getDateList(map), new HttpSubscriber<List<DateInfo>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable List<DateInfo> data) {
                 getView().getDateListSuccess(data);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 hideLoading();
                 getView().getDateListFailed(msg);
                 return super.requestError(exception, code, msg);
@@ -67,8 +74,8 @@ public class ChooseDoctorController extends ControllerImpl<ChooseDoctorView> imp
     /**
      * 查询全部科室
      */
-    public void QueryDeptList(Map<String,Object> map){
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).getDepartmentList(map), new HttpSubscriber<List<HospitaldepartmentsInfo>>(getContext(),getDisposable(),false) {
+    public void QueryDeptList(Map<String, Object> map) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).getDepartmentList(map), new HttpSubscriber<List<HospitaldepartmentsInfo>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable List<HospitaldepartmentsInfo> data) {
                 hideLoading();
@@ -76,30 +83,33 @@ public class ChooseDoctorController extends ControllerImpl<ChooseDoctorView> imp
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 hideLoading();
                 getView().getDepartmentFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });
     }
+
     /**
      * 查询排班医生列表
      */
-    public void getDoctorList(String date,long deptId){
-        Map<String,Object> map=new HashMap<>();
-        map.put("hospitalId",App.hospitalId);
-        map.put("userId",Global.getUserId());
-        map.put("date",date);
-        map.put("deptId",deptId);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).getDoctorList(map), new HttpSubscriber<List<DepartmentSchedulingBean>>(getContext(),getDisposable(),false) {
+    public void getDoctorList(String date, long deptId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("hospitalId", App.hospitalId);
+        map.put("userId", Global.getUserId());
+        map.put("date", date);
+        map.put("deptId", deptId);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).getDoctorList(map), new HttpSubscriber<List<DepartmentSchedulingBean>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable List<DepartmentSchedulingBean> data) {
                 getView().getDoctorListSuccess(data);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 hideLoading();
                 getView().getDoctorListFailed(msg);
                 return super.requestError(exception, code, msg);

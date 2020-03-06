@@ -159,8 +159,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             break;
                         case DoctorRegister:
                             RegistrationReserveActivity.start(context);
-                            //                            OrderDoctorRegisterActivity.start
-                            //                            (context);
+                            //OrderDoctorRegisterActivity.start(context,false);
                             break;
                         case PaymentRecord:
                             PaymentRecordActivity.start(context);

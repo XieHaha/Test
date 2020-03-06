@@ -46,4 +46,11 @@ public interface ChooseDoctorView extends BaseView {
      * 获取科室失败
      */
     void getDepartmentFailed(String errMsg);
+
+    /**
+     * 是否为医生选择模式
+     */
+    boolean isSelect();
+
+    void defineSelect();
 }
