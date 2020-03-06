@@ -155,7 +155,7 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
 
     @Override
     public boolean isSelect() {
-        return ivSelect.getVisibility() == View.VISIBLE;
+        return ivSelect.isShown();
     }
 
     @Override

@@ -21,13 +21,14 @@ import com.keydom.ih_patient.activity.inspection_report.InspectionReportActivity
 import com.keydom.ih_patient.activity.logistic.QueryLogisticActivity;
 import com.keydom.ih_patient.activity.medical_mail.MedicalMailActivity;
 import com.keydom.ih_patient.activity.nurse_main.NurseMainActivity;
-import com.keydom.ih_patient.activity.order_doctor_register.OrderDoctorRegisterActivity;
+import com.keydom.ih_patient.activity.order_doctor_register.RegistrationReserveActivity;
 import com.keydom.ih_patient.activity.order_examination.OrderExaminationActivity;
 import com.keydom.ih_patient.activity.order_hospital_cure.OrderHospitalCureListActivity;
 import com.keydom.ih_patient.activity.order_physical_examination.OrderPhysicalExaminationActivity;
 import com.keydom.ih_patient.activity.payment_records.PaymentRecordActivity;
 import com.keydom.ih_patient.activity.postpartum_rehabilitation.RehabilitationRecordActivity;
 import com.keydom.ih_patient.activity.pregnant_woman.PregnantWomanActivity;
+import com.keydom.ih_patient.activity.reserve_examination.ExaminationReserveActivity;
 import com.keydom.ih_patient.activity.reserve_obstetric_hospital.ReserveObstetricHospitalActivity;
 import com.keydom.ih_patient.activity.reserve_painless_delivery.ReservePainlessDeliveryActivity;
 import com.keydom.ih_patient.bean.IndexFunction;
@@ -61,6 +62,8 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     public final String HealthManager = "103";
     //病案邮寄
     public final String MedicalMail = "104";
+    //检验检查预约
+    public final String Examination = "105";
     //办卡绑卡
     public final String CardOperate = "107";
     //在线问诊
@@ -155,8 +158,9 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             ChildHealthActivity.start(context);
                             break;
                         case DoctorRegister:
-//                            RegistrationReserveActivity.start(context);
-                            OrderDoctorRegisterActivity.start(context);
+                            RegistrationReserveActivity.start(context);
+                            //                            OrderDoctorRegisterActivity.start
+                            //                            (context);
                             break;
                         case PaymentRecord:
                             PaymentRecordActivity.start(context);
@@ -166,6 +170,9 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             break;
                         case MedicalMail:
                             MedicalMailActivity.start(context);
+                            break;
+                        case Examination:
+                            ExaminationReserveActivity.start(context);
                             break;
                         case CardOperate:
                             CardoperateActivity.start(context);

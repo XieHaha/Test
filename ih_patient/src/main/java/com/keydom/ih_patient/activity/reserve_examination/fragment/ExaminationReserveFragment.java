@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.reserve_examination.controller.ExaminationReserveController;
-import com.keydom.ih_patient.activity.reserve_examination.view.ExaminationReserveView;
+import com.keydom.ih_patient.activity.reserve_examination.controller.ExaminationReserveRecordController;
+import com.keydom.ih_patient.activity.reserve_examination.view.ExaminationReserveRecordView;
 import com.keydom.ih_patient.adapter.ExaminationReserveAdapter;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.constant.EventType;
@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * 检验检查预约
  */
-public class ExaminationReserveFragment extends BaseControllerFragment<ExaminationReserveController> implements ExaminationReserveView {
+public class ExaminationReserveFragment extends BaseControllerFragment<ExaminationReserveRecordController> implements ExaminationReserveRecordView {
     private String type;
     private SmartRefreshLayout containt_refresh;
     private RecyclerView containRv;

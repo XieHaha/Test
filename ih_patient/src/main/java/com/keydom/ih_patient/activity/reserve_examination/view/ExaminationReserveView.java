@@ -1,22 +1,24 @@
 package com.keydom.ih_patient.activity.reserve_examination.view;
 
 import com.keydom.ih_common.base.BaseView;
-import com.keydom.ih_patient.constant.TypeEnum;
 
-import java.util.List;
+import java.util.Date;
 
 /**
- * 检验检查预约列表view
+ * @date 20/3/6 10:54
+ * @des
  */
 public interface ExaminationReserveView extends BaseView {
+    void setSelect();
+
+    boolean isSelect();
+
+    long getCurrentUserId();
 
     /**
-     * 获取记录成功
+     * true、检验   false、检查
      */
-    void requestSuccess(List<String> dataList, TypeEnum typeEnum);
+    void setCategory(boolean category);
 
-    /**
-     * 获取记录失败
-     */
-    void requestFailed(String errMsg);
+    void setVisitDate(Date date);
 }
