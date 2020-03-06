@@ -278,7 +278,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     }
 
     private void memberLayoutShow() {
-        if (Global.isMember()) {
+        //todo 临时改为会员
+        if (!Global.isMember()) {
             initVipFunction();
         } else {
             initNormal();

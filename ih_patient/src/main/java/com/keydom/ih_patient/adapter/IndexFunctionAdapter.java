@@ -21,7 +21,6 @@ import com.keydom.ih_patient.activity.inspection_report.InspectionReportActivity
 import com.keydom.ih_patient.activity.logistic.QueryLogisticActivity;
 import com.keydom.ih_patient.activity.medical_mail.MedicalMailActivity;
 import com.keydom.ih_patient.activity.nurse_main.NurseMainActivity;
-import com.keydom.ih_patient.activity.reserve_obstetric_hospital.ReserveObstetricHospitalActivity;
 import com.keydom.ih_patient.activity.order_doctor_register.OrderDoctorRegisterActivity;
 import com.keydom.ih_patient.activity.order_examination.OrderExaminationActivity;
 import com.keydom.ih_patient.activity.order_hospital_cure.OrderHospitalCureListActivity;
@@ -29,6 +28,7 @@ import com.keydom.ih_patient.activity.order_physical_examination.OrderPhysicalEx
 import com.keydom.ih_patient.activity.payment_records.PaymentRecordActivity;
 import com.keydom.ih_patient.activity.postpartum_rehabilitation.RehabilitationRecordActivity;
 import com.keydom.ih_patient.activity.pregnant_woman.PregnantWomanActivity;
+import com.keydom.ih_patient.activity.reserve_obstetric_hospital.ReserveObstetricHospitalActivity;
 import com.keydom.ih_patient.activity.reserve_painless_delivery.ReservePainlessDeliveryActivity;
 import com.keydom.ih_patient.bean.IndexFunction;
 import com.orhanobut.logger.Logger;
@@ -155,6 +155,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             ChildHealthActivity.start(context);
                             break;
                         case DoctorRegister:
+//                            RegistrationReserveActivity.start(context);
                             OrderDoctorRegisterActivity.start(context);
                             break;
                         case PaymentRecord:

@@ -167,7 +167,9 @@
 
     <!--无痛分娩预约-->
     <string name="txt_visit_name">就诊人:</string>
+    <string name="txt_visit_card_number">就诊卡号:</string>
     <string name="txt_visit_name_hint">请选择就诊人</string>
+    <string name="txt_current_visit">当前就诊人</string>
     <string name="txt_age">年龄:</string>
     <string name="txt_age_hint">请输入年龄</string>
     <string name="txt_last_menstruation">末次月经:</string>
@@ -298,6 +300,18 @@
     <string name="txt_blood_glucose">血糖</string>
     <string name="txt_blood_pressure">血压</string>
     <string name="txt_heart_rate">心率</string>
+
+    <!--挂号预约-->
+    <string name="txt_visit_date_colon">就诊日期:</string>
+    <string name="txt_visit_date_hint">请选择就诊日期</string>
+    <string name="txt_time_colon">时段:</string>
+    <string name="txt_depart_colon">科室:</string>
+    <string name="txt_depart_hint">请选择科室</string>
+    <string name="txt_doctor_colon">医生:</string>
+    <string name="txt_select_doctor_hint">请选择医生</string>
+    <string name="txt_morning">上午</string>
+    <string name="txt_afternoon">下午</string>
+    <string name="txt_night">晚上</string>
 
 
     <!--vip-->

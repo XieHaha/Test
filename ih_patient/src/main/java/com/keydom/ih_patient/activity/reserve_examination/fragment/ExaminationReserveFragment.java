@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 产科住院
+ * 检验检查预约
  */
 public class ExaminationReserveFragment extends BaseControllerFragment<ExaminationReserveController> implements ExaminationReserveView {
     private String type;
