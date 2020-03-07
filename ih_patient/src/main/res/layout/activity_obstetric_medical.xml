@@ -22,9 +22,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingStart="@dimen/dp_44"
+                android:paddingStart="@dimen/dp_24"
                 android:paddingTop="@dimen/dp_18"
-                android:paddingEnd="@dimen/dp_44">
+                android:paddingEnd="@dimen/dp_24">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -178,7 +178,9 @@
                 android:id="@+id/obstetric_medical_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_25" />
+                android:layout_marginTop="@dimen/dp_25"
+                android:paddingStart="@dimen/dp_22"
+                android:paddingEnd="@dimen/dp_22" />
 
             <LinearLayout
                 android:layout_width="match_parent"

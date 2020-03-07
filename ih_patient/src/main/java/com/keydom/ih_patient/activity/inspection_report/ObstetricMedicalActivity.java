@@ -100,9 +100,21 @@ public class ObstetricMedicalActivity extends BaseControllerActivity<ObstetricMe
         outpatientNumbers.add("第四次");
         outpatientNumberAdapter = new OutpatientNumberAdapter(R.layout.item_obstetric_medical_day
                 , outpatientNumbers);
+        outpatientNumberAdapter.setOnItemClickListener(getController());
         outpatientNumberAdapter.setCurPosition(0);
         obstetricMedicalRecyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false));
         obstetricMedicalRecyclerView.setAdapter(outpatientNumberAdapter);
+
+        obstetricMedicalRecordTv.setOnClickListener(getController());
+        obstetricMedicalInspectionReportTv.setOnClickListener(getController());
+        obstetricMedicalCheckReportTv.setOnClickListener(getController());
+        obstetricMedicalPrescriptionTv.setOnClickListener(getController());
+    }
+
+    @Override
+    public void updateOutpatientDate(int position) {
+        outpatientNumberAdapter.setCurPosition(position);
+        //更新数据
     }
 }
