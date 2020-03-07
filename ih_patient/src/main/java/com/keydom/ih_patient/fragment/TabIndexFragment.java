@@ -239,7 +239,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_postpartum_recovery_icon, 15, "产后康复"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_amniocentesis_icon, "羊水穿刺预约"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_pregnancy_school_icon, 17, "孕妇学校"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetrical_medical_records_icon,
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetrical_medical_records_icon,18,
                 "产科病历"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_painless_labor_icon, 19, "无痛分娩预约"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetric_order_icon, 20, "产科住院预约"));

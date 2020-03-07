@@ -165,6 +165,9 @@
     <!--公用-->
     <string name="txt_sure">确定</string>
     <string name="txt_search">搜索</string>
+    <string name="txt_year">年</string>
+    <string name="txt_month">月</string>
+    <string name="txt_day">日</string>
 
     <!--无痛分娩预约-->
     <string name="txt_visit_name">就诊人:</string>
@@ -318,6 +321,26 @@
     <string name="txt_morning">上午</string>
     <string name="txt_afternoon">下午</string>
     <string name="txt_night">晚上</string>
+
+    <!--产科病历-->
+    <string name="txt_medical_records">产科门诊病历</string>
+    <string name="txt_patient_medical_records">门诊病历</string>
+    <string name="txt_inspection_report">检验报告</string>
+    <string name="txt_check_report">检查报告</string>
+    <string name="txt_prescription">处方单</string>
+    <string name="txt_mark">高危标识</string>
+    <string name="txt_pregnant_week_colon">孕周:</string>
+    <string name="txt_weight_colon">体重:</string>
+    <string name="txt_blood_glucose_colon">空腹血糖:</string>
+    <string name="txt_circumference_colon">腹围:</string>
+    <string name="txt_fetal_movement_colon">胎动:</string>
+    <string name="txt_hemoglobin_colon">血色素:</string>
+    <string name="txt_height_colon">身高:</string>
+    <string name="txt_blood_pressure_colon">血压:</string>
+    <string name="txt_uterus_height_colon">宫高:</string>
+    <string name="txt_fetal_heart_colon">胎心:</string>
+    <string name="txt_obstetric_medical_double_colon">双顶径:</string>
+    <string name="txt_urine_protein_colon">尿蛋白:</string>
 
 
     <!--vip-->

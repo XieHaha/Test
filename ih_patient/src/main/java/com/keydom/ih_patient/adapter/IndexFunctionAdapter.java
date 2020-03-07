@@ -18,6 +18,7 @@ import com.keydom.ih_patient.activity.function_config.FunctionConfigActivity;
 import com.keydom.ih_patient.activity.get_drug.GetDrugActivity;
 import com.keydom.ih_patient.activity.health_manager.HealthManagerActivity;
 import com.keydom.ih_patient.activity.inspection_report.InspectionReportActivity;
+import com.keydom.ih_patient.activity.inspection_report.ObstetricMedicalActivity;
 import com.keydom.ih_patient.activity.logistic.QueryLogisticActivity;
 import com.keydom.ih_patient.activity.medical_mail.MedicalMailActivity;
 import com.keydom.ih_patient.activity.nurse_main.NurseMainActivity;
@@ -48,6 +49,8 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     public final String Rehabilitation = "15";
     //孕妇学校
     public final String PregnantWoman = "17";
+    //产科门诊
+    public final String ObstetricMedical = "18";
     //无痛分娩
     public final String PainlessDelivery = "19";
     //产科住院
@@ -147,6 +150,9 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             break;
                         case PregnantWoman:
                             PregnantWomanActivity.start(context);
+                            break;
+                        case ObstetricMedical:
+                            ObstetricMedicalActivity.start(context);
                             break;
                         case PainlessDelivery:
                             ReservePainlessDeliveryActivity.start(context);

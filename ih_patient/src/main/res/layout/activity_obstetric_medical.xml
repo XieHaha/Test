@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_color">
+
+    <include layout="@layout/common_title_bar" />
+
+    <com.keydom.ih_common.view.MyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/title_bar_dp"
+        android:layout_marginBottom="@dimen/dp_108">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_44"
+                android:paddingTop="@dimen/dp_18"
+                android:paddingEnd="@dimen/dp_44">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="@dimen/dp_95"
+                        android:layout_height="@dimen/dp_95"
+                        android:background="@mipmap/icon_dotted_val">
+
+                        <ImageView
+                            android:id="@+id/obstetric_medical_head_iv"
+                            android:layout_width="@dimen/dp_75"
+                            android:layout_height="@dimen/dp_75"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/bg_default_photo_round" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/obstetric_medical_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_17"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/sp_18"
+                        android:textStyle="bold"
+                        tools:text="名字" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="@dimen/dp_95"
+                        android:layout_height="@dimen/dp_95">
+
+                        <TextView
+                            android:id="@+id/obstetric_medical_mark"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="@dimen/dp_17"
+                            android:textColor="@color/register_success_color"
+                            android:textSize="@dimen/sp_36"
+                            android:textStyle="bold"
+                            tools:text="低" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_17"
+                        android:text="@string/txt_mark"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/sp_18"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_48"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/obstetric_medical_due_date_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/vip_detail_balance_number_text"
+                    android:textSize="@dimen/sp_14"
+                    tools:text="预产期（第20周）" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_26"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/obstetric_medical_year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/sp_24"
+                        android:textStyle="bold"
+                        tools:text="2020" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_14"
+                        android:text="@string/txt_year"
+                        android:textColor="@color/tab_nol_color"
+                        android:textSize="@dimen/sp_12" />
+
+                    <TextView
+                        android:id="@+id/obstetric_medical_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_30"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/sp_24"
+                        android:textStyle="bold"
+                        tools:text="05" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_14"
+                        android:text="@string/txt_month"
+                        android:textColor="@color/tab_nol_color"
+                        android:textSize="@dimen/sp_12" />
+
+                    <TextView
+                        android:id="@+id/obstetric_medical_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_30"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/sp_24"
+                        android:textStyle="bold"
+                        tools:text="15" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_14"
+                        android:text="@string/txt_day"
+                        android:textColor="@color/tab_nol_color"
+                        android:textSize="@dimen/sp_12" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/obstetric_medical_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_25" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primary_bg_color"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/dp_30">
+
+                <TextView
+                    android:id="@+id/obstetric_medical_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_28"
+                    android:drawableStart="@mipmap/point_icon_2"
+                    android:drawablePadding="@dimen/dp_14"
+                    android:gravity="center"
+                    android:textColor="@color/color_a9a9a9"
+                    android:textSize="@dimen/sp_15"
+                    android:textStyle="bold"
+                    tools:text="2020年3月7日" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dp_23">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:minWidth="@dimen/dp_60"
+                                android:text="@string/txt_pregnant_week_colon"
+                                android:textColor="@color/color_a9a9a9"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/obstetric_medical_week_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_19"
+                                android:textColor="@color/primary_font_color"
+                                android:textSize="@dimen/sp_14"
+                                tools:text="孕周" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:minWidth="@dimen/dp_60"
+                                android:text="@string/txt_weight_colon"
+                                android:textColor="@color/color_a9a9a9"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/obstetric_medical_weight_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_19"
+                                android:textColor="@color/primary_font_color"
+                                android:textSize="@dimen/sp_14"
+                                tools:text="体重" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:minWidth="@dimen/dp_60"
+                                android:text="@string/txt_blood_glucose_colon"
+                                android:textColor="@color/color_a9a9a9"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/obstetric_medical_blood_glucose_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_19"
+                                android:textColor="@color/primary_font_color"
+                                android:textSize="@dimen/sp_14"
+                                tools:text="血糖" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:minWidth="@dimen/dp_60"
+                                android:text="@string/txt_circumference_colon"
+                                android:textColor="@color/color_a9a9a9"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/obstetric_medical_circumference_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_19"
+                                android:textColor="@color/primary_font_color"
+                                android:textSize="@dimen/sp_14"
+                                tools:text="腹围" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:minWidth="@dimen/dp_60"
+                                android:text="@string/txt_fetal_movement_colon"
+                                android:textColor="@color/color_a9a9a9"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/obstetric_medical_fetal_movement_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_19"
+                                android:textColor="@color/primary_font_color"
+                                android:textSize="@dimen/sp_14"
+                                tools:text="胎动" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:minWidth="@dimen/dp_60"
+                                android:text="@string/txt_hemoglobin_colon"
+                                android:textColor="@color/color_a9a9a9"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/obstetric_medical_hemoglobin_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_19"
+                                android:textColor="@color/primary_font_color"
+                                android:textSize="@dimen/sp_14"
+                                tools:text="血色素" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:minWidth="@dimen/dp_60"
+                                android:text="@string/txt_height_colon"
+                                android:textColor="@color/color_a9a9a9"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/obstetric_medical_height_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_19"
+                                android:textColor="@color/primary_font_color"
+                                android:textSize="@dimen/sp_14"
+                                tools:text="身高" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:minWidth="@dimen/dp_60"
+                                android:text="@string/txt_blood_pressure_colon"
+                                android:textColor="@color/color_a9a9a9"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/obstetric_medical_blood_pressure_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_19"
+                                android:textColor="@color/primary_font_color"
+                                android:textSize="@dimen/sp_14"
+                                tools:text="血压" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:minWidth="@dimen/dp_60"
+                                android:text="@string/txt_uterus_height_colon"
+                                android:textColor="@color/color_a9a9a9"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/obstetric_medical_uterus_height_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_19"
+                                android:textColor="@color/primary_font_color"
+                                android:textSize="@dimen/sp_14"
+                                tools:text="宫高" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:minWidth="@dimen/dp_60"
+                                android:text="@string/txt_fetal_heart_colon"
+                                android:textColor="@color/color_a9a9a9"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/obstetric_medical_fetal_heart_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_19"
+                                android:textColor="@color/primary_font_color"
+                                android:textSize="@dimen/sp_14"
+                                tools:text="胎心" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:minWidth="@dimen/dp_60"
+                                android:text="@string/txt_obstetric_medical_double_colon"
+                                android:textColor="@color/color_a9a9a9"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/obstetric_medical_double_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_19"
+                                android:textColor="@color/primary_font_color"
+                                android:textSize="@dimen/sp_14"
+                                tools:text="双顶径" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:minWidth="@dimen/dp_60"
+                                android:text="@string/txt_urine_protein_colon"
+                                android:textColor="@color/color_a9a9a9"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/obstetric_medical_urine_protein_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_19"
+                                android:textColor="@color/primary_font_color"
+                                android:textSize="@dimen/sp_14"
+                                tools:text="尿蛋白" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.keydom.ih_common.view.MyScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_108"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/dp_12"
+        android:paddingEnd="@dimen/dp_12">
+
+        <TextView
+            android:id="@+id/obstetric_medical_record_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/icon_patient_medical_records"
+            android:drawablePadding="@dimen/dp_13"
+            android:gravity="center"
+            android:text="@string/txt_patient_medical_records"
+            android:textColor="@color/register_success_color"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/obstetric_medical_inspection_report_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/icon_inspection_report"
+            android:drawablePadding="@dimen/dp_13"
+            android:gravity="center"
+            android:text="@string/txt_inspection_report"
+            android:textColor="@color/register_success_color"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/obstetric_medical_check_report_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/icon_check_report"
+            android:drawablePadding="@dimen/dp_13"
+            android:gravity="center"
+            android:text="@string/txt_check_report"
+            android:textColor="@color/register_success_color"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/obstetric_medical_prescription_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/icon_prescription"
+            android:drawablePadding="@dimen/dp_13"
+            android:gravity="center"
+            android:text="@string/txt_prescription"
+            android:textColor="@color/register_success_color"
+            android:textSize="@dimen/sp_14" />
+
+    </LinearLayout>
+
+</RelativeLayout>
