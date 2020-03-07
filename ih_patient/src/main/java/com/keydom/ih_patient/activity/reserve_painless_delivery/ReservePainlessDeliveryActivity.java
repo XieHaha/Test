@@ -145,6 +145,11 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
     }
 
     @Override
+    public long getCurUserId() {
+        return managerUserBean == null ? -1 : managerUserBean.getId();
+    }
+
+    @Override
     public void setSelect() {
         if (isSelect()) {
             ivSelect.setVisibility(View.INVISIBLE);

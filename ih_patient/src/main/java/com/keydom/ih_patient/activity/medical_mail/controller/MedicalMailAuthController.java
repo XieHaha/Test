@@ -8,7 +8,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.diagnose_user_manager.ManageUserNewActivity;
+import com.keydom.ih_patient.activity.diagnose_user_manager.ManageUserSelectActivity;
 import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailAuthView;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.MedicalMailApplyBean;
@@ -35,8 +35,8 @@ public class MedicalMailAuthController extends ControllerImpl<MedicalMailAuthVie
             case R.id.tv_select_visit:
                 //                ManageUserActivity.start(getContext(), ManageUserActivity
                 //                .FROMDIAGNOSES);
-                ManageUserNewActivity.start(getContext(), getView().getCurUserId(),
-                        ManageUserNewActivity.FROM_SELECT);
+                ManageUserSelectActivity.start(getContext(), getView().getCurUserId(),
+                        ManageUserSelectActivity.FROM_SELECT);
                 break;
             case R.id.layout_front:
                 getView().goToIdCardFrontDiscriminate();

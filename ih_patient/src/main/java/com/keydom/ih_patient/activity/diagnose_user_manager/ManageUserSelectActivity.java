@@ -8,8 +8,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.diagnose_user_manager.controller.ManageUserController;
-import com.keydom.ih_patient.activity.diagnose_user_manager.view.ManageUserView;
+import com.keydom.ih_patient.activity.diagnose_user_manager.controller.ManageUserSelectController;
+import com.keydom.ih_patient.activity.diagnose_user_manager.view.ManageUserSelectView;
 import com.keydom.ih_patient.adapter.ManageUserNewAdapter;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.ManagerUserBean;
@@ -22,9 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 就诊人管理页面
+ * 就诊人选择页面
  */
-public class ManageUserNewActivity extends BaseControllerActivity<ManageUserController> implements ManageUserView {
+public class ManageUserSelectActivity extends BaseControllerActivity<ManageUserSelectController> implements ManageUserSelectView {
     //选择
     public static final String FROM_SELECT = "from_select";
     private RecyclerView recyclerView;
@@ -39,7 +39,7 @@ public class ManageUserNewActivity extends BaseControllerActivity<ManageUserCont
      * 启动页面
      */
     public static void start(Context context, long id, String type) {
-        Intent intent = new Intent(context, ManageUserNewActivity.class);
+        Intent intent = new Intent(context, ManageUserSelectActivity.class);
         intent.putExtra("id", id);
         intent.putExtra("type", type);
         context.startActivity(intent);
@@ -75,8 +75,4 @@ public class ManageUserNewActivity extends BaseControllerActivity<ManageUserCont
         adapter.setNewData(data);
     }
 
-    @Override
-    public void deleteSuccess(int pos) {
-
-    }
 }

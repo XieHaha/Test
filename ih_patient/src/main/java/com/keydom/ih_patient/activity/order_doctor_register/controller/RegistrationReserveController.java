@@ -10,7 +10,7 @@ import com.blankj.utilcode.util.KeyboardUtils;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.diagnose_user_manager.ManageUserNewActivity;
+import com.keydom.ih_patient.activity.diagnose_user_manager.ManageUserSelectActivity;
 import com.keydom.ih_patient.activity.order_doctor_register.ChooseDoctorActivity;
 import com.keydom.ih_patient.activity.order_doctor_register.OrderDoctorRegisterActivity;
 import com.keydom.ih_patient.activity.order_doctor_register.view.RegistrationReserveView;
@@ -25,8 +25,8 @@ public class RegistrationReserveController extends ControllerImpl<RegistrationRe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.layout_visit:
-                ManageUserNewActivity.start(getContext(), getView().getCurrentUserId(),
-                        ManageUserNewActivity.FROM_SELECT);
+                ManageUserSelectActivity.start(getContext(), getView().getCurrentUserId(),
+                        ManageUserSelectActivity.FROM_SELECT);
                 break;
             case R.id.layout_date:
                 KeyboardUtils.hideSoftInput((Activity) getContext());

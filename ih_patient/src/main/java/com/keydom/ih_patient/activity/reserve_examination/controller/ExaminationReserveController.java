@@ -8,7 +8,7 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.diagnose_user_manager.ManageUserNewActivity;
+import com.keydom.ih_patient.activity.diagnose_user_manager.ManageUserSelectActivity;
 import com.keydom.ih_patient.activity.reserve_examination.view.ExaminationReserveView;
 
 /**
@@ -20,8 +20,8 @@ public class ExaminationReserveController extends ControllerImpl<ExaminationRese
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.examination_reserve_visit_tv:
-                ManageUserNewActivity.start(getContext(), getView().getCurrentUserId(),
-                        ManageUserNewActivity.FROM_SELECT);
+                ManageUserSelectActivity.start(getContext(), getView().getCurrentUserId(),
+                        ManageUserSelectActivity.FROM_SELECT);
 
                 break;
             case R.id.examination_reserve_date_tv:

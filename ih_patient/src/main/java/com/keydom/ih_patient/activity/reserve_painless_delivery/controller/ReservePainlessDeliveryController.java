@@ -15,7 +15,7 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_patient.App;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.diagnose_user_manager.ManageUserActivity;
+import com.keydom.ih_patient.activity.diagnose_user_manager.ManageUserSelectActivity;
 import com.keydom.ih_patient.activity.reserve_painless_delivery.view.ReservePainlessDeliveryView;
 import com.keydom.ih_patient.bean.ManagerUserBean;
 import com.keydom.ih_patient.constant.Global;
@@ -36,7 +36,8 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.layout_visit:
-                ManageUserActivity.start(getContext(), ManageUserActivity.FROMDIAGNOSES);
+                ManageUserSelectActivity.start(getContext(), getView().getCurUserId(),
+                        ManageUserSelectActivity.FROM_SELECT);
                 break;
             case R.id.layout_fetus:
                 break;

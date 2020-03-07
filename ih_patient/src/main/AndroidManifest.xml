@@ -517,7 +517,7 @@
         <activity android:name=".activity.reserve_examination.ExaminationReserveListActivity" />
         <activity android:name=".activity.reserve_examination.ExaminationReserveActivity" />
         <activity android:name=".activity.order_doctor_register.RegistrationReserveActivity" />
-        <activity android:name=".activity.diagnose_user_manager.ManageUserNewActivity" />
+        <activity android:name=".activity.diagnose_user_manager.ManageUserSelectActivity" />
     </application>
 
 </manifest>

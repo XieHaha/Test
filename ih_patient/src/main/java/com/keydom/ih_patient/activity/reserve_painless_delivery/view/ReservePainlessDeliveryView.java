@@ -57,4 +57,9 @@ public interface ReservePainlessDeliveryView extends BaseView {
      */
     String getPhone();
 
+    /**
+     * 当前就诊人id
+     */
+    long getCurUserId();
+
 }
