@@ -16,10 +16,10 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.StatusBarUtils;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.medical_mail.controller.MedicalMailController;
-import com.keydom.ih_patient.activity.medical_mail.fragment.MedicalMailEndFragment;
-import com.keydom.ih_patient.activity.medical_mail.fragment.MedicalMailOneFragment;
-import com.keydom.ih_patient.activity.medical_mail.fragment.MedicalMailThreeFragment;
-import com.keydom.ih_patient.activity.medical_mail.fragment.MedicalMailTwoFragment;
+import com.keydom.ih_patient.activity.medical_mail.fragment.MedicalMailApplyFragment;
+import com.keydom.ih_patient.activity.medical_mail.fragment.MedicalMailAuthFragment;
+import com.keydom.ih_patient.activity.medical_mail.fragment.MedicalMailCommitFragment;
+import com.keydom.ih_patient.activity.medical_mail.fragment.MedicalMailReceiveFragment;
 import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailView;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.MedicalMailApplyBean;
@@ -77,10 +77,10 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
 
     private FragmentManager manager;
     private FragmentTransaction transaction;
-    private MedicalMailOneFragment oneFragment;
-    private MedicalMailTwoFragment twoFragment;
-    private MedicalMailThreeFragment threeFragment;
-    private MedicalMailEndFragment endFragment;
+    private MedicalMailAuthFragment oneFragment;
+    private MedicalMailApplyFragment twoFragment;
+    private MedicalMailReceiveFragment threeFragment;
+    private MedicalMailCommitFragment endFragment;
 
     /**
      * 启动
@@ -128,7 +128,7 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
         transaction = manager.beginTransaction();
         hideAll(transaction);
         if (oneFragment == null) {
-            oneFragment = new MedicalMailOneFragment();
+            oneFragment = new MedicalMailAuthFragment();
             transaction.add(R.id.layout_frame_root, oneFragment);
         } else {
             transaction.show(oneFragment);
@@ -142,7 +142,7 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
         transaction = manager.beginTransaction();
         hideAll(transaction);
         if (twoFragment == null) {
-            twoFragment = new MedicalMailTwoFragment();
+            twoFragment = new MedicalMailApplyFragment();
             twoFragment.setApplyBean(applyBean);
             transaction.add(R.id.layout_frame_root, twoFragment);
         } else {
@@ -158,7 +158,7 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
         transaction = manager.beginTransaction();
         hideAll(transaction);
         if (threeFragment == null) {
-            threeFragment = new MedicalMailThreeFragment();
+            threeFragment = new MedicalMailReceiveFragment();
             threeFragment.setApplyBean(applyBean);
             transaction.add(R.id.layout_frame_root, threeFragment);
         } else {
@@ -173,7 +173,7 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
         transaction = manager.beginTransaction();
         hideAll(transaction);
         if (endFragment == null) {
-            endFragment = new MedicalMailEndFragment();
+            endFragment = new MedicalMailCommitFragment();
             endFragment.setApplyBean(applyBean);
             transaction.add(R.id.layout_frame_root, endFragment);
         } else {

@@ -6,5 +6,5 @@ import com.keydom.ih_common.base.BaseView;
  * @date 20/3/2 15:55
  * @des 病案邮寄-订单确认
  */
-public interface MedicalMailEndView extends BaseView {
+public interface MedicalMailCommitView extends BaseView {
 }

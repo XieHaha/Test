@@ -16,6 +16,7 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.MyScrollView;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.diagnose_user_manager.ManageUserActivity;
+import com.keydom.ih_patient.activity.diagnose_user_manager.ManageUserNewActivity;
 import com.keydom.ih_patient.activity.global_search.SearchActivity;
 import com.keydom.ih_patient.activity.index_main.ChooseCityActivity;
 import com.keydom.ih_patient.activity.location_manage.LocationManageActivity;
@@ -305,6 +306,10 @@ public class TabMineController extends ControllerImpl<TabMineView> implements Vi
                     ToastUtil.showMessage(getContext(),
                             getContext().getString(R.string.unlogin_hint));
                 }
+                break;
+            case R.id.mine_current_visit_change:
+                ManageUserNewActivity.start(getContext(), getView().getCurUserId(),
+                        ManageUserNewActivity.FROM_SELECT);
                 break;
             default:
                 break;

@@ -19,8 +19,8 @@ import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.medical_mail.controller.MedicalMailOneController;
-import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailOneView;
+import com.keydom.ih_patient.activity.medical_mail.controller.MedicalMailAuthController;
+import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailAuthView;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.IdCardBean;
 import com.keydom.ih_patient.bean.ManagerUserBean;
@@ -48,7 +48,7 @@ import butterknife.BindView;
 /**
  * 病案邮寄-身份认证
  */
-public class MedicalMailOneFragment extends BaseControllerFragment<MedicalMailOneController> implements MedicalMailOneView {
+public class MedicalMailAuthFragment extends BaseControllerFragment<MedicalMailAuthController> implements MedicalMailAuthView {
     @BindView(R.id.tv_select_visit)
     TextView tvSelectVisit;
     @BindView(R.id.layout_front)
@@ -87,7 +87,7 @@ public class MedicalMailOneFragment extends BaseControllerFragment<MedicalMailOn
 
     @Override
     public int getLayoutRes() {
-        return R.layout.fragment_medical_mail_one;
+        return R.layout.fragment_medical_mail_auth;
     }
 
     @Override
@@ -220,6 +220,11 @@ public class MedicalMailOneFragment extends BaseControllerFragment<MedicalMailOn
             ToastUtil.showMessage(getContext(), "证件照片二上传失败：" + msg + "请重新上传");
             layoutBack.setContent("[上传失败,重新上传]");
         }
+    }
+
+    @Override
+    public long getCurUserId() {
+        return userBean == null ? -1 : userBean.getId();
     }
 
     /**

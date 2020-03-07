@@ -2,6 +2,7 @@ package com.keydom.ih_patient.fragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -38,6 +39,7 @@ import com.keydom.ih_patient.activity.subscribe_examination_order.SubscribeExami
 import com.keydom.ih_patient.adapter.ChooseHospitalAdapter;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.HospitalAreaInfo;
+import com.keydom.ih_patient.bean.ManagerUserBean;
 import com.keydom.ih_patient.bean.UserInfo;
 import com.keydom.ih_patient.callback.GeneralCallback;
 import com.keydom.ih_patient.callback.SingleClick;
@@ -51,6 +53,7 @@ import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -78,7 +81,9 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
     private TextView mineFunctionCard, jumpToLoginTv, mineUserLocationTv, searchEdt,
             mineUserPhoneTv, mineUserName, mineUserNameVip, mineUserSexTv, mineLastClinicalTime,
             locationTv;
-    private TextView tvName, tvSex;
+    private TextView tvCurrentVisitName, tvCurrentVisitSex, tvCurrentVisitChange,
+            tvCurrentVisitCardNumber;
+    private ImageView ivCurrentVisitQr;
     private ImageView mineSettingImg, mineUserHeadImg;
     private ImageView mineSettingImgVip, mineUserHeadImgVip;
     private MyScrollView mineBoxSv;
@@ -94,6 +99,11 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
     private String selectHospitalName;
     private PopupWindow hospitalPopupWindow;
     private String imgStr = "";
+
+    /**
+     * 首页当前显示的就诊人
+     */
+    private ManagerUserBean curUserBean;
     //病例记录标识
     public static final String MEDICALRECORD = "medical_record";
     //检验检查标识
@@ -141,6 +151,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
                 }
             }
         });
+
         locationLayout = view.findViewById(R.id.location_layout);
         locationLayout.setOnClickListener(getController());
         searchLayout = view.findViewById(R.id.search_layout);
@@ -199,8 +210,11 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         layoutBaseVip = view.findViewById(R.id.layout_base_vip);
         layoutBase2Vip = view.findViewById(R.id.layout_base2_vip);
 
-        tvName = view.findViewById(R.id.tv_name);
-        tvSex = view.findViewById(R.id.tv_sex);
+        tvCurrentVisitName = view.findViewById(R.id.mine_current_visit_name_tv);
+        tvCurrentVisitSex = view.findViewById(R.id.mine_current_visit_sex_tv);
+        tvCurrentVisitCardNumber = view.findViewById(R.id.mine_current_visit_card_number_tv);
+        tvCurrentVisitChange = view.findViewById(R.id.mine_current_visit_change);
+        ivCurrentVisitQr = view.findViewById(R.id.mine_current_visit_qr_iv);
 
         itemRegister = view.findViewById(R.id.item_register);
         itemCheck = view.findViewById(R.id.item_check);
@@ -300,6 +314,17 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         if (event.getType() == EventType.UPDATECITY) {
             locationTv.setText(Global.getSelectedCityName());
             lazyLoad();
+        }
+    }
+
+    /**
+     * 更换首页显示的就诊人
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateUserBean(Event event) {
+        if (event.getType() == EventType.SENDPATIENTINFO) {
+            curUserBean = (ManagerUserBean) event.getData();
+            initCurrentUserBean();
         }
     }
 
@@ -413,7 +438,29 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
             }
 
         }
+        tvCurrentVisitChange.setOnClickListener(getController());
+        initCurrentUserBean();
         mineIndexRefresh.finishRefresh();
+    }
+
+    /**
+     * 当前就诊人
+     */
+    private void initCurrentUserBean() {
+        if (curUserBean != null) {
+            Bitmap image = CodeUtils.createImage(String.valueOf(curUserBean.getId()), 400, 400,
+                    null);
+            ivCurrentVisitQr.setImageBitmap(image);
+            tvCurrentVisitName.setText(curUserBean.getName());
+            tvCurrentVisitSex.setText(curUserBean.getSex());
+            tvCurrentVisitCardNumber.setText("就诊卡号");
+        } else {
+            Bitmap image = CodeUtils.createImage("111", 400, 400, null);
+            ivCurrentVisitQr.setImageBitmap(image);
+            tvCurrentVisitName.setText("测试");
+            tvCurrentVisitSex.setText("男");
+            tvCurrentVisitCardNumber.setText("就诊卡号");
+        }
     }
 
 
@@ -602,5 +649,10 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
     @Override
     public String getImgStr() {
         return imgStr;
+    }
+
+    @Override
+    public long getCurUserId() {
+        return curUserBean == null ? -1 : curUserBean.getId();
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
  * @date 20/3/2 15:55
  * @des 病案邮寄-收件信息
  */
-public interface MedicalMailThreeView extends BaseView {
+public interface MedicalMailReceiveView extends BaseView {
     void saveRegion(List<PackageData.ProvinceBean> data, int options1, int option2, int options3);
 
     /**

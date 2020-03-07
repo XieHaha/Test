@@ -168,8 +168,8 @@
                             android:layout_height="@dimen/dp_20"
                             android:layout_below="@+id/mine_last_clinical_time"
                             android:layout_marginTop="@dimen/dp_12"
-                            android:layout_marginRight="@dimen/dp_13"
-                            android:layout_toLeftOf="@+id/mine_user_phone_tv"
+                            android:layout_marginEnd="@dimen/dp_13"
+                            android:layout_toStartOf="@+id/mine_user_phone_tv"
                             android:background="@color/mine_interval_bg" />
                     </RelativeLayout>
 
@@ -286,7 +286,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/tv_name"
+                            android:id="@+id/mine_current_visit_name_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/primary_font_color"
@@ -294,7 +294,7 @@
                             tools:text="姓名" />
 
                         <TextView
-                            android:id="@+id/tv_sex"
+                            android:id="@+id/mine_current_visit_sex_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp_17"
@@ -303,7 +303,7 @@
                             tools:text="男" />
 
                         <TextView
-                            android:id="@+id/tv_change"
+                            android:id="@+id/mine_current_visit_change"
                             android:layout_width="@dimen/dp_50"
                             android:layout_height="@dimen/dp_20"
                             android:layout_marginStart="@dimen/dp_17"
@@ -329,6 +329,7 @@
                             android:src="@mipmap/point_green" />
 
                         <TextView
+                            android:id="@+id/mine_current_visit_card_number_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp_12"
@@ -345,6 +346,7 @@
                         android:orientation="vertical">
 
                         <ImageView
+                            android:id="@+id/mine_current_visit_qr_iv"
                             android:layout_width="@dimen/dp_60"
                             android:layout_height="@dimen/dp_60"
                             android:src="@mipmap/unlogin_uer_head" />

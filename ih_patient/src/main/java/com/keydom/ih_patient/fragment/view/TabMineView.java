@@ -33,4 +33,6 @@ public interface TabMineView extends BaseView {
      * @return
      */
     String getImgStr();
+
+    long getCurUserId();
 }

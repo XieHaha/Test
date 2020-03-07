@@ -6,8 +6,8 @@ import android.widget.TextView;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.medical_mail.controller.MedicalMailTwoController;
-import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailTwoView;
+import com.keydom.ih_patient.activity.medical_mail.controller.MedicalMailApplyController;
+import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailApplyView;
 import com.keydom.ih_patient.bean.MedicalMailApplyBean;
 
 import org.jetbrains.annotations.Nullable;
@@ -17,7 +17,7 @@ import butterknife.BindView;
 /**
  * 病案邮寄-邮寄申请
  */
-public class MedicalMailTwoFragment extends BaseControllerFragment<MedicalMailTwoController> implements MedicalMailTwoView {
+public class MedicalMailApplyFragment extends BaseControllerFragment<MedicalMailApplyController> implements MedicalMailApplyView {
     @BindView(R.id.et_name)
     InterceptorEditText etName;
     @BindView(R.id.et_id_card)
@@ -41,7 +41,7 @@ public class MedicalMailTwoFragment extends BaseControllerFragment<MedicalMailTw
 
     @Override
     public int getLayoutRes() {
-        return R.layout.fragment_medical_mail_two;
+        return R.layout.fragment_medical_mail_apply;
     }
 
     @Override

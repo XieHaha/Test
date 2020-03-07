@@ -7,7 +7,7 @@ import com.keydom.ih_patient.bean.MedicalMailApplyBean;
  * @date 20/3/2 15:55
  * @des 病案邮寄-邮寄申请
  */
-public interface MedicalMailTwoView extends BaseView {
+public interface MedicalMailApplyView extends BaseView {
     String getName();
 
     String getIdCard();

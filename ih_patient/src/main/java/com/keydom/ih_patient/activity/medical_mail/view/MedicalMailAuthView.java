@@ -7,7 +7,7 @@ import com.keydom.ih_patient.bean.MedicalMailApplyBean;
  * @date 20/3/2 15:55
  * @des 病案邮寄-身份认证
  */
-public interface MedicalMailOneView extends BaseView {
+public interface MedicalMailAuthView extends BaseView {
 
     String getFrontUrl();
 
@@ -39,4 +39,4 @@ public interface MedicalMailOneView extends BaseView {
 
     MedicalMailApplyBean getApplyData();
 
-}
+    long getCurUserId();}

@@ -6,8 +6,8 @@ import android.widget.TextView;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.medical_mail.controller.MedicalMailThreeController;
-import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailThreeView;
+import com.keydom.ih_patient.activity.medical_mail.controller.MedicalMailReceiveController;
+import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailReceiveView;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.LocationInfo;
 import com.keydom.ih_patient.bean.MedicalMailApplyBean;
@@ -25,7 +25,7 @@ import butterknife.BindView;
 /**
  * 病案邮寄-收件信息
  */
-public class MedicalMailThreeFragment extends BaseControllerFragment<MedicalMailThreeController> implements MedicalMailThreeView {
+public class MedicalMailReceiveFragment extends BaseControllerFragment<MedicalMailReceiveController> implements MedicalMailReceiveView {
     @BindView(R.id.tv_select_address)
     TextView tvSelectAddress;
     @BindView(R.id.et_name)
@@ -45,7 +45,7 @@ public class MedicalMailThreeFragment extends BaseControllerFragment<MedicalMail
 
     @Override
     public int getLayoutRes() {
-        return R.layout.fragment_medical_mail_three;
+        return R.layout.fragment_medical_mail_receive;
     }
 
 

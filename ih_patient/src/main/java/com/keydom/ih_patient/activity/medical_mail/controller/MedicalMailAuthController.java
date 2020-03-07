@@ -8,8 +8,8 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.diagnose_user_manager.ManageUserActivity;
-import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailOneView;
+import com.keydom.ih_patient.activity.diagnose_user_manager.ManageUserNewActivity;
+import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailAuthView;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.bean.MedicalMailApplyBean;
 import com.keydom.ih_patient.constant.EventType;
@@ -28,12 +28,15 @@ import okhttp3.RequestBody;
 /**
  * 病案邮寄-身份认证
  */
-public class MedicalMailOneController extends ControllerImpl<MedicalMailOneView> implements View.OnClickListener {
+public class MedicalMailAuthController extends ControllerImpl<MedicalMailAuthView> implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_select_visit:
-                ManageUserActivity.start(getContext(), ManageUserActivity.FROMDIAGNOSES);
+                //                ManageUserActivity.start(getContext(), ManageUserActivity
+                //                .FROMDIAGNOSES);
+                ManageUserNewActivity.start(getContext(), getView().getCurUserId(),
+                        ManageUserNewActivity.FROM_SELECT);
                 break;
             case R.id.layout_front:
                 getView().goToIdCardFrontDiscriminate();

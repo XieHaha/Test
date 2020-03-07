@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailEndView;
+import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailCommitView;
 import com.keydom.ih_patient.bean.Event;
 import com.keydom.ih_patient.constant.EventType;
 
@@ -13,7 +13,7 @@ import org.greenrobot.eventbus.EventBus;
 /**
  * 病案邮寄-订单确认
  */
-public class MedicalMailEndController extends ControllerImpl<MedicalMailEndView> implements View.OnClickListener {
+public class MedicalMailCommitController extends ControllerImpl<MedicalMailCommitView> implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

@@ -5,8 +5,8 @@ import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_patient.R;
-import com.keydom.ih_patient.activity.medical_mail.controller.MedicalMailEndController;
-import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailEndView;
+import com.keydom.ih_patient.activity.medical_mail.controller.MedicalMailCommitController;
+import com.keydom.ih_patient.activity.medical_mail.view.MedicalMailCommitView;
 import com.keydom.ih_patient.bean.MedicalMailApplyBean;
 
 import org.jetbrains.annotations.Nullable;
@@ -16,7 +16,7 @@ import butterknife.BindView;
 /**
  * 病案邮寄-订单确认
  */
-public class MedicalMailEndFragment extends BaseControllerFragment<MedicalMailEndController> implements MedicalMailEndView {
+public class MedicalMailCommitFragment extends BaseControllerFragment<MedicalMailCommitController> implements MedicalMailCommitView {
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_phone)
@@ -44,7 +44,7 @@ public class MedicalMailEndFragment extends BaseControllerFragment<MedicalMailEn
 
     @Override
     public int getLayoutRes() {
-        return R.layout.fragment_medical_mail_end;
+        return R.layout.fragment_medical_mail_commit;
     }
 
 
