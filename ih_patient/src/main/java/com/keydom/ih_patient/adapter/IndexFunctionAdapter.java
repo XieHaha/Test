@@ -17,6 +17,7 @@ import com.keydom.ih_patient.activity.diagnose_main.DiagnoseMainActivity;
 import com.keydom.ih_patient.activity.function_config.FunctionConfigActivity;
 import com.keydom.ih_patient.activity.get_drug.GetDrugActivity;
 import com.keydom.ih_patient.activity.health_manager.HealthManagerActivity;
+import com.keydom.ih_patient.activity.hospital_payment.HospitalPaymentActivity;
 import com.keydom.ih_patient.activity.inspection_report.InspectionReportActivity;
 import com.keydom.ih_patient.activity.inspection_report.ObstetricMedicalActivity;
 import com.keydom.ih_patient.activity.logistic.QueryLogisticActivity;
@@ -69,6 +70,14 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     public final String Examination = "105";
     //办卡绑卡
     public final String CardOperate = "107";
+
+    //非会员
+    //预约挂号
+    public final String DoctorRegisterNonMember = "22";
+    //诊间缴费
+    public final String PaymentRecordNonMember = "23";
+    //办卡绑卡
+    public final String CardOperateNonMember = "24";
     //在线问诊
     public final String OnlineDiagnose = "25";
     //护理服务
@@ -81,12 +90,14 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     public final String OrderHospitalCure = "29";
     //预约体检
     public final String OrderPhysicalExamination = "30";
-
     //取药用药
     public final String GetDrugs = "31";
-
     //物流查询
     public final String ExpressInfo = "32";
+    //线下评估预约
+    public final String OfflineEvaluation = "33";
+    //住院预缴金
+    public final String HospitalPayment = "34";
 
     /**
      * 构造方法
@@ -164,10 +175,11 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             ChildHealthActivity.start(context);
                             break;
                         case DoctorRegister:
+                        case DoctorRegisterNonMember:
                             RegistrationReserveActivity.start(context);
-                            //OrderDoctorRegisterActivity.start(context,false);
                             break;
                         case PaymentRecord:
+                        case PaymentRecordNonMember:
                             PaymentRecordActivity.start(context);
                             break;
                         case HealthManager:
@@ -180,6 +192,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             ExaminationReserveActivity.start(context);
                             break;
                         case CardOperate:
+                        case CardOperateNonMember:
                             CardoperateActivity.start(context);
                             break;
                         case OnlineDiagnose:
@@ -205,6 +218,11 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             break;
                         case ExpressInfo:
                             context.startActivity(new Intent(context, QueryLogisticActivity.class));
+                            break;
+                        case OfflineEvaluation:
+                            break;
+                        case HospitalPayment:
+                            HospitalPaymentActivity.start(context);
                             break;
                     }
                 }

@@ -77,6 +77,15 @@ public class HealthManagerActivity extends BaseControllerActivity<HealthManagerC
         tvTitle.setText(getString(R.string.txt_health_management));
         ivBack.setOnClickListener(getController());
         ivOnline.setOnClickListener(getController());
+
+        pageLoading();
+        getController().getHealthManagerData();
+        setReloadListener((v, status) -> getController().getHealthManagerData());
+    }
+
+    @Override
+    public void requestSuccess() {
+        pageLoadingSuccess();
     }
 
     @Override

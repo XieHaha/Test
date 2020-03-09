@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.pregnant_woman.controller.PregnantWomanController;
@@ -114,7 +115,15 @@ public class PregnantWomanActivity extends BaseControllerActivity<PregnantWomanC
         });
 
         ivOnline.setOnClickListener(getController());
+        pageLoading();
         getController().getArticleData(TypeEnum.REFRESH);
+        setReloadListener(new LoadDataLayout.OnReloadListener() {
+            @Override
+            public void onReload(View v, int status) {
+                pageLoading();
+                getController().getArticleData(TypeEnum.REFRESH);
+            }
+        });
     }
 
     /**
@@ -133,5 +142,6 @@ public class PregnantWomanActivity extends BaseControllerActivity<PregnantWomanC
 
     @Override
     public void bindData() {
+        pageLoadingSuccess();
     }
 }

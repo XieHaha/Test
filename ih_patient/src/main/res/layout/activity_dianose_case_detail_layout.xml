@@ -7,355 +7,355 @@
 
     <include layout="@layout/common_title_bar" />
 
-    <!--<com.ganxin.library.LoadDataLayout-->
-    <!--android:id="@+id/loadDataLayout"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
-
-    <com.keydom.ih_common.view.AnimationScrollView
+    <com.ganxin.library.LoadDataLayout
+        android:id="@+id/loadDataLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <com.keydom.ih_common.view.AnimationScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/hospital_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_25"
-                android:gravity="center_horizontal"
-                android:text="成都市第一人民医院"
-                android:textColor="#666666"
-                android:textSize="@dimen/font_size_title" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_13"
-                android:gravity="center_horizontal"
-                android:text="门诊病历记录"
-                android:textColor="#666666"
-                android:textSize="@dimen/font_size_20"
-                android:textStyle="bold" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/padding_left_right_dp"
-                android:layout_marginTop="@dimen/dp_40"
-                android:layout_marginRight="@dimen/padding_left_right_dp"
-                android:background="#f9f9f9"
-                android:paddingLeft="@dimen/padding_left_right_dp"
-                android:paddingTop="@dimen/dp_13"
-                android:paddingRight="@dimen/padding_left_right_dp"
-                android:paddingBottom="@dimen/dp_13">
-
-                <TextView
-                    android:id="@+id/department_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:lines="1"
-                    android:maxWidth="@dimen/dp_140"
-                    android:ellipsize="end"
-                    android:text="科别："
-                    android:textColor="@color/primary_font_color"
-                    android:textSize="@dimen/font_size_primary" />
-
-                <TextView
-                    android:id="@+id/time_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="日期："
-                    android:textColor="@color/primary_font_color"
-                    android:textSize="@dimen/font_size_primary" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_3"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:layout_marginTop="@dimen/dp_12"
-                android:layout_marginRight="@dimen/dp_15"
-                android:background="@drawable/dotted_line_bg"
-                android:layerType="software" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_24"
-                android:paddingLeft="@dimen/padding_left_right_dp"
-                android:paddingRight="@dimen/padding_left_right_dp">
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true">
-
-                    <TextView
-                        android:id="@+id/user_name_tv_tip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="姓名:"
-                        android:textColor="#BBBBBB"
-                        android:textSize="@dimen/font_size_primary" />
-
-                    <TextView
-                        android:id="@+id/user_name_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_8"
-                        android:layout_toRightOf="@id/user_name_tv_tip"
-                        android:text=""
-                        android:textColor="@color/primary_font_color"
-                        android:textSize="@dimen/font_size_primary"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true">
-
-                    <TextView
-                        android:id="@+id/user_age_tv_tip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="年龄:"
-                        android:textColor="#BBBBBB"
-                        android:textSize="@dimen/font_size_primary" />
-
-                    <TextView
-                        android:id="@+id/user_age_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_8"
-                        android:layout_toRightOf="@id/user_age_tv_tip"
-                        android:text=""
-                        android:textColor="@color/primary_font_color"
-                        android:textSize="@dimen/font_size_primary"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/dp_20">
-
-                    <TextView
-                        android:id="@+id/user_sex_tv_tip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="性别:"
-                        android:textColor="#BBBBBB"
-                        android:textSize="@dimen/font_size_primary" />
-
-                    <TextView
-                        android:id="@+id/user_sex_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_8"
-                        android:layout_toRightOf="@id/user_sex_tv_tip"
-                        android:text=""
-                        android:textColor="@color/primary_font_color"
-                        android:textSize="@dimen/font_size_primary"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-            </RelativeLayout>
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_31"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/padding_left_right_dp"
-                android:paddingRight="@dimen/padding_left_right_dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/main_dec_tip"
+                    android:id="@+id/hospital_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="主诉："
-                    android:textColor="#BBBBBB"
-                    android:textSize="@dimen/font_size_primary" />
-
-                <TextView
-                    android:id="@+id/main_dec"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text=""
-                    android:textColor="@color/primary_font_color"
-                    android:textSize="@dimen/font_size_primary" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_31"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/padding_left_right_dp"
-                android:paddingRight="@dimen/padding_left_right_dp">
-
-                <TextView
-                    android:id="@+id/disease_history_tip"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="现病史："
-                    android:textColor="#BBBBBB"
-                    android:textSize="@dimen/font_size_primary" />
-
-                <TextView
-                    android:id="@+id/disease_history"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/primary_font_color"
-                    android:textSize="@dimen/font_size_primary" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_31"
-                android:paddingLeft="@dimen/padding_left_right_dp"
-                android:paddingRight="@dimen/padding_left_right_dp">
-
-                <TextView
-                    android:id="@+id/oversensitive_history_tip"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="过敏史："
-                    android:textColor="#BBBBBB"
-                    android:textSize="@dimen/font_size_primary" />
-
-                <TextView
-                    android:id="@+id/oversensitive_history"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/primary_font_color"
-                    android:textSize="@dimen/font_size_primary" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_31"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/padding_left_right_dp"
-                android:paddingRight="@dimen/padding_left_right_dp">
-
-                <TextView
-                    android:id="@+id/auxiliary_check_tip"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="辅助检查："
-                    android:textColor="#BBBBBB"
-                    android:textSize="@dimen/font_size_primary" />
-
-                <TextView
-                    android:id="@+id/auxiliary_check"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/primary_font_color"
-                    android:textSize="@dimen/font_size_primary" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_31"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/padding_left_right_dp"
-                android:paddingRight="@dimen/padding_left_right_dp">
-
-                <TextView
-                    android:id="@+id/diagnose_tip"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="诊断："
-                    android:textColor="#BBBBBB"
-                    android:textSize="@dimen/font_size_primary" />
-
-                <TextView
-                    android:id="@+id/diagnose"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/primary_font_color"
-                    android:textSize="@dimen/font_size_primary" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_31"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/padding_left_right_dp"
-                android:paddingRight="@dimen/padding_left_right_dp">
-
-                <TextView
-                    android:id="@+id/deal_with_tip"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="处理："
-                    android:textColor="#BBBBBB"
-                    android:textSize="@dimen/font_size_primary" />
-
-                <TextView
-                    android:id="@+id/deal_with"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/primary_font_color"
-                    android:textSize="@dimen/font_size_primary" />
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_43"
-                android:layout_marginBottom="@dimen/dp_70"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/padding_left_right_dp"
-                android:paddingRight="@dimen/padding_left_right_dp">
-
-                <TextView
-                    android:id="@+id/doctor_name_tip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="医师："
-                    android:textColor="#3F98F7"
-                    android:textSize="@dimen/font_size_primary" />
-
-                <TextView
-                    android:id="@+id/doctor_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/doctor_name_tip"
-                    android:textColor="#3F98F7"
+                    android:layout_marginTop="@dimen/dp_25"
+                    android:gravity="center_horizontal"
+                    android:text="成都市第一人民医院"
+                    android:textColor="#666666"
                     android:textSize="@dimen/font_size_title" />
-            </RelativeLayout>
-        </LinearLayout>
-    </com.keydom.ih_common.view.AnimationScrollView>
-    <!--</com.ganxin.library.LoadDataLayout>-->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_13"
+                    android:gravity="center_horizontal"
+                    android:text="门诊病历记录"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/font_size_20"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_left_right_dp"
+                    android:layout_marginTop="@dimen/dp_40"
+                    android:layout_marginRight="@dimen/padding_left_right_dp"
+                    android:background="#f9f9f9"
+                    android:paddingLeft="@dimen/padding_left_right_dp"
+                    android:paddingTop="@dimen/dp_13"
+                    android:paddingRight="@dimen/padding_left_right_dp"
+                    android:paddingBottom="@dimen/dp_13">
+
+                    <TextView
+                        android:id="@+id/department_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:maxWidth="@dimen/dp_140"
+                        android:text="科别："
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <TextView
+                        android:id="@+id/time_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="日期："
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_3"
+                    android:layout_marginLeft="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginRight="@dimen/dp_15"
+                    android:background="@drawable/dotted_line_bg"
+                    android:layerType="software" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:paddingLeft="@dimen/padding_left_right_dp"
+                    android:paddingRight="@dimen/padding_left_right_dp">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true">
+
+                        <TextView
+                            android:id="@+id/user_name_tv_tip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="姓名:"
+                            android:textColor="#BBBBBB"
+                            android:textSize="@dimen/font_size_primary" />
+
+                        <TextView
+                            android:id="@+id/user_name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_8"
+                            android:layout_toRightOf="@id/user_name_tv_tip"
+                            android:text=""
+                            android:textColor="@color/primary_font_color"
+                            android:textSize="@dimen/font_size_primary"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true">
+
+                        <TextView
+                            android:id="@+id/user_age_tv_tip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="年龄:"
+                            android:textColor="#BBBBBB"
+                            android:textSize="@dimen/font_size_primary" />
+
+                        <TextView
+                            android:id="@+id/user_age_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_8"
+                            android:layout_toRightOf="@id/user_age_tv_tip"
+                            android:text=""
+                            android:textColor="@color/primary_font_color"
+                            android:textSize="@dimen/font_size_primary"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/dp_20">
+
+                        <TextView
+                            android:id="@+id/user_sex_tv_tip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="性别:"
+                            android:textColor="#BBBBBB"
+                            android:textSize="@dimen/font_size_primary" />
+
+                        <TextView
+                            android:id="@+id/user_sex_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_8"
+                            android:layout_toRightOf="@id/user_sex_tv_tip"
+                            android:text=""
+                            android:textColor="@color/primary_font_color"
+                            android:textSize="@dimen/font_size_primary"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_31"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding_left_right_dp"
+                    android:paddingRight="@dimen/padding_left_right_dp">
+
+                    <TextView
+                        android:id="@+id/main_dec_tip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="主诉："
+                        android:textColor="#BBBBBB"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <TextView
+                        android:id="@+id/main_dec"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_31"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding_left_right_dp"
+                    android:paddingRight="@dimen/padding_left_right_dp">
+
+                    <TextView
+                        android:id="@+id/disease_history_tip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="现病史："
+                        android:textColor="#BBBBBB"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <TextView
+                        android:id="@+id/disease_history"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_31"
+                    android:paddingLeft="@dimen/padding_left_right_dp"
+                    android:paddingRight="@dimen/padding_left_right_dp">
+
+                    <TextView
+                        android:id="@+id/oversensitive_history_tip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="过敏史："
+                        android:textColor="#BBBBBB"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <TextView
+                        android:id="@+id/oversensitive_history"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_31"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding_left_right_dp"
+                    android:paddingRight="@dimen/padding_left_right_dp">
+
+                    <TextView
+                        android:id="@+id/auxiliary_check_tip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="辅助检查："
+                        android:textColor="#BBBBBB"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <TextView
+                        android:id="@+id/auxiliary_check"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_31"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding_left_right_dp"
+                    android:paddingRight="@dimen/padding_left_right_dp">
+
+                    <TextView
+                        android:id="@+id/diagnose_tip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="诊断："
+                        android:textColor="#BBBBBB"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <TextView
+                        android:id="@+id/diagnose"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_31"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding_left_right_dp"
+                    android:paddingRight="@dimen/padding_left_right_dp">
+
+                    <TextView
+                        android:id="@+id/deal_with_tip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="处理："
+                        android:textColor="#BBBBBB"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <TextView
+                        android:id="@+id/deal_with"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/font_size_primary" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_43"
+                    android:layout_marginBottom="@dimen/dp_70"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding_left_right_dp"
+                    android:paddingRight="@dimen/padding_left_right_dp">
+
+                    <TextView
+                        android:id="@+id/doctor_name_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="医师："
+                        android:textColor="#3F98F7"
+                        android:textSize="@dimen/font_size_primary" />
+
+                    <TextView
+                        android:id="@+id/doctor_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/doctor_name_tip"
+                        android:textColor="#3F98F7"
+                        android:textSize="@dimen/font_size_title" />
+                </RelativeLayout>
+            </LinearLayout>
+        </com.keydom.ih_common.view.AnimationScrollView>
+    </com.ganxin.library.LoadDataLayout>
 </LinearLayout>

@@ -77,10 +77,10 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
 
     private FragmentManager manager;
     private FragmentTransaction transaction;
-    private MedicalMailAuthFragment oneFragment;
-    private MedicalMailApplyFragment twoFragment;
-    private MedicalMailReceiveFragment threeFragment;
-    private MedicalMailCommitFragment endFragment;
+    private MedicalMailAuthFragment authFragment;
+    private MedicalMailApplyFragment applyFragment;
+    private MedicalMailReceiveFragment receiveFragment;
+    private MedicalMailCommitFragment commitFragment;
 
     /**
      * 启动
@@ -127,12 +127,12 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
     private void tabOneView() {
         transaction = manager.beginTransaction();
         hideAll(transaction);
-        if (oneFragment == null) {
-            oneFragment = new MedicalMailAuthFragment();
-            transaction.add(R.id.layout_frame_root, oneFragment);
+        if (authFragment == null) {
+            authFragment = new MedicalMailAuthFragment();
+            transaction.add(R.id.layout_frame_root, authFragment);
         } else {
-            transaction.show(oneFragment);
-            oneFragment.onResume();
+            transaction.show(authFragment);
+            authFragment.onResume();
         }
         transaction.commitAllowingStateLoss();
         step(0);
@@ -141,14 +141,14 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
     private void tabTwoView() {
         transaction = manager.beginTransaction();
         hideAll(transaction);
-        if (twoFragment == null) {
-            twoFragment = new MedicalMailApplyFragment();
-            twoFragment.setApplyBean(applyBean);
-            transaction.add(R.id.layout_frame_root, twoFragment);
+        if (applyFragment == null) {
+            applyFragment = new MedicalMailApplyFragment();
+            applyFragment.setApplyBean(applyBean);
+            transaction.add(R.id.layout_frame_root, applyFragment);
         } else {
-            transaction.show(twoFragment);
-            twoFragment.setApplyBean(applyBean);
-            twoFragment.onResume();
+            transaction.show(applyFragment);
+            applyFragment.setApplyBean(applyBean);
+            applyFragment.onResume();
         }
         transaction.commitAllowingStateLoss();
         step(1);
@@ -157,13 +157,13 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
     private void tabThreeView() {
         transaction = manager.beginTransaction();
         hideAll(transaction);
-        if (threeFragment == null) {
-            threeFragment = new MedicalMailReceiveFragment();
-            threeFragment.setApplyBean(applyBean);
-            transaction.add(R.id.layout_frame_root, threeFragment);
+        if (receiveFragment == null) {
+            receiveFragment = new MedicalMailReceiveFragment();
+            receiveFragment.setApplyBean(applyBean);
+            transaction.add(R.id.layout_frame_root, receiveFragment);
         } else {
-            transaction.show(threeFragment);
-            threeFragment.setApplyBean(applyBean);
+            transaction.show(receiveFragment);
+            receiveFragment.setApplyBean(applyBean);
         }
         transaction.commitAllowingStateLoss();
         step(2);
@@ -172,14 +172,14 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
     private void tabEndView() {
         transaction = manager.beginTransaction();
         hideAll(transaction);
-        if (endFragment == null) {
-            endFragment = new MedicalMailCommitFragment();
-            endFragment.setApplyBean(applyBean);
-            transaction.add(R.id.layout_frame_root, endFragment);
+        if (commitFragment == null) {
+            commitFragment = new MedicalMailCommitFragment();
+            commitFragment.setApplyBean(applyBean);
+            transaction.add(R.id.layout_frame_root, commitFragment);
         } else {
-            transaction.show(endFragment);
-            endFragment.setApplyBean(applyBean);
-            endFragment.onResume();
+            transaction.show(commitFragment);
+            commitFragment.setApplyBean(applyBean);
+            commitFragment.onResume();
         }
         transaction.commitAllowingStateLoss();
         step(3);
@@ -189,17 +189,17 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
      * 隐藏所有碎片
      */
     private void hideAll(FragmentTransaction transaction) {
-        if (oneFragment != null) {
-            transaction.hide(oneFragment);
+        if (authFragment != null) {
+            transaction.hide(authFragment);
         }
-        if (twoFragment != null) {
-            transaction.hide(twoFragment);
+        if (applyFragment != null) {
+            transaction.hide(applyFragment);
         }
-        if (threeFragment != null) {
-            transaction.hide(threeFragment);
+        if (receiveFragment != null) {
+            transaction.hide(receiveFragment);
         }
-        if (endFragment != null) {
-            transaction.hide(endFragment);
+        if (commitFragment != null) {
+            transaction.hide(commitFragment);
         }
     }
 

@@ -7,5 +7,7 @@ import com.keydom.ih_common.base.BaseView;
  * @des 健康管理首页
  */
 public interface HealthManagerView extends BaseView {
+    void requestSuccess();
+
     void finishPage();
 }

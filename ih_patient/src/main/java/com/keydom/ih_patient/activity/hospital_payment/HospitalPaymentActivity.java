@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.hospital_payment.controller.HospitalPaymentController;
@@ -50,12 +51,6 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
     }
 
     @Override
-    protected void onResume() {
-        getController().getHospitalPayment();
-        super.onResume();
-    }
-
-    @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle("住院预缴金");
         swipeRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getHospitalPayment());
@@ -72,6 +67,15 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
         recyclerView.setAdapter(adapter);
 
         bindHeaderData();
+
+        pageLoading();
+        getController().getHospitalPayment();
+        setReloadListener(new LoadDataLayout.OnReloadListener() {
+            @Override
+            public void onReload(View v, int status) {
+                getController().getHospitalPayment();
+            }
+        });
     }
 
     /**
@@ -112,6 +116,6 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
 
     @Override
     public void fillHospitalPaymentData(List<String> data) {
-
+        pageLoadingSuccess();
     }
 }

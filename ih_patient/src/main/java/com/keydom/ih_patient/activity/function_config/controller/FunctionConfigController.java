@@ -19,47 +19,52 @@ import java.util.List;
 /**
  * 菜单配置控制器
  */
-public class FunctionConfigController extends ControllerImpl<FunctionConfigView>implements View.OnClickListener,IhTitleLayout.OnRightTextClickListener {
-    private List<IndexFunction>indexFunctionList;
+public class FunctionConfigController extends ControllerImpl<FunctionConfigView> implements View.OnClickListener, IhTitleLayout.OnRightTextClickListener {
+    private List<IndexFunction> indexFunctionList;
 
     /**
      * 获取本地菜单配置状态
      */
     public void initData() {
-        String filename="index_function_"+Global.getUserId();
+        String filename = "index_function_" + Global.getUserId();
         String allFunctionFilename = "all_function_" + Global.getUserId();
-        List<IndexFunction> selectedFunctionlist= (List<IndexFunction>) LocalizationUtils.readFileFromLocal(getContext(),filename);
+        List<IndexFunction> selectedFunctionlist =
+                (List<IndexFunction>) LocalizationUtils.readFileFromLocal(getContext(), filename);
 
-        List<IndexFunction> allFunctionlist= (List<IndexFunction>) LocalizationUtils.readFileFromLocal(getContext(),allFunctionFilename);
-        if(allFunctionlist!=null){
-            Logger.e("selectedFunctionlist.size=="+allFunctionlist.size());
-        }else {
+        List<IndexFunction> allFunctionlist =
+                (List<IndexFunction>) LocalizationUtils.readFileFromLocal(getContext(),
+                        allFunctionFilename);
+        //TODO 临时添加非会员 住院预缴金  2020年3月9日 15:16:52
+        allFunctionlist.add(new IndexFunction(R.mipmap.icon_hospital_payment, 34, "住院预缴"));
+        if (allFunctionlist != null) {
+            Logger.e("selectedFunctionlist.size==" + allFunctionlist.size());
+        } else {
             Logger.e("selectedFunctionlist==null");
         }
-        if(selectedFunctionlist!=null){
-            Logger.e("selectedFunctionlist.size=="+selectedFunctionlist.size());
-        }else {
+        if (selectedFunctionlist != null) {
+            Logger.e("selectedFunctionlist.size==" + selectedFunctionlist.size());
+        } else {
             Logger.e("selectedFunctionlist==null");
-            selectedFunctionlist=new ArrayList<>();
-            if(allFunctionlist!=null){
-                if(allFunctionlist.size()>7){
-                    selectedFunctionlist.addAll(allFunctionlist.subList(0,6));
-                }else {
+            selectedFunctionlist = new ArrayList<>();
+            if (allFunctionlist != null) {
+                if (allFunctionlist.size() > 7) {
+                    selectedFunctionlist.addAll(allFunctionlist.subList(0, 6));
+                } else {
                     selectedFunctionlist.addAll(allFunctionlist);
                 }
             }
 
         }
-        if(selectedFunctionlist!=null&&allFunctionlist!=null){
-            getView().fillFunctionData(allFunctionlist,selectedFunctionlist);
-        }else
-            ToastUtil.showMessage(getContext(),"获取菜单配置失败");
+        if (selectedFunctionlist != null && allFunctionlist != null) {
+            getView().fillFunctionData(allFunctionlist, selectedFunctionlist);
+        } else
+            ToastUtil.showMessage(getContext(), "获取菜单配置失败");
 
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.function_config_editor_tv:
                 getView().changEditStatus();
                 break;
@@ -68,10 +73,10 @@ public class FunctionConfigController extends ControllerImpl<FunctionConfigView>
 
     @Override
     public void OnRightTextClick(View v) {
-        if(getView().isEditing()){
+        if (getView().isEditing()) {
             getView().changEditStatus();
             getView().localizationConfig();
         }
-        ((FunctionConfigActivity)getContext()).finish();
+        ((FunctionConfigActivity) getContext()).finish();
     }
 }

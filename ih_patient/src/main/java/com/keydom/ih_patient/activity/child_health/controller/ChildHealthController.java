@@ -25,6 +25,7 @@ public class ChildHealthController extends ControllerImpl<ChildHealthView> imple
      * 获取儿童保健记录
      */
     public void getChildHealthList(TypeEnum refresh) {
+        getView().requestSuccess("");
 
     }
 

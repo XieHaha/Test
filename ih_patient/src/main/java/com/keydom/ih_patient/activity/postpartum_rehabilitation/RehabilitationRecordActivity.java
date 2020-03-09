@@ -80,6 +80,9 @@ public class RehabilitationRecordActivity extends BaseControllerActivity<Rehabil
         recyclerView.setAdapter(adapter);
 
         ivOnline.setOnClickListener(this);
+
+        pageLoading();
+        setReloadListener((v, status) -> getController().getRehabilitationRecord());
     }
 
     /**
@@ -136,7 +139,7 @@ public class RehabilitationRecordActivity extends BaseControllerActivity<Rehabil
 
     @Override
     public void fillRehabilitationRecordData(List<String> data) {
-
+        pageLoadingSuccess();
     }
 
     @Override

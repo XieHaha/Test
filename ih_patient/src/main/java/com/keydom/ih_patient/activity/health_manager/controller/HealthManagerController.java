@@ -25,4 +25,8 @@ public class HealthManagerController extends ControllerImpl<HealthManagerView> i
                 break;
         }
     }
+
+    public void getHealthManagerData() {
+        getView().requestSuccess();
+    }
 }

@@ -7,6 +7,11 @@ import com.keydom.ih_common.base.BaseView;
  * @des 儿童保健首页view
  */
 public interface ChildHealthView extends BaseView {
+    /**
+     * 儿童保健首页数据
+     */
+    void requestSuccess(String data);
+
     void transTitleBar(boolean direction, float scale);
 
     void finishPage();

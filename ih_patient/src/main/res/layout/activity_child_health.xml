@@ -11,33 +11,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <RelativeLayout
+    <com.ganxin.library.LoadDataLayout
+        android:id="@+id/loadDataLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/pic_child_health_bg" />
-
-        <com.keydom.ih_patient.view.MyNestedScollView
-            android:id="@+id/nested_scroll_view"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:scaleType="centerCrop"
+                android:src="@mipmap/pic_child_health_bg" />
 
-                <include layout="@layout/view_child_health_header" />
+            <com.keydom.ih_patient.view.MyNestedScollView
+                android:id="@+id/nested_scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-
-                <com.ganxin.library.LoadDataLayout
-                    android:id="@+id/loadDataLayout"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/view_child_health_header" />
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_view"
@@ -45,25 +45,25 @@
                         android:layout_height="wrap_content"
                         app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
-                </com.ganxin.library.LoadDataLayout>
+                </LinearLayout>
+            </com.keydom.ih_patient.view.MyNestedScollView>
 
-                <com.scwang.smartrefresh.layout.footer.ClassicsFooter
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </com.keydom.ih_patient.view.MyNestedScollView>
+            <include layout="@layout/child_health_title_bar" />
 
-        <include layout="@layout/child_health_title_bar" />
+            <ImageView
+                android:id="@+id/iv_online"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/dp_60"
+                android:src="@mipmap/icon_online_consultation" />
 
-        <ImageView
-            android:id="@+id/iv_online"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/dp_60"
-            android:src="@mipmap/icon_online_consultation" />
+        </RelativeLayout>
 
-    </RelativeLayout>
+    </com.ganxin.library.LoadDataLayout>
 
+    <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>

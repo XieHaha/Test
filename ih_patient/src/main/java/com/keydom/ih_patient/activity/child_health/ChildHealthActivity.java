@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.child_health.controller.ChildHealthController;
@@ -88,8 +89,22 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         scrollView.setScrollViewListener((scrollView, x, y, oldX, oldY) -> getController().transTitleBar(y));
         swipeRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getChildHealthList(TypeEnum.REFRESH));
         swipeRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getChildHealthList(TypeEnum.LOAD_MORE));
+
+        pageLoading();
+        getController().getChildHealthList(TypeEnum.REFRESH);
+        setReloadListener(new LoadDataLayout.OnReloadListener() {
+            @Override
+            public void onReload(View v, int status) {
+                getController().getChildHealthList(TypeEnum.REFRESH);
+            }
+        });
     }
 
+    @Override
+    public void requestSuccess(String data) {
+//        pageLoadingSuccess();
+        pageLoadingFail();
+    }
 
     @Override
     public void transTitleBar(boolean direction, float scale) {
