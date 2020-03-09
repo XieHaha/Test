@@ -342,6 +342,32 @@
     <string name="txt_obstetric_medical_double_colon">双顶径:</string>
     <string name="txt_urine_protein_colon">尿蛋白:</string>
 
+    <!--羊水穿刺预约-->
+    <string name="txt_amniocentesis_reserve">羊水穿刺预约</string>
+    <string name="txt_amniocentesis_reserve_apply">羊膜腔穿刺手术网上预约申请单</string>
+    <string name="txt_amniocentesis_reason_colon">羊膜腔穿刺原因:</string>
+    <string name="txt_amniocentesis_surgery_time_colon">羊水穿刺手术时间:</string>
+    <string name="txt_amniocentesis_surgery_time_colon_hint">羊水穿刺手术时间:</string>
+    <string name="txt_name_colon">姓名:</string>
+    <string name="txt_name_colon_hint">请输入孕妇姓名</string>
+    <string name="txt_id_card_colon">身份证:</string>
+    <string name="txt_id_card_colon_hint">请输入孕妇身份证</string>
+    <string name="txt_birth_date_colon">出生日期:</string>
+    <string name="txt_birth_date_colon_hint">请选择出身日期</string>
+    <string name="txt_mine_phone_colon">本人电话:</string>
+    <string name="txt_mine_phone_colon_hint">请输入手机号码</string>
+    <string name="txt_verify_code_colon">验证码:</string>
+    <string name="txt_verify_code_colon_hint">请输入验证码</string>
+    <string name="txt_family_name_colon">家属姓名:</string>
+    <string name="txt_family_name_colon_hint">请输入家属姓名</string>
+    <string name="txt_family_phone_colon">家属电话:</string>
+    <string name="txt_family_phone_colon_hint">请输入家属电话</string>
+    <string name="txt_family_address_colon">家属地址:</string>
+    <string name="txt_family_address_colon_hint">请输入家属地址</string>
+    <string name="txt_transfer_hospital_colon">转诊医院:</string>
+    <string name="txt_transfer_hospital_colon_hint">请输入转诊医院名称（非必填）</string>
+    <string name="txt_all_required">所有*必填项</string>
+
 
     <!--vip-->
     <string name="vip_desc">• 如需详细了解服务内容，请到医院仁医中心，有专人接待\n• 仁医中心服务电话：0816-2333592\n• 服务期间，不得单方面解除签约并提前申请退费\n• 办理退费时，请本人带上仁医金卡和发票到仁医中心办理</string>

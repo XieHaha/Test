@@ -30,6 +30,7 @@ import com.keydom.ih_patient.activity.order_physical_examination.OrderPhysicalEx
 import com.keydom.ih_patient.activity.payment_records.PaymentRecordActivity;
 import com.keydom.ih_patient.activity.postpartum_rehabilitation.RehabilitationRecordActivity;
 import com.keydom.ih_patient.activity.pregnant_woman.PregnantWomanActivity;
+import com.keydom.ih_patient.activity.reserve_amniocentesis.AmniocentesisApplyActivity;
 import com.keydom.ih_patient.activity.reserve_examination.ExaminationReserveActivity;
 import com.keydom.ih_patient.activity.reserve_obstetric_hospital.ReserveObstetricHospitalActivity;
 import com.keydom.ih_patient.activity.reserve_painless_delivery.ReservePainlessDeliveryActivity;
@@ -48,6 +49,8 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     public final String Setting = "1";
     //产后康复
     public final String Rehabilitation = "15";
+    //羊水穿刺预约
+    public final String AmniocentesisApply = "16";
     //孕妇学校
     public final String PregnantWoman = "17";
     //产科门诊
@@ -158,6 +161,9 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             break;
                         case Rehabilitation:
                             RehabilitationRecordActivity.start(context);
+                            break;
+                        case AmniocentesisApply:
+                            AmniocentesisApplyActivity.start(context);
                             break;
                         case PregnantWoman:
                             PregnantWomanActivity.start(context);
