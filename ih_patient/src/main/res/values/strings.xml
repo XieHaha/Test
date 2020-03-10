@@ -42,6 +42,7 @@
     <string name="mine_change">切换</string>
     <string name="txt_next">下一步</string>
     <string name="txt_cancel">取消</string>
+    <string name="txt_send_verify_code">发送验证码</string>
 
 
     <string name="mine_function_type_diagnosis">诊疗信息</string>
@@ -344,10 +345,11 @@
 
     <!--羊水穿刺预约-->
     <string name="txt_amniocentesis_reserve">羊水穿刺预约</string>
+    <string name="txt_inquire_and_cancel_reserve">查询及取消预约</string>
     <string name="txt_amniocentesis_reserve_apply">羊膜腔穿刺手术网上预约申请单</string>
     <string name="txt_amniocentesis_reason_colon">羊膜腔穿刺原因:</string>
     <string name="txt_amniocentesis_surgery_time_colon">羊水穿刺手术时间:</string>
-    <string name="txt_amniocentesis_surgery_time_colon_hint">羊水穿刺手术时间:</string>
+    <string name="txt_amniocentesis_surgery_time_colon_hint">请选择手术时间</string>
     <string name="txt_name_colon">姓名:</string>
     <string name="txt_name_colon_hint">请输入孕妇姓名</string>
     <string name="txt_id_card_colon">身份证:</string>

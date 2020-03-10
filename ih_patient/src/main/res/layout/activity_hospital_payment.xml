@@ -88,7 +88,7 @@
                     android:layout_height="@dimen/dp_41"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="@dimen/dp_3"
-                    android:background="@drawable/corner5_bg_3f98f7"
+                    android:background="@drawable/corner5_3f98f7_bg"
                     android:gravity="center"
                     android:text="@string/txt_sure"
                     android:textColor="@color/primary_color"

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/amniocentesis_reason_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/dp_40"
+    android:paddingTop="@dimen/dp_10"
+    android:paddingEnd="@dimen/dp_40"
+    android:paddingBottom="@dimen/dp_10">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/selector_amniocentesis_reason" />
+
+    <TextView
+        android:id="@+id/amniocentesis_reason_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:textColor="@color/select_666666_22e17e_color"
+        android:textSize="@dimen/sp_14" />
+
+</LinearLayout>

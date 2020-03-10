@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="amniocentesisReason">
+        <item>预产期年龄大于或等于35岁</item>
+        <item>产前筛查为21-三体高风险</item>
+        <item>产前筛查为18-三体高风险</item>
+        <item>错过唐氏筛查,孕妇要求</item>
+        <item>无创DNA产前筛查为21-三体高风险</item>
+        <item>无创DNA产前筛查为18-三体高风险</item>
+        <item>无创DNA产前筛查为13-三体高风险</item>
+        <item>无创提示性染色体及其他染色体异常</item>
+        <item>产前筛查为临界风险</item>
+    </string-array>
+
     <declare-styleable name="generaltitle">
         <attr name="leftImgRec" format="integer" />
         <attr name="titleName" format="string" />

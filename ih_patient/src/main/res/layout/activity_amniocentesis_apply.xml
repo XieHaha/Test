@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -106,7 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_23"
+                    android:layout_marginEnd="@dimen/dp_20"
                     android:background="@null"
                     android:gravity="center_vertical|end"
                     android:hint="@string/txt_name_colon_hint"
@@ -144,7 +145,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_23"
+                    android:layout_marginEnd="@dimen/dp_20"
                     android:background="@null"
                     android:gravity="center_vertical|end"
                     android:hint="@string/txt_id_card_colon_hint"
@@ -213,6 +214,55 @@
                 <com.keydom.ih_patient.view.textview.RedStarTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/txt_mine_phone_colon"
+                    android:textColor="@color/edit_text_color"
+                    android:textSize="@dimen/sp_14"
+                    android:textStyle="bold" />
+
+                <com.keydom.ih_common.view.InterceptorEditText
+                    android:id="@+id/amniocentesis_apply_phone_et"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_marginEnd="@dimen/dp_12"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical|end"
+                    android:hint="@string/txt_mine_phone_colon_hint"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textColor="@color/primary_font_color"
+                    android:textColorHint="@color/edit_hint_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/amniocentesis_apply_get_verify_tv"
+                    android:layout_width="@dimen/dp_75"
+                    android:layout_height="@dimen/dp_28"
+                    android:background="@drawable/corner5_22e17e_bg"
+                    android:gravity="center"
+                    android:text="@string/txt_send_verify_code"
+                    android:textColor="@color/primary_color"
+                    android:textSize="@dimen/sp_12" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/color_f1f1f1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_62"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_27"
+                android:paddingEnd="@dimen/dp_20">
+
+                <com.keydom.ih_patient.view.textview.RedStarTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/txt_verify_code_colon"
                     android:textColor="@color/edit_text_color"
                     android:textSize="@dimen/sp_14"
@@ -223,7 +273,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_23"
+                    android:layout_marginEnd="@dimen/dp_20"
                     android:background="@null"
                     android:gravity="center_vertical|end"
                     android:hint="@string/txt_verify_code_colon_hint"
@@ -343,7 +393,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_23"
+                    android:layout_marginEnd="@dimen/dp_20"
                     android:background="@null"
                     android:gravity="center_vertical|end"
                     android:hint="@string/txt_family_name_colon_hint"
@@ -380,7 +430,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_23"
+                    android:layout_marginEnd="@dimen/dp_20"
                     android:background="@null"
                     android:gravity="center_vertical|end"
                     android:hint="@string/txt_family_phone_colon_hint"
@@ -417,7 +467,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_23"
+                    android:layout_marginEnd="@dimen/dp_20"
                     android:background="@null"
                     android:gravity="center_vertical|end"
                     android:hint="@string/txt_family_address_colon_hint"
@@ -454,7 +504,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_23"
+                    android:layout_marginEnd="@dimen/dp_20"
                     android:background="@null"
                     android:gravity="center_vertical|end"
                     android:hint="@string/txt_transfer_hospital_colon_hint"
@@ -489,7 +539,8 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/amniocentesis_apply_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
             <View
                 android:layout_width="match_parent"
