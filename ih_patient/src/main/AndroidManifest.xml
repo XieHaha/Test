@@ -519,7 +519,7 @@
         <activity android:name=".activity.order_doctor_register.RegistrationReserveActivity" />
         <activity android:name=".activity.diagnose_user_manager.ManageUserSelectActivity" />
         <activity android:name=".activity.inspection_report.ObstetricMedicalActivity" />
-        <activity android:name=".activity.reserve_amniocentesis.AmniocentesisApplyActivity" />
+        <activity android:name=".activity.reserve_amniocentesis.AmniocentesisReserveActivity" />
     </application>
 
 </manifest>

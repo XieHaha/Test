@@ -1,7 +1,5 @@
-package com.keydom.ih_patient.activity.reserve_amniocentesis;
+package com.keydom.ih_patient.activity.reserve_amniocentesis.fragment;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,7 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.reserve_amniocentesis.controller.AmniocentesisApplyController;
@@ -29,7 +27,7 @@ import butterknife.BindView;
  * @date 20/3/9 16:07
  * @des 羊水穿刺预约申请
  */
-public class AmniocentesisApplyActivity extends BaseControllerActivity<AmniocentesisApplyController> implements AmniocentesisApplyView, BaseQuickAdapter.OnItemClickListener {
+public class AmniocentesisApplyFragment extends BaseControllerFragment<AmniocentesisApplyController> implements AmniocentesisApplyView, BaseQuickAdapter.OnItemClickListener {
     @BindView(R.id.amniocentesis_apply_surgery_time_tv)
     TextView amniocentesisApplySurgeryTimeTv;
     @BindView(R.id.amniocentesis_apply_surgery_time_layout)
@@ -79,24 +77,13 @@ public class AmniocentesisApplyActivity extends BaseControllerActivity<Amniocent
      */
     private List<String> reasonData;
 
-    /**
-     * 启动
-     */
-    public static void start(Context context) {
-        context.startActivity(new Intent(context, AmniocentesisApplyActivity.class));
-    }
-
     @Override
     public int getLayoutRes() {
-        return R.layout.activity_amniocentesis_apply;
+        return R.layout.fragment_amniocentesis_apply;
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        setTitle(getString(R.string.txt_amniocentesis_reserve));
-        setRightTxt(getString(R.string.txt_inquire_and_cancel_reserve));
-        getTitleLayout().setOnRightTextClickListener(getController());
-
         amniocentesisApplySurgeryTimeLayout.setOnClickListener(getController());
         amniocentesisApplyBirthLayout.setOnClickListener(getController());
         amniocentesisApplyLastMenstruationLayout.setOnClickListener(getController());

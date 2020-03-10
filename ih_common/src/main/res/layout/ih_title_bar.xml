@@ -50,7 +50,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@drawable/title_txt_press_bg"
-            android:textSize="@dimen/font_size_fuc"
+            android:textSize="@dimen/sp_14"
             android:visibility="gone" />
 
         <ImageView

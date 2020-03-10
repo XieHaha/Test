@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_color"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:background="@color/register_success_color"
+            android:gravity="center"
+            android:text="@string/txt_amniocentesis_reserve_apply"
+            android:textColor="@color/primary_color"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_56"
+            android:layout_marginStart="@dimen/dp_20"
+            android:drawableStart="@mipmap/icon_check_report"
+            android:drawablePadding="@dimen/dp_11"
+            android:gravity="center"
+            android:text="@string/txt_all_required"
+            android:textColor="@color/primary_font_color"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/bg_lines" />
+
+        <LinearLayout
+            android:id="@+id/amniocentesis_apply_surgery_time_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_62"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_27"
+            android:paddingEnd="@dimen/dp_20">
+
+            <com.keydom.ih_patient.view.textview.RedStarTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_amniocentesis_surgery_time_colon"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/amniocentesis_apply_surgery_time_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_weight="1"
+                android:gravity="end|center_vertical"
+                android:hint="@string/txt_amniocentesis_surgery_time_colon_hint"
+                android:textColor="@color/primary_font_color"
+                android:textColorHint="@color/edit_hint_color"
+                android:textSize="@dimen/sp_14" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_12"
+                android:src="@mipmap/exa_report_right" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_f1f1f1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_62"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_27"
+            android:paddingEnd="@dimen/dp_20">
+
+            <com.keydom.ih_patient.view.textview.RedStarTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_name_colon"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/amniocentesis_apply_name_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:background="@null"
+                android:gravity="center_vertical|end"
+                android:hint="@string/txt_name_colon_hint"
+                android:inputType="number"
+                android:maxLength="3"
+                android:singleLine="true"
+                android:textColor="@color/primary_font_color"
+                android:textColorHint="@color/edit_hint_color"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_f1f1f1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_62"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_27"
+            android:paddingEnd="@dimen/dp_20">
+
+            <com.keydom.ih_patient.view.textview.RedStarTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_id_card_colon"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/amniocentesis_apply_id_card_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:background="@null"
+                android:gravity="center_vertical|end"
+                android:hint="@string/txt_id_card_colon_hint"
+                android:inputType="number"
+                android:maxLength="18"
+                android:singleLine="true"
+                android:textColor="@color/primary_font_color"
+                android:textColorHint="@color/edit_hint_color"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_f1f1f1" />
+
+        <LinearLayout
+            android:id="@+id/amniocentesis_apply_birth_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_62"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_27"
+            android:paddingEnd="@dimen/dp_20">
+
+            <com.keydom.ih_patient.view.textview.RedStarTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_birth_date_colon"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/amniocentesis_apply_birth_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_weight="1"
+                android:gravity="end|center_vertical"
+                android:hint="@string/txt_birth_date_colon_hint"
+                android:textColor="@color/primary_font_color"
+                android:textColorHint="@color/edit_hint_color"
+                android:textSize="@dimen/sp_14" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_12"
+                android:src="@mipmap/exa_report_right" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_f1f1f1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_62"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_27"
+            android:paddingEnd="@dimen/dp_20">
+
+            <com.keydom.ih_patient.view.textview.RedStarTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_mine_phone_colon"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/amniocentesis_apply_phone_et"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginEnd="@dimen/dp_12"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center_vertical|end"
+                android:hint="@string/txt_mine_phone_colon_hint"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColor="@color/primary_font_color"
+                android:textColorHint="@color/edit_hint_color"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/amniocentesis_apply_get_verify_tv"
+                android:layout_width="@dimen/dp_75"
+                android:layout_height="@dimen/dp_28"
+                android:background="@drawable/corner5_22e17e_bg"
+                android:gravity="center"
+                android:text="@string/txt_send_verify_code"
+                android:textColor="@color/primary_color"
+                android:textSize="@dimen/sp_12" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_f1f1f1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_62"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_27"
+            android:paddingEnd="@dimen/dp_20">
+
+            <com.keydom.ih_patient.view.textview.RedStarTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_verify_code_colon"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/amniocentesis_apply_verify_code_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:background="@null"
+                android:gravity="center_vertical|end"
+                android:hint="@string/txt_verify_code_colon_hint"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/primary_font_color"
+                android:textColorHint="@color/edit_hint_color"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_f1f1f1" />
+
+        <LinearLayout
+            android:id="@+id/amniocentesis_apply_last_menstruation_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_62"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_27"
+            android:paddingEnd="@dimen/dp_20">
+
+            <com.keydom.ih_patient.view.textview.RedStarTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_last_menstruation"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/amniocentesis_apply_last_menstruation_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_weight="1"
+                android:gravity="end|center_vertical"
+                android:hint="@string/txt_last_menstruation_hint"
+                android:textColor="@color/primary_font_color"
+                android:textColorHint="@color/edit_hint_color"
+                android:textSize="@dimen/sp_14" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_12"
+                android:src="@mipmap/exa_report_right" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_f1f1f1" />
+
+        <LinearLayout
+            android:id="@+id/amniocentesis_apply_due_date_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_62"
+            android:background="@drawable/item_f9_bg_bottom_divider"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_27"
+            android:paddingEnd="@dimen/dp_20">
+
+            <com.keydom.ih_patient.view.textview.RedStarTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_due_date"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/amniocentesis_apply_due_date_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_weight="1"
+                android:gravity="end|center_vertical"
+                android:hint="@string/txt_due_date_hint"
+                android:textColor="@color/primary_font_color"
+                android:textColorHint="@color/edit_hint_color"
+                android:textSize="@dimen/sp_14" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_12"
+                android:src="@mipmap/exa_report_right" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_f1f1f1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_62"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_27"
+            android:paddingEnd="@dimen/dp_20">
+
+            <com.keydom.ih_patient.view.textview.RedStarTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_family_name_colon"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/amniocentesis_apply_family_name_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:background="@null"
+                android:gravity="center_vertical|end"
+                android:hint="@string/txt_family_name_colon_hint"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/primary_font_color"
+                android:textColorHint="@color/edit_hint_color"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_f1f1f1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_62"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_27"
+            android:paddingEnd="@dimen/dp_20">
+
+            <com.keydom.ih_patient.view.textview.RedStarTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_family_phone_colon"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/amniocentesis_apply_family_phone_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:background="@null"
+                android:gravity="center_vertical|end"
+                android:hint="@string/txt_family_phone_colon_hint"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/primary_font_color"
+                android:textColorHint="@color/edit_hint_color"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_f1f1f1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_62"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_27"
+            android:paddingEnd="@dimen/dp_20">
+
+            <com.keydom.ih_patient.view.textview.RedStarTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_family_address_colon"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/amniocentesis_apply_family_address_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:background="@null"
+                android:gravity="center_vertical|end"
+                android:hint="@string/txt_family_address_colon_hint"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/primary_font_color"
+                android:textColorHint="@color/edit_hint_color"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_f1f1f1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_62"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_27"
+            android:paddingEnd="@dimen/dp_20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_transfer_hospital_colon"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <com.keydom.ih_common.view.InterceptorEditText
+                android:id="@+id/amniocentesis_apply_transfer_hospital_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:background="@null"
+                android:gravity="center_vertical|end"
+                android:hint="@string/txt_transfer_hospital_colon_hint"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/primary_font_color"
+                android:textColorHint="@color/edit_hint_color"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/bg_lines" />
+
+        <com.keydom.ih_patient.view.textview.RedStarTextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_63"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_27"
+            android:paddingEnd="0dp"
+            android:text="@string/txt_amniocentesis_reason_colon"
+            android:textColor="@color/primary_font_color"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_f1f1f1" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/amniocentesis_apply_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/bg_lines" />
+
+        <TextView
+            android:id="@+id/amniocentesis_apply_next_tv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginStart="@dimen/dp_27"
+            android:layout_marginTop="@dimen/dp_25"
+            android:layout_marginEnd="@dimen/dp_27"
+            android:layout_marginBottom="@dimen/dp_28"
+            android:background="@mipmap/pay_commit_bg"
+            android:gravity="center"
+            android:text="@string/txt_next"
+            android:textColor="@color/primary_color"
+            android:textSize="@dimen/sp_18" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

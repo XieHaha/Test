@@ -30,7 +30,7 @@ import com.keydom.ih_patient.activity.order_physical_examination.OrderPhysicalEx
 import com.keydom.ih_patient.activity.payment_records.PaymentRecordActivity;
 import com.keydom.ih_patient.activity.postpartum_rehabilitation.RehabilitationRecordActivity;
 import com.keydom.ih_patient.activity.pregnant_woman.PregnantWomanActivity;
-import com.keydom.ih_patient.activity.reserve_amniocentesis.AmniocentesisApplyActivity;
+import com.keydom.ih_patient.activity.reserve_amniocentesis.AmniocentesisReserveActivity;
 import com.keydom.ih_patient.activity.reserve_examination.ExaminationReserveActivity;
 import com.keydom.ih_patient.activity.reserve_obstetric_hospital.ReserveObstetricHospitalActivity;
 import com.keydom.ih_patient.activity.reserve_painless_delivery.ReservePainlessDeliveryActivity;
@@ -163,7 +163,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             RehabilitationRecordActivity.start(context);
                             break;
                         case AmniocentesisApply:
-                            AmniocentesisApplyActivity.start(context);
+                            AmniocentesisReserveActivity.start(context);
                             break;
                         case PregnantWoman:
                             PregnantWomanActivity.start(context);

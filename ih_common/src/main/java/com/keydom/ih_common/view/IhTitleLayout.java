@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -54,9 +55,11 @@ public class IhTitleLayout extends LinearLayout {
     }
 
     private void init() {
-        LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater =
+                (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.WRAP_CONTENT);
         viewAppTitle = inflater.inflate(R.layout.ih_title_bar, null);
         this.addView(viewAppTitle, layoutParams);
 
@@ -105,7 +108,8 @@ public class IhTitleLayout extends LinearLayout {
         mViewHolder.doubleBtnLl.setVisibility(VISIBLE);
     }
 
-    public void setDoubleRightListener(OnRightTextClickListener frstListener, OnRightTextClickListener secListener) {
+    public void setDoubleRightListener(OnRightTextClickListener frstListener,
+                                       OnRightTextClickListener secListener) {
         onDoubleFrstRightTextClickListener = frstListener;
         onDoubleSecRightTextClickListener = secListener;
     }
@@ -115,15 +119,18 @@ public class IhTitleLayout extends LinearLayout {
      * @param isCenterTitleVisile   是否显示标题
      * @param isRightCompleteVisile 是否显示右侧文字按钮
      */
-    public void initViewsVisible(boolean isLeftButtonVisile, boolean isCenterTitleVisile, boolean isRightCompleteVisile) {
+    public void initViewsVisible(boolean isLeftButtonVisile, boolean isCenterTitleVisile,
+                                 boolean isRightCompleteVisile) {
         // 左侧返回
         mViewHolder.llLeftGoBack.setVisibility(isLeftButtonVisile ? View.VISIBLE : View.INVISIBLE);
 
         // 中间标题
-        mViewHolder.tvCenterTitle.setVisibility(isCenterTitleVisile ? View.VISIBLE : View.INVISIBLE);
+        mViewHolder.tvCenterTitle.setVisibility(isCenterTitleVisile ? View.VISIBLE :
+                View.INVISIBLE);
 
         //右侧文字
-        mViewHolder.llRightComplete.setVisibility(isRightCompleteVisile ? View.VISIBLE : View.INVISIBLE);
+        mViewHolder.llRightComplete.setVisibility(isRightCompleteVisile ? View.VISIBLE :
+                View.INVISIBLE);
     }
 
     public void hideRightLl(boolean show) {
@@ -151,10 +158,8 @@ public class IhTitleLayout extends LinearLayout {
      * @param color
      */
     public void setAppTitleColor(int color) {
-            mViewHolder.tvCenterTitle.setTextColor(color);
+        mViewHolder.tvCenterTitle.setTextColor(color);
     }
-
-
 
     public void setRightTitle(String text) {
         if (!TextUtils.isEmpty(text)) {
@@ -164,6 +169,10 @@ public class IhTitleLayout extends LinearLayout {
             mViewHolder.tvRightComplete.setVisibility(View.VISIBLE);
         }
 
+    }
+
+    public void setRightTitleColor(int color) {
+        mViewHolder.tvRightComplete.setTextColor(ContextCompat.getColor(mContext, color));
     }
 
     public void setRightImg(Drawable drawable) {

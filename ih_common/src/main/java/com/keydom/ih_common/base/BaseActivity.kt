@@ -115,6 +115,10 @@ abstract class BaseActivity : AppCompatActivity(), BaseActivityInterFace {
         titleLayout?.setRightTitle(title)
     }
 
+    fun setRightColor(color: Int) {
+        titleLayout?.setRightTitleColor(color)
+    }
+
     /**
      * 设置标题栏右侧监听
      */
@@ -156,7 +160,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseActivityInterFace {
     override fun setTitle(title: CharSequence) {
         titleLayout?.setAppTitle(title.toString())
     }
-
 
 
     /**

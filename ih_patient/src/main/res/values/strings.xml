@@ -41,6 +41,7 @@
     <string name="mine_click_hint">就诊时请点击</string>
     <string name="mine_change">切换</string>
     <string name="txt_next">下一步</string>
+    <string name="txt_commit">提交</string>
     <string name="txt_cancel">取消</string>
     <string name="txt_send_verify_code">发送验证码</string>
 
@@ -169,6 +170,10 @@
     <string name="txt_year">年</string>
     <string name="txt_month">月</string>
     <string name="txt_day">日</string>
+    <string name="txt_yes">是</string>
+    <string name="txt_no">否</string>
+    <string name="txt_have">有</string>
+    <string name="txt_none">无</string>
 
     <!--无痛分娩预约-->
     <string name="txt_visit_name">就诊人:</string>
@@ -345,6 +350,7 @@
 
     <!--羊水穿刺预约-->
     <string name="txt_amniocentesis_reserve">羊水穿刺预约</string>
+    <string name="txt_amniocentesis_reserve_evaluate">羊水穿刺预约评估</string>
     <string name="txt_inquire_and_cancel_reserve">查询及取消预约</string>
     <string name="txt_amniocentesis_reserve_apply">羊膜腔穿刺手术网上预约申请单</string>
     <string name="txt_amniocentesis_reason_colon">羊膜腔穿刺原因:</string>
@@ -369,6 +375,24 @@
     <string name="txt_transfer_hospital_colon">转诊医院:</string>
     <string name="txt_transfer_hospital_colon_hint">请输入转诊医院名称（非必填）</string>
     <string name="txt_all_required">所有*必填项</string>
+    <string name="txt_pregnancy_fetus">本次怀孕的胎数:</string>
+    <string name="txt_one_fetus">单胎</string>
+    <string name="txt_two_fetus">双胎</string>
+    <string name="txt_more_fetus">多胎</string>
+    <string name="txt_check_before_reserve">预约前的检查项目:</string>
+    <string name="txt_check_hiv">1、艾滋（HIV抗体阳性）</string>
+    <string name="txt_check_blood">2、RH血型阴性</string>
+    <string name="txt_hiv">艾滋（HIV抗体）：</string>
+    <string name="txt_negative">阴性</string>
+    <string name="txt_positive">阳性</string>
+    <string name="txt_blood">RH血型：</string>
+    <string name="txt_ultrasound">羊穿原因超声异常：</string>
+    <string name="txt_complication_pregnancy_description">妊娠合并症:如果有妊娠合并症请填写最近一周内的检查结果：</string>
+    <string name="txt_hypertension_colon">高血压：</string>
+    <string name="txt_diabetes_colon">糖尿病：</string>
+    <string name="txt_amniocentesis_reserve_evaluate_description">请先进行羊膜腔穿刺手术自我评估，以确认您是否可以通过网上进行预约，如不满足条件，建议您到遗传咨询门诊就诊。</string>
+    <string name="txt_amniocentesis_reserve_check_description">如果有以下情况者，建议您到四川大学华西第二医院遗传咨询门诊就诊，咨询医生后再预约羊膜腔穿刺手术。
+</string>
 
 
     <!--vip-->

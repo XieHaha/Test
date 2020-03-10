@@ -103,7 +103,11 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
 
         manager = getSupportFragmentManager();
         tabOneView();
-        ivBack.setOnClickListener(getController());
+        ivBack.setOnClickListener(v -> {
+            if (finishPage()) {
+                finish();
+            }
+        });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -241,7 +245,7 @@ public class MedicalMailActivity extends BaseControllerActivity<MedicalMailContr
     /**
      * 页面逻辑处理
      */
-    private boolean finishPage() {
+    public boolean finishPage() {
         if (curPage == 3) {
             curPage = 2;
             tabThreeView();

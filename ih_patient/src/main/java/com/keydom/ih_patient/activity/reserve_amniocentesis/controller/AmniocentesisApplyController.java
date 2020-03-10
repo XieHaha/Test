@@ -10,6 +10,10 @@ import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisApplyView;
+import com.keydom.ih_patient.bean.Event;
+import com.keydom.ih_patient.constant.EventType;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * @date 20/3/9 16:09
@@ -37,7 +41,7 @@ public class AmniocentesisApplyController extends ControllerImpl<AmniocentesisAp
                 getVerifyCode();
                 break;
             case R.id.amniocentesis_apply_next_tv:
-                //下一步
+                EventBus.getDefault().post(new Event(EventType.AMNIOCENTESIS_APPLY, null));
                 break;
             default:
                 break;
