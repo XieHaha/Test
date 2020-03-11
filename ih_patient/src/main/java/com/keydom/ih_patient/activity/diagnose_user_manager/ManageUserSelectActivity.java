@@ -25,11 +25,8 @@ import java.util.List;
  * 就诊人选择页面
  */
 public class ManageUserSelectActivity extends BaseControllerActivity<ManageUserSelectController> implements ManageUserSelectView {
-    //选择
-    public static final String FROM_SELECT = "from_select";
     private RecyclerView recyclerView;
     private ManageUserNewAdapter adapter;
-    private String type;
     /**
      * 当前选中就诊人id
      */
@@ -38,10 +35,9 @@ public class ManageUserSelectActivity extends BaseControllerActivity<ManageUserS
     /**
      * 启动页面
      */
-    public static void start(Context context, long id, String type) {
+    public static void start(Context context, long id) {
         Intent intent = new Intent(context, ManageUserSelectActivity.class);
         intent.putExtra("id", id);
-        intent.putExtra("type", type);
         context.startActivity(intent);
     }
 
@@ -52,7 +48,6 @@ public class ManageUserSelectActivity extends BaseControllerActivity<ManageUserS
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        type = getIntent().getStringExtra("type");
         curId = getIntent().getLongExtra("id", -1);
         setTitle("选择就诊人");
         recyclerView = this.findViewById(R.id.user_rv);
@@ -61,13 +56,11 @@ public class ManageUserSelectActivity extends BaseControllerActivity<ManageUserS
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         getController().getManagerUserList();
-        if (FROM_SELECT.equals(type)) {
-            adapter.setOnItemClickListener((adapter, view, position) -> {
-                EventBus.getDefault().post(new Event(EventType.SENDPATIENTINFO,
-                        adapter.getData().get(position)));
-                finish();
-            });
-        }
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            EventBus.getDefault().post(new Event(EventType.SENDPATIENTINFO,
+                    adapter.getData().get(position)));
+            finish();
+        });
     }
 
     @Override

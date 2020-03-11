@@ -50,8 +50,9 @@
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:text="@string/txt_hospital_date_hint"
-                    android:textColor="@color/edit_hint_color"
+                    android:hint="@string/txt_hospital_date_hint"
+                    android:textColor="@color/primary_font_color"
+                    android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
@@ -87,8 +88,9 @@
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:text="@string/txt_bed_hint"
-                    android:textColor="@color/edit_hint_color"
+                    android:hint="@string/txt_bed_hint"
+                    android:textColor="@color/primary_font_color"
+                    android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
@@ -124,8 +126,9 @@
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:text="@string/txt_doctor_hint"
-                    android:textColor="@color/edit_hint_color"
+                    android:hint="@string/txt_doctor_hint"
+                    android:textColor="@color/primary_font_color"
+                    android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
@@ -161,8 +164,9 @@
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:text="@string/txt_anesthetist_hint"
-                    android:textColor="@color/edit_hint_color"
+                    android:hint="@string/txt_anesthetist_hint"
+                    android:textColor="@color/primary_font_color"
+                    android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
@@ -198,8 +202,9 @@
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:text="@string/txt_visit_name_hint"
-                    android:textColor="@color/edit_hint_color"
+                    android:hint="@string/txt_visit_name_hint"
+                    android:textColor="@color/primary_font_color"
+                    android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
@@ -274,8 +279,8 @@
                     android:gravity="center_vertical|end"
                     android:hint="@string/txt_last_menstruation_hint"
                     android:singleLine="true"
-                    android:textColor="#333333"
-                    android:textColorHint="#BBBBBB"
+                    android:textColor="@color/primary_font_color"
+                    android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
@@ -308,8 +313,8 @@
                     android:gravity="center_vertical|end"
                     android:hint="@string/txt_due_date_hint"
                     android:singleLine="true"
-                    android:textColor="#333333"
-                    android:textColorHint="#BBBBBB"
+                    android:textColor="@color/primary_font_color"
+                    android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
@@ -339,7 +344,8 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:hint="@string/txt_fetus_hint"
-                    android:textColor="@color/title_bar_text_color"
+                    android:textColor="@color/primary_font_color"
+                    android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
@@ -380,8 +386,8 @@
                     android:paddingStart="0dp"
                     android:paddingEnd="@dimen/dp_17"
                     android:singleLine="true"
-                    android:textColor="#333333"
-                    android:textColorHint="#BBBBBB"
+                    android:textColor="@color/primary_font_color"
+                    android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
 
             </LinearLayout>
@@ -414,7 +420,7 @@
                         android:layout_height="@dimen/dp_24"
                         android:layout_centerInParent="true"
                         android:src="@mipmap/hospital_item_select"
-                        android:visibility="visible" />
+                        android:visibility="invisible" />
                 </RelativeLayout>
 
                 <TextView

@@ -36,8 +36,7 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.layout_visit:
-                ManageUserSelectActivity.start(getContext(), getView().getCurUserId(),
-                        ManageUserSelectActivity.FROM_SELECT);
+                ManageUserSelectActivity.start(getContext(), getView().getCurUserId());
                 break;
             case R.id.layout_fetus:
                 break;

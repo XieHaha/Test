@@ -33,10 +33,7 @@ public class MedicalMailAuthController extends ControllerImpl<MedicalMailAuthVie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_select_visit:
-                //                ManageUserActivity.start(getContext(), ManageUserActivity
-                //                .FROMDIAGNOSES);
-                ManageUserSelectActivity.start(getContext(), getView().getCurUserId(),
-                        ManageUserSelectActivity.FROM_SELECT);
+                ManageUserSelectActivity.start(getContext(), getView().getCurUserId());
                 break;
             case R.id.layout_front:
                 getView().goToIdCardFrontDiscriminate();

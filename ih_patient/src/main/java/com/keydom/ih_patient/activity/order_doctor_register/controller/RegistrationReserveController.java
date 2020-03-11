@@ -25,8 +25,7 @@ public class RegistrationReserveController extends ControllerImpl<RegistrationRe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.layout_visit:
-                ManageUserSelectActivity.start(getContext(), getView().getCurrentUserId(),
-                        ManageUserSelectActivity.FROM_SELECT);
+                ManageUserSelectActivity.start(getContext(), getView().getCurrentUserId());
                 break;
             case R.id.layout_date:
                 KeyboardUtils.hideSoftInput((Activity) getContext());
