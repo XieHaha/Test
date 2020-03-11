@@ -45,6 +45,7 @@
     <string name="txt_cancel">取消</string>
     <string name="txt_know">知道了</string>
     <string name="txt_send_verify_code">发送验证码</string>
+    <string name="txt_back">返回</string>
 
 
     <string name="mine_function_type_diagnosis">诊疗信息</string>
@@ -354,6 +355,7 @@
     <string name="txt_amniocentesis_reserve_evaluate">羊水穿刺预约评估</string>
     <string name="txt_amniocentesis_record_cancel">羊水穿刺预约查询及取消</string>
     <string name="txt_inquire_and_cancel_reserve">查询及取消预约</string>
+    <string name="txt_amniotic_cavity_reserve">羊膜腔穿刺预约</string>
     <string name="txt_amniocentesis_reserve_apply">羊膜腔穿刺手术网上预约申请单</string>
     <string name="txt_amniocentesis_reserve_result">羊膜腔穿刺手术网上预约成功</string>
     <string name="txt_reserve_success">恭喜您预约成功</string>
@@ -386,14 +388,14 @@
     <string name="txt_check_before_reserve">预约前的检查项目:</string>
     <string name="txt_check_hiv">1、艾滋（HIV抗体阳性）</string>
     <string name="txt_check_blood">2、RH血型阴性</string>
-    <string name="txt_hiv">艾滋（HIV抗体）：</string>
+    <string name="txt_hiv">艾滋（HIV抗体）:</string>
     <string name="txt_negative">阴性</string>
     <string name="txt_positive">阳性</string>
-    <string name="txt_blood">RH血型：</string>
-    <string name="txt_ultrasound">羊穿原因超声异常：</string>
+    <string name="txt_blood">RH血型:</string>
+    <string name="txt_ultrasound">羊穿原因超声异常:</string>
     <string name="txt_complication_pregnancy_description">妊娠合并症:如果有妊娠合并症请填写最近一周内的检查结果：</string>
-    <string name="txt_hypertension_colon">高血压：</string>
-    <string name="txt_diabetes_colon">糖尿病：</string>
+    <string name="txt_hypertension_colon">高血压:</string>
+    <string name="txt_diabetes_colon">糖尿病:</string>
     <string name="txt_amniocentesis_reserve_evaluate_description">请先进行羊膜腔穿刺手术自我评估，以确认您是否可以通过网上进行预约，如不满足条件，建议您到遗传咨询门诊就诊。</string>
     <string name="txt_amniocentesis_reserve_check_description">如果有以下情况者，建议您到四川大学华西第二医院遗传咨询门诊就诊，咨询医生后再预约羊膜腔穿刺手术。</string>
     <string name="txt_amniocentesis_reserve_sms_note">我们将在24小时内通过短信方式把手术相关事宜发送到您的手机请注意查收。</string>

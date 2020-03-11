@@ -521,6 +521,7 @@
         <activity android:name=".activity.inspection_report.ObstetricMedicalActivity" />
         <activity android:name=".activity.reserve_amniocentesis.AmniocentesisReserveActivity" />
         <activity android:name=".activity.reserve_amniocentesis.AmniocentesisRecordActivity" />
+        <activity android:name=".activity.reserve_amniocentesis.AmniocentesisDetailActivity" />
     </application>
 
 </manifest>

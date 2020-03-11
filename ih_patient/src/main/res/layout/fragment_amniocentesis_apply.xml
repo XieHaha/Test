@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_56"
             android:layout_marginStart="@dimen/dp_20"
-            android:drawableStart="@mipmap/icon_check_report"
+            android:drawableStart="@mipmap/icon_clock"
             android:drawablePadding="@dimen/dp_11"
             android:gravity="center"
             android:text="@string/txt_all_required"

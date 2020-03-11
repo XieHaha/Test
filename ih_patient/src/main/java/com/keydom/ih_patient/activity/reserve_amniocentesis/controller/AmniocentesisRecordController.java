@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_patient.activity.reserve_amniocentesis.AmniocentesisDetailActivity;
 import com.keydom.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisRecordView;
 import com.keydom.ih_patient.constant.TypeEnum;
 
@@ -26,7 +27,7 @@ public class AmniocentesisRecordController extends ControllerImpl<AmniocentesisR
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        AmniocentesisDetailActivity.start(getContext());
     }
 
     @Override
