@@ -43,6 +43,7 @@
     <string name="txt_next">下一步</string>
     <string name="txt_commit">提交</string>
     <string name="txt_cancel">取消</string>
+    <string name="txt_know">知道了</string>
     <string name="txt_send_verify_code">发送验证码</string>
 
 
@@ -353,6 +354,8 @@
     <string name="txt_amniocentesis_reserve_evaluate">羊水穿刺预约评估</string>
     <string name="txt_inquire_and_cancel_reserve">查询及取消预约</string>
     <string name="txt_amniocentesis_reserve_apply">羊膜腔穿刺手术网上预约申请单</string>
+    <string name="txt_amniocentesis_reserve_result">羊膜腔穿刺手术网上预约成功</string>
+    <string name="txt_reserve_success">恭喜您预约成功</string>
     <string name="txt_amniocentesis_reason_colon">羊膜腔穿刺原因:</string>
     <string name="txt_amniocentesis_surgery_time_colon">羊水穿刺手术时间:</string>
     <string name="txt_amniocentesis_surgery_time_colon_hint">请选择手术时间</string>
@@ -391,9 +394,15 @@
     <string name="txt_hypertension_colon">高血压：</string>
     <string name="txt_diabetes_colon">糖尿病：</string>
     <string name="txt_amniocentesis_reserve_evaluate_description">请先进行羊膜腔穿刺手术自我评估，以确认您是否可以通过网上进行预约，如不满足条件，建议您到遗传咨询门诊就诊。</string>
-    <string name="txt_amniocentesis_reserve_check_description">如果有以下情况者，建议您到四川大学华西第二医院遗传咨询门诊就诊，咨询医生后再预约羊膜腔穿刺手术。
-</string>
-
+    <string name="txt_amniocentesis_reserve_check_description">如果有以下情况者，建议您到四川大学华西第二医院遗传咨询门诊就诊，咨询医生后再预约羊膜腔穿刺手术。</string>
+    <string name="txt_amniocentesis_reserve_sms_note">我们将在24小时内通过短信方式把手术相关事宜发送到您的手机请注意查收。</string>
+    <string name="txt_amniocentesis_reserve_procedure_note">请于上午前往绵阳市人民医院，完成门诊就诊->签署知情同意书->羊膜腔穿刺手术。</string>
+    <string name="txt_amniocentesis_reserve_visit_note">请务必点击下方链接仔细阅读取号方法及就诊指南。否则将影响及时取号和就诊。</string>
+    <string name="txt_amniocentesis_reserve_visit_url">取号方法及就诊指南：http://suo.im/2xkUHd</string>
+    <string name="txt_amniocentesis_reserve_informed_note">请务必点击下方链接仔细阅读羊膜腔穿刺术知情同意书。</string>
+    <string name="txt_amniocentesis_reserve_informed_url">知情同意书：http://w.url.cn/s/AAKLH5L</string>
+    <string name="txt_amniocentesis_reserve_surgery_note">请务必点击下方链接仔细阅读手术前注意事项，并按要求做好准备带齐相关资料，否则将导致无法手术，后果自负。</string>
+    <string name="txt_amniocentesis_reserve_surgery_url">术前注意事项：http://t.cn/R6KZN83</string>
 
     <!--vip-->
     <string name="vip_desc">• 如需详细了解服务内容，请到医院仁医中心，有专人接待\n• 仁医中心服务电话：0816-2333592\n• 服务期间，不得单方面解除签约并提前申请退费\n• 办理退费时，请本人带上仁医金卡和发票到仁医中心办理</string>

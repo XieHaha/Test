@@ -534,7 +534,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_30"
-            android:background="@color/line_color" />
+            android:background="@color/primary_bg_color" />
 
         <TextView
             android:id="@+id/amniocentesis_evaluate_next_tv"

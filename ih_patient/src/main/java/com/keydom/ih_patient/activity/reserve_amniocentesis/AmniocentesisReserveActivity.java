@@ -14,6 +14,7 @@ import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.reserve_amniocentesis.controller.AmniocentesisReserveController;
 import com.keydom.ih_patient.activity.reserve_amniocentesis.fragment.AmniocentesisApplyFragment;
 import com.keydom.ih_patient.activity.reserve_amniocentesis.fragment.AmniocentesisEvaluateFragment;
+import com.keydom.ih_patient.activity.reserve_amniocentesis.fragment.AmniocentesisResultFragment;
 import com.keydom.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisReserveView;
 import com.keydom.ih_patient.bean.Event;
 
@@ -32,7 +33,7 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
     private FragmentTransaction transaction;
     private AmniocentesisApplyFragment authFragment;
     private AmniocentesisEvaluateFragment evaluateFragment;
-    private AmniocentesisEvaluateFragment resultFragment;
+    private AmniocentesisResultFragment resultFragment;
 
     /**
      * 启动
@@ -114,7 +115,7 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
         transaction = manager.beginTransaction();
         hideAll(transaction);
         if (resultFragment == null) {
-            resultFragment = new AmniocentesisEvaluateFragment();
+            resultFragment = new AmniocentesisResultFragment();
             transaction.add(R.id.layout_frame_root, resultFragment);
         } else {
             transaction.show(resultFragment);

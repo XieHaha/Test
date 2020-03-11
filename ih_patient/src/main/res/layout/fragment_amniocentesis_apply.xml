@@ -36,7 +36,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_10"
-            android:background="@color/bg_lines" />
+            android:background="@color/primary_bg_color" />
 
         <LinearLayout
             android:id="@+id/amniocentesis_apply_surgery_time_layout"
@@ -511,7 +511,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_10"
-            android:background="@color/bg_lines" />
+            android:background="@color/primary_bg_color" />
 
         <com.keydom.ih_patient.view.textview.RedStarTextView
             android:layout_width="match_parent"
@@ -538,7 +538,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_10"
-            android:background="@color/bg_lines" />
+            android:background="@color/primary_bg_color" />
 
         <TextView
             android:id="@+id/amniocentesis_apply_next_tv"
