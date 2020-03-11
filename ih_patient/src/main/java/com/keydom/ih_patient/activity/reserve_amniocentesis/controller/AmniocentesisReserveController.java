@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.view.IhTitleLayout;
+import com.keydom.ih_patient.activity.reserve_amniocentesis.AmniocentesisRecordActivity;
 import com.keydom.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisReserveView;
 
 /**
@@ -13,6 +14,6 @@ import com.keydom.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisRe
 public class AmniocentesisReserveController extends ControllerImpl<AmniocentesisReserveView> implements IhTitleLayout.OnRightTextClickListener {
     @Override
     public void OnRightTextClick(View v) {
-
+        AmniocentesisRecordActivity.start(getContext());
     }
 }

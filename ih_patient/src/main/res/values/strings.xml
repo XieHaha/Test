@@ -352,6 +352,7 @@
     <!--羊水穿刺预约-->
     <string name="txt_amniocentesis_reserve">羊水穿刺预约</string>
     <string name="txt_amniocentesis_reserve_evaluate">羊水穿刺预约评估</string>
+    <string name="txt_amniocentesis_record_cancel">羊水穿刺预约查询及取消</string>
     <string name="txt_inquire_and_cancel_reserve">查询及取消预约</string>
     <string name="txt_amniocentesis_reserve_apply">羊膜腔穿刺手术网上预约申请单</string>
     <string name="txt_amniocentesis_reserve_result">羊膜腔穿刺手术网上预约成功</string>
@@ -403,6 +404,11 @@
     <string name="txt_amniocentesis_reserve_informed_url">知情同意书：http://w.url.cn/s/AAKLH5L</string>
     <string name="txt_amniocentesis_reserve_surgery_note">请务必点击下方链接仔细阅读手术前注意事项，并按要求做好准备带齐相关资料，否则将导致无法手术，后果自负。</string>
     <string name="txt_amniocentesis_reserve_surgery_url">术前注意事项：http://t.cn/R6KZN83</string>
+    <string name="txt_apply_name">申请人</string>
+    <string name="txt_apply_time">申请时间</string>
+    <string name="txt_reserve_type">预约类型</string>
+    <string name="txt_operate">操作</string>
+    <string name="txt_cancel_reserve">取消预约</string>
 
     <!--vip-->
     <string name="vip_desc">• 如需详细了解服务内容，请到医院仁医中心，有专人接待\n• 仁医中心服务电话：0816-2333592\n• 服务期间，不得单方面解除签约并提前申请退费\n• 办理退费时，请本人带上仁医金卡和发票到仁医中心办理</string>
