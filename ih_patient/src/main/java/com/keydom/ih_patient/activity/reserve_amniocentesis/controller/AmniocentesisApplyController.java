@@ -41,7 +41,8 @@ public class AmniocentesisApplyController extends ControllerImpl<AmniocentesisAp
                 getVerifyCode();
                 break;
             case R.id.amniocentesis_apply_next_tv:
-                EventBus.getDefault().post(new Event(EventType.AMNIOCENTESIS_APPLY, null));
+                EventBus.getDefault().post(new Event(EventType.AMNIOCENTESIS_APPLY,
+                        getView().getReserveBean()));
                 break;
             default:
                 break;

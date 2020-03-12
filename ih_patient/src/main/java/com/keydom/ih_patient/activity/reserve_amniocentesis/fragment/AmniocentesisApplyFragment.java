@@ -13,6 +13,7 @@ import com.keydom.ih_patient.R;
 import com.keydom.ih_patient.activity.reserve_amniocentesis.controller.AmniocentesisApplyController;
 import com.keydom.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisApplyView;
 import com.keydom.ih_patient.adapter.AmniocentesisReasonAdapter;
+import com.keydom.ih_patient.bean.AmniocentesisReserveBean;
 import com.keydom.ih_patient.utils.DateUtils;
 
 import org.jetbrains.annotations.Nullable;
@@ -68,6 +69,8 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
     TextView amniocentesisApplyNextTv;
 
     private AmniocentesisReasonAdapter reasonAdapter;
+
+    private AmniocentesisReserveBean reserveBean;
     /**
      * 羊水穿刺原因
      */
@@ -97,6 +100,15 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
         reasonAdapter.setOnItemClickListener(this);
         amniocentesisApplyRecyclerView.setNestedScrollingEnabled(false);
         amniocentesisApplyRecyclerView.setAdapter(reasonAdapter);
+    }
+
+    public void setReserveBean(AmniocentesisReserveBean reserveBean) {
+        this.reserveBean = reserveBean;
+    }
+
+    @Override
+    public AmniocentesisReserveBean getReserveBean() {
+        return reserveBean;
     }
 
     @Override

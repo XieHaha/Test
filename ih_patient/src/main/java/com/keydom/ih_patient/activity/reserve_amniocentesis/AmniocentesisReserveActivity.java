@@ -16,6 +16,7 @@ import com.keydom.ih_patient.activity.reserve_amniocentesis.fragment.Amniocentes
 import com.keydom.ih_patient.activity.reserve_amniocentesis.fragment.AmniocentesisEvaluateFragment;
 import com.keydom.ih_patient.activity.reserve_amniocentesis.fragment.AmniocentesisResultFragment;
 import com.keydom.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisReserveView;
+import com.keydom.ih_patient.bean.AmniocentesisReserveBean;
 import com.keydom.ih_patient.bean.Event;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,6 +35,8 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
     private AmniocentesisApplyFragment authFragment;
     private AmniocentesisEvaluateFragment evaluateFragment;
     private AmniocentesisResultFragment resultFragment;
+
+    private AmniocentesisReserveBean reserveBean;
 
     /**
      * 启动
@@ -70,6 +73,7 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStepConfirm(Event event) {
+        reserveBean = (AmniocentesisReserveBean) event.getData();
         switch (event.getType()) {
             case AMNIOCENTESIS_APPLY:
                 tabEvaluateView();
