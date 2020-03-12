@@ -49,6 +49,9 @@ public class GetMenuIconResId {
             case "处方查询":
                 resId = R.mipmap.prescription_query;
                 break;
+            case "健康管理":
+                resId = R.mipmap.issue;
+                break;
         }
         return resId;
     }

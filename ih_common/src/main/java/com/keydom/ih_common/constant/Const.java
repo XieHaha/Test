@@ -60,32 +60,35 @@ public class Const {
      * 没有其他作用，仅做前期接口测试
      */
     //测试服务器
-//    public static final String RELEASE_HOST = "http://110.191.238.12:12014/";
-//    public static final String IMAGE_HOST = "http://110.191.238.12:12005/";
+    //    public static final String RELEASE_HOST = "http://110.191.238.12:12014/";
+    //    public static final String IMAGE_HOST = "http://110.191.238.12:12005/";
     //开发服务器
-//    public static final String RELEASE_HOST = "http://110.191.238.12:12013/";
-//    public static final String IMAGE_HOST = "http://110.191.238.12:12013/";
+    //    public static final String RELEASE_HOST = "http://110.191.238.12:12013/";
+    //    public static final String IMAGE_HOST = "http://110.191.238.12:12013/";
     //验收服务器
-//    public static final String RELEASE_HOST = "http://110.191.238.12:12013/";
-//    public static final String IMAGE_HOST = "http://110.191.238.12:12013/";
+    //    public static final String RELEASE_HOST = "http://110.191.238.12:12013/";
+    //    public static final String IMAGE_HOST = "http://110.191.238.12:12013/";
 
     //新验收服务器
-//    public static final String RELEASE_HOST = "https://www.tianfuzhl.com.cn/";
-//    public static final String IMAGE_HOST = "https://www.tianfuzhl.com.cn/";
+    //    public static final String RELEASE_HOST = "https://www.tianfuzhl.com.cn/";
+    //    public static final String IMAGE_HOST = "https://www.tianfuzhl.com.cn/";
 
     //新验收服务器
-//    public static final String RELEASE_HOST = "https://www.tianfuzhl.com/";
-//    public static final String IMAGE_HOST = "https://www.tianfuzhl.com/";
+    //    public static final String RELEASE_HOST = "https://www.tianfuzhl.com/";
+    //    public static final String IMAGE_HOST = "https://www.tianfuzhl.com/";
 
 
     //小程序环境
-    public static final String RELEASE_HOST = "http://110.191.238.12:12013/";
-    public static final String IMAGE_HOST = "http://110.191.238.12:12013/";
+    //    public static final String RELEASE_HOST = "http://110.191.238.12:12013/";
+    //    public static final String IMAGE_HOST = "http://110.191.238.12:12013/";
+
+    public static final String RELEASE_HOST = "http://power.tianfuzhl.com.cn:8080";
+    public static final String IMAGE_HOST = "http://power.tianfuzhl.com.cn:8080";
 
 
     //演示环境
-//    public static final String RELEASE_HOST = "http://110.191.238.12:12009/";
-//    public static final String IMAGE_HOST = "http://110.191.238.12:12009/";
+    //    public static final String RELEASE_HOST = "http://110.191.238.12:12009/";
+    //    public static final String IMAGE_HOST = "http://110.191.238.12:12009/";
 
 }
 
