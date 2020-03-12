@@ -25,6 +25,7 @@ import com.keydom.ih_doctor.MyApplication;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.consulting_arrange.ConsultingArrangeActivity;
 import com.keydom.ih_doctor.activity.doctor_cooperation.DoctorCooperationActivity;
+import com.keydom.ih_doctor.activity.health_manager.HealthManagerActivity;
 import com.keydom.ih_doctor.activity.issue_information.NotificationListActivity;
 import com.keydom.ih_doctor.activity.nurse_service.NurseServiceOrderListActivity;
 import com.keydom.ih_doctor.activity.online_diagnose.DiagnoseOrderListActivity;
@@ -430,7 +431,14 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
                             } else {
                                 getController().showNotAccessDialog();
                             }
-
+                            break;
+                        case "健康管理":
+                            if (true) {
+                                HealthManagerActivity.startConsult(getContext());
+                            } else {
+                                getController().showNotAccessDialog();
+                            }
+                            break;
                         default:
                     }
                 } else {

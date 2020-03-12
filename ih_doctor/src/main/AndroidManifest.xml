@@ -278,6 +278,7 @@
             android:name=".activity.online_diagnose.FillOutDiagnoseTriageApplyActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop" />
+        <activity android:name=".activity.health_manager.HealthManagerActivity" />
 
     </application>
 
