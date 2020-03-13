@@ -25,9 +25,18 @@
 
     <!--健康管理-->
     <string name="txt_health_manager">健康管理</string>
+    <string name="txt_patient_info">患者信息</string>
     <string name="txt_message">消息</string>
     <string name="txt_all_people">所有人</string>
     <string name="txt_unusual_patient">体征异常患者</string>
+    <string name="txt_is_focus">是否重点关注</string>
+    <string name="txt_label_colon">标签:</string>
+    <string name="txt_remark_colon">备注:</string>
+    <string name="txt_edit_remark_hint">请编辑备注信息</string>
+    <string name="txt_blood_oxygen">血氧</string>
+    <string name="txt_blood_glucose">血糖</string>
+    <string name="txt_blood_pressure">血压</string>
+    <string name="txt_heart_rate">心率</string>
 
 
     <!-- 讯飞SDK appid -->

@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @date 20/3/12 16:25
@@ -74,13 +73,5 @@ public class HealthManagerActivity extends BaseControllerActivity<HealthManagerC
         pagerAdapter = new HealthViewPagerAdapter(fragmentManager, fragmentList, list);
         healthManagerViewPager.setAdapter(pagerAdapter);
         healthManagerTab.setupWithViewPager(healthManagerViewPager);
-
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }
