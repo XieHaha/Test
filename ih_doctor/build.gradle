@@ -87,6 +87,9 @@ dependencies {
 //    api rootProject.ext.dependencies["Aspectj"]
     implementation 'org.aspectj:aspectjrt:1.8.9'
     implementation files('libs/Msc.jar')
+
+    //注解
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.0'
 }
 
 repositories {

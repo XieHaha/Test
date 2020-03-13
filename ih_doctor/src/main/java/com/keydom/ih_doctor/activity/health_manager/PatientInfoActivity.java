@@ -53,5 +53,25 @@ public class PatientInfoActivity extends BaseControllerActivity<PatientInfoContr
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle(getString(R.string.txt_patient_info));
+
+
+        setReloadListener((v, status) -> getData());
+        getData();
+    }
+
+    private void getData() {
+        pageLoading();
+        getController().getPatientInfo();
+    }
+
+    @Override
+    public void requestSuccess(String data) {
+        pageLoadingSuccess();
+
+    }
+
+    @Override
+    public void requestFailed(String data) {
+        pageLoadingFail();
     }
 }

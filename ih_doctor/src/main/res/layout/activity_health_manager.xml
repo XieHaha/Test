@@ -8,27 +8,25 @@
 
     <include layout="@layout/common_title_bar" />
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/health_manager_tab"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:background="@drawable/common_bottom_line_bg"
-            app:tabIndicatorColor="@color/tab_color"
-            app:tabIndicatorHeight="1dp"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/tab_color"
-            app:tabTextAppearance="@style/TabLayoutTextStyle"
-            app:tabTextColor="@android:color/black" />
+    <android.support.design.widget.TabLayout
+        android:id="@+id/health_manager_tab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="@drawable/common_bottom_line_bg"
+        app:tabIndicatorColor="@color/tab_color"
+        app:tabIndicatorHeight="1dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/tab_color"
+        app:tabTextAppearance="@style/TabLayoutTextStyle"
+        app:tabTextColor="@android:color/black" />
 
-        <com.keydom.ih_common.widget.DecoratorViewPager
-            android:id="@+id/health_manager_view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    </LinearLayout>
+    <com.keydom.ih_common.widget.DecoratorViewPager
+        android:id="@+id/health_manager_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

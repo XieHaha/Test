@@ -8,4 +8,12 @@ import com.keydom.ih_doctor.activity.health_manager.view.PatientInfoView;
  * @des
  */
 public class PatientInfoController extends ControllerImpl<PatientInfoView> {
+
+    /**
+     * 获取患者信息
+     */
+    public void getPatientInfo() {
+
+        getView().requestSuccess("");
+    }
 }

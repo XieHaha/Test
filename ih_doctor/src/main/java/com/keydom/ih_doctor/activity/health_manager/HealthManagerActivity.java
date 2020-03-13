@@ -13,10 +13,10 @@ import com.keydom.ih_common.widget.DecoratorViewPager;
 import com.keydom.ih_doctor.R;
 import com.keydom.ih_doctor.activity.health_manager.controller.HealthManagerController;
 import com.keydom.ih_doctor.activity.health_manager.fragment.HealthMsgFragment;
+import com.keydom.ih_doctor.activity.health_manager.fragment.HealthUnusualFragment;
 import com.keydom.ih_doctor.activity.health_manager.view.HealthManagerView;
 import com.keydom.ih_doctor.adapter.HealthViewPagerAdapter;
 import com.keydom.ih_doctor.fragment.PatientContactFragment;
-import com.keydom.ih_doctor.fragment.PatientGroupFragment;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -44,8 +44,8 @@ public class HealthManagerActivity extends BaseControllerActivity<HealthManagerC
      * 启动
      */
     public static void startConsult(Context context) {
-        Intent starter = new Intent(context, HealthManagerActivity.class);
-        context.startActivity(starter);
+        Intent intent = new Intent(context, HealthManagerActivity.class);
+        context.startActivity(intent);
     }
 
     @Override
@@ -55,21 +55,15 @@ public class HealthManagerActivity extends BaseControllerActivity<HealthManagerC
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        setTitle(getString(R.string.xunfei_app_id));
+        setTitle(getString(R.string.txt_health_manager));
         list.add(getString(R.string.txt_message));
         list.add(getString(R.string.txt_unusual_patient));
         list.add(getString(R.string.txt_all_people));
         fragmentManager = getSupportFragmentManager();
         fragmentList.add(new HealthMsgFragment());
-        fragmentList.add(new PatientGroupFragment());
+        fragmentList.add(new HealthUnusualFragment());
         fragmentList.add(new PatientContactFragment());
-        initView();
-    }
 
-    /**
-     * 初始化页面
-     */
-    private void initView() {
         pagerAdapter = new HealthViewPagerAdapter(fragmentManager, fragmentList, list);
         healthManagerViewPager.setAdapter(pagerAdapter);
         healthManagerTab.setupWithViewPager(healthManagerViewPager);

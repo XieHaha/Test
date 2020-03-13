@@ -7,4 +7,8 @@ import com.keydom.ih_common.base.BaseView;
  * @des 患者信息
  */
 public interface PatientInfoView extends BaseView {
+
+    void requestSuccess(String data);
+
+    void requestFailed(String data);
 }

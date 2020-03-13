@@ -10,14 +10,14 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.GET_TASKS" />
@@ -27,13 +27,13 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <!--获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <!--允许程序改变网络连接状态 -->
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <!--配置权限，用来记录应用配置信息 -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
 
     <application
@@ -41,9 +41,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher"
         android:theme="@style/BaseThemes"
-        android:networkSecurityConfig="@xml/network_security_config"
         tools:ignore="GoogleAppIndexingWarning">
 
         <meta-data
@@ -104,12 +104,14 @@
         </activity>
 
         <activity android:name=".activity.LoginActivity">
-            <intent-filter><action android:name="com.keydom.ih_doctor.activity.LoginActivity" />
-                <category android:name="android.intent.category.DEFAULT" /></intent-filter>
+            <intent-filter>
+                <action android:name="com.keydom.ih_doctor.activity.LoginActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
 
         </activity>
-        <activity android:name=".activity.SetPasswordActivity"></activity>
-        <activity android:name=".activity.UpdatePasswordActivity"></activity>
+        <activity android:name=".activity.SetPasswordActivity"/>
+        <activity android:name=".activity.UpdatePasswordActivity"/>
         <activity
             android:name=".activity.AgreementActivity"
             android:launchMode="standard"></activity>
@@ -142,7 +144,9 @@
             android:name=".activity.doctor_cooperation.SelectDoctorActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"></activity>
         <activity android:name=".activity.doctor_cooperation.DianoseCaseDetailActivity"></activity>
-        <activity android:name=".activity.doctor_cooperation.DiagnoseCommonActivity" android:launchMode="singleTop"></activity>
+        <activity
+            android:name=".activity.doctor_cooperation.DiagnoseCommonActivity"
+            android:launchMode="singleTop"></activity>
         <activity android:name=".activity.doctor_cooperation.FillOutApplyActivity"></activity>
         <activity android:name=".activity.doctor_cooperation.DiagnoseOrderDetailActivity"></activity>
         <activity android:name=".activity.online_diagnose.DiagnoseOrderSelectActivity"></activity>
@@ -184,7 +188,7 @@
         <activity android:name=".activity.inspection_report.InspectionDetailActivity" />
         <activity android:name=".activity.online_diagnose.ChooseInspectItemActivity" />
         <activity android:name=".activity.online_diagnose.ReportListActivity" />
-        <activity android:name=".activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity" >
+        <activity android:name=".activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity">
             <intent-filter>
                 <action android:name="com.keydom.ih_doctor.DoctorOrNurseDetailActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -255,29 +259,29 @@
 
         <activity
             android:name=".activity.my_message.MyMessageActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.my_message.NoticeDeatailActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.patient_manage.WarrantListActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activity.common_document.CommonDocumentActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.online_diagnose.DiagnoseTriageOrderDetailActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.online_diagnose.FillOutDiagnoseTriageApplyActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity android:name=".activity.health_manager.HealthManagerActivity" />
         <activity android:name=".activity.health_manager.PatientInfoActivity" />
 
