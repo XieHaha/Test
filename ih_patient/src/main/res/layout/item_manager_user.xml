@@ -30,7 +30,7 @@
                 android:drawableStart="@mipmap/chat_group"
                 android:drawablePadding="@dimen/dp_16"
                 android:gravity="center"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_14"
                 android:textStyle="bold"
                 tools:text="姓名" />

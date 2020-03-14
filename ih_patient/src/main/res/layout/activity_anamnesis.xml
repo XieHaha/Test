@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_6"
                     android:text="@string/marriageChildbearingHistory"
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:textSize="@dimen/font_size_primary" />
             </LinearLayout>
 
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_6"
                     android:text="@string/historySurgeryOrTrauma"
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:textSize="@dimen/font_size_primary" />
 
                 <TextView
@@ -153,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_6"
                     android:text="@string/familyHistory"
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:textSize="@dimen/font_size_primary" />
 
                 <TextView
@@ -225,7 +225,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_6"
                     android:text="@string/personalHistory"
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:textSize="@dimen/font_size_primary" />
 
                 <TextView
@@ -277,7 +277,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_6"
                     android:text="@string/allergyHistory"
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:textSize="@dimen/font_size_primary" />
 
                 <TextView

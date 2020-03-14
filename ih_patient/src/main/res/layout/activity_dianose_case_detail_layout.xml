@@ -62,7 +62,7 @@
                         android:lines="1"
                         android:maxWidth="@dimen/dp_140"
                         android:text="科别："
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_size_primary" />
 
                     <TextView
@@ -71,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="日期："
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_size_primary" />
                 </RelativeLayout>
 
@@ -111,7 +111,7 @@
                             android:layout_marginLeft="@dimen/dp_8"
                             android:layout_toRightOf="@id/user_name_tv_tip"
                             android:text=""
-                            android:textColor="@color/primary_font_color"
+                            android:textColor="@color/color_333333"
                             android:textSize="@dimen/font_size_primary"
                             android:textStyle="bold" />
                     </RelativeLayout>
@@ -137,7 +137,7 @@
                             android:layout_marginLeft="@dimen/dp_8"
                             android:layout_toRightOf="@id/user_age_tv_tip"
                             android:text=""
-                            android:textColor="@color/primary_font_color"
+                            android:textColor="@color/color_333333"
                             android:textSize="@dimen/font_size_primary"
                             android:textStyle="bold" />
                     </RelativeLayout>
@@ -164,7 +164,7 @@
                             android:layout_marginLeft="@dimen/dp_8"
                             android:layout_toRightOf="@id/user_sex_tv_tip"
                             android:text=""
-                            android:textColor="@color/primary_font_color"
+                            android:textColor="@color/color_333333"
                             android:textSize="@dimen/font_size_primary"
                             android:textStyle="bold" />
                     </RelativeLayout>
@@ -193,7 +193,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text=""
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_size_primary" />
                 </LinearLayout>
 
@@ -220,7 +220,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_size_primary" />
                 </LinearLayout>
 
@@ -245,7 +245,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_size_primary" />
                 </LinearLayout>
 
@@ -272,7 +272,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_size_primary" />
                 </LinearLayout>
 
@@ -298,7 +298,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_size_primary" />
                 </LinearLayout>
 
@@ -324,7 +324,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_size_primary" />
                 </LinearLayout>
 

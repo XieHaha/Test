@@ -43,7 +43,7 @@
                         android:drawablePadding="@dimen/dp_10"
                         android:gravity="center_vertical"
                         android:text="@string/txt_mianyang_hospital"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_15"
                         android:textStyle="bold" />
 
@@ -74,7 +74,7 @@
                         android:drawableStart="@mipmap/point_icon_1"
                         android:drawablePadding="@dimen/dp_10"
                         android:gravity="center_vertical"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_14"
                         android:textStyle="bold"
                         tools:text="姓名" />
@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_10"
                         android:gravity="center_vertical"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_14"
                         android:textStyle="bold"
                         tools:text="电话" />
@@ -114,7 +114,7 @@
             android:drawablePadding="@dimen/dp_10"
             android:gravity="center_vertical"
             android:text="@string/txt_copy_content_detail"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14"
             android:textStyle="bold" />
 
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_50"
                 android:gravity="end"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_14"
                 tools:text="姓名" />
         </LinearLayout>
@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_50"
                 android:gravity="end"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_14"
                 tools:text="二〇二〇年三月三日" />
         </LinearLayout>
@@ -195,7 +195,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_50"
                 android:gravity="end"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_14"
                 tools:text="111" />
         </LinearLayout>
@@ -222,7 +222,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_50"
                 android:gravity="end"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_14"
                 tools:text="快递" />
         </LinearLayout>
@@ -249,7 +249,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_50"
                 android:gravity="end"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_14"
                 tools:text="目的" />
         </LinearLayout>
@@ -276,7 +276,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_50"
                 android:gravity="end"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_14"
                 tools:text="内容" />
         </LinearLayout>

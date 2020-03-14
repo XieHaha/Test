@@ -15,7 +15,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_10"
-            android:background="@color/primary_bg_color"/>
+            android:background="@color/color_f9f9f9"/>
         <LinearLayout
             android:id="@+id/create_orbind_card_health_card_root_ll"
             android:layout_width="match_parent"
@@ -27,7 +27,7 @@
                 android:layout_weight="1"
                 android:text="@string/creat_or_bind_card_label"
                 android:textSize="@dimen/font_size_primary"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:paddingLeft="@dimen/dp_19"
                 android:gravity="center_vertical"
                 android:layout_marginTop="@dimen/dp_20"
@@ -49,7 +49,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_10"
-            android:background="@color/primary_bg_color"/>
+            android:background="@color/color_f9f9f9"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50">

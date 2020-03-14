@@ -8,7 +8,7 @@
     <com.scwang.smartrefresh.layout.header.ClassicsHeader
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/mine_color" />
+        android:background="@color/color_399cf9" />
 
     <RelativeLayout xmlns:funcitem="http://schemas.android.com/apk/res-audo/com.keydom.ih_patient.view"
         xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.ih_common.view"
@@ -289,7 +289,7 @@
                             android:id="@+id/mine_current_visit_name_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/primary_font_color"
+                            android:textColor="@color/color_333333"
                             android:textSize="@dimen/sp_18"
                             tools:text="姓名" />
 
@@ -333,7 +333,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp_12"
-                            android:textColor="@color/primary_font_color"
+                            android:textColor="@color/color_333333"
                             android:textSize="@dimen/sp_18"
                             tools:text="009909090" />
                     </LinearLayout>
@@ -425,7 +425,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_10"
-                        android:background="@color/primary_bg_color" />
+                        android:background="@color/color_f9f9f9" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -495,7 +495,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_10"
-                        android:background="@color/primary_bg_color" />
+                        android:background="@color/color_f9f9f9" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -577,7 +577,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_10"
-                        android:background="@color/primary_bg_color" />
+                        android:background="@color/color_f9f9f9" />
 
 
                     <RelativeLayout
@@ -639,7 +639,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_10"
-                        android:background="@color/primary_bg_color" />
+                        android:background="@color/color_f9f9f9" />
 
                     <com.keydom.ih_common.view.GeneralItemView
                         android:id="@+id/mine_item_my_chatgroup"

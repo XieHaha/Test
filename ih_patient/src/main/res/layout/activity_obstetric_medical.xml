@@ -52,7 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_17"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_18"
                         android:textStyle="bold"
                         tools:text="名字" />
@@ -88,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_17"
                         android:text="@string/txt_mark"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_18"
                         android:textStyle="bold" />
 
@@ -121,7 +121,7 @@
                         android:id="@+id/obstetric_medical_year"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_24"
                         android:textStyle="bold"
                         tools:text="2020" />
@@ -139,7 +139,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_30"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_24"
                         android:textStyle="bold"
                         tools:text="05" />
@@ -157,7 +157,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_30"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_24"
                         android:textStyle="bold"
                         tools:text="15" />
@@ -185,7 +185,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/primary_bg_color"
+                android:background="@color/color_f9f9f9"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/dp_30">
 
@@ -233,7 +233,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp_19"
-                                android:textColor="@color/primary_font_color"
+                                android:textColor="@color/color_333333"
                                 android:textSize="@dimen/sp_14"
                                 tools:text="孕周" />
                         </LinearLayout>
@@ -258,7 +258,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp_19"
-                                android:textColor="@color/primary_font_color"
+                                android:textColor="@color/color_333333"
                                 android:textSize="@dimen/sp_14"
                                 tools:text="体重" />
                         </LinearLayout>
@@ -283,7 +283,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp_19"
-                                android:textColor="@color/primary_font_color"
+                                android:textColor="@color/color_333333"
                                 android:textSize="@dimen/sp_14"
                                 tools:text="血糖" />
                         </LinearLayout>
@@ -308,7 +308,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp_19"
-                                android:textColor="@color/primary_font_color"
+                                android:textColor="@color/color_333333"
                                 android:textSize="@dimen/sp_14"
                                 tools:text="腹围" />
                         </LinearLayout>
@@ -333,7 +333,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp_19"
-                                android:textColor="@color/primary_font_color"
+                                android:textColor="@color/color_333333"
                                 android:textSize="@dimen/sp_14"
                                 tools:text="胎动" />
                         </LinearLayout>
@@ -358,7 +358,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp_19"
-                                android:textColor="@color/primary_font_color"
+                                android:textColor="@color/color_333333"
                                 android:textSize="@dimen/sp_14"
                                 tools:text="血色素" />
                         </LinearLayout>
@@ -391,7 +391,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp_19"
-                                android:textColor="@color/primary_font_color"
+                                android:textColor="@color/color_333333"
                                 android:textSize="@dimen/sp_14"
                                 tools:text="身高" />
                         </LinearLayout>
@@ -416,7 +416,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp_19"
-                                android:textColor="@color/primary_font_color"
+                                android:textColor="@color/color_333333"
                                 android:textSize="@dimen/sp_14"
                                 tools:text="血压" />
                         </LinearLayout>
@@ -441,7 +441,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp_19"
-                                android:textColor="@color/primary_font_color"
+                                android:textColor="@color/color_333333"
                                 android:textSize="@dimen/sp_14"
                                 tools:text="宫高" />
                         </LinearLayout>
@@ -466,7 +466,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp_19"
-                                android:textColor="@color/primary_font_color"
+                                android:textColor="@color/color_333333"
                                 android:textSize="@dimen/sp_14"
                                 tools:text="胎心" />
                         </LinearLayout>
@@ -491,7 +491,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp_19"
-                                android:textColor="@color/primary_font_color"
+                                android:textColor="@color/color_333333"
                                 android:textSize="@dimen/sp_14"
                                 tools:text="双顶径" />
                         </LinearLayout>
@@ -516,7 +516,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp_19"
-                                android:textColor="@color/primary_font_color"
+                                android:textColor="@color/color_333333"
                                 android:textSize="@dimen/sp_14"
                                 tools:text="尿蛋白" />
                         </LinearLayout>

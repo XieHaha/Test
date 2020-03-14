@@ -45,7 +45,7 @@
                         android:drawablePadding="@dimen/dp_18"
                         android:gravity="center"
                         android:text="余额"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_size_primary" />
 
 
@@ -72,7 +72,7 @@
                         android:drawablePadding="@dimen/dp_18"
                         android:gravity="center"
                         android:text="到期日"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_size_primary" />
 
 

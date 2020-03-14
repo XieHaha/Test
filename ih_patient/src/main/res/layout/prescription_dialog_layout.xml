@@ -28,7 +28,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_19"
         android:textSize="@dimen/font_size_title"
-        android:textColor="@color/primary_font_color"
+        android:textColor="@color/color_333333"
         android:text="拒绝原因"/>
     
     <com.keydom.ih_common.view.InterceptorEditText

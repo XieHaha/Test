@@ -53,7 +53,7 @@
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
-            android:background="@color/primary_bg_color" />
+            android:background="@color/color_f9f9f9" />
     </RelativeLayout>
 
     <TextView
@@ -125,5 +125,5 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
-        android:background="@color/primary_bg_color" />
+        android:background="@color/color_f9f9f9" />
 </RelativeLayout>

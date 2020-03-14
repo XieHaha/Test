@@ -531,7 +531,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         birthDateStr = formatter.format(birthDate);
         user_birth_tv.setText(birthDateStr);
-        user_birth_tv.setTextColor(getResources().getColor(R.color.primary_font_color));
+        user_birth_tv.setTextColor(getResources().getColor(R.color.color_333333));
         birthTime = birthDateStr;
     }
 
@@ -541,7 +541,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         idCardValidityPeriodDateStr = formatter.format(idCardValidityPeriodDate);
         id_card_validity_period_tv.setText(idCardValidityPeriodDateStr);
-        id_card_validity_period_tv.setTextColor(getResources().getColor(R.color.primary_font_color));
+        id_card_validity_period_tv.setTextColor(getResources().getColor(R.color.color_333333));
         validityPeriod = idCardValidityPeriodDateStr;
     }
 
@@ -549,11 +549,11 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     public void saveRegion(List<PackageData.ProvinceBean> data, int options1, int option2, int options3) {
         if (data.get(options1).getCity().size() == 0) {
             if (type.equals(Const.CARD_ID_CARD)) {
-                id_card_region_tv.setTextColor(getResources().getColor(R.color.primary_font_color));
+                id_card_region_tv.setTextColor(getResources().getColor(R.color.color_333333));
                 id_card_region_tv.setText(data.get(options1).getName());
             } else {
                 other_certificate_address_now_tv.setText(data.get(options1).getName());
-                other_certificate_address_now_tv.setTextColor(getResources().getColor(R.color.primary_font_color));
+                other_certificate_address_now_tv.setTextColor(getResources().getColor(R.color.color_333333));
             }
             regionStr = data.get(options1).getCode();
             provinceName = data.get(options1).getName();
@@ -562,11 +562,11 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
 
         } else if (data.get(options1).getCity().get(option2).getArea().size() == 0) {
             if (type.equals(Const.CARD_ID_CARD)) {
-                id_card_region_tv.setTextColor(getResources().getColor(R.color.primary_font_color));
+                id_card_region_tv.setTextColor(getResources().getColor(R.color.color_333333));
                 id_card_region_tv.setText(data.get(options1).getName() + "-" + data.get(options1).getCity().get(option2).getName());
             } else {
                 other_certificate_address_now_tv.setText(data.get(options1).getName() + "-" + data.get(options1).getCity().get(option2).getName());
-                other_certificate_address_now_tv.setTextColor(getResources().getColor(R.color.primary_font_color));
+                other_certificate_address_now_tv.setTextColor(getResources().getColor(R.color.color_333333));
             }
             regionStr = data.get(options1).getCode() + "-" + data.get(options1).getCity().get(option2).getCode();
             provinceName = data.get(options1).getName();
@@ -575,11 +575,11 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         } else {
 
             if (type.equals(Const.CARD_ID_CARD)) {
-                id_card_region_tv.setTextColor(getResources().getColor(R.color.primary_font_color));
+                id_card_region_tv.setTextColor(getResources().getColor(R.color.color_333333));
                 id_card_region_tv.setText(data.get(options1).getName() + "-" + data.get(options1).getCity().get(option2).getName() + "-" + data.get(options1).getCity().get(option2).getArea().get(options3).getName());
             } else {
                 other_certificate_address_now_tv.setText(data.get(options1).getName() + "-" + data.get(options1).getCity().get(option2).getName() + "-" + data.get(options1).getCity().get(option2).getArea().get(options3).getName());
-                other_certificate_address_now_tv.setTextColor(getResources().getColor(R.color.primary_font_color));
+                other_certificate_address_now_tv.setTextColor(getResources().getColor(R.color.color_333333));
             }
             regionStr = data.get(options1).getCode() + "-" + data.get(options1).getCity().get(option2).getCode() + "-" + data.get(options1).getCity().get(option2).getArea().get(options3).getCode();
             provinceName = data.get(options1).getName();
@@ -592,7 +592,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     public void saveNation(PackageData.NationBean nationBean) {
         nationStr = nationBean.getNotionCode();
         user_national_tv.setText(nationBean.getNationName());
-        user_national_tv.setTextColor(getResources().getColor(R.color.primary_font_color));
+        user_national_tv.setTextColor(getResources().getColor(R.color.color_333333));
         nation = nationBean.getNationName();
     }
 
@@ -600,7 +600,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     public void setSex(String sexName, String sexCode) {
         sexStr = sexCode;
         user_sex_tv.setText(sexName);
-        user_sex_tv.setTextColor(getResources().getColor(R.color.primary_font_color));
+        user_sex_tv.setTextColor(getResources().getColor(R.color.color_333333));
     }
 
     @Override

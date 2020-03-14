@@ -136,7 +136,7 @@
             android:paddingRight="@dimen/dp_20"
             android:gravity="center_vertical"
             android:text="服务次数：1次"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/font_size_auxiliary" />
     </LinearLayout>
 
@@ -189,7 +189,7 @@
             android:layout_alignBottom="@+id/time_tv"
             android:layout_toRightOf="@+id/time_tv"
             android:layout_marginLeft="@dimen/dp_16"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/font_size_auxiliary"
             android:maxLines="1"
             android:ellipsize="end"
@@ -201,7 +201,7 @@
             android:id="@+id/order_num"
             android:layout_alignBottom="@+id/order_num_tv"
             android:layout_alignLeft="@+id/time"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/font_size_auxiliary"
             android:maxLines="1"
             android:ellipsize="end"
@@ -213,7 +213,7 @@
             android:id="@+id/content"
             android:layout_alignBottom="@+id/content_tv"
             android:layout_alignLeft="@+id/time"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/font_size_auxiliary"
             android:maxLines="1"
             android:ellipsize="end"
@@ -235,7 +235,7 @@
             android:layout_alignTop="@+id/order_num_tv"
             android:layout_alignLeft="@+id/time"
             android:visibility="gone"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/font_size_auxiliary"
             />
     </RelativeLayout>

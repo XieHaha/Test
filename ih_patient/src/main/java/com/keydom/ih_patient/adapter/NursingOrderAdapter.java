@@ -46,7 +46,7 @@ public class NursingOrderAdapter extends BaseQuickAdapter<NursingOrderBean, Base
         boolean goPayShow = false;
         boolean showRemark = true;
         SpannableStringBuilder serviceNum =
-                new SpanUtils().append("服务次数：" + item.getFrequency() + "次").setFontSize(12, true).setForegroundColor(mContext.getResources().getColor(R.color.primary_font_color)).create();
+                new SpanUtils().append("服务次数：" + item.getFrequency() + "次").setFontSize(12, true).setForegroundColor(mContext.getResources().getColor(R.color.color_333333)).create();
         switch (state) {
             case NO_PAY:
                 //未支付

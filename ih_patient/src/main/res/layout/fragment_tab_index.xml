@@ -183,7 +183,7 @@
                             android:gravity="center_vertical"
                             android:paddingLeft="@dimen/dp_17"
                             android:text="在线问诊"
-                            android:textColor="@color/primary_font_color"
+                            android:textColor="@color/color_333333"
                             android:textSize="@dimen/font_size_primary" />
 
                         <View
@@ -230,7 +230,7 @@
                             android:gravity="center_vertical"
                             android:paddingLeft="@dimen/dp_17"
                             android:text="护理服务"
-                            android:textColor="@color/primary_font_color"
+                            android:textColor="@color/color_333333"
                             android:textSize="@dimen/font_size_primary" />
 
                         <View
@@ -271,7 +271,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_10"
-                    android:background="@color/primary_bg_color" />
+                    android:background="@color/color_f9f9f9" />
 
 
                 <LinearLayout
@@ -291,7 +291,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_10"
-                        android:background="@color/primary_bg_color" />
+                        android:background="@color/color_f9f9f9" />
                 </LinearLayout>
 
 
@@ -312,7 +312,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_10"
-                        android:background="@color/primary_bg_color" />
+                        android:background="@color/color_f9f9f9" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -332,7 +332,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_1"
-                        android:background="@color/primary_bg_color" />
+                        android:background="@color/color_f9f9f9" />
                 </LinearLayout>
 
 
@@ -345,7 +345,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_10"
-                    android:background="@color/primary_bg_color" />
+                    android:background="@color/color_f9f9f9" />
 
                 <RelativeLayout
                     android:id="@+id/top_health_rl"
@@ -468,7 +468,7 @@
                     android:id="@+id/index_footer"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_36"
-                    android:background="@color/primary_bg_color"
+                    android:background="@color/color_f9f9f9"
                     android:gravity="center"
                     android:text="@string/index_bottom_label"
                     android:textColor="@color/fontColorDirection"

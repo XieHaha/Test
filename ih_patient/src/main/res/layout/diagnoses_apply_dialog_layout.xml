@@ -116,7 +116,7 @@
             android:drawablePadding="@dimen/dp_10"
             android:text="在线问诊不会问您开具精麻类药品"
             android:visibility="gone"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/font_size_primary" />
 
 

@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@color/primary_bg_color"
+    android:background="@color/color_f9f9f9"
     android:descendantFocusability="blocksDescendants"
     android:layout_height="match_parent">
     <RelativeLayout

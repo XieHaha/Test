@@ -55,7 +55,7 @@
                     android:gravity="right|center_vertical"
                     android:hint="@string/manage_user_name_hint"
                     android:maxLength="20"
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/font_size_primary" />
             </LinearLayout>
@@ -129,7 +129,7 @@
                     android:maxLength="20"
                     android:singleLine="true"
                     android:digits="1234567890Xx"
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/font_size_primary" />
             </LinearLayout>
@@ -208,7 +208,7 @@
                     android:hint="@string/manage_user_phone_hint"
                     android:inputType="number"
                     android:maxLength="11"
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/font_size_primary" />
             </LinearLayout>
@@ -285,7 +285,7 @@
                     android:hint="请输入详细地址"
                     android:singleLine="true"
                     android:maxLength="60"
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/font_size_primary" />
             </LinearLayout>
@@ -316,7 +316,7 @@
                     android:background="@mipmap/login_btn_bg"
                     android:gravity="center"
                     android:text="@string/register_next_btn_text"
-                    android:textColor="@color/primary_bg_color"
+                    android:textColor="@color/color_f9f9f9"
                     android:textSize="@dimen/sp_17" />
             </FrameLayout>
 

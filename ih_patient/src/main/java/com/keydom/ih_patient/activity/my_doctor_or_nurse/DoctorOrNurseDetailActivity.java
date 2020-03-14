@@ -124,7 +124,7 @@ public class DoctorOrNurseDetailActivity extends BaseControllerActivity<DoctorOr
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         getView();
-        StatusBarUtils.setWindowStatusBarColor(this, R.color.mine_color);
+        StatusBarUtils.setWindowStatusBarColor(this, R.color.color_399cf9);
 //        mType = getIntent().getIntExtra(TYPE, 0);
         mCode = getIntent().getStringExtra(CODE);
 
@@ -206,11 +206,11 @@ public class DoctorOrNurseDetailActivity extends BaseControllerActivity<DoctorOr
             SpannableStringBuilder imgInquiry = null;
             SpannableStringBuilder videoInquiry = null;
             if (mType == DOCTOR) {
-                imgInquiry = transFormString(getTextColor(R.color.primary_font_color), "图文问诊", getTextColor(R.color.nursing_status_red), "(" + doctorMainBean.getImageFee() + "元/次）");
-                videoInquiry = transFormString(getTextColor(R.color.primary_font_color), "视频问诊", getTextColor(R.color.nursing_status_red), "(" + doctorMainBean.getVideoFee() + "元/次）");
+                imgInquiry = transFormString(getTextColor(R.color.color_333333), "图文问诊", getTextColor(R.color.nursing_status_red), "(" + doctorMainBean.getImageFee() + "元/次）");
+                videoInquiry = transFormString(getTextColor(R.color.color_333333), "视频问诊", getTextColor(R.color.nursing_status_red), "(" + doctorMainBean.getVideoFee() + "元/次）");
             } else if (mType == NURSE) {
-                imgInquiry = transFormString(getTextColor(R.color.primary_font_color), "图文咨询", getTextColor(R.color.nursing_status_red), "(" + doctorMainBean.getImageFee() + "元/次）");
-                videoInquiry = transFormString(getTextColor(R.color.primary_font_color), "视频咨询", getTextColor(R.color.nursing_status_red), "(" + doctorMainBean.getVideoFee() + "元/次）");
+                imgInquiry = transFormString(getTextColor(R.color.color_333333), "图文咨询", getTextColor(R.color.nursing_status_red), "(" + doctorMainBean.getImageFee() + "元/次）");
+                videoInquiry = transFormString(getTextColor(R.color.color_333333), "视频咨询", getTextColor(R.color.nursing_status_red), "(" + doctorMainBean.getVideoFee() + "元/次）");
             }
             if (mType == DOCTOR) {
                 mTitle.setText("医生主页");

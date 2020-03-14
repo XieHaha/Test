@@ -67,7 +67,7 @@ public class MainController implements View.OnClickListener,ViewPager.OnPageChan
                 break;
             case R.id.tab_mine:
                 mContext.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-                StatusBarUtils.setWindowStatusBarColor(mContext,R.color.mine_color);
+                StatusBarUtils.setWindowStatusBarColor(mContext,R.color.color_399cf9);
                 mainView.setCurrentItem(1, false);
                 break;
             case R.id.tab_member:

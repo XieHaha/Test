@@ -6,7 +6,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
-        android:background="@color/primary_bg_color"/>
+        android:background="@color/color_f9f9f9"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_104">
@@ -18,7 +18,7 @@
             android:layout_marginTop="@dimen/dp_11"
             android:layout_marginLeft="@dimen/dp_19"
             android:textSize="@dimen/font_size_primary"
-            android:textColor="@color/primary_font_color"/>
+            android:textColor="@color/color_333333"/>
         <TextView
             android:id="@+id/location_phone_tv"
             android:layout_toRightOf="@+id/location_name_tv"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="15925867864"
             android:textSize="@dimen/font_size_primary"
-            android:textColor="@color/primary_font_color"/>
+            android:textColor="@color/color_333333"/>
         <TextView
             android:id="@+id/location_address_tv"
             android:layout_below="@+id/location_name_tv"
@@ -48,7 +48,7 @@
             android:layout_below="@+id/location_address_tv"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
-            android:background="@color/primary_bg_color"/>
+            android:background="@color/color_f9f9f9"/>
         <CheckBox
             android:id="@+id/location_manage_default_cb"
             android:layout_marginLeft="@dimen/dp_15"
@@ -109,5 +109,5 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
-        android:background="@color/primary_bg_color"/>
+        android:background="@color/color_f9f9f9"/>
 </LinearLayout>

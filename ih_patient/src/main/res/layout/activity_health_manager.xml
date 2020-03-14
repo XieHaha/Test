@@ -96,7 +96,7 @@
                             android:id="@+id/tv_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/primary_font_color"
+                            android:textColor="@color/color_333333"
                             android:textSize="@dimen/sp_14"
                             android:textStyle="bold"
                             tools:text="姓名" />
@@ -184,7 +184,7 @@
                                     android:layout_below="@id/text"
                                     android:layout_marginStart="@dimen/dp_30"
                                     android:layout_marginTop="@dimen/dp_16"
-                                    android:textColor="@color/primary_font_color"
+                                    android:textColor="@color/color_333333"
                                     android:textSize="@dimen/sp_21"
                                     android:textStyle="bold"
                                     tools:text="90%" />
@@ -219,7 +219,7 @@
                                         android:id="@+id/tv_blood_glucose"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textColor="@color/primary_font_color"
+                                        android:textColor="@color/color_333333"
                                         android:textSize="@dimen/sp_21"
                                         android:textStyle="bold"
                                         tools:text="65" />
@@ -228,7 +228,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="mmol/L"
-                                        android:textColor="@color/primary_font_color"
+                                        android:textColor="@color/color_333333"
                                         android:textSize="@dimen/sp_14"
                                         android:textStyle="bold" />
                                 </LinearLayout>
@@ -270,7 +270,7 @@
                                         android:id="@+id/tv_blood_pressure"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textColor="@color/primary_font_color"
+                                        android:textColor="@color/color_333333"
                                         android:textSize="@dimen/sp_21"
                                         android:textStyle="bold"
                                         tools:text="120/80" />
@@ -279,7 +279,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="mmhg"
-                                        android:textColor="@color/primary_font_color"
+                                        android:textColor="@color/color_333333"
                                         android:textSize="@dimen/sp_14"
                                         android:textStyle="bold" />
 
@@ -316,7 +316,7 @@
                                         android:id="@+id/tv_heart_rate"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textColor="@color/primary_font_color"
+                                        android:textColor="@color/color_333333"
                                         android:textSize="@dimen/sp_21"
                                         android:textStyle="bold"
                                         tools:text="90" />
@@ -325,7 +325,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="次/分"
-                                        android:textColor="@color/primary_font_color"
+                                        android:textColor="@color/color_333333"
                                         android:textSize="@dimen/sp_14"
                                         android:textStyle="bold" />
                                 </LinearLayout>
@@ -369,7 +369,7 @@
                             android:id="@+id/tv_manager_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/primary_font_color"
+                            android:textColor="@color/color_333333"
                             android:textSize="@dimen/sp_14"
                             android:textStyle="bold"
                             tools:text="管理师" />

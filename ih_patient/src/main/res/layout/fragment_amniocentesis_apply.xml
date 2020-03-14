@@ -29,14 +29,14 @@
             android:drawablePadding="@dimen/dp_11"
             android:gravity="center"
             android:text="@string/txt_all_required"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14"
             android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_10"
-            android:background="@color/primary_bg_color" />
+            android:background="@color/color_f9f9f9" />
 
         <LinearLayout
             android:id="@+id/amniocentesis_apply_surgery_time_layout"
@@ -63,7 +63,7 @@
                 android:layout_weight="1"
                 android:gravity="end|center_vertical"
                 android:hint="@string/txt_amniocentesis_surgery_time_colon_hint"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
 
@@ -107,7 +107,7 @@
                 android:inputType="number"
                 android:maxLength="3"
                 android:singleLine="true"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
         </LinearLayout>
@@ -145,7 +145,7 @@
                 android:inputType="number"
                 android:maxLength="18"
                 android:singleLine="true"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
         </LinearLayout>
@@ -180,7 +180,7 @@
                 android:layout_weight="1"
                 android:gravity="end|center_vertical"
                 android:hint="@string/txt_birth_date_colon_hint"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
 
@@ -224,7 +224,7 @@
                 android:hint="@string/txt_mine_phone_colon_hint"
                 android:inputType="number"
                 android:singleLine="true"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
 
@@ -272,7 +272,7 @@
                 android:hint="@string/txt_verify_code_colon_hint"
                 android:inputType="text"
                 android:singleLine="true"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
         </LinearLayout>
@@ -307,7 +307,7 @@
                 android:layout_weight="1"
                 android:gravity="end|center_vertical"
                 android:hint="@string/txt_last_menstruation_hint"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
 
@@ -349,7 +349,7 @@
                 android:layout_weight="1"
                 android:gravity="end|center_vertical"
                 android:hint="@string/txt_due_date_hint"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
 
@@ -392,7 +392,7 @@
                 android:hint="@string/txt_family_name_colon_hint"
                 android:inputType="text"
                 android:singleLine="true"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
         </LinearLayout>
@@ -429,7 +429,7 @@
                 android:hint="@string/txt_family_phone_colon_hint"
                 android:inputType="text"
                 android:singleLine="true"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
         </LinearLayout>
@@ -466,7 +466,7 @@
                 android:hint="@string/txt_family_address_colon_hint"
                 android:inputType="text"
                 android:singleLine="true"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
         </LinearLayout>
@@ -503,7 +503,7 @@
                 android:hint="@string/txt_transfer_hospital_colon_hint"
                 android:inputType="text"
                 android:singleLine="true"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
         </LinearLayout>
@@ -511,7 +511,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_10"
-            android:background="@color/primary_bg_color" />
+            android:background="@color/color_f9f9f9" />
 
         <com.keydom.ih_patient.view.textview.RedStarTextView
             android:layout_width="match_parent"
@@ -520,7 +520,7 @@
             android:paddingStart="@dimen/dp_27"
             android:paddingEnd="0dp"
             android:text="@string/txt_amniocentesis_reason_colon"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14"
             android:textStyle="bold" />
 
@@ -538,7 +538,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_10"
-            android:background="@color/primary_bg_color" />
+            android:background="@color/color_f9f9f9" />
 
         <TextView
             android:id="@+id/amniocentesis_apply_next_tv"

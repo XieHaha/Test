@@ -41,7 +41,7 @@
             android:layout_marginEnd="@dimen/dp_32"
             android:gravity="center"
             android:text="@string/txt_amniocentesis_reserve_sms_note"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
         <View
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_29"
-            android:background="@color/primary_bg_color" />
+            android:background="@color/color_f9f9f9" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -199,7 +199,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_10"
-            android:background="@color/primary_bg_color" />
+            android:background="@color/color_f9f9f9" />
 
         <TextView
             android:id="@+id/amniocentesis_result_next_tv"

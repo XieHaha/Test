@@ -3,7 +3,7 @@
     xmlns:cube_ptr="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_bg_color"
+    android:background="@color/color_f9f9f9"
     android:focusable="true"
     android:focusableInTouchMode="true">
 

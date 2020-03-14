@@ -80,7 +80,7 @@
             android:lines="1"
             android:maxLength="20"
             android:paddingRight="@dimen/dp_30"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textColorHint="@color/fontColorDirection"
             android:textSize="@dimen/dp_14" />
 
@@ -116,7 +116,7 @@
             android:paddingRight="@dimen/dp_30"
             android:inputType="textPassword"
             android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textColorHint="@color/fontColorDirection"
             android:textSize="@dimen/dp_14" />
     </LinearLayout>
@@ -129,7 +129,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
-        android:background="@color/primary_bg_color" />
+        android:background="@color/color_f9f9f9" />
 
     <TextView
         android:id="@+id/bind_card_tv"

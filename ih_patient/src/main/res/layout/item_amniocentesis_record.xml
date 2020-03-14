@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:textColor="@color/primary_font_color"
+        android:textColor="@color/color_333333"
         android:textSize="@dimen/sp_14" />
 
     <TextView

@@ -18,10 +18,10 @@
 
     <style name="protect_transparent" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowBackground">@color/color_5f000000</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowFullscreen">true</item>
-        <item name="android:windowContentOverlay">@color/transparent</item>
+        <item name="android:windowContentOverlay">@color/color_5f000000</item>
     </style>
 
     <style name="ActionBarItem">

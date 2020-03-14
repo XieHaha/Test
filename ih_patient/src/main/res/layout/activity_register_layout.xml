@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_bg_color"
+    android:background="@color/color_f9f9f9"
     android:orientation="vertical">
 
     <include layout="@layout/common_title_bar"></include>
@@ -48,7 +48,7 @@
                 android:background="@null"
                 android:textSize="@dimen/dp_13"
                 android:maxLength="11"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:hint="@string/register_phone_hint" />
 
         </RelativeLayout>
@@ -82,7 +82,7 @@
                 android:textSize="@dimen/dp_13"
                 android:background="@null"
                 android:textCursorDrawable="@drawable/edit_cursor"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:hint="@string/register_code_hint"
                 android:layout_toLeftOf="@id/get_identifying_code_bt"/>
 
@@ -92,7 +92,7 @@
                 android:layout_height="@dimen/dp_37"
                 android:layout_marginTop="@dimen/dp_4"
                 android:text="@string/register_code_btn_text"
-                android:textColor="@color/primary_bg_color"
+                android:textColor="@color/color_f9f9f9"
                 android:gravity="center"
                 android:textSize="@dimen/dp_11"
                 android:background="@drawable/login_btn"
@@ -165,7 +165,7 @@
                     android:background="@null"
                     android:textSize="@dimen/dp_13"
                     android:maxLength="20"
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:hint="输入账户"/>
 
             </RelativeLayout>
@@ -196,7 +196,7 @@
                     android:textCursorDrawable="@drawable/edit_cursor"
                     android:background="@null"
                     android:textSize="@dimen/dp_13"
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:hint="设置密码"/>
 
             </RelativeLayout>
@@ -226,7 +226,7 @@
                     android:textCursorDrawable="@drawable/edit_cursor"
                     android:background="@null"
                     android:textSize="@dimen/dp_13"
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:hint="重复密码"/>
 
             </RelativeLayout>
@@ -275,7 +275,7 @@
                     android:layout_width="@dimen/dp_260"
                     android:layout_height="@dimen/dp_53"
                     android:text="完成注册"
-                    android:textColor="@color/primary_bg_color"
+                    android:textColor="@color/color_f9f9f9"
                     android:gravity="center"
                     android:textSize="@dimen/dp_17"
                     android:background="@drawable/login_btn"

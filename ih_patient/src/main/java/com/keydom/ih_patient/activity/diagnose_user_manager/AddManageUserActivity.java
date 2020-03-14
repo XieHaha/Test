@@ -61,9 +61,9 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
             mName.setText(mManager.getName());
             mSex.setText("0".equals(mManager.getSex()) ? "男" : "女");
             mManager.setSexIsChoose(true);
-            mSex.setTextColor(this.getResources().getColor(R.color.primary_font_color));
-            mBirth.setTextColor(this.getResources().getColor(R.color.primary_font_color));
-            mArea.setTextColor(this.getResources().getColor(R.color.primary_font_color));
+            mSex.setTextColor(this.getResources().getColor(R.color.color_333333));
+            mBirth.setTextColor(this.getResources().getColor(R.color.color_333333));
+            mArea.setTextColor(this.getResources().getColor(R.color.color_333333));
             mArea.setText(mManager.getArea());
             mBirth.setText(mManager.getBirthday());
             mPhone.setText(mManager.getPhone());
@@ -103,7 +103,7 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
 
     @Override
     public void setSex(String sex) {
-        mSex.setTextColor(getResources().getColor(R.color.primary_font_color));
+        mSex.setTextColor(getResources().getColor(R.color.color_333333));
         mSex.setText(sex);
         mManager.setSex(sex.equals("男") ? "0" : "1");
         mManager.setSexIsChoose(true);
@@ -114,7 +114,7 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
     public void setBirth(Date birth) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = formatter.format(birth);
-        mBirth.setTextColor(getResources().getColor(R.color.primary_font_color));
+        mBirth.setTextColor(getResources().getColor(R.color.color_333333));
         mBirth.setText(dateString);
         mManager.setBirthday(dateString);
     }
@@ -154,7 +154,7 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
             cityName = data.get(options1).getCity().get(option2).getName();
             areaName = data.get(options1).getCity().get(option2).getArea().get(options3).getName();
         }
-        mArea.setTextColor(this.getResources().getColor(R.color.primary_font_color));
+        mArea.setTextColor(this.getResources().getColor(R.color.color_333333));
     }
 
     @Override

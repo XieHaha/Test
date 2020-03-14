@@ -319,10 +319,10 @@ public class TabMineController extends ControllerImpl<TabMineView> implements Vi
     public void onScroll(int scrollY) {
         if (scrollY > 0) {
             getView().getTitleLayout().setBackgroundColor(ContextCompat.getColor(getContext(),
-                    R.color.mine_color));
+                    R.color.color_399cf9));
         } else {
             getView().getTitleLayout().setBackgroundColor(ContextCompat.getColor(getContext(),
-                    R.color.tran));
+                    R.color.color_00000000));
         }
     }
 

@@ -215,7 +215,7 @@ public class UserInfoOperateActivity extends BaseControllerActivity<UserInfoOper
             Logger.e("userData为空");
         } else {
             if ("".equals(data.getUserImage()) || data.getUserImage() == null)
-                user_head_img.setBackgroundColor(getResources().getColor(R.color.primary_bg_color));
+                user_head_img.setBackgroundColor(getResources().getColor(R.color.color_f9f9f9));
             else
                 Glide.with(getContext()).load(Const.IMAGE_HOST + data.getUserImage()).into(user_head_img);
             user_name_tv.setText("".equals(data.getUserName()) || data.getUserName() == null ? "请输入姓名" : data.getUserName());

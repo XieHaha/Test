@@ -438,7 +438,7 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp_18"
-                                android:background="@color/primary_bg_color" />
+                                android:background="@color/color_f9f9f9" />
 
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/recycler_title"
@@ -465,7 +465,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:background="@color/primary_bg_color"
+            android:background="@color/color_f9f9f9"
             android:text="拒收"
             android:textColor="#bbbbbb"
             android:textSize="@dimen/dp_16" />

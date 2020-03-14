@@ -5,7 +5,7 @@
     android:layout_height="@dimen/dp_60">
     <View
         android:layout_alignParentTop="true"
-        android:background="@color/primary_bg_color"
+        android:background="@color/color_f9f9f9"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     <TextView
@@ -28,7 +28,7 @@
         android:layout_marginRight="@dimen/dp_10"/>
     <View
         android:layout_alignParentBottom="true"
-        android:background="@color/primary_bg_color"
+        android:background="@color/color_f9f9f9"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
 </RelativeLayout>

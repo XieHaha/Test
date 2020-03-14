@@ -30,7 +30,7 @@
             android:layout_marginEnd="@dimen/dp_27"
             android:lineSpacingMultiplier="1.2"
             android:text="@string/txt_amniocentesis_reserve_evaluate_description"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
 
@@ -40,7 +40,7 @@
             android:layout_marginStart="@dimen/dp_27"
             android:layout_marginTop="@dimen/dp_30"
             android:text="@string/txt_pregnancy_fetus"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14"
             android:textStyle="bold" />
 
@@ -138,7 +138,7 @@
             android:layout_marginStart="@dimen/dp_27"
             android:layout_marginTop="@dimen/dp_30"
             android:text="@string/txt_check_before_reserve"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14"
             android:textStyle="bold" />
 
@@ -150,7 +150,7 @@
             android:layout_marginEnd="@dimen/dp_27"
             android:lineSpacingMultiplier="1.2"
             android:text="@string/txt_amniocentesis_reserve_check_description"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
         <TextView
@@ -160,7 +160,7 @@
             android:layout_marginTop="@dimen/dp_33"
             android:layout_marginEnd="@dimen/dp_27"
             android:text="@string/txt_check_hiv"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
         <View
@@ -176,7 +176,7 @@
             android:layout_marginTop="@dimen/dp_23"
             android:layout_marginEnd="@dimen/dp_27"
             android:text="@string/txt_check_blood"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
         <TextView
@@ -186,7 +186,7 @@
             android:layout_marginTop="@dimen/dp_23"
             android:layout_marginEnd="@dimen/dp_27"
             android:text="@string/txt_hiv"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
         <LinearLayout
@@ -253,7 +253,7 @@
             android:layout_marginTop="@dimen/dp_13"
             android:layout_marginEnd="@dimen/dp_27"
             android:text="@string/txt_blood"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
         <LinearLayout
@@ -320,7 +320,7 @@
             android:layout_marginTop="@dimen/dp_13"
             android:layout_marginEnd="@dimen/dp_27"
             android:text="@string/txt_ultrasound"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
         <LinearLayout
@@ -392,7 +392,7 @@
             android:layout_marginTop="@dimen/dp_24"
             android:layout_marginEnd="@dimen/dp_27"
             android:text="@string/txt_complication_pregnancy_description"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14"
             android:textStyle="bold" />
 
@@ -403,7 +403,7 @@
             android:layout_marginTop="@dimen/dp_23"
             android:layout_marginEnd="@dimen/dp_27"
             android:text="@string/txt_hypertension_colon"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
         <LinearLayout
@@ -470,7 +470,7 @@
             android:layout_marginTop="@dimen/dp_13"
             android:layout_marginEnd="@dimen/dp_27"
             android:text="@string/txt_diabetes_colon"
-            android:textColor="@color/primary_font_color"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
         <LinearLayout
@@ -534,7 +534,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_30"
-            android:background="@color/primary_bg_color" />
+            android:background="@color/color_f9f9f9" />
 
         <TextView
             android:id="@+id/amniocentesis_evaluate_next_tv"

@@ -55,7 +55,7 @@
                             android:layout_marginTop="@dimen/dp_44"
                             android:elevation="@dimen/dp_1"
                             android:scaleType="fitXY"
-                            android:src="@color/transparent" />
+                            android:src="@color/color_5f000000" />
 
                         <ImageView
                             android:id="@+id/edit"

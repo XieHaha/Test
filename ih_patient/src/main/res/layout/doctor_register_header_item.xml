@@ -5,7 +5,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
-        android:background="@color/primary_bg_color"/>
+        android:background="@color/color_f9f9f9"/>
     <com.keydom.ih_common.view.CircleImageView
         android:id="@+id/item_head_img"
         android:layout_width="@dimen/dp_29"

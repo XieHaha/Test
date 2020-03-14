@@ -19,7 +19,7 @@
         android:layout_toRightOf="@+id/head_img"
         android:layout_marginLeft="@dimen/dp_17"
         android:textSize="@dimen/font_size_auxiliary"
-        android:textColor="@color/primary_font_color"
+        android:textColor="@color/color_333333"
         />
     <TextView
         android:layout_width="wrap_content"

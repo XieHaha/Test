@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="tran">#00000000</color>
-    <color name="transparent">#5f000000</color>
-    <color name="mine_color">#399CF9</color>
+    <color name="color_00000000">#00000000</color>
+    <color name="color_5f000000">#5f000000</color>
+    <color name="color_399cf9">#399CF9</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#4097F7</color>
-    <color name="primary_font_color">#333333</color>
+    <color name="color_333333">#333333</color>
     <color name="primary_color">#FFFFFF</color>
-    <color name="primary_bg_color">#F9F9F9</color>
+    <color name="color_f9f9f9">#F9F9F9</color>
     <color name="tab_sel_color">#4097F7</color>
     <color name="tab_nol_color">#999999</color>
     <color name="title_bar_text_color">#666666</color>

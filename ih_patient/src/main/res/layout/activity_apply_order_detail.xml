@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="卫斯理"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_size_primary" />
 
                     <TextView
@@ -98,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="男"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_size_primary" />
 
                     <TextView
@@ -130,7 +130,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="24"
-                        android:textColor="@color/primary_font_color"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/font_size_primary" />
 
                     <TextView
@@ -379,7 +379,7 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="总共三项"
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:textSize="@dimen/font_size_primary" />
 
                 <TextView
@@ -422,7 +422,7 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="唐林"
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:textSize="@dimen/font_size_primary" />
 
                 <TextView
@@ -442,7 +442,7 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="2018.10.16 "
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:textSize="@dimen/font_size_primary" />
             </LinearLayout>
         </LinearLayout>

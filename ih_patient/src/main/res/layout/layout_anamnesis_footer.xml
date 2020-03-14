@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_53"
         android:text="@string/save"
-        android:textColor="@color/primary_bg_color"
+        android:textColor="@color/color_f9f9f9"
         android:gravity="center"
         android:textSize="@dimen/sp_17"
         android:background="@mipmap/login_btn_bg"

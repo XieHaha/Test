@@ -54,7 +54,7 @@
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:textColorHint="@color/fontColorDirection"
                     android:textCursorDrawable="@drawable/edit_cursor"
                     android:textSize="@dimen/dp_13" />
@@ -94,7 +94,7 @@
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:textColor="@color/primary_font_color"
+                    android:textColor="@color/color_333333"
                     android:textColorHint="@color/fontColorDirection"
                     android:textCursorDrawable="@drawable/edit_cursor"
                     android:textSize="@dimen/dp_13" />

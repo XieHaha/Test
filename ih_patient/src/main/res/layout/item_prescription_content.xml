@@ -9,7 +9,7 @@
         android:orientation="horizontal"
         android:paddingLeft="@dimen/padding_left_right_dp"
         android:paddingRight="@dimen/padding_left_right_dp"
-        android:background="@color/primary_bg_color"
+        android:background="@color/color_f9f9f9"
         android:gravity="center_vertical"
         android:layout_height="@dimen/dp_47">
         <TextView

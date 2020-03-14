@@ -79,16 +79,16 @@ public class MedicalRecordDetailActivity extends BaseControllerActivity<MedicalR
             mDepartment.setText("科别："+bean.getDoctorDept());
             mTime.setText("日期："+bean.getTime());
             SpannableStringBuilder name = new SpanUtils().append("姓名：").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color))
-                    .append(StringUtils.isEmpty(bean.getName())?"":bean.getName()).setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.primary_font_color))
+                    .append(StringUtils.isEmpty(bean.getName())?"":bean.getName()).setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.color_333333))
                     .create();
             mName.setText(name);
             SpannableStringBuilder age = new SpanUtils().append("年龄：").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color))
-                    .append(bean.getAge()+"岁").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.primary_font_color))
+                    .append(bean.getAge()+"岁").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.color_333333))
                     .create();
             mAge.setText(age);
             String sex = "0".equals(bean.getSex())?"男":"女";
             SpannableStringBuilder sexTV = new SpanUtils().append("性别：").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color))
-                    .append(sex).setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.primary_font_color))
+                    .append(sex).setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.color_333333))
                     .create();
             mSex.setText(sexTV);
             mDoctor.setText(bean.getDoctorName());

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_bg_color"
+    android:background="@color/color_f9f9f9"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
@@ -72,7 +72,7 @@
                 android:lines="1"
                 android:paddingRight="@dimen/dp_12"
                 android:maxLength="20"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textCursorDrawable="@drawable/edit_cursor"
                 android:textSize="@dimen/sp_13" />
 
@@ -163,7 +163,7 @@
                 android:background="@mipmap/login_btn_bg"
                 android:gravity="center"
                 android:text="@string/login"
-                android:textColor="@color/primary_bg_color"
+                android:textColor="@color/color_f9f9f9"
                 android:textSize="@dimen/sp_17" />
 
             <TextView

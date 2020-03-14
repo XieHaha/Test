@@ -11,14 +11,14 @@
         android:layout_marginLeft="@dimen/dp_65"
         android:id="@+id/title"
         android:textSize="@dimen/font_size_primary"
-        android:textColor="@color/primary_font_color"
+        android:textColor="@color/color_333333"
         android:text="123"
         />
     <TextView
         android:layout_width="wrap_content"
         android:id="@+id/num"
         android:textSize="@dimen/font_size_primary"
-        android:textColor="@color/primary_font_color"
+        android:textColor="@color/color_333333"
         android:text="1、"
         android:layout_marginLeft="@dimen/dp_44"
         android:layout_height="wrap_content" />

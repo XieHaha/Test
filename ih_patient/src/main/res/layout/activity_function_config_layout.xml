@@ -18,7 +18,7 @@
    <View
        android:layout_width="match_parent"
        android:layout_height="@dimen/dp_10"
-      android:background="@color/primary_bg_color"/>
+      android:background="@color/color_f9f9f9"/>
    <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="@dimen/dp_42">
@@ -73,7 +73,7 @@
        android:layout_height="@dimen/dp_1"
        android:layout_marginRight="@dimen/dp_19"
        android:layout_marginLeft="@dimen/dp_19"
-       android:background="@color/primary_bg_color"/>
+       android:background="@color/color_f9f9f9"/>
    <android.support.v7.widget.RecyclerView
        android:layout_marginTop="@dimen/dp_14"
        android:layout_marginBottom="@dimen/dp_14"
@@ -86,7 +86,7 @@
    <View
        android:layout_width="match_parent"
        android:layout_height="@dimen/dp_10"
-       android:background="@color/primary_bg_color"/>
+       android:background="@color/color_f9f9f9"/>
    <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="@dimen/dp_42">
@@ -112,7 +112,7 @@
        android:layout_height="@dimen/dp_1"
        android:layout_marginRight="@dimen/dp_19"
        android:layout_marginLeft="@dimen/dp_19"
-       android:background="@color/primary_bg_color"/>
+       android:background="@color/color_f9f9f9"/>
    <android.support.v7.widget.RecyclerView
        android:id="@+id/all_function_rv"
        android:layout_marginTop="@dimen/dp_14"

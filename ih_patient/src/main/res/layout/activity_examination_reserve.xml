@@ -44,7 +44,7 @@
                 android:layout_weight="1"
                 android:gravity="end|center_vertical"
                 android:hint="@string/txt_visit_name_hint"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
 
@@ -80,7 +80,7 @@
                 android:layout_weight="1"
                 android:gravity="end|center_vertical"
                 android:hint="@string/txt_visit_date_hint"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
 
@@ -179,7 +179,7 @@
                 android:layout_weight="1"
                 android:gravity="end|center_vertical"
                 android:hint="@string/txt_project_colon_hint"
-                android:textColor="@color/primary_font_color"
+                android:textColor="@color/color_333333"
                 android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
 
