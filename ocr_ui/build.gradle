@@ -5,7 +5,6 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '28.0.2'
 
     defaultConfig {
         minSdkVersion 14
@@ -25,10 +24,10 @@ android {
 }
 
 dependencies {
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestApi('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    testCompile 'junit:junit:4.12'
-    compile files('libs/license.jar')
+    api 'com.android.support:appcompat-v7:25.1.1'
+    testApi 'junit:junit:4.12'
+    api files('libs/license.jar')
 }

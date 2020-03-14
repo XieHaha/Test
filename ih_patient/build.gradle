@@ -85,7 +85,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.44'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.1.4'
-    compile(name: 'alipaySdk-15.5.9-20181123210601', ext: 'aar')
+    implementation(name: 'alipaySdk-15.5.9-20181123210601', ext: 'aar')
     implementation 'com.hyman:flowlayout-lib:1.1.2'
     implementation files('libs/BaiduLBS_Android.jar')
     implementation files('libs/open_sdk_r6008_lite.jar')
