@@ -12,13 +12,13 @@
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <com.keydom.ih_doctor.view.WrapRecyclerView
+    <com.keydom.mianren.ih_doctor.view.WrapRecyclerView
         android:id="@+id/community_trends_rv"
         android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </com.keydom.ih_doctor.view.WrapRecyclerView>
+    </com.keydom.mianren.ih_doctor.view.WrapRecyclerView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </com.ganxin.library.LoadDataLayout>
 </LinearLayout>

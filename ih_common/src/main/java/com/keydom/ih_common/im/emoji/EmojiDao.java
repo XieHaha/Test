@@ -73,7 +73,7 @@ public class EmojiDao {
                                                           String packageName) throws IOException {
         // 第一次运行应用程序时，加载数据库到data/data/当前包的名称/database/<db_name>
         //复制的话这里需要换成自己项目的包名*
-        //        File dir = new File("data/data/" + "com.keydom.ih_doctor" + "/databases");
+        //        File dir = new File("data/data/" + "com.keydom.mianren.ih_doctor" + "/databases");
         File dir = new File("data/data/" + packageName + "/databases");
         if (!dir.exists() || !dir.isDirectory()) {
             dir.mkdir();

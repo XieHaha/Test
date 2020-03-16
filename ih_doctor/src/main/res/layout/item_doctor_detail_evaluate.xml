@@ -55,7 +55,7 @@
         android:id="@+id/evaluate_rb_group"
         android:layout_height="wrap_content">
 
-    <com.keydom.ih_doctor.view.RatingBarView
+    <com.keydom.mianren.ih_doctor.view.RatingBarView
         android:id="@+id/evaluate_rb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

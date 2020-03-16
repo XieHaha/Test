@@ -57,7 +57,7 @@
 
             </LinearLayout>
         </HorizontalScrollView>
-        <!--<com.keydom.ih_doctor.view.SelectFlowLayout-->
+        <!--<com.keydom.mianren.ih_doctor.view.SelectFlowLayout-->
         <!--android:id="@+id/patient_box"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
@@ -66,7 +66,7 @@
         <!--android:layout_toRightOf="@id/patient_name_tip"-->
         <!--android:gravity="center_vertical"-->
         <!--android:paddingLeft="@dimen/dp_12"-->
-        <!--android:paddingRight="12dp"></com.keydom.ih_doctor.view.SelectFlowLayout>-->
+        <!--android:paddingRight="12dp"></com.keydom.mianren.ih_doctor.view.SelectFlowLayout>-->
 
         <TextView
             android:id="@+id/patient_name"
@@ -131,7 +131,7 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <!--<com.keydom.ih_doctor.view.SelectFlowLayout-->
+        <!--<com.keydom.mianren.ih_doctor.view.SelectFlowLayout-->
         <!--android:id="@+id/doctor_box"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
@@ -142,7 +142,7 @@
         <!--android:paddingLeft="@dimen/dp_12"-->
         <!--android:paddingRight="12dp">-->
 
-        <!--</com.keydom.ih_doctor.view.SelectFlowLayout>-->
+        <!--</com.keydom.mianren.ih_doctor.view.SelectFlowLayout>-->
 
         <TextView
             android:id="@+id/group_doctor"

@@ -33,7 +33,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
-        applicationId "com.keydom.ih_doctor"
+        applicationId "com.keydom.mianren.ih_doctor"
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]

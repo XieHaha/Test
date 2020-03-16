@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.keydom.ih_common.R;
 import com.keydom.ih_common.activity.ArticleDetailActivity;
@@ -27,7 +26,6 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.CalculateTimeUtils;
 import com.keydom.ih_common.utils.CostomToastUtils;
-import com.keydom.ih_common.utils.DialogCreator;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_common.view.GeneralDialog;
@@ -97,7 +95,7 @@ public class CommentListRecyclrViewAdapter extends RecyclerView.Adapter<CommentL
         holder.mHeadGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent("com.keydom.ih_doctor.DoctorOrNurseDetailActivity");
+//                Intent intent = new Intent("com.keydom.mianren.ih_doctor.DoctorOrNurseDetailActivity");
 //                intent.putExtra("doctorCode", bean.getCriticsCode());
 //                ActivityUtils.startActivity(intent);
             }

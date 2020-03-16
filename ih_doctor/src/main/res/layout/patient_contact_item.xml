@@ -84,7 +84,7 @@
             android:layout_marginTop="@dimen/dp_7"
             android:layout_weight="1">
 
-            <com.keydom.ih_doctor.view.ContactTagView
+            <com.keydom.mianren.ih_doctor.view.ContactTagView
                 android:id="@+id/friend_tag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

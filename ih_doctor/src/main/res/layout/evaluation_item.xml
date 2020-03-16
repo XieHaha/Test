@@ -39,12 +39,12 @@
         android:textColor="#3399FF"
         android:textSize="@dimen/font_size_primary" />
 
-    <com.keydom.ih_doctor.view.TagView
+    <com.keydom.mianren.ih_doctor.view.TagView
         android:id="@+id/evaluation_tag_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/user_name"
         android:layout_alignLeft="@id/star_rb"
-        android:layout_marginTop="@dimen/dp_16"></com.keydom.ih_doctor.view.TagView>
+        android:layout_marginTop="@dimen/dp_16"></com.keydom.mianren.ih_doctor.view.TagView>
 
 </RelativeLayout>

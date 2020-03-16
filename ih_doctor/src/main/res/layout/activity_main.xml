@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/primary_bg_color">
 
-    <com.keydom.ih_doctor.view.MainView
+    <com.keydom.mianren.ih_doctor.view.MainView
         android:id="@+id/main_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -99,7 +99,7 @@
         </RelativeLayout>
 
 
-    </com.keydom.ih_doctor.view.MainView>
+    </com.keydom.mianren.ih_doctor.view.MainView>
 
 
 </RelativeLayout>

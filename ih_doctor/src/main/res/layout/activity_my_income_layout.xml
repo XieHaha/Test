@@ -160,7 +160,7 @@
                     android:layout_marginBottom="@dimen/dp_20"
                     android:orientation="horizontal">
 
-                    <com.keydom.ih_doctor.view.PercentPieView
+                    <com.keydom.mianren.ih_doctor.view.PercentPieView
                         android:id="@+id/pic_chat"
                         android:layout_width="@dimen/dp_120"
                         android:layout_height="@dimen/dp_120"

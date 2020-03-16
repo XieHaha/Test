@@ -89,11 +89,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <com.keydom.ih_doctor.view.TagView
+                    <com.keydom.mianren.ih_doctor.view.TagView
                         android:id="@+id/my_tag_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_16"></com.keydom.ih_doctor.view.TagView>
+                        android:layout_marginTop="@dimen/dp_16"></com.keydom.mianren.ih_doctor.view.TagView>
                 </LinearLayout>
             </LinearLayout>
 

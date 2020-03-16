@@ -79,11 +79,11 @@ public class Const {
 
 
     //小程序环境
-    //    public static final String RELEASE_HOST = "http://110.191.238.12:12013/";
-    //    public static final String IMAGE_HOST = "http://110.191.238.12:12013/";
+//    public static final String RELEASE_HOST = "http://110.191.238.12:12013/";
+//    public static final String IMAGE_HOST = "http://110.191.238.12:12013/";
 
-    public static final String RELEASE_HOST = "http://power.tianfuzhl.com.cn:8080";
-    public static final String IMAGE_HOST = "http://power.tianfuzhl.com.cn:8080";
+        public static final String RELEASE_HOST = "http://power.tianfuzhl.com.cn:8080";
+        public static final String IMAGE_HOST = "http://power.tianfuzhl.com.cn:8080";
 
 
     //演示环境

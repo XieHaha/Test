@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.ih_doctor.view"
+    xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.mianren.ih_doctor.view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -81,7 +81,7 @@
                     android:focusableInTouchMode="true"
                     android:orientation="vertical">
 
-                    <com.keydom.ih_doctor.view.DiagnosePrescriptionItemView
+                    <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
                         android:id="@+id/main_dec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -90,38 +90,38 @@
                         mitem:itemTip="主诉"
                         mitem:limit="20">
 
-                    </com.keydom.ih_doctor.view.DiagnosePrescriptionItemView>
+                    </com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView>
 
 
-                    <com.keydom.ih_doctor.view.DiagnosePrescriptionItemView
+                    <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
                         android:id="@+id/medical_history"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         mitem:itemInputHint="请填写现病史"
                         mitem:itemTip="现病史">
 
-                    </com.keydom.ih_doctor.view.DiagnosePrescriptionItemView>
+                    </com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView>
 
-                    <com.keydom.ih_doctor.view.DiagnosePrescriptionItemView
+                    <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
                         android:id="@+id/oversensitive_history"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         mitem:itemInputHint="请填写过敏史"
                         mitem:itemTip="过敏史">
 
-                    </com.keydom.ih_doctor.view.DiagnosePrescriptionItemView>
+                    </com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView>
 
 
-                    <com.keydom.ih_doctor.view.DiagnosePrescriptionItemView
+                    <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
                         android:id="@+id/check_res"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         mitem:itemInputHint="请输入体格和辅助检查结果"
                         mitem:itemTip="辅助检查">
 
-                    </com.keydom.ih_doctor.view.DiagnosePrescriptionItemView>
+                    </com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView>
 
-                    <com.keydom.ih_doctor.view.DiagnosePrescriptionItemView
+                    <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
                         android:id="@+id/simple_diagnose"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -129,17 +129,17 @@
                         mitem:itemInputHint="请您填写确诊疾病，或点击快捷添加常用样例"
                         mitem:itemTip="初步诊断">
 
-                    </com.keydom.ih_doctor.view.DiagnosePrescriptionItemView>
+                    </com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView>
 
 
-                    <com.keydom.ih_doctor.view.DiagnosePrescriptionItemView
+                    <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
                         android:id="@+id/deal_idea"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         mitem:itemInputHint="如饮食或用药注意事项等（1000字以内）"
                         mitem:itemTip="处理意见">
 
-                    </com.keydom.ih_doctor.view.DiagnosePrescriptionItemView>
+                    </com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -430,14 +430,14 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <com.keydom.ih_doctor.view.DiagnosePrescriptionItemView
+                    <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
                         android:id="@+id/handle_entrust_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         mitem:itemInputHint="请输入初诊判断以及相应的处置建议（300字以内）"
                         mitem:itemTip="处置建议">
 
-                    </com.keydom.ih_doctor.view.DiagnosePrescriptionItemView>
+                    </com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView>
 
                     <!--<RelativeLayout
                         android:layout_width="match_parent"

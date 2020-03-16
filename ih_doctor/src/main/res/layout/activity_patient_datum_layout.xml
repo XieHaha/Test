@@ -172,13 +172,13 @@
                         android:layout_height="match_parent"
                         android:layout_toRightOf="@+id/label_tv">
 
-                        <!--<com.keydom.ih_doctor.view.FlowLayout-->
+                        <!--<com.keydom.mianren.ih_doctor.view.FlowLayout-->
                         <!--android:id="@+id/label_fl"-->
                         <!--android:layout_width="wrap_content"-->
                         <!--android:layout_height="match_parent"-->
                         <!--android:layout_toLeftOf="@+id/lable_tv">-->
 
-                        <!--</com.keydom.ih_doctor.view.FlowLayout>-->
+                        <!--</com.keydom.mianren.ih_doctor.view.FlowLayout>-->
 
                         <HorizontalScrollView
                             android:layout_width="wrap_content"

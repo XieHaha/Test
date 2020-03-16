@@ -54,8 +54,8 @@ abstract class SourceSubscriber<T>(private val context: Context? = null
                 var generalDialog: GeneralDialog? = null
                 if (generalDialog == null) {
                     generalDialog = GeneralDialog(context, "登陆信息已经失效，请重新登陆！", GeneralDialog.OnCloseListener {
-                        if(context.packageName.equals("com.keydom.ih_doctor")){
-                            val intent = Intent("com.keydom.ih_doctor.activity.LoginActivity")
+                        if(context.packageName.equals("com.keydom.mianren.ih_doctor")){
+                            val intent = Intent("com.keydom.mianren.ih_doctor.activity.LoginActivity")
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                             context.startActivity(intent);
                         }else if (context.packageName.equals("com.keydom.ih_patient")){

@@ -82,12 +82,12 @@ public class TeamChatActivity extends BaseActivity {
                     NimUserInfo currentUserInfo = (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(SharePreferenceManager.getUserCode());
                     if ((ImMessageConstant.DOCTOR).equals(currentUserInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
                         if ((ImMessageConstant.PATIENT).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
-                            Intent intent = new Intent("com.keydom.ih_doctor.PatientDatumActivity");
+                            Intent intent = new Intent("com.keydom.mianren.ih_doctor.PatientDatumActivity");
                             intent.putExtra("data", patientInfo.getAccount());
                             startActivity(intent);
                         }
                         if ((ImMessageConstant.DOCTOR).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))){
-                            Intent intent = new Intent("com.keydom.ih_doctor.DoctorOrNurseDetailActivity");
+                            Intent intent = new Intent("com.keydom.mianren.ih_doctor.DoctorOrNurseDetailActivity");
                             intent.putExtra("doctorCode", String.valueOf(patientInfo.getAccount()));
                             startActivity(intent);
                         }

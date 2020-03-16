@@ -21,7 +21,7 @@
             android:textColor="@color/fontColorPrimary"
             android:textSize="@dimen/font_size_primary" />
 
-        <com.keydom.ih_doctor.view.MySelectView
+        <com.keydom.mianren.ih_doctor.view.MySelectView
             android:id="@+id/tag_box"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -32,7 +32,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/dp_12"
-            android:paddingRight="12dp"></com.keydom.ih_doctor.view.MySelectView>
+            android:paddingRight="12dp"></com.keydom.mianren.ih_doctor.view.MySelectView>
 
         <TextView
             android:id="@+id/name"

@@ -22,7 +22,7 @@
         android:textColor="#BBBBBB"
         android:textSize="@dimen/font_size_primary" />
 
-    <com.keydom.ih_doctor.view.TagView
+    <com.keydom.mianren.ih_doctor.view.TagView
         android:id="@+id/selected_patient_fl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         app:height_space="@dimen/dp_22"
         app:width_space="@dimen/dp_36">
 
-    </com.keydom.ih_doctor.view.TagView>
+    </com.keydom.mianren.ih_doctor.view.TagView>
 
     <View
         android:layout_width="match_parent"

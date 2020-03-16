@@ -115,7 +115,7 @@
                         android:textColor="@color/edit_font_color"
                         android:textSize="@dimen/sp_14" />
 
-                    <com.keydom.ih_doctor.view.SlipButton
+                    <com.keydom.mianren.ih_doctor.view.SlipButton
                         android:id="@+id/patient_info_slip_bt"
                         android:layout_width="@dimen/dp_40"
                         android:layout_height="@dimen/dp_22" />
