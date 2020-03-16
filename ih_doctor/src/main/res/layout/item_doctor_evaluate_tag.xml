@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="@dimen/dp_100"
-    android:background="@mipmap/evaluate_background"
+    android:background="@mipmap/test"
     android:textSize="@dimen/font_size_auxiliary"
     android:paddingLeft="@dimen/dp_20"
     android:text="医生医术一般"

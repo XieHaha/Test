@@ -95,7 +95,7 @@ dependencies {
     implementation project(':ocr_ui')
     implementation files('libs/ocr-sdk.jar')
     implementation files('libs/component_common_sdk_1.0.0.jar')
-    api 'org.aspectj:aspectjrt:1.8.9'
+    implementation 'org.aspectj:aspectjrt:1.8.9'
     implementation files('libs/Msc.jar')
     //注解
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.0'

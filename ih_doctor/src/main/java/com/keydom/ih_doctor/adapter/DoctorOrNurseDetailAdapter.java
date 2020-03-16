@@ -78,7 +78,7 @@ public class DoctorOrNurseDetailAdapter extends BaseMultiItemQuickAdapter<MultiI
                         expand(pos);
                     }
                 });
-                helper.setImageResource(R.id.expand_icon, headItem.isExpanded() ? R.mipmap.exa_report_up : R.mipmap.exa_report_down);
+                helper.setImageResource(R.id.expand_icon, headItem.isExpanded() ? R.mipmap.arrow_top : R.mipmap.arrow_bottom_grey);
                 break;
 
             case TYPE_TEXT:
