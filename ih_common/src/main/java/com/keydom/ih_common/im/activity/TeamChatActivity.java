@@ -62,15 +62,15 @@ public class TeamChatActivity extends BaseActivity {
         mMessageView.setOnConversationBehaviorListener(new IConversationBehaviorListener() {
             @Override
             public boolean onUserPortraitClick(Context context, IMMessage message) {
-                if ("com.keydom.ih_patient".equals(context.getPackageName())){
+                if ("com.keydom.mianren.ih_patient".equals(context.getPackageName())){
                     if (message.getDirect() == MsgDirectionEnum.Out) {
-                        Intent intent = new Intent("com.keydom.ih_patient.activity.user_info_operate.UserInfoOperateActivity");
+                        Intent intent = new Intent("com.keydom.mianren.ih_patient.activity.user_info_operate.UserInfoOperateActivity");
                         intent.putExtra("type", "read_type");
                        startActivity(intent);
                     }else {
                         NimUserInfo patientInfo = (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(message.getFromAccount());
                         if ((ImMessageConstant.DOCTOR).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))){
-                            Intent intent = new Intent("com.keydom.ih_patient.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity");
+                            Intent intent = new Intent("com.keydom.mianren.ih_patient.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity");
                             intent.putExtra("type", 0);
                             intent.putExtra("doctorCode", String.valueOf(patientInfo.getAccount()));
                             startActivity(intent);

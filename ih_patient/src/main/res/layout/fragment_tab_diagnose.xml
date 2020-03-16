@@ -13,7 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.keydom.ih_patient.view.MyNestedScollView
+        <com.keydom.mianren.ih_patient.view.MyNestedScollView
             android:id="@+id/diagnose_sv"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -249,7 +249,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
-        </com.keydom.ih_patient.view.MyNestedScollView>
+        </com.keydom.mianren.ih_patient.view.MyNestedScollView>
         <LinearLayout
             android:id="@+id/title_layout"
             android:layout_width="match_parent"

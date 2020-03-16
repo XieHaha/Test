@@ -37,7 +37,7 @@ class ImMessageItemConsultationResultProvider(context: Context?, attrs: Attribut
 
         var type = ImMessageConstant.DOCTOR
         if(null == userInfo.extensionMap){
-            if ("com.keydom.ih_patient" == context.packageName) {
+            if ("com.keydom.mianren.ih_patient" == context.packageName) {
                 type = ImMessageConstant.DOCTOR
             } else {
                 type = ImMessageConstant.PATIENT

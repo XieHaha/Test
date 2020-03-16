@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.keydom.ih_patient.view.MainView
+    <com.keydom.mianren.ih_patient.view.MainView
         android:id="@+id/main_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -103,7 +103,7 @@
 
 
         </RelativeLayout>
-    </com.keydom.ih_patient.view.MainView>
+    </com.keydom.mianren.ih_patient.view.MainView>
 
 
 </RelativeLayout>

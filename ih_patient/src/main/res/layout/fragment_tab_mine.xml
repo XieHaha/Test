@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@color/color_399cf9" />
 
-    <RelativeLayout xmlns:funcitem="http://schemas.android.com/apk/res-audo/com.keydom.ih_patient.view"
+    <RelativeLayout xmlns:funcitem="http://schemas.android.com/apk/res-audo/com.keydom.mianren.ih_patient.view"
         xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.ih_common.view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -455,7 +455,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginStart="@dimen/dp_36">
 
-                            <com.keydom.ih_patient.view.MineFunctionItemView
+                            <com.keydom.mianren.ih_patient.view.MineFunctionItemView
                                 android:id="@+id/item_register"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -463,7 +463,7 @@
                                 funcitem:iconImg="@mipmap/mine_case_record"
                                 funcitem:itemTitle="@string/txt_reserve_register" />
 
-                            <com.keydom.ih_patient.view.MineFunctionItemView
+                            <com.keydom.mianren.ih_patient.view.MineFunctionItemView
                                 android:id="@+id/item_check"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -472,7 +472,7 @@
                                 funcitem:iconImg="@mipmap/mine_inspection_report"
                                 funcitem:itemTitle="@string/txt_check_reserve" />
 
-                            <com.keydom.ih_patient.view.MineFunctionItemView
+                            <com.keydom.mianren.ih_patient.view.MineFunctionItemView
                                 android:id="@+id/item_obstetric"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -481,7 +481,7 @@
                                 funcitem:iconImg="@mipmap/mine_electronic_prescription"
                                 funcitem:itemTitle="@string/txt_obstetric_hospital_reserve" />
 
-                            <com.keydom.ih_patient.view.MineFunctionItemView
+                            <com.keydom.mianren.ih_patient.view.MineFunctionItemView
                                 android:id="@+id/item_painless_delivery"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -525,7 +525,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginStart="@dimen/dp_36">
 
-                            <com.keydom.ih_patient.view.MineFunctionItemView
+                            <com.keydom.mianren.ih_patient.view.MineFunctionItemView
                                 android:id="@+id/mine_physician_orders"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -533,7 +533,7 @@
                                 funcitem:iconImg="@mipmap/mine_physician_orders"
                                 funcitem:itemTitle="@string/mine_function_item_physician_orders" />
 
-                            <com.keydom.ih_patient.view.MineFunctionItemView
+                            <com.keydom.mianren.ih_patient.view.MineFunctionItemView
                                 android:id="@+id/mine_nursing_orders"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -543,7 +543,7 @@
                                 funcitem:iconImg="@mipmap/mine_nursing_orders"
                                 funcitem:itemTitle="@string/mine_function_item_nursing_orders" />
 
-                            <com.keydom.ih_patient.view.MineFunctionItemView
+                            <com.keydom.mianren.ih_patient.view.MineFunctionItemView
                                 android:id="@+id/mine_booking_order"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -552,7 +552,7 @@
                                 funcitem:iconImg="@mipmap/mine_booking_order"
                                 funcitem:itemTitle="@string/mine_function_item_booking_order" />
 
-                            <com.keydom.ih_patient.view.MineFunctionItemView
+                            <com.keydom.mianren.ih_patient.view.MineFunctionItemView
                                 android:id="@+id/mine_medical_mail_order"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -562,7 +562,7 @@
                                 funcitem:iconImg="@mipmap/icon_medical_mail"
                                 funcitem:itemTitle="@string/mine_function_item_mine_medical_mail_order" />
 
-                            <com.keydom.ih_patient.view.MineFunctionItemView
+                            <com.keydom.mianren.ih_patient.view.MineFunctionItemView
                                 android:id="@+id/mine_registered_mail_order"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -608,7 +608,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginStart="@dimen/dp_36">
 
-                            <com.keydom.ih_patient.view.MineFunctionItemView
+                            <com.keydom.mianren.ih_patient.view.MineFunctionItemView
                                 android:id="@+id/mine_payment_records"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -616,7 +616,7 @@
                                 funcitem:iconImg="@mipmap/mine_payment_records"
                                 funcitem:itemTitle="@string/mine_function_item_payment_records" />
 
-                            <com.keydom.ih_patient.view.MineFunctionItemView
+                            <com.keydom.mianren.ih_patient.view.MineFunctionItemView
                                 android:id="@+id/mine_people_control"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -625,7 +625,7 @@
                                 funcitem:iconImg="@mipmap/mine_people_control"
                                 funcitem:itemTitle="@string/mine_function_item_people_control" />
 
-                            <com.keydom.ih_patient.view.MineFunctionItemView
+                            <com.keydom.mianren.ih_patient.view.MineFunctionItemView
                                 android:id="@+id/mine_location_control"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"

@@ -95,7 +95,7 @@
                                     android:background="@mipmap/go_map" />
                             </RelativeLayout>
 
-                            <com.keydom.ih_patient.activity.prescription.view.AddressMessageView
+                            <com.keydom.mianren.ih_patient.activity.prescription.view.AddressMessageView
                                 android:id="@+id/view_address"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
@@ -133,7 +133,7 @@
 
                         <View style="@style/CommonLine" />
 
-                        <com.keydom.ih_patient.activity.prescription.view.BaseInfoView
+                        <com.keydom.mianren.ih_patient.activity.prescription.view.BaseInfoView
                             android:id="@+id/base_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -215,7 +215,7 @@
                                 android:layout_marginRight="@dimen/dp_22"
                                 android:background="@color/mine_interval_bg" />
 
-                            <com.keydom.ih_patient.view.MyViewPager
+                            <com.keydom.mianren.ih_patient.view.MyViewPager
                                 android:id="@+id/vp_prescription"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -295,7 +295,7 @@
 
                         <View style="@style/CommonLine" />
 
-                        <com.keydom.ih_patient.activity.prescription.view.ReviewInfo
+                        <com.keydom.mianren.ih_patient.activity.prescription.view.ReviewInfo
                             android:id="@+id/re_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

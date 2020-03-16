@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.keydom.ih_patient.view.MyScollerView
+        <com.keydom.mianren.ih_patient.view.MyScollerView
             android:id="@+id/nurse_sv"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -575,7 +575,7 @@
                     android:gravity="center_horizontal"
                     android:paddingTop="@dimen/dp_6"/>
             </LinearLayout>
-        </com.keydom.ih_patient.view.MyScollerView>
+        </com.keydom.mianren.ih_patient.view.MyScollerView>
         <LinearLayout
             android:id="@+id/title_layout"
             android:layout_width="match_parent"

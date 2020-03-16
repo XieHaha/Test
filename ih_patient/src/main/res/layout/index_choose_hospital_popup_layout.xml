@@ -52,12 +52,12 @@
                 android:textSize="@dimen/font_size_primary" />
         </RelativeLayout>
 
-        <com.keydom.ih_patient.view.MaxHeightRecyclerView
+        <com.keydom.mianren.ih_patient.view.MaxHeightRecyclerView
             android:id="@+id/hospital_list_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            app:maxHeight="@dimen/dp_150"></com.keydom.ih_patient.view.MaxHeightRecyclerView>
+            app:maxHeight="@dimen/dp_150"></com.keydom.mianren.ih_patient.view.MaxHeightRecyclerView>
 
         <View
             android:layout_width="match_parent"

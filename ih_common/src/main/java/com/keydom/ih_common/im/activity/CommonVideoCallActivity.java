@@ -477,7 +477,7 @@ public class CommonVideoCallActivity extends BaseActivity implements View.OnClic
         displayName = userInfo.getName();
         portrait = userInfo.getAvatar();
         if(null == userInfo.getExtensionMap()){
-            if ("com.keydom.ih_patient".equals(getPackageName())) {
+            if ("com.keydom.mianren.ih_patient".equals(getPackageName())) {
                 userType = ImMessageConstant.DOCTOR;
             } else {
                 userType = ImMessageConstant.PATIENT;

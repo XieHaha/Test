@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.keydom.ih_patient"
+    package="com.keydom.mianren.ih_patient"
     android:versionCode="6"
     android:versionName="1.5">
 
@@ -71,7 +71,7 @@
             android:name=".activity.login.LoginActivity"
             android:launchMode="singleTop">
             <intent-filter>
-                <action android:name="com.keydom.ih_patient.activity.LoginActivity" />
+                <action android:name="com.keydom.mianren.ih_patient.activity.LoginActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
@@ -88,7 +88,7 @@
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
                 <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <category android:name="com.keydom.ih_patient" />
+                <category android:name="com.keydom.mianren.ih_patient" />
             </intent-filter>
         </receiver>
 
@@ -143,7 +143,7 @@
             android:name=".activity.user_info_operate.UserInfoOperateActivity"
             android:launchMode="singleTop">
             <intent-filter>
-                <action android:name="com.keydom.ih_patient.activity.user_info_operate.UserInfoOperateActivity" />
+                <action android:name="com.keydom.mianren.ih_patient.activity.user_info_operate.UserInfoOperateActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -264,7 +264,7 @@
             android:launchMode="singleTop" />
         <activity android:name=".activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity">
             <intent-filter>
-                <action android:name="com.keydom.ih_patient.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity" />
+                <action android:name="com.keydom.mianren.ih_patient.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

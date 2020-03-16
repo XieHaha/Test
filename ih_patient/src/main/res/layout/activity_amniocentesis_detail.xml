@@ -57,7 +57,7 @@
                     android:paddingStart="@dimen/dp_27"
                     android:paddingEnd="@dimen/dp_20">
 
-                    <com.keydom.ih_patient.view.textview.RedStarTextView
+                    <com.keydom.mianren.ih_patient.view.textview.RedStarTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_amniocentesis_surgery_time_colon"
@@ -90,7 +90,7 @@
                     android:paddingStart="@dimen/dp_27"
                     android:paddingEnd="@dimen/dp_20">
 
-                    <com.keydom.ih_patient.view.textview.RedStarTextView
+                    <com.keydom.mianren.ih_patient.view.textview.RedStarTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_name_colon"
@@ -122,7 +122,7 @@
                     android:paddingStart="@dimen/dp_27"
                     android:paddingEnd="@dimen/dp_20">
 
-                    <com.keydom.ih_patient.view.textview.RedStarTextView
+                    <com.keydom.mianren.ih_patient.view.textview.RedStarTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_id_card_colon"
@@ -154,7 +154,7 @@
                     android:paddingStart="@dimen/dp_27"
                     android:paddingEnd="@dimen/dp_20">
 
-                    <com.keydom.ih_patient.view.textview.RedStarTextView
+                    <com.keydom.mianren.ih_patient.view.textview.RedStarTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_birth_date_colon"
@@ -186,7 +186,7 @@
                     android:paddingStart="@dimen/dp_27"
                     android:paddingEnd="@dimen/dp_20">
 
-                    <com.keydom.ih_patient.view.textview.RedStarTextView
+                    <com.keydom.mianren.ih_patient.view.textview.RedStarTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_mine_phone_colon"
@@ -220,7 +220,7 @@
                     android:paddingStart="@dimen/dp_27"
                     android:paddingEnd="@dimen/dp_20">
 
-                    <com.keydom.ih_patient.view.textview.RedStarTextView
+                    <com.keydom.mianren.ih_patient.view.textview.RedStarTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_last_menstruation"
@@ -253,7 +253,7 @@
                     android:paddingStart="@dimen/dp_27"
                     android:paddingEnd="@dimen/dp_20">
 
-                    <com.keydom.ih_patient.view.textview.RedStarTextView
+                    <com.keydom.mianren.ih_patient.view.textview.RedStarTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_due_date"
@@ -285,7 +285,7 @@
                     android:paddingStart="@dimen/dp_27"
                     android:paddingEnd="@dimen/dp_20">
 
-                    <com.keydom.ih_patient.view.textview.RedStarTextView
+                    <com.keydom.mianren.ih_patient.view.textview.RedStarTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_family_name_colon"
@@ -317,7 +317,7 @@
                     android:paddingStart="@dimen/dp_27"
                     android:paddingEnd="@dimen/dp_20">
 
-                    <com.keydom.ih_patient.view.textview.RedStarTextView
+                    <com.keydom.mianren.ih_patient.view.textview.RedStarTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_family_phone_colon"
@@ -349,7 +349,7 @@
                     android:paddingStart="@dimen/dp_27"
                     android:paddingEnd="@dimen/dp_20">
 
-                    <com.keydom.ih_patient.view.textview.RedStarTextView
+                    <com.keydom.mianren.ih_patient.view.textview.RedStarTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_family_address_colon"
@@ -413,7 +413,7 @@
                     android:paddingStart="@dimen/dp_27"
                     android:paddingEnd="@dimen/dp_20">
 
-                    <com.keydom.ih_patient.view.textview.RedStarTextView
+                    <com.keydom.mianren.ih_patient.view.textview.RedStarTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_amniocentesis_reason_colon"
@@ -445,7 +445,7 @@
                     android:paddingStart="@dimen/dp_27"
                     android:paddingEnd="@dimen/dp_20">
 
-                    <com.keydom.ih_patient.view.textview.RedStarTextView
+                    <com.keydom.mianren.ih_patient.view.textview.RedStarTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_pregnancy_fetus"
@@ -477,7 +477,7 @@
                     android:paddingStart="@dimen/dp_27"
                     android:paddingEnd="@dimen/dp_20">
 
-                    <com.keydom.ih_patient.view.textview.RedStarTextView
+                    <com.keydom.mianren.ih_patient.view.textview.RedStarTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_hiv"
@@ -509,7 +509,7 @@
                     android:paddingStart="@dimen/dp_27"
                     android:paddingEnd="@dimen/dp_20">
 
-                    <com.keydom.ih_patient.view.textview.RedStarTextView
+                    <com.keydom.mianren.ih_patient.view.textview.RedStarTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_blood"

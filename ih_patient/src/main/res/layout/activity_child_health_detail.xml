@@ -154,7 +154,7 @@
                     android:layout_height="@dimen/dp_1"
                     android:background="@color/line_color" />
 
-                <com.keydom.ih_patient.view.ChildCareItemLayout
+                <com.keydom.mianren.ih_patient.view.ChildCareItemLayout
                     android:id="@+id/layout_one"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -164,7 +164,7 @@
                     app:item_image="@mipmap/point_icon_4"
                     app:item_title="@string/txt_growth_and_development" />
 
-                <com.keydom.ih_patient.view.ChildCareItemLayout
+                <com.keydom.mianren.ih_patient.view.ChildCareItemLayout
                     android:id="@+id/layout_two"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -173,7 +173,7 @@
                     app:item_image="@mipmap/point_icon_3"
                     app:item_title="@string/txt_physical" />
 
-                <com.keydom.ih_patient.view.ChildCareItemLayout
+                <com.keydom.mianren.ih_patient.view.ChildCareItemLayout
                     android:id="@+id/layout_three"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -182,7 +182,7 @@
                     app:item_image="@mipmap/point_icon_1"
                     app:item_title="@string/txt_growth_and_development_other" />
 
-                <com.keydom.ih_patient.view.ChildCareItemLayout
+                <com.keydom.mianren.ih_patient.view.ChildCareItemLayout
                     android:id="@+id/layout_four"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

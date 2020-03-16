@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.keydom.ih_patient.view.FlowLayout
+            <com.keydom.mianren.ih_patient.view.FlowLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

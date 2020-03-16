@@ -636,7 +636,7 @@ public class ImClient {
         NimUserInfo userInfo = (NimUserInfo) getUserInfoProvider().getUserInfo(sessionId);
         String userType;
         if (userInfo == null) {
-            if ("com.keydom.ih_patient".equals(context.getPackageName())) {
+            if ("com.keydom.mianren.ih_patient".equals(context.getPackageName())) {
                 userType = ImMessageConstant.DOCTOR;
             } else {
                 userType = ImMessageConstant.PATIENT;
@@ -644,7 +644,7 @@ public class ImClient {
         } else {
             Map<String, Object> extension = userInfo.getExtensionMap();
             if(null == extension){
-                if ("com.keydom.ih_patient".equals(context.getPackageName())) {
+                if ("com.keydom.mianren.ih_patient".equals(context.getPackageName())) {
                     userType = ImMessageConstant.DOCTOR;
                 } else {
                     userType = ImMessageConstant.PATIENT;
@@ -726,7 +726,7 @@ public class ImClient {
                             NimUserInfo userInfo = (NimUserInfo) getUserInfoProvider().getUserInfo(sessionId);
                             String type;
                             if(null == userInfo.getExtensionMap()){
-                                if ("com.keydom.ih_patient".equals(activity.getPackageName())) {
+                                if ("com.keydom.mianren.ih_patient".equals(activity.getPackageName())) {
                                     type = ImMessageConstant.DOCTOR;
                                 } else {
                                     type = ImMessageConstant.PATIENT;
@@ -767,7 +767,7 @@ public class ImClient {
         NimUserInfo userInfo = (NimUserInfo) getUserInfoProvider().getUserInfo(avChatData.getAccount());
         String type;
         if(null == userInfo.getExtensionMap()){
-            if ("com.keydom.ih_patient".equals(context.getPackageName())) {
+            if ("com.keydom.mianren.ih_patient".equals(context.getPackageName())) {
                 type = ImMessageConstant.DOCTOR;
             } else {
                 type = ImMessageConstant.PATIENT;

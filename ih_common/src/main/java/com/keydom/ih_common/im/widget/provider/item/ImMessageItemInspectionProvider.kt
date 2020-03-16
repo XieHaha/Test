@@ -35,7 +35,7 @@ class ImMessageItemInspectionProvider(context: Context?, attrs: AttributeSet?) :
         val userInfo = ImClient.getUserInfoProvider().getUserInfo(ImClient.getUserInfoProvider().account) as NimUserInfo
         var type = ImMessageConstant.DOCTOR
         if(null == userInfo.extensionMap){
-            if ("com.keydom.ih_patient" == context.packageName) {
+            if ("com.keydom.mianren.ih_patient" == context.packageName) {
                 type = ImMessageConstant.DOCTOR
             } else {
                 type = ImMessageConstant.PATIENT

@@ -19,7 +19,7 @@
         layout="@layout/empty_layout"
         android:visibility="gone" />
 
-    <com.keydom.ih_patient.view.MyNestedScollView
+    <com.keydom.mianren.ih_patient.view.MyNestedScollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -268,7 +268,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
-    </com.keydom.ih_patient.view.MyNestedScollView>
+    </com.keydom.mianren.ih_patient.view.MyNestedScollView>
 
     <LinearLayout
         android:id="@+id/title_layout"

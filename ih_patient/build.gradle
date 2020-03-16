@@ -28,7 +28,7 @@ android {
     }
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.keydom.ih_patient"
+        applicationId "com.keydom.mianren.ih_patient"
 
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]

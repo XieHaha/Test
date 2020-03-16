@@ -56,14 +56,14 @@
             android:paddingStart="@dimen/dp_24"
             android:paddingEnd="@dimen/dp_24">
 
-            <com.keydom.ih_patient.view.MedicalAuthLayout
+            <com.keydom.mianren.ih_patient.view.MedicalAuthLayout
                 android:id="@+id/layout_front"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:tvHint="@string/txt_id_card_front" />
 
-            <com.keydom.ih_patient.view.MedicalAuthLayout
+            <com.keydom.mianren.ih_patient.view.MedicalAuthLayout
                 android:id="@+id/layout_back"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -80,14 +80,14 @@
             android:paddingStart="@dimen/dp_24"
             android:paddingEnd="@dimen/dp_24">
 
-            <com.keydom.ih_patient.view.MedicalAuthLayout
+            <com.keydom.mianren.ih_patient.view.MedicalAuthLayout
                 android:id="@+id/layout_hand"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:tvHint="@string/txt_id_card_hand" />
 
-            <com.keydom.ih_patient.view.MedicalAuthLayout
+            <com.keydom.mianren.ih_patient.view.MedicalAuthLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_11"

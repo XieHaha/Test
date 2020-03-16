@@ -146,7 +146,7 @@
                 android:text="为了您的隐私安全，请设置您的手势密码"
                 android:textColor="#666666"
                 android:textSize="@dimen/dp_14" />
-            <com.keydom.ih_patient.view.UnlockView
+            <com.keydom.mianren.ih_patient.view.UnlockView
                 android:id="@+id/my_unlock_view"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_350" />

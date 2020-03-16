@@ -58,8 +58,8 @@ abstract class SourceSubscriber<T>(private val context: Context? = null
                             val intent = Intent("com.keydom.mianren.ih_doctor.activity.LoginActivity")
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                             context.startActivity(intent);
-                        }else if (context.packageName.equals("com.keydom.ih_patient")){
-                            val intent = Intent("com.keydom.ih_patient.activity.LoginActivity")
+                        }else if (context.packageName.equals("com.keydom.mianren.ih_patient")){
+                            val intent = Intent("com.keydom.mianren.ih_patient.activity.LoginActivity")
                             context.startActivity(intent);
                         }
 

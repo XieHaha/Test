@@ -10,7 +10,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/list_rv"
             />
-        <com.keydom.ih_patient.view.MaxHeightRecyclerView
+        <com.keydom.mianren.ih_patient.view.MaxHeightRecyclerView
             android:id="@+id/list_rv"
             android:background="@color/primary_color"
             android:layout_width="match_parent"
