@@ -48,7 +48,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="fHjxAUGtmT2N6pAohc3GbsECiLjQboPH" />
+            android:value="UyIrf0i4UNvGT3wZHP6UDpKKhdiWs2S8" />
         <receiver
             android:name="com.keydom.mianren.ih_doctor.push.JPushReceiver"
             android:enabled="true"
@@ -114,74 +114,74 @@
         <activity android:name=".activity.UpdatePasswordActivity"/>
         <activity
             android:name=".activity.AgreementActivity"
-            android:launchMode="standard"></activity>
+            android:launchMode="standard"/>
         <activity
             android:name=".activity.MainActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
-        <activity android:name=".activity.personal.ArticleListActivity"></activity>
-        <activity android:name=".activity.personal.MyVisitingCardActivity"></activity>
-        <activity android:name=".activity.IssueArticleActivity"></activity>
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name=".activity.personal.ArticleListActivity"/>
+        <activity android:name=".activity.personal.MyVisitingCardActivity"/>
+        <activity android:name=".activity.IssueArticleActivity"/>
         <activity
             android:name=".activity.personal.MyAttentionActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
-        <activity android:name=".activity.personal.MyEvaluationActivity"></activity>
-        <activity android:name=".activity.personal.MyServiceActivity"></activity>
-        <activity android:name=".activity.prescription_check.PrescriptionCheckActivity"></activity>
-        <activity android:name=".activity.prescription_check.PrescriptionActivity"></activity>
-        <activity android:name=".activity.prescription_check.DiagnosePrescriptionActivity"></activity>
-        <activity android:name=".activity.consulting_arrange.ConsultingArrangeActivity"></activity>
-        <activity android:name=".activity.consulting_arrange.ConsultingChangeActivity"></activity>
-        <activity android:name=".activity.consulting_arrange.ArrangeCircleActivity"></activity>
-        <activity android:name=".activity.issue_information.NotificationListActivity"></activity>
-        <activity android:name=".activity.issue_information.IssueNotificationActivity"></activity>
-        <activity android:name=".activity.doctor_cooperation.DoctorCooperationActivity"></activity>
-        <activity android:name=".activity.doctor_cooperation.UpdateGroupInfoActivity"></activity>
-        <activity android:name=".activity.doctor_cooperation.GroupMemberActivity"></activity>
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name=".activity.personal.MyEvaluationActivity"/>
+        <activity android:name=".activity.personal.MyServiceActivity"/>
+        <activity android:name=".activity.prescription_check.PrescriptionCheckActivity"/>
+        <activity android:name=".activity.prescription_check.PrescriptionActivity"/>
+        <activity android:name=".activity.prescription_check.DiagnosePrescriptionActivity"/>
+        <activity android:name=".activity.consulting_arrange.ConsultingArrangeActivity"/>
+        <activity android:name=".activity.consulting_arrange.ConsultingChangeActivity"/>
+        <activity android:name=".activity.consulting_arrange.ArrangeCircleActivity"/>
+        <activity android:name=".activity.issue_information.NotificationListActivity"/>
+        <activity android:name=".activity.issue_information.IssueNotificationActivity"/>
+        <activity android:name=".activity.doctor_cooperation.DoctorCooperationActivity"/>
+        <activity android:name=".activity.doctor_cooperation.UpdateGroupInfoActivity"/>
+        <activity android:name=".activity.doctor_cooperation.GroupMemberActivity"/>
         <activity
             android:name=".activity.doctor_cooperation.DiagnoseRecoderActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity
             android:name=".activity.doctor_cooperation.SelectDoctorActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
-        <activity android:name=".activity.doctor_cooperation.DianoseCaseDetailActivity"></activity>
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name=".activity.doctor_cooperation.DianoseCaseDetailActivity"/>
         <activity
             android:name=".activity.doctor_cooperation.DiagnoseCommonActivity"
-            android:launchMode="singleTop"></activity>
-        <activity android:name=".activity.doctor_cooperation.FillOutApplyActivity"></activity>
-        <activity android:name=".activity.doctor_cooperation.DiagnoseOrderDetailActivity"></activity>
-        <activity android:name=".activity.online_diagnose.DiagnoseOrderSelectActivity"></activity>
-        <activity android:name=".activity.personal.FeedBackActivity"></activity>
-        <activity android:name=".activity.personal.MyIncomeActivity"></activity>
-        <activity android:name=".activity.personal.MyRealNameCertifyActivity"></activity>
-        <activity android:name=".activity.personal.PersonalInfoActivity"></activity>
-        <activity android:name=".activity.personal.SettingActivity"></activity>
-        <activity android:name=".activity.CommonInputActivity"></activity>
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.doctor_cooperation.FillOutApplyActivity"/>
+        <activity android:name=".activity.doctor_cooperation.DiagnoseOrderDetailActivity"/>
+        <activity android:name=".activity.online_diagnose.DiagnoseOrderSelectActivity"/>
+        <activity android:name=".activity.personal.FeedBackActivity"/>
+        <activity android:name=".activity.personal.MyIncomeActivity"/>
+        <activity android:name=".activity.personal.MyRealNameCertifyActivity"/>
+        <activity android:name=".activity.personal.PersonalInfoActivity"/>
+        <activity android:name=".activity.personal.SettingActivity"/>
+        <activity android:name=".activity.CommonInputActivity"/>
         <activity
             android:name=".activity.nurse_service.NurseServiceOrderListActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
-        <activity android:name=".activity.nurse_service.HeadNurseServiceOrderDetailActivity"></activity>
-        <activity android:name=".activity.nurse_service.CommonNurseServiceWorkingOrderDetailActivity"></activity>
-        <activity android:name=".activity.nurse_service.CommonNurseServiceOrderDetailActivity"></activity>
-        <activity android:name=".activity.nurse_service.FinishNurseServiceActivity"></activity>
-        <activity android:name=".activity.nurse_service.SelectNurseActivity"></activity>
-        <activity android:name=".activity.nurse_service.ChooseNursingServiceActivity"></activity>
-        <activity android:name=".activity.nurse_service.MaterialChooseActivity"></activity>
-        <activity android:name=".activity.nurse_service.MaterialUseActivity"></activity>
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name=".activity.nurse_service.HeadNurseServiceOrderDetailActivity"/>
+        <activity android:name=".activity.nurse_service.CommonNurseServiceWorkingOrderDetailActivity"/>
+        <activity android:name=".activity.nurse_service.CommonNurseServiceOrderDetailActivity"/>
+        <activity android:name=".activity.nurse_service.FinishNurseServiceActivity"/>
+        <activity android:name=".activity.nurse_service.SelectNurseActivity"/>
+        <activity android:name=".activity.nurse_service.ChooseNursingServiceActivity"/>
+        <activity android:name=".activity.nurse_service.MaterialChooseActivity"/>
+        <activity android:name=".activity.nurse_service.MaterialUseActivity"/>
         <activity
             android:name=".activity.SearchActivity"
-            android:launchMode="standard"></activity>
-        <activity android:name=".activity.online_diagnose.DiagnoseOrderListActivity"></activity>
-        <activity android:name=".activity.online_diagnose.ApplyForCheckActivity"></activity>
-        <activity android:name=".activity.online_diagnose.CheckOrderDetailActivity"></activity>
-        <activity android:name=".activity.online_diagnose.DiagnosePatientInfoActivity"></activity>
-        <activity android:name=".activity.online_diagnose.DiagnoseCheckSelectItemActivity"></activity>
-        <activity android:name=".activity.online_diagnose.DiagnoseInputActivity"></activity>
-        <activity android:name=".activity.online_diagnose.DiagnoseHandleProposalActivity"></activity>
-        <activity android:name=".activity.online_diagnose.DrugChooseActivity"></activity>
-        <activity android:name=".activity.online_diagnose.DrugUseActivity"></activity>
-        <activity android:name=".activity.medical_record_templet.MedicalRecordTempletActivity"></activity>
-        <activity android:name=".activity.medical_record_templet.MedicalTempletDetailActivity"></activity>
-        <activity android:name=".activity.patient_main_suit.PatientMainSuitActivity"></activity>
+            android:launchMode="standard"/>
+        <activity android:name=".activity.online_diagnose.DiagnoseOrderListActivity"/>
+        <activity android:name=".activity.online_diagnose.ApplyForCheckActivity"/>
+        <activity android:name=".activity.online_diagnose.CheckOrderDetailActivity"/>
+        <activity android:name=".activity.online_diagnose.DiagnosePatientInfoActivity"/>
+        <activity android:name=".activity.online_diagnose.DiagnoseCheckSelectItemActivity"/>
+        <activity android:name=".activity.online_diagnose.DiagnoseInputActivity"/>
+        <activity android:name=".activity.online_diagnose.DiagnoseHandleProposalActivity"/>
+        <activity android:name=".activity.online_diagnose.DrugChooseActivity"/>
+        <activity android:name=".activity.online_diagnose.DrugUseActivity"/>
+        <activity android:name=".activity.medical_record_templet.MedicalRecordTempletActivity"/>
+        <activity android:name=".activity.medical_record_templet.MedicalTempletDetailActivity"/>
+        <activity android:name=".activity.patient_main_suit.PatientMainSuitActivity"/>
         <activity android:name=".activity.online_diagnose.PrescriptionTempletActivity" />
         <activity android:name=".activity.online_diagnose.PrescriptionTempletDetailActivity" />
         <activity android:name=".activity.inspection_report.BodyCheckDetailActivity" />
@@ -225,37 +225,37 @@
             android:name="cn.org.bjca.signet.component.core.activity.SignetCoreApiActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent"></activity>
+            android:theme="@android:style/Theme.Translucent"/>
         <activity
             android:name="cn.org.bjca.livecheckplugin.ui.LiveActivity"
             android:hardwareAccelerated="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="cn.org.bjca.signet.component.ocr.activity.CaptureIdCardActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
         <activity
             android:name="cn.org.bjca.signet.component.qr.activity.QRScanActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
         <activity
             android:name="cn.org.bjca.signet.component.seal.activity.SignetSealApiActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
         <activity
             android:name="cn.org.bjca.signet.component.seal.activity.CaptureSignActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote"/>
 
         <activity
             android:name=".activity.my_message.MyMessageActivity"
