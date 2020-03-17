@@ -70,7 +70,7 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
                     ToastUtil.showMessage(getContext(), "没有选中的就诊人");
                 break;
 
-            case R.id.conmit_tv:
+            case R.id.commit_tv:
                 saveInquisition(getView().getQueryMap(), getView().getPayDesc());
                 break;
         }
