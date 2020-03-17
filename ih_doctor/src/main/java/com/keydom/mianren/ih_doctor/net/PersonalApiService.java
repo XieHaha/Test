@@ -181,24 +181,6 @@ public interface PersonalApiService {
     Observable<HttpResult<MyIncomeBean>> wallet(@QueryMap Map<String, Object> maps);
 
     /**
-     * 查询未读总条数
-     */
-    @GET("api/messageNotification/countMessage")
-    Observable<HttpResult<MyIncomeBean>> countMessage(@Query("userId") String userId);
-
-    /**
-     * 更新消息状态 rowId
-     */
-    @POST("api//messageNotification/updateMessageStatus")
-    Observable<HttpResult<MyIncomeBean>> updateMessageStatus(@Body RequestBody body);
-
-    /**
-     * 查询消息列表
-     */
-    @GET("api/messageNotification/userMessageInfos")
-    Observable<HttpResult<MyIncomeBean>> userMessageInfos(@Query("userId") String userId);
-
-    /**
      * 查询是否存在未读服务
      */
     @GET("user/hosptaluser/home")

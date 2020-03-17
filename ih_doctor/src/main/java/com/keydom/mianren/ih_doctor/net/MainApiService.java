@@ -22,7 +22,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
@@ -220,36 +219,6 @@ public interface MainApiService {
      */
     @POST("user/notice/deleteNotice")
     Observable<HttpResult<String>> deleteNotice(@Body RequestBody body);
-
-
-    /**
-     * 获取消息数量
-     *
-     * @param userId
-     * @return
-     */
-    @POST("api/messageNotification/countMessage")
-    Observable<HttpResult<String>> countMessage(@Query("userId") long userId);
-
-    /**
-     * 用户消息查询
-     *
-     * @param userId
-     * @return
-     */
-    @POST("api/messageNotification/userMessageInfos")
-    Observable<HttpResult<String>> userMessageInfos(@Query("userId") long userId);
-
-
-    /**
-     * 更新消息状态
-     *
-     * @param userId
-     * @return
-     */
-    @POST("/api/messageNotification/updateMessageStatus")
-    Observable<HttpResult<String>> updateMessageStatus(@Query("userId") long userId);
-
 
     /**
      * 全局搜索

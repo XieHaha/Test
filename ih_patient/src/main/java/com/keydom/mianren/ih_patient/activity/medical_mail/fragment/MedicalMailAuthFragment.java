@@ -1,5 +1,6 @@
 package com.keydom.mianren.ih_patient.activity.medical_mail.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -93,8 +94,8 @@ public class MedicalMailAuthFragment extends BaseControllerFragment<MedicalMailA
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
-        initOCR();
         alertDialog = new AlertDialog.Builder(getContext());
+        initOCR();
         tvSelectVisit.setOnClickListener(getController());
         layoutFront.setOnClickListener(getController());
         layoutBack.setOnClickListener(getController());
@@ -271,7 +272,7 @@ public class MedicalMailAuthFragment extends BaseControllerFragment<MedicalMailA
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != getActivity().RESULT_OK || data == null) {
+        if (resultCode != Activity.RESULT_OK || data == null) {
             return;
         }
         switch (requestCode) {
@@ -307,7 +308,6 @@ public class MedicalMailAuthFragment extends BaseControllerFragment<MedicalMailA
                 break;
         }
     }
-
 
     private void recIDCard(String idCardSide, String filePath) {
         IDCardParams param = new IDCardParams();
