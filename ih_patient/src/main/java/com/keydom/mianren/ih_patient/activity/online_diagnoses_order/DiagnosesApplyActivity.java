@@ -72,7 +72,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         intent.putExtra("type", type);
 
         Bundle bundle = new Bundle();
-        if(null != info){
+        if (null != info) {
             bundle.putSerializable("info", info);
             intent.putExtras(bundle);
         }
@@ -80,13 +80,13 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         context.startActivity(intent);
     }
 
-    private TextView name_tv, job_title_tv, photo_diagnoses_tv, video_diagnoses_tv,
-            depart_tv, adept_tv, inquisition_num_tv, good_evaluate_num_tv,
-            average_reply_time_tv, choose_patient_card_tv, choose_patient_tv, conmit_tv, desc_font_num_tv;
-    private InterceptorEditText desc_edt;
+    private TextView nameTv, jobTitleTv, photoDiagnosesTv, videoDiagnosesTv,
+            departTv, adeptTv, inquisitionNumTv, goodEvaluateNumTv,
+            averageReplyTimeTv, choosePatientCardTv, choosePatientTv, commitTv, descFontNumTv;
+    private InterceptorEditText descEdt;
     private RelativeLayout mDoctorRootRl;
-    private CircleImageView head_img;
-    private GridViewForScrollView img_gv;
+    private CircleImageView headImg;
+    private GridViewForScrollView imgGv;
     private String type;
     private DoctorMainBean.InfoBean info;
     private MedicalCardInfo medicalCardInfo;
@@ -109,7 +109,8 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         public void onInit(int code) {
 
             if (code != ErrorCode.SUCCESS) {
-                Log.e("xunfei","初始化失败，错误码：" + code+",请点击网址https://www.xfyun.cn/document/error-code查询解决方案");
+                Log.e("xunfei", "初始化失败，错误码：" + code + ",请点击网址https://www.xfyun" +
+                        ".cn/document/error-code查询解决方案");
             }
         }
     };
@@ -119,24 +120,23 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
      */
     private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
         public void onResult(RecognizerResult results, boolean isLast) {
-            if(null != desc_edt){
+            if (null != descEdt) {
                 String text = JsonUtils.handleXunFeiJson(results);
-                if(TextUtils.isEmpty(desc_edt.getText().toString())){
-                    desc_edt.setText(text);
-                    desc_edt.setSelection(desc_edt.getText().length());
-                }else{
-                    desc_edt.setText(desc_edt.getText().toString() + text);
-                    desc_edt.setSelection(desc_edt.getText().length());
+                if (TextUtils.isEmpty(descEdt.getText().toString())) {
+                    descEdt.setText(text);
+                    descEdt.setSelection(descEdt.getText().length());
+                } else {
+                    descEdt.setText(descEdt.getText().toString() + text);
+                    descEdt.setSelection(descEdt.getText().length());
                 }
             }
-
         }
 
         /**
          * 识别回调错误.
          */
         public void onError(SpeechError error) {
-            ToastUtil.showMessage(DiagnosesApplyActivity.this,error.getPlainDescription(true));
+            ToastUtil.showMessage(DiagnosesApplyActivity.this, error.getPlainDescription(true));
 
         }
 
@@ -154,7 +154,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         info = (DoctorMainBean.InfoBean) getIntent().getSerializableExtra("info");
         if (DiagnosesApplyDialog.VIDEODIAGNOSES.equals(type)) {
             setTitle("视频问诊");
-        } else if(DiagnosesApplyDialog.VIP_DIAGNOSES.equals(type)){
+        } else if (DiagnosesApplyDialog.VIP_DIAGNOSES.equals(type)) {
             setTitle("在线问诊");
         } else {
             setTitle("图文问诊");
@@ -166,26 +166,26 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
                 CommonDocumentActivity.start(getContext(), CommonDocumentBean.CODE_10);
             }
         });
-        name_tv = findViewById(R.id.name_tv);
+        nameTv = findViewById(R.id.name_tv);
         mVoiceInputIv = findViewById(R.id.diagnoses_apply_layout_voice_input_iv);
-        desc_font_num_tv = findViewById(R.id.desc_font_num_tv);
-        job_title_tv = findViewById(R.id.job_title_tv);
-        photo_diagnoses_tv = findViewById(R.id.photo_diagnoses_tv);
-        video_diagnoses_tv = findViewById(R.id.video_diagnoses_tv);
-        depart_tv = findViewById(R.id.depart_tv);
-        adept_tv = findViewById(R.id.adept_tv);
-        inquisition_num_tv = findViewById(R.id.inquisition_num_tv);
-        good_evaluate_num_tv = findViewById(R.id.good_evaluate_num_tv);
-        average_reply_time_tv = findViewById(R.id.average_reply_time_tv);
-        choose_patient_card_tv = findViewById(R.id.choose_patient_card_tv);
-        choose_patient_card_tv.setOnClickListener(getController());
-        choose_patient_tv = findViewById(R.id.choose_patient_tv);
-        choose_patient_tv.setOnClickListener(getController());
-        conmit_tv = findViewById(R.id.conmit_tv);
-        conmit_tv.setOnClickListener(getController());
-        desc_edt = findViewById(R.id.desc_edt);
+        descFontNumTv = findViewById(R.id.desc_font_num_tv);
+        jobTitleTv = findViewById(R.id.job_title_tv);
+        photoDiagnosesTv = findViewById(R.id.photo_diagnoses_tv);
+        videoDiagnosesTv = findViewById(R.id.video_diagnoses_tv);
+        departTv = findViewById(R.id.depart_tv);
+        adeptTv = findViewById(R.id.adept_tv);
+        inquisitionNumTv = findViewById(R.id.inquisition_num_tv);
+        goodEvaluateNumTv = findViewById(R.id.good_evaluate_num_tv);
+        averageReplyTimeTv = findViewById(R.id.average_reply_time_tv);
+        choosePatientCardTv = findViewById(R.id.choose_patient_card_tv);
+        choosePatientCardTv.setOnClickListener(getController());
+        choosePatientTv = findViewById(R.id.choose_patient_tv);
+        choosePatientTv.setOnClickListener(getController());
+        commitTv = findViewById(R.id.commit_tv);
+        commitTv.setOnClickListener(getController());
+        descEdt = findViewById(R.id.desc_edt);
         mDoctorRootRl = findViewById(R.id.diagnoses_apply_layout_doctor_root_rl);
-        desc_edt.addTextChangedListener(new TextWatcher() {
+        descEdt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -193,36 +193,39 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                desc_font_num_tv.setText(charSequence.length() + "/500");
+                descFontNumTv.setText(charSequence.length() + "/500");
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
             }
         });
-        head_img = findViewById(R.id.head_img);
-        img_gv = findViewById(R.id.img_gv);
+        headImg = findViewById(R.id.head_img);
+        imgGv = findViewById(R.id.img_gv);
         mAdapter = new GridViewPlusImgAdapter(this, dataList);
-        img_gv.setAdapter(mAdapter);
-        img_gv.setOnItemClickListener(getController());
+        imgGv.setAdapter(mAdapter);
+        imgGv.setOnItemClickListener(getController());
         if (info != null) {
             mDoctorRootRl.setVisibility(View.VISIBLE);
             if (info.getIsInquiry() == 0) {
-                photo_diagnoses_tv.setVisibility(View.INVISIBLE);
-                video_diagnoses_tv.setVisibility(View.INVISIBLE);
+                photoDiagnosesTv.setVisibility(View.INVISIBLE);
+                videoDiagnosesTv.setVisibility(View.INVISIBLE);
             } else {
-                photo_diagnoses_tv.setVisibility(View.VISIBLE);
-                video_diagnoses_tv.setVisibility(View.VISIBLE);
+                photoDiagnosesTv.setVisibility(View.VISIBLE);
+                videoDiagnosesTv.setVisibility(View.VISIBLE);
             }
-            job_title_tv.setText(info.getJobTitle());
-            name_tv.setText(info.getName());
-            good_evaluate_num_tv.setText(info.getFeedbackRate());
-            average_reply_time_tv.setText(info.getAverageResponseTime() + "分钟");
-            inquisition_num_tv.setText(info.getInquisitionAmount() + "");
-            adept_tv.setText("擅长：" + info.getAdept());
-            depart_tv.setText("科室： " + info.getDeptName());
-            GlideUtils.load(head_img, info.getAvatar() == null ? "" : Const.IMAGE_HOST + info.getAvatar(), 0, R.mipmap.test_doctor_head_icon, false, null);
-        }else{
+            jobTitleTv.setText(info.getJobTitle());
+            nameTv.setText(info.getName());
+            goodEvaluateNumTv.setText(info.getFeedbackRate());
+            averageReplyTimeTv.setText(info.getAverageResponseTime() + "分钟");
+            inquisitionNumTv.setText(info.getInquisitionAmount() + "");
+            adeptTv.setText("擅长：" + info.getAdept());
+            departTv.setText("科室： " + info.getDeptName());
+            GlideUtils.load(headImg, info.getAvatar() == null ? "" :
+                            Const.IMAGE_HOST + info.getAvatar(), 0,
+                    R.mipmap.test_doctor_head_icon, false
+                    , null);
+        } else {
             mDoctorRootRl.setVisibility(View.GONE);
         }
         EventBus.getDefault().register(getContext());
@@ -242,19 +245,21 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
     @SuppressLint("CheckResult")
     public void initPremissions() {
         RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        rxPermissions.request(Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean granted) throws Exception {
                         if (granted) {
-                            if(mIatDialog.isShowing()){
+                            if (mIatDialog.isShowing()) {
                                 mIatDialog.dismiss();
                             }
                             mIatDialog.show();
-                            ToastUtil.showMessage(DiagnosesApplyActivity.this,"请开始说话…");
+                            ToastUtil.showMessage(DiagnosesApplyActivity.this, "请开始说话…");
 
                         } else {
-                            ToastUtil.showMessage(DiagnosesApplyActivity.this,"请开启录音需要的权限");
+                            ToastUtil.showMessage(DiagnosesApplyActivity.this, "请开启录音需要的权限");
 
                         }
                     }
@@ -269,19 +274,19 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
     public void getPatientCard(Event event) {
         if (event.getType() == EventType.SENDSELECTNURSINGPATIENT) {
             medicalCardInfo = (MedicalCardInfo) event.getData();
-            choose_patient_card_tv.setText(medicalCardInfo.getName());
+            choosePatientCardTv.setText(medicalCardInfo.getName());
             getController().getManagerUserList();
         }
         if (event.getType() == EventType.SENDSELECTDIAGNOSESPATIENT) {
             if (medicalCardInfo != null)
                 medicalCardInfo = null;
             managerUserBean = (ManagerUserBean) event.getData();
-            choose_patient_card_tv.setText(managerUserBean.getName());
+            choosePatientCardTv.setText(managerUserBean.getName());
             if (managerUserBean.getPastMedicalHistory() == null || "".equals(managerUserBean.getPastMedicalHistory()))
-                choose_patient_tv.setText("该就诊人无病史，点击前往编辑");
+                choosePatientTv.setText("该就诊人无病史，点击前往编辑");
             else
-                choose_patient_tv.setText(managerUserBean.getPastMedicalHistory());
-//            choose_patient_tv.setClickable(false);
+                choosePatientTv.setText(managerUserBean.getPastMedicalHistory());
+            //            choosePatientTv.setClickable(false);
         }
     }
 
@@ -312,7 +317,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
     public void getPatientInfo(Event event) {
         if (event.getType() == EventType.SENDPATIENTINFO) {
             managerUserBean = (ManagerUserBean) event.getData();
-            choose_patient_tv.setText(managerUserBean.getPastMedicalHistory());
+            choosePatientTv.setText(managerUserBean.getPastMedicalHistory());
         }
     }
 
@@ -325,32 +330,32 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
     @Override
     public void getPatientListSuccess(List<ManagerUserBean> data) {
         for (ManagerUserBean managerUserBean : data) {
-            if (medicalCardInfo!=null&&medicalCardInfo.getIdCard() != null) {
+            if (medicalCardInfo != null && medicalCardInfo.getIdCard() != null) {
                 if (medicalCardInfo.getIdCard().equals(managerUserBean.getCardId())) {
                     if (managerUserBean.getPastMedicalHistory() == null || "".equals(managerUserBean.getPastMedicalHistory()))
-                        choose_patient_tv.setText("该就诊人无病史，点击前往编辑");
+                        choosePatientTv.setText("该就诊人无病史，点击前往编辑");
                     else
-                        choose_patient_tv.setText(managerUserBean.getPastMedicalHistory());
+                        choosePatientTv.setText(managerUserBean.getPastMedicalHistory());
                     this.managerUserBean = managerUserBean;
                     isCardPatientMatch = true;
                     break;
                 } else {
                     isCardPatientMatch = false;
-                    choose_patient_tv.setText("");
+                    choosePatientTv.setText("");
                 }
-            }else if(this.managerUserBean!=null&&this.managerUserBean.getCardId()!=null){
+            } else if (this.managerUserBean != null && this.managerUserBean.getCardId() != null) {
                 if (this.managerUserBean.getCardId().equals(managerUserBean.getCardId())) {
                     if (managerUserBean.getPastMedicalHistory() == null || "".equals(managerUserBean.getPastMedicalHistory()))
-                        choose_patient_tv.setText("该就诊人无病史，点击前往编辑");
+                        choosePatientTv.setText("该就诊人无病史，点击前往编辑");
                     else
-                        choose_patient_tv.setText(managerUserBean.getPastMedicalHistory());
+                        choosePatientTv.setText(managerUserBean.getPastMedicalHistory());
                     this.managerUserBean = managerUserBean;
                     break;
                 }
             }
 
         }
-        if (!isCardPatientMatch&&medicalCardInfo!=null)
+        if (!isCardPatientMatch && medicalCardInfo != null)
             ToastUtil.showMessage(getContext(), "该卡没有对应的就诊人，请重新换一张就诊卡或者创建对应就诊人");
     }
 
@@ -415,24 +420,24 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
           /*  ToastUtil.showMessage(getContext(), "请至少选择一张病情图片依据");
             return null;*/
         }
-        if (desc_edt.getText().toString().trim().length() < 10) {
+        if (descEdt.getText().toString().trim().length() < 10) {
             ToastUtil.showMessage(getContext(), "病情描述至少要求写入10字，请修改后再尝试提交");
             return null;
         } else {
-            map.put("conditionDesc", desc_edt.getText().toString().trim());
+            map.put("conditionDesc", descEdt.getText().toString().trim());
 
         }
 
-        if(null != info){
+        if (null != info) {
             map.put("doctorCode", info.getUuid());
-        }else{
+        } else {
             map.put("doctorCode", 1);
         }
 
 
         if (DiagnosesApplyDialog.VIDEODIAGNOSES.equals(type)) {
             map.put("type", 1);
-        }else if(DiagnosesApplyDialog.VIP_DIAGNOSES.equals(type)){
+        } else if (DiagnosesApplyDialog.VIP_DIAGNOSES.equals(type)) {
             map.put("type", 1);
         } else {
             map.put("type", 0);
@@ -474,7 +479,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         String payDesc = "";
         if (DiagnosesApplyDialog.VIDEODIAGNOSES.equals(type)) {
             payDesc = "视频问诊-" + info.getName();
-        } else if(DiagnosesApplyDialog.VIP_DIAGNOSES.equals(type)){
+        } else if (DiagnosesApplyDialog.VIP_DIAGNOSES.equals(type)) {
             payDesc = "视频问诊";
         } else {
             payDesc = "图文问诊-" + info.getName();
@@ -484,7 +489,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
 
     @Override
     public String getPicUrl(int position) {
-        return Const.IMAGE_HOST+dataList.get(position);
+        return Const.IMAGE_HOST + dataList.get(position);
     }
 
     @Override
@@ -494,7 +499,8 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
 
     @Override
     public int getType() {
-        return null == info ? com.keydom.mianren.ih_patient.constant.Const.PATIENT_TYPE_ALL : info.getIsDoctor();
+        return null == info ? com.keydom.mianren.ih_patient.constant.Const.PATIENT_TYPE_ALL :
+                info.getIsDoctor();
     }
 
 

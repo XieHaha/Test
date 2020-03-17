@@ -177,6 +177,9 @@
     <string name="txt_have">有</string>
     <string name="txt_none">无</string>
 
+    <!--在线问诊-->
+    <string name="txt_insurance_clause_description">已为您购买医疗责任险，最高赔付20万元。《保险条款》</string>
+
     <!--无痛分娩预约-->
     <string name="txt_visit_name">就诊人:</string>
     <string name="txt_visit_card_number">就诊卡号:</string>
@@ -255,7 +258,6 @@
     <string name="txt_copy_content_detail">病案复印详细</string>
     <string name="txt_copy_content_hint">请选择复印内容</string>
     <string name="txt_price_colon">价格:</string>
-
     <string name="txt_auth_base">身份认证</string>
     <string name="txt_mail_apply">邮寄申请</string>
     <string name="txt_mail_receive">收件信息</string>
@@ -277,7 +279,6 @@
     <string name="txt_in_hospital_number">住院号</string>
     <string name="txt_in_hospital_time">住院时间</string>
     <string name="txt_in_hospital_number_hint">请输入住院号</string>
-
     <string name="txt_recv_info">收件人信息</string>
     <string name="txt_recv_name">收件人姓名</string>
     <string name="txt_recv_phone">收件人电话</string>
@@ -286,7 +287,6 @@
     <string name="txt_recv_city_hint">请选择城市</string>
     <string name="txt_recv_city_detail">收件人详细地址（精确到门牌号）</string>
     <string name="txt_recv_address_detail_hint">请输入详细地址</string>
-
     <string name="txt_mianyang_hospital">绵阳市人民医院</string>
     <string name="txt_medical_mail_apply">病案邮递申请</string>
     <string name="txt_recv_type">收取方式</string>

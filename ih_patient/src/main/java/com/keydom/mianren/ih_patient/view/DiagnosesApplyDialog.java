@@ -4,6 +4,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -22,7 +26,7 @@ public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener
     public static final String VIDEODIAGNOSES = "video_diagnoses";
     public static final String VIP_DIAGNOSES = "vip_diagnoses";
     private Context context;
-    private TextView applu_fee_tv,discount_tv,service_label;
+    private TextView applu_fee_tv, discount_tv, service_label;
     private TextView doctor_name_tv;
     private TextView apply_type_tv;
     private TextView wait_num_tv;
@@ -42,11 +46,13 @@ public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener
     /**
      * 构建方法
      */
-    public DiagnosesApplyDialog(@NonNull Context context, String fee,float disCount, String doctorName, int waitNum, String diagnosesType, OnCommitListener onCommitListener) {
-        super(context,com.keydom.ih_common.R.style.dialog);
+    public DiagnosesApplyDialog(@NonNull Context context, String fee, float disCount,
+                                String doctorName, int waitNum, String diagnosesType,
+                                OnCommitListener onCommitListener) {
+        super(context, com.keydom.ih_common.R.style.dialog);
         this.context = context;
         this.fee = fee;
-        this.disCount=disCount;
+        this.disCount = disCount;
         this.doctorName = doctorName;
         this.waitNum = waitNum;
         this.diagnosesType = diagnosesType;
@@ -54,8 +60,9 @@ public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener
     }
 
 
-    public DiagnosesApplyDialog(@NonNull Context context,  String diagnosesType, OnCommitListener onCommitListener) {
-        super(context,com.keydom.ih_common.R.style.dialog);
+    public DiagnosesApplyDialog(@NonNull Context context, String diagnosesType,
+                                OnCommitListener onCommitListener) {
+        super(context, com.keydom.ih_common.R.style.dialog);
         this.context = context;
         this.diagnosesType = diagnosesType;
         this.onCommitListener = onCommitListener;
@@ -73,14 +80,15 @@ public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener
      * 初始化
      */
     private void initView() {
-        icon_f=findViewById(R.id.icon_f);
+        icon_f = findViewById(R.id.icon_f);
         applu_fee_tv = findViewById(R.id.applu_fee_tv);
-        discount_tv=findViewById(R.id.discount_tv);
+        discount_tv = findViewById(R.id.discount_tv);
         doctor_name_tv = findViewById(R.id.doctor_name_tv);
         apply_type_tv = findViewById(R.id.apply_type_tv);
         wait_num_tv = findViewById(R.id.wait_num_tv);
         notice_tv = findViewById(R.id.notice_tv);
-        service_label=findViewById(R.id.service_label);
+        service_label = findViewById(R.id.service_label);
+        spanString();
         canncel_apply_tv = findViewById(R.id.canncel_apply_tv);
         commit_apply_tv = findViewById(R.id.commit_apply_tv);
         notice_ck = findViewById(R.id.notice_ck);
@@ -97,7 +105,7 @@ public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener
             mVIPTipsTv.setVisibility(View.VISIBLE);
             mVIPNoDrugsTv.setVisibility(View.VISIBLE);
 
-        }else{
+        } else {
             if (PHOTODIAGNOSES.equals(diagnosesType)) {
                 icon_f.setImageResource(R.mipmap.dialog_pic_icon);
                 apply_type_tv.setText("通过图文进行问诊咨询");
@@ -106,14 +114,14 @@ public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener
                 apply_type_tv.setText("通过视频进行问诊咨询");
             }
 
-            if(disCount<1.0){
-                float resultFee=Float.valueOf(fee)*disCount;
-                String feeStr= String.format("%.2f",resultFee);
-                applu_fee_tv.setText(fee != null ? "¥" + feeStr+ "/次":"" );
+            if (disCount < 1.0) {
+                float resultFee = Float.valueOf(fee) * disCount;
+                String feeStr = String.format("%.2f", resultFee);
+                applu_fee_tv.setText(fee != null ? "¥" + feeStr + "/次" : "");
                 discount_tv.setVisibility(View.VISIBLE);
-                discount_tv.setText("复诊患者首次问诊费用"+disCount*10+"折优惠");
-            }else {
-                applu_fee_tv.setText(fee != null ? "¥" + fee+ "/次":"" );
+                discount_tv.setText("复诊患者首次问诊费用" + disCount * 10 + "折优惠");
+            } else {
+                applu_fee_tv.setText(fee != null ? "¥" + fee + "/次" : "");
                 discount_tv.setVisibility(View.GONE);
             }
 
@@ -123,23 +131,18 @@ public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener
         }
 
 
-
-
-
-
-
         notice_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //AgreementActivity.startOnLineDiagnoseAgreement(context);
-                CommonDocumentActivity.start(getContext(),CommonDocumentBean.CODE_1);
+                CommonDocumentActivity.start(getContext(), CommonDocumentBean.CODE_1);
             }
         });
 
         service_label.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CommonDocumentActivity.start(getContext(),CommonDocumentBean.CODE_14);
+                CommonDocumentActivity.start(getContext(), CommonDocumentBean.CODE_14);
 
             }
         });
@@ -151,6 +154,15 @@ public class DiagnosesApplyDialog extends Dialog implements View.OnClickListener
         notice_ck.setOnCheckedChangeListener((compoundButton, b) -> {
             isAgreeNotice = b;
         });
+    }
+
+    private void spanString() {
+        SpannableStringBuilder ssb =
+                new SpannableStringBuilder(context.getString(R.string.txt_insurance_clause_description));
+        ForegroundColorSpan fc = new ForegroundColorSpan(ContextCompat.getColor(context,
+                R.color.other_login_color));
+        ssb.setSpan(fc, 20, ssb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        service_label.setText(ssb);
     }
 
     @Override
