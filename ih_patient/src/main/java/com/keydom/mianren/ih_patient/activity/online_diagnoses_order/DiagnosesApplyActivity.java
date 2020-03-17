@@ -25,14 +25,11 @@ import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_common.view.GridViewForScrollView;
-import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.common_document.CommonDocumentActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.controller.DiagnosesApplyController;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.view.DiagnosesApplyView;
 import com.keydom.mianren.ih_patient.adapter.GridViewPlusImgAdapter;
-import com.keydom.mianren.ih_patient.bean.CommonDocumentBean;
 import com.keydom.mianren.ih_patient.bean.DoctorMainBean;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
@@ -103,15 +100,10 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
     /**
      * 初始化监听器。
      */
-    private InitListener mInitListener = new InitListener() {
-
-        @Override
-        public void onInit(int code) {
-
-            if (code != ErrorCode.SUCCESS) {
-                Log.e("xunfei", "初始化失败，错误码：" + code + ",请点击网址https://www.xfyun" +
-                        ".cn/document/error-code查询解决方案");
-            }
+    private InitListener mInitListener = code -> {
+        if (code != ErrorCode.SUCCESS) {
+            Log.e("xunfei", "初始化失败，错误码：" + code + ",请点击网址https://www.xfyun" +
+                    ".cn/document/error-code查询解决方案");
         }
     };
 
@@ -159,13 +151,14 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         } else {
             setTitle("图文问诊");
         }
-        getTitleLayout().setRightTitle("服务介绍");
-        getTitleLayout().setOnRightTextClickListener(new IhTitleLayout.OnRightTextClickListener() {
-            @Override
-            public void OnRightTextClick(View v) {
-                CommonDocumentActivity.start(getContext(), CommonDocumentBean.CODE_10);
-            }
-        });
+        //        getTitleLayout().setRightTitle("服务介绍");
+        //        getTitleLayout().setOnRightTextClickListener(new IhTitleLayout
+        //        .OnRightTextClickListener() {
+        //            @Override
+        //            public void OnRightTextClick(View v) {
+        //                CommonDocumentActivity.start(getContext(), CommonDocumentBean.CODE_10);
+        //            }
+        //        });
         nameTv = findViewById(R.id.name_tv);
         mVoiceInputIv = findViewById(R.id.diagnoses_apply_layout_voice_input_iv);
         descFontNumTv = findViewById(R.id.desc_font_num_tv);

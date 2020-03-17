@@ -352,7 +352,7 @@
                     android:layout_toEndOf="@+id/datum_label"
                     android:text="（患处照片、外院检查报告等，照片仅自"
                     android:textColor="#BBBBBB"
-                    android:textSize="@dimen/sp_12" />
+                    android:textSize="@dimen/sp_13" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -362,7 +362,7 @@
                     android:layout_marginTop="@dimen/dp_6"
                     android:text="己和医生可见，最多上传9张）"
                     android:textColor="#BBBBBB"
-                    android:textSize="@dimen/sp_12" />
+                    android:textSize="@dimen/sp_13" />
             </RelativeLayout>
 
             <com.keydom.ih_common.view.GridViewForScrollView
