@@ -52,7 +52,7 @@
             android:hint="搜索药店"
             android:paddingLeft="@dimen/dp_18"
             android:textColorHint="#BBBBBB"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

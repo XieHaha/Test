@@ -8,7 +8,6 @@
 
     <include layout="@layout/common_title_bar" />
 
-
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
@@ -28,27 +27,27 @@
             android:id="@+id/search_input_ev"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_35"
-            android:layout_toLeftOf="@id/search_tv"
+            android:layout_toStartOf="@id/search_tv"
             android:background="@drawable/comment_input"
-            android:drawableLeft="@mipmap/search"
+            android:drawableStart="@mipmap/search"
             android:drawablePadding="@dimen/dp_10"
             android:hint="搜索项目关键字"
+            android:paddingStart="@dimen/dp_20"
             android:singleLine="true"
-            android:paddingLeft="@dimen/dp_20"
             android:textCursorDrawable="@null"
-            android:textSize="@dimen/font_size_auxiliary" />
+            android:textSize="@dimen/sp_12" />
 
         <TextView
             android:id="@+id/search_tv"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_35"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:gravity="center_vertical"
             android:text="搜索"
             android:textColor="#666666"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14" />
 
     </RelativeLayout>
 
@@ -73,11 +72,11 @@
             android:id="@+id/order_num_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/point_purple_blue"
+            android:drawableStart="@mipmap/point_purple_blue"
             android:drawablePadding="@dimen/dp_15"
             android:text="未接单：5单（即将过期）/28单"
             android:textColor="#666666"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14" />
     </LinearLayout>
 
     <View

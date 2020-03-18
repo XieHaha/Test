@@ -32,7 +32,7 @@
             android:layout_toRightOf="@id/user_icon"
             android:text="风梳烟沐"
             android:textColor="@color/text_color_main"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14" />
 
         <TextView
             android:id="@+id/user_age"
@@ -68,7 +68,7 @@
             android:paddingTop="@dimen/dp_6"
             android:paddingBottom="@dimen/dp_6"
             android:text="服务中"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14" />
     </RelativeLayout>
 
     <View
@@ -90,7 +90,7 @@
             android:lineSpacingExtra="@dimen/dp_10"
             android:text="3日前自觉鼻塞、流涕，轻微咳嗽，自服抗感冒药物效果不佳，近1日觉畏寒，发热，体温37.7℃。"
             android:textColor="#666666"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/img_rv"
@@ -132,7 +132,7 @@
             android:layout_alignParentRight="true"
             android:text="2018.09.27"
             android:textColor="#999999"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14" />
     </RelativeLayout>
 
     <View

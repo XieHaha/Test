@@ -11,6 +11,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_100"
-        android:textSize="@dimen/font_size_primary"
+        android:textSize="@dimen/sp_14"
         android:text="加载中..."/>
 </LinearLayout>

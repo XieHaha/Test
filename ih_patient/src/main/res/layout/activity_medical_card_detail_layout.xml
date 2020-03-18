@@ -40,7 +40,7 @@
                     android:paddingLeft="@dimen/dp_21"
                     android:text="@string/location_manage_add_name"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/card_detail_name"
@@ -50,7 +50,7 @@
                     android:paddingRight="@dimen/dp_37"
                     android:text=""
                     android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
             <LinearLayout
@@ -67,7 +67,7 @@
                     android:paddingLeft="@dimen/dp_21"
                     android:text="@string/medical_card_detail_card_num"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/card_detail_card_num"
@@ -77,7 +77,7 @@
                     android:paddingRight="@dimen/dp_37"
                     android:text=""
                     android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
             <View
@@ -99,7 +99,7 @@
                     android:paddingLeft="@dimen/dp_21"
                     android:text="@string/medical_card_detail_usersex"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/card_detail_sex"
@@ -109,7 +109,7 @@
                     android:paddingRight="@dimen/dp_37"
                     android:text=""
                     android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
             <LinearLayout
@@ -126,7 +126,7 @@
                     android:paddingLeft="@dimen/dp_21"
                     android:text="@string/medical_card_detail_userphone"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/card_detail_user_phone"
@@ -136,7 +136,7 @@
                     android:paddingRight="@dimen/dp_37"
                     android:text=""
                     android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
             <LinearLayout
@@ -153,7 +153,7 @@
                     android:paddingLeft="@dimen/dp_21"
                     android:text="@string/medical_card_detail_id_card_num"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/card_detail_id_card_num"
@@ -163,7 +163,7 @@
                     android:paddingRight="@dimen/dp_37"
                     android:text=""
                     android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
             <LinearLayout
@@ -180,7 +180,7 @@
                     android:paddingLeft="@dimen/dp_21"
                     android:text="@string/medical_card_detail_bind_card_time"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/card_detail_bind_card_time"
@@ -190,7 +190,7 @@
                     android:paddingRight="@dimen/dp_37"
                     android:text=""
                     android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
             <LinearLayout
@@ -207,7 +207,7 @@
                     android:paddingLeft="@dimen/dp_21"
                     android:text="@string/medical_card_detail_real_name_status"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/card_detail_real_name_status"
@@ -217,7 +217,7 @@
                     android:paddingRight="@dimen/dp_37"
                     android:text=""
                     android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
             <LinearLayout
@@ -234,7 +234,7 @@
                     android:paddingLeft="@dimen/dp_21"
                     android:text="联系人"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/contactor_name_tv"
@@ -244,7 +244,7 @@
                     android:paddingRight="@dimen/dp_37"
                     android:text=""
                     android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
             <LinearLayout
@@ -261,7 +261,7 @@
                     android:paddingLeft="@dimen/dp_21"
                     android:text="联系电话"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/contactor_phone_tv"
@@ -271,7 +271,7 @@
                     android:paddingRight="@dimen/dp_37"
                     android:text=""
                     android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
             <LinearLayout
@@ -288,7 +288,7 @@
                     android:paddingLeft="@dimen/dp_21"
                     android:text="与患者关系"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/contactor_relationship_tv"
@@ -298,7 +298,7 @@
                     android:paddingRight="@dimen/dp_37"
                     android:text=""
                     android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
             <View

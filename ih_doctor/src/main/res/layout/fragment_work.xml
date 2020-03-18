@@ -196,7 +196,7 @@
                                 android:paddingStart="@dimen/dp_17"
                                 android:text="在线接诊"
                                 android:textColor="@color/primary_font_color"
-                                android:textSize="@dimen/font_size_primary" />
+                                android:textSize="@dimen/sp_14" />
 
                             <View
                                 android:id="@+id/receive_redpoint_view"
@@ -243,7 +243,7 @@
                                 android:paddingStart="@dimen/dp_17"
                                 android:text="院内MDT"
                                 android:textColor="@color/primary_font_color"
-                                android:textSize="@dimen/font_size_primary" />
+                                android:textSize="@dimen/sp_14" />
 
                             <View
                                 android:id="@+id/cooperate_redpoint_view"
@@ -336,7 +336,7 @@
                                 android:paddingStart="@dimen/dp_13"
                                 android:text="医学计算器"
                                 android:textColor="@color/primary_font_color"
-                                android:textSize="@dimen/font_size_primary" />
+                                android:textSize="@dimen/sp_14" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -386,7 +386,7 @@
                                 android:paddingStart="@dimen/dp_13"
                                 android:text="ICD－10诊断工具"
                                 android:textColor="@color/primary_font_color"
-                                android:textSize="@dimen/font_size_primary" />
+                                android:textSize="@dimen/sp_14" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -441,7 +441,7 @@
                             android:layout_marginTop="@dimen/dp_10"
                             android:text="用药指南，快速预览"
                             android:textColor="@color/action_bar_txt_color"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                         <ImageView
                             android:layout_width="@dimen/dp_24"
@@ -491,7 +491,7 @@
                             android:layout_marginTop="@dimen/dp_10"
                             android:text="行业动态，领先送达"
                             android:textColor="@color/action_bar_txt_color"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                         <ImageView
                             android:layout_width="@dimen/dp_24"
@@ -533,7 +533,7 @@
                     android:paddingEnd="@dimen/dp_10"
                     android:text="医院"
                     android:textColor="@color/primary_bg_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <Button
                     android:id="@+id/search_btn"

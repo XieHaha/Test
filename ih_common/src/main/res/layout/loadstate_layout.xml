@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="数据加载失败，点击重试..."
         android:textColor="#999999"
-        android:textSize="@dimen/font_size_primary"/>
+        android:textSize="@dimen/sp_14"/>
 
 
 </LinearLayout>

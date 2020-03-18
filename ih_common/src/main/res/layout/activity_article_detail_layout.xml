@@ -61,7 +61,7 @@
                                 android:maxLength="20"
                                 android:ellipsize="end"
                                 android:textColor="#FF3399FF"
-                                android:textSize="@dimen/font_size_primary" />
+                                android:textSize="@dimen/sp_14" />
 
                             <TextView
                                 android:id="@+id/author_city"
@@ -168,7 +168,7 @@
                                 android:lineSpacingExtra="@dimen/dp_11"
                                 android:text="我喜欢泡壶茶放在办公桌上，然后开始一天的工作，我喜茶叶，这个习惯源自我的爷爷。"
                                 android:textColor="@color/fontColorDirection"
-                                android:textSize="@dimen/font_size_primary" />
+                                android:textSize="@dimen/sp_14" />
                         </LinearLayout>
 
                         <RelativeLayout
@@ -334,7 +334,7 @@
                     android:focusable="false"
                     android:gravity="center_vertical"
                     android:hint="发表评论"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/comment_tv"
@@ -345,7 +345,7 @@
                     android:layout_toLeftOf="@id/collect_iv"
                     android:drawableLeft="@mipmap/comment_black"
                     android:drawablePadding="@dimen/dp_4"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <ImageView
                     android:id="@+id/collect_iv"

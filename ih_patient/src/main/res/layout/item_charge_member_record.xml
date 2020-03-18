@@ -17,7 +17,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="@dimen/font_size_primary" />
+        android:textSize="@dimen/sp_14" />
 
     <TextView
         android:id="@+id/item_charge_member_record_money_tv"
@@ -26,5 +26,5 @@
         android:layout_weight="1"
         android:gravity="center"
         android:textColor="@color/nursing_status_red"
-        android:textSize="@dimen/font_size_primary" />
+        android:textSize="@dimen/sp_14" />
 </LinearLayout>

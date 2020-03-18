@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_12"
                 android:text="微信"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
         </LinearLayout>
 
         <LinearLayout
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_12"
                 android:text="朋友圈"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
         </LinearLayout>
 
         <LinearLayout
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_12"
                 android:text="QQ"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
         </LinearLayout>
 
         <LinearLayout
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_12"
                 android:text="微博"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

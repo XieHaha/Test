@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:text="沐风"
                     android:textColor="#5B595A"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/comment_item_time"
@@ -124,7 +124,7 @@
             android:paddingBottom="@dimen/dp_5"
             android:text="沐风:世上本没有路，走的人多了，也就成了路"
             android:textColor="#999999"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14" />
     </LinearLayout>
 
     <TextView
@@ -137,7 +137,7 @@
         android:layout_marginBottom="@dimen/dp_24"
         android:text="从前有座山，山里有座庙，庙里有个老和尚"
         android:textColor="#484848"
-        android:textSize="@dimen/font_size_primary" />
+        android:textSize="@dimen/sp_14" />
 
 
 </LinearLayout>

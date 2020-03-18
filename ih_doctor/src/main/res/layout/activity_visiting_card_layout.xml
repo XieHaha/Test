@@ -97,7 +97,7 @@
                 android:paddingBottom="@dimen/dp_24"
                 android:text="@string/card_dec"
                 android:textColor="@color/primary_font_color"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
 
         </RelativeLayout>
 

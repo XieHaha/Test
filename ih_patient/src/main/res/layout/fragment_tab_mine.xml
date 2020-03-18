@@ -146,7 +146,7 @@
                             android:singleLine="true"
                             android:text="暂无法获得信息"
                             android:textColor="#BBBBBB"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                         <TextView
                             android:id="@+id/mine_user_phone_tv"
@@ -161,7 +161,7 @@
                             android:gravity="center_vertical"
                             android:text="暂无法获得信息"
                             android:textColor="#BBBBBB"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                         <View
                             android:layout_width="@dimen/dp_1"

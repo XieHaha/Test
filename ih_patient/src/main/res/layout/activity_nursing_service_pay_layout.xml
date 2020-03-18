@@ -37,7 +37,7 @@
                     android:lineSpacingExtra="@dimen/dp_8"
                     android:text="@string/nursing_service_label"
                     android:textColor="#999999"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/nursing_service_detail_tv"

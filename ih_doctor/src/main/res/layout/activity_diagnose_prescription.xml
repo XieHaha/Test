@@ -48,7 +48,7 @@
                     android:paddingBottom="@dimen/dp_16"
                     android:text="复诊"
                     android:textColor="@color/primary_font_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <com.keydom.ih_common.view.MRadioButton
                     android:id="@+id/re_diagnose_rb"
@@ -163,7 +163,7 @@
                             android:paddingBottom="@dimen/dp_16"
                             android:text="处方药品"
                             android:textColor="@color/primary_font_color"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -174,7 +174,7 @@
                             android:paddingBottom="@dimen/dp_16"
                             android:text="（每个处方最多限5种药品）"
                             android:textColor="@color/fontColorDirection"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                     </RelativeLayout>
 
@@ -209,7 +209,7 @@
                                 android:layout_marginLeft="@dimen/dp_12"
                                 android:layout_toRightOf="@id/add_prescription"
                                 android:text="添加处方"
-                                android:textSize="@dimen/font_size_primary" />
+                                android:textSize="@dimen/sp_14" />
                         </RelativeLayout>
 
                         <View
@@ -240,7 +240,7 @@
                                 android:layout_marginLeft="@dimen/dp_12"
                                 android:layout_toRightOf="@id/prescription_model"
                                 android:text="处方模版"
-                                android:textSize="@dimen/font_size_primary" />
+                                android:textSize="@dimen/sp_14" />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -283,7 +283,7 @@
                             android:paddingTop="@dimen/dp_10"
                             android:paddingBottom="@dimen/dp_19"
                             android:text="处方一（普通）"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                         <TextView
                             android:id="@+id/select_save"
@@ -297,7 +297,7 @@
                             android:paddingBottom="@dimen/dp_19"
                             android:text="存为模板"
                             android:textColor="#22E17E"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                         <View
                             android:id="@+id/prescription_drug_line"
@@ -341,7 +341,7 @@
                             android:layout_marginTop="@dimen/dp_15"
                             android:text="$24"
                             android:textColor="@color/font_red"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -349,7 +349,7 @@
                             android:layout_alignLeft="@id/prescription_drug_rv"
                             android:layout_alignTop="@id/fee_count"
                             android:text="合计："
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                         <android.support.v7.widget.CardView
                             android:id="@+id/add_medicine"
@@ -371,7 +371,7 @@
                                 android:gravity="center"
                                 android:text="添加药品"
                                 android:textColor="@color/primary_font_color"
-                                android:textSize="@dimen/font_size_primary" />
+                                android:textSize="@dimen/sp_14" />
                         </android.support.v7.widget.CardView>
 
                     </RelativeLayout>
@@ -401,7 +401,7 @@
                             android:paddingBottom="@dimen/dp_13"
                             android:text="提交存为模版"
                             android:textColor="#3F98F7"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                         <TextView
                             android:id="@+id/submit"
@@ -417,7 +417,7 @@
                             android:paddingBottom="@dimen/dp_13"
                             android:text="提交"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
                     </RelativeLayout>
 
 
@@ -463,7 +463,7 @@
                             android:paddingBottom="@dimen/dp_16"
                             android:text="处置建议"
                             android:textColor="@color/primary_font_color"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
 
                         <View

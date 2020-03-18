@@ -73,7 +73,7 @@
                             android:layout_alignParentLeft="true"
                             android:text="30岁"
                             android:textColor="#666666"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                         <TextView
                             android:id="@+id/user_phone"
@@ -84,7 +84,7 @@
                             android:gravity="center_horizontal"
                             android:text="13228181235"
                             android:textColor="#666666"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                         <TextView
                             android:id="@+id/order_time"
@@ -93,7 +93,7 @@
                             android:layout_alignParentRight="true"
                             android:text="2018.09.12 14:35"
                             android:textColor="#999999"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -119,7 +119,7 @@
                         android:layout_weight="2"
                         android:text="病情描述："
                         android:textColor="#666666"
-                        android:textSize="@dimen/font_size_primary" />
+                        android:textSize="@dimen/sp_14" />
 
                     <!--<TextView-->
                     <!--android:id="@+id/desc_tv"-->
@@ -128,7 +128,7 @@
                     <!--android:layout_weight="1"-->
                     <!--android:text="13228181235"-->
                     <!--android:textColor="#666666"-->
-                    <!--android:textSize="@dimen/font_size_primary" />-->
+                    <!--android:textSize="@dimen/sp_14" />-->
 
                 </LinearLayout>
 
@@ -158,7 +158,7 @@
                             android:layout_weight="2"
                             android:text="既往病史："
                             android:textColor="#BBBBBB"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                         <TextView
                             android:id="@+id/disease_history_tv"
@@ -167,7 +167,7 @@
                             android:layout_weight="1"
                             android:text="已婚、已育、背部手术、家族高血压史、无药物过敏史、无食物、接触物过敏。"
                             android:textColor="#666666"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                     </LinearLayout>
 
@@ -187,7 +187,7 @@
                             android:layout_weight="2"
                             android:text="问题描述："
                             android:textColor="#BBBBBB"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                         <TextView
                             android:id="@+id/question_desc_tv"
@@ -196,7 +196,7 @@
                             android:layout_weight="1"
                             android:text="3日前自觉鼻塞、流涕，轻微咳嗽，自服抗感冒药物效果不佳，近1日觉畏寒，发热，体温37.7℃。 "
                             android:textColor="#666666"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                     </LinearLayout>
 
@@ -217,7 +217,7 @@
                             android:layout_weight="2"
                             android:text="病情照片："
                             android:textColor="#BBBBBB"
-                            android:textSize="@dimen/font_size_primary" />
+                            android:textSize="@dimen/sp_14" />
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/condition_rv"

@@ -43,7 +43,7 @@
                     android:layout_marginLeft="@dimen/dp_16"
                     android:text="@string/location_manage_add_name"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <com.keydom.ih_common.view.InterceptorEditText
                     android:id="@+id/name"
@@ -57,7 +57,7 @@
                     android:maxLength="20"
                     android:textColor="@color/color_333333"
                     android:textColorHint="@color/edit_hint_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
             <LinearLayout
@@ -81,7 +81,7 @@
                     android:layout_marginLeft="@dimen/dp_16"
                     android:text="@string/manage_user_sex"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/sex"
@@ -92,7 +92,7 @@
                     android:gravity="right|center_vertical"
                     android:text="@string/manage_user_sex_hint"
                     android:textColor="@color/edit_hint_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
             <LinearLayout
@@ -115,7 +115,7 @@
                     android:layout_marginLeft="@dimen/dp_16"
                     android:text="@string/medical_card_detail_id_card_num"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <com.keydom.ih_common.view.InterceptorEditText
                     android:id="@+id/id_card"
@@ -131,7 +131,7 @@
                     android:digits="1234567890Xx"
                     android:textColor="@color/color_333333"
                     android:textColorHint="@color/edit_hint_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
             <LinearLayout
@@ -155,7 +155,7 @@
                     android:layout_marginLeft="@dimen/dp_16"
                     android:text="@string/manage_user_birthday"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/birth"
@@ -166,7 +166,7 @@
                     android:gravity="right|center_vertical"
                     android:text="@string/manage_user_birthday_hint"
                     android:textColor="@color/edit_hint_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -195,7 +195,7 @@
                     android:layout_marginLeft="@dimen/dp_16"
                     android:text="@string/manage_user_phone"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <com.keydom.ih_common.view.InterceptorEditText
                     android:id="@+id/phone"
@@ -210,7 +210,7 @@
                     android:maxLength="11"
                     android:textColor="@color/color_333333"
                     android:textColorHint="@color/edit_hint_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/area_choose"
@@ -233,7 +233,7 @@
                     android:layout_marginLeft="@dimen/dp_16"
                     android:text="省市县地区"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/area"
@@ -244,7 +244,7 @@
                     android:gravity="right|center_vertical"
                     android:text="请选择地区"
                     android:textColor="@color/edit_hint_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -272,7 +272,7 @@
                     android:layout_marginLeft="@dimen/dp_16"
                     android:text="详细地址"
                     android:textColor="@color/title_bar_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <com.keydom.ih_common.view.InterceptorEditText
                     android:id="@+id/address"
@@ -287,7 +287,7 @@
                     android:maxLength="60"
                     android:textColor="@color/color_333333"
                     android:textColorHint="@color/edit_hint_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
             <ImageView
                 android:layout_width="match_parent"

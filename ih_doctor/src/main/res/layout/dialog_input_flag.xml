@@ -19,7 +19,7 @@
             android:padding="@dimen/dp_10"
             android:text="新建标签"
             android:textColor="@color/fontColorPrimary"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14" />
 
         <View
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             android:padding="@dimen/dp_10"
             android:singleLine="true"
             android:textColor="@color/fontColorPrimary"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14" />
 
         <View
             android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                 android:padding="@dimen/dp_10"
                 android:text="取消"
                 android:textColor="@color/fontColorPrimary"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
 
             <View
                 android:layout_width="@dimen/dp_1"
@@ -77,7 +77,7 @@
                 android:padding="@dimen/dp_10"
                 android:text="确定"
                 android:textColor="@color/fontColorPrimary"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

@@ -14,6 +14,6 @@
         android:layout_height="wrap_content"
         android:text="类别"
         android:textColor="#BBBBBB"
-        android:textSize="@dimen/font_size_primary" />
+        android:textSize="@dimen/sp_14" />
 
 </LinearLayout>

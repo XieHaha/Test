@@ -467,7 +467,6 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         searchButton = getView().findViewById(R.id.search_btn);
         searchButton.setOnClickListener(getController());
         scrollView.setOnScrollChangeListener(getController());
-        receiveOnlineRe.setOnClickListener(getController());
         cooperateOnlineRe.setOnClickListener(getController());
         receiveOnlineRe.setOnClickListener(getController());
         calculatorRe.setOnClickListener(getController());
