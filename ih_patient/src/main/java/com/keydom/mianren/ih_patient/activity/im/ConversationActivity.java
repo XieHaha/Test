@@ -42,6 +42,7 @@ import com.keydom.ih_common.im.model.custom.InspectionAttachment;
 import com.keydom.ih_common.im.model.custom.ReceiveDrugsAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralApplyAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralDoctorAttachment;
+import com.keydom.ih_common.im.model.custom.TriageOrderAttachment;
 import com.keydom.ih_common.im.model.custom.UserFollowUpAttachment;
 import com.keydom.ih_common.im.model.event.EndInquiryEvent;
 import com.keydom.ih_common.im.model.event.PrescriptionEvent;
@@ -149,7 +150,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private ImMessageView mMessageView;
     private double mPSfee;
     private double mPsTotal;
-    private boolean isWaitingForComment=false;
+    private boolean isWaitingForComment = false;
 
     /**
      * 问诊状态
@@ -167,7 +168,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     /**
      * 问诊剩余时长
      */
-//    private String inquiryRemainingTime = "10小时59分后问诊结束";
+    //    private String inquiryRemainingTime = "10小时59分后问诊结束";
 
     /**
      * 患者管理进入的聊天
@@ -181,7 +182,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private Disposable timeDisposable;
     private int endType;
     private InquiryBean orderBean;
-
 
 
     /**
@@ -386,19 +386,28 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 if (message.getMsgType() == MsgTypeEnum.custom) {
                     //问诊单
                     if (message.getAttachment() instanceof InquiryAttachment) {
-                        DiagnoseOrderDetailActivity.start(context, ((InquiryAttachment) message.getAttachment()).getId());
+                        DiagnoseOrderDetailActivity.start(context,
+                                ((InquiryAttachment) message.getAttachment()).getId());
+                    }
+                    //分诊单
+                    else if (message.getAttachment() instanceof TriageOrderAttachment) {
                     }
                     //检查单
                     else if (message.getAttachment() instanceof ExaminationAttachment) {
-                        CheckOrderDetailActivity.startInspactOrder(context, ((ExaminationAttachment) message.getAttachment()).getId(), orderBean);
+                        CheckOrderDetailActivity.startInspactOrder(context,
+                                ((ExaminationAttachment) message.getAttachment()).getId(),
+                                orderBean);
                     }
                     //检验单
                     else if (message.getAttachment() instanceof InspectionAttachment) {
-                        CheckOrderDetailActivity.startCheckOrder(context, ((InspectionAttachment) message.getAttachment()).getId(), orderBean);
+                        CheckOrderDetailActivity.startCheckOrder(context,
+                                ((InspectionAttachment) message.getAttachment()).getId(),
+                                orderBean);
                     }
                     //转诊单
                     else if (message.getAttachment() instanceof ReferralApplyAttachment) {
-                        TransferTreatmentOrderDetailActivity.startCommon(context, ((ReferralApplyAttachment) message.getAttachment()).getId());
+                        TransferTreatmentOrderDetailActivity.startCommon(context,
+                                ((ReferralApplyAttachment) message.getAttachment()).getId());
                     }
                     //换诊
                     else if (message.getAttachment() instanceof ReferralDoctorAttachment) {
@@ -406,29 +415,39 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     }
                     //病历
                     else if (message.getAttachment() instanceof ConsultationResultAttachment) {
-                        DianoseCaseDetailActivity.start(getContext(), ((ConsultationResultAttachment) message.getAttachment()).getId());
-//                        Intent i = new Intent(getContext(), PrescriptionDetailActivity.class);
-//                        i.putExtra(PrescriptionDetailActivity.ID, ((ConsultationResultAttachment) message.getAttachment()).getId());
-//                        ActivityUtils.startActivity(i);
+                        DianoseCaseDetailActivity.start(getContext(),
+                                ((ConsultationResultAttachment) message.getAttachment()).getId());
+                        //                        Intent i = new Intent(getContext(),
+                        //                        PrescriptionDetailActivity.class);
+                        //                        i.putExtra(PrescriptionDetailActivity.ID, (
+                        //                        (ConsultationResultAttachment) message
+                        //                        .getAttachment()).getId());
+                        //                        ActivityUtils.startActivity(i);
                     }
                     //处置建议
                     else if (message.getAttachment() instanceof DisposalAdviceAttachment) {
-						HandleProposeAcitivity.start(getContext(), ((DisposalAdviceAttachment) message.getAttachment()).getContent());
+                        HandleProposeAcitivity.start(getContext(),
+                                ((DisposalAdviceAttachment) message.getAttachment()).getContent());
                     }
                     //取药
-                    else if(message.getAttachment() instanceof GetDrugsAttachment){
-                        GetDrugsAttachment getDrugsAttachment = (GetDrugsAttachment) message.getAttachment();
-                        GotoActivityUtil.gotoPrescriptionGetDetailActivity(ConversationActivity.this,getDrugsAttachment.getId(), PrescriptionGetDetailActivity.TAKE_MEDICINE);
+                    else if (message.getAttachment() instanceof GetDrugsAttachment) {
+                        GetDrugsAttachment getDrugsAttachment =
+                                (GetDrugsAttachment) message.getAttachment();
+                        GotoActivityUtil.gotoPrescriptionGetDetailActivity(ConversationActivity.this, getDrugsAttachment.getId(), PrescriptionGetDetailActivity.TAKE_MEDICINE);
                     }
                     //收药
-                    else if(message.getAttachment() instanceof ReceiveDrugsAttachment){
-                        ReceiveDrugsAttachment receiveDrugsAttachment = (ReceiveDrugsAttachment) message.getAttachment();
-                        GotoActivityUtil.gotoPrescriptionGetDetailActivity(ConversationActivity.this,receiveDrugsAttachment.getId(),PrescriptionGetDetailActivity.RECEIVE_MEDICINE);
+                    else if (message.getAttachment() instanceof ReceiveDrugsAttachment) {
+                        ReceiveDrugsAttachment receiveDrugsAttachment =
+                                (ReceiveDrugsAttachment) message.getAttachment();
+                        GotoActivityUtil.gotoPrescriptionGetDetailActivity(ConversationActivity.this, receiveDrugsAttachment.getId(), PrescriptionGetDetailActivity.RECEIVE_MEDICINE);
                     }
                     //随访表
-                    else if(message.getAttachment() instanceof UserFollowUpAttachment){
-                        UserFollowUpAttachment userFollowUpAttachment = (UserFollowUpAttachment) message.getAttachment();
-                        CommonDocumentActivity.start(getContext(),userFollowUpAttachment.getFileName(),userFollowUpAttachment.getUrl());
+                    else if (message.getAttachment() instanceof UserFollowUpAttachment) {
+                        UserFollowUpAttachment userFollowUpAttachment =
+                                (UserFollowUpAttachment) message.getAttachment();
+                        CommonDocumentActivity.start(getContext(),
+                                userFollowUpAttachment.getFileName(),
+                                userFollowUpAttachment.getUrl());
                     }
                 }
                 return false;
@@ -438,27 +457,30 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             public boolean onPayClick(Context context, View view, @Nullable IMMessage message) {
                 if (message.getMsgType() == MsgTypeEnum.custom) {
                     if (message.getAttachment() instanceof ExaminationAttachment) {
-                        ExaminationAttachment attachment = (ExaminationAttachment) message.getAttachment();
+                        ExaminationAttachment attachment =
+                                (ExaminationAttachment) message.getAttachment();
                         isPayOrderId = attachment.getId();
                         orderFee = attachment.getAmount();
                         isPrescription = false;
                     } else if (message.getAttachment() instanceof InspectionAttachment) {
-                        InspectionAttachment attachment = (InspectionAttachment) message.getAttachment();
+                        InspectionAttachment attachment =
+                                (InspectionAttachment) message.getAttachment();
                         isPayOrderId = attachment.getId();
                         orderFee = attachment.getAmount();
                         isPrescription = false;
                     } else if (message.getAttachment() instanceof ConsultationResultAttachment) {
-                        ConsultationResultAttachment attachment = (ConsultationResultAttachment) message.getAttachment();
+                        ConsultationResultAttachment attachment =
+                                (ConsultationResultAttachment) message.getAttachment();
                         isPayOrderId = Long.parseLong(attachment.getId());
                         mPprescriptionId = attachment.getId();
                         orderFee = attachment.getAmount();
                         deliveryAmount = attachment.getDeliveryAmount();
                         orderNum = attachment.getOrderNum();
                         isPrescription = true;
-                        if(TextUtils.isEmpty(attachment.getPrescriptionType())){
+                        if (TextUtils.isEmpty(attachment.getPrescriptionType())) {
                             prescriptionType = "0";
                         }
-                        prescriptionType=attachment.getPrescriptionType();
+                        prescriptionType = attachment.getPrescriptionType();
                         Logger.e("prescriptionType=" + attachment.getPrescriptionType());
                     }
                     getController().isPay();
@@ -476,7 +498,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             public boolean onPrescriptionClick(Context context, @Nullable IMMessage message) {
                 if (message.getAttachment() instanceof ConsultationResultAttachment) {
                     Intent i = new Intent(getContext(), PrescriptionDetailActivity.class);
-                    i.putExtra(PrescriptionDetailActivity.ID, ((ConsultationResultAttachment) message.getAttachment()).getId());
+                    i.putExtra(PrescriptionDetailActivity.ID,
+                            ((ConsultationResultAttachment) message.getAttachment()).getId());
                     ActivityUtils.startActivity(i);
                 }
                 return false;
@@ -492,7 +515,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             sessionId = data.getQueryParameter(ImConstants.CALL_SESSION_ID);
             mMessageView.setMessageInfo(sessionId, SessionTypeEnum.P2P);
             if (bundle == null) {
-//                mTitle.setText(ImClient.getUserInfoProvider().getUserInfo(sessionId) == null ? "问诊详情" : ImClient.getUserInfoProvider().getUserInfo(sessionId).getName() + "-问诊详情");
+                //                mTitle.setText(ImClient.getUserInfoProvider().getUserInfo
+                //                (sessionId) == null ? "问诊详情" : ImClient.getUserInfoProvider()
+                //                .getUserInfo(sessionId).getName() + "-问诊详情");
                 mTitle.setText("问诊详情");
             } else {
                 if (ImClient.getUserInfoProvider().getUserInfo(sessionId).getName().length() > 15)
@@ -713,17 +738,19 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 } else if (inquiryStatus == InquiryStatus.INQUIRY_NOT_EVALUATED) {
                     DiagnosesOrderBean bean = new DiagnosesOrderBean();
                     bean.setId(getId());
-                    OrderEvaluateActivity.start(getContext(), "患者评价", Type.DIAGNOSES_ORDER_EVALUATE, bean);
+                    OrderEvaluateActivity.start(getContext(), "患者评价",
+                            Type.DIAGNOSES_ORDER_EVALUATE, bean);
                 } else if (inquiryStatus == InquiryStatus.INQUIRY_WAIT_REFERRAL) {
                     referralStatus = -1;
                     getController().userOperateReferral();
                 } else if (inquiryStatus == InquiryStatus.INQUIRY_WAIT || inquiryStatus == InquiryStatus.INQUIRY_REFERRAL_DOCTOR) {
-                    new GeneralDialog(getContext(), "问诊费用将在5个工作日内按支付路径退回到您的付款账号中,确认要退诊？", new GeneralDialog.OnCloseListener() {
-                        @Override
-                        public void onCommit() {
-                            getController().returnedInquisition();
-                        }
-                    }).setTitle("提示").setPositiveButton("确认").show();
+                    new GeneralDialog(getContext(), "问诊费用将在5个工作日内按支付路径退回到您的付款账号中,确认要退诊？",
+                            new GeneralDialog.OnCloseListener() {
+                                @Override
+                                public void onCommit() {
+                                    getController().returnedInquisition();
+                                }
+                            }).setTitle("提示").setPositiveButton("确认").show();
 
                 }
                 break;
@@ -758,13 +785,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 }
                 //结束问诊
                 else {
-                    new GeneralDialog(ConversationActivity.this, "是否确定结束问诊?", new GeneralDialog.OnCloseListener() {
-                        @Override
-                        public void onCommit() {
-                            getController().patientFinishInquisition();
-                            mMessageView.hideExtension();
-                        }
-                    }).show();
+                    new GeneralDialog(ConversationActivity.this, "是否确定结束问诊?",
+                            new GeneralDialog.OnCloseListener() {
+                                @Override
+                                public void onCommit() {
+                                    getController().patientFinishInquisition();
+                                    mMessageView.hideExtension();
+                                }
+                            }).show();
 
                 }
                 break;
@@ -789,7 +817,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEndInquiryEvent(EndInquiryEvent event) {
         if ((event.getMessage().getAttachment() instanceof EndInquiryAttachment)) {
-            EndInquiryAttachment attachment = (EndInquiryAttachment) event.getMessage().getAttachment();
+            EndInquiryAttachment attachment =
+                    (EndInquiryAttachment) event.getMessage().getAttachment();
             if (attachment.getEndType() == EndInquiryAttachment.DOCTOR_APPLY_END) {
                 inquiryStatus = InquiryStatus.INQUIRY_APPLY_END;
                 inquiryApply();
@@ -815,10 +844,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReferralApplyEvent(ReferralApplyEvent event) {
-        mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "医生已填写转诊单，请及时确认并支付问诊费用"));
+        mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
+                "医生已填写转诊单，请及时确认并支付问诊费用"));
         inquiryStatus = InquiryStatus.INQUIRY_WAIT_REFERRAL;
         referralAmount = ((ReferralApplyAttachment) event.getMessage().getAttachment()).getAmount();
-        referralId = String.valueOf(((ReferralApplyAttachment) event.getMessage().getAttachment()).getId());
+        referralId =
+                String.valueOf(((ReferralApplyAttachment) event.getMessage().getAttachment()).getId());
         referralView(referralAmount);
     }
 
@@ -829,7 +860,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStartInquiryEvent(StartInquiryEvent event) {
-//        inquiryIng();
+        //        inquiryIng();
         getController().getInquiryStatus();
     }
 
@@ -870,7 +901,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     @Override
     public long getReferralId() {
-        return TextUtils.isEmpty(referralId) ? orderBean.getReferralId() : Long.parseLong(referralId);
+        return TextUtils.isEmpty(referralId) ? orderBean.getReferralId() :
+                Long.parseLong(referralId);
     }
 
     @Override
@@ -891,8 +923,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         if (data != null) {
             orderBean = data;
             calculateTime();
-        }else {
-            isWaitingForComment=true;
+        } else {
+            isWaitingForComment = true;
         }
         initStatus();
     }
@@ -903,13 +935,16 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         endInquiryAttachment.setId(orderBean.getId());
         endInquiryAttachment.setSponsorId(ImClient.getUserInfoProvider().getAccount());
         endInquiryAttachment.setReceiverId(sessionId);
-        endInquiryAttachment.setEndType(endType == END_TYPE_CONFIRM ? EndInquiryAttachment.PATIENT_AGREE : EndInquiryAttachment.PATIENT_REFUSE);
-        mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.P2P, "[结束问诊消息]", endInquiryAttachment));
+        endInquiryAttachment.setEndType(endType == END_TYPE_CONFIRM ?
+                EndInquiryAttachment.PATIENT_AGREE : EndInquiryAttachment.PATIENT_REFUSE);
+        mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.P2P,
+                "[结束问诊消息]", endInquiryAttachment));
         if (endType == END_TYPE_CONFIRM) {
             inquiryStatus = InquiryStatus.INQUIRY_PRESCRIBE;
-            mMessageView.addData(ImClient.createTipMessage(sessionId, SessionTypeEnum.P2P, "此次问诊已结束"));
+            mMessageView.addData(ImClient.createTipMessage(sessionId, SessionTypeEnum.P2P,
+                    "此次问诊已结束"));
             getController().getInquiryStatus();
-//            inquiryWaitPrescribe();
+            //            inquiryWaitPrescribe();
         } else {
             inquiryStatus = InquiryStatus.INQUIRY_ING;
             inquiryIng();
@@ -923,7 +958,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private void calculateTime() {
         if (inquiryStatus == InquiryStatus.INQUIRY_ING || inquiryStatus == InquiryStatus.INQUIRY_APPLY_END) {
             long duration = (long) (orderBean.getDuration() * 60 * 60 * 1000);
-            long remainingTime = CalculateTimeUtils.toLong(orderBean.getBeginTime()) + duration - System.currentTimeMillis();
+            long remainingTime =
+                    CalculateTimeUtils.toLong(orderBean.getBeginTime()) + duration - System.currentTimeMillis();
             SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.CHINA);
             format.setTimeZone(TimeZone.getTimeZone("GMT"));
             int day = 0;
@@ -937,7 +973,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             String date = format.format(new Date(remainingTime));
             mHour = Integer.valueOf(date.split(":")[0]) + day * 24;
             mMin = Integer.valueOf(date.split(":")[1]);
-            timeDisposable = Flowable.intervalRange(1, remainingTime / 1000 / 60, 0, 1, TimeUnit.MINUTES)
+            timeDisposable = Flowable.intervalRange(1, remainingTime / 1000 / 60, 0, 1,
+                    TimeUnit.MINUTES)
                     .subscribeOn(AndroidSchedulers.mainThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(time -> computeTime());
@@ -973,8 +1010,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         endInquiryAttachment.setSponsorId(ImClient.getUserInfoProvider().getAccount());
         endInquiryAttachment.setReceiverId(sessionId);
         endInquiryAttachment.setEndType(EndInquiryAttachment.PATIENT_END);
-        mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.P2P, "[结束问诊消息]", endInquiryAttachment));
-        mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "您已结束此次问诊"));
+        mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.P2P,
+                "[结束问诊消息]", endInquiryAttachment));
+        mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
+                "您已结束此次问诊"));
         mMessageView.hideExtension();
         getController().getInquiryStatus();
     }
@@ -987,7 +1026,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             inquiryIng();
         } else {
             SelectDialogUtils.showPayDialog(getContext(),
-                    TextUtils.isEmpty(referralAmount) ? String.valueOf(orderBean.getReferralFee()) : referralAmount,
+                    TextUtils.isEmpty(referralAmount) ?
+                            String.valueOf(orderBean.getReferralFee()) : referralAmount,
                     "", new GeneralCallback.SelectPayMentListener() {
                         @Override
                         public void getSelectPayMent(String type) {
@@ -1014,7 +1054,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     }
 
     @Override
-    public void payType(boolean isPay,boolean isWaiYan) {
+    public void payType(boolean isPay, boolean isWaiYan) {
         if (!isPay) {
             if (!isPrescription) {
                 SelectDialogUtils.showPayDialog(getContext(), orderFee, "", type -> {
@@ -1030,14 +1070,15 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     }
                 });
             } else {
-                    if (isWaiYan) {
-                        showPayTypeDialog(orderFee, Double.parseDouble(orderFee), orderNum, mPprescriptionId);
-                    } else {
-                        if (deliveryAmount == null) {
-                            deliveryAmount = "0.0";
-                        }
-                        showPayDialog(true, orderFee, Double.parseDouble(orderFee), orderNum);
+                if (isWaiYan) {
+                    showPayTypeDialog(orderFee, Double.parseDouble(orderFee), orderNum,
+                            mPprescriptionId);
+                } else {
+                    if (deliveryAmount == null) {
+                        deliveryAmount = "0.0";
                     }
+                    showPayDialog(true, orderFee, Double.parseDouble(orderFee), orderNum);
+                }
             }
         } else {
             new GeneralDialog(getContext(), "该订单已支付！", () -> {
@@ -1048,7 +1089,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     @Override
     public void returnBackSuccess() {
         mMessageView.hideExtension();
-        mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "您已退诊"));
+        mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
+                "您已退诊"));
         findViewById(R.id.inquiry_header).setVisibility(View.GONE);
         mEndTips.setVisibility(View.GONE);
         mEndLl.setVisibility(View.GONE);
@@ -1069,17 +1111,18 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     public void changeDoctorSuccess() {
 
         if (chageDoctor == 1) {
-//            inquiryStatus = InquiryStatus.INQUIRY_WAIT;
-//            mEndTips.setVisibility(View.GONE);
-//            mEndLl.setVisibility(View.VISIBLE);
-//            mConfirm.setVisibility(View.GONE);
-//            mCancel.setVisibility(View.VISIBLE);
-//            mCancel.setText("退诊");
-//            mQuestionRemainingTimeTv.setVisibility(View.GONE);
-//            mInquiryTypeTv.setText("待接诊");
+            //            inquiryStatus = InquiryStatus.INQUIRY_WAIT;
+            //            mEndTips.setVisibility(View.GONE);
+            //            mEndLl.setVisibility(View.VISIBLE);
+            //            mConfirm.setVisibility(View.GONE);
+            //            mCancel.setVisibility(View.VISIBLE);
+            //            mCancel.setText("退诊");
+            //            mQuestionRemainingTimeTv.setVisibility(View.GONE);
+            //            mInquiryTypeTv.setText("待接诊");
             mEndLl.setVisibility(View.GONE);
             findViewById(R.id.inquiry_header).setVisibility(View.GONE);
-            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "您已同意换诊，请等待换诊医生接诊"));
+            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
+                    "您已同意换诊，请等待换诊医生接诊"));
             mMessageView.hideExtension();
         } else {
             mEndLl.setVisibility(View.GONE);
@@ -1104,7 +1147,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         if (mHosptalCost != null && mHosptalCost.isChecked()) {
 
             // mTotalPayTv.setText("去付款¥" + total + "元");
-            SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
+            SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13,
+                    true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
                     .append("（配送费用").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color))
                     .append("¥" + fee + "元").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.nursing_status_red))
                     .append("）").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color)).create();
@@ -1120,7 +1164,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         double total = d + orderfee.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         String f = new DecimalFormat("0.00").format(total);
         mTotalPayTv.setText("去付款¥" + f + "元");*/
-//        mTotalPayTv.setText("去付款¥" + total + "元");
+        //        mTotalPayTv.setText("去付款¥" + total + "元");
     }
 
     private long mAddressId;
@@ -1131,7 +1175,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     public void getLocation(Event event) {
         if (event.getType() == EventType.PAY_SELECT_ADDRESS) {
             LocationInfo locationInfo = (LocationInfo) event.getData();
-            String address = locationInfo.getProvinceName() + locationInfo.getCityName() + locationInfo.getAreaName() + locationInfo.getAddress();
+            String address = locationInfo.getProvinceName() + locationInfo.getCityName() +
+            locationInfo.getAreaName() + locationInfo.getAddress();
             mPayAddress.setText(address);
             mPayAddress.setTextColor(getResources().getColor(R.color.pay_unselected));
             mAddressId = locationInfo.getId();
@@ -1145,7 +1190,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         final boolean[] isAgree = {false};
         int[] payType = {2};
         bottomSheetDialog.setCanceledOnTouchOutside(false);
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.pay_ment_dialog_layout, null, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.pay_ment_dialog_layout,
+        null, false);
         bottomSheetDialog.setContentView(view);
         final TextView order_price_tv = view.findViewById(R.id.order_price_tv);
         order_price_tv.setText("¥" + titleFee + "");
@@ -1159,10 +1205,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         RadioButton hospitalRadio = view.findViewById(R.id.hospital);
         if (!needAddress) {
             addressSelectGroup.setVisibility(View.GONE);
-            SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
-                    .append("（配送费用").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color))
-                    .append("¥" + medicalFee + "元").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.nursing_status_red))
-                    .append("）").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color)).create();
+            SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13,
+            true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
+                    .append("（配送费用").setFontSize(13, true).setForegroundColor(getResources()
+                    .getColor(R.color.edit_hint_color))
+                    .append("¥" + medicalFee + "元").setFontSize(13, true).setForegroundColor
+                    (getResources().getColor(R.color.nursing_status_red))
+                    .append("）").setFontSize(13, true).setForegroundColor(getResources().getColor
+                    (R.color.edit_hint_color)).create();
             hospitalRadio.setText(medicalTv);
         }
         addressSelect.setOnClickListener(new View.OnClickListener() {
@@ -1215,7 +1265,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         ToastUtils.showShort("请选择配送地址");
                     } else {
                         //去支付
-                        getController().pay(mAddressId, orderNum, payType[0], Double.valueOf(titleFee));
+                        getController().pay(mAddressId, orderNum, payType[0], Double.valueOf
+                        (titleFee));
                         bottomSheetDialog.dismiss();
                     }
                 } else {
@@ -1244,7 +1295,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     public void getLocation(Event event) {
         if (event.getType() == EventType.PAY_SELECT_ADDRESS) {
             LocationInfo locationInfo = (LocationInfo) event.getData();
-            String address = locationInfo.getProvinceName() + locationInfo.getCityName() + locationInfo.getAreaName() + locationInfo.getAddress();
+            String address =
+                    locationInfo.getProvinceName() + locationInfo.getCityName() + locationInfo.getAreaName() + locationInfo.getAddress();
             mPayAddress.setText(address);
             mPayAddress.setTextColor(getResources().getColor(R.color.pay_unselected));
             if (locationInfo.getId() != 0) {
@@ -1253,7 +1305,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             }
         }
     }
-
 
 
     /**
@@ -1265,29 +1316,31 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     public void onReceiveEvent(Event event) {
         if (event.getType() == EventType.WAI_PAY_SELECT_ADDRESS) {
             mLocationInfo = (LocationInfo) event.getData();
-            String address = mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress();
+            String address =
+                    mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress();
             mPayAddress.setText(address);
             mWaiYanAddressId = mLocationInfo.getId();
             Logger.e("地址=" + address);
-            getPrescriptionDetailDrugs(address,mPprescriptionId);
+            getPrescriptionDetailDrugs(address, mPprescriptionId);
         }
     }
 
     /**
      * 获取药品
      */
-    public void getPrescriptionDetailDrugs(String address,String id) {
+    public void getPrescriptionDetailDrugs(String address, String id) {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getDetailById(id), new HttpSubscriber<PrescriptionDetailBean>(getContext(), getDisposable(), true, true) {
             @Override
             public void requestComplete(@org.jetbrains.annotations.Nullable PrescriptionDetailBean data) {
                 if (null != data && !CommUtil.isEmpty(data.getList())) {
-                    getHttpFindDrugstores(address,data.getList());
+                    getHttpFindDrugstores(address, data.getList());
                 }
 
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -1324,8 +1377,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
                 if (mHosptalCost != null && mHosptalCost.isChecked()) {
 
-                    SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
-                            .create();
+                    SpannableStringBuilder medicalTv =
+                            new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
+                                    .create();
                     mHosptalCost.setText(medicalTv);
                 }
 
@@ -1333,13 +1387,16 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         }
     }
 
-    /*private void showPayDialog(boolean needAddress, String titleFee, double totalFee, String orderNum) {
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(),R.style.BottomSheetDialog);
+    /*private void showPayDialog(boolean needAddress, String titleFee, double totalFee, String
+    orderNum) {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(),R.style
+        .BottomSheetDialog);
         bottomSheetDialog.setCancelable(false);
         final boolean[] isAgree = {false};
         int[] payType = {2};
         bottomSheetDialog.setCanceledOnTouchOutside(false);
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.pay_ment_dialog_layout, null, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.pay_ment_dialog_layout,
+        null, false);
         bottomSheetDialog.setContentView(view);
         final TextView order_price_tv = view.findViewById(R.id.order_price_tv);
         order_price_tv.setText("¥" + titleFee + "");
@@ -1352,7 +1409,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         RadioButton selfRadio = view.findViewById(R.id.self);
         mHosptalCost = view.findViewById(R.id.hospital);
         addressSelectGroup.setVisibility(needAddress ? View.VISIBLE : View.GONE);
-        SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
+        SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true)
+        .setForegroundColor(getResources().getColor(R.color.pay_unselected))
                 .create();
         mHosptalCost.setText(medicalTv);
         addressSelect.setOnClickListener(new View.OnClickListener() {
@@ -1430,15 +1488,18 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         });
         bottomSheetDialog.show();
     }*/
-    private void showPayDialog(boolean needAddress, String titleFee, double totalFee, String orderNum) {
+    private void showPayDialog(boolean needAddress, String titleFee, double totalFee,
+                               String orderNum) {
         String feeTv = new DecimalFormat("0.00").format(totalFee);
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(),
+                R.style.BottomSheetDialog);
         bottomSheetDialog.setCancelable(false);
         mPSfee = 0.00;
         final boolean[] isAgree = {false};
         int[] payType = {2};
         bottomSheetDialog.setCanceledOnTouchOutside(false);
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.pay_ment_dialog_layout, null, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.pay_ment_dialog_layout,
+                null, false);
         bottomSheetDialog.setContentView(view);
         final TextView order_price_tv = view.findViewById(R.id.order_price_tv);
         order_price_tv.setText("¥" + titleFee + "");
@@ -1451,8 +1512,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         RadioButton selfRadio = view.findViewById(R.id.self);
         mHosptalCost = view.findViewById(R.id.hospital);
 
-        SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
-                .create();
+        SpannableStringBuilder medicalTv =
+                new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
+                        .create();
         mHosptalCost.setText(medicalTv);
         addressSelect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1514,12 +1576,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mTotalPayTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (isAgree[0]) {
+                //                if (isAgree[0]) {
                 if (needAddress && mHosptalCost.isChecked()) {
                     if (mAddressId == 0) {
                         ToastUtils.showShort("请选择配送地址");
                     } else {
-//                        getController().pay(mAddressId, orderNum, payType[0], mPsTotal);
+                        //                        getController().pay(mAddressId, orderNum,
+                        //                        payType[0], mPsTotal);
                         Map<String, Object> map = new HashMap<>();
                         map.put("orderId", isPayOrderId);
                         map.put("type", payType[0]);
@@ -1528,7 +1591,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         bottomSheetDialog.dismiss();
                     }
                 } else {
-//                    getController().pay(0, orderNum, payType[0], totalFee);
+                    //                    getController().pay(0, orderNum, payType[0], totalFee);
                     Map<String, Object> map = new HashMap<>();
                     map.put("orderId", isPayOrderId);
                     map.put("type", payType[0]);
@@ -1536,10 +1599,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     getController().inquiryPay(map, payType[0]);
                     bottomSheetDialog.dismiss();
                 }
-//                } else {
+                //                } else {
                 //取消支付协议
-//                    ToastUtil.showMessage(getContext(), "请阅读并同意支付协议");
-//                }
+                //                    ToastUtil.showMessage(getContext(), "请阅读并同意支付协议");
+                //                }
 
             }
         });
@@ -1562,7 +1625,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     /**
      * 展示支付弹框
      */
-    private void showPayTypeDialog(String titleFee, double totalFee, String orderNum,String id) {
+    private void showPayTypeDialog(String titleFee, double totalFee, String orderNum, String id) {
         isSendDrugsToHome = false;
         WaiPayType[0] = 2;
         payWaiType = Type.ALIPAY;
@@ -1576,7 +1639,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         final boolean[] isAgree = {false};
 
         bottomWaiYanSheetDialog.setCanceledOnTouchOutside(false);
-        View view = LayoutInflater.from(this).inflate(R.layout.pay_outside_dialog_layout, null, false);
+        View view = LayoutInflater.from(this).inflate(R.layout.pay_outside_dialog_layout, null,
+                false);
         bottomWaiYanSheetDialog.setContentView(view);
         mOrderPriceTv = view.findViewById(R.id.order_price_tv);
         mOrderPriceTv.setText("¥" + titleFee + "起");
@@ -1590,7 +1654,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         addressSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LocationManageActivity.start(ConversationActivity.this, Type.WAI_PAY_SELECT_ADDRESS);
+                LocationManageActivity.start(ConversationActivity.this,
+                        Type.WAI_PAY_SELECT_ADDRESS);
             }
         });
 
@@ -1612,9 +1677,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         unionPay = view.findViewById(R.id.union_pay_selected_img);
 
         //选择 药店自取/配送到家
-         mRadioGroup = view.findViewById(R.id.sex_rg);
-         mRadioSelf = view.findViewById(R.id.radio_self);
-         mRadioHome = view.findViewById(R.id.radio_home);
+        mRadioGroup = view.findViewById(R.id.sex_rg);
+        mRadioSelf = view.findViewById(R.id.radio_self);
+        mRadioHome = view.findViewById(R.id.radio_home);
         mRadioSelf.setChecked(true);
 
         //父组件 药店自取/配送到家
@@ -1627,7 +1692,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mLinShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GotoActivityUtil.gotoChoosePharmacyActivity(ConversationActivity.this,id);
+                GotoActivityUtil.gotoChoosePharmacyActivity(ConversationActivity.this, id);
             }
         });
 
@@ -1688,7 +1753,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         map.put("type", 2);
                     }
 
-                    updatePrescriptionOrder(true,map);
+                    updatePrescriptionOrder(true, map);
                     bottomWaiYanSheetDialog.dismiss();
                 }
             }
@@ -1697,9 +1762,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             @Override
             public void onClick(View v) {
 
-                if(CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)){
+                if (CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)) {
                     ToastUtils.showShort("请选择药店");
-                }else{
+                } else {
                     Map<String, Object> map = new HashMap<>();
                     map.put("orderId", isPayOrderId);
                     if (payWaiType.equals(Type.WECHATPAY)) {
@@ -1708,7 +1773,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     if (payWaiType.equals(Type.ALIPAY)) {
                         map.put("type", 2);
                     }
-                    updatePrescriptionOrder(false,map);
+                    updatePrescriptionOrder(false, map);
                     bottomWaiYanSheetDialog.dismiss();
                 }
             }
@@ -1719,20 +1784,20 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 if (CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)) {
                     ToastUtils.showShort("请选择药店");
                 } else {
-                //去支付
-                Map<String, Object> map = new HashMap<>();
-                map.put("orderId", isPayOrderId);
-                if (payWaiType.equals(Type.WECHATPAY)) {
-                    map.put("type", 1);
-                }
-                if (payWaiType.equals(Type.ALIPAY)) {
-                    map.put("type", 2);
-                }
-                if(null != mPharmacyBean){
-                    updatePrescriptionOrder(true,map);
-                }
+                    //去支付
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("orderId", isPayOrderId);
+                    if (payWaiType.equals(Type.WECHATPAY)) {
+                        map.put("type", 1);
+                    }
+                    if (payWaiType.equals(Type.ALIPAY)) {
+                        map.put("type", 2);
+                    }
+                    if (null != mPharmacyBean) {
+                        updatePrescriptionOrder(true, map);
+                    }
 
-                bottomWaiYanSheetDialog.dismiss();
+                    bottomWaiYanSheetDialog.dismiss();
                 }
                 //   ToastUtils.showShort("暂未接入支付");
             }
@@ -1740,18 +1805,18 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
 
         //  mTotalPayTv.setText("去付款¥" + totalFee + "元");
-//        mTotalPayTv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (needAddress && mAddressId == 0 && mHosptalCost.isChecked()) {
-//                    ToastUtils.showShort("请选择配送地址");
-//                } else {
-//                    //去支付
-//                    getController().pay(mAddressId, orderNum, payType[0], totalFee);
-//                    bottomSheetDialog.dismiss();
-//                }
-//            }
-//        });
+        //        mTotalPayTv.setOnClickListener(new View.OnClickListener() {
+        //            @Override
+        //            public void onClick(View view) {
+        //                if (needAddress && mAddressId == 0 && mHosptalCost.isChecked()) {
+        //                    ToastUtils.showShort("请选择配送地址");
+        //                } else {
+        //                    //去支付
+        //                    getController().pay(mAddressId, orderNum, payType[0], totalFee);
+        //                    bottomSheetDialog.dismiss();
+        //                }
+        //            }
+        //        });
         pay_agreement_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1793,7 +1858,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     WaiPayType[0] = 2;
                     payWaiType = Type.ALIPAY;
                     isSendDrugsToHome = false;
-                    if(null != mPharmacyBean ){
+                    if (null != mPharmacyBean) {
                         refreshPriceView(Arrays.asList(mPharmacyBean));
                     }
                     break;
@@ -1815,7 +1880,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     WaiPayType[0] = 2;
                     payWaiType = Type.ALIPAY;
                     isSendDrugsToHome = true;
-                    if(null != mPharmacyBeans && mPharmacyBeans.size() > 0){
+                    if (null != mPharmacyBeans && mPharmacyBeans.size() > 0) {
                         refreshDeliveryCostView(mPharmacyBeans);
                         refreshPriceView(mPharmacyBeans);
                     }
@@ -1838,14 +1903,15 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             public void requestComplete(@org.jetbrains.annotations.Nullable List<PharmacyBean> data) {
                 if (!CommUtil.isEmpty(data)) {
                     mPharmacyBeans = data;
-                   refreshDeliveryCostView(data);
-                   refreshPriceView(data);
+                    refreshDeliveryCostView(data);
+                    refreshPriceView(data);
                 }
 
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 return super.requestError(exception, code, msg);
             }
         });
@@ -1853,14 +1919,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     }
 
     public void refreshDeliveryCostView(List<PharmacyBean> data) {
-        if(!CommUtil.isEmpty(data) && null != data.get(0)){
+        if (!CommUtil.isEmpty(data) && null != data.get(0)) {
             mDeliveryCostTv.setText("￥" + String.valueOf(data.get(0).getDeliveryCost()) + "元");
         }
 
     }
 
     public void refreshPriceView(List<PharmacyBean> data) {
-        if(!CommUtil.isEmpty(data) && null != data.get(0)){
+        if (!CommUtil.isEmpty(data) && null != data.get(0)) {
             //PharmacyBean pharmacyBean = data.get(0);
             //BigDecimal deliveryCost = new BigDecimal(data.get(0).getDeliveryCost());
             BigDecimal sumFee = new BigDecimal(data.get(0).getSumFee());
@@ -1889,7 +1955,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
 
                 return super.requestError(exception, code, msg);
             }
@@ -1917,17 +1984,18 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     /**
      * 更新处方订单
      */
-    private void updatePrescriptionOrder(boolean isOnline,Map<String, Object> payMap) {
+    private void updatePrescriptionOrder(boolean isOnline, Map<String, Object> payMap) {
         Map<String, Object> map = new HashMap<>();
         PharmacyBean pharmacyBean;
-        if(isSendDrugsToHome){
-            map.put("consigneeAddress", mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress());
+        if (isSendDrugsToHome) {
+            map.put("consigneeAddress",
+                    mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress());
             map.put("consigneeName", mLocationInfo.getAddressName());
             map.put("consigneePhone", mLocationInfo.getPhone());
             map.put("delivery", "1");
             pharmacyBean = mPharmacyBeans.get(0);
 
-        }else{
+        } else {
             map.put("delivery", "0");
             pharmacyBean = mPharmacyBean;
         }
@@ -1935,7 +2003,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         map.put("drugstore", pharmacyBean.getDrugstore());
         map.put("drugstoreCode", pharmacyBean.getDrugstoreCode());
         map.put("drugsStoreAddress", pharmacyBean.getDrugstoreAddress());
-        map.put("isOnline", isOnline ? "0" :"1");
+        map.put("isOnline", isOnline ? "0" : "1");
         map.put("fee", pharmacyBean.getSumFee());
         map.put("id", mPprescriptionId);
         map.put("orderNumber", orderNum);
@@ -1943,22 +2011,23 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).updatePrescriptionOrder(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(this, getDisposable(), true, true) {
             @Override
             public void requestComplete(@org.jetbrains.annotations.Nullable String data) {
-                if(isOnline){
+                if (isOnline) {
                     if (payWaiType.equals(Type.WECHATPAY)) {
-                        getController().inquiryPay(payMap,1);
+                        getController().inquiryPay(payMap, 1);
                     }
                     if (payWaiType.equals(Type.ALIPAY)) {
-                        getController().inquiryPay(payMap,2);
+                        getController().inquiryPay(payMap, 2);
                     }
 
-                }else{
+                } else {
                     paySuccess();
                     ToastUtils.showShort("提交成功");
                 }
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 return super.requestError(exception, code, msg);
             }
         });

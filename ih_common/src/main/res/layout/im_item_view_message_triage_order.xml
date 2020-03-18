@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.keydom.ih_common.im.widget.provider.item.ImMessageItemInquiryProvider xmlns:android="http://schemas.android.com/apk/res/android"
+<com.keydom.ih_common.im.widget.provider.item.ImMessageItemTriageOrderProvider xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/dp_215"
@@ -11,43 +11,22 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/inquiry_name"
+            android:id="@+id/triage_order_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_12"
+            android:drawableStart="@mipmap/point_green"
+            android:drawablePadding="@dimen/dp_9"
             android:ellipsize="end"
+            android:gravity="center"
             android:lines="1"
             android:maxWidth="@dimen/dp_80"
+            android:text="分诊单"
             android:textColor="@color/fontColorPrimary"
             android:textSize="@dimen/sp_12"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="张三的撒大大撒打算撒旦" />
-
-        <TextView
-            android:id="@+id/inquiry_sex"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_12"
-            android:layout_marginTop="@dimen/dp_12"
-            android:textColor="@color/fontColorPrimary"
-            android:textSize="@dimen/sp_12"
-            app:layout_constraintStart_toEndOf="@+id/inquiry_name"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="女" />
-
-        <TextView
-            android:id="@+id/inquiry_age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_12"
-            android:layout_marginTop="@dimen/dp_12"
-            android:textColor="@color/fontColorPrimary"
-            android:textSize="@dimen/sp_12"
-            app:layout_constraintStart_toEndOf="@+id/inquiry_sex"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="25岁" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/line_1"
@@ -58,26 +37,41 @@
             android:contentDescription="@string/app_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inquiry_name" />
+            app:layout_constraintTop_toBottomOf="@+id/triage_order_title_tv" />
 
-        <TextView
-            android:id="@+id/inquiry_content"
+        <LinearLayout
+            android:id="@+id/triage_order_content_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_6"
             android:layout_marginEnd="@dimen/dp_12"
-            android:ellipsize="end"
-            android:maxLines="5"
-            android:textColor="#999999"
-            android:textSize="@dimen/sp_12"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/line_1"
-            tools:text="3日前自觉鼻塞、流涕，轻微咳嗽，自服抗感冒药物效果不佳." />
+            app:layout_constraintTop_toBottomOf="@+id/line_1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="病情说明："
+                android:textColor="@color/fontColorDirection"
+                android:textSize="@dimen/sp_12" />
+
+            <TextView
+                android:id="@+id/triage_order_content_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="5"
+                android:textColor="@color/color_69"
+                android:textSize="@dimen/sp_12"
+                tools:text="3日前自觉鼻塞、流涕，轻微咳嗽，自服抗感冒药物效果不佳." />
+
+        </LinearLayout>
 
         <ImageView
-            android:id="@+id/inquiry_image_1"
+            android:id="@+id/triage_order_image_1"
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_40"
             android:layout_marginStart="@dimen/dp_13"
@@ -85,19 +79,19 @@
             android:contentDescription="@string/app_name"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inquiry_content"
+            app:layout_constraintTop_toBottomOf="@+id/triage_order_content_layout"
             tools:src="@drawable/ic_launcher_background" />
 
         <ImageView
-            android:id="@+id/inquiry_image_2"
+            android:id="@+id/triage_order_image_2"
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_40"
             android:layout_marginStart="@dimen/dp_6"
             android:layout_marginTop="@dimen/dp_10"
             android:contentDescription="@string/app_name"
             android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@+id/inquiry_image_1"
-            app:layout_constraintTop_toBottomOf="@+id/inquiry_content"
+            app:layout_constraintStart_toEndOf="@+id/triage_order_image_1"
+            app:layout_constraintTop_toBottomOf="@+id/triage_order_content_layout"
             tools:src="@drawable/ic_launcher_background" />
 
         <ImageView
@@ -109,21 +103,21 @@
             android:contentDescription="@string/app_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inquiry_image_1" />
+            app:layout_constraintTop_toBottomOf="@+id/triage_order_image_1" />
 
         <TextView
-            android:id="@+id/inquiry"
+            android:id="@+id/triage_order_detail_tv"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp_30"
             android:drawableEnd="@mipmap/im_message_details_left"
             android:gravity="center_vertical"
             android:paddingStart="@dimen/dp_12"
             android:paddingEnd="@dimen/dp_12"
-            android:text="问诊单"
+            android:text="详情"
             android:textColor="#FF3F98F7"
             android:textSize="@dimen/sp_12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/line_2" />
     </android.support.constraint.ConstraintLayout>
-</com.keydom.ih_common.im.widget.provider.item.ImMessageItemInquiryProvider>
+</com.keydom.ih_common.im.widget.provider.item.ImMessageItemTriageOrderProvider>

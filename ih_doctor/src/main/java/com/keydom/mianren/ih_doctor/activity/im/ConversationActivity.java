@@ -38,6 +38,7 @@ import com.keydom.ih_common.im.model.custom.InquiryAttachment;
 import com.keydom.ih_common.im.model.custom.InspectionAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralApplyAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralDoctorAttachment;
+import com.keydom.ih_common.im.model.custom.TriageOrderAttachment;
 import com.keydom.ih_common.im.model.custom.UserFollowUpAttachment;
 import com.keydom.ih_common.im.model.event.EndInquiryEvent;
 import com.keydom.ih_common.im.widget.ImMessageView;
@@ -215,14 +216,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mDisposalAdviceLl.setOnClickListener(this);
         mBackLl.setOnClickListener(this);
         mEndLl.setOnClickListener(this);
-//        mMessageView.addPlugin(new EmojiPlugin());
+        //        mMessageView.addPlugin(new EmojiPlugin());
         initView();
         initListener();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             isGetStatus = extras.getBoolean(DiagnoseOrderRecyclrViewAdapter.IS_ORDER);
         }
-//        getController().getInquiryStatus();
+        //        getController().getInquiryStatus();
     }
 
     /**
@@ -240,12 +241,15 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     }
 
                 } else {
-//                    PersonalInfoActivity.start(context);
-                    NimUserInfo patientInfo = (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(message.getFromAccount());
-                    NimUserInfo currentUserInfo = (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(SharePreferenceManager.getUserCode());
+                    //                    PersonalInfoActivity.start(context);
+                    NimUserInfo patientInfo =
+                            (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(message.getFromAccount());
+                    NimUserInfo currentUserInfo =
+                            (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(SharePreferenceManager.getUserCode());
                     if ((ImMessageConstant.DOCTOR).equals(currentUserInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
                         if ((ImMessageConstant.DOCTOR).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
-                            Intent intent = new Intent("com.keydom.mianren.ih_doctor.DoctorOrNurseDetailActivity");
+                            Intent intent = new Intent("com.keydom.mianren.ih_doctor" +
+                                    ".DoctorOrNurseDetailActivity");
                             intent.putExtra("doctorCode", String.valueOf(patientInfo.getAccount()));
                             startActivity(intent);
                         }
@@ -259,7 +263,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             public boolean onMessageClick(Context context, View view, IMMessage message) {
                 if (message.getMsgType() == MsgTypeEnum.custom) {
                     if (message.getAttachment() instanceof InquiryAttachment) {//问诊单
-                        DiagnoseOrderDetailActivity.start(context, ((InquiryAttachment) message.getAttachment()).getId());
+                        DiagnoseOrderDetailActivity.start(context,
+                                ((InquiryAttachment) message.getAttachment()).getId());
+                    } else if (message.getAttachment() instanceof TriageOrderAttachment) //分诊单
+                    {
+
                     } else if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
 
 
@@ -267,14 +275,16 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                             @Override
                             public void requestComplete(@Nullable CheckItemListBean data) {
                                 if (data != null) {
-                                    CheckOrderDetailActivity.startInspactOrder(context, ((ExaminationAttachment) message.getAttachment()).getId(), orderBean);
+                                    CheckOrderDetailActivity.startInspactOrder(context,
+                                            ((ExaminationAttachment) message.getAttachment()).getId(), orderBean);
                                 } else {
                                     ToastUtil.showMessage(context, "检查报告单不存在");
                                 }
                             }
 
                             @Override
-                            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                            public boolean requestError(@NotNull ApiException exception, int code
+                                    , @NotNull String msg) {
                                 ToastUtil.showMessage(context, msg);
                                 return super.requestError(exception, code, msg);
                             }
@@ -286,14 +296,16 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                             @Override
                             public void requestComplete(@Nullable CheckItemListBean data) {
                                 if (data != null) {
-                                    CheckOrderDetailActivity.startTestOrder(context, ((InspectionAttachment) message.getAttachment()).getId(), orderBean);
+                                    CheckOrderDetailActivity.startTestOrder(context,
+                                            ((InspectionAttachment) message.getAttachment()).getId(), orderBean);
                                 } else {
                                     ToastUtil.showMessage(context, "检验报告单不存在");
                                 }
                             }
 
                             @Override
-                            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                            public boolean requestError(@NotNull ApiException exception, int code
+                                    , @NotNull String msg) {
                                 ToastUtil.showMessage(context, msg);
                                 return super.requestError(exception, code, msg);
                             }
@@ -303,17 +315,25 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         com.keydom.mianren.ih_doctor.activity.doctor_cooperation.DiagnoseOrderDetailActivity.startCommon(context, ((ReferralApplyAttachment) message.getAttachment()).getId());
                     } else if (message.getAttachment() instanceof ReferralDoctorAttachment) {//换诊
 
-                    } else if (message.getAttachment() instanceof ConsultationResultAttachment) {//处方
-                        DianoseCaseDetailActivity.start(context, ((ConsultationResultAttachment) message.getAttachment()).getId());
-//                        PrescriptionActivity.startCommon(context, Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
+                    } else if (message.getAttachment() instanceof ConsultationResultAttachment) {
+                        //处方
+                        DianoseCaseDetailActivity.start(context,
+                                ((ConsultationResultAttachment) message.getAttachment()).getId());
+                        //                        PrescriptionActivity.startCommon(context, Long
+                        //                        .parseLong(((ConsultationResultAttachment)
+                        //                        message.getAttachment()).getId()));
                     } else if (message.getAttachment() instanceof DisposalAdviceAttachment) {
-                        HandleProposeAcitivity.start(getContext(), ((DisposalAdviceAttachment) message.getAttachment()).getContent());
+                        HandleProposeAcitivity.start(getContext(),
+                                ((DisposalAdviceAttachment) message.getAttachment()).getContent());
 
                     }
                     //随访表
-                    else if(message.getAttachment() instanceof UserFollowUpAttachment){
-                        UserFollowUpAttachment userFollowUpAttachment = (UserFollowUpAttachment) message.getAttachment();
-                        CommonDocumentActivity.start(getContext(),userFollowUpAttachment.getFileName(),userFollowUpAttachment.getUrl());
+                    else if (message.getAttachment() instanceof UserFollowUpAttachment) {
+                        UserFollowUpAttachment userFollowUpAttachment =
+                                (UserFollowUpAttachment) message.getAttachment();
+                        CommonDocumentActivity.start(getContext(),
+                                userFollowUpAttachment.getFileName(),
+                                userFollowUpAttachment.getUrl());
                     }
                 }
                 return false;
@@ -328,14 +348,17 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         @Override
                         public void requestComplete(@Nullable CheckItemListBean data) {
                             if (data != null) {
-                                CheckOrderDetailActivity.startInspactOrder(context, ((ExaminationAttachment) message.getAttachment()).getId(), orderBean);
+                                CheckOrderDetailActivity.startInspactOrder(context,
+                                        ((ExaminationAttachment) message.getAttachment()).getId()
+                                        , orderBean);
                             } else {
                                 ToastUtil.showMessage(context, "检查报告单不存在");
                             }
                         }
 
                         @Override
-                        public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                        public boolean requestError(@NotNull ApiException exception, int code,
+                                                    @NotNull String msg) {
                             ToastUtil.showMessage(context, msg);
                             return super.requestError(exception, code, msg);
                         }
@@ -347,26 +370,31 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         @Override
                         public void requestComplete(@Nullable CheckItemListBean data) {
                             if (data != null) {
-                                CheckOrderDetailActivity.startTestOrder(context, ((InspectionAttachment) message.getAttachment()).getId(), orderBean);
+                                CheckOrderDetailActivity.startTestOrder(context,
+                                        ((InspectionAttachment) message.getAttachment()).getId(),
+                                        orderBean);
                             } else {
                                 ToastUtil.showMessage(context, "检验报告单不存在");
                             }
                         }
 
                         @Override
-                        public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                        public boolean requestError(@NotNull ApiException exception, int code,
+                                                    @NotNull String msg) {
                             ToastUtil.showMessage(context, msg);
                             return super.requestError(exception, code, msg);
                         }
                     });
 
                 } else
-                    PrescriptionActivity.startCommon(context, Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
+                    PrescriptionActivity.startCommon(context,
+                            Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
                 return false;
             }
 
             @Override
-            public boolean onPrescriptionClick(Context context, @android.support.annotation.Nullable IMMessage message) {
+            public boolean onPrescriptionClick(Context context,
+                                               @android.support.annotation.Nullable IMMessage message) {
                 if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
 
 
@@ -374,14 +402,17 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         @Override
                         public void requestComplete(@Nullable CheckItemListBean data) {
                             if (data != null) {
-                                CheckOrderDetailActivity.startInspactOrder(context, ((ExaminationAttachment) message.getAttachment()).getId(), orderBean);
+                                CheckOrderDetailActivity.startInspactOrder(context,
+                                        ((ExaminationAttachment) message.getAttachment()).getId()
+                                        , orderBean);
                             } else {
                                 ToastUtil.showMessage(context, "检查报告单不存在");
                             }
                         }
 
                         @Override
-                        public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                        public boolean requestError(@NotNull ApiException exception, int code,
+                                                    @NotNull String msg) {
                             ToastUtil.showMessage(context, msg);
                             return super.requestError(exception, code, msg);
                         }
@@ -393,21 +424,25 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         @Override
                         public void requestComplete(@Nullable CheckItemListBean data) {
                             if (data != null) {
-                                CheckOrderDetailActivity.startTestOrder(context, ((InspectionAttachment) message.getAttachment()).getId(), orderBean);
+                                CheckOrderDetailActivity.startTestOrder(context,
+                                        ((InspectionAttachment) message.getAttachment()).getId(),
+                                        orderBean);
                             } else {
                                 ToastUtil.showMessage(context, "检验报告单不存在");
                             }
                         }
 
                         @Override
-                        public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                        public boolean requestError(@NotNull ApiException exception, int code,
+                                                    @NotNull String msg) {
                             ToastUtil.showMessage(context, msg);
                             return super.requestError(exception, code, msg);
                         }
                     });
 
                 } else
-                    PrescriptionActivity.startCommon(context, Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
+                    PrescriptionActivity.startCommon(context,
+                            Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
                 return false;
             }
         });
@@ -418,7 +453,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         if (data != null) {
             sessionId = data.getQueryParameter(ImConstants.CALL_SESSION_ID);
             mMessageView.setMessageInfo(sessionId, SessionTypeEnum.P2P);
-//            setTitle(ImClient.getUserInfoProvider().getUserInfo(sessionId) == null ? "问诊详情" : ImClient.getUserInfoProvider().getUserInfo(sessionId).getName() + "-问诊详情");
+            //            setTitle(ImClient.getUserInfoProvider().getUserInfo(sessionId) == null
+            //            ? "问诊详情" : ImClient.getUserInfoProvider().getUserInfo(sessionId)
+            //            .getName() + "-问诊详情");
             setTitle("问诊详情");
         }
 
@@ -469,7 +506,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         if (!chatting) {
             mMessageView.removePlugin(mVideoPlugin);
             mMessageView.removePlugin(mEndInquiryPlugin);
-//            if (orderBean != null && orderBean.getInquisitionType() == 1)
+            //            if (orderBean != null && orderBean.getInquisitionType() == 1)
             mMessageView.addPlugin(mVideoPlugin);
             mMessageView.addPlugin(mEndInquiryPlugin);
         }
@@ -509,7 +546,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         }
         //处方审核失败，隐藏结束问诊
         else if (InquiryStatus.AUDIT_FAILE == inquiryStatus) {
-//            mMessageView.removePlugin(mEndInquiryPlugin);
+            //            mMessageView.removePlugin(mEndInquiryPlugin);
             inquiryEnd();
         }
         //已开具处方，待评价
@@ -543,12 +580,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mInquiryTypeTv.setTextColor(ContextCompat.getColor(this, R.color.im_status_completed));
         mQuestionRemainingTimeTv.setVisibility(View.VISIBLE);
         if (InquiryStatus.INQUIRY_PRESCRIBE == inquiryStatus) {
-//            mInquiryTypeTv.setText("已完成");
-//            mQuestionRemainingTimeTv.setVisibility(View.VISIBLE);
+            //            mInquiryTypeTv.setText("已完成");
+            //            mQuestionRemainingTimeTv.setVisibility(View.VISIBLE);
             mInquiryTypeTv.setText("已完成");
             mQuestionRemainingTimeTv.setText("医生已完成问诊");
             mMessageView.hideExtension();
-//            mMessageView.removePlugin(mEndInquiryPlugin);
+            //            mMessageView.removePlugin(mEndInquiryPlugin);
         } else if (InquiryStatus.AUDIT_FAILE == inquiryStatus) {
             mMessageView.hideExtension();
             mInquiryTypeTv.setText("已完成");
@@ -627,7 +664,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 }
                 break;
             case R.id.disposal_advice_ll:
-//                DiagnoseHandleProposalActivity.start(this, orderBean);
+                //                DiagnoseHandleProposalActivity.start(this, orderBean);
                 DiagnosePrescriptionActivity.startHandle(ConversationActivity.this, orderBean);
                 break;
             case R.id.inspection:
@@ -676,7 +713,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 break;
             case R.id.referral:
                 if (referralState == 0 || referralState == 1) {
-                    new GeneralDialog(getContext(), "确认取消该条转诊操作？", new GeneralDialog.OnCloseListener() {
+                    new GeneralDialog(getContext(), "确认取消该条转诊操作？",
+                            new GeneralDialog.OnCloseListener() {
                         @Override
                         public void onCommit() {
                             getController().stopReferral();
@@ -697,7 +735,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == FINISH_PRESCRIPTION) {
-            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "处方已发送,请等待药师审核结果"));
+            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
+                    "处方已发送,请等待药师审核结果"));
             getController().getInquiryStatus();
         }
         if (resultCode == RESULT_OK) {
@@ -705,13 +744,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 default:
                     break;
                 case SEND_MESSAGE:
-                    List<IMMessage> messageList = (List<IMMessage>) data.getSerializableExtra(Const.DATA);
+                    List<IMMessage> messageList =
+                            (List<IMMessage>) data.getSerializableExtra(Const.DATA);
                     if (messageList != null && messageList.size() > 0) {
                         for (IMMessage msg : messageList) {
                             mMessageView.addData(msg);
                         }
                     }
-//                    getController().getInquiryStatus();
+                    //                    getController().getInquiryStatus();
                     break;
                 case UPDATE_STATUS:
                     getController().getInquiryStatus();
@@ -742,25 +782,32 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEndInquiryEvent(EndInquiryEvent event) {
         if ((event.getMessage().getAttachment() instanceof EndInquiryAttachment)) {
-            EndInquiryAttachment attachment = (EndInquiryAttachment) event.getMessage().getAttachment();
+            EndInquiryAttachment attachment =
+                    (EndInquiryAttachment) event.getMessage().getAttachment();
             //如果患者同意结束问诊
             if (attachment.getEndType() == EndInquiryAttachment.PATIENT_AGREE) {
                 EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.DIAGNOSE_ORDER_UPDATE).build());
                 inquiryStatus = InquiryStatus.INQUIRY_PRESCRIBE;
                 inquiryEnd();
                 if (orderType == 0) {
-//                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "患者已同意结束此次问诊,请及时开具"));
-                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "患者已同意结束此次问诊"));
+                    //                    mMessageView.addData(ImClient.createLocalTipMessage
+                    //                    (sessionId, SessionTypeEnum.P2P, "患者已同意结束此次问诊,请及时开具"));
+                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                            SessionTypeEnum.P2P, "患者已同意结束此次问诊"));
                 } else {
-//                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "患者已同意结束此次问诊,请及时开具处置建议"));
-                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "患者已同意结束此次问诊"));
+                    //                    mMessageView.addData(ImClient.createLocalTipMessage
+                    //                    (sessionId, SessionTypeEnum.P2P, "患者已同意结束此次问诊,
+                    //                    请及时开具处置建议"));
+                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                            SessionTypeEnum.P2P, "患者已同意结束此次问诊"));
                 }
             }
             //如果患者不同意结束问诊
             else if (attachment.getEndType() == EndInquiryAttachment.PATIENT_REFUSE) {
                 inquiryStatus = InquiryStatus.INQUIRY_ING;
                 inquiryIng();
-                mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "患者取消了结束问诊，请与患者沟通完成以后再结束"));
+                mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                        SessionTypeEnum.P2P, "患者取消了结束问诊，请与患者沟通完成以后再结束"));
             }
             //患者主动结束问诊
             else if (attachment.getEndType() == EndInquiryAttachment.PATIENT_END) {
@@ -768,11 +815,15 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 inquiryStatus = InquiryStatus.INQUIRY_PRESCRIBE;
                 inquiryEnd();
                 if (orderType == 0) {
-//                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "患者已结束此次问诊,请及时开具"));
-                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "患者已结束此次问诊"));
+                    //                    mMessageView.addData(ImClient.createLocalTipMessage
+                    //                    (sessionId, SessionTypeEnum.P2P, "患者已结束此次问诊,请及时开具"));
+                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                            SessionTypeEnum.P2P, "患者已结束此次问诊"));
                 } else {
-//                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "患者已结束此次问诊,请及时开具处置建议"));
-                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "患者已结束此次问诊"));
+                    //                    mMessageView.addData(ImClient.createLocalTipMessage
+                    //                    (sessionId, SessionTypeEnum.P2P, "患者已结束此次问诊,请及时开具处置建议"));
+                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                            SessionTypeEnum.P2P, "患者已结束此次问诊"));
                 }
             }
         }
@@ -791,7 +842,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     @Override
     public void loadSuccess(InquiryBean data) {
         inquiryStatus = (data == null ? InquiryStatus.INQUIRY_COMPLETE : data.getState());
-        chatting = inquiryStatus == InquiryStatus.INQUIRY_COMPLETE || inquiryStatus == InquiryStatus.INQUIRY_UNPAID || inquiryStatus == InquiryStatus.INQUIRY_NOT_EVALUATED;
+        chatting =
+                inquiryStatus == InquiryStatus.INQUIRY_COMPLETE || inquiryStatus == InquiryStatus.INQUIRY_UNPAID || inquiryStatus == InquiryStatus.INQUIRY_NOT_EVALUATED;
         if (inquiryStatus != InquiryStatus.INQUIRY_ING) {
             setRightImgVisibility(false);
         } else {
@@ -810,11 +862,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     @Override
     public void acceptSuccess() {
-        mMessageView.addData(ImClient.createTipMessage(sessionId, SessionTypeEnum.P2P, "问诊开始，本次问诊可持续" + orderBean.getDuration() + "小时"));
-//        inquiryStatus = InquiryStatus.INQUIRY_ING;
-//        inquiryIng();
-//        calculateTime();
-//        setRightImgVisibility(true);
+        mMessageView.addData(ImClient.createTipMessage(sessionId, SessionTypeEnum.P2P,
+                "问诊开始，本次问诊可持续" + orderBean.getDuration() + "小时"));
+        //        inquiryStatus = InquiryStatus.INQUIRY_ING;
+        //        inquiryIng();
+        //        calculateTime();
+        //        setRightImgVisibility(true);
         EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.DIAGNOSE_ORDER_UPDATE).build());
         getController().getInquiryStatus();
     }
@@ -832,8 +885,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         endInquiryAttachment.setSponsorId(ImClient.getUserInfoProvider().getAccount());
         endInquiryAttachment.setReceiverId(sessionId);
         endInquiryAttachment.setEndType(EndInquiryAttachment.DOCTOR_APPLY_END);
-        mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.P2P, "[结束问诊消息]", endInquiryAttachment));
-        mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "您已发起结束问诊，等待患者确认"));
+        mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.P2P,
+                "[结束问诊消息]", endInquiryAttachment));
+        mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
+                "您已发起结束问诊，等待患者确认"));
         inquiryApply();
     }
 
@@ -855,13 +910,15 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         long remainingTime;
         if (inquiryStatus == InquiryStatus.INQUIRY_WAIT || inquiryStatus == InquiryStatus.INQUIRY_REFERRAL_DOCTOR) {
             if (orderBean.getApplyTime() != null) {
-                remainingTime = CalculateTimeUtils.toLong(orderBean.getApplyTime()) + ((long) (orderBean.getDoctorAcceptTime() * 60 * 60 * 1000)) - System.currentTimeMillis();
+                remainingTime =
+                        CalculateTimeUtils.toLong(orderBean.getApplyTime()) + ((long) (orderBean.getDoctorAcceptTime() * 60 * 60 * 1000)) - System.currentTimeMillis();
             } else {
                 remainingTime = (long) (orderBean.getDoctorAcceptTime() * 60 * 60 * 1000);
             }
 
         } else if (inquiryStatus == InquiryStatus.INQUIRY_ING || inquiryStatus == InquiryStatus.INQUIRY_APPLY_END) {
-            remainingTime = CalculateTimeUtils.toLong(orderBean.getBeginTime()) + (long) (orderBean.getDuration() * 60 * 60 * 1000L) - System.currentTimeMillis();
+            remainingTime =
+                    CalculateTimeUtils.toLong(orderBean.getBeginTime()) + (long) (orderBean.getDuration() * 60 * 60 * 1000L) - System.currentTimeMillis();
         } else {
             String tz = "GMT+8";
             TimeZone curTimeZone = TimeZone.getTimeZone(tz);
@@ -899,7 +956,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             inquiryRemainingTime = mHour + "小时" + mMin + "分后问诊结束";
             mQuestionRemainingTimeTv.setText(inquiryRemainingTime);
         }
-        timeDisposable = Flowable.intervalRange(1, remainingTime / 1000 / 60, 0, 1, TimeUnit.MINUTES)
+        timeDisposable = Flowable.intervalRange(1, remainingTime / 1000 / 60, 0, 1,
+                TimeUnit.MINUTES)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(time -> computeTime());
@@ -966,16 +1024,18 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
 
     FixHeightBottomSheetDialog mFixHeightBottomSheetDialog;
+
     /**
      * 用户随访表
      */
     private void showUserFollowUp() {
 
-        if(null == mFixHeightBottomSheetDialog){
+        if (null == mFixHeightBottomSheetDialog) {
             mFixHeightBottomSheetDialog = new FixHeightBottomSheetDialog(this);
             mFixHeightBottomSheetDialog.setCancelable(true);
             mFixHeightBottomSheetDialog.setCanceledOnTouchOutside(true);
-            View view = LayoutInflater.from(this).inflate(R.layout.user_follow_up_dialog_layout, null, false);
+            View view = LayoutInflater.from(this).inflate(R.layout.user_follow_up_dialog_layout,
+                    null, false);
             mFixHeightBottomSheetDialog.setContentView(view);
             view.findViewById(R.id.user_follow_up_dialog_first_rl).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -987,7 +1047,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     userFollowUpAttachment.setDoctorName("伍齐鸣");
                     userFollowUpAttachment.setFileName("糖尿病随访管理表");
                     userFollowUpAttachment.setUrl("https://www.baidu.com/");
-                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId, SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
+                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
+                            SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
 
                     mFixHeightBottomSheetDialog.dismiss();
                 }
@@ -1000,7 +1061,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     userFollowUpAttachment.setDoctorName("伍齐鸣");
                     userFollowUpAttachment.setFileName("慢性肺炎随访管理表");
                     userFollowUpAttachment.setUrl("https://www.baidu.com/");
-                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId, SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
+                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
+                            SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
 
                     mFixHeightBottomSheetDialog.dismiss();
                 }

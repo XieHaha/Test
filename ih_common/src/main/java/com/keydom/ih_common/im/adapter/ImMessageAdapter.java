@@ -34,6 +34,7 @@ public class ImMessageAdapter extends BaseMultiItemQuickAdapter<ImUIMessage, Bas
         addItemType(MsgTypeEnum.avchat.getValue(), R.layout.im_item_message_avchat);
         addItemType(MsgTypeEnum.notification.getValue(), R.layout.im_item_message_tips);
         addItemType(ICustomAttachmentType.INQUIRY, R.layout.im_item_message_inquiry);
+        addItemType(ICustomAttachmentType.TRIAGE_ORDER, R.layout.im_item_message_triage_order);
         addItemType(ICustomAttachmentType.CONSULTATION_RESULT, R.layout.im_item_message_consultation_result);
         addItemType(ICustomAttachmentType.INSPECTION, R.layout.im_item_message_inspection);
         addItemType(ICustomAttachmentType.EXAMINATION, R.layout.im_item_message_examination);

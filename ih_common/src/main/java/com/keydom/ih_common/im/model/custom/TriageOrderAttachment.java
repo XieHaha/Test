@@ -8,13 +8,13 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 问诊单消息
+ * 分诊单消息
  *
  * @author THINKPAD B
  */
-public class InquiryAttachment extends BaseCustomAttachment implements Serializable {
+public class TriageOrderAttachment extends BaseCustomAttachment implements Serializable {
 
-    private static final long serialVersionUID = -7904006500242699103L;
+    private static final long serialVersionUID = 6863912969780974835L;
     /**
      * 问诊单，姓名
      */
@@ -41,8 +41,8 @@ public class InquiryAttachment extends BaseCustomAttachment implements Serializa
      */
     private Long id;
 
-    public InquiryAttachment() {
-        super(ICustomAttachmentType.INQUIRY);
+    public TriageOrderAttachment() {
+        super(ICustomAttachmentType.TRIAGE_ORDER);
     }
 
     @Override

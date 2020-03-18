@@ -12,6 +12,7 @@ import com.keydom.ih_common.im.model.custom.InspectionAttachment;
 import com.keydom.ih_common.im.model.custom.ReceiveDrugsAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralApplyAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralDoctorAttachment;
+import com.keydom.ih_common.im.model.custom.TriageOrderAttachment;
 import com.keydom.ih_common.im.model.custom.UserFollowUpAttachment;
 import com.keydom.ih_common.im.model.def.SentStatus;
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
@@ -62,6 +63,8 @@ public class ImUIMessage implements MultiItemEntity {
         } else {
             if (mMessage.getAttachment() instanceof InquiryAttachment) {
                 return ICustomAttachmentType.INQUIRY;
+            } else if (mMessage.getAttachment() instanceof TriageOrderAttachment) {
+                return ICustomAttachmentType.TRIAGE_ORDER;
             } else if (mMessage.getAttachment() instanceof ConsultationResultAttachment) {
                 return ICustomAttachmentType.CONSULTATION_RESULT;
             } else if (mMessage.getAttachment() instanceof InspectionAttachment) {
@@ -76,11 +79,11 @@ public class ImUIMessage implements MultiItemEntity {
                 return ICustomAttachmentType.END_INQUIRY;
             } else if (mMessage.getAttachment() instanceof DisposalAdviceAttachment) {
                 return ICustomAttachmentType.DISPOSAL_ADVICE;
-            } else if(mMessage.getAttachment() instanceof GetDrugsAttachment){
+            } else if (mMessage.getAttachment() instanceof GetDrugsAttachment) {
                 return ICustomAttachmentType.GET_DRUGS;
-            }else if(mMessage.getAttachment() instanceof ReceiveDrugsAttachment){
+            } else if (mMessage.getAttachment() instanceof ReceiveDrugsAttachment) {
                 return ICustomAttachmentType.RECEIVE_DRUGS;
-            }else if(mMessage.getAttachment() instanceof UserFollowUpAttachment){
+            } else if (mMessage.getAttachment() instanceof UserFollowUpAttachment) {
                 return ICustomAttachmentType.USER_FOLLOW_UP;
             } else {
                 return MsgTypeEnum.undef.getValue();
@@ -94,7 +97,8 @@ public class ImUIMessage implements MultiItemEntity {
      * @return
      */
     public static ImUIMessage obtain(IMMessage message, MsgDirectionEnum direct) {
-        return new ImUIMessage(message, direct == MsgDirectionEnum.Out ? ImMessageConstant.SENDING : ImMessageConstant.FINISH);
+        return new ImUIMessage(message, direct == MsgDirectionEnum.Out ?
+                ImMessageConstant.SENDING : ImMessageConstant.FINISH);
     }
 
     /**

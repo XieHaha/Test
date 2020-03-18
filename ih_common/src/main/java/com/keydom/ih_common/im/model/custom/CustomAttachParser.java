@@ -27,6 +27,9 @@ public class CustomAttachParser implements MsgAttachmentParser {
             case ICustomAttachmentType.INQUIRY:
                 attachment = new InquiryAttachment();
                 break;
+            case ICustomAttachmentType.TRIAGE_ORDER:
+                attachment = new TriageOrderAttachment();
+                break;
             case ICustomAttachmentType.CONSULTATION_RESULT:
                 attachment = new ConsultationResultAttachment();
                 break;
