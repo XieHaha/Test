@@ -356,16 +356,17 @@ public class SelectDialogUtils {
             deliveryPriceTv.setVisibility(View.VISIBLE);
             deliveryDetailTv.setVisibility(View.VISIBLE);
         });
+        deliveryDetailTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         //确定
         final TextView nextTv = view.findViewById(R.id.prepaid_order_next_tv);
         //关闭icon
         final ImageView closeImg = view.findViewById(R.id.prepaid_order_close_iv);
-        nextTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                prepaidDialog.dismiss();
-            }
-        });
+        nextTv.setOnClickListener(view12 -> prepaidDialog.dismiss());
         //关闭
         closeImg.setOnClickListener(view1 -> prepaidDialog.dismiss());
         prepaidDialog.show();
