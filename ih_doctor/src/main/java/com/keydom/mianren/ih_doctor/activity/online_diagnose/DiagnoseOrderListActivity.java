@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.mianren.ih_doctor.R;
@@ -39,6 +40,8 @@ public class DiagnoseOrderListActivity extends BaseControllerActivity<DiagnoseOr
      * 咨询单类型
      */
     private static final int CONSULT = 621;
+
+    private TextView waitInquiryTv, doingInquiryTv;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Fragment[] mFragmentArrays;
@@ -51,8 +54,6 @@ public class DiagnoseOrderListActivity extends BaseControllerActivity<DiagnoseOr
 
     /**
      * 启动问诊订单列表页面
-     *
-     * @param context
      */
     public static void startDiagnose(Context context) {
         Intent starter = new Intent(context, DiagnoseOrderListActivity.class);
@@ -62,19 +63,15 @@ public class DiagnoseOrderListActivity extends BaseControllerActivity<DiagnoseOr
 
     /**
      * 启动咨询单列表页面
-     *
-     * @param context
      */
     public static void startConsult(Context context) {
-        startConsult(context,false);
+        startConsult(context, false);
     }
 
     /**
      * 启动咨询单列表页面
-     *
-     * @param context
      */
-    public static void startConsult(Context context,boolean isVIP) {
+    public static void startConsult(Context context, boolean isVIP) {
         Intent starter = new Intent(context, DiagnoseOrderListActivity.class);
         starter.putExtra(Const.TYPE, CONSULT);
         starter.putExtra(Const.IS_VIP_ONLINE_DIAG, isVIP);
@@ -91,9 +88,9 @@ public class DiagnoseOrderListActivity extends BaseControllerActivity<DiagnoseOr
         type = getIntent().getIntExtra(Const.TYPE, 0);
         mIsVIPDiag = getIntent().getBooleanExtra(Const.TYPE, false);
 
-        if(mIsVIPDiag){
+        if (mIsVIPDiag) {
             setTitle("分诊订单");
-        }else{
+        } else {
             if (type == DIAGNOSE) {
                 setTitle("问诊订单");
             } else {
@@ -101,8 +98,10 @@ public class DiagnoseOrderListActivity extends BaseControllerActivity<DiagnoseOr
             }
         }
 
-        tabLayout = this.findViewById(R.id.tablayout);
-        viewPager = this.findViewById(R.id.tab_viewpager);
+        waitInquiryTv = findViewById(R.id.diagnose_order_wait_inquiry_tv);
+        doingInquiryTv = findViewById(R.id.diagnose_order_inquiry_doing_tv);
+        tabLayout = findViewById(R.id.tablayout);
+        viewPager = findViewById(R.id.tab_viewpager);
         LinearLayout linearLayout = (LinearLayout) tabLayout.getChildAt(0);
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,
@@ -121,9 +120,12 @@ public class DiagnoseOrderListActivity extends BaseControllerActivity<DiagnoseOr
         mTabTitles[1] = "问诊中";
         mTabTitles[2] = "完成";
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        mFragmentArrays[0] = DiagnoseOrderFragment.newInstance(TypeEnum.ONLINE_DIAGNOSE_WAITTING,mIsVIPDiag);
-        mFragmentArrays[1] = DiagnoseOrderFragment.newInstance(TypeEnum.ONLINE_DIAGNOSEINT,mIsVIPDiag);
-        mFragmentArrays[2] = DiagnoseOrderFragment.newInstance(TypeEnum.ONLINE_DIAGNOSE_FINISH,mIsVIPDiag);
+        mFragmentArrays[0] = DiagnoseOrderFragment.newInstance(TypeEnum.ONLINE_DIAGNOSE_WAITTING,
+                mIsVIPDiag);
+        mFragmentArrays[1] = DiagnoseOrderFragment.newInstance(TypeEnum.ONLINE_DIAGNOSEINT,
+                mIsVIPDiag);
+        mFragmentArrays[2] = DiagnoseOrderFragment.newInstance(TypeEnum.ONLINE_DIAGNOSE_FINISH,
+                mIsVIPDiag);
         viewPager.setOffscreenPageLimit(3);
         PagerAdapter pagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
@@ -136,7 +138,7 @@ public class DiagnoseOrderListActivity extends BaseControllerActivity<DiagnoseOr
     }
 
     final class TabViewPagerAdapter extends FragmentPagerAdapter {
-        public TabViewPagerAdapter(FragmentManager fm) {
+        private TabViewPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
