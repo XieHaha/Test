@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/check_dialog_bg"
@@ -12,53 +11,55 @@
         android:layout_height="@dimen/dp_96"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_10"
-        android:background="@mipmap/dialog_check_icon"/>
+        android:background="@mipmap/dialog_check_icon" />
+
     <ImageView
         android:id="@+id/check_dialog_close"
         android:layout_width="@dimen/dp_42"
         android:layout_height="@dimen/dp_42"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="@mipmap/dialog_close"/>
+        android:layout_alignParentRight="true"
+        android:background="@mipmap/dialog_close" />
+
     <TextView
         android:id="@+id/dialog_tip_tv"
-        android:layout_below="@id/dialog_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_icon"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_19"
-        android:textSize="@dimen/font_size_title"
+        android:text="拒绝原因"
         android:textColor="@color/color_333333"
-        android:text="拒绝原因"/>
-    
+        android:textSize="@dimen/font_size_title" />
+
     <com.keydom.ih_common.view.InterceptorEditText
         android:id="@+id/check_dialog_input"
-        android:layout_below="@id/dialog_tip_tv"
         android:layout_width="@dimen/dp_236"
         android:layout_height="@dimen/dp_144"
+        android:layout_below="@id/dialog_tip_tv"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_17"
         android:background="@drawable/check_dialog_input_bg"
-        android:hint="请输入不能准时报到原因"
-        android:padding="@dimen/dp_13"
-        android:textCursorDrawable="@null"
         android:gravity="left|top"
-        android:textColor="#666666"
+        android:hint="请输入不能准时报到原因"
+        android:maxLength="50"
+        android:padding="@dimen/dp_13"
         android:singleLine="false"
-        android:textSize="@dimen/font_size_primary"
-        android:maxLength="50"/>
+        android:textColor="#666666"
+        android:textCursorDrawable="@null"
+        android:textSize="@dimen/font_size_primary" />
 
     <TextView
         android:id="@+id/check_dialog_submit"
+        android:layout_width="@dimen/dp_236"
+        android:layout_height="@dimen/dp_42"
         android:layout_below="@id/check_dialog_input"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_28"
-        android:layout_width="@dimen/dp_236"
-        android:layout_height="@dimen/dp_42"
         android:background="@drawable/check_dialog_btn_bg"
+        android:gravity="center"
         android:text="确定"
         android:textColor="@color/white"
-        android:gravity="center"
-        android:textSize="@dimen/font_size_title"/>
+        android:textSize="@dimen/font_size_title" />
 
 </RelativeLayout>

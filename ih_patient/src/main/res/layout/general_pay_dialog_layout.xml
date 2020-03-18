@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/primary_color">
+    android:background="@color/primary_color"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_58">
+
         <ImageView
             android:id="@+id/close_img"
             android:layout_width="@dimen/dp_25"
             android:layout_height="@dimen/dp_25"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_16"
             android:padding="@dimen/dp_5"
-            android:src="@mipmap/pay_close_icon"
-            android:layout_marginLeft="@dimen/dp_16"/>
+            android:src="@mipmap/pay_close_icon" />
+
         <TextView
             android:id="@+id/order_price_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/dp_20"
-            android:textColor="#FF3939"
+            android:layout_centerInParent="true"
             android:text="¥30"
-            android:layout_centerInParent="true"/>
+            android:textColor="#FF3939"
+            android:textSize="@dimen/dp_20" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_38"
         android:background="#F2F2F2">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,7 +40,8 @@
             android:layout_marginLeft="@dimen/dp_20"
             android:text="选择支付方式"
             android:textColor="#666666"
-            android:textSize="@dimen/font_size_primary"/>
+            android:textSize="@dimen/font_size_primary" />
+
         <TextView
             android:id="@+id/order_name_tv"
             android:layout_width="wrap_content"
@@ -44,17 +51,20 @@
             android:layout_marginRight="@dimen/dp_21"
             android:text="预约挂号-杨沛"
             android:textColor="#3F98F7"
-            android:textSize="@dimen/font_size_primary"/>
+            android:textSize="@dimen/font_size_primary" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_63">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_19"
-            android:src="@mipmap/ali_pay_icon"/>
+            android:src="@mipmap/ali_pay_icon" />
+
         <TextView
             android:id="@+id/ali_pay_tv"
             android:layout_width="wrap_content"
@@ -62,33 +72,38 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_105"
             android:text="支付宝支付"
-            android:textSize="@dimen/font_size_primary"
-            android:textColor="#7FBDFF"/>
+            android:textColor="#7FBDFF"
+            android:textSize="@dimen/font_size_primary" />
+
         <ImageView
             android:id="@+id/ali_pay_selected_img"
             android:layout_width="@dimen/dp_27"
             android:layout_height="@dimen/dp_27"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_45"
-            android:src="@mipmap/pay_selected_icon"/>
+            android:src="@mipmap/pay_selected_icon" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
-            android:background="#EEEEEE"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/dp_92"
             android:layout_marginRight="@dimen/dp_25"
-            android:layout_alignParentBottom="true"/>
+            android:background="#EEEEEE" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_63">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_19"
-            android:src="@mipmap/wechat_pay_icon"/>
+            android:src="@mipmap/wechat_pay_icon" />
+
         <TextView
             android:id="@+id/wechat_pay_tv"
             android:layout_width="wrap_content"
@@ -96,33 +111,38 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_105"
             android:text="微信支付"
-            android:textSize="@dimen/font_size_primary"
-            android:textColor="#666666"/>
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_primary" />
+
         <ImageView
             android:id="@+id/wechat_pay_selected_img"
             android:layout_width="@dimen/dp_27"
             android:layout_height="@dimen/dp_27"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_45"
-            android:src="@mipmap/pay_unselected_icon"/>
+            android:src="@mipmap/pay_unselected_icon" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
-            android:background="#EEEEEE"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/dp_92"
             android:layout_marginRight="@dimen/dp_25"
-            android:layout_alignParentBottom="true"/>
+            android:background="#EEEEEE" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_63">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_19"
-            android:src="@mipmap/unionpay_pay_icon"/>
+            android:src="@mipmap/unionpay_pay_icon" />
+
         <TextView
             android:id="@+id/unionpay_pay_tv"
             android:layout_width="wrap_content"
@@ -130,47 +150,53 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_105"
             android:text="银联支付"
-            android:textSize="@dimen/font_size_primary"
-            android:textColor="#666666"/>
+            android:textColor="#666666"
+            android:textSize="@dimen/font_size_primary" />
+
         <ImageView
             android:id="@+id/unionpay_pay_selected_img"
             android:layout_width="@dimen/dp_27"
             android:layout_height="@dimen/dp_27"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_45"
-            android:src="@mipmap/pay_unselected_icon"/>
+            android:src="@mipmap/pay_unselected_icon" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
-            android:background="#EEEEEE"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/dp_92"
             android:layout_marginRight="@dimen/dp_25"
-            android:layout_alignParentBottom="true"/>
+            android:background="#EEEEEE" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="@dimen/dp_65">
+        android:layout_height="@dimen/dp_65"
+        android:visibility="gone">
+
         <CheckBox
             android:id="@+id/pay_agreement_cb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:gravity="center"
+            android:layout_marginLeft="@dimen/dp_50"
             android:button="@drawable/pay_checkbox_selector"
-            android:layout_marginLeft="@dimen/dp_50"/>
+            android:gravity="center" />
+
         <TextView
             android:id="@+id/pay_agreement_tv"
-            android:layout_toRightOf="@+id/pay_agreement_cb"
-            android:layout_marginLeft="@dimen/dp_2"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_2"
+            android:layout_toRightOf="@+id/pay_agreement_cb"
+            android:text="我已阅读并同意《网络诊间服务条款》"
             android:textColor="#666666"
-            android:textSize="@dimen/font_size_primary"
-            android:text="我已阅读并同意《网络诊间服务条款》"/>
+            android:textSize="@dimen/font_size_primary" />
     </RelativeLayout>
+
     <TextView
         android:id="@+id/pay_commit_tv"
         android:layout_width="match_parent"
@@ -178,9 +204,9 @@
         android:layout_marginLeft="@dimen/dp_21"
         android:layout_marginRight="@dimen/dp_21"
         android:layout_marginBottom="@dimen/dp_50"
-        android:textSize="@dimen/dp_17"
-        android:textColor="@color/primary_color"
-        android:text="去付款"
+        android:background="@mipmap/pay_commit_bg"
         android:gravity="center"
-        android:background="@mipmap/pay_commit_bg"/>
+        android:text="去付款"
+        android:textColor="@color/primary_color"
+        android:textSize="@dimen/dp_17" />
 </LinearLayout>

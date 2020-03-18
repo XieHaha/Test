@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primary_color"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_58">
+
+        <ImageView
+            android:id="@+id/prepaid_order_close_iv"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_25"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_16"
+            android:padding="@dimen/dp_5"
+            android:src="@mipmap/pay_close_icon" />
+
+        <TextView
+            android:id="@+id/prepaid_order_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#FF3939"
+            android:textSize="@dimen/sp_20" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="@color/color_f2f2f2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_20"
+            android:text="请选择取药方式（外延处方）"
+            android:textColor="#666666"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/prepaid_order_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_21"
+            android:text="药品费用"
+            android:textColor="#3F98F7"
+            android:textSize="@dimen/sp_14" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_25"
+        android:layout_marginEnd="@dimen/dp_25"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/prepaid_order_self_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10">
+
+            <RelativeLayout
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_alignParentBottom="true"
+                    android:src="@mipmap/icon_rect" />
+
+                <ImageView
+                    android:id="@+id/prepaid_order_self_iv"
+                    android:layout_width="@dimen/dp_24"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/hospital_item_select"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/txt_drugstore_self_access"
+                android:textColor="@color/title_bar_text_color"
+                android:textSize="@dimen/sp_14" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/prepaid_order_delivery_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10">
+
+            <RelativeLayout
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_alignParentBottom="true"
+                    android:src="@mipmap/icon_rect" />
+
+                <ImageView
+                    android:id="@+id/prepaid_order_delivery_iv"
+                    android:layout_width="@dimen/dp_24"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/hospital_item_select"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/txt_delivery_to_home"
+                android:textColor="@color/title_bar_text_color"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/color_f2f2f2" />
+
+    <TextView
+        android:id="@+id/prepaid_order_delivery_price_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_22"
+        android:layout_marginTop="@dimen/dp_12"
+        android:textColor="@color/edit_hint_color"
+        android:textSize="@dimen/sp_14"
+        android:visibility="gone"
+        tools:text="(配送费用￥12.00元)" />
+
+    <TextView
+        android:id="@+id/prepaid_order_delivery_detail_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@mipmap/exa_report_right"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:hint="@string/txt_select_delivery_address_people"
+        android:padding="@dimen/dp_20"
+        android:singleLine="true"
+        android:textColor="@color/color_333333"
+        android:textColorHint="@color/edit_hint_color"
+        android:textSize="@dimen/sp_14"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_6"
+        android:background="@color/color_f2f2f2"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dp_20"
+        android:paddingEnd="0dp"
+        android:text="@string/txt_select_pay_type"
+        android:textColor="@color/edit_text_color"
+        android:textSize="@dimen/sp_14" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_37"
+        android:drawableStart="@mipmap/point_icon_4"
+        android:drawablePadding="@dimen/dp_14"
+        android:gravity="center"
+        android:text="@string/txt_pay_type_prepaid"
+        android:textColor="@color/edit_text_color"
+        android:textSize="@dimen/sp_14" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_65"
+        android:visibility="gone">
+
+        <CheckBox
+            android:id="@+id/pay_agreement_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_50"
+            android:button="@drawable/pay_checkbox_selector"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/pay_agreement_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_2"
+            android:layout_toEndOf="@+id/pay_agreement_cb"
+            android:text="我已阅读并同意《网络诊间服务条款》"
+            android:textColor="@color/edit_text_color"
+            android:textSize="@dimen/sp_14" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/prepaid_order_next_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_52"
+        android:layout_marginStart="@dimen/dp_21"
+        android:layout_marginTop="@dimen/dp_36"
+        android:layout_marginEnd="@dimen/dp_21"
+        android:layout_marginBottom="@dimen/dp_50"
+        android:background="@mipmap/pay_commit_bg"
+        android:gravity="center"
+        android:text="@string/txt_sure"
+        android:textColor="@color/primary_color"
+        android:textSize="@dimen/sp_17" />
+</LinearLayout>

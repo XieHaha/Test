@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
@@ -46,7 +47,9 @@ public class SelectDialogUtils {
     /**
      * 查询所有地区并打开选择器
      */
-    public static void showRegionSelectDialog(Context context, String provinceName, String cityName, String areaName, GeneralCallback.SelectRegionListener selectRegionListener) {
+    public static void showRegionSelectDialog(Context context, String provinceName,
+                                              String cityName, String areaName,
+                                              GeneralCallback.SelectRegionListener selectRegionListener) {
         if (Global.getData() == null || Global.getProvinceItems() == null || Global.getCityItems() == null || Global.getAreaItems() == null) {
             Dialog loading = DialogCreator.createLoadingDialog(context, "请稍等");
             loading.setCancelable(false);
@@ -99,20 +102,26 @@ public class SelectDialogUtils {
                         }
                     }
 
-                    OptionsPickerView optionsPickerView = new OptionsPickerBuilder(context, new OnOptionsSelectListener() {
-                        @Override
-                        public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                            if (selectRegionListener != null) {
-                                selectRegionListener.getSelectedRegion(data, options1, options2, options3);
-                            }
-                        }
-                    }).setSelectOptions(position_f, position_s, position_t).build();
+                    OptionsPickerView optionsPickerView = new OptionsPickerBuilder(context,
+                            new OnOptionsSelectListener() {
+                                @Override
+                                public void onOptionsSelect(int options1, int options2,
+                                                            int options3,
+                                                            View v) {
+                                    if (selectRegionListener != null) {
+                                        selectRegionListener.getSelectedRegion(data, options1,
+                                                options2,
+                                                options3);
+                                    }
+                                }
+                            }).setSelectOptions(position_f, position_s, position_t).build();
                     optionsPickerView.setPicker(options1Items, options2Items, options3Items);
                     optionsPickerView.show();
                 }
 
                 @Override
-                public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                public boolean requestError(@NotNull ApiException exception, int code,
+                                            @NotNull String msg) {
                     loading.hide();
                     ToastUtil.showMessage(getContext(), "获取地区列表失败：" + msg + "，请稍后重试");
                     return super.requestError(exception, code, msg);
@@ -136,12 +145,16 @@ public class SelectDialogUtils {
                         position_t = i;
                 }
             }
-            OptionsPickerView optionsPickerView = new OptionsPickerBuilder(context, (options1, options2, options3, v) -> {
+            OptionsPickerView optionsPickerView = new OptionsPickerBuilder(context, (options1,
+                                                                                     options2,
+                                                                                     options3, v) -> {
                 if (selectRegionListener != null) {
-                    selectRegionListener.getSelectedRegion(Global.getData(), options1, options2, options3);
+                    selectRegionListener.getSelectedRegion(Global.getData(), options1, options2,
+                            options3);
                 }
             }).setSelectOptions(position_f, position_s, position_t).build();
-            optionsPickerView.setPicker(Global.getProvinceItems(), Global.getCityItems(), Global.getAreaItems());
+            optionsPickerView.setPicker(Global.getProvinceItems(), Global.getCityItems(),
+                    Global.getAreaItems());
             optionsPickerView.show();
         }
     }
@@ -149,7 +162,8 @@ public class SelectDialogUtils {
     /**
      * 查询所有民族并打开选择器
      */
-    public static void showNationSelectDialog(Context context, String nationName, GeneralCallback.SelectNationListener selectNationListener) {
+    public static void showNationSelectDialog(Context context, String nationName,
+                                              GeneralCallback.SelectNationListener selectNationListener) {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getNationList("nation"), new HttpSubscriber<List<PackageData.NationBean>>(getContext()) {
             @Override
             public void requestComplete(@Nullable final List<PackageData.NationBean> data) {
@@ -161,18 +175,21 @@ public class SelectDialogUtils {
                         if (nationName.equals(data.get(i).getNationName()))
                             defaultPosition = i;
                 }
-                OptionsPickerView nationPickerView = new OptionsPickerBuilder(context, new OnOptionsSelectListener() {
-                    @Override
-                    public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                        selectNationListener.getSelectedNation(data.get(options1));
-                    }
-                }).setSelectOptions(defaultPosition).build();
+                OptionsPickerView nationPickerView = new OptionsPickerBuilder(context,
+                        new OnOptionsSelectListener() {
+                            @Override
+                            public void onOptionsSelect(int options1, int option2, int options3,
+                                                        View v) {
+                                selectNationListener.getSelectedNation(data.get(options1));
+                            }
+                        }).setSelectOptions(defaultPosition).build();
                 nationPickerView.setPicker(nationList);
                 nationPickerView.show();
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 ToastUtil.showMessage(getContext(), "获取民族列表失败：" + msg + "，请稍后重试");
                 return super.requestError(exception, code, msg);
             }
@@ -187,14 +204,16 @@ public class SelectDialogUtils {
      * @param descStr               订单描述
      * @param selectPayMentListener 选择支付方式回调
      */
-    public static void showPayDialog(Context context, String feeStr, String descStr, GeneralCallback.SelectPayMentListener selectPayMentListener) {
+    public static void showPayDialog(Context context, String feeStr, String descStr,
+                                     GeneralCallback.SelectPayMentListener selectPayMentListener) {
         final String[] payType = {Type.ALIPAY};
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
         bottomSheetDialog.setCancelable(false);
 
         bottomSheetDialog.setCanceledOnTouchOutside(false);
         final boolean[] isAgree = {false};
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.general_pay_dialog_layout, null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.general_pay_dialog_layout,
+                null);
         bottomSheetDialog.setContentView(view);
         final TextView order_price_tv = view.findViewById(R.id.order_price_tv);
         order_price_tv.setText("¥" + feeStr + "元");
@@ -207,7 +226,8 @@ public class SelectDialogUtils {
         TextView pay_commit_tv = view.findViewById(R.id.pay_commit_tv);
         final ImageView ali_pay_selected_img = view.findViewById(R.id.ali_pay_selected_img);
         final ImageView wechat_pay_selected_img = view.findViewById(R.id.wechat_pay_selected_img);
-        final ImageView unionpay_pay_selected_img = view.findViewById(R.id.unionpay_pay_selected_img);
+        final ImageView unionpay_pay_selected_img =
+                view.findViewById(R.id.unionpay_pay_selected_img);
         CheckBox payAgreementCb = view.findViewById(R.id.pay_agreement_cb);
         payAgreementCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -261,14 +281,14 @@ public class SelectDialogUtils {
         pay_commit_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (isAgree[0]) {
-                    Logger.e("register_doctor_commit_tv->clock");
-                    selectPayMentListener.getSelectPayMent(payType[0]);
+                //                if (isAgree[0]) {
+                Logger.e("register_doctor_commit_tv->clock");
+                selectPayMentListener.getSelectPayMent(payType[0]);
 
-                    bottomSheetDialog.dismiss();
-//                } else {
-//                    ToastUtil.showMessage(getContext(), "请阅读并同意支付协议");
-//                }
+                bottomSheetDialog.dismiss();
+                //                } else {
+                //                    ToastUtil.showMessage(getContext(), "请阅读并同意支付协议");
+                //                }
 
             }
         });
@@ -290,6 +310,67 @@ public class SelectDialogUtils {
 
     }
 
+    /**
+     * 打开通用支付窗口  预付费用户
+     *
+     * @param context               上下文
+     * @param feeStr                支付金额
+     * @param descStr               订单描述
+     * @param selectPayMentListener 选择支付方式回调
+     */
+    public static void showPrePaidDialog(Context context, String feeStr, String descStr,
+                                         GeneralCallback.SelectPayMentListener selectPayMentListener) {
+
+        final BottomSheetDialog prepaidDialog = new BottomSheetDialog(context);
+        prepaidDialog.setCancelable(false);
+        prepaidDialog.setCanceledOnTouchOutside(false);
+        View view = LayoutInflater.from(context).inflate(R.layout.general_prepaid_dialog_layout,
+                null);
+        prepaidDialog.setContentView(view);
+        //订单价格
+        final TextView orderPriceTv = view.findViewById(R.id.prepaid_order_price_tv);
+        orderPriceTv.setText(String.format(context.getString(R.string.txt_order_price), feeStr));
+        //订单描述
+        final TextView orderNameTv = view.findViewById(R.id.prepaid_order_name_tv);
+        orderNameTv.setText(descStr);
+
+        //配送方式 药店自取
+        final LinearLayout selfLayout = view.findViewById(R.id.prepaid_order_self_layout);
+        final ImageView selfIv = view.findViewById(R.id.prepaid_order_self_iv);
+        //配送方式 配送到家
+        final LinearLayout deliveryLayout = view.findViewById(R.id.prepaid_order_delivery_layout);
+        final LinearLayout deliveryIv = view.findViewById(R.id.prepaid_order_delivery_iv);
+        //配送费用
+        final TextView deliveryPriceTv = view.findViewById(R.id.prepaid_order_delivery_price_tv);
+        //配送地址配送人
+        final TextView deliveryDetailTv = view.findViewById(R.id.prepaid_order_delivery_detail_tv);
+        selfLayout.setOnClickListener(v -> {
+            selfIv.setVisibility(View.VISIBLE);
+            deliveryIv.setVisibility(View.INVISIBLE);
+            deliveryPriceTv.setVisibility(View.GONE);
+            deliveryDetailTv.setVisibility(View.GONE);
+        });
+        deliveryLayout.setOnClickListener(v -> {
+            selfIv.setVisibility(View.INVISIBLE);
+            deliveryIv.setVisibility(View.VISIBLE);
+            deliveryPriceTv.setVisibility(View.VISIBLE);
+            deliveryDetailTv.setVisibility(View.VISIBLE);
+        });
+        //确定
+        final TextView nextTv = view.findViewById(R.id.prepaid_order_next_tv);
+        //关闭icon
+        final ImageView closeImg = view.findViewById(R.id.prepaid_order_close_iv);
+        nextTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                prepaidDialog.dismiss();
+            }
+        });
+        //关闭
+        closeImg.setOnClickListener(view1 -> prepaidDialog.dismiss());
+        prepaidDialog.show();
+    }
+
 
     /**
      * 处方审核dialog
@@ -298,7 +379,8 @@ public class SelectDialogUtils {
      * @param listener
      * @return
      */
-    public static Dialog createCheckDialog(final Context context, final OnCheckDialogListener listener) {
+    public static Dialog createCheckDialog(final Context context,
+                                           final OnCheckDialogListener listener) {
         final Dialog dialog = new Dialog(context, R.style.loading_dialog);
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.prescription_dialog_layout, null);

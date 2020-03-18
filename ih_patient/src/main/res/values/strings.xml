@@ -412,6 +412,14 @@
     <string name="txt_operate">操作</string>
     <string name="txt_cancel_reserve">取消预约</string>
 
+    <!--在线门诊-->
+    <string name="txt_order_price">￥%s元</string>
+    <string name="txt_drugstore_self_access">药店自取</string>
+    <string name="txt_delivery_to_home">配送到家</string>
+    <string name="txt_select_pay_type">选择支付方式</string>
+    <string name="txt_pay_type_prepaid">本次问诊将使用您的预付费进行支付</string>
+    <string name="txt_select_delivery_address_people">请选择配送详细地址和联系人</string>
+
     <!--vip-->
     <string name="vip_desc">• 如需详细了解服务内容，请到医院仁医中心，有专人接待\n• 仁医中心服务电话：0816-2333592\n• 服务期间，不得单方面解除签约并提前申请退费\n• 办理退费时，请本人带上仁医金卡和发票到仁医中心办理</string>
     <string name="vip_price">20000元</string>
