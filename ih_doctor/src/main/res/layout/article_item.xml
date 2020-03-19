@@ -159,7 +159,7 @@
                 android:drawableLeft="@mipmap/comment_black"
                 android:layout_marginLeft="@dimen/dp_19"
                 android:drawablePadding="@dimen/dp_8"
-                android:textSize="@dimen/dp_13"
+                android:textSize="@dimen/sp_13"
                 android:textColor="#000000"
                 android:text="86 评论"/>
 
@@ -172,7 +172,7 @@
                 android:drawableLeft="@mipmap/article_collect"
                 android:layout_marginRight="@dimen/dp_19"
                 android:drawablePadding="@dimen/dp_7"
-                android:textSize="@dimen/dp_13"
+                android:textSize="@dimen/sp_13"
                 android:textColor="#000000"
                 android:text="取消收藏"/>
 

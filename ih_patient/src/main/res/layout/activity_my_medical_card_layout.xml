@@ -8,8 +8,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_medical_card_rv"
         android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginLeft="@dimen/dp_19"
-        android:layout_marginRight="@dimen/dp_19"
+        android:layout_marginStart="@dimen/dp_19"
+        android:layout_marginEnd="@dimen/dp_19"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

@@ -8,7 +8,7 @@
         android:id="@+id/like_icon"
         android:layout_width="@dimen/dp_20"
         android:layout_height="@dimen/dp_20"
-        android:layout_marginRight="@dimen/dp_3"
+        android:layout_marginEnd="@dimen/dp_3"
         android:background="@drawable/icon_audio" />
 
 </RelativeLayout>

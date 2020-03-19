@@ -91,7 +91,7 @@
                     android:gravity="center_vertical"
                     android:text="用户编码"
                     android:textColor="#999999"
-                    android:textSize="@dimen/dp_13" />
+                    android:textSize="@dimen/sp_13" />
 
                 <TextView
                     android:id="@+id/user_number_tv"
@@ -108,7 +108,7 @@
                     android:textColor="@color/primary_font_color"
                     android:textColorHint="@color/fontColorDirection"
                     android:textCursorDrawable="@drawable/edit_cursor"
-                    android:textSize="@dimen/dp_13" />
+                    android:textSize="@dimen/sp_13" />
 
             </RelativeLayout>
 
@@ -133,7 +133,7 @@
                     android:gravity="center_vertical"
                     android:text="激活码"
                     android:textColor="#999999"
-                    android:textSize="@dimen/dp_13" />
+                    android:textSize="@dimen/sp_13" />
 
                 <TextView
                     android:id="@+id/code_tv"
@@ -148,7 +148,7 @@
                     android:textColor="@color/primary_font_color"
                     android:textColorHint="@color/fontColorDirection"
                     android:textCursorDrawable="@drawable/edit_cursor"
-                    android:textSize="@dimen/dp_13" />
+                    android:textSize="@dimen/sp_13" />
 
 
             </RelativeLayout>

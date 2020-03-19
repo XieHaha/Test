@@ -48,7 +48,7 @@
             android:textColor="@color/primary_font_color"
             android:textColorHint="@color/fontColorDirection"
             android:textCursorDrawable="@drawable/edit_cursor"
-            android:textSize="@dimen/dp_13" />
+            android:textSize="@dimen/sp_13" />
 
     </RelativeLayout>
 
@@ -85,7 +85,7 @@
             android:textColor="@color/primary_font_color"
             android:textColorHint="@color/fontColorDirection"
             android:textCursorDrawable="@drawable/edit_cursor"
-            android:textSize="@dimen/dp_13" />
+            android:textSize="@dimen/sp_13" />
 
     </RelativeLayout>
 
@@ -118,7 +118,7 @@
             android:textColor="@color/primary_font_color"
             android:textColorHint="@color/fontColorDirection"
             android:textCursorDrawable="@drawable/edit_cursor"
-            android:textSize="@dimen/dp_13" />
+            android:textSize="@dimen/sp_13" />
 
         <ImageView
             android:id="@+id/identifying_code_iv"
@@ -157,7 +157,7 @@
             android:focusable="true"
             android:text="@string/forget_password"
             android:textColor="@drawable/txt_press_bg"
-            android:textSize="@dimen/dp_13" />
+            android:textSize="@dimen/sp_13" />
     </RelativeLayout>
 
 

@@ -13,7 +13,6 @@
         android:layout_height="@dimen/dp_10"
         android:background="@color/line_color" />
 
-
     <com.keydom.ih_common.view.AnimationScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,8 +26,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/padding_left_right_dp"
-                android:paddingRight="@dimen/padding_left_right_dp">
+                android:paddingStart="@dimen/padding_left_right_dp"
+                android:paddingEnd="@dimen/padding_left_right_dp">
 
                 <TextView
                     android:id="@+id/group_doctor_name_tip"
@@ -47,15 +46,15 @@
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@id/group_doctor_name_tip"
                     android:layout_alignBottom="@id/group_doctor_name_tip"
-                    android:layout_alignParentRight="true"
-                    android:layout_toRightOf="@id/group_doctor_name_tip"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@id/group_doctor_name_tip"
                     android:background="@drawable/common_bottom_line_bg">
 
                     <HorizontalScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@id/select_doctor"
+                        android:layout_toStartOf="@id/select_doctor"
                         android:gravity="center_vertical">
 
                         <LinearLayout
@@ -65,16 +64,16 @@
                             android:layout_gravity="right"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:paddingLeft="@dimen/dp_12"
-                            android:paddingRight="12dp"></LinearLayout>
+                            android:paddingStart="@dimen/dp_12"
+                            android:paddingEnd="12dp"/>
                     </HorizontalScrollView>
 
                     <TextView
                         android:id="@+id/select_doctor"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:drawableRight="@mipmap/arrow_right_grey"
+                        android:layout_alignParentEnd="true"
+                        android:drawableEnd="@mipmap/arrow_right_grey"
                         android:drawablePadding="@dimen/dp_15"
                         android:gravity="center_vertical"
                         android:text="请选择医生"
@@ -87,8 +86,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/padding_left_right_dp"
-                android:paddingRight="@dimen/padding_left_right_dp">
+                android:paddingStart="@dimen/padding_left_right_dp"
+                android:paddingEnd="@dimen/padding_left_right_dp">
 
                 <TextView
                     android:id="@+id/diagnose_document_tip"
@@ -105,15 +104,15 @@
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@id/diagnose_document_tip"
                     android:layout_alignBottom="@id/diagnose_document_tip"
-                    android:layout_alignParentRight="true"
-                    android:layout_toRightOf="@id/diagnose_document_tip">
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@id/diagnose_document_tip">
 
                     <TextView
                         android:id="@+id/select_diagnose_order"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:drawableRight="@mipmap/arrow_right_grey"
+                        android:layout_alignParentEnd="true"
+                        android:drawableEnd="@mipmap/arrow_right_grey"
                         android:drawablePadding="@dimen/dp_15"
                         android:gravity="center_vertical"
                         android:text="请选择问诊单"
@@ -145,7 +144,7 @@
                     android:id="@+id/explain_left_img"
                     android:layout_width="@dimen/dp_2"
                     android:layout_height="@dimen/dp_15"
-                    android:layout_marginLeft="@dimen/padding_left_right_dp"
+                    android:layout_marginStart="@dimen/padding_left_right_dp"
                     android:layout_marginTop="@dimen/dp_18"
                     android:background="#71A4FF" />
 
@@ -153,8 +152,8 @@
                     android:id="@+id/explain_tip_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_6"
-                    android:layout_toRightOf="@id/explain_left_img"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:layout_toEndOf="@id/explain_left_img"
                     android:paddingTop="@dimen/dp_16"
                     android:paddingBottom="@dimen/dp_16"
                     android:text="转诊说明"
@@ -173,7 +172,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_150"
                     android:layout_below="@id/explain_line"
-                    android:layout_marginLeft="@dimen/padding_left_right_dp"
+                    android:layout_marginStart="@dimen/padding_left_right_dp"
                     android:layout_marginTop="@dimen/dp_16"
                     android:layout_marginRight="@dimen/padding_left_right_dp"
                     android:layout_marginBottom="@dimen/dp_19">
@@ -198,7 +197,7 @@
                         android:id="@+id/fill_out_apply_layout_voice_input_iv"
                         android:layout_width="20dp"
                         android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginRight="@dimen/dp_5"
                         android:layout_marginBottom="@dimen/dp_5"
@@ -221,7 +220,7 @@
                     android:id="@+id/disease_condition_left_img"
                     android:layout_width="@dimen/dp_2"
                     android:layout_height="@dimen/dp_15"
-                    android:layout_marginLeft="@dimen/padding_left_right_dp"
+                    android:layout_marginStart="@dimen/padding_left_right_dp"
                     android:layout_marginTop="@dimen/dp_18"
                     android:background="#71A4FF" />
 
@@ -230,8 +229,8 @@
                     android:id="@+id/disease_condition_tip_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_6"
-                    android:layout_toRightOf="@id/disease_condition_left_img"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:layout_toEndOf="@id/disease_condition_left_img"
                     android:paddingTop="@dimen/dp_16"
                     android:paddingBottom="@dimen/dp_16"
                     android:text="病情资料"
@@ -245,8 +244,8 @@
                     android:layout_alignTop="@id/disease_condition_tip_tv"
                     android:layout_alignBottom="@id/disease_condition_tip_tv"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/padding_left_right_dp"
-                    android:layout_toRightOf="@id/disease_condition_tip_tv"
+                    android:layout_marginEnd="@dimen/padding_left_right_dp"
+                    android:layout_toEndOf="@id/disease_condition_tip_tv"
                     android:gravity="center_vertical"
                     android:text="（检查报告、处方或其他病情资料）"
                     android:textColor="#BBBBBB"
@@ -270,9 +269,9 @@
                     android:horizontalSpacing="@dimen/dp_10"
                     android:listSelector="@android:color/transparent"
                     android:numColumns="auto_fit"
-                    android:paddingLeft="@dimen/padding_left_right_dp"
+                    android:paddingStart="@dimen/padding_left_right_dp"
                     android:paddingTop="@dimen/dp_17"
-                    android:paddingRight="@dimen/padding_left_right_dp"
+                    android:paddingEnd="@dimen/padding_left_right_dp"
                     android:paddingBottom="@dimen/dp_19"
                     android:scrollbars="none"
                     android:verticalSpacing="@dimen/dp_10">

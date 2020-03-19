@@ -38,6 +38,9 @@
     <string name="txt_blood_pressure">血压</string>
     <string name="txt_heart_rate">心率</string>
 
+    <!--在线问诊-->
+    <string name="txt_triage">分诊</string>
+
 
     <!-- 讯飞SDK appid -->
     <string name="xunfei_app_id">5dd938d5</string>

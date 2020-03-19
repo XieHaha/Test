@@ -95,7 +95,7 @@
             android:ellipsize="end"
             android:paddingRight="@dimen/dp_25"
             android:singleLine="true"
-            android:textSize="@dimen/dp_13" />
+            android:textSize="@dimen/sp_13" />
 
 
         <TextView

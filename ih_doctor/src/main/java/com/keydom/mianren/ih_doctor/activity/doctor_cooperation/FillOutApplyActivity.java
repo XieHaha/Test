@@ -115,7 +115,6 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
     private LinearLayout diagnoseOrderLl, doctorBox;
 
 
-
     private ImageView mVoiceInputIv;
 
     // 语音听写UI
@@ -130,7 +129,8 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
         public void onInit(int code) {
 
             if (code != ErrorCode.SUCCESS) {
-                Log.e("xunfei","初始化失败，错误码：" + code+",请点击网址https://www.xfyun.cn/document/error-code查询解决方案");
+                Log.e("xunfei", "初始化失败，错误码：" + code + ",请点击网址https://www.xfyun" +
+                        ".cn/document/error-code查询解决方案");
             }
         }
     };
@@ -140,12 +140,12 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
      */
     private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
         public void onResult(RecognizerResult results, boolean isLast) {
-            if(null != explainInputEt){
+            if (null != explainInputEt) {
                 String text = JsonUtils.handleXunFeiJson(results);
-                if(TextUtils.isEmpty(explainInputEt.getText().toString())){
+                if (TextUtils.isEmpty(explainInputEt.getText().toString())) {
                     explainInputEt.setText(text);
                     explainInputEt.setSelection(explainInputEt.getText().length());
-                }else{
+                } else {
                     explainInputEt.setText(explainInputEt.getText().toString() + text);
                     explainInputEt.setSelection(explainInputEt.getText().length());
                 }
@@ -157,7 +157,7 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
          * 识别回调错误.
          */
         public void onError(SpeechError error) {
-            ToastUtil.showMessage(FillOutApplyActivity.this,error.getPlainDescription(true));
+            ToastUtil.showMessage(FillOutApplyActivity.this, error.getPlainDescription(true));
 
         }
 
@@ -193,19 +193,21 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
     @SuppressLint("CheckResult")
     public void initPremissions() {
         RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        rxPermissions.request(Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean granted) throws Exception {
                         if (granted) {
-                            if(mIatDialog.isShowing()){
+                            if (mIatDialog.isShowing()) {
                                 mIatDialog.dismiss();
                             }
                             mIatDialog.show();
-                            ToastUtil.showMessage(FillOutApplyActivity.this,"请开始说话…");
+                            ToastUtil.showMessage(FillOutApplyActivity.this, "请开始说话…");
 
                         } else {
-                            ToastUtil.showMessage(FillOutApplyActivity.this,"请开启录音需要的权限");
+                            ToastUtil.showMessage(FillOutApplyActivity.this, "请开启录音需要的权限");
 
                         }
                     }
@@ -288,7 +290,7 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
         TextView userSex = view.findViewById(R.id.user_sex);
         TextView diagnoseDec = view.findViewById(R.id.diagnose_dec);
         TextView diagnoseTime = view.findViewById(R.id.diagnose_time);
-        TextView diagnoseType=view.findViewById(R.id.order_type_tv);
+        TextView diagnoseType = view.findViewById(R.id.order_type_tv);
         ImageView delete = view.findViewById(R.id.delete);
         RecyclerView imgRv = view.findViewById(R.id.img_rv);
         userName.setText(bean.getName());
@@ -297,34 +299,41 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
         diagnoseDec.setText(bean.getConditionDesc());
         diagnoseTime.setText(bean.getApplyTime());
         selectDiagnoseOrder.setText(bean.getName());
-        if(bean.getInquisitionType()==0){
+        if (bean.getInquisitionType() == 0) {
             diagnoseType.setText("图文问诊");
-            Drawable rightDrawable = getContext().getResources().getDrawable(R.mipmap.diagnose_illustration);
-            rightDrawable.setBounds(0, 0, rightDrawable.getMinimumWidth(), rightDrawable.getMinimumHeight());
-            diagnoseType.setCompoundDrawables(rightDrawable,null,null,null);
-        }else {
+            Drawable rightDrawable =
+                    getContext().getResources().getDrawable(R.mipmap.diagnose_illustration);
+            rightDrawable.setBounds(0, 0, rightDrawable.getMinimumWidth(),
+                    rightDrawable.getMinimumHeight());
+            diagnoseType.setCompoundDrawables(rightDrawable, null, null, null);
+        } else {
             diagnoseType.setText("视频问诊");
-            Drawable rightDrawable = getContext().getResources().getDrawable(R.mipmap.video_diagnoses_icon);
-            rightDrawable.setBounds(0, 0, rightDrawable.getMinimumWidth(), rightDrawable.getMinimumHeight());
-            diagnoseType.setCompoundDrawables(rightDrawable,null,null,null);
+            Drawable rightDrawable =
+                    getContext().getResources().getDrawable(R.mipmap.video_diagnoses_icon);
+            rightDrawable.setBounds(0, 0, rightDrawable.getMinimumWidth(),
+                    rightDrawable.getMinimumHeight());
+            diagnoseType.setCompoundDrawables(rightDrawable, null, null, null);
 
         }
         orderStatus.setVisibility(View.GONE);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new GeneralDialog(FillOutApplyActivity.this, "确定删除该问诊单?", new GeneralDialog.OnCloseListener() {
-                    @Override
-                    public void onCommit() {
-                        orderBean = null;
-                        diagnoseOrderLl.removeAllViews();
-                        selectDiagnoseOrder.setText("请选择问诊单");
-                    }
-                }).show();
+                new GeneralDialog(FillOutApplyActivity.this, "确定删除该问诊单?",
+                        new GeneralDialog.OnCloseListener() {
+                            @Override
+                            public void onCommit() {
+                                orderBean = null;
+                                diagnoseOrderLl.removeAllViews();
+                                selectDiagnoseOrder.setText("请选择问诊单");
+                            }
+                        }).show();
             }
         });
-        GlideUtils.load(userIcon, Const.IMAGE_HOST + bean.getUserAvatar(), 0, R.mipmap.user_icon, false, null);
-        DiagnoseOrderDetailAdapter adapter = new DiagnoseOrderDetailAdapter(this, CommonUtils.getImgList(orderBean.getConditionData()));
+        GlideUtils.load(userIcon, Const.IMAGE_HOST + bean.getUserAvatar(), 0, R.mipmap.user_icon,
+                false, null);
+        DiagnoseOrderDetailAdapter adapter = new DiagnoseOrderDetailAdapter(this,
+                CommonUtils.getImgList(orderBean.getConditionData()));
         LinearLayoutManager diagnoseInfoImgRvLm = new LinearLayoutManager(this);
         diagnoseInfoImgRvLm.setOrientation(LinearLayoutManager.HORIZONTAL);
         imgRv.setAdapter(adapter);
@@ -353,28 +362,29 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
                     }
                     break;
                 case Const.DOCTOR_SLEECT_ONLY_RESULT:
-                    List<DeptDoctorBean> list = (List<DeptDoctorBean>) data.getSerializableExtra(Const.DATA);
-                    if(orderBean!=null&&orderBean.getInquisitionType()==0){
-                        if(list.get(0).getProjectStatus()==1||list.get(0).getProjectStatus()==3){
+                    List<DeptDoctorBean> list =
+                            (List<DeptDoctorBean>) data.getSerializableExtra(Const.DATA);
+                    if (orderBean != null && orderBean.getInquisitionType() == 0) {
+                        if (list.get(0).getProjectStatus() == 1 || list.get(0).getProjectStatus() == 3) {
                             doctorList.clear();
                             doctorList.addAll(list);
                             removeView();
                             addDoctor();
                             selectDoctor.setText("");
-                        }else {
-                            ToastUtil.showMessage(getContext(),"该医生未开通图文问诊服务");
+                        } else {
+                            ToastUtil.showMessage(getContext(), "该医生未开通图文问诊服务");
                         }
-                    }else  if(orderBean!=null&&orderBean.getInquisitionType()==1){
-                        if(list.get(0).getProjectStatus()==2||list.get(0).getProjectStatus()==3){
+                    } else if (orderBean != null && orderBean.getInquisitionType() == 1) {
+                        if (list.get(0).getProjectStatus() == 2 || list.get(0).getProjectStatus() == 3) {
                             doctorList.clear();
                             doctorList.addAll(list);
                             removeView();
                             addDoctor();
                             selectDoctor.setText("");
-                        }else {
-                            ToastUtil.showMessage(getContext(),"该医生未开通视频问诊服务");
+                        } else {
+                            ToastUtil.showMessage(getContext(), "该医生未开通视频问诊服务");
                         }
-                    }else{
+                    } else {
                         doctorList.clear();
                         doctorList.addAll(list);
                         removeView();
@@ -436,9 +446,9 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
 
     @Override
     public void uploadFailed(String errMsg) {
-        if(errMsg==null||"".equals(errMsg.trim())){
+        if (errMsg == null || "".equals(errMsg.trim())) {
             ToastUtil.showMessage(this, errMsg);
-        }else{
+        } else {
             ToastUtil.showMessage(this, "图片上传失败!");
         }
     }
@@ -491,7 +501,8 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
     @Override
     public Map<String, Object> getOperateMap() {
         Map<String, Object> map = new HashMap<>();
-        map.put("referralExplain", CommonUtils.filterEmoji(explainInputEt.getText().toString().trim()));
+        map.put("referralExplain",
+                CommonUtils.filterEmoji(explainInputEt.getText().toString().trim()));
         map.put("orderId", orderBean.getId());
         map.put("patientAge", orderBean.getAge());
         map.put("patientName", orderBean.getName());

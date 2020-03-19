@@ -100,7 +100,7 @@ public interface GroupCooperateApiService {
     Observable<HttpResult<List<DeptDoctorBean>>> queryDoctorTeamAllUserAuthorization(@QueryMap Map<String, Object> maps);
 
 
-//*****************************************
+    //*****************************************
 
     /**
      * 转诊操作
@@ -120,7 +120,6 @@ public interface GroupCooperateApiService {
      */
     @POST("user/referral/save")
     Observable<HttpResult<DiagnoseFillOutResBean>> save(@Body RequestBody body);
-
 
     /**
      * 获取问诊记录

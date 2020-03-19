@@ -55,7 +55,7 @@
                     android:hint="@string/register_phone_hint"
                     android:textColor="@color/color_333333"
                     android:textCursorDrawable="@drawable/edit_cursor"
-                    android:textSize="@dimen/dp_13" />
+                    android:textSize="@dimen/sp_13" />
 
             </RelativeLayout>
 
@@ -89,7 +89,7 @@
                     android:hint="@string/register_code_hint"
                     android:textColor="@color/color_333333"
                     android:textCursorDrawable="@drawable/edit_cursor"
-                    android:textSize="@dimen/dp_13" />
+                    android:textSize="@dimen/sp_13" />
 
                 <com.keydom.ih_common.view.MButton
                     android:id="@+id/get_code_bt"

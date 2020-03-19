@@ -43,12 +43,12 @@
                         android:id="@+id/title_left_icon"
                         android:layout_width="@dimen/dp_2"
                         android:layout_height="@dimen/dp_18"
-                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:src="@mipmap/title_left_icon"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_6"
+                        android:layout_marginStart="@dimen/dp_6"
                         android:layout_toRightOf="@+id/title_left_icon"
                         android:text="待处理问诊"
                         android:textSize="@dimen/font_size_primary"
@@ -116,12 +116,12 @@
                     <ImageView
                         android:layout_width="@dimen/dp_2"
                         android:layout_height="@dimen/dp_18"
-                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
                         android:src="@mipmap/title_left_icon"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_6"
+                        android:layout_marginStart="@dimen/dp_6"
                         android:text="我的医生"
                         android:textSize="@dimen/font_size_primary"
                         android:textColor="@color/fontColorPrimary"/>

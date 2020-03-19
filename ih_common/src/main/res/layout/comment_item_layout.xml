@@ -23,7 +23,7 @@
                     android:layout_gravity="center"
                     android:layout_height="28dp"
                     android:layout_marginLeft="14dp"
-                    android:layout_marginRight="6dp"
+                    android:layout_marginEnd="6dp"
                     android:background="@mipmap/user_icon" />
             </FrameLayout>
 
@@ -104,7 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_48"
         android:layout_marginTop="@dimen/dp_5"
-        android:layout_marginRight="@dimen/dp_32"
+        android:layout_marginEnd="@dimen/dp_32"
         android:orientation="horizontal">
 
         <View
@@ -133,7 +133,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_52"
         android:layout_marginTop="@dimen/dp_8"
-        android:layout_marginRight="@dimen/dp_24"
+        android:layout_marginEnd="@dimen/dp_24"
         android:layout_marginBottom="@dimen/dp_24"
         android:text="从前有座山，山里有座庙，庙里有个老和尚"
         android:textColor="#484848"

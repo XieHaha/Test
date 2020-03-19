@@ -23,7 +23,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_marginLeft="@dimen/dp_19"
-            android:layout_marginRight="@dimen/dp_19"
+            android:layout_marginEnd="@dimen/dp_19"
             android:layout_height="@dimen/dp_43"
             android:layout_marginTop="@dimen/dp_6"
             android:layout_gravity="center_horizontal"
@@ -46,7 +46,7 @@
                 android:layout_marginLeft="@dimen/dp_41"
                 android:textCursorDrawable="@drawable/edit_cursor"
                 android:background="@null"
-                android:textSize="@dimen/dp_13"
+                android:textSize="@dimen/sp_13"
                 android:maxLength="11"
                 android:textColor="@color/color_333333"
                 android:hint="@string/register_phone_hint" />
@@ -59,7 +59,7 @@
             android:layout_height="@dimen/dp_43"
             android:layout_marginTop="@dimen/dp_10"
             android:layout_marginLeft="@dimen/dp_19"
-            android:layout_marginRight="@dimen/dp_19"
+            android:layout_marginEnd="@dimen/dp_19"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/update_password_input_bg"
             >
@@ -79,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_43"
                 android:layout_marginLeft="@dimen/dp_41"
-                android:textSize="@dimen/dp_13"
+                android:textSize="@dimen/sp_13"
                 android:background="@null"
                 android:textCursorDrawable="@drawable/edit_cursor"
                 android:textColor="@color/color_333333"
@@ -163,7 +163,7 @@
                     android:layout_marginLeft="@dimen/dp_41"
                     android:textCursorDrawable="@drawable/edit_cursor"
                     android:background="@null"
-                    android:textSize="@dimen/dp_13"
+                    android:textSize="@dimen/sp_13"
                     android:maxLength="20"
                     android:textColor="@color/color_333333"
                     android:hint="输入账户"/>
@@ -195,7 +195,7 @@
                     android:layout_marginLeft="@dimen/dp_41"
                     android:textCursorDrawable="@drawable/edit_cursor"
                     android:background="@null"
-                    android:textSize="@dimen/dp_13"
+                    android:textSize="@dimen/sp_13"
                     android:textColor="@color/color_333333"
                     android:hint="设置密码"/>
 
@@ -225,7 +225,7 @@
                     android:layout_marginLeft="@dimen/dp_41"
                     android:textCursorDrawable="@drawable/edit_cursor"
                     android:background="@null"
-                    android:textSize="@dimen/dp_13"
+                    android:textSize="@dimen/sp_13"
                     android:textColor="@color/color_333333"
                     android:hint="重复密码"/>
 
@@ -330,7 +330,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_61"
             android:layout_marginLeft="@dimen/dp_18"
-            android:layout_marginRight="@dimen/dp_18"
+            android:layout_marginEnd="@dimen/dp_18"
             android:layout_gravity="center_horizontal"
             android:textSize="@dimen/dp_17"
             android:gravity="center"
@@ -345,7 +345,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_61"
             android:layout_marginLeft="@dimen/dp_18"
-            android:layout_marginRight="@dimen/dp_18"
+            android:layout_marginEnd="@dimen/dp_18"
             android:layout_gravity="center_horizontal"
             android:textSize="@dimen/dp_17"
             android:gravity="center"

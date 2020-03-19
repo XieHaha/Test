@@ -142,7 +142,7 @@
                     android:id="@+id/money"
                     android:layout_marginTop="@dimen/dp_19"
                     android:layout_toRightOf="@+id/total"
-                    android:layout_marginLeft="@dimen/dp_13"
+                    android:layout_marginStart="@dimen/dp_13"
                     android:textColor="@color/nursing_status_red"
                     android:textSize="@dimen/dp_17"
                     android:text="¥"

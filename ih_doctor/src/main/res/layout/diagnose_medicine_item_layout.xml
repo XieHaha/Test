@@ -125,7 +125,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:background="#F5F5F5"
-            android:textSize="@dimen/dp_13"
+            android:textSize="@dimen/sp_13"
             android:textColor="#666666"
             android:text="修改"/>
         <TextView
@@ -134,7 +134,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:background="#FF3939 "
-            android:textSize="@dimen/dp_13"
+            android:textSize="@dimen/sp_13"
             android:textColor="#FFFFFF"
             android:text="删除"/>
     </LinearLayout>

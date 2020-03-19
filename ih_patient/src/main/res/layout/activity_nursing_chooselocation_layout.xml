@@ -21,14 +21,14 @@
             android:layout_width="@dimen/dp_2"
             android:layout_height="@dimen/dp_18"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:src="@mipmap/title_left_icon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_6"
+            android:layout_marginStart="@dimen/dp_6"
             android:layout_toRightOf="@+id/function_config_second_icon"
             android:text="上门服务"
             android:textColor="@color/fontColorPrimary"
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_6"
+            android:layout_marginStart="@dimen/dp_6"
             android:paddingLeft="@dimen/dp_20"
             android:gravity="center_vertical"
             android:drawableRight="@mipmap/exa_report_right"
@@ -57,15 +57,15 @@
             android:layout_height="@dimen/dp_1"
             android:background="#EEEEEE"
             android:layout_alignParentBottom="true"
-            android:layout_marginRight="@dimen/dp_19"
-            android:layout_marginLeft="@dimen/dp_19"/>
+            android:layout_marginEnd="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_144"
         android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginLeft="@dimen/dp_19"
-        android:layout_marginRight="@dimen/dp_19">
+        android:layout_marginStart="@dimen/dp_19"
+        android:layout_marginEnd="@dimen/dp_19">
         <com.baidu.mapapi.map.MapView
             android:id="@+id/nursing_service_mv"
             android:layout_width="match_parent"
@@ -109,14 +109,14 @@
             android:layout_width="@dimen/dp_2"
             android:layout_height="@dimen/dp_18"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:src="@mipmap/title_left_icon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_6"
+            android:layout_marginStart="@dimen/dp_6"
             android:layout_toRightOf="@+id/second_icon"
             android:text="预约注意事项"
             android:textColor="@color/fontColorPrimary"
@@ -126,8 +126,8 @@
         android:id="@+id/notice_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/dp_29"
-        android:layout_marginLeft="@dimen/dp_29"
+        android:layout_marginEnd="@dimen/dp_29"
+        android:layout_marginStart="@dimen/dp_29"
         android:lineSpacingExtra="@dimen/dp_8"
         android:textSize="@dimen/sp_14"
         android:textColor="#666666"
@@ -142,8 +142,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_54"
-            android:layout_marginLeft="@dimen/dp_54"
+            android:layout_marginEnd="@dimen/dp_54"
+            android:layout_marginStart="@dimen/dp_54"
             android:gravity="center_horizontal"
             android:lineSpacingExtra="@dimen/dp_5"
             android:text="已为您购买护理责任险和雇主责任险，分别最高赔付20万元 《保险条款》"
@@ -159,7 +159,7 @@
             android:id="@+id/nursing_service_notice_ck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_28"
+            android:layout_marginStart="@dimen/dp_28"
             android:scaleY="0.8"
             android:scaleX="0.8"
             android:layout_gravity="center_vertical"

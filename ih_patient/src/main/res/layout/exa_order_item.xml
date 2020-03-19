@@ -35,5 +35,5 @@
         android:textColor="@color/primary_color"
         android:text="预约"
         android:background="@drawable/exa_has_num_bg"
-        android:layout_marginRight="@dimen/dp_51" />
+        android:layout_marginEnd="@dimen/dp_51" />
 </RelativeLayout>

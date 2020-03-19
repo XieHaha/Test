@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_24"
-            android:layout_marginRight="@dimen/dp_24"
+            android:layout_marginEnd="@dimen/dp_24"
             android:background="@drawable/shadow_apply_order_detail"
             android:orientation="vertical"
             android:paddingLeft="@dimen/dp_20"
@@ -358,7 +358,7 @@
                     android:layout_below="@id/doctor_instruction_tv"
                     android:layout_marginLeft="@dimen/dp_35"
                     android:layout_marginTop="@dimen/dp_20"
-                    android:layout_marginRight="@dimen/dp_20"
+                    android:layout_marginEnd="@dimen/dp_20"
                     android:background="@color/line_color" />
 
             </RelativeLayout>

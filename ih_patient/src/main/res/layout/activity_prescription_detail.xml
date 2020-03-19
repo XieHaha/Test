@@ -46,7 +46,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:layout_marginLeft="16dp"
+                                android:layout_marginStart="16dp"
                                 android:text="地址信息"
                                 android:textColor="#BBBBBB"
                                 android:textSize="14dp" />
@@ -64,7 +64,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginRight="16dp"
+                                android:layout_marginEnd="16dp"
                                 android:src="@mipmap/arrow_bottom" />
                         </RelativeLayout>
 
@@ -91,7 +91,7 @@
                                     android:layout_height="@dimen/dp_50"
                                     android:layout_alignParentRight="true"
                                     android:layout_alignParentBottom="true"
-                                    android:layout_marginRight="@dimen/dp_46"
+                                    android:layout_marginEnd="@dimen/dp_46"
                                     android:background="@mipmap/go_map" />
                             </RelativeLayout>
 
@@ -109,7 +109,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:layout_marginLeft="16dp"
+                                android:layout_marginStart="16dp"
                                 android:text="基本信息"
                                 android:textColor="#BBBBBB"
                                 android:textSize="14dp" />
@@ -127,7 +127,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginRight="16dp"
+                                android:layout_marginEnd="16dp"
                                 android:src="@mipmap/arrow_bottom" />
                         </RelativeLayout>
 
@@ -148,7 +148,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:layout_marginLeft="16dp"
+                                android:layout_marginStart="16dp"
                                 android:text="处方信息"
                                 android:textColor="#BBBBBB"
                                 android:textSize="14dp" />
@@ -166,7 +166,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginRight="16dp"
+                                android:layout_marginEnd="16dp"
                                 android:src="@mipmap/arrow_bottom" />
                         </RelativeLayout>
 
@@ -188,7 +188,7 @@
 
                                 <ImageView
                                     android:layout_marginTop="@dimen/dp_8"
-                                    android:layout_marginLeft="@dimen/dp_21"
+                                    android:layout_marginStart="@dimen/dp_21"
                                     android:layout_width="@dimen/dp_21"
                                     android:layout_height="@dimen/dp_21"
                                     android:src="@mipmap/icon_rp"
@@ -211,15 +211,15 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp_1"
-                                android:layout_marginLeft="@dimen/dp_58"
-                                android:layout_marginRight="@dimen/dp_22"
+                                android:layout_marginStart="@dimen/dp_58"
+                                android:layout_marginEnd="@dimen/dp_22"
                                 android:background="@color/mine_interval_bg" />
 
                             <com.keydom.mianren.ih_patient.view.MyViewPager
                                 android:id="@+id/vp_prescription"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp_58" />
+                                android:layout_marginStart="@dimen/dp_58" />
 
                         </LinearLayout>
 
@@ -242,7 +242,7 @@
                                 android:id="@+id/tv_he"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp_75"
+                                android:layout_marginStart="@dimen/dp_75"
                                 android:text="合计："
                                 android:textColor="@color/title_bar_text_color"
                                 android:textSize="@dimen/sp_14" />
@@ -251,7 +251,7 @@
                                 android:id="@+id/tv_combined_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp_10"
+                                android:layout_marginStart="@dimen/dp_10"
                                 android:layout_toRightOf="@+id/tv_he"
                                 android:text="￥0"
                                 android:textColor="#FF3939"
@@ -271,7 +271,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:layout_marginLeft="16dp"
+                                android:layout_marginStart="16dp"
                                 android:text="开方/审方信息"
                                 android:textColor="#BBBBBB"
                                 android:textSize="14dp" />
@@ -289,7 +289,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginRight="16dp"
+                                android:layout_marginEnd="16dp"
                                 android:src="@mipmap/arrow_bottom" />
                         </RelativeLayout>
 
@@ -325,7 +325,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:layout_marginLeft="16dp"
+                                    android:layout_marginStart="16dp"
                                     android:text="物流信息"
                                     android:textColor="#BBBBBB"
                                     android:textSize="14dp" />
@@ -343,7 +343,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:layout_centerVertical="true"
-                                    android:layout_marginRight="@dimen/dp_20"
+                                    android:layout_marginEnd="@dimen/dp_20"
                                     android:src="@mipmap/arrow_bottom" />
                             </RelativeLayout>
                         <LinearLayout
@@ -365,7 +365,7 @@
                                     android:id="@+id/tv_name"
                                     android:layout_width="@dimen/dp_74"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dp_10"
+                                    android:layout_marginStart="@dimen/dp_10"
                                     android:gravity="right"
                                     android:text="运单号:"
                                     android:textColor="#999999"
@@ -375,7 +375,7 @@
                                     android:id="@+id/prescription_detail_wallcode_tv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dp_26"
+                                    android:layout_marginStart="@dimen/dp_26"
                                     android:layout_toRightOf="@+id/tv_name"
                                     android:text="暂无"
                                     android:textColor="#666666"
@@ -391,7 +391,7 @@
                                     android:id="@+id/tv_patient_name"
                                     android:layout_width="@dimen/dp_74"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dp_10"
+                                    android:layout_marginStart="@dimen/dp_10"
                                     android:gravity="right"
                                     android:text="国内承运人:"
                                     android:textColor="#999999"
@@ -401,7 +401,7 @@
                                     android:id="@+id/prescription_detail_courier_tv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dp_26"
+                                    android:layout_marginStart="@dimen/dp_26"
                                     android:layout_toRightOf="@+id/tv_patient_name"
                                     android:text="暂无"
                                     android:textColor="#666666"
@@ -418,7 +418,7 @@
                                     android:id="@+id/tv_records_name"
                                     android:layout_width="@dimen/dp_74"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dp_10"
+                                    android:layout_marginStart="@dimen/dp_10"
                                     android:gravity="right"
                                     android:text="预计送达:"
                                     android:textColor="#999999"
@@ -428,7 +428,7 @@
                                     android:id="@+id/prescription_detail_delivery_time_tv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dp_26"
+                                    android:layout_marginStart="@dimen/dp_26"
                                     android:layout_toRightOf="@+id/tv_records_name"
                                     android:text="暂无"
                                     android:textColor="#666666"

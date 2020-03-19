@@ -16,7 +16,7 @@
         android:paddingBottom="@dimen/dp_15"
         android:text="新增子订单"
         android:textColor="#333333"
-        android:textSize="@dimen/dp_13" />
+        android:textSize="@dimen/sp_13" />
 
    <TextView
        android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
        android:paddingTop="@dimen/dp_10"
        android:layout_marginTop="@dimen/dp_10"
        android:layout_marginRight="@dimen/dp_20"
-       android:textSize="@dimen/dp_13"
+       android:textSize="@dimen/sp_13"
        android:textColor="#3F98F7"
        android:text="删除"/>
 
@@ -40,7 +40,7 @@
         android:paddingTop="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_15"
-        android:textSize="@dimen/dp_13"
+        android:textSize="@dimen/sp_13"
         android:textColor="#3F98F7"
         android:text="修改"/>
 

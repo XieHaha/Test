@@ -132,7 +132,7 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_5"
-            android:layout_marginRight="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_16"
             android:background="#00000000"
             app:gravity="0"
             app:indicatorColor="#668b8989"

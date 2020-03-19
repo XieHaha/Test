@@ -479,7 +479,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         referralTv = view.findViewById(R.id.referral);
         view.findViewById(R.id.inspection).setOnClickListener(this);
         view.findViewById(R.id.examination).setOnClickListener(this);
-        view.findViewById(R.id.referral).setOnClickListener(this);
+        referralTv.setOnClickListener(this);
+        view.findViewById(R.id.inquiry_pop_triage_tv).setOnClickListener(this);
         mVideoPlugin = new VideoPlugin();
         mEndInquiryPlugin = new EndInquiryPlugin(() -> {
             mMessageView.hideExtension();
@@ -715,11 +716,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 if (referralState == 0 || referralState == 1) {
                     new GeneralDialog(getContext(), "确认取消该条转诊操作？",
                             new GeneralDialog.OnCloseListener() {
-                        @Override
-                        public void onCommit() {
-                            getController().stopReferral();
-                        }
-                    }).setTitle("提示").show();
+                                @Override
+                                public void onCommit() {
+                                    getController().stopReferral();
+                                }
+                            }).setTitle("提示").show();
 
                 } else {
                     FillOutApplyActivity.startFillOut(this, orderBean);
@@ -1075,7 +1076,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     userFollowUpAttachment.setDoctorName("伍齐鸣");
                     userFollowUpAttachment.setFileName("高血压随访管理表");
                     userFollowUpAttachment.setUrl("https://www.baidu.com/");
-                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId, SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
+                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
+                            SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
 
                     mFixHeightBottomSheetDialog.dismiss();
                 }
