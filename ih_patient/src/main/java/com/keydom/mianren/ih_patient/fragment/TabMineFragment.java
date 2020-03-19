@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -410,11 +411,13 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
                     } else {
                         mineUserLocationTv.setText("还未完善地址信息");
                     }
-                    mineUserLocationTv.setTextColor(Color.parseColor("#333333"));
+                    mineUserLocationTv.setTextColor(ContextCompat.getColor(getContext(),
+                            R.color.color_333333));
                     mineUserPhoneTv.setText(userInfo.getPhoneNumber() !=
                             null && !"".equals(userInfo.getPhoneNumber()) ?
                             userInfo.getPhoneNumber() : "");
-                    mineUserPhoneTv.setTextColor(Color.parseColor("#333333"));
+                    mineUserPhoneTv.setTextColor(ContextCompat.getColor(getContext(),
+                            R.color.color_333333));
                     mineUserName.setText(userInfo.getUserName() != null && !"".equals(userInfo.getUserName()) ? userInfo.getUserName() : "");
                     if (userInfo.getSex() != null && !"".equals(userInfo.getSex())) {
                         mineUserSexTv.setText("0".equals(userInfo.getSex()) ? "男" : "女");

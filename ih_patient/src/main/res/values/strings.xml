@@ -160,7 +160,6 @@
 
     <string name="nursing_service_example">N00003659842165412\n  执笔一副情画 \n  185 2696 6665\n  成都市武侯区天府软件园C区11-22\n  2018-09-25 13:00\n  张三 男 30岁\n  四川大学华西医院\n  妇科</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- 讯飞SDK appid -->

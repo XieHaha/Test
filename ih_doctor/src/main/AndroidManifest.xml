@@ -284,6 +284,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.health_manager.HealthManagerActivity" />
         <activity android:name=".activity.health_manager.PatientInfoActivity" />
+        <activity android:name=".activity.doctor_cooperation.TriageApplyActivity" />
 
     </application>
 

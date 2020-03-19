@@ -666,7 +666,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 break;
             case R.id.disposal_advice_ll:
                 //                DiagnoseHandleProposalActivity.start(this, orderBean);
-                DiagnosePrescriptionActivity.startHandle(ConversationActivity.this, orderBean);
+                DiagnosePrescriptionActivity.startHandle(this, orderBean);
                 break;
             case R.id.inspection:
                 if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_CHECKOUT_SERVICE_CODE})) {
@@ -728,6 +728,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 if (mPopupWindow != null) {
                     mPopupWindow.dismiss();
                 }
+                break;
+            case R.id.inquiry_pop_triage_tv:
+                //分诊
                 break;
             default:
         }
