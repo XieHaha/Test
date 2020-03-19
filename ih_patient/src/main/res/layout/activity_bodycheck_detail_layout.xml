@@ -38,7 +38,7 @@
                     android:layout_marginBottom="@dimen/dp_20"
                     android:text="科室:   "
                     android:textColor="#BBBBBB"
-                    android:textSize="@dimen/dp_14" />
+                    android:textSize="@dimen/sp_14" />
                 <TextView
                     android:id="@+id/department_tv"
                     android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
                     android:layout_toRightOf="@+id/department_label"
                     android:text=""
                     android:textColor="#333333"
-                    android:textSize="@dimen/dp_14" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/name_tv"
@@ -59,7 +59,7 @@
                     android:layout_marginBottom="@dimen/dp_10"
                     android:text=""
                     android:textColor="#333333"
-                    android:textSize="@dimen/dp_14" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/name_label"
@@ -70,7 +70,7 @@
                     android:layout_marginBottom="@dimen/dp_10"
                     android:text="姓名:   "
                     android:textColor="#BBBBBB"
-                    android:textSize="@dimen/dp_14" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/order_num_label"
@@ -81,7 +81,7 @@
                     android:layout_marginBottom="@dimen/dp_20"
                     android:text="门诊号:   "
                     android:textColor="#BBBBBB"
-                    android:textSize="@dimen/dp_14" />
+                    android:textSize="@dimen/sp_14" />
                 <TextView
                     android:id="@+id/order_num_tv"
                     android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
                     android:layout_toRightOf="@+id/order_num_label"
                     android:text=""
                     android:textColor="#333333"
-                    android:textSize="@dimen/dp_14" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/sex_tv"
@@ -103,7 +103,7 @@
                    android:layout_toRightOf="@+id/sex_label"
                     android:text=""
                     android:textColor="#333333"
-                    android:textSize="@dimen/dp_14" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/sex_label"
@@ -114,7 +114,7 @@
                     android:layout_marginLeft="@dimen/dp_147"
                     android:text="性别:   "
                     android:textColor="#BBBBBB"
-                    android:textSize="@dimen/dp_14" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/age_tv"
@@ -126,7 +126,7 @@
                     android:layout_marginBottom="@dimen/dp_10"
                     android:text=""
                     android:textColor="#333333"
-                    android:textSize="@dimen/dp_14" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/age_label"
@@ -137,7 +137,7 @@
                     android:layout_toLeftOf="@+id/age_tv"
                     android:text="年龄:   "
                     android:textColor="#BBBBBB"
-                    android:textSize="@dimen/dp_14" />
+                    android:textSize="@dimen/sp_14" />
             </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -147,7 +147,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/dp_14"
+                    android:textSize="@dimen/sp_14"
                     android:textColor="#999999"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/dp_19"
@@ -156,7 +156,7 @@
                     android:id="@+id/body_check_part_tv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/dp_14"
+                    android:textSize="@dimen/sp_14"
                     android:textColor="#333333"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/dp_11"
@@ -190,7 +190,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp_20"
                     android:layout_marginLeft="@dimen/font_size_primary"
-                    android:textSize="@dimen/dp_14"
+                    android:textSize="@dimen/sp_14"
                     android:textColor="#333333"
                     android:gravity="center_vertical"
                     android:text=""/>

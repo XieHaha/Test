@@ -10,4 +10,4 @@
     android:paddingEnd="@dimen/dp_12"
     android:scaleType="centerCrop"
     android:textColor="@color/im_context_text"
-    android:textSize="@dimen/dp_14" />
+    android:textSize="@dimen/sp_14" />

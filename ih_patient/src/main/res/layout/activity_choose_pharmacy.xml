@@ -31,7 +31,7 @@
                 android:drawablePadding="@dimen/dp_14"
                 android:text="距离"
                 android:textColor="#3F98F7"
-                android:textSize="@dimen/dp_14" />
+                android:textSize="@dimen/sp_14" />
         </RelativeLayout>
 
         <View

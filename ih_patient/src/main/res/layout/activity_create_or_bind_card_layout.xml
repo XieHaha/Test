@@ -106,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/dp_14"
+            android:textSize="@dimen/sp_14"
             android:layout_marginTop="@dimen/dp_29"
             android:textColor="#666666"
             android:text="您可前往个人中心我的就诊卡中"/>
@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_5"
             android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/dp_14"
+            android:textSize="@dimen/sp_14"
             android:textColor="#666666"
             android:text="进行查看"/>
     </LinearLayout>

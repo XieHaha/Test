@@ -91,7 +91,7 @@
             android:layout_marginStart="@dimen/dp_10"
             android:gravity="center"
             android:textColor="@color/im_status_ing"
-            android:textSize="@dimen/dp_14"
+            android:textSize="@dimen/sp_14"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/inquiry_type_image"
             app:layout_constraintTop_toTopOf="parent"
@@ -104,7 +104,7 @@
             android:layout_marginEnd="@dimen/dp_20"
             android:gravity="right"
             android:textColor="#FFFFA92D"
-            android:textSize="@dimen/dp_14"
+            android:textSize="@dimen/sp_14"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -156,7 +156,7 @@
             android:gravity="center"
             android:text="退诊"
             android:textColor="#FFBBBBBB"
-            android:textSize="@dimen/dp_16" />
+            android:textSize="@dimen/sp_16" />
 
         <TextView
             android:id="@+id/disagree"
@@ -167,7 +167,7 @@
             android:gravity="center"
             android:text="不同意"
             android:textColor="@color/white"
-            android:textSize="@dimen/dp_16"
+            android:textSize="@dimen/sp_16"
             android:visibility="gone" />
 
         <TextView
@@ -179,6 +179,6 @@
             android:gravity="center"
             android:text="确定"
             android:textColor="@color/white"
-            android:textSize="@dimen/dp_16" />
+            android:textSize="@dimen/sp_16" />
     </LinearLayout>
 </LinearLayout>

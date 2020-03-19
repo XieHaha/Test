@@ -310,7 +310,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/dp_14"
+            android:textSize="@dimen/sp_14"
             android:textColor="@color/title_bar_text_color"
             android:text="@string/regist_success_hint_f"
             />
@@ -319,7 +319,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/dp_14"
+            android:textSize="@dimen/sp_14"
             android:textColor="@color/title_bar_text_color"
             android:text="@string/regist_success_hint_s"
             />

@@ -23,7 +23,7 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:textColor="@color/pay_unselected"
-             android:textSize="@dimen/dp_14"
+             android:textSize="@dimen/sp_14"
              android:text="药品供应："
              />
             <TextView
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/pay_unselected"
-                android:textSize="@dimen/dp_14"
+                android:textSize="@dimen/sp_14"
                     android:lines="2"
                 android:text="同和堂大药房（九方购物中心店）啊哈哈哈哈哈哈哈哈哈哈"
                 />
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/pay_unselected"
-                android:textSize="@dimen/dp_14"
+                android:textSize="@dimen/sp_14"
                 android:text="取药地址："
                 />
             <TextView
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/pay_unselected"
-                android:textSize="@dimen/dp_14"
+                android:textSize="@dimen/sp_14"
                 android:lines="2"
                 android:text="成都市武侯区府城大道中段88号九方购物中心B1"
                 />

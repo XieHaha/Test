@@ -10,7 +10,7 @@
         android:layout_height="@dimen/dp_48"
         android:textColor="@color/medical_card_detail_label_font"
         android:text="@string/medical_card_detail_label"
-        android:textSize="@dimen/dp_14"
+        android:textSize="@dimen/sp_14"
         android:gravity="center"/>
     <LinearLayout
         android:layout_width="match_parent"

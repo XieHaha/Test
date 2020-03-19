@@ -103,7 +103,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="@dimen/dp_12"
                             android:text="授权管理"
-                            android:textSize="@dimen/dp_16" />
+                            android:textSize="@dimen/sp_16" />
 
                     </RelativeLayout>
 
@@ -132,7 +132,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="@dimen/dp_12"
                             android:text="创建群"
-                            android:textSize="@dimen/dp_16" />
+                            android:textSize="@dimen/sp_16" />
 
                     </RelativeLayout>
 
@@ -211,7 +211,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/dp_12"
                         android:text="授权管理"
-                        android:textSize="@dimen/dp_16" />
+                        android:textSize="@dimen/sp_16" />
 
                 </RelativeLayout>
 
@@ -240,7 +240,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/dp_12"
                         android:text="创建群"
-                        android:textSize="@dimen/dp_16" />
+                        android:textSize="@dimen/sp_16" />
 
                 </RelativeLayout>
 

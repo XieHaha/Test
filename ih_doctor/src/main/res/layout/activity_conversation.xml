@@ -34,7 +34,7 @@
             android:layout_marginStart="@dimen/dp_10"
             android:gravity="center"
             android:textColor="#FFFFC700"
-            android:textSize="@dimen/dp_14"
+            android:textSize="@dimen/sp_14"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/inquiry_type_image"
             app:layout_constraintTop_toTopOf="parent"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_20"
             android:textColor="#FFFFA92D"
-            android:textSize="@dimen/dp_14"
+            android:textSize="@dimen/sp_14"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -98,7 +98,7 @@
                 android:gravity="center"
                 android:text="接诊"
                 android:textColor="#FF3F9BF9"
-                android:textSize="@dimen/dp_16"
+                android:textSize="@dimen/sp_16"
                 app:layout_constraintEnd_toEndOf="@+id/visiting_image"
                 app:layout_constraintStart_toStartOf="@+id/visiting_image"
                 app:layout_constraintTop_toBottomOf="@+id/visiting_image" />
@@ -126,7 +126,7 @@
                 android:gravity="center"
                 android:text="您将发起结束诊疗，需等待患者确认"
                 android:textColor="#FFFFC700"
-                android:textSize="@dimen/dp_14" />
+                android:textSize="@dimen/sp_14" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -166,7 +166,7 @@
                     android:gravity="center"
                     android:text="返回"
                     android:textColor="#FF999999"
-                    android:textSize="@dimen/dp_16"
+                    android:textSize="@dimen/sp_16"
                     app:layout_constraintEnd_toEndOf="@+id/back_image"
                     app:layout_constraintStart_toStartOf="@+id/back_image"
                     app:layout_constraintTop_toBottomOf="@+id/back_image" />
@@ -195,7 +195,7 @@
                     android:gravity="center"
                     android:text="结束诊疗"
                     android:textColor="#FF3F9BF9"
-                    android:textSize="@dimen/dp_16" />
+                    android:textSize="@dimen/sp_16" />
             </LinearLayout>
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
@@ -229,7 +229,7 @@
                 android:gravity="center"
                 android:text="诊断与处方"
                 android:textColor="#FF3F98F7"
-                android:textSize="@dimen/dp_14" />
+                android:textSize="@dimen/sp_14" />
         </LinearLayout>
 
         <LinearLayout
@@ -254,7 +254,7 @@
                 android:gravity="center"
                 android:text="处置建议"
                 android:textColor="#FF22E17E"
-                android:textSize="@dimen/dp_14" />
+                android:textSize="@dimen/sp_14" />
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

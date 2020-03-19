@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="小计："
             android:textColor="@color/title_bar_text_color"
-            android:textSize="@dimen/dp_14" />
+            android:textSize="@dimen/sp_14" />
 
         <TextView
             android:id="@+id/tv_subtotal_price"
@@ -41,7 +41,7 @@
             android:layout_marginRight="@dimen/dp_49"
             android:text="￥23"
             android:textColor="#FF3939"
-            android:textSize="@dimen/dp_14" />
+            android:textSize="@dimen/sp_14" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -18,7 +18,7 @@
         android:id="@+id/work_function_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/dp_14"
+        android:textSize="@dimen/sp_14"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/work_function_icon"
         android:text="门诊排班"
