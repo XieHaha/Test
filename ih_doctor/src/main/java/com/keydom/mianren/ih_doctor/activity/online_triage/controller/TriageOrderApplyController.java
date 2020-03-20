@@ -1,4 +1,4 @@
-package com.keydom.mianren.ih_doctor.activity.doctor_cooperation.controller;
+package com.keydom.mianren.ih_doctor.activity.online_triage.controller;
 
 import android.app.Activity;
 import android.support.v7.app.AlertDialog;
@@ -14,7 +14,7 @@ import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.FillOutApplyActivity;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.SelectDoctorActivity;
-import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.view.TriageApplyView;
+import com.keydom.mianren.ih_doctor.activity.online_triage.view.TriageOrderApplyView;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.DiagnoseOrderSelectActivity;
 import com.keydom.mianren.ih_doctor.bean.DiagnoseFillOutResBean;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
@@ -37,7 +37,7 @@ import okhttp3.RequestBody;
  * @date 3月19日
  * 分诊
  */
-public class TriageApplyController extends ControllerImpl<TriageApplyView> implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class TriageOrderApplyController extends ControllerImpl<TriageOrderApplyView> implements View.OnClickListener, AdapterView.OnItemClickListener {
     @SingleClick(1000)
     @Override
     public void onClick(View v) {

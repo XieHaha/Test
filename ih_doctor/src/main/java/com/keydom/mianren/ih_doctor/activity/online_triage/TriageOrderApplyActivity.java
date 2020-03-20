@@ -1,4 +1,4 @@
-package com.keydom.mianren.ih_doctor.activity.doctor_cooperation;
+package com.keydom.mianren.ih_doctor.activity.online_triage;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -29,8 +29,9 @@ import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_common.view.GridViewForScrollView;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.controller.TriageApplyController;
-import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.view.TriageApplyView;
+import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.DiagnoseCommonActivity;
+import com.keydom.mianren.ih_doctor.activity.online_triage.controller.TriageOrderApplyController;
+import com.keydom.mianren.ih_doctor.activity.online_triage.view.TriageOrderApplyView;
 import com.keydom.mianren.ih_doctor.adapter.DiagnoseChangePlusImgAdapter;
 import com.keydom.mianren.ih_doctor.adapter.DiagnoseOrderDetailAdapter;
 import com.keydom.mianren.ih_doctor.bean.DeptDoctorBean;
@@ -58,7 +59,7 @@ import butterknife.BindView;
  * @date 3月19日
  * 分诊
  */
-public class TriageApplyActivity extends BaseControllerActivity<TriageApplyController> implements TriageApplyView {
+public class TriageOrderApplyActivity extends BaseControllerActivity<TriageOrderApplyController> implements TriageOrderApplyView {
     @BindView(R.id.triage_apply_doctor_box_layout)
     LinearLayout triageApplyDoctorBoxLayout;
     @BindView(R.id.triage_apply_doctor_tv)
@@ -147,7 +148,7 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
         }
 
         public void onError(SpeechError error) {
-            ToastUtil.showMessage(TriageApplyActivity.this, error.getPlainDescription(true));
+            ToastUtil.showMessage(TriageOrderApplyActivity.this, error.getPlainDescription(true));
         }
 
     };
@@ -169,17 +170,17 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
         setRightTxt("提交");
         setRightBtnListener(v -> {
             if (doctorList == null || doctorList.size() <= 0) {
-                ToastUtil.showMessage(TriageApplyActivity.this, "请选择医生");
+                ToastUtil.showMessage(this, "请选择医生");
                 return;
             }
             if (orderBean == null) {
-                ToastUtil.showMessage(TriageApplyActivity.this, "请选择问诊订单");
+                ToastUtil.showMessage(this, "请选择问诊订单");
                 return;
             }
             String str =
                     CommonUtils.filterEmoji(triageApplyTransferDescriptionEt.getText().toString().trim());
             if (str == null || str.length() < 20) {
-                ToastUtil.showMessage(TriageApplyActivity.this, "转诊说明至少20字!");
+                ToastUtil.showMessage(this, "转诊说明至少20字!");
                 return;
             }
             getController().submit();
@@ -212,10 +213,10 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
                             mIatDialog.dismiss();
                         }
                         mIatDialog.show();
-                        ToastUtil.showMessage(TriageApplyActivity.this, "请开始说话…");
+                        ToastUtil.showMessage(this, "请开始说话…");
 
                     } else {
-                        ToastUtil.showMessage(TriageApplyActivity.this, "请开启录音需要的权限");
+                        ToastUtil.showMessage(this, "请开启录音需要的权限");
 
                     }
                 });
@@ -265,7 +266,7 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
 
         }
         orderStatus.setVisibility(View.GONE);
-        delete.setOnClickListener(v -> new GeneralDialog(TriageApplyActivity.this, "确定删除该问诊单?",
+        delete.setOnClickListener(v -> new GeneralDialog(this, "确定删除该问诊单?",
                 () -> {
                     orderBean = null;
                     diagnoseOrderLl.removeAllViews();

@@ -1,4 +1,4 @@
-package com.keydom.mianren.ih_doctor.activity.doctor_cooperation.view;
+package com.keydom.mianren.ih_doctor.activity.online_triage.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_doctor.bean.DeptDoctorBean;
@@ -11,7 +11,7 @@ import java.util.Map;
  * @date 3月19日
  * 分诊
  */
-public interface TriageApplyView extends BaseView {
+public interface TriageOrderApplyView extends BaseView {
 
     /**
      * 图片上传成功

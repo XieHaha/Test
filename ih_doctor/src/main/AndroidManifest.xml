@@ -275,16 +275,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.online_diagnose.DiagnoseTriageOrderDetailActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.online_diagnose.FillOutDiagnoseTriageApplyActivity"
+            android:name=".activity.online_triage.TriageOrderDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.health_manager.HealthManagerActivity" />
         <activity android:name=".activity.health_manager.PatientInfoActivity" />
-        <activity android:name=".activity.doctor_cooperation.TriageApplyActivity" />
+        <activity android:name=".activity.online_triage.TriageOrderApplyActivity" />
 
     </application>
 

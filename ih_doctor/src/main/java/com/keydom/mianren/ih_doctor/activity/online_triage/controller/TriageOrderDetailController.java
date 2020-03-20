@@ -1,4 +1,4 @@
-package com.keydom.mianren.ih_doctor.activity.online_diagnose.controller;
+package com.keydom.mianren.ih_doctor.activity.online_triage.controller;
 
 import android.view.View;
 
@@ -9,7 +9,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.DiagnoseTriageOrderDetailView;
+import com.keydom.mianren.ih_doctor.activity.online_triage.view.TriageOrderDetailView;
 import com.keydom.mianren.ih_doctor.bean.DiagnoseOrderDetailBean;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.GroupCooperateApiService;
@@ -18,13 +18,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * @Name：com.keydom.ih_doctor.activity.controller
- * @Author：song
- * @Date：18/11/16 上午9:09
- * 修改人：xusong
- * 修改时间：18/11/16 上午9:09
+ *
  */
-public class DiagnoseTriageOrderDetailController extends ControllerImpl<DiagnoseTriageOrderDetailView> implements View.OnClickListener {
+public class TriageOrderDetailController extends ControllerImpl<TriageOrderDetailView> implements View.OnClickListener {
     /**
      * 接收操作
      */
@@ -33,6 +29,7 @@ public class DiagnoseTriageOrderDetailController extends ControllerImpl<Diagnose
      * 退回操作
      */
     private static final int BACK_OPERATE = -1;
+
     @SingleClick(1000)
     @Override
     public void onClick(View v) {
@@ -65,7 +62,8 @@ public class DiagnoseTriageOrderDetailController extends ControllerImpl<Diagnose
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getDetailFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -87,7 +85,8 @@ public class DiagnoseTriageOrderDetailController extends ControllerImpl<Diagnose
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 hideLoading();
                 getView().operationFailed(msg);
                 return super.requestError(exception, code, msg);

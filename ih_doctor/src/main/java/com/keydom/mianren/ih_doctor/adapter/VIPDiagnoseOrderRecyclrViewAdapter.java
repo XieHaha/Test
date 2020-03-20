@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.activity.online_diagnose.DiagnoseTriageOrderDetailActivity;
+import com.keydom.mianren.ih_doctor.activity.online_triage.TriageOrderDetailActivity;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 
@@ -213,11 +213,11 @@ public class VIPDiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<Inquiry
                         if (ImClient.getUserInfoProvider().getUserInfo(mDatas.get(position).getUserCode()) != null) {
                             //TODO: 待添加跳转逻辑
                 /*            if (mDatas.get(position).getType() == TypeEnum.DIAGNOSE_CHANGE_RECEIVE) {
-                                DiagnoseTriageOrderDetailActivity.startWithAction(mContext, bean.getId());
+                                TriageOrderDetailActivity.startWithAction(mContext, bean.getId());
                             } else {
-                                DiagnoseTriageOrderDetailActivity.startCommon(mContext, bean.getId());
+                                TriageOrderDetailActivity.startCommon(mContext, bean.getId());
                             }*/
-                            DiagnoseTriageOrderDetailActivity.startWithAction(mContext, bean.getId());
+                            TriageOrderDetailActivity.startWithAction(mContext, bean.getId());
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                             builder.setTitle("未获取到该用户信息");

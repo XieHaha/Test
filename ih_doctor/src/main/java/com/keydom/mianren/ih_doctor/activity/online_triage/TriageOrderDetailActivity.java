@@ -1,4 +1,4 @@
-package com.keydom.mianren.ih_doctor.activity.online_diagnose;
+package com.keydom.mianren.ih_doctor.activity.online_triage;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -22,8 +22,8 @@ import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.activity.online_diagnose.controller.DiagnoseTriageOrderDetailController;
-import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.DiagnoseTriageOrderDetailView;
+import com.keydom.mianren.ih_doctor.activity.online_triage.controller.TriageOrderDetailController;
+import com.keydom.mianren.ih_doctor.activity.online_triage.view.TriageOrderDetailView;
 import com.keydom.mianren.ih_doctor.adapter.DiagnoseOrderDetailAdapter;
 import com.keydom.mianren.ih_doctor.bean.DiagnoseOrderDetailBean;
 import com.keydom.mianren.ih_doctor.bean.MessageEvent;
@@ -38,14 +38,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Name：com.keydom.ih_doctor.activity.personal
- * @Description：转诊单详情公用页面
- * @Author：song
- * @Date：18/11/14 上午10:37
- * 修改人：xusong
- * 修改时间：18/11/14 上午10:37
+ * @date 3月20日 17:06
  */
-public class DiagnoseTriageOrderDetailActivity extends BaseControllerActivity<DiagnoseTriageOrderDetailController> implements DiagnoseTriageOrderDetailView {
+public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrderDetailController> implements TriageOrderDetailView {
 
     /**
      * 转诊单公用页面－带接收操作
@@ -82,7 +77,8 @@ public class DiagnoseTriageOrderDetailActivity extends BaseControllerActivity<Di
      */
     private Dialog notReceiveDialog;
 
-    private TextView userName, userSex, userAge, diagnoseInfoTv, diagnoseExplainTv, doctorName, doctorJob, doctorDept, doctorBeGood, applyTime;
+    private TextView userName, userSex, userAge, diagnoseInfoTv, diagnoseExplainTv, doctorName,
+            doctorJob, doctorDept, doctorBeGood, applyTime;
 
     private RecyclerView diagnoseInfoImgRv, diagnoseMaterialRv;
 
@@ -99,7 +95,7 @@ public class DiagnoseTriageOrderDetailActivity extends BaseControllerActivity<Di
      * @param context
      */
     public static void startCommon(Context context, long id) {
-        Intent starter = new Intent(context, DiagnoseTriageOrderDetailActivity.class);
+        Intent starter = new Intent(context, TriageOrderDetailActivity.class);
         starter.putExtra(Const.DATA, id);
         starter.putExtra(Const.TYPE, ORDER_WITHOUT_ACTION);
         context.startActivity(starter);
@@ -110,7 +106,7 @@ public class DiagnoseTriageOrderDetailActivity extends BaseControllerActivity<Di
      * @param context
      */
     public static void startWithAction(Context context, long id) {
-        Intent starter = new Intent(context, DiagnoseTriageOrderDetailActivity.class);
+        Intent starter = new Intent(context, TriageOrderDetailActivity.class);
         starter.putExtra(Const.DATA, id);
         starter.putExtra(Const.TYPE, ORDER_ACTION);
         context.startActivity(starter);
