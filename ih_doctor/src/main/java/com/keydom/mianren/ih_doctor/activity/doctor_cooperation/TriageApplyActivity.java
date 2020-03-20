@@ -2,7 +2,6 @@ package com.keydom.mianren.ih_doctor.activity.doctor_cooperation;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -28,7 +27,6 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_common.view.GridViewForScrollView;
-import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.controller.TriageApplyController;
@@ -55,7 +53,6 @@ import java.util.Map;
 import java.util.Stack;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @date 3月19日
@@ -101,10 +98,6 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
      */
     private Stack<View> orderStack = new Stack<>();
     /**
-     * 选中的图片拼接字符串
-     */
-    private String imgStr = "";
-    /**
      * 问诊单
      */
     private InquiryBean orderBean;
@@ -129,13 +122,10 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
     /**
      * 初始化监听器。
      */
-    private InitListener mInitListener = new InitListener() {
-        @Override
-        public void onInit(int code) {
-            if (code != ErrorCode.SUCCESS) {
-                Log.e("xunfei", "初始化失败，错误码：" + code + ",请点击网址https://www.xfyun.cn/document" +
-                        "/error-code查询解决方案");
-            }
+    private InitListener mInitListener = code -> {
+        if (code != ErrorCode.SUCCESS) {
+            Log.e("xunfei", "初始化失败，错误码：" + code + ",请点击网址https://www.xfyun.cn/document" +
+                    "/error-code查询解决方案");
         }
     };
 
@@ -154,7 +144,6 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
                     triageApplyTransferDescriptionEt.setSelection(triageApplyTransferDescriptionEt.getText().length());
                 }
             }
-
         }
 
         public void onError(SpeechError error) {
@@ -178,25 +167,22 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
             addOrder(orderBean);
         }
         setRightTxt("提交");
-        setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
-            @Override
-            public void OnRightTextClick(View v) {
-                if (doctorList == null || doctorList.size() <= 0) {
-                    ToastUtil.showMessage(TriageApplyActivity.this, "请选择医生");
-                    return;
-                }
-                if (orderBean == null) {
-                    ToastUtil.showMessage(TriageApplyActivity.this, "请选择问诊订单");
-                    return;
-                }
-                String str =
-                        CommonUtils.filterEmoji(triageApplyTransferDescriptionEt.getText().toString().trim());
-                if (str == null || str.length() < 20) {
-                    ToastUtil.showMessage(TriageApplyActivity.this, "转诊说明至少20字!");
-                    return;
-                }
-                getController().submit();
+        setRightBtnListener(v -> {
+            if (doctorList == null || doctorList.size() <= 0) {
+                ToastUtil.showMessage(TriageApplyActivity.this, "请选择医生");
+                return;
             }
+            if (orderBean == null) {
+                ToastUtil.showMessage(TriageApplyActivity.this, "请选择问诊订单");
+                return;
+            }
+            String str =
+                    CommonUtils.filterEmoji(triageApplyTransferDescriptionEt.getText().toString().trim());
+            if (str == null || str.length() < 20) {
+                ToastUtil.showMessage(TriageApplyActivity.this, "转诊说明至少20字!");
+                return;
+            }
+            getController().submit();
         });
     }
 
@@ -235,26 +221,6 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
                 });
 
     }
-
-    /**
-     * 转诊申请
-     *
-     * @param context
-     */
-    public static void startFillOut(Context context) {
-        Intent starter = new Intent(context, TriageApplyActivity.class);
-        starter.putExtra(Const.TYPE, DOCTOR_GOURP_FILLOUT_APPLY);
-        context.startActivity(starter);
-    }
-
-
-    public static void startFillOut(Context context, InquiryBean bean) {
-        Intent starter = new Intent(context, TriageApplyActivity.class);
-        starter.putExtra(Const.TYPE, DIAGNOSE_FILLOUT_APPLY);
-        starter.putExtra(Const.DATA, bean);
-        context.startActivity(starter);
-    }
-
 
     /**
      * 添加问诊单到界面
@@ -299,20 +265,12 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
 
         }
         orderStatus.setVisibility(View.GONE);
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new GeneralDialog(TriageApplyActivity.this, "确定删除该问诊单?",
-                        new GeneralDialog.OnCloseListener() {
-                            @Override
-                            public void onCommit() {
-                                orderBean = null;
-                                diagnoseOrderLl.removeAllViews();
-                                triageApplyInquiryOrderTv.setText("");
-                            }
-                        }).show();
-            }
-        });
+        delete.setOnClickListener(v -> new GeneralDialog(TriageApplyActivity.this, "确定删除该问诊单?",
+                () -> {
+                    orderBean = null;
+                    diagnoseOrderLl.removeAllViews();
+                    triageApplyInquiryOrderTv.setText("");
+                }).show());
         GlideUtils.load(userIcon, Const.IMAGE_HOST + bean.getUserAvatar(), 0, R.mipmap.user_icon,
                 false, null);
         DiagnoseOrderDetailAdapter adapter = new DiagnoseOrderDetailAdapter(this,
@@ -328,10 +286,6 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
 
     /**
      * media.getPath(); 为原图path
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param data
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -454,9 +408,7 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
 
     @Override
     public boolean getLastItemClick(int position) {
-        if (position == gridList.size())
-            return true;
-        return false;
+        return position == gridList.size();
     }
 
     @Override
@@ -466,11 +418,10 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
 
     /**
      * 按照接口规则拼接上传的图片字符串
-     *
-     * @return
      */
     private String getImgStr() {
-        imgStr = "";
+        //选中的图片拼接字符串
+        String imgStr = "";
         for (String str : gridList) {
             if ("".equals(imgStr)) {
                 imgStr = str;
@@ -525,13 +476,5 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
             return doctorList.get(0).getProjectStatus();
         }
         return 3;
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

@@ -112,9 +112,7 @@ public class TriageApplyController extends ControllerImpl<TriageApplyView> imple
             }
 
         } else {
-//            CommonUtils.previewImage(getContext(), getView().getImgList().get(position));
             CommonUtils.previewImageList(getContext(),getView().getImgList(),position,false);
-
         }
     }
 }
