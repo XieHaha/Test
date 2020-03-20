@@ -23,6 +23,12 @@
     <string name="card_dec">扫描二维码，关注我，向我咨询、问诊、预约挂号，我会及时为您提供健康服务。</string>
     <string name="create_group"><u>新建团队</u></string>
 
+    <!--公用-->
+    <string name="txt_doctor_colon">医生:</string>
+    <string name="txt_select_doctor_hint">请选择医生</string>
+    <string name="txt_inquiry_order_colon">问诊单:</string>
+    <string name="txt_select_inquiry_order_hint">请选择问诊单</string>
+
     <!--健康管理-->
     <string name="txt_health_manager">健康管理</string>
     <string name="txt_patient_info">患者信息</string>
@@ -40,6 +46,10 @@
 
     <!--在线问诊-->
     <string name="txt_triage">分诊</string>
+    <string name="txt_transfer_depart_description">转科说明</string>
+    <string name="txt_condition_information">病情资料</string>
+    <string name="txt_condition_information_hint">（检查报告、处方或其他病情资料）</string>
+    <string name="txt_transfer_depart_description_hint">请详细描述您的疑问或症状，疾病，和身体情况（最多支持输入500字）</string>
 
 
     <!-- 讯飞SDK appid -->

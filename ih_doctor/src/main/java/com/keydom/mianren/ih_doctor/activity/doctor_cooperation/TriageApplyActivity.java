@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,6 +29,7 @@ import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_common.view.GridViewForScrollView;
 import com.keydom.ih_common.view.IhTitleLayout;
+import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.controller.TriageApplyController;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.view.TriageApplyView;
@@ -46,32 +46,36 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-import io.reactivex.functions.Consumer;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @date 3月19日
  * 分诊
  */
 public class TriageApplyActivity extends BaseControllerActivity<TriageApplyController> implements TriageApplyView {
-
-    /**
-     * 病情资料限制上传的最大图片数量
-     */
-    public static final int MAX_IMAGE = 9;
-    /**
-     * 在线问诊转诊申请
-     */
-    public static final int DIAGNOSE_FILLOUT_APPLY = 1200;
-    /**
-     * 医生协作转诊申请
-     */
-    public static final int DOCTOR_GOURP_FILLOUT_APPLY = 1201;
+    @BindView(R.id.triage_apply_doctor_box_layout)
+    LinearLayout triageApplyDoctorBoxLayout;
+    @BindView(R.id.triage_apply_doctor_tv)
+    TextView triageApplyDoctorTv;
+    @BindView(R.id.triage_apply_inquiry_order_tv)
+    TextView triageApplyInquiryOrderTv;
+    @BindView(R.id.diagnose_order_ll)
+    LinearLayout diagnoseOrderLl;
+    @BindView(R.id.triage_apply_transfer_description_et)
+    InterceptorEditText triageApplyTransferDescriptionEt;
+    @BindView(R.id.triage_apply_transfer_description_voice)
+    ImageView triageApplyTransferDescriptionVoice;
+    @BindView(R.id.triage_apply_condition_image_grid)
+    GridViewForScrollView triageApplyConditionImageGrid;
     /**
      * 判断是在线问诊发起的转诊还是医生协作发起的转诊（在线问诊发起的转诊自动带了问诊单对象过来）
      */
@@ -105,16 +109,22 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
      */
     private InquiryBean orderBean;
 
-    private TextView selectDoctor, selectDiagnoseOrder;
-    private EditText explainInputEt;
-    private GridViewForScrollView photoGv;
-    private LinearLayout diagnoseOrderLl, doctorBox;
-
-
-    private ImageView mVoiceInputIv;
-
     // 语音听写UI
     private CustomRecognizerDialog mIatDialog;
+
+
+    /**
+     * 病情资料限制上传的最大图片数量
+     */
+    public static final int MAX_IMAGE = 9;
+    /**
+     * 在线问诊转诊申请
+     */
+    public static final int DIAGNOSE_FILLOUT_APPLY = 1200;
+    /**
+     * 医生协作转诊申请
+     */
+    public static final int DOCTOR_GOURP_FILLOUT_APPLY = 1201;
 
     /**
      * 初始化监听器。
@@ -134,14 +144,14 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
      */
     private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
         public void onResult(RecognizerResult results, boolean isLast) {
-            if (null != explainInputEt) {
+            if (null != triageApplyTransferDescriptionEt) {
                 String text = JsonUtils.handleXunFeiJson(results);
-                if (TextUtils.isEmpty(explainInputEt.getText().toString())) {
-                    explainInputEt.setText(text);
-                    explainInputEt.setSelection(explainInputEt.getText().length());
+                if (TextUtils.isEmpty(triageApplyTransferDescriptionEt.getText().toString())) {
+                    triageApplyTransferDescriptionEt.setText(text);
+                    triageApplyTransferDescriptionEt.setSelection(triageApplyTransferDescriptionEt.getText().length());
                 } else {
-                    explainInputEt.setText(explainInputEt.getText().toString() + text);
-                    explainInputEt.setSelection(explainInputEt.getText().length());
+                    triageApplyTransferDescriptionEt.setText(triageApplyTransferDescriptionEt.getText().toString() + text);
+                    triageApplyTransferDescriptionEt.setSelection(triageApplyTransferDescriptionEt.getText().length());
                 }
             }
 
@@ -159,7 +169,7 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
     }
 
     @Override
-    public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void initData(@Nullable Bundle savedInstanceState) {
         mType = getIntent().getIntExtra(Const.TYPE, 0);
         orderBean = (InquiryBean) getIntent().getSerializableExtra(Const.DATA);
         initView();
@@ -179,7 +189,8 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
                     ToastUtil.showMessage(TriageApplyActivity.this, "请选择问诊订单");
                     return;
                 }
-                String str = CommonUtils.filterEmoji(explainInputEt.getText().toString().trim());
+                String str =
+                        CommonUtils.filterEmoji(triageApplyTransferDescriptionEt.getText().toString().trim());
                 if (str == null || str.length() < 20) {
                     ToastUtil.showMessage(TriageApplyActivity.this, "转诊说明至少20字!");
                     return;
@@ -190,29 +201,17 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
     }
 
     private void initView() {
-        selectDoctor = this.findViewById(R.id.select_doctor);
-        doctorBox = this.findViewById(R.id.doctor_box);
-        selectDiagnoseOrder = this.findViewById(R.id.select_diagnose_order);
-        explainInputEt = this.findViewById(R.id.explain_input_et);
-        photoGv = this.findViewById(R.id.photo_gv);
-        diagnoseOrderLl = this.findViewById(R.id.diagnose_order_ll);
-        mVoiceInputIv = this.findViewById(R.id.fill_out_apply_layout_voice_input_iv);
         mAdapter = new DiagnoseChangePlusImgAdapter(this, gridList);
-        photoGv.setAdapter(mAdapter);
-        photoGv.setOnItemClickListener(getController());
-        selectDoctor.setOnClickListener(getController());
-        selectDiagnoseOrder.setOnClickListener(getController());
+        triageApplyConditionImageGrid.setAdapter(mAdapter);
+        triageApplyConditionImageGrid.setOnItemClickListener(getController());
+        triageApplyDoctorTv.setOnClickListener(getController());
+        triageApplyInquiryOrderTv.setOnClickListener(getController());
 
         // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
         mIatDialog = new CustomRecognizerDialog(this, mInitListener);
         mIatDialog.setListener(mRecognizerDialogListener);
-        mVoiceInputIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initPremissions();
-            }
-        });
+        triageApplyTransferDescriptionVoice.setOnClickListener(v -> initPremissions());
     }
 
     @SuppressLint("CheckResult")
@@ -221,20 +220,17 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
         rxPermissions.request(Manifest.permission.RECORD_AUDIO,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean granted) throws Exception {
-                        if (granted) {
-                            if (mIatDialog.isShowing()) {
-                                mIatDialog.dismiss();
-                            }
-                            mIatDialog.show();
-                            ToastUtil.showMessage(TriageApplyActivity.this, "请开始说话…");
-
-                        } else {
-                            ToastUtil.showMessage(TriageApplyActivity.this, "请开启录音需要的权限");
-
+                .subscribe(granted -> {
+                    if (granted) {
+                        if (mIatDialog.isShowing()) {
+                            mIatDialog.dismiss();
                         }
+                        mIatDialog.show();
+                        ToastUtil.showMessage(TriageApplyActivity.this, "请开始说话…");
+
+                    } else {
+                        ToastUtil.showMessage(TriageApplyActivity.this, "请开启录音需要的权限");
+
                     }
                 });
 
@@ -285,7 +281,7 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
         userSex.setText(CommonUtils.getSex(bean.getSex()));
         diagnoseDec.setText(bean.getConditionDesc());
         diagnoseTime.setText(bean.getApplyTime());
-        selectDiagnoseOrder.setText(bean.getName());
+        triageApplyInquiryOrderTv.setText(bean.getName());
         if (bean.getInquisitionType() == 0) {
             diagnoseType.setText("图文问诊");
             Drawable rightDrawable =
@@ -312,7 +308,7 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
                             public void onCommit() {
                                 orderBean = null;
                                 diagnoseOrderLl.removeAllViews();
-                                selectDiagnoseOrder.setText("请选择问诊单");
+                                triageApplyInquiryOrderTv.setText("");
                             }
                         }).show();
             }
@@ -357,7 +353,7 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
                             doctorList.addAll(list);
                             removeView();
                             addDoctor();
-                            selectDoctor.setText("");
+                            triageApplyDoctorTv.setText("");
                         } else {
                             ToastUtil.showMessage(getContext(), "该医生未开通图文问诊服务");
                         }
@@ -367,7 +363,7 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
                             doctorList.addAll(list);
                             removeView();
                             addDoctor();
-                            selectDoctor.setText("");
+                            triageApplyDoctorTv.setText("");
                         } else {
                             ToastUtil.showMessage(getContext(), "该医生未开通视频问诊服务");
                         }
@@ -376,7 +372,7 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
                         doctorList.addAll(list);
                         removeView();
                         addDoctor();
-                        selectDoctor.setText("");
+                        triageApplyDoctorTv.setText("");
                     }
 
                     break;
@@ -406,7 +402,7 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
      */
     private void removeView() {
         for (int i = 0; i < mStack.size(); i++) {
-            doctorBox.removeView(mStack.get(i));
+            triageApplyDoctorBoxLayout.removeView(mStack.get(i));
         }
     }
 
@@ -420,7 +416,7 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
         View view = inflater.inflate(R.layout.fill_out_doctor_tag, null, true);
         TextView tagTv = view.findViewById(R.id.doctor_name);
         tagTv.setText(name);
-        doctorBox.addView(view);
+        triageApplyDoctorBoxLayout.addView(view);
         mStack.push(view);
     }
 
@@ -489,7 +485,7 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
     public Map<String, Object> getOperateMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("referralExplain",
-                CommonUtils.filterEmoji(explainInputEt.getText().toString().trim()));
+                CommonUtils.filterEmoji(triageApplyTransferDescriptionEt.getText().toString().trim()));
         map.put("orderId", orderBean.getId());
         map.put("patientAge", orderBean.getAge());
         map.put("patientName", orderBean.getName());
@@ -532,4 +528,10 @@ public class TriageApplyActivity extends BaseControllerActivity<TriageApplyContr
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

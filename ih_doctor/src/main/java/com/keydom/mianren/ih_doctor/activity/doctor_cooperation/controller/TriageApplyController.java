@@ -42,10 +42,10 @@ public class TriageApplyController extends ControllerImpl<TriageApplyView> imple
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.select_doctor:
+            case R.id.triage_apply_doctor_tv:
                 SelectDoctorActivity.startActivityForDiagnoseDoctor(getContext(),getView().getOrderType());
                 break;
-            case R.id.select_diagnose_order:
+            case R.id.triage_apply_inquiry_order_tv:
                 DiagnoseOrderSelectActivity.start(getContext(),getView().getDoctorType());
 
                 break;
