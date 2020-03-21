@@ -29,7 +29,7 @@ import java.util.List;
  * 修改时间：18/11/6 下午6:52
  */
 public class VIPDiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBean> {
-    public static final String IS_ORDER="is_order";
+    public static final String IS_ORDER = "is_order";
     private static final int NORMAL_VIEW = 0;
     private static final int FOOT_VIEW = 1;
 
@@ -41,7 +41,8 @@ public class VIPDiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<Inquiry
     @Override
     public RecyclerView.ViewHolder createMyViewHolder(ViewGroup parent, int viewType) {
         View view;
-        view = LayoutInflater.from(mContext).inflate(R.layout.vip_diagnose_order_item, parent, false);
+        view = LayoutInflater.from(mContext).inflate(R.layout.vip_diagnose_order_item, parent,
+                false);
 
         return new ViewHolder(view);
     }
@@ -92,21 +93,21 @@ public class VIPDiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<Inquiry
         public void bind(final int position) {
             final InquiryBean bean = mDatas.get(position);
 
-            if(null != bean){
+            if (null != bean) {
 
                 StringBuilder stringBuilder = new StringBuilder();
 
-                if(!TextUtils.isEmpty(bean.getName())){
-                    stringBuilder.append(bean.getName() +"、");
+                if (!TextUtils.isEmpty(bean.getName())) {
+                    stringBuilder.append(bean.getName() + "、");
                 }
 
-                stringBuilder.append(bean.getAge() +"、");
+                stringBuilder.append(bean.getAge() + "、");
                 stringBuilder.append(CommonUtils.getSex(bean.getSex()));
 
 
                 patientInfoTv.setText(stringBuilder.toString());
 
-                if(!TextUtils.isEmpty(bean.getConditionDesc())){
+                if (!TextUtils.isEmpty(bean.getConditionDesc())) {
                     vipDescTv.setText(bean.getConditionDesc());
                 }
 
@@ -211,21 +212,12 @@ public class VIPDiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<Inquiry
                     @Override
                     public void onClick(View v) {
                         if (ImClient.getUserInfoProvider().getUserInfo(mDatas.get(position).getUserCode()) != null) {
-                            //TODO: 待添加跳转逻辑
-                /*            if (mDatas.get(position).getType() == TypeEnum.DIAGNOSE_CHANGE_RECEIVE) {
-                                TriageOrderDetailActivity.startWithAction(mContext, bean.getId());
-                            } else {
-                                TriageOrderDetailActivity.startCommon(mContext, bean.getId());
-                            }*/
                             TriageOrderDetailActivity.startWithAction(mContext, bean.getId());
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                             builder.setTitle("未获取到该用户信息");
                             builder.setMessage("请检查后重新尝试！");
-                            builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
+                            builder.setNegativeButton("确定", (dialog, which) -> {
                             });
                             builder.create().show();
                         }

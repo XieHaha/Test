@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.CostomToastUtils;
@@ -31,34 +30,56 @@ import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 
 import org.greenrobot.eventbus.EventBus;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import butterknife.BindView;
 
 /**
  * @date 3月20日 17:06
  */
 public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrderDetailController> implements TriageOrderDetailView {
-
-    /**
-     * 转诊单公用页面－带接收操作
-     */
-    public static final int ORDER_ACTION = 1300;
-    /**
-     * 转诊单公用页面－无接收操作
-     */
-    public static final int ORDER_WITHOUT_ACTION = 1301;
+    @BindView(R.id.triage_order_detail_name_tv)
+    TextView triageOrderDetailNameTv;
+    @BindView(R.id.triage_order_detail_sex_tv)
+    TextView triageOrderDetailSexTv;
+    @BindView(R.id.triage_order_detail_age_tv)
+    TextView triageOrderDetailAgeTv;
+    @BindView(R.id.triage_order_detail_diagnose_info_tv)
+    TextView triageOrderDetailDiagnoseInfoTv;
+    @BindView(R.id.triage_order_detail_diagnose_info_recycler_view)
+    RecyclerView triageOrderDetailDiagnoseInfoRecyclerView;
+    @BindView(R.id.triage_order_detail_diagnose_explain_tv)
+    TextView triageOrderDetailDiagnoseExplainTv;
+    @BindView(R.id.triage_order_detail_diagnose_material_recycler)
+    RecyclerView triageOrderDetailDiagnoseMaterialRecycler;
+    @BindView(R.id.triage_order_detail_doctor_header_iv)
+    CircleImageView triageOrderDetailDoctorHeaderIv;
+    @BindView(R.id.triage_order_detail_doctor_name_tv)
+    TextView triageOrderDetailDoctorNameTv;
+    @BindView(R.id.triage_order_detail_doctor_job_iv)
+    TextView triageOrderDetailDoctorJobIv;
+    @BindView(R.id.triage_order_detail_doctor_depart_tv)
+    TextView triageOrderDetailDoctorDepartTv;
+    @BindView(R.id.triage_order_detail_doctor_specialty_tv)
+    TextView triageOrderDetailDoctorSpecialtyTv;
+    @BindView(R.id.triage_order_detail_apply_time_tv)
+    TextView triageOrderDetailApplyTimeTv;
+    @BindView(R.id.triage_order_detail_bottom_left)
+    Button triageOrderDetailBottomLeft;
+    @BindView(R.id.triage_order_detail_bottom_right)
+    Button triageOrderDetailBottomRight;
+    @BindView(R.id.triage_order_detail_bottom_layout)
+    LinearLayout triageOrderDetailBottomLayout;
     /**
      * 转诊单ID
      */
     private long id;
-
-    /**
-     * 图片适配器，病情资料和问诊说明图片适配器
-     */
-    private DiagnoseOrderDetailAdapter diagnoseInfoImgAdapter, diagnoseMaterialAdapter;
 
     /**
      * 存放问诊信息图片地址的列表
@@ -76,34 +97,19 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
      * 拒绝问诊单弹窗
      */
     private Dialog notReceiveDialog;
-
-    private TextView userName, userSex, userAge, diagnoseInfoTv, diagnoseExplainTv, doctorName,
-            doctorJob, doctorDept, doctorBeGood, applyTime;
-
-    private RecyclerView diagnoseInfoImgRv, diagnoseMaterialRv;
-
-    private CircleImageView doctorIcon;
-
-    private Button returnBt, receiveBt;
-
-    private LinearLayout buttonLl;
-
     private EditText dialogInput;
 
-
     /**
-     * @param context
+     * 转诊单公用页面－带接收操作
      */
-    public static void startCommon(Context context, long id) {
-        Intent starter = new Intent(context, TriageOrderDetailActivity.class);
-        starter.putExtra(Const.DATA, id);
-        starter.putExtra(Const.TYPE, ORDER_WITHOUT_ACTION);
-        context.startActivity(starter);
-    }
-
+    public static final int ORDER_ACTION = 1300;
+    /**
+     * 转诊单公用页面－无接收操作
+     */
+    public static final int ORDER_WITHOUT_ACTION = 1301;
 
     /**
-     * @param context
+     * 启动
      */
     public static void startWithAction(Context context, long id) {
         Intent starter = new Intent(context, TriageOrderDetailActivity.class);
@@ -114,93 +120,73 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
 
     @Override
     public int getLayoutRes() {
-        return R.layout.diagnose_triage_order_detail_layout;
+        return R.layout.activity_triage_order_detail;
     }
 
     @Override
-    public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void initData(@Nullable Bundle savedInstanceState) {
         id = getIntent().getLongExtra(Const.DATA, Const.INT_DEFAULT);
         mType = getIntent().getIntExtra(Const.TYPE, Const.INT_DEFAULT);
-        setTitle("转诊详情");
+        setTitle(getString(R.string.txt_triage_order_detail));
         initView();
         pageLoading();
         getController().getDetail();
-        setReloadListener(new LoadDataLayout.OnReloadListener() {
-            @Override
-            public void onReload(View v, int status) {
-                pageLoading();
-                getController().getDetail();
-            }
+        setReloadListener((v, status) -> {
+            pageLoading();
+            getController().getDetail();
         });
     }
 
     private void initView() {
-        doctorIcon = this.findViewById(R.id.doctor_icon);
-        userName = this.findViewById(R.id.user_name);
-        userSex = this.findViewById(R.id.user_sex);
-        userAge = this.findViewById(R.id.user_age);
-        diagnoseInfoTv = this.findViewById(R.id.diagnose_info_tv);
-        diagnoseExplainTv = this.findViewById(R.id.diagnose_explain_tv);
-        doctorName = this.findViewById(R.id.doctor_name);
-        doctorJob = this.findViewById(R.id.doctor_job);
-        doctorDept = this.findViewById(R.id.doctor_dept);
-        doctorBeGood = this.findViewById(R.id.doctor_be_good);
-        applyTime = this.findViewById(R.id.apply_time);
-        buttonLl = this.findViewById(R.id.button_ll);
-        diagnoseInfoImgRv = this.findViewById(R.id.diagnose_info_img_rv);
-        diagnoseMaterialRv = this.findViewById(R.id.diagnose_material_rv);
-        returnBt = this.findViewById(R.id.return_bt);
-        receiveBt = this.findViewById(R.id.receive_bt);
-        returnBt.setOnClickListener(getController());
-        receiveBt.setOnClickListener(getController());
+        triageOrderDetailBottomLeft.setOnClickListener(getController());
+        triageOrderDetailBottomRight.setOnClickListener(getController());
         notReceiveDialog = createDialog();
 
         if (mType == ORDER_ACTION) {
-            buttonLl.setVisibility(View.VISIBLE);
+            triageOrderDetailBottomLayout.setVisibility(View.VISIBLE);
         } else {
-            buttonLl.setVisibility(View.GONE);
+            triageOrderDetailBottomLayout.setVisibility(View.GONE);
         }
     }
 
-
     private void setInfo(DiagnoseOrderDetailBean bean) {
-        userName.setText(bean.getPatientName());
-        userSex.setText(CommonUtils.getSex(bean.getPatientSex()));
-        userAge.setText(String.valueOf(bean.getPatientAge()));
-        diagnoseInfoTv.setText(bean.getContent());
-        diagnoseExplainTv.setText(bean.getReferralExplain());
-        doctorName.setText(bean.getDoctor());
-        doctorJob.setText(bean.getJobTitle());
-        doctorDept.setText(bean.getDept());
-        doctorBeGood.setText(bean.getAdept());
-        applyTime.setText(bean.getReferralTime());
-        GlideUtils.load(doctorIcon, Const.IMAGE_HOST + bean.getDoctorAvatar(), 0, 0, false, null);
+        triageOrderDetailNameTv.setText(bean.getPatientName());
+        triageOrderDetailSexTv.setText(CommonUtils.getSex(bean.getPatientSex()));
+        triageOrderDetailAgeTv.setText(String.valueOf(bean.getPatientAge()));
+        triageOrderDetailDiagnoseInfoTv.setText(bean.getContent());
+        triageOrderDetailDiagnoseExplainTv.setText(bean.getReferralExplain());
+        triageOrderDetailDoctorNameTv.setText(bean.getDoctor());
+        triageOrderDetailDoctorJobIv.setText(bean.getJobTitle());
+        triageOrderDetailDoctorDepartTv.setText(bean.getDept());
+        triageOrderDetailDoctorSpecialtyTv.setText(bean.getAdept());
+        triageOrderDetailApplyTimeTv.setText(bean.getReferralTime());
+        GlideUtils.load(triageOrderDetailDoctorHeaderIv,
+                Const.IMAGE_HOST + bean.getDoctorAvatar(), 0, 0, false, null);
         String[] diagnoseInfo;
         if (bean.getDiseaseData() != null && !"".equals(bean.getDiseaseData().trim())) {
             diagnoseInfo = bean.getDiseaseData().split(",");
-            for (int i = 0; i < diagnoseInfo.length; i++) {
-                diagnoseMaterialList.add(diagnoseInfo[i]);
-            }
+            Collections.addAll(diagnoseMaterialList, diagnoseInfo);
         }
         String[] materialInfo;
         if (bean.getPatientImages() != null && !"".equals(bean.getPatientImages().trim())) {
             materialInfo = bean.getPatientImages().split(",");
-            for (int i = 0; i < materialInfo.length; i++) {
-                diagnoseInfoImgList.add(materialInfo[i]);
-            }
+            Collections.addAll(diagnoseInfoImgList, materialInfo);
         }
-        diagnoseInfoImgAdapter = new DiagnoseOrderDetailAdapter(this, diagnoseInfoImgList);
-        diagnoseMaterialAdapter = new DiagnoseOrderDetailAdapter(this, diagnoseMaterialList);
+        //图片适配器，病情资料和问诊说明图片适配器
+        DiagnoseOrderDetailAdapter diagnoseInfoImgAdapter = new DiagnoseOrderDetailAdapter(this,
+                diagnoseInfoImgList);
+        DiagnoseOrderDetailAdapter diagnoseMaterialAdapter = new DiagnoseOrderDetailAdapter(this,
+                diagnoseMaterialList);
 
         LinearLayoutManager diagnoseInfoImgRvLm = new LinearLayoutManager(this);
         diagnoseInfoImgRvLm.setOrientation(LinearLayoutManager.HORIZONTAL);
-        diagnoseInfoImgRv.setAdapter(diagnoseInfoImgAdapter);
-        diagnoseInfoImgRv.setLayoutManager(diagnoseInfoImgRvLm);
+        triageOrderDetailDiagnoseInfoRecyclerView.setAdapter(diagnoseInfoImgAdapter);
+        triageOrderDetailDiagnoseInfoRecyclerView.setLayoutManager(diagnoseInfoImgRvLm);
 
         LinearLayoutManager diagnoseMaterialRvLm = new LinearLayoutManager(this);
         diagnoseMaterialRvLm.setOrientation(LinearLayoutManager.HORIZONTAL);
-        diagnoseMaterialRv.setAdapter(diagnoseMaterialAdapter);
-        diagnoseMaterialRv.setLayoutManager(diagnoseMaterialRvLm);
+        triageOrderDetailDiagnoseMaterialRecycler.setAdapter(diagnoseMaterialAdapter);
+        triageOrderDetailDiagnoseMaterialRecycler.setLayoutManager(diagnoseMaterialRvLm);
     }
 
 
@@ -268,9 +254,9 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.prescription_dialog_layout, null);
         dialog.setContentView(view);
-        final ImageView cancel = (ImageView) view.findViewById(R.id.check_dialog_close);
-        final TextView commit = (TextView) view.findViewById(R.id.check_dialog_submit);
-        dialogInput = (EditText) view.findViewById(R.id.check_dialog_input);
+        final ImageView cancel = view.findViewById(R.id.check_dialog_close);
+        final TextView commit = view.findViewById(R.id.check_dialog_submit);
+        dialogInput = view.findViewById(R.id.check_dialog_input);
         cancel.setOnClickListener(getController());
         commit.setOnClickListener(getController());
         dialog.setCancelable(true);

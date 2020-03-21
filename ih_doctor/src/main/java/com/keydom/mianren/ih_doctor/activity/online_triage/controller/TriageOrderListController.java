@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.mianren.ih_doctor.activity.online_triage.TriageOrderDetailActivity;
 import com.keydom.mianren.ih_doctor.activity.online_triage.view.TriageOrderListView;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 
@@ -21,6 +22,6 @@ public class TriageOrderListController extends ControllerImpl<TriageOrderListVie
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        TriageOrderDetailActivity.startWithAction(mContext, position);
     }
 }

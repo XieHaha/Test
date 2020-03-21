@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.mianren.ih_doctor.view"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_bg_color">
@@ -16,500 +17,534 @@
         android:layout_below="@id/toolBar"
         android:background="@color/line_color" />
 
-    <!--<com.ganxin.library.LoadDataLayout-->
-    <!--android:id="@+id/loadDataLayout"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_below="@id/top_line">-->
-
-    <RelativeLayout
+    <com.ganxin.library.LoadDataLayout
+        android:id="@+id/loadDataLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_line">
 
-        <com.keydom.ih_common.view.AnimationScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/button_ll"
-            android:overScrollMode="never">
+            android:layout_height="match_parent">
 
-            <LinearLayout
+            <com.keydom.ih_common.view.AnimationScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_above="@id/triage_order_detail_bottom_layout"
+                android:overScrollMode="never">
 
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-
-                    <ImageView
-                        android:id="@+id/explain_left_img"
-                        android:layout_width="@dimen/dp_2"
-                        android:layout_height="@dimen/dp_15"
-                        android:layout_marginStart="@dimen/padding_left_right_dp"
-                        android:layout_marginTop="@dimen/dp_18"
-                        android:background="#71A4FF" />
-
-                    <TextView
-                        android:id="@+id/explain_tip_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_6"
-                        android:layout_toEndOf="@id/explain_left_img"
-                        android:paddingTop="@dimen/dp_16"
-                        android:paddingBottom="@dimen/dp_16"
-                        android:text="患者信息"
-                        android:textColor="@color/primary_font_color"
-                        android:textSize="@dimen/sp_14" />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_2"
-                    android:background="@color/line_color" />
-
-
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/padding_left_right_dp"
-                    android:paddingTop="@dimen/dp_20"
-                    android:paddingRight="@dimen/padding_left_right_dp"
-                    android:paddingBottom="@dimen/dp_28">
+                    android:orientation="vertical">
+
 
                     <RelativeLayout
-                        android:id="@+id/name_rl"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
+                        <ImageView
+                            android:id="@+id/image1"
+                            android:layout_width="@dimen/dp_2"
+                            android:layout_height="@dimen/dp_15"
+                            android:layout_marginStart="@dimen/padding_left_right_dp"
+                            android:layout_marginTop="@dimen/dp_18"
+                            android:background="#71A4FF" />
+
                         <TextView
-                            android:id="@+id/user_name_tip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/dp_9"
-                            android:paddingBottom="@dimen/dp_9"
-                            android:text="姓名:"
+                            android:layout_marginStart="@dimen/dp_6"
+                            android:layout_toEndOf="@id/image1"
+                            android:paddingTop="@dimen/dp_16"
+                            android:paddingBottom="@dimen/dp_16"
+                            android:text="@string/txt_patient_info"
                             android:textColor="@color/primary_font_color"
                             android:textSize="@dimen/sp_14" />
 
-                        <TextView
-                            android:id="@+id/user_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toEndOf="@id/user_name_tip"
-                            android:background="@drawable/common_bottom_line_bg"
-                            android:paddingStart="@dimen/dp_12"
-                            android:paddingTop="@dimen/dp_9"
-                            android:paddingBottom="@dimen/dp_9"
-                            android:text="莫思凡·卡农"
-                            android:textColor="@color/fontColorDirection"
-                            android:textSize="@dimen/sp_14" />
                     </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_2"
+                        android:background="@color/line_color" />
 
                     <RelativeLayout
-                        android:id="@+id/sex_rl"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toStartOf="@id/age_rl"
-                        android:layout_toEndOf="@id/name_rl"
-                        android:gravity="center_horizontal">
+                        android:paddingStart="@dimen/padding_left_right_dp"
+                        android:paddingTop="@dimen/dp_20"
+                        android:paddingEnd="@dimen/padding_left_right_dp"
+                        android:paddingBottom="@dimen/dp_28">
 
-                        <TextView
-                            android:id="@+id/user_sex_tip"
+                        <RelativeLayout
+                            android:id="@+id/layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="@dimen/dp_9"
+                                android:paddingBottom="@dimen/dp_9"
+                                android:text="姓名:"
+                                android:textColor="@color/primary_font_color"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/triage_order_detail_name_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/text"
+                                android:background="@drawable/common_bottom_line_bg"
+                                android:paddingStart="@dimen/dp_12"
+                                android:paddingTop="@dimen/dp_9"
+                                android:paddingEnd="@dimen/dp_0"
+                                android:paddingBottom="@dimen/dp_9"
+                                android:text="莫思凡·卡农"
+                                android:textColor="@color/fontColorDirection"
+                                android:textSize="@dimen/sp_14" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/dp_9"
-                            android:paddingBottom="@dimen/dp_9"
-                            android:text="性别:"
-                            android:textColor="@color/primary_font_color"
-                            android:textSize="@dimen/sp_14" />
+                            android:layout_toStartOf="@id/age_rl"
+                            android:layout_toEndOf="@id/layout"
+                            android:gravity="center_horizontal">
 
-                        <TextView
-                            android:id="@+id/user_sex"
+                            <TextView
+                                android:id="@+id/text1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="@dimen/dp_9"
+                                android:paddingBottom="@dimen/dp_9"
+                                android:text="性别:"
+                                android:textColor="@color/primary_font_color"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/triage_order_detail_sex_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/text1"
+                                android:background="@drawable/common_bottom_line_bg"
+                                android:paddingStart="@dimen/dp_12"
+                                android:paddingTop="@dimen/dp_9"
+                                android:paddingEnd="@dimen/dp_0"
+                                android:paddingBottom="@dimen/dp_9"
+                                android:text="男"
+                                android:textColor="@color/fontColorDirection"
+                                android:textSize="@dimen/sp_14" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/age_rl"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toEndOf="@id/user_sex_tip"
-                            android:background="@drawable/common_bottom_line_bg"
-                            android:paddingStart="@dimen/dp_12"
-                            android:paddingTop="@dimen/dp_9"
-                            android:paddingEnd="@dimen/dp_0"
-                            android:paddingBottom="@dimen/dp_9"
-                            android:text="男"
-                            android:textColor="@color/fontColorDirection"
-                            android:textSize="@dimen/sp_14" />
+                            android:layout_alignParentEnd="true">
+
+                            <TextView
+                                android:id="@+id/user_age_tip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="@dimen/dp_9"
+                                android:paddingBottom="@dimen/dp_9"
+                                android:text="年龄:"
+                                android:textColor="@color/primary_font_color"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/triage_order_detail_age_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/user_age_tip"
+                                android:background="@drawable/common_bottom_line_bg"
+                                android:paddingStart="@dimen/dp_12"
+                                android:paddingTop="@dimen/dp_9"
+                                android:paddingEnd="@dimen/dp_0"
+                                android:paddingBottom="@dimen/dp_9"
+                                android:text="24"
+                                android:textColor="@color/fontColorDirection"
+                                android:textSize="@dimen/sp_14" />
+                        </RelativeLayout>
                     </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_10"
+                        android:background="@color/line_color" />
 
                     <RelativeLayout
-                        android:id="@+id/age_rl"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/diagnose_info_left_img"
+                            android:layout_width="@dimen/dp_2"
+                            android:layout_height="@dimen/dp_15"
+                            android:layout_marginStart="@dimen/padding_left_right_dp"
+                            android:layout_marginTop="@dimen/dp_18"
+                            android:background="#71A4FF" />
 
                         <TextView
-                            android:id="@+id/user_age_tip"
+                            android:id="@+id/diagnose_info_tip_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/dp_9"
-                            android:paddingBottom="@dimen/dp_9"
-                            android:text="年龄:"
+                            android:layout_marginStart="@dimen/dp_6"
+                            android:layout_toEndOf="@id/diagnose_info_left_img"
+                            android:paddingTop="@dimen/dp_16"
+                            android:paddingBottom="@dimen/dp_16"
+                            android:text="问诊信息"
                             android:textColor="@color/primary_font_color"
                             android:textSize="@dimen/sp_14" />
 
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:background="@color/line_color" />
+
+                    <TextView
+                        android:id="@+id/triage_order_detail_diagnose_info_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="@dimen/dp_10"
+                        android:paddingStart="@dimen/padding_left_right_dp"
+                        android:paddingTop="@dimen/dp_22"
+                        android:paddingEnd="@dimen/padding_left_right_dp"
+                        android:paddingBottom="@dimen/dp_12"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/sp_14"
+                        tools:text="3日前自觉鼻塞、流涕，轻微咳嗽，自服抗感冒药物效果不佳，近1日觉畏寒，发热，体温37.7℃。" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/triage_order_detail_diagnose_info_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/padding_left_right_dp"
+                        android:paddingEnd="@dimen/padding_left_right_dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_10"
+                        android:background="@color/line_color" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <ImageView
+                            android:id="@+id/image"
+                            android:layout_width="@dimen/dp_2"
+                            android:layout_height="@dimen/dp_15"
+                            android:layout_marginStart="@dimen/padding_left_right_dp"
+                            android:layout_marginTop="@dimen/dp_18"
+                            android:background="#71A4FF" />
+
                         <TextView
-                            android:id="@+id/user_age"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toEndOf="@id/user_age_tip"
-                            android:background="@drawable/common_bottom_line_bg"
-                            android:paddingStart="@dimen/dp_12"
-                            android:paddingTop="@dimen/dp_9"
-                            android:paddingBottom="@dimen/dp_9"
-                            android:text="24"
-                            android:textColor="@color/fontColorDirection"
+                            android:layout_marginStart="@dimen/dp_6"
+                            android:layout_toEndOf="@id/image"
+                            android:paddingTop="@dimen/dp_16"
+                            android:paddingBottom="@dimen/dp_16"
+                            android:text="问诊语音"
+                            android:textColor="@color/primary_font_color"
                             android:textSize="@dimen/sp_14" />
+
                     </RelativeLayout>
-                </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_10"
-                    android:background="@color/line_color" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:background="@color/line_color" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/dp_28"
+                        android:paddingBottom="@dimen/dp_28">
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_10"
+                        android:background="@color/line_color" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/diagnose_explain_left_img"
+                            android:layout_width="@dimen/dp_2"
+                            android:layout_height="@dimen/dp_15"
+                            android:layout_marginStart="@dimen/padding_left_right_dp"
+                            android:layout_marginTop="@dimen/dp_18"
+                            android:background="#71A4FF" />
 
+                        <TextView
+                            android:id="@+id/diagnose_explain_tip_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_6"
+                            android:layout_toEndOf="@id/diagnose_explain_left_img"
+                            android:paddingTop="@dimen/dp_16"
+                            android:paddingBottom="@dimen/dp_16"
+                            android:text="病情描述"
+                            android:textColor="@color/primary_font_color"
+                            android:textSize="@dimen/sp_14" />
 
-                    <ImageView
-                        android:id="@+id/diagnose_info_left_img"
-                        android:layout_width="@dimen/dp_2"
-                        android:layout_height="@dimen/dp_15"
-                        android:layout_marginStart="@dimen/padding_left_right_dp"
-                        android:layout_marginTop="@dimen/dp_18"
-                        android:background="#71A4FF" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:background="@color/line_color" />
 
                     <TextView
-                        android:id="@+id/diagnose_info_tip_tv"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/triage_order_detail_diagnose_explain_tv"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_6"
-                        android:layout_toEndOf="@id/diagnose_info_left_img"
-                        android:paddingTop="@dimen/dp_16"
-                        android:paddingBottom="@dimen/dp_16"
-                        android:text="问诊信息"
-                        android:textColor="@color/primary_font_color"
-                        android:textSize="@dimen/sp_14" />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:background="@color/line_color" />
-
-                <TextView
-                    android:id="@+id/diagnose_info_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lineSpacingExtra="@dimen/dp_10"
-                    android:paddingStart="@dimen/padding_left_right_dp"
-                    android:paddingTop="@dimen/dp_22"
-                    android:paddingRight="@dimen/padding_left_right_dp"
-                    android:paddingBottom="@dimen/dp_12"
-                    android:text="3日前自觉鼻塞、流涕，轻微咳嗽，自服抗感冒药物效果不佳，近1日觉畏寒，发热，体温37.7℃。"
-                    android:textColor="#666666"
-                    android:textSize="@dimen/sp_14" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/diagnose_info_img_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/padding_left_right_dp"
-                    android:paddingRight="@dimen/padding_left_right_dp"></android.support.v7.widget.RecyclerView>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_10"
-                    android:background="@color/line_color" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-
-                    <ImageView
-                        android:id="@+id/diagnose_explain_left_img"
-                        android:layout_width="@dimen/dp_2"
-                        android:layout_height="@dimen/dp_15"
-                        android:layout_marginStart="@dimen/padding_left_right_dp"
-                        android:layout_marginTop="@dimen/dp_18"
-                        android:background="#71A4FF" />
-
-                    <TextView
-                        android:id="@+id/diagnose_explain_tip_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_6"
-                        android:layout_toEndOf="@id/diagnose_explain_left_img"
-                        android:paddingTop="@dimen/dp_16"
-                        android:paddingBottom="@dimen/dp_16"
-                        android:text="转诊说明"
-                        android:textColor="@color/primary_font_color"
-                        android:textSize="@dimen/sp_14" />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:background="@color/line_color" />
-
-                <TextView
-                    android:id="@+id/diagnose_explain_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lineSpacingExtra="@dimen/dp_10"
-                    android:paddingStart="@dimen/padding_left_right_dp"
-                    android:paddingTop="@dimen/dp_22"
-                    android:paddingRight="@dimen/padding_left_right_dp"
-                    android:paddingBottom="@dimen/dp_12"
-                    android:text="患者目前咳嗽、咳痰2周，怀疑感染结核分支杆菌，现转您处，请处理。"
-                    android:textColor="#666666"
-                    android:textSize="@dimen/sp_14" />
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_10"
-                    android:background="@color/line_color" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-
-                    <ImageView
-                        android:id="@+id/diagnose_material_left_img"
-                        android:layout_width="@dimen/dp_2"
-                        android:layout_height="@dimen/dp_15"
-                        android:layout_marginStart="@dimen/padding_left_right_dp"
-                        android:layout_marginTop="@dimen/dp_18"
-                        android:background="#71A4FF" />
-
-                    <TextView
-                        android:id="@+id/diagnose_material_tip_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_6"
-                        android:layout_toEndOf="@id/diagnose_material_left_img"
-                        android:paddingTop="@dimen/dp_16"
-                        android:paddingBottom="@dimen/dp_16"
-                        android:text="病情资料"
-                        android:textColor="@color/primary_font_color"
-                        android:textSize="@dimen/sp_14" />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:background="@color/line_color" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/diagnose_material_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/padding_left_right_dp"
-                    android:paddingRight="@dimen/padding_left_right_dp">
-
-                </android.support.v7.widget.RecyclerView>
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_10"
-                    android:background="@color/line_color" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-
-                    <ImageView
-                        android:id="@+id/diagnose_doctor_left_img"
-                        android:layout_width="@dimen/dp_2"
-                        android:layout_height="@dimen/dp_15"
-                        android:layout_marginStart="@dimen/padding_left_right_dp"
-                        android:layout_marginTop="@dimen/dp_18"
-                        android:background="#71A4FF" />
-
-                    <TextView
-                        android:id="@+id/diagnose_doctor_tip_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_6"
-                        android:layout_toEndOf="@id/diagnose_doctor_left_img"
-                        android:paddingTop="@dimen/dp_16"
-                        android:paddingBottom="@dimen/dp_16"
-                        android:text="申请医生"
-                        android:textColor="@color/primary_font_color"
-                        android:textSize="@dimen/sp_14" />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:background="@color/line_color" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/padding_left_right_dp"
-                    android:paddingRight="@dimen/padding_left_right_dp"
-                    android:paddingBottom="@dimen/dp_30">
-
-                    <com.keydom.ih_common.view.CircleImageView
-                        android:id="@+id/doctor_icon"
-                        android:layout_width="@dimen/dp_59"
-                        android:layout_height="@dimen/dp_59"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="@dimen/dp_19"
-                        android:background="@mipmap/user_icon" />
-
-                    <TextView
-                        android:id="@+id/doctor_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/doctor_icon"
-                        android:layout_marginStart="@dimen/dp_27"
-                        android:layout_toEndOf="@id/doctor_icon"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        android:text="唐玲" />
-
-                    <TextView
-                        android:id="@+id/doctor_job"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/doctor_name"
-                        android:layout_alignBottom="@id/doctor_name"
-                        android:layout_marginStart="@dimen/dp_10"
-                        android:layout_toEndOf="@id/doctor_name"
-                        android:gravity="center_vertical"
-                        android:text="副主任医师"
-                        android:textColor="@color/fontColorDirection"
-                        android:textSize="@dimen/font_size_auxiliary" />
-
-                    <TextView
-                        android:id="@+id/doctor_dept_tip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/doctor_name"
-                        android:layout_alignLeft="@id/doctor_name"
-                        android:layout_marginTop="@dimen/dp_6"
-                        android:text="科室:"
+                        android:lineSpacingExtra="@dimen/dp_10"
+                        android:paddingStart="@dimen/padding_left_right_dp"
+                        android:paddingTop="@dimen/dp_22"
+                        android:paddingEnd="@dimen/padding_left_right_dp"
+                        android:paddingBottom="@dimen/dp_12"
                         android:textColor="#666666"
-                        android:textSize="@dimen/font_size_auxiliary" />
+                        android:textSize="@dimen/sp_14"
+                        tools:text="患者目前咳嗽、咳痰2周，怀疑感染结核分支杆菌，现转您处，请处理。" />
 
-                    <TextView
-                        android:id="@+id/doctor_dept"
-                        android:layout_width="wrap_content"
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_10"
+                        android:background="@color/line_color" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/diagnose_material_left_img"
+                            android:layout_width="@dimen/dp_2"
+                            android:layout_height="@dimen/dp_15"
+                            android:layout_marginStart="@dimen/padding_left_right_dp"
+                            android:layout_marginTop="@dimen/dp_18"
+                            android:background="#71A4FF" />
+
+                        <TextView
+                            android:id="@+id/diagnose_material_tip_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_6"
+                            android:layout_toEndOf="@id/diagnose_material_left_img"
+                            android:paddingTop="@dimen/dp_16"
+                            android:paddingBottom="@dimen/dp_16"
+                            android:text="病情资料"
+                            android:textColor="@color/primary_font_color"
+                            android:textSize="@dimen/sp_14" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:background="@color/line_color" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/triage_order_detail_diagnose_material_recycler"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/doctor_dept_tip"
-                        android:layout_marginStart="@dimen/dp_10"
-                        android:layout_toEndOf="@id/doctor_dept_tip"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        android:text="皮肤科"
-                        android:textColor="#666666"
-                        android:textSize="@dimen/font_size_auxiliary" />
+                        android:paddingStart="@dimen/padding_left_right_dp"
+                        android:paddingEnd="@dimen/padding_left_right_dp" />
 
-                    <TextView
-                        android:id="@+id/doctor_be_good_tip"
-                        android:layout_width="wrap_content"
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_10"
+                        android:background="@color/line_color" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/diagnose_doctor_left_img"
+                            android:layout_width="@dimen/dp_2"
+                            android:layout_height="@dimen/dp_15"
+                            android:layout_marginStart="@dimen/padding_left_right_dp"
+                            android:layout_marginTop="@dimen/dp_18"
+                            android:background="#71A4FF" />
+
+                        <TextView
+                            android:id="@+id/diagnose_doctor_tip_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_6"
+                            android:layout_toEndOf="@id/diagnose_doctor_left_img"
+                            android:paddingTop="@dimen/dp_16"
+                            android:paddingBottom="@dimen/dp_16"
+                            android:text="申请医生"
+                            android:textColor="@color/primary_font_color"
+                            android:textSize="@dimen/sp_14" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:background="@color/line_color" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/doctor_dept_tip"
-                        android:layout_marginStart="@dimen/dp_10"
-                        android:layout_toEndOf="@id/doctor_dept"
-                        android:text="擅长："
-                        android:textColor="#666666"
-                        android:textSize="@dimen/font_size_auxiliary" />
+                        android:paddingStart="@dimen/padding_left_right_dp"
+                        android:paddingEnd="@dimen/padding_left_right_dp"
+                        android:paddingBottom="@dimen/dp_30">
 
-                    <TextView
-                        android:id="@+id/doctor_be_good"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/doctor_be_good_tip"
-                        android:layout_toEndOf="@id/doctor_be_good_tip"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        android:text="皮炎湿疹、荨麻疹"
-                        android:textColor="#666666"
-                        android:textSize="@dimen/font_size_auxiliary" />
+                        <com.keydom.ih_common.view.CircleImageView
+                            android:id="@+id/triage_order_detail_doctor_header_iv"
+                            android:layout_width="@dimen/dp_59"
+                            android:layout_height="@dimen/dp_59"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginTop="@dimen/dp_19"
+                            android:background="@mipmap/user_icon" />
 
-                    <TextView
-                        android:id="@+id/apply_time_tip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/doctor_dept_tip"
-                        android:layout_alignLeft="@id/doctor_dept_tip"
-                        android:layout_marginTop="@dimen/dp_3"
-                        android:text="申请时间："
-                        android:textColor="#666666"
-                        android:textSize="@dimen/font_size_auxiliary" />
+                        <TextView
+                            android:id="@+id/triage_order_detail_doctor_name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/triage_order_detail_doctor_header_iv"
+                            android:layout_marginStart="@dimen/dp_27"
+                            android:layout_toEndOf="@id/triage_order_detail_doctor_header_iv"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text="唐玲" />
 
-                    <TextView
-                        android:id="@+id/apply_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/doctor_dept_tip"
-                        android:layout_alignTop="@id/apply_time_tip"
-                        android:layout_marginStart="@dimen/dp_10"
-                        android:layout_toEndOf="@id/apply_time_tip"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        android:text="201810.22  17:23:56"
-                        android:textColor="#666666"
-                        android:textSize="@dimen/font_size_auxiliary" />
-                </RelativeLayout>
+                        <TextView
+                            android:id="@+id/triage_order_detail_doctor_job_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/triage_order_detail_doctor_name_tv"
+                            android:layout_alignBottom="@id/triage_order_detail_doctor_name_tv"
+                            android:layout_marginStart="@dimen/dp_10"
+                            android:layout_toEndOf="@id/triage_order_detail_doctor_name_tv"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/fontColorDirection"
+                            android:textSize="@dimen/sp_12"
+                            tools:text="副主任医师" />
 
+                        <TextView
+                            android:id="@+id/text2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/triage_order_detail_doctor_name_tv"
+                            android:layout_alignStart="@id/triage_order_detail_doctor_name_tv"
+                            android:layout_marginTop="@dimen/dp_6"
+                            android:text="科室:"
+                            android:textColor="#666666"
+                            android:textSize="@dimen/sp_12" />
+
+                        <TextView
+                            android:id="@+id/triage_order_detail_doctor_depart_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/text2"
+                            android:layout_marginStart="@dimen/dp_10"
+                            android:layout_toEndOf="@id/text2"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:textColor="#666666"
+                            android:textSize="@dimen/sp_12"
+                            tools:text="皮肤科" />
+
+                        <TextView
+                            android:id="@+id/text3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/text2"
+                            android:layout_marginStart="@dimen/dp_10"
+                            android:layout_toEndOf="@id/triage_order_detail_doctor_depart_tv"
+                            android:text="擅长："
+                            android:textColor="#666666"
+                            android:textSize="@dimen/sp_12" />
+
+                        <TextView
+                            android:id="@+id/triage_order_detail_doctor_specialty_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/text3"
+                            android:layout_toEndOf="@id/text3"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:textColor="#666666"
+                            android:textSize="@dimen/sp_12"
+                            tools:text="皮炎湿疹、荨麻疹" />
+
+                        <TextView
+                            android:id="@+id/text4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/text2"
+                            android:layout_alignStart="@id/text2"
+                            android:layout_marginTop="@dimen/dp_3"
+                            android:text="申请时间："
+                            android:textColor="#666666"
+                            android:textSize="@dimen/sp_12" />
+
+                        <TextView
+                            android:id="@+id/triage_order_detail_apply_time_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/text2"
+                            android:layout_alignTop="@id/text4"
+                            android:layout_marginStart="@dimen/dp_10"
+                            android:layout_toEndOf="@id/text4"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:textColor="#666666"
+                            android:textSize="@dimen/sp_12"
+                            tools:text="201810.22  17:23:56" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </com.keydom.ih_common.view.AnimationScrollView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/line_color" />
+
+            <LinearLayout
+                android:id="@+id/triage_order_detail_bottom_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_43"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/triage_order_detail_bottom_left"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#F9F9F9"
+                    android:text="拒绝"
+                    android:textColor="#BBBBBB" />
+
+                <Button
+                    android:id="@+id/triage_order_detail_bottom_right"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#3F98F7"
+                    android:text="接收"
+                    android:textColor="@color/white" />
             </LinearLayout>
-        </com.keydom.ih_common.view.AnimationScrollView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:background="@color/line_color" />
-
-        <LinearLayout
-            android:id="@+id/button_ll"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_43"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/return_bt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#F9F9F9"
-                android:text="拒绝"
-                android:textColor="#BBBBBB" />
-
-            <Button
-                android:id="@+id/receive_bt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#3F98F7"
-                android:text="接收"
-                android:textColor="@color/white" />
-        </LinearLayout>
-    </RelativeLayout>
-    <!--</com.ganxin.library.LoadDataLayout>-->
+        </RelativeLayout>
+    </com.ganxin.library.LoadDataLayout>
 </RelativeLayout>
