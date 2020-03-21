@@ -11,7 +11,7 @@
             android:id="@+id/medicine_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_61"
+            android:layout_marginStart="@dimen/dp_61"
             android:text="1、"
             android:textSize="@dimen/font_size_auxiliary"
             android:textStyle="bold" />

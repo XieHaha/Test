@@ -76,7 +76,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical|right"
                         android:orientation="horizontal">
@@ -111,7 +111,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="34.5dp"
+                    android:layout_marginStart="34.5dp"
                     android:layout_marginTop="23.5dp"
                     android:text="预约项目"
                     android:textColor="@color/vip_pregnancy_week_text"
@@ -142,7 +142,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="34.5dp"
+                    android:layout_marginStart="34.5dp"
                     android:layout_marginTop="23.5dp"
                     android:text="预约时间"
                     android:textColor="@color/vip_pregnancy_week_text"
@@ -165,7 +165,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="34.5dp"
+                android:layout_marginStart="34.5dp"
                 android:layout_marginTop="23.5dp"
                 android:text="预约时段"
                 android:textColor="@color/vip_pregnancy_week_text"
@@ -187,7 +187,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
+                android:layout_marginStart="35dp"
                 android:layout_marginTop="23dp"
                 android:layout_marginRight="35dp"
                 android:text="为了节约您的就诊时间，您可以按医生约定的产检日期，提前1~2天进行检验检查预约与执行，以便携带检验检查报告就诊"
@@ -199,7 +199,7 @@
                 android:id="@+id/pregnancy_detail_order_tv"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_52"
-                android:layout_marginLeft="@dimen/dp_21"
+                android:layout_marginStart="@dimen/dp_21"
                 android:layout_marginTop="36dp"
                 android:layout_marginRight="@dimen/dp_21"
                 android:layout_marginBottom="29dp"

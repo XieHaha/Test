@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -27,7 +27,7 @@
             android:id="@+id/item_pregnancy_record_weeks_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25.5dp"
+            android:layout_marginStart="25.5dp"
             android:text="怀孕20周"
             android:textColor="@color/black"
             android:textSize="14sp" />
@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:text="|"
             android:textColor="@color/black"
@@ -55,7 +55,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="13.5dp"
         android:layout_marginEnd="20dp"
         android:gravity="center_vertical"
@@ -66,7 +66,7 @@
             android:id="@+id/item_pregnancy_record_times_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50.5dp"
+            android:layout_marginStart="50.5dp"
             android:text="第三次产检"
             android:textColor="@color/vip_pregnancy_week_text"
             android:textSize="12sp" />
@@ -74,7 +74,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:text="|"
             android:textColor="@color/vip_pregnancy_week_text"

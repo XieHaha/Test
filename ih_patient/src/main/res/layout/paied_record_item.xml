@@ -12,7 +12,7 @@
             <TextView
                 android:id="@+id/name_tv"
                 android:layout_marginTop="@dimen/dp_20"
-                android:layout_marginLeft="@dimen/dp_19"
+                android:layout_marginStart="@dimen/dp_19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/font_size_primary"
@@ -22,7 +22,7 @@
                 android:id="@+id/project_tv"
                 android:layout_below="@+id/name_tv"
                 android:layout_marginTop="@dimen/dp_12"
-                android:layout_marginLeft="@dimen/dp_19"
+                android:layout_marginStart="@dimen/dp_19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/dp_12"

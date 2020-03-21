@@ -19,7 +19,7 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_17"
+        android:layout_marginStart="@dimen/dp_17"
         android:layout_toLeftOf="@+id/time"
         android:layout_toRightOf="@+id/head_img"
         android:ellipsize="end"
@@ -70,7 +70,7 @@
             android:id="@+id/grade"
             android:textColor="@color/login_btn_color"
             android:textSize="@dimen/font_size_auxiliary"
-            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_marginStart="@dimen/dp_8"
             />
     </LinearLayout>
 
@@ -96,7 +96,7 @@
             android:id="@+id/goods_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_6"
+            android:layout_marginStart="@dimen/dp_6"
             android:text="100"
             android:textColor="@color/login_btn_color"
             android:textSize="@dimen/font_size_auxiliary" />

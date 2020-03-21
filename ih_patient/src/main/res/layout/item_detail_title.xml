@@ -17,7 +17,7 @@
         android:id="@+id/tv_title"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/image_dots"
-        android:layout_marginLeft="@dimen/dp_5"
+        android:layout_marginStart="@dimen/dp_5"
         android:layout_width="@dimen/dp_88"
         android:layout_height="wrap_content"
         android:textSize="14dp"

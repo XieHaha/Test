@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/community_img"
             android:layout_alignTop="@id/community_img"
-            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginStart="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_12"
             android:paddingLeft="@dimen/dp_6"
             android:background="@drawable/top_article_tag_bg"

@@ -45,13 +45,13 @@
                         android:id="@+id/title_left_icon"
                         android:layout_width="@dimen/dp_2"
                         android:layout_height="@dimen/dp_18"
-                        android:layout_marginLeft="@dimen/dp_19"
+                        android:layout_marginStart="@dimen/dp_19"
 
                         android:src="@mipmap/title_left_icon"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_6"
+                        android:layout_marginStart="@dimen/dp_6"
                         android:layout_toRightOf="@+id/title_left_icon"
                         android:text="待处理服务"
                         android:textSize="@dimen/font_size_primary"
@@ -118,12 +118,12 @@
                     <ImageView
                         android:layout_width="@dimen/dp_2"
                         android:layout_height="@dimen/dp_18"
-                        android:layout_marginLeft="@dimen/dp_19"
+                        android:layout_marginStart="@dimen/dp_19"
                         android:src="@mipmap/title_left_icon"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_6"
+                        android:layout_marginStart="@dimen/dp_6"
                         android:text="服务类别"
                         android:textSize="@dimen/font_size_primary"
                         android:textColor="@color/fontColorPrimary"/>
@@ -132,7 +132,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_24"
+                    android:layout_marginStart="@dimen/dp_24"
                     android:layout_marginBottom="@dimen/dp_28"
                     android:orientation="horizontal">
 
@@ -140,7 +140,7 @@
                         android:id="@+id/nurse_function_consulting_online"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginStart="@dimen/dp_5"
                         android:drawableTop="@mipmap/qa_online_icon"
                         android:drawablePadding="@dimen/dp_5"
                         android:text="在线咨询"
@@ -151,7 +151,7 @@
                         android:id="@+id/nurse_function_base_nursing"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_26"
+                        android:layout_marginStart="@dimen/dp_26"
                         android:drawableTop="@mipmap/base_nurse_icon"
                         android:drawablePadding="@dimen/dp_5"
                         android:visibility="gone"
@@ -163,7 +163,7 @@
                         android:id="@+id/nurse_function_after_pregnancy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_26"
+                        android:layout_marginStart="@dimen/dp_26"
                         android:drawableTop="@mipmap/after_pregnancy_icon"
                         android:drawablePadding="@dimen/dp_5"
                         android:visibility="gone"
@@ -176,7 +176,7 @@
                         android:id="@+id/nurse_function_professional_nursing"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_24"
+                        android:layout_marginStart="@dimen/dp_24"
                         android:drawableTop="@mipmap/professional_nursing_icon"
                         android:drawablePadding="@dimen/dp_5"
                         android:visibility="gone"
@@ -197,12 +197,12 @@
                     <ImageView
                         android:layout_width="@dimen/dp_2"
                         android:layout_height="@dimen/dp_18"
-                        android:layout_marginLeft="@dimen/dp_19"
+                        android:layout_marginStart="@dimen/dp_19"
                         android:src="@mipmap/title_left_icon"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_6"
+                        android:layout_marginStart="@dimen/dp_6"
                         android:text="热门服务"
                         android:textSize="@dimen/font_size_primary"
                         android:textColor="@color/fontColorPrimary"/>
@@ -228,7 +228,7 @@
                             android:paddingRight="@dimen/dp_20"
                             android:textSize="@dimen/font_size_primary"
                             android:layout_marginTop="@dimen/dp_8"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#333333"
                             android:textStyle="bold"
                             android:text=""/>
@@ -242,7 +242,7 @@
                             android:paddingRight="@dimen/dp_20"
                             android:textSize="@dimen/dp_12"
                             android:layout_marginTop="@dimen/dp_6"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#999999"
                             android:text=""/>
                         <TextView
@@ -252,7 +252,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/dp_12"
                             android:layout_marginTop="@dimen/dp_4"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#FF3939"
                             android:text=""/>
                         <ImageView
@@ -292,7 +292,7 @@
                             android:paddingRight="@dimen/dp_20"
                             android:textSize="@dimen/font_size_primary"
                             android:layout_marginTop="@dimen/dp_8"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#333333"
                             android:textStyle="bold"
                             android:text=""/>
@@ -307,7 +307,7 @@
                             android:layout_marginEnd="90dp"
                             android:textSize="@dimen/dp_12"
                             android:layout_marginTop="@dimen/dp_4"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#FF3939"
                             android:text=""/>
 
@@ -321,7 +321,7 @@
                             android:layout_marginEnd="90dp"
                             android:textSize="@dimen/dp_12"
                             android:layout_marginTop="@dimen/dp_6"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#999999"
                             android:text=""/>
                         <View
@@ -353,7 +353,7 @@
                             android:paddingRight="@dimen/dp_20"
                             android:textSize="@dimen/font_size_primary"
                             android:layout_marginTop="@dimen/dp_8"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#333333"
                             android:textStyle="bold"
                             android:text=""/>
@@ -365,7 +365,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/dp_12"
                             android:layout_marginTop="@dimen/dp_6"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:layout_marginEnd="90dp"
                             android:textColor="#FF3939"
                             android:text=""/>
@@ -380,7 +380,7 @@
                             android:layout_marginEnd="90dp"
                             android:textSize="@dimen/dp_12"
                             android:layout_marginTop="@dimen/dp_6"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#999999"
                             android:text=""/>
                     </RelativeLayout>
@@ -405,7 +405,7 @@
                             android:paddingRight="@dimen/dp_20"
                             android:textSize="@dimen/font_size_primary"
                             android:layout_marginTop="@dimen/dp_24"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#333333"
                             android:textStyle="bold"
                             android:text=""/>
@@ -419,7 +419,7 @@
                             android:paddingRight="@dimen/dp_20"
                             android:textSize="@dimen/dp_12"
                             android:layout_marginTop="@dimen/dp_12"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#999999"
                             android:text=""/>
 
@@ -439,7 +439,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/dp_12"
                             android:layout_marginTop="@dimen/dp_10"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#FF3939"
                             android:text=""/>
                     </RelativeLayout>
@@ -467,7 +467,7 @@
                             android:paddingRight="@dimen/dp_20"
                             android:textSize="@dimen/font_size_primary"
                             android:layout_marginTop="@dimen/dp_8"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#333333"
                             android:textStyle="bold"
                             android:text=""/>
@@ -480,7 +480,7 @@
                             android:layout_marginEnd="90dp"
                             android:textSize="@dimen/dp_12"
                             android:layout_marginTop="@dimen/dp_4"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#FF3939"
                             android:text=""/>
                         <TextView
@@ -491,7 +491,7 @@
                             android:layout_marginEnd="90dp"
                             android:textSize="@dimen/dp_12"
                             android:layout_marginTop="@dimen/dp_6"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#999999"
                             android:lines="1"
                             android:ellipsize="end"
@@ -527,7 +527,7 @@
                             android:paddingRight="@dimen/dp_20"
                             android:textSize="@dimen/font_size_primary"
                             android:layout_marginTop="@dimen/dp_8"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#333333"
                             android:textStyle="bold"
                             android:text=""/>
@@ -542,7 +542,7 @@
                             android:layout_marginEnd="90dp"
                             android:textSize="@dimen/dp_12"
                             android:layout_marginTop="@dimen/dp_4"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#FF3939"
                             android:text=""/>
                         <TextView
@@ -553,7 +553,7 @@
                             android:layout_marginEnd="90dp"
                             android:textSize="@dimen/dp_12"
                             android:layout_marginTop="@dimen/dp_6"
-                            android:layout_marginLeft="@dimen/dp_18"
+                            android:layout_marginStart="@dimen/dp_18"
                             android:textColor="#999999"
                             android:lines="1"
                             android:ellipsize="end"
@@ -583,7 +583,7 @@
             android:orientation="horizontal">
             <LinearLayout
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/dp_50"
+                android:layout_marginStart="@dimen/dp_50"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

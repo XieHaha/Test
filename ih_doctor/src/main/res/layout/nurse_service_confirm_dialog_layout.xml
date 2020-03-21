@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/dialog_tip_tv"
-        android:layout_marginLeft="@dimen/padding_left_right_dp"
+        android:layout_marginStart="@dimen/padding_left_right_dp"
         android:layout_marginTop="@dimen/dp_38"
         android:layout_marginRight="@dimen/padding_left_right_dp"
         android:orientation="horizontal">
@@ -79,7 +79,7 @@
         android:layout_height="@dimen/dp_96"
         android:layout_below="@id/dialog_service_material_tip_tv"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="@dimen/padding_left_right_dp"
+        android:layout_marginStart="@dimen/padding_left_right_dp"
         android:layout_marginTop="@dimen/dp_17"
         android:layout_marginRight="@dimen/padding_left_right_dp">
 
@@ -115,7 +115,7 @@
         android:layout_height="@dimen/dp_42"
         android:layout_below="@id/nurse_service_confirm_dialog_layout_input_root_rl"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="@dimen/padding_left_right_dp"
+        android:layout_marginStart="@dimen/padding_left_right_dp"
         android:layout_marginTop="@dimen/dp_24"
         android:layout_marginRight="@dimen/padding_left_right_dp"
         android:background="@drawable/check_dialog_btn_bg"

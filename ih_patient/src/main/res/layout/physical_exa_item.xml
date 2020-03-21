@@ -7,14 +7,14 @@
         android:layout_height="@dimen/dp_58"
         android:layout_centerVertical="true"
         android:scaleType="fitXY"
-        android:layout_marginLeft="@dimen/dp_19" />
+        android:layout_marginStart="@dimen/dp_19" />
     <TextView
         android:id="@+id/physical_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/physical_head_img"
         android:layout_marginTop="@dimen/dp_18"
-        android:layout_marginLeft="@dimen/dp_11"
+        android:layout_marginStart="@dimen/dp_11"
         android:textSize="@dimen/dp_12"
         android:textColor="#333333"
         android:maxWidth="@dimen/dp_100"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/physical_name_tv"
         android:layout_marginTop="@dimen/dp_17"
-        android:layout_marginLeft="@dimen/dp_11"
+        android:layout_marginStart="@dimen/dp_11"
         android:textSize="@dimen/dp_10"
         android:paddingLeft="@dimen/dp_10"
         android:paddingRight="@dimen/dp_10"
@@ -61,7 +61,7 @@
         android:id="@+id/physical_exa_dsc_tv"
         android:layout_toRightOf="@+id/physical_head_img"
         android:layout_below="@+id/physical_name_tv"
-        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_width="@dimen/dp_136"
         android:layout_height="@dimen/dp_28"
@@ -72,7 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_20"
         android:layout_marginRight="@dimen/dp_20"
         android:background="#F0F0F0"/>
 </RelativeLayout>

@@ -11,8 +11,8 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_9"
-        android:textSize="@dimen/font_size_primary"
+        android:layout_marginStart="@dimen/dp_9"
+        android:textSize="@dimen/sp_14"
         android:textColor="@color/list_tab_color"
         android:id="@+id/title"
         />

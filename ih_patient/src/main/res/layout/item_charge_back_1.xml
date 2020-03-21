@@ -24,7 +24,7 @@
         />
     <TextView
         android:layout_width="wrap_content"
-        android:layout_marginLeft="@dimen/dp_6"
+        android:layout_marginStart="@dimen/dp_6"
         android:id="@+id/money"
         android:textSize="@dimen/font_size_primary"
         android:textColor="@color/nursing_status_red"

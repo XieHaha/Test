@@ -25,7 +25,6 @@
             android:padding="12dp"
             android:src="@drawable/bd_ocr_cancel"
             android:layout_marginLeft="@dimen/camera_left_margin"
-            android:layout_marginStart="@dimen/camera_left_margin"
             android:layout_marginBottom="@dimen/camera_bottom_margin"
     />
 

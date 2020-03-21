@@ -10,7 +10,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:textSize="@dimen/font_size_primary"
             android:textColor="#333333"
             android:textStyle="bold"
@@ -94,7 +94,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="时间:"
@@ -102,7 +102,7 @@
             android:textSize="@dimen/font_size_primary"/>
         <TextView
             android:id="@+id/register_time_tv"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_30"
@@ -116,7 +116,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="科室:"
@@ -124,7 +124,7 @@
             android:textSize="@dimen/font_size_primary"/>
         <TextView
             android:id="@+id/register_department_tv"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_30"
@@ -138,7 +138,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="医生:"
@@ -146,7 +146,7 @@
             android:textSize="@dimen/font_size_primary"/>
         <TextView
             android:id="@+id/register_doctor_tv"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_30"
@@ -160,7 +160,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="备注:"
@@ -168,7 +168,7 @@
             android:textSize="@dimen/font_size_primary"/>
         <TextView
             android:id="@+id/register_remark_tv"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_30"

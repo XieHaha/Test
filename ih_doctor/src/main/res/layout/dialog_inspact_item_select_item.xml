@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/dp_17"
+        android:layout_marginStart="@dimen/dp_17"
         android:layout_toRightOf="@id/group_icon"
         android:text="唐琳专家团队"
         android:textColor="@color/font_select"

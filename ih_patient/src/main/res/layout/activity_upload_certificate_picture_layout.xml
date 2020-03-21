@@ -17,7 +17,7 @@
         android:layout_height="@dimen/dp_174"
         android:layout_marginTop="@dimen/dp_37"
         android:layout_marginRight="@dimen/dp_12"
-        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginStart="@dimen/dp_12"
         android:orientation="horizontal">
         <RelativeLayout
             android:layout_width="0dp"
@@ -44,7 +44,7 @@
                 android:text=""/>
         </RelativeLayout>
         <RelativeLayout
-            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginStart="@dimen/dp_5"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
@@ -74,7 +74,7 @@
         android:background="@mipmap/fill_personal_bt_bg"
         android:layout_width="match_parent"
         android:layout_marginRight="@dimen/dp_19"
-        android:layout_marginLeft="@dimen/dp_19"
+        android:layout_marginStart="@dimen/dp_19"
         android:layout_height="@dimen/dp_58"
         android:textSize="@dimen/dp_17"
         android:gravity="center"
@@ -84,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="说明："
-        android:layout_marginLeft="@dimen/dp_25"
+        android:layout_marginStart="@dimen/dp_25"
         android:layout_marginTop="@dimen/dp_40"
         android:textColor="#333333"
         android:textSize="@dimen/dp_17"/>
@@ -93,7 +93,7 @@
         android:textSize="@dimen/font_size_primary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/dp_25"
+        android:layout_marginStart="@dimen/dp_25"
         android:layout_marginRight="@dimen/dp_18"
         android:layout_marginTop="@dimen/dp_27"
         android:text="@string/upload_certificate_pic_hint"/>

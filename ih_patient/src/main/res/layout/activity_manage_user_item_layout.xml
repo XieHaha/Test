@@ -8,7 +8,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/padding_left_right_dp"
+        android:layout_marginStart="@dimen/padding_left_right_dp"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginRight="@dimen/padding_left_right_dp"
         android:layout_marginBottom="@dimen/dp_20">
@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content">
                 <FrameLayout
                     android:layout_width="@dimen/dp_67"
-                    android:layout_marginLeft="@dimen/padding_left_right_dp"
+                    android:layout_marginStart="@dimen/padding_left_right_dp"
                     android:background="@drawable/manager_user_img_bg"
                     android:id="@+id/user_icon"
                     android:gravity="center"
@@ -42,7 +42,7 @@
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_23"
+                    android:layout_marginStart="@dimen/dp_23"
                     android:layout_marginTop="@dimen/dp_11"
                     android:layout_toRightOf="@id/user_icon"
                     android:text="执笔一副情画"

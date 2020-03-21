@@ -26,14 +26,14 @@
           android:id="@+id/function_config_left_icon"
           android:layout_width="@dimen/dp_2"
           android:layout_height="@dimen/dp_18"
-          android:layout_marginLeft="@dimen/dp_19"
+          android:layout_marginStart="@dimen/dp_19"
           android:layout_centerVertical="true"
           android:src="@mipmap/title_left_icon"/>
       <TextView
           android:id="@+id/function_confing_label"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/dp_6"
+          android:layout_marginStart="@dimen/dp_6"
           android:layout_centerVertical="true"
           android:layout_toRightOf="@+id/function_config_left_icon"
           android:text="@string/function_config_label_top_base"
@@ -42,7 +42,7 @@
       <TextView
           android:layout_toRightOf="@+id/function_confing_label"
           android:layout_centerVertical="true"
-          android:layout_marginLeft="@dimen/dp_8"
+          android:layout_marginStart="@dimen/dp_8"
           android:id="@+id/my_func_hint_tv"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -72,13 +72,13 @@
        android:layout_width="match_parent"
        android:layout_height="@dimen/dp_1"
        android:layout_marginRight="@dimen/dp_19"
-       android:layout_marginLeft="@dimen/dp_19"
+       android:layout_marginStart="@dimen/dp_19"
        android:background="@color/color_f9f9f9"/>
    <android.support.v7.widget.RecyclerView
        android:layout_marginTop="@dimen/dp_14"
        android:layout_marginBottom="@dimen/dp_14"
        android:id="@+id/selected_function_rv"
-       android:layout_marginLeft="@dimen/dp_19"
+       android:layout_marginStart="@dimen/dp_19"
        android:layout_marginRight="@dimen/dp_19"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
@@ -94,13 +94,13 @@
           android:id="@+id/function_config_second_icon"
           android:layout_width="@dimen/dp_2"
           android:layout_height="@dimen/dp_18"
-          android:layout_marginLeft="@dimen/dp_19"
+          android:layout_marginStart="@dimen/dp_19"
           android:layout_centerVertical="true"
           android:src="@mipmap/title_left_icon"/>
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/dp_6"
+          android:layout_marginStart="@dimen/dp_6"
           android:layout_centerVertical="true"
           android:layout_toRightOf="@+id/function_config_second_icon"
           android:text="@string/function_config_label_bottom"
@@ -111,13 +111,13 @@
        android:layout_width="match_parent"
        android:layout_height="@dimen/dp_1"
        android:layout_marginRight="@dimen/dp_19"
-       android:layout_marginLeft="@dimen/dp_19"
+       android:layout_marginStart="@dimen/dp_19"
        android:background="@color/color_f9f9f9"/>
    <android.support.v7.widget.RecyclerView
        android:id="@+id/all_function_rv"
        android:layout_marginTop="@dimen/dp_14"
        android:layout_marginBottom="@dimen/dp_14"
-       android:layout_marginLeft="@dimen/dp_19"
+       android:layout_marginStart="@dimen/dp_19"
        android:layout_marginRight="@dimen/dp_19"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"

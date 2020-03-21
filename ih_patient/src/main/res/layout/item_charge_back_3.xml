@@ -21,24 +21,24 @@
         android:layout_width="@dimen/dp_10"
         android:layout_height="@dimen/dp_10"
         android:src="@mipmap/point_icon_3"
-        android:layout_marginLeft="@dimen/dp_40"
+        android:layout_marginStart="@dimen/dp_40"
         />
     <TextView
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_12"
-        android:textSize="@dimen/font_size_primary"
+        android:layout_marginStart="@dimen/dp_12"
+        android:textSize="@dimen/sp_14"
         android:textColor="@color/title_bar_text_color"
         android:text="退费金额合计"
         />
     <TextView
         android:layout_width="wrap_content"
         android:id="@+id/total"
-        android:textSize="@dimen/font_size_primary"
+        android:textSize="@dimen/sp_14"
         android:textColor="@color/nursing_status_red"
         android:text="500"
-        android:layout_marginLeft="@dimen/dp_44"
+        android:layout_marginStart="@dimen/dp_44"
         android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>

@@ -67,7 +67,7 @@
         android:layout_alignBottom="@+id/service_tv"
         android:layout_toRightOf="@+id/service_tv"
         android:text="123123"
-        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_20"
         />
 
     <TextView

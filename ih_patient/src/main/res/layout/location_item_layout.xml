@@ -16,14 +16,14 @@
             android:layout_height="wrap_content"
             android:text="张三"
             android:layout_marginTop="@dimen/dp_11"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:textSize="@dimen/sp_14"
             android:textColor="@color/color_333333"/>
         <TextView
             android:id="@+id/location_phone_tv"
             android:layout_toRightOf="@+id/location_name_tv"
             android:layout_marginTop="@dimen/dp_11"
-            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginStart="@dimen/dp_15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="15925867864"
@@ -32,7 +32,7 @@
         <TextView
             android:id="@+id/location_address_tv"
             android:layout_below="@+id/location_name_tv"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:layout_marginTop="@dimen/dp_5"
             android:textSize="@dimen/dp_12"
             android:textColor="@color/tab_nol_color"
@@ -51,7 +51,7 @@
             android:background="@color/color_f9f9f9"/>
         <CheckBox
             android:id="@+id/location_manage_default_cb"
-            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginStart="@dimen/dp_15"
             android:layout_below="@+id/line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

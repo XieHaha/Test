@@ -41,7 +41,7 @@
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginLeft="22dp"
+            android:layout_marginStart="22dp"
             android:src="@mipmap/ic_file_user_follow_up" />
     </LinearLayout>
 </com.keydom.ih_common.im.widget.provider.item.ImMessageItemUserFollowUpProvider>

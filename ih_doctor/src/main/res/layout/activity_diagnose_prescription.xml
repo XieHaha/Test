@@ -42,7 +42,7 @@
                     android:id="@+id/rediagnose_tip_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_marginStart="@dimen/dp_6"
                     android:layout_toRightOf="@id/rediagnose_left_img"
                     android:paddingTop="@dimen/dp_16"
                     android:paddingBottom="@dimen/dp_16"
@@ -149,7 +149,7 @@
                             android:id="@+id/drag_left_img"
                             android:layout_width="@dimen/dp_2"
                             android:layout_height="@dimen/dp_15"
-                            android:layout_marginLeft="@dimen/padding_left_right_dp"
+                            android:layout_marginStart="@dimen/padding_left_right_dp"
                             android:layout_marginTop="@dimen/dp_18"
                             android:background="#71A4FF" />
 
@@ -157,7 +157,7 @@
                             android:id="@+id/drag_tip_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_6"
+                            android:layout_marginStart="@dimen/dp_6"
                             android:layout_toRightOf="@id/drag_left_img"
                             android:paddingTop="@dimen/dp_16"
                             android:paddingBottom="@dimen/dp_16"
@@ -168,7 +168,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_6"
+                            android:layout_marginStart="@dimen/dp_6"
                             android:layout_toRightOf="@id/drag_tip_tv"
                             android:paddingTop="@dimen/dp_16"
                             android:paddingBottom="@dimen/dp_16"
@@ -206,7 +206,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp_12"
+                                android:layout_marginStart="@dimen/dp_12"
                                 android:layout_toRightOf="@id/add_prescription"
                                 android:text="添加处方"
                                 android:textSize="@dimen/sp_14" />
@@ -237,7 +237,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp_12"
+                                android:layout_marginStart="@dimen/dp_12"
                                 android:layout_toRightOf="@id/prescription_model"
                                 android:text="处方模版"
                                 android:textSize="@dimen/sp_14" />
@@ -276,7 +276,7 @@
                             android:id="@+id/modal_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_15"
+                            android:layout_marginStart="@dimen/dp_15"
                             android:layout_toRightOf="@id/rp_tv"
                             android:drawableLeft="@mipmap/point_green"
                             android:drawablePadding="@dimen/dp_8"
@@ -407,7 +407,7 @@
                             android:id="@+id/submit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_37"
+                            android:layout_marginStart="@dimen/dp_37"
                             android:layout_toRightOf="@id/submit_with_model"
                             android:background="@drawable/prescription_submit"
                             android:gravity="center"
@@ -449,7 +449,7 @@
                             android:id="@+id/left_img"
                             android:layout_width="@dimen/dp_2"
                             android:layout_height="@dimen/dp_15"
-                            android:layout_marginLeft="@dimen/padding_left_right_dp"
+                            android:layout_marginStart="@dimen/padding_left_right_dp"
                             android:layout_marginTop="@dimen/dp_18"
                             android:background="#71A4FF" />
 
@@ -457,7 +457,7 @@
                             android:id="@+id/tip_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_6"
+                            android:layout_marginStart="@dimen/dp_6"
                             android:layout_toRightOf="@id/left_img"
                             android:paddingTop="@dimen/dp_16"
                             android:paddingBottom="@dimen/dp_16"
@@ -479,7 +479,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/line"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginLeft="@dimen/padding_left_right_dp"
+                            android:layout_marginStart="@dimen/padding_left_right_dp"
                             android:layout_marginTop="@dimen/dp_16"
                             android:layout_marginRight="@dimen/padding_left_right_dp"
                             android:layout_marginBottom="@dimen/dp_19"

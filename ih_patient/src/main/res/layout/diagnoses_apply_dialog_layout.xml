@@ -74,7 +74,7 @@
                 android:id="@+id/apply_type_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_25"
+                android:layout_marginStart="@dimen/dp_25"
                 android:text="通过图文进行问诊咨询"
                 android:textColor="#999999"
                 android:textSize="@dimen/font_size_primary" />
@@ -124,7 +124,7 @@
             android:id="@+id/notice_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="23dp"
+            android:layout_marginStart="23dp"
             android:layout_marginTop="@dimen/dp_10"
             android:orientation="horizontal">
 
@@ -148,7 +148,7 @@
                     android:id="@+id/notice_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_5"
+                    android:layout_marginStart="@dimen/dp_5"
                     android:text="《在线问诊用户协议》"
                     android:textColor="#3F98F7"
                     android:textSize="@dimen/font_size_primary" />
@@ -160,7 +160,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_23"
+                android:layout_marginStart="@dimen/dp_23"
                 android:layout_toLeftOf="@+id/agree_layout"
                 android:scaleX="0.6"
                 android:scaleY="0.6" />
@@ -189,7 +189,7 @@
                 android:id="@+id/commit_apply_tv"
                 android:layout_width="@dimen/dp_120"
                 android:layout_height="@dimen/dp_29"
-                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
                 android:background="@drawable/apply_dialog_commit_bg"
                 android:gravity="center"
                 android:text="申请"

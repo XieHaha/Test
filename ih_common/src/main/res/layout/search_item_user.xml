@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/user_icon_cv"
         android:layout_alignBottom="@id/user_icon_cv"
-        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginStart="@dimen/dp_12"
         android:layout_toRightOf="@id/user_icon_cv"
         android:gravity="center_vertical"
         android:text="姓名"

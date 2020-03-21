@@ -19,7 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_24"
+            android:layout_marginStart="@dimen/dp_24"
             android:layout_marginEnd="@dimen/dp_24"
             android:background="@drawable/shadow_apply_order_detail"
             android:orientation="vertical"
@@ -34,7 +34,7 @@
                 android:gravity="center_horizontal"
                 android:text="成都市第一人民医院互联网医院"
                 android:textColor="#666666"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
 
             <TextView
                 android:id="@+id/table_title_tv"
@@ -67,7 +67,7 @@
                         android:gravity="center_horizontal"
                         android:text="卫斯理"
                         android:textColor="@color/color_333333"
-                        android:textSize="@dimen/font_size_primary" />
+                        android:textSize="@dimen/sp_14" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                         android:gravity="center_horizontal"
                         android:text="姓名"
                         android:textColor="#BBBBBB"
-                        android:textSize="@dimen/font_size_primary" />
+                        android:textSize="@dimen/sp_14" />
                 </LinearLayout>
 
                 <View
@@ -99,7 +99,7 @@
                         android:gravity="center_horizontal"
                         android:text="男"
                         android:textColor="@color/color_333333"
-                        android:textSize="@dimen/font_size_primary" />
+                        android:textSize="@dimen/sp_14" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -108,7 +108,7 @@
                         android:gravity="center_horizontal"
                         android:text="性别"
                         android:textColor="#BBBBBB"
-                        android:textSize="@dimen/font_size_primary" />
+                        android:textSize="@dimen/sp_14" />
                 </LinearLayout>
 
                 <View
@@ -131,7 +131,7 @@
                         android:gravity="center_horizontal"
                         android:text="24"
                         android:textColor="@color/color_333333"
-                        android:textSize="@dimen/font_size_primary" />
+                        android:textSize="@dimen/sp_14" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -140,7 +140,7 @@
                         android:gravity="center_horizontal"
                         android:text="年龄"
                         android:textColor="#BBBBBB"
-                        android:textSize="@dimen/font_size_primary" />
+                        android:textSize="@dimen/sp_14" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -356,7 +356,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
                     android:layout_below="@id/doctor_instruction_tv"
-                    android:layout_marginLeft="@dimen/dp_35"
+                    android:layout_marginStart="@dimen/dp_35"
                     android:layout_marginTop="@dimen/dp_20"
                     android:layout_marginEnd="@dimen/dp_20"
                     android:background="@color/line_color" />
@@ -380,7 +380,7 @@
                     android:gravity="left"
                     android:text="总共三项"
                     android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/total_fee"
@@ -390,7 +390,7 @@
                     android:gravity="right"
                     android:text="总金额：¥120"
                     android:textColor="#FF3939"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
             <View
@@ -413,7 +413,7 @@
                     android:gravity="right"
                     android:text="申请医生："
                     android:textColor="#BBBBBB"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/apply_doctor"
@@ -423,7 +423,7 @@
                     android:gravity="left"
                     android:text="唐林"
                     android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -432,7 +432,7 @@
                     android:gravity="right"
                     android:text="申请时间："
                     android:textColor="#BBBBBB"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
 
                 <TextView
@@ -443,7 +443,7 @@
                     android:gravity="left"
                     android:text="2018.10.16 "
                     android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

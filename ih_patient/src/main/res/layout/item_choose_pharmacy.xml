@@ -7,7 +7,7 @@
     >
 
     <com.keydom.ih_common.view.CircleImageView
-        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_20"
         android:layout_marginTop="@dimen/dp_18"
         android:id="@+id/iv_photo"
         android:layout_width="@dimen/dp_40"
@@ -22,7 +22,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_toRightOf="@id/iv_photo"
         android:ellipsize="end"
-        android:layout_marginLeft="@dimen/dp_13"
+        android:layout_marginStart="@dimen/dp_13"
         android:maxLines="1"
         android:text="康福隆药品北门2店撒"
         android:textColor="#333333"
@@ -39,7 +39,7 @@
         android:ellipsize="end"
         android:lines="1"
         android:layout_marginEnd="@dimen/dp_13"
-        android:layout_marginLeft="@dimen/dp_13"
+        android:layout_marginStart="@dimen/dp_13"
         android:text="随时辅导费付付付过过过"
         android:textColor="#999999"
         android:textSize="12sp"/>
@@ -54,7 +54,7 @@
         android:ellipsize="end"
         android:lines="1"
         android:layout_marginEnd="@dimen/dp_13"
-        android:layout_marginLeft="@dimen/dp_13"
+        android:layout_marginStart="@dimen/dp_13"
         android:text="128元"
         android:textColor="#FF3939"
         android:textSize="14sp"/>

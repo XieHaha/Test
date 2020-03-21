@@ -56,10 +56,10 @@
                                 android:id="@+id/author_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="苏木晨"
-                                android:singleLine="true"
-                                android:maxLength="20"
                                 android:ellipsize="end"
+                                android:maxLength="20"
+                                android:singleLine="true"
+                                android:text="苏木晨"
                                 android:textColor="#FF3399FF"
                                 android:textSize="@dimen/sp_14" />
 
@@ -69,22 +69,22 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/author_name"
                                 android:layout_marginTop="@dimen/dp_17"
-                                android:maxLength="20"
                                 android:ellipsize="end"
+                                android:maxLength="20"
                                 android:text="成都"
-                                android:textSize="@dimen/font_size_auxiliary" />
+                                android:textSize="@dimen/sp_12" />
 
                             <TextView
                                 android:id="@+id/author_departments"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignTop="@id/author_city"
-                                android:layout_marginLeft="@dimen/dp_17"
-                                android:singleLine="true"
-                                android:layout_toRightOf="@id/author_city"
-                                android:text="儿科"
-                                android:maxLength="20"
+                                android:layout_marginStart="@dimen/dp_17"
+                                android:layout_toEndOf="@id/author_city"
                                 android:ellipsize="end"
+                                android:maxLength="20"
+                                android:singleLine="true"
+                                android:text="儿科"
                                 android:textSize="@dimen/font_size_auxiliary" />
 
                             <TextView
@@ -92,9 +92,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignTop="@id/author_city"
-                                android:layout_marginLeft="@dimen/dp_8"
-                                android:singleLine="true"
+                                android:layout_marginStart="@dimen/dp_8"
                                 android:layout_toRightOf="@id/author_departments"
+                                android:singleLine="true"
                                 android:text="成都"
                                 android:textSize="@dimen/font_size_auxiliary" />
 
@@ -164,7 +164,7 @@
                                 android:id="@+id/article_dec"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp_11"
+                                android:layout_marginStart="@dimen/dp_11"
                                 android:lineSpacingExtra="@dimen/dp_11"
                                 android:text="我喜欢泡壶茶放在办公桌上，然后开始一天的工作，我喜茶叶，这个习惯源自我的爷爷。"
                                 android:textColor="@color/fontColorDirection"
@@ -218,7 +218,7 @@
                                 android:layout_width="@dimen/dp_12"
                                 android:layout_height="@dimen/dp_12"
                                 android:layout_centerVertical="true"
-                                android:layout_marginLeft="@dimen/dp_12"
+                                android:layout_marginStart="@dimen/dp_12"
                                 android:layout_marginRight="@dimen/dp_12"
                                 android:scaleType="fitXY"
                                 android:src="@mipmap/attention_nol" />

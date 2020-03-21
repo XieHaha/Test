@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
             android:text="选择随访表"
             android:textColor="#666666"
             android:textSize="@dimen/font_size_primary" />
@@ -55,14 +55,14 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:src="@mipmap/ic_file_user_follow_up" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_105"
+            android:layout_marginStart="@dimen/dp_105"
             android:text="糖尿病随访管理表"
             android:textColor="#666666"
             android:textSize="@dimen/font_size_primary" />
@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/dp_92"
+            android:layout_marginStart="@dimen/dp_92"
             android:layout_marginRight="@dimen/dp_25"
             android:background="#EEEEEE" />
 
@@ -86,14 +86,14 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:src="@mipmap/ic_file_user_follow_up" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_105"
+            android:layout_marginStart="@dimen/dp_105"
             android:text="慢性肺炎随访管理表"
             android:textColor="#666666"
             android:textSize="@dimen/font_size_primary" />
@@ -103,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/dp_92"
+            android:layout_marginStart="@dimen/dp_92"
             android:layout_marginRight="@dimen/dp_25"
             android:background="#EEEEEE" />
     </RelativeLayout>
@@ -117,14 +117,14 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:src="@mipmap/ic_file_user_follow_up" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_105"
+            android:layout_marginStart="@dimen/dp_105"
             android:text="高血压随访管理表"
             android:textColor="#666666"
             android:textSize="@dimen/font_size_primary" />
@@ -134,7 +134,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/dp_92"
+            android:layout_marginStart="@dimen/dp_92"
             android:layout_marginRight="@dimen/dp_25"
             android:background="#EEEEEE" />
     </RelativeLayout>

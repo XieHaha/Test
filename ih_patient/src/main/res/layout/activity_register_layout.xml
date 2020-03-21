@@ -22,7 +22,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:layout_marginEnd="@dimen/dp_19"
             android:layout_height="@dimen/dp_43"
             android:layout_marginTop="@dimen/dp_6"
@@ -33,7 +33,7 @@
                 android:layout_width="@dimen/dp_17"
                 android:layout_height="23dp"
                 android:layout_marginBottom="@dimen/dp_12"
-                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginStart="@dimen/dp_12"
                 android:layout_marginTop="@dimen/dp_12"
                 android:src="@mipmap/login_user_name_icon" />
 
@@ -43,7 +43,7 @@
                 style="@android:style/Widget.EditText"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_43"
-                android:layout_marginLeft="@dimen/dp_41"
+                android:layout_marginStart="@dimen/dp_41"
                 android:textCursorDrawable="@drawable/edit_cursor"
                 android:background="@null"
                 android:textSize="@dimen/sp_13"
@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_43"
             android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:layout_marginEnd="@dimen/dp_19"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/update_password_input_bg"
@@ -69,7 +69,7 @@
                 android:layout_height="@dimen/dp_19"
                 android:layout_marginTop="@dimen/dp_12"
                 android:layout_marginBottom="@dimen/dp_12"
-                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginStart="@dimen/dp_12"
                 android:src="@mipmap/login_password_icon"/>
 
 
@@ -78,7 +78,7 @@
                 style="@android:style/Widget.EditText"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_43"
-                android:layout_marginLeft="@dimen/dp_41"
+                android:layout_marginStart="@dimen/dp_41"
                 android:textSize="@dimen/sp_13"
                 android:background="@null"
                 android:textCursorDrawable="@drawable/edit_cursor"
@@ -150,7 +150,7 @@
                     android:layout_width="@dimen/dp_17"
                     android:layout_height="23dp"
                     android:layout_marginBottom="@dimen/dp_12"
-                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginStart="@dimen/dp_12"
                     android:layout_marginTop="@dimen/dp_12"
                     android:src="@mipmap/login_password_icon" />
 
@@ -160,7 +160,7 @@
                     style="@android:style/Widget.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_43"
-                    android:layout_marginLeft="@dimen/dp_41"
+                    android:layout_marginStart="@dimen/dp_41"
                     android:textCursorDrawable="@drawable/edit_cursor"
                     android:background="@null"
                     android:textSize="@dimen/sp_13"
@@ -182,7 +182,7 @@
                     android:layout_width="@dimen/dp_17"
                     android:layout_height="23dp"
                     android:layout_marginBottom="@dimen/dp_12"
-                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginStart="@dimen/dp_12"
                     android:layout_marginTop="@dimen/dp_12"
                     android:src="@mipmap/login_password_icon" />
 
@@ -192,7 +192,7 @@
                     style="@android:style/Widget.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_43"
-                    android:layout_marginLeft="@dimen/dp_41"
+                    android:layout_marginStart="@dimen/dp_41"
                     android:textCursorDrawable="@drawable/edit_cursor"
                     android:background="@null"
                     android:textSize="@dimen/sp_13"
@@ -212,7 +212,7 @@
                     android:layout_width="@dimen/dp_17"
                     android:layout_height="23dp"
                     android:layout_marginBottom="@dimen/dp_12"
-                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginStart="@dimen/dp_12"
                     android:layout_marginTop="@dimen/dp_12"
                     android:src="@mipmap/login_password_icon" />
 
@@ -222,7 +222,7 @@
                     style="@android:style/Widget.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_43"
-                    android:layout_marginLeft="@dimen/dp_41"
+                    android:layout_marginStart="@dimen/dp_41"
                     android:textCursorDrawable="@drawable/edit_cursor"
                     android:background="@null"
                     android:textSize="@dimen/sp_13"
@@ -257,7 +257,7 @@
                 <TextView
                     android:id="@+id/jump_to_user_agreement_tv"
                     android:layout_toRightOf="@+id/agreement_rb"
-                    android:layout_marginLeft="@dimen/dp_5"
+                    android:layout_marginStart="@dimen/dp_5"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_20"
                     android:gravity="center_vertical"
@@ -329,7 +329,7 @@
             android:layout_marginTop="@dimen/dp_60"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_61"
-            android:layout_marginLeft="@dimen/dp_18"
+            android:layout_marginStart="@dimen/dp_18"
             android:layout_marginEnd="@dimen/dp_18"
             android:layout_gravity="center_horizontal"
             android:textSize="@dimen/dp_17"
@@ -344,7 +344,7 @@
             android:layout_marginTop="@dimen/dp_10"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_61"
-            android:layout_marginLeft="@dimen/dp_18"
+            android:layout_marginStart="@dimen/dp_18"
             android:layout_marginEnd="@dimen/dp_18"
             android:layout_gravity="center_horizontal"
             android:textSize="@dimen/dp_17"

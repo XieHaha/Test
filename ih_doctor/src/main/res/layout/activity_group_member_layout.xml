@@ -43,7 +43,7 @@
             android:layout_height="@dimen/dp_35"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:gravity="center_vertical"
             android:text="搜索"
             android:textSize="@dimen/font_size_primary"

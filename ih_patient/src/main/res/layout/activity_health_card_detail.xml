@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_38"
+        android:layout_marginStart="@dimen/dp_38"
         android:layout_marginTop="@dimen/dp_38"
         android:layout_marginRight="@dimen/dp_35"
         android:background="@drawable/my_doc_nur_bg">
@@ -48,7 +48,7 @@
                     android:layout_alignTop="@id/user_number_tip_tv"
                     android:layout_centerInParent="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginStart="@dimen/dp_10"
                     android:layout_toRightOf="@id/user_number_tip_tv"
                     android:background="@null"
                     android:ellipsize="end"
@@ -88,7 +88,7 @@
                     android:id="@+id/health_card_detail_card_id_tv"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_43"
-                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginStart="@dimen/dp_10"
                     android:layout_toRightOf="@id/phone_number_tip_tv"
                     android:background="@null"
                     android:ellipsize="end"

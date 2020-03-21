@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_10"
                 android:text="缴费详情"
                 android:textColor="#BBBBBB"
@@ -34,7 +34,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginStart="@dimen/dp_20"
                     android:text="姓名："
                     android:textColor="#999999"
                     android:textSize="@dimen/font_size_primary" />
@@ -43,7 +43,7 @@
                     android:id="@+id/name_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_15"
+                    android:layout_marginStart="@dimen/dp_15"
                     android:ellipsize="end"
                     android:lines="1"
                     android:paddingRight="@dimen/dp_20"
@@ -60,7 +60,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginStart="@dimen/dp_20"
                     android:text="卡号："
                     android:textColor="#999999"
                     android:textSize="@dimen/font_size_primary" />
@@ -69,7 +69,7 @@
                     android:id="@+id/card_num_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_15"
+                    android:layout_marginStart="@dimen/dp_15"
                     android:ellipsize="end"
                     android:lines="1"
                     android:paddingRight="@dimen/dp_20"
@@ -86,7 +86,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginStart="@dimen/dp_20"
                     android:text="医院："
                     android:textColor="#999999"
                     android:textSize="@dimen/font_size_primary" />
@@ -95,7 +95,7 @@
                     android:id="@+id/hospital_name_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_15"
+                    android:layout_marginStart="@dimen/dp_15"
                     android:ellipsize="end"
                     android:lines="1"
                     android:paddingRight="@dimen/dp_20"
@@ -117,7 +117,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_10"
                 android:text="导诊信息"
                 android:textColor="#BBBBBB"
@@ -127,7 +127,7 @@
                 android:id="@+id/hospitalization_guidance_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_15"
                 android:paddingRight="@dimen/dp_20"
                 android:textColor="#666666"
@@ -142,7 +142,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_15"
                 android:text="项目明细"
                 android:textColor="#BBBBBB"

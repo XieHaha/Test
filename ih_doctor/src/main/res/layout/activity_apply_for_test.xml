@@ -32,7 +32,7 @@
                     android:id="@+id/baseinfo_left_img"
                     android:layout_width="@dimen/dp_2"
                     android:layout_height="@dimen/dp_15"
-                    android:layout_marginLeft="@dimen/padding_left_right_dp"
+                    android:layout_marginStart="@dimen/padding_left_right_dp"
                     android:layout_marginTop="@dimen/dp_18"
                     android:background="#71A4FF" />
 
@@ -40,7 +40,7 @@
                     android:id="@+id/baseinfo_tip_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_marginStart="@dimen/dp_6"
                     android:layout_toRightOf="@id/baseinfo_left_img"
                     android:paddingTop="@dimen/dp_16"
                     android:paddingBottom="@dimen/dp_16"
@@ -176,7 +176,7 @@
                     android:id="@+id/diagnose_left_img"
                     android:layout_width="@dimen/dp_2"
                     android:layout_height="@dimen/dp_15"
-                    android:layout_marginLeft="@dimen/padding_left_right_dp"
+                    android:layout_marginStart="@dimen/padding_left_right_dp"
                     android:layout_marginTop="@dimen/dp_18"
                     android:background="#71A4FF" />
 
@@ -184,7 +184,7 @@
                     android:id="@+id/diagnose_tip_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_marginStart="@dimen/dp_6"
                     android:layout_toRightOf="@id/diagnose_left_img"
                     android:paddingTop="@dimen/dp_16"
                     android:paddingBottom="@dimen/dp_16"
@@ -213,7 +213,7 @@
                     android:id="@+id/diagnose_tip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginStart="@dimen/dp_8"
                     android:paddingTop="@dimen/dp_12"
                     android:paddingBottom="@dimen/dp_12"
                     android:text="诊断:"
@@ -250,7 +250,7 @@
                     android:id="@+id/disease_tip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginStart="@dimen/dp_8"
                     android:paddingTop="@dimen/dp_12"
                     android:paddingBottom="@dimen/dp_12"
                     android:text="病情描述:"
@@ -288,7 +288,7 @@
                     android:id="@+id/apply_test_left_img"
                     android:layout_width="@dimen/dp_2"
                     android:layout_height="@dimen/dp_15"
-                    android:layout_marginLeft="@dimen/padding_left_right_dp"
+                    android:layout_marginStart="@dimen/padding_left_right_dp"
                     android:layout_marginTop="@dimen/dp_18"
                     android:background="#71A4FF" />
 
@@ -296,7 +296,7 @@
                     android:id="@+id/apply_test_tip_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_marginStart="@dimen/dp_6"
                     android:layout_toRightOf="@id/apply_test_left_img"
                     android:paddingTop="@dimen/dp_16"
                     android:paddingBottom="@dimen/dp_16"

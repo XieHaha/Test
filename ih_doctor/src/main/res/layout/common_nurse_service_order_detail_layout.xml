@@ -46,7 +46,7 @@
                             android:id="@+id/explain_left_img"
                             android:layout_width="@dimen/dp_2"
                             android:layout_height="@dimen/dp_15"
-                            android:layout_marginLeft="@dimen/padding_left_right_dp"
+                            android:layout_marginStart="@dimen/padding_left_right_dp"
                             android:layout_marginTop="@dimen/dp_18"
                             android:background="#71A4FF" />
 
@@ -54,7 +54,7 @@
                             android:id="@+id/explain_tip_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_6"
+                            android:layout_marginStart="@dimen/dp_6"
                             android:layout_toRightOf="@id/explain_left_img"
                             android:paddingTop="@dimen/dp_16"
                             android:paddingBottom="@dimen/dp_16"
@@ -133,7 +133,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_1"
                             android:layout_below="@id/hospital_name_rl"
-                            android:layout_marginLeft="@dimen/dp_26"
+                            android:layout_marginStart="@dimen/dp_26"
                             android:layout_marginRight="@dimen/dp_20"
                             android:background="@color/line_color" />
 
@@ -239,7 +239,7 @@
                                 android:id="@+id/base_info_left_img"
                                 android:layout_width="@dimen/dp_2"
                                 android:layout_height="@dimen/dp_15"
-                                android:layout_marginLeft="@dimen/padding_left_right_dp"
+                                android:layout_marginStart="@dimen/padding_left_right_dp"
                                 android:layout_marginTop="@dimen/dp_18"
                                 android:background="#71A4FF" />
 
@@ -247,7 +247,7 @@
                                 android:id="@+id/base_info_tip_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp_6"
+                                android:layout_marginStart="@dimen/dp_6"
                                 android:layout_toRightOf="@id/base_info_left_img"
                                 android:paddingTop="@dimen/dp_16"
                                 android:paddingBottom="@dimen/dp_16"
@@ -551,7 +551,7 @@
                                 android:id="@+id/service_req_explain_left_img"
                                 android:layout_width="@dimen/dp_2"
                                 android:layout_height="@dimen/dp_15"
-                                android:layout_marginLeft="@dimen/padding_left_right_dp"
+                                android:layout_marginStart="@dimen/padding_left_right_dp"
                                 android:layout_marginTop="@dimen/dp_18"
                                 android:background="#71A4FF" />
 
@@ -559,7 +559,7 @@
                                 android:id="@+id/service_req_explain_tip_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp_6"
+                                android:layout_marginStart="@dimen/dp_6"
                                 android:layout_toRightOf="@id/service_req_explain_left_img"
                                 android:paddingTop="@dimen/dp_16"
                                 android:paddingBottom="@dimen/dp_16"
@@ -604,7 +604,7 @@
                                 android:id="@+id/diagnose_material_left_img"
                                 android:layout_width="@dimen/dp_2"
                                 android:layout_height="@dimen/dp_15"
-                                android:layout_marginLeft="@dimen/padding_left_right_dp"
+                                android:layout_marginStart="@dimen/padding_left_right_dp"
                                 android:layout_marginTop="@dimen/dp_18"
                                 android:background="#71A4FF" />
 
@@ -612,7 +612,7 @@
                                 android:id="@+id/diagnose_material_tip_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp_6"
+                                android:layout_marginStart="@dimen/dp_6"
                                 android:layout_toRightOf="@id/diagnose_material_left_img"
                                 android:paddingTop="@dimen/dp_16"
                                 android:paddingBottom="@dimen/dp_16"
@@ -651,7 +651,7 @@
                                 android:id="@+id/service_recoder_left_img"
                                 android:layout_width="@dimen/dp_2"
                                 android:layout_height="@dimen/dp_15"
-                                android:layout_marginLeft="@dimen/padding_left_right_dp"
+                                android:layout_marginStart="@dimen/padding_left_right_dp"
                                 android:layout_marginTop="@dimen/dp_18"
                                 android:background="#71A4FF" />
 

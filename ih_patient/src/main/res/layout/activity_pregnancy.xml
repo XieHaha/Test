@@ -52,7 +52,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="22.5dp"
+                            android:layout_marginStart="22.5dp"
                             android:layout_marginTop="161dp"
                             android:gravity="center"
                             android:orientation="vertical">
@@ -112,7 +112,7 @@
                                 android:id="@+id/pregnancy_baby_meetting_days_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="60.5dp"
+                                android:layout_marginStart="60.5dp"
                                 android:layout_marginTop="12dp"
                                 android:textColor="@color/white"
                                 android:textSize="18sp" />
@@ -120,14 +120,14 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="11dp"
+                                android:layout_marginStart="11dp"
                                 android:layout_marginTop="16.5dp"
                                 android:src="@mipmap/baby_coming_out_day_icon" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="16dp"
+                                android:layout_marginStart="16dp"
                                 android:layout_marginTop="10dp"
                                 android:text="与宝宝见面"
                                 android:textColor="@color/white"
@@ -137,7 +137,7 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="31dp"
+                                android:layout_marginStart="31dp"
                                 android:layout_marginTop="16.5dp"
                                 android:src="@mipmap/white_right_arrow_icon" />
                         </LinearLayout>
@@ -148,7 +148,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginTop="14.5dp"
                         android:layout_marginBottom="7dp"
                         android:background="@mipmap/yellow_btn_bg"
@@ -174,7 +174,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginStart="20dp"
                             android:layout_marginRight="20dp"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
@@ -190,14 +190,14 @@
                                 android:id="@+id/pregnancy_last_weeks_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="25.5dp"
+                                android:layout_marginStart="25.5dp"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
+                                android:layout_marginStart="8dp"
                                 android:layout_marginRight="8dp"
                                 android:text="|"
                                 android:textColor="@color/black"
@@ -216,7 +216,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginStart="20dp"
                             android:layout_marginTop="13.5dp"
                             android:layout_marginRight="20dp"
                             android:gravity="center_vertical"
@@ -227,14 +227,14 @@
                                 android:id="@+id/pregnancy_order_counts_times_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="50.5dp"
+                                android:layout_marginStart="50.5dp"
                                 android:textColor="@color/vip_pregnancy_week_text"
                                 android:textSize="12sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
+                                android:layout_marginStart="8dp"
                                 android:layout_marginRight="8dp"
                                 android:text="|"
                                 android:textColor="@color/vip_pregnancy_week_text"
@@ -253,7 +253,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginStart="20dp"
                             android:layout_marginTop="13.5dp"
                             android:layout_marginRight="20dp"
                             android:gravity="center_vertical"
@@ -264,7 +264,7 @@
                                 android:id="@+id/pregnancy_order_now_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="50.5dp"
+                                android:layout_marginStart="50.5dp"
                                 android:background="@drawable/red_corner_bg"
                                 android:paddingLeft="13dp"
                                 android:paddingTop="7dp"
@@ -279,7 +279,7 @@
                                 android:id="@+id/pregnancy_order_check_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="50.5dp"
+                                android:layout_marginStart="50.5dp"
                                 android:background="@drawable/gray_line_corner_bg"
                                 android:paddingLeft="13dp"
                                 android:paddingTop="7dp"
@@ -295,7 +295,7 @@
                                 android:id="@+id/pregnancy_order_doctor_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
+                                android:layout_marginStart="20dp"
                                 android:background="@drawable/red_corner_bg"
                                 android:paddingLeft="13dp"
                                 android:paddingTop="7dp"
@@ -326,7 +326,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginStart="20dp"
                             android:background="@drawable/gray_corner_bg"
                             android:paddingLeft="24dp"
                             android:paddingTop="7dp"
@@ -340,7 +340,7 @@
                             android:id="@+id/pregnancy_finish_order_counts_tv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="17.5dp"
+                            android:layout_marginStart="17.5dp"
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:textColor="@color/vip_pregnancy_counts_text"

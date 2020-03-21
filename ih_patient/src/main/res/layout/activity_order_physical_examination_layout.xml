@@ -35,16 +35,16 @@
                         android:layout_width="@dimen/dp_48"
                         android:layout_height="@dimen/dp_48"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/dp_23"
+                        android:layout_marginStart="@dimen/dp_23"
                         android:src="@mipmap/team_order_icon"/>
                     <TextView
                         android:id="@+id/team_tv"
                         android:layout_toRightOf="@+id/team_img"
-                        android:layout_marginLeft="@dimen/dp_8"
+                        android:layout_marginStart="@dimen/dp_8"
                         android:layout_marginTop="@dimen/dp_20"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/font_size_primary"
+                        android:textSize="@dimen/sp_14"
                         android:textColor="#333333"
                         android:textStyle="bold"
                         android:text="团队预约"/>
@@ -54,7 +54,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/dp_12"
-                        android:layout_marginLeft="@dimen/dp_8"
+                        android:layout_marginStart="@dimen/dp_8"
                         android:layout_marginTop="@dimen/dp_2"
                         android:textColor="#999999"
                         android:text="为团队快速预约"/>
@@ -69,16 +69,16 @@
                         android:layout_width="@dimen/dp_48"
                         android:layout_height="@dimen/dp_48"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/dp_23"
+                        android:layout_marginStart="@dimen/dp_23"
                         android:src="@mipmap/team_order_icon"/>
                     <TextView
                         android:id="@+id/report_query_tv"
                         android:layout_toRightOf="@+id/report_query_img"
-                        android:layout_marginLeft="@dimen/dp_8"
+                        android:layout_marginStart="@dimen/dp_8"
                         android:layout_marginTop="@dimen/dp_20"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/font_size_primary"
+                        android:textSize="@dimen/sp_14"
                         android:textColor="#333333"
                         android:textStyle="bold"
                         android:text="报告查询"/>
@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/dp_12"
-                        android:layout_marginLeft="@dimen/dp_8"
+                        android:layout_marginStart="@dimen/dp_8"
                         android:layout_marginTop="@dimen/dp_2"
                         android:textColor="#999999"
                         android:text="一键查询报告信息"/>
@@ -117,7 +117,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="体检中心介绍"
-                        android:textSize="@dimen/font_size_primary"
+                        android:textSize="@dimen/sp_14"
                         android:textColor="#666666"/>
                 </LinearLayout>
                 <View
@@ -140,16 +140,16 @@
                             android:layout_width="@dimen/dp_48"
                             android:layout_height="@dimen/dp_48"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/dp_13"
+                            android:layout_marginStart="@dimen/dp_13"
                             android:src="@mipmap/physical_exa_notice_icon"/>
                         <TextView
                             android:id="@+id/exa_notice_tv"
                             android:layout_toRightOf="@+id/exa_notice_img"
-                            android:layout_marginLeft="@dimen/dp_8"
+                            android:layout_marginStart="@dimen/dp_8"
                             android:layout_marginTop="@dimen/dp_15"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/font_size_primary"
+                            android:textSize="@dimen/sp_14"
                             android:textColor="#333333"
                             android:textStyle="bold"
                             android:text="体检须知"/>
@@ -159,7 +159,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/dp_12"
-                            android:layout_marginLeft="@dimen/dp_8"
+                            android:layout_marginStart="@dimen/dp_8"
                             android:layout_marginTop="@dimen/dp_2"
                             android:textColor="#999999"
                             android:text="体检前准备注意事项"/>
@@ -174,16 +174,16 @@
                             android:layout_width="@dimen/dp_48"
                             android:layout_height="@dimen/dp_48"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/dp_13"
+                            android:layout_marginStart="@dimen/dp_13"
                             android:src="@mipmap/physical_exa_process_icon"/>
                         <TextView
                             android:id="@+id/exa_process_tv"
                             android:layout_toRightOf="@+id/exa_process_img"
-                            android:layout_marginLeft="@dimen/dp_8"
+                            android:layout_marginStart="@dimen/dp_8"
                             android:layout_marginTop="@dimen/dp_15"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/font_size_primary"
+                            android:textSize="@dimen/sp_14"
                             android:textColor="#333333"
                             android:textStyle="bold"
                             android:text="体检流程"/>
@@ -193,7 +193,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/dp_12"
-                            android:layout_marginLeft="@dimen/dp_8"
+                            android:layout_marginStart="@dimen/dp_8"
                             android:layout_marginTop="@dimen/dp_2"
                             android:textColor="#999999"
                             android:text="体检中各项流程须知"/>
@@ -210,7 +210,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/function_config_second_icon"
                 android:text="体检套餐"
-                android:textSize="@dimen/font_size_primary"
+                android:textSize="@dimen/sp_14"
                 android:paddingLeft="@dimen/dp_19"
                 android:drawablePadding="@dimen/dp_6"
                 android:drawableLeft="@mipmap/title_left_icon"
@@ -238,7 +238,7 @@
                     android:background="@color/primary_color"
                     android:paddingTop="@dimen/dp_20"
                     android:paddingBottom="@dimen/dp_20"
-                    android:textSize="@dimen/font_size_primary"
+                    android:textSize="@dimen/sp_14"
                     android:textColor="#999999"
                     android:visibility="gone"/>
             </RelativeLayout>

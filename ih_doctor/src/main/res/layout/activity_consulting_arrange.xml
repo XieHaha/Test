@@ -35,14 +35,14 @@
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginStart="@dimen/dp_20"
                     android:src="@mipmap/consulting_circle_icon" />
 
                 <TextView
                     android:id="@+id/item_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_24"
+                    android:layout_marginStart="@dimen/dp_24"
                     android:layout_toRightOf="@+id/left_img"
                     android:text="我的循环排班"
                     android:textColor="@color/fontColorPrimary"
@@ -75,13 +75,13 @@
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginStart="@dimen/dp_20"
                     android:src="@mipmap/consulting_stop" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_24"
+                    android:layout_marginStart="@dimen/dp_24"
                     android:layout_toRightOf="@+id/left_img_2"
                     android:text="我的停诊"
                     android:textColor="@color/fontColorPrimary"

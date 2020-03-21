@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_marginStart="@dimen/dp_30"
         android:layout_marginRight="@dimen/dp_30"
         android:background="@drawable/dialog_input_bg"
         android:orientation="vertical">
@@ -30,7 +30,7 @@
             android:id="@+id/flag_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_20"
             android:background="@drawable/check_dialog_input_bg"

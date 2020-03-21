@@ -18,13 +18,13 @@
                 android:layout_width="@dimen/dp_38"
                 android:layout_height="@dimen/dp_38"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_16"
                 android:scaleType="fitXY" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:orientation="horizontal"
                 android:id="@+id/name_group"
-                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginStart="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_15"
                 android:layout_toRightOf="@+id/service_icon_img"
                 android:gravity="center_vertical"
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/service_dep_tv"
-                android:layout_marginLeft="@dimen/dp_8"
+                android:layout_marginStart="@dimen/dp_8"
                 android:gravity="center"
                 android:textSize="@dimen/sp_12"
                 android:textColor="#22e17e"
@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/name_group"
-                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginStart="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_2"
                 android:layout_toRightOf="@+id/service_icon_img"
                 android:text="肌肉注射、皮下注射啊啊啊啊啊啊啊啊啊"
@@ -92,7 +92,7 @@
                 android:layout_width="@dimen/dp_23"
                 android:layout_height="@dimen/dp_23"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/dp_17"
+                android:layout_marginStart="@dimen/dp_17"
                 android:layout_marginEnd="@dimen/dp_26"
                 android:src="@mipmap/card_selected_icon" />
         </LinearLayout>

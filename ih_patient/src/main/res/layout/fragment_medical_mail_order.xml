@@ -34,7 +34,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_19"
+                    android:layout_marginStart="@dimen/dp_19"
                     android:layout_marginTop="@dimen/dp_14"
                     android:layout_marginBottom="@dimen/dp_30"
                     android:text="（注：申请一经确认不能退单)"

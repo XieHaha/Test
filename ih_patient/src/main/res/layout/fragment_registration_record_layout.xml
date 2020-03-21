@@ -19,7 +19,7 @@
         android:id="@+id/notice_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_19"
+        android:layout_marginStart="@dimen/dp_19"
         android:layout_marginTop="@dimen/dp_14"
         android:text="（注：超过挂号时间未到医院就诊当作自动放弃)"
         android:textSize="@dimen/font_size_primary"

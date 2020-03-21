@@ -6,7 +6,7 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/padding_left_right_dp"
+        android:layout_marginStart="@dimen/padding_left_right_dp"
         android:layout_marginTop="@dimen/dp_25"
         android:layout_marginRight="@dimen/padding_left_right_dp"
         android:layout_marginBottom="@dimen/dp_28"
@@ -451,7 +451,7 @@
                     android:layout_height="@dimen/dp_80"
                     android:layout_alignTop="@id/doctor_name"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="@dimen/dp_m_30"
+                    android:layout_marginStart="@dimen/dp_m_30"
                     android:layout_marginTop="@dimen/dp_8"
                     android:layout_toRightOf="@id/doctor_name"
                     android:scaleType="fitStart" />

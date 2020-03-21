@@ -38,7 +38,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_38"
-                android:layout_marginLeft="@dimen/padding_left_right_dp"
+                android:layout_marginStart="@dimen/padding_left_right_dp"
                 android:layout_marginRight="@dimen/padding_left_right_dp"
                 android:layout_marginTop="@dimen/dp_49"
                 android:background="@color/color_f9f9f9"
@@ -49,7 +49,7 @@
                     android:id="@+id/department"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginStart="@dimen/dp_20"
                     android:layout_weight="1"
                     android:gravity="start"
                     android:text="科别："
@@ -269,7 +269,7 @@
                         android:id="@+id/doctor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_18"
+                        android:layout_marginStart="@dimen/dp_18"
                         android:textColor="@color/login_btn_color"
                         android:textSize="@dimen/font_size_title" />
                 </LinearLayout>
@@ -277,7 +277,7 @@
                 <ImageView
                     android:layout_width="@dimen/dp_91"
                     android:id="@+id/seal"
-                    android:layout_marginLeft="@dimen/dp_69"
+                    android:layout_marginStart="@dimen/dp_69"
                     android:layout_height="@dimen/dp_91" />
 
             </RelativeLayout>

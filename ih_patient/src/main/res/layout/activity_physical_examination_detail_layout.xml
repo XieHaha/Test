@@ -27,7 +27,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/dp_17"
-                    android:layout_marginLeft="@dimen/dp_19"
+                    android:layout_marginStart="@dimen/dp_19"
                     android:layout_marginTop="@dimen/dp_21"
                     android:textColor="#FF3939"/>
                 <TextView
@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="已售出265份"
-                    android:textSize="@dimen/font_size_primary"
+                    android:textSize="@dimen/sp_14"
                     android:textColor="#BBBBBB"/>
                 <TextView
                     android:id="@+id/exa_name_tv"
@@ -46,16 +46,16 @@
                     android:layout_height="wrap_content"
                     android:text="基本型（女性）"
                     android:layout_marginTop="@dimen/dp_22"
-                    android:layout_marginLeft="@dimen/dp_19"
+                    android:layout_marginStart="@dimen/dp_19"
                     android:layout_below="@+id/exa_price_tv"
-                    android:textSize="@dimen/font_size_primary"
+                    android:textSize="@dimen/sp_14"
                     android:textColor="#666666"/>
                 <TextView
                     android:id="@+id/exa_dsc_tv"
                     android:layout_below="@+id/exa_name_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_19"
+                    android:layout_marginStart="@dimen/dp_19"
                     android:layout_marginEnd="@dimen/dp_19"
                     android:layout_marginTop="@dimen/dp_16"
                     android:layout_marginBottom="@dimen/dp_30"
@@ -74,18 +74,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/font_size_primary"
+                    android:textSize="@dimen/sp_14"
                     android:textColor="#BBBBBB"
                     android:layout_marginTop="@dimen/dp_14"
-                    android:layout_marginLeft="@dimen/dp_19"
+                    android:layout_marginStart="@dimen/dp_19"
                     android:text="体检时间"/>
                 <TextView
                     android:id="@+id/exa_time_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:layout_marginLeft="@dimen/dp_19"
-                    android:textSize="@dimen/font_size_primary"
+                    android:layout_marginStart="@dimen/dp_19"
+                    android:textSize="@dimen/sp_14"
                     android:textColor="#666666"
                     android:text="周一到周六 08:00-16:30，采血截止时间10:00"/>
             </LinearLayout>
@@ -100,20 +100,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/font_size_primary"
+                    android:textSize="@dimen/sp_14"
                     android:textColor="#BBBBBB"
                     android:layout_marginTop="@dimen/dp_14"
-                    android:layout_marginLeft="@dimen/dp_19"
+                    android:layout_marginStart="@dimen/dp_19"
                     android:text="体检地址"/>
                 <TextView
                     android:id="@+id/exa_address_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:layout_marginLeft="@dimen/dp_19"
+                    android:layout_marginStart="@dimen/dp_19"
                     android:layout_marginEnd="@dimen/dp_19"
                     android:layout_marginBottom="@dimen/dp_25"
-                    android:textSize="@dimen/font_size_primary"
+                    android:textSize="@dimen/sp_14"
                     android:textColor="#666666"
                     android:text="成都市高新南区万象北路18号成都市第一人民医院门诊第一体检部二楼"/>
             </LinearLayout>
@@ -147,7 +147,7 @@
             android:layout_height="@dimen/dp_30"
             android:layout_centerVertical="true"
             android:padding="@dimen/dp_5"
-            android:layout_marginLeft="@dimen/dp_14"
+            android:layout_marginStart="@dimen/dp_14"
             android:src="@mipmap/back"/>
         <TextView
             android:layout_width="wrap_content"

@@ -17,7 +17,7 @@
             android:layout_width="@dimen/dp_288"
             android:layout_height="@dimen/dp_31"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:background="@drawable/order_doc_register_search_bg"
             android:orientation="horizontal">
 
@@ -26,7 +26,7 @@
                 android:layout_width="@dimen/dp_15"
                 android:layout_height="@dimen/dp_15"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_14"
+                android:layout_marginStart="@dimen/dp_14"
                 android:src="@mipmap/search" />
 
             <com.keydom.ih_common.view.InterceptorEditText

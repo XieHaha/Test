@@ -20,7 +20,7 @@ android:layout_height="@dimen/dp_83">
 <com.keydom.ih_common.view.InterceptorEditText
     android:layout_width="0dp"
     android:layout_weight="1"
-    android:layout_marginLeft="@dimen/dp_10"
+    android:layout_marginStart="@dimen/dp_10"
     android:background="@drawable/search_radius_bg"
     android:drawableLeft="@mipmap/search"
     android:drawablePadding="@dimen/dp_7"

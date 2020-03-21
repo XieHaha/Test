@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_10"
             android:layout_toLeftOf="@id/group_chat_num"
             android:layout_toRightOf="@id/friend_sex_iv"
             android:ellipsize="end"

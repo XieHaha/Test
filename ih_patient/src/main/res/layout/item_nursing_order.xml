@@ -35,7 +35,7 @@
             android:id="@+id/nursing_status_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginStart="@dimen/dp_12"
             android:textSize="@dimen/font_size_auxiliary" />
 
         <TextView
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/dp_6"
+            android:layout_marginStart="@dimen/dp_6"
             android:background="@mipmap/chargeback_bg"
             android:drawableLeft="@mipmap/chargeback_icon"
             android:drawablePadding="@dimen/dp_8"
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/dp_6"
+            android:layout_marginStart="@dimen/dp_6"
             android:background="@drawable/go_pay_background"
             android:drawableLeft="@mipmap/go_pay_icon"
             android:drawablePadding="@dimen/dp_8"
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/dp_6"
+            android:layout_marginStart="@dimen/dp_6"
             android:background="@drawable/order_assess_background"
             android:drawableLeft="@mipmap/order_assess_icon"
             android:drawablePadding="@dimen/dp_8"
@@ -117,7 +117,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:layout_weight="1"
             android:text="服务费用/次"
             android:textColor="@color/tab_nol_color"
@@ -188,7 +188,7 @@
             android:id="@+id/time"
             android:layout_alignBottom="@+id/time_tv"
             android:layout_toRightOf="@+id/time_tv"
-            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginStart="@dimen/dp_16"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/font_size_auxiliary"
             android:maxLines="1"

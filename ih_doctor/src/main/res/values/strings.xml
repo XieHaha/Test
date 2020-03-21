@@ -47,6 +47,7 @@
     <!--在线问诊-->
     <string name="txt_triage">分诊</string>
     <string name="txt_triage_receive">分诊接收</string>
+    <string name="txt_triage_order_detail">分诊单详情</string>
     <string name="txt_transfer_depart_description">转科说明</string>
     <string name="txt_condition_information">病情资料</string>
     <string name="txt_condition_information_hint">（检查报告、处方或其他病情资料）</string>

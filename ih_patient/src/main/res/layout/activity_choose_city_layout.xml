@@ -44,7 +44,7 @@
             android:layout_width="@dimen/dp_264"
             android:layout_height="@dimen/dp_35"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:drawableLeft="@mipmap/search"
             android:paddingLeft="@dimen/dp_18"
             android:drawablePadding="@dimen/dp_7"

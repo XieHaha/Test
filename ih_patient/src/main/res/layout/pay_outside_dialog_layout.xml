@@ -14,7 +14,7 @@
             android:layout_width="@dimen/dp_25"
             android:layout_height="@dimen/dp_25"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginStart="@dimen/dp_16"
             android:padding="@dimen/dp_5"
             android:src="@mipmap/pay_close_icon" />
 
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
                 android:text="请选择取药方式（外延处方）"
                 android:textColor="#666666"
                 android:textSize="@dimen/font_size_primary" />
@@ -125,7 +125,7 @@
                     android:id="@+id/tv_logistic_fee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginStart="@dimen/dp_8"
                     android:text="￥0元"
                     android:textColor="@color/money_text_color"
                     android:textSize="@dimen/font_size_primary" />
@@ -224,7 +224,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
             android:text="选择支付方式"
             android:textColor="#666666"
             android:textSize="@dimen/font_size_primary" />
@@ -248,7 +248,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:src="@mipmap/ali_pay_icon" />
 
         <TextView
@@ -256,7 +256,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_105"
+            android:layout_marginStart="@dimen/dp_105"
             android:text="支付宝支付"
             android:textColor="#7FBDFF"
             android:textSize="@dimen/font_size_primary" />
@@ -274,7 +274,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/dp_92"
+            android:layout_marginStart="@dimen/dp_92"
             android:layout_marginRight="@dimen/dp_25"
             android:background="#EEEEEE" />
     </RelativeLayout>
@@ -287,7 +287,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:src="@mipmap/wechat_pay_icon" />
 
         <TextView
@@ -295,7 +295,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_105"
+            android:layout_marginStart="@dimen/dp_105"
             android:text="微信支付"
             android:textColor="#666666"
             android:textSize="@dimen/font_size_primary" />
@@ -313,7 +313,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/dp_92"
+            android:layout_marginStart="@dimen/dp_92"
             android:layout_marginRight="@dimen/dp_25"
             android:background="#EEEEEE" />
     </RelativeLayout>
@@ -327,7 +327,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginStart="@dimen/dp_19"
             android:src="@mipmap/unionpay_pay_icon" />
 
         <TextView
@@ -335,7 +335,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_105"
+            android:layout_marginStart="@dimen/dp_105"
             android:text="银联支付"
             android:textColor="#666666"
             android:textSize="@dimen/font_size_primary" />
@@ -353,7 +353,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/dp_92"
+            android:layout_marginStart="@dimen/dp_92"
             android:layout_marginRight="@dimen/dp_25"
             android:background="#EEEEEE" />
     </RelativeLayout>
@@ -368,7 +368,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_50"
+            android:layout_marginStart="@dimen/dp_50"
             android:button="@drawable/pay_checkbox_selector"
             android:gravity="center" />
 
@@ -377,7 +377,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_2"
+            android:layout_marginStart="@dimen/dp_2"
             android:layout_toRightOf="@+id/pay_agreement_cb"
             android:text="我已阅读并同意《网络诊间服务条款》"
             android:textColor="#666666"
@@ -404,7 +404,7 @@
         android:id="@+id/pay_commit_tv"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_52"
-        android:layout_marginLeft="@dimen/dp_21"
+        android:layout_marginStart="@dimen/dp_21"
         android:layout_marginRight="@dimen/dp_21"
         android:layout_marginBottom="@dimen/dp_50"
         android:background="@mipmap/pay_commit_bg"

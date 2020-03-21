@@ -33,7 +33,7 @@
         android:id="@+id/evaluation_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_16"
         android:layout_toRightOf="@id/star_rb"
         android:text="满意"
         android:textColor="#3399FF"

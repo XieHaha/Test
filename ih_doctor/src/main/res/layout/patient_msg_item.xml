@@ -47,7 +47,7 @@
                 android:id="@+id/friend_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_marginStart="@dimen/dp_5"
                 android:layout_toRightOf="@id/friend_sex_iv"
                 android:ellipsize="end"
                 android:maxWidth="@dimen/dp_120"
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_9"
+                android:layout_marginStart="@dimen/dp_9"
                 android:layout_toRightOf="@id/friend_name_tv"
                 android:textColor="@color/friend_age_txt_color"
                 android:textSize="@dimen/dp_11" />

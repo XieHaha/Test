@@ -62,7 +62,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_38"
+        android:layout_marginStart="@dimen/dp_38"
         android:layout_marginTop="@dimen/dp_38"
         android:layout_marginRight="@dimen/dp_35"
         android:background="@drawable/work_online">
@@ -99,7 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_alignTop="@id/user_number_tip_tv"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginStart="@dimen/dp_10"
                     android:layout_toRightOf="@id/user_number_tip_tv"
                     android:background="@null"
                     android:layout_centerInParent="true"
@@ -139,7 +139,7 @@
                     android:id="@+id/code_tv"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_43"
-                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginStart="@dimen/dp_10"
                     android:layout_toRightOf="@id/phone_number_tip_tv"
                     android:background="@null"
                     android:gravity="center_vertical"

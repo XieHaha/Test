@@ -33,7 +33,7 @@
             android:id="@+id/nursing_status_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginStart="@dimen/dp_12"
             android:layout_marginRight="@dimen/dp_13"
             android:textSize="@dimen/font_size_auxiliary" />
 
@@ -68,7 +68,7 @@
             android:id="@+id/goods_text"
             android:layout_alignTop="@+id/goods_img"
             android:layout_toRightOf="@+id/goods_img"
-            android:layout_marginLeft="@dimen/dp_18"
+            android:layout_marginStart="@dimen/dp_18"
             android:maxLines="3"
             android:ellipsize="end"
             android:textSize="@dimen/font_size_auxiliary"

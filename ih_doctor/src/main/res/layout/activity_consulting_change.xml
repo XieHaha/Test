@@ -38,7 +38,7 @@
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_20"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
             android:paddingTop="@dimen/dp_5"
             android:src="@mipmap/point_blue" />
 
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_48"
+            android:layout_marginStart="@dimen/dp_48"
             android:layout_toRightOf="@+id/left_img"
             android:text="接诊周期"
             android:textColor="@color/fontColorPrimary"
@@ -78,7 +78,7 @@
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_20"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
             android:paddingTop="@dimen/dp_5"
             android:src="@mipmap/point_green" />
 
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_48"
+            android:layout_marginStart="@dimen/dp_48"
             android:layout_toRightOf="@+id/left_img"
             android:text="接诊时间"
             android:textColor="@color/fontColorPrimary"
@@ -118,7 +118,7 @@
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_20"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_20"
             android:paddingTop="@dimen/dp_5"
             android:src="@mipmap/point_yellow" />
 
@@ -126,7 +126,7 @@
             android:id="@+id/consulting_item_three"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_48"
+            android:layout_marginStart="@dimen/dp_48"
             android:layout_toRightOf="@+id/left_img"
             android:text="循环排班"
             android:textColor="@color/fontColorPrimary"

@@ -27,7 +27,7 @@
         <ImageView
             android:layout_width="@dimen/dp_17"
             android:layout_height="@dimen/dp_19"
-            android:layout_marginLeft="@dimen/dp_26"
+            android:layout_marginStart="@dimen/dp_26"
             android:layout_marginTop="@dimen/dp_12"
             android:layout_marginBottom="@dimen/dp_12"
             android:src="@mipmap/username" />
@@ -38,7 +38,7 @@
             style="@android:style/Widget.EditText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_43"
-            android:layout_marginLeft="@dimen/dp_55"
+            android:layout_marginStart="@dimen/dp_55"
             android:background="@null"
             android:drawableRight="@mipmap/edit_delete"
             android:hint="@string/login_input_account"
@@ -63,7 +63,7 @@
         <ImageView
             android:layout_width="@dimen/dp_17"
             android:layout_height="@dimen/dp_19"
-            android:layout_marginLeft="@dimen/dp_26"
+            android:layout_marginStart="@dimen/dp_26"
             android:layout_marginTop="@dimen/dp_12"
             android:layout_marginBottom="@dimen/dp_12"
             android:src="@mipmap/password" />
@@ -74,7 +74,7 @@
             style="@android:style/Widget.EditText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_43"
-            android:layout_marginLeft="@dimen/dp_55"
+            android:layout_marginStart="@dimen/dp_55"
             android:background="@null"
             android:drawableRight="@mipmap/edit_delete"
             android:hint="@string/login_input_password"

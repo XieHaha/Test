@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/name"
-            android:textSize="@dimen/font_size_primary"
+            android:textSize="@dimen/sp_14"
             android:singleLine="true"
             android:ellipsize="end"
             android:textColor="@color/title_bar_text_color"
@@ -52,14 +52,14 @@
         android:layout_weight="1"
         android:gravity="center"
         android:id="@+id/reimbursement"
-        android:textSize="@dimen/font_size_primary"
+        android:textSize="@dimen/sp_14"
         android:textColor="@color/nursing_status_red"
         android:layout_height="match_parent" />
     <TextView
         android:layout_width="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:textSize="@dimen/font_size_primary"
+        android:textSize="@dimen/sp_14"
         android:textColor="@color/nursing_status_red"
         android:id="@+id/money"
         android:layout_height="match_parent" />

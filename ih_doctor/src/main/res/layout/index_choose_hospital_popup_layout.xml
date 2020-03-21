@@ -27,7 +27,7 @@
                 android:id="@+id/hospital_search_edt"
                 android:layout_width="@dimen/dp_264"
                 android:layout_height="@dimen/dp_35"
-                android:layout_marginLeft="@dimen/dp_19"
+                android:layout_marginStart="@dimen/dp_19"
                 android:layout_marginTop="@dimen/dp_16"
                 android:layout_marginBottom="@dimen/dp_16"
                 android:background="@drawable/choose_city_search_bg"

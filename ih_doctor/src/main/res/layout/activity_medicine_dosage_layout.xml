@@ -34,7 +34,7 @@
                 android:id="@+id/save_drug"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_48"
-                android:layout_marginLeft="@dimen/dp_19"
+                android:layout_marginStart="@dimen/dp_19"
                 android:layout_marginTop="@dimen/dp_47"
                 android:layout_marginRight="@dimen/dp_19"
                 android:background="@drawable/blue_corner_bg"

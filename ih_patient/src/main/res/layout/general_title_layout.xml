@@ -3,7 +3,7 @@
     <ImageView
         android:id="@+id/title_left_img"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/dp_19"
+        android:layout_marginStart="@dimen/dp_19"
         android:layout_width="@dimen/dp_9"
         android:layout_height="@dimen/dp_15"
         android:src="@color/colorRedPoint"/>

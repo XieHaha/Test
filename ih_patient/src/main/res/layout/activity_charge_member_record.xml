@@ -29,7 +29,7 @@
                 android:gravity="center"
                 android:text="充值时间"
                 android:textColor="#BBBBBB"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
 
 
             <TextView
@@ -41,7 +41,7 @@
                 android:gravity="center"
                 android:text="费用"
                 android:textColor="#BBBBBB"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
         </LinearLayout>
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout

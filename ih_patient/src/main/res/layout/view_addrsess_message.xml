@@ -12,14 +12,14 @@
         <ImageView
             android:layout_marginTop="@dimen/dp_6"
             android:id="@+id/image_dots_green"
-            android:layout_marginLeft="@dimen/dp_23"
+            android:layout_marginStart="@dimen/dp_23"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/bg_dots_green"/>
          <TextView
              android:id="@+id/tv_con"
              android:layout_toRightOf="@+id/image_dots_green"
-             android:layout_marginLeft="@dimen/dp_23"
+             android:layout_marginStart="@dimen/dp_23"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:textColor="@color/pay_unselected"
@@ -41,7 +41,7 @@
         <View
             style="@style/CommonLine"
             android:layout_marginTop="@dimen/dp_16"
-            android:layout_marginLeft="@dimen/dp_56"
+            android:layout_marginStart="@dimen/dp_56"
             android:layout_marginRight="@dimen/dp_20"
           />
         <RelativeLayout
@@ -51,14 +51,14 @@
             <ImageView
                 android:layout_marginTop="@dimen/dp_6"
                 android:id="@+id/image_dots_red"
-                android:layout_marginLeft="@dimen/dp_23"
+                android:layout_marginStart="@dimen/dp_23"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/bg_dots_red"/>
             <TextView
                 android:id="@+id/tv_get"
                 android:layout_toRightOf="@+id/image_dots_red"
-                android:layout_marginLeft="@dimen/dp_23"
+                android:layout_marginStart="@dimen/dp_23"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/pay_unselected"

@@ -38,14 +38,14 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="82dp"
+                        android:layout_marginStart="82dp"
                         android:layout_marginTop="37.5dp"
                         android:src="@mipmap/vip_card_name_icon" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="200dp"
+                        android:layout_marginStart="200dp"
                         android:layout_marginTop="12.5dp"
                         android:src="@mipmap/vip_card_title_icon" />
 
@@ -53,14 +53,14 @@
                         android:id="@+id/fragment_tab_member_balance_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="42dp"
+                        android:layout_marginStart="42dp"
                         android:layout_marginTop="79dp"
                         android:src="@mipmap/vip_balance_icon" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="37dp"
+                        android:layout_marginStart="37dp"
                         android:layout_marginTop="79dp"
                         android:layout_toRightOf="@id/fragment_tab_member_balance_iv"
                         android:src="@mipmap/vip_card_desc_icon" />
@@ -71,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/fragment_tab_member_balance_iv"
-                        android:layout_marginLeft="28dp"
+                        android:layout_marginStart="28dp"
                         android:layout_marginTop="16.5dp"
                         android:textColor="@color/vip_balance_text"
                         android:textSize="14sp" />
@@ -81,7 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/fragment_tab_member_balance_iv"
-                        android:layout_marginLeft="25dp"
+                        android:layout_marginStart="25dp"
                         android:layout_marginTop="16.5dp"
                         android:layout_toRightOf="@id/fragment_tab_member_card_price_tv"
                         android:textColor="@color/vip_balance_text"
@@ -91,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/fragment_tab_member_card_price_tv"
-                        android:layout_marginLeft="26.5dp"
+                        android:layout_marginStart="26.5dp"
                         android:layout_marginTop="30dp"
                         android:text="请尽快开通享受绿色服务吧"
                         android:textColor="@color/vip_balance_text"
@@ -103,7 +103,7 @@
                     android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="33dp"
                     android:text="会员专项特权 "
                     android:textColor="@color/black"

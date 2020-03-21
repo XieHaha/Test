@@ -61,7 +61,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical|right"
                 android:orientation="horizontal">
@@ -96,7 +96,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="34.5dp"
+            android:layout_marginStart="34.5dp"
             android:layout_marginTop="23.5dp"
             android:text="预约项目"
             android:textColor="@color/vip_pregnancy_week_text"
@@ -124,7 +124,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="34.5dp"
+            android:layout_marginStart="34.5dp"
             android:layout_marginTop="23.5dp"
             android:text="预约时间"
             android:textColor="@color/vip_pregnancy_week_text"
@@ -150,7 +150,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="34.5dp"
+            android:layout_marginStart="34.5dp"
             android:layout_marginTop="23.5dp"
             android:text="预约时段"
             android:textColor="@color/vip_pregnancy_week_text"

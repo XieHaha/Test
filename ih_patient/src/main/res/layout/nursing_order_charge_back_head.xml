@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
                 android:layout_weight="1"
                 android:text="@string/charge_back_rule"
                 android:textColor="@color/title_bar_text_color"
@@ -66,7 +66,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
                 android:layout_weight="1"
                 android:text="@string/charge_back_content"
                 android:textColor="@color/title_bar_text_color"

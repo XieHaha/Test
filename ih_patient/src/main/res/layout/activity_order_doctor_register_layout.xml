@@ -89,13 +89,13 @@
                 android:layout_width="@dimen/dp_52"
                 android:layout_height="@dimen/dp_52"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_22">
+                android:layout_marginStart="@dimen/dp_22">
 
                 <com.keydom.ih_common.view.CircleImageView
                     android:id="@+id/order_hospital_img"
                     android:layout_width="@dimen/dp_45"
                     android:layout_height="@dimen/dp_45"
-                    android:layout_marginLeft="@dimen/dp_4"
+                    android:layout_marginStart="@dimen/dp_4"
                     android:layout_marginTop="@dimen/dp_4"
                     android:padding="@dimen/dp_10"
                     android:src="@mipmap/hospital_icon" />
@@ -105,7 +105,7 @@
                 android:id="@+id/order_hospital_name_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_15"
                 android:layout_toRightOf="@+id/hos_head_layout"
                 android:ellipsize="end"
@@ -119,7 +119,7 @@
                 android:id="@+id/order_hospital_label_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_16"
                 android:layout_toRightOf="@+id/order_hospital_name_name"
                 android:text=""
@@ -131,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/order_hospital_name_name"
-                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_7"
                 android:layout_marginRight="@dimen/dp_80"
                 android:layout_toRightOf="@+id/hos_head_layout"
@@ -163,7 +163,7 @@
             android:layout_width="@dimen/dp_192"
             android:layout_height="@dimen/dp_31"
             android:layout_below="@+id/top_layout"
-            android:layout_marginLeft="@dimen/dp_21"
+            android:layout_marginStart="@dimen/dp_21"
             android:layout_marginTop="@dimen/dp_8"
             android:background="@drawable/order_doc_register_search_bg"
             android:orientation="horizontal">
@@ -172,7 +172,7 @@
                 android:layout_width="@dimen/dp_15"
                 android:layout_height="@dimen/dp_15"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/dp_14"
+                android:layout_marginStart="@dimen/dp_14"
                 android:src="@mipmap/search" />
 
             <TextView
@@ -219,7 +219,7 @@
                 android:layout_width="@dimen/dp_15"
                 android:layout_height="@dimen/dp_15"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/dp_14"
+                android:layout_marginStart="@dimen/dp_14"
                 android:src="@mipmap/search" />
 
             <TextView
