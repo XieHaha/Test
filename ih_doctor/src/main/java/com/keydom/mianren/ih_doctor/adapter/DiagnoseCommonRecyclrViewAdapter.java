@@ -84,7 +84,7 @@ public class DiagnoseCommonRecyclrViewAdapter extends BaseEmptyAdapter<ChangeDia
             } else {
                 diagnoseStatus.setText("已接收");
                 diagnoseStatus.setTextColor(mContext.getResources().getColor(R.color.font_recoder_status_green));
-                Drawable img = mContext.getResources().getDrawable(R.mipmap.patient_cicle_green);
+                Drawable img = mContext.getResources().getDrawable(R.mipmap.patient_circle_green);
                 img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                 diagnoseStatus.setCompoundDrawables(img, null, null, null);
 

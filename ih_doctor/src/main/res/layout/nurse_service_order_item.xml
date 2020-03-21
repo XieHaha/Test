@@ -157,7 +157,7 @@
                 android:id="@+id/service_time_tip"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:drawableLeft="@mipmap/patient_cicle_green"
+                android:drawableLeft="@mipmap/patient_circle_green"
                 android:drawablePadding="@dimen/dp_5"
                 android:gravity="center_vertical"
                 android:text="上门时间"

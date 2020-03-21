@@ -76,7 +76,7 @@ public class ContactRecyclrViewAdapter extends BaseEmptyAdapter<ImPatientInfo> {
             if ("0".equals(bean.getSex())) {
                 friendSexIv.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.patient_cicle_blue));
             } else {
-                friendSexIv.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.patient_cicle_green));
+                friendSexIv.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.patient_circle_green));
             }
             String tagStr = "";
             friendTag.removeAllViews();

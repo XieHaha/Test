@@ -124,7 +124,7 @@ public class SearchResultAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                         orderStatus.setText("待接诊");
                         break;
                     case 2:
-                        img = mContext.getResources().getDrawable(R.mipmap.patient_cicle_green);
+                        img = mContext.getResources().getDrawable(R.mipmap.patient_circle_green);
                         img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                         orderStatus.setCompoundDrawables(img, null, null, null);
                         orderStatus.setTextColor(mContext.getResources().getColor(R.color.font_green));
@@ -138,21 +138,21 @@ public class SearchResultAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                         orderStatus.setText("审核不通过");
                         break;
                     case 4:
-                        img = mContext.getResources().getDrawable(R.mipmap.patient_cicle_green);
+                        img = mContext.getResources().getDrawable(R.mipmap.patient_circle_green);
                         img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                         orderStatus.setCompoundDrawables(img, null, null, null);
                         orderStatus.setTextColor(mContext.getResources().getColor(R.color.font_green));
                         orderStatus.setText("问诊中");
                         break;
                     case 5:
-                        img = mContext.getResources().getDrawable(R.mipmap.patient_cicle_green);
+                        img = mContext.getResources().getDrawable(R.mipmap.patient_circle_green);
                         img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                         orderStatus.setCompoundDrawables(img, null, null, null);
                         orderStatus.setTextColor(mContext.getResources().getColor(R.color.font_green));
                         orderStatus.setText("问诊中");
                         break;
                     case 6:
-                        img = mContext.getResources().getDrawable(R.mipmap.patient_cicle_green);
+                        img = mContext.getResources().getDrawable(R.mipmap.patient_circle_green);
                         img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                         orderStatus.setCompoundDrawables(img, null, null, null);
                         orderStatus.setTextColor(mContext.getResources().getColor(R.color.font_green));
@@ -173,7 +173,7 @@ public class SearchResultAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                         orderStatus.setText("待评价");
                         break;
                     case 9:
-                        img = mContext.getResources().getDrawable(R.mipmap.patient_cicle_green);
+                        img = mContext.getResources().getDrawable(R.mipmap.patient_circle_green);
                         img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                         orderStatus.setCompoundDrawables(img, null, null, null);
                         orderStatus.setTextColor(mContext.getResources().getColor(R.color.font_green));

@@ -100,9 +100,9 @@ public class FriendMsgRecyclrViewAdapter extends BaseEmptyAdapter<RecentContact>
                     if (userInfo.getGenderEnum() == GenderEnum.MALE) {
                         sexImage.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.patient_cicle_blue));
                     } else if (userInfo.getGenderEnum() == GenderEnum.FEMALE) {
-                        sexImage.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.patient_cicle_green));
+                        sexImage.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.patient_circle_green));
                     } else {
-                        sexImage.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.patient_cicle_green));
+                        sexImage.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.patient_circle_green));
                     }
 
                 }

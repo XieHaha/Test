@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:drawableLeft="@mipmap/patient_cicle_green"
+            android:drawableLeft="@mipmap/patient_circle_green"
             android:drawablePadding="@dimen/dp_6"
             android:paddingLeft="@dimen/dp_6"
             android:paddingTop="@dimen/dp_6"

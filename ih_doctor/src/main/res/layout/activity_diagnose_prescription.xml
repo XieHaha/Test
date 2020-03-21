@@ -201,7 +201,7 @@
                                 android:id="@+id/add_prescription"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@mipmap/patient_cicle_green" />
+                                android:src="@mipmap/patient_circle_green" />
 
                             <TextView
                                 android:layout_width="wrap_content"

@@ -281,6 +281,7 @@
         <activity android:name=".activity.health_manager.HealthManagerActivity" />
         <activity android:name=".activity.health_manager.PatientInfoActivity" />
         <activity android:name=".activity.online_triage.TriageOrderApplyActivity" />
+        <activity android:name=".activity.online_triage.TriageOrderListActivity" />
 
     </application>
 
