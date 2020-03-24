@@ -43,7 +43,6 @@ import com.keydom.ih_common.im.model.custom.UserFollowUpAttachment;
 import com.keydom.ih_common.im.model.event.EndInquiryEvent;
 import com.keydom.ih_common.im.widget.ImMessageView;
 import com.keydom.ih_common.im.widget.plugin.EndInquiryPlugin;
-import com.keydom.ih_common.im.widget.plugin.PluginListener;
 import com.keydom.ih_common.im.widget.plugin.UserFollowUpPlugin;
 import com.keydom.ih_common.im.widget.plugin.VideoPlugin;
 import com.keydom.ih_common.net.ApiRequest;
@@ -62,6 +61,7 @@ import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.FillOutApplyActi
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.ApplyForCheckActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.CheckOrderDetailActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.DiagnosePatientInfoActivity;
+import com.keydom.mianren.ih_doctor.activity.online_triage.TriageOrderApplyActivity;
 import com.keydom.mianren.ih_doctor.activity.patient_manage.PatientDatumActivity;
 import com.keydom.mianren.ih_doctor.activity.prescription_check.DiagnosePrescriptionActivity;
 import com.keydom.mianren.ih_doctor.activity.prescription_check.PrescriptionActivity;
@@ -124,15 +124,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private TextView mVisitingTv;
     private LinearLayout mVisitingLl;
     private TextView mVisitingRemainingTimeTv;
-    private LinearLayout mBackLl;
-    private LinearLayout mEndLl;
-    private LinearLayout mEndTheConsultationLl;
-    private LinearLayout mDiagnosticPrescriptionLl;
-    private LinearLayout mDisposalAdviceLl;
+    private LinearLayout mBackLl, mEndLl, mEndTheConsultationLl, mDiagnosticPrescriptionLl,
+            mDisposalAdviceLl;
     private ConstraintLayout mCompletedCl;
     private ImMessageView mMessageView;
     private PopupWindow mPopupWindow;
-    private TextView referralTv;
+    private TextView referralTv, inquiryPopTriageTv, inquiryPopConsultationTv;
     private String sessionId;
     private InquiryBean orderBean;
     private boolean isGetStatus = false;
@@ -477,23 +474,21 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setFocusable(true);
         referralTv = view.findViewById(R.id.referral);
+        inquiryPopTriageTv = view.findViewById(R.id.inquiry_pop_triage_tv);
+        inquiryPopConsultationTv = view.findViewById(R.id.inquiry_pop_consultation_tv);
+        referralTv = view.findViewById(R.id.referral);
         view.findViewById(R.id.inspection).setOnClickListener(this);
         view.findViewById(R.id.examination).setOnClickListener(this);
         referralTv.setOnClickListener(this);
-        view.findViewById(R.id.inquiry_pop_triage_tv).setOnClickListener(this);
+        inquiryPopTriageTv.setOnClickListener(this);
+        inquiryPopConsultationTv.setOnClickListener(this);
         mVideoPlugin = new VideoPlugin();
         mEndInquiryPlugin = new EndInquiryPlugin(() -> {
             mMessageView.hideExtension();
             mEndTheConsultationLl.setVisibility(View.VISIBLE);
         });
 
-
-        mUserFollowUpPlugin = new UserFollowUpPlugin(new PluginListener() {
-            @Override
-            public void onClick() {
-                showUserFollowUp();
-            }
-        });
+        mUserFollowUpPlugin = new UserFollowUpPlugin(() -> showUserFollowUp());
         //mMessageView.addPlugin(mUserFollowUpPlugin);
 
         mVoiceInputPlugin = new VoiceInputPlugin(this);
@@ -731,6 +726,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 break;
             case R.id.inquiry_pop_triage_tv:
                 //分诊
+                TriageOrderApplyActivity.start(this);
+                break;
+            case R.id.inquiry_pop_consultation_tv:
+                //会诊
+
                 break;
             default:
         }

@@ -62,5 +62,5 @@ public interface ICustomAttachmentType {
     /**
      * 分诊单
      */
-    int TRIAGE_ORDER = 1;
+    int TRIAGE_ORDER = 100104;
 }

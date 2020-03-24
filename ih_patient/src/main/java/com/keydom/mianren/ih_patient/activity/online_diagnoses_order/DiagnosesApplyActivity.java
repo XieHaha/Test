@@ -60,23 +60,6 @@ import io.reactivex.functions.Consumer;
  * 在线问诊申请页面
  */
 public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesApplyController> implements DiagnosesApplyView {
-
-    /**
-     * 启动
-     */
-    public static void start(Context context, String type, DoctorMainBean.InfoBean info) {
-        Intent intent = new Intent(context, DiagnosesApplyActivity.class);
-        intent.putExtra("type", type);
-
-        Bundle bundle = new Bundle();
-        if (null != info) {
-            bundle.putSerializable("info", info);
-            intent.putExtras(bundle);
-        }
-
-        context.startActivity(intent);
-    }
-
     private TextView nameTv, jobTitleTv, photoDiagnosesTv, videoDiagnosesTv,
             departTv, adeptTv, inquisitionNumTv, goodEvaluateNumTv,
             averageReplyTimeTv, choosePatientCardTv, choosePatientTv, commitTv, descFontNumTv;
@@ -96,6 +79,20 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
 
     // 语音听写UI
     private CustomRecognizerDialog mIatDialog;
+
+    /**
+     * 启动
+     */
+    public static void start(Context context, String type, DoctorMainBean.InfoBean info) {
+        Intent intent = new Intent(context, DiagnosesApplyActivity.class);
+        intent.putExtra("type", type);
+        Bundle bundle = new Bundle();
+        if (null != info) {
+            bundle.putSerializable("info", info);
+            intent.putExtras(bundle);
+        }
+        context.startActivity(intent);
+    }
 
     /**
      * 初始化监听器。
@@ -364,9 +361,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
 
     @Override
     public boolean getLastItemClick(int position) {
-        if (position == dataList.size())
-            return true;
-        return false;
+        return position == dataList.size();
     }
 
     /**

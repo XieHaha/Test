@@ -25,7 +25,10 @@
 
     <!--公用-->
     <string name="txt_doctor_colon">医生:</string>
+    <string name="txt_patient_colon">患者:</string>
+    <string name="txt_voice_hint">可输入语音</string>
     <string name="txt_select_doctor_hint">请选择医生</string>
+    <string name="txt_select_consultation_doctor_hint">请选择会诊医生</string>
     <string name="txt_inquiry_order_colon">问诊单:</string>
     <string name="txt_select_inquiry_order_hint">请选择问诊单</string>
 
@@ -56,6 +59,17 @@
     <string name="txt_triage_description_colon">分诊说明：</string>
     <string name="txt_apply_colon">申请：</string>
     <string name="txt_receive_colon">接收：</string>
+
+    <!--会诊-->
+    <string name="txt_consultation">会诊</string>
+    <string name="txt_consultation_grade_colon">会诊等级:</string>
+    <string name="txt_select_consultation_grade">请选择会诊等级</string>
+    <string name="txt_consultation_time_colon">会诊时间:</string>
+    <string name="txt_select_consultation_time">请选择会诊时间</string>
+    <string name="txt_consultation_reason_purpose">会诊理由及目的</string>
+    <string name="txt_consultation_reason_purpose_hint">请输入会诊理由及目的（10&#8211;500字以内）</string>
+    <string name="txt_medical_summary">病情摘要</string>
+    <string name="txt_medical_summary_hint">输入患者病情（10&#8211;2000字以内）</string>
 
 
     <!-- 讯飞SDK appid -->
