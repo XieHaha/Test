@@ -21,12 +21,26 @@ import com.keydom.mianren.ih_patient.view.RatingBarView;
 
 import org.jetbrains.annotations.Nullable;
 
+import butterknife.BindView;
+
 /**
  * created date: 2018/12/26 on 18:54
  * des:评价页面
  */
 public class OrderEvaluateActivity extends BaseControllerActivity<OrderEvaluateController> implements OrderEvaluateView {
     public static final String EVALUATE_BEAN = "evaluate_bean";
+    @BindView(R.id.evaluate_rb)
+    RatingBarView evaluateRb;
+    @BindView(R.id.evaluate_bottom)
+    TextView evaluateBottom;
+    @BindView(R.id.evaluate1)
+    TextView evaluate1;
+    @BindView(R.id.evaluate2)
+    TextView evaluate2;
+    @BindView(R.id.evaluate3)
+    TextView evaluate3;
+    @BindView(R.id.evaluate4)
+    TextView evaluate4;
 
     /**
      * 评价前缀
@@ -50,17 +64,6 @@ public class OrderEvaluateActivity extends BaseControllerActivity<OrderEvaluateC
     private String[] mEvaluate3 = {"低", "较低", "一般", "高", "高超"};
     private String[] mEvaluate4 = {"高", "较高", "一般", "低", "较低"};
     /**
-     * 评价四等级
-     */
-
-    private TextView mEvaluateBottomTv;
-    private TextView mEvaluate1Tv;
-    private TextView mEvaluate2Tv;
-    private TextView mEvaluate3Tv;
-    private TextView mEvaluate4Tv;
-    private RatingBarView mRbView;
-
-    /**
      * 星级
      */
     private int mStar;
@@ -68,9 +71,6 @@ public class OrderEvaluateActivity extends BaseControllerActivity<OrderEvaluateC
     /**
      * 启动
      */
-    /*
-     * obj需继承序列化
-     *  */
     public static void start(Context ctx, String title, String type, Object obj) {
         OrderEvaluateBean orderEvaluateBean = new OrderEvaluateBean();
         orderEvaluateBean.setTitle(title);
@@ -89,27 +89,25 @@ public class OrderEvaluateActivity extends BaseControllerActivity<OrderEvaluateC
     @SuppressLint("SetTextI18n")
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        getView();
-        OrderEvaluateBean evaluateBean = (OrderEvaluateBean) getIntent().getSerializableExtra(EVALUATE_BEAN);
+        OrderEvaluateBean evaluateBean =
+                (OrderEvaluateBean) getIntent().getSerializableExtra(EVALUATE_BEAN);
         setTitle(evaluateBean.getTitle());
         setRightTxt("提交");
-        setRightBtnListener(v -> {
-            switchEvaluateType(evaluateBean);
-        });
+        setRightBtnListener(v -> switchEvaluateType(evaluateBean));
         mStar = 1;
-        mRbView.setStar(mStar);
-        mEvaluateBottomTv.setText(mEvaluateBottom[0]);
-        mEvaluate1Tv.setText(mEvaluatePrefisxs[0] + mEvaluate1[0]);
-        mEvaluate2Tv.setText(mEvaluatePrefisxs[1] + mEvaluate2[0]);
-        mEvaluate3Tv.setText(mEvaluatePrefisxs[2] + mEvaluate3[0]);
-        mEvaluate4Tv.setText(mEvaluatePrefisxs[3] + mEvaluate4[0]);
-        mRbView.setOnRatingListener((bindObject, RatingScore) -> {
+        evaluateRb.setStar(mStar);
+        evaluateBottom.setText(mEvaluateBottom[0]);
+        evaluate1.setText(mEvaluatePrefisxs[0] + mEvaluate1[0]);
+        evaluate2.setText(mEvaluatePrefisxs[1] + mEvaluate2[0]);
+        evaluate3.setText(mEvaluatePrefisxs[2] + mEvaluate3[0]);
+        evaluate4.setText(mEvaluatePrefisxs[3] + mEvaluate4[0]);
+        evaluateRb.setOnRatingListener((bindObject, RatingScore) -> {
             mStar = RatingScore;
-            mEvaluateBottomTv.setText(mEvaluateBottom[RatingScore - 1]);
-            mEvaluate1Tv.setText(mEvaluatePrefisxs[0] + mEvaluate1[RatingScore - 1]);
-            mEvaluate2Tv.setText(mEvaluatePrefisxs[1] + mEvaluate2[RatingScore - 1]);
-            mEvaluate3Tv.setText(mEvaluatePrefisxs[2] + mEvaluate3[RatingScore - 1]);
-            mEvaluate4Tv.setText(mEvaluatePrefisxs[3] + mEvaluate4[RatingScore - 1]);
+            evaluateBottom.setText(mEvaluateBottom[RatingScore - 1]);
+            evaluate1.setText(mEvaluatePrefisxs[0] + mEvaluate1[RatingScore - 1]);
+            evaluate2.setText(mEvaluatePrefisxs[1] + mEvaluate2[RatingScore - 1]);
+            evaluate3.setText(mEvaluatePrefisxs[2] + mEvaluate3[RatingScore - 1]);
+            evaluate4.setText(mEvaluatePrefisxs[3] + mEvaluate4[RatingScore - 1]);
         });
     }
 
@@ -117,9 +115,9 @@ public class OrderEvaluateActivity extends BaseControllerActivity<OrderEvaluateC
      * 判断订单类型提交评价
      */
     private void switchEvaluateType(OrderEvaluateBean evaluateBean) {
-        if("".equals(getEvaluateContent())){
-            ToastUtil.showMessage(getContext(),"请至少从以下标签中选择一个");
-        }else {
+        if ("".equals(getEvaluateContent())) {
+            ToastUtil.showMessage(getContext(), "请至少从以下标签中选择一个");
+        } else {
             switch (evaluateBean.getType()) {
                 case Type.SUBSCRIBE_EXAM_ORDER_EVALUATE:
                     getController().submitSubscribeExamEvaluate((SubscribeExaminationBean) evaluateBean.getObj(), mStar, getEvaluateContent());
@@ -128,59 +126,43 @@ public class OrderEvaluateActivity extends BaseControllerActivity<OrderEvaluateC
                     getController().submitNursingEvaluate((NursingOrderBean) evaluateBean.getObj(), mStar, getEvaluateContent());
                     break;
                 case Type.DIAGNOSES_ORDER_EVALUATE:
-                    getController().doComment((DiagnosesOrderBean) evaluateBean.getObj(), mStar, getEvaluateContent());
+                    getController().doComment((DiagnosesOrderBean) evaluateBean.getObj(), mStar,
+                            getEvaluateContent());
                     break;
             }
         }
 
     }
 
-    /**
-     * 查找控件
-     */
-    private void getView() {
-        mEvaluateBottomTv = findViewById(R.id.evaluate_bottom);
-        mEvaluate1Tv = findViewById(R.id.evaluate1);
-        mEvaluate1Tv.setOnClickListener(getController());
-        mEvaluate2Tv = findViewById(R.id.evaluate2);
-        mEvaluate2Tv.setOnClickListener(getController());
-        mEvaluate3Tv = findViewById(R.id.evaluate3);
-        mEvaluate3Tv.setOnClickListener(getController());
-        mEvaluate4Tv = findViewById(R.id.evaluate4);
-        mEvaluate4Tv.setOnClickListener(getController());
-        mRbView = findViewById(R.id.evaluate_rb);
-
-    }
-
     @Override
     public void onEvaluate1Click() {
-        mEvaluate1Tv.setSelected(!mEvaluate1Tv.isSelected());
+        evaluate1.setSelected(!evaluate1.isSelected());
     }
 
     @Override
     public void onEvaluate2Click() {
-        mEvaluate2Tv.setSelected(!mEvaluate2Tv.isSelected());
+        evaluate2.setSelected(!evaluate2.isSelected());
     }
 
     @Override
     public void onEvaluate3Click() {
-        mEvaluate3Tv.setSelected(!mEvaluate3Tv.isSelected());
+        evaluate3.setSelected(!evaluate3.isSelected());
     }
 
     @Override
     public void onEvaluate4Click() {
-        mEvaluate4Tv.setSelected(!mEvaluate4Tv.isSelected());
+        evaluate4.setSelected(!evaluate4.isSelected());
     }
 
     /**
      * 返回提交文字内容
      */
     private String getEvaluateContent() {
-        StringBuffer sb = new StringBuffer();
-        sb.append(handlerEvaluate(mEvaluate1Tv));
-        sb.append(handlerEvaluate(mEvaluate2Tv));
-        sb.append(handlerEvaluate(mEvaluate3Tv));
-        sb.append(handlerEvaluate(mEvaluate4Tv));
+        StringBuilder sb = new StringBuilder();
+        sb.append(handlerEvaluate(evaluate1));
+        sb.append(handlerEvaluate(evaluate2));
+        sb.append(handlerEvaluate(evaluate3));
+        sb.append(handlerEvaluate(evaluate4));
         if (sb.length() > 0 && sb.lastIndexOf(",") == sb.length() - 1) {
             sb.deleteCharAt(sb.length() - 1);
         }

@@ -1,7 +1,6 @@
 package com.keydom.mianren.ih_doctor.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -57,7 +56,8 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
      * @param context
      */
     public static void start(Context context) {
-        Intent starter = new Intent(context, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent starter =
+                new Intent(context, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(starter);
     }
 
@@ -70,13 +70,13 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         getTitleLayout().initViewsVisible(false, true, false);
         setTitle("登录");
-        loginBt = (Button) findViewById(R.id.login_btn);
-        forgetTxt = (TextView) findViewById(R.id.forget_password_txt);
-        userIdEt = (EditText) findViewById(R.id.user_id);
-        userPwdEt = (EditText) findViewById(R.id.user_password);
-        getCodeRl = (RelativeLayout) findViewById(R.id.get_identifying_code_rl);
-        verificationCode = (EditText) findViewById(R.id.verificationCode);
-        mImageView = (ImageView) findViewById(R.id.identifying_code_iv);
+        loginBt = findViewById(R.id.login_btn);
+        forgetTxt = findViewById(R.id.forget_password_txt);
+        userIdEt = findViewById(R.id.user_id);
+        userPwdEt = findViewById(R.id.user_password);
+        getCodeRl = findViewById(R.id.get_identifying_code_rl);
+        verificationCode = findViewById(R.id.verificationCode);
+        mImageView = findViewById(R.id.identifying_code_iv);
         forgetTxt.setOnClickListener(getController());
         loginBt.setOnClickListener(getController());
         userIdEt.setText(SharePreferenceManager.getUserId());
@@ -99,34 +99,36 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
         SharePreferenceManager.setIdCard(info.getIdCard());
         SharePreferenceManager.setAutonyState(info.getAutonymState());
         if (info.getRoleIds() != null && info.getRoleIds().size() > 0) {
-//            if (info.getRoleIds().size() == 1) {
+            //            if (info.getRoleIds().size() == 1) {
             SharePreferenceManager.setRoleId(info.getRoleIds().get(0));
             SharePreferenceManager.setPositionId(info.getNurseMonitorState());
             PushManager.setAlias(getContext(), info.getPhoneNumber());
-            MyApplication.isNeedInit=false;
-            if(info.isAutony()){
-                MainActivity.start(LoginActivity.this,false,false);
-            }else{
+            MyApplication.isNeedInit = false;
+            if (info.isAutony()) {
+                MainActivity.start(LoginActivity.this, false, false);
+            } else {
                 PersonalInfoActivity.start(LoginActivity.this, TypeEnum.FIRST_FINISH_INFO);
             }
 
             CommonUtils.hideSoftKeyboard(this);
-//            } else {
-//                DialogUtils.showSingleAlertDialog(LoginActivity.this, info.getRoleIds(), new OnSelectRoleListener() {
-//                    @Override
-//                    public void selectRole(Integer roleId) {
-//                        SharePreferenceManager.setRoleId(roleId);
-//                        SharePreferenceManager.setPositionId(info.getNurseMonitorState());
-//                        MainActivity.start(LoginActivity.this);
-//                        CommonUtils.hideSoftKeyboard(LoginActivity.this);
-//                    }
-//
-//                    @Override
-//                    public void selectCancel() {
-//                        finish();
-//                    }
-//                });
-//            }
+            //            } else {
+            //                DialogUtils.showSingleAlertDialog(LoginActivity.this, info
+            //                .getRoleIds(), new OnSelectRoleListener() {
+            //                    @Override
+            //                    public void selectRole(Integer roleId) {
+            //                        SharePreferenceManager.setRoleId(roleId);
+            //                        SharePreferenceManager.setPositionId(info
+            //                        .getNurseMonitorState());
+            //                        MainActivity.start(LoginActivity.this);
+            //                        CommonUtils.hideSoftKeyboard(LoginActivity.this);
+            //                    }
+            //
+            //                    @Override
+            //                    public void selectCancel() {
+            //                        finish();
+            //                    }
+            //                });
+            //            }
 
 
         } else {
@@ -134,14 +136,10 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("无角色权限");
             builder.setMessage("没有分配角色，请联系管理员分配角色后重新登录！");
-            builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                }
+            builder.setNegativeButton("确定", (dialog, which) -> {
             });
             builder.setCancelable(false);
             builder.create().show();
-            return;
         }
     }
 
@@ -154,7 +152,7 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
             SharePreferenceManager.setFirstFinishInfo(true);
             SharePreferenceManager.setIsFirst(true);
             userPwdEt.setText("");
-            SetPasswordActivity.start(getContext(), userIdEt.getText().toString(),true);
+            SetPasswordActivity.start(getContext(), userIdEt.getText().toString(), true);
         } else if (code == 305 || code == 307) {
             showCodeEt();
             getController().getLoginCode(getUserName());
