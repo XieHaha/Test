@@ -58,6 +58,7 @@ import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.common_document.CommonDocumentActivity;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.DianoseCaseDetailActivity;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.FillOutApplyActivity;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationApplyActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.ApplyForCheckActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.CheckOrderDetailActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.DiagnosePatientInfoActivity;
@@ -730,7 +731,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 break;
             case R.id.inquiry_pop_consultation_tv:
                 //会诊
-
+                ConsultationApplyActivity.start(this);
                 break;
             default:
         }

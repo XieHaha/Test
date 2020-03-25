@@ -109,7 +109,7 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
     /**
      * 语音听写UI
      */
-    private CustomRecognizerDialog mIatDialog;
+    private CustomRecognizerDialog mIatDialog, medicalDialog;
 
 
     /**
@@ -141,17 +141,40 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
     };
 
     /**
-     * 听写UI监听器
+     * 听写UI监听器  会诊理由及目的
      */
-    private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
+    private RecognizerDialogListener transferDescriptionVoiceListener =
+            new RecognizerDialogListener() {
+                public void onResult(RecognizerResult results, boolean isLast) {
+                    if (null != consultationApplyTransferDescriptionEt) {
+                        String text = JsonUtils.handleXunFeiJson(results);
+                        String oldText =
+                                consultationApplyTransferDescriptionEt.getText().toString().trim();
+                        StringBuilder builder = new StringBuilder(oldText);
+                        builder.append(text);
+                        consultationApplyTransferDescriptionEt.setText(builder.toString());
+                        consultationApplyTransferDescriptionEt.setSelection(builder.toString().length());
+                    }
+                }
+
+                public void onError(SpeechError error) {
+                    ToastUtil.showMessage(ConsultationApplyActivity.this,
+                            error.getPlainDescription(true));
+                }
+
+            };
+    /**
+     * 听写UI监听器  病情描述
+     */
+    private RecognizerDialogListener medicalSummaryVoiceListener = new RecognizerDialogListener() {
         public void onResult(RecognizerResult results, boolean isLast) {
-            if (null != consultationApplyTransferDescriptionEt) {
+            if (null != consultationApplyMedicalSummaryEt) {
                 String text = JsonUtils.handleXunFeiJson(results);
-                String oldText = consultationApplyTransferDescriptionEt.getText().toString().trim();
+                String oldText = consultationApplyMedicalSummaryEt.getText().toString().trim();
                 StringBuilder builder = new StringBuilder(oldText);
                 builder.append(text);
-                consultationApplyTransferDescriptionEt.setText(builder.toString());
-                consultationApplyTransferDescriptionEt.setSelection(builder.toString().length());
+                consultationApplyMedicalSummaryEt.setText(builder.toString());
+                consultationApplyMedicalSummaryEt.setSelection(builder.toString().length());
             }
         }
 
@@ -187,6 +210,7 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
         });
     }
 
+    @SuppressLint("CheckResult")
     private void initView() {
         mAdapter = new DiagnoseChangePlusImgAdapter(this, gridList);
         consultationApplyConditionImageGrid.setAdapter(mAdapter);
@@ -196,27 +220,44 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
         // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
         mIatDialog = new CustomRecognizerDialog(this, mInitListener);
-        mIatDialog.setListener(mRecognizerDialogListener);
-        consultationApplyTransferDescriptionVoice.setOnClickListener(v -> initPermissions());
-    }
-
-    @SuppressLint("CheckResult")
-    public void initPermissions() {
-        RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                .subscribe(granted -> {
-                    if (granted) {
-                        if (mIatDialog.isShowing()) {
-                            mIatDialog.dismiss();
+        mIatDialog.setListener(transferDescriptionVoiceListener);
+        consultationApplyTransferDescriptionVoice.setOnClickListener(v -> {
+            RxPermissions rxPermissions = new RxPermissions(this);
+            rxPermissions.request(Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)
+                    .subscribe(granted -> {
+                        if (granted) {
+                            if (mIatDialog.isShowing()) {
+                                mIatDialog.dismiss();
+                            }
+                            mIatDialog.show();
+                            ToastUtil.showMessage(this, "请开始说话…");
+                        } else {
+                            ToastUtil.showMessage(this, "请开启录音需要的权限");
                         }
-                        mIatDialog.show();
-                        ToastUtil.showMessage(this, "请开始说话…");
-                    } else {
-                        ToastUtil.showMessage(this, "请开启录音需要的权限");
-                    }
-                });
+                    });
+        });
+
+        medicalDialog = new CustomRecognizerDialog(this, mInitListener);
+        medicalDialog.setListener(medicalSummaryVoiceListener);
+        consultationApplyMedicalSummaryVoice.setOnClickListener(v -> {
+            RxPermissions rxPermissions = new RxPermissions(this);
+            rxPermissions.request(Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)
+                    .subscribe(granted -> {
+                        if (granted) {
+                            if (medicalDialog.isShowing()) {
+                                medicalDialog.dismiss();
+                            }
+                            medicalDialog.show();
+                            ToastUtil.showMessage(this, "请开始说话…");
+                        } else {
+                            ToastUtil.showMessage(this, "请开启录音需要的权限");
+                        }
+                    });
+        });
     }
 
     /**
