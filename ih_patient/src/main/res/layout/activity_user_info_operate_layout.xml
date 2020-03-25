@@ -24,7 +24,7 @@
             android:id="@+id/user_head_img"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_29"
+            android:layout_marginEnd="@dimen/dp_29"
             android:layout_width="@dimen/dp_38"
             android:layout_height="@dimen/dp_38"
             android:src="@mipmap/mine_user_head"/>

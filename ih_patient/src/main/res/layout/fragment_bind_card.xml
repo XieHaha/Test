@@ -138,7 +138,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/dp_19"
         android:layout_marginTop="@dimen/dp_42"
-        android:layout_marginRight="@dimen/dp_19"
+        android:layout_marginEnd="@dimen/dp_19"
         android:background="@mipmap/fill_personal_bt_bg"
         android:gravity="center"
         android:text="@string/bind_card"

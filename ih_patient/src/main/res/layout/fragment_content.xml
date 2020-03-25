@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
         android:layout_marginStart="@dimen/dp_18"
-        android:layout_marginRight="@dimen/dp_22"
+        android:layout_marginEnd="@dimen/dp_22"
         android:background="@color/mine_interval_bg" />
 
     <RelativeLayout
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dp_49"
+            android:layout_marginEnd="@dimen/dp_49"
             android:text="￥23"
             android:textColor="#FF3939"
             android:textSize="@dimen/sp_14" />

@@ -134,7 +134,7 @@
                             android:layout_height="@dimen/dp_1"
                             android:layout_below="@id/hospital_name_rl"
                             android:layout_marginStart="@dimen/dp_26"
-                            android:layout_marginRight="@dimen/dp_20"
+                            android:layout_marginEnd="@dimen/dp_20"
                             android:background="@color/line_color" />
 
                         <RelativeLayout
@@ -213,7 +213,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginRight="@dimen/dp_37"
+                            android:layout_marginEnd="@dimen/dp_37"
                             android:src="@mipmap/nurse_service_phone" />
 
                     </RelativeLayout>

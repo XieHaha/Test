@@ -16,13 +16,13 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_174"
         android:layout_marginTop="@dimen/dp_37"
-        android:layout_marginRight="@dimen/dp_12"
+        android:layout_marginEnd="@dimen/dp_12"
         android:layout_marginStart="@dimen/dp_12"
         android:orientation="horizontal">
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/dp_5"
+            android:layout_marginEnd="@dimen/dp_5"
             android:layout_weight="1">
             <ImageView
                 android:id="@+id/pic_positive_img"
@@ -73,7 +73,7 @@
         android:id="@+id/upload_certificate_pic_commit"
         android:background="@mipmap/fill_personal_bt_bg"
         android:layout_width="match_parent"
-        android:layout_marginRight="@dimen/dp_19"
+        android:layout_marginEnd="@dimen/dp_19"
         android:layout_marginStart="@dimen/dp_19"
         android:layout_height="@dimen/dp_58"
         android:textSize="@dimen/dp_17"
@@ -94,7 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/dp_25"
-        android:layout_marginRight="@dimen/dp_18"
+        android:layout_marginEnd="@dimen/dp_18"
         android:layout_marginTop="@dimen/dp_27"
         android:text="@string/upload_certificate_pic_hint"/>
 </LinearLayout>

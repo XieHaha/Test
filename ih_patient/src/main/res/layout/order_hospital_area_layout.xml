@@ -50,7 +50,7 @@
         android:layout_toRightOf="@+id/hos_head_layout"
         android:layout_marginTop="@dimen/dp_7"
         android:layout_marginStart="@dimen/dp_20"
-        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_20"
         android:singleLine="true"
         android:ellipsize="end"
         android:textSize="@dimen/dp_12"

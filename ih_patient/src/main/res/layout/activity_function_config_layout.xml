@@ -55,7 +55,7 @@
           android:id="@+id/function_config_editor_tv"
           android:layout_centerVertical="true"
           android:layout_alignParentRight="true"
-          android:layout_marginRight="@dimen/dp_19"
+          android:layout_marginEnd="@dimen/dp_19"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:drawableLeft="@mipmap/editoer"
@@ -71,7 +71,7 @@
    <View
        android:layout_width="match_parent"
        android:layout_height="@dimen/dp_1"
-       android:layout_marginRight="@dimen/dp_19"
+       android:layout_marginEnd="@dimen/dp_19"
        android:layout_marginStart="@dimen/dp_19"
        android:background="@color/color_f9f9f9"/>
    <android.support.v7.widget.RecyclerView
@@ -79,7 +79,7 @@
        android:layout_marginBottom="@dimen/dp_14"
        android:id="@+id/selected_function_rv"
        android:layout_marginStart="@dimen/dp_19"
-       android:layout_marginRight="@dimen/dp_19"
+       android:layout_marginEnd="@dimen/dp_19"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:overScrollMode="never"/>
@@ -110,7 +110,7 @@
    <View
        android:layout_width="match_parent"
        android:layout_height="@dimen/dp_1"
-       android:layout_marginRight="@dimen/dp_19"
+       android:layout_marginEnd="@dimen/dp_19"
        android:layout_marginStart="@dimen/dp_19"
        android:background="@color/color_f9f9f9"/>
    <android.support.v7.widget.RecyclerView
@@ -118,7 +118,7 @@
        android:layout_marginTop="@dimen/dp_14"
        android:layout_marginBottom="@dimen/dp_14"
        android:layout_marginStart="@dimen/dp_19"
-       android:layout_marginRight="@dimen/dp_19"
+       android:layout_marginEnd="@dimen/dp_19"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:overScrollMode="never"/>

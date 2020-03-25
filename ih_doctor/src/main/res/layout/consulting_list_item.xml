@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_21"
         android:layout_toLeftOf="@id/action_rl"
-        android:layout_marginRight="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_8"
         android:textSize="@dimen/font_size_primary"
         android:textColor="@color/colorRedPoint"
         android:visibility="invisible"

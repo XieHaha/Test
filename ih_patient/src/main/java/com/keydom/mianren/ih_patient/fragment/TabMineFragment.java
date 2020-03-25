@@ -392,8 +392,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
             UserInfo userInfo = (UserInfo) LocalizationUtils.readFileFromLocal(getContext(),
                     "userInfo");
             if (Global.getUserId() != -1 && userInfo != null) {
-                //todo 临时改为会员
-                if (userInfo.getIsVip() == 1) {
+                if (userInfo.getIsVip() != 1) {
                     notLoginUiInit();
                     unLoginLayout.setVisibility(View.GONE);
                     if (userInfo.getUserImage() != null && !"".equals(userInfo.getUserImage())) {

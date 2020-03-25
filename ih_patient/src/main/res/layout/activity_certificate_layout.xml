@@ -165,7 +165,7 @@
                 android:layout_height="@dimen/dp_37"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="@dimen/dp_4"
-                android:layout_marginRight="@dimen/dp_19"
+                android:layout_marginEnd="@dimen/dp_19"
                 android:background="@drawable/login_btn"
                 android:gravity="center"
                 android:text="@string/register_code_btn_text"
@@ -202,13 +202,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_174"
                 android:layout_marginStart="@dimen/dp_12"
-                android:layout_marginRight="@dimen/dp_12"
+                android:layout_marginEnd="@dimen/dp_12"
                 android:orientation="horizontal">
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_marginEnd="@dimen/dp_5"
                     android:layout_weight="1">
 
                     <ImageView
@@ -266,7 +266,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_58"
                 android:layout_marginStart="@dimen/dp_19"
-                android:layout_marginRight="@dimen/dp_19"
+                android:layout_marginEnd="@dimen/dp_19"
                 android:background="@mipmap/fill_personal_bt_bg"
                 android:gravity="center"
                 android:text="@string/medical_card_detail_remove_bind"

@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
         android:layout_marginStart="@dimen/dp_9"
-        android:layout_marginRight="@dimen/dp_9"
+        android:layout_marginEnd="@dimen/dp_9"
         android:background="@color/article_space_bg_color"/>
     <ImageView
         android:id="@+id/article_icon_img"

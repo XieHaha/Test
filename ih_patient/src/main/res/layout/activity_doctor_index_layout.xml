@@ -24,7 +24,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="@dimen/dp_10"
                 android:layout_marginStart="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
                 android:background="@drawable/white_corner_bg">
 
                 <TextView
@@ -87,7 +87,7 @@
                     android:layout_width="@dimen/dp_61"
                     android:layout_height="@dimen/dp_61"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/dp_23"
+                    android:layout_marginEnd="@dimen/dp_23"
                     android:layout_marginTop="@dimen/dp_20" />
 
                 <TextView
@@ -97,7 +97,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="@dimen/dp_20"
                     android:layout_marginStart="@dimen/dp_25"
-                    android:layout_marginRight="@dimen/dp_25"
+                    android:layout_marginEnd="@dimen/dp_25"
                     android:lineSpacingExtra="@dimen/dp_10"
                     android:lines="2"
                     android:ellipsize="end"
@@ -120,7 +120,7 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/dp_4"
                     android:layout_marginStart="@dimen/dp_6"
-                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_marginEnd="@dimen/dp_5"
                     android:layout_marginTop="@dimen/dp_6"
                     android:src="@mipmap/test_doctor_head_icon" />
             </FrameLayout>
@@ -160,7 +160,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginRight="@dimen/dp_19"
+                            android:layout_marginEnd="@dimen/dp_19"
                             android:paddingLeft="@dimen/dp_13"
                             android:paddingTop="@dimen/dp_6"
                             android:paddingRight="@dimen/dp_13"
@@ -175,7 +175,7 @@
                             android:layout_below="@+id/is_doctor_open_online_tv"
                             android:layout_marginStart="@dimen/dp_22"
                             android:layout_marginTop="@dimen/dp_16"
-                            android:layout_marginRight="@dimen/dp_123"
+                            android:layout_marginEnd="@dimen/dp_123"
                             android:text="医生在线图文、电话、视频问诊，开具电子处方/检验等"
                             android:lineSpacingExtra="@dimen/dp_10"
                             android:textColor="#999999"

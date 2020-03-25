@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/dp_18"
-        android:layout_marginRight="@dimen/dp_24"
+        android:layout_marginEnd="@dimen/dp_24"
         android:textSize="@dimen/dp_12"
         android:textColor="#999999"
         android:text="已售9999份"/>
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/dp_18"
-        android:layout_marginRight="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_30"
         android:textSize="@dimen/dp_12"
         android:textColor="#FF3939"
         android:text="￥500元"/>
@@ -73,6 +73,6 @@
         android:layout_height="@dimen/dp_1"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="@dimen/dp_20"
-        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_20"
         android:background="#F0F0F0"/>
 </RelativeLayout>

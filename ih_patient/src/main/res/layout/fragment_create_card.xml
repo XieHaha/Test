@@ -9,7 +9,7 @@
         android:layout_height="@dimen/dp_160"
         android:layout_marginStart="@dimen/dp_34"
         android:layout_marginTop="@dimen/dp_30"
-        android:layout_marginRight="@dimen/dp_34"
+        android:layout_marginEnd="@dimen/dp_34"
         android:src="@mipmap/create_card_manage" />
 
     <View
@@ -54,7 +54,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/dp_19"
         android:layout_marginTop="@dimen/dp_25"
-        android:layout_marginRight="@dimen/dp_19"
+        android:layout_marginEnd="@dimen/dp_19"
         android:background="@mipmap/fill_personal_bt_bg"
         android:gravity="center"
         android:text="@string/creat_or_bind_card_func_send_id_card"
@@ -68,7 +68,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/dp_18"
         android:layout_marginTop="@dimen/dp_14"
-        android:layout_marginRight="@dimen/dp_18"
+        android:layout_marginEnd="@dimen/dp_18"
         android:background="@mipmap/complete_register_bt_bg"
         android:gravity="center"
         android:text="@string/creat_or_bind_card_func_send_other_certificates"

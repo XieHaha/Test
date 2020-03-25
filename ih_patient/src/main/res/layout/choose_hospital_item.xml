@@ -12,7 +12,7 @@
         android:paddingLeft="@dimen/dp_35"
         android:paddingTop="@dimen/dp_15"
         android:paddingBottom="@dimen/dp_15"
-        android:layout_marginRight="@dimen/dp_80"
+        android:layout_marginEnd="@dimen/dp_80"
         android:singleLine="true"
         android:ellipsize="middle"
         android:text="四川省华西附二院肿瘤研究所的撒旦撒旦阿斯顿撒大撒按时阿斯顿啊 "/>
@@ -23,5 +23,5 @@
         android:src="@mipmap/hospital_item_select"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/dp_35"/>
+        android:layout_marginEnd="@dimen/dp_35"/>
 </RelativeLayout>

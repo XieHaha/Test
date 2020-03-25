@@ -29,7 +29,7 @@
                 android:layout_height="@dimen/dp_81"
                 android:layout_marginStart="@dimen/padding_left_right_dp"
                 android:layout_marginTop="@dimen/padding_left_right_dp"
-                android:layout_marginRight="@dimen/padding_left_right_dp"
+                android:layout_marginEnd="@dimen/padding_left_right_dp"
                 android:background="@drawable/search_radius_bg"
                 android:gravity="top"
                 android:hint="请输入患者主诉"
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_left_right_dp"
                 android:layout_marginTop="@dimen/dp_19"
-                android:layout_marginRight="@dimen/padding_left_right_dp"
+                android:layout_marginEnd="@dimen/padding_left_right_dp"
                 android:clickable="false"
                 android:focusable="false" />
 

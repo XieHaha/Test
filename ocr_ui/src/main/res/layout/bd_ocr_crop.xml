@@ -48,7 +48,6 @@
             android:padding="12dp"
             android:src="@drawable/bd_ocr_confirm"
             android:layout_marginRight="@dimen/camera_right_margin"
-            android:layout_marginEnd="@dimen/camera_right_margin"
             android:layout_marginTop="@dimen/camera_top_margin"/>
 
     <ImageView
@@ -57,7 +56,7 @@
             android:layout_height="40dp"
             android:padding="12dp"
             android:src="@drawable/bd_ocr_cancel"
-            android:layout_marginStart="@dimen/camera_left_margin"
+            android:layout_marginLeft="@dimen/camera_left_margin"
             android:layout_marginBottom="@dimen/camera_bottom_margin"/>
 
 </com.baidu.ocr.ui.camera.OCRCameraLayout>

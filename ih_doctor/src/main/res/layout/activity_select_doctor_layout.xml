@@ -93,7 +93,7 @@
             android:gravity="right"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_11"
+            android:layout_marginEnd="@dimen/dp_11"
             android:id="@+id/online_tv"
             android:layout_toLeftOf="@id/action_rl"
             android:text="是否在线" />

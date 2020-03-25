@@ -44,7 +44,7 @@
                     android:id="@+id/pregnancy_detail_order_diagnose_iv"
                     android:layout_width="21dp"
                     android:layout_height="21dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:src="@drawable/pay_selector" />
 
                 <TextView
@@ -71,7 +71,7 @@
                     android:id="@+id/pregnancy_detail_order_check_iv"
                     android:layout_width="21dp"
                     android:layout_height="21dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:src="@drawable/pay_selector" />
 
                 <TextView

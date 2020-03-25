@@ -330,7 +330,7 @@
             android:layout_below="@+id/inquiry_sacler"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/dp_8"
-            android:layout_marginRight="@dimen/dp_26"
+            android:layout_marginEnd="@dimen/dp_26"
             android:text="问诊先后为自动换诊默认顺序"
             android:textColor="#BBBBBB"
             android:textSize="@dimen/dp_12" />
@@ -396,7 +396,7 @@
             android:layout_height="@dimen/dp_35"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
             android:padding="@dimen/dp_10" />
     </RelativeLayout>
 

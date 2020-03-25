@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_38"
         android:layout_marginTop="@dimen/dp_38"
-        android:layout_marginRight="@dimen/dp_35"
+        android:layout_marginEnd="@dimen/dp_35"
         android:background="@drawable/my_doc_nur_bg">
 
         <RelativeLayout

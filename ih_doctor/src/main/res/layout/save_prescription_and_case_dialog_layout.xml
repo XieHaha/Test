@@ -157,7 +157,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_42"
                 android:layout_marginStart="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
                 app:tabIndicatorColor="@color/tab_color"
                 app:tabSelectedTextColor="@color/tab_color"
                 app:tabIndicatorHeight="1dp"

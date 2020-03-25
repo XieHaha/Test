@@ -311,7 +311,7 @@
                     android:layout_alignTop="@id/apply_test_tip_tv"
                     android:layout_alignBottom="@id/apply_test_tip_tv"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/padding_left_right_dp"
+                    android:layout_marginEnd="@dimen/padding_left_right_dp"
                     android:gravity="center_vertical"
                     android:text="添加"
                     android:textColor="#22E17E"

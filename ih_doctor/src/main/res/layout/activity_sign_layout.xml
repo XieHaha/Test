@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/dp_11"
-            android:layout_marginRight="@dimen/dp_35"
+            android:layout_marginEnd="@dimen/dp_35"
             android:background="@drawable/sign_btn_bg"
             android:paddingLeft="@dimen/dp_8"
             android:paddingTop="@dimen/dp_5"
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_38"
         android:layout_marginTop="@dimen/dp_38"
-        android:layout_marginRight="@dimen/dp_35"
+        android:layout_marginEnd="@dimen/dp_35"
         android:background="@drawable/work_online">
 
         <RelativeLayout

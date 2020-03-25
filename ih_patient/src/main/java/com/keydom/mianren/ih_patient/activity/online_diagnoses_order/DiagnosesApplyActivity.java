@@ -419,7 +419,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         if (null != info) {
             map.put("doctorCode", info.getUuid());
         } else {
-            map.put("doctorCode", 1);
+            map.put("doctorCode", "00152C00001");
         }
 
 

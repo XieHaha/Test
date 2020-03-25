@@ -54,7 +54,7 @@
                     android:layout_height="@dimen/dp_12"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/dp_21"
+                    android:layout_marginEnd="@dimen/dp_21"
                     android:src="@mipmap/arrow_right_grey" />
             </RelativeLayout>
 
@@ -92,7 +92,7 @@
                     android:layout_height="@dimen/dp_12"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/dp_21"
+                    android:layout_marginEnd="@dimen/dp_21"
                     android:src="@mipmap/arrow_right_grey" />
             </RelativeLayout>
 

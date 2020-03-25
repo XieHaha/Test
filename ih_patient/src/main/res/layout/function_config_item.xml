@@ -27,7 +27,7 @@
         android:id="@+id/function_addordel_img"
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/dp_2"
-        android:layout_marginRight="@dimen/dp_2"
+        android:layout_marginEnd="@dimen/dp_2"
         android:layout_width="@dimen/dp_14"
         android:layout_height="@dimen/dp_14"
         android:src="@mipmap/function_add"/>

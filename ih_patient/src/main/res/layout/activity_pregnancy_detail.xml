@@ -59,7 +59,7 @@
                             android:id="@+id/pregnancy_detail_order_diagnose_iv"
                             android:layout_width="21dp"
                             android:layout_height="21dp"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             android:src="@drawable/pay_selector" />
 
                         <TextView
@@ -86,7 +86,7 @@
                             android:id="@+id/pregnancy_detail_order_check_iv"
                             android:layout_width="21dp"
                             android:layout_height="21dp"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             android:src="@drawable/pay_selector" />
 
                         <TextView
@@ -189,7 +189,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="35dp"
                 android:layout_marginTop="23dp"
-                android:layout_marginRight="35dp"
+                android:layout_marginEnd="35dp"
                 android:text="为了节约您的就诊时间，您可以按医生约定的产检日期，提前1~2天进行检验检查预约与执行，以便携带检验检查报告就诊"
                 android:textColor="@color/vip_pregnancy_week_text"
                 android:textSize="14sp" />
@@ -201,7 +201,7 @@
                 android:layout_height="@dimen/dp_52"
                 android:layout_marginStart="@dimen/dp_21"
                 android:layout_marginTop="36dp"
-                android:layout_marginRight="@dimen/dp_21"
+                android:layout_marginEnd="@dimen/dp_21"
                 android:layout_marginBottom="29dp"
                 android:background="@mipmap/pay_commit_bg"
                 android:gravity="center"

@@ -20,7 +20,7 @@
         android:layout_height="@dimen/dp_43"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/dp_19"
-        android:layout_marginRight="@dimen/dp_19"
+        android:layout_marginEnd="@dimen/dp_19"
         android:layout_marginTop="@dimen/dp_6">
 
         <TextView
@@ -63,7 +63,7 @@
         android:layout_height="@dimen/dp_43"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/dp_19"
-        android:layout_marginRight="@dimen/dp_19"
+        android:layout_marginEnd="@dimen/dp_19"
         android:layout_marginTop="@dimen/dp_10">
 
         <TextView

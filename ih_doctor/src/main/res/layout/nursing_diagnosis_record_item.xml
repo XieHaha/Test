@@ -35,7 +35,7 @@
             android:layout_height="@dimen/dp_20"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/dp_50"
-            android:layout_marginRight="@dimen/dp_19"
+            android:layout_marginEnd="@dimen/dp_19"
             android:src="@mipmap/fold_icon"
             android:visibility="gone" />
 
@@ -45,7 +45,7 @@
             android:layout_height="@dimen/dp_20"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/dp_50"
-            android:layout_marginRight="@dimen/dp_19"
+            android:layout_marginEnd="@dimen/dp_19"
             android:src="@mipmap/search"
             android:visibility="gone" />
 

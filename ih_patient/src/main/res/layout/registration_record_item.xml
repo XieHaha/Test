@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dp_19"
+            android:layout_marginEnd="@dimen/dp_19"
             android:drawableLeft="@mipmap/diagnosis_icon"
             android:paddingBottom="@dimen/dp_6"
             android:paddingTop="@dimen/dp_6"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/remove_register_tv"
-            android:layout_marginRight="@dimen/dp_19"
+            android:layout_marginEnd="@dimen/dp_19"
             android:drawableLeft="@mipmap/go_pay_icon"
             android:paddingBottom="@dimen/dp_6"
             android:paddingTop="@dimen/dp_6"
@@ -105,7 +105,7 @@
             android:layout_marginStart="@dimen/dp_19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
             android:text="2018-09-12（上午）"
             android:textColor="#666666"
             android:textSize="@dimen/font_size_primary"/>
@@ -127,7 +127,7 @@
             android:layout_marginStart="@dimen/dp_19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
             android:text="儿科门诊"
             android:textColor="#666666"
             android:textSize="@dimen/font_size_primary"/>
@@ -149,7 +149,7 @@
             android:layout_marginStart="@dimen/dp_19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
             android:text="杨沛"
             android:textColor="#666666"
             android:textSize="@dimen/font_size_primary"/>
@@ -171,7 +171,7 @@
             android:layout_marginStart="@dimen/dp_19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
             android:text="请于上午8:00-9:00到医院就诊"
             android:textColor="#666666"
             android:textSize="@dimen/font_size_primary"/>

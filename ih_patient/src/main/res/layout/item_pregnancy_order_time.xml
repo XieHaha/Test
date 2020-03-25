@@ -15,7 +15,7 @@
         android:id="@+id/item_pregnancy_order_time_iv"
         android:layout_width="@dimen/dp_27"
         android:layout_height="@dimen/dp_27"
-        android:layout_marginRight="17dp"
+        android:layout_marginEnd="17dp"
         android:src="@drawable/pay_selector" />
 
     <TextView

@@ -237,7 +237,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         indexFunctionRv.setNestedScrollingEnabled(false);
 
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_postpartum_recovery_icon, 15, "产后康复"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_amniocentesis_icon, 16,"羊水穿刺预约"));
+        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_amniocentesis_icon, 16, "羊水穿刺预约"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_pregnancy_school_icon, 17, "孕妇学校"));
         mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetrical_medical_records_icon, 18,
                 "产科病历"));
@@ -278,8 +278,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     }
 
     private void memberLayoutShow() {
-        //todo 临时改为会员
-        if (!Global.isMember()) {
+        if (Global.isMember()) {
             initVipFunction();
         } else {
             initNormal();

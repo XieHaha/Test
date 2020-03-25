@@ -19,7 +19,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/dp_19"
         android:layout_marginTop="@dimen/dp_6"
-        android:layout_marginRight="@dimen/dp_19">
+        android:layout_marginEnd="@dimen/dp_19">
 
         <TextView
             android:id="@+id/phone_number_tip_tv"
@@ -63,7 +63,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/dp_19"
         android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_19">
+        android:layout_marginEnd="@dimen/dp_19">
 
         <TextView
             android:id="@+id/phone_code_tip_tv"
@@ -124,7 +124,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/dp_19"
         android:layout_marginTop="@dimen/dp_6"
-        android:layout_marginRight="@dimen/dp_19">
+        android:layout_marginEnd="@dimen/dp_19">
 
         <TextView
             android:id="@+id/user_name_tip_tv"
@@ -168,7 +168,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/dp_19"
         android:layout_marginTop="@dimen/dp_6"
-        android:layout_marginRight="@dimen/dp_19">
+        android:layout_marginEnd="@dimen/dp_19">
 
         <TextView
             android:id="@+id/card_tip_tv"

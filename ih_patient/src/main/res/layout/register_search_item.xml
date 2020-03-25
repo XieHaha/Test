@@ -26,7 +26,7 @@
         android:layout_toRightOf="@+id/item_head_img"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginStart="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_20"
         android:lines="1"
         android:ellipsize="end"
         android:text="描述:这里可以是关于医生的描述，比如擅长领域或者是典型临床经验等，也可以是对科室的描述"

@@ -41,7 +41,7 @@
     <ImageView
         android:id="@+id/my_medical_card_qr_img"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_30"
         android:layout_marginTop="@dimen/dp_28"
         android:layout_width="@dimen/dp_31"
         android:layout_height="@dimen/dp_31"

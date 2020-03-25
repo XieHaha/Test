@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_20"
             android:text="￥50元"
             android:textColor="#FF3939"
             android:textSize="@dimen/dp_12" />
@@ -64,7 +64,7 @@
             android:layout_height="@dimen/dp_23"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/dp_17"
-            android:layout_marginRight="@dimen/dp_26"
+            android:layout_marginEnd="@dimen/dp_26"
             android:src="@mipmap/card_selected_icon" />
     </LinearLayout>
 

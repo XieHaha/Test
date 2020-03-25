@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_24"
         android:layout_marginTop="@dimen/dp_24"
-        android:layout_marginRight="@dimen/dp_24"
+        android:layout_marginEnd="@dimen/dp_24"
         app:height_space="@dimen/dp_22"
         app:width_space="@dimen/dp_36">
 

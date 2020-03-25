@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_21"
+            android:layout_marginEnd="@dimen/dp_21"
             android:text="预约挂号-杨沛"
             android:textColor="#3F98F7"
             android:textSize="@dimen/font_size_primary" />
@@ -81,7 +81,7 @@
             android:layout_height="@dimen/dp_27"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_45"
+            android:layout_marginEnd="@dimen/dp_45"
             android:src="@mipmap/pay_selected_icon" />
 
         <View
@@ -89,7 +89,7 @@
             android:layout_height="@dimen/dp_1"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/dp_92"
-            android:layout_marginRight="@dimen/dp_25"
+            android:layout_marginEnd="@dimen/dp_25"
             android:background="#EEEEEE" />
     </RelativeLayout>
 
@@ -120,7 +120,7 @@
             android:layout_height="@dimen/dp_27"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_45"
+            android:layout_marginEnd="@dimen/dp_45"
             android:src="@mipmap/pay_unselected_icon" />
 
         <View
@@ -128,7 +128,7 @@
             android:layout_height="@dimen/dp_1"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/dp_92"
-            android:layout_marginRight="@dimen/dp_25"
+            android:layout_marginEnd="@dimen/dp_25"
             android:background="#EEEEEE" />
     </RelativeLayout>
 
@@ -159,7 +159,7 @@
             android:layout_height="@dimen/dp_27"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_45"
+            android:layout_marginEnd="@dimen/dp_45"
             android:src="@mipmap/pay_unselected_icon" />
 
         <View
@@ -167,7 +167,7 @@
             android:layout_height="@dimen/dp_1"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/dp_92"
-            android:layout_marginRight="@dimen/dp_25"
+            android:layout_marginEnd="@dimen/dp_25"
             android:background="#EEEEEE" />
     </RelativeLayout>
 
@@ -202,7 +202,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_52"
         android:layout_marginStart="@dimen/dp_21"
-        android:layout_marginRight="@dimen/dp_21"
+        android:layout_marginEnd="@dimen/dp_21"
         android:layout_marginBottom="@dimen/dp_50"
         android:background="@mipmap/pay_commit_bg"
         android:gravity="center"

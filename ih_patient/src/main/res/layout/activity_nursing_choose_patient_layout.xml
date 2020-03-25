@@ -69,7 +69,7 @@
                 android:layout_marginTop="@dimen/dp_25"
                 android:layout_marginBottom="@dimen/dp_74"
                 android:layout_marginStart="@dimen/dp_17"
-                android:layout_marginRight="@dimen/dp_17"
+                android:layout_marginEnd="@dimen/dp_17"
                 android:background="@mipmap/fill_personal_bt_bg"
                 android:gravity="center"
                 android:text="确定"
