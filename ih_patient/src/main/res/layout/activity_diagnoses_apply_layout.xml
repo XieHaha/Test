@@ -298,7 +298,8 @@
                     android:paddingEnd="@dimen/dp_13"
                     android:paddingBottom="@dimen/dp_30"
                     android:singleLine="false"
-                    android:textColor="@color/edit_hint_color"
+                    android:textColor="@color/color_333333"
+                    android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
 
                 <TextView

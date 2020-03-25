@@ -30,6 +30,7 @@ import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.controller.DiagnosesApplyController;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.view.DiagnosesApplyView;
 import com.keydom.mianren.ih_patient.adapter.GridViewPlusImgAdapter;
+import com.keydom.mianren.ih_patient.bean.DoctorInfo;
 import com.keydom.mianren.ih_patient.bean.DoctorMainBean;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
@@ -69,6 +70,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
     private GridViewForScrollView imgGv;
     private String type;
     private DoctorMainBean.InfoBean info;
+    private DoctorInfo receptionDoctorInfo;
     private MedicalCardInfo medicalCardInfo;
     private ManagerUserBean managerUserBean;
     private boolean isCardPatientMatch = false;
@@ -148,14 +150,6 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         } else {
             setTitle("图文问诊");
         }
-        //        getTitleLayout().setRightTitle("服务介绍");
-        //        getTitleLayout().setOnRightTextClickListener(new IhTitleLayout
-        //        .OnRightTextClickListener() {
-        //            @Override
-        //            public void OnRightTextClick(View v) {
-        //                CommonDocumentActivity.start(getContext(), CommonDocumentBean.CODE_10);
-        //            }
-        //        });
         nameTv = findViewById(R.id.name_tv);
         mVoiceInputIv = findViewById(R.id.diagnoses_apply_layout_voice_input_iv);
         descFontNumTv = findViewById(R.id.desc_font_num_tv);
@@ -217,6 +211,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
                     , null);
         } else {
             mDoctorRootRl.setVisibility(View.GONE);
+            getController().getReceptionDoctor();
         }
         EventBus.getDefault().register(getContext());
 
@@ -355,6 +350,11 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
     }
 
     @Override
+    public void getReceptionDoctorSuccess(DoctorInfo doctorInfo) {
+        receptionDoctorInfo = doctorInfo;
+    }
+
+    @Override
     public int getImgSize() {
         return dataList.size();
     }
@@ -419,7 +419,12 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         if (null != info) {
             map.put("doctorCode", info.getUuid());
         } else {
-            map.put("doctorCode", "00152C00001");
+            if (receptionDoctorInfo != null) {
+                map.put("doctorCode", receptionDoctorInfo.getUserCode());
+
+            } else {
+                map.put("doctorCode", "00152C00001");
+            }
         }
 
 
@@ -496,13 +501,11 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case PictureConfig.CHOOSE_REQUEST:
-                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                    for (int i = 0; i < selectList.size(); i++) {
-                        getController().uploadFile(selectList.get(i).getPath());
-                    }
-                    break;
+            if (requestCode == PictureConfig.CHOOSE_REQUEST) {
+                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                for (int i = 0; i < selectList.size(); i++) {
+                    getController().uploadFile(selectList.get(i).getPath());
+                }
             }
         }
     }

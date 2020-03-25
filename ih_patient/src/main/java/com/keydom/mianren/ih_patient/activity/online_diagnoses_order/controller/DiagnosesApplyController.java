@@ -19,9 +19,9 @@ import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.AnamnesisAct
 import com.keydom.mianren.ih_patient.activity.index_main.MainActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.view.DiagnosesApplyView;
+import com.keydom.mianren.ih_patient.bean.DoctorInfo;
 import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
 import com.keydom.mianren.ih_patient.bean.PayOrderBean;
-import com.keydom.mianren.ih_patient.callback.GeneralCallback;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.Type;
 import com.keydom.mianren.ih_patient.net.UploadService;
@@ -87,8 +87,29 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getPatientListFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 预付费用户查询接待医生信息
+     */
+    public void getReceptionDoctor() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getReceptionDoctor(), new HttpSubscriber<List<DoctorInfo>>(getContext(), getDisposable(), false, false) {
+            @Override
+            public void requestComplete(@Nullable List<DoctorInfo> data) {
+                if (data != null && data.size() > 0) {
+                    getView().getReceptionDoctorSuccess(data.get(0));
+                }
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 return super.requestError(exception, code, msg);
             }
         });
@@ -103,25 +124,25 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
                 @Override
                 public void requestComplete(@Nullable PayOrderBean data) {
                     getView().getOrderInfo(data);
-                    SelectDialogUtils.showPayDialog(getContext(), data.getFee().setScale(2, BigDecimal.ROUND_HALF_UP) + "", payDesc, new GeneralCallback.SelectPayMentListener() {
-                        @Override
-                        public void getSelectPayMent(String type) {
-                            Map<String, Object> payMap = new HashMap<>();
-                            payMap.put("orderId", data.getOrderId());
-                            if (Type.ALIPAY.equals(type)) {
-                                payMap.put("type", 2);
-                                inquiryPay(payMap, 2);
-                            } else if (Type.WECHATPAY.equals(type)) {
-                                payMap.put("type", 1);
-                                inquiryPay(payMap, 1);
-                            }
+                    SelectDialogUtils.showPayDialog(getContext(), data.getFee().setScale(2,
+                            BigDecimal.ROUND_HALF_UP) + "", payDesc,
+                            type -> {
+                                Map<String, Object> payMap = new HashMap<>();
+                                payMap.put("orderId", data.getOrderId());
+                                if (Type.ALIPAY.equals(type)) {
+                                    payMap.put("type", 2);
+                                    inquiryPay(payMap, 2);
+                                } else if (Type.WECHATPAY.equals(type)) {
+                                    payMap.put("type", 1);
+                                    inquiryPay(payMap, 1);
+                                }
 
-                        }
-                    });
+                            });
                 }
 
                 @Override
-                public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                public boolean requestError(@NotNull ApiException exception, int code,
+                                            @NotNull String msg) {
                     getView().applyDiagnosesFailed(msg);
                     return super.requestError(exception, code, msg);
                 }
@@ -138,61 +159,67 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
                 @Override
                 public void requestComplete(@Nullable String data) {
                     if (type == 1) {
-                        WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
-                            @Override
-                            public void onSuccess() {
-                                ToastUtil.showMessage(getContext(), "支付成功");
-                                new GeneralDialog(getContext(), "问诊订单支付成功，近期请留意订单状态以及接诊医生给你发送的消息", new GeneralDialog.OnCloseListener() {
+                        WXPay.getInstance().doPay(getContext(), data,
+                                new WXPay.WXPayResultCallBack() {
                                     @Override
-                                    public void onCommit() {
-                                        MainActivity.start(getContext(), false);
+                                    public void onSuccess() {
+                                        ToastUtil.showMessage(getContext(), "支付成功");
+                                        new GeneralDialog(getContext(),
+                                                "问诊订单支付成功，近期请留意订单状态以及接诊医生给你发送的消息"
+                                                , new GeneralDialog.OnCloseListener() {
+                                            @Override
+                                            public void onCommit() {
+                                                MainActivity.start(getContext(), false);
+                                            }
+                                        }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
                                     }
-                                }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
-                            }
 
-                            @Override
-                            public void onError(int error_code) {
-                                ToastUtil.showMessage(getContext(), "支付失败" + error_code
-                                );
-                            }
+                                    @Override
+                                    public void onError(int error_code) {
+                                        ToastUtil.showMessage(getContext(), "支付失败" + error_code
+                                        );
+                                    }
 
-                            @Override
-                            public void onCancel() {
+                                    @Override
+                                    public void onCancel() {
 
-                            }
-                        });
+                                    }
+                                });
                     } else {
                         try {
                             JSONObject object = new JSONObject(data);
                             Logger.e("return_msg:" + object.getString("return_msg"));
-                            new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
-                                @Override
-                                public void onSuccess() {
-                                    ToastUtil.showMessage(getContext(), "支付成功");
-                                    new GeneralDialog(getContext(), "问诊订单支付成功，近期请留意订单状态以及接诊医生给你发送的消息", new GeneralDialog.OnCloseListener() {
+                            new Alipay(getContext(), object.getString("return_msg"),
+                                    new Alipay.AlipayResultCallBack() {
                                         @Override
-                                        public void onCommit() {
-                                            MainActivity.start(getContext(), false);
+                                        public void onSuccess() {
+                                            ToastUtil.showMessage(getContext(), "支付成功");
+                                            new GeneralDialog(getContext(),
+                                                    "问诊订单支付成功，近期请留意订单状态以及接诊医生给你发送的消息",
+                                                    new GeneralDialog.OnCloseListener() {
+                                                        @Override
+                                                        public void onCommit() {
+                                                            MainActivity.start(getContext(), false);
+                                                        }
+                                                    }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
                                         }
-                                    }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
-                                }
 
-                                @Override
-                                public void onDealing() {
+                                        @Override
+                                        public void onDealing() {
 
-                                }
+                                        }
 
-                                @Override
-                                public void onError(int error_code) {
-                                    ToastUtil.showMessage(getContext(), "支付失败" + error_code
-                                    );
-                                }
+                                        @Override
+                                        public void onError(int error_code) {
+                                            ToastUtil.showMessage(getContext(), "支付失败" + error_code
+                                            );
+                                        }
 
-                                @Override
-                                public void onCancel() {
+                                        @Override
+                                        public void onCancel() {
 
-                                }
-                            }).doPay();
+                                        }
+                                    }).doPay();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -201,7 +228,8 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
                 }
 
                 @Override
-                public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                public boolean requestError(@NotNull ApiException exception, int code,
+                                            @NotNull String msg) {
                     getView().getOrderInfoFailed(msg);
                     return super.requestError(exception, code, msg);
                 }
@@ -229,7 +257,8 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 hideLoading();
                 getView().uploadFailed(msg);
                 return super.requestError(exception, code, msg);
@@ -250,7 +279,7 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
             }
 
         } else
-//            CommonUtils.previewImage(getContext(), getView().getPicUrl(position));
+            //            CommonUtils.previewImage(getContext(), getView().getPicUrl(position));
             CommonUtils.previewImageList(getContext(), getView().getPicList(), position, true);
     }
 

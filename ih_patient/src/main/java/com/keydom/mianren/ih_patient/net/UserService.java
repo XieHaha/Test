@@ -13,6 +13,7 @@ import com.keydom.mianren.ih_patient.bean.CommonDocumentBean;
 import com.keydom.mianren.ih_patient.bean.DiagnosesAndNurDepart;
 import com.keydom.mianren.ih_patient.bean.DiagnosesOrderBean;
 import com.keydom.mianren.ih_patient.bean.DoctorEvaluateItem;
+import com.keydom.mianren.ih_patient.bean.DoctorInfo;
 import com.keydom.mianren.ih_patient.bean.DoctorMainBean;
 import com.keydom.mianren.ih_patient.bean.DoctorOrNurseBean;
 import com.keydom.mianren.ih_patient.bean.HistoryListBean;
@@ -47,7 +48,10 @@ public interface UserService {
      * 上传信息接口
      */
     @GET("user/patient/updateInfo")
-    Observable<HttpResult<Object>> upLoadRegion(@Query("id") String id,@Query("provinceCode") String provinceCode,@Query("cityCode") String cityCode,@Query("countyCode") String countryCode);
+    Observable<HttpResult<Object>> upLoadRegion(@Query("id") String id,
+                                                @Query("provinceCode") String provinceCode,
+                                                @Query("cityCode") String cityCode, @Query(
+            "countyCode") String countryCode);
 
     /**
      * 更新数据接口
@@ -67,7 +71,7 @@ public interface UserService {
     @GET("user/patient/personalInformation")
     Observable<HttpResult<UserInfo>> initUserData(@Query("id") String id);
 
-       /**
+    /**
      * 获取检验报告详情
      */
     @GET("user/checkoutRecord/checkoutResultInfo")
@@ -77,13 +81,14 @@ public interface UserService {
      * 获取检验报告列表
      */
     @GET("user/checkoutRecord/getCheckoutRecordPage")
-    Observable<HttpResult<PageBean<InspectionRecordInfo>>> getCheckoutRecordPage(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<PageBean<InspectionRecordInfo>>> getCheckoutRecordPage(@QueryMap Map<String, Object> map);
 
     /**
      * 获取检查报告列表
      */
     @GET("user/inspectRecord/getInspectRecordPage")
-    Observable<HttpResult<List<BodyCheckRecordInfo>>> getInspectRecordPage(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<List<BodyCheckRecordInfo>>> getInspectRecordPage(@QueryMap Map<String,
+            Object> map);
 
     /**
      * 获取检验报告详情
@@ -92,25 +97,25 @@ public interface UserService {
     Observable<HttpResult<BodyCheckDetailInfo>> getInspectResultInfo(@Query("applyNumber") String patientNumber);
 
     /**
-     * //获取既往病史
+     * 获取既往病史
      */
     @GET("user/patient/getMedicalHistory")
     Observable<HttpResult<HistoryListBean>> getHistoryList();
 
     /**
-     *     //查询就诊人列表
+     * 查询就诊人列表
      */
     @GET("user/patient/list")
     Observable<HttpResult<List<ManagerUserBean>>> getManagerUserList(@Query("registerUserId") long registerUserId);
 
     /**
-     *     //保存就诊人
+     * 保存就诊人
      */
     @POST("user/patient/save")
     Observable<HttpResult<Object>> addManagerUser(@Body RequestBody body);
 
     /**
-     *     //删除就诊人
+     * 删除就诊人
      */
     @POST("user/patient/delete")
     Observable<HttpResult<Object>> deleteManagerUser(@Body RequestBody body);
@@ -137,7 +142,8 @@ public interface UserService {
      * 获取病历记录列表
      */
     @GET("user/online/listMedicalRecord")
-    Observable<HttpResult<PageBean<MedicalRecordBean>>> getIndCountryAlLList(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<PageBean<MedicalRecordBean>>> getIndCountryAlLList(@QueryMap Map<String
+            , Object> map);
 
     /**
      * 获取病历详情
@@ -146,36 +152,39 @@ public interface UserService {
     Observable<HttpResult<MedicalRecordBean>> getMedicalRecordInfo(@Query("medicalId") long medicalId);
 
     /**
-     *     //获取医生/护士列表
+     * 获取医生/护士列表
      */
     @GET("user/registerUserDoctor/getMyDoctor")
-    Observable<HttpResult<PageBean<DoctorOrNurseBean>>> getMyFollowList(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<PageBean<DoctorOrNurseBean>>> getMyFollowList(@QueryMap Map<String,
+            Object> map);
 
     /**
-     *     //获取医生/护士主页  doctorCode  type
+     * 获取医生/护士主页  doctorCode  type
      */
     @GET("user/online/getDoctorHome")
-    Observable<HttpResult<DoctorMainBean>> getMyFollowDoctorDetail(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<DoctorMainBean>> getMyFollowDoctorDetail(@QueryMap Map<String, Object> map);
+
     @GET("user/online/getUserIsPlaceOrder")
-    Observable<HttpResult<Integer>> getUserIsPlaceOrder(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<Integer>> getUserIsPlaceOrder(@QueryMap Map<String, Object> map);
 
     /**
-     *     //获取医生/护士评价  doctorCode  type
+     * 获取医生/护士评价  doctorCode  type
      */
     @GET("user/online/listDoctorComment")
-    Observable<HttpResult<List<DoctorEvaluateItem>>> getDoctorEvaluates(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<List<DoctorEvaluateItem>>> getDoctorEvaluates(@QueryMap Map<String,
+            Object> map);
 
     /**
-     *     //点赞/取消点赞
+     * 点赞/取消点赞
      */
     @POST("user/online/doCommentLike")
     Observable<HttpResult<Object>> doCommentLike(@Body RequestBody body);
 
     /**
-     *     //关注/取消关注
+     * 关注/取消关注
      */
     @GET("user/appuser/attentionDoctor")
-    Observable<HttpResult<Object>> attentionDoctor(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<Object>> attentionDoctor(@QueryMap Map<String, Object> map);
 
     /**
      * 通过关键字查询城市列表
@@ -193,19 +202,19 @@ public interface UserService {
      * 通过城市获取医院列表
      */
     @GET("user/hospitalDept/listAllHospital")
-    Observable<HttpResult<List<HospitalAreaInfo>>> getHospitalList(@Query("cityCode") String cityCode,@Query("userId") long userId);
+    Observable<HttpResult<List<HospitalAreaInfo>>> getHospitalList(@Query("cityCode") String cityCode, @Query("userId") long userId);
 
     /**
      * 问诊订单列表查询
      */
     @GET("user/online/listPatientInquisition")
-    Observable<HttpResult<PageBean<DiagnosesOrderBean>>> getlistPatientInquisition(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<PageBean<DiagnosesOrderBean>>> getlistPatientInquisition(@QueryMap Map<String, Object> map);
 
     /**
      * 获取医院下的所有科室
      */
     @GET("user/hospitalDept/listCateDeptByHospital")
-    Observable<HttpResult<List<DiagnosesAndNurDepart>>> getListCateDeptByHospital(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<List<DiagnosesAndNurDepart>>> getListCateDeptByHospital(@QueryMap Map<String, Object> map);
 
     /**
      * 第三方登录
@@ -217,45 +226,45 @@ public interface UserService {
      * 第三方登录注册发送验证码
      */
     @POST("user/appuser/sendCodeTrilateral")
-    Observable<HttpResult<Object>> sendCodeTrilateral(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<Object>> sendCodeTrilateral(@QueryMap Map<String, Object> map);
 
     /**
-     *     //dialog_check_icon
+     * dialog_check_icon
      */
     @POST("user/hospitalUserCenter/feedBack")
     Observable<HttpResult<String>> feedBack(@Body RequestBody body);
 
     /**
-     *     //创建图文或者视频问诊单
+     * 创建图文或者视频问诊单
      */
     @POST("user/online/saveInquisition")
     Observable<HttpResult<PayOrderBean>> saveInquisition(@Body RequestBody body);
 
 
     /**
-     *     //问诊订单支付
+     * 问诊订单支付
      */
     @POST("user/online/inquiryPay")
     Observable<HttpResult<String>> inquiryPay(@Body RequestBody body);
 
     /**
-     *     //问诊订单评论
+     * 问诊订单评论
      */
     @POST("user/online/doComment")
     Observable<HttpResult<Object>> doComment(@Body RequestBody body);
 
 
     /**
-     *     //问诊订单退诊
+     * 问诊订单退诊
      */
     @POST("user/online/returnedInquisition")
     Observable<HttpResult<Object>> returnedInquisition(@Body RequestBody body);
 
     /**
-     *     //获取顶部Banner图
+     * 获取顶部Banner图
      */
     @GET("user/patient/getPicture")
-    Observable<HttpResult<List<BannerBean>>> getPicture(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<List<BannerBean>>> getPicture(@QueryMap Map<String, Object> map);
 
     /**
      * 获取登录验证图片码
@@ -270,19 +279,19 @@ public interface UserService {
     Observable<HttpResult<ChildOrderBean>> getUnPaySubOrderInfo(@Query("inquiryId") long inquiryId);
 
     /**
-     *     //问诊咨询搜索医生或者护士
+     * 问诊咨询搜索医生或者护士
      */
     @GET("user/hospitalDept/listHomeRecommendDoctor")
-    Observable<HttpResult<PageBean<RecommendDocAndNurBean>>> getListHomeRecommendDoctor(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<PageBean<RecommendDocAndNurBean>>> getListHomeRecommendDoctor(@QueryMap Map<String, Object> map);
 
     /**
-     *     //获取手势密码
+     * 获取手势密码
      */
     @GET("user/gesturePassword/getPassword")
     Observable<HttpResult<String>> getPassword(@Query("account") long inquiryId);
 
     /**
-     *     //设置手势密码
+     * 设置手势密码
      */
     @POST("user/gesturePassword/setPassword")
     Observable<HttpResult<Object>> setPassword(@Body RequestBody body);
@@ -291,7 +300,7 @@ public interface UserService {
      * 获取文书维护内容
      */
     @GET("api/officialDispatch/getOfficialDispatchAllMsgByCode")
-    Observable<HttpResult<CommonDocumentBean>> getOfficialDispatchAllMsgByCode(@QueryMap Map<String,Object> map);
+    Observable<HttpResult<CommonDocumentBean>> getOfficialDispatchAllMsgByCode(@QueryMap Map<String, Object> map);
 
     /**
      * 全局搜索
@@ -316,19 +325,21 @@ public interface UserService {
     @POST("user/authentication/patientValidateByIdCard")
     Observable<HttpResult<Object>> patientValidateByIdCard(@Body RequestBody body);
 
-
     /**
      * 获取已实名的信息
-     *
-     * */
+     */
     @GET("user/applyElectronicCard/queryUserInformation")
     Observable<HttpResult<IdCardInfo>> queryUserInformation(@QueryMap Map<String, Object> maps);
 
-
     /**
      * 获取是否已经办过卡
-     *
-     * */
+     */
     @GET("user/applyElectronicCard/isApplyElectronicCard")
     Observable<HttpResult<String>> isApplyElectronicCard(@QueryMap Map<String, Object> maps);
+
+    /**
+     * 获取指定接待医生或护士 接待预付费用户
+     */
+    @GET("user/hospitalDept/getReceptionDoctor")
+    Observable<HttpResult<List<DoctorInfo>>> getReceptionDoctor();
 }
