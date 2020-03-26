@@ -121,7 +121,7 @@ public class TriageOrderApplyActivity extends BaseControllerActivity<TriageOrder
      */
     public static final int DOCTOR_GOURP_FILLOUT_APPLY = 1201;
 
-    public static void start(Context context,InquiryBean bean) {
+    public static void start(Context context, InquiryBean bean) {
         Intent intent = new Intent(context, TriageOrderApplyActivity.class);
         intent.putExtra(Const.DATA, bean);
         context.startActivity(intent);
@@ -443,15 +443,12 @@ public class TriageOrderApplyActivity extends BaseControllerActivity<TriageOrder
     @Override
     public Map<String, Object> getOperateMap() {
         Map<String, Object> map = new HashMap<>();
-        map.put("referralExplain",
-                CommonUtils.filterEmoji(triageApplyTransferDescriptionEt.getText().toString().trim()));
+        map.put("changeDoctorId", doctorList.get(0).getId());
         map.put("orderId", orderBean.getId());
-        map.put("patientAge", orderBean.getAge());
-        map.put("patientName", orderBean.getName());
-        map.put("patientPhone", orderBean.getPhoneNumber());
-        map.put("patientSex", orderBean.getSex());
-        map.put("diseaseData", getImgStr());
-        map.put("changeInfoDoctorCode", doctorList.get(0).getUuid());
+        map.put("conditionData", getImgStr());
+        map.put("conditionDesc", triageApplyTransferDescriptionEt.getText().toString().trim());
+        //        map.put("deptId", doctorList.get(0).ge());
+        //        map.put("voiceUrl", orderBean.getSex());
         return map;
     }
 

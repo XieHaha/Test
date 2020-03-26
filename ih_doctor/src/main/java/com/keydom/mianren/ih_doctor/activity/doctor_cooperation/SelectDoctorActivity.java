@@ -457,7 +457,7 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
     @Override
     public Map<String, Object> getQueryMap() {
         Map<String, Object> map = new HashMap<>();
-        map.put("deptId", deptId);
+        map.put("deptId", 368);
         map.put("isOnline", isOnline ? 1 : 0);
         if (mType == DOCTOR_SELECT_OTHER_DEPT_WITH_DIAGNOSE_ONLY_RESULT) {
             map.put("isFilterUnInquiry", 1);

@@ -14,12 +14,11 @@ import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.FillOutApplyActivity;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.SelectDoctorActivity;
-import com.keydom.mianren.ih_doctor.activity.online_triage.view.TriageOrderApplyView;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.DiagnoseOrderSelectActivity;
-import com.keydom.mianren.ih_doctor.bean.DiagnoseFillOutResBean;
+import com.keydom.mianren.ih_doctor.activity.online_triage.view.TriageOrderApplyView;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
-import com.keydom.mianren.ih_doctor.net.GroupCooperateApiService;
 import com.keydom.mianren.ih_doctor.net.MainApiService;
+import com.keydom.mianren.ih_doctor.net.TriageApiService;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -43,11 +42,11 @@ public class TriageOrderApplyController extends ControllerImpl<TriageOrderApplyV
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.triage_apply_doctor_tv:
-                SelectDoctorActivity.startActivityForDiagnoseDoctor(getContext(),getView().getOrderType());
+                SelectDoctorActivity.startActivityForDiagnoseDoctor(getContext(),
+                        getView().getOrderType());
                 break;
             case R.id.triage_apply_inquiry_order_tv:
-                DiagnoseOrderSelectActivity.start(getContext(),getView().getDoctorType());
-
+                DiagnoseOrderSelectActivity.start(getContext(), getView().getDoctorType());
                 break;
             default:
         }
@@ -61,17 +60,15 @@ public class TriageOrderApplyController extends ControllerImpl<TriageOrderApplyV
                 RequestBody.create(MediaType.parse("application/otcet-stream"), file);
         MultipartBody.Part body =
                 MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-        showLoading();
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).upload(body), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable String data) {
-                hideLoading();
                 getView().uploadSuccess(data);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().uploadFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -80,17 +77,14 @@ public class TriageOrderApplyController extends ControllerImpl<TriageOrderApplyV
 
 
     public void submit() {
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(GroupCooperateApiService.class).save(HttpService.INSTANCE.object2Body(getView().getOperateMap())), new HttpSubscriber<DiagnoseFillOutResBean>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(TriageApiService.class).triageOrderApply(HttpService.INSTANCE.object2Body(getView().getOperateMap())), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
             @Override
-            public void requestComplete(@Nullable DiagnoseFillOutResBean data) {
-                hideLoading();
-                getView().saveSuccess(data);
+            public void requestComplete(@Nullable String data) {
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().saveFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -112,7 +106,7 @@ public class TriageOrderApplyController extends ControllerImpl<TriageOrderApplyV
             }
 
         } else {
-            CommonUtils.previewImageList(getContext(),getView().getImgList(),position,false);
+            CommonUtils.previewImageList(getContext(), getView().getImgList(), position, false);
         }
     }
 }

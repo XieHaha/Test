@@ -221,7 +221,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         if (extras != null) {
             isGetStatus = extras.getBoolean(DiagnoseOrderRecyclrViewAdapter.IS_ORDER);
         }
-        //        getController().getInquiryStatus();
     }
 
     /**

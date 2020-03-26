@@ -48,7 +48,8 @@ public class DiagnosePrescriptionItemView extends RelativeLayout {
         public void onInit(int code) {
 
             if (code != ErrorCode.SUCCESS) {
-                Log.e("xunfei","初始化失败，错误码：" + code+",请点击网址https://www.xfyun.cn/document/error-code查询解决方案");
+                Log.e("xunfei", "初始化失败，错误码：" + code + ",请点击网址https://www.xfyun" +
+                        ".cn/document/error-code查询解决方案");
             }
         }
     };
@@ -58,12 +59,12 @@ public class DiagnosePrescriptionItemView extends RelativeLayout {
      */
     private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
         public void onResult(RecognizerResult results, boolean isLast) {
-            if(null != inputEv){
+            if (null != inputEv) {
                 String text = JsonUtils.handleXunFeiJson(results);
-                if(TextUtils.isEmpty(inputEv.getText().toString())){
+                if (TextUtils.isEmpty(inputEv.getText().toString())) {
                     inputEv.setText(text);
                     inputEv.setSelection(inputEv.getText().length());
-                }else{
+                } else {
                     inputEv.setText(inputEv.getText().toString() + text);
                     inputEv.setSelection(inputEv.getText().length());
                 }
@@ -75,7 +76,7 @@ public class DiagnosePrescriptionItemView extends RelativeLayout {
          * 识别回调错误.
          */
         public void onError(SpeechError error) {
-            ToastUtil.showMessage(MyApplication.mApplication,error.getPlainDescription(true));
+            ToastUtil.showMessage(MyApplication.mApplication, error.getPlainDescription(true));
 
         }
 
@@ -96,10 +97,14 @@ public class DiagnosePrescriptionItemView extends RelativeLayout {
         inputEv = findViewById(R.id.sub_item_entrust_et);
         tipTv = findViewById(R.id.tip_tv);
         mVoiceInputIv = findViewById(R.id.diagnose_prescription_voice_input_iv);
-        String titleStr = attrs.getAttributeValue("http://schemas.android.com/apk/res-audo/com.keydom.mianren.ih_doctor.view", "itemTip");
-        String addStr = attrs.getAttributeValue("http://schemas.android.com/apk/res-audo/com.keydom.mianren.ih_doctor.view", "itemAddText");
-        String hintStr = attrs.getAttributeValue("http://schemas.android.com/apk/res-audo/com.keydom.mianren.ih_doctor.view", "itemInputHint");
-        String limitSize = attrs.getAttributeValue("http://schemas.android.com/apk/res-audo/com.keydom.mianren.ih_doctor.view", "limit");
+        String titleStr = attrs.getAttributeValue("http://schemas.android.com/apk/res-audo/com" +
+                ".keydom.mianren.ih_doctor.view", "itemTip");
+        String addStr = attrs.getAttributeValue("http://schemas.android.com/apk/res-audo/com" +
+                ".keydom.mianren.ih_doctor.view", "itemAddText");
+        String hintStr = attrs.getAttributeValue("http://schemas.android.com/apk/res-audo/com" +
+                ".keydom.mianren.ih_doctor.view", "itemInputHint");
+        String limitSize = attrs.getAttributeValue("http://schemas.android.com/apk/res-audo/com" +
+                ".keydom.mianren.ih_doctor.view", "limit");
         setItemName(titleStr);
         setAddStr(addStr);
         setHintStr(hintStr);
@@ -109,30 +114,27 @@ public class DiagnosePrescriptionItemView extends RelativeLayout {
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
         mIatDialog = new CustomRecognizerDialog(context, mInitListener);
         mIatDialog.setListener(mRecognizerDialogListener);
-        mVoiceInputIv.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initPremissions();
-            }
-        });
+        mVoiceInputIv.setOnClickListener(v -> initPremissions());
     }
 
     @SuppressLint("CheckResult")
     public void initPremissions() {
         RxPermissions rxPermissions = new RxPermissions(mFragmentActivity);
-        rxPermissions.request(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        rxPermissions.request(Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean granted) throws Exception {
                         if (granted) {
-                            if(mIatDialog.isShowing()){
+                            if (mIatDialog.isShowing()) {
                                 mIatDialog.dismiss();
                             }
                             mIatDialog.show();
-                            ToastUtil.showMessage(MyApplication.mApplication,"请开始说话…");
+                            ToastUtil.showMessage(MyApplication.mApplication, "请开始说话…");
 
                         } else {
-                            ToastUtil.showMessage(MyApplication.mApplication,"请开启录音需要的权限");
+                            ToastUtil.showMessage(MyApplication.mApplication, "请开启录音需要的权限");
 
                         }
                     }

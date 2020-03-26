@@ -94,7 +94,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
      */
     public static final int CREATE_HANDLE = 503;
     private MRadioButton reDiagnoseRb;
-    private DiagnosePrescriptionItemView mainDec, medicalHistory, oversensitiveHistory, checkRes, simpleDiagnose, dealIdea;
+    private DiagnosePrescriptionItemView mainDec, medicalHistory, oversensitiveHistory, checkRes,
+            simpleDiagnose, dealIdea;
     private RelativeLayout addPrescriptionRl, prescriptionModelRl, addPrescriptionItemRl;
     private TextView modalName, selectSave, submitWithModel, submit, feeCount;
     private CardView addMedicine;
@@ -169,19 +170,20 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
      * 初始化界面
      */
     private void initView() {
-        mScroller=this.findViewById(R.id.mScroller);
-        reDiagnoseRb = (MRadioButton) this.findViewById(R.id.re_diagnose_rb);
-        rediagnoseRl = (RelativeLayout) this.findViewById(R.id.rediagnose_rl);
-        recyclerView = (RecyclerView) this.findViewById(R.id.prescription_rv);
-        diagnose_handle_ll = (LinearLayout) this.findViewById(R.id.diagnose_handle_ll);
-        diagnose_prescription_ll = (LinearLayout) this.findViewById(R.id.diagnose_prescription_ll);
+        mScroller = findViewById(R.id.mScroller);
+        reDiagnoseRb = findViewById(R.id.re_diagnose_rb);
+        rediagnoseRl = findViewById(R.id.rediagnose_rl);
+        recyclerView = findViewById(R.id.prescription_rv);
+        diagnose_handle_ll = findViewById(R.id.diagnose_handle_ll);
+        diagnose_prescription_ll = findViewById(R.id.diagnose_prescription_ll);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setSmoothScrollbarEnabled(true);
         layoutManager.setAutoMeasureEnabled(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(false);
-       /* drugDetailListAdapter = new DrugDetailListAdapter(getContext(),selectDrugList, new DrugDetailListAdapter.DeleteListener() {
+       /* drugDetailListAdapter = new DrugDetailListAdapter(getContext(),selectDrugList, new
+       DrugDetailListAdapter.DeleteListener() {
             @Override
             public void delete(int positon) {
                 new GeneralDialog(getContext(), "确认删除该药品？", new GeneralDialog.OnCloseListener() {
@@ -200,21 +202,21 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         recyclerView.setAdapter(prescriptionAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(getContext()));
-        mainDec = (DiagnosePrescriptionItemView) this.findViewById(R.id.main_dec);
-        medicalHistory = (DiagnosePrescriptionItemView) this.findViewById(R.id.medical_history);
-        oversensitiveHistory = (DiagnosePrescriptionItemView) this.findViewById(R.id.oversensitive_history);
-        checkRes = (DiagnosePrescriptionItemView) this.findViewById(R.id.check_res);
-        simpleDiagnose = (DiagnosePrescriptionItemView) this.findViewById(R.id.simple_diagnose);
-        dealIdea = (DiagnosePrescriptionItemView) this.findViewById(R.id.deal_idea);
-        handleEntrust = this.findViewById(R.id.handle_entrust_et);
-        addPrescriptionRl = (RelativeLayout) this.findViewById(R.id.add_prescription_rl);
-        prescriptionModelRl = (RelativeLayout) this.findViewById(R.id.prescription_model_rl);
-        modalName = (TextView) this.findViewById(R.id.modal_name);
-        selectSave = (TextView) this.findViewById(R.id.select_save);
-        submitWithModel = (TextView) this.findViewById(R.id.submit_with_model);
-        submit = (TextView) this.findViewById(R.id.submit);
-        feeCount = (TextView) this.findViewById(R.id.fee_count);
-        addMedicine = (CardView) this.findViewById(R.id.add_medicine);
+        mainDec = findViewById(R.id.main_dec);
+        medicalHistory = findViewById(R.id.medical_history);
+        oversensitiveHistory = findViewById(R.id.oversensitive_history);
+        checkRes = findViewById(R.id.check_res);
+        simpleDiagnose = findViewById(R.id.simple_diagnose);
+        dealIdea = findViewById(R.id.deal_idea);
+        handleEntrust = findViewById(R.id.handle_entrust_et);
+        addPrescriptionRl = findViewById(R.id.add_prescription_rl);
+        prescriptionModelRl = findViewById(R.id.prescription_model_rl);
+        modalName = findViewById(R.id.modal_name);
+        selectSave = findViewById(R.id.select_save);
+        submitWithModel = findViewById(R.id.submit_with_model);
+        submit = findViewById(R.id.submit);
+        feeCount = findViewById(R.id.fee_count);
+        addMedicine = findViewById(R.id.add_medicine);
 
         handleEntrust.setFragmentActivity(this);
         mainDec.setFragmentActivity(this);
@@ -291,7 +293,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
             }
         });
-        submit_btn = this.findViewById(R.id.submit_btn);
+        submit_btn = findViewById(R.id.submit_btn);
 
         submit_btn.setOnClickListener(getController());
     }
@@ -332,14 +334,16 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
             initPrescription();
             inquiryBean = (InquiryBean) getIntent().getSerializableExtra(Const.DATA);
             String fileName = "diagnoseId" + inquiryBean.getId();
-            localSaveData = (DoctorPrescriptionDetailBean) LocalizationUtils.readFileFromLocal(getContext(), fileName);
+            localSaveData =
+                    (DoctorPrescriptionDetailBean) LocalizationUtils.readFileFromLocal(getContext(), fileName);
             if (localSaveData != null) {
-                new GeneralDialog(getContext(), "该存在编辑信息，是否继续编辑？", new GeneralDialog.OnCloseListener() {
-                    @Override
-                    public void onCommit() {
-                        getPrescriptionDetailSuccess(localSaveData);
-                    }
-                }, new GeneralDialog.CancelListener() {
+                new GeneralDialog(getContext(), "该存在编辑信息，是否继续编辑？",
+                        new GeneralDialog.OnCloseListener() {
+                            @Override
+                            public void onCommit() {
+                                getPrescriptionDetailSuccess(localSaveData);
+                            }
+                        }, new GeneralDialog.CancelListener() {
                     @Override
                     public void onCancel() {
                         LocalizationUtils.deleteFileFromLocal(getContext(), fileName);
@@ -364,16 +368,18 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         mainDec.setAddOnClikListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PatientMainSuitActivity.start(DiagnosePrescriptionActivity.this, mainDec.getInputStr());
+                PatientMainSuitActivity.start(DiagnosePrescriptionActivity.this,
+                        mainDec.getInputStr());
             }
         });
         simpleDiagnose.setAddOnClikListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiagnoseInputActivity.start(DiagnosePrescriptionActivity.this, simpleDiagnose.getInputStr());
+                DiagnoseInputActivity.start(DiagnosePrescriptionActivity.this,
+                        simpleDiagnose.getInputStr());
             }
         });
-//        setDrugFee();
+        //        setDrugFee();
     }
 
     @Override
@@ -389,7 +395,6 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
      */
     @Subscribe
     public void getMedicalTemplate(Event event) {
-
         if (event.getType() == EventType.CHOOSE_MEDICAL_RECORD_TEMPLET) {
             MedicalRecordTempletBean bean = (MedicalRecordTempletBean) event.getData();
             setMedicalCaseInfo(bean);
@@ -409,17 +414,17 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
             PrescriptionDrugDetailBean bean = (PrescriptionDrugDetailBean) event.getData();
             isOutPrescription = bean.getIsOutPrescription();
 
-            if(prescription_type==-1){
+            if (prescription_type == -1) {
                 prescription_type = bean.getCate();
                 saveData.add(bean.getItems().get(0));
                 prescriptionAdapter.setNewData(packagingData(saveData));
                 isHavePrescription = true;
-            }else {
-                if(prescription_type==bean.getCate()){
+            } else {
+                if (prescription_type == bean.getCate()) {
                     saveData.add(bean.getItems().get(0));
                     prescriptionAdapter.setNewData(packagingData(saveData));
-                }else
-                    ToastUtil.showMessage(getContext(),"选择的处方模板与当前处方类型不一致，请重新选择");
+                } else
+                    ToastUtil.showMessage(getContext(), "选择的处方模板与当前处方类型不一致，请重新选择");
             }
         }
     }
@@ -430,10 +435,11 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     private String setDrugFee(List<DrugBean> dataList) {
         BigDecimal bigDecimal = BigDecimal.ZERO;
         for (DrugBean bean : dataList) {
-            bigDecimal = bigDecimal.add(bean.getPrice().multiply(new BigDecimal(bean.getQuantity())));
+            bigDecimal =
+                    bigDecimal.add(bean.getPrice().multiply(new BigDecimal(bean.getQuantity())));
         }
         getController().setSumDrugFee(bigDecimal);
-//        feeCount.setText("￥" + bigDecimal.toString());
+        //        feeCount.setText("￥" + bigDecimal.toString());
         return bigDecimal.toString();
     }
 
@@ -490,18 +496,19 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         prescription_type = 0;
         creatPrescription();
     }
-	
-	public void getInPrescription(){
+
+    public void getInPrescription() {
     }
-    public void getOutPrescription(){
+
+    public void getOutPrescription() {
 
     }
 
 
     @Override
     public void savePrescriptionModel(boolean isModel, String value) {
-        this.savePrescriptionTemplate = isModel;
-//        selectSave.setText(value);
+        savePrescriptionTemplate = isModel;
+        //        selectSave.setText(value);
     }
 
     @Override
@@ -548,16 +555,18 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     private List<CommitPrescriptionSavedBean> getCommitItems() {
         commitPrescriptionSavedBeanList.clear();
         for (int i = 0; i < saveData.size(); i++) {
-            CommitPrescriptionSavedBean commitPrescriptionSavedBean = new CommitPrescriptionSavedBean();
+            CommitPrescriptionSavedBean commitPrescriptionSavedBean =
+                    new CommitPrescriptionSavedBean();
             if (templateList.get(i).isSavedAsTemplate())
                 commitPrescriptionSavedBean.setIsSaveTemplate(1);
             else
                 commitPrescriptionSavedBean.setIsSaveTemplate(0);
-            commitPrescriptionSavedBean.setPrescriptionTemplateName(templateList.get(i).getModelNameTemp()==null?"":templateList.get(i).getModelNameTemp());
-            commitPrescriptionSavedBean.setPrescriptionTemplateType(templateList.get(i).getModelTypeTemp()==null?"":templateList.get(i).getModelTypeTemp());
-            List<CommitPrescriptionSavedBean.DrugSavedBean> items=new ArrayList<>();
+            commitPrescriptionSavedBean.setPrescriptionTemplateName(templateList.get(i).getModelNameTemp() == null ? "" : templateList.get(i).getModelNameTemp());
+            commitPrescriptionSavedBean.setPrescriptionTemplateType(templateList.get(i).getModelTypeTemp() == null ? "" : templateList.get(i).getModelTypeTemp());
+            List<CommitPrescriptionSavedBean.DrugSavedBean> items = new ArrayList<>();
             for (int j = 0; j < saveData.get(i).size(); j++) {
-                CommitPrescriptionSavedBean.DrugSavedBean drugSavedBean=new CommitPrescriptionSavedBean.DrugSavedBean();
+                CommitPrescriptionSavedBean.DrugSavedBean drugSavedBean =
+                        new CommitPrescriptionSavedBean.DrugSavedBean();
                 drugSavedBean.setDrugsName(saveData.get(i).get(j).getDrugsName());
                 drugSavedBean.setFrequency(saveData.get(i).get(j).getFrequency());
                 drugSavedBean.setDosage(String.valueOf(saveData.get(i).get(j).getSingleDose()));
@@ -583,8 +592,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
         return commitPrescriptionSavedBeanList;
     }
-	
-	    private int getSaveType() {
+
+    private int getSaveType() {
         int i = 0;
         if (saveCaseTemplate) {
             i = i + 2;
@@ -682,7 +691,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         DisposalAdviceAttachment attachment = new DisposalAdviceAttachment();
         attachment.setId(bean.getId());
         attachment.setContent(bean.getSuggest());
-        messageList.add(ImClient.createInspectionMessage(inquiryBean.getUserCode(), SessionTypeEnum.P2P, "处置建议", attachment));
+        messageList.add(ImClient.createInspectionMessage(inquiryBean.getUserCode(),
+                SessionTypeEnum.P2P, "处置建议", attachment));
         Intent intent = new Intent();
         intent.putExtra(Const.DATA, (Serializable) messageList);
         setResult(ConversationActivity.SEND_MESSAGE, intent);
@@ -715,7 +725,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         } else {
             for (int i = 0; i < saveData.size(); i++) {
                 if (saveData.get(i).size() == 0) {
-                    ToastUtil.showMessage(getContext(), "处方" + DateUtils.numberToCH(i + 1) + "还未添加药品！");
+                    ToastUtil.showMessage(getContext(), "处方" + DateUtils.numberToCH(i + 1) +
+                            "还未添加药品！");
                     return false;
                 }
             }
@@ -733,10 +744,10 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     public void removePrescription(int position) {
         saveData.remove(position);
         prescriptionAdapter.setNewData(packagingData(saveData));
-        if (saveData.size() == 0){
+        if (saveData.size() == 0) {
             isHavePrescription = false;
-            prescription_type=-1;
-            isOutPrescription=0;
+            prescription_type = -1;
+            isOutPrescription = 0;
         }
     }
 
@@ -805,7 +816,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
             PrescriptionHeadBean prescriptionHeadBean = new PrescriptionHeadBean();
             prescriptionHeadBean.setPosition(i);
 
-                prescriptionHeadBean.setIsOutPrescription(isOutPrescription);
+            prescriptionHeadBean.setIsOutPrescription(isOutPrescription);
 
             if (prescription_type == 0) {
                 prescriptionHeadBean.setTitleName("处方" + DateUtils.numberToCH(i + 1) + "（儿科）");
@@ -840,10 +851,11 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     public List<PrescriptionTemplateBean> getTemplateList() {
         return templateList;
     }
+
     @Override
-    public void updateTemplateList(List<PrescriptionModelBean> prescriptionModelBeanList){
-        for (int i = 0; i <templateList.size() ; i++) {
-            if(prescriptionModelBeanList.get(i).getModelName()!=null&&!"".equals(prescriptionModelBeanList.get(i).getModelName())&&prescriptionModelBeanList.get(i).getModelType()!=null&&!"".equals(prescriptionModelBeanList.get(i).getModelType())){
+    public void updateTemplateList(List<PrescriptionModelBean> prescriptionModelBeanList) {
+        for (int i = 0; i < templateList.size(); i++) {
+            if (prescriptionModelBeanList.get(i).getModelName() != null && !"".equals(prescriptionModelBeanList.get(i).getModelName()) && prescriptionModelBeanList.get(i).getModelType() != null && !"".equals(prescriptionModelBeanList.get(i).getModelType())) {
                 templateList.get(i).setSavedAsTemplate(true);
                 templateList.get(i).setModelNameTemp(prescriptionModelBeanList.get(i).getModelName());
                 templateList.get(i).setModelTypeTemp(prescriptionModelBeanList.get(i).getModelType());

@@ -28,14 +28,14 @@ public interface TriageOrderApplyView extends BaseView {
     void uploadFailed(String errMsg);
 
     /**
-     * 提交转诊成功
+     * 提交分诊成功
      *
      * @param msg 成功信息
      */
     void saveSuccess(DiagnoseFillOutResBean msg);
 
     /**
-     * 提交转诊失败
+     * 提交分诊失败
      *
      * @param errMsg 失败信息
      */
