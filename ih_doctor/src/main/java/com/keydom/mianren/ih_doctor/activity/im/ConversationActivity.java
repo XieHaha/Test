@@ -267,8 +267,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     {
 
                     } else if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
-
-
                         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
                             @Override
                             public void requestComplete(@Nullable CheckItemListBean data) {
@@ -289,7 +287,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         });
 
                     } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
-
                         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((InspectionAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
                             @Override
                             public void requestComplete(@Nullable CheckItemListBean data) {
@@ -340,8 +337,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             @Override
             public boolean onPayClick(Context context, View view, IMMessage message) {
                 if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
-
-
                     ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
                         @Override
                         public void requestComplete(@Nullable CheckItemListBean data) {
@@ -363,7 +358,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     });
 
                 } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
-
                     ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((InspectionAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
                         @Override
                         public void requestComplete(@Nullable CheckItemListBean data) {
@@ -470,14 +464,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         });
 
         View view = getLayoutInflater().inflate(R.layout.im_inquiry_pop_layout, null, false);
-        mPopupWindow = new PopupWindow(view, DensityUtil.dp2px(180), DensityUtil.dp2px(185));
+        mPopupWindow = new PopupWindow(view, DensityUtil.dp2px(200), DensityUtil.dp2px(185));
         mPopupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setFocusable(true);
         referralTv = view.findViewById(R.id.referral);
         inquiryPopTriageTv = view.findViewById(R.id.inquiry_pop_triage_tv);
         inquiryPopConsultationTv = view.findViewById(R.id.inquiry_pop_consultation_tv);
-        referralTv = view.findViewById(R.id.referral);
         view.findViewById(R.id.inspection).setOnClickListener(this);
         view.findViewById(R.id.examination).setOnClickListener(this);
         referralTv.setOnClickListener(this);
@@ -495,7 +488,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mVoiceInputPlugin = new VoiceInputPlugin(this);
         mMessageView.addPlugin(mVoiceInputPlugin);
     }
-
 
     private void initStatus() {
         mMessageView.getPluginAdapter().getPluginModule(0);
@@ -655,7 +647,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 break;
             case R.id.diagnostic_prescription_ll:
                 if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE})) {
-                    DiagnosePrescriptionActivity.startCreate(ConversationActivity.this, orderBean);
+                    DiagnosePrescriptionActivity.startCreate(this, orderBean);
                 } else {
                     showNotAccessDialog();
                 }
@@ -727,11 +719,17 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 break;
             case R.id.inquiry_pop_triage_tv:
                 //分诊
-                TriageOrderApplyActivity.start(this);
+                TriageOrderApplyActivity.start(this, orderBean);
+                if (mPopupWindow != null) {
+                    mPopupWindow.dismiss();
+                }
                 break;
             case R.id.inquiry_pop_consultation_tv:
                 //会诊
                 ConsultationApplyActivity.start(this);
+                if (mPopupWindow != null) {
+                    mPopupWindow.dismiss();
+                }
                 break;
             default:
         }

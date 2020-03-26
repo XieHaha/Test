@@ -3,9 +3,7 @@ package com.keydom.mianren.ih_doctor.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
-import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.adapter.BaseEmptyAdapter;
@@ -64,11 +62,11 @@ public class DiagnoseOrderFragment extends BaseControllerFragment<DiagnoseOrderF
 
     public static final DiagnoseOrderFragment newInstance(TypeEnum type) {
 
-        return newInstance(type,false);
+        return newInstance(type, false);
     }
 
 
-    public static final DiagnoseOrderFragment newInstance(TypeEnum type,boolean isVIPDiag) {
+    public static final DiagnoseOrderFragment newInstance(TypeEnum type, boolean isVIPDiag) {
         DiagnoseOrderFragment fragment = new DiagnoseOrderFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(Const.TYPE, type);
@@ -132,24 +130,21 @@ public class DiagnoseOrderFragment extends BaseControllerFragment<DiagnoseOrderF
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        if(isVIPDiag){
+        if (isVIPDiag) {
             mAdapter = new VIPDiagnoseOrderRecyclrViewAdapter(getContext(), dataList);
-        }else{
+        } else {
             mAdapter = new DiagnoseOrderRecyclrViewAdapter(getContext(), dataList);
         }
-        recyclerView = (RecyclerView) getView().findViewById(R.id.common_rv);
-        refreshLayout = (RefreshLayout) getView().findViewById(R.id.refreshLayout);
+        recyclerView = getView().findViewById(R.id.common_rv);
+        refreshLayout = getView().findViewById(R.id.refreshLayout);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         refreshLayout.setOnLoadMoreListener(getController());
         refreshLayout.setOnRefreshListener(getController());
-        setReloadListener(new LoadDataLayout.OnReloadListener() {
-            @Override
-            public void onReload(View v, int status) {
-                pageLoading();
-                getController().setCurrentPage(1);
-                getController().getData(TypeEnum.REFRESH);
-            }
+        setReloadListener((v, status) -> {
+            pageLoading();
+            getController().setCurrentPage(1);
+            getController().getData(TypeEnum.REFRESH);
         });
     }
 

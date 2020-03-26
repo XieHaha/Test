@@ -121,8 +121,9 @@ public class TriageOrderApplyActivity extends BaseControllerActivity<TriageOrder
      */
     public static final int DOCTOR_GOURP_FILLOUT_APPLY = 1201;
 
-    public static void start(Context context) {
+    public static void start(Context context,InquiryBean bean) {
         Intent intent = new Intent(context, TriageOrderApplyActivity.class);
+        intent.putExtra(Const.DATA, bean);
         context.startActivity(intent);
     }
 
@@ -169,7 +170,7 @@ public class TriageOrderApplyActivity extends BaseControllerActivity<TriageOrder
         mType = getIntent().getIntExtra(Const.TYPE, 0);
         orderBean = (InquiryBean) getIntent().getSerializableExtra(Const.DATA);
         initView();
-        setTitle("申请");
+        setTitle("分诊");
         if (orderBean != null) {
             addOrder(orderBean);
         }

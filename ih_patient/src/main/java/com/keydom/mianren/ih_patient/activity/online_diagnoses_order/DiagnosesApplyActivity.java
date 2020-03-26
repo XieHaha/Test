@@ -423,10 +423,9 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
                 map.put("doctorCode", receptionDoctorInfo.getUserCode());
 
             } else {
-                map.put("doctorCode", "00152C00001");
+                map.put("doctorCode", "00152C00002");
             }
         }
-
 
         if (DiagnosesApplyDialog.VIDEODIAGNOSES.equals(type)) {
             map.put("type", 1);
@@ -456,10 +455,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
 
     @Override
     public boolean isHavePatient() {
-        if (managerUserBean != null)
-            return true;
-        else
-            return false;
+        return managerUserBean != null;
     }
 
     @Override

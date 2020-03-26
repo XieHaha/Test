@@ -106,7 +106,7 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
             final InquiryBean bean = mDatas.get(position);
             GlideUtils.load(userIcon, Const.IMAGE_HOST + bean.getUserAvatar(), 0, 0, false, null);
             userName.setText(bean.getName());
-            userAge.setText(String.valueOf(bean.getAge()) + "岁");
+            userAge.setText(bean.getAge() + "岁");
             userSex.setText(CommonUtils.getSex(bean.getSex()));
             diagnoseDec.setText(bean.getConditionDesc());
             diagnoseTime.setText(bean.getApplyTime());
@@ -164,7 +164,6 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
                     } else {
                         orderStatus.setText("待接诊");
                     }
-
                     break;
                 case 2:
                     img = mContext.getResources().getDrawable(R.mipmap.patient_circle_green);

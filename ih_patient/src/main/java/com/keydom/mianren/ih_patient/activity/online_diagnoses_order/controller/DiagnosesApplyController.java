@@ -22,10 +22,12 @@ import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.view.Diagno
 import com.keydom.mianren.ih_patient.bean.DoctorInfo;
 import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
 import com.keydom.mianren.ih_patient.bean.PayOrderBean;
+import com.keydom.mianren.ih_patient.bean.UserInfo;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.Type;
 import com.keydom.mianren.ih_patient.net.UploadService;
 import com.keydom.mianren.ih_patient.net.UserService;
+import com.keydom.mianren.ih_patient.utils.LocalizationUtils;
 import com.keydom.mianren.ih_patient.utils.SelectDialogUtils;
 import com.keydom.mianren.ih_patient.utils.pay.alipay.Alipay;
 import com.keydom.mianren.ih_patient.utils.pay.weixin.WXPay;
@@ -118,26 +120,34 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
     /**
      * 创建图文视频问诊单
      */
-    public void saveInquisition(Map<String, Object> map, String payDesc) {
+    private void saveInquisition(Map<String, Object> map, String payDesc) {
         if (map != null) {
             ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).saveInquisition(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PayOrderBean>(getContext(), getDisposable(), false, false) {
                 @Override
                 public void requestComplete(@Nullable PayOrderBean data) {
                     getView().getOrderInfo(data);
-                    SelectDialogUtils.showPayDialog(getContext(), data.getFee().setScale(2,
-                            BigDecimal.ROUND_HALF_UP) + "", payDesc,
-                            type -> {
-                                Map<String, Object> payMap = new HashMap<>();
-                                payMap.put("orderId", data.getOrderId());
-                                if (Type.ALIPAY.equals(type)) {
-                                    payMap.put("type", 2);
-                                    inquiryPay(payMap, 2);
-                                } else if (Type.WECHATPAY.equals(type)) {
-                                    payMap.put("type", 1);
-                                    inquiryPay(payMap, 1);
-                                }
+                    UserInfo userInfo =
+                            (UserInfo) LocalizationUtils.readFileFromLocal(getContext(),
+                                    "userInfo");
+                    if (userInfo != null && userInfo.getIsVip() == 1) {
+                        //预付费用户
+                        showApplySuccess();
+                    } else {
+                        SelectDialogUtils.showPayDialog(getContext(), data.getFee().setScale(2,
+                                BigDecimal.ROUND_HALF_UP) + "", payDesc,
+                                type -> {
+                                    Map<String, Object> payMap = new HashMap<>();
+                                    payMap.put("orderId", data.getOrderId());
+                                    if (Type.ALIPAY.equals(type)) {
+                                        payMap.put("type", 2);
+                                        inquiryPay(payMap, 2);
+                                    } else if (Type.WECHATPAY.equals(type)) {
+                                        payMap.put("type", 1);
+                                        inquiryPay(payMap, 1);
+                                    }
 
-                            });
+                                });
+                    }
                 }
 
                 @Override
@@ -164,14 +174,7 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
                                     @Override
                                     public void onSuccess() {
                                         ToastUtil.showMessage(getContext(), "支付成功");
-                                        new GeneralDialog(getContext(),
-                                                "问诊订单支付成功，近期请留意订单状态以及接诊医生给你发送的消息"
-                                                , new GeneralDialog.OnCloseListener() {
-                                            @Override
-                                            public void onCommit() {
-                                                MainActivity.start(getContext(), false);
-                                            }
-                                        }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
+                                        showApplySuccess();
                                     }
 
                                     @Override
@@ -194,14 +197,7 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
                                         @Override
                                         public void onSuccess() {
                                             ToastUtil.showMessage(getContext(), "支付成功");
-                                            new GeneralDialog(getContext(),
-                                                    "问诊订单支付成功，近期请留意订单状态以及接诊医生给你发送的消息",
-                                                    new GeneralDialog.OnCloseListener() {
-                                                        @Override
-                                                        public void onCommit() {
-                                                            MainActivity.start(getContext(), false);
-                                                        }
-                                                    }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
+                                            showApplySuccess();
                                         }
 
                                         @Override
@@ -235,6 +231,15 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
                 }
             });
         }
+    }
+
+    /**
+     * 提交成功后提示
+     */
+    private void showApplySuccess() {
+        new GeneralDialog(getContext(),
+                "问诊订单支付成功，近期请留意订单状态以及接诊医生给你发送的消息"
+                , () -> MainActivity.start(getContext(), false)).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
     }
 
     /**
