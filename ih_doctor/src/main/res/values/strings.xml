@@ -14,7 +14,7 @@
     <string name="next_step">下一步</string>
     <string name="set_password">设置密码</string>
     <string name="re_password">重复密码</string>
-    <string name="tip_password">密码为6-20位字母和数字的组合</string>
+    <string name="tip_password">密码为6&#8211;20位字母和数字的组合</string>
     <string name="update_finish">完成修改</string>
     <string name="diagnosis_agreement">《言行医至问诊服务协议》</string>
     <string name="create_apply">提交开通申请</string>
@@ -31,6 +31,7 @@
     <string name="txt_select_consultation_doctor_hint">请选择会诊医生</string>
     <string name="txt_inquiry_order_colon">问诊单:</string>
     <string name="txt_select_inquiry_order_hint">请选择问诊单</string>
+    <string name="txt_age">%s岁</string>
 
     <!--健康管理-->
     <string name="txt_health_manager">健康管理</string>
@@ -64,12 +65,16 @@
     <string name="txt_consultation">会诊</string>
     <string name="txt_consultation_grade_colon">会诊等级:</string>
     <string name="txt_select_consultation_grade">请选择会诊等级</string>
+    <string name="txt_apply_doctor_colon">申请医生:</string>
+    <string name="txt_consultation_doctor_colon">会诊医生:</string>
     <string name="txt_consultation_time_colon">会诊时间:</string>
     <string name="txt_select_consultation_time">请选择会诊时间</string>
     <string name="txt_consultation_reason_purpose">会诊理由及目的</string>
     <string name="txt_consultation_reason_purpose_hint">请输入会诊理由及目的（10&#8211;500字以内）</string>
     <string name="txt_medical_summary">病情摘要</string>
     <string name="txt_medical_summary_hint">输入患者病情（10&#8211;2000字以内）</string>
+    <string name="txt_visit_card">就诊卡：%s</string>
+    <string name="txt_visit_time">就诊时间</string>
 
 
     <!-- 讯飞SDK appid -->

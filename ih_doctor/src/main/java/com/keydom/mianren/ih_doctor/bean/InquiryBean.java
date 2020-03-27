@@ -98,6 +98,11 @@ public class InquiryBean implements Serializable {
      */
     private int isReturnVisit;
 
+    /**
+     * 支付方式  4、预付费
+     */
+    private int payType;
+
     public int getIsReturnVisit() {
         return isReturnVisit;
     }
@@ -348,6 +353,13 @@ public class InquiryBean implements Serializable {
         this.doctorAcceptTime = doctorAcceptTime;
     }
 
+    public int getPayType() {
+        return payType;
+    }
+
+    public void setPayType(int payType) {
+        this.payType = payType;
+    }
 
     @Override
     public String toString() {

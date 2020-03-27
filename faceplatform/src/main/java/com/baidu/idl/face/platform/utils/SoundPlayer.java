@@ -31,7 +31,7 @@ public final class SoundPlayer {
     /**
      * SoundPool最大同时播放音乐效果的个数
      */
-    public static final int MAX_STREAMS = 5;
+    private static final int MAX_STREAMS = 5;
     /**
      * Single instance
      */
@@ -41,7 +41,7 @@ public final class SoundPlayer {
      */
     private static final long LOAD_SOUND_MILLIS = 100L;
 
-    public static long playTime = 0l;
+    public static long playTime = 0L;
 
     /**
      * 工具类隐藏其构造方法
@@ -49,7 +49,7 @@ public final class SoundPlayer {
     private SoundPlayer() {
         mSoundPool = new SoundPool(MAX_STREAMS, AudioManager.STREAM_MUSIC, 0);
         mSoundPoolCache = new SparseIntArray();
-        playTime = 0l;
+        playTime = 0L;
     }
 
     /**
@@ -76,13 +76,15 @@ public final class SoundPlayer {
                     @Override
                     public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
                         if (DEBUG) {
-                            Log.i(TAG, String.format("SoundPool.onLoadComplete(soundId=%d):sampleId=%d",
+                            Log.i(TAG, String.format("SoundPool.onLoadComplete(soundId=%d)" +
+                                            ":sampleId=%d",
                                     soundId, sampleId));
                         }
                         if (0 == status && soundId == sampleId) {
                             try {
                                 playTime = System.currentTimeMillis();
-                                sSoundPlayer.mSoundPool.play(soundId, 1.0f, 1.0f, MAX_STREAMS, 0, 1.0f);
+                                sSoundPlayer.mSoundPool.play(soundId, 1.0f, 1.0f, MAX_STREAMS, 0,
+                                        1.0f);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

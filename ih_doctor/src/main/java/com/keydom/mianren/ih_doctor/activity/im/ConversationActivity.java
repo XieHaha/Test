@@ -121,12 +121,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private ImageView mInquiryTypeImage;
     private TextView mInquiryTypeTv;
     private TextView mQuestionRemainingTimeTv;
-    private ImageView mVisitingImage;
-    private TextView mVisitingTv;
     private LinearLayout mVisitingLl;
     private TextView mVisitingRemainingTimeTv;
-    private LinearLayout mBackLl, mEndLl, mEndTheConsultationLl, mDiagnosticPrescriptionLl,
-            mDisposalAdviceLl;
+    private LinearLayout mEndTheConsultationLl;
+    private LinearLayout mDiagnosticPrescriptionLl;
+    private LinearLayout mDisposalAdviceLl;
     private ConstraintLayout mCompletedCl;
     private ImMessageView mMessageView;
     private PopupWindow mPopupWindow;
@@ -196,12 +195,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mInquiryTypeImage = findViewById(R.id.inquiry_type_image);
         mInquiryTypeTv = findViewById(R.id.inquiry_type_tv);
         mQuestionRemainingTimeTv = findViewById(R.id.question_remaining_time_tv);
-        mVisitingImage = findViewById(R.id.visiting_image);
-        mVisitingTv = findViewById(R.id.visiting_tv);
+        ImageView mVisitingImage = findViewById(R.id.visiting_image);
+        TextView mVisitingTv = findViewById(R.id.visiting_tv);
         mVisitingLl = findViewById(R.id.visiting_ll);
         mVisitingRemainingTimeTv = findViewById(R.id.visiting_remaining_time_tv);
-        mBackLl = findViewById(R.id.back_ll);
-        mEndLl = findViewById(R.id.end_ll);
+        LinearLayout mBackLl = findViewById(R.id.back_ll);
+        LinearLayout mEndLl = findViewById(R.id.end_ll);
         mEndTheConsultationLl = findViewById(R.id.end_the_consultation_ll);
         mDiagnosticPrescriptionLl = findViewById(R.id.diagnostic_prescription_ll);
         mDisposalAdviceLl = findViewById(R.id.disposal_advice_ll);
@@ -444,9 +443,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         if (data != null) {
             sessionId = data.getQueryParameter(ImConstants.CALL_SESSION_ID);
             mMessageView.setMessageInfo(sessionId, SessionTypeEnum.P2P);
-            //            setTitle(ImClient.getUserInfoProvider().getUserInfo(sessionId) == null
-            //            ? "问诊详情" : ImClient.getUserInfoProvider().getUserInfo(sessionId)
-            //            .getName() + "-问诊详情");
             setTitle("问诊详情");
         }
 
@@ -1039,52 +1035,40 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             View view = LayoutInflater.from(this).inflate(R.layout.user_follow_up_dialog_layout,
                     null, false);
             mFixHeightBottomSheetDialog.setContentView(view);
-            view.findViewById(R.id.user_follow_up_dialog_first_rl).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            view.findViewById(R.id.user_follow_up_dialog_first_rl).setOnClickListener(view1 -> {
+                UserFollowUpAttachment userFollowUpAttachment = new UserFollowUpAttachment();
+                userFollowUpAttachment.setId("1");
+                userFollowUpAttachment.setDoctorName("伍齐鸣");
+                userFollowUpAttachment.setFileName("糖尿病随访管理表");
+                userFollowUpAttachment.setUrl("https://www.baidu.com/");
+                mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
+                        SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
 
-
-                    UserFollowUpAttachment userFollowUpAttachment = new UserFollowUpAttachment();
-                    userFollowUpAttachment.setId("1");
-                    userFollowUpAttachment.setDoctorName("伍齐鸣");
-                    userFollowUpAttachment.setFileName("糖尿病随访管理表");
-                    userFollowUpAttachment.setUrl("https://www.baidu.com/");
-                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
-                            SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
-
-                    mFixHeightBottomSheetDialog.dismiss();
-                }
+                mFixHeightBottomSheetDialog.dismiss();
             });
-            view.findViewById(R.id.user_follow_up_dialog_second_rl).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    UserFollowUpAttachment userFollowUpAttachment = new UserFollowUpAttachment();
-                    userFollowUpAttachment.setId("2");
-                    userFollowUpAttachment.setDoctorName("伍齐鸣");
-                    userFollowUpAttachment.setFileName("慢性肺炎随访管理表");
-                    userFollowUpAttachment.setUrl("https://www.baidu.com/");
-                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
-                            SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
+            view.findViewById(R.id.user_follow_up_dialog_second_rl).setOnClickListener(view12 -> {
+                UserFollowUpAttachment userFollowUpAttachment = new UserFollowUpAttachment();
+                userFollowUpAttachment.setId("2");
+                userFollowUpAttachment.setDoctorName("伍齐鸣");
+                userFollowUpAttachment.setFileName("慢性肺炎随访管理表");
+                userFollowUpAttachment.setUrl("https://www.baidu.com/");
+                mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
+                        SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
 
-                    mFixHeightBottomSheetDialog.dismiss();
-                }
+                mFixHeightBottomSheetDialog.dismiss();
             });
-            view.findViewById(R.id.user_follow_up_dialog_third_rl).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    UserFollowUpAttachment userFollowUpAttachment = new UserFollowUpAttachment();
-                    userFollowUpAttachment.setId("3");
-                    userFollowUpAttachment.setDoctorName("伍齐鸣");
-                    userFollowUpAttachment.setFileName("高血压随访管理表");
-                    userFollowUpAttachment.setUrl("https://www.baidu.com/");
-                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
-                            SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
+            view.findViewById(R.id.user_follow_up_dialog_third_rl).setOnClickListener(view13 -> {
+                UserFollowUpAttachment userFollowUpAttachment = new UserFollowUpAttachment();
+                userFollowUpAttachment.setId("3");
+                userFollowUpAttachment.setDoctorName("伍齐鸣");
+                userFollowUpAttachment.setFileName("高血压随访管理表");
+                userFollowUpAttachment.setUrl("https://www.baidu.com/");
+                mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
+                        SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
 
-                    mFixHeightBottomSheetDialog.dismiss();
-                }
+                mFixHeightBottomSheetDialog.dismiss();
             });
         }
-
         mFixHeightBottomSheetDialog.show();
     }
 

@@ -29,6 +29,7 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationReceiveActivity;
 import com.keydom.mianren.ih_doctor.bean.LoginBean;
 import com.keydom.mianren.ih_doctor.bean.UserInfo;
 import com.keydom.mianren.ih_doctor.net.LoginApiService;
@@ -41,12 +42,13 @@ import java.util.List;
 
 
 public class WelcomeActivity extends AppCompatActivity {
-    public static void startFromJpush(Context context,boolean isNeedJump){
-        Intent intent=new Intent(context,WelcomeActivity.class);
+    public static void startFromJpush(Context context, boolean isNeedJump) {
+        Intent intent = new Intent(context, WelcomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("isNeedJump",isNeedJump);
+        intent.putExtra("isNeedJump", isNeedJump);
         context.startActivity(intent);
     }
+
     public ViewPager mViewPager;
     public RelativeLayout rootView;
     public TextView skip;
@@ -64,7 +66,7 @@ public class WelcomeActivity extends AppCompatActivity {
         rootView = findViewById(R.id.welcome_rootview);
         skip = findViewById(R.id.welcome_skip);
         inBtn = findViewById(R.id.welcome_in);
-        isNeedJump=getIntent().getBooleanExtra("isNeedJump",false);
+        isNeedJump = getIntent().getBooleanExtra("isNeedJump", false);
         setPage();
     }
 
@@ -97,10 +99,12 @@ public class WelcomeActivity extends AppCompatActivity {
                             @Override
                             public void requestComplete(@org.jetbrains.annotations.Nullable final LoginBean data) {
                                 if (data.getUserCode() == null || data.getImToken() == null || "".equals(data.getUserCode()) || "".equals(data.getImToken())) {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(ActivityUtils.getTopActivity());
+                                    AlertDialog.Builder builder =
+                                            new AlertDialog.Builder(ActivityUtils.getTopActivity());
                                     builder.setTitle("无法登录");
                                     builder.setMessage("帐号错误，请检查后重试！");
-                                    builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                    builder.setNegativeButton("确定",
+                                            new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             goToRegisterAndLoginActivity();
@@ -125,14 +129,16 @@ public class WelcomeActivity extends AppCompatActivity {
                                     if (data.getRoleIds() != null && data.getRoleIds().size() > 0) {
                                         SharePreferenceManager.setRoleId(data.getRoleIds().get(0));
                                         SharePreferenceManager.setPositionId(data.getNurseMonitorState());
-                                        MyApplication.isNeedInit=false;
+                                        MyApplication.isNeedInit = false;
                                         goToMainActivity();
                                     } else {
                                         SharePreferenceManager.setRoleId(-1);
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityUtils.getTopActivity());
+                                        AlertDialog.Builder builder =
+                                                new AlertDialog.Builder(ActivityUtils.getTopActivity());
                                         builder.setTitle("无角色权限");
                                         builder.setMessage("没有分配角色，请联系管理员分配角色后重新登录！");
-                                        builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                        builder.setNegativeButton("确定",
+                                                new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 goToRegisterAndLoginActivity();
@@ -146,11 +152,14 @@ public class WelcomeActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityUtils.getTopActivity());
+                            public boolean requestError(@NotNull ApiException exception, int code
+                                    , @NotNull String msg) {
+                                AlertDialog.Builder builder =
+                                        new AlertDialog.Builder(ActivityUtils.getTopActivity());
                                 builder.setTitle("登录失败");
                                 builder.setMessage("帐号错误，请检查后重试！");
-                                builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                builder.setNegativeButton("确定",
+                                        new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         goToRegisterAndLoginActivity();
@@ -181,7 +190,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * 跳转到首页，并结束当前页面
      */
     private void goToMainActivity() {
-        MainActivity.start(this,isNeedJump,false);
+        MainActivity.start(this, isNeedJump, false);
         finish();
     }
 
@@ -189,7 +198,8 @@ public class WelcomeActivity extends AppCompatActivity {
      * 跳转到登陆页面，并结束当前页面
      */
     private void goToRegisterAndLoginActivity() {
-        LoginActivity.start(this);
+        //        LoginActivity.start(this);
+        ConsultationReceiveActivity.start(this);
         finish();
     }
 
@@ -237,7 +247,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
 
             }
 

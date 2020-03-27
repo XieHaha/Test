@@ -26,7 +26,7 @@
                 android:id="@+id/diagnose_list_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never"></android.support.v7.widget.RecyclerView>
+                android:overScrollMode="never"/>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </com.ganxin.library.LoadDataLayout>
 </LinearLayout>

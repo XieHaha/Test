@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.mianren.ih_doctor.view"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primary_bg_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <ScrollView
+        android:id="@+id/mScroller"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/line_color" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/consultation_receive_header_iv"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_marginStart="@dimen/dp_40"
+                    android:layout_marginTop="@dimen/dp_35"
+                    android:layout_marginBottom="@dimen/dp_21"
+                    android:src="@mipmap/im_default_head_image" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:layout_marginTop="@dimen/dp_37"
+                    android:layout_marginEnd="@dimen/dp_33"
+                    android:layout_toEndOf="@id/consultation_receive_header_iv"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/consultation_receive_patient_name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/primary_font_color"
+                            android:textSize="@dimen/sp_14"
+                            tools:text="姓名" />
+
+                        <TextView
+                            android:id="@+id/consultation_receive_patient_sex_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="18dp"
+                            android:layout_marginStart="@dimen/dp_13"
+                            android:background="@drawable/corner20_dfdfdf_stoke"
+                            android:gravity="center"
+                            android:paddingStart="@dimen/dp_14"
+                            android:paddingEnd="@dimen/dp_14"
+                            android:textColor="@color/color_69"
+                            android:textSize="@dimen/sp_10"
+                            tools:text="女" />
+
+                        <TextView
+                            android:id="@+id/consultation_receive_patient_age_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="18dp"
+                            android:layout_marginStart="@dimen/dp_13"
+                            android:background="@drawable/corner20_dfdfdf_stoke"
+                            android:gravity="center"
+                            android:paddingStart="@dimen/dp_14"
+                            android:paddingEnd="@dimen/dp_14"
+                            android:text="@string/txt_age"
+                            android:textColor="@color/color_69"
+                            android:textSize="@dimen/sp_10" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dp_1"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/consultation_receive_level_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_16"
+                            android:layout_marginStart="@dimen/dp_13"
+                            android:background="@drawable/corner5_ff3939_bg"
+                            android:gravity="center"
+                            android:paddingStart="@dimen/dp_10"
+                            android:paddingEnd="@dimen/dp_10"
+                            android:text="@string/txt_age"
+                            android:textColor="@color/primary_bg_color"
+                            android:textSize="@dimen/sp_10"
+                            tools:text="紧急" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/consultation_receive_card_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_9"
+                        android:text="@string/txt_visit_card"
+                        android:textColor="@color/color_69"
+                        android:textSize="@dimen/sp_12" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/color_f1f1f1" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_41"
+                android:paddingStart="@dimen/dp_40"
+                android:paddingEnd="@dimen/dp_33">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawableStart="@mipmap/setting_close"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:gravity="center"
+                    android:text="@string/txt_visit_time"
+                    android:textColor="@color/color_69"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/consultation_receive_visit_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/color_69"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="2020年3月27日 16:12:21" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/line_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/dp_20"
+                android:paddingEnd="@dimen/dp_20">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/color_69"
+                        android:textSize="@dimen/sp_14"
+                        android:text="@string/txt_apply_doctor_colon"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
+                android:id="@+id/consultation_receive_purpose_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                mitem:itemTip="会诊理由及目的"
+                mitem:showArrow="true" />
+
+            <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
+                android:id="@+id/consultation_receive_summary_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                mitem:itemTip="病情摘要"
+                mitem:showArrow="true" />
+
+            <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
+                android:id="@+id/consultation_receive_information_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                mitem:itemTip="病历资料"
+                mitem:showArrow="true" />
+
+            <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
+                android:id="@+id/consultation_receive_advice_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                mitem:itemTip="会诊意见"
+                mitem:showArrow="true" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/line_color" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

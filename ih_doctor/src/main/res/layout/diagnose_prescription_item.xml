@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:Android="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/primary_bg_color"
@@ -21,12 +21,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_6"
-        android:layout_toRightOf="@id/left_img"
+        android:layout_toEndOf="@id/left_img"
         android:paddingTop="@dimen/dp_16"
         android:paddingBottom="@dimen/dp_16"
         android:text="主诉"
         android:textColor="@color/primary_font_color"
-        android:textSize="@dimen/font_size_primary" />
+        android:textSize="@dimen/sp_14" />
 
     <TextView
         android:id="@+id/add_tv"
@@ -34,7 +34,7 @@
         android:layout_height="match_parent"
         android:layout_alignTop="@id/tip_tv"
         android:layout_alignBottom="@id/tip_tv"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/padding_left_right_dp"
         android:gravity="center_vertical"
@@ -42,7 +42,25 @@
         android:paddingBottom="@dimen/dp_16"
         android:text="快捷添加"
         android:textColor="#22E17E"
-        android:textSize="@dimen/font_size_primary" />
+        android:textSize="@dimen/sp_14"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/item_view_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@id/tip_tv"
+        android:layout_alignBottom="@id/tip_tv"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/padding_left_right_dp"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dp_15"
+        android:paddingTop="@dimen/dp_16"
+        android:paddingEnd="@dimen/dp_15"
+        android:paddingBottom="@dimen/dp_16"
+        android:src="@drawable/selector_arrow"
+        android:visibility="gone" />
 
     <View
         android:id="@+id/line"
@@ -52,14 +70,16 @@
         android:background="@color/line_color" />
 
     <RelativeLayout
+        android:id="@+id/item_view_layout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_below="@id/line"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="@dimen/padding_left_right_dp"
-        android:layout_marginTop="@dimen/dp_16"
-        android:layout_marginEnd="@dimen/padding_left_right_dp"
-        android:layout_marginBottom="@dimen/dp_19">
+        android:paddingStart="@dimen/padding_left_right_dp"
+        android:paddingTop="@dimen/dp_16"
+        android:paddingEnd="@dimen/padding_left_right_dp"
+        android:paddingBottom="@dimen/dp_19"
+        android:visibility="visible">
 
         <com.keydom.ih_common.view.InterceptorEditText
             android:id="@+id/sub_item_entrust_et"
@@ -74,25 +94,23 @@
             android:singleLine="false"
             android:textColor="@color/edit_font_color"
             android:textCursorDrawable="@null"
-            android:textSize="@dimen/font_size_primary"
+            android:textSize="@dimen/sp_14"
             Android:adjustViewBounds="true" />
 
         <ImageView
             android:id="@+id/diagnose_prescription_voice_input_iv"
             android:layout_width="20dp"
             android:layout_height="30dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="@dimen/dp_5"
             android:layout_marginBottom="@dimen/dp_5"
             android:src="@drawable/im_voice_toggle_selector" />
     </RelativeLayout>
 
-
     <View
-
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
-        android:layout_below="@id/sub_item_entrust_et"
+        android:layout_below="@id/item_view_layout"
         android:background="@color/line_color" />
 </RelativeLayout>

@@ -42,7 +42,6 @@
     <color name="tab_color">#3F98F7</color>
 
 
-
     <color name="medical_card_detail_label_bg">#FFFAE2</color>
     <color name="medical_card_detail_label_font">#F8980F</color>
     <color name="exa_date_selected_bg">#EBF5FF</color>
@@ -76,4 +75,8 @@
     <color name="mine_interval_bg">#EEEEEE</color>
     <color name="wai_yan">#F7F7F7</color>
     <color name="cu_black">#333333</color>
+
+    <!--新增-->
+    <color name="color_dfdfdf">#DFDFDF</color>
+    <color name="color_f1f1f1">#F1F1F1</color>
 </resources>
