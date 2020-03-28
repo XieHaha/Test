@@ -32,6 +32,7 @@
     <string name="txt_inquiry_order_colon">问诊单:</string>
     <string name="txt_select_inquiry_order_hint">请选择问诊单</string>
     <string name="txt_age">%s岁</string>
+    <string name="txt_receive">接收</string>
 
     <!--健康管理-->
     <string name="txt_health_manager">健康管理</string>
@@ -63,6 +64,7 @@
 
     <!--会诊-->
     <string name="txt_consultation">会诊</string>
+    <string name="txt_consultation_receive">会诊接收</string>
     <string name="txt_consultation_grade_colon">会诊等级:</string>
     <string name="txt_select_consultation_grade">请选择会诊等级</string>
     <string name="txt_apply_doctor_colon">申请医生:</string>

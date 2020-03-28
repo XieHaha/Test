@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.mianren.ih_doctor.view"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -167,23 +166,115 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingStart="@dimen/dp_20"
-                android:paddingEnd="@dimen/dp_20">
+                android:paddingTop="@dimen/dp_17"
+                android:paddingEnd="@dimen/dp_20"
+                android:paddingBottom="@dimen/dp_26">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:textColor="@color/color_69"
-                        android:textSize="@dimen/sp_14"
+                        android:layout_height="wrap_content"
                         android:text="@string/txt_apply_doctor_colon"
-                        android:layout_height="wrap_content" />
+                        android:textColor="@color/color_69"
+                        android:textSize="@dimen/sp_14" />
+
+                    <ImageView
+                        android:id="@+id/consultation_receive_apply_doctor_header_iv"
+                        android:layout_width="@dimen/dp_40"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_marginStart="@dimen/dp_28"
+                        android:src="@mipmap/user_icon" />
+
+                    <TextView
+                        android:id="@+id/consultation_receive_apply_doctor_name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/sp_14"
+                        tools:text="医生姓名" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/dp_17">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_consultation_doctor_colon"
+                        android:textColor="@color/color_69"
+                        android:textSize="@dimen/sp_14" />
+
+                    <com.keydom.ih_common.im.widget.AutoGridView
+                        android:id="@+id/consultation_receive_consultation_doctor_grid_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_28"
+                        android:horizontalSpacing="@dimen/dp_29"
+                        android:numColumns="4"
+                        android:verticalSpacing="@dimen/dp_12" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/dp_17">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_consultation_time_colon"
+                        android:textColor="@color/color_69"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/consultation_receive_consultation_date_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_28"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/sp_14"
+                        tools:text="3月28日" />
+
+                    <TextView
+                        android:id="@+id/consultation_receive_consultation_week_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/sp_14"
+                        tools:text="星期六" />
+
+                    <TextView
+                        android:id="@+id/consultation_receive_consultation_time_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:textColor="@color/primary_font_color"
+                        android:textSize="@dimen/sp_14"
+                        tools:text="13:31" />
+
                 </LinearLayout>
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/line_color" />
 
             <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
                 android:id="@+id/consultation_receive_purpose_item"
