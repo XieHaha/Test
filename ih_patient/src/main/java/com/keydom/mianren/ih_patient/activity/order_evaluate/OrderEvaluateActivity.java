@@ -109,6 +109,11 @@ public class OrderEvaluateActivity extends BaseControllerActivity<OrderEvaluateC
             evaluate3.setText(mEvaluatePrefisxs[2] + mEvaluate3[RatingScore - 1]);
             evaluate4.setText(mEvaluatePrefisxs[3] + mEvaluate4[RatingScore - 1]);
         });
+
+        evaluate1.setOnClickListener(getController());
+        evaluate2.setOnClickListener(getController());
+        evaluate3.setOnClickListener(getController());
+        evaluate4.setOnClickListener(getController());
     }
 
     /**
