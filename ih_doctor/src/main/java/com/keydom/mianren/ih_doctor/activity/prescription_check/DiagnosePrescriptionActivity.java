@@ -380,6 +380,10 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
             }
         });
         //        setDrugFee();
+        //咨询单不显示复诊信息
+        if (inquiryBean != null && inquiryBean.getType() == 1) {
+            rediagnoseRl.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -390,8 +394,6 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
     /**
      * 获得病历模板bean
-     *
-     * @param event
      */
     @Subscribe
     public void getMedicalTemplate(Event event) {
@@ -404,8 +406,6 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
     /**
      * 获取处方bean
-     *
-     * @param event
      */
     @Subscribe
     public void getPrescriptionTemplate(Event event) {
@@ -445,8 +445,6 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
     /**
      * 获取处方药品
-     *
-     * @param event
      */
     @Subscribe
     public void getDrugList(Event event) {
@@ -518,16 +516,12 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
     @Override
     public boolean isSaveModel() {
-        if (savePrescriptionTemplate)
-            return true;
-        return false;
+        return savePrescriptionTemplate;
     }
 
 
     /**
      * 0  都不存   1 存为处方模版    2  存为病历模版   3两个都存
-     *
-     * @return
      */
     @Override
     public Map<String, Object> getSaveMap() {
