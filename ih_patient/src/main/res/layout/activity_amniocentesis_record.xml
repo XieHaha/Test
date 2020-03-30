@@ -49,14 +49,15 @@
                             android:layout_marginStart="@dimen/dp_14"
                             android:src="@mipmap/search" />
 
-                        <TextView
+                        <com.keydom.ih_common.view.InterceptorEditText
+                            android:id="@+id/amniocentesis_record_search_tv"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
                             android:gravity="center_vertical"
+                            android:hint="请输入身份证号码查询预约"
                             android:paddingStart="@dimen/dp_11"
                             android:paddingEnd="0dp"
-                            android:text="请输入身份证号码查询预约"
                             android:textSize="@dimen/sp_12" />
                     </LinearLayout>
                 </RelativeLayout>

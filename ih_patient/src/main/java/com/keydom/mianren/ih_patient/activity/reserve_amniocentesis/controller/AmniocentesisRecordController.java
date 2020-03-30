@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.AmniocentesisDetailActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisRecordView;
 import com.keydom.mianren.ih_patient.constant.TypeEnum;
@@ -22,7 +23,7 @@ public class AmniocentesisRecordController extends ControllerImpl<AmniocentesisR
     }
 
     private void cancelAmniocentesisReserve() {
-
+        ToastUtil.showMessage(mContext, "取消预约");
     }
 
     @Override

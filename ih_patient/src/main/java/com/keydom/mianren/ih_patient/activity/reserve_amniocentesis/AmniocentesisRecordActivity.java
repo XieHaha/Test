@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.RelativeLayout;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller.AmniocentesisRecordController;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisRecordView;
@@ -27,6 +30,8 @@ import butterknife.BindView;
 public class AmniocentesisRecordActivity extends BaseControllerActivity<AmniocentesisRecordController> implements AmniocentesisRecordView {
     @BindView(R.id.amniocentesis_record_search_layout)
     RelativeLayout amniocentesisRecordSearchLayout;
+    @BindView(R.id.amniocentesis_record_search_tv)
+    InterceptorEditText amniocentesisRecordSearchTv;
     @BindView(R.id.amniocentesis_record_recycler_view)
     RecyclerView amniocentesisRecordRecyclerView;
     @BindView(R.id.amniocentesis_record_refresh_layout)
@@ -67,8 +72,32 @@ public class AmniocentesisRecordActivity extends BaseControllerActivity<Amniocen
             getController().getAmniocentesisRecord(TypeEnum.REFRESH);
         });
 
+        amniocentesisRecordSearchTv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchOrder(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         pageLoading();
         getController().getAmniocentesisRecord(TypeEnum.REFRESH);
+    }
+
+    /**
+     * 搜索
+     */
+    private void searchOrder(String key) {
+
     }
 
     @Override
