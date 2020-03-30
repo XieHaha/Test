@@ -17,6 +17,16 @@ public interface AmniocentesisApplyView extends BaseView {
      */
     void onDateSelect(View view, Date date);
 
+    /**
+     * 获取验证码成功
+     */
+    void getMsgCodeSuccess();
+
+    /**
+     * 获取失败
+     */
+    void getMsgCodeFailed(String errMsg);
+
     String getPhone();
 
     AmniocentesisReserveBean getReserveBean();

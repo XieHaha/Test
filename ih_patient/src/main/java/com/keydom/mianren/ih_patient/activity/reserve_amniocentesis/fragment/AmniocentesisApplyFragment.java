@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.InterceptorEditText;
+import com.keydom.ih_common.view.MButton;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller.AmniocentesisApplyController;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisApplyView;
@@ -44,7 +46,7 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
     @BindView(R.id.amniocentesis_apply_phone_et)
     InterceptorEditText amniocentesisApplyPhoneEt;
     @BindView(R.id.amniocentesis_apply_get_verify_tv)
-    TextView amniocentesisApplyGetVerifyTv;
+    MButton amniocentesisApplyGetVerifyTv;
     @BindView(R.id.amniocentesis_apply_verify_code_et)
     InterceptorEditText amniocentesisApplyVerifyCodeEt;
     @BindView(R.id.amniocentesis_apply_last_menstruation_tv)
@@ -86,6 +88,14 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            bindData();
+        }
+    }
+
+    @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         amniocentesisApplySurgeryTimeLayout.setOnClickListener(getController());
         amniocentesisApplyBirthLayout.setOnClickListener(getController());
@@ -100,6 +110,13 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
         reasonAdapter.setOnItemClickListener(this);
         amniocentesisApplyRecyclerView.setNestedScrollingEnabled(false);
         amniocentesisApplyRecyclerView.setAdapter(reasonAdapter);
+    }
+
+    /**
+     * 数据处理
+     */
+    private void bindData() {
+
     }
 
     public void setReserveBean(AmniocentesisReserveBean reserveBean) {
@@ -132,8 +149,19 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
     }
 
     @Override
+    public void getMsgCodeSuccess() {
+        ToastUtil.showMessage(getContext(), "验证码已发送，请注意查看");
+        amniocentesisApplyGetVerifyTv.startTimer();
+    }
+
+    @Override
+    public void getMsgCodeFailed(String errMsg) {
+        ToastUtil.showMessage(getContext(), errMsg);
+    }
+
+    @Override
     public String getPhone() {
-        return amniocentesisApplyFamilyPhoneEt.getText().toString();
+        return amniocentesisApplyPhoneEt.getText().toString().trim();
     }
 
     @Override
