@@ -29,7 +29,6 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationReceiveActivity;
 import com.keydom.mianren.ih_doctor.bean.LoginBean;
 import com.keydom.mianren.ih_doctor.bean.UserInfo;
 import com.keydom.mianren.ih_doctor.net.LoginApiService;
@@ -105,11 +104,12 @@ public class WelcomeActivity extends AppCompatActivity {
                                     builder.setMessage("帐号错误，请检查后重试！");
                                     builder.setNegativeButton("确定",
                                             new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            goToRegisterAndLoginActivity();
-                                        }
-                                    });
+                                                @Override
+                                                public void onClick(DialogInterface dialog,
+                                                                    int which) {
+                                                    goToRegisterAndLoginActivity();
+                                                }
+                                            });
                                     builder.setCancelable(false);
                                     builder.create().show();
                                 } else {
@@ -139,11 +139,12 @@ public class WelcomeActivity extends AppCompatActivity {
                                         builder.setMessage("没有分配角色，请联系管理员分配角色后重新登录！");
                                         builder.setNegativeButton("确定",
                                                 new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                goToRegisterAndLoginActivity();
-                                            }
-                                        });
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog,
+                                                                        int which) {
+                                                        goToRegisterAndLoginActivity();
+                                                    }
+                                                });
                                         builder.setCancelable(false);
                                         builder.create().show();
                                         return;
@@ -160,11 +161,11 @@ public class WelcomeActivity extends AppCompatActivity {
                                 builder.setMessage("帐号错误，请检查后重试！");
                                 builder.setNegativeButton("确定",
                                         new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        goToRegisterAndLoginActivity();
-                                    }
-                                });
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                goToRegisterAndLoginActivity();
+                                            }
+                                        });
                                 builder.setCancelable(false);
                                 builder.create().show();
                                 return super.requestError(exception, code, msg);
@@ -198,8 +199,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * 跳转到登陆页面，并结束当前页面
      */
     private void goToRegisterAndLoginActivity() {
-        //        LoginActivity.start(this);
-        ConsultationReceiveActivity.start(this);
+        LoginActivity.start(this);
         finish();
     }
 
