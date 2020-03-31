@@ -54,7 +54,6 @@ public class AmniocentesisEvaluateFragment extends BaseControllerFragment<Amnioc
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
         amniocentesisEvaluateOneFetusLayout.setOnClickListener(getController());
         amniocentesisEvaluateTwoFetusLayout.setOnClickListener(getController());
         amniocentesisEvaluateMoreFetusLayout.setOnClickListener(getController());

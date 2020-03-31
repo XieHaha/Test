@@ -35,6 +35,7 @@ import com.keydom.mianren.ih_patient.activity.reserve_examination.ExaminationRes
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.ReserveObstetricHospitalActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.ReservePainlessDeliveryActivity;
 import com.keydom.mianren.ih_patient.bean.IndexFunction;
+import com.keydom.mianren.ih_patient.constant.AmniocentesisProtocol;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
@@ -163,7 +164,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             RehabilitationRecordActivity.start(context);
                             break;
                         case AmniocentesisApply:
-                            AmniocentesisReserveActivity.start(context);
+                            AmniocentesisReserveActivity.start(context, AmniocentesisProtocol.AMNIOCENTESIS_WEB_RESERVE);
                             break;
                         case PregnantWoman:
                             PregnantWomanActivity.start(context);

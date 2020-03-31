@@ -175,6 +175,9 @@
     <string name="txt_no">否</string>
     <string name="txt_have">有</string>
     <string name="txt_none">无</string>
+    <string name="txt_agree">同意</string>
+    <string name="txt_disagree">不同意</string>
+    <string name="txt_agree_protocol">是否同意以上协议内容</string>
 
     <!--在线问诊-->
     <string name="txt_insurance_clause_description">已为您购买医疗责任险，最高赔付20万元。《保险条款》</string>
@@ -357,6 +360,7 @@
     <string name="txt_amniotic_cavity_reserve">羊膜腔穿刺预约</string>
     <string name="txt_amniocentesis_reserve_apply">羊膜腔穿刺手术网上预约申请单</string>
     <string name="txt_amniocentesis_reserve_result">羊膜腔穿刺手术网上预约成功</string>
+    <string name="txt_amniocentesis_web_hint">绵阳市人民医院\n羊膜腔穿刺门诊及手术网上预约协议</string>
     <string name="txt_reserve_success">恭喜您预约成功</string>
     <string name="txt_amniocentesis_reason_colon">羊膜腔穿刺原因:</string>
     <string name="txt_amniocentesis_surgery_time_colon">羊水穿刺手术时间:</string>

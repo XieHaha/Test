@@ -6,18 +6,18 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
-import android.view.View;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
-import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller.AmniocentesisReserveController;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.fragment.AmniocentesisApplyFragment;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.fragment.AmniocentesisEvaluateFragment;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.fragment.AmniocentesisResultFragment;
+import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.fragment.AmniocentesisWebFragment;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisReserveView;
 import com.keydom.mianren.ih_patient.bean.AmniocentesisReserveBean;
 import com.keydom.mianren.ih_patient.bean.Event;
+import com.keydom.mianren.ih_patient.constant.AmniocentesisProtocol;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -29,20 +29,25 @@ import org.jetbrains.annotations.Nullable;
  * @des 羊水穿刺预约
  */
 public class AmniocentesisReserveActivity extends BaseControllerActivity<AmniocentesisReserveController> implements AmniocentesisReserveView {
-
+    public static final String PROTOCOL_TYPE = "protocol_type";
     private FragmentManager manager;
     private FragmentTransaction transaction;
+    private AmniocentesisWebFragment webFragment;
     private AmniocentesisApplyFragment authFragment;
     private AmniocentesisEvaluateFragment evaluateFragment;
     private AmniocentesisResultFragment resultFragment;
 
     private AmniocentesisReserveBean reserveBean;
 
+    private AmniocentesisProtocol protocol;
+
     /**
      * 启动
      */
-    public static void start(Context context) {
-        context.startActivity(new Intent(context, AmniocentesisReserveActivity.class));
+    public static void start(Context context, AmniocentesisProtocol protocol) {
+        Intent intent = new Intent(context, AmniocentesisReserveActivity.class);
+        intent.putExtra(PROTOCOL_TYPE, protocol);
+        context.startActivity(intent);
     }
 
     @Override
@@ -53,28 +58,35 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
+
+        if (getIntent() != null) {
+            protocol = (AmniocentesisProtocol) getIntent().getSerializableExtra(PROTOCOL_TYPE);
+        }
+
         setTitle(getString(R.string.txt_amniocentesis_reserve));
         setRightTxt(getString(R.string.txt_inquire_and_cancel_reserve));
         setRightColor(R.color.edit_text_color);
         getTitleLayout().setOnRightTextClickListener(getController());
 
-        setLeftBtnListener(new IhTitleLayout.OnLeftButtonClickListener() {
-            @Override
-            public void onLeftButtonClick(View v) {
-                if (finishPage()) {
-                    finish();
-                }
+        setLeftBtnListener(v -> {
+            if (finishPage()) {
+                finish();
             }
         });
-
         manager = getSupportFragmentManager();
-        tabApplyView();
+        tabWebView();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStepConfirm(Event event) {
         reserveBean = (AmniocentesisReserveBean) event.getData();
         switch (event.getType()) {
+            case AMNIOCENTESIS_WEB_PROTOCOL:
+                break;
+            case AMNIOCENTESIS_WEB_AGREE:
+                break;
+            case AMNIOCENTESIS_WEB_NOTICE:
+                break;
             case AMNIOCENTESIS_APPLY:
                 tabEvaluateView();
                 break;
@@ -84,6 +96,21 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
             case AMNIOCENTESIS_RESULT:
                 break;
         }
+    }
+
+    private void tabWebView() {
+        curPage = 0;
+        transaction = manager.beginTransaction();
+        hideAll(transaction);
+        if (webFragment == null) {
+            webFragment = new AmniocentesisWebFragment();
+            webFragment.setProtocol(protocol);
+            transaction.add(R.id.layout_frame_root, webFragment);
+        } else {
+            transaction.show(webFragment);
+            webFragment.onResume();
+        }
+        transaction.commitAllowingStateLoss();
     }
 
     private void tabApplyView() {
@@ -140,6 +167,9 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
         if (resultFragment != null) {
             transaction.hide(resultFragment);
         }
+        if (webFragment != null) {
+            transaction.hide(webFragment);
+        }
     }
 
 
@@ -155,7 +185,7 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
             return false;
         } else if (curPage == 1) {
             curPage = 0;
-            tabApplyView();
+            tabWebView();
             return false;
         }
         return true;
