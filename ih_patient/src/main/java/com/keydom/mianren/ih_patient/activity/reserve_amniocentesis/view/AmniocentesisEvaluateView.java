@@ -13,29 +13,45 @@ public interface AmniocentesisEvaluateView extends BaseView {
      */
     void onFetusSelect(int index);
 
+    int getFetusSelect();
+
     /**
      * HIV抗体
      */
     void onHivSelect(int index);
+
+    String getHivSelect();
 
     /**
      * rh血型
      */
     void onBloodSelect(int index);
 
+    String getBloodSelect();
+
     /**
      * 羊穿原因超声异常
      */
     void onUltrasoundSelect(int index);
+
+    int getUltrasoundSelect();
 
     /**
      * 高血压
      */
     void onHypertensionSelect(int index);
 
+    int getHypertensionSelect();
+
     /**
      * 糖尿病
      */
     void onDiabetesSelect(int index);
+
+    int getDiabetesSelect();
+
+    boolean isSelect();
+
+    void onAmniocentesisEvaluateSuccess();
 
 }

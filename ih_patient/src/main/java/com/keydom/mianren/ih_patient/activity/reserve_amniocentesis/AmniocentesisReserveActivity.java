@@ -79,56 +79,54 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStepConfirm(Event event) {
-        reserveBean = (AmniocentesisReserveBean) event.getData();
         switch (event.getType()) {
             case AMNIOCENTESIS_WEB_PROTOCOL:
-                break;
-            case AMNIOCENTESIS_WEB_AGREE:
-                break;
-            case AMNIOCENTESIS_WEB_NOTICE:
-                break;
-            case AMNIOCENTESIS_APPLY:
-                tabEvaluateView();
+                curPage = 0;
                 break;
             case AMNIOCENTESIS_EVALUATE:
-                tabResultView();
+                curPage = 1;
+                tabEvaluateView();
+                break;
+            case AMNIOCENTESIS_WEB_AGREE:
+                curPage = 2;
+                protocol = AmniocentesisProtocol.AMNIOCENTESIS_AGREE_PROTOCOL;
+                tabWebView();
+                break;
+            case AMNIOCENTESIS_APPLY:
+                curPage = 3;
+                tabApplyView();
+                break;
+            case AMNIOCENTESIS_WEB_NOTICE:
+                reserveBean = (AmniocentesisReserveBean) event.getData();
+                curPage = 4;
+                protocol = AmniocentesisProtocol.AMNIOCENTESIS_NOTICE;
+                tabWebView();
                 break;
             case AMNIOCENTESIS_RESULT:
+                curPage = 5;
+                tabResultView();
                 break;
         }
     }
 
     private void tabWebView() {
-        curPage = 0;
         transaction = manager.beginTransaction();
         hideAll(transaction);
         if (webFragment == null) {
             webFragment = new AmniocentesisWebFragment();
             webFragment.setProtocol(protocol);
+            webFragment.setReserveBean(reserveBean);
             transaction.add(R.id.layout_frame_root, webFragment);
         } else {
             transaction.show(webFragment);
+            webFragment.setProtocol(protocol);
+            webFragment.setReserveBean(reserveBean);
             webFragment.onResume();
         }
         transaction.commitAllowingStateLoss();
     }
 
-    private void tabApplyView() {
-        curPage = 0;
-        transaction = manager.beginTransaction();
-        hideAll(transaction);
-        if (authFragment == null) {
-            authFragment = new AmniocentesisApplyFragment();
-            transaction.add(R.id.layout_frame_root, authFragment);
-        } else {
-            transaction.show(authFragment);
-            authFragment.onResume();
-        }
-        transaction.commitAllowingStateLoss();
-    }
-
     private void tabEvaluateView() {
-        curPage = 1;
         transaction = manager.beginTransaction();
         hideAll(transaction);
         if (evaluateFragment == null) {
@@ -141,8 +139,20 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
         transaction.commitAllowingStateLoss();
     }
 
+    private void tabApplyView() {
+        transaction = manager.beginTransaction();
+        hideAll(transaction);
+        if (authFragment == null) {
+            authFragment = new AmniocentesisApplyFragment();
+            transaction.add(R.id.layout_frame_root, authFragment);
+        } else {
+            transaction.show(authFragment);
+            authFragment.onResume();
+        }
+        transaction.commitAllowingStateLoss();
+    }
+
     private void tabResultView() {
-        curPage = 2;
         transaction = manager.beginTransaction();
         hideAll(transaction);
         if (resultFragment == null) {

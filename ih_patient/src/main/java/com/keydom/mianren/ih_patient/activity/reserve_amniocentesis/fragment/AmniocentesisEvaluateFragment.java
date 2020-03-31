@@ -1,14 +1,19 @@
 package com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller.AmniocentesisEvaluateController;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisEvaluateView;
+import com.keydom.mianren.ih_patient.bean.Event;
+import com.keydom.mianren.ih_patient.constant.EventType;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
 
 import butterknife.BindView;
@@ -47,6 +52,11 @@ public class AmniocentesisEvaluateFragment extends BaseControllerFragment<Amnioc
     @BindView(R.id.amniocentesis_evaluate_next_tv)
     TextView amniocentesisEvaluateNextTv;
 
+
+    private String isOperateBlood, isOperateHiv;
+    private int isOperateFetus = -1, isOperateUltrasound = -1, isOperateHypertension = -1,
+            isOperateDiabetes = -1;
+
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_amniocentesis_evaluate;
@@ -72,6 +82,7 @@ public class AmniocentesisEvaluateFragment extends BaseControllerFragment<Amnioc
 
     @Override
     public void onFetusSelect(int index) {
+        isOperateFetus = index;
         switch (index) {
             case 1:
                 amniocentesisEvaluateOneFetusLayout.setSelected(true);
@@ -93,10 +104,12 @@ public class AmniocentesisEvaluateFragment extends BaseControllerFragment<Amnioc
 
     @Override
     public void onHivSelect(int index) {
-        if (index == 1) {
+        if (index == 0) {
+            isOperateHiv = getString(R.string.txt_negative);
             amniocentesisEvaluateHivNegativeLayout.setSelected(true);
             amniocentesisEvaluateHivPositiveLayout.setSelected(false);
         } else {
+            isOperateHiv = getString(R.string.txt_positive);
             amniocentesisEvaluateHivNegativeLayout.setSelected(false);
             amniocentesisEvaluateHivPositiveLayout.setSelected(true);
         }
@@ -104,10 +117,12 @@ public class AmniocentesisEvaluateFragment extends BaseControllerFragment<Amnioc
 
     @Override
     public void onBloodSelect(int index) {
-        if (index == 1) {
+        if (index == 0) {
+            isOperateBlood = getString(R.string.txt_negative);
             amniocentesisEvaluateBloodNegativeLayout.setSelected(true);
             amniocentesisEvaluateBloodPositiveLayout.setSelected(false);
         } else {
+            isOperateBlood = getString(R.string.txt_positive);
             amniocentesisEvaluateBloodNegativeLayout.setSelected(false);
             amniocentesisEvaluateBloodPositiveLayout.setSelected(true);
         }
@@ -115,10 +130,12 @@ public class AmniocentesisEvaluateFragment extends BaseControllerFragment<Amnioc
 
     @Override
     public void onUltrasoundSelect(int index) {
-        if (index == 1) {
+        if (index == 0) {
+            isOperateUltrasound = 1;
             amniocentesisEvaluateUltrasoundYesLayout.setSelected(true);
             amniocentesisEvaluateUltrasoundNoLayout.setSelected(false);
         } else {
+            isOperateUltrasound = 0;
             amniocentesisEvaluateUltrasoundYesLayout.setSelected(false);
             amniocentesisEvaluateUltrasoundNoLayout.setSelected(true);
         }
@@ -126,10 +143,12 @@ public class AmniocentesisEvaluateFragment extends BaseControllerFragment<Amnioc
 
     @Override
     public void onHypertensionSelect(int index) {
-        if (index == 1) {
+        if (index == 0) {
+            isOperateHypertension = 1;
             amniocentesisEvaluateHypertensionHaveLayout.setSelected(true);
             amniocentesisEvaluateHypertensionNoneLayout.setSelected(false);
         } else {
+            isOperateHypertension = 0;
             amniocentesisEvaluateHypertensionHaveLayout.setSelected(false);
             amniocentesisEvaluateHypertensionNoneLayout.setSelected(true);
         }
@@ -137,12 +156,60 @@ public class AmniocentesisEvaluateFragment extends BaseControllerFragment<Amnioc
 
     @Override
     public void onDiabetesSelect(int index) {
-        if (index == 1) {
+        if (index == 0) {
+            isOperateDiabetes = 1;
             amniocentesisEvaluateDiabetesHaveLayout.setSelected(true);
             amniocentesisEvaluateDiabetesNoneLayout.setSelected(false);
         } else {
+            isOperateDiabetes = 0;
             amniocentesisEvaluateDiabetesHaveLayout.setSelected(false);
             amniocentesisEvaluateDiabetesNoneLayout.setSelected(true);
         }
+    }
+
+    @Override
+    public int getFetusSelect() {
+        return isOperateFetus;
+    }
+
+    @Override
+    public String getHivSelect() {
+        return isOperateHiv;
+    }
+
+    @Override
+    public String getBloodSelect() {
+        return isOperateBlood;
+    }
+
+    @Override
+    public int getUltrasoundSelect() {
+        return isOperateUltrasound;
+    }
+
+    @Override
+    public int getHypertensionSelect() {
+        return isOperateHypertension;
+    }
+
+    @Override
+    public int getDiabetesSelect() {
+        return isOperateDiabetes;
+    }
+
+    @Override
+    public void onAmniocentesisEvaluateSuccess() {
+        ToastUtil.showMessage(getContext(), "提交成功");
+        EventBus.getDefault().post(new Event(EventType.AMNIOCENTESIS_WEB_AGREE, null));
+    }
+
+    @Override
+    public boolean isSelect() {
+        return isOperateFetus != -1
+                && !TextUtils.isEmpty(isOperateHiv)
+                && !TextUtils.isEmpty(isOperateBlood)
+                && isOperateUltrasound != -1
+                && isOperateHypertension != -1
+                && isOperateDiabetes != -1;
     }
 }

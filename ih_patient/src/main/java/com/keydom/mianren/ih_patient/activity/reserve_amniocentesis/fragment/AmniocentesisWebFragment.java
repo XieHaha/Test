@@ -1,5 +1,6 @@
 package com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller.AmniocentesisWebController;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisWebView;
+import com.keydom.mianren.ih_patient.bean.AmniocentesisReserveBean;
 import com.keydom.mianren.ih_patient.constant.AmniocentesisProtocol;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
@@ -35,10 +37,18 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
     LinearLayout amniocentesisWebDisagreeLayout;
     @BindView(R.id.amniocentesis_web_protocol_layout)
     LinearLayout amniocentesisWebProtocolLayout;
+    @BindView(R.id.amniocentesis_web_agree_protocol_layout)
+    LinearLayout amniocentesisWebAgreeProtocolLayout;
     @BindView(R.id.amniocentesis_web_bottom_layout)
     LinearLayout amniocentesisWebBottomLayout;
+    @BindView(R.id.amniocentesis_web_notice_protocol_layout)
+    LinearLayout amniocentesisWebNoticeProtocolLayout;
+    @BindView(R.id.amniocentesis_web_agree_protocol_layout1)
+    LinearLayout amniocentesisWebAgreeProtocolLayout1;
+    @BindView(R.id.amniocentesis_web_notice_layout)
+    LinearLayout amniocentesisWebNoticeLayout;
 
-
+    private AmniocentesisReserveBean reserveBean;
     private AmniocentesisProtocol protocol;
 
     @Override
@@ -47,10 +57,22 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            initPage();
+            amniocentesisWebView.loadUrl(protocol.getUrl());
+        }
+    }
+
+    @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         amniocentesisWebNextTv.setOnClickListener(getController());
         amniocentesisWebAgreeLayout.setOnClickListener(getController());
         amniocentesisWebDisagreeLayout.setOnClickListener(getController());
+        amniocentesisWebAgreeProtocolLayout.setOnClickListener(getController());
+        amniocentesisWebAgreeProtocolLayout1.setOnClickListener(getController());
+        amniocentesisWebNoticeLayout.setOnClickListener(getController());
         initPage();
 
         initWebViewSetting();
@@ -60,22 +82,33 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
         this.protocol = protocol;
     }
 
+    public void setReserveBean(AmniocentesisReserveBean reserveBean) {
+        this.reserveBean = reserveBean;
+    }
+
     private void initPage() {
         switch (protocol) {
             case AMNIOCENTESIS_WEB_RESERVE:
                 amniocentesisWebProtocolLayout.setVisibility(View.VISIBLE);
+                amniocentesisWebAgreeProtocolLayout.setVisibility(View.GONE);
+                amniocentesisWebNoticeProtocolLayout.setVisibility(View.GONE);
                 break;
             case AMNIOCENTESIS_AGREE_PROTOCOL:
                 amniocentesisWebProtocolLayout.setVisibility(View.GONE);
+                amniocentesisWebAgreeProtocolLayout.setVisibility(View.VISIBLE);
+                amniocentesisWebNoticeProtocolLayout.setVisibility(View.GONE);
                 break;
             case AMNIOCENTESIS_NOTICE:
                 amniocentesisWebProtocolLayout.setVisibility(View.GONE);
+                amniocentesisWebAgreeProtocolLayout.setVisibility(View.GONE);
+                amniocentesisWebNoticeProtocolLayout.setVisibility(View.VISIBLE);
                 break;
             default:
                 break;
         }
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void initWebViewSetting() {
         //指定的垂直滚动条有叠加样式
         amniocentesisWebView.setVerticalScrollbarOverlay(true);
@@ -121,13 +154,42 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
     }
 
     @Override
-    public void onProtocolSelect(boolean agree) {
+    public AmniocentesisReserveBean getReserveBean() {
+        return reserveBean;
+    }
+
+    @Override
+    public void onReserveProtocolSelect(boolean agree) {
         amniocentesisWebAgreeLayout.setSelected(agree);
         amniocentesisWebDisagreeLayout.setSelected(!agree);
     }
 
     @Override
-    public boolean isSelectProtocol() {
+    public boolean isSelectReserveProtocol() {
         return amniocentesisWebAgreeLayout.isSelected();
+    }
+
+    @Override
+    public void onAgreeProtocolSelect() {
+        amniocentesisWebAgreeProtocolLayout.setSelected(!amniocentesisWebAgreeProtocolLayout.isSelected());
+    }
+
+    @Override
+    public boolean isSelectAgreeProtocol() {
+        return amniocentesisWebAgreeProtocolLayout.isSelected();
+    }
+
+    @Override
+    public void onNoticeProtocolSelect(int type) {
+        if (type == 1) {
+            amniocentesisWebAgreeProtocolLayout1.setSelected(amniocentesisWebAgreeProtocolLayout1.isSelected());
+        } else {
+            amniocentesisWebNoticeLayout.setSelected(amniocentesisWebNoticeLayout.isSelected());
+        }
+    }
+
+    @Override
+    public boolean isSelectNoticeProtocol() {
+        return amniocentesisWebAgreeProtocolLayout1.isSelected() && amniocentesisWebNoticeLayout.isSelected();
     }
 }

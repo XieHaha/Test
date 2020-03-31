@@ -2,16 +2,28 @@ package com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller;
 
 import android.view.View;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.net.ApiRequest;
+import com.keydom.ih_common.net.exception.ApiException;
+import com.keydom.ih_common.net.service.HttpService;
+import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.AmniocentesisRecordActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisWebView;
+import com.keydom.mianren.ih_patient.bean.AmniocentesisReserveBean;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.constant.EventType;
+import com.keydom.mianren.ih_patient.net.AmniocentesisService;
 
 import org.greenrobot.eventbus.EventBus;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @date 20/3/11 14:26
@@ -28,30 +40,84 @@ public class AmniocentesisWebController extends ControllerImpl<AmniocentesisWebV
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.amniocentesis_web_agree_layout:
-                getView().onProtocolSelect(true);
+                getView().onReserveProtocolSelect(true);
                 break;
             case R.id.amniocentesis_web_disagree_layout:
-                getView().onProtocolSelect(false);
+                getView().onReserveProtocolSelect(false);
                 break;
             case R.id.amniocentesis_web_next_tv:
-                if (!getView().isSelectProtocol()) {
-                    ToastUtil.showMessage(mContext, "请同意以上协议内容");
-                    return;
-                }
                 switch (getView().getProtocol()) {
                     case AMNIOCENTESIS_WEB_RESERVE:
-                        EventBus.getDefault().post(new Event(EventType.AMNIOCENTESIS_APPLY, null));
+                        if (!getView().isSelectReserveProtocol()) {
+                            ToastUtil.showMessage(mContext, "请同意以上协议内容");
+                            return;
+                        }
+                        EventBus.getDefault().post(new Event(EventType.AMNIOCENTESIS_EVALUATE,
+                                null));
                         break;
                     case AMNIOCENTESIS_AGREE_PROTOCOL:
+                        if (!getView().isSelectAgreeProtocol()) {
+                            ToastUtil.showMessage(mContext, "请同意以上协议内容");
+                            return;
+                        }
+                        EventBus.getDefault().post(new Event(EventType.AMNIOCENTESIS_APPLY, null));
                         break;
                     case AMNIOCENTESIS_NOTICE:
+                        if (!getView().isSelectNoticeProtocol()) {
+                            ToastUtil.showMessage(mContext, "请同意以上协议内容");
+                            return;
+                        }
+                        amniocentesisApply();
                         break;
                     default:
                         break;
                 }
                 break;
+            case R.id.amniocentesis_web_agree_protocol_layout:
+                getView().onAgreeProtocolSelect();
+                break;
+            case R.id.amniocentesis_web_agree_protocol_layout1:
+                getView().onNoticeProtocolSelect(1);
+                break;
+            case R.id.amniocentesis_web_notice_layout:
+                getView().onNoticeProtocolSelect(2);
+                break;
             default:
                 break;
         }
+    }
+
+    /**
+     * 羊水穿刺预约
+     */
+    private void amniocentesisApply() {
+        AmniocentesisReserveBean bean = getView().getReserveBean();
+        Map<String, Object> map = new HashMap<>();
+        map.put("birthday", bean.getBirthday());
+        map.put("endMensesTime", bean.getEndMensesTime());
+        map.put("expectedBirthTime", bean.getExpectedBirthTime());
+        map.put("familyMemberName", bean.getFamilyMemberName());
+        map.put("familyMemberPhone", bean.getFamilyMemberPhone());
+        map.put("idCard", bean.getIdCard());
+        map.put("name", bean.getName());
+        map.put("reason", bean.getReason());
+        map.put("referralHospital", bean.getReferralHospital());
+        map.put("surgeryTime", bean.getSurgeryTime());
+        map.put("telephone", bean.getTelephone());
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(AmniocentesisService.class)
+                        .amniocentesisApply(HttpService.INSTANCE.object2Body(map)),
+                new HttpSubscriber<String>(getContext(), getDisposable(), true, false) {
+                    @Override
+                    public void requestComplete(@Nullable String data) {
+                        EventBus.getDefault().post(new Event(EventType.AMNIOCENTESIS_RESULT, null));
+                    }
+
+                    @Override
+                    public boolean requestError(@NotNull ApiException exception, int code,
+                                                @NotNull String msg) {
+                        ToastUtils.showShort(msg);
+                        return super.requestError(exception, code, msg);
+                    }
+                });
     }
 }

@@ -88,14 +88,6 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) {
-            bindData();
-        }
-    }
-
-    @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         amniocentesisApplySurgeryTimeLayout.setOnClickListener(getController());
         amniocentesisApplyBirthLayout.setOnClickListener(getController());
@@ -110,17 +102,6 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
         reasonAdapter.setOnItemClickListener(this);
         amniocentesisApplyRecyclerView.setNestedScrollingEnabled(false);
         amniocentesisApplyRecyclerView.setAdapter(reasonAdapter);
-    }
-
-    /**
-     * 数据处理
-     */
-    private void bindData() {
-
-    }
-
-    public void setReserveBean(AmniocentesisReserveBean reserveBean) {
-        this.reserveBean = reserveBean;
     }
 
     @Override

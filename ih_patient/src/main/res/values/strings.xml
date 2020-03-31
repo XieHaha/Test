@@ -409,6 +409,8 @@
     <string name="txt_amniocentesis_reserve_informed_url">知情同意书：http://w.url.cn/s/AAKLH5L</string>
     <string name="txt_amniocentesis_reserve_surgery_note">请务必点击下方链接仔细阅读手术前注意事项，并按要求做好准备带齐相关资料，否则将导致无法手术，后果自负。</string>
     <string name="txt_amniocentesis_reserve_surgery_url">术前注意事项：http://t.cn/R6KZN83</string>
+    <string name="txt_amniocentesis_reserve_agree_protocol">我已阅读《羊膜腔穿刺术知情同意书》，了解羊膜腔穿刺术相关风险，要求继续预约羊膜腔穿刺术。</string>
+    <string name="txt_amniocentesis_reserve_notice_protocol">我已阅读《术前注意事项》，知晓术前需要准备资料等事宜。</string>
     <string name="txt_apply_name">申请人</string>
     <string name="txt_apply_time">申请时间</string>
     <string name="txt_reserve_type">预约类型</string>
