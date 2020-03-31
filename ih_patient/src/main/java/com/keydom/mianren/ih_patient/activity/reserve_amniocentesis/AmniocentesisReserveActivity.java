@@ -189,12 +189,18 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
      * 页面逻辑处理
      */
     private boolean finishPage() {
-        if (curPage == 2) {
-            curPage = 1;
-            tabEvaluateView();
+        if (curPage == 4) {
+            curPage = 3;
+            tabApplyView();
+            return false;
+        } else if (curPage == 3) {
+            curPage = 2;
+            protocol = AmniocentesisProtocol.AMNIOCENTESIS_AGREE_PROTOCOL;
+            tabWebView();
             return false;
         } else if (curPage == 1) {
             curPage = 0;
+            protocol = AmniocentesisProtocol.AMNIOCENTESIS_WEB_RESERVE;
             tabWebView();
             return false;
         }

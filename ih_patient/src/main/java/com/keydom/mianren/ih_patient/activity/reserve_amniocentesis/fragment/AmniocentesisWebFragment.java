@@ -182,9 +182,9 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
     @Override
     public void onNoticeProtocolSelect(int type) {
         if (type == 1) {
-            amniocentesisWebAgreeProtocolLayout1.setSelected(amniocentesisWebAgreeProtocolLayout1.isSelected());
+            amniocentesisWebAgreeProtocolLayout1.setSelected(!amniocentesisWebAgreeProtocolLayout1.isSelected());
         } else {
-            amniocentesisWebNoticeLayout.setSelected(amniocentesisWebNoticeLayout.isSelected());
+            amniocentesisWebNoticeLayout.setSelected(!amniocentesisWebNoticeLayout.isSelected());
         }
     }
 
