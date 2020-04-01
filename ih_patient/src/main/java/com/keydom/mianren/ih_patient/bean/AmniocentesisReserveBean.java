@@ -14,6 +14,7 @@ public class AmniocentesisReserveBean implements Serializable {
     private String expectedBirthTime;
     private String familyMemberName;
     private String familyMemberPhone;
+    private String familyAddress;
     private String idCard;
     private String name;
     private String reason;
@@ -107,5 +108,13 @@ public class AmniocentesisReserveBean implements Serializable {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public String getFamilyAddress() {
+        return familyAddress;
+    }
+
+    public void setFamilyAddress(String familyAddress) {
+        this.familyAddress = familyAddress;
     }
 }

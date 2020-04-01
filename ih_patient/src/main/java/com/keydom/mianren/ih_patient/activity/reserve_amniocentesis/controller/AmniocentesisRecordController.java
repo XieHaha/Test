@@ -1,13 +1,29 @@
 package com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller;
 
+import android.text.TextUtils;
 import android.view.View;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.ControllerImpl;
-import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_common.bean.PageBean;
+import com.keydom.ih_common.net.ApiRequest;
+import com.keydom.ih_common.net.exception.ApiException;
+import com.keydom.ih_common.net.service.HttpService;
+import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.AmniocentesisDetailActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisRecordView;
+import com.keydom.mianren.ih_patient.bean.AmniocentesisBean;
+import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.constant.TypeEnum;
+import com.keydom.mianren.ih_patient.net.AmniocentesisService;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @date 20/3/11 14:26
@@ -18,21 +34,66 @@ public class AmniocentesisRecordController extends ControllerImpl<AmniocentesisR
     /**
      * 获取穿刺预约记录
      */
-    public void getAmniocentesisRecord(TypeEnum typeEnum) {
-        getView().onAmniocentesisRecordSuccess();
+    public void getAmniocentesisRecord(String idCard, TypeEnum typeEnum) {
+        if (typeEnum == TypeEnum.REFRESH) {
+            setCurrentPage(1);
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("currentPage", getCurrentPage());
+        map.put("pageSize", Const.PAGE_SIZE);
+        if (!TextUtils.isEmpty(idCard)) {
+            map.put("idCard", idCard);
+        }
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(AmniocentesisService.class)
+                        .getAmniocentesisList(HttpService.INSTANCE.object2Body(map)),
+                new HttpSubscriber<PageBean<AmniocentesisBean>>(getContext(), getDisposable(),
+                        true, false) {
+                    @Override
+                    public void requestComplete(@Nullable PageBean<AmniocentesisBean> data) {
+                        getView().onAmniocentesisRecordSuccess(typeEnum, data.getRecords());
+                    }
+
+                    @Override
+                    public boolean requestError(@NotNull ApiException exception, int code,
+                                                @NotNull String msg) {
+                        ToastUtils.showShort(msg);
+                        return super.requestError(exception, code, msg);
+                    }
+                });
+
     }
 
-    private void cancelAmniocentesisReserve() {
-        ToastUtil.showMessage(mContext, "取消预约");
+    private void cancelAmniocentesisReserve(int id, int position) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(AmniocentesisService.class)
+                        .cancelAmniocentesis(id),
+                new HttpSubscriber<PageBean<AmniocentesisBean>>(getContext(), getDisposable(),
+                        true, false) {
+                    @Override
+                    public void requestComplete(@Nullable PageBean<AmniocentesisBean> data) {
+                        getView().onAmniocentesisCancelSuccess(position);
+                    }
+
+                    @Override
+                    public boolean requestError(@NotNull ApiException exception, int code,
+                                                @NotNull String msg) {
+                        ToastUtils.showShort(msg);
+                        return super.requestError(exception, code, msg);
+                    }
+                });
+
     }
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        AmniocentesisDetailActivity.start(getContext());
+        AmniocentesisBean bean = (AmniocentesisBean) adapter.getItem(position);
+        AmniocentesisDetailActivity.start(getContext(), bean.getId());
     }
 
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-        cancelAmniocentesisReserve();
+        new GeneralDialog(mContext, "确认取消预约？", () -> {
+            AmniocentesisBean bean = (AmniocentesisBean) adapter.getItem(position);
+            cancelAmniocentesisReserve(bean.getId(), position);
+        }).setTitle("提示").setPositiveButton("确认").show();
     }
 }

@@ -2,6 +2,7 @@ package com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -107,6 +108,49 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
     @Override
     public AmniocentesisReserveBean getReserveBean() {
         return reserveBean;
+    }
+
+    @Override
+    public boolean reserveInfoComplete() {
+        String surgeryTime = amniocentesisApplySurgeryTimeTv.getText().toString();
+        String name = amniocentesisApplyNameEt.getText().toString();
+        String idCard = amniocentesisApplyIdCardEt.getText().toString().trim();
+        String birthday = amniocentesisApplyBirthTv.getText().toString().trim();
+        String telephone = amniocentesisApplyPhoneEt.getText().toString().trim();
+        String lastDate = amniocentesisApplyLastMenstruationTv.getText().toString().trim();
+        String dueDate = amniocentesisApplyDueDateTv.getText().toString().trim();
+        String familyName = amniocentesisApplyFamilyNameEt.getText().toString().trim();
+        String familyPhone = amniocentesisApplyFamilyPhoneEt.getText().toString().trim();
+        String familyAddress = amniocentesisApplyFamilyAddressEt.getText().toString().trim();
+        String hospital = amniocentesisApplyTransferHospitalEt.getText().toString().trim();
+
+        if (TextUtils.isEmpty(surgeryTime) || TextUtils.isEmpty(name)
+                || TextUtils.isEmpty(idCard) || TextUtils.isEmpty(birthday)
+                || TextUtils.isEmpty(telephone) || TextUtils.isEmpty(lastDate)
+                || TextUtils.isEmpty(dueDate) || TextUtils.isEmpty(familyName)
+                || TextUtils.isEmpty(familyPhone) || TextUtils.isEmpty(familyAddress)
+                || TextUtils.isEmpty(curSelectReason)) {
+            ToastUtil.showMessage(getContext(), "请完善羊膜腔穿刺手术网上预约申请单");
+            return false;
+        }
+
+        if (reserveBean == null) {
+            reserveBean = new AmniocentesisReserveBean();
+        }
+        reserveBean.setSurgeryTime(surgeryTime);
+        reserveBean.setBirthday(birthday);
+        reserveBean.setIdCard(idCard);
+        reserveBean.setName(name);
+        reserveBean.setTelephone(telephone);
+        reserveBean.setExpectedBirthTime(dueDate);
+        reserveBean.setEndMensesTime(lastDate);
+        reserveBean.setFamilyMemberName(familyName);
+        reserveBean.setFamilyMemberPhone(familyPhone);
+        reserveBean.setFamilyAddress(familyAddress);
+        reserveBean.setReferralHospital(hospital);
+        //羊水穿刺原因
+        reserveBean.setReason(curSelectReason);
+        return true;
     }
 
     @Override

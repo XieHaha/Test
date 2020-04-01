@@ -39,8 +39,6 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
     LinearLayout amniocentesisWebProtocolLayout;
     @BindView(R.id.amniocentesis_web_agree_protocol_layout)
     LinearLayout amniocentesisWebAgreeProtocolLayout;
-    @BindView(R.id.amniocentesis_web_bottom_layout)
-    LinearLayout amniocentesisWebBottomLayout;
     @BindView(R.id.amniocentesis_web_notice_protocol_layout)
     LinearLayout amniocentesisWebNoticeProtocolLayout;
     @BindView(R.id.amniocentesis_web_agree_protocol_layout1)

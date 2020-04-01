@@ -14,7 +14,6 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.PhoneUtils;
 import com.keydom.ih_common.utils.ToastUtil;
-import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisApplyView;
 import com.keydom.mianren.ih_patient.bean.Event;
@@ -29,11 +28,7 @@ import org.jetbrains.annotations.Nullable;
  * @date 20/3/9 16:09
  * @des 羊水穿刺预约申请
  */
-public class AmniocentesisApplyController extends ControllerImpl<AmniocentesisApplyView> implements IhTitleLayout.OnRightTextClickListener, View.OnClickListener {
-    @Override
-    public void OnRightTextClick(View v) {
-
-    }
+public class AmniocentesisApplyController extends ControllerImpl<AmniocentesisApplyView> implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
@@ -56,8 +51,10 @@ public class AmniocentesisApplyController extends ControllerImpl<AmniocentesisAp
                 }
                 break;
             case R.id.amniocentesis_apply_next_tv:
-                EventBus.getDefault().post(new Event(EventType.AMNIOCENTESIS_WEB_NOTICE,
-                        getView().getReserveBean()));
+                if (getView().reserveInfoComplete()) {
+                    EventBus.getDefault().post(new Event(EventType.AMNIOCENTESIS_WEB_NOTICE,
+                            getView().getReserveBean()));
+                }
                 break;
             default:
                 break;

@@ -58,8 +58,14 @@ public class AmniocentesisDetailActivity extends BaseControllerActivity<Amniocen
     @BindView(R.id.amniocentesis_detail_next_tv)
     TextView amniocentesisDetailNextTv;
 
-    public static void start(Context context) {
-        context.startActivity(new Intent(context, AmniocentesisDetailActivity.class));
+    private int amniocentesisId;
+
+    public static final String AMNIOCENTESIS_ID = "amniocentesis_id";
+
+    public static void start(Context context, int id) {
+        Intent intent = new Intent(context, AmniocentesisDetailActivity.class);
+        intent.putExtra(AMNIOCENTESIS_ID, id);
+        context.startActivity(intent);
     }
 
     @Override
@@ -71,13 +77,17 @@ public class AmniocentesisDetailActivity extends BaseControllerActivity<Amniocen
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle(getString(R.string.txt_amniocentesis_record_cancel));
 
+        if (getIntent() != null) {
+            amniocentesisId = getIntent().getIntExtra(AMNIOCENTESIS_ID, -1);
+        }
+
         pageLoading();
-        getController().getAmniocentesisDetail();
+        getController().getAmniocentesisDetail(amniocentesisId);
 
         amniocentesisDetailNextTv.setOnClickListener(v -> finish());
         setReloadListener((v, status) -> {
             pageLoading();
-            getController().getAmniocentesisDetail();
+            getController().getAmniocentesisDetail(amniocentesisId);
         });
     }
 

@@ -30,4 +30,9 @@ public interface AmniocentesisApplyView extends BaseView {
     String getPhone();
 
     AmniocentesisReserveBean getReserveBean();
+
+    /**
+     * 预约信息是否填写完成
+     */
+    boolean reserveInfoComplete();
 }

@@ -92,6 +92,9 @@ public class AmniocentesisWebController extends ControllerImpl<AmniocentesisWebV
      */
     private void amniocentesisApply() {
         AmniocentesisReserveBean bean = getView().getReserveBean();
+        if (bean == null) {
+            return;
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("birthday", bean.getBirthday());
         map.put("endMensesTime", bean.getEndMensesTime());

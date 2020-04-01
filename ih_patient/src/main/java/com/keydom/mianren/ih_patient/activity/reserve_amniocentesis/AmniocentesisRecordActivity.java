@@ -9,17 +9,20 @@ import android.text.TextWatcher;
 import android.widget.RelativeLayout;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller.AmniocentesisRecordController;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisRecordView;
 import com.keydom.mianren.ih_patient.adapter.AmniocentesisRecordAdapter;
+import com.keydom.mianren.ih_patient.bean.AmniocentesisBean;
 import com.keydom.mianren.ih_patient.constant.TypeEnum;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -39,7 +42,7 @@ public class AmniocentesisRecordActivity extends BaseControllerActivity<Amniocen
 
     private AmniocentesisRecordAdapter recordAdapter;
 
-    private ArrayList<String> recordData;
+    private ArrayList<AmniocentesisBean> recordData;
 
     public static void start(Context context) {
         context.startActivity(new Intent(context, AmniocentesisRecordActivity.class));
@@ -53,24 +56,22 @@ public class AmniocentesisRecordActivity extends BaseControllerActivity<Amniocen
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle(getString(R.string.txt_amniocentesis_record_cancel));
-        amniocentesisRecordRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getAmniocentesisRecord(TypeEnum.REFRESH));
-        amniocentesisRecordRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getAmniocentesisRecord(TypeEnum.LOAD_MORE));
+        amniocentesisRecordRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getAmniocentesisRecord("", TypeEnum.REFRESH));
+        amniocentesisRecordRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
+                    getController().currentPagePlus();
+                    getController().getAmniocentesisRecord("", TypeEnum.LOAD_MORE);
+                }
+        );
 
         //模拟数据
         recordData = new ArrayList<>();
-        recordData.add("");
-        recordData.add("");
-        recordData.add("");
-        recordData.add("");
         recordAdapter = new AmniocentesisRecordAdapter(recordData);
         recordAdapter.setOnItemClickListener(getController());
         recordAdapter.setOnItemChildClickListener(getController());
         amniocentesisRecordRecyclerView.setAdapter(recordAdapter);
 
-        setReloadListener((v, status) -> {
-            pageLoading();
-            getController().getAmniocentesisRecord(TypeEnum.REFRESH);
-        });
+        setReloadListener((v, status) -> getController().getAmniocentesisRecord("",
+                TypeEnum.REFRESH));
 
         amniocentesisRecordSearchTv.addTextChangedListener(new TextWatcher() {
             @Override
@@ -89,24 +90,40 @@ public class AmniocentesisRecordActivity extends BaseControllerActivity<Amniocen
             }
         });
 
-        pageLoading();
-        getController().getAmniocentesisRecord(TypeEnum.REFRESH);
+        getController().getAmniocentesisRecord("", TypeEnum.REFRESH);
     }
 
     /**
      * 搜索
      */
     private void searchOrder(String key) {
-
+        getController().getAmniocentesisRecord(key, TypeEnum.REFRESH);
     }
 
     @Override
-    public void onAmniocentesisRecordSuccess() {
+    public void onAmniocentesisRecordSuccess(TypeEnum typeEnum, List<AmniocentesisBean> records) {
+        if (typeEnum == TypeEnum.REFRESH) {
+            recordData.clear();
+        }
+        recordData.addAll(records);
+        recordAdapter.notifyDataSetChanged();
+        amniocentesisRecordRefreshLayout.finishRefresh();
+        amniocentesisRecordRefreshLayout.finishLoadMore();
         pageLoadingSuccess();
     }
 
     @Override
     public void onAmniocentesisRecordFailed() {
+        amniocentesisRecordRefreshLayout.finishRefresh();
+        amniocentesisRecordRefreshLayout.finishLoadMore();
         pageLoadingFail();
+    }
+
+    @Override
+    public void onAmniocentesisCancelSuccess(int position) {
+        ToastUtil.showMessage(this, "操作成功");
+        recordData.remove(position);
+        recordAdapter.notifyItemRemoved(position);
+        recordAdapter.notifyItemRangeChanged(position, recordAdapter.getItemCount() - position);
     }
 }
