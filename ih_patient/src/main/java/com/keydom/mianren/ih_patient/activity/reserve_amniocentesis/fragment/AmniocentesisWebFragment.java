@@ -20,6 +20,8 @@ import com.tencent.smtt.sdk.WebViewClient;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
+
 import butterknife.BindView;
 
 /**
@@ -46,7 +48,17 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
     @BindView(R.id.amniocentesis_web_notice_layout)
     LinearLayout amniocentesisWebNoticeLayout;
 
+    /**
+     * 申请提交bean
+     */
     private AmniocentesisReserveBean reserveBean;
+    /**
+     * 羊水穿刺预约评估参数
+     */
+    private Map<String, Object> evaluateParamsMap;
+    /**
+     * 协议类型
+     */
     private AmniocentesisProtocol protocol;
 
     @Override
@@ -84,19 +96,26 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
         this.reserveBean = reserveBean;
     }
 
+    public void setEvaluateParamsMap(Map<String, Object> evaluateParamsMap) {
+        this.evaluateParamsMap = evaluateParamsMap;
+    }
+
     private void initPage() {
         switch (protocol) {
             case AMNIOCENTESIS_WEB_RESERVE:
+                amniocentesisWebNextTv.setText(R.string.txt_next);
                 amniocentesisWebProtocolLayout.setVisibility(View.VISIBLE);
                 amniocentesisWebAgreeProtocolLayout.setVisibility(View.GONE);
                 amniocentesisWebNoticeProtocolLayout.setVisibility(View.GONE);
                 break;
             case AMNIOCENTESIS_AGREE_PROTOCOL:
+                amniocentesisWebNextTv.setText(R.string.txt_next);
                 amniocentesisWebProtocolLayout.setVisibility(View.GONE);
                 amniocentesisWebAgreeProtocolLayout.setVisibility(View.VISIBLE);
                 amniocentesisWebNoticeProtocolLayout.setVisibility(View.GONE);
                 break;
             case AMNIOCENTESIS_NOTICE:
+                amniocentesisWebNextTv.setText(R.string.txt_commit_reserve_apply);
                 amniocentesisWebProtocolLayout.setVisibility(View.GONE);
                 amniocentesisWebAgreeProtocolLayout.setVisibility(View.GONE);
                 amniocentesisWebNoticeProtocolLayout.setVisibility(View.VISIBLE);
@@ -189,5 +208,10 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
     @Override
     public boolean isSelectNoticeProtocol() {
         return amniocentesisWebAgreeProtocolLayout1.isSelected() && amniocentesisWebNoticeLayout.isSelected();
+    }
+
+    @Override
+    public Map<String, Object> getParamsMap() {
+        return evaluateParamsMap;
     }
 }

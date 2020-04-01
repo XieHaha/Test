@@ -3,12 +3,14 @@ package com.keydom.mianren.ih_patient.activity.reserve_amniocentesis;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller.AmniocentesisDetailController;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisDetailView;
+import com.keydom.mianren.ih_patient.bean.AmniocentesisBean;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -58,13 +60,13 @@ public class AmniocentesisDetailActivity extends BaseControllerActivity<Amniocen
     @BindView(R.id.amniocentesis_detail_next_tv)
     TextView amniocentesisDetailNextTv;
 
-    private int amniocentesisId;
+    private AmniocentesisBean amniocentesisBean;
 
-    public static final String AMNIOCENTESIS_ID = "amniocentesis_id";
+    public static final String AMNIOCENTESIS_BEAN = "amniocentesis_bean";
 
-    public static void start(Context context, int id) {
+    public static void start(Context context, AmniocentesisBean bean) {
         Intent intent = new Intent(context, AmniocentesisDetailActivity.class);
-        intent.putExtra(AMNIOCENTESIS_ID, id);
+        intent.putExtra(AMNIOCENTESIS_BEAN, bean);
         context.startActivity(intent);
     }
 
@@ -78,41 +80,48 @@ public class AmniocentesisDetailActivity extends BaseControllerActivity<Amniocen
         setTitle(getString(R.string.txt_amniocentesis_record_cancel));
 
         if (getIntent() != null) {
-            amniocentesisId = getIntent().getIntExtra(AMNIOCENTESIS_ID, -1);
+            amniocentesisBean =
+                    (AmniocentesisBean) getIntent().getSerializableExtra(AMNIOCENTESIS_BEAN);
         }
 
-        pageLoading();
-        getController().getAmniocentesisDetail(amniocentesisId);
+        //        pageLoading();
+        //        getController().getAmniocentesisDetail(amniocentesisId);
 
         amniocentesisDetailNextTv.setOnClickListener(v -> finish());
-        setReloadListener((v, status) -> {
-            pageLoading();
-            getController().getAmniocentesisDetail(amniocentesisId);
-        });
+        //        setReloadListener((v, status) -> {
+        //            pageLoading();
+        //            getController().getAmniocentesisDetail(amniocentesisId);
+        //        });
+
+        bindData();
     }
 
     /**
      * 数据绑定
      */
     private void bindData() {
-        amniocentesisDetailStatusTv.setText("数据");
-        amniocentesisDetailSurgeryTimeTv.setText("数据");
-        amniocentesisDetailNameTv.setText("数据");
-        amniocentesisDetailIdCardTv.setText("数据");
-        amniocentesisDetailBirthTv.setText("数据");
-        amniocentesisDetailMinePhoneTv.setText("数据");
-        amniocentesisDetailLastMenstruationTv.setText("数据");
-        amniocentesisDetailDueDateTv.setText("数据");
-        amniocentesisDetailFamilyNameTv.setText("数据");
-        amniocentesisDetailFamilyPhoneTv.setText("数据");
-        amniocentesisDetailFamilyAddressTv.setText("数据");
-        amniocentesisDetailHospitalTv.setText("数据");
-        amniocentesisDetailReasonTv.setText("数据");
-        amniocentesisDetailFetusTv.setText("数据");
-        amniocentesisDetailHivTv.setText("数据");
-        amniocentesisDetailBloodTv.setText("数据");
-        amniocentesisDetailHypertensionTv.setText("数据");
-        amniocentesisDetailDiabetesTv.setText("数据");
+        if (amniocentesisBean == null) {
+            return;
+        }
+        pageLoadingSuccess();
+        //        amniocentesisDetailStatusTv.setText("数据");
+        amniocentesisDetailSurgeryTimeTv.setText(amniocentesisBean.getSurgeryTime());
+        amniocentesisDetailNameTv.setText(amniocentesisBean.getName());
+        amniocentesisDetailIdCardTv.setText(amniocentesisBean.getIdCard());
+        amniocentesisDetailBirthTv.setText(amniocentesisBean.getBirthday());
+        amniocentesisDetailMinePhoneTv.setText(amniocentesisBean.getTelephone());
+        amniocentesisDetailLastMenstruationTv.setText(amniocentesisBean.getEndMensesTime());
+        amniocentesisDetailDueDateTv.setText(amniocentesisBean.getExpectedBirthTime());
+        amniocentesisDetailFamilyNameTv.setText(amniocentesisBean.getFamilyMemberName());
+        amniocentesisDetailFamilyPhoneTv.setText(amniocentesisBean.getFamilyMemberPhone());
+        amniocentesisDetailFamilyAddressTv.setText(amniocentesisBean.getFamilyAddress());
+        amniocentesisDetailHospitalTv.setText(amniocentesisBean.getReferralHospital());
+        amniocentesisDetailReasonTv.setText(amniocentesisBean.getReason());
+        amniocentesisDetailFetusTv.setText(amniocentesisBean.getFetusNum() + "");
+        amniocentesisDetailHivTv.setText(amniocentesisBean.getHivAttribute());
+        amniocentesisDetailBloodTv.setText(amniocentesisBean.getRhAttribute());
+        amniocentesisDetailHypertensionTv.setText(TextUtils.equals(amniocentesisBean.getIsHypertension(), "1") ? R.string.txt_have : R.string.txt_none);
+        amniocentesisDetailDiabetesTv.setText(TextUtils.equals(amniocentesisBean.getIsGlycuresis(), "1") ? R.string.txt_have : R.string.txt_none);
     }
 
     @Override

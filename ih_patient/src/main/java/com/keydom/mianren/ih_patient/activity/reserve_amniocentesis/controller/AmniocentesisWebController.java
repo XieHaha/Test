@@ -13,6 +13,7 @@ import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.AmniocentesisRecordActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisWebView;
+import com.keydom.mianren.ih_patient.bean.AmniocentesisBean;
 import com.keydom.mianren.ih_patient.bean.AmniocentesisReserveBean;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.constant.EventType;
@@ -109,6 +110,29 @@ public class AmniocentesisWebController extends ControllerImpl<AmniocentesisWebV
         map.put("telephone", bean.getTelephone());
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(AmniocentesisService.class)
                         .amniocentesisApply(HttpService.INSTANCE.object2Body(map)),
+                new HttpSubscriber<AmniocentesisBean>(getContext(), getDisposable(), true, false) {
+                    @Override
+                    public void requestComplete(@Nullable AmniocentesisBean data) {
+                        amniocentesisEvaluate(data.getId());
+                    }
+
+                    @Override
+                    public boolean requestError(@NotNull ApiException exception, int code,
+                                                @NotNull String msg) {
+                        ToastUtils.showShort(msg);
+                        return super.requestError(exception, code, msg);
+                    }
+                });
+    }
+
+    /**
+     * 羊水穿刺评估
+     */
+    private void amniocentesisEvaluate(int id) {
+        Map<String, Object> map = getView().getParamsMap();
+        map.put("id", id);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(AmniocentesisService.class)
+                        .amniocentesisEvaluate(HttpService.INSTANCE.object2Body(map)),
                 new HttpSubscriber<String>(getContext(), getDisposable(), true, false) {
                     @Override
                     public void requestComplete(@Nullable String data) {

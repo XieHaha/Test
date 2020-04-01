@@ -21,6 +21,12 @@ import java.util.List;
  * 日期工具类
  */
 public class DateUtils {
+
+    public static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
+    public static final String YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";
+    public static final String YYYY_MM_DD = "yyyy-MM-dd";
+    public static final String MM_DD = "MM月dd日";
+
     /**
      *     * 获取两个日期相差的月数
      *     * @param d2  较大的日期
@@ -36,7 +42,8 @@ public class DateUtils {
         java.util.Date date2 = sdf.parse(d2);
         c1.setTime(date1);
         c2.setTime(date2);
-        if (c2.getTimeInMillis() < c1.getTimeInMillis()) return 0;
+        if (c2.getTimeInMillis() < c1.getTimeInMillis())
+            return 0;
         int year1 = c1.get(Calendar.YEAR);
         int year2 = c2.get(Calendar.YEAR);
         int month1 = c1.get(Calendar.MONTH);
@@ -44,9 +51,11 @@ public class DateUtils {
         int day1 = c1.get(Calendar.DAY_OF_MONTH);
         int day2 = c2.get(Calendar.DAY_OF_MONTH);
         int yearInterval = year2 - year1;
-        if (month2 < month1 || month1 == month2 && day2 < day1) yearInterval--;
+        if (month2 < month1 || month1 == month2 && day2 < day1)
+            yearInterval--;
         int monthInterval = (month2 + 12) - month1;
-        if (day2 < day1) monthInterval--;
+        if (day2 < day1)
+            monthInterval--;
         monthInterval %= 12;
         return yearInterval * 12 + monthInterval;
     }
@@ -59,7 +68,10 @@ public class DateUtils {
      * @param earliestTime 单日开始时间 可以是0到24之间任意值
      * @param latestTime   单日结束时间 可以是0到24之间任意值
      */
-    public static OptionsPickerView showDateIntervalChooseDialog(Context context, int dateInterval, int earliestTime, int latestTime, DateIntervalSelectedListener dateIntervalSelectedListener) {
+    public static OptionsPickerView showDateIntervalChooseDialog(Context context,
+                                                                 int dateInterval,
+                                                                 int earliestTime, int latestTime
+            , DateIntervalSelectedListener dateIntervalSelectedListener) {
         List<String> dateList = getBetweenDate(dateInterval);
         List<List<String>> startTimeList = new ArrayList<>();
         List<List<List<String>>> endTimeList = new ArrayList<>();
@@ -124,15 +136,18 @@ public class DateUtils {
             startTimeList.add(startTimeSonList);
             endTimeList.add(endTimeSonList);
         }
-        OptionsPickerView optionsPickerView = new OptionsPickerBuilder(context, new OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                if ("服务时间段".equals(endTimeList.get(options1).get(options2).get(options3))) {
-                    ToastUtil.showMessage(context,"当前不在服务时间段，请重新选择上门时间");
-                } else
-                    dateIntervalSelectedListener.getSelectedDateInterval(dateList.get(options1), startTimeList.get(options1).get(options2), endTimeList.get(options1).get(options2).get(options3));
-            }
-        })
+        OptionsPickerView optionsPickerView = new OptionsPickerBuilder(context,
+                new OnOptionsSelectListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                        if ("服务时间段".equals(endTimeList.get(options1).get(options2).get(options3))) {
+                            ToastUtil.showMessage(context, "当前不在服务时间段，请重新选择上门时间");
+                        } else
+                            dateIntervalSelectedListener.getSelectedDateInterval(dateList.get(options1),
+                                    startTimeList.get(options1).get(options2),
+                                    endTimeList.get(options1).get(options2).get(options3));
+                    }
+                })
                 .setCancelColor(Color.parseColor("#00FFFFFF"))
                 .setTitleText("预约上门时间")
                 .setTitleColor(Color.parseColor("#333333"))
@@ -261,5 +276,17 @@ public class DateUtils {
     public static String dateToString(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.format(date);
+    }
+
+    public static String transDate(String dateString, String formatSource, String formatResult) {
+        SimpleDateFormat source = new SimpleDateFormat(formatSource);
+        SimpleDateFormat result = new SimpleDateFormat(formatResult);
+
+        try {
+            return result.format(source.parse(dateString).getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

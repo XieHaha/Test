@@ -4,6 +4,8 @@ import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_patient.bean.AmniocentesisReserveBean;
 import com.keydom.mianren.ih_patient.constant.AmniocentesisProtocol;
 
+import java.util.Map;
+
 /**
  * @date 20/3/11 14:25
  * @des 羊水穿刺预约web
@@ -36,4 +38,7 @@ public interface AmniocentesisWebView extends BaseView {
     void onNoticeProtocolSelect(int type);
 
     boolean isSelectNoticeProtocol();
+
+    Map<String, Object> getParamsMap();
+
 }

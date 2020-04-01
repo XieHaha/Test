@@ -11,8 +11,11 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisEvaluateView;
+import com.keydom.mianren.ih_patient.bean.Event;
+import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.net.AmniocentesisService;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -69,7 +72,15 @@ public class AmniocentesisEvaluateController extends ControllerImpl<Amniocentesi
                 break;
             case R.id.amniocentesis_evaluate_next_tv:
                 if (getView().isSelect()) {
-                    amniocentesisEvaluate();
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("fetusNum", getView().getFetusSelect());
+                    map.put("hivAttribute", getView().getHivSelect());
+                    map.put("isGlycuresis", getView().getDiabetesSelect());
+                    map.put("isHypertension", getView().getHypertensionSelect());
+                    map.put("isUltrasonicException", getView().getUltrasoundSelect());
+                    map.put("rhAttribute", getView().getBloodSelect());
+                    //amniocentesisEvaluate(map);
+                    EventBus.getDefault().post(new Event(EventType.AMNIOCENTESIS_WEB_AGREE, map));
                 } else {
                     ToastUtil.showMessage(mContext, "请完成羊水穿刺预约评估");
                 }
@@ -82,14 +93,8 @@ public class AmniocentesisEvaluateController extends ControllerImpl<Amniocentesi
     /**
      * 羊水穿刺评估
      */
-    private void amniocentesisEvaluate() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("fetusNum", getView().getFetusSelect());
-        map.put("hivAttribute", getView().getHivSelect());
-        map.put("isGlycuresis", getView().getDiabetesSelect());
-        map.put("isHypertension", getView().getHypertensionSelect());
-        map.put("isUltrasonicException", getView().getUltrasoundSelect());
-        map.put("rhAttribute", getView().getBloodSelect());
+    private void amniocentesisEvaluate(Map<String, Object> map) {
+
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(AmniocentesisService.class)
                         .amniocentesisEvaluate(HttpService.INSTANCE.object2Body(map)),
                 new HttpSubscriber<String>(getContext(), getDisposable(), true, false) {

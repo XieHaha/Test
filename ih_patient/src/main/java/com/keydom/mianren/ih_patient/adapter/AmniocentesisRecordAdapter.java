@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.bean.AmniocentesisBean;
+import com.keydom.mianren.ih_patient.utils.DateUtils;
 
 import java.util.List;
 
@@ -23,8 +24,11 @@ public class AmniocentesisRecordAdapter extends BaseQuickAdapter<AmniocentesisBe
     @Override
     protected void convert(BaseViewHolder helper, AmniocentesisBean item) {
         helper.setText(R.id.item_amniocentesis_name, item.getName())
-                .setText(R.id.item_amniocentesis_time, "01月01日")
-                .setText(R.id.item_amniocentesis_reserve_time, "01月02日")
+                .setText(R.id.item_amniocentesis_time, DateUtils.transDate(item.getCreateDate(),
+                        DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.MM_DD))
+                .setText(R.id.item_amniocentesis_reserve_time,
+                        DateUtils.transDate(item.getSurgeryTime(),
+                                DateUtils.YYYY_MM_DD, DateUtils.MM_DD))
                 .setText(R.id.item_amniocentesis_reserve_type, "羊膜穿刺")
                 .addOnClickListener(R.id.item_amniocentesis_operate);
     }

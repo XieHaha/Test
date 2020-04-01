@@ -6,14 +6,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
-import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller.AmniocentesisEvaluateController;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisEvaluateView;
-import com.keydom.mianren.ih_patient.bean.Event;
-import com.keydom.mianren.ih_patient.constant.EventType;
 
-import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
 
 import butterknife.BindView;
@@ -199,8 +195,8 @@ public class AmniocentesisEvaluateFragment extends BaseControllerFragment<Amnioc
 
     @Override
     public void onAmniocentesisEvaluateSuccess() {
-        ToastUtil.showMessage(getContext(), "提交成功");
-        EventBus.getDefault().post(new Event(EventType.AMNIOCENTESIS_WEB_AGREE, null));
+        //        ToastUtil.showMessage(getContext(), "提交成功");
+        //        EventBus.getDefault().post(new Event(EventType.AMNIOCENTESIS_WEB_AGREE, null));
     }
 
     @Override

@@ -178,6 +178,7 @@
     <string name="txt_agree">同意</string>
     <string name="txt_disagree">不同意</string>
     <string name="txt_agree_protocol">是否同意以上协议内容</string>
+    <string name="txt_commit_reserve_apply">提交预约申请</string>
 
     <!--在线问诊-->
     <string name="txt_insurance_clause_description">已为您购买医疗责任险，最高赔付20万元。《保险条款》</string>
@@ -406,9 +407,9 @@
     <string name="txt_amniocentesis_reserve_visit_note">请务必点击下方链接仔细阅读取号方法及就诊指南。否则将影响及时取号和就诊。</string>
     <string name="txt_amniocentesis_reserve_visit_url">取号方法及就诊指南：http://suo.im/2xkUHd</string>
     <string name="txt_amniocentesis_reserve_informed_note">请务必点击下方链接仔细阅读羊膜腔穿刺术知情同意书。</string>
-    <string name="txt_amniocentesis_reserve_informed_url">知情同意书：http://w.url.cn/s/AAKLH5L</string>
+    <string name="txt_amniocentesis_reserve_informed_url">知情同意书：http://www.tianfuzhl.com.cn/wechat_mr_test/h5/views/amniocentesis/informed-consent.html</string>
     <string name="txt_amniocentesis_reserve_surgery_note">请务必点击下方链接仔细阅读手术前注意事项，并按要求做好准备带齐相关资料，否则将导致无法手术，后果自负。</string>
-    <string name="txt_amniocentesis_reserve_surgery_url">术前注意事项：http://t.cn/R6KZN83</string>
+    <string name="txt_amniocentesis_reserve_surgery_url">术前注意事项：http://www.tianfuzhl.com.cn/wechat_mr_test/h5/views/amniocentesis/operation-precautions.html</string>
     <string name="txt_amniocentesis_reserve_agree_protocol">我已阅读《羊膜腔穿刺术知情同意书》，了解羊膜腔穿刺术相关风险，要求继续预约羊膜腔穿刺术。</string>
     <string name="txt_amniocentesis_reserve_notice_protocol">我已阅读《术前注意事项》，知晓术前需要准备资料等事宜。</string>
     <string name="txt_apply_name">申请人</string>

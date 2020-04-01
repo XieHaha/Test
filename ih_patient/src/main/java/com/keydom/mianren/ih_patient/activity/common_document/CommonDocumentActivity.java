@@ -44,7 +44,7 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
     /**
      * 启动方法
      */
-    public static void start(Context ctx, String title,String url) {
+    public static void start(Context ctx, String title, String url) {
         Intent i = new Intent(ctx, CommonDocumentActivity.class);
         i.putExtra(TITLE, title);
         i.putExtra(URL, url);
@@ -61,21 +61,21 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
         mDecTv = findViewById(R.id.dec_tv);
         mWebView = findViewById(R.id.webView);
         RichText.initCacheDir(this);
-        String code = getIntent().getStringExtra(TYPE);
+        String type = getIntent().getStringExtra(TYPE);
         String url = getIntent().getStringExtra(URL);
         String title = getIntent().getStringExtra(TITLE);
-        if(TextUtils.isEmpty(code)){
+        if (TextUtils.isEmpty(type)) {
             mWebView.setVisibility(View.VISIBLE);
             mDecTv.setVisibility(View.GONE);
             setTitle(title);
-            if(!url.startsWith("http")){
+            if (!url.startsWith("http")) {
                 loadUrl(Const.RELEASE_HOST + url);
-            }else{
+            } else {
                 loadUrl(url);
             }
 
-        }else{
-            switch (code){
+        } else {
+            switch (type) {
                 case CommonDocumentBean.CODE_1:
                     setTitle("在线问诊用户协议");
                     break;
@@ -100,20 +100,22 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
                 case CommonDocumentBean.CODE_10:
                     setTitle("服务介绍");
                     break;
-                case  CommonDocumentBean.CODE_13:
+                case CommonDocumentBean.CODE_13:
                     setTitle("保险条款用户协议");
                 case CommonDocumentBean.CODE_14:
                     setTitle("保险条款用户协议");
                     break;
+                default:
+                    break;
             }
-            getController().getOfficialDispatchAllMsgByCode(code);
+            getController().getOfficialDispatchAllMsgByCode(type);
         }
 
     }
 
     @Override
     public void getData(CommonDocumentBean bean) {
-        if(bean!=null){
+        if (bean != null) {
             if (bean.getTitle() != null) {
 
             }
@@ -125,7 +127,8 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
                 mWebView.getSettings().setJavaScriptEnabled(true);
                 mWebView.getSettings().setSupportZoom(true);
                 mWebView.getSettings().setDefaultTextEncodingName("utf-8");
-                mWebView.getSettings().setDomStorageEnabled(true);//webview不能完全加载网页 或者不能很好的支持懒加载是添加此设置
+                mWebView.getSettings().setDomStorageEnabled(true);//webview不能完全加载网页
+                // 或者不能很好的支持懒加载是添加此设置
                 mWebView.setWebViewClient(new WebViewClient() {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -167,7 +170,7 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
         return html;
     }
 
-    public void loadUrl(String url){
+    public void loadUrl(String url) {
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setSupportZoom(true);
         mWebView.getSettings().setDefaultTextEncodingName("utf-8");

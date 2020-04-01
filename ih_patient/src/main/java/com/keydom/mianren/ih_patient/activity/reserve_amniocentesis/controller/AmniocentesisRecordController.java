@@ -86,7 +86,7 @@ public class AmniocentesisRecordController extends ControllerImpl<AmniocentesisR
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         AmniocentesisBean bean = (AmniocentesisBean) adapter.getItem(position);
-        AmniocentesisDetailActivity.start(getContext(), bean.getId());
+        AmniocentesisDetailActivity.start(getContext(), bean);
     }
 
     @Override

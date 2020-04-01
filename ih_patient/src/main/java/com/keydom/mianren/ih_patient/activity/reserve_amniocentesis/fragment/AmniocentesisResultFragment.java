@@ -17,6 +17,12 @@ import butterknife.BindView;
  * @des 羊水穿刺预约结果页
  */
 public class AmniocentesisResultFragment extends BaseControllerFragment<AmniocentesisResultController> implements AmniocentesisResultView {
+    @BindView(R.id.amniocentesis_result_help_tv)
+    TextView amniocentesisResultHelpTv;
+    @BindView(R.id.amniocentesis_result_agree_tv)
+    TextView amniocentesisResultAgreeTv;
+    @BindView(R.id.amniocentesis_result_notice_tv)
+    TextView amniocentesisResultNoticeTv;
     @BindView(R.id.amniocentesis_result_next_tv)
     TextView amniocentesisResultNextTv;
 
@@ -28,5 +34,9 @@ public class AmniocentesisResultFragment extends BaseControllerFragment<Amniocen
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         amniocentesisResultNextTv.setOnClickListener(v -> getActivity().finish());
+
+        amniocentesisResultHelpTv.setOnClickListener(getController());
+        amniocentesisResultAgreeTv.setOnClickListener(getController());
+        amniocentesisResultNoticeTv.setOnClickListener(getController());
     }
 }

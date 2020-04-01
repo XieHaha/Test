@@ -24,6 +24,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
+
 /**
  * @date 20/3/10 13:52
  * @des 羊水穿刺预约
@@ -38,6 +40,11 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
     private AmniocentesisResultFragment resultFragment;
 
     private AmniocentesisReserveBean reserveBean;
+
+    /**
+     * 羊水穿刺预约评估参数
+     */
+    private Map<String, Object> evaluateParamsMap;
 
     private AmniocentesisProtocol protocol;
 
@@ -88,6 +95,7 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
                 tabEvaluateView();
                 break;
             case AMNIOCENTESIS_WEB_AGREE:
+                evaluateParamsMap = (Map<String, Object>) event.getData();
                 curPage = 2;
                 protocol = AmniocentesisProtocol.AMNIOCENTESIS_AGREE_PROTOCOL;
                 tabWebView();
@@ -116,11 +124,13 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
             webFragment = new AmniocentesisWebFragment();
             webFragment.setProtocol(protocol);
             webFragment.setReserveBean(reserveBean);
+            webFragment.setEvaluateParamsMap(evaluateParamsMap);
             transaction.add(R.id.layout_frame_root, webFragment);
         } else {
             transaction.show(webFragment);
             webFragment.setProtocol(protocol);
             webFragment.setReserveBean(reserveBean);
+            webFragment.setEvaluateParamsMap(evaluateParamsMap);
             webFragment.onResume();
         }
         transaction.commitAllowingStateLoss();

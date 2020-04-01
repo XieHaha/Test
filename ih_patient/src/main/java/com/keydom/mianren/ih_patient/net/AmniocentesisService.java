@@ -27,7 +27,7 @@ public interface AmniocentesisService {
      * 羊水穿刺预约
      */
     @POST("medicine/applyAmniocentesis/apply")
-    Observable<HttpResult<String>> amniocentesisApply(@Body RequestBody body);
+    Observable<HttpResult<AmniocentesisBean>> amniocentesisApply(@Body RequestBody body);
 
     /**
      * 羊水穿刺预约列表
