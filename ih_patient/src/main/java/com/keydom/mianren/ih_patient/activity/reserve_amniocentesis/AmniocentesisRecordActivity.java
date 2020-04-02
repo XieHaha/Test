@@ -56,7 +56,7 @@ public class AmniocentesisRecordActivity extends BaseControllerActivity<Amniocen
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle(getString(R.string.txt_amniocentesis_record_cancel));
-        amniocentesisRecordRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getAmniocentesisRecord("", TypeEnum.REFRESH));
+        amniocentesisRecordRefreshLayout.setOnRefreshListener(refreshLayout -> getReserveData(""));
         amniocentesisRecordRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
                     getController().currentPagePlus();
                     getController().getAmniocentesisRecord("", TypeEnum.LOAD_MORE);
@@ -70,8 +70,7 @@ public class AmniocentesisRecordActivity extends BaseControllerActivity<Amniocen
         recordAdapter.setOnItemChildClickListener(getController());
         amniocentesisRecordRecyclerView.setAdapter(recordAdapter);
 
-        setReloadListener((v, status) -> getController().getAmniocentesisRecord("",
-                TypeEnum.REFRESH));
+        setReloadListener((v, status) -> getReserveData(""));
 
         amniocentesisRecordSearchTv.addTextChangedListener(new TextWatcher() {
             @Override
@@ -81,7 +80,7 @@ public class AmniocentesisRecordActivity extends BaseControllerActivity<Amniocen
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                searchOrder(s.toString());
+                getReserveData(s.toString());
             }
 
             @Override
@@ -90,13 +89,13 @@ public class AmniocentesisRecordActivity extends BaseControllerActivity<Amniocen
             }
         });
 
-        getController().getAmniocentesisRecord("", TypeEnum.REFRESH);
+        getController().getAmniocentesisRecord("", TypeEnum.REFRESH, true);
     }
 
     /**
-     * 搜索
+     * 搜索(key为空  全查询)
      */
-    private void searchOrder(String key) {
+    private void getReserveData(String key) {
         getController().getAmniocentesisRecord(key, TypeEnum.REFRESH);
     }
 

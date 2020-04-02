@@ -34,7 +34,7 @@ public class AmniocentesisRecordController extends ControllerImpl<AmniocentesisR
     /**
      * 获取穿刺预约记录
      */
-    public void getAmniocentesisRecord(String idCard, TypeEnum typeEnum) {
+    public void getAmniocentesisRecord(String idCard, TypeEnum typeEnum, boolean showDialog) {
         if (typeEnum == TypeEnum.REFRESH) {
             setCurrentPage(1);
         }
@@ -47,7 +47,7 @@ public class AmniocentesisRecordController extends ControllerImpl<AmniocentesisR
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(AmniocentesisService.class)
                         .getAmniocentesisList(HttpService.INSTANCE.object2Body(map)),
                 new HttpSubscriber<PageBean<AmniocentesisBean>>(getContext(), getDisposable(),
-                        true, false) {
+                        showDialog, false) {
                     @Override
                     public void requestComplete(@Nullable PageBean<AmniocentesisBean> data) {
                         getView().onAmniocentesisRecordSuccess(typeEnum, data.getRecords());
@@ -61,6 +61,13 @@ public class AmniocentesisRecordController extends ControllerImpl<AmniocentesisR
                     }
                 });
 
+    }
+
+    /**
+     * 获取穿刺预约记录
+     */
+    public void getAmniocentesisRecord(String idCard, TypeEnum typeEnum) {
+        getAmniocentesisRecord(idCard, typeEnum, false);
     }
 
     private void cancelAmniocentesisReserve(int id, int position) {
