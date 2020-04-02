@@ -18,7 +18,7 @@ import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisApplyView;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.constant.EventType;
-import com.keydom.mianren.ih_patient.net.LoginService;
+import com.keydom.mianren.ih_patient.net.AmniocentesisService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
@@ -65,10 +65,10 @@ public class AmniocentesisApplyController extends ControllerImpl<AmniocentesisAp
      * 获取验证码
      */
     private void getVerifyCode(String phone) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).sendValidate(phone), new HttpSubscriber<Object>(getContext(), getDisposable(), true, false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(AmniocentesisService.class).amniocentesisSendCode(phone), new HttpSubscriber<String>(getContext(), getDisposable(), true, false) {
 
             @Override
-            public void requestComplete(@Nullable Object data) {
+            public void requestComplete(@Nullable String data) {
                 getView().getMsgCodeSuccess();
             }
 

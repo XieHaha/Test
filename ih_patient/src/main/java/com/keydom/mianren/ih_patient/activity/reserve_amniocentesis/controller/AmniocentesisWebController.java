@@ -102,12 +102,14 @@ public class AmniocentesisWebController extends ControllerImpl<AmniocentesisWebV
         map.put("expectedBirthTime", bean.getExpectedBirthTime());
         map.put("familyMemberName", bean.getFamilyMemberName());
         map.put("familyMemberPhone", bean.getFamilyMemberPhone());
+        map.put("familyAddress", bean.getFamilyAddress());
         map.put("idCard", bean.getIdCard());
         map.put("name", bean.getName());
         map.put("reason", bean.getReason());
         map.put("referralHospital", bean.getReferralHospital());
         map.put("surgeryTime", bean.getSurgeryTime());
         map.put("telephone", bean.getTelephone());
+        map.put("smsCode", bean.getSmsCode());
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(AmniocentesisService.class)
                         .amniocentesisApply(HttpService.INSTANCE.object2Body(map)),
                 new HttpSubscriber<AmniocentesisBean>(getContext(), getDisposable(), true, false) {

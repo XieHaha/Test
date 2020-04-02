@@ -47,4 +47,10 @@ public interface AmniocentesisService {
     @GET("medicine/applyAmniocentesis/detail")
     Observable<HttpResult<AmniocentesisBean>> getAmniocentesisDetail(@Query("id") int id);
 
+    /**
+     * 羊水穿刺预约 验证码
+     */
+    @GET("medicine/applyAmniocentesis/sendCode")
+    Observable<HttpResult<String>> amniocentesisSendCode(@Query("phoneNumber") String phoneNumber);
+
 }

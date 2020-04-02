@@ -25,10 +25,10 @@ public class AmniocentesisRecordAdapter extends BaseQuickAdapter<AmniocentesisBe
     protected void convert(BaseViewHolder helper, AmniocentesisBean item) {
         helper.setText(R.id.item_amniocentesis_name, item.getName())
                 .setText(R.id.item_amniocentesis_time, DateUtils.transDate(item.getCreateDate(),
-                        DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.MM_DD))
+                        DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.MM_DD_CH))
                 .setText(R.id.item_amniocentesis_reserve_time,
                         DateUtils.transDate(item.getSurgeryTime(),
-                                DateUtils.YYYY_MM_DD, DateUtils.MM_DD))
+                                DateUtils.YYYY_MM_DD, DateUtils.MM_DD_CH))
                 .setText(R.id.item_amniocentesis_reserve_type, "羊膜穿刺")
                 .addOnClickListener(R.id.item_amniocentesis_operate);
     }

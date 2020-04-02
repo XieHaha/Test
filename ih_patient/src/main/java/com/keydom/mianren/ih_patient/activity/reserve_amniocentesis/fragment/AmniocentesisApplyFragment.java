@@ -116,6 +116,7 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
         String name = amniocentesisApplyNameEt.getText().toString();
         String idCard = amniocentesisApplyIdCardEt.getText().toString().trim();
         String birthday = amniocentesisApplyBirthTv.getText().toString().trim();
+        String smsCode = amniocentesisApplyVerifyCodeEt.getText().toString().trim();
         String telephone = amniocentesisApplyPhoneEt.getText().toString().trim();
         String lastDate = amniocentesisApplyLastMenstruationTv.getText().toString().trim();
         String dueDate = amniocentesisApplyDueDateTv.getText().toString().trim();
@@ -129,7 +130,7 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
                 || TextUtils.isEmpty(telephone) || TextUtils.isEmpty(lastDate)
                 || TextUtils.isEmpty(dueDate) || TextUtils.isEmpty(familyName)
                 || TextUtils.isEmpty(familyPhone) || TextUtils.isEmpty(familyAddress)
-                || TextUtils.isEmpty(curSelectReason)) {
+                || TextUtils.isEmpty(curSelectReason) || TextUtils.isEmpty(smsCode)) {
             ToastUtil.showMessage(getContext(), "请完善羊膜腔穿刺手术网上预约申请单");
             return false;
         }
@@ -142,6 +143,7 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
         reserveBean.setIdCard(idCard);
         reserveBean.setName(name);
         reserveBean.setTelephone(telephone);
+        reserveBean.setSmsCode(smsCode);
         reserveBean.setExpectedBirthTime(dueDate);
         reserveBean.setEndMensesTime(lastDate);
         reserveBean.setFamilyMemberName(familyName);

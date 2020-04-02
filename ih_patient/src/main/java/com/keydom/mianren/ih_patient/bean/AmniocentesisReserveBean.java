@@ -21,6 +21,7 @@ public class AmniocentesisReserveBean implements Serializable {
     private String referralHospital;
     private String surgeryTime;
     private String telephone;
+    private String smsCode;
 
     public String getBirthday() {
         return birthday;
@@ -116,5 +117,13 @@ public class AmniocentesisReserveBean implements Serializable {
 
     public void setFamilyAddress(String familyAddress) {
         this.familyAddress = familyAddress;
+    }
+
+    public String getSmsCode() {
+        return smsCode;
+    }
+
+    public void setSmsCode(String smsCode) {
+        this.smsCode = smsCode;
     }
 }

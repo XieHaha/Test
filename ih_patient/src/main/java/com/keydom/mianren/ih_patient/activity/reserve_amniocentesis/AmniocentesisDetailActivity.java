@@ -11,6 +11,7 @@ import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller.AmniocentesisDetailController;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisDetailView;
 import com.keydom.mianren.ih_patient.bean.AmniocentesisBean;
+import com.keydom.mianren.ih_patient.utils.DateUtils;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -104,20 +105,38 @@ public class AmniocentesisDetailActivity extends BaseControllerActivity<Amniocen
             return;
         }
         pageLoadingSuccess();
-        //        amniocentesisDetailStatusTv.setText("数据");
-        amniocentesisDetailSurgeryTimeTv.setText(amniocentesisBean.getSurgeryTime());
+        amniocentesisDetailStatusTv.setText("已预约");
+        amniocentesisDetailSurgeryTimeTv.setText(DateUtils.transDate(amniocentesisBean.getSurgeryTime(),
+                DateUtils.YYYY_MM_DD, DateUtils.YYYY_MM_DD_CH));
         amniocentesisDetailNameTv.setText(amniocentesisBean.getName());
         amniocentesisDetailIdCardTv.setText(amniocentesisBean.getIdCard());
-        amniocentesisDetailBirthTv.setText(amniocentesisBean.getBirthday());
+        amniocentesisDetailBirthTv.setText(DateUtils.transDate(amniocentesisBean.getBirthday(),
+                DateUtils.YYYY_MM_DD, DateUtils.YYYY_MM_DD_CH));
         amniocentesisDetailMinePhoneTv.setText(amniocentesisBean.getTelephone());
-        amniocentesisDetailLastMenstruationTv.setText(amniocentesisBean.getEndMensesTime());
-        amniocentesisDetailDueDateTv.setText(amniocentesisBean.getExpectedBirthTime());
+        amniocentesisDetailLastMenstruationTv.setText(DateUtils.transDate(amniocentesisBean.getEndMensesTime(),
+                DateUtils.YYYY_MM_DD, DateUtils.YYYY_MM_DD_CH));
+        amniocentesisDetailDueDateTv.setText(DateUtils.transDate(amniocentesisBean.getExpectedBirthTime(),
+                DateUtils.YYYY_MM_DD, DateUtils.YYYY_MM_DD_CH));
         amniocentesisDetailFamilyNameTv.setText(amniocentesisBean.getFamilyMemberName());
         amniocentesisDetailFamilyPhoneTv.setText(amniocentesisBean.getFamilyMemberPhone());
         amniocentesisDetailFamilyAddressTv.setText(amniocentesisBean.getFamilyAddress());
         amniocentesisDetailHospitalTv.setText(amniocentesisBean.getReferralHospital());
         amniocentesisDetailReasonTv.setText(amniocentesisBean.getReason());
-        amniocentesisDetailFetusTv.setText(amniocentesisBean.getFetusNum() + "");
+        int fetus = amniocentesisBean.getFetusNum();
+        switch (fetus) {
+            case 1:
+                amniocentesisDetailFetusTv.setText(R.string.txt_one_fetus);
+                break;
+            case 2:
+                amniocentesisDetailFetusTv.setText(R.string.txt_two_fetus);
+                break;
+            case 3:
+                amniocentesisDetailFetusTv.setText(R.string.txt_more_fetus);
+                break;
+            default:
+                amniocentesisDetailFetusTv.setText(R.string.txt_one_fetus);
+                break;
+        }
         amniocentesisDetailHivTv.setText(amniocentesisBean.getHivAttribute());
         amniocentesisDetailBloodTv.setText(amniocentesisBean.getRhAttribute());
         amniocentesisDetailHypertensionTv.setText(TextUtils.equals(amniocentesisBean.getIsHypertension(), "1") ? R.string.txt_have : R.string.txt_none);
