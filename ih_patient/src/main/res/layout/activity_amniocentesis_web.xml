@@ -4,133 +4,106 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <com.ganxin.library.LoadDataLayout
+        android:id="@+id/loadDataLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <com.tencent.smtt.sdk.WebView
-            android:id="@+id/amniocentesis_web_view"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/amniocentesis_web_bottom_layout"
-            android:visibility="visible" />
+            android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/amniocentesis_web_bottom_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical">
+            <com.tencent.smtt.sdk.WebView
+                android:id="@+id/amniocentesis_web_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/amniocentesis_web_bottom_layout"
+                android:visibility="visible" />
 
             <LinearLayout
-                android:id="@+id/amniocentesis_web_protocol_layout"
+                android:id="@+id/amniocentesis_web_bottom_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_3"
-                android:gravity="center_vertical"
-                android:paddingStart="@dimen/dp_28"
-                android:paddingEnd="@dimen/dp_10"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_agree_protocol"
-                    android:textColor="@color/vip_detail_balance_number_text"
-                    android:textSize="@dimen/sp_14" />
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/amniocentesis_web_agree_layout"
-                    android:layout_width="0dp"
+                    android:id="@+id/amniocentesis_web_protocol_layout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:paddingTop="@dimen/dp_10"
-                    android:paddingBottom="@dimen/dp_10">
-
-                    <ImageView
-                        android:layout_width="@dimen/dp_21"
-                        android:layout_height="@dimen/dp_21"
-                        android:src="@drawable/selector_amniocentesis_reason" />
+                    android:layout_marginTop="@dimen/dp_3"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/dp_28"
+                    android:paddingEnd="@dimen/dp_10"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_11"
-                        android:text="@string/txt_agree"
-                        android:textColor="@color/select_999999_22e17e_color"
+                        android:text="@string/txt_agree_protocol"
+                        android:textColor="@color/vip_detail_balance_number_text"
                         android:textSize="@dimen/sp_14" />
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/amniocentesis_web_disagree_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:paddingTop="@dimen/dp_10"
-                    android:paddingBottom="@dimen/dp_10">
-
-                    <ImageView
-                        android:layout_width="@dimen/dp_21"
-                        android:layout_height="@dimen/dp_21"
-                        android:src="@drawable/selector_amniocentesis_reason" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/amniocentesis_web_agree_layout"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_11"
-                        android:text="@string/txt_disagree"
-                        android:textColor="@color/select_999999_22e17e_color"
-                        android:textSize="@dimen/sp_14" />
+                        android:layout_marginStart="@dimen/dp_16"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_21"
+                            android:layout_height="@dimen/dp_21"
+                            android:src="@drawable/selector_amniocentesis_reason" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_11"
+                            android:text="@string/txt_agree"
+                            android:textColor="@color/select_999999_22e17e_color"
+                            android:textSize="@dimen/sp_14" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/amniocentesis_web_disagree_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_21"
+                            android:layout_height="@dimen/dp_21"
+                            android:src="@drawable/selector_amniocentesis_reason" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_11"
+                            android:text="@string/txt_disagree"
+                            android:textColor="@color/select_999999_22e17e_color"
+                            android:textSize="@dimen/sp_14" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/amniocentesis_web_agree_protocol_layout"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_120"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/dp_30"
-                android:paddingTop="@dimen/dp_28"
-                android:paddingEnd="@dimen/dp_30"
-                android:visibility="gone">
-
-                <ImageView
-                    android:layout_width="@dimen/dp_21"
-                    android:layout_height="@dimen/dp_21"
-                    android:src="@drawable/selector_amniocentesis_reason" />
-
-                <com.keydom.mianren.ih_patient.view.textview.JustifiedTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:lineSpacingMultiplier="1.5"
-                    android:text="@string/txt_amniocentesis_reserve_agree_protocol"
-                    android:textColor="@color/color_333333"
-                    android:textSize="@dimen/sp_14" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/amniocentesis_web_notice_protocol_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="@dimen/dp_30"
-                android:paddingTop="@dimen/dp_28"
-                android:paddingEnd="@dimen/dp_30"
-                android:paddingBottom="@dimen/dp_28"
-                android:visibility="gone">
-
                 <LinearLayout
-                    android:id="@+id/amniocentesis_web_agree_protocol_layout1"
+                    android:id="@+id/amniocentesis_web_agree_protocol_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="@dimen/dp_120"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/dp_30"
+                    android:paddingTop="@dimen/dp_28"
+                    android:paddingEnd="@dimen/dp_30"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="@dimen/dp_21"
@@ -148,48 +121,82 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/amniocentesis_web_notice_layout"
+                    android:id="@+id/amniocentesis_web_notice_protocol_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_28"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/dp_30"
+                    android:paddingTop="@dimen/dp_28"
+                    android:paddingEnd="@dimen/dp_30"
+                    android:paddingBottom="@dimen/dp_28"
+                    android:visibility="gone">
 
-                    <ImageView
-                        android:layout_width="@dimen/dp_21"
-                        android:layout_height="@dimen/dp_21"
-                        android:src="@drawable/selector_amniocentesis_reason" />
-
-                    <com.keydom.mianren.ih_patient.view.textview.JustifiedTextView
+                    <LinearLayout
+                        android:id="@+id/amniocentesis_web_agree_protocol_layout1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_16"
-                        android:lineSpacingMultiplier="1.5"
-                        android:text="@string/txt_amniocentesis_reserve_notice_protocol"
-                        android:textColor="@color/color_333333"
-                        android:textSize="@dimen/sp_14" />
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_21"
+                            android:layout_height="@dimen/dp_21"
+                            android:src="@drawable/selector_amniocentesis_reason" />
+
+                        <com.keydom.mianren.ih_patient.view.textview.JustifiedTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:lineSpacingMultiplier="1.5"
+                            android:text="@string/txt_amniocentesis_reserve_agree_protocol"
+                            android:textColor="@color/color_333333"
+                            android:textSize="@dimen/sp_14" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/amniocentesis_web_notice_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_28"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_21"
+                            android:layout_height="@dimen/dp_21"
+                            android:src="@drawable/selector_amniocentesis_reason" />
+
+                        <com.keydom.mianren.ih_patient.view.textview.JustifiedTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:lineSpacingMultiplier="1.5"
+                            android:text="@string/txt_amniocentesis_reserve_notice_protocol"
+                            android:textColor="@color/color_333333"
+                            android:textSize="@dimen/sp_14" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_10"
+                    android:background="@color/line_color" />
+
+                <TextView
+                    android:id="@+id/amniocentesis_web_next_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:layout_marginStart="@dimen/dp_27"
+                    android:layout_marginTop="@dimen/dp_25"
+                    android:layout_marginEnd="@dimen/dp_27"
+                    android:layout_marginBottom="@dimen/dp_28"
+                    android:background="@mipmap/pay_commit_bg"
+                    android:gravity="center"
+                    android:text="@string/txt_next"
+                    android:textColor="@color/primary_color"
+                    android:textSize="@dimen/sp_18" />
             </LinearLayout>
+        </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_10"
-                android:background="@color/line_color" />
-
-            <TextView
-                android:id="@+id/amniocentesis_web_next_tv"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_45"
-                android:layout_marginStart="@dimen/dp_27"
-                android:layout_marginTop="@dimen/dp_25"
-                android:layout_marginEnd="@dimen/dp_27"
-                android:layout_marginBottom="@dimen/dp_28"
-                android:background="@mipmap/pay_commit_bg"
-                android:gravity="center"
-                android:text="@string/txt_next"
-                android:textColor="@color/primary_color"
-                android:textSize="@dimen/sp_18" />
-        </LinearLayout>
-    </RelativeLayout>
+    </com.ganxin.library.LoadDataLayout>
 
 </LinearLayout>

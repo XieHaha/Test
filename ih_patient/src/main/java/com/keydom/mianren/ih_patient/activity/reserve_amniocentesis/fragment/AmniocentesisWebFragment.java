@@ -13,6 +13,8 @@ import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller.A
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisWebView;
 import com.keydom.mianren.ih_patient.bean.AmniocentesisReserveBean;
 import com.keydom.mianren.ih_patient.constant.AmniocentesisProtocol;
+import com.tencent.smtt.export.external.interfaces.WebResourceError;
+import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
@@ -61,6 +63,11 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
      */
     private AmniocentesisProtocol protocol;
 
+    /**
+     * 网页加载错误
+     */
+    private boolean isError;
+
     @Override
     public int getLayoutRes() {
         return R.layout.activity_amniocentesis_web;
@@ -84,8 +91,14 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
         amniocentesisWebAgreeProtocolLayout1.setOnClickListener(getController());
         amniocentesisWebNoticeLayout.setOnClickListener(getController());
         initPage();
-
         initWebViewSetting();
+
+        setReloadListener((v, status) -> {
+            isError = false;
+            pageLoading();
+            initPage();
+            amniocentesisWebView.loadUrl(protocol.getUrl());
+        });
     }
 
     public void setProtocol(AmniocentesisProtocol protocol) {
@@ -123,6 +136,7 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
             default:
                 break;
         }
+        pageLoading();
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -159,10 +173,52 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             settings.setMixedContentMode(0);
         }
-        amniocentesisWebView.setWebViewClient(new WebViewClient());
-        amniocentesisWebView.setWebChromeClient(new WebChromeClient());
+        initClient();
 
         amniocentesisWebView.loadUrl(protocol.getUrl());
+    }
+
+    private void initClient() {
+        WebViewClient webViewClient = new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                if (!isError) {
+                    amniocentesisWebView.setVisibility(View.VISIBLE);
+                    pageLoadingSuccess();
+                }
+            }
+
+            // 新版本，只会在Android6及以上调用
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request,
+                                        WebResourceError error) {
+                isError = true;
+                loadStatus();
+            }
+
+            /**
+             * 这里进行无网络或错误处理，具体可以根据errorCode的值进行判断，做跟详细的处理。
+             *
+             */
+            // 旧版本，会在新版本中也可能被调用，所以加上一个判断，防止重复显示
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description,
+                                        String failingUrl) {
+                isError = true;
+                loadStatus();
+            }
+        };
+
+        amniocentesisWebView.setWebViewClient(webViewClient);
+        amniocentesisWebView.setWebChromeClient(new WebChromeClient());
+    }
+
+    /**
+     * 加载状态
+     */
+    private void loadStatus() {
+        amniocentesisWebView.setVisibility(View.GONE);
+        pageLoadingFail();
     }
 
     @Override
