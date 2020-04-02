@@ -284,6 +284,7 @@
         <activity android:name=".activity.online_triage.TriageOrderListActivity" />
         <activity android:name=".activity.online_consultation.ConsultationApplyActivity" />
         <activity android:name=".activity.online_consultation.ConsultationReceiveActivity" />
+        <activity android:name=".activity.online_consultation.ConsultationOrderActivity" />
 
     </application>
 

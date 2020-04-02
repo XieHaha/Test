@@ -50,5 +50,8 @@ public enum TypeEnum {
     CREATE_TEST_ORDER,//创建检验单
     UPDATE_TEST_ORDER,//修改检验单
     INSIDE_PRESCRIPTION,//院内处方
-    OUTSIDE_PRESCRIPTION;//外延处方
+    OUTSIDE_PRESCRIPTION,//外延处方
+    CONSULTATION_WAIT,//待会诊
+    CONSULTATION_ING,//会诊中
+    CONSULTATION_COMPLETE,//会诊完成
 }
