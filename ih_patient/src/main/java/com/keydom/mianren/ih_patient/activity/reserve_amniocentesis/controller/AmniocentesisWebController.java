@@ -17,6 +17,7 @@ import com.keydom.mianren.ih_patient.bean.AmniocentesisBean;
 import com.keydom.mianren.ih_patient.bean.AmniocentesisReserveBean;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.constant.EventType;
+import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.net.AmniocentesisService;
 
 import org.greenrobot.eventbus.EventBus;
@@ -97,6 +98,7 @@ public class AmniocentesisWebController extends ControllerImpl<AmniocentesisWebV
             return;
         }
         Map<String, Object> map = new HashMap<>();
+        map.put("userId", Global.getUserId());
         map.put("birthday", bean.getBirthday());
         map.put("endMensesTime", bean.getEndMensesTime());
         map.put("expectedBirthTime", bean.getExpectedBirthTime());

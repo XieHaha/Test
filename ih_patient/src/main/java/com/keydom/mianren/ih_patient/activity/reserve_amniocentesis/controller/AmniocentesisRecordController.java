@@ -16,6 +16,7 @@ import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.Amniocentesi
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisRecordView;
 import com.keydom.mianren.ih_patient.bean.AmniocentesisBean;
 import com.keydom.mianren.ih_patient.constant.Const;
+import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.TypeEnum;
 import com.keydom.mianren.ih_patient.net.AmniocentesisService;
 
@@ -41,6 +42,7 @@ public class AmniocentesisRecordController extends ControllerImpl<AmniocentesisR
         Map<String, Object> map = new HashMap<>();
         map.put("currentPage", getCurrentPage());
         map.put("pageSize", Const.PAGE_SIZE);
+        map.put("userId", Global.getUserId());
         if (!TextUtils.isEmpty(idCard)) {
             map.put("idCard", idCard);
         }
