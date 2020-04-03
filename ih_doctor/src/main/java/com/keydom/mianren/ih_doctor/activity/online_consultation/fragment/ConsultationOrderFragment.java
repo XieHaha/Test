@@ -102,13 +102,13 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
     @Override
     public void getDataSuccess(TypeEnum type, List<InquiryBean> list) {
         getController().currentPagePlus();
-        //        if (type == TypeEnum.REFRESH) {
-        //            dataList.clear();
-        //        }
-        //        dataList.addAll(list);
-        //        mAdapter.notifyDataSetChanged();
-        //        refreshLayout.finishRefresh();
-        //        refreshLayout.finishLoadMore();
+        if (type == TypeEnum.REFRESH) {
+            dataList.clear();
+        }
+        dataList.addAll(list);
+        mAdapter.notifyDataSetChanged();
+        refreshLayout.finishRefresh();
+        refreshLayout.finishLoadMore();
         pageLoadingSuccess();
 
     }

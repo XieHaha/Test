@@ -204,7 +204,6 @@
         <activity android:name=".activity.patient_manage.NewGroupChatActivity" />
         <activity android:name=".activity.patient_manage.ChoosePatientActivity" />
         <activity android:name=".activity.patient_manage.TentativeDiagnosisActivity" />
-        <activity android:name=".activity.TestActivity" />
         <!--视频通话-->
         <activity
             android:name="com.keydom.ih_common.im.activity.CommonVideoCallActivity"
