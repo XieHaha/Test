@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/common_white_click_bg"
-
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -20,7 +20,7 @@
             android:id="@+id/user_icon"
             android:layout_width="@dimen/dp_38"
             android:layout_height="@dimen/dp_38"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:background="@mipmap/user_icon" />
 
         <TextView
@@ -29,13 +29,13 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp_13"
-            android:layout_toRightOf="@id/user_icon"
-            android:text="风梳烟沐"
-            android:maxWidth="@dimen/dp_80"
-            android:lines="1"
+            android:layout_toEndOf="@id/user_icon"
             android:ellipsize="end"
+            android:lines="1"
+            android:maxWidth="@dimen/dp_80"
             android:textColor="@color/primary_font_color"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14"
+            tools:text="风梳烟沐" />
 
         <TextView
             android:id="@+id/user_age"
@@ -43,10 +43,10 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp_13"
-            android:layout_toRightOf="@id/user_name"
-            android:text="52岁"
+            android:layout_toEndOf="@id/user_name"
             android:textColor="@color/fontColorDirection"
-            android:textSize="@dimen/font_size_auxiliary" />
+            android:textSize="@dimen/sp_12"
+            tools:text="52岁" />
 
         <TextView
             android:id="@+id/user_sex"
@@ -54,19 +54,20 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp_6"
-            android:layout_toRightOf="@id/user_age"
-            android:text="男"
+            android:layout_toEndOf="@id/user_age"
             android:textColor="@color/fontColorDirection"
-            android:textSize="@dimen/font_size_auxiliary" />
+            android:textSize="@dimen/sp_12"
+            tools:text="男" />
 
         <ImageView
             android:id="@+id/delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:paddingLeft="@dimen/dp_6"
+            android:paddingStart="@dimen/dp_6"
             android:paddingTop="@dimen/dp_6"
+            android:paddingEnd="@dimen/dp_0"
             android:paddingBottom="@dimen/dp_6"
             android:src="@mipmap/consulting_delete_icon" />
 
@@ -74,15 +75,16 @@
             android:id="@+id/order_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:drawableLeft="@mipmap/patient_circle_green"
+            android:drawableStart="@mipmap/patient_circle_green"
             android:drawablePadding="@dimen/dp_6"
-            android:paddingLeft="@dimen/dp_6"
+            android:paddingStart="@dimen/dp_6"
             android:paddingTop="@dimen/dp_6"
+            android:paddingEnd="@dimen/dp_0"
             android:paddingBottom="@dimen/dp_6"
-            android:text="服务中"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14"
+            tools:text="服务中" />
     </RelativeLayout>
 
     <View
@@ -113,27 +115,27 @@
             android:paddingBottom="@dimen/dp_3"
             android:text="审核意见"
             android:textColor="#DCC98F"
-            android:textSize="@dimen/font_size_auxiliary" />
+            android:textSize="@dimen/sp_12" />
 
         <TextView
             android:id="@+id/check_idea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/update_prescription"
-            android:layout_toRightOf="@id/check_idea_tip"
+            android:layout_toStartOf="@id/update_prescription"
+            android:layout_toEndOf="@id/check_idea_tip"
             android:paddingLeft="@dimen/dp_12"
             android:paddingTop="@dimen/dp_3"
             android:paddingRight="@dimen/dp_12"
             android:paddingBottom="@dimen/dp_3"
             android:text="超量使用未注明剂量、原因"
             android:textColor="#666666"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14" />
 
         <TextView
             android:id="@+id/update_prescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:background="@drawable/update_prescription_bg"
             android:paddingLeft="@dimen/dp_6"
             android:paddingTop="@dimen/dp_3"
@@ -141,7 +143,7 @@
             android:paddingBottom="@dimen/dp_3"
             android:text="处方修改"
             android:textColor="#0AD8C3"
-            android:textSize="@dimen/font_size_auxiliary" />
+            android:textSize="@dimen/sp_12" />
 
     </RelativeLayout>
 
@@ -157,9 +159,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="@dimen/dp_10"
-            android:text="3日前自觉鼻塞、流涕，轻微咳嗽，自服抗感冒药物效果不佳，近1日觉畏寒，发热，体温37.7℃。"
             android:textColor="#666666"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14"
+            tools:text="3日前自觉鼻塞、流涕，轻微咳嗽，自服抗感冒药物效果不佳，近1日觉畏寒，发热，体温37.7℃。" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/img_rv"
@@ -188,21 +190,21 @@
             android:id="@+id/order_type_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/diagnose_illustration"
+            android:drawableStart="@mipmap/diagnose_illustration"
             android:drawablePadding="@dimen/dp_11"
             android:gravity="center_vertical"
             android:text="图文问诊"
             android:textColor="#FF6E4D"
-            android:textSize="@dimen/font_size_auxiliary" />
+            android:textSize="@dimen/sp_12" />
 
         <TextView
             android:id="@+id/diagnose_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="2018.09.27"
+            android:layout_alignParentEnd="true"
             android:textColor="#999999"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14"
+            tools:text="2018.09.27" />
     </RelativeLayout>
 
     <View

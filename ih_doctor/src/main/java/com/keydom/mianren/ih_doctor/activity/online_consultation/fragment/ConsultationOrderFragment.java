@@ -6,39 +6,41 @@ import android.support.v7.widget.RecyclerView;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.mianren.ih_doctor.R;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.ConsultationOrderAdapter;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationOrderFragmentController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationOrderFragmentView;
-import com.keydom.mianren.ih_doctor.adapter.BaseEmptyAdapter;
-import com.keydom.mianren.ih_doctor.adapter.DiagnoseOrderRecyclrViewAdapter;
-import com.keydom.mianren.ih_doctor.adapter.VIPDiagnoseOrderRecyclrViewAdapter;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.bean.MessageEvent;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+
 /**
  * @date 4月2日 15:03
  * 会诊列表
  */
 public class ConsultationOrderFragment extends BaseControllerFragment<ConsultationOrderFragmentController> implements ConsultationOrderFragmentView {
-
-    private RecyclerView recyclerView;
+    @BindView(R.id.consultation_order_recycler_view)
+    RecyclerView consultationOrderRecyclerView;
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
     /**
      * 会诊单适配器
      */
-    private BaseEmptyAdapter mAdapter;
-    private RefreshLayout refreshLayout;
+    private ConsultationOrderAdapter mAdapter;
     /**
      * 会诊单列表
      */
@@ -53,16 +55,13 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
     private int state = -1;
 
 
-    private boolean isVIPDiag = false;
-
-
-    public static final ConsultationOrderFragment newInstance(TypeEnum type) {
+    public static ConsultationOrderFragment newInstance(TypeEnum type) {
 
         return newInstance(type, false);
     }
 
 
-    public static final ConsultationOrderFragment newInstance(TypeEnum type, boolean isVIPDiag) {
+    public static ConsultationOrderFragment newInstance(TypeEnum type, boolean isVIPDiag) {
         ConsultationOrderFragment fragment = new ConsultationOrderFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(Const.TYPE, type);
@@ -114,7 +113,7 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
     }
 
     @Override
-    public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void initData(@Nullable Bundle savedInstanceState) {
         mType = (TypeEnum) getArguments().getSerializable(Const.TYPE);
         if (mType == TypeEnum.CONSULTATION_WAIT) {
             state = 0;
@@ -126,15 +125,9 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        if (isVIPDiag) {
-            mAdapter = new VIPDiagnoseOrderRecyclrViewAdapter(getContext(), dataList);
-        } else {
-            mAdapter = new DiagnoseOrderRecyclrViewAdapter(getContext(), dataList);
-        }
-        recyclerView = getView().findViewById(R.id.common_rv);
-        refreshLayout = getView().findViewById(R.id.refreshLayout);
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mAdapter = new ConsultationOrderAdapter(getContext(), dataList);
+        consultationOrderRecyclerView.setAdapter(mAdapter);
+        consultationOrderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         refreshLayout.setOnLoadMoreListener(getController());
         refreshLayout.setOnRefreshListener(getController());
         setReloadListener((v, status) -> {
