@@ -56,16 +56,9 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
 
 
     public static ConsultationOrderFragment newInstance(TypeEnum type) {
-
-        return newInstance(type, false);
-    }
-
-
-    public static ConsultationOrderFragment newInstance(TypeEnum type, boolean isVIPDiag) {
         ConsultationOrderFragment fragment = new ConsultationOrderFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(Const.TYPE, type);
-        bundle.putBoolean(Const.IS_VIP_ONLINE_DIAG, isVIPDiag);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -75,17 +68,47 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
         return R.layout.fragment_consultation_order;
     }
 
+    @Override
+    public void initData(@Nullable Bundle savedInstanceState) {
+        mType = (TypeEnum) getArguments().getSerializable(Const.TYPE);
+        if (mType == TypeEnum.CONSULTATION_WAIT) {
+            state = 0;
+        } else if (mType == TypeEnum.CONSULTATION_ING) {
+            state = 1;
+        } else if (mType == TypeEnum.CONSULTATION_COMPLETE) {
+            state = 2;
+        }
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+        //模拟数据
+        dataList.add(new InquiryBean());
+        dataList.add(new InquiryBean());
+        dataList.add(new InquiryBean());
+        dataList.add(new InquiryBean());
+        dataList.add(new InquiryBean());
+        mAdapter = new ConsultationOrderAdapter(dataList);
+        consultationOrderRecyclerView.setAdapter(mAdapter);
+        consultationOrderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        refreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getConsultationOrderList(TypeEnum.LOAD_MORE));
+        refreshLayout.setOnRefreshListener(refreshLayout -> getController().getConsultationOrderList(TypeEnum.REFRESH));
+        setReloadListener((v, status) -> {
+            pageLoading();
+            getController().getConsultationOrderList(TypeEnum.REFRESH);
+        });
+    }
+
 
     @Override
     public void getDataSuccess(TypeEnum type, List<InquiryBean> list) {
         getController().currentPagePlus();
-        if (type == TypeEnum.REFRESH) {
-            dataList.clear();
-        }
-        dataList.addAll(list);
-        mAdapter.notifyDataSetChanged();
-        refreshLayout.finishRefresh();
-        refreshLayout.finishLoadMore();
+        //        if (type == TypeEnum.REFRESH) {
+        //            dataList.clear();
+        //        }
+        //        dataList.addAll(list);
+        //        mAdapter.notifyDataSetChanged();
+        //        refreshLayout.finishRefresh();
+        //        refreshLayout.finishLoadMore();
         pageLoadingSuccess();
 
     }
@@ -113,35 +136,9 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
     }
 
     @Override
-    public void initData(@Nullable Bundle savedInstanceState) {
-        mType = (TypeEnum) getArguments().getSerializable(Const.TYPE);
-        if (mType == TypeEnum.CONSULTATION_WAIT) {
-            state = 0;
-        } else if (mType == TypeEnum.CONSULTATION_ING) {
-            state = 1;
-        } else if (mType == TypeEnum.CONSULTATION_COMPLETE) {
-            state = 2;
-        }
-        if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this);
-        }
-        mAdapter = new ConsultationOrderAdapter(getContext(), dataList);
-        consultationOrderRecyclerView.setAdapter(mAdapter);
-        consultationOrderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        refreshLayout.setOnLoadMoreListener(getController());
-        refreshLayout.setOnRefreshListener(getController());
-        setReloadListener((v, status) -> {
-            pageLoading();
-            getController().setCurrentPage(1);
-            getController().getData(TypeEnum.REFRESH);
-        });
-    }
-
-    @Override
     public void lazyLoad() {
         pageLoading();
-        getController().setCurrentPage(1);
-        getController().getData(TypeEnum.REFRESH);
+        getController().getConsultationOrderList(TypeEnum.REFRESH);
     }
 
     @Override
@@ -156,8 +153,7 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
         if (messageEvent.getType() == EventType.DIAGNOSE_ORDER_UPDATE) {
-            getController().setCurrentPage(1);
-            getController().getData(TypeEnum.REFRESH);
+            getController().getConsultationOrderList(TypeEnum.REFRESH);
         }
     }
 }

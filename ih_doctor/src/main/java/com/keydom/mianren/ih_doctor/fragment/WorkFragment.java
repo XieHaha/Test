@@ -62,7 +62,6 @@ import java.util.List;
  * 修改时间：18/11/5 下午5:25
  */
 public class WorkFragment extends BaseControllerFragment<WorkFragmentController> implements WorkFragmentView {
-
     private RecyclerView.Adapter rwAdapter = null;
     private PageRecyclerView workFunctionRecyclerView;
     private PageIndicatorView indicatorView;
@@ -107,250 +106,6 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
     public int getLayoutRes() {
         return R.layout.fragment_work;
     }
-
-    @Override
-    public void getHomeDataSuccess(HomeBean bean) {
-        //        getController().getHomeCountMsg();
-        if (refreshLayout.isRefreshing()) {
-            refreshLayout.finishRefresh();
-        }
-        if (bean == null) {
-            pageEmpty();
-            return;
-        }
-        homeBean = bean;
-        pageLoadingSuccess();
-        auditNoPass = homeBean.getAuditNoPass();
-        noAudit = homeBean.getNoAudit();
-        receiveNurse = homeBean.getReceiveNurse();
-        receiveInquiry = homeBean.getReceiveInquiry();
-        visitNurse = homeBean.getVisitNurse();
-        receiveReferral = homeBean.getReceiveReferral();
-        MyApplication.receiveReferral = receiveReferral;
-        if (receiveReferral > 0)
-            cooperate_redpoint_view.setVisibility(View.VISIBLE);
-        else
-            cooperate_redpoint_view.setVisibility(View.GONE);
-        MyApplication.userInfo = bean.getInfo();
-        PushManager.setAlias(getContext(), (String) SharePreferenceManager.getPhoneNumber());
-        MyApplication.accessInfoBean = bean.getAuth();
-        if (MyApplication.deptBeanList.size() > 0) {//如果科室已经拿到，并且存在，则过滤科室，否则不过滤
-            MyApplication.filterDept();
-        }
-        LocalizationUtils.fileSave2Local(getContext(), bean.getInfo(), Const.USER_INFO);
-        SharePreferenceManager.setId(bean.getInfo().getId());
-
-
-        //        GlideUtils.load(iconCircleImageView, Const.IMAGE_HOST + bean.getInfo()
-        //        .getAvatar(), 0, 0, false, null);
-        GlideUtils.loadWithBorder(iconCircleImageView,
-                Const.IMAGE_HOST + bean.getInfo().getAvatar());
-        userNameTv.setText(bean.getInfo().getName());
-        //        if (bean.getInfo().getCityName() == null || "".equals(bean.getInfo()
-        //        .getCityName())) {
-        //            addTv.setVisibility(View.GONE);
-        //        } else {
-        //            addTv.setText(bean.getInfo().getCityName());
-        //        }
-        //        hospitalTv.setText(bean.getInfo().getHospitalName());
-        departmentTv.setText(bean.getInfo().getDeptName());
-        doctorTitle.setText(bean.getInfo().getJobTitle());
-        dataList.clear();
-        dataList.addAll(bean.getList());
-        for (int i = 0; i < dataList.size(); i++) {
-            IndexMenuBean menuBean = dataList.get(i);
-            if ("在线接诊".equals(menuBean.getName()) || "在线咨询".equals(menuBean.getName())) {
-                if (receiveInquiry > 0) {
-                    menuBean.setRedPointShow(true);
-                } else {
-                    menuBean.setRedPointShow(false);
-                }
-            }
-            if ("处方审核".equals(menuBean.getName())) {
-                if (noAudit > 0) {
-                    menuBean.setRedPointShow(true);
-                } else {
-                    menuBean.setRedPointShow(false);
-                }
-            }
-            if ("处方查询".equals(menuBean.getName())) {
-                if (auditNoPass > 0) {
-                    menuBean.setRedPointShow(true);
-                } else {
-                    menuBean.setRedPointShow(false);
-                }
-            }
-            if ("护理接单".equals(menuBean.getName())) {
-                if (receiveNurse > 0) {
-                    menuBean.setRedPointShow(true);
-                } else {
-                    menuBean.setRedPointShow(false);
-                }
-            }
-            if ("上门护理".equals(menuBean.getName())) {
-                if (visitNurse > 0) {
-                    menuBean.setRedPointShow(true);
-                } else {
-                    menuBean.setRedPointShow(false);
-                }
-            }
-        }
-
-        //TODO 模拟健康管理数据
-        IndexMenuBean menuBean = new IndexMenuBean();
-        menuBean.setName("健康管理");
-        dataList.add(menuBean);
-
-        workFunctionAdapter.setNewData(dataList);
-
-        if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
-            if (receiveNurse > 0 || visitNurse > 0)
-                receive_redpoint_view.setVisibility(View.VISIBLE);
-            else
-                receive_redpoint_view.setVisibility(View.GONE);
-        } else if (SharePreferenceManager.getRoleId() == Const.ROLE_MEDICINE) {
-            if (receiveInquiry > 0)
-                receive_redpoint_view.setVisibility(View.VISIBLE);
-            else
-                receive_redpoint_view.setVisibility(View.GONE);
-
-        } else {
-            if (receiveInquiry > 0)
-                receive_redpoint_view.setVisibility(View.VISIBLE);
-            else
-                receive_redpoint_view.setVisibility(View.GONE);
-        }
-     /*   workFunctionRecyclerView.setPageMargin(0);
-        workFunctionRecyclerView.setPageSize(1, 4);
-        workFunctionRecyclerView.setIndicator(indicatorView);*/
-       /* if (rwAdapter == null) {
-            rwAdapter = workFunctionRecyclerView.new PageAdapter(R.dimen.dp_20, dataList, new
-            PageRecyclerView.CallBack() {
-                @Override
-                public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                    View view = LayoutInflater.from(getActivity()).inflate(R.layout
-                    .work_function_item, parent, false);
-                    return new MyHolder(view);
-                }
-
-                @Override
-                public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-                    ((MyHolder) holder).username.setText(dataList.get(position).getName());
-                    if (dataList.get(position).isRedPointShow())
-                        ((MyHolder) holder).redPointView.setVisibility(View.VISIBLE);
-                    else
-                        ((MyHolder) holder).redPointView.setVisibility(View.GONE);
-                    ((MyHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
-                        @SingleClick(1000)
-                        @Override
-                        public void onClick(View v) {
-                            switch (dataList.get(position).getName()) {
-                                case "门诊排班":
-                                    ConsultingArrangeActivity.start(getContext());
-                                    break;
-                                case "处方审核":
-                                case "处方查询":
-                                    if (MyApplication.serviceEnable(new String[]{ServiceConst
-                                    .DOCTOR_PRESCRIPTION_SERVICE_CODE, ServiceConst
-                                    .MEDICINE_PRESCRIPTION_SERVICE_CODE})) {
-                                        PrescriptionCheckActivity.start(getContext());
-                                    } else {
-                                        getController().showNotAccessDialog();
-                                    }
-                                    break;
-                                case "发布信息":
-                                    NotificationListActivity.start(getContext());
-                                    break;
-                                case "医生协作":
-                                    if (MyApplication.serviceEnable(new String[]{ServiceConst
-                                    .DOCTOR_COOPERATE_SERVICE_CODE, ServiceConst
-                                    .NURSE_COOPERATE_SERVICE_CODE, ServiceConst
-                                    .MEDICINE_COOPERATE_SERVICE_CODE})) {
-                                        DoctorCooperationActivity.start(getContext());
-                                    } else {
-                                        getController().showNotAccessDialog();
-                                    }
-
-                                    break;
-                                case "护理接单":
-                                    if (MyApplication.serviceEnable(new String[]{ServiceConst
-                                    .NURSE_SERVICE_CODE})) {
-                                        NurseServiceOrderListActivity.headNurseStart(getContext());
-                                    } else {
-                                        getController().showNotAccessDialog();
-                                    }
-                                    break;
-                                case "上门护理":
-                                    if (MyApplication.serviceEnable(new String[]{ServiceConst
-                                    .NURSE_SERVICE_CODE})) {
-                                        NurseServiceOrderListActivity.commonNurseStart(getContext
-                                        ());
-                                    } else {
-                                        getController().showNotAccessDialog();
-                                    }
-                                    break;
-                                case "在线接诊":
-                                    if (MyApplication.serviceEnable(new String[]{ServiceConst
-                                    .DOCTOR_ONLINE_DIAGNOSE_SERVICE_CODE})) {
-                                        DiagnoseOrderListActivity.startDiagnose(getContext());
-                                    } else {
-                                        getController().showNotAccessDialog();
-                                    }
-                                    break;
-                                case "在线咨询":
-                                    if (MyApplication.serviceEnable(new String[]{ServiceConst
-                                    .NURSE_CONSULT_SERVICE_CODE, ServiceConst
-                                    .MEDICINE_CONSULT_SERVICE_CODE})) {
-                                        DiagnoseOrderListActivity.startConsult(getContext());
-                                    } else {
-                                        getController().showNotAccessDialog();
-                                    }
-
-                                default:
-                            }
-                        }
-                    });
-                    int resId = GetMenuIconResId.getInstance().getId(dataList.get(position)
-                    .getName());
-                    if (resId == -1) {
-                        ((MyHolder) holder).usericon.setImageDrawable(getResources().getDrawable
-                        (R.mipmap.nurse_visit));
-                    } else {
-                        ((MyHolder) holder).usericon.setImageDrawable(getResources().getDrawable
-                        (resId));
-                    }
-                }
-            });
-            workFunctionRecyclerView.setAdapter(rwAdapter);
-        }else
-            rwAdapter.notifyDataSetChanged();*/
-
-        topHospitalName.setText(MyApplication.userInfo.getHospitalName());
-    }
-
-    @Override
-    public void getHomeDataFailed(String errMsg) {
-        pageLoadingFail();
-    }
-
-    @Override
-    public RelativeLayout getTitleLayout() {
-        return titleBarLayout;
-    }
-
-    @Override
-    public String getUserIconStr() {
-        return (homeBean != null && homeBean.getInfo() != null && homeBean.getInfo().getAvatar() != null && !"".equals(homeBean.getInfo().getAvatar())) ? Const.IMAGE_HOST + homeBean.getInfo().getAvatar() : "";
-    }
-
-
-    @Override
-    public void getHomeCountMsgSuccess(HomeMsgBean bean) {
-        if (bean != null) {
-
-        }
-    }
-
 
     @SuppressLint("NewApi")
     @Override
@@ -510,6 +265,144 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
     }
 
     @Override
+    public void getHomeDataSuccess(HomeBean bean) {
+        //        getController().getHomeCountMsg();
+        if (refreshLayout.isRefreshing()) {
+            refreshLayout.finishRefresh();
+        }
+        if (bean == null) {
+            pageEmpty();
+            return;
+        }
+        homeBean = bean;
+        pageLoadingSuccess();
+        auditNoPass = homeBean.getAuditNoPass();
+        noAudit = homeBean.getNoAudit();
+        receiveNurse = homeBean.getReceiveNurse();
+        receiveInquiry = homeBean.getReceiveInquiry();
+        visitNurse = homeBean.getVisitNurse();
+        receiveReferral = homeBean.getReceiveReferral();
+        MyApplication.receiveReferral = receiveReferral;
+        if (receiveReferral > 0)
+            cooperate_redpoint_view.setVisibility(View.VISIBLE);
+        else
+            cooperate_redpoint_view.setVisibility(View.GONE);
+        MyApplication.userInfo = bean.getInfo();
+        PushManager.setAlias(getContext(), (String) SharePreferenceManager.getPhoneNumber());
+        MyApplication.accessInfoBean = bean.getAuth();
+        if (MyApplication.deptBeanList.size() > 0) {//如果科室已经拿到，并且存在，则过滤科室，否则不过滤
+            MyApplication.filterDept();
+        }
+        LocalizationUtils.fileSave2Local(getContext(), bean.getInfo(), Const.USER_INFO);
+        SharePreferenceManager.setId(bean.getInfo().getId());
+
+
+        //        GlideUtils.load(iconCircleImageView, Const.IMAGE_HOST + bean.getInfo()
+        //        .getAvatar(), 0, 0, false, null);
+        GlideUtils.loadWithBorder(iconCircleImageView,
+                Const.IMAGE_HOST + bean.getInfo().getAvatar());
+        userNameTv.setText(bean.getInfo().getName());
+        //        if (bean.getInfo().getCityName() == null || "".equals(bean.getInfo()
+        //        .getCityName())) {
+        //            addTv.setVisibility(View.GONE);
+        //        } else {
+        //            addTv.setText(bean.getInfo().getCityName());
+        //        }
+        //        hospitalTv.setText(bean.getInfo().getHospitalName());
+        departmentTv.setText(bean.getInfo().getDeptName());
+        doctorTitle.setText(bean.getInfo().getJobTitle());
+        dataList.clear();
+        dataList.addAll(bean.getList());
+        for (int i = 0; i < dataList.size(); i++) {
+            IndexMenuBean menuBean = dataList.get(i);
+            if ("在线接诊".equals(menuBean.getName()) || "在线咨询".equals(menuBean.getName())) {
+                if (receiveInquiry > 0) {
+                    menuBean.setRedPointShow(true);
+                } else {
+                    menuBean.setRedPointShow(false);
+                }
+            }
+            if ("处方审核".equals(menuBean.getName())) {
+                if (noAudit > 0) {
+                    menuBean.setRedPointShow(true);
+                } else {
+                    menuBean.setRedPointShow(false);
+                }
+            }
+            if ("处方查询".equals(menuBean.getName())) {
+                if (auditNoPass > 0) {
+                    menuBean.setRedPointShow(true);
+                } else {
+                    menuBean.setRedPointShow(false);
+                }
+            }
+            if ("护理接单".equals(menuBean.getName())) {
+                if (receiveNurse > 0) {
+                    menuBean.setRedPointShow(true);
+                } else {
+                    menuBean.setRedPointShow(false);
+                }
+            }
+            if ("上门护理".equals(menuBean.getName())) {
+                if (visitNurse > 0) {
+                    menuBean.setRedPointShow(true);
+                } else {
+                    menuBean.setRedPointShow(false);
+                }
+            }
+        }
+
+        //TODO 模拟健康管理数据
+        IndexMenuBean menuBean = new IndexMenuBean();
+        menuBean.setName("健康管理");
+        dataList.add(menuBean);
+
+        workFunctionAdapter.setNewData(dataList);
+
+        if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
+            if (receiveNurse > 0 || visitNurse > 0)
+                receive_redpoint_view.setVisibility(View.VISIBLE);
+            else
+                receive_redpoint_view.setVisibility(View.GONE);
+        } else if (SharePreferenceManager.getRoleId() == Const.ROLE_MEDICINE) {
+            if (receiveInquiry > 0)
+                receive_redpoint_view.setVisibility(View.VISIBLE);
+            else
+                receive_redpoint_view.setVisibility(View.GONE);
+
+        } else {
+            if (receiveInquiry > 0)
+                receive_redpoint_view.setVisibility(View.VISIBLE);
+            else
+                receive_redpoint_view.setVisibility(View.GONE);
+        }
+        topHospitalName.setText(MyApplication.userInfo.getHospitalName());
+    }
+
+    @Override
+    public void getHomeDataFailed(String errMsg) {
+        pageLoadingFail();
+    }
+
+    @Override
+    public RelativeLayout getTitleLayout() {
+        return titleBarLayout;
+    }
+
+    @Override
+    public String getUserIconStr() {
+        return (homeBean != null && homeBean.getInfo() != null && homeBean.getInfo().getAvatar() != null && !"".equals(homeBean.getInfo().getAvatar())) ? Const.IMAGE_HOST + homeBean.getInfo().getAvatar() : "";
+    }
+
+
+    @Override
+    public void getHomeCountMsgSuccess(HomeMsgBean bean) {
+        if (bean != null) {
+
+        }
+    }
+
+    @Override
     public void lazyLoad() {
         pageLoading();
         //        getController().getHome();
@@ -522,23 +415,6 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         getController().getHome();
     }
 
-    /**
-     * 常用功能holder
-     */
-    public class MyHolder extends RecyclerView.ViewHolder {
-
-        public TextView username = null;
-        public ImageView usericon = null;
-        public View redPointView = null;
-
-        public MyHolder(View itemView) {
-            super(itemView);
-            username = (TextView) itemView.findViewById(R.id.work_function_name);
-            usericon = (ImageView) itemView.findViewById(R.id.work_function_icon);
-            redPointView = itemView.findViewById(R.id.item_redpoint_view);
-        }
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -547,8 +423,6 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
 
     /**
      * 刷新首页
-     *
-     * @param messageEvent
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
@@ -569,10 +443,6 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
 
     /**
      * 将dp转换成px
-     *
-     * @param context
-     * @param dpValue
-     * @return
      */
     public static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
