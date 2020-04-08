@@ -118,8 +118,8 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
 
         public VH(View v) {
             super(v);
-            funcName = (TextView) v.findViewById(R.id.item_func_name);
-            funcIcon = (ImageView) v.findViewById(R.id.item_func_icon);
+            funcName = v.findViewById(R.id.item_func_name);
+            funcIcon = v.findViewById(R.id.item_func_icon);
             redPointView = v.findViewById(R.id.item_redpoint_view);
         }
     }
@@ -164,7 +164,8 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             RehabilitationRecordActivity.start(context);
                             break;
                         case AmniocentesisApply:
-                            AmniocentesisReserveActivity.start(context, AmniocentesisProtocol.AMNIOCENTESIS_WEB_RESERVE);
+                            AmniocentesisReserveActivity.start(context,
+                                    AmniocentesisProtocol.AMNIOCENTESIS_WEB_RESERVE);
                             break;
                         case PregnantWoman:
                             PregnantWomanActivity.start(context);

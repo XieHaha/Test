@@ -280,6 +280,7 @@
                 android:id="@+id/consultation_receive_purpose_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                mitem:editMode="false"
                 mitem:itemTip="会诊理由及目的"
                 mitem:showArrow="true" />
 
@@ -287,6 +288,7 @@
                 android:id="@+id/consultation_receive_summary_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                mitem:editMode="false"
                 mitem:itemTip="病情摘要"
                 mitem:showArrow="true" />
 
@@ -294,6 +296,7 @@
                 android:id="@+id/consultation_receive_information_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                mitem:editMode="false"
                 mitem:itemTip="病历资料"
                 mitem:showArrow="true" />
 
@@ -301,6 +304,7 @@
                 android:id="@+id/consultation_receive_advice_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                mitem:editMode="false"
                 mitem:itemTip="会诊意见"
                 mitem:showArrow="true" />
 

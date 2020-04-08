@@ -7,4 +7,23 @@ import com.keydom.ih_common.base.BaseView;
  * @des 会诊室-病历资料
  */
 public interface ConsultationInfoView extends BaseView {
+    /**
+     * 会诊申请单
+     */
+    void onApplyInfoSelect();
+
+    /**
+     * 病历
+     */
+    void onMedicalSelect();
+
+    /**
+     * 报告单
+     */
+    void onReportInfoSelect();
+
+    /**
+     * 影像
+     */
+    void onVideoSelect();
 }

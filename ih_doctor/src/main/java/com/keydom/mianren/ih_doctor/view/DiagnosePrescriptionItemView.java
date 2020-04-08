@@ -110,13 +110,15 @@ public class DiagnosePrescriptionItemView extends RelativeLayout {
         String limitSize = attrs.getAttributeValue("http://schemas.android.com/apk/res-audo/com" +
                 ".keydom.mianren.ih_doctor.view", "limit");
         boolean showArrow = attrs.getAttributeBooleanValue("http://schemas.android" +
-                ".com/apk/res-audo/com" +
-                ".keydom.mianren.ih_doctor.view", "showArrow", false);
+                ".com/apk/res-audo/com.keydom.mianren.ih_doctor.view", "showArrow", false);
+        boolean edit = attrs.getAttributeBooleanValue("http://schemas.android" +
+                ".com/apk/res-audo/com.keydom.mianren.ih_doctor.view", "editMode", true);
         setItemName(titleStr);
         setAddStr(addStr);
         setHintStr(hintStr);
         setMaxSize(limitSize);
         setShowArrow(showArrow);
+        setEditMode(edit);
 
         // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
@@ -179,9 +181,12 @@ public class DiagnosePrescriptionItemView extends RelativeLayout {
 
     public void setShowArrow(boolean showArrow) {
         itemViewArrowIv.setVisibility(showArrow ? VISIBLE : GONE);
-        mVoiceInputIv.setVisibility(showArrow ? INVISIBLE : VISIBLE);
-        inputEv.setEnabled(!showArrow);
-        inputEv.setFocusableInTouchMode(!showArrow);
+    }
+
+    public void setEditMode(boolean edit) {
+        mVoiceInputIv.setVisibility(edit ? VISIBLE : INVISIBLE);
+        inputEv.setEnabled(edit);
+        inputEv.setFocusableInTouchMode(edit);
     }
 
     public void setAddOnClikListener(final OnClickListener onClikListener) {
