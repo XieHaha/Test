@@ -64,6 +64,7 @@
 
     <!--会诊-->
     <string name="txt_consultation">会诊</string>
+    <string name="txt_exit_consultation">退出诊室</string>
     <string name="txt_consultation_apply_info">会诊申请单</string>
     <string name="txt_medical">病历</string>
     <string name="txt_report_info">报告单</string>

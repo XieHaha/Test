@@ -1,86 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:mitem="http://schemas.android.com/apk/res-auto/com.keydom.mianren.ih_doctor.view"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.mianren.ih_doctor.view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:ignore="ResAuto">
+    android:layout_height="match_parent">
 
-    <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
-        android:id="@+id/consultation_info_chief_item"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        mitem:editMode="false"
-        mitem:itemTip="主诉"
-        mitem:showArrow="false" />
+        android:layout_height="match_parent"
+        android:layout_above="@id/layout"
+        android:scrollbars="none">
 
-    <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
-        android:id="@+id/consultation_info_purpose_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        mitem:editMode="false"
-        mitem:itemTip="会诊理由及目的"
-        mitem:showArrow="false" />
-
-    <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
-        android:id="@+id/consultation_info_summary_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        mitem:editMode="false"
-        mitem:itemTip="病情摘要"
-        mitem:showArrow="false" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/image1"
-            android:layout_width="@dimen/dp_2"
-            android:layout_height="@dimen/dp_15"
-            android:layout_marginStart="@dimen/padding_left_right_dp"
-            android:layout_marginTop="@dimen/dp_18"
-            android:background="#71A4FF" />
-
-        <TextView
-            android:id="@+id/text3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_6"
-            android:layout_toEndOf="@id/image1"
-            android:paddingTop="@dimen/dp_16"
-            android:paddingBottom="@dimen/dp_16"
-            android:text="@string/txt_condition_information"
-            android:textColor="@color/primary_font_color"
-            android:textSize="@dimen/sp_14" />
-
-        <View
-            android:id="@+id/line1"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:layout_below="@id/text3"
-            android:background="@color/line_color" />
-
-        <com.keydom.ih_common.view.GridViewForScrollView
-            android:id="@+id/consultation_info_condition_image_grid"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/line1"
-            android:layout_marginTop="@dimen/dp_14"
-            android:columnWidth="@dimen/dp_86"
-            android:horizontalSpacing="@dimen/dp_10"
-            android:listSelector="@android:color/transparent"
-            android:numColumns="auto_fit"
-            android:paddingStart="@dimen/padding_left_right_dp"
-            android:paddingTop="@dimen/dp_17"
-            android:paddingEnd="@dimen/padding_left_right_dp"
-            android:paddingBottom="@dimen/dp_19"
-            android:scrollbars="none"
-            android:verticalSpacing="@dimen/dp_10" />
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
+                android:id="@+id/consultation_info_chief_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                mitem:editMode="false"
+                mitem:itemTip="主诉"
+                mitem:showArrow="false" />
+
+            <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
+                android:id="@+id/consultation_info_purpose_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                mitem:editMode="false"
+                mitem:itemTip="会诊理由及目的"
+                mitem:showArrow="false" />
+
+            <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
+                android:id="@+id/consultation_info_summary_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                mitem:editMode="false"
+                mitem:itemTip="病情摘要"
+                mitem:showArrow="false" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="@dimen/dp_2"
+                    android:layout_height="@dimen/dp_15"
+                    android:layout_marginStart="@dimen/padding_left_right_dp"
+                    android:layout_marginTop="@dimen/dp_18"
+                    android:background="#71A4FF" />
+
+                <TextView
+                    android:id="@+id/text3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:layout_toEndOf="@id/image1"
+                    android:paddingTop="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_16"
+                    android:text="@string/txt_condition_information"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <View
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_below="@id/text3"
+                    android:background="@color/line_color" />
+
+                <com.keydom.ih_common.view.GridViewForScrollView
+                    android:id="@+id/consultation_info_condition_image_grid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line1"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:columnWidth="@dimen/dp_86"
+                    android:horizontalSpacing="@dimen/dp_10"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="auto_fit"
+                    android:paddingStart="@dimen/padding_left_right_dp"
+                    android:paddingTop="@dimen/dp_17"
+                    android:paddingEnd="@dimen/padding_left_right_dp"
+                    android:paddingBottom="@dimen/dp_19"
+                    android:scrollbars="none"
+                    android:verticalSpacing="@dimen/dp_10" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

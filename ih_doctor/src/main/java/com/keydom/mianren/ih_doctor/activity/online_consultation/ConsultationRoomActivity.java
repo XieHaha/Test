@@ -10,9 +10,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationRoomController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationInfoFragment;
@@ -51,13 +54,21 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        setTitle("多学科会诊");
+        setTitle("患者姓名");
+        setRightTxt(getString(R.string.txt_exit_consultation));
 
         LinearLayout linearLayout = (LinearLayout) consultationRoomTabLayout.getChildAt(0);
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,
                 R.drawable.layout_divider_vertical));
         initOrderListFragment();
+
+        setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
+            @Override
+            public void OnRightTextClick(View v) {
+                ToastUtil.showMessage(ConsultationRoomActivity.this, "退出");
+            }
+        });
     }
 
 
