@@ -32,6 +32,13 @@ public class FunctionConfig {
     //物流查询
     public static final int ExpressInfo = 32;
 
+    //线下评估预约
+    public static final int OfflineEvaluation = 33;
+    //羊水穿刺预约
+    public static final int AmniocentesisReserve = 34;
+    //住院预缴金
+    public static final int HospitalPayment = 35;
+
     public static int getIcon(long id) {
         if (id == DoctorRegister) {
             FunctionConfig.ResourceId = R.mipmap.consultation_orderby;
@@ -64,6 +71,15 @@ public class FunctionConfig {
             FunctionConfig.ResourceId = R.mipmap.icon_get_drugs;
 
         } else if (id == ExpressInfo) {
+            FunctionConfig.ResourceId = R.mipmap.icon_express_info;
+
+        } else if (id == OfflineEvaluation) {
+            FunctionConfig.ResourceId = R.mipmap.icon_express_info;
+
+        } else if (id == AmniocentesisReserve) {
+            FunctionConfig.ResourceId = R.mipmap.vip_amniocentesis_icon;
+
+        } else if (id == HospitalPayment) {
             FunctionConfig.ResourceId = R.mipmap.icon_express_info;
 
         } else {

@@ -34,8 +34,6 @@ public class FunctionConfigController extends ControllerImpl<FunctionConfigView>
         List<IndexFunction> allFunctionlist =
                 (List<IndexFunction>) LocalizationUtils.readFileFromLocal(getContext(),
                         allFunctionFilename);
-        //TODO 临时添加非会员 住院预缴金  2020年3月9日 15:16:52
-        allFunctionlist.add(new IndexFunction(R.mipmap.icon_hospital_payment, 34, "住院预缴"));
         if (allFunctionlist != null) {
             Logger.e("selectedFunctionlist.size==" + allFunctionlist.size());
         } else {

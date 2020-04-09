@@ -100,8 +100,10 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     public final String ExpressInfo = "32";
     //线下评估预约
     public final String OfflineEvaluation = "33";
+    //羊水穿刺预约
+    public final String AmniocentesisReserve = "34";
     //住院预缴金
-    public final String HospitalPayment = "34";
+    public final String HospitalPayment = "35";
 
     /**
      * 构造方法
@@ -150,11 +152,6 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
             vh.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                  /*  if (Global.getUserId() == -1) {
-                        ToastUtil.showMessage(context, context.getResources().getString(R.string
-                        .unlogin_hint));
-                        return;
-                    }*/
                     switch (String.valueOf(indexFunctionList.get(position).getId())) {
                         case Setting:
                             context.startActivity(new Intent(context,
@@ -163,6 +160,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                         case Rehabilitation:
                             RehabilitationRecordActivity.start(context);
                             break;
+                        case AmniocentesisReserve:
                         case AmniocentesisApply:
                             AmniocentesisReserveActivity.start(context,
                                     AmniocentesisProtocol.AMNIOCENTESIS_WEB_RESERVE);

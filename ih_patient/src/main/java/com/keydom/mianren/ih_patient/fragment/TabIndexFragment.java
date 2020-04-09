@@ -278,7 +278,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     }
 
     private void memberLayoutShow() {
-        if (!Global.isMember()) {
+        if (Global.isMember()) {
             initVipFunction();
         } else {
             initNormal();
