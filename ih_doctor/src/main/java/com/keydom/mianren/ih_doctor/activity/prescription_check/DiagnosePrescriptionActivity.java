@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -573,7 +574,10 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                 drugSavedBean.setDoctorAdvice(saveData.get(i).get(j).getDoctorAdvice());
                 drugSavedBean.setId(saveData.get(i).get(j).getId());
                 drugSavedBean.setPackUnit(saveData.get(i).get(j).getPackUnit());
-                drugSavedBean.setSingleMaximum(Float.valueOf(saveData.get(i).get(j).getSingleMaximum()));
+                String value = saveData.get(i).get(j).getSingleMaximum();
+                if (!TextUtils.isEmpty(value)) {
+                    drugSavedBean.setSingleMaximum(Float.valueOf(value));
+                }
                 drugSavedBean.setMaximumMedicationDays(saveData.get(i).get(j).getMaximumMedicationDays());
                 drugSavedBean.setPrice(saveData.get(i).get(j).getPrice());
                 drugSavedBean.setDrugsCode(saveData.get(i).get(j).getDrugsCode());

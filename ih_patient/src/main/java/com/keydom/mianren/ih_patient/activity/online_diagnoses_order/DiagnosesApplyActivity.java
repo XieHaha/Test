@@ -398,6 +398,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         }
         if (managerUserBean != null) {
             map.put("patientId", managerUserBean.getId());
+            map.put("age", managerUserBean.getAge());
         } else {
             ToastUtil.showMessage(getContext(), "暂无选中就诊人，请尝试重新选取");
             return null;

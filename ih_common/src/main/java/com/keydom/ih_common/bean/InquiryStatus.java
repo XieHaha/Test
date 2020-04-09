@@ -10,7 +10,7 @@ public class InquiryStatus {
      */
     public static final int INQUIRY_UNPAID = 0;
     /**
-     * 带接诊
+     * 待接诊
      */
     public static final int INQUIRY_WAIT = 1;
     /**

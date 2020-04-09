@@ -1,5 +1,6 @@
 package com.keydom.mianren.ih_doctor.activity.controller;
 
+import android.text.TextUtils;
 import android.view.View;
 
 import com.blankj.utilcode.util.StringUtils;
@@ -74,7 +75,9 @@ public class LoginController extends ControllerImpl<LoginView> implements View.O
      * 登陆方法<br/>
      * 登陆成功后立刻登陆三方IM平台<br/>
      * 登陆三方调用类
-     * <li><a href="com.keydom.ih_common.im.ImClient.loginIM(final String account, String token, final OnLoginListener listener)">三方登陆参考这个方法</a></li>
+     * <li>"com.keydom.ih_common.im.ImClient.loginIM(final String account, String token, final
+     * OnLoginListener listener)">三方登陆参考这个方法</a>
+     * </li>
      *
      * @param account  登陆账号，必填。
      * @param password 登陆密码，必填。
@@ -88,8 +91,7 @@ public class LoginController extends ControllerImpl<LoginView> implements View.O
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginApiService.class).login(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<LoginBean>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable final LoginBean data) {
-                hideLoading();
-                if (data.getUserCode() == null || data.getImToken() == null || "".equals(data.getUserCode()) || "".equals(data.getImToken())) {
+                if (TextUtils.isEmpty(data.getImToken()) || TextUtils.isEmpty(data.getUserCode())) {
                     getView().loginFailed(302, "帐号错误，请检查后重试！");
                 } else {
                     ImClient.loginIM(data.getUserCode(), data.getImToken(), new OnLoginListener() {
@@ -112,7 +114,8 @@ public class LoginController extends ControllerImpl<LoginView> implements View.O
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().loginFailed(code, msg);
                 return super.requestError(exception, code, msg);
             }
@@ -137,7 +140,8 @@ public class LoginController extends ControllerImpl<LoginView> implements View.O
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getLoginCodeFailed(msg);
                 return super.requestError(exception, code, msg);
             }

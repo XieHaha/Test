@@ -71,7 +71,6 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
                 } else
                     ToastUtil.showMessage(getContext(), "没有选中的就诊人");
                 break;
-
             case R.id.commit_tv:
                 saveInquisition(getView().getQueryMap(), getView().getPayDesc());
                 break;
@@ -122,7 +121,7 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
      */
     private void saveInquisition(Map<String, Object> map, String payDesc) {
         if (map != null) {
-            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).saveInquisition(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PayOrderBean>(getContext(), getDisposable(), false, false) {
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).saveInquisition(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PayOrderBean>(getContext(), getDisposable(), true, false) {
                 @Override
                 public void requestComplete(@Nullable PayOrderBean data) {
                     getView().getOrderInfo(data);
@@ -131,7 +130,10 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
                                     "userInfo");
                     if (userInfo != null && userInfo.getIsVip() == 1) {
                         //预付费用户
-                        showApplySuccess();
+                        Map<String, Object> payMap = new HashMap<>();
+                        payMap.put("orderId", data.getOrderId());
+                        payMap.put("type", 4);
+                        inquiryPay(payMap, 4);
                     } else {
                         SelectDialogUtils.showPayDialog(getContext(), data.getFee().setScale(2,
                                 BigDecimal.ROUND_HALF_UP) + "", payDesc,
@@ -188,7 +190,7 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
 
                                     }
                                 });
-                    } else {
+                    } else if (type == 2) {
                         try {
                             JSONObject object = new JSONObject(data);
                             Logger.e("return_msg:" + object.getString("return_msg"));
@@ -219,8 +221,9 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                    } else {
+                        showApplySuccess();
                     }
-
                 }
 
                 @Override
