@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -74,10 +72,10 @@
                     android:layout_weight="2"
                     android:background="@drawable/scaler_text_bg"
                     android:gravity="center"
-                    android:singleLine="true"
                     android:inputType="number"
-                    android:text="1"
                     android:maxLength="6"
+                    android:singleLine="true"
+                    android:text="1"
                     android:textColor="#666666"
                     android:textSize="@dimen/dp_17" />
 
@@ -160,8 +158,7 @@
                 android:layout_width="@dimen/dp_122"
                 android:layout_height="@dimen/dp_31"
                 android:layout_marginStart="@dimen/dp_22"
-                android:orientation="horizontal"
-               >
+                android:orientation="horizontal">
 
                 <RelativeLayout
                     android:id="@+id/medical_dosage_scaler_minus_layout"
@@ -183,9 +180,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:background="@drawable/scaler_text_bg"
+                    android:digits="0123456789."
                     android:gravity="center"
                     android:singleLine="true"
-                    android:digits="0123456789."
                     android:text="1"
                     android:textColor="#666666"
                     android:textSize="@dimen/dp_17" />
@@ -305,8 +302,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:background="@drawable/scaler_text_bg"
-                    android:inputType="number"
                     android:gravity="center"
+                    android:inputType="number"
                     android:singleLine="true"
                     android:text="1"
                     android:textColor="#666666"
@@ -359,11 +356,11 @@
                 android:layout_marginEnd="@dimen/dp_20"
                 android:layout_toRightOf="@+id/eat_medical_day_labei"
                 android:background="@drawable/gray_corner_bg"
-                android:maxLength="500"
                 android:gravity="left|top"
+                android:maxLength="500"
+                android:padding="@dimen/dp_8"
                 android:singleLine="false"
                 android:textColor="@color/edit_font_color"
-                android:padding="@dimen/dp_8"
                 android:textSize="@dimen/font_size_primary" />
         </RelativeLayout>
     </LinearLayout>

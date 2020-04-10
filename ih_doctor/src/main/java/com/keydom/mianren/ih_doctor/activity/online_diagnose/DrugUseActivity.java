@@ -60,14 +60,13 @@ public class DrugUseActivity extends BaseActivity {
      * 启动药品规格、用法设置页面
      *
      * @param context
-     * @param drugListBean    选中的药品
+     * @param drugListBean 选中的药品
      */
     public static void start(Context context, DrugListBean drugListBean) {
         Intent intent = new Intent(context, DrugUseActivity.class);
         intent.putExtra(Const.DATA, (Serializable) drugListBean);
         context.startActivity(intent);
     }
-
 
 
     @Override
@@ -79,11 +78,11 @@ public class DrugUseActivity extends BaseActivity {
     public void initData(@Nullable Bundle savedInstanceState) {
         saveDrug = this.findViewById(R.id.save_drug);
         drugListBean = (DrugListBean) getIntent().getSerializableExtra(Const.DATA);
-        selectList=drugListBean.getDrugList();
+        selectList = drugListBean.getDrugList();
         setTitle("用法用量");
         recyclerView = findViewById(R.id.medicine_rv);
-        getDrugUseConfit();
-
+        //        getDrugUseConfit();
+        getAllDrugsFrequencyList();
     }
 
     /**
@@ -111,7 +110,27 @@ public class DrugUseActivity extends BaseActivity {
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                return super.requestError(exception, code, msg);
+
+            }
+        });
+    }
+
+    /**
+     * 获取药品用法等配置信息
+     */
+    private void getAllDrugsFrequencyList() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getAllDrugsFrequencyList(), new HttpSubscriber<DrugUseConfigBean>(this, getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable DrugUseConfigBean data) {
+                setDrugList(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 return super.requestError(exception, code, msg);
 
             }

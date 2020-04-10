@@ -2,7 +2,6 @@ package com.keydom.mianren.ih_doctor.activity.online_diagnose;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -74,8 +73,8 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
      */
     private List<DrugBean> selectList;
     private int position;
-	
-	private String IsPrescriptionStyle=null;//院内处方标识
+
+    private String IsPrescriptionStyle = null;//院内处方标识
 
     private ImageView mVoiceInputIv;
 
@@ -85,14 +84,10 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
     /**
      * 初始化监听器。
      */
-    private InitListener mInitListener = new InitListener() {
-
-        @Override
-        public void onInit(int code) {
-
-            if (code != ErrorCode.SUCCESS) {
-                Log.e("xunfei","初始化失败，错误码：" + code+",请点击网址https://www.xfyun.cn/document/error-code查询解决方案");
-            }
+    private InitListener mInitListener = code -> {
+        if (code != ErrorCode.SUCCESS) {
+            Log.e("xunfei", "初始化失败，错误码：" + code + ",请点击网址https://www.xfyun" +
+                    ".cn/document/error-code查询解决方案");
         }
     };
 
@@ -101,12 +96,12 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
      */
     private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
         public void onResult(RecognizerResult results, boolean isLast) {
-            if(null != searchEt){
+            if (null != searchEt) {
                 String text = JsonUtils.handleXunFeiJson(results);
-                if(TextUtils.isEmpty(searchEt.getText().toString())){
+                if (TextUtils.isEmpty(searchEt.getText().toString())) {
                     searchEt.setText(text);
                     searchEt.setSelection(searchEt.getText().length());
-                }else{
+                } else {
                     searchEt.setText(searchEt.getText().toString() + text);
                     searchEt.setSelection(searchEt.getText().length());
                 }
@@ -118,7 +113,7 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
          * 识别回调错误.
          */
         public void onError(SpeechError error) {
-            ToastUtil.showMessage(DrugChooseActivity.this,error.getPlainDescription(true));
+            ToastUtil.showMessage(DrugChooseActivity.this, error.getPlainDescription(true));
 
         }
 
@@ -130,12 +125,13 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
      * @param context
      * @param list    已经选择了的药品
      */
-    public static void start(Context context, List<DrugBean> list,int position,String isPrescriptionStyle) {
+    public static void start(Context context, List<DrugBean> list, int position,
+                             String isPrescriptionStyle) {
         Intent starter = new Intent(context, DrugChooseActivity.class);
         starter.putExtra(Const.DATA, (Serializable) list);
-        starter.putExtra("position",position);
-		starter.putExtra(Const.IsPrescriptionStyle, isPrescriptionStyle);
-        ((Activity) context).startActivity(starter);
+        starter.putExtra("position", position);
+        starter.putExtra(Const.IsPrescriptionStyle, isPrescriptionStyle);
+        context.startActivity(starter);
     }
 
     @Override
@@ -146,17 +142,17 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
     @Override
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         selectList = (List<DrugBean>) getIntent().getSerializableExtra(Const.DATA);
-		position=getIntent().getIntExtra("position",0);
-        IsPrescriptionStyle=getIntent().getStringExtra(Const.IsPrescriptionStyle);
+        position = getIntent().getIntExtra("position", 0);
+        IsPrescriptionStyle = getIntent().getStringExtra(Const.IsPrescriptionStyle);
         getController().getIsPrescriptionType(IsPrescriptionStyle);
-        Logger.e("IsPrescriptionStyle="+IsPrescriptionStyle);
+        Logger.e("IsPrescriptionStyle=" + IsPrescriptionStyle);
         setTitle("选择药品");
         setRightTxt("确定");
         initView();
         initList();
-        if(IsPrescriptionStyle.equals("0")){
+        if (IsPrescriptionStyle.equals("0")) {
             getController().drugsList(TypeEnum.REFRESH);
-        }else if(IsPrescriptionStyle.equals("1")){
+        } else if (IsPrescriptionStyle.equals("1")) {
             getController().drugsListWaiYan(TypeEnum.REFRESH);
         }
 
@@ -169,10 +165,10 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
                     ToastUtil.showMessage(DrugChooseActivity.this, "请选择药品后再提交");
                     return;
                 } else {
-                    DrugListBean drugListBean=new DrugListBean();
+                    DrugListBean drugListBean = new DrugListBean();
                     drugListBean.setPosition(position);
                     drugListBean.setDrugList(drugChooseAdapter.getSelectList());
-                    DrugUseActivity.start(DrugChooseActivity.this,drugListBean);
+                    DrugUseActivity.start(DrugChooseActivity.this, drugListBean);
                 }
 
             }
@@ -182,19 +178,21 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
     @SuppressLint("CheckResult")
     public void initPremissions() {
         RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        rxPermissions.request(Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean granted) throws Exception {
                         if (granted) {
-                            if(mIatDialog.isShowing()){
+                            if (mIatDialog.isShowing()) {
                                 mIatDialog.dismiss();
                             }
                             mIatDialog.show();
-                            ToastUtil.showMessage(MyApplication.mApplication,"请开始说话…");
+                            ToastUtil.showMessage(MyApplication.mApplication, "请开始说话…");
 
                         } else {
-                            ToastUtil.showMessage(MyApplication.mApplication,"请开启录音需要的权限");
+                            ToastUtil.showMessage(MyApplication.mApplication, "请开启录音需要的权限");
 
                         }
                     }
@@ -212,21 +210,21 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
         recyclerView.setAdapter(drugChooseAdapter);
     }
 
-    private List<DrugBean> getListWithCompare(List<DrugBean> dataList,List<DrugBean> seletedList){
-        if(seletedList!=null&&seletedList.size()>0){
-            for (int i=0;i<seletedList.size();i++){
-                for (int j = 0; j <dataList.size() ; j++) {
-                    if(dataList.get(j).getDrugsId()==seletedList.get(i).getDrugsId())
+    private List<DrugBean> getListWithCompare(List<DrugBean> dataList, List<DrugBean> seletedList) {
+        if (seletedList != null && seletedList.size() > 0) {
+            for (int i = 0; i < seletedList.size(); i++) {
+                for (int j = 0; j < dataList.size(); j++) {
+                    if (dataList.get(j).getDrugsId() == seletedList.get(i).getDrugsId())
                         dataList.get(j).setSelecte(true);
                 }
             }
-            List <DrugBean> finalList=new ArrayList<>();
-            for (int i = 0; i <dataList.size() ; i++) {
-                if(!dataList.get(i).isSelecte())
+            List<DrugBean> finalList = new ArrayList<>();
+            for (int i = 0; i < dataList.size(); i++) {
+                if (!dataList.get(i).isSelecte())
                     finalList.add(dataList.get(i));
             }
             return finalList;
-        }else
+        } else
             return dataList;
 
     }
@@ -249,12 +247,7 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
         mIatDialog = new CustomRecognizerDialog(this, mInitListener);
         mIatDialog.setListener(mRecognizerDialogListener);
-        mVoiceInputIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initPremissions();
-            }
-        });
+        mVoiceInputIv.setOnClickListener(v -> initPremissions());
     }
 
     @Override
@@ -265,6 +258,7 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
         map.put("keyword", searchEt.getText().toString().trim());
         return map;
     }
+
     @Override
     public Map<String, Object> getDrugListWaiYanMap() {
         Map<String, Object> map = new HashMap<>();
@@ -273,6 +267,7 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
         map.put("param", searchEt.getText().toString().trim());
         return map;
     }
+
     @Override
     public void getDrugListSuccess(List<DrugBean> list, TypeEnum type) {
         if (type == TypeEnum.REFRESH) {

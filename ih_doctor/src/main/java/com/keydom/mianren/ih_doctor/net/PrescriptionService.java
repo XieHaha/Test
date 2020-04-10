@@ -35,7 +35,8 @@ public interface PrescriptionService {
      * @return
      */
     @GET("user/prescription/list")
-    Observable<HttpResult<List<PrescriptionBean>>> getDrugsPrescriptionList(@QueryMap Map<String, Object> map);
+    Observable<HttpResult<List<PrescriptionBean>>> getDrugsPrescriptionList(@QueryMap Map<String,
+            Object> map);
 
 
     /**
@@ -46,11 +47,13 @@ public interface PrescriptionService {
      * @return
      */
     @GET("user/prescription/listDoctorPage")
-    Observable<HttpResult<List<PrescriptionBean>>> getDoctorPrescriptionList(@QueryMap Map<String, Object> map);
+    Observable<HttpResult<List<PrescriptionBean>>> getDoctorPrescriptionList(@QueryMap Map<String
+            , Object> map);
 
 
     /**
      * 获取处方
+     *
      * @param map
      * @return
      */
@@ -59,14 +62,17 @@ public interface PrescriptionService {
 
     /**
      * 获取处方详情
+     *
      * @param map
      * @return
      */
     @GET("user/prescription/getDetailById")
-    Observable<HttpResult<DoctorPrescriptionDetailBean>> getDetailById(@QueryMap Map<String, Object> map);
+    Observable<HttpResult<DoctorPrescriptionDetailBean>> getDetailById(@QueryMap Map<String,
+            Object> map);
 
     /**
      * 处方审核
+     *
      * @param body
      * @return
      */
@@ -76,6 +82,7 @@ public interface PrescriptionService {
 
     /**
      * 处方提交
+     *
      * @param body
      * @return
      */
@@ -84,6 +91,7 @@ public interface PrescriptionService {
 
     /**
      * 处方提交存为模版
+     *
      * @param body
      * @return
      */
@@ -97,5 +105,13 @@ public interface PrescriptionService {
      */
     @GET("user/prescription/drugsFrequencyList")
     Observable<HttpResult<DrugUseConfigBean>> drugsFrequencyList();
+
+    /**
+     * 药品用法列表
+     *
+     * @return
+     */
+    @GET("outer/drugsDict/drugsFrequencyList")
+    Observable<HttpResult<DrugUseConfigBean>> getAllDrugsFrequencyList();
 
 }

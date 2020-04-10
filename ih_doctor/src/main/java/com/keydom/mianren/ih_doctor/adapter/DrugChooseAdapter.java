@@ -19,14 +19,15 @@ import java.util.List;
 
 public class DrugChooseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
 
-    List<DrugBean> selectList= new ArrayList<>();;
-    private int selectedPositon=-1;
+    List<DrugBean> selectList = new ArrayList<>();
+    ;
+    private int selectedPositon = -1;
 
     public DrugChooseAdapter(@Nullable List<DrugBean> data) {
         super(R.layout.choose_medical_item, data);
     }
-	
-	    public DrugChooseAdapter(@Nullable List<DrugBean> data, List<DrugBean> selectList) {
+
+    public DrugChooseAdapter(@Nullable List<DrugBean> data, List<DrugBean> selectList) {
         super(R.layout.choose_medical_item, data);
         if (selectList == null) {
             selectList = new ArrayList<>();
@@ -66,11 +67,11 @@ public class DrugChooseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder
             @SingleClick(1000)
             @Override
             public void onClick(View v) {
-                for (int i = 0; i <getData().size() ; i++) {
+                for (int i = 0; i < getData().size(); i++) {
                     getData().get(i).setSelecte(false);
                 }
                 item.setSelecte(true);
-                selectedPositon=getParentPosition(item);
+                selectedPositon = getParentPosition(item);
                 selectList.clear();
                 selectList.add(item);
                 notifyDataSetChanged();

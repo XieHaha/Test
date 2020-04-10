@@ -141,7 +141,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private int inquiryStatus = Integer.MAX_VALUE;
     /**
      * 订单类型<br>
-     * 1问诊单  0咨询单
+     * 0问诊单  1咨询单
      */
     private int orderType = 0;
 
@@ -541,11 +541,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             mCompletedCl.setVisibility(View.GONE);
         }
 
-        if (orderBean != null && (orderBean.getCardNumber() == null || "".equals(orderBean.getCardNumber()) || orderType == 0)) {//无就诊卡
+        if (orderBean != null && (orderBean.getCardNumber() == null || "".equals(orderBean.getCardNumber()) || orderType == 1)) {//无就诊卡
             mPopupWindow.getContentView().findViewById(R.id.inspection).setVisibility(View.GONE);
             mPopupWindow.getContentView().findViewById(R.id.examination).setVisibility(View.GONE);
         }
-        if (orderType == 0) {
+        if (orderType == 1) {
             mPopupWindow.getContentView().findViewById(R.id.referral).setVisibility(View.GONE);
             setRightImgVisibility(false);
         }
@@ -581,7 +581,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             mMessageView.removePlugin(mEndInquiryPlugin);
         }
         mCompletedCl.setVisibility(View.VISIBLE);
-        if (orderType == 0) {//咨询单显示一个按钮
+        if (orderType == 1) {//咨询单显示一个按钮
             mDiagnosticPrescriptionLl.setVisibility(View.GONE);
             mDisposalAdviceLl.setVisibility(View.VISIBLE);
         } else {
@@ -787,7 +787,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.DIAGNOSE_ORDER_UPDATE).build());
                 inquiryStatus = InquiryStatus.INQUIRY_PRESCRIBE;
                 inquiryEnd();
-                if (orderType == 1) {
+                if (orderType == 0) {
                     //                    mMessageView.addData(ImClient.createLocalTipMessage
                     //                    (sessionId, SessionTypeEnum.P2P, "患者已同意结束此次问诊,请及时开具"));
                     mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
@@ -812,7 +812,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.DIAGNOSE_ORDER_UPDATE).build());
                 inquiryStatus = InquiryStatus.INQUIRY_PRESCRIBE;
                 inquiryEnd();
-                if (orderType == 1) {
+                if (orderType == 0) {
                     //                    mMessageView.addData(ImClient.createLocalTipMessage
                     //                    (sessionId, SessionTypeEnum.P2P, "患者已结束此次问诊,请及时开具"));
                     mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
