@@ -211,7 +211,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
                     , null);
         } else {
             mDoctorRootRl.setVisibility(View.GONE);
-            getController().getReceptionDoctor();
+            //            getController().getReceptionDoctor();
         }
         EventBus.getDefault().register(getContext());
 
@@ -420,12 +420,11 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         if (null != info) {
             map.put("doctorCode", info.getUuid());
         } else {
-            if (receptionDoctorInfo != null) {
-                map.put("doctorCode", receptionDoctorInfo.getUserCode());
-
-            } else {
-                map.put("doctorCode", "00152C00002");
-            }
+            //            if (receptionDoctorInfo != null) {
+            //                map.put("doctorCode", receptionDoctorInfo.getUserCode());
+            //            } else {
+            //                map.put("doctorCode", "00152C00002");
+            //            }
         }
 
         if (DiagnosesApplyDialog.VIDEODIAGNOSES.equals(type)) {

@@ -51,15 +51,8 @@ public class LoginController extends ControllerImpl<ILoginView> implements View.
                 if (StringUtils.isEmpty(getView().getAccount()) || StringUtils.isEmpty(getView().getPassword())) {
                     ToastUtil.showMessage(getContext(), "请检查账号或者密码是否已填写");
                 } else {
-
                     getView().hideWarnning();
                     doLogin();
-                   /* if(RegularUtils.PassWordValidate(getView().getPassword())){
-
-                    }else {
-                        ToastUtil.showMessage(getContext(), "密码格式不正确，请重新填写");
-                    }*/
-
                 }
                 break;
             case R.id.regist:
