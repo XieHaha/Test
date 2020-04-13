@@ -79,10 +79,6 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.44'
     implementation 'com.hyman:flowlayout-lib:1.1.2'
     implementation project(':ih_common')
-    implementation files('libs/clientutil.jar')
-    implementation files('libs/coreComponent2.2.5.jar')
-    implementation files('libs/gson-2.2.2.jar')
-    implementation files('libs/msspprovider_signed.jar')
 //    api rootProject.ext.dependencies["Aspectj"]
     implementation 'org.aspectj:aspectjrt:1.8.9'
     implementation files('libs/Msc.jar')
