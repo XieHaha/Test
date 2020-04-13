@@ -425,6 +425,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
             //            } else {
             //                map.put("doctorCode", "00152C00002");
             //            }
+//            map.put("doctorCode", "00152C00004");
         }
 
         if (DiagnosesApplyDialog.VIDEODIAGNOSES.equals(type)) {

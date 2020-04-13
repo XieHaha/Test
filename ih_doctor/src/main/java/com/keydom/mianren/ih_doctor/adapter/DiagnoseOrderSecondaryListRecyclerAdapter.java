@@ -22,7 +22,6 @@ import java.util.List;
 
 public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdapter<DiagnoseOrderSecondaryListRecyclerAdapter.GroupItemViewHolder, DiagnoseOrderSecondaryListRecyclerAdapter.SubItemViewHolder> {
 
-
     private Context context;
 
     private boolean delete = false;
@@ -42,7 +41,8 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
     @Override
     public RecyclerView.ViewHolder groupItemViewHolder(ViewGroup parent) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.diagnose_test_parent_item, parent, false);
+        View v =
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.diagnose_test_parent_item, parent, false);
 
         return new GroupItemViewHolder(v);
     }
@@ -50,7 +50,8 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
     @Override
     public RecyclerView.ViewHolder subItemViewHolder(ViewGroup parent) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.diagnose_test_child_item, parent, false);
+        View v =
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.diagnose_test_child_item, parent, false);
 
         return new SubItemViewHolder(v);
     }
@@ -71,10 +72,16 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
             ((GroupItemViewHolder) holder).deleteBtn.setVisibility(View.GONE);
             ((GroupItemViewHolder) holder).deptName.setVisibility(View.GONE);
 
-            /*((GroupItemViewHolder) holder).testItemFee.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.0f));
-            ((GroupItemViewHolder) holder).deleteBtn.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.0f));
-            ((GroupItemViewHolder) holder).deptName.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.0f));
-            ((GroupItemViewHolder) holder).rightImg.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 5.0f));*/
+            /*((GroupItemViewHolder) holder).testItemFee.setLayoutParams(new LinearLayout
+            .LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams
+            .WRAP_CONTENT, 0.0f));
+            ((GroupItemViewHolder) holder).deleteBtn.setLayoutParams(new LinearLayout
+            .LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams
+            .WRAP_CONTENT, 0.0f));
+            ((GroupItemViewHolder) holder).deptName.setLayoutParams(new LinearLayout.LayoutParams
+            (LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.0f));
+            ((GroupItemViewHolder) holder).rightImg.setLayoutParams(new LinearLayout.LayoutParams
+            (0, LinearLayout.LayoutParams.WRAP_CONTENT, 5.0f));*/
         }
         ((GroupItemViewHolder) holder).deptName.setText(bean.getDeptName());
         ((GroupItemViewHolder) holder).testItemFee.setText(String.valueOf(bean.getTotalFee()));
@@ -100,12 +107,12 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
         if (onItemChangeListener != null) {
             onItemChangeListener.changeItem(groupItemIndex);
         }
-//        ((GroupItemViewHolder) holder).allChooseRb.setFinishEvent(true);
+        //        ((GroupItemViewHolder) holder).allChooseRb.setFinishEvent(true);
         ((GroupItemViewHolder) holder).allChooseRb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 List<CheckOutItemBean> subBeanList = dts.get(groupItemIndex).getSubItems();
-                for (int i = 0; i <subBeanList.size() ; i++) {
+                for (int i = 0; i < subBeanList.size(); i++) {
                     subBeanList.get(i).setSelect(true);
                 }
                 bean.setSelect(false);
@@ -130,13 +137,15 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
     }
 
     @Override
-    public void onSubItemBindViewHolder(RecyclerView.ViewHolder holder, int groupItemIndex, int subItemIndex) {
+    public void onSubItemBindViewHolder(RecyclerView.ViewHolder holder, int groupItemIndex,
+                                        int subItemIndex) {
         CheckOutItemBean bean = dts.get(groupItemIndex).getGroupItem();
         CheckOutItemBean subBean = dts.get(groupItemIndex).getSubItems().get(subItemIndex);
         ((SubItemViewHolder) holder).tvSub.setText(subBean.getName());
         ((SubItemViewHolder) holder).mRb.setChecked(subBean.isSelect());
         if (delete) {
-            ((SubItemViewHolder) holder).mRb.setPadding(CommonUtils.px2dip(context, context.getResources().getDimension(R.dimen.dp_30)), 0, 0, 0);
+            ((SubItemViewHolder) holder).mRb.setPadding(CommonUtils.px2dip(context,
+                    context.getResources().getDimension(R.dimen.dp_30)), 0, 0, 0);
         }
         if (subBean.isSelect()) {
             ((SubItemViewHolder) holder).itemView.setBackgroundColor(context.getResources().getColor(R.color.refreshBg));
@@ -189,7 +198,7 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
             testItemFee = (TextView) itemView.findViewById(R.id.test_item_fee);
             deleteBtn = (ImageButton) itemView.findViewById(R.id.sub_item_delete_btn);
             rightImg = (TextView) itemView.findViewById(R.id.right_img);
-            allChooseRb=itemView.findViewById(R.id.all_choose_rb);
+            allChooseRb = itemView.findViewById(R.id.all_choose_rb);
         }
     }
 

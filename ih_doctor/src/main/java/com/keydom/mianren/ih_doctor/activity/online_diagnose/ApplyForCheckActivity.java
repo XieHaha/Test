@@ -101,7 +101,8 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     /**
      * 检查项目两级列表数据
      */
-    private List<SecondaryListAdapter.DataTree<CheckOutItemBean, CheckOutItemBean>> datas = new ArrayList<>();
+    private List<SecondaryListAdapter.DataTree<CheckOutItemBean, CheckOutItemBean>> datas =
+            new ArrayList<>();
     /**
      * 总费用
      */
@@ -143,8 +144,6 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
 
     /**
      * 新建检验单
-     *
-     * @param context
      */
     public static void startCreateTest(Context context, InquiryBean bean) {
         Intent starter = new Intent(context, ApplyForCheckActivity.class);
@@ -155,10 +154,9 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
 
     /**
      * 修改检查单
-     *
-     * @param context
      */
-    public static void startUpdateInspect(Context context, CheckItemListBean checkItemListBean, InquiryBean bean) {
+    public static void startUpdateInspect(Context context, CheckItemListBean checkItemListBean,
+                                          InquiryBean bean) {
         Intent starter = new Intent(context, ApplyForCheckActivity.class);
         starter.putExtra(Const.TYPE, UPDATE_INSPECT);
         starter.putExtra(CHECKITEMLISTBEAN, checkItemListBean);
@@ -168,11 +166,9 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
 
     /**
      * 修改检验单
-     *
-     * @param context
-     * @param checkItemListBean
      */
-    public static void startUpdateTest(Context context, CheckItemListBean checkItemListBean, InquiryBean bean) {
+    public static void startUpdateTest(Context context, CheckItemListBean checkItemListBean,
+                                       InquiryBean bean) {
         Intent starter = new Intent(context, ApplyForCheckActivity.class);
         starter.putExtra(Const.TYPE, UPDATE_CHECK);
         starter.putExtra(CHECKITEMLISTBEAN, checkItemListBean);
@@ -303,8 +299,6 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
 
     /**
      * 设置检验列表
-     *
-     * @param list
      */
     private void setTestListData(List<CheckOutItemBean> list) {
         datas.clear();
@@ -424,7 +418,8 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
                 examinationAttachment.setId(bean.getId());
                 examinationAttachment.setAmount(bean.getFee().toString());
                 examinationAttachment.setInspectionContent(bean.getName());
-                messageList.add(ImClient.createInspectionMessage(orderBean.getUserCode(), SessionTypeEnum.P2P, "检验申请单", examinationAttachment));
+                messageList.add(ImClient.createInspectionMessage(orderBean.getUserCode(),
+                        SessionTypeEnum.P2P, "检验申请单", examinationAttachment));
             }
         }
         Intent intent = new Intent();
@@ -448,7 +443,8 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
                 examinationAttachment.setId(bean.getId());
                 examinationAttachment.setAmount(bean.getFee().toString());
                 examinationAttachment.setExaminationContent(bean.getName());
-                messageList.add(ImClient.createInspectionMessage(orderBean.getUserCode(), SessionTypeEnum.P2P, "检查申请单", examinationAttachment));
+                messageList.add(ImClient.createInspectionMessage(orderBean.getUserCode(),
+                        SessionTypeEnum.P2P, "检查申请单", examinationAttachment));
             }
         }
         Intent intent = new Intent();
@@ -474,10 +470,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
 
     @Override
     public boolean isInspect() {
-        if (mType == UPDATE_INSPECT || mType == CREATE_INSPECT_ORDER) {
-            return true;
-        }
-        return false;
+        return mType == UPDATE_INSPECT || mType == CREATE_INSPECT_ORDER;
     }
 
     @Override
@@ -492,7 +485,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
 
     @Override
     public void getSelectInspactItemList(List<CheckOutItemBean> list) {
-//        inspactSelectItemList.clear();
+        //        inspactSelectItemList.clear();
         inspactSelectItemList.addAll(list);
         inspectItemListAdapter.notifyDataSetChanged();
         setInspactFee();
@@ -501,8 +494,6 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
 
     /**
      * 设置检验报告信息
-     *
-     * @param bean
      */
     private void setCheckOutInfo(CheckItemListBean bean) {
         userName.setText(bean.getName());
@@ -518,8 +509,6 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
 
     /**
      * 设置检查报告信息
-     *
-     * @param bean
      */
     private void setInspectInfo(CheckItemListBean bean) {
         inspactSelectItemList.addAll(checkItemListBean.getItems());

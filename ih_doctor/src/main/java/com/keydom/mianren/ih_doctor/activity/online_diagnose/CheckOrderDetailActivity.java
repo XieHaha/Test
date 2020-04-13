@@ -56,8 +56,10 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
     private int mType;
 
     private TextView hospitalName, userName, userSex, userAge, diagnoseNumber, sampleType, deptName,
-            diagnoseResTv, diseaseDecTv, checkItemTv, doctorInstructionTv, diseaseDecTipTv, doctorInstructionTipTv,
-            checkItemAmount, totalFee, applyDoctor, applyTime, sampleTypeTip, titleTipTv, checkItemTipTv;
+            diagnoseResTv, diseaseDecTv, checkItemTv, doctorInstructionTv, diseaseDecTipTv,
+            doctorInstructionTipTv,
+            checkItemAmount, totalFee, applyDoctor, applyTime, sampleTypeTip, titleTipTv,
+            checkItemTipTv;
     private ImageButton editOrderIb;
     /**
      * 检验、检查项目列表
@@ -236,7 +238,8 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
     private void setInspactOrderInfo(CheckItemListBean bean) {
         List<CheckOutItemBean> beans = assembleInspactItemList(bean.getItems());
         bean.setItems(beans);
-        editOrderIb.setVisibility((bean.isEdit() && inquiryBean != null) ? View.VISIBLE : View.GONE);
+        editOrderIb.setVisibility((bean.isEdit() && inquiryBean != null) ? View.VISIBLE :
+                View.GONE);
         hospitalName.setText(MyApplication.userInfo.getHospitalName());
         userName.setText(bean.getName());
         userSex.setText(CommonUtils.getSex(bean.getSex()));
@@ -284,13 +287,13 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         recyclerView.setVisibility(View.GONE);
     }
 
-    private String assembleProjectName( List<CheckOutItemBean> items){
-        String assembleNameStr="";
+    private String assembleProjectName(List<CheckOutItemBean> items) {
+        String assembleNameStr = "";
         for (CheckOutItemBean item : items) {
-            if(item.isSelect()){
-                if(item.getItems()!=null&&item.getItems().size()!=0){
-                    for(CheckOutItemBean secodItem : item.getItems()){
-                        if(secodItem.isSelect()){
+            if (item.isSelect()) {
+                if (item.getItems() != null && item.getItems().size() != 0) {
+                    for (CheckOutItemBean secodItem : item.getItems()) {
+                        if (secodItem.isSelect()) {
                             if ("".equals(assembleNameStr)) {
                                 assembleNameStr = assembleNameStr + secodItem.getName();
                             } else {
