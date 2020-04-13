@@ -20,9 +20,8 @@ import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationRoomController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationAdviceFragment;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationInfoFragment;
-import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationOrderFragment;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationVideoFragment;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationRoomView;
-import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -84,7 +83,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         mTabTitles[2] = "会诊意见";
         consultationRoomTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mFragmentArrays[0] = ConsultationInfoFragment.newInstance();
-        mFragmentArrays[1] = ConsultationOrderFragment.newInstance(TypeEnum.CONSULTATION_ING);
+        mFragmentArrays[1] = ConsultationVideoFragment.newInstance();
         mFragmentArrays[2] = ConsultationAdviceFragment.newInstance();
         consultationRoomViewPager.setOffscreenPageLimit(3);
         PagerAdapter pagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());
