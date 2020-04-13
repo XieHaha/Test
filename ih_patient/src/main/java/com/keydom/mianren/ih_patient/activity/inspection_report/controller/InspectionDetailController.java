@@ -20,18 +20,16 @@ public class InspectionDetailController extends ControllerImpl<InspectionDetailV
     /**
      * 获取检验详情
      */
-    public void getInspectionDetail(String applyNumber){
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getCheckoutResultInfo(applyNumber), new HttpSubscriber<InspectionDetailInof>(getContext(),getDisposable(),false) {
+    public void getInspectionDetail(String applyNumber) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getCheckoutResultInfo(applyNumber), new HttpSubscriber<InspectionDetailInof>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable InspectionDetailInof data) {
-                hideLoading();
                 getView().getInspectionDetailSuccess(data);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getInspectionDetailFailed(msg);
                 return super.requestError(exception, code, msg);
             }

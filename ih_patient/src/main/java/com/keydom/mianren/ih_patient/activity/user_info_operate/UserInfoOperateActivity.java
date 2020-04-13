@@ -43,7 +43,8 @@ public class UserInfoOperateActivity extends BaseControllerActivity<UserInfoOper
     public static final String EDITTYPE = "edit_type";
     public static final String READTYPE = "read_type";
     private CircleImageView user_head_img;
-    private TextView user_name_tv, user_sex_tv, user_real_name_status_tv, user_region_tv, user_phone_tv, user_country_tv, user_nation_tv, user_id_card_pic_tv;
+    private TextView user_name_tv, user_sex_tv, user_real_name_status_tv, user_region_tv,
+            user_phone_tv, user_country_tv, user_nation_tv, user_id_card_pic_tv;
     private String provinceName, cityName, areaName;
     private String sex = "0", nation, country;
     private String type = "";
@@ -69,7 +70,7 @@ public class UserInfoOperateActivity extends BaseControllerActivity<UserInfoOper
             public void onLeftButtonClick(View v) {
                 if (EDITTYPE.equals(type)) {
                     EventBus.getDefault().post(new Event(EventType.UPDATEUSERINFO, null));
-                    MainActivity.start(getContext(),false);
+                    MainActivity.start(getContext(), false);
                 } else
                     finish();
 
@@ -169,7 +170,8 @@ public class UserInfoOperateActivity extends BaseControllerActivity<UserInfoOper
     }
 
     @Override
-    public void getRegion(PackageData.ProvinceBean provinceBean, int position_city, int position_area) {
+    public void getRegion(PackageData.ProvinceBean provinceBean, int position_city,
+                          int position_area) {
         user_region_tv.setText(provinceBean.getName() + "-" + provinceBean.getCity().get(position_city).getName() + "-" + provinceBean.getCity().get(position_city).getArea().get(position_area).getName());
     }
 
@@ -218,7 +220,8 @@ public class UserInfoOperateActivity extends BaseControllerActivity<UserInfoOper
                 user_head_img.setBackgroundColor(getResources().getColor(R.color.color_f9f9f9));
             else
                 Glide.with(getContext()).load(Const.IMAGE_HOST + data.getUserImage()).into(user_head_img);
-            user_name_tv.setText("".equals(data.getUserName()) || data.getUserName() == null ? "请输入姓名" : data.getUserName());
+            user_name_tv.setText("".equals(data.getUserName()) || data.getUserName() == null ?
+                    "请输入姓名" : data.getUserName());
             if (data.getSex() == null || "".equals(data.getSex())) {
                 user_sex_tv.setText("请选择性别");
             } else {
@@ -330,7 +333,7 @@ public class UserInfoOperateActivity extends BaseControllerActivity<UserInfoOper
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (EDITTYPE.equals(type)) {
                 EventBus.getDefault().post(new Event(EventType.UPDATEUSERINFO, null));
-                MainActivity.start(getContext(),false);
+                MainActivity.start(getContext(), false);
             } else
                 finish();
             return true;

@@ -389,8 +389,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 
         } else {
-            UserInfo userInfo = (UserInfo) LocalizationUtils.readFileFromLocal(getContext(),
-                    "userInfo");
+            UserInfo userInfo = (UserInfo) LocalizationUtils.readFileFromLocal(getContext(), "userInfo");
             if (Global.getUserId() != -1 && userInfo != null) {
                 if (userInfo.getIsVip() != 1) {
                     notLoginUiInit();
@@ -427,7 +426,6 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
                             "最近就诊时间：" + userInfo.getConsultTime() : "最近就诊时间：");
                 } else {
                     vipUiInit();
-
                     if (userInfo.getUserImage() != null && !"".equals(userInfo.getUserImage())) {
                         mineUserHeadImgVip.setPadding(0, 0, 0, 0);
                         Glide.with(getContext()).load(Const.IMAGE_HOST + userInfo.getUserImage()).into(mineUserHeadImgVip);
