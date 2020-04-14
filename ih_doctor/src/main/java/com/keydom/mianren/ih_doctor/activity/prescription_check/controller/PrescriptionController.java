@@ -10,12 +10,10 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.prescription_check.view.PrescriptionView;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionDetailBean;
-import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.m_interface.OnCheckDialogListener;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.PrescriptionService;
 import com.keydom.mianren.ih_doctor.utils.DialogUtils;
-import com.keydom.mianren.ih_doctor.utils.SignUtils;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -37,26 +35,26 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.check_yes:
-                //getView().auditPass("", "");
-                SignUtils.sign(getContext(), getView().getAuditMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
-                    @Override
-                    public void signSuccess(String signature, String jobId) {
-                        getView().auditPass(signature, jobId);
-                    }
-                });
+                getView().auditPass("", "");
+//                SignUtils.sign(getContext(), getView().getAuditMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
+//                    @Override
+//                    public void signSuccess(String signature, String jobId) {
+//                        getView().auditPass(signature, jobId);
+//                    }
+//                });
 
                 break;
             case R.id.check_no:
                 DialogUtils.createCheckDialog(getContext(), new OnCheckDialogListener() {
                     @Override
                     public void commit(View v, String value) {
-                        //getView().auditReturn(value, "", "");
-                        SignUtils.sign(getContext(), getView().getAuditMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
-                            @Override
-                            public void signSuccess(String signature, String jobId) {
-                                getView().auditReturn(value, signature, jobId);
-                            }
-                        });
+                        getView().auditReturn(value, "", "");
+//                        SignUtils.sign(getContext(), getView().getAuditMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
+//                            @Override
+//                            public void signSuccess(String signature, String jobId) {
+//                                getView().auditReturn(value, signature, jobId);
+//                            }
+//                        });
 
                     }
                 }).show();
@@ -71,17 +69,14 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
      * 获取处方详情
      */
     public void getPrescriptionDetail() {
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getDrugControlPrescriptionDetail(getView().getDetailMap()), new HttpSubscriber<PrescriptionDetailBean>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getDrugControlPrescriptionDetail(getView().getDetailMap()), new HttpSubscriber<PrescriptionDetailBean>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable PrescriptionDetailBean data) {
-                hideLoading();
                 getView().getDetailSuccess(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 getView().getDetailFailed(msg);
                 return super.requestError(exception, code, msg);
             }

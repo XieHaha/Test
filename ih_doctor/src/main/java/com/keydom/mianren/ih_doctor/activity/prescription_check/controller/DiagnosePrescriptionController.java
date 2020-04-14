@@ -17,14 +17,12 @@ import com.keydom.mianren.ih_doctor.bean.DiagnoseHandleBean;
 import com.keydom.mianren.ih_doctor.bean.DoctorPrescriptionDetailBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionMessageBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionModelBean;
-import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.m_interface.OnModelAndCaseDialogListener;
 import com.keydom.mianren.ih_doctor.m_interface.OnModelDialogListener;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
 import com.keydom.mianren.ih_doctor.net.PrescriptionService;
 import com.keydom.mianren.ih_doctor.utils.DialogUtils;
-import com.keydom.mianren.ih_doctor.utils.SignUtils;
 import com.keydom.mianren.ih_doctor.view.BottomAddPrescriptionDialog;
 
 import org.jetbrains.annotations.NotNull;
@@ -90,15 +88,15 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                             modelNameTemp=modelName;
                             modelTypeTemp=modelType;
                             getView().updateTemplateList(prescriptionModelBeanList);
-/*                            getView().saveCaseModel(false);
-                            save(modelNameTemp, modelTypeTemp, "", "","2");*/
-                            SignUtils.sign(getContext(), getView().getSaveMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
-                                @Override
-                                public void signSuccess(String signature, String jobId) {
-                                    getView().saveCaseModel(false);
-                                    save(modelNameTemp, modelTypeTemp, signature, jobId,"2");
-                                }
-                            });
+                            getView().saveCaseModel(false);
+                            save(modelNameTemp, modelTypeTemp, "", "","2");
+//                            SignUtils.sign(getContext(), getView().getSaveMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
+//                                @Override
+//                                public void signSuccess(String signature, String jobId) {
+//                                    getView().saveCaseModel(false);
+//                                    save(modelNameTemp, modelTypeTemp, signature, jobId,"2");
+//                                }
+//                            });
                         }
                     }).show();
                 }else {
@@ -107,15 +105,15 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                 break;
             case R.id.submit:
                 if (getView().checkPrescription()) {
-/*                    getView().saveCaseModel(false);
-                    save(modelNameTemp, modelTypeTemp, "", "","1");*/
-                    SignUtils.sign(getContext(), getView().getSaveMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
-                        @Override
-                        public void signSuccess(String signature, String jobId) {
-                            getView().saveCaseModel(false);
-                            save(modelNameTemp, modelTypeTemp, signature, jobId,"1");
-                        }
-                    });
+                    getView().saveCaseModel(false);
+                    save(modelNameTemp, modelTypeTemp, "", "","1");
+//                    SignUtils.sign(getContext(), getView().getSaveMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
+//                        @Override
+//                        public void signSuccess(String signature, String jobId) {
+//                            getView().saveCaseModel(false);
+//                            save(modelNameTemp, modelTypeTemp, signature, jobId,"1");
+//                        }
+//                    });
                 }else {
                     ToastUtil.showMessage(getContext(), "请完善处方信息！");
                 }

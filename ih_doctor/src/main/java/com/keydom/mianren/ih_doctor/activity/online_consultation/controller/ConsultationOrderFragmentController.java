@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_doctor.activity.online_consultation.controller;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -12,8 +13,6 @@ import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 /**
  * @date 4月2日 15:03
@@ -31,10 +30,10 @@ public class ConsultationOrderFragmentController extends ControllerImpl<Consulta
             setCurrentPage(1);
         }
         getView().getDataSuccess(type, null);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).listInquisition(getView().getListMap()), new HttpSubscriber<List<InquiryBean>>() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).listInquisition(getView().getListMap()), new HttpSubscriber<PageBean<InquiryBean>>() {
             @Override
-            public void requestComplete(@Nullable List<InquiryBean> data) {
-                getView().getDataSuccess(type, data);
+            public void requestComplete(@Nullable PageBean<InquiryBean> data) {
+                getView().getDataSuccess(type, data.getRecords());
             }
 
             @Override

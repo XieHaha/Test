@@ -1,5 +1,6 @@
 package com.keydom.mianren.ih_doctor.net;
 
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_doctor.bean.BodyCheckDetailInfo;
@@ -46,7 +47,7 @@ public interface DiagnoseApiService {
      * @return
      */
     @GET("user/online/listInquisition")
-    Observable<HttpResult<List<InquiryBean>>> listInquisition(@QueryMap Map<String, Object> maps);
+    Observable<HttpResult<PageBean<InquiryBean>>> listInquisition(@QueryMap Map<String, Object> maps);
 
 
     /**

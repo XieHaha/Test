@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_doctor.fragment.controller;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -16,6 +17,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,14 +54,19 @@ public class DiagnoseOrderFragmentController extends ControllerImpl<DiagnoseOrde
      * @param type 订单type
      */
     private void getHeadNurseServiceOrderList(final TypeEnum type) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).listInquisition(getView().getListMap()), new HttpSubscriber<List<InquiryBean>>() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).listInquisition(getView().getListMap()), new HttpSubscriber<PageBean<InquiryBean>>() {
             @Override
-            public void requestComplete(@Nullable List<InquiryBean> data) {
-                getView().getDataSuccess(type, data);
+            public void requestComplete(@Nullable PageBean<InquiryBean> data) {
+                List<InquiryBean> list = data.getRecords();
+                if (list == null) {
+                    list = new ArrayList<>();
+                }
+                getView().getDataSuccess(type, list);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getDataFailed(msg);
                 return super.requestError(exception, code, msg);
             }
