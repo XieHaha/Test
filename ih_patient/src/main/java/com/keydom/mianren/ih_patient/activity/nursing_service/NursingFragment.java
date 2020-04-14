@@ -79,19 +79,20 @@ public class NursingFragment extends BaseControllerFragment<NursingController> i
                     List<NursingProjectInfo> data = ChooseNursingServiceActivity.mChooseProjects;
                     long dept = 0;
                     for (int i = 0; i < data.size(); i++) {
-                        if (data.get(i).getHospitalDeptId()!=0) {
+                        if (data.get(i).getHospitalDeptId() != 0) {
                             dept = data.get(i).getHospitalDeptId();
                         }
                     }
-                    NursingProjectInfo projectInfo = (NursingProjectInfo) adapter.getData().get(position);
-                    if (dept!=0 && data.size() != 0 && !projectInfo.isSelect() && dept != projectInfo.getHospitalDeptId() && projectInfo.getHospitalDeptId()!=0) {
+                    NursingProjectInfo projectInfo =
+                            (NursingProjectInfo) adapter.getData().get(position);
+                    if (dept != 0 && data.size() != 0 && !projectInfo.isSelect() && dept != projectInfo.getHospitalDeptId() && projectInfo.getHospitalDeptId() != 0) {
                         ToastUtils.showShort("只能选择同科室的项目");
                     } else {
-                        if (!projectInfo.isSelect()){
+                        if (!projectInfo.isSelect()) {
                             ChooseNursingServiceActivity.mChooseProjects.add(projectInfo);
-                        }else{
+                        } else {
                             for (int i = 0; i < data.size(); i++) {
-                                if (projectInfo.getId() == data.get(i).getId()){
+                                if (projectInfo.getId() == data.get(i).getId()) {
                                     ChooseNursingServiceActivity.mChooseProjects.remove(i);
                                     break;
                                 }
@@ -132,13 +133,12 @@ public class NursingFragment extends BaseControllerFragment<NursingController> i
                 }
             }
         }
-
         mRefresh.finishLoadMore();
         mRefresh.finishRefresh();
         pageLoadingSuccess();
         if (typeEnum == TypeEnum.REFRESH) {
             mAdapter.replaceData(dataList);
-        }else{
+        } else {
             mAdapter.addData(dataList);
         }
         getController().currentPagePlus();

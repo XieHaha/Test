@@ -26,25 +26,29 @@ public class NursingController extends ControllerImpl<NursingView> {
 
     /**
      * 获取基础护理或者专科护理或者产后护理
+     *
      * @param id 护理类型ID
      */
-    public void getNurseServiceProjectByCateId(String id, final TypeEnum typeEnum){
+    public void getNurseServiceProjectByCateId(String id, final TypeEnum typeEnum) {
         if (typeEnum == TypeEnum.REFRESH) {
             setCurrentPage(1);
         }
-        Map<String,Object> map=new HashMap<>();
-        map.put("id",id);
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
         map.put("hospitalId", App.hospitalId);
         map.put("currentPage", getCurrentPage());
         map.put("pageSize", Const.PAGE_SIZE);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingService.class).getNurseServiceProjectByCateId(map), new HttpSubscriber<PageBean<NursingProjectInfo>>(getContext(),getDisposable(),false,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(NursingService.class).getNurseServiceProjectByCateId(map), new HttpSubscriber<PageBean<NursingProjectInfo>>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable PageBean<NursingProjectInfo> data) {
-                getView().getNursingProjectSuccess(data.getRecords(),typeEnum);
+                if (data != null) {
+                    getView().getNursingProjectSuccess(data.getRecords(), typeEnum);
+                }
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getNursingProjectFailed(msg);
                 return super.requestError(exception, code, msg);
             }

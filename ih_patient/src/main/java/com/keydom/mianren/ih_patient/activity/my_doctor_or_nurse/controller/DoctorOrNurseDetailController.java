@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_patient.activity.my_doctor_or_nurse.controller;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -60,47 +61,50 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
             case R.id.video_inquiry_group:
                 //视频问诊
                 if (Global.getUserId() == -1) {
-                    new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？", new GeneralDialog.OnCloseListener() {
-                        @Override
-                        public void onCommit() {
-                            LoginActivity.start(getContext());
-                        }
-                    }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
-                } else{
-                    if (App.userInfo.getIdCard() != null && !"".equals(App.userInfo.getIdCard()))
-                        isCanDiagnose(1,getView().getCode());
-
-                    else
+                    new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？",
+                            new GeneralDialog.OnCloseListener() {
+                                @Override
+                                public void onCommit() {
+                                    LoginActivity.start(getContext());
+                                }
+                            }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
+                } else {
+                    if (TextUtils.equals(App.userInfo.getCertification(), "0")) {
+                        isCanDiagnose(0, getView().getCode());
+                    } else {
                         ToastUtil.showMessage(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊");
+                    }
                 }
 
                 break;
             case R.id.pic_inquiry_group:
                 //图文问诊
                 if (Global.getUserId() == -1) {
-                    new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？", new GeneralDialog.OnCloseListener() {
-                        @Override
-                        public void onCommit() {
-                            LoginActivity.start(getContext());
-                        }
-                    }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
-                } else{
-                    if (App.userInfo.getIdCard() != null && !"".equals(App.userInfo.getIdCard()))
-                        isCanDiagnose(0,getView().getCode());
-
-                    else
+                    new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？",
+                            new GeneralDialog.OnCloseListener() {
+                                @Override
+                                public void onCommit() {
+                                    LoginActivity.start(getContext());
+                                }
+                            }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
+                } else {
+                    if (TextUtils.equals(App.userInfo.getCertification(), "0")) {
+                        isCanDiagnose(0, getView().getCode());
+                    } else {
                         ToastUtil.showMessage(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊");
+                    }
                 }
 
                 break;
             case R.id.follow:
                 if (Global.getUserId() == -1) {
-                    new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？", new GeneralDialog.OnCloseListener() {
-                        @Override
-                        public void onCommit() {
-                            LoginActivity.start(getContext());
-                        }
-                    }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
+                    new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？",
+                            new GeneralDialog.OnCloseListener() {
+                                @Override
+                                public void onCommit() {
+                                    LoginActivity.start(getContext());
+                                }
+                            }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
                 } else {
                     DoctorMainBean doctorMainBean = getView().getDoctorMainBean();
                     if (doctorMainBean.getInfo() != null) {
@@ -161,7 +165,8 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -196,7 +201,7 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
         map.put("commentId", commentId);
         map.put("userId", Global.getUserId());
         map.put("isLike", isLike);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).doCommentLike(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(),getDisposable(),false,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).doCommentLike(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable Object data) {
                 hideLoading();
@@ -204,7 +209,8 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 hideLoading();
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
@@ -218,7 +224,7 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
     public void getDoctorDetail(int type, String code) {
         Map<String, Object> map = new HashMap<>();
         map.put("doctorCode", code);
-//        map.put("type", type);
+        //        map.put("type", type);
         map.put("userId", Global.getUserId());
         showLoading();
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getMyFollowDoctorDetail(map), new HttpSubscriber<DoctorMainBean>(getContext(), getDisposable(), false) {
@@ -231,7 +237,8 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 hideLoading();
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
@@ -250,18 +257,19 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getUserIsPlaceOrder(map), new HttpSubscriber<Integer>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable Integer data) {
-                if(data==1){
-                    if(type==0)
+                if (data == 1) {
+                    if (type == 0)
                         showApplyDialog(DiagnosesApplyDialog.PHOTODIAGNOSES);
                     else
                         showApplyDialog(DiagnosesApplyDialog.VIDEODIAGNOSES);
-                }else
-                    ToastUtil.showMessage(getContext(),"当前无法对该医生进行问诊服务");
+                } else
+                    ToastUtil.showMessage(getContext(), "当前无法对该医生进行问诊服务");
 
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -332,7 +340,8 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 hideLoading();
                 ToastUtils.showShort(msg);
                 getView().loadMoreError();
