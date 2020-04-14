@@ -181,8 +181,7 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
 
                                     @Override
                                     public void onError(int error_code) {
-                                        ToastUtil.showMessage(getContext(), "支付失败" + error_code
-                                        );
+                                        ToastUtil.showMessage(getContext(), "支付失败-" + error_code);
                                     }
 
                                     @Override

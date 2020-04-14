@@ -70,7 +70,7 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
                             }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
                 } else {
                     if (TextUtils.equals(App.userInfo.getCertification(), "0")) {
-                        isCanDiagnose(0, getView().getCode());
+                        isCanDiagnose(1, getView().getCode());
                     } else {
                         ToastUtil.showMessage(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊");
                     }
@@ -249,7 +249,7 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
     /**
      * 判断是否能问诊
      */
-    public void isCanDiagnose(int type, String code) {
+    private void isCanDiagnose(int type, String code) {
         Map<String, Object> map = new HashMap<>();
         map.put("doctorCode", code);
         map.put("type", type);
@@ -262,9 +262,9 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
                         showApplyDialog(DiagnosesApplyDialog.PHOTODIAGNOSES);
                     else
                         showApplyDialog(DiagnosesApplyDialog.VIDEODIAGNOSES);
-                } else
+                } else {
                     ToastUtil.showMessage(getContext(), "当前无法对该医生进行问诊服务");
-
+                }
             }
 
             @Override

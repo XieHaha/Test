@@ -28,24 +28,27 @@ public class RegisterRecordContrller extends ControllerImpl<RegisterRecordView> 
     /**
      * 获取挂号列表
      */
-    public void queryRegistrationRecordList(String state,final TypeEnum typeEnum){
+    public void queryRegistrationRecordList(String state, final TypeEnum typeEnum) {
         if (typeEnum == TypeEnum.REFRESH) {
             setCurrentPage(1);
         }
-        Map<String,Object> map=new HashMap<>();
-        map.put("userId",Global.getUserId());
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", Global.getUserId());
         map.put("hospitalId", App.hospitalId);
-        map.put("state",state);
+        map.put("state", state);
         map.put("currentPage", getCurrentPage());
         map.put("pageSize", Const.PAGE_SIZE);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).list(map), new HttpSubscriber<PageBean<RegistrationRecordInfo>>(getContext(),getDisposable(),false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).list(map), new HttpSubscriber<PageBean<RegistrationRecordInfo>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable PageBean<RegistrationRecordInfo> data) {
-                getView().getRegistrarionRecordListSuccess(data.getRecords(),typeEnum);
+                if (data != null) {
+                    getView().getRegistrarionRecordListSuccess(data.getRecords(), typeEnum);
+                }
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getRegistrarionRecordListFailed(msg);
                 return super.requestError(exception, code, msg);
             }

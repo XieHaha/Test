@@ -43,6 +43,7 @@ import com.keydom.mianren.ih_patient.view.DiagnosesApplyDialog;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
@@ -425,16 +426,15 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
             //            } else {
             //                map.put("doctorCode", "00152C00002");
             //            }
-//            map.put("doctorCode", "00152C00004");
+            //            map.put("doctorCode", "00152C00004");
         }
 
-        if (DiagnosesApplyDialog.VIDEODIAGNOSES.equals(type)) {
-            map.put("type", 1);
-        } else if (DiagnosesApplyDialog.VIP_DIAGNOSES.equals(type)) {
+        if (DiagnosesApplyDialog.VIDEODIAGNOSES.equals(type) || DiagnosesApplyDialog.VIP_DIAGNOSES.equals(type)) {
             map.put("type", 1);
         } else {
             map.put("type", 0);
         }
+        Logger.e("diagnoses type:", type);
         return map;
     }
 
