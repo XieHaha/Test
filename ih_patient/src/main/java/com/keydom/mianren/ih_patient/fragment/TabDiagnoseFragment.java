@@ -249,16 +249,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
         /*getController().getHomeData(getHomeQueryMap());
         getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline));*/
         EventBus.getDefault().register(this);
-        refreshData();
-    }
 
-    @Override
-    public void lazyLoad() {
-        //refreshData();
-    }
-
-    private void refreshData() {
-        refreshUi();
         diagnoses_online_search_tv.setText(App.hospitalName);
         hospitalListFromService.clear();
         hospitalList.clear();
@@ -267,7 +258,11 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
         chooseHospitalAdapter.notifyDataSetChanged();
         selectHospitalId = App.hospitalId;
         selectHospitalName = App.hospitalName;
-        isInited = true;
+    }
+
+    @Override
+    public void lazyLoad() {
+        //refreshData();
     }
 
     /**
@@ -283,10 +278,10 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
                 emptyLayout.setVisibility(View.GONE);
             }*/
             diagnoses_online_search_tv.setText(App.hospitalName);
-            getController().getHomeData(getHomeQueryMap());
         }
         getController().setCurrentPage(1);
         getController().getHomeData(getHomeQueryMap());
+        Logger.e("refreshUi---getHomeData");
         getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline),
                 TypeEnum.REFRESH);
         getController().getBannerPicByHospitalId(getRequestMap());
@@ -331,13 +326,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
     @Override
     public void onResume() {
         super.onResume();
-        //        getController().getHomeData(getHomeQueryMap());
-        if (isInited) {
-            Logger.e("----------------------------------------------------------------刷新UI" +
-                    "数据----------------------------------------------------------");
-            refreshUi();
-        }
-
+        refreshUi();
     }
 
     @Override
@@ -611,6 +600,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
                 choose_area_tv.setText("院区");
                 areaId = -1;
                 getController().getHomeData(getHomeQueryMap());
+                Logger.e("onClick---getHomeData");
                 getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline),
                         TypeEnum.REFRESH);
                 hospitalPopupWindow.dismiss();

@@ -112,6 +112,7 @@ public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> imp
      * 获取首页数据
      */
     public void getHomeData(Map<String, Object> map) {
+        Logger.e("test","getHomeData");
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getHomeData(map), new HttpSubscriber<DiagnoseIndexBean>(getContext(),getDisposable(),false,false) {
             @Override
             public void requestComplete(@Nullable DiagnoseIndexBean data) {

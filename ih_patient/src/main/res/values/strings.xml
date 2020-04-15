@@ -116,7 +116,7 @@
     <string name="medical_card_detail_remove_bind">解除绑定</string>
     <string name="upload_certificate_pic_hint">1、成人上传身份证的正面+反面，一共两张照片\n2、儿童如果没有身份证，需上传户口本主页和本人信息当页\n3、请上传真实清晰的证件照片，并填写准确的资料，以免造成就诊信息错误\n4、办卡或绑卡成功后，三个月解除绑定一次</string>
     <string name="order_exa_label">就诊人:\n  检查项目:\n  检查时段:\n  号序:\n  院区:\n  检查地点:</string>
-    <string name="order_exa_example">张三\n  脑部 \n  2018-09-25 13：00~14：00\n  下午10号\n  南区\n  门诊A区第一影像室</string>
+    <string name="order_exa_example">张三\n  脑部 \n  2018&#8211;09&#8211;25 13：00~14：00\n  下午10号\n  南区\n  门诊A区第一影像室</string>
     <string name="jump_to_card_operate"> <u>办卡绑卡</u> </string>
 
     <string name="subscribe_examination_order_title">预约体检订单</string>
@@ -127,7 +127,7 @@
     <string name="cancel_success">取消成功</string>
     <string name="evaluate_success">评价提交成功</string>
     <string name="charge_back_success">退单成功</string>
-    <string name="registration_record_detail_notic">1、预约号最迟应于就诊日期24小时前提交退号申请。\n 2、晚间22:30-02:00系统结算时间，不能进行退号操作！\n 3、当日号不能退号退费。\n 4、一个账号7天内只能退一个号，30天内只能退2个号。</string>
+    <string name="registration_record_detail_notic">1、预约号最迟应于就诊日期24小时前提交退号申请。\n 2、晚间22:30&#8211;02:00系统结算时间，不能进行退号操作！\n 3、当日号不能退号退费。\n 4、一个账号7天内只能退一个号，30天内只能退2个号。</string>
     <string name="refresh_success">刷新成功</string>
     <string name="manage_user_name_hint">请输入姓名</string>
     <string name="manage_user_phone_hint">请输入手机号</string>
@@ -158,7 +158,7 @@
     <string name="nursing_service_label">订单号:\n  姓名:\n  电话:\n  服务地址:\n  上门时间:\n  服务对象:\n  医院:\n  科室:</string>
     <string name="hospital_cure_agreement">申请前必须阅读<font color='#3F98F7'>《入院注意事项》</font></string>
 
-    <string name="nursing_service_example">N00003659842165412\n  执笔一副情画 \n  185 2696 6665\n  成都市武侯区天府软件园C区11-22\n  2018-09-25 13:00\n  张三 男 30岁\n  四川大学华西医院\n  妇科</string>
+    <string name="nursing_service_example">N00003659842165412\n  执笔一副情画 \n  185 2696 6665\n  成都市武侯区天府软件园C区11&#8211;22\n  2018&#8211;09&#8211;25 13:00\n  张三 男 30岁\n  四川大学华西医院\n  妇科</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -401,7 +401,7 @@
     <string name="txt_hypertension_colon">高血压:</string>
     <string name="txt_diabetes_colon">糖尿病:</string>
     <string name="txt_amniocentesis_reserve_evaluate_description">请先进行羊膜腔穿刺手术自我评估，以确认您是否可以通过网上进行预约，如不满足条件，建议您到遗传咨询门诊就诊。</string>
-    <string name="txt_amniocentesis_reserve_check_description">如果有以下情况者，建议您到四川大学华西第二医院遗传咨询门诊就诊，咨询医生后再预约羊膜腔穿刺手术。</string>
+    <string name="txt_amniocentesis_reserve_check_description">如果有以下情况者，建议您到绵阳市人民医院遗传咨询门诊就诊，咨询医生后再预约羊膜腔穿刺手术。</string>
     <string name="txt_amniocentesis_reserve_sms_note">我们将在24小时内通过短信方式把手术相关事宜发送到您的手机请注意查收。</string>
     <string name="txt_amniocentesis_reserve_procedure_note">请于上午前往绵阳市人民医院，完成门诊就诊->签署知情同意书->羊膜腔穿刺手术。</string>
     <string name="txt_amniocentesis_reserve_visit_note">请务必点击下方链接仔细阅读取号方法及就诊指南。否则将影响及时取号和就诊。</string>
@@ -428,7 +428,7 @@
     <string name="txt_pay_consultation_fee_hint">确认支付问诊费%s元（自动扣减预付费）</string>
 
     <!--vip-->
-    <string name="vip_desc">• 如需详细了解服务内容，请到医院仁医中心，有专人接待\n• 仁医中心服务电话：0816-2333592\n• 服务期间，不得单方面解除签约并提前申请退费\n• 办理退费时，请本人带上仁医金卡和发票到仁医中心办理</string>
+    <string name="vip_desc">• 如需详细了解服务内容，请到医院仁医中心，有专人接待\n• 仁医中心服务电话：0816&#8211;2333592\n• 服务期间，不得单方面解除签约并提前申请退费\n• 办理退费时，请本人带上仁医金卡和发票到仁医中心办理</string>
     <string name="vip_price">20000元</string>
     <string name="vip_service_desc">享受12个月绿色通道就医服务</string>
     <string name="vip_charge_desc">服务期间，余额不足时，用户在线续约充值，确保后续孕检及生产时的费用支付</string>

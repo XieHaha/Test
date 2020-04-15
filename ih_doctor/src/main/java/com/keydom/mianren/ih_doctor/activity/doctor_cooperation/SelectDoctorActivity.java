@@ -146,6 +146,7 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
     private SmartRefreshLayout mRefreshLayout;
     /**
      * orderType 单子类型    0不需要校验   1图文问诊、2视频问诊
+     *
      * @param context
      * @param orderType
      */
@@ -168,7 +169,8 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
      * @param mList
      * @param groupId
      */
-    public static void startSelfDeptDoctor(Context context, List<DeptDoctorBean> mList, long groupId) {
+    public static void startSelfDeptDoctor(Context context, List<DeptDoctorBean> mList,
+                                           long groupId) {
         Intent starter = new Intent(context, SelectDoctorActivity.class);
         starter.putExtra(Const.DATA, (Serializable) mList);
         starter.putExtra(Const.GROUP_ID, groupId);
@@ -202,13 +204,14 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
 
     /**
      * orderType 单子类型    0不需要校验   1图文问诊、2视频问诊
+     *
      * @param context
      * @param orderType
      */
     public static void startActivityForDiagnoseDoctor(Context context, int orderType) {
         Intent starter = new Intent(context, SelectDoctorActivity.class);
         starter.putExtra(Const.TYPE, DOCTOR_SELECT_OTHER_DEPT_WITH_DIAGNOSE_ONLY_RESULT);
-        starter.putExtra("orderType",orderType);
+        starter.putExtra("orderType", orderType);
         ((Activity) context).startActivityForResult(starter, DOCTOR_SLEECT_ONLY_RESULT);
     }
 
@@ -217,7 +220,8 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
      *
      * @param context
      */
-    public static void startActivitySelfDeptOnlyResult(Context context, List<DeptDoctorBean> mList) {
+    public static void startActivitySelfDeptOnlyResult(Context context,
+                                                       List<DeptDoctorBean> mList) {
         Intent starter = new Intent(context, SelectDoctorActivity.class);
         starter.putExtra(Const.TYPE, DOCTOR_SLEECT_SELF_DEPT_ONLY_RESULT);
         starter.putExtra(Const.DATA, (Serializable) mList);
@@ -229,7 +233,9 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
      *
      * @param context
      */
-    public static void startActivitySelfDeptOnlyResult(Context context, List<DeptDoctorBean> mList, boolean isCancel) {
+    public static void startActivitySelfDeptOnlyResult(Context context,
+                                                       List<DeptDoctorBean> mList,
+                                                       boolean isCancel) {
         Intent starter = new Intent(context, SelectDoctorActivity.class);
         starter.putExtra(Const.TYPE, DOCTOR_SLEECT_SELF_DEPT_ONLY_RESULT);
         starter.putExtra("isCancel", isCancel);
@@ -245,14 +251,16 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
     public static void startActivitySelfDeptOnlyResult(Context context) {
         Intent starter = new Intent(context, SelectDoctorActivity.class);
         starter.putExtra(Const.TYPE, DOCTOR_SLEECT_ONE_SELF_DEPT_ONLY_RESULT);
-        ((Activity) context).startActivityForResult(starter, DOCTOR_SLEECT_ONE_SELF_DEPT_ONLY_RESULT);
+        ((Activity) context).startActivityForResult(starter,
+                DOCTOR_SLEECT_ONE_SELF_DEPT_ONLY_RESULT);
     }
 
 
     public static void startActivityOfGroupMemberOnlyResult(Context context) {
         Intent starter = new Intent(context, SelectDoctorActivity.class);
         starter.putExtra(Const.TYPE, DOCTOR_SLEECT_GROUP_MEMBER_ONLY_RESULT);
-        ((Activity) context).startActivityForResult(starter, DOCTOR_SLEECT_GROUP_MEMBER_ONLY_RESULT);
+        ((Activity) context).startActivityForResult(starter,
+                DOCTOR_SLEECT_GROUP_MEMBER_ONLY_RESULT);
     }
 
     @Override
@@ -315,19 +323,21 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
             }
         });
         if (mType == DOCTOR_SELECT_OTHER_DEPT_ONLY_RESULT || mType == DOCTOR_SELECT_OTHER_DEPT_WITH_DIAGNOSE_ONLY_RESULT || mType == DOCTOR_SLEECT_GROUP_MEMBER_ONLY_RESULT) {
-            doctorSelectRecyclrViewAdapter = new DoctorSelectRecyclrViewAdapter(this, mList, tempList, true, isCancel);
+            doctorSelectRecyclrViewAdapter = new DoctorSelectRecyclrViewAdapter(this, mList,
+                    tempList, true, isCancel);
             setRightImgVisibility(false);
         } else {
-            doctorSelectRecyclrViewAdapter = new DoctorSelectRecyclrViewAdapter(this, mList, tempList, false, isCancel);
+            doctorSelectRecyclrViewAdapter = new DoctorSelectRecyclrViewAdapter(this, mList,
+                    tempList, false, isCancel);
         }
 
-        if( mType == DOCTOR_SELECT_OTHER_DEPT_WITH_DIAGNOSE_ONLY_RESULT && (MyApplication.deptBeanList == null || MyApplication.deptBeanList.size() == 0)){
+        if (mType == DOCTOR_SELECT_OTHER_DEPT_WITH_DIAGNOSE_ONLY_RESULT && (MyApplication.deptBeanList == null || MyApplication.deptBeanList.size() == 0)) {
             List<String> mDeptList = new ArrayList<>();
             mDeptList.add("请选择科室");
             niceSpinner.attachDataSource(mDeptList);
             niceSpinner.setEnabled(false);
             deptId = -1;
-        }else if (mType == DOCTOR_SLEECT_GROUP_MEMBER_ONLY_RESULT || mType == DOCTOR_SLEECT_ONE_SELF_DEPT_ONLY_RESULT || mType == DOCTOR_SLEECT_SELF_DEPT_ONLY_RESULT || mType == DOCTOR_SLEECT_SELF_DEPT || MyApplication.deptBeanList == null || MyApplication.deptBeanList.size() == 0) {
+        } else if (mType == DOCTOR_SLEECT_GROUP_MEMBER_ONLY_RESULT || mType == DOCTOR_SLEECT_ONE_SELF_DEPT_ONLY_RESULT || mType == DOCTOR_SLEECT_SELF_DEPT_ONLY_RESULT || mType == DOCTOR_SLEECT_SELF_DEPT || MyApplication.deptBeanList == null || MyApplication.deptBeanList.size() == 0) {
             List<String> mDeptList = new ArrayList<>();
             if (MyApplication.userInfo.getDeptName() != null) {
                 mDeptList.add(MyApplication.userInfo.getDeptName());
@@ -375,12 +385,13 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
 
             @Override
             public void afterTextChanged(Editable s) {
-//                searchMember(searchInputEv.getText().toString().trim());
+                //                searchMember(searchInputEv.getText().toString().trim());
             }
         });
         recyclerView.setAdapter(doctorSelectRecyclrViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL));
         pageLoading();
         if (mType == DOCTOR_SLEECT_GROUP_MEMBER_ONLY_RESULT) {
             getController().ihGroupQueryDoctorTeamAllUser();
@@ -457,7 +468,7 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
     @Override
     public Map<String, Object> getQueryMap() {
         Map<String, Object> map = new HashMap<>();
-        map.put("deptId", 368);
+        map.put("deptId", deptId);
         map.put("isOnline", isOnline ? 1 : 0);
         if (mType == DOCTOR_SELECT_OTHER_DEPT_WITH_DIAGNOSE_ONLY_RESULT) {
             map.put("isFilterUnInquiry", 1);

@@ -24,6 +24,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.AgreementActivity;
 import com.keydom.mianren.ih_patient.activity.location_manage.LocationManageActivity;
@@ -115,18 +116,18 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         mPay = view.findViewById(R.id.pay_tv);
         mCheckBox.setOnClickListener(v -> {
             for (int i = 0; i < mUnPayRecordAdapter.getData().size(); i++) {
-                if(mUnPayRecordAdapter.getData().get(i).isWaiYan()){
+                if (mUnPayRecordAdapter.getData().get(i).isWaiYan()) {
                     mUnPayRecordAdapter.getData().get(i).setSelect(false);
                 }
             }
             mUnPayRecordAdapter.notifyDataSetChanged();
         });
-//        mCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-//            for (int i = 0; i < mUnPayRecordAdapter.getData().size(); i++) {
-//                mUnPayRecordAdapter.getData().get(i).setSelect(isChecked);
-//            }
-//
-//        });
+        //        mCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        //            for (int i = 0; i < mUnPayRecordAdapter.getData().size(); i++) {
+        //                mUnPayRecordAdapter.getData().get(i).setSelect(isChecked);
+        //            }
+        //
+        //        });
         mPay.setOnClickListener(getController());
     }
 
@@ -137,16 +138,19 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         mUnPayRecordAdapter = new UnPayRecordAdapter(new ArrayList<>(), this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mUnPayRecordAdapter);
-        mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout,TypeEnum.REFRESH));
-        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout,TypeEnum.LOAD_MORE));
+        mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout, TypeEnum.REFRESH));
+        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout, TypeEnum.LOAD_MORE));
         mUnPayRecordAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @SingleClick(1000)
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.pay:
-                        PayRecordBean payRecordBean = (PayRecordBean) adapter.getData().get(position);
-                        getController().createOrder(payRecordBean.getRecordState() == 8, payRecordBean.getDocumentNo(), payRecordBean.getSumFee(),payRecordBean.getPrescriptionId(),payRecordBean.isWaiYan());
+                        PayRecordBean payRecordBean =
+                                (PayRecordBean) adapter.getData().get(position);
+                        getController().createOrder(payRecordBean.getRecordState() == 8,
+                                payRecordBean.getDocumentNo(), payRecordBean.getSumFee(),
+                                payRecordBean.getPrescriptionId(), payRecordBean.isWaiYan());
                         break;
                 }
             }
@@ -160,7 +164,8 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     for (int i = 0; i < mUnPayRecordAdapter.getData().size(); i++) {
                         mUnPayRecordAdapter.getData().get(i).setSelect(isChecked);
                         if (isChecked) {
-                            mTotalMoneyStr = mTotalMoneyStr.add(mUnPayRecordAdapter.getData().get(i).getSumFee());
+                            mTotalMoneyStr = mTotalMoneyStr.add(mUnPayRecordAdapter.getData().get
+                            (i).getSumFee());
                         }
                     }
                     if (isChecked) {
@@ -192,11 +197,12 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                                 break;
                             }
 
-                            if(payRecordBean.isWaiYan()){
+                            if (payRecordBean.isWaiYan()) {
                                 payRecordBean.setSelect(false);
                                 continue;
                             }
-                            mTotalMoneyStr = mTotalMoneyStr.add(mUnPayRecordAdapter.getData().get(i).getSumFee());
+                            mTotalMoneyStr =
+                                    mTotalMoneyStr.add(mUnPayRecordAdapter.getData().get(i).getSumFee());
                             mPayRecordBeanList.add(mUnPayRecordAdapter.getData().get(i));
                         }
                         if (!StringUtils.isEmpty(hint)) {
@@ -223,38 +229,46 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     refreshTotal();
                 }
                 //新需求
-//                if (mCheckBox.isPressed()) {
-//                    mTotalMoneyStr = new BigDecimal(0.00);
-//                    mPayRecordBeanList.clear();
-//                    if (isChecked && mUnPayRecordAdapter.getData().size() > 0) {
-//                        String card = mUnPayRecordAdapter.getData().get(0).getEleCardNumber();
-//                        int type = mUnPayRecordAdapter.getData().get(0).getType();
-//                        String hint = "";
-//                        for (int i = 0; i < mUnPayRecordAdapter.getData().size(); i++) {
-//                            PayRecordBean payRecordBean = mUnPayRecordAdapter.getData().get(i);
-//                            if (payRecordBean.getType() == CAN_MERGE && !payRecordBean.getEleCardNumber().equals(card)) {
-//                                hint = "不能同时为多个就诊人合并缴费";
-//                            }
-//                            if (payRecordBean.getType() != type) {
-//                                hint = "不能同时缴纳诊间费用和预约挂号、在线问诊、护理服务和预约体检项目费用";
-//                            }
-//                            if (payRecordBean.getType() == CANNOT_MERGE && mPayRecordBeanList.size() > 1) {
-//                                hint = "不能同时缴纳预约挂号、在线问诊、护理服务和预约体检项目费用";
-//                            }
-//                            mTotalMoneyStr = mTotalMoneyStr.add(mUnPayRecordAdapter.getData().get(i).getSumFee());
-//                            mPayRecordBeanList.add(mUnPayRecordAdapter.getData().get(i));
-//                        }
-//                        if (!StringUtils.isEmpty(hint)) {
-//                            ToastUtils.showLong(hint);
-//                        }
-//                    } else {
-//                        for (int i = 0; i < mUnPayRecordAdapter.getData().size(); i++) {
-//                            mUnPayRecordAdapter.getData().get(i).setSelect(false);
-//                        }
-//                        mType = 0;
-//                    }
-//                    refreshTotal();
-//                }
+                //                if (mCheckBox.isPressed()) {
+                //                    mTotalMoneyStr = new BigDecimal(0.00);
+                //                    mPayRecordBeanList.clear();
+                //                    if (isChecked && mUnPayRecordAdapter.getData().size() > 0) {
+                //                        String card = mUnPayRecordAdapter.getData().get(0)
+                //                        .getEleCardNumber();
+                //                        int type = mUnPayRecordAdapter.getData().get(0).getType();
+                //                        String hint = "";
+                //                        for (int i = 0; i < mUnPayRecordAdapter.getData().size
+                //                        (); i++) {
+                //                            PayRecordBean payRecordBean = mUnPayRecordAdapter
+                //                            .getData().get(i);
+                //                            if (payRecordBean.getType() == CAN_MERGE &&
+                //                            !payRecordBean.getEleCardNumber().equals(card)) {
+                //                                hint = "不能同时为多个就诊人合并缴费";
+                //                            }
+                //                            if (payRecordBean.getType() != type) {
+                //                                hint = "不能同时缴纳诊间费用和预约挂号、在线问诊、护理服务和预约体检项目费用";
+                //                            }
+                //                            if (payRecordBean.getType() == CANNOT_MERGE &&
+                //                            mPayRecordBeanList.size() > 1) {
+                //                                hint = "不能同时缴纳预约挂号、在线问诊、护理服务和预约体检项目费用";
+                //                            }
+                //                            mTotalMoneyStr = mTotalMoneyStr.add
+                //                            (mUnPayRecordAdapter.getData().get(i).getSumFee());
+                //                            mPayRecordBeanList.add(mUnPayRecordAdapter.getData
+                //                            ().get(i));
+                //                        }
+                //                        if (!StringUtils.isEmpty(hint)) {
+                //                            ToastUtils.showLong(hint);
+                //                        }
+                //                    } else {
+                //                        for (int i = 0; i < mUnPayRecordAdapter.getData().size
+                //                        (); i++) {
+                //                            mUnPayRecordAdapter.getData().get(i).setSelect(false);
+                //                        }
+                //                        mType = 0;
+                //                    }
+                //                    refreshTotal();
+                //                }
             }
         });
         mUnPayRecordAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -268,12 +282,12 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                 ActivityUtils.startActivity(i);
             }
         });
-        getController().getConsultationPayList(mRefreshLayout,TypeEnum.REFRESH);
+        getController().getConsultationPayList(mRefreshLayout, TypeEnum.REFRESH);
     }
 
     @Override
-    public void refreshData(){
-        getController().getConsultationPayList(mRefreshLayout,TypeEnum.REFRESH);
+    public void refreshData() {
+        getController().getConsultationPayList(mRefreshLayout, TypeEnum.REFRESH);
     }
 
 
@@ -304,7 +318,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         pageLoadingSuccess();
         if (typeEnum == TypeEnum.REFRESH) {
             mUnPayRecordAdapter.replaceData(list);
-        }else{
+        } else {
             mUnPayRecordAdapter.addData(list);
         }
         getController().currentPagePlus();
@@ -333,11 +347,13 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
     }
 
     @Override
-    public void goPay(boolean needDispatch, String orderNum,String orderId, double totalMoney,String prescriptionId,boolean isWaiYan) {
+    public void goPay(boolean needDispatch, String orderNum, String orderId, double totalMoney,
+                      String prescriptionId, boolean isWaiYan) {
         mTotalFee = totalMoney;
-        if(isWaiYan){
-            showPayTypeDialog(String.valueOf(totalMoney), totalMoney, orderNum, orderId,prescriptionId);
-        }else{
+        if (isWaiYan) {
+            showPayTypeDialog(String.valueOf(totalMoney), totalMoney, orderNum, orderId,
+                    prescriptionId);
+        } else {
             showPayDialog(needDispatch, String.valueOf(totalMoney), totalMoney, orderNum);
         }
 
@@ -345,7 +361,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
 
     @Override
     public void paySuccess() {
-        getController().getConsultationPayList(mRefreshLayout,TypeEnum.REFRESH);
+        getController().getConsultationPayList(mRefreshLayout, TypeEnum.REFRESH);
         ActivityUtils.startActivity(PaymentSuccessActivity.class);
     }
 
@@ -361,7 +377,8 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
             mTotalPayTv.setText("去付款¥" + f + "元");
             // mTotalPayTv.setText("去付款¥" + total + "元");
         }
-        SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
+        SpannableStringBuilder medicalTv =
+                new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
                 .append("（配送费用").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color))
                 .append("¥" + fee + "元").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.nursing_status_red))
                 .append("）").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color)).create();
@@ -461,66 +478,66 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         });
         refreshTotal();
 
-//        if (mPayRecordBeanList.size() == 0) {
-//            mType = payRecordBean.getType();
-//        } else {
-//            mType = mPayRecordBeanList.get(0).getType();
-//        }
-//
-//        String card = "";
-//        if (mPayRecordBeanList.size() == 0) {
-//            card = payRecordBean.getEleCardNumber();
-//        } else {
-//            card = mPayRecordBeanList.get(0).getEleCardNumber();
-//        }
-//        if (payRecordBean.isSelect()) {
-//            if (mType == CAN_MERGE) {
-//                if (payRecordBean.getType() == mType) {
-//                    if (card.equals(payRecordBean.getEleCardNumber())) {
-//                        mTotalMoneyStr = mTotalMoneyStr.add(payRecordBean.getSumFee());
-//                        mPayRecordBeanList.add(payRecordBean);
-//                        mUnPayRecordAdapter.getData().get(position).setSelect(true);
-//                        new Handler().post(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                mUnPayRecordAdapter.notifyItemChanged(position);
-//                            }
-//                        });
-//                    } else {
-//                        mUnPayRecordAdapter.getData().get(position).setSelect(false);
-//                        ToastUtils.showLong("不能同时为多个就诊人合并缴费");
-//                    }
-//                } else {
-//                    mUnPayRecordAdapter.getData().get(position).setSelect(false);
-//                    ToastUtils.showLong("不能同时缴纳诊间费用和预约挂号、在线问诊、护理服务和预约体检项目费用");
-//                }
-//            }
-//            if (mType == CANNOT_MERGE) {
-//                if (mPayRecordBeanList.size() != 0) {
-//                    mUnPayRecordAdapter.getData().get(position).setSelect(false);
-//                    ToastUtils.showLong("不能同时缴纳预约挂号、在线问诊、护理服务和预约体检项目费用");
-//                } else {
-//                    mTotalMoneyStr = mTotalMoneyStr.add(payRecordBean.getSumFee());
-//                    mPayRecordBeanList.add(payRecordBean);
-//                    mUnPayRecordAdapter.getData().get(position).setSelect(true);
-//                    new Handler().post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            mUnPayRecordAdapter.notifyItemChanged(position);
-//                        }
-//                    });
-//                }
-//            }
-//        } else {
-//            mTotalMoneyStr = mTotalMoneyStr.subtract(payRecordBean.getSumFee());
-//            mPayRecordBeanList.remove(payRecordBean);
-//        }
-//        mRefreshLayout.post(() -> {
-//            if (mUnPayRecordAdapter.getData().size() != mPayRecordBeanList.size()) {
-//                mCheckBox.setChecked(false);
-//            }
-//        });
-//        refreshTotal();
+        //        if (mPayRecordBeanList.size() == 0) {
+        //            mType = payRecordBean.getType();
+        //        } else {
+        //            mType = mPayRecordBeanList.get(0).getType();
+        //        }
+        //
+        //        String card = "";
+        //        if (mPayRecordBeanList.size() == 0) {
+        //            card = payRecordBean.getEleCardNumber();
+        //        } else {
+        //            card = mPayRecordBeanList.get(0).getEleCardNumber();
+        //        }
+        //        if (payRecordBean.isSelect()) {
+        //            if (mType == CAN_MERGE) {
+        //                if (payRecordBean.getType() == mType) {
+        //                    if (card.equals(payRecordBean.getEleCardNumber())) {
+        //                        mTotalMoneyStr = mTotalMoneyStr.add(payRecordBean.getSumFee());
+        //                        mPayRecordBeanList.add(payRecordBean);
+        //                        mUnPayRecordAdapter.getData().get(position).setSelect(true);
+        //                        new Handler().post(new Runnable() {
+        //                            @Override
+        //                            public void run() {
+        //                                mUnPayRecordAdapter.notifyItemChanged(position);
+        //                            }
+        //                        });
+        //                    } else {
+        //                        mUnPayRecordAdapter.getData().get(position).setSelect(false);
+        //                        ToastUtils.showLong("不能同时为多个就诊人合并缴费");
+        //                    }
+        //                } else {
+        //                    mUnPayRecordAdapter.getData().get(position).setSelect(false);
+        //                    ToastUtils.showLong("不能同时缴纳诊间费用和预约挂号、在线问诊、护理服务和预约体检项目费用");
+        //                }
+        //            }
+        //            if (mType == CANNOT_MERGE) {
+        //                if (mPayRecordBeanList.size() != 0) {
+        //                    mUnPayRecordAdapter.getData().get(position).setSelect(false);
+        //                    ToastUtils.showLong("不能同时缴纳预约挂号、在线问诊、护理服务和预约体检项目费用");
+        //                } else {
+        //                    mTotalMoneyStr = mTotalMoneyStr.add(payRecordBean.getSumFee());
+        //                    mPayRecordBeanList.add(payRecordBean);
+        //                    mUnPayRecordAdapter.getData().get(position).setSelect(true);
+        //                    new Handler().post(new Runnable() {
+        //                        @Override
+        //                        public void run() {
+        //                            mUnPayRecordAdapter.notifyItemChanged(position);
+        //                        }
+        //                    });
+        //                }
+        //            }
+        //        } else {
+        //            mTotalMoneyStr = mTotalMoneyStr.subtract(payRecordBean.getSumFee());
+        //            mPayRecordBeanList.remove(payRecordBean);
+        //        }
+        //        mRefreshLayout.post(() -> {
+        //            if (mUnPayRecordAdapter.getData().size() != mPayRecordBeanList.size()) {
+        //                mCheckBox.setChecked(false);
+        //            }
+        //        });
+        //        refreshTotal();
     }
 
     @Subscribe
@@ -529,7 +546,6 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
             mRefreshLayout.autoRefresh();
         }
     }
-
 
 
     @Override
@@ -554,9 +570,10 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                 mPayAddress.setTextColor(getResources().getColor(R.color.edit_hint_color));
                 mAddressId = 0;
                 mPSfee = 0.00;
-                SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
+                SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13,
+                        true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
                         .create();
-                if(null != mHosptalCost){
+                if (null != mHosptalCost) {
                     mHosptalCost.setText(medicalTv);
                 }
 
@@ -567,15 +584,18 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
     /**
      * 显示支付弹框
      */
-    private void showPayDialog(boolean needAddress, String titleFee, double totalFee, String orderNum) {
+    private void showPayDialog(boolean needAddress, String titleFee, double totalFee,
+                               String orderNum) {
         String feeTv = new DecimalFormat("0.00").format(totalFee);
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity(), R.style.BottomSheetDialog);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity(),
+                R.style.BottomSheetDialog);
         bottomSheetDialog.setCancelable(false);
         mPSfee = 0.00;
         final boolean[] isAgree = {false};
         int[] payType = {2};
         bottomSheetDialog.setCanceledOnTouchOutside(false);
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.pay_ment_dialog_layout, null, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.pay_ment_dialog_layout,
+                null, false);
         bottomSheetDialog.setContentView(view);
         final TextView order_price_tv = view.findViewById(R.id.order_price_tv);
         order_price_tv.setText("¥" + titleFee + "");
@@ -588,7 +608,8 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         RadioButton selfRadio = view.findViewById(R.id.self);
         mHosptalCost = view.findViewById(R.id.hospital);
         addressSelectGroup.setVisibility(needAddress ? View.VISIBLE : View.GONE);
-        SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
+        SpannableStringBuilder medicalTv =
+                new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
                 .create();
         mHosptalCost.setText(medicalTv);
         addressSelect.setOnClickListener(new View.OnClickListener() {
@@ -653,7 +674,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
             @SingleClick(1000)
             @Override
             public void onClick(View view) {
-//                if (isAgree[0]) {
+                //                if (isAgree[0]) {
                 if (needAddress && mHosptalCost.isChecked()) {
                     if (mAddressId == 0) {
                         ToastUtils.showShort("请选择配送地址");
@@ -665,10 +686,10 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     getController().pay(0, orderNum, payType[0], totalFee);
                     bottomSheetDialog.dismiss();
                 }
-//                } else {
+                //                } else {
                 //取消支付协议
-//                    ToastUtil.showMessage(getContext(), "请阅读并同意支付协议");
-//                }
+                //                    ToastUtil.showMessage(getContext(), "请阅读并同意支付协议");
+                //                }
 
             }
         });
@@ -689,9 +710,6 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         });
         bottomSheetDialog.show();
     }
-
-
-
 
 
     TextView mOrderPriceTv;
@@ -739,11 +757,11 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
     List<PharmacyBean> mPharmacyBeans = null;
 
 
-
     /**
      * 展示支付弹框
      */
-    private void showPayTypeDialog(String titleFee, double totalFee, String orderNum,String orderId,String prescriptionId) {
+    private void showPayTypeDialog(String titleFee, double totalFee, String orderNum,
+                                   String orderId, String prescriptionId) {
         isSendDrugsToHome = false;
         WaiPayType[0] = 2;
         payWaiType = Type.ALIPAY;
@@ -752,14 +770,16 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         mPharmacyName = null;
         mPharmacyAddress = null;
         mWaiYanAddressId = 0;
-        FixHeightBottomSheetDialog bottomWaiYanSheetDialog = new FixHeightBottomSheetDialog(getActivity());
+        FixHeightBottomSheetDialog bottomWaiYanSheetDialog =
+                new FixHeightBottomSheetDialog(getActivity());
         bottomWaiYanSheetDialog.setCancelable(false);
         final boolean[] isAgree = {false};
 
         mPprescriptionId = prescriptionId;
 
         bottomWaiYanSheetDialog.setCanceledOnTouchOutside(false);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.pay_outside_dialog_layout, null, false);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.pay_outside_dialog_layout
+                , null, false);
         bottomWaiYanSheetDialog.setContentView(view);
         mOrderPriceTv = view.findViewById(R.id.order_price_tv);
         mOrderPriceTv.setText("¥" + titleFee + "起");
@@ -810,7 +830,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         mLinShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GotoActivityUtil.gotoChoosePharmacyActivity(getActivity(),prescriptionId);
+                GotoActivityUtil.gotoChoosePharmacyActivity(getActivity(), prescriptionId);
             }
         });
 
@@ -862,9 +882,14 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                 if (mRadioHome.isChecked() && mWaiYanAddressId == 0) {
                     ToastUtils.showShort("请选择配送地址");
                 } else {
+                    if (mPharmacyBeans == null || mPharmacyBeans.size() == 0) {
+                        ToastUtil.showMessage(getContext(), "地址查询失败！");
+                        return;
+                    }
                     PharmacyBean pharmacyBean = mPharmacyBeans.get(0);
 
-                    getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,true,prescriptionId,orderNum,pharmacyBean,mLocationInfo);
+                    getController().updatePrescriptionOrder(WaiPayType[0], isSendDrugsToHome,
+                            true, prescriptionId, orderNum, pharmacyBean, mLocationInfo);
 
                     Logger.e("1=" + mWaiYanAddressId);
                     Logger.e("2=" + orderNum);
@@ -877,11 +902,12 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         mTvShopPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)){
+                if (CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)) {
                     ToastUtils.showShort("请选择药店");
-                }else{
+                } else {
                     PharmacyBean pharmacyBean = mPharmacyBean;
-                    getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,false,prescriptionId,orderNum,pharmacyBean,mLocationInfo);
+                    getController().updatePrescriptionOrder(WaiPayType[0], isSendDrugsToHome,
+                            false, prescriptionId, orderNum, pharmacyBean, mLocationInfo);
                     bottomWaiYanSheetDialog.dismiss();
                 }
             }
@@ -903,11 +929,12 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     }
 
                     PharmacyBean pharmacyBean = mPharmacyBean;
-                    if(null != pharmacyBean){
-                        getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,true,prescriptionId,orderNum,pharmacyBean,mLocationInfo);
+                    if (null != pharmacyBean) {
+                        getController().updatePrescriptionOrder(WaiPayType[0], isSendDrugsToHome,
+                                true, prescriptionId, orderNum, pharmacyBean, mLocationInfo);
                     }
 
-                    Logger.e("map="+map);
+                    Logger.e("map=" + map);
                     bottomWaiYanSheetDialog.dismiss();
                 }
                 //   ToastUtils.showShort("暂未接入支付");
@@ -953,7 +980,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     WaiPayType[0] = 2;
                     payWaiType = Type.ALIPAY;
                     isSendDrugsToHome = false;
-                    if(null != mPharmacyBean ){
+                    if (null != mPharmacyBean) {
                         refreshPriceView(Arrays.asList(mPharmacyBean));
                     }
                     break;
@@ -976,7 +1003,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     WaiPayType[0] = 2;
                     payWaiType = Type.ALIPAY;
                     isSendDrugsToHome = true;
-                    if(null != mPharmacyBeans && mPharmacyBeans.size() > 0){
+                    if (null != mPharmacyBeans && mPharmacyBeans.size() > 0) {
                         refreshDeliveryCostView(mPharmacyBeans);
                         refreshPriceView(mPharmacyBeans);
                     }
@@ -1011,7 +1038,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
     }
 
     public void refreshPriceView(List<PharmacyBean> data) {
-        if(!CommUtil.isEmpty(data) && null != data.get(0)){
+        if (!CommUtil.isEmpty(data) && null != data.get(0)) {
             //mPharmacyBean = data.get(0);
             //BigDecimal deliveryCost = new BigDecimal(data.get(0).getDeliveryCost());
             BigDecimal sumFee = new BigDecimal(data.get(0).getSumFee());
@@ -1026,6 +1053,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
     }
 
     LocationInfo mLocationInfo;
+
     /**
      * 获取位置信息
      */
@@ -1033,32 +1061,29 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
     public void getLocation(Event event) {
         if (event.getType() == EventType.PAY_SELECT_ADDRESS) {
             mLocationInfo = (LocationInfo) event.getData();
-            String address = mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress();
+            String address =
+                    mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress();
             mPayAddress.setText(address);
             mPayAddress.setTextColor(getResources().getColor(R.color.pay_unselected));
             mAddressId = mLocationInfo.getId();
             getController().getDistributionFee(mAddressId);
-        }else if (event.getType() == EventType.WAI_PAY_SELECT_ADDRESS) {
+        } else if (event.getType() == EventType.WAI_PAY_SELECT_ADDRESS) {
             mLocationInfo = (LocationInfo) event.getData();
             String address = mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress();
             mPayAddress.setText(address);
             mWaiYanAddressId = mLocationInfo.getId();
             Logger.e("地址=" + address);
-            getController().getPrescriptionDetailDrugs(address,mPprescriptionId);
+            getController().getPrescriptionDetailDrugs(address, mPprescriptionId);
         }
     }
 
 
-
-
-
     public void refreshDeliveryCostView(List<PharmacyBean> data) {
-        if(!CommUtil.isEmpty(data) && null != data.get(0)){
+        if (!CommUtil.isEmpty(data) && null != data.get(0)) {
             mDeliveryCostTv.setText("￥" + String.valueOf(data.get(0).getDeliveryCost()) + "元");
         }
 
     }
-
 
 
     @Override
@@ -1068,7 +1093,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
     }
 
     @Override
-    public void setPharmacyBeans(List<PharmacyBean> data){
+    public void setPharmacyBeans(List<PharmacyBean> data) {
         mPharmacyBeans = data;
     }
 }

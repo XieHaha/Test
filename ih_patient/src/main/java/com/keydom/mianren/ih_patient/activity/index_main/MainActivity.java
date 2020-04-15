@@ -88,6 +88,8 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
     private LocationClient locationClient;
     private boolean isNeedJump = false;
 
+    NetWorkBroadCast netWorkBroadCast;
+
     /**
      * 启动页面
      */
@@ -111,7 +113,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
 
         this.findViewById(R.id.tab_member).setOnClickListener(getController());
 
-        NetWorkBroadCast netWorkBroadCast = new NetWorkBroadCast();
+        netWorkBroadCast = new NetWorkBroadCast();
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(netWorkBroadCast, intentFilter);
         /*InterceptorReceiver interceptorReceiver=new InterceptorReceiver();
@@ -273,6 +275,9 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
 
     @Override
     protected void onDestroy() {
+        if (netWorkBroadCast != null) {
+            unregisterReceiver(netWorkBroadCast);
+        }
         EventBus.getDefault().unregister(this);
         super.onDestroy();
 
