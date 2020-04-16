@@ -97,7 +97,7 @@ public class TriageOrderDetailController extends ControllerImpl<TriageOrderDetai
      */
     public void operate(int option) {
         showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(GroupCooperateApiService.class).operate(HttpService.INSTANCE.object2Body(getView().getoperateMap(option))), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(GroupCooperateApiService.class).operate(HttpService.INSTANCE.object2Body(getView().getOperateMap(option))), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable String data) {
                 hideLoading();

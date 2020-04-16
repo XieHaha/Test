@@ -48,7 +48,7 @@ public interface TriageOrderDetailView extends BaseView {
      * @param option 转诊单ID
      * @return 请求参数
      */
-    Map<String, Object> getoperateMap(long option);
+    Map<String, Object> getOperateMap(long option);
 
     /**
      * 操作成功

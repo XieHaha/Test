@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -43,6 +44,7 @@ import butterknife.BindView;
 
 /**
  * @date 3月20日 17:06
+ * 分诊详情
  */
 public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrderDetailController> implements TriageOrderDetailView {
     @BindView(R.id.triage_order_detail_name_tv)
@@ -214,6 +216,46 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
         triageOrderDetailDiagnoseMaterialRecycler.setLayoutManager(diagnoseMaterialRvLm);
     }
 
+    private void bindData(com.keydom.ih_common.bean.DiagnoseOrderDetailBean detailBean) {
+        triageOrderDetailNameTv.setText(triageBean.getPatientName());
+        triageOrderDetailSexTv.setText(triageBean.getPatientSex());
+        triageOrderDetailAgeTv.setText(triageBean.getPatientAge() + "岁");
+        triageOrderDetailDiagnoseExplainTv.setText(triageBean.getTriageExplain());
+        triageOrderDetailDoctorNameTv.setText(triageBean.getDoctor());
+        triageOrderDetailDoctorJobIv.setText(triageBean.getJobTitle());
+        triageOrderDetailDoctorDepartTv.setText(triageBean.getDept());
+        //        triageOrderDetailDoctorSpecialtyTv.setText(bean.getAdept());
+        triageOrderDetailApplyTimeTv.setText(triageBean.getTriageTime());
+        triageOrderDetailDiagnoseInfoTv.setText(detailBean.getConditionDesc());
+        GlideUtils.load(triageOrderDetailDoctorHeaderIv,
+                Const.IMAGE_HOST + triageBean.getDoctorAvatar(), 0, 0, false, null);
+        String[] diagnoseInfo;
+        if (!TextUtils.isEmpty(triageBean.getDiseaseData())) {
+            diagnoseInfo = triageBean.getDiseaseData().split(",");
+            Collections.addAll(diagnoseMaterialList, diagnoseInfo);
+        }
+        String[] materialInfo;
+        if (!TextUtils.isEmpty(detailBean.getConditionData())) {
+            materialInfo = detailBean.getConditionData().split(",");
+            Collections.addAll(diagnoseInfoImgList, materialInfo);
+        }
+        //图片适配器，病情资料和问诊说明图片适配器
+        DiagnoseOrderDetailAdapter diagnoseInfoImgAdapter = new DiagnoseOrderDetailAdapter(this,
+                diagnoseInfoImgList);
+        DiagnoseOrderDetailAdapter diagnoseMaterialAdapter = new DiagnoseOrderDetailAdapter(this,
+                diagnoseMaterialList);
+        //
+        LinearLayoutManager diagnoseInfoImgRvLm = new LinearLayoutManager(this);
+        diagnoseInfoImgRvLm.setOrientation(LinearLayoutManager.HORIZONTAL);
+        triageOrderDetailDiagnoseInfoRecyclerView.setAdapter(diagnoseInfoImgAdapter);
+        triageOrderDetailDiagnoseInfoRecyclerView.setLayoutManager(diagnoseInfoImgRvLm);
+
+        LinearLayoutManager diagnoseMaterialRvLm = new LinearLayoutManager(this);
+        diagnoseMaterialRvLm.setOrientation(LinearLayoutManager.HORIZONTAL);
+        triageOrderDetailDiagnoseMaterialRecycler.setAdapter(diagnoseMaterialAdapter);
+        triageOrderDetailDiagnoseMaterialRecycler.setLayoutManager(diagnoseMaterialRvLm);
+    }
+
 
     @Override
     public Map<String, Object> getQueryMap() {
@@ -239,16 +281,18 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
 
     @Override
     public void getInquisitionDetailSuccess(com.keydom.ih_common.bean.DiagnoseOrderDetailBean bean) {
-
+        bindData(bean);
+        pageLoadingSuccess();
     }
 
     @Override
     public void getInquisitionDetailFailed(String msg) {
-
+        ToastUtil.showMessage(this, msg);
+        pageLoadingFail();
     }
 
     @Override
-    public Map<String, Object> getoperateMap(long option) {
+    public Map<String, Object> getOperateMap(long option) {
         Map<String, Object> map = new HashMap<>();
         map.put("id", id);
         map.put("state", option);

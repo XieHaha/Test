@@ -89,7 +89,7 @@
                                 android:paddingTop="@dimen/dp_9"
                                 android:paddingBottom="@dimen/dp_9"
                                 android:text="姓名:"
-                                android:textColor="@color/primary_font_color"
+                                android:textColor="@color/edit_hint_color"
                                 android:textSize="@dimen/sp_14" />
 
                             <TextView
@@ -103,7 +103,7 @@
                                 android:paddingEnd="@dimen/dp_0"
                                 android:paddingBottom="@dimen/dp_9"
                                 android:text="莫思凡·卡农"
-                                android:textColor="@color/fontColorDirection"
+                                android:textColor="@color/edit_text_color"
                                 android:textSize="@dimen/sp_14" />
                         </RelativeLayout>
 
@@ -121,7 +121,7 @@
                                 android:paddingTop="@dimen/dp_9"
                                 android:paddingBottom="@dimen/dp_9"
                                 android:text="性别:"
-                                android:textColor="@color/primary_font_color"
+                                android:textColor="@color/edit_hint_color"
                                 android:textSize="@dimen/sp_14" />
 
                             <TextView
@@ -135,7 +135,7 @@
                                 android:paddingEnd="@dimen/dp_0"
                                 android:paddingBottom="@dimen/dp_9"
                                 android:text="男"
-                                android:textColor="@color/fontColorDirection"
+                                android:textColor="@color/edit_text_color"
                                 android:textSize="@dimen/sp_14" />
                         </RelativeLayout>
 
@@ -152,7 +152,7 @@
                                 android:paddingTop="@dimen/dp_9"
                                 android:paddingBottom="@dimen/dp_9"
                                 android:text="年龄:"
-                                android:textColor="@color/primary_font_color"
+                                android:textColor="@color/edit_hint_color"
                                 android:textSize="@dimen/sp_14" />
 
                             <TextView
@@ -166,7 +166,7 @@
                                 android:paddingEnd="@dimen/dp_0"
                                 android:paddingBottom="@dimen/dp_9"
                                 android:text="24"
-                                android:textColor="@color/fontColorDirection"
+                                android:textColor="@color/edit_text_color"
                                 android:textSize="@dimen/sp_14" />
                         </RelativeLayout>
                     </RelativeLayout>
