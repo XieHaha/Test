@@ -29,6 +29,7 @@ import com.keydom.mianren.ih_doctor.activity.health_manager.HealthManagerActivit
 import com.keydom.mianren.ih_doctor.activity.issue_information.NotificationListActivity;
 import com.keydom.mianren.ih_doctor.activity.nurse_service.NurseServiceOrderListActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.DiagnoseOrderListActivity;
+import com.keydom.mianren.ih_doctor.activity.online_triage.TriageOrderListActivity;
 import com.keydom.mianren.ih_doctor.activity.prescription_check.PrescriptionCheckActivity;
 import com.keydom.mianren.ih_doctor.adapter.WorkFunctionAdapter;
 import com.keydom.mianren.ih_doctor.bean.HomeBean;
@@ -194,6 +195,13 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
                                 getController().showNotAccessDialog();
                             }
                             break;
+                        case "分诊接收":
+                            if (true) {
+                                TriageOrderListActivity.start(getContext());
+                            } else {
+                                getController().showNotAccessDialog();
+                            }
+                            break;
                         default:
                     }
                 } else {
@@ -355,7 +363,11 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         //TODO 模拟健康管理数据
         IndexMenuBean menuBean = new IndexMenuBean();
         menuBean.setName("健康管理");
+        IndexMenuBean menuBean1 = new IndexMenuBean();
+        menuBean1.setName("分诊接收");
         dataList.add(menuBean);
+        dataList.add(menuBean1);
+
 
         workFunctionAdapter.setNewData(dataList);
 

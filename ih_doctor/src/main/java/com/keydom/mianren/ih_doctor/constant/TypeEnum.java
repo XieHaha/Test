@@ -54,4 +54,6 @@ public enum TypeEnum {
     CONSULTATION_WAIT,//待会诊
     CONSULTATION_ING,//会诊中
     CONSULTATION_COMPLETE,//会诊完成
+    TRIAGE_WAIT,//分诊待接收
+    TRIAGE_RECEIVED,//分诊已接收
 }

@@ -13,9 +13,8 @@ import java.util.ArrayList;
  * @des 分诊
  */
 public class TriageOrderAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
-    public TriageOrderAdapter(int layoutResId,
-                              @Nullable ArrayList<String> data) {
-        super(layoutResId, data);
+    public TriageOrderAdapter(@Nullable ArrayList<String> data) {
+        super(R.layout.item_triage_order, data);
     }
 
     @Override
