@@ -52,7 +52,7 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
     /**
      * 状态
      */
-    private int state = -1;
+    private int status = -1;
 
 
     public static ConsultationOrderFragment newInstance(TypeEnum type) {
@@ -72,11 +72,11 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
     public void initData(@Nullable Bundle savedInstanceState) {
         mType = (TypeEnum) getArguments().getSerializable(Const.TYPE);
         if (mType == TypeEnum.CONSULTATION_WAIT) {
-            state = 0;
+            status = 0;
         } else if (mType == TypeEnum.CONSULTATION_ING) {
-            state = 1;
+            status = 1;
         } else if (mType == TypeEnum.CONSULTATION_COMPLETE) {
-            state = 2;
+            status = 2;
         }
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
@@ -131,7 +131,7 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
         HashMap<String, Object> map = new HashMap<>();
         map.put("currentPage", getController().getCurrentPage());
         map.put("pageSize", Const.PAGE_SIZE);
-        map.put("state", state);
+        map.put("status", status);
         return map;
     }
 

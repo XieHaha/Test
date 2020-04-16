@@ -47,7 +47,6 @@ public class SubscribeExaminationOrderController extends ControllerImpl<Subscrib
      * 获取体检列表
      */
     public void getExaminationData(int status,final TypeEnum typeEnum) {
-        showLoading();
         if (typeEnum == TypeEnum.REFRESH) {
             setCurrentPage(1);
         }
@@ -57,16 +56,14 @@ public class SubscribeExaminationOrderController extends ControllerImpl<Subscrib
         map.put("hospitalId", App.hospitalId);
         map.put("currentPage", getCurrentPage());
         map.put("pageSize", Const.PAGE_SIZE);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ReservationService.class).getExaminationOrderList(map), new HttpSubscriber<PageBean<SubscribeExaminationBean>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ReservationService.class).getExaminationOrderList(map), new HttpSubscriber<PageBean<SubscribeExaminationBean>>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable PageBean<SubscribeExaminationBean> data) {
-                hideLoading();
                 getView().getDataSuccess(data.getRecords(),typeEnum);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 getView().getDataFailed(msg);
                 return super.requestError(exception, code, msg);
             }

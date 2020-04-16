@@ -9,7 +9,7 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationOrderFragmentView;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
-import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
+import com.keydom.mianren.ih_doctor.net.ConsultationService;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -32,7 +32,7 @@ public class ConsultationOrderFragmentController extends ControllerImpl<Consulta
         if (type == TypeEnum.REFRESH) {
             setCurrentPage(1);
         }
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).listInquisition(getView().getListMap()), new HttpSubscriber<PageBean<InquiryBean>>() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderApplyList(getView().getListMap()), new HttpSubscriber<PageBean<InquiryBean>>() {
             @Override
             public void requestComplete(@Nullable PageBean<InquiryBean> data) {
                 List<InquiryBean> list = data.getRecords();

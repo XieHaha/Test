@@ -39,7 +39,7 @@ public class TriageOrderAttachment extends BaseCustomAttachment implements Seria
     /**
      * 问诊单Id
      */
-    private Long id;
+    private long id;
 
     public TriageOrderAttachment() {
         super(ICustomAttachmentType.TRIAGE_ORDER);
@@ -107,11 +107,11 @@ public class TriageOrderAttachment extends BaseCustomAttachment implements Seria
         this.images = images;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 }

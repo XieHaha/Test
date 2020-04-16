@@ -5,6 +5,7 @@ import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -20,6 +21,7 @@ import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
@@ -150,12 +152,13 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                     if (userInfo != null) {
                         Map<String, Object> extension = userInfo.getExtensionMap();
                         if (extension != null && extension.get(ImConstants.CALL_USER_TYPE) != null) {
-//                            if (TextUtils.isEmpty(bean.getGroupTid())) {
-//                                ImClient.startConversation(getContext(), bean.getDoctorCode(), null);
-//                            } else {
-//                                ImClient.startConversation(getContext(), "2806461989", null);
-//                            }
-                            PatientTeamChatActivity.startTeamChat(getContext(), "2806461989");
+                            if (TextUtils.isEmpty(bean.getGroupTid())) {
+                                ImClient.startConversation(getContext(), bean.getDoctorCode(),
+                                        null);
+                            } else {
+                                PatientTeamChatActivity.startTeamChat(getContext(),
+                                        bean.getGroupTid());
+                            }
                         } else
                             ToastUtil.showMessage(getContext(), "医生账号异常");
                     }

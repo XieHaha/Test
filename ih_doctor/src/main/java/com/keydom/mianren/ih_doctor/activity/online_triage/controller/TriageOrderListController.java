@@ -18,6 +18,17 @@ public class TriageOrderListController extends ControllerImpl<TriageOrderListVie
      * 获取无痛分娩预约列表
      */
     public void getTriageOrderList(TypeEnum typeEnum) {
+//        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(TriageApiService.class).triageOrderApplyList(), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+//            @Override
+//            public void requestComplete(@Nullable String data) {
+//            }
+//
+//            @Override
+//            public boolean requestError(@NotNull ApiException exception, int code,
+//                                        @NotNull String msg) {
+//                return super.requestError(exception, code, msg);
+//            }
+//        });
     }
 
     @Override

@@ -16,7 +16,7 @@ public class InspectionAttachment extends BaseCustomAttachment {
     /**
      * 检验单ID
      */
-    private String id;
+    private long id;
 
     /**
      * 检验单金额
@@ -33,7 +33,7 @@ public class InspectionAttachment extends BaseCustomAttachment {
 
     @Override
     protected void paresData(JSONObject data) {
-        id = String.valueOf(data.getLong("id"));
+        id = data.getLongValue("id");
         inspectionContent = data.getString("inspectionContent");
         amount = data.getString("amount");
         payStatus = data.getInteger("payStatus");
@@ -57,12 +57,12 @@ public class InspectionAttachment extends BaseCustomAttachment {
         this.inspectionContent = inspectionContent;
     }
 
-    public Long getId() {
-        return Long.valueOf(id);
+    public long getId() {
+        return id;
     }
 
-    public void setId(Long id) {
-        this.id = String.valueOf(id);
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getAmount() {

@@ -39,7 +39,7 @@ public class InquiryAttachment extends BaseCustomAttachment implements Serializa
     /**
      * 问诊单Id
      */
-    private Long id;
+    private long id;
 
     public InquiryAttachment() {
         super(ICustomAttachmentType.INQUIRY);
@@ -107,11 +107,11 @@ public class InquiryAttachment extends BaseCustomAttachment implements Serializa
         this.images = images;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 }

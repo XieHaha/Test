@@ -11,7 +11,7 @@ public class ReferralDoctorAttachment extends BaseCustomAttachment {
     /**
      * 换诊申请id
      */
-    private Long id;
+    private long id;
     /**
      * 接诊医生名称
      */
@@ -60,11 +60,11 @@ public class ReferralDoctorAttachment extends BaseCustomAttachment {
         return data;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
