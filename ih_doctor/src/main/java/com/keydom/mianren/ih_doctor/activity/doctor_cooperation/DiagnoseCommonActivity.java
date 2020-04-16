@@ -71,8 +71,6 @@ public class DiagnoseCommonActivity extends BaseControllerActivity<DiagnoseCommo
 
     /**
      * 转诊接收
-     *
-     * @param context
      */
     public static void startDiagnoseChangeReceive(Context context) {
         Intent starter = new Intent(context, DiagnoseCommonActivity.class);
@@ -82,8 +80,6 @@ public class DiagnoseCommonActivity extends BaseControllerActivity<DiagnoseCommo
 
     /**
      * 转诊记录
-     *
-     * @param context
      */
     public static void startDiagnoseChangeRecoder(Context context) {
         Intent starter = new Intent(context, DiagnoseCommonActivity.class);
@@ -93,8 +89,6 @@ public class DiagnoseCommonActivity extends BaseControllerActivity<DiagnoseCommo
 
     /**
      * 会诊接收
-     *
-     * @param context
      */
     public static void startDiagnoseGroupReceive(Context context) {
         Intent starter = new Intent(context, DiagnoseCommonActivity.class);
@@ -104,8 +98,6 @@ public class DiagnoseCommonActivity extends BaseControllerActivity<DiagnoseCommo
 
     /**
      * 会诊记录
-     *
-     * @param context
      */
     public static void startDiagnoseGroupRecoder(Context context) {
         Intent starter = new Intent(context, DiagnoseCommonActivity.class);
@@ -163,8 +155,8 @@ public class DiagnoseCommonActivity extends BaseControllerActivity<DiagnoseCommo
         }
         pageLoadingSuccess();
         mList.addAll(list);
-        if(mList.size()==0)
-            MyApplication.receiveReferral=0;
+        if (mList.size() == 0)
+            MyApplication.receiveReferral = 0;
         diagnoseCommonRecyclrViewAdapter.notifyDataSetChanged();
         getController().currentPagePlus();
         refreshLayout.finishRefresh();

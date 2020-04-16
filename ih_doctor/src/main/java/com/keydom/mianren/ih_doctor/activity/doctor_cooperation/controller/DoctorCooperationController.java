@@ -22,6 +22,7 @@ import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.GroupMemberActiv
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.UpdateGroupInfoActivity;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.view.DoctorCooperationView;
 import com.keydom.mianren.ih_doctor.activity.im.DoctorTeamChatActivity;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationOrderActivity;
 import com.keydom.mianren.ih_doctor.bean.GroupInfoBean;
 import com.keydom.mianren.ih_doctor.bean.GroupInfoRes;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
@@ -81,7 +82,7 @@ public class DoctorCooperationController extends ControllerImpl<DoctorCooperatio
                 bundle.putString("teamName", bean.getGroupName());
                 DoctorTeamChatActivity.startTeamChat(getContext(), bean.getTid());
                 //ImClient.startTeamChart(getContext(), bean.getTid(), bundle);
-                ImClient.clearUnreadCount( bean.getTid(), SessionTypeEnum.Team);
+                ImClient.clearUnreadCount(bean.getTid(), SessionTypeEnum.Team);
                 getView().showOrHideGroupExchangeRedPoint(false);
                 break;
             case R.id.group_member_rl:
@@ -106,25 +107,25 @@ public class DoctorCooperationController extends ControllerImpl<DoctorCooperatio
                 DiagnoseCommonActivity.startDiagnoseChangeRecoder(getContext());
                 break;
             case R.id.change_diagnose_rl:
-                FillOutApplyActivity.startFillOut(getContext());
+                FillOutApplyActivity.startFillOut(getContext(),
+                        FillOutApplyActivity.DOCTOR_GOURP_FILLOUT_APPLY);
                 break;
             case R.id.receive_diagnose_rl:
                 DiagnoseCommonActivity.startDiagnoseChangeReceive(getContext());
                 break;
             case R.id.group_diagnose_recoder:
-//                ToastUtil.showMessage(getContext(), "会诊记录");
-//                DiagnoseCommonActivity.start(getContext(),TypeEnum.DIAGNOSE_GROUP_RECODER);
+                ConsultationOrderActivity.start(getContext());
                 break;
             case R.id.group_diagnose_rl:
-//                ToastUtil.showMessage(getContext(), "发起会诊");
-//                FillOutApplyActivity.start(getContext(),TypeEnum.FILLOUT_APPLY_GROUP);
+                FillOutApplyActivity.startFillOut(getContext(),
+                        FillOutApplyActivity.DIAGNOSE_FILLOUT_APPLY);
                 break;
             case R.id.receive_group_diagnose_rl:
-//                ToastUtil.showMessage(getContext(), "接受会诊");
-//                DiagnoseCommonActivity.start(getContext(),TypeEnum.DIAGNOSE_GROUP_RECEIVE);
+                DiagnoseCommonActivity.startDiagnoseGroupReceive(getContext());
                 break;
             case R.id.group_cut:
-                BottomGroupCutDialog cutDialog = new BottomGroupCutDialog(getContext(), getView().getGroup());
+                BottomGroupCutDialog cutDialog = new BottomGroupCutDialog(getContext(),
+                        getView().getGroup());
                 cutDialog.show();
                 break;
             case R.id.group_edit:
@@ -153,7 +154,8 @@ public class DoctorCooperationController extends ControllerImpl<DoctorCooperatio
                     builder.create().show();
                     return;
                 }
-                UpdateGroupInfoActivity.start(getContext(), TypeEnum.GROUP_UPDATE, getView().getCurrentGroup());
+                UpdateGroupInfoActivity.start(getContext(), TypeEnum.GROUP_UPDATE,
+                        getView().getCurrentGroup());
                 break;
             default:
         }
@@ -194,7 +196,8 @@ public class DoctorCooperationController extends ControllerImpl<DoctorCooperatio
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getGroupFailed(msg);
                 return super.requestError(exception, code, msg);
             }

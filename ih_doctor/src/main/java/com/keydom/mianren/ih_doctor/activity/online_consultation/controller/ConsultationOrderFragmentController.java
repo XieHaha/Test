@@ -14,6 +14,9 @@ import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @date 4月2日 15:03
  * 会诊列表
@@ -29,11 +32,14 @@ public class ConsultationOrderFragmentController extends ControllerImpl<Consulta
         if (type == TypeEnum.REFRESH) {
             setCurrentPage(1);
         }
-        getView().getDataSuccess(type, null);
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).listInquisition(getView().getListMap()), new HttpSubscriber<PageBean<InquiryBean>>() {
             @Override
             public void requestComplete(@Nullable PageBean<InquiryBean> data) {
-                getView().getDataSuccess(type, data.getRecords());
+                List<InquiryBean> list = data.getRecords();
+                if (list == null) {
+                    list = new ArrayList<>();
+                }
+                getView().getDataSuccess(type, list);
             }
 
             @Override

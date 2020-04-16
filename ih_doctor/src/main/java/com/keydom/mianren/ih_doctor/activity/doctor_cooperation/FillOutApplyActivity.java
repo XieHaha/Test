@@ -120,6 +120,11 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
     // 语音听写UI
     private CustomRecognizerDialog mIatDialog;
 
+    @Override
+    public int getLayoutRes() {
+        return R.layout.activity_fill_out_apply_layout;
+    }
+
     /**
      * 初始化监听器。
      */
@@ -217,12 +222,10 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
 
     /**
      * 转诊申请
-     *
-     * @param context
      */
-    public static void startFillOut(Context context) {
+    public static void startFillOut(Context context, int type) {
         Intent starter = new Intent(context, FillOutApplyActivity.class);
-        starter.putExtra(Const.TYPE, DOCTOR_GOURP_FILLOUT_APPLY);
+        starter.putExtra(Const.TYPE, type);
         context.startActivity(starter);
     }
 
@@ -232,11 +235,6 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
         starter.putExtra(Const.TYPE, DIAGNOSE_FILLOUT_APPLY);
         starter.putExtra(Const.DATA, bean);
         context.startActivity(starter);
-    }
-
-    @Override
-    public int getLayoutRes() {
-        return R.layout.activity_fill_out_apply_layout;
     }
 
     @Override
