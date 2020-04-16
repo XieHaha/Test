@@ -1,6 +1,8 @@
 package com.keydom.mianren.ih_doctor.net;
 
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
+import com.keydom.mianren.ih_doctor.bean.TriageBean;
 
 import java.util.Map;
 
@@ -26,5 +28,5 @@ public interface TriageApiService {
      * 分诊记录
      */
     @GET("user/triageApply/triageApplyList")
-    Observable<HttpResult<String>> triageOrderApplyList(@QueryMap Map<String, Object> map);
+    Observable<HttpResult<PageBean<TriageBean>>> triageOrderApplyList(@QueryMap Map<String, Object> map);
 }

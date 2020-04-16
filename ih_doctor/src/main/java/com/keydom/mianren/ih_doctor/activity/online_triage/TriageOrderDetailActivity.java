@@ -26,6 +26,7 @@ import com.keydom.mianren.ih_doctor.activity.online_triage.view.TriageOrderDetai
 import com.keydom.mianren.ih_doctor.adapter.DiagnoseOrderDetailAdapter;
 import com.keydom.mianren.ih_doctor.bean.DiagnoseOrderDetailBean;
 import com.keydom.mianren.ih_doctor.bean.MessageEvent;
+import com.keydom.mianren.ih_doctor.bean.TriageBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 
@@ -76,6 +77,11 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
     Button triageOrderDetailBottomRight;
     @BindView(R.id.triage_order_detail_bottom_layout)
     LinearLayout triageOrderDetailBottomLayout;
+
+    /**
+     * 分诊单详情
+     */
+    private TriageBean triageBean;
     /**
      * 转诊单ID
      */
@@ -108,6 +114,18 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
      */
     public static final int ORDER_WITHOUT_ACTION = 1301;
 
+    public static final String KEY_TRIAGE_BEAN = "key_triage_bean";
+
+    /**
+     * 启动
+     */
+    public static void startWithAction(Context context, TriageBean bean) {
+        Intent starter = new Intent(context, TriageOrderDetailActivity.class);
+        starter.putExtra(KEY_TRIAGE_BEAN, bean);
+        starter.putExtra(Const.TYPE, ORDER_ACTION);
+        context.startActivity(starter);
+    }
+
     /**
      * 启动
      */
@@ -127,14 +145,12 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
     public void initData(@Nullable Bundle savedInstanceState) {
         id = getIntent().getLongExtra(Const.DATA, Const.INT_DEFAULT);
         mType = getIntent().getIntExtra(Const.TYPE, Const.INT_DEFAULT);
+        triageBean = (TriageBean) getIntent().getSerializableExtra(KEY_TRIAGE_BEAN);
         setTitle(getString(R.string.txt_triage_order_detail));
         initView();
-        pageLoading();
-        getController().getDetail();
-        setReloadListener((v, status) -> {
-            pageLoading();
-            getController().getDetail();
-        });
+
+        getDetailData();
+        setReloadListener((v, status) -> getDetailData());
     }
 
     private void initView() {
@@ -146,6 +162,15 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
             triageOrderDetailBottomLayout.setVisibility(View.VISIBLE);
         } else {
             triageOrderDetailBottomLayout.setVisibility(View.GONE);
+        }
+    }
+
+    private void getDetailData() {
+        pageLoading();
+        if (triageBean == null) {
+            getController().getDetail();
+        } else {
+            getController().getPatientInquisitionById(triageBean.getOrderId());
         }
     }
 
@@ -205,12 +230,21 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
         } else {
             pageEmpty();
         }
-
     }
 
     @Override
     public void getDetailFailed(String errMsg) {
         pageLoadingFail();
+    }
+
+    @Override
+    public void getInquisitionDetailSuccess(com.keydom.ih_common.bean.DiagnoseOrderDetailBean bean) {
+
+    }
+
+    @Override
+    public void getInquisitionDetailFailed(String msg) {
+
     }
 
     @Override

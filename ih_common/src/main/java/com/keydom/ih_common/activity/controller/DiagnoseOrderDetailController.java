@@ -24,7 +24,7 @@ public class DiagnoseOrderDetailController extends ControllerImpl<DiagnoseOrderD
 
 
     public void getPatientInquisitionById() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ApiService.class).getPatientInquisitionById(getView().getOrderId()), new HttpSubscriber<DiagnoseOrderDetailBean>(getContext(),getDisposable(),false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ApiService.class).getPatientInquisitionById(String.valueOf(getView().getOrderId())), new HttpSubscriber<DiagnoseOrderDetailBean>(getContext(),getDisposable(),false) {
             @Override
             public void requestComplete(@Nullable DiagnoseOrderDetailBean data) {
                 getView().getDetailSuccess(data);

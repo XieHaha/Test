@@ -36,6 +36,13 @@ public interface TriageOrderDetailView extends BaseView {
     void getDetailFailed(String errMsg);
 
     /**
+     * 获取问诊详情
+     */
+    void getInquisitionDetailSuccess(com.keydom.ih_common.bean.DiagnoseOrderDetailBean bean);
+
+    void getInquisitionDetailFailed(String msg);
+
+    /**
      * 获取操作参数
      *
      * @param option 转诊单ID

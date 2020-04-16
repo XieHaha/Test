@@ -34,6 +34,7 @@
     <string name="txt_age">%s岁</string>
     <string name="txt_receive">接收</string>
     <string name="txt_commit">提交</string>
+    <string name="txt_three_value">%s、%s、%s</string>
 
     <!--健康管理-->
     <string name="txt_health_manager">健康管理</string>

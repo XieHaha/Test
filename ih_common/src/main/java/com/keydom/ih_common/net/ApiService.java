@@ -176,7 +176,7 @@ public interface ApiService {
      * @return
      */
     @GET("user/online/getPatientInquisitionById")
-    Observable<HttpResult<DiagnoseOrderDetailBean>> getPatientInquisitionById(@Query("orderId") long id);
+    Observable<HttpResult<DiagnoseOrderDetailBean>> getPatientInquisitionById(@Query("orderId") String id);
 
 
 }

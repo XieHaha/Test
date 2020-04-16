@@ -61,6 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="19dp"
             android:layout_toEndOf="@id/text"
+            android:text="@string/txt_three_value"
             android:textColor="@color/primary_font_color"
             android:textSize="12sp" />
 

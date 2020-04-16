@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
+import com.keydom.ih_common.net.ApiService;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
@@ -65,6 +66,25 @@ public class TriageOrderDetailController extends ControllerImpl<TriageOrderDetai
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
                 getView().getDetailFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 问诊信息
+     */
+    public void getPatientInquisitionById(String orderId) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ApiService.class).getPatientInquisitionById(orderId), new HttpSubscriber<com.keydom.ih_common.bean.DiagnoseOrderDetailBean>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable com.keydom.ih_common.bean.DiagnoseOrderDetailBean data) {
+                getView().getInquisitionDetailSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                getView().getInquisitionDetailFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });

@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_doctor.activity.online_triage.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.mianren.ih_doctor.bean.TriageBean;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 
 import java.util.List;
@@ -13,11 +14,8 @@ import java.util.Map;
 public interface TriageOrderFragmentView extends BaseView {
     /**
      * 获取分诊单成功
-     *
-     * @param type 刷新／加载更多
-     * @param list 问诊单列表
      */
-    void getDataSuccess(TypeEnum type, List<String> list);
+    void getDataSuccess(TypeEnum type, List<TriageBean> list);
 
     /**
      * 获取分诊单失败

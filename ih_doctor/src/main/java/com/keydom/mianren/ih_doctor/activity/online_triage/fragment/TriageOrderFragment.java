@@ -10,6 +10,7 @@ import com.keydom.mianren.ih_doctor.activity.online_triage.controller.TriageOrde
 import com.keydom.mianren.ih_doctor.activity.online_triage.view.TriageOrderFragmentView;
 import com.keydom.mianren.ih_doctor.adapter.TriageOrderAdapter;
 import com.keydom.mianren.ih_doctor.bean.MessageEvent;
+import com.keydom.mianren.ih_doctor.bean.TriageBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
@@ -43,7 +44,7 @@ public class TriageOrderFragment extends BaseControllerFragment<TriageOrderFragm
     /**
      * 分诊单列表
      */
-    private ArrayList<String> dataList = new ArrayList<>();
+    private ArrayList<TriageBean> dataList = new ArrayList<>();
     /**
      * 页面类型
      */
@@ -80,6 +81,8 @@ public class TriageOrderFragment extends BaseControllerFragment<TriageOrderFragm
         }
         //模拟数据
         mAdapter = new TriageOrderAdapter(dataList);
+        mAdapter.setOnItemClickListener(getController());
+        mAdapter.setStatus(status);
         consultationOrderRecyclerView.setAdapter(mAdapter);
         consultationOrderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         refreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getTriageOrderList(TypeEnum.LOAD_MORE));
@@ -92,7 +95,7 @@ public class TriageOrderFragment extends BaseControllerFragment<TriageOrderFragm
 
 
     @Override
-    public void getDataSuccess(TypeEnum type, List<String> list) {
+    public void getDataSuccess(TypeEnum type, List<TriageBean> list) {
         getController().currentPagePlus();
         if (type == TypeEnum.REFRESH) {
             dataList.clear();
@@ -102,7 +105,6 @@ public class TriageOrderFragment extends BaseControllerFragment<TriageOrderFragm
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadMore();
         pageLoadingSuccess();
-
     }
 
     @Override
@@ -110,7 +112,6 @@ public class TriageOrderFragment extends BaseControllerFragment<TriageOrderFragm
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadMore();
         pageLoadingFail();
-
     }
 
     @Override
@@ -123,7 +124,7 @@ public class TriageOrderFragment extends BaseControllerFragment<TriageOrderFragm
         HashMap<String, Object> map = new HashMap<>();
         map.put("currentPage", getController().getCurrentPage());
         map.put("pageSize", Const.PAGE_SIZE);
-        map.put("status", status);
+        map.put("state", status);
         return map;
     }
 
