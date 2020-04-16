@@ -45,10 +45,9 @@ import java.util.Map;
  * 修改人：xusong
  * 修改时间：18/11/6 下午6:52
  */
-public class GroupChatRecyclrViewAdapter extends BaseEmptyAdapter<Team> {
+public class GroupChatRecyclerViewAdapter extends BaseEmptyAdapter<Team> {
 
-
-    public GroupChatRecyclrViewAdapter(Context context, List<Team> data) {
+    public GroupChatRecyclerViewAdapter(Context context, List<Team> data) {
         super(data, context);
         EventBus.getDefault().register(this);
     }
@@ -61,7 +60,7 @@ public class GroupChatRecyclrViewAdapter extends BaseEmptyAdapter<Team> {
 
     @Override
     public void bindMyViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((GroupChatRecyclrViewAdapter.ViewHolder) holder).bind(position);
+        ((GroupChatRecyclerViewAdapter.ViewHolder) holder).bind(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -126,9 +125,6 @@ public class GroupChatRecyclrViewAdapter extends BaseEmptyAdapter<Team> {
                                     groupInfoBean.setGroupAdept(json.getString("adept"));
                                     UpdateGroupInfoActivity.start(mContext, TypeEnum.GROUP_UPDATE, groupInfoBean);
                                 }
-
-
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

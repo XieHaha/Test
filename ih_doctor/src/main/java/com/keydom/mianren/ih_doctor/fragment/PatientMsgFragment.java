@@ -13,6 +13,7 @@ import com.keydom.ih_common.im.listener.observer.UserInfoObserver;
 import com.keydom.ih_common.im.model.event.RecentContactEvent;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.adapter.FriendMsgRecyclrViewAdapter;
+import com.keydom.mianren.ih_doctor.adapter.GroupChatRecyclerViewAdapter;
 import com.keydom.mianren.ih_doctor.bean.MessageEvent;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.fragment.controller.PatientMsgFragmentController;
@@ -60,7 +61,7 @@ public class PatientMsgFragment extends BaseControllerFragment<PatientMsgFragmen
     private UserInfoObserver userInfoObserver;
 
     /**
-     * 此处的EventBus事件在{@link com.keydom.mianren.ih_doctor.adapter.GroupChatRecyclrViewAdapter#onUnReadCountEvent(RecentContactEvent)} )}中处理
+     * 此处的EventBus事件在{@link GroupChatRecyclerViewAdapter#onUnReadCountEvent(RecentContactEvent)} )}中处理
      */
     @Override
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -160,7 +161,7 @@ public class PatientMsgFragment extends BaseControllerFragment<PatientMsgFragmen
     }
 
     /**
-     * 此处的EventBus事件在{@link com.keydom.mianren.ih_doctor.adapter.GroupChatRecyclrViewAdapter#onUnReadCountEvent(RecentContactEvent)}中处理
+     * 此处的EventBus事件在{@link GroupChatRecyclerViewAdapter#onUnReadCountEvent(RecentContactEvent)}中处理
      */
     Observer<List<RecentContact>> messageObserver = new Observer<List<RecentContact>>() {
         @Override

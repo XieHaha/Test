@@ -21,6 +21,7 @@ import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
+import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 
 import org.jetbrains.annotations.Nullable;
@@ -62,32 +63,39 @@ public class TeamChatActivity extends BaseActivity {
         mMessageView.setOnConversationBehaviorListener(new IConversationBehaviorListener() {
             @Override
             public boolean onUserPortraitClick(Context context, IMMessage message) {
-                if ("com.keydom.mianren.ih_patient".equals(context.getPackageName())){
+                if ("com.keydom.mianren.ih_patient".equals(context.getPackageName())) {
                     if (message.getDirect() == MsgDirectionEnum.Out) {
-                        Intent intent = new Intent("com.keydom.mianren.ih_patient.activity.user_info_operate.UserInfoOperateActivity");
+                        Intent intent = new Intent("com.keydom.mianren.ih_patient.activity" +
+                                ".user_info_operate.UserInfoOperateActivity");
                         intent.putExtra("type", "read_type");
-                       startActivity(intent);
-                    }else {
-                        NimUserInfo patientInfo = (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(message.getFromAccount());
-                        if ((ImMessageConstant.DOCTOR).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))){
-                            Intent intent = new Intent("com.keydom.mianren.ih_patient.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity");
+                        startActivity(intent);
+                    } else {
+                        NimUserInfo patientInfo =
+                                (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(message.getFromAccount());
+                        if ((ImMessageConstant.DOCTOR).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
+                            Intent intent = new Intent("com.keydom.mianren.ih_patient.activity" +
+                                    ".my_doctor_or_nurse.DoctorOrNurseDetailActivity");
                             intent.putExtra("type", 0);
                             intent.putExtra("doctorCode", String.valueOf(patientInfo.getAccount()));
                             startActivity(intent);
-                        }else
-                            Toast.makeText(context,"暂不支持查看其他患者资料",Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(context, "暂不支持查看其他患者资料", Toast.LENGTH_SHORT).show();
                     }
-                }else {
-                    NimUserInfo patientInfo = (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(message.getFromAccount());
-                    NimUserInfo currentUserInfo = (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(SharePreferenceManager.getUserCode());
+                } else {
+                    NimUserInfo patientInfo =
+                            (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(message.getFromAccount());
+                    NimUserInfo currentUserInfo =
+                            (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(SharePreferenceManager.getUserCode());
                     if ((ImMessageConstant.DOCTOR).equals(currentUserInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
                         if ((ImMessageConstant.PATIENT).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
-                            Intent intent = new Intent("com.keydom.mianren.ih_doctor.PatientDatumActivity");
+                            Intent intent = new Intent("com.keydom.mianren.ih_doctor" +
+                                    ".PatientDatumActivity");
                             intent.putExtra("data", patientInfo.getAccount());
                             startActivity(intent);
                         }
-                        if ((ImMessageConstant.DOCTOR).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))){
-                            Intent intent = new Intent("com.keydom.mianren.ih_doctor.DoctorOrNurseDetailActivity");
+                        if ((ImMessageConstant.DOCTOR).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
+                            Intent intent = new Intent("com.keydom.mianren.ih_doctor" +
+                                    ".DoctorOrNurseDetailActivity");
                             intent.putExtra("doctorCode", String.valueOf(patientInfo.getAccount()));
                             startActivity(intent);
                         }
@@ -103,12 +111,14 @@ public class TeamChatActivity extends BaseActivity {
             }
 
             @Override
-            public boolean onPayClick(Context context, View view, @android.support.annotation.Nullable IMMessage message) {
+            public boolean onPayClick(Context context, View view,
+                                      @android.support.annotation.Nullable IMMessage message) {
                 return false;
             }
 
             @Override
-            public boolean onPrescriptionClick(Context context, @android.support.annotation.Nullable IMMessage message) {
+            public boolean onPrescriptionClick(Context context,
+                                               @android.support.annotation.Nullable IMMessage message) {
                 return false;
             }
         });
@@ -117,9 +127,11 @@ public class TeamChatActivity extends BaseActivity {
     private void initView() {
         Uri data = getIntent().getData();
         if (data != null) {
-            mMessageView.setMessageInfo(data.getQueryParameter(ImConstants.CALL_SESSION_ID), SessionTypeEnum.Team);
-            if (ImClient.getTeamProvider().getTeamById(data.getQueryParameter(ImConstants.CALL_SESSION_ID)) != null) {
-                teamName = ImClient.getTeamProvider().getTeamById(data.getQueryParameter(ImConstants.CALL_SESSION_ID)).getName();
+            String sessionId = data.getQueryParameter(ImConstants.CALL_SESSION_ID);
+            mMessageView.setMessageInfo(sessionId, SessionTypeEnum.Team);
+            Team team = ImClient.getTeamProvider().getTeamById(sessionId);
+            if (team != null) {
+                teamName = team.getName();
             } else {
                 Toast.makeText(this, "群不存在", Toast.LENGTH_SHORT).show();
                 finish();

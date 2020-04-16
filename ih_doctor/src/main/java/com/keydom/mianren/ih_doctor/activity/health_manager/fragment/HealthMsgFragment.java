@@ -15,6 +15,7 @@ import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.health_manager.controller.HealthMsgController;
 import com.keydom.mianren.ih_doctor.activity.health_manager.view.HealthMsgView;
 import com.keydom.mianren.ih_doctor.adapter.FriendMsgRecyclrViewAdapter;
+import com.keydom.mianren.ih_doctor.adapter.GroupChatRecyclerViewAdapter;
 import com.keydom.mianren.ih_doctor.bean.MessageEvent;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.netease.nimlib.sdk.NIMClient;
@@ -58,7 +59,7 @@ public class HealthMsgFragment extends BaseControllerFragment<HealthMsgControlle
     /**
      * 此处的EventBus
      * 事件在
-     * {@link com.keydom.mianren.ih_doctor.adapter.GroupChatRecyclrViewAdapter#onUnReadCountEvent(RecentContactEvent)} )}中处理
+     * {@link GroupChatRecyclerViewAdapter#onUnReadCountEvent(RecentContactEvent)} )}中处理
      */
     @Override
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -162,7 +163,7 @@ public class HealthMsgFragment extends BaseControllerFragment<HealthMsgControlle
     /**
      * 此处的EventBus
      * 事件在
-     * {@link com.keydom.mianren.ih_doctor.adapter.GroupChatRecyclrViewAdapter#onUnReadCountEvent(RecentContactEvent)}中处理
+     * {@link GroupChatRecyclerViewAdapter#onUnReadCountEvent(RecentContactEvent)}中处理
      */
     Observer<List<RecentContact>> messageObserver = new Observer<List<RecentContact>>() {
         @Override

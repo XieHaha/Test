@@ -8,7 +8,7 @@ import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.listener.observer.TeamDataChangedObserver;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.adapter.GroupChatRecyclrViewAdapter;
+import com.keydom.mianren.ih_doctor.adapter.GroupChatRecyclerViewAdapter;
 import com.keydom.mianren.ih_doctor.fragment.controller.PatientGroupFragmentController;
 import com.keydom.mianren.ih_doctor.fragment.view.PatientGroupFragmentView;
 import com.netease.nimlib.sdk.team.model.Team;
@@ -35,7 +35,7 @@ public class PatientGroupFragment extends BaseControllerFragment<PatientGroupFra
     /**
      * 团队列表适配器
      */
-    private GroupChatRecyclrViewAdapter mAdapter;
+    private GroupChatRecyclerViewAdapter mAdapter;
 
     @Override
     public void onDestroy() {
@@ -55,7 +55,7 @@ public class PatientGroupFragment extends BaseControllerFragment<PatientGroupFra
      */
     private void initView() {
         groupRv =  getView().findViewById(R.id.group_msg_rv);
-        mAdapter = new GroupChatRecyclrViewAdapter(getContext(), mData = ImClient.getTeamProvider().getAllTeams());
+        mAdapter = new GroupChatRecyclerViewAdapter(getContext(), mData = ImClient.getTeamProvider().getAllTeams());
         groupRv.setNestedScrollingEnabled(false);
         groupRv.setAdapter(mAdapter);
         groupRv.setLayoutManager(new LinearLayoutManager(getContext()));
