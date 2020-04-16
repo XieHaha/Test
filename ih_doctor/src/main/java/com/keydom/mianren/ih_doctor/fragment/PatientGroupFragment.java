@@ -54,7 +54,7 @@ public class PatientGroupFragment extends BaseControllerFragment<PatientGroupFra
      * 初始化页面
      */
     private void initView() {
-        groupRv = (RecyclerView) getView().findViewById(R.id.group_msg_rv);
+        groupRv =  getView().findViewById(R.id.group_msg_rv);
         mAdapter = new GroupChatRecyclrViewAdapter(getContext(), mData = ImClient.getTeamProvider().getAllTeams());
         groupRv.setNestedScrollingEnabled(false);
         groupRv.setAdapter(mAdapter);

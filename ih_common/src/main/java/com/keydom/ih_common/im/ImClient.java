@@ -156,34 +156,35 @@ public class ImClient {
     /**
      * 多端登录观察者
      */
-    public static Observer<List<OnlineClient>> clientsObserver = new Observer<List<OnlineClient>>() {
-        @Override
-        public void onEvent(List<OnlineClient> onlineClients) {
-            if (onlineClients == null || onlineClients.size() == 0) {
-                return;
-            }
-            OnlineClient client = onlineClients.get(0);
-            switch (client.getClientType()) {
-                case ClientType.Windows:
-                    // PC端
-                    break;
-                case ClientType.MAC:
-                    // MAC端
-                    break;
-                case ClientType.Web:
-                    // Web端
-                    break;
-                case ClientType.iOS:
-                    // IOS端
-                    break;
-                case ClientType.Android:
-                    // Android端
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
+    public static Observer<List<OnlineClient>> clientsObserver =
+            new Observer<List<OnlineClient>>() {
+                @Override
+                public void onEvent(List<OnlineClient> onlineClients) {
+                    if (onlineClients == null || onlineClients.size() == 0) {
+                        return;
+                    }
+                    OnlineClient client = onlineClients.get(0);
+                    switch (client.getClientType()) {
+                        case ClientType.Windows:
+                            // PC端
+                            break;
+                        case ClientType.MAC:
+                            // MAC端
+                            break;
+                        case ClientType.Web:
+                            // Web端
+                            break;
+                        case ClientType.iOS:
+                            // IOS端
+                            break;
+                        case ClientType.Android:
+                            // Android端
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            };
 
     /**
      * 监听用户在线状态
@@ -203,54 +204,62 @@ public class ImClient {
      * 消息接收观察者
      * 此处EventBus 发送的事件在{@link com.keydom.ih_common.im.widget.ImMessageList#onMessageEvent}中处理
      */
-    public static Observer<List<IMMessage>> incomingMessageObserver = new Observer<List<IMMessage>>() {
-        @Override
-        public void onEvent(List<IMMessage> imMessages) {
-            for (final IMMessage imMessage : imMessages) {
-                if (imMessage.getDirect() == MsgDirectionEnum.In) {
-                    if (imMessage.getAttachment() instanceof ImageAttachment
-                            || imMessage.getAttachment() instanceof VideoAttachment
-                            || imMessage.getAttachment() instanceof AudioAttachment) {
-                        NIMClient.getService(MsgService.class).downloadAttachment(imMessage, true).setCallback(new RequestCallbackWrapper() {
-                            @Override
-                            public void onResult(int code, Object result, Throwable exception) {
-                                if (code == ResponseCode.RES_SUCCESS) {
-                                    EventBus.getDefault().post(ImUIMessage.obtain(imMessage, imMessage.getDirect()));
-                                }
+    public static Observer<List<IMMessage>> incomingMessageObserver =
+            new Observer<List<IMMessage>>() {
+                @Override
+                public void onEvent(List<IMMessage> imMessages) {
+                    for (final IMMessage imMessage : imMessages) {
+                        if (imMessage.getDirect() == MsgDirectionEnum.In) {
+                            if (imMessage.getAttachment() instanceof ImageAttachment
+                                    || imMessage.getAttachment() instanceof VideoAttachment
+                                    || imMessage.getAttachment() instanceof AudioAttachment) {
+                                NIMClient.getService(MsgService.class).downloadAttachment(imMessage,
+                                        true).setCallback(new RequestCallbackWrapper() {
+                                    @Override
+                                    public void onResult(int code, Object result,
+                                                         Throwable exception) {
+                                        if (code == ResponseCode.RES_SUCCESS) {
+                                            EventBus.getDefault().post(ImUIMessage.obtain(imMessage,
+                                                    imMessage.getDirect()));
+                                        }
+                                    }
+                                });
+                            } else {
+                                EventBus.getDefault().post(ImUIMessage.obtain(imMessage,
+                                        imMessage.getDirect()));
                             }
-                        });
-                    } else {
-                        EventBus.getDefault().post(ImUIMessage.obtain(imMessage, imMessage.getDirect()));
+                        } else {
+                            EventBus.getDefault().post(ImUIMessage.obtain(imMessage));
+                        }
                     }
-                } else {
-                    EventBus.getDefault().post(ImUIMessage.obtain(imMessage));
                 }
-            }
-        }
-    };
+            };
 
     /**
      * 消息附件上传/下载进度观察者
-     * 此处EventBus 发送的事件在{@link com.keydom.ih_common.im.activity.PlayVideoActivity#onAttachmentDownloadEvent}中处理
+     * 此处EventBus
+     * 发送的事件在{@link com.keydom.ih_common.im.activity.PlayVideoActivity#onAttachmentDownloadEvent}中处理
      */
-    public static Observer<AttachmentProgress> attachmentProgressObserver = new Observer<AttachmentProgress>() {
-        @Override
-        public void onEvent(AttachmentProgress progress) {
-            EventBus.getDefault().post(progress);
-        }
-    };
+    public static Observer<AttachmentProgress> attachmentProgressObserver =
+            new Observer<AttachmentProgress>() {
+                @Override
+                public void onEvent(AttachmentProgress progress) {
+                    EventBus.getDefault().post(progress);
+                }
+            };
 
     /**
      * 消息状态观察者
      */
-//    public static Observer<IMMessage> statusObserver = new Observer<IMMessage>() {
-//        @Override
-//        public void onEvent(IMMessage message) {
-//            EventBus.getDefault().post(message);
-//        }
-//    };
+    //    public static Observer<IMMessage> statusObserver = new Observer<IMMessage>() {
+    //        @Override
+    //        public void onEvent(IMMessage message) {
+    //            EventBus.getDefault().post(message);
+    //        }
+    //    };
 
-    public static SimpleAVChatStateObserver simpleAVChatStateObserver = new SimpleAVChatStateObserver();
+    public static SimpleAVChatStateObserver simpleAVChatStateObserver =
+            new SimpleAVChatStateObserver();
 
 
     public static Observer<AVChatData> inComingCallObserver = new Observer<AVChatData>() {
@@ -261,8 +270,10 @@ public class ImClient {
             if (PhoneCallStateObserver.getInstance().getPhoneCallState() != PhoneCallStateObserver.PhoneCallStateEnum.IDLE
                     || AVChatProfile.getInstance().isAVChatting()
                     || AVChatManager.getInstance().getCurrentChatId() != 0) {
-                Logger.i("reject incoming call data =" + avChatData.toString() + " as local phone is not idle");
-                AVChatManager.getInstance().sendControlCommand(avChatData.getChatId(), AVChatControlCommand.BUSY, null);
+                Logger.i("reject incoming call data =" + avChatData.toString() + " as local phone" +
+                        " is not idle");
+                AVChatManager.getInstance().sendControlCommand(avChatData.getChatId(),
+                        AVChatControlCommand.BUSY, null);
                 return;
             }
             // 有网络来电打开AVChatActivity
@@ -285,13 +296,13 @@ public class ImClient {
         // 如果将新消息通知提醒托管给 SDK 完成，需要添加以下配置。否则无需设置。
         StatusBarNotificationConfig config = new StatusBarNotificationConfig();
         config.notificationEntrance = notificationEntrance;
-//        config.notificationSmallIconId = R.drawable.ic_stat_notify_msg;
+        //        config.notificationSmallIconId = R.drawable.ic_stat_notify_msg;
         // 呼吸灯配置
         config.ledARGB = Color.GREEN;
         config.ledOnMs = 1000;
         config.ledOffMs = 1500;
         // 通知铃声的uri字符串
-//        config.notificationSound = "android.resource://com.netease.nim.demo/raw/msg";
+        //        config.notificationSound = "android.resource://com.netease.nim.demo/raw/msg";
         options.statusBarNotificationConfig = config;
         options.messageNotifierCustomization = new MessageNotifierCustomization() {
             @Override
@@ -325,7 +336,7 @@ public class ImClient {
 
         // 配置附件缩略图的尺寸大小。表示向服务器请求缩略图文件的大小
         // 该值一般应根据屏幕尺寸来确定， 默认值为 Screen.width / 2
-//        options.thumbnailSize = ${Screen.width} / 2;
+        //        options.thumbnailSize = ${Screen.width} / 2;
 
         // 用户资料提供者, 目前主要用于提供用户资料，用于新消息通知栏中显示消息来源的头像和昵称
         options.userInfoProvider = new NimUserInfoProvider(contextWeakReference.get());
@@ -397,7 +408,8 @@ public class ImClient {
      * @param value    值
      * @param callback callback 修改回调， code==200 成功
      */
-    public static void updateUserInfo(final UserInfoFieldEnum field, final Object value, RequestCallbackWrapper<Void> callback) {
+    public static void updateUserInfo(final UserInfoFieldEnum field, final Object value,
+                                      RequestCallbackWrapper<Void> callback) {
         Map<UserInfoFieldEnum, Object> fields = new HashMap<>(1);
         fields.put(field, value);
         updateUserInfo(fields, callback);
@@ -410,7 +422,8 @@ public class ImClient {
      * @param fields   Map集合，key必须是UserInfoFieldEnum里面的字段
      * @param callback 修改回调， code==200 成功
      */
-    public static void updateUserInfo(final Map<UserInfoFieldEnum, Object> fields, final RequestCallbackWrapper<Void> callback) {
+    public static void updateUserInfo(final Map<UserInfoFieldEnum, Object> fields,
+                                      final RequestCallbackWrapper<Void> callback) {
         NIMClient.getService(UserService.class).updateUserInfo(fields).setCallback(new RequestCallbackWrapper<Void>() {
             @Override
             public void onResult(int code, Void result, Throwable exception) {
@@ -443,14 +456,16 @@ public class ImClient {
     /**
      * 查询联系人聊天数据<br>
      * 最后一条消息，未读消息数等，都在RecentContact里面
+     *
      * @param contactId   会话id ，对方帐号或群组id。
      * @param sessionType 会话类型。
+     * @param listener    回调
      * @return RecentContact ，如果没有，则返回null。
-     * @param listener 回调
      */
-    public static void queryRecentContact(String contactId, SessionTypeEnum sessionType,final OnRecentContactListener listener) {
-        if(null != listener){
-            listener.onRecentResult(NIMClient.getService(MsgService.class).queryRecentContact(contactId,sessionType));
+    public static void queryRecentContact(String contactId, SessionTypeEnum sessionType,
+                                          final OnRecentContactListener listener) {
+        if (null != listener) {
+            listener.onRecentResult(NIMClient.getService(MsgService.class).queryRecentContact(contactId, sessionType));
         }
     }
 
@@ -480,7 +495,8 @@ public class ImClient {
                 e.printStackTrace();
             }
             if (TextUtils.isEmpty(storageRootPath)) {
-                storageRootPath = Environment.getExternalStorageDirectory() + "/" + context.getPackageName();
+                storageRootPath =
+                        Environment.getExternalStorageDirectory() + "/" + context.getPackageName();
             }
             return storageRootPath;
         }
@@ -511,7 +527,8 @@ public class ImClient {
 
             @Override
             public void onException(Throwable exception) {
-//                Toast.makeText(contextWeakReference.get(), "IM登录异常" + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                //                Toast.makeText(contextWeakReference.get(), "IM登录异常" + exception
+                //                .getMessage(), Toast.LENGTH_SHORT).show();
                 exception.printStackTrace();
             }
         };
@@ -575,7 +592,8 @@ public class ImClient {
      * @param members  邀请加入的成员帐号列表
      * @param callback
      */
-    private static void createTeam(List<String> members, RequestCallback<CreateTeamResult> callback) {
+    private static void createTeam(List<String> members,
+                                   RequestCallback<CreateTeamResult> callback) {
         createTeam(null, TeamTypeEnum.Advanced, "", members, callback);
     }
 
@@ -585,7 +603,9 @@ public class ImClient {
      * @param postscript 邀请入群的附言。如果是创建临时群，该参数无效
      * @param members    邀请加入的成员帐号列表
      */
-    public static void createTeam(Map<TeamFieldEnum, Serializable> fields, String postscript, List<String> members, RequestCallback<CreateTeamResult> callback) {
+    public static void createTeam(Map<TeamFieldEnum, Serializable> fields, String postscript,
+                                  List<String> members,
+                                  RequestCallback<CreateTeamResult> callback) {
         createTeam(fields, TeamTypeEnum.Advanced, postscript, members, callback);
     }
 
@@ -596,7 +616,9 @@ public class ImClient {
      * @param postscript 邀请入群的附言。如果是创建临时群，该参数无效
      * @param members    邀请加入的成员帐号列表
      */
-    public static void createTeam(Map<TeamFieldEnum, Serializable> fields, TeamTypeEnum type, String postscript, List<String> members, RequestCallback<CreateTeamResult> callback) {
+    public static void createTeam(Map<TeamFieldEnum, Serializable> fields, TeamTypeEnum type,
+                                  String postscript, List<String> members,
+                                  RequestCallback<CreateTeamResult> callback) {
         NIMClient.getService(TeamService.class).createTeam(fields, type, postscript, members).setCallback(callback);
     }
 
@@ -635,26 +657,17 @@ public class ImClient {
     private static Intent getConversationIntent(Context context, String sessionId, Bundle bundle) {
         NimUserInfo userInfo = (NimUserInfo) getUserInfoProvider().getUserInfo(sessionId);
         String userType;
-        if (userInfo == null) {
+        String path = "";
+        if (userInfo != null && userInfo.getExtensionMap() != null) {
+            userType = userInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE).toString();
+        } else {
             if ("com.keydom.mianren.ih_patient".equals(context.getPackageName())) {
                 userType = ImMessageConstant.DOCTOR;
             } else {
                 userType = ImMessageConstant.PATIENT;
             }
-        } else {
-            Map<String, Object> extension = userInfo.getExtensionMap();
-            if(null == extension){
-                if ("com.keydom.mianren.ih_patient".equals(context.getPackageName())) {
-                    userType = ImMessageConstant.DOCTOR;
-                } else {
-                    userType = ImMessageConstant.PATIENT;
-                }
-            }else{
-                userType = extension.get(ImConstants.CALL_USER_TYPE).toString();
-            }
-
         }
-        String path = "";
+
         switch (userType) {
             case ImMessageConstant.DOCTOR:
                 path = "from_doctor_conversation";
@@ -677,10 +690,6 @@ public class ImClient {
 
     /**
      * 启动医生协作聊天界面
-     *
-     * @param context
-     * @param teamId
-     * @param bundle
      */
     public static void startTeamChart(Context context, String teamId, Bundle bundle) {
         if (requestCallPermissions((AppCompatActivity) context) && FloatPermissionManager.INSTANCE.applyFloatWindow(context)) {
@@ -716,22 +725,26 @@ public class ImClient {
      * @param sessionId 发起音视频聊天对方id
      */
     @SuppressLint("CheckResult")
-    public static void startAVChatCall(final AppCompatActivity activity, final String sessionId, final int avChatType) {
+    public static void startAVChatCall(final AppCompatActivity activity, final String sessionId,
+                                       final int avChatType) {
         RxPermissions rxPermissions = new RxPermissions(activity);
-        rxPermissions.request(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        rxPermissions.request(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean granted) throws Exception {
                         if (granted) {
-                            NimUserInfo userInfo = (NimUserInfo) getUserInfoProvider().getUserInfo(sessionId);
+                            NimUserInfo userInfo =
+                                    (NimUserInfo) getUserInfoProvider().getUserInfo(sessionId);
                             String type;
-                            if(null == userInfo.getExtensionMap()){
+                            if (null == userInfo.getExtensionMap()) {
                                 if ("com.keydom.mianren.ih_patient".equals(activity.getPackageName())) {
                                     type = ImMessageConstant.DOCTOR;
                                 } else {
                                     type = ImMessageConstant.PATIENT;
                                 }
-                            }else{
+                            } else {
                                 type = userInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE).toString();
                             }
 
@@ -746,7 +759,8 @@ public class ImClient {
                             bundle.putString(ImConstants.CALL_SESSION_ID, sessionId);
                             bundle.putInt(ImConstants.CALL_AVCHAT_TYPE, avChatType);
                             bundle.putString(ImConstants.CALL_USER_TYPE, type);
-                            intent.putExtra(ImConstants.CALL_CALL_ACTION, ImMessageConstant.ACTION_OUTGOING_CALL);
+                            intent.putExtra(ImConstants.CALL_CALL_ACTION,
+                                    ImMessageConstant.ACTION_OUTGOING_CALL);
                             intent.putExtras(bundle);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.setPackage(activity.getPackageName());
@@ -764,15 +778,16 @@ public class ImClient {
      * @param avChatData 音视频通话信息
      */
     public static void startVideoActivity(Context context, AVChatData avChatData) {
-        NimUserInfo userInfo = (NimUserInfo) getUserInfoProvider().getUserInfo(avChatData.getAccount());
+        NimUserInfo userInfo =
+                (NimUserInfo) getUserInfoProvider().getUserInfo(avChatData.getAccount());
         String type;
-        if(null == userInfo.getExtensionMap()){
+        if (null == userInfo.getExtensionMap()) {
             if ("com.keydom.mianren.ih_patient".equals(context.getPackageName())) {
                 type = ImMessageConstant.DOCTOR;
             } else {
                 type = ImMessageConstant.PATIENT;
             }
-        }else{
+        } else {
             type = userInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE).toString();
         }
         String action = "";
@@ -799,7 +814,8 @@ public class ImClient {
      * @param resend    是否是重新发送
      * @param callback  回调
      */
-    public static void sentMessage(IMMessage imMessage, boolean resend, RequestCallback<Void> callback) {
+    public static void sentMessage(IMMessage imMessage, boolean resend,
+                                   RequestCallback<Void> callback) {
         if (imMessage.getMsgType() == MsgTypeEnum.tip) {
             Map<String, Object> map = imMessage.getRemoteExtension();
             if (map != null && map.containsKey(ImConstants.LOCAL_TIP)) {
@@ -852,11 +868,14 @@ public class ImClient {
      * @param query     待检索的字符串
      * @param sessionId 待检索的会话ID
      */
-    /*public static void searchSession(String query, String sessionId, final MsgIndexRecordListener listener) {
-        NIMClient.getService(LuceneService.class).searchSession(query, SessionTypeEnum.P2P, sessionId)
+    /*public static void searchSession(String query, String sessionId, final
+    MsgIndexRecordListener listener) {
+        NIMClient.getService(LuceneService.class).searchSession(query, SessionTypeEnum.P2P,
+        sessionId)
                 .setCallback(new RequestCallbackWrapper<List<MsgIndexRecord>>() {
                     @Override
-                    public void onResult(int code, List<MsgIndexRecord> result, Throwable exception) {
+                    public void onResult(int code, List<MsgIndexRecord> result, Throwable
+                    exception) {
                         if (listener != null) {
                             if (code == ResponseCode.RES_SUCCESS) {
                                 listener.onSuccess(result);
@@ -879,34 +898,36 @@ public class ImClient {
      * @param limit     查询条数
      * @param asc       排序规则，如果为 true，结果按照时间升序排列，如果为 false，按照时间降序排列
      */
-    public static void queryMessageListEx(IMMessage anchor, QueryDirectionEnum direction, final int limit, boolean asc, final QueryMessageListener listener) {
+    public static void queryMessageListEx(IMMessage anchor, QueryDirectionEnum direction,
+                                          final int limit, boolean asc,
+                                          final QueryMessageListener listener) {
 
-//        NIMClient.getService(MsgService.class).pullMessageHistory(anchor, limit, asc)
-//                .setCallback(new RequestCallback<List<IMMessage>>() {
-//                    @Override
-//                    public void onSuccess(List<IMMessage> param) {
-//                        if (listener != null) {
-//                            if (param != null && param.size() > 0) {
-//                                Collections.reverse(param);
-//                            }
-//                            listener.onSuccess(param);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailed(int code) {
-//                        if (listener != null) {
-//                            listener.onFailed(code);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onException(Throwable exception) {
-//                        if (listener != null) {
-//                            listener.onException(exception);
-//                        }
-//                    }
-//                });
+        //        NIMClient.getService(MsgService.class).pullMessageHistory(anchor, limit, asc)
+        //                .setCallback(new RequestCallback<List<IMMessage>>() {
+        //                    @Override
+        //                    public void onSuccess(List<IMMessage> param) {
+        //                        if (listener != null) {
+        //                            if (param != null && param.size() > 0) {
+        //                                Collections.reverse(param);
+        //                            }
+        //                            listener.onSuccess(param);
+        //                        }
+        //                    }
+        //
+        //                    @Override
+        //                    public void onFailed(int code) {
+        //                        if (listener != null) {
+        //                            listener.onFailed(code);
+        //                        }
+        //                    }
+        //
+        //                    @Override
+        //                    public void onException(Throwable exception) {
+        //                        if (listener != null) {
+        //                            listener.onException(exception);
+        //                        }
+        //                    }
+        //                });
 
 
         NIMClient.getService(MsgService.class).queryMessageListEx(anchor, direction, limit, asc)
@@ -943,9 +964,13 @@ public class ImClient {
      *
      * @return 调用跟踪，可设置回调函数，接收查询结果
      */
-    public static void queryMessageListExTime(String sessionId, SessionTypeEnum sessionType, long targetTime, long toTime, QueryDirectionEnum direction, int limit, final QueryMessageListener listener) {
+    public static void queryMessageListExTime(String sessionId, SessionTypeEnum sessionType,
+                                              long targetTime, long toTime,
+                                              QueryDirectionEnum direction, int limit,
+                                              final QueryMessageListener listener) {
         IMMessage anchor = MessageBuilder.createEmptyMessage(sessionId, sessionType, targetTime);
-        NIMClient.getService(MsgService.class).queryMessageListExTime(anchor, toTime, direction, limit)
+        NIMClient.getService(MsgService.class).queryMessageListExTime(anchor, toTime, direction,
+                limit)
                 .setCallback(new RequestCallback<List<IMMessage>>() {
                     @Override
                     public void onSuccess(List<IMMessage> param) {
@@ -975,7 +1000,8 @@ public class ImClient {
      * @param text        文本内容
      * @return IMMessage
      */
-    public static IMMessage createTextMessage(String sessionId, SessionTypeEnum sessionType, String text) {
+    public static IMMessage createTextMessage(String sessionId, SessionTypeEnum sessionType,
+                                              String text) {
         return MessageBuilder.createTextMessage(sessionId, sessionType, text);
     }
 
@@ -988,7 +1014,8 @@ public class ImClient {
      * @param displayName 图片文件的显示名，可不同于文件名
      * @return IMMessage
      */
-    public static IMMessage createImageMessage(String sessionId, SessionTypeEnum sessionType, File file, String displayName) {
+    public static IMMessage createImageMessage(String sessionId, SessionTypeEnum sessionType,
+                                               File file, String displayName) {
         return MessageBuilder.createImageMessage(sessionId, sessionType, file, displayName);
     }
 
@@ -1000,13 +1027,16 @@ public class ImClient {
      * @param sessionType 会话类型
      * @param filePath    视频文件路径
      */
-    public static IMMessage createVideoMessage(String sessionId, SessionTypeEnum sessionType, String filePath) {
+    public static IMMessage createVideoMessage(String sessionId, SessionTypeEnum sessionType,
+                                               String filePath) {
         File file = new File(filePath);
-        MediaPlayer mediaPlayer = MediaPlayer.create(contextWeakReference.get(), Uri.fromFile(file));
+        MediaPlayer mediaPlayer = MediaPlayer.create(contextWeakReference.get(),
+                Uri.fromFile(file));
         long duration = mediaPlayer == null ? 0 : mediaPlayer.getDuration();
         int height = mediaPlayer == null ? 0 : mediaPlayer.getVideoHeight();
         int width = mediaPlayer == null ? 0 : mediaPlayer.getVideoWidth();
-        return MessageBuilder.createVideoMessage(sessionId, sessionType, file, duration, width, height, file.getName());
+        return MessageBuilder.createVideoMessage(sessionId, sessionType, file, duration, width,
+                height, file.getName());
     }
 
     /**
@@ -1017,7 +1047,8 @@ public class ImClient {
      * @param file        音频文件对象
      * @param duration    音频文件持续时间，单位是ms
      */
-    public static IMMessage createAudioMessage(String sessionId, SessionTypeEnum sessionType, File file, long duration) {
+    public static IMMessage createAudioMessage(String sessionId, SessionTypeEnum sessionType,
+                                               File file, long duration) {
         return MessageBuilder.createAudioMessage(sessionId, sessionType, file, duration);
     }
 
@@ -1029,8 +1060,10 @@ public class ImClient {
      * @param content     消息简要描述，可通过IMMessage#getContent()获取，主要用于用户推送展示。
      * @param attachment  消息附件对象
      */
-    public static IMMessage createInquiryMessage(String sessionId, SessionTypeEnum sessionType, String content, MsgAttachment attachment) {
-        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment, new CustomMessageConfig());
+    public static IMMessage createInquiryMessage(String sessionId, SessionTypeEnum sessionType,
+                                                 String content, MsgAttachment attachment) {
+        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment,
+                new CustomMessageConfig());
     }
 
     /**
@@ -1041,8 +1074,12 @@ public class ImClient {
      * @param content     消息简要描述，可通过{@link IMMessage#getContent()}获取，主要用于用户推送展示。
      * @param attachment  消息附件对象
      */
-    public static IMMessage createConsultationResultMessage(String sessionId, SessionTypeEnum sessionType, String content, MsgAttachment attachment) {
-        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment, new CustomMessageConfig());
+    public static IMMessage createConsultationResultMessage(String sessionId,
+                                                            SessionTypeEnum sessionType,
+                                                            String content,
+                                                            MsgAttachment attachment) {
+        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment,
+                new CustomMessageConfig());
     }
 
     /**
@@ -1053,8 +1090,10 @@ public class ImClient {
      * @param content     消息简要描述，可通过{@link IMMessage#getContent()}获取，主要用于用户推送展示。
      * @param attachment  消息附件对象
      */
-    public static IMMessage createInspectionMessage(String sessionId, SessionTypeEnum sessionType, String content, MsgAttachment attachment) {
-        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment, new CustomMessageConfig());
+    public static IMMessage createInspectionMessage(String sessionId, SessionTypeEnum sessionType
+            , String content, MsgAttachment attachment) {
+        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment,
+                new CustomMessageConfig());
     }
 
     /**
@@ -1065,8 +1104,11 @@ public class ImClient {
      * @param content     消息简要描述，可通过{@link IMMessage#getContent()}获取，主要用于用户推送展示。
      * @param attachment  消息附件对象
      */
-    public static IMMessage createExaminationMessage(String sessionId, SessionTypeEnum sessionType, String content, MsgAttachment attachment) {
-        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment, new CustomMessageConfig());
+    public static IMMessage createExaminationMessage(String sessionId,
+                                                     SessionTypeEnum sessionType, String content,
+                                                     MsgAttachment attachment) {
+        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment,
+                new CustomMessageConfig());
     }
 
     /**
@@ -1077,7 +1119,8 @@ public class ImClient {
      * @param tips        提示消息内容
      * @return IMMessage 生成的消息对象
      */
-    public static IMMessage createTipMessage(String sessionId, SessionTypeEnum sessionType, String tips) {
+    public static IMMessage createTipMessage(String sessionId, SessionTypeEnum sessionType,
+                                             String tips) {
         IMMessage message = MessageBuilder.createTipMessage(sessionId, sessionType);
         message.setContent(tips);
         CustomMessageConfig config = new CustomMessageConfig();
@@ -1095,7 +1138,8 @@ public class ImClient {
      * @param tips        提示消息内容
      * @return IMMessage 生成的消息对象
      */
-    public static IMMessage createLocalTipMessage(String sessionId, SessionTypeEnum sessionType, String tips) {
+    public static IMMessage createLocalTipMessage(String sessionId, SessionTypeEnum sessionType,
+                                                  String tips) {
         Map<String, Object> map = new HashMap<>();
         map.put(ImConstants.LOCAL_TIP, "local");
         IMMessage message = MessageBuilder.createTipMessage(sessionId, sessionType);
@@ -1116,8 +1160,11 @@ public class ImClient {
      * @param content     消息简要描述，可通过{@link IMMessage#getContent()}获取，主要用于用户推送展示。
      * @param attachment  消息附件对象
      */
-    public static IMMessage createReferralApplyMessage(String sessionId, SessionTypeEnum sessionType, String content, MsgAttachment attachment) {
-        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment, new CustomMessageConfig());
+    public static IMMessage createReferralApplyMessage(String sessionId,
+                                                       SessionTypeEnum sessionType,
+                                                       String content, MsgAttachment attachment) {
+        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment,
+                new CustomMessageConfig());
     }
 
     /**
@@ -1128,8 +1175,11 @@ public class ImClient {
      * @param content     消息简要描述，可通过{@link IMMessage#getContent()}获取，主要用于用户推送展示。
      * @param attachment  消息附件对象
      */
-    public static IMMessage createReferralDoctorMessage(String sessionId, SessionTypeEnum sessionType, String content, MsgAttachment attachment) {
-        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment, new CustomMessageConfig());
+    public static IMMessage createReferralDoctorMessage(String sessionId,
+                                                        SessionTypeEnum sessionType,
+                                                        String content, MsgAttachment attachment) {
+        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment,
+                new CustomMessageConfig());
     }
 
     /**
@@ -1140,8 +1190,10 @@ public class ImClient {
      * @param content     消息简要描述，可通过{@link IMMessage#getContent()}获取，主要用于用户推送展示。
      * @param attachment  消息附件对象
      */
-    public static IMMessage createEndInquiryMessage(String sessionId, SessionTypeEnum sessionType, String content, MsgAttachment attachment) {
-        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment, new CustomMessageConfig());
+    public static IMMessage createEndInquiryMessage(String sessionId, SessionTypeEnum sessionType
+            , String content, MsgAttachment attachment) {
+        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment,
+                new CustomMessageConfig());
     }
 
     /**
@@ -1152,8 +1204,11 @@ public class ImClient {
      * @param content     消息简要描述，可通过{@link IMMessage#getContent()}获取，主要用于用户推送展示。
      * @param attachment  消息附件对象
      */
-    public static IMMessage createDisposalAdviceMessage(String sessionId, SessionTypeEnum sessionType, String content, MsgAttachment attachment) {
-        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment, new CustomMessageConfig());
+    public static IMMessage createDisposalAdviceMessage(String sessionId,
+                                                        SessionTypeEnum sessionType,
+                                                        String content, MsgAttachment attachment) {
+        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment,
+                new CustomMessageConfig());
     }
 
     /**
@@ -1164,8 +1219,11 @@ public class ImClient {
      * @param content     消息简要描述，可通过{@link IMMessage#getContent()}获取，主要用于用户推送展示。
      * @param attachment  消息附件对象
      */
-    public static IMMessage createUserFollowUpMessage(String sessionId, SessionTypeEnum sessionType, String content, MsgAttachment attachment) {
-        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment, new CustomMessageConfig());
+    public static IMMessage createUserFollowUpMessage(String sessionId,
+                                                      SessionTypeEnum sessionType, String content
+            , MsgAttachment attachment) {
+        return MessageBuilder.createCustomMessage(sessionId, sessionType, content, attachment,
+                new CustomMessageConfig());
     }
 
     private static boolean permissionsResult;
@@ -1173,8 +1231,10 @@ public class ImClient {
     @SuppressLint("CheckResult")
     private static boolean requestCallPermissions(AppCompatActivity appCompatActivity) {
         String[] permissions = new String[]{Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.INTERNET, Manifest.permission.READ_PHONE_STATE, Manifest.permission.MODIFY_AUDIO_SETTINGS};
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.INTERNET, Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.MODIFY_AUDIO_SETTINGS};
         boolean granted = true;
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(appCompatActivity, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -1185,17 +1245,18 @@ public class ImClient {
         if (granted) {
             permissionsResult = true;
         } else {
-            Common.INSTANCE.getPermissions(appCompatActivity).requestPermissions(permissions, new PermissionListener() {
-                @Override
-                public void onGranted() {
+            Common.INSTANCE.getPermissions(appCompatActivity).requestPermissions(permissions,
+                    new PermissionListener() {
+                        @Override
+                        public void onGranted() {
 
-                }
+                        }
 
-                @Override
-                public void onDenied(@NotNull List<String> deniedPermissions) {
+                        @Override
+                        public void onDenied(@NotNull List<String> deniedPermissions) {
 
-                }
-            });
+                        }
+                    });
 
         }
         return permissionsResult;
@@ -1209,8 +1270,8 @@ public class ImClient {
      * @param account     聊天对象帐号
      * @param sessionType 会话类型
      */
-    public static void clearUnreadCount(String account, SessionTypeEnum sessionType){
-        NIMClient.getService(MsgService.class).clearUnreadCount(account,sessionType);
+    public static void clearUnreadCount(String account, SessionTypeEnum sessionType) {
+        NIMClient.getService(MsgService.class).clearUnreadCount(account, sessionType);
     }
 }
 

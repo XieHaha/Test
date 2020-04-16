@@ -124,7 +124,7 @@ public class FriendMsgRecyclrViewAdapter extends BaseEmptyAdapter<RecentContact>
                     if (mDatas.get(position).getSessionType() == SessionTypeEnum.Team) {
                         chatNum.setVisibility(View.GONE);
                         DoctorTeamChatActivity.startTeamChat(mContext, mDatas.get(position).getContactId());
-                        //ImClient.startTeamChart(mContext, mDatas.get(position).getContactId(), null);
+//                        ImClient.startTeamChart(mContext, mDatas.get(position).getContactId(), null);
                     } else if (mDatas.get(position).getSessionType() == SessionTypeEnum.P2P) {
                         chatNum.setVisibility(View.GONE);
                         Bundle bundle = new Bundle();

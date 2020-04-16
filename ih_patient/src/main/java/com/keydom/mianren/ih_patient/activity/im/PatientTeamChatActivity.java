@@ -2,7 +2,6 @@ package com.keydom.mianren.ih_patient.activity.im;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,6 +22,8 @@ import com.keydom.ih_common.im.widget.plugin.EmojiPlugin;
 import com.keydom.ih_common.utils.FloatPermissionManager;
 import com.keydom.ih_common.utils.permissions.PermissionListener;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity;
+import com.keydom.mianren.ih_patient.activity.user_info_operate.UserInfoOperateActivity;
 import com.keydom.mianren.ih_patient.view.im_plugin.VoiceInputPlugin;
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
@@ -44,8 +45,10 @@ public class PatientTeamChatActivity extends TeamChatActivity {
     @SuppressLint("CheckResult")
     private static boolean requestCallPermissions(AppCompatActivity appCompatActivity) {
         String[] permissions = new String[]{Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.INTERNET, Manifest.permission.READ_PHONE_STATE, Manifest.permission.MODIFY_AUDIO_SETTINGS};
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.INTERNET, Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.MODIFY_AUDIO_SETTINGS};
         boolean granted = true;
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(appCompatActivity, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -56,34 +59,32 @@ public class PatientTeamChatActivity extends TeamChatActivity {
         if (granted) {
             permissionsResult = true;
         } else {
-            Common.INSTANCE.getPermissions(appCompatActivity).requestPermissions(permissions, new PermissionListener() {
-                @Override
-                public void onGranted() {
+            Common.INSTANCE.getPermissions(appCompatActivity).requestPermissions(permissions,
+                    new PermissionListener() {
+                        @Override
+                        public void onGranted() {
 
-                }
+                        }
 
-                @Override
-                public void onDenied(@NotNull List<String> deniedPermissions) {
+                        @Override
+                        public void onDenied(@NotNull List<String> deniedPermissions) {
 
-                }
-            });
+                        }
+                    });
 
         }
         return permissionsResult;
     }
 
 
-
     /**
      * 跳到群聊
-     *
-     * @param context
      */
     public static void startTeamChat(Context context, String sessionId) {
         if (requestCallPermissions((AppCompatActivity) context) && FloatPermissionManager.INSTANCE.applyFloatWindow(context)) {
             Intent starter = new Intent(context, PatientTeamChatActivity.class);
             starter.putExtra(ImConstants.CALL_SESSION_ID, sessionId);
-            ((Activity) context).startActivity(starter);
+            context.startActivity(starter);
         }
     }
 
@@ -105,20 +106,21 @@ public class PatientTeamChatActivity extends TeamChatActivity {
             public boolean onUserPortraitClick(Context context, IMMessage message) {
 
                 if (message.getDirect() == MsgDirectionEnum.Out) {
-                    Intent intent = new Intent("com.keydom.mianren.ih_patient.activity.user_info_operate.UserInfoOperateActivity");
+                    Intent intent = new Intent(context, UserInfoOperateActivity.class);
                     intent.putExtra("type", "read_type");
                     startActivity(intent);
-                }else {
-                    NimUserInfo patientInfo = (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(message.getFromAccount());
-                    if ((ImMessageConstant.DOCTOR).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))){
-                        Intent intent = new Intent("com.keydom.mianren.ih_patient.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity");
+                } else {
+                    NimUserInfo patientInfo =
+                            (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(message.getFromAccount());
+                    if ((ImMessageConstant.DOCTOR).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
+                        Intent intent = new Intent(context, DoctorOrNurseDetailActivity.class);
                         intent.putExtra("type", 0);
                         intent.putExtra("doctorCode", String.valueOf(patientInfo.getAccount()));
                         startActivity(intent);
-                    }else
-                        Toast.makeText(context,"暂不支持查看其他患者资料",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "暂不支持查看其他患者资料", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
                 return false;
             }
 
@@ -128,12 +130,14 @@ public class PatientTeamChatActivity extends TeamChatActivity {
             }
 
             @Override
-            public boolean onPayClick(Context context, View view, @android.support.annotation.Nullable IMMessage message) {
+            public boolean onPayClick(Context context, View view,
+                                      @android.support.annotation.Nullable IMMessage message) {
                 return false;
             }
 
             @Override
-            public boolean onPrescriptionClick(Context context, @android.support.annotation.Nullable IMMessage message) {
+            public boolean onPrescriptionClick(Context context,
+                                               @android.support.annotation.Nullable IMMessage message) {
                 return false;
             }
         });
