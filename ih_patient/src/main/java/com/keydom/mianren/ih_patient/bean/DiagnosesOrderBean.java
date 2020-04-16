@@ -79,7 +79,10 @@ public class DiagnosesOrderBean implements Serializable {
 
     @JSONField(name = "refundState")
     private int refundState;
-	
+
+    @JSONField(name = "groupTid")
+    private String groupTid;
+
 	
 	public String getPrescriptionId() {
         return prescriptionId;
@@ -258,5 +261,13 @@ public class DiagnosesOrderBean implements Serializable {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getGroupTid() {
+        return groupTid;
+    }
+
+    public void setGroupTid(String groupTid) {
+        this.groupTid = groupTid;
     }
 }

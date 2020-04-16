@@ -182,7 +182,7 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
         WebViewClient webViewClient = new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                if (!isError) {
+                if (!isError && amniocentesisWebView != null) {
                     amniocentesisWebView.setVisibility(View.VISIBLE);
                     pageLoadingSuccess();
                 }

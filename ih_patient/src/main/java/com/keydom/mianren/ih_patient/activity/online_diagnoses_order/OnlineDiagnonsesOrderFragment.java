@@ -101,7 +101,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     /**
      * fragment创建方法
      */
-    public static OnlineDiagnonsesOrderFragment newInstance(int status,int type) {
+    public static OnlineDiagnonsesOrderFragment newInstance(int status, int type) {
         Bundle args = new Bundle();
         args.putInt(STATUS, status);
         args.putInt(TYPE, type);
@@ -134,14 +134,32 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
             @SingleClick(1000)
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Logger.e("click" + position + "  state=" + diagnosesOrderAdapter.getItem(position).getState());
-                if (diagnosesOrderAdapter.getItem(position).getState() == diagnosesOrderAdapter.waiteRecieve || diagnosesOrderAdapter.getItem(position).getState() == diagnosesOrderAdapter.diagnosing || diagnosesOrderAdapter.getItem(position).getState() == diagnosesOrderAdapter.unPassCheck ||diagnosesOrderAdapter.getItem(position).getState() == diagnosesOrderAdapter.waiteChangeDiagnose || diagnosesOrderAdapter.getItem(position).getState() == diagnosesOrderAdapter.doctorCloseDiagnose || diagnosesOrderAdapter.getItem(position).getState() == diagnosesOrderAdapter.doctorMakePrescriptions || diagnosesOrderAdapter.getItem(position).getState() == diagnosesOrderAdapter.changDoctor || diagnosesOrderAdapter.getItem(position).getState() == diagnosesOrderAdapter.waiteEvaluate || diagnosesOrderAdapter.getItem(position).getState() == diagnosesOrderAdapter.complete) {
-                    if (getUserInfoProvider().getUserInfo(diagnosesOrderAdapter.getItem(position).getDoctorCode()) != null) {
-                        NimUserInfo userInfo = (NimUserInfo) getUserInfoProvider().getUserInfo(diagnosesOrderAdapter.getItem(position).getDoctorCode());
+                DiagnosesOrderBean bean = diagnosesOrderAdapter.getItem(position);
+                int state = bean.getState();
+                if (state == diagnosesOrderAdapter.waiteRecieve
+                        || state == diagnosesOrderAdapter.diagnosing
+                        || state == diagnosesOrderAdapter.unPassCheck
+                        || state == diagnosesOrderAdapter.waiteChangeDiagnose
+                        || state == diagnosesOrderAdapter.doctorCloseDiagnose
+                        || state == diagnosesOrderAdapter.doctorMakePrescriptions
+                        || state == diagnosesOrderAdapter.changDoctor
+                        || state == diagnosesOrderAdapter.waiteEvaluate
+                        || state == diagnosesOrderAdapter.complete) {
+                    NimUserInfo userInfo =
+                            (NimUserInfo) getUserInfoProvider().getUserInfo(bean.getDoctorCode());
+                    if (userInfo != null) {
                         Map<String, Object> extension = userInfo.getExtensionMap();
                         if (extension != null && extension.get(ImConstants.CALL_USER_TYPE) != null) {
-                            ImClient.startConversation(getContext(), diagnosesOrderAdapter.getItem(position).getDoctorCode(), null);
-
+                            //                            if (TextUtils.isEmpty(bean.getGroupTid
+                            //                            ())) {
+                            //                                ImClient.startConversation
+                            //                                (getContext(), bean.getDoctorCode(),
+                            //                                        null);
+                            //                            } else {
+                            //                                ImClient.startTeamChart(getContext
+                            //                                (), bean.getGroupTid(), null);
+                            //                            }
+                            ImClient.startTeamChart(getContext(), "2806461989", null);
                         } else
                             ToastUtil.showMessage(getContext(), "医生账号异常");
                     }
@@ -157,16 +175,16 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
 
         mRefreshLayout.setOnRefreshListener(refreshLayout -> {
             page = 1;
-            getController().getlistPatientInquisition(getMap(), mStatus,TypeEnum.REFRESH);
+            getController().getlistPatientInquisition(getMap(), mStatus, TypeEnum.REFRESH);
         });
-        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getlistPatientInquisition(getMap(), mStatus,TypeEnum.LOAD_MORE));
+        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getlistPatientInquisition(getMap(), mStatus, TypeEnum.LOAD_MORE));
         EventBus.getDefault().register(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-       // getController().getLocationList();
+        // getController().getLocationList();
         mRefreshLayout.autoRefresh();
     }
 
@@ -191,45 +209,48 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     public void refreshList(Event event) {
         if (EventType.REFRESHDIAGNOSESORDER == event.getType()) {
             page = 1;
-            getController().getlistPatientInquisition(getMap(), mStatus,TypeEnum.REFRESH);
+            getController().getlistPatientInquisition(getMap(), mStatus, TypeEnum.REFRESH);
         }
     }
 
     @Override
     public void onCancelDiagnosesClick(DiagnosesOrderBean item) {
-        new GeneralDialog(getContext(), "问诊费用将在5个工作日内按支付路径退回到您的付款账号中,确认要退诊？", new GeneralDialog.OnCloseListener() {
-            @Override
-            public void onCommit() {
-                Map<String, Object> map = new HashMap<>();
-                map.put("id", item.getId());
-                getController().returnedInquisition(map);
-            }
-        }).setTitle("提示").setPositiveButton("确认").show();
+        new GeneralDialog(getContext(), "问诊费用将在5个工作日内按支付路径退回到您的付款账号中,确认要退诊？",
+                new GeneralDialog.OnCloseListener() {
+                    @Override
+                    public void onCommit() {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("id", item.getId());
+                        getController().returnedInquisition(map);
+                    }
+                }).setTitle("提示").setPositiveButton("确认").show();
 
     }
 
     @Override
     public void onPayClick(DiagnosesOrderBean item) {
-        if(item.getState()==0){
-            String descStr=item.getInquisitionType()==0?"图文问诊-"+item.getDoctorName():"视频问诊-"+item.getDoctorName();
-            SelectDialogUtils.showPayDialog(getContext(), item.getFee() + "", descStr, new GeneralCallback.SelectPayMentListener() {
-                @Override
-                public void getSelectPayMent(String type) {
-                    Map<String, Object> payMap = new HashMap<>();
-                    payMap.put("orderId", item.getId());
-                    if (Type.ALIPAY.equals(type)) {
-                        payMap.put("type", 2);
-                        getController().inquiryPay(payMap, item,2);
-                    } else if (Type.WECHATPAY.equals(type)) {
-                        payMap.put("type", 1);
-                        getController().inquiryPay(payMap, item,1);
-                    }
+        if (item.getState() == 0) {
+            String descStr = item.getInquisitionType() == 0 ? "图文问诊-" + item.getDoctorName() :
+                    "视频问诊-" + item.getDoctorName();
+            SelectDialogUtils.showPayDialog(getContext(), item.getFee() + "", descStr,
+                    new GeneralCallback.SelectPayMentListener() {
+                        @Override
+                        public void getSelectPayMent(String type) {
+                            Map<String, Object> payMap = new HashMap<>();
+                            payMap.put("orderId", item.getId());
+                            if (Type.ALIPAY.equals(type)) {
+                                payMap.put("type", 2);
+                                getController().inquiryPay(payMap, item, 2);
+                            } else if (Type.WECHATPAY.equals(type)) {
+                                payMap.put("type", 1);
+                                getController().inquiryPay(payMap, item, 1);
+                            }
 
-                }
-            });
+                        }
+                    });
 
-        }else if(item.getState()!=0&&item.getIsSubOrderUnPay()==1)
-            getController().getChildOrderBean(item.getId(),item.getPrescriptionId());
+        } else if (item.getState() != 0 && item.getIsSubOrderUnPay() == 1)
+            getController().getChildOrderBean(item.getId(), item.getPrescriptionId());
     }
 
     @Override
@@ -238,11 +259,13 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     }
 
     @Override
-    public void goPay(boolean needDispatch, String orderNum,String orderId, double totalMoney,String prescriptionId,boolean isWaiYan) {
+    public void goPay(boolean needDispatch, String orderNum, String orderId, double totalMoney,
+                      String prescriptionId, boolean isWaiYan) {
         mTotalFee = totalMoney;
-        if(isWaiYan){
-            showPayTypeDialog(String.valueOf(totalMoney), totalMoney, orderNum, orderId,prescriptionId);
-        }else{
+        if (isWaiYan) {
+            showPayTypeDialog(String.valueOf(totalMoney), totalMoney, orderNum, orderId,
+                    prescriptionId);
+        } else {
             showPayDialog(needDispatch, String.valueOf(totalMoney), totalMoney, orderNum);
         }
 
@@ -251,15 +274,18 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     /**
      * 展示支付弹框
      */
-    private void showPayDialog(boolean needAddress, String titleFee, double totalFee, String orderNum) {
+    private void showPayDialog(boolean needAddress, String titleFee, double totalFee,
+                               String orderNum) {
         String feeTv = new DecimalFormat("0.00").format(totalFee);
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity(), R.style.BottomSheetDialog);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity(),
+                R.style.BottomSheetDialog);
         bottomSheetDialog.setCancelable(false);
         mPSfee = 0.00;
         final boolean[] isAgree = {false};
         int[] payType = {2};
         bottomSheetDialog.setCanceledOnTouchOutside(false);
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.pay_ment_dialog_layout, null, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.pay_ment_dialog_layout,
+                null, false);
         bottomSheetDialog.setContentView(view);
         final TextView order_price_tv = view.findViewById(R.id.order_price_tv);
         order_price_tv.setText("¥" + titleFee + "");
@@ -272,8 +298,9 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         RadioButton selfRadio = view.findViewById(R.id.self);
         mHosptalCost = view.findViewById(R.id.hospital);
 
-        SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
-                .create();
+        SpannableStringBuilder medicalTv =
+                new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
+                        .create();
         mHosptalCost.setText(medicalTv);
         addressSelect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -335,7 +362,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         mTotalPayTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (isAgree[0]) {
+                //                if (isAgree[0]) {
                 if (needAddress && mHosptalCost.isChecked()) {
                     if (mAddressId == 0) {
                         ToastUtils.showShort("请选择配送地址");
@@ -347,10 +374,10 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                     getController().pay(0, orderNum, payType[0], totalFee);
                     bottomSheetDialog.dismiss();
                 }
-//                } else {
+                //                } else {
                 //取消支付协议
-//                    ToastUtil.showMessage(getContext(), "请阅读并同意支付协议");
-//                }
+                //                    ToastUtil.showMessage(getContext(), "请阅读并同意支付协议");
+                //                }
 
             }
         });
@@ -370,7 +397,6 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         bottomSheetDialog.show();
         addressSelectGroup.setVisibility(needAddress ? View.VISIBLE : View.GONE);
     }
-
 
 
     TextView mOrderPriceTv;
@@ -421,7 +447,8 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     /**
      * 展示支付弹框
      */
-    private void showPayTypeDialog(String titleFee, double totalFee, String orderNum,String orderId,String prescriptionId) {
+    private void showPayTypeDialog(String titleFee, double totalFee, String orderNum,
+                                   String orderId, String prescriptionId) {
         isSendDrugsToHome = false;
         WaiPayType[0] = 2;
         payWaiType = Type.ALIPAY;
@@ -430,14 +457,16 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         mPharmacyName = null;
         mPharmacyAddress = null;
         mWaiYanAddressId = 0;
-        FixHeightBottomSheetDialog bottomWaiYanSheetDialog = new FixHeightBottomSheetDialog(getActivity());
+        FixHeightBottomSheetDialog bottomWaiYanSheetDialog =
+                new FixHeightBottomSheetDialog(getActivity());
         bottomWaiYanSheetDialog.setCancelable(false);
         final boolean[] isAgree = {false};
 
         mPprescriptionId = prescriptionId;
 
         bottomWaiYanSheetDialog.setCanceledOnTouchOutside(false);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.pay_outside_dialog_layout, null, false);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.pay_outside_dialog_layout
+                , null, false);
         bottomWaiYanSheetDialog.setContentView(view);
         mOrderPriceTv = view.findViewById(R.id.order_price_tv);
         mOrderPriceTv.setText("¥" + titleFee + "起");
@@ -488,7 +517,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         mLinShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GotoActivityUtil.gotoChoosePharmacyActivity(getActivity(),prescriptionId);
+                GotoActivityUtil.gotoChoosePharmacyActivity(getActivity(), prescriptionId);
             }
         });
 
@@ -542,7 +571,8 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                 } else {
                     PharmacyBean pharmacyBean = mPharmacyBeans.get(0);
 
-                    getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,true,prescriptionId,orderNum,pharmacyBean,mLocationInfo);
+                    getController().updatePrescriptionOrder(WaiPayType[0], isSendDrugsToHome,
+                            true, prescriptionId, orderNum, pharmacyBean, mLocationInfo);
 
                     Logger.e("1=" + mWaiYanAddressId);
                     Logger.e("2=" + orderNum);
@@ -555,12 +585,13 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         mTvShopPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)){
+                if (CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)) {
                     ToastUtils.showShort("请选择药店");
-                }else{
+                } else {
                     PharmacyBean pharmacyBean = mPharmacyBean;
 
-                    getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,false,prescriptionId,orderNum,pharmacyBean,mLocationInfo);
+                    getController().updatePrescriptionOrder(WaiPayType[0], isSendDrugsToHome,
+                            false, prescriptionId, orderNum, pharmacyBean, mLocationInfo);
                     bottomWaiYanSheetDialog.dismiss();
                 }
             }
@@ -583,12 +614,13 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
 
                     PharmacyBean pharmacyBean = mPharmacyBean;
 
-                    if(null != pharmacyBean){
-                        getController().updatePrescriptionOrder(WaiPayType[0],isSendDrugsToHome,true,prescriptionId,orderNum,pharmacyBean,mLocationInfo);
+                    if (null != pharmacyBean) {
+                        getController().updatePrescriptionOrder(WaiPayType[0], isSendDrugsToHome,
+                                true, prescriptionId, orderNum, pharmacyBean, mLocationInfo);
                     }
 
 
-                    Logger.e("map="+map);
+                    Logger.e("map=" + map);
                     bottomWaiYanSheetDialog.dismiss();
                 }
                 //   ToastUtils.showShort("暂未接入支付");
@@ -634,7 +666,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                     WaiPayType[0] = 2;
                     payWaiType = Type.ALIPAY;
                     isSendDrugsToHome = false;
-                    if(null != mPharmacyBean ){
+                    if (null != mPharmacyBean) {
                         refreshPriceView(Arrays.asList(mPharmacyBean));
                     }
                     break;
@@ -656,7 +688,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                     WaiPayType[0] = 2;
                     payWaiType = Type.ALIPAY;
                     isSendDrugsToHome = true;
-                    if(null != mPharmacyBeans && mPharmacyBeans.size() > 0){
+                    if (null != mPharmacyBeans && mPharmacyBeans.size() > 0) {
                         refreshDeliveryCostView(mPharmacyBeans);
                         refreshPriceView(mPharmacyBeans);
                     }
@@ -691,7 +723,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     }
 
     public void refreshPriceView(List<PharmacyBean> data) {
-        if(!CommUtil.isEmpty(data) && null != data.get(0)){
+        if (!CommUtil.isEmpty(data) && null != data.get(0)) {
             //mPharmacyBean = data.get(0);
             //BigDecimal deliveryCost = new BigDecimal(data.get(0).getDeliveryCost());
             BigDecimal sumFee = new BigDecimal(data.get(0).getSumFee());
@@ -706,6 +738,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     }
 
     LocationInfo mLocationInfo;
+
     /**
      * 获取位置信息
      */
@@ -713,18 +746,20 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     public void getLocation(Event event) {
         if (event.getType() == EventType.PAY_SELECT_ADDRESS) {
             mLocationInfo = (LocationInfo) event.getData();
-            String address = mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress();
+            String address =
+                    mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress();
             mPayAddress.setText(address);
             mPayAddress.setTextColor(getResources().getColor(R.color.pay_unselected));
             mAddressId = mLocationInfo.getId();
             getController().getDistributionFee(mAddressId);
-        }else if (event.getType() == EventType.WAI_PAY_SELECT_ADDRESS) {
+        } else if (event.getType() == EventType.WAI_PAY_SELECT_ADDRESS) {
             mLocationInfo = (LocationInfo) event.getData();
-            String address = mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress();
+            String address =
+                    mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress();
             mPayAddress.setText(address);
             mWaiYanAddressId = mLocationInfo.getId();
             Logger.e("地址=" + address);
-            getController().getPrescriptionDetailDrugs(address,mPprescriptionId);
+            getController().getPrescriptionDetailDrugs(address, mPprescriptionId);
         }
     }
 
@@ -743,9 +778,10 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                 mPayAddress.setText("请选择配送详细地址和联系人");
                 mPayAddress.setTextColor(getResources().getColor(R.color.edit_hint_color));
                 mAddressId = 0;
-                SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
+                SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13,
+                        true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
                         .create();
-                if(null != mHosptalCost){
+                if (null != mHosptalCost) {
                     mHosptalCost.setText(medicalTv);
                 }
             }
@@ -754,7 +790,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
 
 
     public void refreshDeliveryCostView(List<PharmacyBean> data) {
-        if(!CommUtil.isEmpty(data) && null != data.get(0)){
+        if (!CommUtil.isEmpty(data) && null != data.get(0)) {
             mDeliveryCostTv.setText("￥" + String.valueOf(data.get(0).getDeliveryCost()) + "元");
         }
 
@@ -773,30 +809,33 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
             mTotalPayTv.setText("去付款¥" + f + "元");
             // mTotalPayTv.setText("去付款¥" + total + "元");
         }
-        SpannableStringBuilder medicalTv = new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
-                .append("（配送费用").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color))
-                .append("¥" + fee + "元").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.nursing_status_red))
-                .append("）").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color)).create();
+        SpannableStringBuilder medicalTv =
+                new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
+                        .append("（配送费用").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color))
+                        .append("¥" + fee + "元").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.nursing_status_red))
+                        .append("）").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color)).create();
         mHosptalCost.setText(medicalTv);
        /* BigDecimal bd = new BigDecimal(fee);
         Double d = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         double total = d + mTotalFee;
         mTotalPayTv.setText("去付款¥" + total + "元");*/
     }
+
     @Override
     public void paySuccess() {
         mRefreshLayout.autoRefresh();
     }
 
     @Override
-    public void getDiagnosesOrderListSuccess(List<DiagnosesOrderBean> orderBeanArrayList, TypeEnum typeEnum) {
+    public void getDiagnosesOrderListSuccess(List<DiagnosesOrderBean> orderBeanArrayList,
+                                             TypeEnum typeEnum) {
         mRefreshLayout.finishLoadMore();
         mRefreshLayout.finishRefresh();
         pageLoadingSuccess();
 
         if (typeEnum == TypeEnum.REFRESH) {
             diagnosesOrderAdapter.setNewData(orderBeanArrayList);
-        }else{
+        } else {
             diagnosesOrderAdapter.addData(orderBeanArrayList);
         }
         if (orderBeanArrayList != null && orderBeanArrayList.size() != 0)
@@ -828,7 +867,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     }
 
     @Override
-    public void setPharmacyBeans(List<PharmacyBean> data){
+    public void setPharmacyBeans(List<PharmacyBean> data) {
         mPharmacyBeans = data;
     }
 }

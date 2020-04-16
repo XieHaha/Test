@@ -104,7 +104,6 @@ public class AnamnesisActivity extends BaseControllerActivity<AnamnesisControlle
             List<Integer> curr = new ArrayList<>();
             Set<Integer> selects = new HashSet<>();
             List marryList = Arrays.asList(historyStr.split(","));
-
             if (flowLayout == mMarryFlow) {
                 mMarryTags = marryList;
             }
@@ -217,7 +216,6 @@ public class AnamnesisActivity extends BaseControllerActivity<AnamnesisControlle
 
         StringBuffer surgeryHis = jointTags(mSurgeryFlow.getSelectedList(), mSurgeryTags);
         if (mSurgeryEdit.getText().toString().length()+surgeryHis.length() >100){
-//            ToastUtils.showShort("手术或外伤史选择和补充内容不能超过"+(100-surgeryHis.length())+"字");
             ToastUtils.showShort("手术或外伤史选择和补充内容不能超过100字");
             return null;
         }
