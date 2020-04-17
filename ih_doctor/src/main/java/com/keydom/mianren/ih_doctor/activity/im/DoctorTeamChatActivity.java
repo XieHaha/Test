@@ -2,7 +2,6 @@ package com.keydom.mianren.ih_doctor.activity.im;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -37,6 +36,8 @@ import com.keydom.ih_common.utils.permissions.PermissionListener;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.common_document.CommonDocumentActivity;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.DianoseCaseDetailActivity;
+import com.keydom.mianren.ih_doctor.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity;
+import com.keydom.mianren.ih_doctor.activity.patient_manage.PatientDatumActivity;
 import com.keydom.mianren.ih_doctor.view.im_plugin.VoiceInputPlugin;
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
@@ -92,14 +93,12 @@ public class DoctorTeamChatActivity extends TeamChatActivity {
 
     /**
      * 跳到群聊
-     *
-     * @param context
      */
     public static void startTeamChat(Context context, String sessionId) {
         if (requestCallPermissions((AppCompatActivity) context) && FloatPermissionManager.INSTANCE.applyFloatWindow(context)) {
             Intent starter = new Intent(context, DoctorTeamChatActivity.class);
             starter.putExtra(ImConstants.CALL_SESSION_ID, sessionId);
-            ((Activity) context).startActivity(starter);
+            context.startActivity(starter);
         }
     }
 
@@ -126,14 +125,14 @@ public class DoctorTeamChatActivity extends TeamChatActivity {
                         (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(SharePreferenceManager.getUserCode());
                 if ((ImMessageConstant.DOCTOR).equals(currentUserInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
                     if ((ImMessageConstant.PATIENT).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
-                        Intent intent = new Intent("com.keydom.mianren.ih_doctor" +
-                                ".PatientDatumActivity");
+                        Intent intent = new Intent(DoctorTeamChatActivity.this,
+                                PatientDatumActivity.class);
                         intent.putExtra("data", patientInfo.getAccount());
                         startActivity(intent);
                     }
                     if ((ImMessageConstant.DOCTOR).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
-                        Intent intent = new Intent("com.keydom.mianren.ih_doctor" +
-                                ".DoctorOrNurseDetailActivity");
+                        Intent intent = new Intent(DoctorTeamChatActivity.this,
+                                DoctorOrNurseDetailActivity.class);
                         intent.putExtra("doctorCode", String.valueOf(patientInfo.getAccount()));
                         startActivity(intent);
                     }

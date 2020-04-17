@@ -8,6 +8,10 @@ public interface ICustomAttachmentType {
      * 问诊单消息类型
      */
     int INQUIRY = 10086;
+    /**
+     * 分诊单
+     */
+    int TRIAGE_ORDER = 10087;
 
     /**
      * 处方单消息
@@ -58,9 +62,4 @@ public interface ICustomAttachmentType {
      * 随访表
      */
     int USER_FOLLOW_UP = 100103;
-
-    /**
-     * 分诊单
-     */
-    int TRIAGE_ORDER = 100104;
 }

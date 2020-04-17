@@ -242,6 +242,7 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
                     if (ImClient.getUserInfoProvider().getUserInfo(mDatas.get(position).getUserCode()) != null) {
                         Bundle bundle = new Bundle();
                         bundle.putBoolean(IS_ORDER, true);
+                        bundle.putLong("orderId", mDatas.get(position).getId());
                         ImClient.startConversation(mContext, mDatas.get(position).getUserCode(), bundle);
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);

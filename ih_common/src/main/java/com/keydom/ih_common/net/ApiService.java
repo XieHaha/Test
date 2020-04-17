@@ -172,7 +172,6 @@ public interface ApiService {
 
     /**
      * 获取问诊单详情
-     * @param id
      * @return
      */
     @GET("user/online/getPatientInquisitionById")

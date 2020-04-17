@@ -35,6 +35,9 @@ public class ConsultationOrderFragmentController extends ControllerImpl<Consulta
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderApplyList(getView().getListMap()), new HttpSubscriber<PageBean<InquiryBean>>() {
             @Override
             public void requestComplete(@Nullable PageBean<InquiryBean> data) {
+                if (data == null) {
+                    return;
+                }
                 List<InquiryBean> list = data.getRecords();
                 if (list == null) {
                     list = new ArrayList<>();

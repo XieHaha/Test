@@ -16,11 +16,25 @@ public interface InquiryService {
      * 查询与患者的问诊订单状态
      *
      * @param userId 用户ID
+     * @param orderId 订单id
      * @param type   查询类型 1.患者查询  0.医生查询
      * @return
      */
     @GET("user/online/doctorGetOrderInfoByUserId")
-    Observable<HttpResult<InquiryBean>> getOrderDetails(@Query("userId") String userId, @Query("type") String type);
+    Observable<HttpResult<InquiryBean>> getOrderDetails(@Query("userId") String userId, @Query(
+            "orderId") long orderId, @Query("type") String type);
+
+    //    /**
+    //     * 查询与患者的问诊订单状态
+    //     *
+    //     * @param userId 用户ID
+    //     * @param type   查询类型 1.患者查询  0.医生查询
+    //     * @return
+    //     */
+    //    @GET("user/online/getPatientInquisitionById")
+    //    Observable<HttpResult<InquiryBean>> getOrderDetails(@Query("userId") String userId,
+    //    @Query(
+    //            "type") String type);
 
     /**
      * 医生接诊

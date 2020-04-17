@@ -20,7 +20,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
 
     public void getInquiryStatus() {
         if (getView().isGetStatus()) {
-            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getOrderDetails(getView().getUserId(), "0"),
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getOrderDetails(getView().getUserId(), getView().getId(),"0"),
                     new HttpSubscriber<InquiryBean>(getContext(), getDisposable(), true, false) {
                         @Override
                         public void requestComplete(@Nullable InquiryBean data) {

@@ -58,6 +58,7 @@ import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.common_document.CommonDocumentActivity;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.DianoseCaseDetailActivity;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.FillOutApplyActivity;
+import com.keydom.mianren.ih_doctor.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationApplyActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.ApplyForCheckActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.CheckOrderDetailActivity;
@@ -145,6 +146,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     private int orderType = 0;
 
+    private long orderId;
+
     /**
      * 转诊状态<br>
      * -1患者拒绝 -2医生拒绝 0等待患者确认 1等待医生确认 2已完成
@@ -214,12 +217,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mBackLl.setOnClickListener(this);
         mEndLl.setOnClickListener(this);
         //        mMessageView.addPlugin(new EmojiPlugin());
-        initView();
-        initListener();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             isGetStatus = extras.getBoolean(DiagnoseOrderRecyclrViewAdapter.IS_ORDER);
+            orderId = extras.getLong("orderId");
         }
+        initView();
+        initListener();
     }
 
     /**
@@ -244,8 +248,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                             (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(SharePreferenceManager.getUserCode());
                     if ((ImMessageConstant.DOCTOR).equals(currentUserInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
                         if ((ImMessageConstant.DOCTOR).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
-                            Intent intent = new Intent("com.keydom.mianren.ih_doctor" +
-                                    ".DoctorOrNurseDetailActivity");
+                            Intent intent = new Intent(ConversationActivity.this, DoctorOrNurseDetailActivity.class);
                             intent.putExtra("doctorCode", String.valueOf(patientInfo.getAccount()));
                             startActivity(intent);
                         }
@@ -834,7 +837,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     @Override
     public long getId() {
-        return orderBean.getId();
+        return orderId;
     }
 
     @Override
@@ -851,6 +854,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         if (data != null) {
             orderType = data.getType();
             orderBean = data;
+            orderId = orderBean.getId();
             calculateTime();
             referralState = data.getReferralState();
         }

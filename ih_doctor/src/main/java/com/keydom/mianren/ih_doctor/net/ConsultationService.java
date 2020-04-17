@@ -21,12 +21,12 @@ public interface ConsultationService {
     /**
      * 会诊申请
      */
-    @POST("mdt/application/create")
+    @POST("user/mdt/application/create")
     Observable<HttpResult<String>> consultationOrderApply(@Body RequestBody body);
 
     /**
      * 会诊记录
      */
-    @GET("mdt/application/list")
+    @GET("user/mdt/application/list")
     Observable<HttpResult<PageBean<InquiryBean>>> consultationOrderApplyList(@QueryMap Map<String, Object> maps);
 }

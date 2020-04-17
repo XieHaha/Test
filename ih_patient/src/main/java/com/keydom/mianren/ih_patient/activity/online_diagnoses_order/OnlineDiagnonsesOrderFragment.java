@@ -153,6 +153,8 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                         Map<String, Object> extension = userInfo.getExtensionMap();
                         if (extension != null && extension.get(ImConstants.CALL_USER_TYPE) != null) {
                             if (TextUtils.isEmpty(bean.getGroupTid())) {
+                                Bundle bundle = new Bundle();
+                                bundle.putLong("orderId", bean.getId());
                                 ImClient.startConversation(getContext(), bean.getDoctorCode(),
                                         null);
                             } else {
