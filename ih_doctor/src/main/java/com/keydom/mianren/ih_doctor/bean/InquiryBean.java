@@ -38,6 +38,15 @@ public class InquiryBean implements Serializable {
     private String conditionData;
     private String pastMedicalHistory;
     private String cardNumber;
+    private String groupTid;
+
+    public String getGroupTid() {
+        return groupTid;
+    }
+
+    public void setGroupTid(String groupTid) {
+        this.groupTid = groupTid;
+    }
 
     public String getCardNumber() {
         return cardNumber;

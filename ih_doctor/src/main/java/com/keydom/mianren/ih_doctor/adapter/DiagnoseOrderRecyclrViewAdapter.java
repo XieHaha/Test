@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ import java.util.List;
  * 修改时间：18/11/6 下午6:52
  */
 public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBean> {
-    public static final String IS_ORDER="is_order";
+    public static final String IS_ORDER = "is_order";
     private static final int NORMAL_VIEW = 0;
     private static final int FOOT_VIEW = 1;
 
@@ -78,7 +79,8 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView userName, userAge, userSex, diagnoseDec, diagnoseTime, orderStatus, checkIdea, updatePrescription, orderTypeTv;
+        public TextView userName, userAge, userSex, diagnoseDec, diagnoseTime, orderStatus,
+                checkIdea, updatePrescription, orderTypeTv;
         public ImageView delete;
         public CircleImageView userIcon;
         public RelativeLayout checkIdeaRl;
@@ -113,29 +115,32 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
             checkIdea.setText(bean.getRemark());
             Drawable img;
             if (bean.getSource() == 1) {
-                Drawable leftimg = mContext.getResources().getDrawable(R.mipmap.diagnose_change_icon);
+                Drawable leftimg =
+                        mContext.getResources().getDrawable(R.mipmap.diagnose_change_icon);
                 leftimg.setBounds(0, 0, leftimg.getMinimumWidth(), leftimg.getMinimumHeight());
                 orderTypeTv.setText("转诊");
                 orderTypeTv.setTextColor(mContext.getResources().getColor(R.color.income_bg));
                 orderTypeTv.setCompoundDrawables(leftimg, null, null, null);
             } else {
                 if (bean.getInquisitionType() == 0) {
-                    Drawable leftimg = mContext.getResources().getDrawable(R.mipmap.diagnose_illustration);
+                    Drawable leftimg =
+                            mContext.getResources().getDrawable(R.mipmap.diagnose_illustration);
                     leftimg.setBounds(0, 0, leftimg.getMinimumWidth(), leftimg.getMinimumHeight());
                     if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
                         orderTypeTv.setText("图文咨询");
-                    }else{
+                    } else {
                         orderTypeTv.setText("图文问诊");
                     }
                     orderTypeTv.setTextColor(mContext.getResources().getColor(R.color.font_order_type_image_with_video));
                     orderTypeTv.setCompoundDrawables(leftimg, null, null, null);
                 } else {
-                    Drawable leftimg = mContext.getResources().getDrawable(R.mipmap.video_diagnoses_icon);
+                    Drawable leftimg =
+                            mContext.getResources().getDrawable(R.mipmap.video_diagnoses_icon);
                     leftimg.setBounds(0, 0, leftimg.getMinimumWidth(), leftimg.getMinimumHeight());
                     orderTypeTv.setCompoundDrawables(leftimg, null, null, null);
                     if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
                         orderTypeTv.setText("视频咨询");
-                    }else{
+                    } else {
                         orderTypeTv.setText("视频问诊");
                     }
                     orderTypeTv.setTextColor(mContext.getResources().getColor(R.color.font_order_type_image_with_video));
@@ -239,11 +244,18 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
                 @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
-                    if (ImClient.getUserInfoProvider().getUserInfo(mDatas.get(position).getUserCode()) != null) {
+                    InquiryBean inquiryBean = mDatas.get(position);
+
+                    if (ImClient.getUserInfoProvider().getUserInfo(inquiryBean.getUserCode()) != null) {
                         Bundle bundle = new Bundle();
                         bundle.putBoolean(IS_ORDER, true);
-                        bundle.putLong("orderId", mDatas.get(position).getId());
-                        ImClient.startConversation(mContext, mDatas.get(position).getUserCode(), bundle);
+                        bundle.putLong("orderId", inquiryBean.getId());
+                        if (TextUtils.isEmpty(inquiryBean.getGroupTid())) {
+                            ImClient.startConversation(mContext, inquiryBean.getUserCode(), bundle);
+                        } else {
+                            bundle.putBoolean("team", true);
+                            ImClient.startConversation(mContext, inquiryBean.getGroupTid(), bundle);
+                        }
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                         builder.setTitle("未获取到该用户信息");
@@ -263,7 +275,8 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
                 @Override
                 public void onClick(View v) {
                     if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE, ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE})) {
-                        DiagnosePrescriptionActivity.startUpdate(mContext, bean.getPrescriptionId());
+                        DiagnosePrescriptionActivity.startUpdate(mContext,
+                                bean.getPrescriptionId());
                     } else {
                         showNotAccessDialog();
                     }
