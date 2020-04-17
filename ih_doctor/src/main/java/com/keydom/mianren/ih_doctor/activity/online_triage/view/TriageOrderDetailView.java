@@ -1,7 +1,7 @@
 package com.keydom.mianren.ih_doctor.activity.online_triage.view;
 
 import com.keydom.ih_common.base.BaseView;
-import com.keydom.mianren.ih_doctor.bean.DiagnoseOrderDetailBean;
+import com.keydom.ih_common.bean.DiagnoseOrderDetailBean;
 
 import java.util.Map;
 
@@ -15,30 +15,9 @@ import java.util.Map;
 public interface TriageOrderDetailView extends BaseView {
 
     /**
-     * 获取查询参数
-     *
-     * @return
-     */
-    Map<String, Object> getQueryMap();
-
-    /**
-     * 获取转诊记录详情成功
-     *
-     * @param bean 转诊详情对象
-     */
-    void getDetailSuccess(DiagnoseOrderDetailBean bean);
-
-    /**
-     * 获取转诊详情失败
-     *
-     * @param errMsg 失败信息
-     */
-    void getDetailFailed(String errMsg);
-
-    /**
      * 获取问诊详情
      */
-    void getInquisitionDetailSuccess(com.keydom.ih_common.bean.DiagnoseOrderDetailBean bean);
+    void getInquisitionDetailSuccess(DiagnoseOrderDetailBean bean);
 
     void getInquisitionDetailFailed(String msg);
 

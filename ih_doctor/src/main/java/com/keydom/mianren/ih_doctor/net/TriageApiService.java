@@ -23,6 +23,11 @@ public interface TriageApiService {
      */
     @POST("user/triageApply/save")
     Observable<HttpResult<String>> triageOrderApply(@Body RequestBody body);
+    /**
+     * 分诊接收
+     */
+    @POST("user/triageApply/doctorTriageConfirm")
+    Observable<HttpResult<String>> doctorTriageConfirm(@Body RequestBody body);
 
     /**
      * 分诊记录

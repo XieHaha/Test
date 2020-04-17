@@ -48,6 +48,6 @@ public class TriageOrderFragmentController extends ControllerImpl<TriageOrderFra
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        TriageOrderDetailActivity.startWithAction(mContext, (TriageBean) adapter.getItem(position));
+        TriageOrderDetailActivity.startWithAction(mContext, (TriageBean) adapter.getItem(position),getView().getType());
     }
 }

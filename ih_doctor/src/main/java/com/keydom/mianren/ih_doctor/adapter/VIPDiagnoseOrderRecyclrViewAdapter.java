@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.activity.online_triage.TriageOrderDetailActivity;
+import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.DiagnoseOrderDetailActivity;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 
@@ -212,7 +212,7 @@ public class VIPDiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<Inquiry
                     @Override
                     public void onClick(View v) {
                         if (ImClient.getUserInfoProvider().getUserInfo(mDatas.get(position).getUserCode()) != null) {
-                            TriageOrderDetailActivity.startWithAction(mContext, bean.getId());
+                            DiagnoseOrderDetailActivity.startWithAction(mContext, bean.getId());
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                             builder.setTitle("未获取到该用户信息");

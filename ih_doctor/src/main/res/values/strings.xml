@@ -62,6 +62,7 @@
     <string name="txt_patient_info_colon">患者信息：</string>
     <string name="txt_triage_description_colon">分诊说明：</string>
     <string name="txt_apply_colon">申请：</string>
+    <string name="txt_apply_people_colon">申请人：</string>
     <string name="txt_receive_colon">接收：</string>
 
     <!--会诊-->
