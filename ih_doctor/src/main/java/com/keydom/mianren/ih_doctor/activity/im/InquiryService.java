@@ -15,9 +15,9 @@ public interface InquiryService {
     /**
      * 查询与患者的问诊订单状态
      *
-     * @param userId 用户ID
+     * @param userId  用户ID
      * @param orderId 订单id
-     * @param type   查询类型 1.患者查询  0.医生查询
+     * @param type    查询类型 1.患者查询  0.医生查询
      * @return
      */
     @GET("user/online/doctorGetOrderInfoByUserId")
@@ -44,6 +44,15 @@ public interface InquiryService {
      */
     @POST("user/online/acceptInquisition")
     Observable<HttpResult<Object>> acceptInquisition(@Body RequestBody body);
+
+    /**
+     * 医生接诊  群聊
+     *
+     * @param body
+     * @return
+     */
+    @POST("user/online/pcAcceptInquisition")
+    Observable<HttpResult<Object>> pcAcceptInquisition(@Body RequestBody body);
 
     /**
      * 医生申请结束问诊

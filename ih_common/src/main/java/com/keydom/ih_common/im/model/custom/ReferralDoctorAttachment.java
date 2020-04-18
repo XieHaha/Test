@@ -40,7 +40,7 @@ public class ReferralDoctorAttachment extends BaseCustomAttachment {
 
     @Override
     protected void paresData(JSONObject data) {
-        id = data.getLong("id");
+        id = data.getLongValue("id");
         name = data.getString("name");
         avatar = data.getString("avatar");
         jobTitle = data.getString("jobTitle");

@@ -31,4 +31,6 @@ interface ConversationView extends BaseView {
     boolean isGetStatus();
 
     void stopReferralSuccess();
+
+    boolean isTeam();
 }

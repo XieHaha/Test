@@ -52,7 +52,7 @@ public class InquiryAttachment extends BaseCustomAttachment implements Serializa
         age = data.getString("age");
         content = data.getString("content");
         images = JSON.parseArray(data.getString("images"), String.class);
-        id = data.getLong("id");
+        id = data.getLongValue("id");
     }
 
     @Override

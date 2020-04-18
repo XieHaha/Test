@@ -20,7 +20,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
 
     public void getInquiryStatus() {
         if (getView().isGetStatus()) {
-            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getOrderDetails(getView().getUserId(), getView().getId(),"0"),
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getOrderDetails(getView().getUserId(), getView().getId(), "0"),
                     new HttpSubscriber<InquiryBean>(getContext(), getDisposable(), true, false) {
                         @Override
                         public void requestComplete(@Nullable InquiryBean data) {
@@ -34,23 +34,45 @@ public class ConversationController extends ControllerImpl<ConversationView> {
         Map<String, Object> map = new HashMap<>();
         map.put("id", getView().getId());
         RequestBody body = HttpService.INSTANCE.object2Body(map);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).acceptInquisition(body),
-                new HttpSubscriber<Object>(getContext(), getDisposable(), true, false) {
-                    @Override
-                    public void requestComplete(@Nullable Object data) {
-                        getView().acceptSuccess();
-                    }
-
-                    @Override
-                    public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                        if (code == 300) {
-                            getView().acceptFailed(msg);
-                            return true;
+        if (getView().isTeam()) {
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).pcAcceptInquisition(body),
+                    new HttpSubscriber<Object>(getContext(), getDisposable(), true, false) {
+                        @Override
+                        public void requestComplete(@Nullable Object data) {
+                            getView().acceptSuccess();
                         }
-                        ToastUtil.showMessage(getContext(), msg);
-                        return false;
-                    }
-                });
+
+                        @Override
+                        public boolean requestError(@NotNull ApiException exception, int code,
+                                                    @NotNull String msg) {
+                            if (code == 300) {
+                                getView().acceptFailed(msg);
+                                return true;
+                            }
+                            ToastUtil.showMessage(getContext(), msg);
+                            return false;
+                        }
+                    });
+        } else {
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).acceptInquisition(body),
+                    new HttpSubscriber<Object>(getContext(), getDisposable(), true, false) {
+                        @Override
+                        public void requestComplete(@Nullable Object data) {
+                            getView().acceptSuccess();
+                        }
+
+                        @Override
+                        public boolean requestError(@NotNull ApiException exception, int code,
+                                                    @NotNull String msg) {
+                            if (code == 300) {
+                                getView().acceptFailed(msg);
+                                return true;
+                            }
+                            ToastUtil.showMessage(getContext(), msg);
+                            return false;
+                        }
+                    });
+        }
     }
 
     public void endInquisition() {
@@ -65,7 +87,8 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                     }
 
                     @Override
-                    public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                    public boolean requestError(@NotNull ApiException exception, int code,
+                                                @NotNull String msg) {
                         ToastUtil.showMessage(getContext(), msg);
                         return super.requestError(exception, code, msg);
                     }
@@ -73,7 +96,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
 
     }
 
-    public void stopReferral(){
+    public void stopReferral() {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).stopReferral(getView().getId()),
                 new HttpSubscriber<Object>(getContext(), getDisposable(), true, false) {
                     @Override
@@ -82,7 +105,8 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                     }
 
                     @Override
-                    public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                    public boolean requestError(@NotNull ApiException exception, int code,
+                                                @NotNull String msg) {
                         ToastUtil.showMessage(getContext(), msg);
                         return super.requestError(exception, code, msg);
                     }

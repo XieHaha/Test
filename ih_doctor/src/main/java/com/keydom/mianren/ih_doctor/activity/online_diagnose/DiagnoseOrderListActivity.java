@@ -86,7 +86,7 @@ public class DiagnoseOrderListActivity extends BaseControllerActivity<DiagnoseOr
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         type = getIntent().getIntExtra(Const.TYPE, 0);
-        mIsVIPDiag = getIntent().getBooleanExtra(Const.TYPE, false);
+        mIsVIPDiag = getIntent().getBooleanExtra(Const.IS_VIP_ONLINE_DIAG, false);
 
         if (mIsVIPDiag) {
             setTitle("分诊订单");

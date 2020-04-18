@@ -36,7 +36,7 @@ public class ReferralApplyAttachment extends BaseCustomAttachment {
 
     @Override
     protected void paresData(JSONObject data) {
-        id = data.getLong("id");
+        id = data.getLongValue("id");
         description = data.getString("description");
         amount = data.getString("amount");
         descriptionImage = JSON.parseArray(data.getString("images"), String.class);

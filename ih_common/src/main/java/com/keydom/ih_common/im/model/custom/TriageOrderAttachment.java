@@ -52,7 +52,7 @@ public class TriageOrderAttachment extends BaseCustomAttachment implements Seria
         age = data.getString("age");
         content = data.getString("content");
         images = JSON.parseArray(data.getString("images"), String.class);
-        id = data.getLong("id");
+        id = data.getLongValue("id");
     }
 
     @Override

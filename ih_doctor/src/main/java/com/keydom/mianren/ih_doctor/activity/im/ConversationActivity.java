@@ -165,6 +165,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private String inquiryRemainingTime = "";
 
     private boolean chatting;
+    private boolean team;
     private Disposable timeDisposable;
     private int mMin;
     private int mHour;
@@ -177,7 +178,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     @Override
     protected void onResume() {
         super.onResume();
-        NIMClient.getService(MsgService.class).setChattingAccount(sessionId, SessionTypeEnum.P2P);
+        if (team) {
+            NIMClient.getService(MsgService.class).setChattingAccount(sessionId,
+                    SessionTypeEnum.Team);
+        } else {
+            NIMClient.getService(MsgService.class).setChattingAccount(sessionId,
+                    SessionTypeEnum.P2P);
+        }
         getController().getInquiryStatus();
     }
 
@@ -220,6 +227,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             isGetStatus = extras.getBoolean(DiagnoseOrderRecyclrViewAdapter.IS_ORDER);
+            team = extras.getBoolean("team");
             orderId = extras.getLong("orderId");
         }
         initView();
@@ -248,7 +256,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                             (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(SharePreferenceManager.getUserCode());
                     if ((ImMessageConstant.DOCTOR).equals(currentUserInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
                         if ((ImMessageConstant.DOCTOR).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
-                            Intent intent = new Intent(ConversationActivity.this, DoctorOrNurseDetailActivity.class);
+                            Intent intent = new Intent(ConversationActivity.this,
+                                    DoctorOrNurseDetailActivity.class);
                             intent.putExtra("doctorCode", String.valueOf(patientInfo.getAccount()));
                             startActivity(intent);
                         }
@@ -262,8 +271,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             public boolean onMessageClick(Context context, View view, IMMessage message) {
                 if (message.getMsgType() == MsgTypeEnum.custom) {
                     if (message.getAttachment() instanceof InquiryAttachment) {//问诊单
-                        DiagnoseOrderDetailActivity.start(context,
-                                ((InquiryAttachment) message.getAttachment()).getId());
+                        DiagnoseOrderDetailActivity.start(context, ((InquiryAttachment) message.getAttachment()).getId());
                     } else if (message.getAttachment() instanceof TriageOrderAttachment) //分诊单
                     {
 
@@ -445,7 +453,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         Uri data = getIntent().getData();
         if (data != null) {
             sessionId = data.getQueryParameter(ImConstants.CALL_SESSION_ID);
-            mMessageView.setMessageInfo(sessionId, SessionTypeEnum.P2P);
+            if (team) {
+                mMessageView.setMessageInfo(sessionId, SessionTypeEnum.Team);
+            } else {
+                mMessageView.setMessageInfo(sessionId, SessionTypeEnum.P2P);
+            }
             setTitle("问诊详情");
         }
 
@@ -736,8 +748,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == FINISH_PRESCRIPTION) {
-            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
-                    "处方已发送,请等待药师审核结果"));
+            if (team) {
+                mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                        SessionTypeEnum.Team, "处方已发送,请等待药师审核结果"));
+            } else {
+                mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                        SessionTypeEnum.P2P, "处方已发送,请等待药师审核结果"));
+            }
             getController().getInquiryStatus();
         }
         if (resultCode == RESULT_OK) {
@@ -791,24 +808,34 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 inquiryStatus = InquiryStatus.INQUIRY_PRESCRIBE;
                 inquiryEnd();
                 if (orderType == 0) {
-                    //                    mMessageView.addData(ImClient.createLocalTipMessage
-                    //                    (sessionId, SessionTypeEnum.P2P, "患者已同意结束此次问诊,请及时开具"));
-                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
-                            SessionTypeEnum.P2P, "患者已同意结束此次问诊"));
+                    if (team) {
+                        mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                                SessionTypeEnum.Team, "患者已同意结束此次问诊"));
+                    } else {
+                        mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                                SessionTypeEnum.P2P, "患者已同意结束此次问诊"));
+                    }
                 } else {
-                    //                    mMessageView.addData(ImClient.createLocalTipMessage
-                    //                    (sessionId, SessionTypeEnum.P2P, "患者已同意结束此次问诊,
-                    //                    请及时开具处置建议"));
-                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
-                            SessionTypeEnum.P2P, "患者已同意结束此次问诊"));
+                    if (team) {
+                        mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                                SessionTypeEnum.Team, "患者已同意结束此次问诊"));
+                    } else {
+                        mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                                SessionTypeEnum.P2P, "患者已同意结束此次问诊"));
+                    }
                 }
             }
             //如果患者不同意结束问诊
             else if (attachment.getEndType() == EndInquiryAttachment.PATIENT_REFUSE) {
                 inquiryStatus = InquiryStatus.INQUIRY_ING;
                 inquiryIng();
-                mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
-                        SessionTypeEnum.P2P, "患者取消了结束问诊，请与患者沟通完成以后再结束"));
+                if (team) {
+                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                            SessionTypeEnum.Team, "患者取消了结束问诊，请与患者沟通完成以后再结束"));
+                } else {
+                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                            SessionTypeEnum.P2P, "患者取消了结束问诊，请与患者沟通完成以后再结束"));
+                }
             }
             //患者主动结束问诊
             else if (attachment.getEndType() == EndInquiryAttachment.PATIENT_END) {
@@ -816,15 +843,21 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 inquiryStatus = InquiryStatus.INQUIRY_PRESCRIBE;
                 inquiryEnd();
                 if (orderType == 0) {
-                    //                    mMessageView.addData(ImClient.createLocalTipMessage
-                    //                    (sessionId, SessionTypeEnum.P2P, "患者已结束此次问诊,请及时开具"));
-                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
-                            SessionTypeEnum.P2P, "患者已结束此次问诊"));
+                    if (team) {
+                        mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                                SessionTypeEnum.Team, "患者已结束此次问诊"));
+                    } else {
+                        mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                                SessionTypeEnum.P2P, "患者已结束此次问诊"));
+                    }
                 } else {
-                    //                    mMessageView.addData(ImClient.createLocalTipMessage
-                    //                    (sessionId, SessionTypeEnum.P2P, "患者已结束此次问诊,请及时开具处置建议"));
-                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
-                            SessionTypeEnum.P2P, "患者已结束此次问诊"));
+                    if (team) {
+                        mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                                SessionTypeEnum.Team, "患者已结束此次问诊"));
+                    } else {
+                        mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                                SessionTypeEnum.P2P, "患者已结束此次问诊"));
+                    }
                 }
             }
         }
@@ -838,6 +871,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     @Override
     public long getId() {
         return orderId;
+    }
+
+    @Override
+    public boolean isTeam() {
+        return team;
     }
 
     @Override
@@ -864,8 +902,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     @Override
     public void acceptSuccess() {
-        mMessageView.addData(ImClient.createTipMessage(sessionId, SessionTypeEnum.P2P,
-                "问诊开始，本次问诊可持续" + orderBean.getDuration() + "小时"));
+        if (team) {
+            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.Team,
+                    "问诊开始，本次问诊可持续" + orderBean.getDuration() + "小时"));
+        } else {
+            mMessageView.addData(ImClient.createTipMessage(sessionId, SessionTypeEnum.P2P,
+                    "问诊开始，本次问诊可持续" + orderBean.getDuration() + "小时"));
+        }
         //        inquiryStatus = InquiryStatus.INQUIRY_ING;
         //        inquiryIng();
         //        calculateTime();
@@ -887,10 +930,18 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         endInquiryAttachment.setSponsorId(ImClient.getUserInfoProvider().getAccount());
         endInquiryAttachment.setReceiverId(sessionId);
         endInquiryAttachment.setEndType(EndInquiryAttachment.DOCTOR_APPLY_END);
-        mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.P2P,
-                "[结束问诊消息]", endInquiryAttachment));
-        mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
-                "您已发起结束问诊，等待患者确认"));
+
+        if (team) {
+            mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.Team,
+                    "[结束问诊消息]", endInquiryAttachment));
+            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.Team,
+                    "您已发起结束问诊，等待患者确认"));
+        } else {
+            mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.P2P,
+                    "[结束问诊消息]", endInquiryAttachment));
+            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
+                    "您已发起结束问诊，等待患者确认"));
+        }
         inquiryApply();
     }
 
@@ -1045,9 +1096,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 userFollowUpAttachment.setDoctorName("伍齐鸣");
                 userFollowUpAttachment.setFileName("糖尿病随访管理表");
                 userFollowUpAttachment.setUrl("https://www.baidu.com/");
-                mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
-                        SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
 
+                if (team) {
+                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
+                            SessionTypeEnum.Team, "[随访表消息]", userFollowUpAttachment));
+                } else {
+                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
+                            SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
+                }
                 mFixHeightBottomSheetDialog.dismiss();
             });
             view.findViewById(R.id.user_follow_up_dialog_second_rl).setOnClickListener(view12 -> {
@@ -1056,8 +1112,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 userFollowUpAttachment.setDoctorName("伍齐鸣");
                 userFollowUpAttachment.setFileName("慢性肺炎随访管理表");
                 userFollowUpAttachment.setUrl("https://www.baidu.com/");
-                mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
-                        SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
+
+                if (team) {
+                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
+                            SessionTypeEnum.Team, "[随访表消息]", userFollowUpAttachment));
+                } else {
+                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
+                            SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
+                }
 
                 mFixHeightBottomSheetDialog.dismiss();
             });
@@ -1067,8 +1129,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 userFollowUpAttachment.setDoctorName("伍齐鸣");
                 userFollowUpAttachment.setFileName("高血压随访管理表");
                 userFollowUpAttachment.setUrl("https://www.baidu.com/");
-                mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
-                        SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
+
+                if (team) {
+                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
+                            SessionTypeEnum.Team, "[随访表消息]", userFollowUpAttachment));
+                } else {
+                    mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
+                            SessionTypeEnum.P2P, "[随访表消息]", userFollowUpAttachment));
+                }
 
                 mFixHeightBottomSheetDialog.dismiss();
             });
