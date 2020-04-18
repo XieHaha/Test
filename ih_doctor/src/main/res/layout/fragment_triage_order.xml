@@ -22,14 +22,14 @@
                 android:orientation="vertical">
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/consultation_order_recycler_view"
+                    android:id="@+id/triage_order_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/consultation_order_recycler_view"
+                    android:layout_below="@id/triage_order_recycler_view"
                     android:background="@mipmap/colorful_line" />
 
                 <RelativeLayout

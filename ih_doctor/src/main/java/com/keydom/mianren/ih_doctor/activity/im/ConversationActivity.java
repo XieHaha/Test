@@ -64,6 +64,7 @@ import com.keydom.mianren.ih_doctor.activity.online_diagnose.ApplyForCheckActivi
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.CheckOrderDetailActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.DiagnosePatientInfoActivity;
 import com.keydom.mianren.ih_doctor.activity.online_triage.TriageOrderApplyActivity;
+import com.keydom.mianren.ih_doctor.activity.online_triage.TriageOrderDetailActivity;
 import com.keydom.mianren.ih_doctor.activity.patient_manage.PatientDatumActivity;
 import com.keydom.mianren.ih_doctor.activity.prescription_check.DiagnosePrescriptionActivity;
 import com.keydom.mianren.ih_doctor.activity.prescription_check.PrescriptionActivity;
@@ -74,6 +75,7 @@ import com.keydom.mianren.ih_doctor.bean.MessageEvent;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.constant.ServiceConst;
+import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
 import com.keydom.mianren.ih_doctor.view.FixHeightBottomSheetDialog;
@@ -271,10 +273,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             public boolean onMessageClick(Context context, View view, IMMessage message) {
                 if (message.getMsgType() == MsgTypeEnum.custom) {
                     if (message.getAttachment() instanceof InquiryAttachment) {//问诊单
-                        DiagnoseOrderDetailActivity.start(context, ((InquiryAttachment) message.getAttachment()).getId());
-                    } else if (message.getAttachment() instanceof TriageOrderAttachment) //分诊单
-                    {
-
+                        DiagnoseOrderDetailActivity.start(context,
+                                ((InquiryAttachment) message.getAttachment()).getId());
+                    } else if (message.getAttachment() instanceof TriageOrderAttachment) {//分诊单
+                        TriageOrderDetailActivity.startWithAction(context, null,
+                                TypeEnum.TRIAGE_WAIT);
                     } else if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
                         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
                             @Override

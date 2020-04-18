@@ -3,7 +3,7 @@ package com.keydom.mianren.ih_doctor.fragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -121,9 +121,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         space = dip2px(getContext(), 34);
         itemWidth = (RvWidth - space * 3) / 4;
         work_function_rv.addItemDecoration(new SpacesItemDecoration(space));
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false);
-        work_function_rv.setLayoutManager(layoutManager);
+        work_function_rv.setLayoutManager(new GridLayoutManager(getContext(),4));
         workFunctionAdapter = new WorkFunctionAdapter(getContext(), dataList, itemWidth);
         workFunctionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @SingleClick(1000)

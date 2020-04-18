@@ -3,6 +3,8 @@ package com.keydom.mianren.ih_doctor.activity.online_consultation.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.mianren.ih_doctor.R;
@@ -33,6 +35,8 @@ import butterknife.BindView;
  * 会诊列表
  */
 public class ConsultationOrderFragment extends BaseControllerFragment<ConsultationOrderFragmentController> implements ConsultationOrderFragmentView {
+    @BindView(R.id.empty_layout)
+    RelativeLayout emptyLayout;
     @BindView(R.id.consultation_order_recycler_view)
     RecyclerView consultationOrderRecyclerView;
     @BindView(R.id.refreshLayout)
@@ -110,7 +114,11 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadMore();
         pageLoadingSuccess();
-
+        if (dataList.size() == 0) {
+            emptyLayout.setVisibility(View.VISIBLE);
+        } else {
+            emptyLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override

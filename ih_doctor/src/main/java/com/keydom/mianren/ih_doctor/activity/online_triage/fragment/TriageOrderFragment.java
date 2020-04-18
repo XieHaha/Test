@@ -3,6 +3,8 @@ package com.keydom.mianren.ih_doctor.activity.online_triage.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.mianren.ih_doctor.R;
@@ -33,8 +35,10 @@ import butterknife.BindView;
  * 分诊列表
  */
 public class TriageOrderFragment extends BaseControllerFragment<TriageOrderFragmentController> implements TriageOrderFragmentView {
-    @BindView(R.id.consultation_order_recycler_view)
-    RecyclerView consultationOrderRecyclerView;
+    @BindView(R.id.empty_layout)
+    RelativeLayout emptyLayout;
+    @BindView(R.id.triage_order_recycler_view)
+    RecyclerView triageOrderRecyclerView;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
     /**
@@ -65,7 +69,7 @@ public class TriageOrderFragment extends BaseControllerFragment<TriageOrderFragm
 
     @Override
     public int getLayoutRes() {
-        return R.layout.fragment_consultation_order;
+        return R.layout.fragment_triage_order;
     }
 
     @Override
@@ -83,8 +87,8 @@ public class TriageOrderFragment extends BaseControllerFragment<TriageOrderFragm
         mAdapter = new TriageOrderAdapter(dataList);
         mAdapter.setOnItemClickListener(getController());
         mAdapter.setStatus(status);
-        consultationOrderRecyclerView.setAdapter(mAdapter);
-        consultationOrderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        triageOrderRecyclerView.setAdapter(mAdapter);
+        triageOrderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         refreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getTriageOrderList(TypeEnum.LOAD_MORE));
         refreshLayout.setOnRefreshListener(refreshLayout -> getController().getTriageOrderList(TypeEnum.REFRESH));
         setReloadListener((v, status) -> {
@@ -92,7 +96,6 @@ public class TriageOrderFragment extends BaseControllerFragment<TriageOrderFragm
             getController().getTriageOrderList(TypeEnum.REFRESH);
         });
     }
-
 
     @Override
     public void getDataSuccess(TypeEnum type, List<TriageBean> list) {
@@ -105,6 +108,11 @@ public class TriageOrderFragment extends BaseControllerFragment<TriageOrderFragm
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadMore();
         pageLoadingSuccess();
+        if (dataList.size() == 0) {
+            emptyLayout.setVisibility(View.VISIBLE);
+        } else {
+            emptyLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override

@@ -22,7 +22,6 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.im.ImClient;
-import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_patient.App;
@@ -149,9 +148,9 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                         || state == diagnosesOrderAdapter.complete) {
                     NimUserInfo userInfo =
                             (NimUserInfo) getUserInfoProvider().getUserInfo(bean.getDoctorCode());
-                    if (userInfo != null) {
-                        Map<String, Object> extension = userInfo.getExtensionMap();
-                        if (extension != null && extension.get(ImConstants.CALL_USER_TYPE) != null) {
+//                    if (userInfo != null) {
+//                        Map<String, Object> extension = userInfo.getExtensionMap();
+//                        if (extension != null && extension.get(ImConstants.CALL_USER_TYPE) != null) {
                             if (TextUtils.isEmpty(bean.getGroupTid())) {
                                 Bundle bundle = new Bundle();
                                 bundle.putLong("orderId", bean.getId());
@@ -161,9 +160,11 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                                 PatientTeamChatActivity.startTeamChat(getContext(),
                                         bean.getGroupTid());
                             }
-                        } else
-                            ToastUtil.showMessage(getContext(), "医生账号异常");
-                    }
+//                        } else
+//                            ToastUtil.showMessage(getContext(), "医生账号异常");
+//                    }else {
+//                        ToastUtil.showMessage(getContext(), "医生账号异常");
+//                    }
                 }
 
             }
