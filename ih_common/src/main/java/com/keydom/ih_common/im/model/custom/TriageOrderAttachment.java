@@ -1,8 +1,8 @@
 package com.keydom.ih_common.im.model.custom;
 
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.keydom.ih_common.im.model.custom.bean.InquiryDataBean;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,11 +14,11 @@ import java.util.List;
  */
 public class TriageOrderAttachment extends BaseCustomAttachment implements Serializable {
 
-    private static final long serialVersionUID = 6863912969780974835L;
+    private static final long serialVersionUID = -5214008745724645617L;
     /**
      * 问诊单，姓名
      */
-    private String name;
+    private String patientName;
     /**
      * 问诊单，性别
      */
@@ -27,6 +27,11 @@ public class TriageOrderAttachment extends BaseCustomAttachment implements Seria
      * 问诊单，年龄
      */
     private String age;
+    private String dept;
+    private InquiryDataBean inquiryData;
+    private String groupTid;
+    private String doctorName;
+    private String applyTime;
     /**
      * 问诊单，描述
      */
@@ -39,7 +44,7 @@ public class TriageOrderAttachment extends BaseCustomAttachment implements Seria
     /**
      * 问诊单Id
      */
-    private long id;
+    private String orderId;
 
     public TriageOrderAttachment() {
         super(ICustomAttachmentType.TRIAGE_ORDER);
@@ -47,32 +52,43 @@ public class TriageOrderAttachment extends BaseCustomAttachment implements Seria
 
     @Override
     protected void paresData(JSONObject data) {
-        name = data.getString("name");
+        patientName = data.getString("patientName");
         sex = data.getString("sex");
         age = data.getString("age");
         content = data.getString("content");
-        images = JSON.parseArray(data.getString("images"), String.class);
-        id = data.getLongValue("id");
+        dept = data.getString("dept");
+        groupTid = data.getString("groupTid");
+        doctorName = data.getString("doctorName");
+        orderId = data.getString("orderId");
+        applyTime = data.getString("applyTime");
+        images = data.getJSONArray("images").toJavaList(String.class);
+        inquiryData = data.getJSONObject("inquiryData").toJavaObject(InquiryDataBean.class);
     }
 
     @Override
     protected JSONObject packData() {
-        JSONObject data = new JSONObject();
-        data.put("name", name);
-        data.put("sex", sex);
-        data.put("age", age);
-        data.put("content", content);
-        data.put("images", JSON.toJSONString(images));
-        data.put("id", id);
-        return data;
+        JSONObject object = new JSONObject();
+        object.put("patientName", patientName);
+        object.put("sex", sex);
+        object.put("age", age);
+        object.put("content", content);
+        object.put("dept", dept);
+        object.put("inquiryData", inquiryData);
+        object.put("groupTid", groupTid);
+        object.put("doctorName", doctorName);
+        object.put("applyTime", applyTime);
+        object.put("images", images);
+        object.put("orderId", orderId);
+        return object;
     }
 
-    public String getName() {
-        return name;
+
+    public String getPatientName() {
+        return patientName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
     }
 
     public String getSex() {
@@ -91,6 +107,46 @@ public class TriageOrderAttachment extends BaseCustomAttachment implements Seria
         this.age = age;
     }
 
+    public String getDept() {
+        return dept;
+    }
+
+    public void setDept(String dept) {
+        this.dept = dept;
+    }
+
+    public InquiryDataBean getInquiryData() {
+        return inquiryData;
+    }
+
+    public void setInquiryData(InquiryDataBean inquiryData) {
+        this.inquiryData = inquiryData;
+    }
+
+    public String getGroupTid() {
+        return groupTid;
+    }
+
+    public void setGroupTid(String groupTid) {
+        this.groupTid = groupTid;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public String getApplyTime() {
+        return applyTime;
+    }
+
+    public void setApplyTime(String applyTime) {
+        this.applyTime = applyTime;
+    }
+
     public String getContent() {
         return content;
     }
@@ -107,11 +163,11 @@ public class TriageOrderAttachment extends BaseCustomAttachment implements Seria
         this.images = images;
     }
 
-    public long getId() {
-        return id;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 }

@@ -447,7 +447,7 @@ public class TriageOrderApplyActivity extends BaseControllerActivity<TriageOrder
         map.put("orderId", orderBean.getId());
         map.put("conditionData", getImgStr());
         map.put("conditionDesc", triageApplyTransferDescriptionEt.getText().toString().trim());
-        //        map.put("deptId", doctorList.get(0).ge());
+//        map.put("deptId", doctorList.get(0).get);
         //        map.put("voiceUrl", orderBean.getSex());
         return map;
     }

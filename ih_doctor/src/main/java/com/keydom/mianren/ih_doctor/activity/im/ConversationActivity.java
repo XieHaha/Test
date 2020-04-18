@@ -40,6 +40,7 @@ import com.keydom.ih_common.im.model.custom.ReferralApplyAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralDoctorAttachment;
 import com.keydom.ih_common.im.model.custom.TriageOrderAttachment;
 import com.keydom.ih_common.im.model.custom.UserFollowUpAttachment;
+import com.keydom.ih_common.im.model.custom.bean.InquiryDataBean;
 import com.keydom.ih_common.im.model.event.EndInquiryEvent;
 import com.keydom.ih_common.im.widget.ImMessageView;
 import com.keydom.ih_common.im.widget.plugin.EndInquiryPlugin;
@@ -72,6 +73,7 @@ import com.keydom.mianren.ih_doctor.adapter.DiagnoseOrderRecyclrViewAdapter;
 import com.keydom.mianren.ih_doctor.bean.CheckItemListBean;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.bean.MessageEvent;
+import com.keydom.mianren.ih_doctor.bean.TriageBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.constant.ServiceConst;
@@ -268,7 +270,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 return false;
             }
 
-
             @Override
             public boolean onMessageClick(Context context, View view, IMMessage message) {
                 if (message.getMsgType() == MsgTypeEnum.custom) {
@@ -276,8 +277,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         DiagnoseOrderDetailActivity.start(context,
                                 ((InquiryAttachment) message.getAttachment()).getId());
                     } else if (message.getAttachment() instanceof TriageOrderAttachment) {//分诊单
-                        TriageOrderDetailActivity.startWithAction(context, null,
-                                TypeEnum.TRIAGE_WAIT);
+                        TriageOrderAttachment attachment =
+                                (TriageOrderAttachment) message.getAttachment();
+                        InquiryDataBean dataBean = attachment.getInquiryData();
+                        TriageBean bean = new TriageBean();
+                        bean.setOrderId(dataBean.getId());
+                        TriageOrderDetailActivity.startWithAction(context, bean,
+                                TypeEnum.TRIAGE_RECEIVED);
                     } else if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
                         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
                             @Override
@@ -458,10 +464,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             sessionId = data.getQueryParameter(ImConstants.CALL_SESSION_ID);
             if (team) {
                 mMessageView.setMessageInfo(sessionId, SessionTypeEnum.Team);
+                setTitle(ImClient.getTeamProvider().getTeamById(sessionId).getName());
             } else {
                 mMessageView.setMessageInfo(sessionId, SessionTypeEnum.P2P);
+                setTitle("问诊详情");
             }
-            setTitle("问诊详情");
         }
 
         setRightImgListener(v -> {
@@ -477,7 +484,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         });
 
         View view = getLayoutInflater().inflate(R.layout.im_inquiry_pop_layout, null, false);
-        mPopupWindow = new PopupWindow(view, DensityUtil.dp2px(200), DensityUtil.dp2px(185));
+        mPopupWindow = new PopupWindow(view, DensityUtil.dp2px(200), DensityUtil.dp2px(300));
         mPopupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setFocusable(true);
