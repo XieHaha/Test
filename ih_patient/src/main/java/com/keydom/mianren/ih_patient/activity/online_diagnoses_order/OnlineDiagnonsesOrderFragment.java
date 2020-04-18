@@ -148,23 +148,25 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                         || state == diagnosesOrderAdapter.complete) {
                     NimUserInfo userInfo =
                             (NimUserInfo) getUserInfoProvider().getUserInfo(bean.getDoctorCode());
-//                    if (userInfo != null) {
-//                        Map<String, Object> extension = userInfo.getExtensionMap();
-//                        if (extension != null && extension.get(ImConstants.CALL_USER_TYPE) != null) {
-                            if (TextUtils.isEmpty(bean.getGroupTid())) {
-                                Bundle bundle = new Bundle();
-                                bundle.putLong("orderId", bean.getId());
-                                ImClient.startConversation(getContext(), bean.getDoctorCode(),
-                                        null);
-                            } else {
-                                PatientTeamChatActivity.startTeamChat(getContext(),
-                                        bean.getGroupTid());
-                            }
-//                        } else
-//                            ToastUtil.showMessage(getContext(), "医生账号异常");
-//                    }else {
-//                        ToastUtil.showMessage(getContext(), "医生账号异常");
-//                    }
+                    //                    if (userInfo != null) {
+                    //                        Map<String, Object> extension = userInfo
+                    //                        .getExtensionMap();
+                    //                        if (extension != null && extension.get(ImConstants
+                    //                        .CALL_USER_TYPE) != null) {
+                    if (TextUtils.isEmpty(bean.getGroupTid())) {
+
+                        ImClient.startConversation(getContext(), bean.getDoctorCode(),
+                                null);
+                    } else {
+                        Bundle bundle = new Bundle();
+                        bundle.putBoolean("team", true);
+                        ImClient.startConversation(getContext(), bean.getGroupTid(), bundle);
+                    }
+                    //                        } else
+                    //                            ToastUtil.showMessage(getContext(), "医生账号异常");
+                    //                    }else {
+                    //                        ToastUtil.showMessage(getContext(), "医生账号异常");
+                    //                    }
                 }
 
             }

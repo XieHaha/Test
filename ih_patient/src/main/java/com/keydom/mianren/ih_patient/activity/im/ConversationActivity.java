@@ -301,6 +301,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private RadioButton mRadioSelf;
     private RadioButton mRadioHome;
 
+    private boolean team;
+
     int[] WaiPayType = {2};
     String payWaiType = Type.ALIPAY;
     List<PrescriptionItemEntity> drugs = new ArrayList<>();
@@ -312,7 +314,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         super.onResume();
         getController().getLocationList();
         getWaiYanLocationList();
-        NIMClient.getService(MsgService.class).setChattingAccount(sessionId, SessionTypeEnum.P2P);
+        if (team) {
+            NIMClient.getService(MsgService.class).setChattingAccount(sessionId,
+                    SessionTypeEnum.Team);
+        } else {
+            NIMClient.getService(MsgService.class).setChattingAccount(sessionId,
+                    SessionTypeEnum.P2P);
+        }
     }
 
     @Override
@@ -516,19 +524,17 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private void initView() {
         Uri data = getIntent().getData();
         bundle = getIntent().getExtras();
+        if (bundle != null) {
+            team = bundle.getBoolean("team");
+        }
         if (data != null) {
             sessionId = data.getQueryParameter(ImConstants.CALL_SESSION_ID);
-            mMessageView.setMessageInfo(sessionId, SessionTypeEnum.P2P);
-            if (bundle == null) {
-                //                mTitle.setText(ImClient.getUserInfoProvider().getUserInfo
-                //                (sessionId) == null ? "问诊详情" : ImClient.getUserInfoProvider()
-                //                .getUserInfo(sessionId).getName() + "-问诊详情");
-                mTitle.setText("问诊详情");
+            if (team) {
+                mMessageView.setMessageInfo(sessionId, SessionTypeEnum.Team);
+                setTitle(ImClient.getTeamProvider().getTeamById(sessionId).getName());
             } else {
-                if (ImClient.getUserInfoProvider().getUserInfo(sessionId).getName().length() > 15)
-                    mTitle.setText(ImClient.getUserInfoProvider().getUserInfo(sessionId).getName().substring(0, 5) + "..." + ImClient.getUserInfoProvider().getUserInfo(sessionId).getName().substring(ImClient.getUserInfoProvider().getUserInfo(sessionId).getName().length() - 3, ImClient.getUserInfoProvider().getUserInfo(sessionId).getName().length()));
-                else
-                    mTitle.setText(ImClient.getUserInfoProvider().getUserInfo(sessionId).getName());
+                mMessageView.setMessageInfo(sessionId, SessionTypeEnum.P2P);
+                setTitle("问诊详情");
             }
         }
 
@@ -849,8 +855,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReferralApplyEvent(ReferralApplyEvent event) {
-        mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
-                "医生已填写转诊单，请及时确认并支付问诊费用"));
+
+        if (team) {
+            mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                    SessionTypeEnum.Team, "医生已填写转诊单，请及时确认并支付问诊费用"));
+        } else {
+            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
+                    "医生已填写转诊单，请及时确认并支付问诊费用"));
+        }
         inquiryStatus = InquiryStatus.INQUIRY_WAIT_REFERRAL;
         referralAmount = ((ReferralApplyAttachment) event.getMessage().getAttachment()).getAmount();
         referralId =
@@ -942,12 +954,22 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         endInquiryAttachment.setReceiverId(sessionId);
         endInquiryAttachment.setEndType(endType == END_TYPE_CONFIRM ?
                 EndInquiryAttachment.PATIENT_AGREE : EndInquiryAttachment.PATIENT_REFUSE);
-        mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.P2P,
-                "[结束问诊消息]", endInquiryAttachment));
+        if (team) {
+            mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.Team,
+                    "[结束问诊消息]", endInquiryAttachment));
+        } else {
+            mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.P2P,
+                    "[结束问诊消息]", endInquiryAttachment));
+        }
         if (endType == END_TYPE_CONFIRM) {
             inquiryStatus = InquiryStatus.INQUIRY_PRESCRIBE;
-            mMessageView.addData(ImClient.createTipMessage(sessionId, SessionTypeEnum.P2P,
-                    "此次问诊已结束"));
+            if (team) {
+                mMessageView.addData(ImClient.createTipMessage(sessionId, SessionTypeEnum.Team,
+                        "此次问诊已结束"));
+            } else {
+                mMessageView.addData(ImClient.createTipMessage(sessionId, SessionTypeEnum.P2P,
+                        "此次问诊已结束"));
+            }
             getController().getInquiryStatus();
             //            inquiryWaitPrescribe();
         } else {
@@ -1015,10 +1037,17 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         endInquiryAttachment.setSponsorId(ImClient.getUserInfoProvider().getAccount());
         endInquiryAttachment.setReceiverId(sessionId);
         endInquiryAttachment.setEndType(EndInquiryAttachment.PATIENT_END);
-        mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.P2P,
-                "[结束问诊消息]", endInquiryAttachment));
-        mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
-                "您已结束此次问诊"));
+        if (team) {
+            mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.Team,
+                    "[结束问诊消息]", endInquiryAttachment));
+            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
+                    "您已结束此次问诊"));
+        } else {
+            mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.Team,
+                    "[结束问诊消息]", endInquiryAttachment));
+            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
+                    "您已结束此次问诊"));
+        }
         mMessageView.hideExtension();
         getController().getInquiryStatus();
     }
@@ -1094,8 +1123,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     @Override
     public void returnBackSuccess() {
         mMessageView.hideExtension();
-        mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
-                "您已退诊"));
+        if (team) {
+            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.Team,
+                    "您已退诊"));
+        } else {
+            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
+                    "您已退诊"));
+        }
         findViewById(R.id.inquiry_header).setVisibility(View.GONE);
         mEndTips.setVisibility(View.GONE);
         mEndLl.setVisibility(View.GONE);
@@ -1126,8 +1160,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             //            mInquiryTypeTv.setText("待接诊");
             mEndLl.setVisibility(View.GONE);
             findViewById(R.id.inquiry_header).setVisibility(View.GONE);
-            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
-                    "您已同意换诊，请等待换诊医生接诊"));
+            if (team) {
+                mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.Team,
+                        "您已同意换诊，请等待换诊医生接诊"));
+            } else {
+                mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
+                        "您已同意换诊，请等待换诊医生接诊"));
+            }
             mMessageView.hideExtension();
         } else {
             mEndLl.setVisibility(View.GONE);
