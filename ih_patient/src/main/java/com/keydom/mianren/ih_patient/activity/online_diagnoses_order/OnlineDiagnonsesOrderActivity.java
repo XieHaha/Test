@@ -73,7 +73,7 @@ public class OnlineDiagnonsesOrderActivity extends BaseControllerActivity<Online
         fragmentList.add(OnlineDiagnonsesOrderFragment.newInstance(OnlineDiagnonsesOrderController.COMPLETEIAGNONSES,type));
         fm = getSupportFragmentManager();
         mViewPagerAdapter = new FragmentViewPagerAdapter(fm, fragmentList, list);
-        mViewPager.setOffscreenPageLimit(4);
+        mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mViewPagerAdapter);
         LinearLayout linearLayout = (LinearLayout) mTabLayout.getChildAt(0);
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);

@@ -835,15 +835,16 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                                              TypeEnum typeEnum) {
         mRefreshLayout.finishLoadMore();
         mRefreshLayout.finishRefresh();
-        pageLoadingSuccess();
 
         if (typeEnum == TypeEnum.REFRESH) {
             diagnosesOrderAdapter.setNewData(orderBeanArrayList);
         } else {
             diagnosesOrderAdapter.addData(orderBeanArrayList);
         }
-        if (orderBeanArrayList != null && orderBeanArrayList.size() != 0)
+        pageLoadingSuccess();
+        if (orderBeanArrayList != null && orderBeanArrayList.size() != 0) {
             getController().currentPagePlus();
+        }
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.keydom.mianren.ih_doctor.activity.online_triage.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_doctor.bean.DeptDoctorBean;
-import com.keydom.mianren.ih_doctor.bean.DiagnoseFillOutResBean;
 
 import java.util.List;
 import java.util.Map;
@@ -32,7 +31,7 @@ public interface TriageOrderApplyView extends BaseView {
      *
      * @param msg 成功信息
      */
-    void saveSuccess(DiagnoseFillOutResBean msg);
+    void saveSuccess(String msg);
 
     /**
      * 提交分诊失败

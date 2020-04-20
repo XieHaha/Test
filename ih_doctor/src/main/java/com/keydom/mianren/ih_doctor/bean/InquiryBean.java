@@ -39,6 +39,11 @@ public class InquiryBean implements Serializable {
     private String pastMedicalHistory;
     private String cardNumber;
     private String groupTid;
+    private int isVip;
+    /**
+     * 0 图文问诊 1视频问诊 2护理，21护理服务项目子单，22护理服务耗材子单 3体检预约 4挂号 5 检查 6 检验 7诊缴费 8处方 9合并,10外延处方,11、分诊
+     */
+    private String orderType;
 
     public String getGroupTid() {
         return groupTid;
@@ -368,6 +373,22 @@ public class InquiryBean implements Serializable {
 
     public void setPayType(int payType) {
         this.payType = payType;
+    }
+
+    public int getIsVip() {
+        return isVip;
+    }
+
+    public void setIsVip(int isVip) {
+        this.isVip = isVip;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
     }
 
     @Override

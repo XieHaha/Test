@@ -126,7 +126,6 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadMore();
         pageLoadingFail();
-
     }
 
     @Override

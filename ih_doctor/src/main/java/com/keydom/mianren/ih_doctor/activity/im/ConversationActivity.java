@@ -178,6 +178,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private EndInquiryPlugin mEndInquiryPlugin;
     private UserFollowUpPlugin mUserFollowUpPlugin;
     private VoiceInputPlugin mVoiceInputPlugin;
+    /**
+     * menu
+     */
+    private View view;
 
     @Override
     protected void onResume() {
@@ -483,11 +487,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             });
         });
 
-        View view = getLayoutInflater().inflate(R.layout.im_inquiry_pop_layout, null, false);
-        mPopupWindow = new PopupWindow(view, DensityUtil.dp2px(200), DensityUtil.dp2px(300));
-        mPopupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
-        mPopupWindow.setOutsideTouchable(true);
-        mPopupWindow.setFocusable(true);
+        view = getLayoutInflater().inflate(R.layout.im_inquiry_pop_layout, null, false);
+        initPopupWindow(3);
         referralTv = view.findViewById(R.id.referral);
         inquiryPopTriageTv = view.findViewById(R.id.inquiry_pop_triage_tv);
         inquiryPopConsultationTv = view.findViewById(R.id.inquiry_pop_consultation_tv);
@@ -508,6 +509,15 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mVoiceInputPlugin = new VoiceInputPlugin(this);
         mMessageView.addPlugin(mVoiceInputPlugin);
     }
+
+    private void initPopupWindow(int menuSize) {
+        mPopupWindow = new PopupWindow(view, DensityUtil.dp2px(200),
+                DensityUtil.dp2px(60 * menuSize));
+        mPopupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.setFocusable(true);
+    }
+
 
     private void initStatus() {
         mMessageView.getPluginAdapter().getPluginModule(0);
@@ -580,6 +590,15 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             referralTv.setText("转诊");
         }
 
+        if (orderBean.getIsVip() == 1) {
+            initPopupWindow(5);
+            inquiryPopTriageTv.setVisibility(View.VISIBLE);
+            inquiryPopConsultationTv.setVisibility(View.VISIBLE);
+        } else {
+            initPopupWindow(3);
+            inquiryPopTriageTv.setVisibility(View.GONE);
+            inquiryPopConsultationTv.setVisibility(View.GONE);
+        }
     }
 
     private void inquiryEnd() {

@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author THINKPAD B
  */
 public class ExaminationAttachment extends BaseCustomAttachment {
+    private static final long serialVersionUID = 5290624928074902667L;
     /**
      * 检查单内容
      */

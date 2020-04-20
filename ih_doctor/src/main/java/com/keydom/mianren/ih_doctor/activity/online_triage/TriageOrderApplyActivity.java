@@ -30,13 +30,11 @@ import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_common.view.GridViewForScrollView;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.DiagnoseCommonActivity;
 import com.keydom.mianren.ih_doctor.activity.online_triage.controller.TriageOrderApplyController;
 import com.keydom.mianren.ih_doctor.activity.online_triage.view.TriageOrderApplyView;
 import com.keydom.mianren.ih_doctor.adapter.DiagnoseChangePlusImgAdapter;
 import com.keydom.mianren.ih_doctor.adapter.DiagnoseOrderDetailAdapter;
 import com.keydom.mianren.ih_doctor.bean.DeptDoctorBean;
-import com.keydom.mianren.ih_doctor.bean.DiagnoseFillOutResBean;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.utils.JsonUtils;
@@ -370,8 +368,6 @@ public class TriageOrderApplyActivity extends BaseControllerActivity<TriageOrder
 
     /**
      * 界面上添加选中的医生
-     *
-     * @param name
      */
     private void addDoctorView(String name) {
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -399,14 +395,9 @@ public class TriageOrderApplyActivity extends BaseControllerActivity<TriageOrder
     }
 
     @Override
-    public void saveSuccess(DiagnoseFillOutResBean bean) {
-        if (mType == DIAGNOSE_FILLOUT_APPLY) {
-
-            finish();
-        } else {
-            DiagnoseCommonActivity.startDiagnoseChangeRecoder(getContext());
-            finish();
-        }
+    public void saveSuccess(String msg) {
+        ToastUtil.showMessage(this, "");
+        finish();
     }
 
     @Override
@@ -447,7 +438,7 @@ public class TriageOrderApplyActivity extends BaseControllerActivity<TriageOrder
         map.put("orderId", orderBean.getId());
         map.put("conditionData", getImgStr());
         map.put("conditionDesc", triageApplyTransferDescriptionEt.getText().toString().trim());
-//        map.put("deptId", doctorList.get(0).get);
+        //        map.put("deptId", doctorList.get(0).get);
         //        map.put("voiceUrl", orderBean.getSex());
         return map;
     }

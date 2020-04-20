@@ -80,6 +80,7 @@ public class TriageOrderApplyController extends ControllerImpl<TriageOrderApplyV
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(TriageApiService.class).triageOrderApply(HttpService.INSTANCE.object2Body(getView().getOperateMap())), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable String data) {
+                getView().saveSuccess(data);
             }
 
             @Override
