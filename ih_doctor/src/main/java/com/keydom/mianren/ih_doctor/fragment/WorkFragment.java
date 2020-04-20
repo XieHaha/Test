@@ -99,7 +99,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
     private int receiveReferral = 0;
 
     private int RvWidth = 0;
-    private int space = 0;
+    private int space = 0,bottom = 0;
     private int itemWidth = 0;
 
 
@@ -119,8 +119,9 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         work_function_rv = getView().findViewById(R.id.work_function_rv);
         RvWidth = getRvWidth();
         space = dip2px(getContext(), 34);
+        bottom = dip2px(getContext(), 10);
         itemWidth = (RvWidth - space * 3) / 4;
-        work_function_rv.addItemDecoration(new SpacesItemDecoration(space));
+        work_function_rv.addItemDecoration(new SpacesItemDecoration(space,bottom));
         work_function_rv.setLayoutManager(new GridLayoutManager(getContext(),4));
         workFunctionAdapter = new WorkFunctionAdapter(getContext(), dataList, itemWidth);
         workFunctionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

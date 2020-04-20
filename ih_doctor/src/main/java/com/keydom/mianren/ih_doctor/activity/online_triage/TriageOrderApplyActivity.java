@@ -396,7 +396,7 @@ public class TriageOrderApplyActivity extends BaseControllerActivity<TriageOrder
 
     @Override
     public void saveSuccess(String msg) {
-        ToastUtil.showMessage(this, "");
+        ToastUtil.showMessage(this, "提交分诊申请成功");
         finish();
     }
 

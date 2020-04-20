@@ -44,6 +44,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 
+import static com.keydom.mianren.ih_doctor.adapter.DiagnoseOrderRecyclrViewAdapter.IS_ORDER;
+
 /**
  * @date 3月20日 17:06
  * 分诊详情
@@ -151,6 +153,7 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
     private void initView() {
         setRightBtnListener(v -> {
             Bundle bundle = new Bundle();
+            bundle.putBoolean(IS_ORDER, true);
             bundle.putBoolean(ImConstants.TEAM, true);
             ImClient.startConversation(TriageOrderDetailActivity.this,
                     triageBean.getGroupTid(), bundle);

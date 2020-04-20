@@ -738,7 +738,7 @@ public class ImClient {
                             NimUserInfo userInfo =
                                     (NimUserInfo) getUserInfoProvider().getUserInfo(sessionId);
                             String type;
-                            if (null == userInfo.getExtensionMap()) {
+                            if (userInfo == null || null == userInfo.getExtensionMap()) {
                                 if ("com.keydom.mianren.ih_patient".equals(activity.getPackageName())) {
                                     type = ImMessageConstant.DOCTOR;
                                 } else {

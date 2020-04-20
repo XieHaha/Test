@@ -135,7 +135,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private ConstraintLayout mCompletedCl;
     private ImMessageView mMessageView;
     private PopupWindow mPopupWindow;
-    private TextView referralTv, inquiryPopTriageTv, inquiryPopConsultationTv;
+    private TextView referralTv, inquiryPopTriageTv, inquiryPopConsultationTv,
+            inquiryPopDiagnosticPrescriptionTv;
     private String sessionId;
     private InquiryBean orderBean;
     private boolean isGetStatus = false;
@@ -258,7 +259,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     }
 
                 } else {
-                    //                    PersonalInfoActivity.start(context);
                     NimUserInfo patientInfo =
                             (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(message.getFromAccount());
                     NimUserInfo currentUserInfo =
@@ -294,9 +294,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         bean.setGroupTid(attachment.getGroupTid());
                         bean.setDept(attachment.getDept());
                         bean.setTriageTime(DateUtils.getDate(attachment.getApplyTime()));
-                        bean.setDiseaseData(StringUtil.join(attachment.getImages(),","));
+                        bean.setDiseaseData(StringUtil.join(attachment.getImages(), ","));
                         TriageOrderDetailActivity.startWithAction(context, bean,
-                                TypeEnum.TRIAGE_RECEIVED,true);
+                                TypeEnum.TRIAGE_RECEIVED, true);
                     } else if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
                         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
                             @Override
@@ -497,15 +497,18 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         });
 
         view = getLayoutInflater().inflate(R.layout.im_inquiry_pop_layout, null, false);
-        initPopupWindow(3);
+        initPopupWindow();
         referralTv = view.findViewById(R.id.referral);
         inquiryPopTriageTv = view.findViewById(R.id.inquiry_pop_triage_tv);
         inquiryPopConsultationTv = view.findViewById(R.id.inquiry_pop_consultation_tv);
+        inquiryPopDiagnosticPrescriptionTv =
+                view.findViewById(R.id.inquiry_pop_diagnostic_prescription_tv);
         view.findViewById(R.id.inspection).setOnClickListener(this);
         view.findViewById(R.id.examination).setOnClickListener(this);
         referralTv.setOnClickListener(this);
         inquiryPopTriageTv.setOnClickListener(this);
         inquiryPopConsultationTv.setOnClickListener(this);
+        inquiryPopDiagnosticPrescriptionTv.setOnClickListener(this);
         mVideoPlugin = new VideoPlugin();
         mEndInquiryPlugin = new EndInquiryPlugin(() -> {
             mMessageView.hideExtension();
@@ -519,14 +522,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mMessageView.addPlugin(mVoiceInputPlugin);
     }
 
-    private void initPopupWindow(int menuSize) {
+    private void initPopupWindow() {
         mPopupWindow = new PopupWindow(view, DensityUtil.dp2px(200),
-                DensityUtil.dp2px(60 * menuSize));
+                DensityUtil.dp2px(60 * 10));
         mPopupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setFocusable(true);
     }
-
 
     private void initStatus() {
         mMessageView.getPluginAdapter().getPluginModule(0);
@@ -600,11 +602,19 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         }
 
         if (orderBean.getIsVip() == 1) {
-            initPopupWindow(5);
-            inquiryPopTriageTv.setVisibility(View.VISIBLE);
+            //分诊中
+            if (orderBean.getState() == InquiryStatus.INQUIRY_TRIAGE_DOING) {
+                inquiryPopTriageTv.setVisibility(View.GONE);
+            } else {
+                inquiryPopTriageTv.setVisibility(View.VISIBLE);
+            }
             inquiryPopConsultationTv.setVisibility(View.VISIBLE);
+            if (orderBean.getState() == InquiryStatus.INQUIRY_TRIAGE_DOING || orderBean.getState() == InquiryStatus.INQUIRY_ING) {
+                inquiryPopDiagnosticPrescriptionTv.setVisibility(View.VISIBLE);
+            } else {
+                inquiryPopDiagnosticPrescriptionTv.setVisibility(View.GONE);
+            }
         } else {
-            initPopupWindow(3);
             inquiryPopTriageTv.setVisibility(View.GONE);
             inquiryPopConsultationTv.setVisibility(View.GONE);
         }
@@ -760,6 +770,17 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
                 } else {
                     FillOutApplyActivity.startFillOut(this, orderBean);
+                }
+                if (mPopupWindow != null) {
+                    mPopupWindow.dismiss();
+                }
+                break;
+            case R.id.inquiry_pop_diagnostic_prescription_tv:
+                //诊断与处方
+                if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE})) {
+                    DiagnosePrescriptionActivity.startCreate(this, orderBean);
+                } else {
+                    showNotAccessDialog();
                 }
                 if (mPopupWindow != null) {
                     mPopupWindow.dismiss();
