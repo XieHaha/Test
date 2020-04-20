@@ -28,6 +28,7 @@ import com.keydom.ih_common.activity.HandleProposeAcitivity;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.InquiryStatus;
 import com.keydom.ih_common.bean.PageBean;
+import com.keydom.ih_common.bean.TriageBean;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.config.ImConstants;
@@ -67,6 +68,7 @@ import com.keydom.mianren.ih_patient.activity.my_doctor_or_nurse.DoctorOrNurseDe
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.DianoseCaseDetailActivity;
 import com.keydom.mianren.ih_patient.activity.order_doctor_register.DoctorIndexActivity;
 import com.keydom.mianren.ih_patient.activity.order_evaluate.OrderEvaluateActivity;
+import com.keydom.mianren.ih_patient.activity.order_triage.TriageOrderDetailActivity;
 import com.keydom.mianren.ih_patient.activity.prescription.PrescriptionGetDetailActivity;
 import com.keydom.mianren.ih_patient.activity.prescription_check.PrescriptionDetailActivity;
 import com.keydom.mianren.ih_patient.activity.user_info_operate.UserInfoOperateActivity;
@@ -87,6 +89,7 @@ import com.keydom.mianren.ih_patient.net.LocationService;
 import com.keydom.mianren.ih_patient.net.PrescriptionService;
 import com.keydom.mianren.ih_patient.utils.CommUtil;
 import com.keydom.mianren.ih_patient.utils.DataCacheUtil;
+import com.keydom.mianren.ih_patient.utils.DateUtils;
 import com.keydom.mianren.ih_patient.utils.GotoActivityUtil;
 import com.keydom.mianren.ih_patient.utils.SelectDialogUtils;
 import com.keydom.mianren.ih_patient.view.im_plugin.VoiceInputPlugin;
@@ -102,6 +105,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
+import org.jsoup.helper.StringUtil;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -404,6 +408,21 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     }
                     //分诊单
                     else if (message.getAttachment() instanceof TriageOrderAttachment) {
+                        TriageOrderAttachment attachment =
+                                (TriageOrderAttachment) message.getAttachment();
+                        TriageBean bean = new TriageBean();
+                        bean.setOrderId(attachment.getId());
+                        bean.setPatientName(attachment.getPatientName());
+                        bean.setDoctor(attachment.getDoctorName());
+                        bean.setPatientSex(attachment.getSex());
+                        bean.setPatientAge(attachment.getAge());
+                        bean.setTriageExplain(attachment.getContent());
+                        bean.setGroupTid(attachment.getGroupTid());
+                        bean.setDept(attachment.getDept());
+                        bean.setTriageTime(DateUtils.getDate(attachment.getApplyTime()));
+                        bean.setDiseaseData(StringUtil.join(attachment.getImages(),","));
+                        TriageOrderDetailActivity.startWithAction(context, bean,
+                                null,true);
                     }
                     //检查单
                     else if (message.getAttachment() instanceof ExaminationAttachment) {

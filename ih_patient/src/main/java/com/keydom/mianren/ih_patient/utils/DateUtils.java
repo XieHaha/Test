@@ -2,6 +2,7 @@ package com.keydom.mianren.ih_patient.utils;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
@@ -289,5 +290,13 @@ public class DateUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static String getDate(String date) {
+        if (TextUtils.isEmpty(date)) {
+            return "";
+        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss");
+        return format.format(new Date(Long.valueOf(date)));
     }
 }
