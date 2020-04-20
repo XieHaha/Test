@@ -275,7 +275,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.online_triage.TriageOrderDetailActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.health_manager.HealthManagerActivity" />
         <activity android:name=".activity.health_manager.PatientInfoActivity" />

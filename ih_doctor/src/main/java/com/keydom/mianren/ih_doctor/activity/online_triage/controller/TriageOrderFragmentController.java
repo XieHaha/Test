@@ -5,13 +5,13 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.bean.PageBean;
+import com.keydom.ih_common.bean.TriageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_doctor.activity.online_triage.TriageOrderDetailActivity;
 import com.keydom.mianren.ih_doctor.activity.online_triage.view.TriageOrderFragmentView;
-import com.keydom.mianren.ih_doctor.bean.TriageBean;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 import com.keydom.mianren.ih_doctor.net.TriageApiService;
 

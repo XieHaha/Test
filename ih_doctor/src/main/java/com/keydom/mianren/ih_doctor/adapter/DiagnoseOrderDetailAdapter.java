@@ -3,6 +3,7 @@ package com.keydom.mianren.ih_doctor.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,20 +39,26 @@ public class DiagnoseOrderDetailAdapter extends RecyclerView.Adapter<DiagnoseOrd
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.diagnose_order_detail_img_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.diagnose_order_detail_img_item,
+                parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        GlideUtils.load(holder.itemIcon, Const.IMAGE_HOST + data.get(position), 0, 0, false, null);
+        String imageUrl = data.get(position);
+        if (!TextUtils.isEmpty(imageUrl)) {
+            imageUrl = imageUrl.replace(Const.IMAGE_HOST, "");
+        }
+        GlideUtils.load(holder.itemIcon, Const.IMAGE_HOST + imageUrl, 0, 0, false, null);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 if (data.get(position) != null && !"".equals(data.get(position))) {
-//                    CommonUtils.previewImage(context, Const.IMAGE_HOST + data.get(position));
-                    CommonUtils.previewImageList(context,data,position,true);
+                    //                    CommonUtils.previewImage(context, Const.IMAGE_HOST +
+                    //                    data.get(position));
+                    CommonUtils.previewImageList(context, data, position, true);
                 }
             }
         });

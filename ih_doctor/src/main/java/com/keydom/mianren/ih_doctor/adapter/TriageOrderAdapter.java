@@ -4,8 +4,8 @@ import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.keydom.ih_common.bean.TriageBean;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.bean.TriageBean;
 
 import java.util.ArrayList;
 

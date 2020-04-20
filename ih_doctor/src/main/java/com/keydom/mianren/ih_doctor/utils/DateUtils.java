@@ -2,6 +2,7 @@ package com.keydom.mianren.ih_doctor.utils;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
@@ -31,7 +32,8 @@ public class DateUtils {
         Date date2 = sdf.parse(d2);
         c1.setTime(date1);
         c2.setTime(date2);
-        if (c2.getTimeInMillis() < c1.getTimeInMillis()) return 0;
+        if (c2.getTimeInMillis() < c1.getTimeInMillis())
+            return 0;
         int year1 = c1.get(Calendar.YEAR);
         int year2 = c2.get(Calendar.YEAR);
         int month1 = c1.get(Calendar.MONTH);
@@ -39,9 +41,11 @@ public class DateUtils {
         int day1 = c1.get(Calendar.DAY_OF_MONTH);
         int day2 = c2.get(Calendar.DAY_OF_MONTH);
         int yearInterval = year2 - year1;
-        if (month2 < month1 || month1 == month2 && day2 < day1) yearInterval--;
+        if (month2 < month1 || month1 == month2 && day2 < day1)
+            yearInterval--;
         int monthInterval = (month2 + 12) - month1;
-        if (day2 < day1) monthInterval--;
+        if (day2 < day1)
+            monthInterval--;
         monthInterval %= 12;
         return yearInterval * 12 + monthInterval;
     }
@@ -54,7 +58,10 @@ public class DateUtils {
      * @param earliestTime 单日开始时间 可以是0到24之间任意值
      * @param latestTime   单日结束时间 可以是0到24之间任意值
      */
-    public static OptionsPickerView showDateIntervalChooseDialog(Context context, int dateInterval, int earliestTime, int latestTime, DateIntervalSelectedListener dateIntervalSelectedListener) {
+    public static OptionsPickerView showDateIntervalChooseDialog(Context context,
+                                                                 int dateInterval,
+                                                                 int earliestTime, int latestTime
+            , DateIntervalSelectedListener dateIntervalSelectedListener) {
         Date date = new Date();
         int currentHours = date.getHours();
         int mEarliestTime = earliestTime;
@@ -93,12 +100,15 @@ public class DateUtils {
             startTimeList.add(startTimeSonList);
             endTimeList.add(endTimeSonList);
         }
-        OptionsPickerView optionsPickerView = new OptionsPickerBuilder(context, new OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                dateIntervalSelectedListener.getSelectedDateInterval(dateList.get(options1), startTimeList.get(options1).get(options2), endTimeList.get(options1).get(options2).get(options3));
-            }
-        })
+        OptionsPickerView optionsPickerView = new OptionsPickerBuilder(context,
+                new OnOptionsSelectListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                        dateIntervalSelectedListener.getSelectedDateInterval(dateList.get(options1),
+                                startTimeList.get(options1).get(options2),
+                                endTimeList.get(options1).get(options2).get(options3));
+                    }
+                })
                 .setCancelColor(Color.parseColor("#00FFFFFF"))
                 .setTitleText("预约上门时间")
                 .setTitleColor(Color.parseColor("#333333"))
@@ -117,7 +127,9 @@ public class DateUtils {
      * @param earliestTime 单日开始时间 可以是0到24之间任意值
      * @param latestTime   单日结束时间 可以是0到24之间任意值
      */
-    public static OptionsPickerView showDateIntervalChooseDialog(Context context, int earliestTime, int latestTime, DateIntervalSelectedListener dateIntervalSelectedListener) {
+    public static OptionsPickerView showDateIntervalChooseDialog(Context context,
+                                                                 int earliestTime, int latestTime
+            , DateIntervalSelectedListener dateIntervalSelectedListener) {
         List<String> startTimeList = new ArrayList<>();
         List<List<String>> endTimeList = new ArrayList<>();
         List<String> startTimeSonList = new ArrayList<>();
@@ -140,12 +152,16 @@ public class DateUtils {
         }
         startTimeList.addAll(startTimeSonList);
         endTimeList.addAll(endTimeSonList);
-        OptionsPickerView optionsPickerView = new OptionsPickerBuilder(context, new OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                dateIntervalSelectedListener.getSelectedDateInterval(null, startTimeList.get(options1), endTimeList.get(options1).get(options2).equals("24:00") ? "23:59" : endTimeList.get(options1).get(options2));
-            }
-        })
+        OptionsPickerView optionsPickerView = new OptionsPickerBuilder(context,
+                new OnOptionsSelectListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                        dateIntervalSelectedListener.getSelectedDateInterval(null,
+                                startTimeList.get(options1),
+                                endTimeList.get(options1).get(options2).equals("24:00") ? "23:59" :
+                                        endTimeList.get(options1).get(options2));
+                    }
+                })
                 .setCancelColor(Color.parseColor("#00FFFFFF"))
                 .setTitleText("选择起止时间")
                 .setTitleColor(Color.parseColor("#333333"))
@@ -165,7 +181,8 @@ public class DateUtils {
     private static List<String> getBetweenDate(int dateInterval, boolean isToday) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         List<String> list = new ArrayList<String>();
-        Date startDate = isToday ? new Date() : new Date((new Date().getTime() + (24 * 60 * 60 * 1000)));
+        Date startDate = isToday ? new Date() :
+                new Date((new Date().getTime() + (24 * 60 * 60 * 1000)));
         Calendar calendar = Calendar.getInstance();
         for (int i = 0; i < dateInterval; i++) {
             list.add(sdf.format(startDate));
@@ -266,5 +283,13 @@ public class DateUtils {
                 break;
         }
         return sd;
+    }
+
+    public static String getDate(String date) {
+        if (TextUtils.isEmpty(date)) {
+            return "";
+        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss");
+        return format.format(new Date(Long.valueOf(date)));
     }
 }

@@ -44,7 +44,11 @@ public class TriageOrderAttachment extends BaseCustomAttachment implements Seria
     /**
      * 问诊单Id
      */
-    private String orderId;
+    private String id;
+    /**
+     * 申请单id
+     */
+    private String triageApplyId;
 
     public TriageOrderAttachment() {
         super(ICustomAttachmentType.TRIAGE_ORDER);
@@ -59,7 +63,7 @@ public class TriageOrderAttachment extends BaseCustomAttachment implements Seria
         dept = data.getString("dept");
         groupTid = data.getString("groupTid");
         doctorName = data.getString("doctorName");
-        orderId = data.getString("orderId");
+        id = data.getString("id");
         applyTime = data.getString("applyTime");
         images = data.getJSONArray("images").toJavaList(String.class);
         inquiryData = data.getJSONObject("inquiryData").toJavaObject(InquiryDataBean.class);
@@ -78,7 +82,7 @@ public class TriageOrderAttachment extends BaseCustomAttachment implements Seria
         object.put("doctorName", doctorName);
         object.put("applyTime", applyTime);
         object.put("images", images);
-        object.put("orderId", orderId);
+        object.put("id", id);
         return object;
     }
 
@@ -163,11 +167,19 @@ public class TriageOrderAttachment extends BaseCustomAttachment implements Seria
         this.images = images;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public String getId() {
+        return id;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTriageApplyId() {
+        return triageApplyId;
+    }
+
+    public void setTriageApplyId(String triageApplyId) {
+        this.triageApplyId = triageApplyId;
     }
 }

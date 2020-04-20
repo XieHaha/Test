@@ -7,12 +7,12 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.bean.TriageBean;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_triage.controller.TriageOrderFragmentController;
 import com.keydom.mianren.ih_doctor.activity.online_triage.view.TriageOrderFragmentView;
 import com.keydom.mianren.ih_doctor.adapter.TriageOrderAdapter;
 import com.keydom.mianren.ih_doctor.bean.MessageEvent;
-import com.keydom.mianren.ih_doctor.bean.TriageBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;

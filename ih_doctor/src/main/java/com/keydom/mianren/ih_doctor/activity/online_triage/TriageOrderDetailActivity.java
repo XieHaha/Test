@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.DiagnoseOrderDetailBean;
+import com.keydom.ih_common.bean.TriageBean;
+import com.keydom.ih_common.im.ImClient;
+import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.utils.CostomToastUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.ToastUtil;
@@ -26,7 +29,6 @@ import com.keydom.mianren.ih_doctor.activity.online_triage.controller.TriageOrde
 import com.keydom.mianren.ih_doctor.activity.online_triage.view.TriageOrderDetailView;
 import com.keydom.mianren.ih_doctor.adapter.DiagnoseOrderDetailAdapter;
 import com.keydom.mianren.ih_doctor.bean.MessageEvent;
-import com.keydom.mianren.ih_doctor.bean.TriageBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
@@ -84,6 +86,7 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
      * 分诊单详情
      */
     private TriageBean triageBean;
+    private boolean isChat;
 
     /**
      * 存放问诊信息图片地址的列表
@@ -104,13 +107,23 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
     private EditText dialogInput;
 
     public static final String KEY_TRIAGE_BEAN = "key_triage_bean";
+    public static final String KEY_IS_CHAT = "key_is_chat";
 
     /**
      * 启动
      */
     public static void startWithAction(Context context, TriageBean bean, TypeEnum type) {
+        startWithAction(context, bean, type, false);
+    }
+
+    /**
+     * 启动
+     */
+    public static void startWithAction(Context context, TriageBean bean, TypeEnum type,
+                                       boolean isChat) {
         Intent starter = new Intent(context, TriageOrderDetailActivity.class);
         starter.putExtra(KEY_TRIAGE_BEAN, bean);
+        starter.putExtra(KEY_IS_CHAT, isChat);
         starter.putExtra(Const.TYPE, type);
         context.startActivity(starter);
     }
@@ -124,7 +137,11 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
     public void initData(@Nullable Bundle savedInstanceState) {
         mType = (TypeEnum) getIntent().getSerializableExtra(Const.TYPE);
         triageBean = (TriageBean) getIntent().getSerializableExtra(KEY_TRIAGE_BEAN);
+        isChat = getIntent().getBooleanExtra(KEY_IS_CHAT, false);
         setTitle(getString(R.string.txt_triage_order_detail));
+        if (!isChat) {
+            setRightTxt("问诊");
+        }
         initView();
 
         getDetailData();
@@ -132,6 +149,12 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
     }
 
     private void initView() {
+        setRightBtnListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(ImConstants.TEAM, true);
+            ImClient.startConversation(TriageOrderDetailActivity.this,
+                    triageBean.getGroupTid(), bundle);
+        });
         triageOrderDetailBottomLeft.setOnClickListener(getController());
         triageOrderDetailBottomRight.setOnClickListener(getController());
         notReceiveDialog = createDialog();

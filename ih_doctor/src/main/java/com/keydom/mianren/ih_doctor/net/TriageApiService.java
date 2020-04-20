@@ -1,8 +1,8 @@
 package com.keydom.mianren.ih_doctor.net;
 
 import com.keydom.ih_common.bean.PageBean;
+import com.keydom.ih_common.bean.TriageBean;
 import com.keydom.ih_common.net.result.HttpResult;
-import com.keydom.mianren.ih_doctor.bean.TriageBean;
 
 import java.util.Map;
 

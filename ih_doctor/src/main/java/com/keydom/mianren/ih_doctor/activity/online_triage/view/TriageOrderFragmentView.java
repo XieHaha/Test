@@ -1,7 +1,7 @@
 package com.keydom.mianren.ih_doctor.activity.online_triage.view;
 
 import com.keydom.ih_common.base.BaseView;
-import com.keydom.mianren.ih_doctor.bean.TriageBean;
+import com.keydom.ih_common.bean.TriageBean;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 
 import java.util.List;

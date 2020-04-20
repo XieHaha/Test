@@ -26,6 +26,7 @@ import com.keydom.ih_common.activity.DiagnoseOrderDetailActivity;
 import com.keydom.ih_common.activity.HandleProposeAcitivity;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.InquiryStatus;
+import com.keydom.ih_common.bean.TriageBean;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.im.listener.IConversationBehaviorListener;
@@ -40,7 +41,6 @@ import com.keydom.ih_common.im.model.custom.ReferralApplyAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralDoctorAttachment;
 import com.keydom.ih_common.im.model.custom.TriageOrderAttachment;
 import com.keydom.ih_common.im.model.custom.UserFollowUpAttachment;
-import com.keydom.ih_common.im.model.custom.bean.InquiryDataBean;
 import com.keydom.ih_common.im.model.event.EndInquiryEvent;
 import com.keydom.ih_common.im.widget.ImMessageView;
 import com.keydom.ih_common.im.widget.plugin.EndInquiryPlugin;
@@ -73,13 +73,13 @@ import com.keydom.mianren.ih_doctor.adapter.DiagnoseOrderRecyclrViewAdapter;
 import com.keydom.mianren.ih_doctor.bean.CheckItemListBean;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.bean.MessageEvent;
-import com.keydom.mianren.ih_doctor.bean.TriageBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.constant.ServiceConst;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
+import com.keydom.mianren.ih_doctor.utils.DateUtils;
 import com.keydom.mianren.ih_doctor.view.FixHeightBottomSheetDialog;
 import com.keydom.mianren.ih_doctor.view.im_plugin.VoiceInputPlugin;
 import com.netease.nimlib.sdk.NIMClient;
@@ -96,6 +96,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jsoup.helper.StringUtil;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -283,11 +284,19 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     } else if (message.getAttachment() instanceof TriageOrderAttachment) {//分诊单
                         TriageOrderAttachment attachment =
                                 (TriageOrderAttachment) message.getAttachment();
-                        InquiryDataBean dataBean = attachment.getInquiryData();
                         TriageBean bean = new TriageBean();
-                        bean.setOrderId(dataBean.getId());
+                        bean.setOrderId(attachment.getId());
+                        bean.setPatientName(attachment.getPatientName());
+                        bean.setDoctor(attachment.getDoctorName());
+                        bean.setPatientSex(attachment.getSex());
+                        bean.setPatientAge(attachment.getAge());
+                        bean.setTriageExplain(attachment.getContent());
+                        bean.setGroupTid(attachment.getGroupTid());
+                        bean.setDept(attachment.getDept());
+                        bean.setTriageTime(DateUtils.getDate(attachment.getApplyTime()));
+                        bean.setDiseaseData(StringUtil.join(attachment.getImages(),","));
                         TriageOrderDetailActivity.startWithAction(context, bean,
-                                TypeEnum.TRIAGE_RECEIVED);
+                                TypeEnum.TRIAGE_RECEIVED,true);
                     } else if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
                         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
                             @Override

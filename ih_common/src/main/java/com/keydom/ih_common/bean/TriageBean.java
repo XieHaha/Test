@@ -1,4 +1,4 @@
-package com.keydom.mianren.ih_doctor.bean;
+package com.keydom.ih_common.bean;
 
 import java.io.Serializable;
 
@@ -28,6 +28,7 @@ public class TriageBean implements Serializable {
     private String changeInfoDoctorCode;
     private String changeInfoDoctor;
     private String voiceUrl;
+    private String groupTid;
 
     public String getPatientSex() {
         return patientSex;
@@ -187,5 +188,13 @@ public class TriageBean implements Serializable {
 
     public void setVoiceUrl(String voiceUrl) {
         this.voiceUrl = voiceUrl;
+    }
+
+    public String getGroupTid() {
+        return groupTid;
+    }
+
+    public void setGroupTid(String groupTid) {
+        this.groupTid = groupTid;
     }
 }
