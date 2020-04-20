@@ -22,12 +22,12 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.im.ImClient;
+import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.AgreementActivity;
-import com.keydom.mianren.ih_patient.activity.im.PatientTeamChatActivity;
 import com.keydom.mianren.ih_patient.activity.location_manage.LocationManageActivity;
 import com.keydom.mianren.ih_patient.activity.logistic.FixHeightBottomSheetDialog;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.controller.OnlineDiagnonsesOrderController;
@@ -159,7 +159,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                                 null);
                     } else {
                         Bundle bundle = new Bundle();
-                        bundle.putBoolean("team", true);
+                        bundle.putBoolean(ImConstants.TEAM, true);
                         ImClient.startConversation(getContext(), bean.getGroupTid(), bundle);
                     }
                     //                        } else

@@ -525,7 +525,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         Uri data = getIntent().getData();
         bundle = getIntent().getExtras();
         if (bundle != null) {
-            team = bundle.getBoolean("team");
+            team = bundle.getBoolean(ImConstants.TEAM);
         }
         if (data != null) {
             sessionId = data.getQueryParameter(ImConstants.CALL_SESSION_ID);

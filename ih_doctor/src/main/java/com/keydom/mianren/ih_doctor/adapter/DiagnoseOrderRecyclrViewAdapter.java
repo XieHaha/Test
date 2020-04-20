@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.im.ImClient;
+import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
@@ -253,7 +254,7 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
                         if (TextUtils.isEmpty(inquiryBean.getGroupTid())) {
                             ImClient.startConversation(mContext, inquiryBean.getUserCode(), bundle);
                         } else {
-                            bundle.putBoolean("team", true);
+                            bundle.putBoolean(ImConstants.TEAM, true);
                             ImClient.startConversation(mContext, inquiryBean.getGroupTid(), bundle);
                         }
                     } else {

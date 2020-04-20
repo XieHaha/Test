@@ -14,7 +14,6 @@ import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.activity.im.DoctorTeamChatActivity;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.utils.CalculateTimeUtils;
 import com.netease.nimlib.sdk.NIMClient;
@@ -83,7 +82,8 @@ public class FriendMsgRecyclrViewAdapter extends BaseEmptyAdapter<RecentContact>
                 friendAgeTv.setText("");
             } else {
                 sexImage.setVisibility(View.VISIBLE);
-                NimUserInfo userInfo = (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(bean.getContactId());
+                NimUserInfo userInfo =
+                        (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(bean.getContactId());
                 if (userInfo != null) {
                     GlideUtils.load(friendIconCiv, userInfo.getAvatar(), 0, 0, false, null);
                     friendNameTv.setText(userInfo.getName());
@@ -94,7 +94,7 @@ public class FriendMsgRecyclrViewAdapter extends BaseEmptyAdapter<RecentContact>
                             e.printStackTrace();
                             friendAgeTv.setText("");
                         }
-                    }else{
+                    } else {
                         friendAgeTv.setText("");
                     }
                     if (userInfo.getGenderEnum() == GenderEnum.MALE) {
@@ -115,7 +115,8 @@ public class FriendMsgRecyclrViewAdapter extends BaseEmptyAdapter<RecentContact>
                 chatNum.setVisibility(View.VISIBLE);
                 chatNum.setText(String.valueOf(bean.getUnreadCount()));
             }
-            chatNum.setText(bean.getUnreadCount() == 0 ? "" : String.valueOf(bean.getUnreadCount()));
+            chatNum.setText(bean.getUnreadCount() == 0 ? "" :
+                    String.valueOf(bean.getUnreadCount()));
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @SingleClick(1000)
@@ -123,14 +124,18 @@ public class FriendMsgRecyclrViewAdapter extends BaseEmptyAdapter<RecentContact>
                 public void onClick(View v) {
                     if (mDatas.get(position).getSessionType() == SessionTypeEnum.Team) {
                         chatNum.setVisibility(View.GONE);
-                        DoctorTeamChatActivity.startTeamChat(mContext, mDatas.get(position).getContactId());
-//                        ImClient.startTeamChart(mContext, mDatas.get(position).getContactId(), null);
+                        Bundle bundle = new Bundle();
+                        bundle.putBoolean(ImConstants.TEAM, true);
+                        ImClient.startConversation(mContext, mDatas.get(position).getContactId(),
+                                bundle);
                     } else if (mDatas.get(position).getSessionType() == SessionTypeEnum.P2P) {
                         chatNum.setVisibility(View.GONE);
                         Bundle bundle = new Bundle();
                         bundle.putBoolean(ImConstants.CHATTING, true);
-                        ImClient.startConversation(mContext, mDatas.get(position).getContactId(), bundle);
-//                        ImClient.startConversation(mContext, mDatas.get(position).getContactId(), null);
+                        ImClient.startConversation(mContext, mDatas.get(position).getContactId(),
+                                bundle);
+                        //                        ImClient.startConversation(mContext, mDatas.get
+                        //                        (position).getContactId(), null);
                     }
                     NIMClient.getService(MsgService.class).clearUnreadCount(mDatas.get(position).getContactId(), mDatas.get(position).getSessionType());
                 }

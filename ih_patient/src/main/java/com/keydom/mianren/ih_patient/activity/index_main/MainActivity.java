@@ -36,7 +36,6 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.controller.MainController;
-import com.keydom.mianren.ih_patient.activity.im.PatientTeamChatActivity;
 import com.keydom.mianren.ih_patient.activity.index_main.Controller.IndexMainController;
 import com.keydom.mianren.ih_patient.activity.index_main.view.IndexMainView;
 import com.keydom.mianren.ih_patient.activity.login.LoginActivity;
@@ -419,15 +418,17 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
         ArrayList<IMMessage> messages =
                 (ArrayList<IMMessage>) intent.getSerializableExtra(NimIntent.EXTRA_NOTIFY_CONTENT);
         if (messages != null && messages.size() <= 1) {
+            Bundle bundle;
             switch (messages.get(0).getSessionType()) {
                 case P2P:
-                    Bundle bundle = new Bundle();
+                    bundle = new Bundle();
                     bundle.putBoolean(ImConstants.CHATTING, false);
                     ImClient.startConversation(this, messages.get(0).getSessionId(), bundle);
                     break;
                 case Team:
-                    PatientTeamChatActivity.startTeamChat(this, messages.get(0).getSessionId());
-                    //ImClient.startTeamChart(this, messages.get(0).getSessionId(), null);
+                    bundle = new Bundle();
+                    bundle.putBoolean(ImConstants.TEAM, true);
+                    ImClient.startConversation(this, messages.get(0).getSessionId(), bundle);
                     break;
                 default:
             }

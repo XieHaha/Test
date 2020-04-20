@@ -34,6 +34,10 @@ public class ImConstants {
      */
     public static final String CHATTING = "chatting";
     /**
+     * 是否是群聊
+     */
+    public static final String TEAM = "team";
+    /**
      * 本地提醒，不发送至服务器
      */
     public static final String LOCAL_TIP = "localTip";

@@ -231,7 +231,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             isGetStatus = extras.getBoolean(DiagnoseOrderRecyclrViewAdapter.IS_ORDER);
-            team = extras.getBoolean("team");
+            team = extras.getBoolean(ImConstants.TEAM);
             orderId = extras.getLong("orderId");
         }
         initView();

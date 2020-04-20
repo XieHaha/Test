@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.im.ImClient;
+import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -21,7 +22,6 @@ import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.FillOutApplyActi
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.GroupMemberActivity;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.UpdateGroupInfoActivity;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.view.DoctorCooperationView;
-import com.keydom.mianren.ih_doctor.activity.im.DoctorTeamChatActivity;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationOrderActivity;
 import com.keydom.mianren.ih_doctor.bean.GroupInfoBean;
 import com.keydom.mianren.ih_doctor.bean.GroupInfoRes;
@@ -79,9 +79,8 @@ public class DoctorCooperationController extends ControllerImpl<DoctorCooperatio
                     return;
                 }
                 Bundle bundle = new Bundle();
-                bundle.putString("teamName", bean.getGroupName());
-                DoctorTeamChatActivity.startTeamChat(getContext(), bean.getTid());
-                //ImClient.startTeamChart(getContext(), bean.getTid(), bundle);
+                bundle.putBoolean(ImConstants.TEAM, true);
+                ImClient.startConversation(getContext(), bean.getTid(), bundle);
                 ImClient.clearUnreadCount(bean.getTid(), SessionTypeEnum.Team);
                 getView().showOrHideGroupExchangeRedPoint(false);
                 break;

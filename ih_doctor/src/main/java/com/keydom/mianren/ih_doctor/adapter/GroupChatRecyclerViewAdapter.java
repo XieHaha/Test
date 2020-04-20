@@ -2,6 +2,7 @@ package com.keydom.mianren.ih_doctor.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,12 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.keydom.ih_common.im.ImClient;
+import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.im.model.event.RecentContactEvent;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.UpdateGroupInfoActivity;
-import com.keydom.mianren.ih_doctor.activity.im.DoctorTeamChatActivity;
 import com.keydom.mianren.ih_doctor.activity.patient_manage.NewGroupChatActivity;
 import com.keydom.mianren.ih_doctor.bean.GroupInfoBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
@@ -89,8 +91,9 @@ public class GroupChatRecyclerViewAdapter extends BaseEmptyAdapter<Team> {
                 @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
-                    DoctorTeamChatActivity.startTeamChat(mContext, team.getId());
-                    //ImClient.startTeamChart(mContext, team.getId(), null);
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean(ImConstants.TEAM,true);
+                    ImClient.startConversation(mContext, team.getId(), bundle);
                 }
             });
             if (!Const.CHECK_AND_ACCEP) {

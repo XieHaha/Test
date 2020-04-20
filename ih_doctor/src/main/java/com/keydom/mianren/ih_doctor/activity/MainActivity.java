@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.keydom.ih_common.im.ImClient;
+import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.im.manager.ImPreferences;
 import com.keydom.ih_common.im.manager.NimUserInfoCache;
 import com.keydom.ih_common.im.manager.TeamDataCache;
@@ -32,7 +33,6 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.controller.MainController;
-import com.keydom.mianren.ih_doctor.activity.im.DoctorTeamChatActivity;
 import com.keydom.mianren.ih_doctor.activity.my_message.MyMessageActivity;
 import com.keydom.mianren.ih_doctor.activity.personal.MyServiceActivity;
 import com.keydom.mianren.ih_doctor.activity.personal.PersonalInfoActivity;
@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
      * 是否可以推出APP
      */
     private boolean isExitApp = false;
-    private boolean isNeedJump=false;
-    private boolean isNeedJump2Service=false;
+    private boolean isNeedJump = false;
+    private boolean isNeedJump2Service = false;
     private MainController mainController;
     /*private IntentFilter intentFilter1;
     private  InterceptorReceiver interceptorReceiver;*/
@@ -91,15 +91,16 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param context
      */
-    public static void start(Context context,boolean isNeedJump,boolean isNeedJump2Service) {
+    public static void start(Context context, boolean isNeedJump, boolean isNeedJump2Service) {
         if (SharePreferenceManager.getIsAgreement()) {
             AgreementActivity.startService(context);
         } else if (SharePreferenceManager.getFirstFinishInfo()) {
             PersonalInfoActivity.start(context, TypeEnum.FIRST_FINISH_INFO);
         } else {
-            Intent starter = new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            starter.putExtra("isNeedJump",isNeedJump);
-            starter.putExtra("isNeedJump2Service",isNeedJump2Service);
+            Intent starter =
+                    new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            starter.putExtra("isNeedJump", isNeedJump);
+            starter.putExtra("isNeedJump2Service", isNeedJump2Service);
             context.startActivity(starter);
             SharePreferenceManager.setIsFirst(false);
         }
@@ -110,8 +111,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         EventBus.getDefault().register(this);
-        isNeedJump=getIntent().getBooleanExtra("isNeedJump",false);
-        isNeedJump2Service=getIntent().getBooleanExtra("isNeedJump2Service",false);
+        isNeedJump = getIntent().getBooleanExtra("isNeedJump", false);
+        isNeedJump2Service = getIntent().getBooleanExtra("isNeedJump2Service", false);
         StatusBarUtils.setWindowStatusBarColor(this, R.color.status_bar_color_work);
         if (parseIntent()) {
             finish();
@@ -120,11 +121,11 @@ public class MainActivity extends AppCompatActivity {
         initView();
         getDept();
         initPremissions();
-        if(isNeedJump){
-            MyMessageActivity.start(this,null);
+        if (isNeedJump) {
+            MyMessageActivity.start(this, null);
         }
-        if(isNeedJump2Service){
-            MyServiceActivity.start(this,true);
+        if (isNeedJump2Service) {
+            MyServiceActivity.start(this, true);
         }
         /*interceptorReceiver =new InterceptorReceiver();
         intentFilter1=new IntentFilter("common.action.interceptor");
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
-//        unregisterReceiver(interceptorReceiver);
+        //        unregisterReceiver(interceptorReceiver);
         super.onDestroy();
     }
 
@@ -209,14 +210,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 MyApplication.deptBeanList.clear();
                 MyApplication.deptSpannerList.clear();
                 return super.requestError(exception, code, msg);
             }
         });
     }
-
 
 
     @Override
@@ -257,17 +258,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void parseNotifyIntent(Intent intent) {
-        ArrayList<IMMessage> messages = (ArrayList<IMMessage>) intent.getSerializableExtra(NimIntent.EXTRA_NOTIFY_CONTENT);
+        ArrayList<IMMessage> messages =
+                (ArrayList<IMMessage>) intent.getSerializableExtra(NimIntent.EXTRA_NOTIFY_CONTENT);
         if (messages != null && messages.size() <= 1) {
+            Bundle bundle;
             switch (messages.get(0).getSessionType()) {
                 case P2P:
-                    Bundle bundle = new Bundle();
+                    bundle = new Bundle();
                     bundle.putBoolean(IS_ORDER, true);
                     ImClient.startConversation(this, messages.get(0).getSessionId(), bundle);
                     break;
                 case Team:
-                    //ImClient.startTeamChart(this, messages.get(0).getSessionId(), null);
-                    DoctorTeamChatActivity.startTeamChat(this, messages.get(0).getSessionId());
+                    bundle = new Bundle();
+                    bundle.putBoolean(ImConstants.TEAM, true);
+                    ImClient.startConversation(this, messages.get(0).getSessionId(), bundle);
                     break;
                 default:
             }
@@ -277,7 +281,9 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("CheckResult")
     private void initPremissions() {
         RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        rxPermissions.request(Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean granted) throws Exception {
@@ -286,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
 
                         } else {
                             Logger.e("权限未打开");
-                            MainActivity.start(MainActivity.this,isNeedJump,isNeedJump2Service);
+                            MainActivity.start(MainActivity.this, isNeedJump, isNeedJump2Service);
                             finish();
                         }
                     }
@@ -338,53 +344,59 @@ public class MainActivity extends AppCompatActivity {
                             if (data.getUserCode() == null || data.getImToken() == null || "".equals(data.getUserCode()) || "".equals(data.getImToken())) {
                                 ToastUtil.showMessage(MainActivity.this, "帐号错误，请检查后重试！");
                             } else {
-                                ImClient.loginIM(data.getUserCode(), data.getImToken(), new OnLoginListener() {
-                                    @Override
-                                    public void success(String msg) {
-                                        ImClient.getUserInfoProvider().setAccount(data.getUserCode());
-                                        NimUserInfoCache.getInstance().buildCache();
-                                        TeamDataCache.getInstance().buildCache();
-                                        ImPreferences.saveUserAccount(data.getUserCode());
-                                        ImPreferences.saveUserToken(data.getImToken());
-                                        SharePreferenceManager.setToken("Bearer " + data.getToken());
-                                        SharePreferenceManager.setImToken(data.getImToken());
-                                        SharePreferenceManager.setUserCode(data.getUserCode());
-                                        SharePreferenceManager.setPhoneNumber(data.getPhoneNumber());
-                                        SharePreferenceManager.setHospitalId(data.getHospitalId());
-                                        SharePreferenceManager.setAutonyState(data.getAutonymState());
-                                        SharePreferenceManager.setIdCard(data.getIdCard());
-                                        if (data.getRoleIds() != null && data.getRoleIds().size() > 0) {
-                                            SharePreferenceManager.setRoleId(data.getRoleIds().get(0));
-                                            SharePreferenceManager.setPositionId(data.getNurseMonitorState());
-                                        } else {
-                                            SharePreferenceManager.setRoleId(-1);
-                                            AlertDialog.Builder builder = new AlertDialog.Builder(ActivityUtils.getTopActivity());
-                                            builder.setTitle("无角色权限");
-                                            builder.setMessage("没有分配角色，请联系管理员分配角色后重新登录！");
-                                            builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    EventBus.getDefault().post(new com.keydom.ih_common.bean.MessageEvent.Buidler().setType(com.keydom.ih_common.constant.EventType.OFFLINE).build());
+                                ImClient.loginIM(data.getUserCode(), data.getImToken(),
+                                        new OnLoginListener() {
+                                            @Override
+                                            public void success(String msg) {
+                                                ImClient.getUserInfoProvider().setAccount(data.getUserCode());
+                                                NimUserInfoCache.getInstance().buildCache();
+                                                TeamDataCache.getInstance().buildCache();
+                                                ImPreferences.saveUserAccount(data.getUserCode());
+                                                ImPreferences.saveUserToken(data.getImToken());
+                                                SharePreferenceManager.setToken("Bearer " + data.getToken());
+                                                SharePreferenceManager.setImToken(data.getImToken());
+                                                SharePreferenceManager.setUserCode(data.getUserCode());
+                                                SharePreferenceManager.setPhoneNumber(data.getPhoneNumber());
+                                                SharePreferenceManager.setHospitalId(data.getHospitalId());
+                                                SharePreferenceManager.setAutonyState(data.getAutonymState());
+                                                SharePreferenceManager.setIdCard(data.getIdCard());
+                                                if (data.getRoleIds() != null && data.getRoleIds().size() > 0) {
+                                                    SharePreferenceManager.setRoleId(data.getRoleIds().get(0));
+                                                    SharePreferenceManager.setPositionId(data.getNurseMonitorState());
+                                                } else {
+                                                    SharePreferenceManager.setRoleId(-1);
+                                                    AlertDialog.Builder builder =
+                                                            new AlertDialog.Builder(ActivityUtils.getTopActivity());
+                                                    builder.setTitle("无角色权限");
+                                                    builder.setMessage("没有分配角色，请联系管理员分配角色后重新登录！");
+                                                    builder.setNegativeButton("确定",
+                                                            new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog,
+                                                                                    int which) {
+                                                                    EventBus.getDefault().post(new com.keydom.ih_common.bean.MessageEvent.Buidler().setType(com.keydom.ih_common.constant.EventType.OFFLINE).build());
+                                                                }
+                                                            });
+                                                    builder.setCancelable(false);
+                                                    builder.create().show();
+                                                    return;
                                                 }
-                                            });
-                                            builder.setCancelable(false);
-                                            builder.create().show();
-                                            return;
-                                        }
 
-                                    }
+                                            }
 
-                                    @Override
-                                    public void failed(String errMsg) {
-                                        ToastUtil.showMessage(MainActivity.this, "聊天服务器登录失败");
-                                        EventBus.getDefault().post(new com.keydom.ih_common.bean.MessageEvent.Buidler().setType(com.keydom.ih_common.constant.EventType.OFFLINE).build());
-                                    }
-                                });
+                                            @Override
+                                            public void failed(String errMsg) {
+                                                ToastUtil.showMessage(MainActivity.this,
+                                                        "聊天服务器登录失败");
+                                                EventBus.getDefault().post(new com.keydom.ih_common.bean.MessageEvent.Buidler().setType(com.keydom.ih_common.constant.EventType.OFFLINE).build());
+                                            }
+                                        });
                             }
                         }
 
                         @Override
-                        public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                        public boolean requestError(@NotNull ApiException exception, int code,
+                                                    @NotNull String msg) {
                             EventBus.getDefault().post(new com.keydom.ih_common.bean.MessageEvent.Buidler().setType(com.keydom.ih_common.constant.EventType.OFFLINE).build());
                             return super.requestError(exception, code, msg);
                         }

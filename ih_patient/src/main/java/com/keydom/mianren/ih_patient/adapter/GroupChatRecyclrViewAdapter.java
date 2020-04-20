@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_patient.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.keydom.ih_common.im.ImClient;
+import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.im.model.event.RecentContactEvent;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.im.PatientTeamChatActivity;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
 import com.netease.nimlib.sdk.team.model.Team;
@@ -42,7 +44,8 @@ public class GroupChatRecyclrViewAdapter extends BaseEmptyAdapter<Team> {
 
     @Override
     public RecyclerView.ViewHolder createMyViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.patient_group_msg_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.patient_group_msg_item, parent
+                , false);
         return new ViewHolder(view);
     }
 
@@ -73,12 +76,10 @@ public class GroupChatRecyclrViewAdapter extends BaseEmptyAdapter<Team> {
             } else {
                 count.setVisibility(View.GONE);
             }
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PatientTeamChatActivity.startTeamChat(mContext, team.getId());
-                    //ImClient.startTeamChart(mContext, team.getId(), null);
-                }
+            itemView.setOnClickListener(v -> {
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(ImConstants.TEAM, true);
+                ImClient.startConversation(mContext, team.getId(), bundle);
             });
             /*if (!Const.CHECK_AND_ACCEP) {
                 icon.setOnClickListener(new View.OnClickListener() {
