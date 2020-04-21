@@ -155,6 +155,7 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
             Bundle bundle = new Bundle();
             bundle.putBoolean(IS_ORDER, true);
             bundle.putBoolean(ImConstants.TEAM, true);
+            bundle.putLong("orderId", Long.valueOf(triageBean.getOrderId()));
             ImClient.startConversation(TriageOrderDetailActivity.this,
                     triageBean.getGroupTid(), bundle);
         });
