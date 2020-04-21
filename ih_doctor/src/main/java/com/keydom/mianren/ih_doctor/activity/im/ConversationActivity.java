@@ -477,7 +477,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             sessionId = data.getQueryParameter(ImConstants.CALL_SESSION_ID);
             if (team) {
                 mMessageView.setMessageInfo(sessionId, SessionTypeEnum.Team);
-                setTitle(ImClient.getTeamProvider().getTeamById(sessionId).getName());
+                if (ImClient.getTeamProvider().getTeamById(sessionId) != null) {
+                    setTitle(ImClient.getTeamProvider().getTeamById(sessionId).getName());
+                }
             } else {
                 mMessageView.setMessageInfo(sessionId, SessionTypeEnum.P2P);
                 setTitle("问诊详情");

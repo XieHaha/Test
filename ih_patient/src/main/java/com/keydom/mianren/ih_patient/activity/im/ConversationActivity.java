@@ -420,9 +420,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         bean.setGroupTid(attachment.getGroupTid());
                         bean.setDept(attachment.getDept());
                         bean.setTriageTime(DateUtils.getDate(attachment.getApplyTime()));
-                        bean.setDiseaseData(StringUtil.join(attachment.getImages(),","));
+                        bean.setDiseaseData(StringUtil.join(attachment.getImages(), ","));
                         TriageOrderDetailActivity.startWithAction(context, bean,
-                                null,true);
+                                null, true);
                     }
                     //检查单
                     else if (message.getAttachment() instanceof ExaminationAttachment) {
@@ -550,7 +550,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             sessionId = data.getQueryParameter(ImConstants.CALL_SESSION_ID);
             if (team) {
                 mMessageView.setMessageInfo(sessionId, SessionTypeEnum.Team);
-                setTitle(ImClient.getTeamProvider().getTeamById(sessionId).getName());
+                if (ImClient.getTeamProvider().getTeamById(sessionId) != null) {
+                    setTitle(ImClient.getTeamProvider().getTeamById(sessionId).getName());
+                }
             } else {
                 mMessageView.setMessageInfo(sessionId, SessionTypeEnum.P2P);
                 setTitle("问诊详情");
