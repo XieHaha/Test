@@ -38,6 +38,10 @@ public class ImConstants {
      */
     public static final String TEAM = "team";
     /**
+     * 分诊订单id
+     */
+    public static final String TRIAGE_ORDER_ID = "triage_order_id";
+    /**
      * 本地提醒，不发送至服务器
      */
     public static final String LOCAL_TIP = "localTip";

@@ -121,6 +121,10 @@
             android:name=".activity.FloatPermissionActivity"
             android:theme="@style/http_domain_theme"
             tools:replace="theme" />
+        <activity android:name=".avchatkit.teamavchat.activity.TeamAVChatActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
     </application>
 
 </manifest>
