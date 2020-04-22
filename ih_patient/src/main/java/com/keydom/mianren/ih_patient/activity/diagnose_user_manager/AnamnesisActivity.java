@@ -16,6 +16,7 @@ import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.bean.HistoryListBean;
 import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
 import com.keydom.mianren.ih_patient.constant.EventType;
+import com.orhanobut.logger.Logger;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -53,7 +54,16 @@ public class AnamnesisActivity extends BaseControllerActivity<AnamnesisControlle
     private List<String> mPersonTags;
     private List<String> mAllergyTags;
 
+    private Set<Integer> marrySet;
+    private Set<Integer> surgerySet;
+    private Set<Integer> familySet;
+    private Set<Integer> allergySet;
+
     private ManagerUserBean mManager;
+    /**
+     * 既往史基础数据
+     */
+    private HistoryListBean historyListBean;
     private int mStatus;
     private boolean isFromDiagnoseApply = false;
 
@@ -91,6 +101,128 @@ public class AnamnesisActivity extends BaseControllerActivity<AnamnesisControlle
         mFamilyTags = new ArrayList<>();
         mPersonTags = new ArrayList<>();
         mAllergyTags = new ArrayList<>();
+
+        mMarryFlow.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+                filterMarry(position);
+                return false;
+            }
+        });
+        mMarryFlow.setOnSelectListener(selectPosSet -> marrySet = selectPosSet);
+        mSurgeryFlow.setOnTagClickListener((view, position, parent) -> {
+            filterSurgery(position);
+            return false;
+        });
+        mSurgeryFlow.setOnSelectListener(selectPosSet -> surgerySet = selectPosSet);
+        mFamilyFlow.setOnTagClickListener((view, position, parent) -> {
+            filterFamily(position);
+            return false;
+        });
+        mFamilyFlow.setOnSelectListener(selectPosSet -> familySet = selectPosSet);
+        mAllergyFlow.setOnTagClickListener((view, position, parent) -> {
+            filterAllergy(position);
+            return false;
+        });
+        mAllergyFlow.setOnSelectListener(selectPosSet -> allergySet = selectPosSet);
+    }
+
+    /**
+     * 婚育史互斥处理
+     */
+    private void filterMarry(Integer position) {
+        if (marrySet != null) {
+            if (marrySet.contains(position)) {
+                if (position <= 3) {
+                    marrySet.remove(Integer.valueOf(0));
+                    marrySet.remove(Integer.valueOf(1));
+                    marrySet.remove(Integer.valueOf(2));
+                    marrySet.remove(Integer.valueOf(3));
+                } else {
+                    marrySet.remove(Integer.valueOf(4));
+                    marrySet.remove(Integer.valueOf(5));
+                    marrySet.remove(Integer.valueOf(6));
+                    marrySet.remove(Integer.valueOf(7));
+                }
+                marrySet.add(position);
+                StringBuilder builder = new StringBuilder();
+                for (Integer in : marrySet) {
+                    builder.append(mMarryTags.get(in));
+                    builder.append(",");
+                }
+                setFlows(mMarryFlow, historyListBean.getMarriageChildbearingHistory(),
+                        builder.toString());
+            } else {
+                Logger.e("不处理");
+            }
+        }
+    }
+
+    /**
+     * 手术或外伤史
+     */
+    private void filterSurgery(Integer position) {
+        if (surgerySet != null) {
+            if (surgerySet.contains(position)) {
+                if (position == 0) {
+                    surgerySet.clear();
+                } else {
+                    surgerySet.remove(Integer.valueOf(0));
+                }
+                surgerySet.add(position);
+                StringBuilder builder = new StringBuilder();
+                for (Integer in : surgerySet) {
+                    builder.append(mSurgeryTags.get(in));
+                    builder.append(",");
+                }
+                setFlows(mSurgeryFlow, historyListBean.getHistorySurgeryOrTrauma(),
+                        builder.toString());
+            }
+        }
+    }
+
+    /**
+     * 家族史
+     */
+    private void filterFamily(Integer position) {
+        if (familySet != null) {
+            if (familySet.contains(position)) {
+                if (position == 0) {
+                    familySet.clear();
+                } else {
+                    familySet.remove(Integer.valueOf(0));
+                }
+                familySet.add(position);
+                StringBuilder builder = new StringBuilder();
+                for (Integer in : familySet) {
+                    builder.append(mFamilyTags.get(in));
+                    builder.append(",");
+                }
+                setFlows(mFamilyFlow, historyListBean.getFamilyHistory(), builder.toString());
+            }
+        }
+    }
+
+    /**
+     * 过敏史
+     */
+    private void filterAllergy(Integer position) {
+        if (allergySet != null) {
+            if (allergySet.contains(position)) {
+                if (position == 0) {
+                    allergySet.clear();
+                } else {
+                    allergySet.remove(Integer.valueOf(0));
+                }
+                allergySet.add(position);
+                StringBuilder builder = new StringBuilder();
+                for (Integer in : allergySet) {
+                    builder.append(mAllergyTags.get(in));
+                    builder.append(",");
+                }
+                setFlows(mAllergyFlow, historyListBean.getAllergyHistory(), builder.toString());
+            }
+        }
     }
 
     /**
@@ -136,15 +268,16 @@ public class AnamnesisActivity extends BaseControllerActivity<AnamnesisControlle
             TagAdapter<String> tagAdapter = new TagAdapter<String>(marryList) {
                 @Override
                 public View getView(FlowLayout parent, int position, String o) {
-                    TextView tv = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.manager_user_history_flow_layout,
-                            flowLayout, false);
+                    TextView tv =
+                            (TextView) LayoutInflater.from(getContext()).inflate(R.layout.manager_user_history_flow_layout,
+                                    flowLayout, false);
                     tv.setText(o);
                     return tv;
                 }
             };
             flowLayout.setAdapter(tagAdapter);
             if (mStatus == AddManageUserActivity.UPDATE) {
-                   tagAdapter.setSelectedList(selects);
+                tagAdapter.setSelectedList(selects);
                 StringBuilder edit = new StringBuilder();
                 for (int i = 0; i < adapterList.size(); i++) {
                     edit.append(adapterList.get(i));
@@ -180,7 +313,9 @@ public class AnamnesisActivity extends BaseControllerActivity<AnamnesisControlle
     @Override
     public void getHistorySuccess(HistoryListBean data) {
         if (data != null) {
-            setFlows(mMarryFlow, data.getMarriageChildbearingHistory(), mManager.getMaritalHistory());
+            historyListBean = data;
+            setFlows(mMarryFlow, data.getMarriageChildbearingHistory(),
+                    mManager.getMaritalHistory());
             setFlows(mSurgeryFlow, data.getHistorySurgeryOrTrauma(), mManager.getSurgeryHistory());
             setFlows(mFamilyFlow, data.getFamilyHistory(), mManager.getFamilyHistory());
             setFlows(mPersonFlow, data.getPersonalHistory(), mManager.getPersonHistory());
@@ -191,7 +326,7 @@ public class AnamnesisActivity extends BaseControllerActivity<AnamnesisControlle
     @Override
     public void addOrEditSuccess(ManagerUserBean manager) {
         if (isFromDiagnoseApply)
-            EventBus.getDefault().post(new Event(EventType.UPDATEPATIENT,null));
+            EventBus.getDefault().post(new Event(EventType.UPDATEPATIENT, null));
         else
             EventBus.getDefault().post(manager);
         this.finish();
@@ -208,14 +343,14 @@ public class AnamnesisActivity extends BaseControllerActivity<AnamnesisControlle
         if (marryHis.lastIndexOf(",") == marryHis.length() - 1 && marryHis.length() > 0) {
             marryHis.deleteCharAt(marryHis.length() - 1);
         }
-        if (marryHis.toString().length() > 100){
+        if (marryHis.toString().length() > 100) {
             ToastUtils.showShort("婚育史标签选择总字数不能超过100字");
             return null;
         }
         mManager.setMaritalHistory(marryHis.toString());
 
         StringBuffer surgeryHis = jointTags(mSurgeryFlow.getSelectedList(), mSurgeryTags);
-        if (mSurgeryEdit.getText().toString().length()+surgeryHis.length() >100){
+        if (mSurgeryEdit.getText().toString().length() + surgeryHis.length() > 100) {
             ToastUtils.showShort("手术或外伤史选择和补充内容不能超过100字");
             return null;
         }
@@ -228,7 +363,7 @@ public class AnamnesisActivity extends BaseControllerActivity<AnamnesisControlle
         mManager.setSurgeryHistory(surgeryHis.toString());
 
         StringBuffer familyHis = jointTags(mFamilyFlow.getSelectedList(), mFamilyTags);
-        if (mFamilyEdit.getText().toString().length()+familyHis.length() >100){
+        if (mFamilyEdit.getText().toString().length() + familyHis.length() > 100) {
             ToastUtils.showShort("家族史选择和补充内容不能超过100字");
             return null;
         }
@@ -244,14 +379,14 @@ public class AnamnesisActivity extends BaseControllerActivity<AnamnesisControlle
         if (personHis.lastIndexOf(",") == personHis.length() - 1 && personHis.length() > 0) {
             personHis.deleteCharAt(personHis.length() - 1);
         }
-        if (personHis.toString().length() > 100){
+        if (personHis.toString().length() > 100) {
             ToastUtils.showShort("个人史标签选择总字数不能超过100字");
             return null;
         }
         mManager.setPersonHistory(personHis.toString());
 
         StringBuffer allergyHis = jointTags(mAllergyFlow.getSelectedList(), mAllergyTags);
-        if (mAllergyEdit.getText().toString().length()+allergyHis.length() >100){
+        if (mAllergyEdit.getText().toString().length() + allergyHis.length() > 100) {
             ToastUtils.showShort("过敏史选择和补充内容不能超过100字");
             return null;
         }
