@@ -19,6 +19,10 @@ import android.util.Log;
 import android.util.SparseArray;
 
 import com.keydom.Common;
+import com.keydom.ih_common.R;
+import com.keydom.ih_common.avchatkit.AVChatKit;
+import com.keydom.ih_common.avchatkit.TeamAVChatProfile;
+import com.keydom.ih_common.avchatkit.common.log.LogUtil;
 import com.keydom.ih_common.bean.MessageEvent;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.constant.EventType;
@@ -61,8 +65,10 @@ import com.netease.nimlib.sdk.auth.AuthService;
 import com.netease.nimlib.sdk.auth.ClientType;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.auth.OnlineClient;
+import com.netease.nimlib.sdk.avchat.AVChatCallback;
 import com.netease.nimlib.sdk.avchat.AVChatManager;
 import com.netease.nimlib.sdk.avchat.constant.AVChatControlCommand;
+import com.netease.nimlib.sdk.avchat.model.AVChatChannelInfo;
 import com.netease.nimlib.sdk.avchat.model.AVChatData;
 import com.netease.nimlib.sdk.msg.MessageBuilder;
 import com.netease.nimlib.sdk.msg.MessageNotifierCustomization;
@@ -77,6 +83,8 @@ import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.AttachmentProgress;
 import com.netease.nimlib.sdk.msg.model.CustomMessageConfig;
+import com.netease.nimlib.sdk.msg.model.CustomNotification;
+import com.netease.nimlib.sdk.msg.model.CustomNotificationConfig;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.msg.model.QueryDirectionEnum;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
@@ -97,9 +105,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
@@ -278,7 +288,7 @@ public class ImClient {
             }
             // 有网络来电打开AVChatActivity
             AVChatProfile.getInstance().setAVChatting(true);
-            AVChatProfile.getInstance().launchActivity(avChatData,"",0);
+            AVChatProfile.getInstance().launchActivity(avChatData, "", 0);
 
         }
     };
@@ -805,6 +815,78 @@ public class ImClient {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setPackage(context.getPackageName());
         context.startActivity(intent);
+    }
+
+    public static void createRoom(final Context context, final String teamId,
+                                  final ArrayList<String> accounts) {
+        final String roomName = UUID.randomUUID().toString().replaceAll("-", "");
+        // 创建房间
+        AVChatManager.getInstance().createRoom(roomName, null,
+                new AVChatCallback<AVChatChannelInfo>() {
+            @Override
+            public void onSuccess(AVChatChannelInfo avChatChannelInfo) {
+                LogUtil.ui("create room " + roomName + " success !");
+                onCreateRoomSuccess(context, teamId, roomName, accounts);
+
+                String teamName = getTeamProvider().getTeamById(teamId).getName();
+
+                TeamAVChatProfile.sharedInstance().setTeamAVChatting(true);
+                AVChatKit.outgoingTeamCall(context, false, teamId, roomName, accounts, teamName);
+            }
+
+            @Override
+            public void onFailed(int code) {
+                onCreateRoomFail(context, teamId);
+            }
+
+            @Override
+            public void onException(Throwable exception) {
+                onCreateRoomFail(context, teamId);
+            }
+        });
+    }
+
+    private static void onCreateRoomSuccess(Context context, String teamID, String roomName,
+                                            ArrayList<String> accounts) {
+        // 在群里发送tip消息
+        IMMessage message = MessageBuilder.createTipMessage(teamID, SessionTypeEnum.Team);
+        CustomMessageConfig tipConfig = new CustomMessageConfig();
+        tipConfig.enableHistory = false;
+        tipConfig.enableRoaming = false;
+        tipConfig.enablePush = false;
+        String teamNick = ImClient.getUserInfoProvider().getUserInfo(AVChatKit.getAccount()).getName();
+        message.setContent(teamNick + context.getString(R.string.t_avchat_start));
+        message.setConfig(tipConfig);
+        sentMessage(message,false,null);
+        // 对各个成员发送点对点自定义通知
+        String teamName = getTeamProvider().getTeamById(teamID).getName();
+        String content = TeamAVChatProfile.sharedInstance().buildContent(roomName, teamID,
+                accounts, teamName);
+        CustomNotificationConfig config = new CustomNotificationConfig();
+        config.enablePush = true;
+        config.enablePushNick = false;
+        config.enableUnreadCount = true;
+
+        for (String account : accounts) {
+            CustomNotification command = new CustomNotification();
+            command.setSessionId(account);
+            command.setSessionType(SessionTypeEnum.P2P);
+            command.setConfig(config);
+            command.setContent(content);
+            command.setApnsText(teamNick + context.getString(R.string.t_avchat_push_content));
+
+            command.setSendToOnlineUserOnly(false);
+            NIMClient.getService(MsgService.class).sendCustomNotification(command);
+        }
+    }
+
+    private static void onCreateRoomFail(Context context, String teamId) {
+        // 本地插一条tip消息
+        IMMessage message = MessageBuilder.createTipMessage(teamId, SessionTypeEnum.Team);
+        message.setContent(context.getString(R.string.t_avchat_create_room_fail));
+        LogUtil.i("status", "team action set:" + MsgStatusEnum.success);
+        message.setStatus(MsgStatusEnum.success);
+        NIMClient.getService(MsgService.class).saveMessageToLocal(message, true);
     }
 
     /**

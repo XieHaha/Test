@@ -589,7 +589,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         } else {
             if (orderBean != null && orderBean.getInquisitionType() == 1) {
                 if (!isWaitingForComment)
-                    mMessageView.addPlugin(new VideoPlugin());
+                    mMessageView.addPlugin(new VideoPlugin(this));
             }
 
             mRightText.setVisibility(View.VISIBLE);

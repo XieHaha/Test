@@ -21,11 +21,16 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import io.reactivex.functions.Consumer;
 
 public class VideoPlugin implements IPluginModule {
+    private Context context;
 
     private boolean permissionsResult;
 
     private boolean team;
     private String teamId;
+
+    public VideoPlugin(Context context) {
+        this.context = context;
+    }
 
     public void setTeam(boolean team) {
         this.team = team;
@@ -51,7 +56,7 @@ public class VideoPlugin implements IPluginModule {
             if (team) {
                 Intent intent = new Intent(activity, ContactSelectActivity.class);
                 intent.putExtra("teamId", teamId);
-                activity.startActivity(intent);
+                activity.startActivityForResult(intent, 1000);
             } else {
                 ImClient.startAVChatCall(activity, extension.accountId,
                         AVChatType.VIDEO.getValue());
@@ -61,7 +66,6 @@ public class VideoPlugin implements IPluginModule {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
     }
 
     @SuppressLint("CheckResult")

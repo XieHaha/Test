@@ -1,5 +1,6 @@
 package com.keydom.ih_common.avchatkit.selector.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,7 +35,7 @@ public class ContactSelectActivity extends BaseControllerActivity<ContactSelectC
     RecyclerView recyclerView;
     private List<UserInfo> nimUserInfos;
     private ContactSelectAdapter selectAdapter;
-    private List<String> selectIds = new ArrayList<>();
+    private ArrayList<String> selectIds = new ArrayList<>();
 
     @Override
     public int getLayoutRes() {
@@ -66,10 +67,17 @@ public class ContactSelectActivity extends BaseControllerActivity<ContactSelectC
             @Override
             public void OnRightTextClick(View v) {
                 if (selectIds != null && selectIds.size() > 0) {
-
+                    commit();
                 }
             }
         });
+    }
+
+    private void commit() {
+        Intent intent = new Intent();
+        intent.putExtra("accounts", selectIds);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     private void filterData(List<TeamMember> result) {

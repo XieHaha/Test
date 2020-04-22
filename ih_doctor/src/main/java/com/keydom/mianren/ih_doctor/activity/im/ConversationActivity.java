@@ -98,6 +98,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jsoup.helper.StringUtil;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -124,6 +125,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      * 重新获取问诊单，更新状态
      */
     public static final int UPDATE_STATUS = 1002;
+    /**
+     * 成员邀请
+     */
+    public static final int SELECT_MEMBER = 1000;
     private ImageView mInquiryTypeImage;
     private TextView mInquiryTypeTv;
     private TextView mQuestionRemainingTimeTv;
@@ -511,7 +516,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         inquiryPopTriageTv.setOnClickListener(this);
         inquiryPopConsultationTv.setOnClickListener(this);
         inquiryPopDiagnosticPrescriptionTv.setOnClickListener(this);
-        mVideoPlugin = new VideoPlugin();
+        mVideoPlugin = new VideoPlugin(this);
         mVideoPlugin.setTeam(team);
         mVideoPlugin.setTeamId(sessionId);
         mEndInquiryPlugin = new EndInquiryPlugin(() -> {
@@ -837,6 +842,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 case UPDATE_STATUS:
                     getController().getInquiryStatus();
                     break;
+                case SELECT_MEMBER:
+                    startTeamAVChat(data.getStringArrayListExtra("accounts"));
+                    break;
             }
         }
         if (resultCode == SEND_MESSAGE) {//启动处方页面，取消复诊提交后返回的信息
@@ -853,6 +861,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         }
         mMessageView.onActivityPluginResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void startTeamAVChat(ArrayList<String> accounts) {
+        ImClient.createRoom(this, sessionId, accounts);
+    }
+
+    private interface CallBack{
+        void onCallBack();
     }
 
     /**
