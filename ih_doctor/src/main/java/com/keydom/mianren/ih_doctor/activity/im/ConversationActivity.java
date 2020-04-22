@@ -512,6 +512,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         inquiryPopConsultationTv.setOnClickListener(this);
         inquiryPopDiagnosticPrescriptionTv.setOnClickListener(this);
         mVideoPlugin = new VideoPlugin();
+        mVideoPlugin.setTeam(team);
+        mVideoPlugin.setTeamId(sessionId);
         mEndInquiryPlugin = new EndInquiryPlugin(() -> {
             mMessageView.hideExtension();
             mEndTheConsultationLl.setVisibility(View.VISIBLE);

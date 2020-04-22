@@ -8,10 +8,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.keydom.ih_common.R;
-import com.keydom.ih_common.avchatkit.AVChatKit;
 import com.keydom.ih_common.avchatkit.common.dialog.CustomAlertDialog;
 import com.keydom.ih_common.avchatkit.teamavchat.adapter.TeamAVChatVoiceMuteAdapter;
 import com.keydom.ih_common.avchatkit.teamavchat.module.TeamAVChatVoiceMuteItem;
+import com.keydom.ih_common.im.ImClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class TeamAVChatVoiceMuteDialog extends CustomAlertDialog {
             TeamAVChatVoiceMuteItem item = new TeamAVChatVoiceMuteItem();
             item.setAccount(voiceMute.first);
             item.setMute(voiceMute.second);
-            item.setDisplayName(AVChatKit.getTeamDataProvider().getTeamMemberDisplayName(teamId, item.getAccount()));
+            item.setDisplayName(ImClient.getTeamProvider().getTeamMember(teamId,item.getAccount()).getTeamNick());
             data.add(item);
         }
         adapter = new TeamAVChatVoiceMuteAdapter(context, data);

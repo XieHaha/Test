@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.keydom.ih_common.R;
+import com.keydom.ih_common.avchatkit.selector.activity.ContactSelectActivity;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.listener.IPluginModule;
 import com.keydom.ih_common.im.widget.ImExtension;
@@ -22,6 +23,17 @@ import io.reactivex.functions.Consumer;
 public class VideoPlugin implements IPluginModule {
 
     private boolean permissionsResult;
+
+    private boolean team;
+    private String teamId;
+
+    public void setTeam(boolean team) {
+        this.team = team;
+    }
+
+    public void setTeamId(String teamId) {
+        this.teamId = teamId;
+    }
 
     @Override
     public Drawable obtainDrawable(Context context) {
@@ -36,7 +48,14 @@ public class VideoPlugin implements IPluginModule {
     @Override
     public void onClick(AppCompatActivity activity, ImExtension extension) {
         if (requestCallPermissions(activity) && FloatPermissionManager.INSTANCE.applyFloatWindow(activity)) {
-            ImClient.startAVChatCall(activity, extension.accountId, AVChatType.VIDEO.getValue());
+            if (team) {
+                Intent intent = new Intent(activity, ContactSelectActivity.class);
+                intent.putExtra("teamId", teamId);
+                activity.startActivity(intent);
+            } else {
+                ImClient.startAVChatCall(activity, extension.accountId,
+                        AVChatType.VIDEO.getValue());
+            }
         }
     }
 
@@ -48,8 +67,10 @@ public class VideoPlugin implements IPluginModule {
     @SuppressLint("CheckResult")
     private boolean requestCallPermissions(AppCompatActivity appCompatActivity) {
         String[] permissions = new String[]{Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.INTERNET, Manifest.permission.READ_PHONE_STATE, Manifest.permission.MODIFY_AUDIO_SETTINGS};
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.INTERNET, Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.MODIFY_AUDIO_SETTINGS};
         boolean granted = true;
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(appCompatActivity, permission) != PackageManager.PERMISSION_GRANTED) {

@@ -278,7 +278,7 @@ public class ImClient {
             }
             // 有网络来电打开AVChatActivity
             AVChatProfile.getInstance().setAVChatting(true);
-            AVChatProfile.getInstance().launchActivity(avChatData);
+            AVChatProfile.getInstance().launchActivity(avChatData,"",0);
 
         }
     };

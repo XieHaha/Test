@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.keydom.ih_common.R;
 import com.keydom.ih_common.avchatkit.AVChatKit;
+import com.keydom.ih_common.im.ImClient;
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.nos.model.NosThumbParam;
@@ -56,7 +57,7 @@ public class HeadImageView extends CircleImageView {
      * @param account 用户账号
      */
     public void loadBuddyAvatar(String account) {
-        final UserInfo userInfo = AVChatKit.getUserInfoProvider().getUserInfo(account);
+        final UserInfo userInfo = ImClient.getUserInfoProvider().getUserInfo(account);
         changeUrlBeforeLoad(userInfo != null ? userInfo.getAvatar() : null, DEFAULT_AVATAR_RES_ID,
                             DEFAULT_AVATAR_THUMB_SIZE);
     }

@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.keydom.ih_common.R;
 import com.keydom.ih_common.avchatkit.AVChatKit;
-import com.keydom.ih_common.avchatkit.AVChatProfile;
 import com.keydom.ih_common.avchatkit.common.activity.UI;
 import com.keydom.ih_common.avchatkit.common.log.LogUtil;
 import com.keydom.ih_common.avchatkit.constant.AVChatExitCode;
@@ -25,6 +24,7 @@ import com.keydom.ih_common.avchatkit.receiver.PhoneCallStateObserver;
 import com.keydom.ih_common.avchatkit.teamavchat.module.SimpleAVChatStateObserver;
 import com.keydom.ih_common.avchatkit.ui.AVChatAudioUI;
 import com.keydom.ih_common.avchatkit.ui.AVChatVideoUI;
+import com.keydom.ih_common.im.profile.AVChatProfile;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.StatusCode;

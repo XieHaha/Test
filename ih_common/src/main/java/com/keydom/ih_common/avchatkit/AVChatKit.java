@@ -13,6 +13,7 @@ import com.keydom.ih_common.avchatkit.model.ITeamDataProvider;
 import com.keydom.ih_common.avchatkit.model.IUserInfoProvider;
 import com.keydom.ih_common.avchatkit.receiver.PhoneCallStateObserver;
 import com.keydom.ih_common.avchatkit.teamavchat.activity.TeamAVChatActivity;
+import com.keydom.ih_common.im.profile.AVChatProfile;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.avchat.AVChatManager;
 import com.netease.nimlib.sdk.avchat.constant.AVChatControlCommand;

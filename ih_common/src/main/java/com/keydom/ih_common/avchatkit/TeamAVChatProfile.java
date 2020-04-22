@@ -8,6 +8,7 @@ import com.keydom.ih_common.avchatkit.common.Handlers;
 import com.keydom.ih_common.avchatkit.common.log.LogUtil;
 import com.keydom.ih_common.avchatkit.common.util.TimeUtil;
 import com.keydom.ih_common.avchatkit.teamavchat.activity.TeamAVChatActivity;
+import com.keydom.ih_common.im.profile.AVChatProfile;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.auth.AuthServiceObserver;

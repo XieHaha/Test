@@ -33,7 +33,7 @@ public class AVChatProfile {
         public final static AVChatProfile instance = new AVChatProfile();
     }
 
-    public void launchActivity(final AVChatData data) {
+    public void launchActivity(final AVChatData data, final String displayName, final int source) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {

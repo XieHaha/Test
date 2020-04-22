@@ -13,6 +13,7 @@ import com.keydom.ih_common.avchatkit.AVChatKit;
 import com.keydom.ih_common.avchatkit.common.recyclerview.adapter.BaseMultiItemFetchLoadAdapter;
 import com.keydom.ih_common.avchatkit.common.recyclerview.holder.BaseViewHolder;
 import com.keydom.ih_common.avchatkit.teamavchat.module.TeamAVChatItem;
+import com.keydom.ih_common.im.ImClient;
 import com.netease.nimlib.sdk.avchat.model.AVChatTextureViewRenderer;
 import com.netease.nimlib.sdk.nos.model.NosThumbParam;
 import com.netease.nimlib.sdk.nos.util.NosThumbImageUtil;
@@ -57,8 +58,7 @@ public class TeamAVChatItemViewHolder extends TeamAVChatItemViewHolderBase {
     }
 
     protected void refresh(final TeamAVChatItem data) {
-        nickNameText.setText(AVChatKit.getTeamDataProvider().getDisplayNameWithoutMe(data.teamId,
-                data.account));
+        nickNameText.setText(ImClient.getTeamProvider().getTeamMember(data.teamId,data.account).getTeamNick());
         loadAvatar(data);
         if (data.state == TeamAVChatItem.STATE.STATE_WAITING) {
             // 等待接听
@@ -85,7 +85,7 @@ public class TeamAVChatItemViewHolder extends TeamAVChatItemViewHolderBase {
     }
 
     private void loadAvatar(TeamAVChatItem data) {
-        final UserInfo userInfo = AVChatKit.getUserInfoProvider().getUserInfo(data.account);
+        final UserInfo userInfo = ImClient.getUserInfoProvider().getUserInfo(data.account);;
         final int defaultResId = R.mipmap.t_avchat_avatar_default;
         changeUrlBeforeLoad(userInfo != null ? userInfo.getAvatar() : null, defaultResId,
                 DEFAULT_AVATAR_THUMB_SIZE);

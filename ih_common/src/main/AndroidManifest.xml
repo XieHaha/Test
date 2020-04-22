@@ -125,6 +125,7 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".avchatkit.selector.activity.ContactSelectActivity" />
     </application>
 
 </manifest>

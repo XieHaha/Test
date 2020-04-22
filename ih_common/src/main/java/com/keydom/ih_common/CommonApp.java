@@ -5,8 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.multidex.MultiDexApplication;
 
 import com.keydom.Common;
+import com.keydom.ih_common.avchatkit.AVChatKit;
+import com.keydom.ih_common.avchatkit.ActivityMgr;
+import com.keydom.ih_common.avchatkit.TeamAVChatProfile;
+import com.keydom.ih_common.avchatkit.config.AVChatOptions;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.listener.observer.LoginSyncDataStatusObserver;
+import com.keydom.ih_common.im.manager.ImPreferences;
 import com.keydom.ih_common.im.manager.NimUserInfoCache;
 import com.keydom.ih_common.im.manager.TeamDataCache;
 import com.keydom.ih_common.im.model.custom.CustomAttachParser;
@@ -34,28 +39,34 @@ import static com.keydom.ih_common.im.ImClient.userStatusObserver;
 public class CommonApp extends MultiDexApplication {
     public static final String SHAREPREFERENCE_NAME = "hospital_per";
     public static Application mApplication;
+
     @Override
     public void onCreate() {
         super.onCreate();
         Common.INSTANCE.init(this);
         ImClient.init(this);
-        mApplication=this;
+        AVChatKit.setAccount(ImPreferences.getUserAccount());
+        mApplication = this;
         if (NIMUtil.isMainProcess(this)) {
             JPushInterface.setDebugMode(true);
             JPushInterface.init(this);
             SharePreferenceManager.init(this, SHAREPREFERENCE_NAME);
             initLogger();
-            NIMClient.getService(AuthServiceObserver.class).observeOtherClients(clientsObserver, true);
-            NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatusObserver,true);
+            NIMClient.getService(AuthServiceObserver.class).observeOtherClients(clientsObserver,
+                    true);
+            NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatusObserver, true);
             NIMClient.getService(MsgService.class).registerCustomAttachmentParser(new CustomAttachParser());
             NIMClient.getService(MsgServiceObserve.class).observeReceiveMessage(incomingMessageObserver, true);
             NIMClient.getService(MsgServiceObserve.class).observeAttachmentProgress(attachmentProgressObserver, true);
             NIMClient.getService(MsgServiceObserve.class).observeRevokeMessage(new NimMessageRevokeObserver(), true);
+            //            NIMClient.getService(MsgServiceObserve.class).observeCustomNotification
+            //            (customNotificationObserver, true);
             AVChatManager.getInstance().observeIncomingCall(inComingCallObserver, true);
             LoginSyncDataStatusObserver.getInstance().registerLoginSyncDataStatus(true);
             NimUserInfoCache.getInstance().registerObservers(true);
             TeamDataCache.getInstance().registerObservers(true);
             ImClient.getUserInfoObservable().registerObserver(userInfoObserver, true);
+            initAVChatKit();
         }
     }
 
@@ -74,4 +85,13 @@ public class CommonApp extends MultiDexApplication {
             }
         });
     }
+
+    private void initAVChatKit() {
+        AVChatOptions avChatOptions = new AVChatOptions();
+        ActivityMgr.INST.init(this);
+        AVChatKit.init(avChatOptions);
+        AVChatKit.setContext(this);
+        TeamAVChatProfile.sharedInstance().registerObserver(true);
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.keydom.ih_common.im.widget.provider;
 
+import com.keydom.ih_common.avchatkit.AVChatKit;
 import com.keydom.ih_common.im.listener.SimpleCallback;
 import com.keydom.ih_common.im.manager.NimUserInfoCache;
 import com.netease.nimlib.sdk.RequestCallbackWrapper;
@@ -22,6 +23,7 @@ public class DefaultUserInfoProvider implements IUserInfoProvider<NimUserInfo> {
     @Override
     public void setAccount(String account) {
         this.account = account.toLowerCase();
+        AVChatKit.setAccount(this.account);
     }
 
 
