@@ -92,7 +92,6 @@ public class DiagnoseOrderFragment extends BaseControllerFragment<DiagnoseOrderF
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadMore();
         pageLoadingSuccess();
-
     }
 
     @Override

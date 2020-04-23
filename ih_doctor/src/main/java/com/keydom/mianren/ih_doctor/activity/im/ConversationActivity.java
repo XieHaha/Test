@@ -999,7 +999,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     @Override
     public void acceptSuccess() {
         if (team) {
-            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.Team,
+            mMessageView.addData(ImClient.createTipMessage(sessionId, SessionTypeEnum.Team,
                     "问诊开始，本次问诊可持续" + orderBean.getDuration() + "小时"));
         } else {
             mMessageView.addData(ImClient.createTipMessage(sessionId, SessionTypeEnum.P2P,

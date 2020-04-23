@@ -71,6 +71,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     public static final String TYPE = "type";
     private SmartRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
+    private RelativeLayout emptyLayout;
     private DiagnosesOrderAdapter diagnosesOrderAdapter;
     private int mStatus;
     private int page = 1;
@@ -122,6 +123,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     public void getView(View view) {
         mRefreshLayout = view.findViewById(R.id.examination_refresh);
         mRecyclerView = view.findViewById(R.id.examination_rv);
+        emptyLayout = view.findViewById(R.id.empty_layout);
     }
 
     @Override
@@ -157,23 +159,25 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                 || state == diagnosesOrderAdapter.changDoctor
                 || state == diagnosesOrderAdapter.waiteEvaluate
                 || state == diagnosesOrderAdapter.complete) {
-//            NimUserInfo userInfo = (NimUserInfo) getUserInfoProvider().getUserInfo(bean.getDoctorCode());
-//            if (userInfo != null) {
-//                Map<String, Object> extension = userInfo.getExtensionMap();
-//                if (extension != null && extension.get(ImConstants.CALL_USER_TYPE) != null) {
-                    if (TextUtils.isEmpty(bean.getGroupTid())) {
-                        ImClient.startConversation(getContext(), bean.getDoctorCode(), null);
-                    } else {
-                        Bundle bundle = new Bundle();
-                        bundle.putBoolean(ImConstants.TEAM, true);
-                        bundle.putLong("orderId", bean.getId());
-                        ImClient.startConversation(getContext(), bean.getGroupTid(), bundle);
-                    }
-//                } else
-//                    ToastUtil.showMessage(getContext(), "医生账号异常");
-//            } else {
-//                ToastUtil.showMessage(getContext(), "医生账号异常");
-//            }
+            //            NimUserInfo userInfo = (NimUserInfo) getUserInfoProvider().getUserInfo
+            //            (bean.getDoctorCode());
+            //            if (userInfo != null) {
+            //                Map<String, Object> extension = userInfo.getExtensionMap();
+            //                if (extension != null && extension.get(ImConstants.CALL_USER_TYPE)
+            //                != null) {
+            if (TextUtils.isEmpty(bean.getGroupTid())) {
+                ImClient.startConversation(getContext(), bean.getDoctorCode(), null);
+            } else {
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(ImConstants.TEAM, true);
+                bundle.putLong("orderId", bean.getId());
+                ImClient.startConversation(getContext(), bean.getGroupTid(), bundle);
+            }
+            //                } else
+            //                    ToastUtil.showMessage(getContext(), "医生账号异常");
+            //            } else {
+            //                ToastUtil.showMessage(getContext(), "医生账号异常");
+            //            }
         }
 
     }
@@ -848,9 +852,11 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         } else {
             diagnosesOrderAdapter.addData(orderBeanArrayList);
         }
-        pageLoadingSuccess();
         if (orderBeanArrayList != null && orderBeanArrayList.size() != 0) {
             getController().currentPagePlus();
+            emptyLayout.setVisibility(View.GONE);
+        } else {
+            emptyLayout.setVisibility(View.VISIBLE);
         }
     }
 

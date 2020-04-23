@@ -63,7 +63,7 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
         map.put("state", status);
         map.put("currentPage", getCurrentPage());
         map.put("pageSize", Const.PAGE_SIZE);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getlistPatientInquisition(map), new HttpSubscriber<PageBean<DiagnosesOrderBean>>(getContext(),getDisposable(),false,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getlistPatientInquisition(map), new HttpSubscriber<PageBean<DiagnosesOrderBean>>(getContext(),getDisposable(),false) {
             @Override
             public void requestComplete(@Nullable PageBean<DiagnosesOrderBean> data) {
                 getView().getDiagnosesOrderListSuccess(data.getRecords(),typeEnum);
@@ -303,13 +303,11 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PayService.class).getDeliveryCost(map), new HttpSubscriber<String>(getContext(),getDisposable(),true,true) {
             @Override
             public void requestComplete(@Nullable String data) {
-                hideLoading();
                 getView().getDistributionFee(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -320,7 +318,6 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
      * 获取地址列表
      */
     public void getLocationList() {
-        showLoading();
         Map<String, Object> map = new HashMap<>();
         map.put("userId", Global.getUserId());
         map.put("currentPage", "1");
@@ -328,13 +325,11 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LocationService.class).getAddressList(map), new HttpSubscriber<PageBean<LocationInfo>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable PageBean<LocationInfo> data) {
-                hideLoading();
                 getView().getLocationList(data.getRecords());
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 return super.requestError(exception, code, msg);
             }
         });
