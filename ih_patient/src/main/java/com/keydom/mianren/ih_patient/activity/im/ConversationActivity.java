@@ -872,6 +872,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     (EndInquiryAttachment) event.getMessage().getAttachment();
             if (attachment.getEndType() == EndInquiryAttachment.DOCTOR_APPLY_END) {
                 inquiryStatus = InquiryStatus.INQUIRY_COMPLETE;
+                if (team) {
+                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                            SessionTypeEnum.Team, "此次问诊已结束"));
+                } else {
+                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                            SessionTypeEnum.P2P, "此次问诊已结束"));
+                }
                 getController().getInquiryStatus();
             }
         }

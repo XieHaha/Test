@@ -914,22 +914,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.DIAGNOSE_ORDER_UPDATE).build());
                 inquiryStatus = InquiryStatus.INQUIRY_PRESCRIBE;
                 inquiryEnd();
-                if (orderType == 0) {
-                    if (team) {
-                        mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
-                                SessionTypeEnum.Team, "患者已同意结束此次问诊"));
-                    } else {
-                        mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
-                                SessionTypeEnum.P2P, "患者已同意结束此次问诊"));
-                    }
+                if (team) {
+                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                            SessionTypeEnum.Team, "患者已同意结束此次问诊"));
                 } else {
-                    if (team) {
-                        mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
-                                SessionTypeEnum.Team, "患者已同意结束此次问诊"));
-                    } else {
-                        mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
-                                SessionTypeEnum.P2P, "患者已同意结束此次问诊"));
-                    }
+                    mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+                            SessionTypeEnum.P2P, "患者已同意结束此次问诊"));
                 }
             }
             //如果患者不同意结束问诊
@@ -1040,15 +1030,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         if (team) {
             mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.Team,
                     "[结束问诊消息]", endInquiryAttachment));
-            //            mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
-            //            SessionTypeEnum.Team,
-            //                    "您已发起结束问诊，等待患者确认"));
+            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.Team,
+                    "此次问诊已结束"));
         } else {
             mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.P2P,
                     "[结束问诊消息]", endInquiryAttachment));
-            //            mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
-            //            SessionTypeEnum.P2P,
-            //                    "您已发起结束问诊，等待患者确认"));
+            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
+                    "此次问诊已结束"));
         }
         getController().getInquiryStatus();
     }
