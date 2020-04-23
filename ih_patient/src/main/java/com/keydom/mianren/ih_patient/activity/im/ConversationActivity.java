@@ -596,13 +596,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             if (orderBean != null && orderBean.getInquisitionType() == 1) {
                 if (!isWaitingForComment)
                     videoPlugin = new VideoPlugin(this);
-                    videoPlugin.setTeam(team);
-                    videoPlugin.setTeamId(sessionId);
-                    mMessageView.addPlugin(videoPlugin);
+                videoPlugin.setTeam(team);
+                videoPlugin.setTeamId(sessionId);
+                mMessageView.addPlugin(videoPlugin);
             }
 
-            mRightText.setVisibility(View.VISIBLE);
-            mRightText.setText("结束诊断");
+            //            mRightText.setVisibility(View.VISIBLE);
+            //            mRightText.setText("结束诊断");
         }
         if (InquiryStatus.AUDIT_FAILE == inquiryStatus) {
             mRightText.setVisibility(View.GONE);
@@ -871,8 +871,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             EndInquiryAttachment attachment =
                     (EndInquiryAttachment) event.getMessage().getAttachment();
             if (attachment.getEndType() == EndInquiryAttachment.DOCTOR_APPLY_END) {
-                inquiryStatus = InquiryStatus.INQUIRY_APPLY_END;
-                inquiryApply();
+                inquiryStatus = InquiryStatus.INQUIRY_COMPLETE;
+                getController().getInquiryStatus();
             }
         }
     }

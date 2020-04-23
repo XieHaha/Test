@@ -140,8 +140,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private ConstraintLayout mCompletedCl;
     private ImMessageView mMessageView;
     private PopupWindow mPopupWindow;
-    private TextView referralTv, inquiryPopTriageTv, inquiryPopConsultationTv,
-            inquiryPopDiagnosticPrescriptionTv;
+    private TextView inspection, examination, referralTv, inquiryPopTriageTv,
+            inquiryPopConsultationTv,
+            inquiryPopDiagnosticPrescriptionTv, inquiryPopAdvice;
     private String sessionId;
     private InquiryBean orderBean;
     private boolean isGetStatus = false;
@@ -505,20 +506,34 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
         view = getLayoutInflater().inflate(R.layout.im_inquiry_pop_layout, null, false);
         initPopupWindow();
+        //检验申请
+        inspection = view.findViewById(R.id.inspection);
+        inspection.setOnClickListener(this);
+        //检查申请
+        examination = view.findViewById(R.id.examination);
+        examination.setOnClickListener(this);
+        //转诊
         referralTv = view.findViewById(R.id.referral);
+        referralTv.setOnClickListener(this);
+        //分诊
         inquiryPopTriageTv = view.findViewById(R.id.inquiry_pop_triage_tv);
+        inquiryPopTriageTv.setOnClickListener(this);
+        //会诊
         inquiryPopConsultationTv = view.findViewById(R.id.inquiry_pop_consultation_tv);
+        inquiryPopConsultationTv.setOnClickListener(this);
+        //诊断与处方
         inquiryPopDiagnosticPrescriptionTv =
                 view.findViewById(R.id.inquiry_pop_diagnostic_prescription_tv);
-        view.findViewById(R.id.inspection).setOnClickListener(this);
-        view.findViewById(R.id.examination).setOnClickListener(this);
-        referralTv.setOnClickListener(this);
-        inquiryPopTriageTv.setOnClickListener(this);
-        inquiryPopConsultationTv.setOnClickListener(this);
         inquiryPopDiagnosticPrescriptionTv.setOnClickListener(this);
+        //处置建议
+        inquiryPopAdvice = view.findViewById(R.id.inquiry_pop_advice_tv);
+        inquiryPopAdvice.setOnClickListener(this);
+
         mVideoPlugin = new VideoPlugin(this);
+        //区分群聊单聊视频发起
         mVideoPlugin.setTeam(team);
         mVideoPlugin.setTeamId(sessionId);
+
         mEndInquiryPlugin = new EndInquiryPlugin(() -> {
             mMessageView.hideExtension();
             mEndTheConsultationLl.setVisibility(View.VISIBLE);
@@ -601,8 +616,15 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             mPopupWindow.getContentView().findViewById(R.id.examination).setVisibility(View.GONE);
         }
         if (orderType == 1) {
-            mPopupWindow.getContentView().findViewById(R.id.referral).setVisibility(View.GONE);
-            setRightImgVisibility(false);
+            //            mPopupWindow.getContentView().findViewById(R.id.referral).setVisibility
+            //            (View.GONE);
+            //            setRightImgVisibility(false);
+            inspection.setVisibility(View.GONE);
+            examination.setVisibility(View.GONE);
+            referralTv.setVisibility(View.GONE);
+            inquiryPopTriageTv.setVisibility(View.GONE);
+            inquiryPopConsultationTv.setVisibility(View.GONE);
+            inquiryPopDiagnosticPrescriptionTv.setVisibility(View.GONE);
         }
         if (referralState == 0 || referralState == 1) {
             referralTv.setText("取消转诊");
@@ -720,7 +742,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 }
                 break;
             case R.id.disposal_advice_ll:
-                //                DiagnoseHandleProposalActivity.start(this, orderBean);
                 DiagnosePrescriptionActivity.startHandle(this, orderBean);
                 break;
             case R.id.inspection:
@@ -791,6 +812,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 } else {
                     showNotAccessDialog();
                 }
+                if (mPopupWindow != null) {
+                    mPopupWindow.dismiss();
+                }
+                break;
+            case R.id.inquiry_pop_advice_tv:
+                //处置建议
+                DiagnosePrescriptionActivity.startHandle(this, orderBean);
                 if (mPopupWindow != null) {
                     mPopupWindow.dismiss();
                 }
@@ -867,7 +895,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         ImClient.createRoom(this, sessionId, accounts);
     }
 
-    private interface CallBack{
+    private interface CallBack {
         void onCallBack();
     }
 
@@ -976,7 +1004,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             referralState = data.getReferralState();
         }
         initStatus();
-
     }
 
     @Override
@@ -1003,7 +1030,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     @Override
     public void endSuccess() {
-        inquiryStatus = InquiryStatus.INQUIRY_APPLY_END;
+        inquiryStatus = InquiryStatus.INQUIRY_COMPLETE;
         EndInquiryAttachment endInquiryAttachment = new EndInquiryAttachment();
         endInquiryAttachment.setId(orderBean.getId());
         endInquiryAttachment.setSponsorId(ImClient.getUserInfoProvider().getAccount());
@@ -1013,15 +1040,17 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         if (team) {
             mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.Team,
                     "[结束问诊消息]", endInquiryAttachment));
-            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.Team,
-                    "您已发起结束问诊，等待患者确认"));
+            //            mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+            //            SessionTypeEnum.Team,
+            //                    "您已发起结束问诊，等待患者确认"));
         } else {
             mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.P2P,
                     "[结束问诊消息]", endInquiryAttachment));
-            mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
-                    "您已发起结束问诊，等待患者确认"));
+            //            mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
+            //            SessionTypeEnum.P2P,
+            //                    "您已发起结束问诊，等待患者确认"));
         }
-        inquiryApply();
+        getController().getInquiryStatus();
     }
 
     @Override

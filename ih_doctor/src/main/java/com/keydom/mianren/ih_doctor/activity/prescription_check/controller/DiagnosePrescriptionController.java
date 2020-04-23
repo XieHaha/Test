@@ -254,17 +254,14 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
      * 获取处方详情，修改处方的时候调用
      */
     public void getPrescriptionDetail() {
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getDetailById(getView().getDetailMap()), new HttpSubscriber<DoctorPrescriptionDetailBean>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getDetailById(getView().getDetailMap()), new HttpSubscriber<DoctorPrescriptionDetailBean>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable DoctorPrescriptionDetailBean data) {
-                hideLoading();
                 getView().getPrescriptionDetailSuccess(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 getView().getPrescriptionDetailFailed(msg);
                 return super.requestError(exception, code, msg);
             }
