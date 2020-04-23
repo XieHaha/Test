@@ -40,13 +40,23 @@ public class ConversationController extends ControllerImpl<ConversationView> {
      * 获取问诊状态
      */
     public void getInquiryStatus() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getOrderDetails(getView().getUserId(), "1", getView().getDoctorCode()),
-                new HttpSubscriber<InquiryBean>(getContext(), getDisposable(), true, false) {
-                    @Override
-                    public void requestComplete(@Nullable InquiryBean data) {
-                        getView().loadSuccess(data);
-                    }
-                });
+        if (getView().isTeam()) {
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getOrderDetailsByVip(getView().getUserId(), "1", getView().getId()),
+                    new HttpSubscriber<InquiryBean>(getContext(), getDisposable(), true, false) {
+                        @Override
+                        public void requestComplete(@Nullable InquiryBean data) {
+                            getView().loadSuccess(data);
+                        }
+                    });
+        } else {
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getOrderDetails(getView().getUserId(), "1", getView().getDoctorCode()),
+                    new HttpSubscriber<InquiryBean>(getContext(), getDisposable(), true, false) {
+                        @Override
+                        public void requestComplete(@Nullable InquiryBean data) {
+                            getView().loadSuccess(data);
+                        }
+                    });
+        }
     }
 
 
@@ -91,7 +101,8 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                     }
 
                     @Override
-                    public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                    public boolean requestError(@NotNull ApiException exception, int code,
+                                                @NotNull String msg) {
                         ToastUtil.showMessage(getContext(), msg);
                         return true;
                     }
@@ -106,64 +117,69 @@ public class ConversationController extends ControllerImpl<ConversationView> {
             ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).inquiryPay(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>() {
                 @Override
                 public void requestComplete(@org.jetbrains.annotations.Nullable String data) {
-                    if(type==2){
+                    if (type == 2) {
                         try {
                             JSONObject object = new JSONObject(data);
                             Logger.e("return_msg:" + object.getString("return_msg"));
-                            new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
-                                @Override
-                                public void onSuccess() {
-                                    ToastUtil.showMessage(getContext(), "支付成功");
-                                    new GeneralDialog(getContext(), "支付成功", new GeneralDialog.OnCloseListener() {
+                            new Alipay(getContext(), object.getString("return_msg"),
+                                    new Alipay.AlipayResultCallBack() {
                                         @Override
-                                        public void onCommit() {
-                                            getView().paySuccess();
+                                        public void onSuccess() {
+                                            ToastUtil.showMessage(getContext(), "支付成功");
+                                            new GeneralDialog(getContext(), "支付成功",
+                                                    new GeneralDialog.OnCloseListener() {
+                                                        @Override
+                                                        public void onCommit() {
+                                                            getView().paySuccess();
+                                                        }
+                                                    }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
                                         }
-                                    }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
-                                }
 
-                                @Override
-                                public void onDealing() {
+                                        @Override
+                                        public void onDealing() {
 
-                                }
+                                        }
 
-                                @Override
-                                public void onError(int error_code) {
-                                    ToastUtil.showMessage(getContext(), "支付失败" + error_code);
-                                }
+                                        @Override
+                                        public void onError(int error_code) {
+                                            ToastUtil.showMessage(getContext(),
+                                                    "支付失败" + error_code);
+                                        }
 
-                                @Override
-                                public void onCancel() {
+                                        @Override
+                                        public void onCancel() {
 
-                                }
-                            }).doPay();
+                                        }
+                                    }).doPay();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    }else if(type==1){
-                        WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
-                            @Override
-                            public void onSuccess() {
-                                ToastUtil.showMessage(getContext(), "支付成功");
-                                new GeneralDialog(getContext(), "支付成功", new GeneralDialog.OnCloseListener() {
+                    } else if (type == 1) {
+                        WXPay.getInstance().doPay(getContext(), data,
+                                new WXPay.WXPayResultCallBack() {
                                     @Override
-                                    public void onCommit() {
-                                        getView().paySuccess();
+                                    public void onSuccess() {
+                                        ToastUtil.showMessage(getContext(), "支付成功");
+                                        new GeneralDialog(getContext(), "支付成功",
+                                                new GeneralDialog.OnCloseListener() {
+                                                    @Override
+                                                    public void onCommit() {
+                                                        getView().paySuccess();
+                                                    }
+                                                }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
                                     }
-                                }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
-                            }
 
-                            @Override
-                            public void onError(int error_code) {
-                                ToastUtil.showMessage(getContext(),"支付失败"+error_code
-                                );
-                            }
+                                    @Override
+                                    public void onError(int error_code) {
+                                        ToastUtil.showMessage(getContext(), "支付失败" + error_code
+                                        );
+                                    }
 
-                            @Override
-                            public void onCancel() {
+                                    @Override
+                                    public void onCancel() {
 
-                            }
-                        });
+                                    }
+                                });
                     }
 
                 }
@@ -179,10 +195,10 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                 new HttpSubscriber<Integer>(getContext(), getDisposable(), true, false) {
                     @Override
                     public void requestComplete(@Nullable Integer data) {
-                        if(0 == data || 3 == data){ // 0和3是未支付 , // 3是外延
-                            getView().payType(false,3 == data);
-                        }else{
-                            getView().payType(true,false);
+                        if (0 == data || 3 == data) { // 0和3是未支付 , // 3是外延
+                            getView().payType(false, 3 == data);
+                        } else {
+                            getView().payType(true, false);
                         }
 
                     }
@@ -204,7 +220,8 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                     }
 
                     @Override
-                    public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                    public boolean requestError(@NotNull ApiException exception, int code,
+                                                @NotNull String msg) {
                         getView().returnBackFailed(msg);
                         return super.requestError(exception, code, msg);
                     }
@@ -248,51 +265,53 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                     JSONObject js = new JSONObject(data);
 
                     if (type == 1) {
-                        WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
-                            @Override
-                            public void onSuccess() {
-                                getView().paySuccess();
-                                ToastUtils.showShort("支付成功");
-                            }
+                        WXPay.getInstance().doPay(getContext(), data,
+                                new WXPay.WXPayResultCallBack() {
+                                    @Override
+                                    public void onSuccess() {
+                                        getView().paySuccess();
+                                        ToastUtils.showShort("支付成功");
+                                    }
 
-                            @Override
-                            public void onError(int error_code) {
-                                ToastUtil.showMessage(getContext(), "支付失败" + error_code
-                                );
-                            }
+                                    @Override
+                                    public void onError(int error_code) {
+                                        ToastUtil.showMessage(getContext(), "支付失败" + error_code
+                                        );
+                                    }
 
-                            @Override
-                            public void onCancel() {
+                                    @Override
+                                    public void onCancel() {
 
-                            }
-                        });
+                                    }
+                                });
                     }
                     if (type == 2) {
                         if (!js.has("return_msg")) {
                             return;
                         }
-                        new Alipay(getContext(), js.getString("return_msg"), new Alipay.AlipayResultCallBack() {
-                            @Override
-                            public void onSuccess() {
-                                getView().paySuccess();
-                                ToastUtils.showShort("支付成功");
-                            }
+                        new Alipay(getContext(), js.getString("return_msg"),
+                                new Alipay.AlipayResultCallBack() {
+                                    @Override
+                                    public void onSuccess() {
+                                        getView().paySuccess();
+                                        ToastUtils.showShort("支付成功");
+                                    }
 
-                            @Override
-                            public void onDealing() {
-                                ToastUtils.showShort("等待支付结果确认");
-                            }
+                                    @Override
+                                    public void onDealing() {
+                                        ToastUtils.showShort("等待支付结果确认");
+                                    }
 
-                            @Override
-                            public void onError(int error_code) {
-                                ToastUtils.showShort("支付失败");
-                            }
+                                    @Override
+                                    public void onError(int error_code) {
+                                        ToastUtils.showShort("支付失败");
+                                    }
 
-                            @Override
-                            public void onCancel() {
-                                ToastUtils.showShort("取消支付");
-                            }
-                        }).doPay();
+                                    @Override
+                                    public void onCancel() {
+                                        ToastUtils.showShort("取消支付");
+                                    }
+                                }).doPay();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -300,7 +319,8 @@ public class ConversationController extends ControllerImpl<ConversationView> {
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -318,14 +338,15 @@ public class ConversationController extends ControllerImpl<ConversationView> {
             @Override
             public void requestComplete(@Nullable String data) {
                 hideLoading();
-                if(!CommUtil.isEmpty(data)){
+                if (!CommUtil.isEmpty(data)) {
                     getView().getDistributionFee(data);
                 }
 
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 hideLoading();
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
@@ -350,7 +371,8 @@ public class ConversationController extends ControllerImpl<ConversationView> {
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 hideLoading();
                 return super.requestError(exception, code, msg);
             }

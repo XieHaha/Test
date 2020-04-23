@@ -19,7 +19,7 @@ import retrofit2.http.QueryMap;
 public interface InquiryService {
 
     /**
-     * 查询与患者的问诊订单状态
+     * 查询与患者的问诊订单状态  普通用户
      *
      * @param userId 用户ID
      * @param type   查询类型 1.患者查询  0.医生查询
@@ -27,6 +27,15 @@ public interface InquiryService {
      */
     @GET("user/online/doctorGetOrderInfoByUserId")
     Observable<HttpResult<InquiryBean>> getOrderDetails(@Query("userId") String userId, @Query("type") String type, @Query("doctorCode") String doctorCode);
+    /**
+     * 查询与患者的问诊订单状态   预付费用户
+     *
+     * @param userId 用户ID
+     * @param type   查询类型 1.患者查询  0.医生查询
+     * @return
+     */
+    @GET("user/online/doctorGetOrderInfoByUserId")
+    Observable<HttpResult<InquiryBean>> getOrderDetailsByVip(@Query("userId") String userId, @Query("type") String type, @Query("orderId") long orderId);
 
 
     /**

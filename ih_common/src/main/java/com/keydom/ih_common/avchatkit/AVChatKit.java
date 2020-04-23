@@ -170,7 +170,7 @@ public class AVChatKit {
      * @param register 注册或注销
      */
     private static void registerAVChatIncomingCallObserver(boolean register) {
-        AVChatManager.getInstance().observeIncomingCall(inComingCallObserver, register);
+//        AVChatManager.getInstance().observeIncomingCall(inComingCallObserver, register);
     }
 
     private static Observer<AVChatData> inComingCallObserver = new Observer<AVChatData>() {

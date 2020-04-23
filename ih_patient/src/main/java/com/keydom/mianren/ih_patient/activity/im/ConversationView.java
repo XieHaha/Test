@@ -21,6 +21,11 @@ interface ConversationView extends BaseView {
     long getId();
 
     /**
+     * 是否为群聊
+     */
+    boolean isTeam();
+
+    /**
      * 医生id
      *
      * @return 医生id

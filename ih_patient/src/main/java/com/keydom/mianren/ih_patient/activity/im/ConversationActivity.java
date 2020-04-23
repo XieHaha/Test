@@ -305,7 +305,15 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private RadioButton mRadioSelf;
     private RadioButton mRadioHome;
 
+    private VideoPlugin videoPlugin;
+
     private boolean team;
+    private long orderId;
+
+    /**
+     * 成员邀请
+     */
+    public static final int SELECT_MEMBER = 1000;
 
     int[] WaiPayType = {2};
     String payWaiType = Type.ALIPAY;
@@ -522,9 +530,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
             /**
              * 处方
-             * @param context
-             * @param message
-             * @return
              */
             @Override
             public boolean onPrescriptionClick(Context context, @Nullable IMMessage message) {
@@ -545,6 +550,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         bundle = getIntent().getExtras();
         if (bundle != null) {
             team = bundle.getBoolean(ImConstants.TEAM);
+            orderId = bundle.getLong("orderId");
         }
         if (data != null) {
             sessionId = data.getQueryParameter(ImConstants.CALL_SESSION_ID);
@@ -589,7 +595,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         } else {
             if (orderBean != null && orderBean.getInquisitionType() == 1) {
                 if (!isWaitingForComment)
-                    mMessageView.addPlugin(new VideoPlugin(this));
+                    videoPlugin = new VideoPlugin(this);
+                    videoPlugin.setTeam(team);
+                    videoPlugin.setTeamId(sessionId);
+                    mMessageView.addPlugin(videoPlugin);
             }
 
             mRightText.setVisibility(View.VISIBLE);
@@ -838,7 +847,17 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         mMessageView.onActivityPluginResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_MEMBER) {
+                startTeamAVChat(data.getStringArrayListExtra("accounts"));
+            }
+        }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    private void startTeamAVChat(ArrayList<String> accounts) {
+        ImClient.createRoom(this, sessionId, accounts);
     }
 
     /**
@@ -893,8 +912,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     /**
      * 开始问诊监听
-     *
-     * @param event
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStartInquiryEvent(StartInquiryEvent event) {
@@ -924,7 +941,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     @Override
     public long getId() {
-        return orderBean.getId();
+        return orderId;
+    }
+
+    @Override
+    public boolean isTeam() {
+        return team;
     }
 
     @Override
@@ -960,6 +982,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mMessageView.setChatting(chatting);
         if (data != null) {
             orderBean = data;
+            orderId = orderBean.getId();
             calculateTime();
         } else {
             isWaitingForComment = true;
