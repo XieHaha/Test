@@ -689,8 +689,13 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         DisposalAdviceAttachment attachment = new DisposalAdviceAttachment();
         attachment.setId(bean.getId());
         attachment.setContent(bean.getSuggest());
-        messageList.add(ImClient.createInspectionMessage(inquiryBean.getUserCode(),
-                SessionTypeEnum.P2P, "处置建议", attachment));
+        if (TextUtils.isEmpty(inquiryBean.getGroupTid())) {
+            messageList.add(ImClient.createInspectionMessage(inquiryBean.getUserCode(),
+                    SessionTypeEnum.P2P, "处置建议", attachment));
+        } else {
+            messageList.add(ImClient.createInspectionMessage(inquiryBean.getGroupTid(),
+                    SessionTypeEnum.Team, "处置建议", attachment));
+        }
         Intent intent = new Intent();
         intent.putExtra(Const.DATA, (Serializable) messageList);
         setResult(ConversationActivity.SEND_MESSAGE, intent);

@@ -67,17 +67,14 @@ public class FillOutApplyController extends ControllerImpl<FillOutApplyView> imp
                 RequestBody.create(MediaType.parse("application/otcet-stream"), file);
         MultipartBody.Part body =
                 MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).upload(body), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).upload(body), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable String data) {
-                hideLoading();
                 getView().uploadSuccess(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 getView().uploadFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -86,17 +83,14 @@ public class FillOutApplyController extends ControllerImpl<FillOutApplyView> imp
 
 
     public void submit() {
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(GroupCooperateApiService.class).save(HttpService.INSTANCE.object2Body(getView().getOperateMap())), new HttpSubscriber<DiagnoseFillOutResBean>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(GroupCooperateApiService.class).save(HttpService.INSTANCE.object2Body(getView().getOperateMap())), new HttpSubscriber<DiagnoseFillOutResBean>(getContext(), getDisposable(), true,false) {
             @Override
             public void requestComplete(@Nullable DiagnoseFillOutResBean data) {
-                hideLoading();
                 getView().saveSuccess(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 getView().saveFailed(msg);
                 return super.requestError(exception, code, msg);
             }

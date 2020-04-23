@@ -454,7 +454,6 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
     @Override
     public void saveSuccess(DiagnoseFillOutResBean bean) {
         if (mType == DIAGNOSE_FILLOUT_APPLY) {
-
             finish();
         } else {
             DiagnoseCommonActivity.startDiagnoseChangeRecoder(getContext());

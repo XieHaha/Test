@@ -18,6 +18,9 @@ import okhttp3.RequestBody;
 
 public class ConversationController extends ControllerImpl<ConversationView> {
 
+    /**
+     * 获取订单详情
+     */
     public void getInquiryStatus() {
         if (getView().isGetStatus()) {
             ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getOrderDetails(getView().getUserId(), getView().getId(), "0"),
@@ -30,6 +33,9 @@ public class ConversationController extends ControllerImpl<ConversationView> {
         }
     }
 
+    /**
+     * 接诊
+     */
     public void acceptInquisition() {
         Map<String, Object> map = new HashMap<>();
         map.put("id", getView().getId());
@@ -75,6 +81,9 @@ public class ConversationController extends ControllerImpl<ConversationView> {
         }
     }
 
+    /**
+     * 结束问诊
+     */
     public void endInquisition() {
         Map<String, Object> map = new HashMap<>();
         map.put("id", getView().getId());

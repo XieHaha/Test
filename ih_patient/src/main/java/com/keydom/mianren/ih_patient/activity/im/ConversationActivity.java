@@ -891,8 +891,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPrescriptionEvent(PrescriptionEvent event) {
-        inquiryStatus = InquiryStatus.INQUIRY_UNPAID;
-        inquiryUnpaid();
+        getController().getInquiryStatus();
     }
 
     /**
@@ -902,7 +901,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReferralApplyEvent(ReferralApplyEvent event) {
-
         if (team) {
             mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
                     SessionTypeEnum.Team, "医生已填写转诊单，请及时确认并支付问诊费用"));
@@ -922,7 +920,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onStartInquiryEvent(StartInquiryEvent event) {
-        //        inquiryIng();
         getController().getInquiryStatus();
     }
 

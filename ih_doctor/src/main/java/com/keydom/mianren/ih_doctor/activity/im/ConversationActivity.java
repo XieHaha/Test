@@ -791,12 +791,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             case R.id.referral:
                 if (referralState == 0 || referralState == 1) {
                     new GeneralDialog(getContext(), "确认取消该条转诊操作？",
-                            new GeneralDialog.OnCloseListener() {
-                                @Override
-                                public void onCommit() {
-                                    getController().stopReferral();
-                                }
-                            }).setTitle("提示").show();
+                            () -> getController().stopReferral()).setTitle("提示").show();
 
                 } else {
                     FillOutApplyActivity.startFillOut(this, orderBean);
