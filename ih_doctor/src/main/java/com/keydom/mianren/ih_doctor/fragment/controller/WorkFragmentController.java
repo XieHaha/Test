@@ -130,10 +130,10 @@ public class WorkFragmentController extends ControllerImpl<WorkFragmentView> imp
     /**
      * 根据角色ID获取首页数据
      */
-    public void getHome() {
+    public void getHome(boolean show) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("roleId", SharePreferenceManager.getRoleId());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).home(map), new HttpSubscriber<HomeBean>(getContext()) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).home(map), new HttpSubscriber<HomeBean>(getContext(),getDisposable(),show) {
             @Override
             public void requestComplete(@Nullable HomeBean data) {
                 getView().getHomeDataSuccess(data);

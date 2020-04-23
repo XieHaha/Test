@@ -267,7 +267,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         }
         setReloadListener((v, status) -> lazyLoad());
         refreshLayout.setPrimaryColorsId(R.color.transparent, R.color.fontClickEnable);
-        refreshLayout.setOnRefreshListener(refreshLayout -> getController().getHome());
+        refreshLayout.setOnRefreshListener(refreshLayout -> getController().getHome(false));
 
     }
 
@@ -423,7 +423,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
     public void onResume() {
         super.onResume();
         Logger.e("刷新工作台数据");
-        getController().getHome();
+        getController().getHome(true);
     }
 
     @Override
@@ -438,7 +438,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
         if (messageEvent.getType() == EventType.UPDATE_USER_INFO) {
-            getController().getHome();
+            getController().getHome(false);
         }
     }
 
