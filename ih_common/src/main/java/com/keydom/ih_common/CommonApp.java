@@ -59,6 +59,8 @@ public class CommonApp extends MultiDexApplication {
             NIMClient.getService(MsgServiceObserve.class).observeReceiveMessage(incomingMessageObserver, true);
             NIMClient.getService(MsgServiceObserve.class).observeAttachmentProgress(attachmentProgressObserver, true);
             NIMClient.getService(MsgServiceObserve.class).observeRevokeMessage(new NimMessageRevokeObserver(), true);
+            //            NIMClient.getService(SystemMessageObserver.class)
+            //            .observeReceiveSystemMsg(incomingSystemMessageObserver,true);
             //            NIMClient.getService(MsgServiceObserve.class).observeCustomNotification
             //            (customNotificationObserver, true);
             AVChatManager.getInstance().observeIncomingCall(inComingCallObserver, true);

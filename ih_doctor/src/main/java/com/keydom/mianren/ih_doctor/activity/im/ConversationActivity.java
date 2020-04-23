@@ -1039,6 +1039,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     "此次问诊已结束"));
         }
         getController().getInquiryStatus();
+        EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.DIAGNOSE_ORDER_UPDATE).build());
     }
 
     @Override

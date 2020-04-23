@@ -26,6 +26,7 @@ import com.keydom.ih_common.avchatkit.common.log.LogUtil;
 import com.keydom.ih_common.bean.MessageEvent;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.constant.EventType;
+import com.keydom.ih_common.im.activity.TeamNotificationHelper;
 import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.im.listener.OnRecentContactListener;
 import com.keydom.ih_common.im.listener.OnRecentContactsListener;
@@ -76,6 +77,7 @@ import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.attachment.AudioAttachment;
 import com.netease.nimlib.sdk.msg.attachment.ImageAttachment;
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
+import com.netease.nimlib.sdk.msg.attachment.NotificationAttachment;
 import com.netease.nimlib.sdk.msg.attachment.VideoAttachment;
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
 import com.netease.nimlib.sdk.msg.constant.MsgStatusEnum;
@@ -223,8 +225,7 @@ public class ImClient {
                             if (imMessage.getAttachment() instanceof ImageAttachment
                                     || imMessage.getAttachment() instanceof VideoAttachment
                                     || imMessage.getAttachment() instanceof AudioAttachment) {
-                                NIMClient.getService(MsgService.class).downloadAttachment(imMessage,
-                                        true).setCallback(new RequestCallbackWrapper() {
+                                NIMClient.getService(MsgService.class).downloadAttachment(imMessage, true).setCallback(new RequestCallbackWrapper() {
                                     @Override
                                     public void onResult(int code, Object result,
                                                          Throwable exception) {
@@ -234,16 +235,62 @@ public class ImClient {
                                         }
                                     }
                                 });
+                            } else if (imMessage.getAttachment() instanceof NotificationAttachment) {
+                                teamSystemMessageNotify(imMessage);
                             } else {
                                 EventBus.getDefault().post(ImUIMessage.obtain(imMessage,
                                         imMessage.getDirect()));
                             }
                         } else {
-                            EventBus.getDefault().post(ImUIMessage.obtain(imMessage));
+                            if (imMessage.getAttachment() instanceof NotificationAttachment) {
+                                teamSystemMessageNotify(imMessage);
+                            } else {
+                                EventBus.getDefault().post(ImUIMessage.obtain(imMessage));
+                            }
                         }
                     }
                 }
             };
+
+    public static void teamSystemMessageNotify(IMMessage imMessage) {
+        NotificationAttachment attachment = (NotificationAttachment) imMessage.getAttachment();
+        String msg = TeamNotificationHelper.getTeamNotificationText(imMessage.getSessionId(),
+                imMessage.getFromAccount(), attachment);
+        IMMessage message = ImClient.createLocalTipMessage(imMessage.getSessionId(),
+                imMessage.getSessionType(), msg);
+        EventBus.getDefault().post(ImUIMessage.obtain(message, message.getDirect()));
+    }
+    //    /**
+    //     * 系统消息
+    //     */
+    //    public static Observer<SystemMessage> incomingSystemMessageObserver =
+    //            new Observer<SystemMessage>() {
+    //
+    //        @Override
+    //        public void onEvent(SystemMessage systemMessage) {
+    //            if (systemMessage != null) {
+    //                Logger.e("systemMessage null");
+    //            } else {
+    //                Logger.e("systemMessage:" + systemMessage.getContent());
+    //            }
+    //        }
+    //    };
+    //    /**
+    //     * 系统消息
+    //     */
+    //    public static Observer<CustomNotification> customNotificationObserver =
+    //            new Observer<CustomNotification>() {
+    //
+    //        @Override
+    //        public void onEvent(CustomNotification customNotification) {
+    //            if (customNotification != null) {
+    //                Logger.e("customNotification null");
+    //            } else {
+    //                Logger.e("customNotification:" + customNotification.getContent());
+    //            }
+    //        }
+    //    };
+
 
     /**
      * 消息附件上传/下载进度观察者
@@ -823,27 +870,28 @@ public class ImClient {
         // 创建房间
         AVChatManager.getInstance().createRoom(roomName, null,
                 new AVChatCallback<AVChatChannelInfo>() {
-            @Override
-            public void onSuccess(AVChatChannelInfo avChatChannelInfo) {
-                LogUtil.ui("create room " + roomName + " success !");
-                onCreateRoomSuccess(context, teamId, roomName, accounts);
+                    @Override
+                    public void onSuccess(AVChatChannelInfo avChatChannelInfo) {
+                        LogUtil.ui("create room " + roomName + " success !");
+                        onCreateRoomSuccess(context, teamId, roomName, accounts);
 
-                String teamName = getTeamProvider().getTeamById(teamId).getName();
+                        String teamName = getTeamProvider().getTeamById(teamId).getName();
 
-                TeamAVChatProfile.sharedInstance().setTeamAVChatting(true);
-                AVChatKit.outgoingTeamCall(context, false, teamId, roomName, accounts, teamName);
-            }
+                        TeamAVChatProfile.sharedInstance().setTeamAVChatting(true);
+                        AVChatKit.outgoingTeamCall(context, false, teamId, roomName, accounts,
+                                teamName);
+                    }
 
-            @Override
-            public void onFailed(int code) {
-                onCreateRoomFail(context, teamId);
-            }
+                    @Override
+                    public void onFailed(int code) {
+                        onCreateRoomFail(context, teamId);
+                    }
 
-            @Override
-            public void onException(Throwable exception) {
-                onCreateRoomFail(context, teamId);
-            }
-        });
+                    @Override
+                    public void onException(Throwable exception) {
+                        onCreateRoomFail(context, teamId);
+                    }
+                });
     }
 
     private static void onCreateRoomSuccess(Context context, String teamID, String roomName,
@@ -854,10 +902,11 @@ public class ImClient {
         tipConfig.enableHistory = false;
         tipConfig.enableRoaming = false;
         tipConfig.enablePush = false;
-        String teamNick = ImClient.getUserInfoProvider().getUserInfo(AVChatKit.getAccount()).getName();
+        String teamNick =
+                ImClient.getUserInfoProvider().getUserInfo(AVChatKit.getAccount()).getName();
         message.setContent(teamNick + context.getString(R.string.t_avchat_start));
         message.setConfig(tipConfig);
-        sentMessage(message,false,null);
+        sentMessage(message, false, null);
         // 对各个成员发送点对点自定义通知
         String teamName = getTeamProvider().getTeamById(teamID).getName();
         String content = TeamAVChatProfile.sharedInstance().buildContent(roomName, teamID,

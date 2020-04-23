@@ -138,10 +138,11 @@ public class ImMessageList extends FrameLayout {
                     }
                 } else if (i == R.id.im_message_content) {
                     if (mConversationBehaviorListener != null) {
-                        if (!mConversationBehaviorListener.onMessageClick(getContext(), view, message)) {
+                        if (!mConversationBehaviorListener.onMessageClick(getContext(), view,
+                                message)) {
                             if (message.getAttachment() instanceof ImageAttachment) {
                                 LocalMedia media = new LocalMedia();
-                                if (((ImageAttachment) message.getAttachment()).getPath()!=null) {
+                                if (((ImageAttachment) message.getAttachment()).getPath() != null) {
                                     media.setPath(((ImageAttachment) message.getAttachment()).getPath());
                                 } else {
                                     media.setPath(((ImageAttachment) message.getAttachment()).getUrl());
@@ -150,8 +151,10 @@ public class ImMessageList extends FrameLayout {
                                 mediaList.add(media);
                                 AlbumUtilKt.previewPhotos((Activity) getContext(), 0, mediaList);
                             } else if (message.getAttachment() instanceof AudioAttachment) {
-                                ImMessageItemVoiceProvider containerView = (ImMessageItemVoiceProvider) view;
-                                AudioAttachment audioAttachment = (AudioAttachment) message.getAttachment();
+                                ImMessageItemVoiceProvider containerView =
+                                        (ImMessageItemVoiceProvider) view;
+                                AudioAttachment audioAttachment =
+                                        (AudioAttachment) message.getAttachment();
                                 if (audioAttachment.getPath() != null) {
                                     containerView.play(audioAttachment.getPath());
                                 }
@@ -165,7 +168,8 @@ public class ImMessageList extends FrameLayout {
                 } else {
                     if (message.getAttachment() instanceof ConsultationResultAttachment && i == R.id.prescription) {
                         if (mConversationBehaviorListener != null) {
-                            mConversationBehaviorListener.onPrescriptionClick(getContext(), message);
+                            mConversationBehaviorListener.onPrescriptionClick(getContext(),
+                                    message);
                         }
 
                     } else if (mConversationBehaviorListener != null) {
@@ -176,11 +180,13 @@ public class ImMessageList extends FrameLayout {
         });
         mRecycler.addOnItemTouchListener(new OnItemLongClickListener() {
             @Override
-            public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, final int position) {
+            public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view,
+                                              final int position) {
                 ImUIMessage data = (ImUIMessage) adapter.getItem(position);
                 final IMMessage message = data.getMessage();
-                if (message.getDirect() == MsgDirectionEnum.Out && (message.getMsgType() == MsgTypeEnum.text ||message.getMsgType()==MsgTypeEnum.image|| message.getMsgType() == MsgTypeEnum.file || message.getMsgType() == MsgTypeEnum.audio)) {
-                    new GeneralDialog(getContext(), "是否撤回此条消息？", new GeneralDialog.OnCloseListener() {
+                if (message.getDirect() == MsgDirectionEnum.Out && (message.getMsgType() == MsgTypeEnum.text || message.getMsgType() == MsgTypeEnum.image || message.getMsgType() == MsgTypeEnum.file || message.getMsgType() == MsgTypeEnum.audio)) {
+                    new GeneralDialog(getContext(), "是否撤回此条消息？",
+                            new GeneralDialog.OnCloseListener() {
                         @Override
                         public void onCommit() {
                             NIMClient.getService(MsgService.class).revokeMessage(message).setCallback(new RequestCallback<Void>() {
@@ -188,13 +194,15 @@ public class ImMessageList extends FrameLayout {
                                 public void onSuccess(Void param) {
                                     revokePosition = position;
                                     getChatMessageList();
-                                    RevokeMessageHelper.getInstance().onRevokeMessage(message, ImClient.getUserInfoProvider().getAccount());
+                                    RevokeMessageHelper.getInstance().onRevokeMessage(message,
+                                            ImClient.getUserInfoProvider().getAccount());
                                 }
 
                                 @Override
                                 public void onFailed(int code) {
                                     if (code == ResponseCode.RES_OVERDUE) {
-                                        Toast.makeText(getContext(), "发送时间超过2分钟的消息，不能被撤回", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "发送时间超过2分钟的消息，不能被撤回",
+                                                Toast.LENGTH_SHORT).show();
                                     } else {
                                         Logger.e("revoke msg failed, code:" + code);
                                     }
@@ -228,7 +236,8 @@ public class ImMessageList extends FrameLayout {
     }
 
     private void initData(final IMMessage anchor) {
-        ImClient.queryMessageListEx(anchor, QueryDirectionEnum.QUERY_OLD, pageSize, true, new QueryMessageListener() {
+        ImClient.queryMessageListEx(anchor, QueryDirectionEnum.QUERY_OLD, pageSize, true,
+                new QueryMessageListener() {
             @Override
             public void onSuccess(List<IMMessage> param) {
                 if (mRefresh.isEnableRefresh()) {
@@ -246,7 +255,8 @@ public class ImMessageList extends FrameLayout {
 
                 List<ImUIMessage> uiMessages = new ArrayList<>();
                 for (IMMessage message : param) {
-                    boolean isEndInquiryMsgType = message.getMsgType() == MsgTypeEnum.custom && (message.getAttachment() instanceof EndInquiryAttachment);
+                    boolean isEndInquiryMsgType =
+                            message.getMsgType() == MsgTypeEnum.custom && (message.getAttachment() instanceof EndInquiryAttachment);
                     if (message.getMsgType() != MsgTypeEnum.notification && !isEndInquiryMsgType) {
                         uiMessages.add(ImUIMessage.obtain(message));
                     }
@@ -303,6 +313,8 @@ public class ImMessageList extends FrameLayout {
                 } else {
                     EventBus.getDefault().post(new EndInquiryEvent(message.getMessage()));
                 }
+            } else if (message.getMessage().getMsgType() == MsgTypeEnum.notification) {
+                //todo
             } else {
                 if (message.getMessage().getMsgType() == MsgTypeEnum.tip) {
                     if (message.getMessage().getContent().contains("问诊开始，本次问诊可持续")) {
@@ -358,7 +370,8 @@ public class ImMessageList extends FrameLayout {
             } else {
                 mAdapter.addData(0, data);
             }
-            mRecycler.scrollToPosition(pageIndex != 1 ? (pageIndex - 1) * pageSize - 1 : mAdapter.getItemCount() - 1);
+            mRecycler.scrollToPosition(pageIndex != 1 ? (pageIndex - 1) * pageSize - 1 :
+                    mAdapter.getItemCount() - 1);
         }
     }
 
@@ -368,7 +381,8 @@ public class ImMessageList extends FrameLayout {
 
 
     public void getChatMessageList() {
-        IMMessage anchor = MessageBuilder.createEmptyMessage(sessionId, type, System.currentTimeMillis());
+        IMMessage anchor = MessageBuilder.createEmptyMessage(sessionId, type,
+                System.currentTimeMillis());
         initData(anchor);
     }
 
