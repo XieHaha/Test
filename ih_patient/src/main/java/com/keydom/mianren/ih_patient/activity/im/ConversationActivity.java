@@ -553,16 +553,20 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             orderId = bundle.getLong("orderId");
         }
         if (data != null) {
+            String title;
             sessionId = data.getQueryParameter(ImConstants.CALL_SESSION_ID);
             if (team) {
                 mMessageView.setMessageInfo(sessionId, SessionTypeEnum.Team);
                 if (ImClient.getTeamProvider().getTeamById(sessionId) != null) {
-                    setTitle(ImClient.getTeamProvider().getTeamById(sessionId).getName());
+                    title = ImClient.getTeamProvider().getTeamById(sessionId).getName();
+                } else {
+                    title = "临时会诊";
                 }
             } else {
                 mMessageView.setMessageInfo(sessionId, SessionTypeEnum.P2P);
-                setTitle("问诊详情");
+                title = "问诊详情";
             }
+            mTitle.setText(title);
         }
 
         mBackImage.setOnClickListener(this);

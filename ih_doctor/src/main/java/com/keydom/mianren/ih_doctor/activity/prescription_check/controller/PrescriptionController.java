@@ -36,12 +36,13 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
         switch (v.getId()) {
             case R.id.check_yes:
                 getView().auditPass("", "");
-//                SignUtils.sign(getContext(), getView().getAuditMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
-//                    @Override
-//                    public void signSuccess(String signature, String jobId) {
-//                        getView().auditPass(signature, jobId);
-//                    }
-//                });
+                //                SignUtils.sign(getContext(), getView().getAuditMap().toString()
+                //                , Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
+                //                    @Override
+                //                    public void signSuccess(String signature, String jobId) {
+                //                        getView().auditPass(signature, jobId);
+                //                    }
+                //                });
 
                 break;
             case R.id.check_no:
@@ -49,12 +50,17 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
                     @Override
                     public void commit(View v, String value) {
                         getView().auditReturn(value, "", "");
-//                        SignUtils.sign(getContext(), getView().getAuditMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
-//                            @Override
-//                            public void signSuccess(String signature, String jobId) {
-//                                getView().auditReturn(value, signature, jobId);
-//                            }
-//                        });
+                        //                        SignUtils.sign(getContext(), getView()
+                        //                        .getAuditMap().toString(), Const
+                        //                        .SIGN_CHECK_PRESCRIPTION, new SignUtils
+                        //                        .SignCallBack() {
+                        //                            @Override
+                        //                            public void signSuccess(String signature,
+                        //                            String jobId) {
+                        //                                getView().auditReturn(value, signature,
+                        //                                jobId);
+                        //                            }
+                        //                        });
 
                     }
                 }).show();
@@ -76,7 +82,8 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getDetailFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -89,20 +96,17 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
      * 药师处方审核
      */
     public void audit(String signature, String jobId) {
-        showLoading();
         Map<String, Object> map = getView().getAuditMap();
         map.put("signature", signature);
         map.put("signJobId", jobId);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).audit(HttpService.INSTANCE.object2Body(getView().getAuditMap())), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).audit(HttpService.INSTANCE.object2Body(getView().getAuditMap())), new HttpSubscriber<String>(getContext(), getDisposable(), true, false) {
             @Override
             public void requestComplete(@Nullable String data) {
-                hideLoading();
                 getView().auditSuccess(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 getView().auditFailed(msg);
                 return super.requestError(exception, code, msg);
             }

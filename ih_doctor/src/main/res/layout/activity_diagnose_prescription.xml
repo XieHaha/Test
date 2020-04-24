@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.mianren.ih_doctor.view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/primary_bg_color"
     android:orientation="vertical">
 
@@ -125,8 +125,9 @@
                         android:id="@+id/simple_diagnose"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        mitem:editMode="false"
                         mitem:itemAddText="快捷添加"
-                        mitem:itemInputHint="请您填写确诊疾病，或点击快捷添加常用样例"
+                        mitem:itemInputHint="点击快捷添加常用样例"
                         mitem:itemTip="初步诊断">
 
                     </com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView>
@@ -248,11 +249,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_1"
                         android:background="@color/line_color" />
+
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/prescription_rv"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        ></android.support.v7.widget.RecyclerView>
+                        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
                     <RelativeLayout
                         android:id="@+id/add_prescription_item_rl"
@@ -316,8 +317,7 @@
                             android:layout_below="@id/prescription_drug_line"
                             android:layout_alignLeft="@id/modal_name"
                             android:layout_alignParentRight="true"
-                            android:paddingTop="@dimen/dp_15"
-                            >
+                            android:paddingTop="@dimen/dp_15">
 
                         </android.support.v7.widget.RecyclerView>
 

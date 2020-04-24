@@ -314,7 +314,6 @@ public class ImMessageList extends FrameLayout {
                     EventBus.getDefault().post(new EndInquiryEvent(message.getMessage()));
                 }
             } else if (message.getMessage().getMsgType() == MsgTypeEnum.notification) {
-                //todo
             } else {
                 if (message.getMessage().getMsgType() == MsgTypeEnum.tip) {
                     if (message.getMessage().getContent().contains("问诊开始，本次问诊可持续")) {

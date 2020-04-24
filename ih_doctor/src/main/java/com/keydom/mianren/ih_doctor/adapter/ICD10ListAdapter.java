@@ -61,7 +61,7 @@ public class ICD10ListAdapter extends BaseEmptyAdapter<ICD10Bean> {
                 @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
-                    EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.GET_ICD_10_VALUE).setData(mDatas.get(position).getName()).build());
+                    EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.GET_ICD_10_VALUE).setData(mDatas.get(position)).build());
                 }
             });
         }

@@ -29,10 +29,12 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/check_dialog_input_bg"
             android:gravity="left|top"
-            android:hint="请填写初步诊断"
+            android:hint="请选择初步诊断"
             android:lineSpacingExtra="@dimen/dp_3"
             android:maxLength="1000"
             android:padding="@dimen/dp_13"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:singleLine="false"
             android:textColor="@color/edit_font_color"
             android:textCursorDrawable="@null"
@@ -47,6 +49,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="@dimen/dp_5"
             android:layout_marginBottom="@dimen/dp_5"
+            android:visibility="invisible"
             android:src="@drawable/im_voice_toggle_selector" />
 
     </RelativeLayout>

@@ -217,7 +217,6 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
      * @param type 模版类型
      */
     public void save(String name, String type, String signature, String jobId,String saveTemplate) {
-        showLoading();
         Map<String, Object> map = getView().getSaveMap();
         map.put("medicaltemplateName", name);
         map.put("medicaltemplateType", type);
@@ -232,21 +231,18 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
             map.put("type", String.valueOf(getView().getIsOutPrescription()));
         }
         map.put("fee", sumDrugFee.toString());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).save(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PrescriptionMessageBean>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).save(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PrescriptionMessageBean>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable PrescriptionMessageBean data) {
                 getView().saveSuccess(data);
-                hideLoading();
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 getView().saveFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });
-
     }
 
 

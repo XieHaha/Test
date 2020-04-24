@@ -43,6 +43,7 @@ import com.keydom.mianren.ih_doctor.bean.DoctorPrescriptionDetailBean;
 import com.keydom.mianren.ih_doctor.bean.DrugBean;
 import com.keydom.mianren.ih_doctor.bean.DrugListBean;
 import com.keydom.mianren.ih_doctor.bean.Event;
+import com.keydom.mianren.ih_doctor.bean.ICD10Bean;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.bean.MedicalRecordTempletBean;
 import com.keydom.mianren.ih_doctor.bean.MessageEvent;
@@ -127,6 +128,11 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     private List<CommitPrescriptionSavedBean> commitPrescriptionSavedBeanList = new ArrayList<>();
     private boolean isHavePrescription = false;
     private int isOutPrescription = 0;
+
+    /**
+     * 初步诊断选择结果
+     */
+    private ArrayList<ICD10Bean> idcItems;
 
     /**
      * 启动处方修改页面
@@ -538,6 +544,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         map.put("cate", prescription_type);
         map.put("dept", MyApplication.userInfo.getDeptName());
         map.put("saveTemplate", getSaveType());
+        map.put("idcItems", idcItems);
         if (type == CREATE_PRESCRIPTION && inquiryBean != null) {
             map.put("inquiryId", inquiryBean.getId());
         } else if (type == UPDATE_PRESCRIPTION) {
@@ -564,6 +571,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                         new CommitPrescriptionSavedBean.DrugSavedBean();
                 drugSavedBean.setDrugsName(saveData.get(i).get(j).getDrugsName());
                 drugSavedBean.setFrequency(saveData.get(i).get(j).getFrequency());
+                drugSavedBean.setFrequencyEnglish(saveData.get(i).get(j).getFrequencyEnglish());
                 drugSavedBean.setDosage(String.valueOf(saveData.get(i).get(j).getSingleDose()));
                 drugSavedBean.setDosageUnit(saveData.get(i).get(j).getDosageUnit());
                 drugSavedBean.setQuantity(saveData.get(i).get(j).getQuantity());
@@ -770,6 +778,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                     break;
                 case DiagnoseInputActivity.DIAGNOSE_RES_INPUT:
                     String diagnoseStr = (String) data.getSerializableExtra(Const.DATA);
+                    idcItems = (ArrayList<ICD10Bean>) data.getSerializableExtra("listData");
                     simpleDiagnose.setText(diagnoseStr);
                     break;
                 default:

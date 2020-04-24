@@ -44,6 +44,7 @@ public class CommitPrescriptionSavedBean {
     public static class DrugSavedBean{
         private String drugsName;
         private String frequency;
+        private String frequencyEnglish;
         private String dosage;
         private String dosageUnit;
         private String spec;
@@ -136,6 +137,14 @@ public class CommitPrescriptionSavedBean {
 
         public void setFrequency(String frequency) {
             this.frequency = frequency;
+        }
+
+        public String getFrequencyEnglish() {
+            return frequencyEnglish;
+        }
+
+        public void setFrequencyEnglish(String frequencyEnglish) {
+            this.frequencyEnglish = frequencyEnglish;
         }
 
         public String getDosage() {

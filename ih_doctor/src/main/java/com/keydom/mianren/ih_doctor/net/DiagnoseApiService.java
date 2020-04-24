@@ -106,7 +106,7 @@ public interface DiagnoseApiService {
      * @return
      */
     @GET("user/prescription/medicalTemplateList")
-    Observable<HttpResult<List<MedicalRecordTempletBean>>> listMedicalTemplate(@QueryMap Map<String, Object> maps);
+    Observable<HttpResult<PageBean<MedicalRecordTempletBean>>> listMedicalTemplate(@QueryMap Map<String, Object> maps);
 
     /**
      * 病历模板明细

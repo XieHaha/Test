@@ -54,6 +54,10 @@ public class DrugBean implements Serializable,MultiItemEntity {
      */
     private String frequency;
     /**
+     * 给药频率 英式
+     */
+    private String frequencyEnglish;
+    /**
      * 药品规格
      */
     private String spec;
@@ -225,6 +229,14 @@ public class DrugBean implements Serializable,MultiItemEntity {
 
     public void setFrequency(String frequency) {
         this.frequency = frequency;
+    }
+
+    public String getFrequencyEnglish() {
+        return frequencyEnglish;
+    }
+
+    public void setFrequencyEnglish(String frequencyEnglish) {
+        this.frequencyEnglish = frequencyEnglish;
     }
 
     public String getSpec() {

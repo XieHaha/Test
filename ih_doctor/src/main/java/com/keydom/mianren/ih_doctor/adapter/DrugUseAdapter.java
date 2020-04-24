@@ -18,9 +18,11 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.bean.DrugBean;
 import com.keydom.mianren.ih_doctor.bean.DrugUseConfigBean;
+import com.keydom.mianren.ih_doctor.bean.FrequencyBean;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
@@ -54,7 +56,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                 .setText(R.id.get_medical_way_tv, item.getWay())
                 .setText(R.id.medical_dosage_scaler_text_layout, df1.format(dose))
                 .setText(R.id.dosage_unit_tv, item.getDosageUnit())
-                .setText(R.id.eat_medical_rate_tv, String.valueOf(item.getFrequency()))
+                .setText(R.id.eat_medical_rate_tv, item.getFrequency())
                 .setText(R.id.eat_medical_day_scaler_text_layout, String.valueOf(item.getDays()))
                 .setText(R.id.doctor_entrust, item.getDoctorAdvice());
         ischange = false;
@@ -328,13 +330,18 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                     @Override
                     public void onOptionsSelect(int options1, int option2, int options3, View v) {
                         if (!ischange) {
-                            item.setFrequency(configBean.getFrequencyList().get(options1));
-                            eat_medical_rate_tv.setText(configBean.getFrequencyList().get(options1));
+                            item.setFrequency(configBean.getFrequencyList().get(options1).getRemark());
+                            item.setFrequencyEnglish(configBean.getFrequencyList().get(options1).getName());
+                            eat_medical_rate_tv.setText(configBean.getFrequencyList().get(options1).getRemark());
                         }
 
                     }
                 }).build();
-        frequencyPickerView.setPicker(configBean.getFrequencyList());
+        ArrayList<String> frequencys =new ArrayList<>();
+        for (FrequencyBean bean : configBean.getFrequencyList()) {
+            frequencys.add(bean.getRemark());
+        }
+        frequencyPickerView.setPicker(frequencys);
 
         OptionsPickerView unitPickerView = new OptionsPickerBuilder(mContext,
                 new OnOptionsSelectListener() {

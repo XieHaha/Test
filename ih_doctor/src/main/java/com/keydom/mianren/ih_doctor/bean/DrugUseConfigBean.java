@@ -7,16 +7,17 @@ import java.util.List;
 public class DrugUseConfigBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private List<String> frequencyList;
+    private List<FrequencyBean> frequencyList;
     private List<String> wayList;
     private List<String> unitList;
     private List<String> dispensingUnitList;
 
-    public List<String> getFrequencyList() {
+
+    public List<FrequencyBean> getFrequencyList() {
         return frequencyList;
     }
 
-    public void setFrequencyList(List<String> frequencyList) {
+    public void setFrequencyList(List<FrequencyBean> frequencyList) {
         this.frequencyList = frequencyList;
     }
 

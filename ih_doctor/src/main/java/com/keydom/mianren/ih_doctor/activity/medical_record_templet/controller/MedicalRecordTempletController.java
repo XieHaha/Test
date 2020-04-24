@@ -7,6 +7,7 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -39,23 +40,20 @@ public class MedicalRecordTempletController extends ControllerImpl<MedicalRecord
      * @param type 判断获取的模版类型
      */
     public void getTemplateList(int type) {
-        showLoading();
         Map<String, Object> map = new HashMap<>();
         map.put("type", type);
         map.put("deptId", MyApplication.userInfo.getDeptId());
         map.put("keyword", getView().getSearchStr());
         map.put("currentPage", getCurrentPage());
         map.put("pageSize", Const.PAGE_SIZE);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).listMedicalTemplate(map), new HttpSubscriber<List<MedicalRecordTempletBean>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).listMedicalTemplate(map), new HttpSubscriber<PageBean<MedicalRecordTempletBean>>(getContext(), getDisposable(), false) {
             @Override
-            public void requestComplete(@Nullable List<MedicalRecordTempletBean> data) {
-                hideLoading();
-                getView().templateListRequestCallBack(data);
+            public void requestComplete(@Nullable PageBean<MedicalRecordTempletBean> data) {
+                getView().templateListRequestCallBack(data.getRecords());
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 ToastUtils.showShort(msg);
                 getView().requestErrorCallBack();
                 return super.requestError(exception, code, msg);

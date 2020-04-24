@@ -78,6 +78,10 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
      * 查询到的列表
      */
     private List<ICD10Bean> mList = new ArrayList<>();
+    /**
+     * 已选
+     */
+    private ArrayList<ICD10Bean> selectData = new ArrayList<>();
 
 
     private ImageView mVoiceInputIv;
@@ -94,7 +98,8 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
         public void onInit(int code) {
 
             if (code != ErrorCode.SUCCESS) {
-                Log.e("xunfei","初始化失败，错误码：" + code+",请点击网址https://www.xfyun.cn/document/error-code查询解决方案");
+                Log.e("xunfei", "初始化失败，错误码：" + code + ",请点击网址https://www.xfyun" +
+                        ".cn/document/error-code查询解决方案");
             }
         }
     };
@@ -104,12 +109,12 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
      */
     private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
         public void onResult(RecognizerResult results, boolean isLast) {
-            if(null != diagnoseInputEt){
+            if (null != diagnoseInputEt) {
                 String text = JsonUtils.handleXunFeiJson(results);
-                if(TextUtils.isEmpty(diagnoseInputEt.getText().toString())){
+                if (TextUtils.isEmpty(diagnoseInputEt.getText().toString())) {
                     diagnoseInputEt.setText(text);
                     diagnoseInputEt.setSelection(diagnoseInputEt.getText().length());
-                }else{
+                } else {
                     diagnoseInputEt.setText(diagnoseInputEt.getText().toString() + text);
                     diagnoseInputEt.setSelection(diagnoseInputEt.getText().length());
                 }
@@ -121,7 +126,7 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
          * 识别回调错误.
          */
         public void onError(SpeechError error) {
-            ToastUtil.showMessage(DiagnoseInputActivity.this,error.getPlainDescription(true));
+            ToastUtil.showMessage(DiagnoseInputActivity.this, error.getPlainDescription(true));
 
         }
 
@@ -152,10 +157,15 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
             @SingleClick(1000)
             @Override
             public void OnRightTextClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra(Const.DATA, diagnoseInputEt.getText().toString());
-                setResult(RESULT_OK, intent);
-                finish();
+                if (selectData != null && selectData.size() > 0) {
+                    Intent intent = new Intent();
+                    intent.putExtra(Const.DATA, diagnoseInputEt.getText().toString());
+                    intent.putExtra("listData", selectData);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                } else {
+                    ToastUtil.showMessage(DiagnoseInputActivity.this, "请至少选择一项");
+                }
             }
         });
 
@@ -181,13 +191,16 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
         if (messageEvent.getType() == EventType.GET_ICD_10_VALUE) {
-            if (inputStr == null || "".equals(inputStr)) {
-                inputStr += String.valueOf(messageEvent.getData());
+            ICD10Bean bean = (ICD10Bean) messageEvent.getData();
+            if (!selectData.contains(bean)) {
+                selectData.add(bean);
+            }
+            if (TextUtils.isEmpty(inputStr)) {
+                inputStr += bean.getName();
             } else {
-                inputStr += "," + String.valueOf(messageEvent.getData());
+                inputStr += "," + bean.getName();
             }
             diagnoseInputEt.setText(inputStr);
-            diagnoseInputEt.setSelection(inputStr.length());
             com.keydom.ih_common.utils.CommonUtils.hideSoftKeyboard(this);
         }
     }
@@ -202,9 +215,9 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
      * 初始化页面
      */
     private void initView() {
-        searchInputEv = (EditText) findViewById(R.id.search_input_ev);
-        searchTv = (TextView) findViewById(R.id.search_tv);
-        refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
+        searchInputEv = findViewById(R.id.search_input_ev);
+        searchTv = findViewById(R.id.search_tv);
+        refreshLayout = findViewById(R.id.refreshLayout);
         diagnoseInputEt = this.findViewById(R.id.diagnose_input_et);
         recyclerView = this.findViewById(R.id.icd_rv);
         mVoiceInputIv = this.findViewById(R.id.diagnose_input_layout_voice_input_iv);
@@ -234,19 +247,21 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
     @SuppressLint("CheckResult")
     public void initPremissions() {
         RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        rxPermissions.request(Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean granted) throws Exception {
                         if (granted) {
-                            if(mIatDialog.isShowing()){
+                            if (mIatDialog.isShowing()) {
                                 mIatDialog.dismiss();
                             }
                             mIatDialog.show();
-                            ToastUtil.showMessage(DiagnoseInputActivity.this,"请开始说话…");
+                            ToastUtil.showMessage(DiagnoseInputActivity.this, "请开始说话…");
 
                         } else {
-                            ToastUtil.showMessage(DiagnoseInputActivity.this,"请开启录音需要的权限");
+                            ToastUtil.showMessage(DiagnoseInputActivity.this, "请开启录音需要的权限");
 
                         }
                     }
