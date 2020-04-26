@@ -72,7 +72,7 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
     RelativeLayout consultationApplyDoctorLayout;
     @BindView(R.id.consultation_apply_grade_tv)
     TextView consultationApplyGradeTv;
-    @BindView(R.id.consultation_apply_inquiry_order_tv)
+    @BindView(R.id.consultation_apply_time_tv)
     TextView consultationApplyInquiryOrderTv;
     @BindView(R.id.consultation_apply_transfer_description_et)
     InterceptorEditText consultationApplyTransferDescriptionEt;
