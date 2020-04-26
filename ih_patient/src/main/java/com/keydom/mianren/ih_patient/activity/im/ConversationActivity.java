@@ -598,11 +598,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             }
         } else {
             if (orderBean != null && orderBean.getInquisitionType() == 1) {
-                if (!isWaitingForComment)
+                if (!isWaitingForComment) {
                     videoPlugin = new VideoPlugin(this);
-                videoPlugin.setTeam(team);
-                videoPlugin.setTeamId(sessionId);
-                mMessageView.addPlugin(videoPlugin);
+                    videoPlugin.setTeam(team);
+                    videoPlugin.setTeamId(sessionId);
+                    mMessageView.addPlugin(videoPlugin);
+                }
             }
 
             //            mRightText.setVisibility(View.VISIBLE);
