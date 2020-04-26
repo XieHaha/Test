@@ -3,14 +3,13 @@ package com.keydom.mianren.ih_patient.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.keydom.ih_common.constant.Const;
+import com.keydom.ih_common.utils.BaseImageUtils;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.mianren.ih_patient.R;
 
@@ -39,26 +38,16 @@ public class DiagnoseOrderDetailAdapter extends RecyclerView.Adapter<DiagnoseOrd
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.diagnose_order_detail_img_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.diagnose_order_detail_img_item,
+                parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        String imageUrl = data.get(position);
-        if (!TextUtils.isEmpty(imageUrl)) {
-            imageUrl = imageUrl.replace(Const.IMAGE_HOST, "");
-        }
-        Glide.with(context).load(Const.IMAGE_HOST +imageUrl).into(holder.itemIcon);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CommonUtils.previewImageList(context,data,position,true);
-              /*  if (data.get(position) != null && !"".equals(data.get(position)))
-                    CommonUtils.previewImage(context, Const.IMAGE_HOST + data.get(position));*/
-
-            }
-        });
+        Glide.with(context).load(BaseImageUtils.getHeaderUrl(data.get(position))).into(holder.itemIcon);
+        holder.itemView.setOnClickListener(v -> CommonUtils.previewImageList(context, data,
+                position, BaseImageUtils.needAddHead(data.get(position))));
 
     }
 

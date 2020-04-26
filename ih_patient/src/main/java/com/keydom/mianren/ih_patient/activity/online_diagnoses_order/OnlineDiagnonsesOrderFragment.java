@@ -158,7 +158,8 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                 || state == diagnosesOrderAdapter.doctorMakePrescriptions
                 || state == diagnosesOrderAdapter.changDoctor
                 || state == diagnosesOrderAdapter.waiteEvaluate
-                || state == diagnosesOrderAdapter.complete) {
+                || state == diagnosesOrderAdapter.complete
+                || state == diagnosesOrderAdapter.triage) {
             //            NimUserInfo userInfo = (NimUserInfo) getUserInfoProvider().getUserInfo
             //            (bean.getDoctorCode());
             //            if (userInfo != null) {

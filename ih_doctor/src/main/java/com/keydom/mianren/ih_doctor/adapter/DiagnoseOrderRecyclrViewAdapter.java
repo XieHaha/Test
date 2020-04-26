@@ -228,6 +228,10 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
                     orderStatus.setTextColor(mContext.getResources().getColor(R.color.font_green));
                     orderStatus.setText("已完成");
                     break;
+                case 11:
+                    //分诊中
+                    orderStatus.setText("分诊中");
+                    break;
                 case -1:
                     img = mContext.getResources().getDrawable(R.mipmap.patient_cicle_red);
                     img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());

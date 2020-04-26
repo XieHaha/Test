@@ -46,6 +46,7 @@ public class DiagnosesOrderAdapter extends BaseQuickAdapter<DiagnosesOrderBean, 
     public final int changDoctor = 7;
     public final int waiteEvaluate = 8;
     public final int complete = 9;
+    public final int triage = 11;
     public final int cancel = -1;
 
     /**
