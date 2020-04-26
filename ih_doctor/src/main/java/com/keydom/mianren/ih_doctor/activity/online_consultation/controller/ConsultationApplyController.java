@@ -13,8 +13,8 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.FillOutApplyActivity;
+import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.SelectDoctorActivity;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationApplyView;
-import com.keydom.mianren.ih_doctor.activity.online_diagnose.DiagnoseOrderSelectActivity;
 import com.keydom.mianren.ih_doctor.bean.DiagnoseFillOutResBean;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.GroupCooperateApiService;
@@ -41,11 +41,12 @@ public class ConsultationApplyController extends ControllerImpl<ConsultationAppl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.triage_apply_doctor_tv:
+            case R.id.consultation_apply_doctor_tv:
+                SelectDoctorActivity.startActivityConsulttationResult(getContext(),getView().getSelectedDoctor());
                 break;
-            case R.id.triage_apply_inquiry_order_tv:
-                DiagnoseOrderSelectActivity.start(getContext(), getView().getDoctorType());
-
+            case R.id.consultation_apply_grade_tv:
+                break;
+            case R.id.consultation_apply_time_tv:
                 break;
             default:
         }

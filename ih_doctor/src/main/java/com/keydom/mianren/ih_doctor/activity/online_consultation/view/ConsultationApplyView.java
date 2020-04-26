@@ -4,6 +4,7 @@ import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_doctor.bean.DeptDoctorBean;
 import com.keydom.mianren.ih_doctor.bean.DiagnoseFillOutResBean;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +55,7 @@ public interface ConsultationApplyView extends BaseView {
      *
      * @return 选中的医生列表对象
      */
-    List<DeptDoctorBean> getSelectedDoctor();
+    ArrayList<DeptDoctorBean> getSelectedDoctor();
 
     /**
      * 获取转诊需要的参数

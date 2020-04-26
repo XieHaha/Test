@@ -20,6 +20,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GridViewForScrollView;
 import com.keydom.ih_common.view.InterceptorEditText;
@@ -30,7 +31,9 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.view.Consultati
 import com.keydom.mianren.ih_doctor.adapter.DiagnoseChangePlusImgAdapter;
 import com.keydom.mianren.ih_doctor.bean.DeptDoctorBean;
 import com.keydom.mianren.ih_doctor.bean.DiagnoseFillOutResBean;
+import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
+import com.keydom.mianren.ih_doctor.utils.BaseUtils;
 import com.keydom.mianren.ih_doctor.utils.JsonUtils;
 import com.keydom.mianren.ih_doctor.view.CustomRecognizerDialog;
 import com.luck.picture.lib.PictureSelector;
@@ -86,6 +89,11 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
      */
     private int mType;
     /**
+     * 订单数据
+     */
+    private InquiryBean inquiryBean;
+
+    /**
      * 图片适配器
      */
     private DiagnoseChangePlusImgAdapter mAdapter;
@@ -96,7 +104,7 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
     /**
      * 科室医生列表
      */
-    private List<DeptDoctorBean> doctorList = new ArrayList<>();
+    private ArrayList<DeptDoctorBean> doctorList = new ArrayList<>();
     /**
      * 存放医生布局列表
      */
@@ -125,8 +133,9 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
      */
     public static final int DOCTOR_GOURP_FILLOUT_APPLY = 1201;
 
-    public static void start(Context context) {
+    public static void start(Context context, InquiryBean inquiryBean) {
         Intent intent = new Intent(context, ConsultationApplyActivity.class);
+        intent.putExtra(Const.DATA, inquiryBean);
         context.startActivity(intent);
     }
 
@@ -192,8 +201,9 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         mType = getIntent().getIntExtra(Const.TYPE, 0);
+        inquiryBean = (InquiryBean) getIntent().getSerializableExtra(Const.DATA);
         initView();
-        setTitle("申请");
+        setTitle("会诊申请");
         setRightTxt("提交");
         setRightBtnListener(v -> {
             if (doctorList == null || doctorList.size() <= 0) {
@@ -212,6 +222,13 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
 
     @SuppressLint("CheckResult")
     private void initView() {
+        GlideUtils.load(consultationApplyPatientHeaderIv,
+                BaseUtils.getHeaderUrl(inquiryBean.getUserAvatar()), 0, R.mipmap.user_icon, false
+                , null);
+        consultationApplyPatientNameTv.setText(inquiryBean.getName());
+        consultationApplyPatientSexTv.setText(CommonUtils.getSex(inquiryBean.getSex()));
+        consultationApplyPatientAgeTv.setText(inquiryBean.getAge() + "岁");
+
         mAdapter = new DiagnoseChangePlusImgAdapter(this, gridList);
         consultationApplyConditionImageGrid.setAdapter(mAdapter);
         consultationApplyConditionImageGrid.setOnItemClickListener(getController());
@@ -349,7 +366,7 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
     }
 
     @Override
-    public List<DeptDoctorBean> getSelectedDoctor() {
+    public ArrayList<DeptDoctorBean> getSelectedDoctor() {
         return doctorList;
     }
 

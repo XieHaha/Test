@@ -37,6 +37,7 @@ import com.keydom.mianren.ih_doctor.adapter.DiagnoseOrderDetailAdapter;
 import com.keydom.mianren.ih_doctor.bean.DeptDoctorBean;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
+import com.keydom.mianren.ih_doctor.utils.BaseUtils;
 import com.keydom.mianren.ih_doctor.utils.JsonUtils;
 import com.keydom.mianren.ih_doctor.view.CustomRecognizerDialog;
 import com.luck.picture.lib.PictureSelector;
@@ -277,8 +278,8 @@ public class TriageOrderApplyActivity extends BaseControllerActivity<TriageOrder
                     diagnoseOrderLl.removeAllViews();
                     triageApplyInquiryOrderTv.setText("");
                 }).show());
-        GlideUtils.load(userIcon, Const.IMAGE_HOST + bean.getUserAvatar(), 0, R.mipmap.user_icon,
-                false, null);
+        GlideUtils.load(userIcon, BaseUtils.getHeaderUrl(orderBean.getUserAvatar()), 0,
+                R.mipmap.user_icon, false, null);
         DiagnoseOrderDetailAdapter adapter = new DiagnoseOrderDetailAdapter(this,
                 CommonUtils.getImgList(orderBean.getConditionData()));
         LinearLayoutManager diagnoseInfoImgRvLm = new LinearLayoutManager(this);

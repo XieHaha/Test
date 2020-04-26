@@ -827,7 +827,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 break;
             case R.id.inquiry_pop_consultation_tv:
                 //会诊
-                ConsultationApplyActivity.start(this);
+                ConsultationApplyActivity.start(this, orderBean);
                 if (mPopupWindow != null) {
                     mPopupWindow.dismiss();
                 }

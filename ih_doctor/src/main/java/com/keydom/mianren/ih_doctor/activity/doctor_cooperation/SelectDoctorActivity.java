@@ -92,6 +92,10 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
      * 选择添加医生团队成员，调用接口直接添加，单选
      */
     public static final int DOCTOR_SLEECT_GROUP_MEMBER_ONLY_RESULT = 309;
+    /**
+     * 会诊申请
+     */
+    public static final int DOCTOR_SELECT_GROUP_CONSULTATION_RESULT = 310;
     private RecyclerView recyclerView;
     /**
      * 医生列表适配器
@@ -263,6 +267,18 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
                 DOCTOR_SLEECT_GROUP_MEMBER_ONLY_RESULT);
     }
 
+    /**
+     * 会诊申请选择医生
+     */
+    public static void startActivityConsulttationResult(Context context,
+                                                        ArrayList<DeptDoctorBean> list) {
+        Intent starter = new Intent(context, SelectDoctorActivity.class);
+        starter.putExtra(Const.TYPE, DOCTOR_SELECT_GROUP_CONSULTATION_RESULT);
+        starter.putExtra(Const.DATA, list);
+        ((Activity) context).startActivityForResult(starter,
+                DOCTOR_SELECT_GROUP_CONSULTATION_RESULT);
+    }
+
     @Override
     public int getLayoutRes() {
         return R.layout.activity_select_doctor_layout;
@@ -329,6 +345,13 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
         } else {
             doctorSelectRecyclrViewAdapter = new DoctorSelectRecyclrViewAdapter(this, mList,
                     tempList, false, isCancel);
+        }
+
+        //会诊申请选择医生
+        if (mType == DOCTOR_SELECT_GROUP_CONSULTATION_RESULT) {
+            doctorSelectRecyclrViewAdapter.setMultiSelect(true);
+        } else {
+            doctorSelectRecyclrViewAdapter.setMultiSelect(false);
         }
 
         if (mType == DOCTOR_SELECT_OTHER_DEPT_WITH_DIAGNOSE_ONLY_RESULT && (MyApplication.deptBeanList == null || MyApplication.deptBeanList.size() == 0)) {

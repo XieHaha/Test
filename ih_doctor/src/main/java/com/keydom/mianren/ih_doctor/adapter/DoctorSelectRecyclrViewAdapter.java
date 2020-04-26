@@ -35,9 +35,12 @@ public class DoctorSelectRecyclrViewAdapter extends BaseEmptyAdapter<DeptDoctorB
     private List<DeptDoctorBean> selectList;
     private List<DeptDoctorBean> aleardExistList = new ArrayList<>();
     private boolean selectOne = false;
+    private boolean multiSelect;
     private int orderType;
 
-    public DoctorSelectRecyclrViewAdapter(Context context, List<DeptDoctorBean> data, List<DeptDoctorBean> selectList, boolean selectOne, boolean isCancelSelected) {
+    public DoctorSelectRecyclrViewAdapter(Context context, List<DeptDoctorBean> data,
+                                          List<DeptDoctorBean> selectList, boolean selectOne,
+                                          boolean isCancelSelected) {
         super(data, context);
         this.selectList = selectList;
         this.selectOne = selectOne;
@@ -48,7 +51,10 @@ public class DoctorSelectRecyclrViewAdapter extends BaseEmptyAdapter<DeptDoctorB
     }
 
 
-    public DoctorSelectRecyclrViewAdapter(Context context, int orderType, List<DeptDoctorBean> data, List<DeptDoctorBean> selectList, boolean selectOne, boolean isCancelSelected) {
+    public DoctorSelectRecyclrViewAdapter(Context context, int orderType,
+                                          List<DeptDoctorBean> data,
+                                          List<DeptDoctorBean> selectList, boolean selectOne,
+                                          boolean isCancelSelected) {
         super(data, context);
         this.selectList = selectList;
         this.selectOne = selectOne;
@@ -57,6 +63,10 @@ public class DoctorSelectRecyclrViewAdapter extends BaseEmptyAdapter<DeptDoctorB
             this.aleardExistList.addAll(selectList);
         }
 
+    }
+
+    public void setMultiSelect(boolean multiSelect) {
+        this.multiSelect = multiSelect;
     }
 
     private int isExist(long id) {
@@ -81,7 +91,8 @@ public class DoctorSelectRecyclrViewAdapter extends BaseEmptyAdapter<DeptDoctorB
 
     @Override
     public RecyclerView.ViewHolder createMyViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.select_doctor_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.select_doctor_item, parent,
+                false);
         return new ViewHolder(view);
     }
 
@@ -92,7 +103,7 @@ public class DoctorSelectRecyclrViewAdapter extends BaseEmptyAdapter<DeptDoctorB
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView doctorIcon;
+        public ImageView doctorIcon, multiSelectIv;
         public TextView doctorName, doctorJob, selectTv;
 
         public ViewHolder(View itemView) {
@@ -101,11 +112,10 @@ public class DoctorSelectRecyclrViewAdapter extends BaseEmptyAdapter<DeptDoctorB
             doctorName = itemView.findViewById(R.id.doctor_name);
             doctorJob = itemView.findViewById(R.id.doctor_job);
             selectTv = itemView.findViewById(R.id.select_tv);
-
+            multiSelectIv = itemView.findViewById(R.id.multi_select_iv);
         }
 
         public void bind(final int position) {
-
             final DeptDoctorBean bean = mDatas.get(position);
             final int selectPos = isExist(bean.getId());
             final int aleardExist = isAreardExistGroup(bean.getId());
@@ -113,45 +123,75 @@ public class DoctorSelectRecyclrViewAdapter extends BaseEmptyAdapter<DeptDoctorB
 
             doctorJob.setText(bean.getJobTitle());
             doctorName.setText(bean.getName());
-            if (selectPos != -1) {
-                selectTv.setText("已选择");
-                selectTv.setBackground(mContext.getResources().getDrawable(R.drawable.doctor_select_bg));
-                selectTv.setTextColor(mContext.getResources().getColor(R.color.fontColorDirection));
-            } else {
-                selectTv.setText("选择");
-                selectTv.setBackground(mContext.getResources().getDrawable(R.drawable.doctor_unselect_bg));
-                selectTv.setTextColor(mContext.getResources().getColor(R.color.white));
-            }
-            selectTv.setOnClickListener(new View.OnClickListener() {
-                @SingleClick(1000)
-                @Override
-                public void onClick(View v) {
-                    if (orderType!=0&&bean.getProjectStatus() != 3 && bean.getProjectStatus() != orderType) {
-                        ToastUtil.showMessage(mContext, "该医生没有开通此类型问诊服务！");
-                        return;
-                    }
-                    if (selectOne) {
-                        selectList.add(bean);
-                        Intent intent = new Intent();
-                        intent.putExtra(Const.DATA, (Serializable) selectList);
-                        ((Activity) mContext).setResult(Activity.RESULT_OK, intent);
-                        ((Activity) mContext).finish();
-                    } else {
+
+            if (multiSelect) {
+                selectTv.setVisibility(View.GONE);
+                multiSelectIv.setVisibility(View.VISIBLE);
+                if (selectPos == -1) {
+                    multiSelectIv.setSelected(false);
+                } else {
+                    multiSelectIv.setSelected(true);
+                }
+                multiSelectIv.setOnClickListener(new View.OnClickListener() {
+                    @SingleClick(1000)
+                    @Override
+                    public void onClick(View v) {
+                        if (orderType != 0 && bean.getProjectStatus() != 3 && bean.getProjectStatus() != orderType) {
+                            ToastUtil.showMessage(mContext, "该医生没有开通此类型问诊服务！");
+                            return;
+                        }
                         if (selectPos != -1) {
-                            if (aleardExist != -1) {
-                                ToastUtil.showMessage(mContext, "已经存在于团队的人员不可取消");
-                                return;
-                            }
                             selectList.remove(selectPos);
                         } else {
                             selectList.add(bean);
                         }
                         notifyDataSetChanged();
                     }
+                });
 
-
+            } else {
+                selectTv.setVisibility(View.VISIBLE);
+                multiSelectIv.setVisibility(View.GONE);
+                if (selectPos != -1) {
+                    selectTv.setText("已选择");
+                    selectTv.setBackground(mContext.getResources().getDrawable(R.drawable.doctor_select_bg));
+                    selectTv.setTextColor(mContext.getResources().getColor(R.color.fontColorDirection));
+                } else {
+                    selectTv.setText("选择");
+                    selectTv.setBackground(mContext.getResources().getDrawable(R.drawable.doctor_unselect_bg));
+                    selectTv.setTextColor(mContext.getResources().getColor(R.color.white));
                 }
-            });
+                selectTv.setOnClickListener(new View.OnClickListener() {
+                    @SingleClick(1000)
+                    @Override
+                    public void onClick(View v) {
+                        if (orderType != 0 && bean.getProjectStatus() != 3 && bean.getProjectStatus() != orderType) {
+                            ToastUtil.showMessage(mContext, "该医生没有开通此类型问诊服务！");
+                            return;
+                        }
+                        if (selectOne) {
+                            selectList.add(bean);
+                            Intent intent = new Intent();
+                            intent.putExtra(Const.DATA, (Serializable) selectList);
+                            ((Activity) mContext).setResult(Activity.RESULT_OK, intent);
+                            ((Activity) mContext).finish();
+                        } else {
+                            if (selectPos != -1) {
+                                if (aleardExist != -1) {
+                                    ToastUtil.showMessage(mContext, "已经存在于团队的人员不可取消");
+                                    return;
+                                }
+                                selectList.remove(selectPos);
+                            } else {
+                                selectList.add(bean);
+                            }
+                            notifyDataSetChanged();
+                        }
+
+
+                    }
+                });
+            }
         }
     }
 }

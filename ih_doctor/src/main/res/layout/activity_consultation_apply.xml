@@ -199,7 +199,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
-                    android:id="@+id/consultation_apply_inquiry_order_tv"
+                    android:id="@+id/consultation_apply_time_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
