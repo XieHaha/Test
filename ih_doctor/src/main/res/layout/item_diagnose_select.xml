@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/diagnose_tv"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/dp_30"
+    android:drawableEnd="@mipmap/consulting_delete_icon"
+    android:drawablePadding="@dimen/dp_5"
+    android:gravity="center"
+    android:paddingStart="@dimen/dp_10"
+    android:paddingEnd="@dimen/dp_10"
+    android:textColor="@color/fontColorPrimary"
+    android:textSize="@dimen/sp_14"
+    tools:text="测试数据">
+
+</TextView>

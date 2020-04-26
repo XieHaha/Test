@@ -16,11 +16,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_81"
         android:layout_marginStart="@dimen/padding_left_right_dp"
         android:layout_marginTop="@dimen/dp_16"
         android:layout_marginEnd="@dimen/padding_left_right_dp"
-        android:layout_marginBottom="@dimen/dp_19"
-        android:layout_height="@dimen/dp_81">
+        android:layout_marginBottom="@dimen/dp_19">
 
         <com.keydom.ih_common.view.InterceptorEditText
             android:id="@+id/diagnose_input_et"
@@ -28,13 +28,13 @@
             android:layout_height="@dimen/dp_81"
             android:layout_centerHorizontal="true"
             android:background="@drawable/check_dialog_input_bg"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:gravity="left|top"
             android:hint="请选择初步诊断"
             android:lineSpacingExtra="@dimen/dp_3"
             android:maxLength="1000"
             android:padding="@dimen/dp_13"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
             android:singleLine="false"
             android:textColor="@color/edit_font_color"
             android:textCursorDrawable="@null"
@@ -49,8 +49,8 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="@dimen/dp_5"
             android:layout_marginBottom="@dimen/dp_5"
-            android:visibility="invisible"
-            android:src="@drawable/im_voice_toggle_selector" />
+            android:src="@drawable/im_voice_toggle_selector"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
@@ -98,16 +98,33 @@
 
     </RelativeLayout>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/icd_rv"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            android:layout_height="match_parent"
+            android:layout_above="@id/select_layout">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/icd_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <LinearLayout
+            android:id="@+id/select_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_alignParentBottom="true">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

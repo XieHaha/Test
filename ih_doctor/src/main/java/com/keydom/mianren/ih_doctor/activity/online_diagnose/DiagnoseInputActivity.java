@@ -15,8 +15,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerResult;
@@ -26,6 +28,7 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.mianren.ih_doctor.R;
+import com.keydom.mianren.ih_doctor.activity.online_diagnose.adapter.DiagnoseSelectAdapter;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.controller.DiagnoseInputController;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.DiagnoseInputView;
 import com.keydom.mianren.ih_doctor.adapter.ICD10ListAdapter;
@@ -44,6 +47,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.functions.Consumer;
@@ -65,10 +69,16 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
     private EditText diagnoseInputEt, searchInputEv;
     private TextView searchTv;
     private RecyclerView recyclerView;
+    private RecyclerView selectRecyclerView;
+    private LinearLayout selectLayout;
     /**
      * 列表适配器
      */
     private ICD10ListAdapter icd10ListAdapter;
+    /**
+     * 初步诊断已选择的适配器
+     */
+    private DiagnoseSelectAdapter diagnoseSelectAdapter;
     /**
      * 搜索的关键字
      */
@@ -82,7 +92,6 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
      * 已选
      */
     private ArrayList<ICD10Bean> selectData = new ArrayList<>();
-
 
     private ImageView mVoiceInputIv;
 
@@ -195,13 +204,37 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
             if (!selectData.contains(bean)) {
                 selectData.add(bean);
             }
-            if (TextUtils.isEmpty(inputStr)) {
-                inputStr += bean.getName();
-            } else {
-                inputStr += "," + bean.getName();
+            diagnoseSelectAdapter.setNewData(selectData);
+            appendInputStr();
+        }
+    }
+
+    private void appendInputStr() {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < selectData.size(); i++) {
+            builder.append(selectData.get(i).getName());
+            if (i != selectData.size() - 1) {
+                builder.append(",");
             }
-            diagnoseInputEt.setText(inputStr);
-            com.keydom.ih_common.utils.CommonUtils.hideSoftKeyboard(this);
+        }
+        inputStr = builder.toString();
+        diagnoseInputEt.setText(inputStr);
+        com.keydom.ih_common.utils.CommonUtils.hideSoftKeyboard(this);
+    }
+
+    /**
+     * 初始化已选数据
+     */
+    private void initSelectedData() {
+        if (!TextUtils.isEmpty(inputStr)) {
+            String[] strings = inputStr.split(",");
+            List<String> list = Arrays.asList(strings);
+            for (ICD10Bean bean : mList) {
+                if (list.contains(bean.getName())) {
+                    selectData.add(bean);
+                }
+            }
+            diagnoseSelectAdapter.setNewData(selectData);
         }
     }
 
@@ -221,6 +254,12 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
         diagnoseInputEt = this.findViewById(R.id.diagnose_input_et);
         recyclerView = this.findViewById(R.id.icd_rv);
         mVoiceInputIv = this.findViewById(R.id.diagnose_input_layout_voice_input_iv);
+        selectRecyclerView = findViewById(R.id.recycler_view);
+        selectLayout = findViewById(R.id.select_layout);
+        selectRecyclerView.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false));
+        diagnoseSelectAdapter = new DiagnoseSelectAdapter(selectData);
+        selectRecyclerView.setAdapter(diagnoseSelectAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setSmoothScrollbarEnabled(true);
         layoutManager.setAutoMeasureEnabled(true);
@@ -240,6 +279,16 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
             @Override
             public void onClick(View v) {
                 initPremissions();
+            }
+        });
+
+        //已选数据监听
+        diagnoseSelectAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                selectData.remove(position);
+                diagnoseSelectAdapter.setNewData(selectData);
+                appendInputStr();
             }
         });
     }
@@ -282,6 +331,7 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
     @Override
     public void getICDListSuccess(List<ICD10Bean> list) {
         mList.addAll(list);
+        initSelectedData();
         icd10ListAdapter.notifyDataSetChanged();
         getController().currentPagePlus();
         refreshLayout.finishLoadMore();

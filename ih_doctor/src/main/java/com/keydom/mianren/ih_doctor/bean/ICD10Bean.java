@@ -1,5 +1,7 @@
 package com.keydom.mianren.ih_doctor.bean;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 
@@ -23,5 +25,10 @@ public class ICD10Bean implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return TextUtils.equals(getCode(), ((ICD10Bean) obj).getCode());
     }
 }
