@@ -10,6 +10,9 @@ public class ICD10Bean implements Serializable {
     private static final long serialVersionUID = 1L;
     private String code;
     private String name;
+    private String id;
+    private String userOrderId;
+    private String prescriptionId;
 
     public String getCode() {
         return code;
@@ -25,6 +28,30 @@ public class ICD10Bean implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserOrderId() {
+        return userOrderId;
+    }
+
+    public void setUserOrderId(String userOrderId) {
+        this.userOrderId = userOrderId;
+    }
+
+    public String getPrescriptionId() {
+        return prescriptionId;
+    }
+
+    public void setPrescriptionId(String prescriptionId) {
+        this.prescriptionId = prescriptionId;
     }
 
     @Override

@@ -31,18 +31,16 @@ public class MedicalTempletDetailController extends ControllerImpl<MedicalTemple
      * @param id 病历ID
      */
     public void getTemplateDetail(long id) {
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).detailMedicalTemplate(id), new HttpSubscriber<MedicalRecordTempletBean>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).detailMedicalTemplate(id), new HttpSubscriber<MedicalRecordTempletBean>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable MedicalRecordTempletBean data) {
-                hideLoading();
                 List<MedicalTempletDetailBean> medicalTempletDetailBeans = transfromList(data);
                 getView().templateDetailrequestCallBack(medicalTempletDetailBeans, data);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }

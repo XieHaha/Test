@@ -1,5 +1,7 @@
 package com.keydom.mianren.ih_doctor.bean;
 
+import java.util.ArrayList;
+
 /**
  * created date: 2019/1/8 on 15:18
  * des:
@@ -13,6 +15,8 @@ public class MedicalRecordTempletBean {
     private String historyAllergy;
     private String auxiliaryInspect;
     private String initDiagnosis;
+    private String handleOpinion;
+    private ArrayList<ICD10Bean> idcItems;
 
     public String getMainComplaint() {
         return mainComplaint;
@@ -62,10 +66,6 @@ public class MedicalRecordTempletBean {
         this.handleOpinion = handleOpinion;
     }
 
-    private String handleOpinion
-
-            ;
-
     public long getId() {
         return id;
     }
@@ -80,5 +80,13 @@ public class MedicalRecordTempletBean {
 
     public void setTemplateName(String templateName) {
         this.templateName = templateName;
+    }
+
+    public ArrayList<ICD10Bean> getIdcItems() {
+        return idcItems;
+    }
+
+    public void setIdcItems(ArrayList<ICD10Bean> idcItems) {
+        this.idcItems = idcItems;
     }
 }

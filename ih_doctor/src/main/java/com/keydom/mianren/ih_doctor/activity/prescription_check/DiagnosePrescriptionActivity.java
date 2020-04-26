@@ -488,6 +488,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         checkRes.setText(bean.getAuxiliaryInspect());
         simpleDiagnose.setText(bean.getInitDiagnosis());
         dealIdea.setText(bean.getHandleOpinion());
+        idcItems = bean.getIdcItems();
     }
 
     @Override
