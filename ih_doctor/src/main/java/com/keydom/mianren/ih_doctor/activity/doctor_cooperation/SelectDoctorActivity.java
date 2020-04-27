@@ -277,10 +277,12 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
      * 会诊申请选择医生
      */
     public static void startActivityConsultationResult(Context context,
-                                                       ArrayList<DeptDoctorBean> list) {
+                                                       ArrayList<DeptDoctorBean> list,
+                                                       boolean all) {
         Intent starter = new Intent(context, SelectDoctorActivity.class);
         starter.putExtra(Const.TYPE, DOCTOR_SELECT_GROUP_CONSULTATION_RESULT);
         starter.putExtra(Const.DATA, list);
+        starter.putExtra("all", all);
         ((Activity) context).startActivityForResult(starter,
                 DOCTOR_SELECT_GROUP_CONSULTATION_RESULT);
     }
@@ -376,16 +378,17 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
                 deptId = MyApplication.userInfo.getDeptId();
             }
         } else {
+            niceSpinner.attachDataSource(MyApplication.filterDept(all));
             if (all) {
-                niceSpinner.attachDataSource(MyApplication.allDeptSpannerList);
+                if (MyApplication.deptBeanList != null && MyApplication.deptBeanList.size() != 0) {
+                    deptId = MyApplication.deptBeanList.get(0).getId();
+                }
             } else {
-                niceSpinner.attachDataSource(MyApplication.deptSpannerList);
+                if (MyApplication.filterDeptList != null && MyApplication.filterDeptList.size() != 0) {
+                    deptId = MyApplication.filterDeptList.get(0).getId();
+                }
             }
             niceSpinner.setOnItemSelectedListener(getController());
-            if (MyApplication.deptBeanList != null && MyApplication.deptBeanList.size() != 0) {
-                deptId = MyApplication.deptBeanList.get(0).getId();
-            }
-
         }
 
         if (mType == DOCTOR_SLEECT_SELF_DEPT_ONLY_RESULT || mType == DOCTOR_SLEECT_SELF_DEPT || mType == DOCTOR_SLEECT_ONE_SELF_DEPT_ONLY_RESULT || mType == DOCTOR_SLEECT_GROUP_MEMBER_ONLY_RESULT) {
@@ -523,6 +526,17 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
 
     @Override
     public void getDoctorListSuccess(List<DeptDoctorBean> list, TypeEnum typeEnum) {
+        ArrayList<DeptDoctorBean> newList = new ArrayList<>();
+        if (deptId == MyApplication.userInfo.getDeptId()) {
+            for (DeptDoctorBean bean : list) {
+                if (bean.getId() == MyApplication.userInfo.getId()) {
+                    continue;
+                }
+                newList.add(bean);
+            }
+        } else {
+            newList.addAll(list);
+        }
         mRefreshLayout.finishLoadMore();
         mRefreshLayout.finishRefresh();
         pageLoadingSuccess();
@@ -531,8 +545,8 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
             mList.clear();
             mTempList.clear();
         }
-        mList.addAll(list);
-        mTempList.addAll(list);
+        mList.addAll(newList);
+        mTempList.addAll(newList);
         doctorSelectRecyclrViewAdapter.notifyDataSetChanged();
         getController().currentPagePlus();
     }
@@ -591,6 +605,10 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
 
     @Override
     public void selectDept(int position) {
-        deptId = MyApplication.deptBeanList.get(position).getId();
+        if (all) {
+            deptId = MyApplication.deptBeanList.get(position).getId();
+        } else {
+            deptId = MyApplication.filterDeptList.get(position).getId();
+        }
     }
 }

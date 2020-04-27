@@ -199,13 +199,12 @@ public class MainActivity extends AppCompatActivity {
             public void requestComplete(@org.jetbrains.annotations.Nullable List<DeptBean> data) {
                 if (data == null) {
                     MyApplication.deptBeanList.clear();
-                    MyApplication.deptSpannerList.clear();
+                    MyApplication.filterDeptList.clear();
                     return;
                 }
                 MyApplication.deptBeanList.clear();
                 MyApplication.deptBeanList.addAll(data);
                 if (MyApplication.userInfo.getId() != 0) {//如果用户信息已经拿到，则过滤，否则不过滤科室
-                    MyApplication.allDept();
                     MyApplication.filterDept();
                 }
             }
@@ -214,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
                 MyApplication.deptBeanList.clear();
-                MyApplication.deptSpannerList.clear();
+                MyApplication.filterDeptList.clear();
                 return super.requestError(exception, code, msg);
             }
         });

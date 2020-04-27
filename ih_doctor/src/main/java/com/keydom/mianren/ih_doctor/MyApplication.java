@@ -41,7 +41,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -58,8 +57,7 @@ public class MyApplication extends CommonApp {
     public static UserInfo userInfo = new UserInfo();
     public static AccessInfoBean accessInfoBean;
     public static List<DeptBean> deptBeanList = new ArrayList<>();
-    public static List<String> deptSpannerList = new ArrayList<>();
-    public static List<String> allDeptSpannerList = new ArrayList<>();
+    public static List<DeptBean> filterDeptList = new ArrayList<>();
     public static boolean isNeedInit = true;
     public static int receiveReferral = 0;
 
@@ -207,32 +205,32 @@ public class MyApplication extends CommonApp {
     }
 
     /**
-     * 去掉当前登录用户科室
+     * 科室处理
      */
-    public static void filterDept() {
-        Iterator<DeptBean> it = deptBeanList.iterator();
-        while (it.hasNext()) {
-            if (it.next().getId() == MyApplication.userInfo.getDeptId()) {
-                it.remove();
+    public static ArrayList<String> filterDept(boolean all) {
+        ArrayList<String> filterDept = new ArrayList<>();
+        ArrayList<String> allDept = new ArrayList<>();
+        for (DeptBean bean : deptBeanList) {
+            if (bean.getId() == MyApplication.userInfo.getDeptId()) {
+                allDept.add(bean.getName());
+                continue;
             }
+            filterDept.add(bean.getName());
+            allDept.add(bean.getName());
         }
-        MyApplication.deptSpannerList.clear();
+        if (all) {
+            return allDept;
+        }
+        return filterDept;
+    }
+
+    public static void filterDept() {
+        MyApplication.filterDeptList.clear();
         for (DeptBean bean : deptBeanList) {
             if (bean.getId() == MyApplication.userInfo.getDeptId()) {
                 continue;
             }
-            MyApplication.deptSpannerList.add(bean.getName());
+            MyApplication.filterDeptList.add(bean);
         }
     }
-
-    /**
-     * 去所有科室
-     */
-    public static void allDept() {
-        MyApplication.allDeptSpannerList.clear();
-        for (DeptBean bean : deptBeanList) {
-            MyApplication.allDeptSpannerList.add(bean.getName());
-        }
-    }
-
 }

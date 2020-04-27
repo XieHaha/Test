@@ -19,8 +19,9 @@ public class ConsultationDetailBean implements Serializable {
     private String eleCardNumber;
     private String visitTime;
     private String mdtTime;
-    private String reasonAim;
+    private String reasonAndAim;
     private String illnessAbstract;
+    private String mainTell;
     private ConsultationDoctorBean applyDoctor;
     private ArrayList<ConsultationDoctorBean> mdtDoctors;
     private ArrayList<String> medicalHistoryImg;
@@ -105,12 +106,12 @@ public class ConsultationDetailBean implements Serializable {
         this.mdtTime = mdtTime;
     }
 
-    public String getReasonAim() {
-        return reasonAim;
+    public String getReasonAndAim() {
+        return reasonAndAim;
     }
 
-    public void setReasonAim(String reasonAim) {
-        this.reasonAim = reasonAim;
+    public void setReasonAndAim(String reasonAndAim) {
+        this.reasonAndAim = reasonAndAim;
     }
 
     public String getIllnessAbstract() {
@@ -143,5 +144,13 @@ public class ConsultationDetailBean implements Serializable {
 
     public void setMedicalHistoryImg(ArrayList<String> medicalHistoryImg) {
         this.medicalHistoryImg = medicalHistoryImg;
+    }
+
+    public String getMainTell() {
+        return mainTell;
+    }
+
+    public void setMainTell(String mainTell) {
+        this.mainTell = mainTell;
     }
 }

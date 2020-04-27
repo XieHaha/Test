@@ -99,7 +99,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
     private int receiveReferral = 0;
 
     private int RvWidth = 0;
-    private int space = 0,bottom = 0;
+    private int space = 0, bottom = 0;
     private int itemWidth = 0;
 
 
@@ -121,8 +121,8 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         space = dip2px(getContext(), 34);
         bottom = dip2px(getContext(), 10);
         itemWidth = (RvWidth - space * 3) / 4;
-        work_function_rv.addItemDecoration(new SpacesItemDecoration(space,bottom));
-        work_function_rv.setLayoutManager(new GridLayoutManager(getContext(),4));
+        work_function_rv.addItemDecoration(new SpacesItemDecoration(space, bottom));
+        work_function_rv.setLayoutManager(new GridLayoutManager(getContext(), 4));
         workFunctionAdapter = new WorkFunctionAdapter(getContext(), dataList, itemWidth);
         workFunctionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @SingleClick(1000)
@@ -295,10 +295,9 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         else
             cooperate_redpoint_view.setVisibility(View.GONE);
         MyApplication.userInfo = bean.getInfo();
-        PushManager.setAlias(getContext(), (String) SharePreferenceManager.getPhoneNumber());
+        PushManager.setAlias(getContext(), SharePreferenceManager.getPhoneNumber());
         MyApplication.accessInfoBean = bean.getAuth();
         if (MyApplication.deptBeanList.size() > 0) {//如果科室已经拿到，并且存在，则过滤科室，否则不过滤
-            MyApplication.allDept();
             MyApplication.filterDept();
         }
         LocalizationUtils.fileSave2Local(getContext(), bean.getInfo(), Const.USER_INFO);

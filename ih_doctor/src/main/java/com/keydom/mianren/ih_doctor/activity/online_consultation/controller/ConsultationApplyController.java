@@ -5,6 +5,11 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.bigkoo.pickerview.view.TimePickerView;
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
@@ -41,16 +46,32 @@ public class ConsultationApplyController extends ControllerImpl<ConsultationAppl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.consultation_apply_doctor_tv:
-                SelectDoctorActivity.startActivityConsulttationResult(getContext(),getView().getSelectedDoctor());
+            case R.id.consultation_apply_doctor_layout:
+                SelectDoctorActivity.startActivityConsultationResult(getContext(),
+                        getView().getSelectedDoctor(), true);
                 break;
-            case R.id.consultation_apply_grade_tv:
+            case R.id.consultation_apply_grade_layout:
+                showGrade();
                 break;
-            case R.id.consultation_apply_time_tv:
+            case R.id.consultation_apply_time_layout:
+                KeyboardUtils.hideSoftInput((Activity) getContext());
+                TimePickerView pickerView = new TimePickerBuilder(getContext(),
+                        (date, v12) -> getView().setApplyDate(date)).build();
+                pickerView.show();
                 break;
             default:
         }
 
+    }
+
+    /**
+     * 选择性别
+     */
+    public void showGrade() {
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(getContext(),
+                (options1, option2, options3, v) -> getView().setGrade(options1)).build();
+        pvOptions.setPicker(getView().getGradeStr());
+        pvOptions.show();
     }
 
 

@@ -189,7 +189,7 @@ public class PersonalInfoController extends ControllerImpl<PersonalInfoView> imp
                 updateInfo();
             }
         }).build();
-        pvOptions.setPicker(MyApplication.deptSpannerList);
+        pvOptions.setPicker(MyApplication.filterDept(false));
         pvOptions.show();
     }
 

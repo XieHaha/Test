@@ -53,7 +53,7 @@ public class ConsultationInfoController extends ControllerImpl<ConsultationInfoV
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
-                getView().requestInfoFalied(msg);
+                getView().requestInfoFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });

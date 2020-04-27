@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.view.GridViewForScrollView;
 import com.keydom.mianren.ih_doctor.R;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.ImageAdapter;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationInfoController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationInfoView;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
@@ -40,6 +41,8 @@ public class ConsultationInfoFragment extends BaseControllerFragment<Consultatio
 
     private String orderId;
 
+    private ConsultationDetailBean infoBean;
+
     public static ConsultationInfoFragment newInstance(String id) {
         ConsultationInfoFragment fragment = new ConsultationInfoFragment();
         Bundle args = new Bundle();
@@ -63,6 +66,18 @@ public class ConsultationInfoFragment extends BaseControllerFragment<Consultatio
         consultationInfoVideoLayout.setOnClickListener(getController());
 
         getController().getConsultationOrderDetail(orderId);
+    }
+
+    private void bindData() {
+        if (infoBean != null) {
+            consultationInfoChiefItem.setText(infoBean.getMainTell());
+            consultationInfoPurposeItem.setText(infoBean.getReasonAndAim());
+            consultationInfoSummaryItem.setText(infoBean.getIllnessAbstract());
+
+            //图片适配器，病情资料和问诊说明图片适配器
+            ImageAdapter imageAdapter = new ImageAdapter(getContext(), infoBean.getMedicalHistoryImg());
+            consultationInfoConditionImageGrid.setAdapter(imageAdapter);
+        }
     }
 
     @Override
@@ -118,11 +133,12 @@ public class ConsultationInfoFragment extends BaseControllerFragment<Consultatio
 
     @Override
     public void requestInfoSuccess(ConsultationDetailBean bean) {
-
+        infoBean = bean;
+        bindData();
     }
 
     @Override
-    public void requestInfoFalied(String error) {
+    public void requestInfoFailed(String error) {
 
     }
 }

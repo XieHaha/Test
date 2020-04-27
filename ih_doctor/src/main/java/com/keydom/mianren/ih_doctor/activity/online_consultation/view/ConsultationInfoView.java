@@ -30,5 +30,5 @@ public interface ConsultationInfoView extends BaseView {
 
     void requestInfoSuccess(ConsultationDetailBean bean);
 
-    void requestInfoFalied(String error);
+    void requestInfoFailed(String error);
 }

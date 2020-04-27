@@ -5,6 +5,7 @@ import com.keydom.mianren.ih_doctor.bean.DeptDoctorBean;
 import com.keydom.mianren.ih_doctor.bean.DiagnoseFillOutResBean;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -86,4 +87,10 @@ public interface ConsultationApplyView extends BaseView {
     List<String> getImgList();
 
     int getDoctorType();
+
+    void setGrade(int index);
+
+    ArrayList<String> getGradeStr();
+
+    void setApplyDate(Date date);
 }

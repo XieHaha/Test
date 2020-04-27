@@ -34,6 +34,7 @@ import com.keydom.mianren.ih_doctor.bean.DeptDoctorBean;
 import com.keydom.mianren.ih_doctor.bean.DiagnoseFillOutResBean;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
+import com.keydom.mianren.ih_doctor.utils.DateUtils;
 import com.keydom.mianren.ih_doctor.utils.JsonUtils;
 import com.keydom.mianren.ih_doctor.view.CustomRecognizerDialog;
 import com.luck.picture.lib.PictureSelector;
@@ -44,12 +45,15 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
 import butterknife.BindView;
+
+import static com.keydom.mianren.ih_doctor.activity.doctor_cooperation.SelectDoctorActivity.DOCTOR_SELECT_GROUP_CONSULTATION_RESULT;
 
 /**
  * @date 3月24日
@@ -70,10 +74,14 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
     TextView consultationApplyDoctorTv;
     @BindView(R.id.consultation_apply_doctor_layout)
     RelativeLayout consultationApplyDoctorLayout;
+    @BindView(R.id.consultation_apply_grade_layout)
+    RelativeLayout consultationApplyGradeLayout;
     @BindView(R.id.consultation_apply_grade_tv)
     TextView consultationApplyGradeTv;
+    @BindView(R.id.consultation_apply_time_layout)
+    RelativeLayout consultationApplyTimeLayout;
     @BindView(R.id.consultation_apply_time_tv)
-    TextView consultationApplyInquiryOrderTv;
+    TextView consultationApplyTimeTv;
     @BindView(R.id.consultation_apply_transfer_description_et)
     InterceptorEditText consultationApplyTransferDescriptionEt;
     @BindView(R.id.consultation_apply_transfer_description_voice)
@@ -118,6 +126,8 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
      * 语音听写UI
      */
     private CustomRecognizerDialog mIatDialog, medicalDialog;
+
+    private ArrayList<String> gradeStr = new ArrayList<String>();
 
 
     /**
@@ -205,6 +215,7 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
         initView();
         setTitle("会诊申请");
         setRightTxt("提交");
+
         setRightBtnListener(v -> {
             if (doctorList == null || doctorList.size() <= 0) {
                 ToastUtil.showMessage(this, "请选择医生");
@@ -222,6 +233,8 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
 
     @SuppressLint("CheckResult")
     private void initView() {
+        gradeStr.add("普通");
+        gradeStr.add("紧急");
         GlideUtils.load(consultationApplyPatientHeaderIv,
                 BaseImageUtils.getHeaderUrl(inquiryBean.getUserAvatar()), 0, R.mipmap.user_icon,
                 false, null);
@@ -232,7 +245,9 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
         mAdapter = new DiagnoseChangePlusImgAdapter(this, gridList);
         consultationApplyConditionImageGrid.setAdapter(mAdapter);
         consultationApplyConditionImageGrid.setOnItemClickListener(getController());
-        consultationApplyDoctorTv.setOnClickListener(getController());
+        consultationApplyDoctorLayout.setOnClickListener(getController());
+        consultationApplyGradeLayout.setOnClickListener(getController());
+        consultationApplyTimeLayout.setOnClickListener(getController());
 
         // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
@@ -291,7 +306,17 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
                         getController().uploadFile(selectList.get(i).getPath());
                     }
                     break;
-                case Const.DOCTOR_SLEECT_ONLY_RESULT:
+                case DOCTOR_SELECT_GROUP_CONSULTATION_RESULT:
+                    //选择会诊医生回调
+                    doctorList = (ArrayList<DeptDoctorBean>) data.getSerializableExtra(Const.DATA);
+                    if (doctorList.size() > 0) {
+                        consultationApplyDoctorTv.setHint("");
+                    } else {
+                        consultationApplyDoctorTv.setHint(R.string.txt_select_consultation_doctor_hint);
+                    }
+                    addDoctor();
+                    break;
+                default:
                     break;
             }
         }
@@ -302,6 +327,7 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
      * 添加选择的医生到页面
      */
     private void addDoctor() {
+        consultationApplyDoctorBoxLayout.removeAllViews();
         for (int i = 0; i < doctorList.size(); i++) {
             addDoctorView(doctorList.get(i).getName());
         }
@@ -414,5 +440,22 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
             return doctorList.get(0).getProjectStatus();
         }
         return 3;
+    }
+
+    @Override
+    public ArrayList<String> getGradeStr() {
+        return gradeStr;
+    }
+
+    @Override
+    public void setGrade(int index) {
+        consultationApplyGradeTv.setHint("");
+        consultationApplyGradeTv.setText(gradeStr.get(index));
+    }
+
+    @Override
+    public void setApplyDate(Date date) {
+        consultationApplyTimeTv.setText(DateUtils.dateToString(date,
+                DateUtils.YYYY_MM_DD_HH_MM_SS));
     }
 }
