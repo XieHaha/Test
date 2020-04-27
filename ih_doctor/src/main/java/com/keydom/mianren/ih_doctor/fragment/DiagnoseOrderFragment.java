@@ -82,41 +82,6 @@ public class DiagnoseOrderFragment extends BaseControllerFragment<DiagnoseOrderF
 
 
     @Override
-    public void getDataSuccess(TypeEnum type, List<InquiryBean> list) {
-        getController().currentPagePlus();
-        if (type == TypeEnum.REFRESH) {
-            dataList.clear();
-        }
-        dataList.addAll(list);
-        mAdapter.notifyDataSetChanged();
-        refreshLayout.finishRefresh();
-        refreshLayout.finishLoadMore();
-        pageLoadingSuccess();
-    }
-
-    @Override
-    public void getDataFailed(String errMsg) {
-        refreshLayout.finishRefresh();
-        refreshLayout.finishLoadMore();
-        pageLoadingFail();
-
-    }
-
-    @Override
-    public TypeEnum getType() {
-        return mType;
-    }
-
-    @Override
-    public Map<String, Object> getListMap() {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("currentPage", getController().getCurrentPage());
-        map.put("pageSize", Const.PAGE_SIZE);
-        map.put("state", state);
-        return map;
-    }
-
-    @Override
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         mType = (TypeEnum) getArguments().getSerializable(Const.TYPE);
         if (mType == TypeEnum.ONLINE_DIAGNOSE_WAITTING) {
@@ -138,12 +103,12 @@ public class DiagnoseOrderFragment extends BaseControllerFragment<DiagnoseOrderF
         refreshLayout = getView().findViewById(R.id.refreshLayout);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        refreshLayout.setOnLoadMoreListener(getController());
-        refreshLayout.setOnRefreshListener(getController());
+        refreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getHeadNurseServiceOrderList(TypeEnum.LOAD_MORE));
+        refreshLayout.setOnRefreshListener(refreshLayout -> getController().getHeadNurseServiceOrderList(TypeEnum.REFRESH));
         setReloadListener((v, status) -> {
             pageLoading();
             getController().setCurrentPage(1);
-            getController().getData(TypeEnum.REFRESH);
+            getController().getHeadNurseServiceOrderList(TypeEnum.REFRESH);
         });
     }
 
@@ -151,7 +116,53 @@ public class DiagnoseOrderFragment extends BaseControllerFragment<DiagnoseOrderF
     public void lazyLoad() {
         pageLoading();
         getController().setCurrentPage(1);
-        getController().getData(TypeEnum.REFRESH);
+        getController().getHeadNurseServiceOrderList(TypeEnum.REFRESH);
+    }
+
+    @Override
+    public TypeEnum getType() {
+        return mType;
+    }
+
+    @Override
+    public Map<String, Object> getListMap() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("currentPage", getController().getCurrentPage());
+        map.put("pageSize", Const.PAGE_SIZE);
+        map.put("state", state);
+        return map;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(MessageEvent messageEvent) {
+        if (messageEvent.getType() == EventType.DIAGNOSE_ORDER_UPDATE) {
+            getController().setCurrentPage(1);
+            getController().getHeadNurseServiceOrderList(TypeEnum.REFRESH);
+        }
+    }
+
+    @Override
+    public void getDataSuccess(TypeEnum type, List<InquiryBean> list) {
+        if (list.size() < Const.PAGE_SIZE) {
+            refreshLayout.finishLoadMoreWithNoMoreData();
+        } else {
+            refreshLayout.finishLoadMore();
+        }
+        getController().currentPagePlus();
+        refreshLayout.finishRefresh();
+        pageLoadingSuccess();
+        if (type == TypeEnum.REFRESH) {
+            dataList.clear();
+        }
+        dataList.addAll(list);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getDataFailed(String errMsg) {
+        refreshLayout.finishRefresh();
+        refreshLayout.finishLoadMore();
+        pageLoadingFail();
     }
 
     @Override
@@ -161,13 +172,5 @@ public class DiagnoseOrderFragment extends BaseControllerFragment<DiagnoseOrderF
         }
         super.onDestroy();
 
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void Event(MessageEvent messageEvent) {
-        if (messageEvent.getType() == EventType.DIAGNOSE_ORDER_UPDATE) {
-            getController().setCurrentPage(1);
-            getController().getData(TypeEnum.REFRESH);
-        }
     }
 }

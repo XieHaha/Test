@@ -99,6 +99,11 @@ public class TriageOrderFragment extends BaseControllerFragment<TriageOrderFragm
 
     @Override
     public void getDataSuccess(TypeEnum type, List<TriageBean> list) {
+        if (list.size() < Const.PAGE_SIZE) {
+            refreshLayout.finishLoadMoreWithNoMoreData();
+        } else {
+            refreshLayout.finishLoadMore();
+        }
         getController().currentPagePlus();
         if (type == TypeEnum.REFRESH) {
             dataList.clear();
@@ -106,7 +111,6 @@ public class TriageOrderFragment extends BaseControllerFragment<TriageOrderFragm
         dataList.addAll(list);
         mAdapter.notifyDataSetChanged();
         refreshLayout.finishRefresh();
-        refreshLayout.finishLoadMore();
         pageLoadingSuccess();
         if (dataList.size() == 0) {
             emptyLayout.setVisibility(View.VISIBLE);

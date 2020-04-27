@@ -10,9 +10,6 @@ import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 import com.keydom.mianren.ih_doctor.fragment.view.DiagnoseOrderFragmentView;
 import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -28,32 +25,17 @@ import java.util.List;
  * 修改人：xusong
  * 修改时间：18/11/16 下午2:26
  */
-public class DiagnoseOrderFragmentController extends ControllerImpl<DiagnoseOrderFragmentView> implements OnRefreshListener, OnLoadMoreListener {
-
-
-    @Override
-    public void onLoadMore(RefreshLayout refreshLayout) {
-        getData(TypeEnum.LOAD_MORE);
-
-    }
-
-    @Override
-    public void onRefresh(RefreshLayout refreshLayout) {
-        setCurrentPage(1);
-        getData(TypeEnum.REFRESH);
-
-    }
-
-    public void getData(TypeEnum type) {
-        getHeadNurseServiceOrderList(type);
-    }
+public class DiagnoseOrderFragmentController extends ControllerImpl<DiagnoseOrderFragmentView> {
 
     /**
      * 获取问诊订单
      *
      * @param type 订单type
      */
-    private void getHeadNurseServiceOrderList(final TypeEnum type) {
+    public void getHeadNurseServiceOrderList(final TypeEnum type) {
+        if (type == TypeEnum.REFRESH) {
+            setCurrentPage(1);
+        }
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).listInquisition(getView().getListMap()), new HttpSubscriber<PageBean<InquiryBean>>() {
             @Override
             public void requestComplete(@Nullable PageBean<InquiryBean> data) {

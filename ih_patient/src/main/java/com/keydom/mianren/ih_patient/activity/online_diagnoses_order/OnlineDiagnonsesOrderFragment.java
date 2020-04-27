@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -40,6 +39,7 @@ import com.keydom.mianren.ih_patient.bean.LocationInfo;
 import com.keydom.mianren.ih_patient.bean.entity.pharmacy.PharmacyBean;
 import com.keydom.mianren.ih_patient.callback.GeneralCallback;
 import com.keydom.mianren.ih_patient.callback.SingleClick;
+import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.Type;
@@ -74,7 +74,6 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     private RelativeLayout emptyLayout;
     private DiagnosesOrderAdapter diagnosesOrderAdapter;
     private int mStatus;
-    private int page = 1;
 
     private long mAddressId;
 
@@ -137,10 +136,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         mStatus = getArguments().getInt(STATUS);
         mType = getArguments().getInt(TYPE);
 
-        mRefreshLayout.setOnRefreshListener(refreshLayout -> {
-            page = 1;
-            getController().getlistPatientInquisition(getMap(), mStatus, TypeEnum.REFRESH);
-        });
+        mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getlistPatientInquisition(getMap(), mStatus, TypeEnum.REFRESH));
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getlistPatientInquisition(getMap(), mStatus, TypeEnum.LOAD_MORE));
         EventBus.getDefault().register(this);
     }
@@ -160,12 +156,6 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                 || state == diagnosesOrderAdapter.waiteEvaluate
                 || state == diagnosesOrderAdapter.complete
                 || state == diagnosesOrderAdapter.triage) {
-            //            NimUserInfo userInfo = (NimUserInfo) getUserInfoProvider().getUserInfo
-            //            (bean.getDoctorCode());
-            //            if (userInfo != null) {
-            //                Map<String, Object> extension = userInfo.getExtensionMap();
-            //                if (extension != null && extension.get(ImConstants.CALL_USER_TYPE)
-            //                != null) {
             if (TextUtils.isEmpty(bean.getGroupTid())) {
                 ImClient.startConversation(getContext(), bean.getDoctorCode(), null);
             } else {
@@ -174,11 +164,6 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                 bundle.putLong("orderId", bean.getId());
                 ImClient.startConversation(getContext(), bean.getGroupTid(), bundle);
             }
-            //                } else
-            //                    ToastUtil.showMessage(getContext(), "医生账号异常");
-            //            } else {
-            //                ToastUtil.showMessage(getContext(), "医生账号异常");
-            //            }
         }
 
     }
@@ -186,7 +171,6 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     @Override
     public void onResume() {
         super.onResume();
-        // getController().getLocationList();
         mRefreshLayout.autoRefresh();
     }
 
@@ -198,8 +182,8 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         Map<String, Object> map = new HashMap<>();
         map.put("userId", Global.getUserId());
         map.put("hospitalId", App.hospitalId);
-        map.put("currentPage", page);
-        map.put("pageSize", 8);
+        map.put("currentPage", getController().getCurrentPage());
+        map.put("pageSize", Const.PAGE_SIZE);
         map.put("type", mType);
         return map;
     }
@@ -210,7 +194,6 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshList(Event event) {
         if (EventType.REFRESHDIAGNOSESORDER == event.getType()) {
-            page = 1;
             getController().getlistPatientInquisition(getMap(), mStatus, TypeEnum.REFRESH);
         }
     }
@@ -308,12 +291,8 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                 new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
                         .create();
         mHosptalCost.setText(medicalTv);
-        addressSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LocationManageActivity.start(getActivity(), Type.PAY_SELECT_ADDRESS);
-            }
-        });
+        addressSelect.setOnClickListener(v -> LocationManageActivity.start(getActivity(),
+                Type.PAY_SELECT_ADDRESS));
 
         final TextView ali_pay_tv = view.findViewById(R.id.ali_pay_tv);
         final TextView wechat_pay_tv = view.findViewById(R.id.wechat_pay_tv);
@@ -323,32 +302,21 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         final ImageView wechat_pay_selected_img =
                 view.findViewById(R.id.wechat_pay_selected_img);
         CheckBox payAgreementCb = view.findViewById(R.id.pay_agreement_cb);
-        payAgreementCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                isAgree[0] = b;
-            }
-        });
+        payAgreementCb.setOnCheckedChangeListener((compoundButton, b) -> isAgree[0] = b);
         ImageView close_img = view.findViewById(R.id.close_img);
-        ali_pay_selected_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ali_pay_selected_img.setImageResource(R.mipmap.pay_selected_icon);
-                wechat_pay_selected_img.setImageResource(R.mipmap.pay_unselected_icon);
-                ali_pay_tv.setTextColor(getResources().getColor(R.color.pay_selected));
-                wechat_pay_tv.setTextColor(getResources().getColor(R.color.pay_unselected));
-                payType[0] = 2;
-            }
+        ali_pay_selected_img.setOnClickListener(view1 -> {
+            ali_pay_selected_img.setImageResource(R.mipmap.pay_selected_icon);
+            wechat_pay_selected_img.setImageResource(R.mipmap.pay_unselected_icon);
+            ali_pay_tv.setTextColor(getResources().getColor(R.color.pay_selected));
+            wechat_pay_tv.setTextColor(getResources().getColor(R.color.pay_unselected));
+            payType[0] = 2;
         });
-        wechat_pay_selected_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ali_pay_selected_img.setImageResource(R.mipmap.pay_unselected_icon);
-                wechat_pay_selected_img.setImageResource(R.mipmap.pay_selected_icon);
-                ali_pay_tv.setTextColor(getResources().getColor(R.color.pay_unselected));
-                wechat_pay_tv.setTextColor(getResources().getColor(R.color.pay_selected));
-                payType[0] = 1;
-            }
+        wechat_pay_selected_img.setOnClickListener(view12 -> {
+            ali_pay_selected_img.setImageResource(R.mipmap.pay_unselected_icon);
+            wechat_pay_selected_img.setImageResource(R.mipmap.pay_selected_icon);
+            ali_pay_tv.setTextColor(getResources().getColor(R.color.pay_unselected));
+            wechat_pay_tv.setTextColor(getResources().getColor(R.color.pay_selected));
+            payType[0] = 1;
         });
         mTotalPayTv.setText("去付款¥" + feeTv + "元");
         selfRadio.setOnCheckedChangeListener((compoundButton, b) -> {
@@ -366,27 +334,24 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                 mTotalPayTv.setText("去付款¥" + f + "元");
             }
         });
-        mTotalPayTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //                if (isAgree[0]) {
-                if (needAddress && mHosptalCost.isChecked()) {
-                    if (mAddressId == 0) {
-                        ToastUtils.showShort("请选择配送地址");
-                    } else {
-                        getController().pay(mAddressId, orderNum, payType[0], mPsTotal);
-                        bottomSheetDialog.dismiss();
-                    }
+        mTotalPayTv.setOnClickListener(view13 -> {
+            //                if (isAgree[0]) {
+            if (needAddress && mHosptalCost.isChecked()) {
+                if (mAddressId == 0) {
+                    ToastUtils.showShort("请选择配送地址");
                 } else {
-                    getController().pay(0, orderNum, payType[0], totalFee);
+                    getController().pay(mAddressId, orderNum, payType[0], mPsTotal);
                     bottomSheetDialog.dismiss();
                 }
-                //                } else {
-                //取消支付协议
-                //                    ToastUtil.showMessage(getContext(), "请阅读并同意支付协议");
-                //                }
-
+            } else {
+                getController().pay(0, orderNum, payType[0], totalFee);
+                bottomSheetDialog.dismiss();
             }
+            //                } else {
+            //取消支付协议
+            //                    ToastUtil.showMessage(getContext(), "请阅读并同意支付协议");
+            //                }
+
         });
         pay_agreement_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -395,12 +360,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                 AgreementActivity.startPayAgreement(getContext());
             }
         });
-        close_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bottomSheetDialog.dismiss();
-            }
-        });
+        close_img.setOnClickListener(view14 -> bottomSheetDialog.dismiss());
         bottomSheetDialog.show();
         addressSelectGroup.setVisibility(needAddress ? View.VISIBLE : View.GONE);
     }
@@ -842,19 +802,21 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     }
 
     @Override
-    public void getDiagnosesOrderListSuccess
-            (List<DiagnosesOrderBean> orderBeanArrayList,
-             TypeEnum typeEnum) {
-        mRefreshLayout.finishLoadMore();
+    public void getDiagnosesOrderListSuccess(List<DiagnosesOrderBean> orderBeanArrayList,
+                                             TypeEnum typeEnum) {
+        if (orderBeanArrayList.size() < Const.PAGE_SIZE) {
+            mRefreshLayout.finishLoadMoreWithNoMoreData();
+        } else {
+            mRefreshLayout.finishLoadMore();
+        }
         mRefreshLayout.finishRefresh();
-
         if (typeEnum == TypeEnum.REFRESH) {
             diagnosesOrderAdapter.setNewData(orderBeanArrayList);
         } else {
             diagnosesOrderAdapter.addData(orderBeanArrayList);
         }
-        if (orderBeanArrayList != null && orderBeanArrayList.size() != 0) {
-            getController().currentPagePlus();
+        getController().currentPagePlus();
+        if (diagnosesOrderAdapter.getItemCount() != 0) {
             emptyLayout.setVisibility(View.GONE);
         } else {
             emptyLayout.setVisibility(View.VISIBLE);

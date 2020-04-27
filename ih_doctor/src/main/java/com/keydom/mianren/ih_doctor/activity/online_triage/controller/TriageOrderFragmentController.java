@@ -18,6 +18,9 @@ import com.keydom.mianren.ih_doctor.net.TriageApiService;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @date 4月2日 15:03
  * 分诊列表
@@ -34,7 +37,11 @@ public class TriageOrderFragmentController extends ControllerImpl<TriageOrderFra
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(TriageApiService.class).triageOrderApplyList(getView().getParamsMap()), new HttpSubscriber<PageBean<TriageBean>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable PageBean<TriageBean> data) {
-                getView().getDataSuccess(typeEnum, data.getRecords());
+                List<TriageBean> list = data.getRecords();
+                if (list == null) {
+                    list = new ArrayList<>();
+                }
+                getView().getDataSuccess(typeEnum, list);
             }
 
             @Override
@@ -48,6 +55,7 @@ public class TriageOrderFragmentController extends ControllerImpl<TriageOrderFra
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        TriageOrderDetailActivity.startWithAction(mContext, (TriageBean) adapter.getItem(position),getView().getType());
+        TriageOrderDetailActivity.startWithAction(mContext,
+                (TriageBean) adapter.getItem(position), getView().getType());
     }
 }

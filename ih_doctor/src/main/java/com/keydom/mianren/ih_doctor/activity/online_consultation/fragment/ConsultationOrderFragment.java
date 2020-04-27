@@ -77,20 +77,14 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
         mType = (TypeEnum) getArguments().getSerializable(Const.TYPE);
         if (mType == TypeEnum.CONSULTATION_WAIT) {
             status = 0;
-        } else if (mType == TypeEnum.CONSULTATION_ING) {
-            status = 1;
+//        } else if (mType == TypeEnum.CONSULTATION_ING) {
+//            status = 1;
         } else if (mType == TypeEnum.CONSULTATION_COMPLETE) {
-            status = 2;
+            status = 1;
         }
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        //模拟数据
-        dataList.add(new InquiryBean());
-        dataList.add(new InquiryBean());
-        dataList.add(new InquiryBean());
-        dataList.add(new InquiryBean());
-        dataList.add(new InquiryBean());
         mAdapter = new ConsultationOrderAdapter(dataList);
         consultationOrderRecyclerView.setAdapter(mAdapter);
         consultationOrderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -105,6 +99,11 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
 
     @Override
     public void getDataSuccess(TypeEnum type, List<InquiryBean> list) {
+        if (list.size() < Const.PAGE_SIZE) {
+            refreshLayout.finishLoadMoreWithNoMoreData();
+        } else {
+            refreshLayout.finishLoadMore();
+        }
         getController().currentPagePlus();
         if (type == TypeEnum.REFRESH) {
             dataList.clear();
@@ -112,7 +111,6 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
         dataList.addAll(list);
         mAdapter.notifyDataSetChanged();
         refreshLayout.finishRefresh();
-        refreshLayout.finishLoadMore();
         pageLoadingSuccess();
         if (dataList.size() == 0) {
             emptyLayout.setVisibility(View.VISIBLE);
