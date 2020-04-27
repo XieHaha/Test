@@ -46,10 +46,8 @@ public class FillOutApplyController extends ControllerImpl<FillOutApplyView> imp
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
-
             case R.id.select_doctor:
-                SelectDoctorActivity.startActivityForDiagnoseDoctor(getContext(),getView().getOrderType());
+                SelectDoctorActivity.startActivityForDiagnoseDoctor(getContext(),getView().getOrderType(),false);
                 break;
             case R.id.select_diagnose_order:
                 DiagnoseOrderSelectActivity.start(getContext(),getView().getDoctorType());

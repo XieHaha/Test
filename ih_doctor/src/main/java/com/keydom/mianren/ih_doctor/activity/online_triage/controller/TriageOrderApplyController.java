@@ -42,8 +42,7 @@ public class TriageOrderApplyController extends ControllerImpl<TriageOrderApplyV
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.triage_apply_doctor_tv:
-                SelectDoctorActivity.startActivityForDiagnoseDoctor(getContext(),
-                        getView().getOrderType());
+                SelectDoctorActivity.startActivityForDiagnoseDoctor(getContext(), getView().getOrderType(),true);
                 break;
             case R.id.triage_apply_inquiry_order_tv:
                 DiagnoseOrderSelectActivity.start(getContext(), getView().getDoctorType());

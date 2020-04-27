@@ -298,6 +298,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         PushManager.setAlias(getContext(), (String) SharePreferenceManager.getPhoneNumber());
         MyApplication.accessInfoBean = bean.getAuth();
         if (MyApplication.deptBeanList.size() > 0) {//如果科室已经拿到，并且存在，则过滤科室，否则不过滤
+            MyApplication.allDept();
             MyApplication.filterDept();
         }
         LocalizationUtils.fileSave2Local(getContext(), bean.getInfo(), Const.USER_INFO);

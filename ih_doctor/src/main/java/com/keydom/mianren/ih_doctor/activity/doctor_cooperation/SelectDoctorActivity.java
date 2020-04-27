@@ -155,6 +155,10 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
      * @param orderType
      */
     private int orderType = 0;
+    /**
+     * 展示所有科室
+     */
+    private boolean all;
 
     /**
      * @param context 转诊选医生
@@ -211,11 +215,13 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
      *
      * @param context
      * @param orderType
+     * @param all       是否展示所有科室
      */
-    public static void startActivityForDiagnoseDoctor(Context context, int orderType) {
+    public static void startActivityForDiagnoseDoctor(Context context, int orderType, boolean all) {
         Intent starter = new Intent(context, SelectDoctorActivity.class);
         starter.putExtra(Const.TYPE, DOCTOR_SELECT_OTHER_DEPT_WITH_DIAGNOSE_ONLY_RESULT);
         starter.putExtra("orderType", orderType);
+        starter.putExtra("all", all);
         ((Activity) context).startActivityForResult(starter, DOCTOR_SLEECT_ONLY_RESULT);
     }
 
@@ -270,8 +276,8 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
     /**
      * 会诊申请选择医生
      */
-    public static void startActivityConsulttationResult(Context context,
-                                                        ArrayList<DeptDoctorBean> list) {
+    public static void startActivityConsultationResult(Context context,
+                                                       ArrayList<DeptDoctorBean> list) {
         Intent starter = new Intent(context, SelectDoctorActivity.class);
         starter.putExtra(Const.TYPE, DOCTOR_SELECT_GROUP_CONSULTATION_RESULT);
         starter.putExtra(Const.DATA, list);
@@ -288,6 +294,7 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         mType = getIntent().getIntExtra(Const.TYPE, -1);
         orderType = getIntent().getIntExtra("orderType", 0);
+        all = getIntent().getBooleanExtra("all", false);
         if (mType != DOCTOR_SLEECT_ONLY_RESULT) {
             selectList = (List<DeptDoctorBean>) getIntent().getSerializableExtra(Const.DATA);
             if (selectList != null) {
@@ -369,7 +376,11 @@ public class SelectDoctorActivity extends BaseControllerActivity<SelectDoctorCon
                 deptId = MyApplication.userInfo.getDeptId();
             }
         } else {
-            niceSpinner.attachDataSource(MyApplication.deptSpannerList);
+            if (all) {
+                niceSpinner.attachDataSource(MyApplication.allDeptSpannerList);
+            } else {
+                niceSpinner.attachDataSource(MyApplication.deptSpannerList);
+            }
             niceSpinner.setOnItemSelectedListener(getController());
             if (MyApplication.deptBeanList != null && MyApplication.deptBeanList.size() != 0) {
                 deptId = MyApplication.deptBeanList.get(0).getId();

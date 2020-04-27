@@ -59,8 +59,9 @@ public class MyApplication extends CommonApp {
     public static AccessInfoBean accessInfoBean;
     public static List<DeptBean> deptBeanList = new ArrayList<>();
     public static List<String> deptSpannerList = new ArrayList<>();
-    public static boolean isNeedInit=true;
-    public static int receiveReferral=0;
+    public static List<String> allDeptSpannerList = new ArrayList<>();
+    public static boolean isNeedInit = true;
+    public static int receiveReferral = 0;
 
 
     static {
@@ -190,7 +191,8 @@ public class MyApplication extends CommonApp {
         }
         boolean enalbe = false;
         for (ServiceBean bean : accessInfoBean.getService()) {
-            for (ServiceBean.DoctorServiceSubVoBean  doctorServiceSubVoBean:bean.getDoctorServiceSubVoList()) {
+            for (ServiceBean.DoctorServiceSubVoBean doctorServiceSubVoBean :
+                    bean.getDoctorServiceSubVoList()) {
                 for (String code : codes) {
                     if (code.equals(doctorServiceSubVoBean.getSubCode())) {
                         if (bean.getState() == 1) {
@@ -216,7 +218,20 @@ public class MyApplication extends CommonApp {
         }
         MyApplication.deptSpannerList.clear();
         for (DeptBean bean : deptBeanList) {
+            if (bean.getId() == MyApplication.userInfo.getDeptId()) {
+                continue;
+            }
             MyApplication.deptSpannerList.add(bean.getName());
+        }
+    }
+
+    /**
+     * 去所有科室
+     */
+    public static void allDept() {
+        MyApplication.allDeptSpannerList.clear();
+        for (DeptBean bean : deptBeanList) {
+            MyApplication.allDeptSpannerList.add(bean.getName());
         }
     }
 

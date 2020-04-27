@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
      * 初始化布局
      */
     protected void initView() {
-        mainView = (MainView) this.findViewById(R.id.main_view);
+        mainView = this.findViewById(R.id.main_view);
         mainView.initModule();
         mainController = new MainController(this, mainView);
         mainView.setOnClickListener(mainController);
@@ -205,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
                 MyApplication.deptBeanList.clear();
                 MyApplication.deptBeanList.addAll(data);
                 if (MyApplication.userInfo.getId() != 0) {//如果用户信息已经拿到，则过滤，否则不过滤科室
+                    MyApplication.allDept();
                     MyApplication.filterDept();
                 }
             }
