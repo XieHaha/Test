@@ -102,6 +102,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -494,6 +495,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
         setRightImgListener(v -> {
             mPopupWindow.showAsDropDown(getTitleLayout().mViewHolder.ivRightComplete);
+            mPopupWindow.setOutsideTouchable(true);
             WindowManager.LayoutParams lp = getWindow().getAttributes();
             lp.alpha = 0.7f;
             getWindow().setAttributes(lp);
@@ -557,22 +559,21 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private void initStatus() {
         mMessageView.getPluginAdapter().getPluginModule(0);
 
-        if (!chatting) {
-            mMessageView.removePlugin(mVideoPlugin);
-            mMessageView.removePlugin(mEndInquiryPlugin);
-            //            if (orderBean != null && orderBean.getInquisitionType() == 1)
-            mMessageView.addPlugin(mVideoPlugin);
-            mMessageView.addPlugin(mEndInquiryPlugin);
-        }
-        if (!chatting) {
-            setRightImg(ContextCompat.getDrawable(this, R.mipmap.more_icon));
-        }
         //如果是从患者管理进来的，这就是一个纯聊天界面，没其他的布局
         if (chatting) {
             mVisitingLl.setVisibility(View.GONE);
             mCompletedCl.setVisibility(View.GONE);
             mEndTheConsultationLl.setVisibility(View.GONE);
             findViewById(R.id.inquiry_header).setVisibility(View.GONE);
+        } else {
+            mMessageView.removePlugin(mVideoPlugin);
+            mMessageView.removePlugin(mEndInquiryPlugin);
+            if ((orderBean != null && orderBean.getInquisitionType() == 1) || team) {
+                mMessageView.addPlugin(mVideoPlugin);
+            }
+            mMessageView.addPlugin(mEndInquiryPlugin);
+            setRightImg(Objects.requireNonNull(ContextCompat.getDrawable(this,
+                    R.mipmap.more_icon)));
         }
         //待接诊
         if (InquiryStatus.INQUIRY_WAIT == inquiryStatus || InquiryStatus.INQUIRY_REFERRAL_DOCTOR == inquiryStatus) {
@@ -631,10 +632,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         } else {
             referralTv.setText("转诊");
         }
-
         if (orderBean.getIsVip() == 1) {
             //分诊中
-            if (orderBean.getState() == InquiryStatus.INQUIRY_TRIAGE_DOING) {
+            if (orderBean.getState() == InquiryStatus.INQUIRY_TRIAGE_DOING || !SharePreferenceManager.getIsReceptionDoctor()) {
                 inquiryPopTriageTv.setVisibility(View.GONE);
             } else {
                 inquiryPopTriageTv.setVisibility(View.VISIBLE);
@@ -888,10 +888,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     private void startTeamAVChat(ArrayList<String> accounts) {
         ImClient.createRoom(this, sessionId, accounts);
-    }
-
-    private interface CallBack {
-        void onCallBack();
     }
 
     /**

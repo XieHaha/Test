@@ -53,6 +53,11 @@ public class LoginBean implements Serializable {
      */
     private Integer autonymState = 0;
 
+    /**
+     * 是否为接待人
+     */
+    private boolean isReceptionDoctor;
+
     public Integer getAutonymState() {
         return autonymState;
     }
@@ -62,7 +67,7 @@ public class LoginBean implements Serializable {
     }
 
     //是否实名认证
-    public boolean isAutony(){
+    public boolean isAutony() {
         return 1 == autonymState;
     }
 
@@ -176,5 +181,13 @@ public class LoginBean implements Serializable {
 
     public void setHospitalName(String hospitalName) {
         this.hospitalName = hospitalName;
+    }
+
+    public boolean getIsReceptionDoctor() {
+        return isReceptionDoctor;
+    }
+
+    public void setIsReceptionDoctor(boolean receptionDoctor) {
+        isReceptionDoctor = receptionDoctor;
     }
 }

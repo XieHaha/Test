@@ -42,6 +42,7 @@ public class DiagnoseOrderListActivity extends BaseControllerActivity<DiagnoseOr
     private static final int CONSULT = 621;
 
     private TextView waitInquiryTv, doingInquiryTv;
+    private LinearLayout statisticsLayout;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Fragment[] mFragmentArrays;
@@ -98,6 +99,7 @@ public class DiagnoseOrderListActivity extends BaseControllerActivity<DiagnoseOr
             }
         }
 
+        statisticsLayout = findViewById(R.id.diagnose_order_statistics_layout);
         waitInquiryTv = findViewById(R.id.diagnose_order_wait_inquiry_tv);
         doingInquiryTv = findViewById(R.id.diagnose_order_inquiry_doing_tv);
         tabLayout = findViewById(R.id.tablayout);

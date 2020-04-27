@@ -98,6 +98,7 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
         SharePreferenceManager.setHospitalId(info.getHospitalId());
         SharePreferenceManager.setIdCard(info.getIdCard());
         SharePreferenceManager.setAutonyState(info.getAutonymState());
+        SharePreferenceManager.setReceptionDoctor(info.getIsReceptionDoctor());
         if (info.getRoleIds() != null && info.getRoleIds().size() > 0) {
             //            if (info.getRoleIds().size() == 1) {
             SharePreferenceManager.setRoleId(info.getRoleIds().get(0));

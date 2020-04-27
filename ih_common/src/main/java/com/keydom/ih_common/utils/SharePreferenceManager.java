@@ -30,6 +30,7 @@ public class SharePreferenceManager {
     private static final String ID_CARD = "id_card";
     private static final String AUTONY_STATE = "autony_state";
     private static final String VIP_CARD_TYPE_ID = "vip_card_type_id";
+    private static final String ISRECEPTIONDOCTOR = "is_reception_doctor";
 
     public static void setVIPCardTypeID(String cardTypeID) {
         if (null != sp) {
@@ -289,8 +290,21 @@ public class SharePreferenceManager {
         return 0;
     }
 
+    public static void setReceptionDoctor(boolean receptionDoctor) {
+        if (null != sp) {
+            sp.edit().putBoolean(ISRECEPTIONDOCTOR, receptionDoctor).apply();
+        }
+    }
+
+    public static boolean getIsReceptionDoctor() {
+        if (null != sp) {
+            return sp.getBoolean(ISRECEPTIONDOCTOR, false);
+        }
+        return false;
+    }
+
     //是否实名认证
-    public static boolean isAutony(){
+    public static boolean isAutony() {
         return 1 == getAutonyState();
     }
 
