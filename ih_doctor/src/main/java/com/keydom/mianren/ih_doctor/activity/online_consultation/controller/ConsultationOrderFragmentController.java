@@ -1,13 +1,17 @@
 package com.keydom.mianren.ih_doctor.activity.online_consultation.controller;
 
+import android.view.View;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationRoomActivity;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationOrderFragmentView;
-import com.keydom.mianren.ih_doctor.bean.InquiryBean;
+import com.keydom.mianren.ih_doctor.bean.ConsultationBean;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 import com.keydom.mianren.ih_doctor.net.ConsultationService;
 
@@ -21,7 +25,7 @@ import java.util.List;
  * @date 4月2日 15:03
  * 会诊列表
  */
-public class ConsultationOrderFragmentController extends ControllerImpl<ConsultationOrderFragmentView> {
+public class ConsultationOrderFragmentController extends ControllerImpl<ConsultationOrderFragmentView> implements BaseQuickAdapter.OnItemClickListener {
 
     /**
      * 获取问诊订单
@@ -32,13 +36,13 @@ public class ConsultationOrderFragmentController extends ControllerImpl<Consulta
         if (type == TypeEnum.REFRESH) {
             setCurrentPage(1);
         }
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderApplyList(getView().getListMap()), new HttpSubscriber<PageBean<InquiryBean>>() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderApplyList(getView().getListMap()), new HttpSubscriber<PageBean<ConsultationBean>>() {
             @Override
-            public void requestComplete(@Nullable PageBean<InquiryBean> data) {
+            public void requestComplete(@Nullable PageBean<ConsultationBean> data) {
                 if (data == null) {
                     return;
                 }
-                List<InquiryBean> list = data.getRecords();
+                List<ConsultationBean> list = data.getRecords();
                 if (list == null) {
                     list = new ArrayList<>();
                 }
@@ -55,4 +59,9 @@ public class ConsultationOrderFragmentController extends ControllerImpl<Consulta
     }
 
 
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        ConsultationRoomActivity.start(mContext,
+                ((ConsultationBean) adapter.getItem(position)).getApplicationId());
+    }
 }

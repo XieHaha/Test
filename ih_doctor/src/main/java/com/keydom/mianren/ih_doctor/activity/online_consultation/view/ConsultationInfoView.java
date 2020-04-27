@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_doctor.activity.online_consultation.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
 
 /**
  * @date 20/4/8 14:39
@@ -26,4 +27,8 @@ public interface ConsultationInfoView extends BaseView {
      * 影像
      */
     void onVideoSelect();
+
+    void requestInfoSuccess(ConsultationDetailBean bean);
+
+    void requestInfoFalied(String error);
 }

@@ -1,7 +1,7 @@
 package com.keydom.mianren.ih_doctor.activity.online_consultation.view;
 
 import com.keydom.ih_common.base.BaseView;
-import com.keydom.mianren.ih_doctor.bean.InquiryBean;
+import com.keydom.mianren.ih_doctor.bean.ConsultationBean;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public interface ConsultationOrderFragmentView extends BaseView {
      * @param type 刷新／加载更多
      * @param list 问诊单列表
      */
-    void getDataSuccess(TypeEnum type, List<InquiryBean> list);
+    void getDataSuccess(TypeEnum type, List<ConsultationBean> list);
 
     /**
      * 获取问诊单失败

@@ -8,6 +8,8 @@ import com.keydom.ih_common.view.GridViewForScrollView;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationInfoController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationInfoView;
+import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
+import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView;
 
 import org.jetbrains.annotations.Nullable;
@@ -36,8 +38,14 @@ public class ConsultationInfoFragment extends BaseControllerFragment<Consultatio
     @BindView(R.id.consultation_info_video_layout)
     LinearLayout consultationInfoVideoLayout;
 
-    public static ConsultationInfoFragment newInstance() {
-        return new ConsultationInfoFragment();
+    private String orderId;
+
+    public static ConsultationInfoFragment newInstance(String id) {
+        ConsultationInfoFragment fragment = new ConsultationInfoFragment();
+        Bundle args = new Bundle();
+        args.putString(Const.ORDER_ID, id);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -47,10 +55,14 @@ public class ConsultationInfoFragment extends BaseControllerFragment<Consultatio
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        Bundle bundle = getArguments();
+        orderId = bundle.getString(Const.ORDER_ID);
         consultationInfoApplyLayout.setOnClickListener(getController());
         consultationInfoMedicalLayout.setOnClickListener(getController());
         consultationInfoReportLayout.setOnClickListener(getController());
         consultationInfoVideoLayout.setOnClickListener(getController());
+
+        getController().getConsultationOrderDetail(orderId);
     }
 
     @Override
@@ -102,5 +114,15 @@ public class ConsultationInfoFragment extends BaseControllerFragment<Consultatio
             default:
                 break;
         }
+    }
+
+    @Override
+    public void requestInfoSuccess(ConsultationDetailBean bean) {
+
+    }
+
+    @Override
+    public void requestInfoFalied(String error) {
+
     }
 }

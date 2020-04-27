@@ -26,12 +26,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/consultation_order_recycler_view"
-                    android:background="@mipmap/colorful_line" />
-
                 <RelativeLayout
                     android:id="@+id/empty_layout"
                     android:layout_width="match_parent"

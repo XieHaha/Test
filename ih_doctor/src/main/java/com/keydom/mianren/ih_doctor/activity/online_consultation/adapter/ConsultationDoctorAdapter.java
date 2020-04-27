@@ -8,7 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.mianren.ih_doctor.R;
+import com.keydom.mianren.ih_doctor.bean.ConsultationDoctorBean;
 
 import java.util.ArrayList;
 
@@ -18,13 +20,13 @@ import java.util.ArrayList;
  */
 public class ConsultationDoctorAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<String> data = new ArrayList<>();
+    private ArrayList<ConsultationDoctorBean> data = new ArrayList<>();
 
     public ConsultationDoctorAdapter(Context context) {
         this.context = context;
     }
 
-    public void setData(ArrayList<String> data) {
+    public void setData(ArrayList<ConsultationDoctorBean> data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -58,7 +60,9 @@ public class ConsultationDoctorAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.tvName.setText(data.get(position));
+        holder.tvName.setText(data.get(position).getName());
+        GlideUtils.load(holder.header, data.get(position).getDoctorImage(), 0,
+                R.mipmap.im_default_head_image, true, null);
         return convertView;
     }
 

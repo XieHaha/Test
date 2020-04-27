@@ -11,7 +11,7 @@ import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.ConsultationOrderAdapter;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationOrderFragmentController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationOrderFragmentView;
-import com.keydom.mianren.ih_doctor.bean.InquiryBean;
+import com.keydom.mianren.ih_doctor.bean.ConsultationBean;
 import com.keydom.mianren.ih_doctor.bean.MessageEvent;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
@@ -48,7 +48,7 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
     /**
      * 会诊单列表
      */
-    private List<InquiryBean> dataList = new ArrayList<>();
+    private List<ConsultationBean> dataList = new ArrayList<>();
     /**
      * 页面类型
      */
@@ -86,10 +86,11 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
             EventBus.getDefault().register(this);
         }
         mAdapter = new ConsultationOrderAdapter(dataList);
+        mAdapter.setOnItemClickListener(getController());
         consultationOrderRecyclerView.setAdapter(mAdapter);
         consultationOrderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        refreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getConsultationOrderList(TypeEnum.LOAD_MORE));
         refreshLayout.setOnRefreshListener(refreshLayout -> getController().getConsultationOrderList(TypeEnum.REFRESH));
+        refreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getConsultationOrderList(TypeEnum.LOAD_MORE));
         setReloadListener((v, status) -> {
             pageLoading();
             getController().getConsultationOrderList(TypeEnum.REFRESH);
@@ -98,7 +99,7 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
 
 
     @Override
-    public void getDataSuccess(TypeEnum type, List<InquiryBean> list) {
+    public void getDataSuccess(TypeEnum type, List<ConsultationBean> list) {
         if (list.size() < Const.PAGE_SIZE) {
             refreshLayout.finishLoadMoreWithNoMoreData();
         } else {

@@ -1,0 +1,147 @@
+package com.keydom.mianren.ih_doctor.bean;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+
+/**
+ * @date 20/4/27 11:35
+ * @des 会诊详情
+ */
+public class ConsultationDetailBean implements Serializable {
+    private static final long serialVersionUID = 58440796453966435L;
+    private int level;
+    private int status;
+    private String applicationId;
+    private String registerUserImage;
+    private String patientName;
+    private String patientGender;
+    private String patientAge;
+    private String eleCardNumber;
+    private String visitTime;
+    private String mdtTime;
+    private String reasonAim;
+    private String illnessAbstract;
+    private ConsultationDoctorBean applyDoctor;
+    private ArrayList<ConsultationDoctorBean> mdtDoctors;
+    private ArrayList<String> medicalHistoryImg;
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(String applicationId) {
+        this.applicationId = applicationId;
+    }
+
+    public String getRegisterUserImage() {
+        return registerUserImage;
+    }
+
+    public void setRegisterUserImage(String registerUserImage) {
+        this.registerUserImage = registerUserImage;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public String getPatientGender() {
+        return patientGender;
+    }
+
+    public void setPatientGender(String patientGender) {
+        this.patientGender = patientGender;
+    }
+
+    public String getPatientAge() {
+        return patientAge;
+    }
+
+    public void setPatientAge(String patientAge) {
+        this.patientAge = patientAge;
+    }
+
+    public String getEleCardNumber() {
+        return eleCardNumber;
+    }
+
+    public void setEleCardNumber(String eleCardNumber) {
+        this.eleCardNumber = eleCardNumber;
+    }
+
+    public String getVisitTime() {
+        return visitTime;
+    }
+
+    public void setVisitTime(String visitTime) {
+        this.visitTime = visitTime;
+    }
+
+    public String getMdtTime() {
+        return mdtTime;
+    }
+
+    public void setMdtTime(String mdtTime) {
+        this.mdtTime = mdtTime;
+    }
+
+    public String getReasonAim() {
+        return reasonAim;
+    }
+
+    public void setReasonAim(String reasonAim) {
+        this.reasonAim = reasonAim;
+    }
+
+    public String getIllnessAbstract() {
+        return illnessAbstract;
+    }
+
+    public void setIllnessAbstract(String illnessAbstract) {
+        this.illnessAbstract = illnessAbstract;
+    }
+
+    public ConsultationDoctorBean getApplyDoctor() {
+        return applyDoctor;
+    }
+
+    public void setApplyDoctor(ConsultationDoctorBean applyDoctor) {
+        this.applyDoctor = applyDoctor;
+    }
+
+    public ArrayList<ConsultationDoctorBean> getMdtDoctors() {
+        return mdtDoctors;
+    }
+
+    public void setMdtDoctors(ArrayList<ConsultationDoctorBean> mdtDoctors) {
+        this.mdtDoctors = mdtDoctors;
+    }
+
+    public ArrayList<String> getMedicalHistoryImg() {
+        return medicalHistoryImg;
+    }
+
+    public void setMedicalHistoryImg(ArrayList<String> medicalHistoryImg) {
+        this.medicalHistoryImg = medicalHistoryImg;
+    }
+}

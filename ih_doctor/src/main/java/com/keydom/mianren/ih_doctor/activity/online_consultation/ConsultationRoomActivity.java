@@ -22,6 +22,7 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.Consul
 import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationInfoFragment;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationVideoFragment;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationRoomView;
+import com.keydom.mianren.ih_doctor.constant.Const;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -39,11 +40,14 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     private Fragment[] mFragmentArrays;
     private String[] mTabTitles;
 
+    private String orderId;
+
     /**
      * 启动会诊订单列表页面
      */
-    public static void start(Context context) {
+    public static void start(Context context, String id) {
         Intent intent = new Intent(context, ConsultationRoomActivity.class);
+        intent.putExtra(Const.ORDER_ID, id);
         context.startActivity(intent);
     }
 
@@ -54,8 +58,9 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        setTitle("患者姓名");
         setRightTxt(getString(R.string.txt_exit_consultation));
+
+        orderId = getIntent().getStringExtra(Const.ORDER_ID);
 
         LinearLayout linearLayout = (LinearLayout) consultationRoomTabLayout.getChildAt(0);
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
@@ -82,7 +87,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         mTabTitles[1] = "会诊室";
         mTabTitles[2] = "会诊意见";
         consultationRoomTabLayout.setTabMode(TabLayout.MODE_FIXED);
-        mFragmentArrays[0] = ConsultationInfoFragment.newInstance();
+        mFragmentArrays[0] = ConsultationInfoFragment.newInstance(orderId);
         mFragmentArrays[1] = ConsultationVideoFragment.newInstance();
         mFragmentArrays[2] = ConsultationAdviceFragment.newInstance();
         consultationRoomViewPager.setOffscreenPageLimit(3);

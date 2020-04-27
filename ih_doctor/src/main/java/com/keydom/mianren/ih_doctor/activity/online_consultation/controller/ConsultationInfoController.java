@@ -3,8 +3,17 @@ package com.keydom.mianren.ih_doctor.activity.online_consultation.controller;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.net.ApiRequest;
+import com.keydom.ih_common.net.exception.ApiException;
+import com.keydom.ih_common.net.service.HttpService;
+import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationInfoView;
+import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
+import com.keydom.mianren.ih_doctor.net.ConsultationService;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @date 20/4/8 14:39
@@ -29,5 +38,24 @@ public class ConsultationInfoController extends ControllerImpl<ConsultationInfoV
             default:
                 break;
         }
+    }
+
+    /**
+     * 获取会诊详情
+     */
+    public void getConsultationOrderDetail(String id) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderInfo(id), new HttpSubscriber<ConsultationDetailBean>(mContext, getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable ConsultationDetailBean data) {
+                getView().requestInfoSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                getView().requestInfoFalied(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
     }
 }
