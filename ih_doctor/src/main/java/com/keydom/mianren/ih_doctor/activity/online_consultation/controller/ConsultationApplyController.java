@@ -6,9 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
-import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
-import com.bigkoo.pickerview.view.TimePickerView;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
@@ -16,6 +14,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.view.picker.view.TimePickerHelper;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.FillOutApplyActivity;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.SelectDoctorActivity;
@@ -55,9 +54,8 @@ public class ConsultationApplyController extends ControllerImpl<ConsultationAppl
                 break;
             case R.id.consultation_apply_time_layout:
                 KeyboardUtils.hideSoftInput((Activity) getContext());
-                TimePickerView pickerView = new TimePickerBuilder(getContext(),
-                        (date, v12) -> getView().setApplyDate(date)).build();
-                pickerView.show();
+                TimePickerHelper.showTimePicker(mContext, new boolean[]{false, true, true, true,
+                        true, false}, date -> getView().setApplyDate(date));
                 break;
             default:
         }

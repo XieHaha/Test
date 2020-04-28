@@ -22,7 +22,9 @@ public class DateUtils {
     public static final String YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
     public static final String MM_DD_CH = "MM月dd日";
+    public static final String HH_MM = "HH:mm";
     public static final String YYYY_MM_DD_CH = "yyyy年MM月dd日";
+
     /**
      *     * 获取两个日期相差的月数
      *     * @param d2  较大的日期
@@ -299,12 +301,15 @@ public class DateUtils {
         return format.format(new Date(Long.valueOf(date)));
     }
 
-    /**
-     * String 转 Date
-     */
-    public static String dateToString(Date date,String pattern) {
+    public static String dateToString(Date date, String pattern) {
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         return formatter.format(date);
     }
 
+    public static String getWeekString(Date date) {
+        String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return weekDays[calendar.get(Calendar.DAY_OF_WEEK) - 1];
+    }
 }

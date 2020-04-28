@@ -455,7 +455,8 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
 
     @Override
     public void setApplyDate(Date date) {
-        consultationApplyTimeTv.setText(DateUtils.dateToString(date,
-                DateUtils.YYYY_MM_DD_HH_MM_SS));
+        consultationApplyTimeTv.setText(String.format(getString(R.string.txt_three_value_space),
+                DateUtils.dateToString(date, DateUtils.MM_DD_CH), DateUtils.getWeekString(date),
+                DateUtils.dateToString(date, DateUtils.HH_MM)));
     }
 }
