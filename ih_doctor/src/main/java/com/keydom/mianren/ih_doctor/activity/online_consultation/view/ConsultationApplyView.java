@@ -2,7 +2,6 @@ package com.keydom.mianren.ih_doctor.activity.online_consultation.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_doctor.bean.DeptDoctorBean;
-import com.keydom.mianren.ih_doctor.bean.DiagnoseFillOutResBean;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,14 +29,14 @@ public interface ConsultationApplyView extends BaseView {
     void uploadFailed(String errMsg);
 
     /**
-     * 提交转诊成功
+     * 提交会诊成功
      *
      * @param msg 成功信息
      */
-    void saveSuccess(DiagnoseFillOutResBean msg);
+    void saveSuccess(String msg);
 
     /**
-     * 提交转诊失败
+     * 提交会诊失败
      *
      * @param errMsg 失败信息
      */
@@ -59,7 +58,7 @@ public interface ConsultationApplyView extends BaseView {
     ArrayList<DeptDoctorBean> getSelectedDoctor();
 
     /**
-     * 获取转诊需要的参数
+     * 获取发起会诊需要的参数
      *
      * @return 请求参数
      */
@@ -85,8 +84,6 @@ public interface ConsultationApplyView extends BaseView {
      * @return 图片地址列表对象
      */
     List<String> getImgList();
-
-    int getDoctorType();
 
     void setGrade(int index);
 

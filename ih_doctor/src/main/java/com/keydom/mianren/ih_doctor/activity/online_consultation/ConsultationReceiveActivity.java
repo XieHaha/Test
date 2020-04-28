@@ -129,11 +129,11 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
                     BaseImageUtils.getHeaderUrl(detailBean.getRegisterUserImage()), 0,
                     R.mipmap.im_default_head_image, true, null);
             if (detailBean.getLevel() == 0) {
-                consultationReceiveLevelTv.setBackgroundResource(R.drawable.corner5_fbd54e_bg);
-                consultationReceiveLevelTv.setText("普通");
-            } else {
                 consultationReceiveLevelTv.setBackgroundResource(R.drawable.corner5_ff3939_bg);
                 consultationReceiveLevelTv.setText("紧急");
+            } else {
+                consultationReceiveLevelTv.setBackgroundResource(R.drawable.corner5_fbd54e_bg);
+                consultationReceiveLevelTv.setText("普通");
             }
             consultationReceiveConsultationDateTv.setText(DateUtils.getDate(detailBean.getVisitTime()));
             //申请医生信息

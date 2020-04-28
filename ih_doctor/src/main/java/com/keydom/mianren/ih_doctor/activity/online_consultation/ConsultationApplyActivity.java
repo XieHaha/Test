@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +26,12 @@ import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GridViewForScrollView;
 import com.keydom.ih_common.view.InterceptorEditText;
+import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.DiagnoseCommonActivity;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationApplyController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationApplyView;
 import com.keydom.mianren.ih_doctor.adapter.DiagnoseChangePlusImgAdapter;
 import com.keydom.mianren.ih_doctor.bean.DeptDoctorBean;
-import com.keydom.mianren.ih_doctor.bean.DiagnoseFillOutResBean;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.utils.DateUtils;
@@ -129,19 +129,20 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
 
     private ArrayList<String> gradeStr = new ArrayList<String>();
 
+    /**
+     * 会诊时间
+     */
+    private Date mdtDate;
+
+    /**
+     * 会诊等级
+     */
+    private int mdtGrade = -1;
 
     /**
      * 病情资料限制上传的最大图片数量
      */
     public static final int MAX_IMAGE = 9;
-    /**
-     * 在线问诊转诊申请
-     */
-    public static final int DIAGNOSE_FILLOUT_APPLY = 1200;
-    /**
-     * 医生协作转诊申请
-     */
-    public static final int DOCTOR_GOURP_FILLOUT_APPLY = 1201;
 
     public static void start(Context context, InquiryBean inquiryBean) {
         Intent intent = new Intent(context, ConsultationApplyActivity.class);
@@ -217,14 +218,11 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
         setRightTxt("提交");
 
         setRightBtnListener(v -> {
-            if (doctorList == null || doctorList.size() <= 0) {
-                ToastUtil.showMessage(this, "请选择医生");
-                return;
-            }
-            String str =
-                    CommonUtils.filterEmoji(consultationApplyTransferDescriptionEt.getText().toString().trim());
-            if (str == null || str.length() < 20) {
-                ToastUtil.showMessage(this, "转诊说明至少20字!");
+            String str = consultationApplyTransferDescriptionEt.getText().toString().trim();
+            String str1 = consultationApplyMedicalSummaryEt.getText().toString().trim();
+            if (TextUtils.isEmpty(str) || TextUtils.isEmpty(str1) || mdtDate == null || mdtGrade == -1
+                    || doctorList.size() == 0) {
+                ToastUtil.showMessage(this, "请完善信息!");
                 return;
             }
             getController().submit();
@@ -233,14 +231,15 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
 
     @SuppressLint("CheckResult")
     private void initView() {
-        gradeStr.add("普通");
         gradeStr.add("紧急");
+        gradeStr.add("普通");
         GlideUtils.load(consultationApplyPatientHeaderIv,
                 BaseImageUtils.getHeaderUrl(inquiryBean.getUserAvatar()), 0, R.mipmap.user_icon,
                 false, null);
         consultationApplyPatientNameTv.setText(inquiryBean.getName());
         consultationApplyPatientSexTv.setText(CommonUtils.getSex(inquiryBean.getSex()));
-        consultationApplyPatientAgeTv.setText(inquiryBean.getAge() + "岁");
+        consultationApplyPatientAgeTv.setText(String.format(getString(R.string.txt_age),
+                String.valueOf(inquiryBean.getAge())));
 
         mAdapter = new DiagnoseChangePlusImgAdapter(this, gridList);
         consultationApplyConditionImageGrid.setAdapter(mAdapter);
@@ -371,14 +370,8 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
     }
 
     @Override
-    public void saveSuccess(DiagnoseFillOutResBean bean) {
-        if (mType == DIAGNOSE_FILLOUT_APPLY) {
-
-            finish();
-        } else {
-            DiagnoseCommonActivity.startDiagnoseChangeRecoder(getContext());
-            finish();
-        }
+    public void saveSuccess(String bean) {
+        finish();
     }
 
     @Override
@@ -415,7 +408,24 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
     @Override
     public Map<String, Object> getOperateMap() {
         Map<String, Object> map = new HashMap<>();
+        map.put("applicantId", MyApplication.userInfo.getUserCode());
+        map.put("doctorId", getDoctorIds());
+        map.put("illnessAbstract", consultationApplyMedicalSummaryEt.getText().toString());
+        map.put("level", mdtGrade);
+        map.put("mdtTime", mdtDate.getTime());
+        map.put("medicalHistoryImgUrl", gridList);
+        map.put("reasonAim", consultationApplyTransferDescriptionEt.getText().toString());
+        map.put("registerUserId", inquiryBean.getPatientId());
+        map.put("userOrderId", inquiryBean.getId());
         return map;
+    }
+
+    private ArrayList<Long> getDoctorIds() {
+        ArrayList<Long> ids = new ArrayList<>();
+        for (DeptDoctorBean bean : doctorList) {
+            ids.add(bean.getId());
+        }
+        return ids;
     }
 
     @Override
@@ -435,26 +445,20 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
     }
 
     @Override
-    public int getDoctorType() {
-        if (doctorList != null && doctorList.size() == 1) {
-            return doctorList.get(0).getProjectStatus();
-        }
-        return 3;
-    }
-
-    @Override
     public ArrayList<String> getGradeStr() {
         return gradeStr;
     }
 
     @Override
     public void setGrade(int index) {
+        mdtGrade = index;
         consultationApplyGradeTv.setHint("");
         consultationApplyGradeTv.setText(gradeStr.get(index));
     }
 
     @Override
     public void setApplyDate(Date date) {
+        mdtDate = date;
         consultationApplyTimeTv.setText(String.format(getString(R.string.txt_three_value_space),
                 DateUtils.dateToString(date, DateUtils.MM_DD_CH), DateUtils.getWeekString(date),
                 DateUtils.dateToString(date, DateUtils.HH_MM)));

@@ -19,9 +19,8 @@ import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.FillOutApplyActivity;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.SelectDoctorActivity;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationApplyView;
-import com.keydom.mianren.ih_doctor.bean.DiagnoseFillOutResBean;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
-import com.keydom.mianren.ih_doctor.net.GroupCooperateApiService;
+import com.keydom.mianren.ih_doctor.net.ConsultationService;
 import com.keydom.mianren.ih_doctor.net.MainApiService;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -98,19 +97,31 @@ public class ConsultationApplyController extends ControllerImpl<ConsultationAppl
     }
 
 
-    public void submit() {
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(GroupCooperateApiService.class).save(HttpService.INSTANCE.object2Body(getView().getOperateMap())), new HttpSubscriber<DiagnoseFillOutResBean>(getContext(), getDisposable(), false) {
+    public void doc() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationDoctorList(), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
             @Override
-            public void requestComplete(@Nullable DiagnoseFillOutResBean data) {
-                hideLoading();
+            public void requestComplete(@Nullable String data) {
                 getView().saveSuccess(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
-                hideLoading();
+                getView().saveFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+    public void submit() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderApply(HttpService.INSTANCE.object2Body(getView().getOperateMap())), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                getView().saveSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().saveFailed(msg);
                 return super.requestError(exception, code, msg);
             }

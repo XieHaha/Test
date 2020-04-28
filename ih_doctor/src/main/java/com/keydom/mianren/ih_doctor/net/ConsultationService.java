@@ -27,15 +27,28 @@ public interface ConsultationService {
     Observable<HttpResult<String>> consultationOrderApply(@Body RequestBody body);
 
     /**
+     * 可以会诊的医生
+     */
+    @GET("user/mdt/doctors")
+    Observable<HttpResult<String>> consultationDoctorList();
+
+    /**
      * 会诊记录
      */
     @GET("user/mdt/application/list")
     Observable<HttpResult<PageBean<ConsultationBean>>> consultationOrderApplyList(@QueryMap Map<String, Object> maps);
 
+    //    /**
+    //     * 会诊 详情
+    //     */
+    //    @GET("user/mdt/application/get")
+    //    Observable<HttpResult<ConsultationDetailBean>> consultationOrderDetail(@Query("id")
+    //    String id);
+
     /**
      * 会诊 详情
      */
-    @GET("user/mdt/application/get")
+    @GET("user/mdt/conclusion/get")
     Observable<HttpResult<ConsultationDetailBean>> consultationOrderDetail(@Query("id") String id);
 
     /**

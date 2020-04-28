@@ -26,7 +26,7 @@ public interface IndexService {
     /**
      * 主页获取健康知识
      */
-    @GET("user/patient/getHealthKnowledgeLimit")
+    @GET("user/healthKnowledg/getHealthKnowledgeLimit")
     Observable<HttpResult<HealthKnowledgeBean>> getHealthKnowledgeLimit(@QueryMap Map<String, Object> body);
 
     /**

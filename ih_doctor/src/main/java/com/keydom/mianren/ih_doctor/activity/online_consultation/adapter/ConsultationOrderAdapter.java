@@ -38,11 +38,11 @@ public class ConsultationOrderAdapter extends BaseQuickAdapter<ConsultationBean,
                 R.mipmap.im_default_head_image, true, null);
         TextView tvStatus = helper.getView(R.id.consultation_order_status_tv);
         if (item.getLevel() == 0) {
-            tvStatus.setBackgroundResource(R.drawable.corner5_fbd54e_bg);
-            tvStatus.setText("普通");
-        } else {
             tvStatus.setBackgroundResource(R.drawable.corner5_ff3939_bg);
             tvStatus.setText("紧急");
+        } else {
+            tvStatus.setBackgroundResource(R.drawable.corner5_fbd54e_bg);
+            tvStatus.setText("普通");
         }
     }
 }

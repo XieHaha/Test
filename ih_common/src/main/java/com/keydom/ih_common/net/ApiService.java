@@ -121,7 +121,7 @@ public interface ApiService {
      * @param
      * @return
      */
-    @GET("user/patient/getHealthKnowledgeInfo")
+    @GET("user/healthKnowledg/getHealthKnowledgeInfo")
     Observable<HttpResult<HealthArticalInfo>> getHealthKnowledgeInfo(@QueryMap Map<String, Object> body);
 
 
