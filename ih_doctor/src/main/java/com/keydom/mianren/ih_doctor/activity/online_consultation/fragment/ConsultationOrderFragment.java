@@ -80,7 +80,7 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
 //        } else if (mType == TypeEnum.CONSULTATION_ING) {
 //            status = 1;
         } else if (mType == TypeEnum.CONSULTATION_COMPLETE) {
-            status = 1;
+            status = 2;
         }
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);

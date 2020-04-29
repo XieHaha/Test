@@ -75,7 +75,8 @@ public class ConsultationInfoFragment extends BaseControllerFragment<Consultatio
             consultationInfoSummaryItem.setText(infoBean.getIllnessAbstract());
 
             //图片适配器，病情资料和问诊说明图片适配器
-            ImageAdapter imageAdapter = new ImageAdapter(getContext(), infoBean.getMedicalHistoryImg());
+            ImageAdapter imageAdapter = new ImageAdapter(getContext(),
+                    infoBean.getMedicalHistoryImg(), false);
             consultationInfoConditionImageGrid.setAdapter(imageAdapter);
         }
     }

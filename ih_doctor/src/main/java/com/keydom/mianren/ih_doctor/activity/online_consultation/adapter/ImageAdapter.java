@@ -31,15 +31,21 @@ public class ImageAdapter extends BaseAdapter {
     private RoundedImageView mImageView;
     private RoundedImageView deleteImg;
 
-    public ImageAdapter(Context context, List<String> list) {
+    private boolean isAdd;
+
+    public ImageAdapter(Context context, List<String> list, boolean isAdd) {
         this.context = context;
         this.list = list;
+        this.isAdd = isAdd;
         layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return list.size() + 1;
+        if (isAdd) {
+            return list.size() + 1;
+        }
+        return list.size();
     }
 
     @Override
@@ -55,17 +61,18 @@ public class ImageAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         convertView = layoutInflater.inflate(R.layout.grid_img_item, null);
-        mImageView = (RoundedImageView) convertView.findViewById(R.id.item_icon);
-        deleteImg = (RoundedImageView) convertView.findViewById(R.id.delete_img);
-        if (position == list.size()) {
+        mImageView = convertView.findViewById(R.id.item_icon);
+        deleteImg = convertView.findViewById(R.id.delete_img);
+        if (position == list.size() || !isAdd) {
             deleteImg.setVisibility(View.GONE);
         }
         if (position < list.size()) {
             mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    CommonUtils.previewImage(context, Const.IMAGE_HOST + list.get(position));
-                    CommonUtils.previewImageList(context,list,position,true);
+                    //                    CommonUtils.previewImage(context, Const.IMAGE_HOST +
+                    //                    list.get(position));
+                    CommonUtils.previewImageList(context, list, position, true);
 
                 }
             });

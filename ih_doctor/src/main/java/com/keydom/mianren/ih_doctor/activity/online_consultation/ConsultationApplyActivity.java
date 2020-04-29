@@ -408,14 +408,13 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
     @Override
     public Map<String, Object> getOperateMap() {
         Map<String, Object> map = new HashMap<>();
-        map.put("applicantId", MyApplication.userInfo.getUserCode());
+        map.put("applicantId", MyApplication.userInfo.getId());
         map.put("doctorId", getDoctorIds());
         map.put("illnessAbstract", consultationApplyMedicalSummaryEt.getText().toString());
         map.put("level", mdtGrade);
         map.put("mdtTime", mdtDate.getTime());
         map.put("medicalHistoryImgUrl", gridList);
         map.put("reasonAim", consultationApplyTransferDescriptionEt.getText().toString());
-        map.put("registerUserId", inquiryBean.getPatientId());
         map.put("userOrderId", inquiryBean.getId());
         return map;
     }

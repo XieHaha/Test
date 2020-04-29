@@ -19,11 +19,15 @@ import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationAdviceController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationAdviceView;
+import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.utils.JsonUtils;
 import com.keydom.mianren.ih_doctor.view.CustomRecognizerDialog;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -46,8 +50,18 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
      */
     private CustomRecognizerDialog mIatDialog;
 
-    public static ConsultationAdviceFragment newInstance() {
-        return new ConsultationAdviceFragment();
+    private String orderId;
+    /**
+     * 会诊意见
+     */
+    private String consultationAdvice;
+
+    public static ConsultationAdviceFragment newInstance(String id) {
+        ConsultationAdviceFragment fragment = new ConsultationAdviceFragment();
+        Bundle args = new Bundle();
+        args.putString(Const.ORDER_ID, id);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -68,9 +82,21 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
     @SuppressLint("CheckResult")
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        consultationAdviceRecyclerView.setNestedScrollingEnabled(true);
+        Bundle bundle = getArguments();
+        orderId = bundle.getString(Const.ORDER_ID);
 
+        consultationAdviceRecyclerView.setNestedScrollingEnabled(true);
         consultationAdviceCommitTv.setOnClickListener(getController());
+
+        initVoice();
+
+        getController().getConsultationAdviceList();
+    }
+
+    /**
+     * 语音输入
+     */
+    private void initVoice() {
         // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
         mIatDialog = new CustomRecognizerDialog(getContext(), mInitListener);
@@ -92,6 +118,7 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
                         }
                     });
         });
+
     }
 
     /**
@@ -115,4 +142,35 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
         }
 
     };
+
+    @Override
+    public Map<String, Object> getCommitParams() {
+        Map<String, Object> params = new HashMap<>();
+        //type 1 文字，2、语音
+        params.put("type", 1);
+        params.put("content", consultationAdvice);
+        params.put("recordId", orderId);
+        return null;
+    }
+
+    @Override
+    public String getConsultationAdvice() {
+        consultationAdvice = consultationAdviceEditEt.getText().toString().trim();
+        return consultationAdvice;
+    }
+
+    @Override
+    public String getOrderId() {
+        return orderId;
+    }
+
+    @Override
+    public void commitSuccess() {
+
+    }
+
+    @Override
+    public void commitFailed(String msg) {
+
+    }
 }

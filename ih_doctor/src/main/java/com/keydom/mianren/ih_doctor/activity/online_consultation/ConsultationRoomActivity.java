@@ -89,7 +89,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         consultationRoomTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mFragmentArrays[0] = ConsultationInfoFragment.newInstance(orderId);
         mFragmentArrays[1] = ConsultationVideoFragment.newInstance();
-        mFragmentArrays[2] = ConsultationAdviceFragment.newInstance();
+        mFragmentArrays[2] = ConsultationAdviceFragment.newInstance(orderId);
         consultationRoomViewPager.setOffscreenPageLimit(3);
         PagerAdapter pagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());
         consultationRoomViewPager.setAdapter(pagerAdapter);

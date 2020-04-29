@@ -52,6 +52,12 @@ public interface ConsultationService {
     Observable<HttpResult<ConsultationDetailBean>> consultationOrderDetail(@Query("id") String id);
 
     /**
+     * 提交会诊意见
+     */
+    @GET("user/mdt/record/comment/create")
+    Observable<HttpResult<String>> consultationOrderCreateAdvice(@QueryMap Map<String, Object> map);
+
+    /**
      * 会诊意见列表
      */
     @GET("user/mdt/record/comment/list")
