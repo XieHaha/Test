@@ -150,7 +150,7 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
         params.put("type", 1);
         params.put("content", consultationAdvice);
         params.put("recordId", orderId);
-        return null;
+        return params;
     }
 
     @Override

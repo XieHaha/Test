@@ -162,7 +162,6 @@ public class AVChatKit {
      */
     public static void outgoingTeamCall(Context context, boolean receivedCall, String teamId, String roomId, ArrayList<String> accounts, String teamName) {
         TeamAVChatActivity.startActivity(context, receivedCall, teamId, roomId, accounts, teamName);
-
     }
 
     /**

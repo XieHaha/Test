@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.keydom.ih_common.avchatkit.teamavchat.activity.TeamAVChatFragment;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
@@ -20,11 +21,12 @@ import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationRoomController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationAdviceFragment;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationInfoFragment;
-import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationVideoFragment;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationRoomView;
 import com.keydom.mianren.ih_doctor.constant.Const;
 
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 
@@ -88,7 +90,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         mTabTitles[2] = "会诊意见";
         consultationRoomTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mFragmentArrays[0] = ConsultationInfoFragment.newInstance(orderId);
-        mFragmentArrays[1] = ConsultationVideoFragment.newInstance();
+        mFragmentArrays[1] = TeamAVChatFragment.newInstance(false,"","",new ArrayList<>(),"");
         mFragmentArrays[2] = ConsultationAdviceFragment.newInstance(orderId);
         consultationRoomViewPager.setOffscreenPageLimit(3);
         PagerAdapter pagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());
