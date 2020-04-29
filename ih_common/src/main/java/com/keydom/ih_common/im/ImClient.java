@@ -23,6 +23,7 @@ import com.keydom.ih_common.R;
 import com.keydom.ih_common.avchatkit.AVChatKit;
 import com.keydom.ih_common.avchatkit.TeamAVChatProfile;
 import com.keydom.ih_common.avchatkit.common.log.LogUtil;
+import com.keydom.ih_common.avchatkit.teamavchat.activity.TeamAVChatFragment;
 import com.keydom.ih_common.bean.MessageEvent;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.constant.EventType;
@@ -866,25 +867,39 @@ public class ImClient {
 
     public static void createRoom(final Context context, final String teamId,
                                   final ArrayList<String> accounts) {
-        final String roomName = UUID.randomUUID().toString().replaceAll("-", "");
+        createRoom(context, teamId, accounts, null);
+    }
+
+    public static void createRoom(final Context context, final String teamId,
+                                  final ArrayList<String> accounts,
+                                  final TeamAVChatFragment.CreateRoomCallback callback) {
+        final String roomId = UUID.randomUUID().toString().replaceAll("-", "");
         // 创建房间
-        AVChatManager.getInstance().createRoom(roomName, null,
+        AVChatManager.getInstance().createRoom(roomId, null,
                 new AVChatCallback<AVChatChannelInfo>() {
                     @Override
                     public void onSuccess(AVChatChannelInfo avChatChannelInfo) {
-                        LogUtil.ui("create room " + roomName + " success !");
-                        onCreateRoomSuccess(context, teamId, roomName, accounts);
+                        LogUtil.ui("create room " + roomId + " success !");
+                        onCreateRoomSuccess(context, teamId, roomId, accounts);
 
                         String teamName = getTeamProvider().getTeamById(teamId).getName();
 
                         TeamAVChatProfile.sharedInstance().setTeamAVChatting(true);
-                        AVChatKit.outgoingTeamCall(context, false, teamId, roomName, accounts,
-                                teamName);
+
+                        if (callback == null) {
+                            AVChatKit.outgoingTeamCall(context, false, teamId, roomId, accounts,
+                                    teamName);
+                        } else {
+                            callback.success(roomId);
+                        }
                     }
 
                     @Override
                     public void onFailed(int code) {
                         onCreateRoomFail(context, teamId);
+                        if (callback != null) {
+                            callback.failed();
+                        }
                     }
 
                     @Override

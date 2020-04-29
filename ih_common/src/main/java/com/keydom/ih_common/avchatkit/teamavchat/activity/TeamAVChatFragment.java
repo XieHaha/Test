@@ -35,7 +35,10 @@ import com.keydom.ih_common.avchatkit.teamavchat.TeamAVChatVoiceMuteDialog;
 import com.keydom.ih_common.avchatkit.teamavchat.adapter.TeamAVChatAdapter;
 import com.keydom.ih_common.avchatkit.teamavchat.module.SimpleAVChatStateObserver;
 import com.keydom.ih_common.avchatkit.teamavchat.module.TeamAVChatItem;
+import com.keydom.ih_common.event.ConsultationEvent;
+import com.keydom.ih_common.event.VoiceInputEvent;
 import com.keydom.ih_common.im.ImClient;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.ResponseCode;
@@ -56,6 +59,10 @@ import com.netease.nimlib.sdk.avchat.model.AVChatData;
 import com.netease.nimlib.sdk.avchat.model.AVChatParameters;
 import com.netease.nimlib.sdk.avchat.model.AVChatVideoCapturerFactory;
 import com.netease.nrtc.video.render.IVideoRender;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,9 +106,7 @@ public class TeamAVChatFragment extends Fragment {
     private static final String TAG = "TeamAVChat";
     private static final String KEY_RECEIVED_CALL = "call";
     private static final String KEY_TEAM_ID = "teamid";
-    private static final String KEY_ROOM_ID = "roomid";
     private static final String KEY_ACCOUNTS = "accounts";
-    private static final String KEY_TNAME = "teamName";
     private static final int AUTO_REJECT_CALL_TIMEOUT = 45 * 1000;
     private static final int CHECK_RECEIVED_CALL_TIMEOUT = 45 * 1000;
     private static final int MAX_SUPPORT_ROOM_USERS_COUNT = 9;
@@ -150,15 +155,12 @@ public class TeamAVChatFragment extends Fragment {
     private View view;
 
     public static TeamAVChatFragment newInstance(boolean receivedCall, String teamId,
-                                                 String roomId, ArrayList<String> accounts,
-                                                 String teamName) {
+                                                 ArrayList<String> accounts) {
         TeamAVChatFragment fragment = new TeamAVChatFragment();
         Bundle bundle = new Bundle();
         bundle.putBoolean(KEY_RECEIVED_CALL, receivedCall);
-        bundle.putString(KEY_ROOM_ID, roomId);
         bundle.putString(KEY_TEAM_ID, teamId);
         bundle.putSerializable(KEY_ACCOUNTS, accounts);
-        bundle.putString(KEY_TNAME, teamName);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -173,14 +175,8 @@ public class TeamAVChatFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
-
     public void initData() {
-
+        EventBus.getDefault().register(this);
         dismissKeyguard();
 
         onInit();
@@ -189,14 +185,34 @@ public class TeamAVChatFragment extends Fragment {
         findLayouts();
         //        showViews();
         //        setChatting(true);
-        NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatusObserver,
-                true);
+        NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatus, true);
     }
 
     public void start() {
+        ImClient.createRoom(getContext(), teamId, accounts, new CreateRoomCallback() {
+            @Override
+            public void success(String id) {
+                roomId = id;
+                showViews();
+                setChatting(true);
+            }
+
+            @Override
+            public void failed() {
+                ToastUtil.showMessage(getContext(), "创建聊天室失败！");
+            }
+        });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(ConsultationEvent consultationEvent) {
+        teamId = consultationEvent.getTeamId();
+        teamName = consultationEvent.getTeamName();
+        roomId = consultationEvent.getRoomName();
+        accounts = consultationEvent.getAccounts();
+        receivedCall = true;
         showViews();
         setChatting(true);
-        ImClient.createRoom(getContext(), "", new ArrayList<String>());
     }
 
     @Override
@@ -208,10 +224,15 @@ public class TeamAVChatFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         LogUtil.i(TAG, "TeamAVChatActivity onDestroy");
 
         if (timer != null) {
             timer.cancel();
+        }
+
+        if (timerTask != null) {
+            timerTask.cancel();
         }
 
         if (stateObserver != null) {
@@ -227,8 +248,7 @@ public class TeamAVChatFragment extends Fragment {
         hangup(); // 页面销毁的时候要保证离开房间，rtc释放。
         activeCallingNotifier(false);
         setChatting(false);
-        NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatusObserver,
-                false);
+        NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatus, false);
     }
 
     @Override
@@ -259,10 +279,8 @@ public class TeamAVChatFragment extends Fragment {
     private void onIntent() {
         Bundle intent = getArguments();
         receivedCall = intent.getBoolean(KEY_RECEIVED_CALL, false);
-        roomId = intent.getString(KEY_ROOM_ID);
         teamId = intent.getString(KEY_TEAM_ID);
         accounts = (ArrayList<String>) intent.getSerializable(KEY_ACCOUNTS);
-        teamName = intent.getString(KEY_TNAME);
         LogUtil.i(TAG, "onIntent, roomId=" + roomId + ", teamId=" + teamId
                 + ", receivedCall=" + receivedCall + ", accounts=" + accounts.size() + ", " +
                 "teamName = " + teamName);
@@ -279,7 +297,6 @@ public class TeamAVChatFragment extends Fragment {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                consutationLayout.setVisibility(View.GONE);
                 start();
             }
         });
@@ -295,6 +312,7 @@ public class TeamAVChatFragment extends Fragment {
      */
 
     private void showViews() {
+        consutationLayout.setVisibility(View.GONE);
         if (receivedCall) {
             showReceivedCallLayout();
         } else {
@@ -592,6 +610,10 @@ public class TeamAVChatFragment extends Fragment {
             return;
         }
 
+        if (timer != null) {
+            timer.cancel();
+        }
+
         try {
             AVChatManager.getInstance().stopVideoPreview();
             AVChatManager.getInstance().disableVideo();
@@ -611,11 +633,12 @@ public class TeamAVChatFragment extends Fragment {
 
     private void startTimer() {
         timer = new Timer();
-        timer.schedule(timerTask, 0, 1000);
+        timer.schedule(timerTask = new VideoTimeTask(), 0, 1000);
         timerText.setText("00:00");
     }
+    private VideoTimeTask timerTask;
 
-    private TimerTask timerTask = new TimerTask() {
+    class VideoTimeTask extends TimerTask {
         @Override
         public void run() {
             seconds++;
@@ -630,7 +653,7 @@ public class TeamAVChatFragment extends Fragment {
                 }
             });
         }
-    };
+    }
 
     private void startTimerForCheckReceivedCall() {
         mainHandler.postDelayed(new Runnable() {
@@ -739,8 +762,10 @@ public class TeamAVChatFragment extends Fragment {
 
             } else if (i == R.id.hangup) {// 挂断
                 hangup();
-                getActivity().finish();
-
+                consutationLayout.setVisibility(View.VISIBLE);
+                callLayout.setVisibility(View.GONE);
+                surfaceLayout.setVisibility(View.GONE);
+                //                getActivity().finish();
             }
         }
     };
@@ -880,7 +905,7 @@ public class TeamAVChatFragment extends Fragment {
     /**
      * 在线状态观察者
      */
-    private Observer<StatusCode> userStatusObserver = new Observer<StatusCode>() {
+    private Observer<StatusCode> userStatus = new Observer<StatusCode>() {
 
         @Override
         public void onEvent(StatusCode code) {
@@ -891,4 +916,10 @@ public class TeamAVChatFragment extends Fragment {
             }
         }
     };
+
+    public interface CreateRoomCallback {
+        void success(String roomName);
+
+        void failed();
+    }
 }

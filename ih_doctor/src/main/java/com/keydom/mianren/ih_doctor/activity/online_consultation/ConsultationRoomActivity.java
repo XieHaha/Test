@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -17,6 +18,7 @@ import com.keydom.ih_common.avchatkit.teamavchat.activity.TeamAVChatFragment;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
+import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationRoomController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationAdviceFragment;
@@ -42,14 +44,15 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     private Fragment[] mFragmentArrays;
     private String[] mTabTitles;
 
-    private String orderId;
+    private String orderId, applyId;
 
     /**
      * 启动会诊订单列表页面
      */
-    public static void start(Context context, String id) {
+    public static void start(Context context, String id, String applyId) {
         Intent intent = new Intent(context, ConsultationRoomActivity.class);
         intent.putExtra(Const.ORDER_ID, id);
+        intent.putExtra("applyId", applyId);
         context.startActivity(intent);
     }
 
@@ -60,9 +63,9 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        setRightTxt(getString(R.string.txt_exit_consultation));
 
         orderId = getIntent().getStringExtra(Const.ORDER_ID);
+        applyId = getIntent().getStringExtra("applyId");
 
         LinearLayout linearLayout = (LinearLayout) consultationRoomTabLayout.getChildAt(0);
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
@@ -70,12 +73,15 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
                 R.drawable.layout_divider_vertical));
         initOrderListFragment();
 
-        setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
-            @Override
-            public void OnRightTextClick(View v) {
-                ToastUtil.showMessage(ConsultationRoomActivity.this, "退出");
-            }
-        });
+        if (TextUtils.equals(applyId, String.valueOf(MyApplication.userInfo.getId()))) {
+            setRightTxt(getString(R.string.txt_exit_consultation));
+            setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
+                @Override
+                public void OnRightTextClick(View v) {
+                    ToastUtil.showMessage(ConsultationRoomActivity.this, "退出");
+                }
+            });
+        }
     }
 
 
@@ -90,7 +96,9 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         mTabTitles[2] = "会诊意见";
         consultationRoomTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mFragmentArrays[0] = ConsultationInfoFragment.newInstance(orderId);
-        mFragmentArrays[1] = TeamAVChatFragment.newInstance(false,"","",new ArrayList<>(),"");
+        ArrayList<String> accounts = new ArrayList<>();
+        accounts.add("00180c00003");
+        mFragmentArrays[1] = TeamAVChatFragment.newInstance(false, "2812993693", accounts);
         mFragmentArrays[2] = ConsultationAdviceFragment.newInstance(orderId);
         consultationRoomViewPager.setOffscreenPageLimit(3);
         PagerAdapter pagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());

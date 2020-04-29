@@ -10,6 +10,7 @@ public class ConsultationBean implements Serializable {
     private static final long serialVersionUID = -227101634146254979L;
 
     private int level;
+    private String applicantId;
     private String applicationId;
     private String registerImage;
     private String patientId;
@@ -26,6 +27,14 @@ public class ConsultationBean implements Serializable {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public String getApplicantId() {
+        return applicantId;
+    }
+
+    public void setApplicantId(String applicantId) {
+        this.applicantId = applicantId;
     }
 
     public String getApplicationId() {
