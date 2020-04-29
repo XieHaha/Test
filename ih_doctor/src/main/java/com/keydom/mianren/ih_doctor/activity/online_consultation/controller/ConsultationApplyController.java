@@ -56,6 +56,11 @@ public class ConsultationApplyController extends ControllerImpl<ConsultationAppl
                 TimePickerHelper.showTimePicker(mContext, new boolean[]{false, true, true, true,
                         true, false}, date -> getView().setApplyDate(date));
                 break;
+            case R.id.consultation_apply_commit_tv:
+                if (getView().verifyCommit()) {
+                    submit();
+                }
+                break;
             default:
         }
 
@@ -112,6 +117,7 @@ public class ConsultationApplyController extends ControllerImpl<ConsultationAppl
             }
         });
     }
+
     public void submit() {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderApply(HttpService.INSTANCE.object2Body(getView().getOperateMap())), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
             @Override

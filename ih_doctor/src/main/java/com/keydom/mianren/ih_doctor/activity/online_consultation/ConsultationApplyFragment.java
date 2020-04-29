@@ -2,7 +2,7 @@ package com.keydom.mianren.ih_doctor.activity.online_consultation;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,7 +19,7 @@ import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
-import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.utils.BaseImageUtils;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
@@ -59,7 +59,7 @@ import static com.keydom.mianren.ih_doctor.activity.doctor_cooperation.SelectDoc
  * @date 3月24日
  * 会诊
  */
-public class ConsultationApplyActivity extends BaseControllerActivity<ConsultationApplyController> implements ConsultationApplyView {
+public class ConsultationApplyFragment extends BaseControllerFragment<ConsultationApplyController> implements ConsultationApplyView {
     @BindView(R.id.consultation_apply_patient_header_iv)
     ImageView consultationApplyPatientHeaderIv;
     @BindView(R.id.consultation_apply_patient_name_tv)
@@ -82,6 +82,8 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
     RelativeLayout consultationApplyTimeLayout;
     @BindView(R.id.consultation_apply_time_tv)
     TextView consultationApplyTimeTv;
+    @BindView(R.id.consultation_apply_commit_tv)
+    TextView consultationApplyCommitTv;
     @BindView(R.id.consultation_apply_transfer_description_et)
     InterceptorEditText consultationApplyTransferDescriptionEt;
     @BindView(R.id.consultation_apply_transfer_description_voice)
@@ -92,10 +94,6 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
     ImageView consultationApplyMedicalSummaryVoice;
     @BindView(R.id.consultation_apply_condition_image_grid)
     GridViewForScrollView consultationApplyConditionImageGrid;
-    /**
-     * 判断是在线问诊发起的转诊还是医生协作发起的转诊（在线问诊发起的转诊自动带了问诊单对象过来）
-     */
-    private int mType;
     /**
      * 订单数据
      */
@@ -117,10 +115,6 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
      * 存放医生布局列表
      */
     private Stack<View> mStack = new Stack<>();
-    /**
-     * 存放问诊单布局列表
-     */
-    private Stack<View> orderStack = new Stack<>();
 
     /**
      * 语音听写UI
@@ -138,17 +132,6 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
      * 会诊等级
      */
     private int mdtGrade = -1;
-
-    /**
-     * 病情资料限制上传的最大图片数量
-     */
-    public static final int MAX_IMAGE = 9;
-
-    public static void start(Context context, InquiryBean inquiryBean) {
-        Intent intent = new Intent(context, ConsultationApplyActivity.class);
-        intent.putExtra(Const.DATA, inquiryBean);
-        context.startActivity(intent);
-    }
 
     /**
      * 初始化监听器。
@@ -178,8 +161,7 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
                 }
 
                 public void onError(SpeechError error) {
-                    ToastUtil.showMessage(ConsultationApplyActivity.this,
-                            error.getPlainDescription(true));
+                    ToastUtil.showMessage(getContext(), error.getPlainDescription(true));
                 }
 
             };
@@ -199,7 +181,7 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
         }
 
         public void onError(SpeechError error) {
-            ToastUtil.showMessage(ConsultationApplyActivity.this, error.getPlainDescription(true));
+            ToastUtil.showMessage(getContext(), error.getPlainDescription(true));
         }
 
     };
@@ -211,26 +193,7 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        mType = getIntent().getIntExtra(Const.TYPE, 0);
-        inquiryBean = (InquiryBean) getIntent().getSerializableExtra(Const.DATA);
-        initView();
-        setTitle("会诊申请");
-        setRightTxt("提交");
 
-        setRightBtnListener(v -> {
-            String str = consultationApplyTransferDescriptionEt.getText().toString().trim();
-            String str1 = consultationApplyMedicalSummaryEt.getText().toString().trim();
-            if (TextUtils.isEmpty(str) || TextUtils.isEmpty(str1) || mdtDate == null || mdtGrade == -1
-                    || doctorList.size() == 0) {
-                ToastUtil.showMessage(this, "请完善信息!");
-                return;
-            }
-            getController().submit();
-        });
-    }
-
-    @SuppressLint("CheckResult")
-    private void initView() {
         gradeStr.add("紧急");
         gradeStr.add("普通");
         GlideUtils.load(consultationApplyPatientHeaderIv,
@@ -241,19 +204,28 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
         consultationApplyPatientAgeTv.setText(String.format(getString(R.string.txt_age),
                 String.valueOf(inquiryBean.getAge())));
 
-        mAdapter = new DiagnoseChangePlusImgAdapter(this, gridList);
+        mAdapter = new DiagnoseChangePlusImgAdapter(getContext(), gridList);
         consultationApplyConditionImageGrid.setAdapter(mAdapter);
         consultationApplyConditionImageGrid.setOnItemClickListener(getController());
         consultationApplyDoctorLayout.setOnClickListener(getController());
         consultationApplyGradeLayout.setOnClickListener(getController());
         consultationApplyTimeLayout.setOnClickListener(getController());
+        consultationApplyCommitTv.setOnClickListener(getController());
 
+        initVoiceView();
+    }
+
+    /**
+     * 语音输入
+     */
+    @SuppressLint("CheckResult")
+    private void initVoiceView() {
         // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
-        mIatDialog = new CustomRecognizerDialog(this, mInitListener);
+        mIatDialog = new CustomRecognizerDialog(getContext(), mInitListener);
         mIatDialog.setListener(transferDescriptionVoiceListener);
         consultationApplyTransferDescriptionVoice.setOnClickListener(v -> {
-            RxPermissions rxPermissions = new RxPermissions(this);
+            RxPermissions rxPermissions = new RxPermissions(getActivity());
             rxPermissions.request(Manifest.permission.RECORD_AUDIO,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -263,17 +235,17 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
                                 mIatDialog.dismiss();
                             }
                             mIatDialog.show();
-                            ToastUtil.showMessage(this, "请开始说话…");
+                            ToastUtil.showMessage(getContext(), "请开始说话…");
                         } else {
-                            ToastUtil.showMessage(this, "请开启录音需要的权限");
+                            ToastUtil.showMessage(getContext(), "请开启录音需要的权限");
                         }
                     });
         });
 
-        medicalDialog = new CustomRecognizerDialog(this, mInitListener);
+        medicalDialog = new CustomRecognizerDialog(getContext(), mInitListener);
         medicalDialog.setListener(medicalSummaryVoiceListener);
         consultationApplyMedicalSummaryVoice.setOnClickListener(v -> {
-            RxPermissions rxPermissions = new RxPermissions(this);
+            RxPermissions rxPermissions = new RxPermissions(getActivity());
             rxPermissions.request(Manifest.permission.RECORD_AUDIO,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -283,21 +255,25 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
                                 medicalDialog.dismiss();
                             }
                             medicalDialog.show();
-                            ToastUtil.showMessage(this, "请开始说话…");
+                            ToastUtil.showMessage(getContext(), "请开始说话…");
                         } else {
-                            ToastUtil.showMessage(this, "请开启录音需要的权限");
+                            ToastUtil.showMessage(getContext(), "请开启录音需要的权限");
                         }
                     });
         });
+    }
+
+    public void setInquiryBean(InquiryBean inquiryBean) {
+        this.inquiryBean = inquiryBean;
     }
 
     /**
      * media.getPath(); 为原图path
      */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case PictureConfig.CHOOSE_REQUEST:
                     List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
@@ -345,7 +321,7 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
      * 界面上添加选中的医生
      */
     private void addDoctorView(String name) {
-        LayoutInflater inflater = LayoutInflater.from(this);
+        LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.fill_out_doctor_tag, null, true);
         TextView tagTv = view.findViewById(R.id.doctor_name);
         tagTv.setText(name);
@@ -363,20 +339,19 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
     @Override
     public void uploadFailed(String errMsg) {
         if (errMsg == null || "".equals(errMsg.trim())) {
-            ToastUtil.showMessage(this, errMsg);
+            ToastUtil.showMessage(getContext(), errMsg);
         } else {
-            ToastUtil.showMessage(this, "图片上传失败!");
+            ToastUtil.showMessage(getContext(), "图片上传失败!");
         }
     }
 
     @Override
     public void saveSuccess(String bean) {
-        finish();
     }
 
     @Override
     public void saveFailed(String errMsg) {
-        ToastUtil.showMessage(this, errMsg);
+        ToastUtil.showMessage(getContext(), errMsg);
     }
 
     @Override
@@ -461,5 +436,17 @@ public class ConsultationApplyActivity extends BaseControllerActivity<Consultati
         consultationApplyTimeTv.setText(String.format(getString(R.string.txt_three_value_space),
                 DateUtils.dateToString(date, DateUtils.MM_DD_CH), DateUtils.getWeekString(date),
                 DateUtils.dateToString(date, DateUtils.HH_MM)));
+    }
+
+    @Override
+    public boolean verifyCommit() {
+        String str = consultationApplyTransferDescriptionEt.getText().toString().trim();
+        String str1 = consultationApplyMedicalSummaryEt.getText().toString().trim();
+        if (TextUtils.isEmpty(str) || TextUtils.isEmpty(str1) || mdtDate == null || mdtGrade == -1
+                || doctorList.size() == 0) {
+            ToastUtil.showMessage(getContext(), "请完善信息!");
+            return false;
+        }
+        return true;
     }
 }

@@ -6,8 +6,6 @@
     android:background="@color/primary_bg_color"
     android:orientation="vertical">
 
-    <include layout="@layout/common_title_bar" />
-
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
@@ -464,6 +462,20 @@
                     android:verticalSpacing="@dimen/dp_10" />
 
             </RelativeLayout>
+
+            <TextView
+                android:id="@+id/consultation_apply_commit_tv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginStart="@dimen/dp_27"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginEnd="@dimen/dp_27"
+                android:layout_marginBottom="@dimen/dp_36"
+                android:background="@drawable/blue_corner_bg"
+                android:gravity="center"
+                android:text="@string/txt_commit"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_18" />
         </LinearLayout>
     </com.keydom.ih_common.view.AnimationScrollView>
 </LinearLayout>

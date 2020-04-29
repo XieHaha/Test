@@ -90,4 +90,6 @@ public interface ConsultationApplyView extends BaseView {
     ArrayList<String> getGradeStr();
 
     void setApplyDate(Date date);
+
+    boolean verifyCommit();
 }

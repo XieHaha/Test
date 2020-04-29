@@ -60,7 +60,7 @@ import com.keydom.mianren.ih_doctor.activity.common_document.CommonDocumentActiv
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.DianoseCaseDetailActivity;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.FillOutApplyActivity;
 import com.keydom.mianren.ih_doctor.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity;
-import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationApplyActivity;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationMainActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.ApplyForCheckActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.CheckOrderDetailActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.DiagnosePatientInfoActivity;
@@ -827,7 +827,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 break;
             case R.id.inquiry_pop_consultation_tv:
                 //会诊
-                ConsultationApplyActivity.start(this, orderBean);
+                ConsultationMainActivity.start(this, orderBean);
                 if (mPopupWindow != null) {
                     mPopupWindow.dismiss();
                 }

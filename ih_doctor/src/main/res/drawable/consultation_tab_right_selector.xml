@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/corner5_right_3f98f7_bg" android:state_selected="true" />
+    <item android:drawable="@drawable/corner5_right_stoke_aad3ff_bg" />
+
+</selector>
