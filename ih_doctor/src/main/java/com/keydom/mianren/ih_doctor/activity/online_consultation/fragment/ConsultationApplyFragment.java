@@ -1,4 +1,4 @@
-package com.keydom.mianren.ih_doctor.activity.online_consultation;
+package com.keydom.mianren.ih_doctor.activity.online_consultation.fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;

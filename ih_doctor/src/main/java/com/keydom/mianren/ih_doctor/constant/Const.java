@@ -112,6 +112,10 @@ public class Const {
     /**
      * 数据传递key
      */
+    public static final String PATIENT_ID = "patient_id";
+    /**
+     * 数据传递key
+     */
     public static final String IsPrescriptionStyle = "IsPrescriptionStyle";
     /**
      * 标题

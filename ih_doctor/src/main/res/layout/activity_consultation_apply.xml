@@ -6,11 +6,6 @@
     android:background="@color/primary_bg_color"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_10"
-        android:background="@color/line_color" />
-
     <com.keydom.ih_common.view.AnimationScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -58,14 +58,25 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
      */
     private int status = -1;
 
+    /**
+     * 患者id
+     */
+    private long patientId;
+
 
     public static ConsultationOrderFragment newInstance(TypeEnum type) {
+        return newInstance(type, 0);
+    }
+
+    public static ConsultationOrderFragment newInstance(TypeEnum type, long patientId) {
         ConsultationOrderFragment fragment = new ConsultationOrderFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(Const.TYPE, type);
+        bundle.putLong(Const.PATIENT_ID, patientId);
         fragment.setArguments(bundle);
         return fragment;
     }
+
 
     @Override
     public int getLayoutRes() {
@@ -75,10 +86,11 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         mType = (TypeEnum) getArguments().getSerializable(Const.TYPE);
+        patientId = getArguments().getLong(Const.PATIENT_ID);
         if (mType == TypeEnum.CONSULTATION_WAIT) {
             status = 0;
-//        } else if (mType == TypeEnum.CONSULTATION_ING) {
-//            status = 1;
+            //        } else if (mType == TypeEnum.CONSULTATION_ING) {
+            //            status = 1;
         } else if (mType == TypeEnum.CONSULTATION_COMPLETE) {
             status = 2;
         }
@@ -138,6 +150,9 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
         map.put("currentPage", getController().getCurrentPage());
         map.put("pageSize", Const.PAGE_SIZE);
         map.put("status", status);
+        if (patientId != 0) {
+            map.put("patientId", patientId);
+        }
         return map;
     }
 

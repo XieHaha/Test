@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationMainController;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationApplyFragment;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationPatientOrderFragment;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationMainView;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
@@ -38,8 +40,8 @@ public class ConsultationMainActivity extends BaseControllerActivity<Consultatio
 
     private FragmentManager manager;
     private FragmentTransaction transaction;
-    private ConsultationApplyFragment authFragment;
     private ConsultationApplyFragment applyFragment;
+    private ConsultationPatientOrderFragment orderFragment;
 
     public static void start(Context context, InquiryBean inquiryBean) {
         Intent intent = new Intent(context, ConsultationMainActivity.class);
@@ -68,13 +70,13 @@ public class ConsultationMainActivity extends BaseControllerActivity<Consultatio
     public void tabApplyView() {
         transaction = manager.beginTransaction();
         hideAll(transaction);
-        if (authFragment == null) {
-            authFragment = new ConsultationApplyFragment();
-            authFragment.setInquiryBean(inquiryBean);
-            transaction.add(R.id.consultation_main_container, authFragment);
+        if (applyFragment == null) {
+            applyFragment = new ConsultationApplyFragment();
+            applyFragment.setInquiryBean(inquiryBean);
+            transaction.add(R.id.consultation_main_container, applyFragment);
         } else {
-            transaction.show(authFragment);
-            authFragment.onResume();
+            transaction.show(applyFragment);
+            applyFragment.onResume();
         }
         transaction.commitAllowingStateLoss();
         step(0);
@@ -84,14 +86,14 @@ public class ConsultationMainActivity extends BaseControllerActivity<Consultatio
     public void tabHistoryView() {
         transaction = manager.beginTransaction();
         hideAll(transaction);
-        if (applyFragment == null) {
-            applyFragment = new ConsultationApplyFragment();
-            applyFragment.setInquiryBean(inquiryBean);
-            transaction.add(R.id.consultation_main_container, applyFragment);
+        if (orderFragment == null) {
+            orderFragment = new ConsultationPatientOrderFragment();
+            orderFragment.setInquiryBean(inquiryBean);
+            transaction.add(R.id.consultation_main_container, orderFragment);
         } else {
-            transaction.show(applyFragment);
-            applyFragment.setInquiryBean(inquiryBean);
-            applyFragment.onResume();
+            transaction.show(orderFragment);
+            orderFragment.setInquiryBean(inquiryBean);
+            orderFragment.onResume();
         }
         transaction.commitAllowingStateLoss();
         step(1);
@@ -101,11 +103,11 @@ public class ConsultationMainActivity extends BaseControllerActivity<Consultatio
      * 隐藏所有碎片
      */
     private void hideAll(FragmentTransaction transaction) {
-        if (authFragment != null) {
-            transaction.hide(authFragment);
-        }
         if (applyFragment != null) {
             transaction.hide(applyFragment);
+        }
+        if (orderFragment != null) {
+            transaction.hide(orderFragment);
         }
     }
 
