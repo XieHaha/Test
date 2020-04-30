@@ -38,18 +38,19 @@ public interface ConsultationService {
     @GET("user/mdt/application/list")
     Observable<HttpResult<PageBean<ConsultationBean>>> consultationOrderApplyList(@QueryMap Map<String, Object> maps);
 
-    //    /**
-    //     * 会诊 详情
-    //     */
-    //    @GET("user/mdt/application/get")
-    //    Observable<HttpResult<ConsultationDetailBean>> consultationOrderDetail(@Query("id")
-    //    String id);
-
     /**
      * 会诊 详情
      */
-    @GET("user/mdt/conclusion/get")
-    Observable<HttpResult<ConsultationDetailBean>> consultationOrderDetail(@Query("id") String id);
+    @GET("user/mdt/application/get")
+    Observable<HttpResult<ConsultationDetailBean>> consultationOrderDetail(@Query("id")
+                                                                                   String id);
+
+    //    /**
+    //     * 会诊 详情
+    //     */
+    //    @GET("user/mdt/conclusion/get")
+    //    Observable<HttpResult<ConsultationDetailBean>> consultationOrderDetail(@Query("id")
+    //    String id);
 
     /**
      * 提交会诊意见

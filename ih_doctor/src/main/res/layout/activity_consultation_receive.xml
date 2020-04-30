@@ -3,21 +3,26 @@
     xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.mianren.ih_doctor.view"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/primary_bg_color"
     android:orientation="vertical">
 
     <include layout="@layout/common_title_bar" />
 
     <com.ganxin.library.LoadDataLayout
-        android:id="@+id/loadDataLayout"
+    android:id="@+id/loadDataLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ScrollView
             android:id="@+id/mScroller"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/layout">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -143,10 +148,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:drawableStart="@mipmap/setting_close"
-                        android:drawablePadding="@dimen/dp_10"
                         android:gravity="center"
-                        android:text="@string/txt_visit_time"
+                        android:text="申请时间"
                         android:textColor="@color/color_69"
                         android:textSize="@dimen/sp_12" />
 
@@ -320,5 +323,25 @@
             </LinearLayout>
         </ScrollView>
 
-    </com.ganxin.library.LoadDataLayout>
-</LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:padding="@dimen/dp_27">
+
+            <TextView
+                android:id="@+id/consultation_receive_commit_tv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:background="@drawable/blue_corner_bg"
+                android:gravity="center"
+                android:text="@string/txt_receive"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_18" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</com.ganxin.library.LoadDataLayout></LinearLayout>

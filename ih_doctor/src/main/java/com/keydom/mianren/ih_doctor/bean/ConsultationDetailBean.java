@@ -10,6 +10,9 @@ import java.util.ArrayList;
 public class ConsultationDetailBean implements Serializable {
     private static final long serialVersionUID = 58440796453966435L;
     private int level;
+    /**
+     * 0 、未接收，1、已接收，2、已结束，-1、发起者
+     */
     private int status;
     private String applicationId;
     private String registerUserImage;

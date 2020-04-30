@@ -13,7 +13,6 @@ import com.keydom.ih_common.utils.BaseImageUtils;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.ToastUtil;
-import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.ConsultationDoctorAdapter;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationReceiveController;
@@ -27,6 +26,11 @@ import com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView;
 import org.jetbrains.annotations.Nullable;
 
 import butterknife.BindView;
+
+import static com.keydom.ih_common.bean.ConsultationStatus.CONSULTATION_COMPLETE;
+import static com.keydom.ih_common.bean.ConsultationStatus.CONSULTATION_NONE;
+import static com.keydom.ih_common.bean.ConsultationStatus.CONSULTATION_RECEIVED;
+import static com.keydom.ih_common.bean.ConsultationStatus.CONSULTATION_WAIT;
 
 /**
  * @date 20/3/27 14:38
@@ -67,6 +71,8 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
     DiagnosePrescriptionItemView consultationReceiveInformationItem;
     @BindView(R.id.consultation_receive_advice_item)
     DiagnosePrescriptionItemView consultationReceiveAdviceItem;
+    @BindView(R.id.consultation_receive_commit_tv)
+    TextView consultationReceiveCommitTv;
 
     /**
      * 会诊医生
@@ -76,6 +82,8 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
     private ConsultationDetailBean detailBean;
 
     private String orderId;
+
+    private int status;
 
     public static void start(Context context, String id) {
         Intent intent = new Intent(context, ConsultationReceiveActivity.class);
@@ -93,12 +101,20 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
         setTitle(getString(R.string.txt_consultation_receive));
         orderId = getIntent().getStringExtra(Const.ORDER_ID);
 
+        consultationReceiveCommitTv.setOnClickListener(getController());
+
         doctorAdapter = new ConsultationDoctorAdapter(this);
         consultationReceiveConsultationDoctorGridView.setAdapter(doctorAdapter);
 
         pageLoading();
         getController().getConsultationOrderDetail(orderId);
         getController().consultationOrderAdviceList(orderId);
+
+        setReloadListener((v, status) -> {
+            pageLoading();
+            getController().getConsultationOrderDetail(orderId);
+            getController().consultationOrderAdviceList(orderId);
+        });
     }
 
     /**
@@ -106,17 +122,22 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
      */
     private void bindData() {
         if (detailBean != null) {
-            int status = detailBean.getStatus();
-            if (status == 0) {
-                setRightTxt(getString(R.string.txt_receive));
-                setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
-                    @Override
-                    public void OnRightTextClick(View v) {
-                        ToastUtil.showMessage(ConsultationReceiveActivity.this, "接收");
-                    }
-                });
-            } else {
-                setRightTxt("");
+            status = detailBean.getStatus();
+            switch (status) {
+                case CONSULTATION_NONE:
+                    consultationReceiveCommitTv.setVisibility(View.GONE);
+                    break;
+                case CONSULTATION_WAIT:
+                    consultationReceiveCommitTv.setText(R.string.txt_receive);
+                    break;
+                case CONSULTATION_RECEIVED:
+                    consultationReceiveCommitTv.setText("会诊室");
+                    break;
+                case CONSULTATION_COMPLETE:
+                    consultationReceiveCommitTv.setText("会诊结论");
+                    break;
+                default:
+                    break;
             }
             //会诊医生信息
             doctorAdapter.setData(detailBean.getMdtDoctors());

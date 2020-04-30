@@ -639,7 +639,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             } else {
                 inquiryPopTriageTv.setVisibility(View.VISIBLE);
             }
-            inquiryPopConsultationTv.setVisibility(View.VISIBLE);
+            if (orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_DOING
+                    || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_COMPLETE) {
+                inquiryPopConsultationTv.setVisibility(View.GONE);
+            } else {
+                inquiryPopConsultationTv.setVisibility(View.VISIBLE);
+            }
             if (orderBean.getState() == InquiryStatus.INQUIRY_TRIAGE_DOING || orderBean.getState() == InquiryStatus.INQUIRY_ING) {
                 inquiryPopDiagnosticPrescriptionTv.setVisibility(View.VISIBLE);
             } else {
