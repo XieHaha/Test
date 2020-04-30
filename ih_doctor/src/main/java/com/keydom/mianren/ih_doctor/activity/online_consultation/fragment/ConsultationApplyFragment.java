@@ -347,6 +347,7 @@ public class ConsultationApplyFragment extends BaseControllerFragment<Consultati
 
     @Override
     public void saveSuccess(String bean) {
+        getActivity().finish();
     }
 
     @Override

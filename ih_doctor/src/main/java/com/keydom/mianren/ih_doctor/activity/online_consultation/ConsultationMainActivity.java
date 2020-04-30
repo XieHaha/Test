@@ -125,4 +125,12 @@ public class ConsultationMainActivity extends BaseControllerActivity<Consultatio
                 break;
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (applyFragment != null) {
+            applyFragment.onActivityResult(requestCode, resultCode, data);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }
