@@ -22,6 +22,7 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.Consult
 import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.ImageAdapter;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationReceiveController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationReceiveView;
+import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDoctorBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
@@ -29,6 +30,8 @@ import com.keydom.mianren.ih_doctor.utils.DateUtils;
 import com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView;
 
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -90,7 +93,7 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
 
     private ConsultationDetailBean detailBean;
 
-    private String orderId, applyId,recordId;
+    private String orderId, applyId, recordId;
 
     private int status;
 
@@ -135,7 +138,7 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
     private void bindData() {
         if (detailBean != null) {
             recordId = detailBean.getRecordId();
-            status = detailBean.getStatus();
+            status = detailBean.getDoctorStatus();
             switch (status) {
                 case CONSULTATION_NONE:
                     consultationReceiveCommitLayout.setVisibility(View.VISIBLE);
@@ -161,7 +164,8 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
             consultationReceivePatientSexTv.setText(CommonUtils.getPatientSex(detailBean.getPatientGender()));
             consultationReceivePatientAgeTv.setText(String.format(getString(R.string.txt_age),
                     detailBean.getPatientAge()));
-            consultationReceiveCardTv.setText(detailBean.getEleCardNumber());
+            consultationReceiveCardTv.setText(String.format(getString(R.string.txt_visit_card),
+                    detailBean.getEleCardNumber()));
             GlideUtils.load(consultationReceiveHeaderIv,
                     BaseImageUtils.getHeaderUrl(detailBean.getRegisterUserImage()), 0,
                     R.mipmap.im_default_head_image, true, null);
@@ -207,6 +211,7 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
     public String getApplyId() {
         return applyId;
     }
+
     @Override
     public String getRecordId() {
         return recordId;
@@ -226,8 +231,7 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
     }
 
     @Override
-    public void requestAdviceSuccess() {
-
+    public void requestAdviceSuccess(List<ConsultationAdviceBean> data) {
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.keydom.mianren.ih_doctor.activity.online_consultation.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,4 +21,8 @@ public interface ConsultationAdviceView extends BaseView {
     void commitSuccess();
 
     void commitFailed(String msg);
+
+    void getConsultationAdviceSuccess(List<ConsultationAdviceBean> data);
+
+    void getConsultationAdviceFailed(String msg);
 }

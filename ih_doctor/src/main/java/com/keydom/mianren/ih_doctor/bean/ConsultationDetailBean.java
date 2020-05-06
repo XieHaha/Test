@@ -11,9 +11,13 @@ public class ConsultationDetailBean implements Serializable {
     private static final long serialVersionUID = 58440796453966435L;
     private int level;
     /**
-     * 0 、未接收，1、已接收，2、已结束，-1、发起者
+     * 0 待会诊，1、已会诊
      */
     private int status;
+    /**
+     * 0、未接受，1、已接受，-1、申请医生
+     */
+    private int doctorStatus;
     private String applicationId;
     private String tid;
     private String recordId;
@@ -24,6 +28,7 @@ public class ConsultationDetailBean implements Serializable {
     private String eleCardNumber;
     private String visitTime;
     private String mdtTime;
+    private String endTime;
     private String reasonAndAim;
     private String illnessAbstract;
     private String mainTell;
@@ -173,5 +178,21 @@ public class ConsultationDetailBean implements Serializable {
 
     public void setMainTell(String mainTell) {
         this.mainTell = mainTell;
+    }
+
+    public int getDoctorStatus() {
+        return doctorStatus;
+    }
+
+    public void setDoctorStatus(int doctorStatus) {
+        this.doctorStatus = doctorStatus;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 }

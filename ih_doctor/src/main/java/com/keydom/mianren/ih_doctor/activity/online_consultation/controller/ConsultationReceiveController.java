@@ -10,11 +10,14 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationRoomActivity;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationReceiveView;
+import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
 import com.keydom.mianren.ih_doctor.net.ConsultationService;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 import static com.keydom.ih_common.bean.ConsultationStatus.CONSULTATION_NONE;
 import static com.keydom.ih_common.bean.ConsultationStatus.CONSULTATION_RECEIVED;
@@ -33,6 +36,7 @@ public class ConsultationReceiveController extends ControllerImpl<ConsultationRe
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderAccept(id), new HttpSubscriber<String>(mContext, getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable String data) {
+                getConsultationOrderDetail(id);
             }
 
             @Override
@@ -66,10 +70,10 @@ public class ConsultationReceiveController extends ControllerImpl<ConsultationRe
      * 获取会诊意见列表
      */
     public void consultationOrderAdviceList(String id) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderAdviceList(id), new HttpSubscriber<ConsultationDetailBean>(mContext, getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderAdviceList(id), new HttpSubscriber<List<ConsultationAdviceBean>>(mContext, getDisposable(), false) {
             @Override
-            public void requestComplete(@Nullable ConsultationDetailBean data) {
-                getView().requestAdviceSuccess();
+            public void requestComplete(@Nullable List<ConsultationAdviceBean> data) {
+                getView().requestAdviceSuccess(data);
             }
 
             @Override

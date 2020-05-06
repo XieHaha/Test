@@ -3,6 +3,7 @@ package com.keydom.mianren.ih_doctor.activity.online_consultation.fragment;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
@@ -17,8 +18,10 @@ import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.mianren.ih_doctor.R;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.ConsultationAdviceAdapter;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationAdviceController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationAdviceView;
+import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.utils.JsonUtils;
 import com.keydom.mianren.ih_doctor.view.CustomRecognizerDialog;
@@ -27,6 +30,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -50,11 +54,15 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
      */
     private CustomRecognizerDialog mIatDialog;
 
+    private ConsultationAdviceAdapter adviceAdapter;
+
     private String recordId;
     /**
      * 会诊意见
      */
     private String consultationAdvice;
+
+    private List<ConsultationAdviceBean> adviceBeans;
 
     public static ConsultationAdviceFragment newInstance(String id) {
         ConsultationAdviceFragment fragment = new ConsultationAdviceFragment();
@@ -86,7 +94,10 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
         recordId = bundle.getString(Const.RECORD_ID);
 
         consultationAdviceRecyclerView.setNestedScrollingEnabled(false);
+        consultationAdviceRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         consultationAdviceCommitTv.setOnClickListener(getController());
+        adviceAdapter = new ConsultationAdviceAdapter(getContext(), adviceBeans);
+        consultationAdviceRecyclerView.setAdapter(adviceAdapter);
 
         initVoice();
 
@@ -96,6 +107,7 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
     /**
      * 语音输入
      */
+    @SuppressLint("CheckResult")
     private void initVoice() {
         // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
@@ -166,11 +178,22 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
 
     @Override
     public void commitSuccess() {
-
+        getController().getConsultationAdviceList();
     }
 
     @Override
     public void commitFailed(String msg) {
+        ToastUtil.showMessage(getContext(), msg);
+    }
 
+    @Override
+    public void getConsultationAdviceSuccess(List<ConsultationAdviceBean> data) {
+        adviceBeans = data;
+        adviceAdapter.setNewData(adviceBeans);
+    }
+
+    @Override
+    public void getConsultationAdviceFailed(String msg) {
+        ToastUtil.showMessage(getContext(), msg);
     }
 }

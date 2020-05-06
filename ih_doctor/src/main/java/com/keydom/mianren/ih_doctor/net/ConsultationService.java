@@ -2,9 +2,11 @@ package com.keydom.mianren.ih_doctor.net;
 
 import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
+import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -66,7 +68,7 @@ public interface ConsultationService {
      * 会诊意见列表
      */
     @GET("user/mdt/record/comment/list")
-    Observable<HttpResult<ConsultationDetailBean>> consultationOrderAdviceList(@Query("recordId") String id);
+    Observable<HttpResult<List<ConsultationAdviceBean>>> consultationOrderAdviceList(@Query("recordId") String id);
 
     /**
      * 会诊室 病历资料

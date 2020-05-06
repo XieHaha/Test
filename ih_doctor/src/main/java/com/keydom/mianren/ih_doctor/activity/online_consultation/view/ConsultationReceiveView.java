@@ -1,7 +1,10 @@
 package com.keydom.mianren.ih_doctor.activity.online_consultation.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
+
+import java.util.List;
 
 /**
  * @date 3月28日
@@ -27,7 +30,7 @@ public interface ConsultationReceiveView extends BaseView {
     /**
      * 会诊意见
      */
-    void requestAdviceSuccess();
+    void requestAdviceSuccess(List<ConsultationAdviceBean> data);
 
     void requestAdviceFailed(String msg);
 }
