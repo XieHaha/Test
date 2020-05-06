@@ -3,8 +3,11 @@ package com.keydom.mianren.ih_doctor.activity.online_consultation;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
@@ -13,8 +16,10 @@ import com.keydom.ih_common.utils.BaseImageUtils;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_common.view.GridViewForScrollView;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.ConsultationDoctorAdapter;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.ImageAdapter;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationReceiveController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationReceiveView;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
@@ -67,12 +72,16 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
     DiagnosePrescriptionItemView consultationReceivePurposeItem;
     @BindView(R.id.consultation_receive_summary_item)
     DiagnosePrescriptionItemView consultationReceiveSummaryItem;
-    @BindView(R.id.consultation_receive_information_item)
-    DiagnosePrescriptionItemView consultationReceiveInformationItem;
-    @BindView(R.id.consultation_receive_advice_item)
-    DiagnosePrescriptionItemView consultationReceiveAdviceItem;
+    @BindView(R.id.consultation_receive_condition_image_grid)
+    GridViewForScrollView consultationReceiveConditionImageGrid;
     @BindView(R.id.consultation_receive_commit_tv)
     TextView consultationReceiveCommitTv;
+    @BindView(R.id.consultation_receive_commit_layout)
+    LinearLayout consultationReceiveCommitLayout;
+    @BindView(R.id.consultation_receive_advice_layout)
+    RelativeLayout consultationReceiveAdviceLayout;
+    @BindView(R.id.consultation_receive_recycler_view)
+    RecyclerView consultationReceiveRecyclerView;
 
     /**
      * 会诊医生
@@ -81,13 +90,14 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
 
     private ConsultationDetailBean detailBean;
 
-    private String orderId;
+    private String orderId, applyId,recordId;
 
     private int status;
 
-    public static void start(Context context, String id) {
+    public static void start(Context context, String id, String applyId) {
         Intent intent = new Intent(context, ConsultationReceiveActivity.class);
         intent.putExtra(Const.ORDER_ID, id);
+        intent.putExtra("applyId", applyId);
         context.startActivity(intent);
     }
 
@@ -100,11 +110,13 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle(getString(R.string.txt_consultation_receive));
         orderId = getIntent().getStringExtra(Const.ORDER_ID);
+        applyId = getIntent().getStringExtra("applyId");
 
         consultationReceiveCommitTv.setOnClickListener(getController());
 
         doctorAdapter = new ConsultationDoctorAdapter(this);
         consultationReceiveConsultationDoctorGridView.setAdapter(doctorAdapter);
+        consultationReceiveRecyclerView.setNestedScrollingEnabled(false);
 
         pageLoading();
         getController().getConsultationOrderDetail(orderId);
@@ -122,10 +134,12 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
      */
     private void bindData() {
         if (detailBean != null) {
+            recordId = detailBean.getRecordId();
             status = detailBean.getStatus();
             switch (status) {
                 case CONSULTATION_NONE:
-                    consultationReceiveCommitTv.setVisibility(View.GONE);
+                    consultationReceiveCommitLayout.setVisibility(View.VISIBLE);
+                    consultationReceiveCommitTv.setText("会诊室");
                     break;
                 case CONSULTATION_WAIT:
                     consultationReceiveCommitTv.setText(R.string.txt_receive);
@@ -134,7 +148,8 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
                     consultationReceiveCommitTv.setText("会诊室");
                     break;
                 case CONSULTATION_COMPLETE:
-                    consultationReceiveCommitTv.setText("会诊结论");
+                    consultationReceiveCommitLayout.setVisibility(View.GONE);
+                    consultationReceiveAdviceLayout.setVisibility(View.VISIBLE);
                     break;
                 default:
                     break;
@@ -146,6 +161,7 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
             consultationReceivePatientSexTv.setText(CommonUtils.getPatientSex(detailBean.getPatientGender()));
             consultationReceivePatientAgeTv.setText(String.format(getString(R.string.txt_age),
                     detailBean.getPatientAge()));
+            consultationReceiveCardTv.setText(detailBean.getEleCardNumber());
             GlideUtils.load(consultationReceiveHeaderIv,
                     BaseImageUtils.getHeaderUrl(detailBean.getRegisterUserImage()), 0,
                     R.mipmap.im_default_head_image, true, null);
@@ -165,8 +181,35 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
                         R.mipmap.im_default_head_image, true, null);
                 consultationReceiveApplyDoctorNameTv.setText(bean.getName());
             }
-            consultationReceiveConsultationDateTv.setText(detailBean.getMdtTime());
+            consultationReceiveConsultationTimeTv.setText(DateUtils.getDate(detailBean.getMdtTime()));
+
+            consultationReceivePurposeItem.setText(detailBean.getReasonAndAim());
+            consultationReceiveSummaryItem.setText(detailBean.getIllnessAbstract());
+            //病情资料
+            //图片适配器，病情资料和问诊说明图片适配器
+            ImageAdapter imageAdapter = new ImageAdapter(getContext(),
+                    detailBean.getMedicalHistoryImg(), false);
+            consultationReceiveConditionImageGrid.setAdapter(imageAdapter);
         }
+    }
+
+    @Override
+    public int getStatus() {
+        return status;
+    }
+
+    @Override
+    public String getOrderId() {
+        return orderId;
+    }
+
+    @Override
+    public String getApplyId() {
+        return applyId;
+    }
+    @Override
+    public String getRecordId() {
+        return recordId;
     }
 
     @Override

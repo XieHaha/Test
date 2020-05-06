@@ -63,7 +63,7 @@ public class ConsultationOrderFragmentController extends ControllerImpl<Consulta
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         ConsultationBean bean = (ConsultationBean) adapter.getItem(position);
         if (bean != null) {
-            ConsultationReceiveActivity.start(mContext, bean.getApplicationId());
+            ConsultationReceiveActivity.start(mContext, bean.getApplicationId(),bean.getApplicantId());
         }
     }
 }

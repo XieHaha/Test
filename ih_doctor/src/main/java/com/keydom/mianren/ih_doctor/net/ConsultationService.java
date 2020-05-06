@@ -39,11 +39,15 @@ public interface ConsultationService {
     Observable<HttpResult<PageBean<ConsultationBean>>> consultationOrderApplyList(@QueryMap Map<String, Object> maps);
 
     /**
+     * 会诊 接收
+     */
+    @GET("user/mdt/application/accept")
+    Observable<HttpResult<String>> consultationOrderAccept(@Query("id") String id);
+    /**
      * 会诊 详情
      */
     @GET("user/mdt/application/get")
-    Observable<HttpResult<ConsultationDetailBean>> consultationOrderDetail(@Query("id")
-                                                                                   String id);
+    Observable<HttpResult<ConsultationDetailBean>> consultationOrderDetail(@Query("id") String id);
 
     //    /**
     //     * 会诊 详情
@@ -55,14 +59,14 @@ public interface ConsultationService {
     /**
      * 提交会诊意见
      */
-    @GET("user/mdt/record/comment/create")
-    Observable<HttpResult<String>> consultationOrderCreateAdvice(@QueryMap Map<String, Object> map);
+    @POST("user/mdt/record/comment/create")
+    Observable<HttpResult<String>> consultationOrderCreateAdvice(@Body RequestBody body);
 
     /**
      * 会诊意见列表
      */
     @GET("user/mdt/record/comment/list")
-    Observable<HttpResult<ConsultationDetailBean>> consultationOrderAdviceList(@Query("id") String id);
+    Observable<HttpResult<ConsultationDetailBean>> consultationOrderAdviceList(@Query("recordId") String id);
 
     /**
      * 会诊室 病历资料

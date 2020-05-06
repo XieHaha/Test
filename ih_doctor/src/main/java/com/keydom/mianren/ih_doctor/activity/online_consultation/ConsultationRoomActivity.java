@@ -44,15 +44,16 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     private Fragment[] mFragmentArrays;
     private String[] mTabTitles;
 
-    private String orderId, applyId;
+    private String orderId, applyId,recordId;
 
     /**
      * 启动会诊订单列表页面
      */
-    public static void start(Context context, String id, String applyId) {
+    public static void start(Context context, String orderId, String applyId,String recordId) {
         Intent intent = new Intent(context, ConsultationRoomActivity.class);
-        intent.putExtra(Const.ORDER_ID, id);
+        intent.putExtra(Const.ORDER_ID, orderId);
         intent.putExtra("applyId", applyId);
+        intent.putExtra(Const.RECORD_ID, recordId);
         context.startActivity(intent);
     }
 
@@ -66,6 +67,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
 
         orderId = getIntent().getStringExtra(Const.ORDER_ID);
         applyId = getIntent().getStringExtra("applyId");
+        recordId = getIntent().getStringExtra(Const.RECORD_ID);
 
         LinearLayout linearLayout = (LinearLayout) consultationRoomTabLayout.getChildAt(0);
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
@@ -99,7 +101,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         ArrayList<String> accounts = new ArrayList<>();
         accounts.add("00180c00003");
         mFragmentArrays[1] = TeamAVChatFragment.newInstance(false, "2812993693", accounts);
-        mFragmentArrays[2] = ConsultationAdviceFragment.newInstance(orderId);
+        mFragmentArrays[2] = ConsultationAdviceFragment.newInstance(recordId);
         consultationRoomViewPager.setOffscreenPageLimit(3);
         PagerAdapter pagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());
         consultationRoomViewPager.setAdapter(pagerAdapter);

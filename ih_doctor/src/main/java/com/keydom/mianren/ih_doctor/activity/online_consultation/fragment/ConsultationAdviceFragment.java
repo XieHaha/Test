@@ -50,7 +50,7 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
      */
     private CustomRecognizerDialog mIatDialog;
 
-    private String orderId;
+    private String recordId;
     /**
      * 会诊意见
      */
@@ -59,7 +59,7 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
     public static ConsultationAdviceFragment newInstance(String id) {
         ConsultationAdviceFragment fragment = new ConsultationAdviceFragment();
         Bundle args = new Bundle();
-        args.putString(Const.ORDER_ID, id);
+        args.putString(Const.RECORD_ID, id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -83,9 +83,9 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
-        orderId = bundle.getString(Const.ORDER_ID);
+        recordId = bundle.getString(Const.RECORD_ID);
 
-        consultationAdviceRecyclerView.setNestedScrollingEnabled(true);
+        consultationAdviceRecyclerView.setNestedScrollingEnabled(false);
         consultationAdviceCommitTv.setOnClickListener(getController());
 
         initVoice();
@@ -149,7 +149,7 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
         //type 1 文字，2、语音
         params.put("type", 1);
         params.put("content", consultationAdvice);
-        params.put("recordId", orderId);
+        params.put("recordId", recordId);
         return params;
     }
 
@@ -160,8 +160,8 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
     }
 
     @Override
-    public String getOrderId() {
-        return orderId;
+    public String getRecordId() {
+        return recordId;
     }
 
     @Override

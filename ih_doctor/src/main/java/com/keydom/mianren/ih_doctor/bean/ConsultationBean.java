@@ -10,6 +10,9 @@ public class ConsultationBean implements Serializable {
     private static final long serialVersionUID = -227101634146254979L;
 
     private int level;
+    /**
+     * 申请人id
+     */
     private String applicantId;
     private String applicationId;
     private String registerImage;

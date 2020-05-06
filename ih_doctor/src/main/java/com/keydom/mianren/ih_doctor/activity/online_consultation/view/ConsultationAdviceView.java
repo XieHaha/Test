@@ -14,7 +14,7 @@ public interface ConsultationAdviceView extends BaseView {
 
     String getConsultationAdvice();
 
-    String getOrderId();
+    String getRecordId();
 
     void commitSuccess();
 

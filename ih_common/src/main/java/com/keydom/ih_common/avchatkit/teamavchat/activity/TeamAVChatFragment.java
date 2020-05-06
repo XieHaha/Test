@@ -218,7 +218,7 @@ public class TeamAVChatFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        activeCallingNotifier(true);
+//        activeCallingNotifier(true);
     }
 
     @Override
@@ -246,7 +246,7 @@ public class TeamAVChatFragment extends Fragment {
             mainHandler.removeCallbacksAndMessages(null);
         }
         hangup(); // 页面销毁的时候要保证离开房间，rtc释放。
-        activeCallingNotifier(false);
+//        activeCallingNotifier(false);
         setChatting(false);
         NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatus, false);
     }

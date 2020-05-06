@@ -9,6 +9,14 @@ import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
  */
 public interface ConsultationReceiveView extends BaseView {
 
+    int getStatus();
+
+    String getOrderId();
+
+    String getApplyId();
+
+    String getRecordId();
+
     /**
      * 会诊详情
      */

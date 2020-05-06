@@ -37,7 +37,7 @@ public class ConsultationAdviceController extends ControllerImpl<ConsultationAdv
      * 提交会诊意见
      */
     private void commitConsultationAdvice() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderCreateAdvice(getView().getCommitParams()), new HttpSubscriber<String>(getContext(),getDisposable(),true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderCreateAdvice(HttpService.INSTANCE.object2Body(getView().getCommitParams())), new HttpSubscriber<String>(getContext(),getDisposable(),true) {
             @Override
             public void requestComplete(@Nullable String data) {
 
@@ -55,7 +55,7 @@ public class ConsultationAdviceController extends ControllerImpl<ConsultationAdv
      * 会诊意见列表
      */
     public void getConsultationAdviceList() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderAdviceList(getView().getOrderId()), new HttpSubscriber<ConsultationDetailBean>() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderAdviceList(getView().getRecordId()), new HttpSubscriber<ConsultationDetailBean>() {
             @Override
             public void requestComplete(@Nullable ConsultationDetailBean data) {
 

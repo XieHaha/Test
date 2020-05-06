@@ -15,6 +15,8 @@ public class ConsultationDetailBean implements Serializable {
      */
     private int status;
     private String applicationId;
+    private String tid;
+    private String recordId;
     private String registerUserImage;
     private String patientName;
     private String patientGender;
@@ -51,6 +53,22 @@ public class ConsultationDetailBean implements Serializable {
 
     public void setApplicationId(String applicationId) {
         this.applicationId = applicationId;
+    }
+
+    public String getTid() {
+        return tid;
+    }
+
+    public void setTid(String tid) {
+        this.tid = tid;
+    }
+
+    public String getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(String recordId) {
+        this.recordId = recordId;
     }
 
     public String getRegisterUserImage() {

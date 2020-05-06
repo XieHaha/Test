@@ -39,7 +39,8 @@ public class TeamAVChatProfile {
     private boolean isTeamAVChatting = false;
     private boolean isSyncComplete = true; // 未开始也算同步完成，可能存在不启动同步的情况
 
-    public String buildContent(String roomName, String teamID, List<String> accounts, String teamName) {
+    public String buildContent(String roomName, String teamID, List<String> accounts,
+                               String teamName) {
         JSONObject json = new JSONObject();
         json.put(KEY_ID, ID);
         JSONArray array = new JSONArray();
@@ -75,7 +76,8 @@ public class TeamAVChatProfile {
      *
      * @param register
      */
-    private Observer<CustomNotification> customNotificationObserver = new Observer<CustomNotification>() {
+    private Observer<CustomNotification> customNotificationObserver =
+            new Observer<CustomNotification>() {
         @Override
         public void onEvent(CustomNotification customNotification) {
             try {
@@ -113,13 +115,20 @@ public class TeamAVChatProfile {
     };
 
 
-    private void launchActivity(final String teamId, final String roomName, final ArrayList<String> accounts, final String teamName) {
+    private void launchActivity(final String teamId, final String roomName,
+                                final ArrayList<String> accounts, final String teamName) {
         Runnable r = new Runnable() {
             @Override
             public void run() {
                 // 欢迎界面正在运行，则等MainActivity启动之后再启动，否则直接启动 TeamAVChatActivity
                 if (!AVChatKit.isMainTaskLaunching()) {
                     TeamAVChatActivity.startActivity(AVChatKit.getContext(), true, teamId, roomName, accounts, teamName);
+//                    ConsultationEvent consultationEvent = new ConsultationEvent();
+//                    consultationEvent.setAccounts(accounts);
+//                    consultationEvent.setRoomName(roomName);
+//                    consultationEvent.setTeamId(teamId);
+//                    consultationEvent.setTeamName(teamName);
+//                    EventBus.getDefault().post(consultationEvent);
                 } else {
                     LogUtil.ui("launch TeamAVChatActivity delay for WelComeActivity is Launching");
                     launchActivity(teamId, roomName, accounts, teamName);
