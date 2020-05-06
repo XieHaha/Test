@@ -91,8 +91,7 @@ public class ConsultationReceiveController extends ControllerImpl<ConsultationRe
             switch (getView().getReceiveStatus()) {
                 case CONSULTATION_NONE:
                 case CONSULTATION_RECEIVED:
-                    ConsultationRoomActivity.start(mContext, getView().getOrderId(),
-                            getView().getApplyId(), getView().getRecordId());
+                    ConsultationRoomActivity.start(mContext, getView().getDetailBean());
                     break;
                 case CONSULTATION_WAIT:
                     //接收会诊

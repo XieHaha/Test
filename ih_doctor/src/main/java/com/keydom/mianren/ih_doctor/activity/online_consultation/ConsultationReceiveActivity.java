@@ -3,6 +3,7 @@ package com.keydom.mianren.ih_doctor.activity.online_consultation;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GridViewForScrollView;
 import com.keydom.mianren.ih_doctor.R;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.ConsultationAdviceAdapter;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.ConsultationDoctorAdapter;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.ImageAdapter;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationReceiveController;
@@ -89,10 +91,16 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
      * 会诊医生
      */
     private ConsultationDoctorAdapter doctorAdapter;
+    /**
+     * 会诊意见适配器
+     */
+    private ConsultationAdviceAdapter adviceAdapter;
+
+    private List<ConsultationAdviceBean> adviceBeans;
 
     private ConsultationDetailBean detailBean;
 
-    private String orderId, applyId, recordId;
+    private String orderId, recordId;
 
     /**
      * 接收状态
@@ -103,10 +111,9 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
      */
     private int orderStatus;
 
-    public static void start(Context context, String id, String applyId) {
+    public static void start(Context context, String id) {
         Intent intent = new Intent(context, ConsultationReceiveActivity.class);
         intent.putExtra(Const.ORDER_ID, id);
-        intent.putExtra("applyId", applyId);
         context.startActivity(intent);
     }
 
@@ -119,22 +126,24 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle(getString(R.string.txt_consultation_receive));
         orderId = getIntent().getStringExtra(Const.ORDER_ID);
-        applyId = getIntent().getStringExtra("applyId");
 
         consultationReceiveCommitTv.setOnClickListener(getController());
 
         doctorAdapter = new ConsultationDoctorAdapter(this);
         consultationReceiveConsultationDoctorGridView.setAdapter(doctorAdapter);
+        //会诊意见
         consultationReceiveRecyclerView.setNestedScrollingEnabled(false);
+        consultationReceiveRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adviceAdapter = new ConsultationAdviceAdapter(this, adviceBeans);
+        consultationReceiveRecyclerView.setAdapter(adviceAdapter);
 
         pageLoading();
         getController().getConsultationOrderDetail(orderId);
-        getController().consultationOrderAdviceList(orderId);
 
         setReloadListener((v, status) -> {
             pageLoading();
             getController().getConsultationOrderDetail(orderId);
-            getController().consultationOrderAdviceList(orderId);
+            getController().consultationOrderAdviceList(recordId);
         });
     }
 
@@ -144,6 +153,8 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
     private void bindData() {
         if (detailBean != null) {
             recordId = detailBean.getRecordId();
+            //获取会诊意见数据
+            getController().consultationOrderAdviceList(recordId);
             orderStatus = detailBean.getStatus();
             if (orderStatus == CONSULTATION_WAIT) {
                 receiveStatus = detailBean.getDoctorStatus();
@@ -215,20 +226,15 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
     }
 
     @Override
-    public String getApplyId() {
-        return applyId;
-    }
-
-    @Override
-    public String getRecordId() {
-        return recordId;
+    public ConsultationDetailBean getDetailBean() {
+        return detailBean;
     }
 
     @Override
     public void requestDetailSuccess(ConsultationDetailBean data) {
+        pageLoadingSuccess();
         detailBean = data;
         bindData();
-        pageLoadingSuccess();
     }
 
     @Override
@@ -239,10 +245,12 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
 
     @Override
     public void requestAdviceSuccess(List<ConsultationAdviceBean> data) {
+        adviceBeans = data;
+        adviceAdapter.setNewData(adviceBeans);
     }
 
     @Override
     public void requestAdviceFailed(String msg) {
-
+        ToastUtil.showMessage(this, msg);
     }
 }

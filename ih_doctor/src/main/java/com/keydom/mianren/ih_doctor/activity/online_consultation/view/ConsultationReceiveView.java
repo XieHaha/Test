@@ -16,9 +16,7 @@ public interface ConsultationReceiveView extends BaseView {
 
     String getOrderId();
 
-    String getApplyId();
-
-    String getRecordId();
+    ConsultationDetailBean getDetailBean();
 
     /**
      * 会诊详情

@@ -45,6 +45,7 @@ public interface ConsultationService {
      */
     @GET("user/mdt/application/accept")
     Observable<HttpResult<String>> consultationOrderAccept(@Query("id") String id);
+
     /**
      * 会诊 详情
      */
@@ -61,11 +62,18 @@ public interface ConsultationService {
      * 会诊意见列表
      */
     @GET("user/mdt/record/comment/list")
-    Observable<HttpResult<List<ConsultationAdviceBean>>> consultationOrderAdviceList(@Query("recordId") String id);
+    Observable<HttpResult<List<ConsultationAdviceBean>>> consultationOrderAdviceList(@Query(
+            "recordId") String id);
 
     /**
      * 会诊室 病历资料
      */
     @GET("user/mdt/application/form")
     Observable<HttpResult<ConsultationDetailBean>> consultationOrderInfo(@Query("id") String id);
+
+    /**
+     * 结束会诊
+     */
+    @GET("user/mdt/application/ending")
+    Observable<HttpResult<ConsultationDetailBean>> endConsultationOrder(@Query("recordId") String id, @Query("videoUrl") String videoUrl);
 }
