@@ -2,7 +2,7 @@ package com.keydom.ih_common.bean;
 
 /**
  * @date 20/4/30 11:24
- * @des 会诊状态
+ * @des 会诊接收状态
  */
 public class ConsultationStatus {
 
@@ -18,9 +18,5 @@ public class ConsultationStatus {
      * 已接收
      */
     public static final int CONSULTATION_RECEIVED = 1;
-    /**
-     * 已结束
-     */
-    public static final int CONSULTATION_COMPLETE = 2;
 
 }

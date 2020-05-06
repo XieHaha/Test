@@ -35,7 +35,6 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import static com.keydom.ih_common.bean.ConsultationStatus.CONSULTATION_COMPLETE;
 import static com.keydom.ih_common.bean.ConsultationStatus.CONSULTATION_NONE;
 import static com.keydom.ih_common.bean.ConsultationStatus.CONSULTATION_RECEIVED;
 import static com.keydom.ih_common.bean.ConsultationStatus.CONSULTATION_WAIT;
@@ -95,7 +94,14 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
 
     private String orderId, applyId, recordId;
 
-    private int status;
+    /**
+     * 接收状态
+     */
+    private int receiveStatus;
+    /**
+     * 会诊订单状态
+     */
+    private int orderStatus;
 
     public static void start(Context context, String id, String applyId) {
         Intent intent = new Intent(context, ConsultationReceiveActivity.class);
@@ -138,24 +144,25 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
     private void bindData() {
         if (detailBean != null) {
             recordId = detailBean.getRecordId();
-            status = detailBean.getDoctorStatus();
-            switch (status) {
-                case CONSULTATION_NONE:
-                    consultationReceiveCommitLayout.setVisibility(View.VISIBLE);
-                    consultationReceiveCommitTv.setText("会诊室");
-                    break;
-                case CONSULTATION_WAIT:
-                    consultationReceiveCommitTv.setText(R.string.txt_receive);
-                    break;
-                case CONSULTATION_RECEIVED:
-                    consultationReceiveCommitTv.setText("会诊室");
-                    break;
-                case CONSULTATION_COMPLETE:
-                    consultationReceiveCommitLayout.setVisibility(View.GONE);
-                    consultationReceiveAdviceLayout.setVisibility(View.VISIBLE);
-                    break;
-                default:
-                    break;
+            orderStatus = detailBean.getStatus();
+            if (orderStatus == CONSULTATION_WAIT) {
+                receiveStatus = detailBean.getDoctorStatus();
+                switch (receiveStatus) {
+                    case CONSULTATION_NONE:
+                        consultationReceiveCommitTv.setText("会诊室");
+                        break;
+                    case CONSULTATION_WAIT:
+                        consultationReceiveCommitTv.setText(R.string.txt_receive);
+                        break;
+                    case CONSULTATION_RECEIVED:
+                        consultationReceiveCommitTv.setText("会诊室");
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                consultationReceiveCommitLayout.setVisibility(View.GONE);
+                consultationReceiveAdviceLayout.setVisibility(View.VISIBLE);
             }
             //会诊医生信息
             doctorAdapter.setData(detailBean.getMdtDoctors());
@@ -198,8 +205,8 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
     }
 
     @Override
-    public int getStatus() {
-        return status;
+    public int getReceiveStatus() {
+        return receiveStatus;
     }
 
     @Override

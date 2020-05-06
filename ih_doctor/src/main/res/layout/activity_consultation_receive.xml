@@ -254,7 +254,7 @@
                                 android:id="@+id/consultation_receive_consultation_date_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dp_28"
+                                android:layout_marginStart="@dimen/dp_26"
                                 android:textColor="@color/primary_font_color"
                                 android:textSize="@dimen/sp_14"
                                 tools:text="3月28日" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="@dimen/dp_55"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="vertical">
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_14"
         android:ellipsize="end"
-        android:maxEms="3"
+        android:maxEms="5"
         android:singleLine="true"
         android:textColor="@color/edit_text_color"
         android:textSize="@dimen/sp_14"

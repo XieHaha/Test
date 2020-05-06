@@ -88,7 +88,7 @@ public class ConsultationReceiveController extends ControllerImpl<ConsultationRe
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.consultation_receive_commit_tv) {
-            switch (getView().getStatus()) {
+            switch (getView().getReceiveStatus()) {
                 case CONSULTATION_NONE:
                 case CONSULTATION_RECEIVED:
                     ConsultationRoomActivity.start(mContext, getView().getOrderId(),

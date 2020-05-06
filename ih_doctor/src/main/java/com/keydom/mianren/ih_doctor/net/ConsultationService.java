@@ -51,13 +51,6 @@ public interface ConsultationService {
     @GET("user/mdt/application/get")
     Observable<HttpResult<ConsultationDetailBean>> consultationOrderDetail(@Query("id") String id);
 
-    //    /**
-    //     * 会诊 详情
-    //     */
-    //    @GET("user/mdt/conclusion/get")
-    //    Observable<HttpResult<ConsultationDetailBean>> consultationOrderDetail(@Query("id")
-    //    String id);
-
     /**
      * 提交会诊意见
      */

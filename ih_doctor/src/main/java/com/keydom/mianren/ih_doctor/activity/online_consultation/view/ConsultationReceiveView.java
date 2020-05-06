@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface ConsultationReceiveView extends BaseView {
 
-    int getStatus();
+    int getReceiveStatus();
 
     String getOrderId();
 

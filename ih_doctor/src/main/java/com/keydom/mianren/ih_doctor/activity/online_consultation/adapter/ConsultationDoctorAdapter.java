@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.keydom.ih_common.utils.BaseImageUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDoctorBean;
@@ -61,7 +62,8 @@ public class ConsultationDoctorAdapter extends BaseAdapter {
         }
 
         holder.tvName.setText(data.get(position).getName());
-        GlideUtils.load(holder.header, data.get(position).getDoctorImage(), 0,
+        GlideUtils.load(holder.header,
+                BaseImageUtils.getHeaderUrl(data.get(position).getDoctorImage()), 0,
                 R.mipmap.im_default_head_image, true, null);
         return convertView;
     }
