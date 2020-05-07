@@ -99,8 +99,9 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
         adviceAdapter = new ConsultationAdviceAdapter(getContext(), adviceBeans);
         consultationAdviceRecyclerView.setAdapter(adviceAdapter);
 
+        //语音输入
         initVoice();
-
+        //会诊意见列表
         getController().getConsultationAdviceList();
     }
 
@@ -178,6 +179,8 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
 
     @Override
     public void commitSuccess() {
+        consultationAdviceEditEt.setText("");
+        ToastUtil.showMessage(getContext(), "会诊意见提交成功");
         getController().getConsultationAdviceList();
     }
 
