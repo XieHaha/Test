@@ -33,6 +33,10 @@ public class AVChatKit {
     private static Context context;
 
     private static String account;
+    /**
+     * 区分群聊和会诊  会诊
+     */
+    public static String teamChatType = "consultation";
 
     private static boolean mainTaskLaunching;
 

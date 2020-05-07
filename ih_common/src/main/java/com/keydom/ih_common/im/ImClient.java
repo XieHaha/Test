@@ -867,13 +867,13 @@ public class ImClient {
 
     public static void createRoom(final Context context, final String teamId,
                                   final ArrayList<String> accounts) {
-        createRoom(context, teamId, accounts, null);
+        createRoom(context, teamId, accounts, "", null);
     }
 
     public static void createRoom(final Context context, final String teamId,
-                                  final ArrayList<String> accounts,
+                                  final ArrayList<String> accounts, String teamChatType,
                                   final TeamAVChatFragment.CreateRoomCallback callback) {
-        final String roomId = UUID.randomUUID().toString().replaceAll("-", "");
+        final String roomId = teamChatType + UUID.randomUUID().toString().replaceAll("-", "");
         // 创建房间
         AVChatManager.getInstance().createRoom(roomId, null,
                 new AVChatCallback<AVChatChannelInfo>() {

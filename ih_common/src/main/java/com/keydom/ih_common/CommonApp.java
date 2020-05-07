@@ -90,6 +90,7 @@ public class CommonApp extends MultiDexApplication {
 
     private void initAVChatKit() {
         AVChatOptions avChatOptions = new AVChatOptions();
+        avChatOptions.notificationIconRes = R.mipmap.ic_launcher;
         ActivityMgr.INST.init(this);
         AVChatKit.init(avChatOptions);
         AVChatKit.setContext(this);

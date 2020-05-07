@@ -8,6 +8,7 @@ import com.keydom.ih_common.avchatkit.common.Handlers;
 import com.keydom.ih_common.avchatkit.common.log.LogUtil;
 import com.keydom.ih_common.avchatkit.common.util.TimeUtil;
 import com.keydom.ih_common.avchatkit.teamavchat.activity.TeamAVChatActivity;
+import com.keydom.ih_common.event.ConsultationEvent;
 import com.keydom.ih_common.im.profile.AVChatProfile;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
@@ -15,6 +16,8 @@ import com.netease.nimlib.sdk.auth.AuthServiceObserver;
 import com.netease.nimlib.sdk.auth.constant.LoginSyncStatus;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.model.CustomNotification;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,41 +81,43 @@ public class TeamAVChatProfile {
      */
     private Observer<CustomNotification> customNotificationObserver =
             new Observer<CustomNotification>() {
-        @Override
-        public void onEvent(CustomNotification customNotification) {
-            try {
-                JSONObject jsonObject = parseContentJson(customNotification);
-                // 收到群视频邀请
-                if (isTeamAVChatInvite(jsonObject)) {
-                    final String roomName = jsonObject.getString(KEY_RID);
-                    final String teamId = jsonObject.getString(KEY_TID);
-                    JSONArray accountArray = jsonObject.getJSONArray(KEY_MEMBER);
-                    final ArrayList<String> accounts = new ArrayList<>();
-                    final String teamName = jsonObject.getString(KEY_TNAME);
-                    if (accountArray != null) {
-                        for (Object o : accountArray) {
-                            accounts.add((String) o);
-                        }
-                    }
+                @Override
+                public void onEvent(CustomNotification customNotification) {
+                    try {
+                        JSONObject jsonObject = parseContentJson(customNotification);
+                        // 收到群视频邀请
+                        if (isTeamAVChatInvite(jsonObject)) {
+                            final String roomName = jsonObject.getString(KEY_RID);
+                            final String teamId = jsonObject.getString(KEY_TID);
+                            JSONArray accountArray = jsonObject.getJSONArray(KEY_MEMBER);
+                            final ArrayList<String> accounts = new ArrayList<>();
+                            final String teamName = jsonObject.getString(KEY_TNAME);
+                            if (accountArray != null) {
+                                for (Object o : accountArray) {
+                                    accounts.add((String) o);
+                                }
+                            }
 
-                    // 接收到群视频邀请，启动来点界面
-                    LogUtil.ui("receive team video chat notification " + teamId + " room " + roomName);
-                    if (isTeamAVChatting || AVChatProfile.getInstance().isAVChatting()) {
-                        LogUtil.ui("cancel launch team av chat isTeamAVChatting = " + isTeamAVChatting);
-                        Toast.makeText(AVChatKit.getContext(), "正在进行视频通话", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    LogUtil.ui("isSyncComplete = " + isSyncComplete);
-                    if (isSyncComplete || !checkOfflineOutTime(customNotification)) {
-                        isTeamAVChatting = true;
-                        launchActivity(teamId, roomName, accounts, teamName);
+                            // 接收到群视频邀请，启动来点界面
+                            LogUtil.ui("receive team video chat notification " + teamId + " room "
+                                    + roomName);
+                            if (isTeamAVChatting || AVChatProfile.getInstance().isAVChatting()) {
+                                LogUtil.ui("cancel launch team av chat isTeamAVChatting = " + isTeamAVChatting);
+                                Toast.makeText(AVChatKit.getContext(), "正在进行视频通话",
+                                        Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            LogUtil.ui("isSyncComplete = " + isSyncComplete);
+                            if (isSyncComplete || !checkOfflineOutTime(customNotification)) {
+                                isTeamAVChatting = true;
+                                launchActivity(teamId, roomName, accounts, teamName);
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
+            };
 
 
     private void launchActivity(final String teamId, final String roomName,
@@ -122,13 +127,17 @@ public class TeamAVChatProfile {
             public void run() {
                 // 欢迎界面正在运行，则等MainActivity启动之后再启动，否则直接启动 TeamAVChatActivity
                 if (!AVChatKit.isMainTaskLaunching()) {
-                    TeamAVChatActivity.startActivity(AVChatKit.getContext(), true, teamId, roomName, accounts, teamName);
-//                    ConsultationEvent consultationEvent = new ConsultationEvent();
-//                    consultationEvent.setAccounts(accounts);
-//                    consultationEvent.setRoomName(roomName);
-//                    consultationEvent.setTeamId(teamId);
-//                    consultationEvent.setTeamName(teamName);
-//                    EventBus.getDefault().post(consultationEvent);
+                    if (roomName.startsWith(AVChatKit.teamChatType)) {
+                        ConsultationEvent consultationEvent = new ConsultationEvent();
+                        consultationEvent.setAccounts(accounts);
+                        consultationEvent.setRoomName(roomName);
+                        consultationEvent.setTeamId(teamId);
+                        consultationEvent.setTeamName(teamName);
+                        EventBus.getDefault().post(consultationEvent);
+                    } else {
+                        TeamAVChatActivity.startActivity(AVChatKit.getContext(), true, teamId,
+                                roomName, accounts, teamName);
+                    }
                 } else {
                     LogUtil.ui("launch TeamAVChatActivity delay for WelComeActivity is Launching");
                     launchActivity(teamId, roomName, accounts, teamName);

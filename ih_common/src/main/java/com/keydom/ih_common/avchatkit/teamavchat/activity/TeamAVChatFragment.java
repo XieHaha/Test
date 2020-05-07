@@ -36,8 +36,8 @@ import com.keydom.ih_common.avchatkit.teamavchat.adapter.TeamAVChatAdapter;
 import com.keydom.ih_common.avchatkit.teamavchat.module.SimpleAVChatStateObserver;
 import com.keydom.ih_common.avchatkit.teamavchat.module.TeamAVChatItem;
 import com.keydom.ih_common.event.ConsultationEvent;
-import com.keydom.ih_common.event.VoiceInputEvent;
 import com.keydom.ih_common.im.ImClient;
+import com.keydom.ih_common.im.listener.SimpleCallback;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
@@ -58,6 +58,7 @@ import com.netease.nimlib.sdk.avchat.model.AVChatControlEvent;
 import com.netease.nimlib.sdk.avchat.model.AVChatData;
 import com.netease.nimlib.sdk.avchat.model.AVChatParameters;
 import com.netease.nimlib.sdk.avchat.model.AVChatVideoCapturerFactory;
+import com.netease.nimlib.sdk.team.model.TeamMember;
 import com.netease.nrtc.video.render.IVideoRender;
 
 import org.greenrobot.eventbus.EventBus;
@@ -177,7 +178,7 @@ public class TeamAVChatFragment extends Fragment {
 
     public void initData() {
         EventBus.getDefault().register(this);
-        dismissKeyguard();
+//        dismissKeyguard();
 
         onInit();
         onIntent();
@@ -189,19 +190,20 @@ public class TeamAVChatFragment extends Fragment {
     }
 
     public void start() {
-        ImClient.createRoom(getContext(), teamId, accounts, new CreateRoomCallback() {
-            @Override
-            public void success(String id) {
-                roomId = id;
-                showViews();
-                setChatting(true);
-            }
+        ImClient.createRoom(getContext(), teamId, accounts, AVChatKit.teamChatType,
+                new CreateRoomCallback() {
+                    @Override
+                    public void success(String id) {
+                        roomId = id;
+                        showViews();
+                        setChatting(true);
+                    }
 
-            @Override
-            public void failed() {
-                ToastUtil.showMessage(getContext(), "创建聊天室失败！");
-            }
-        });
+                    @Override
+                    public void failed() {
+                        ToastUtil.showMessage(getContext(), "创建聊天室失败！");
+                    }
+                });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -218,12 +220,19 @@ public class TeamAVChatFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-//        activeCallingNotifier(true);
+        activeCallingNotifier(true);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        releaseSource();
+    }
+
+    /**
+     * 资源释放
+     */
+    private void releaseSource() {
         EventBus.getDefault().unregister(this);
         LogUtil.i(TAG, "TeamAVChatActivity onDestroy");
 
@@ -246,7 +255,7 @@ public class TeamAVChatFragment extends Fragment {
             mainHandler.removeCallbacksAndMessages(null);
         }
         hangup(); // 页面销毁的时候要保证离开房间，rtc释放。
-//        activeCallingNotifier(false);
+        activeCallingNotifier(false);
         setChatting(false);
         NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatus, false);
     }
@@ -284,6 +293,8 @@ public class TeamAVChatFragment extends Fragment {
         LogUtil.i(TAG, "onIntent, roomId=" + roomId + ", teamId=" + teamId
                 + ", receivedCall=" + receivedCall + ", accounts=" + accounts.size() + ", " +
                 "teamName = " + teamName);
+
+        ImClient.getTeamProvider().fetchTeamMemberList(teamId, null);
     }
 
     private void findLayouts() {
@@ -347,7 +358,9 @@ public class TeamAVChatFragment extends Fragment {
             public void onClick(View v) {
                 AVChatSoundPlayer.instance().stop();
                 cancelAutoRejectTask();
-                getActivity().finish();
+
+                releaseSource();
+                //                getActivity().finish();
             }
         });
 
@@ -636,6 +649,7 @@ public class TeamAVChatFragment extends Fragment {
         timer.schedule(timerTask = new VideoTimeTask(), 0, 1000);
         timerText.setText("00:00");
     }
+
     private VideoTimeTask timerTask;
 
     class VideoTimeTask extends TimerTask {
@@ -678,7 +692,8 @@ public class TeamAVChatFragment extends Fragment {
                 @Override
                 public void run() {
                     AVChatSoundPlayer.instance().stop();
-                    getActivity().finish();
+                    releaseSource();
+                    //                    getActivity().finish();
                 }
             };
         }
@@ -707,7 +722,8 @@ public class TeamAVChatFragment extends Fragment {
             @Override
             public void run() {
                 hangup();
-                getActivity().finish();
+                releaseSource();
+                //                getActivity().finish();
             }
         }, 200);
     }
@@ -765,6 +781,7 @@ public class TeamAVChatFragment extends Fragment {
                 consutationLayout.setVisibility(View.VISIBLE);
                 callLayout.setVisibility(View.GONE);
                 surfaceLayout.setVisibility(View.GONE);
+                releaseSource();
                 //                getActivity().finish();
             }
         }
@@ -816,7 +833,7 @@ public class TeamAVChatFragment extends Fragment {
         // 确认数据源,自己放在首位
         data = new ArrayList<>(accounts.size() + 1);
         for (String account : accounts) {
-            if (account.equals(AVChatKit.getAccount())) {
+            if (account.equalsIgnoreCase(AVChatKit.getAccount())) {
                 continue;
             }
 
@@ -844,8 +861,8 @@ public class TeamAVChatFragment extends Fragment {
     private int getItemIndex(final String account) {
         int index = 0;
         boolean find = false;
-        for (TeamAVChatItem i : data) {
-            if (i.account.equals(account)) {
+        for (TeamAVChatItem item : data) {
+            if (item.account.equals(account)) {
                 find = true;
                 break;
             }
@@ -912,7 +929,8 @@ public class TeamAVChatFragment extends Fragment {
             if (code.wontAutoLogin()) {
                 AVChatSoundPlayer.instance().stop();
                 hangup();
-                getActivity().finish();
+                releaseSource();
+                //                getActivity().finish();
             }
         }
     };
