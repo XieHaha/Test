@@ -75,5 +75,6 @@ public interface ConsultationService {
      * 结束会诊
      */
     @GET("user/mdt/application/ending")
-    Observable<HttpResult<ConsultationDetailBean>> endConsultationOrder(@Query("recordId") String id, @Query("videoUrl") String videoUrl);
+    Observable<HttpResult<String>> endConsultationOrder(@Query("recordId") String id, @Query(
+            "videoUrl") String videoUrl);
 }

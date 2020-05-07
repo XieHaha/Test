@@ -40,6 +40,7 @@ import butterknife.BindView;
 import static com.keydom.ih_common.bean.ConsultationStatus.CONSULTATION_NONE;
 import static com.keydom.ih_common.bean.ConsultationStatus.CONSULTATION_RECEIVED;
 import static com.keydom.ih_common.bean.ConsultationStatus.CONSULTATION_WAIT;
+import static com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationRoomActivity.REQUEST_CODE_END;
 
 /**
  * @date 20/3/27 14:38
@@ -143,7 +144,6 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
         setReloadListener((v, status) -> {
             pageLoading();
             getController().getConsultationOrderDetail(orderId);
-            getController().consultationOrderAdviceList(recordId);
         });
     }
 
@@ -252,5 +252,16 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
     @Override
     public void requestAdviceFailed(String msg) {
         ToastUtil.showMessage(this, msg);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        if (requestCode == REQUEST_CODE_END) {
+            getController().getConsultationOrderDetail(orderId);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

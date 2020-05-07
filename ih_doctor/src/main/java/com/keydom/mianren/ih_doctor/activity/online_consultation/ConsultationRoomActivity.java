@@ -1,5 +1,6 @@
 package com.keydom.mianren.ih_doctor.activity.online_consultation;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,11 +25,13 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.Consul
 import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationInfoFragment;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationRoomView;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
+import com.keydom.mianren.ih_doctor.bean.ConsultationDoctorBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -48,12 +51,17 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     private String orderId, applyId, recordId;
 
     /**
+     * 结束会诊
+     */
+    public static final int REQUEST_CODE_END = 100;
+
+    /**
      * 启动会诊订单列表页面
      */
     public static void start(Context context, ConsultationDetailBean detailBean) {
         Intent intent = new Intent(context, ConsultationRoomActivity.class);
         intent.putExtra(Const.DATA, detailBean);
-        context.startActivity(intent);
+        ((Activity) context).startActivityForResult(intent, REQUEST_CODE_END);
     }
 
     @Override
@@ -95,14 +103,22 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         mTabTitles[2] = "会诊意见";
         consultationRoomTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mFragmentArrays[0] = ConsultationInfoFragment.newInstance(orderId);
-        ArrayList<String> accounts = new ArrayList<>();
-        accounts.add("00180c00003");
-        mFragmentArrays[1] = TeamAVChatFragment.newInstance(false, "2812993693", accounts);
+        mFragmentArrays[1] = TeamAVChatFragment.newInstance(false, detailBean.getTid(),
+                getAccounts());
         mFragmentArrays[2] = ConsultationAdviceFragment.newInstance(recordId);
         consultationRoomViewPager.setOffscreenPageLimit(3);
         PagerAdapter pagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());
         consultationRoomViewPager.setAdapter(pagerAdapter);
         consultationRoomTabLayout.setupWithViewPager(consultationRoomViewPager);
+    }
+
+    private ArrayList<String> getAccounts() {
+        ArrayList<String> accounts = new ArrayList<>();
+        List<ConsultationDoctorBean> data = detailBean.getMdtDoctors();
+        for (ConsultationDoctorBean bean : data) {
+            accounts.add(bean.getId());
+        }
+        return accounts;
     }
 
     private void endConsultation() {
@@ -112,6 +128,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
 
     @Override
     public void endConsultationSuccess() {
+        setResult(RESULT_OK);
         finish();
     }
 

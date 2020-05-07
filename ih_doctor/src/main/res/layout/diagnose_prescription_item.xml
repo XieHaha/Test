@@ -72,7 +72,7 @@
     <RelativeLayout
         android:id="@+id/item_view_layout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/line"
         android:layout_centerHorizontal="true"
         android:paddingStart="@dimen/padding_left_right_dp"
@@ -84,7 +84,7 @@
         <com.keydom.ih_common.view.InterceptorEditText
             android:id="@+id/sub_item_entrust_et"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/check_dialog_input_bg"
             android:gravity="left|top"
             android:hint="请您填写患者主诉，或点击快捷添加常用样例"
@@ -101,8 +101,8 @@
             android:id="@+id/diagnose_prescription_voice_input_iv"
             android:layout_width="20dp"
             android:layout_height="30dp"
+            android:layout_alignBottom="@id/sub_item_entrust_et"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
             android:layout_marginEnd="@dimen/dp_5"
             android:layout_marginBottom="@dimen/dp_5"
             android:src="@drawable/im_voice_toggle_selector" />
