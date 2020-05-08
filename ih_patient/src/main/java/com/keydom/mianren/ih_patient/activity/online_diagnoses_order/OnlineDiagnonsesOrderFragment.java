@@ -155,7 +155,9 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                 || state == diagnosesOrderAdapter.changDoctor
                 || state == diagnosesOrderAdapter.waiteEvaluate
                 || state == diagnosesOrderAdapter.complete
-                || state == diagnosesOrderAdapter.triage) {
+                || state == diagnosesOrderAdapter.triage
+                || state == diagnosesOrderAdapter.consultationWait
+                || state == diagnosesOrderAdapter.consultationComplete) {
             if (TextUtils.isEmpty(bean.getGroupTid())) {
                 ImClient.startConversation(getContext(), bean.getDoctorCode(), null);
             } else {
@@ -165,7 +167,6 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                 ImClient.startConversation(getContext(), bean.getGroupTid(), bundle);
             }
         }
-
     }
 
     @Override
