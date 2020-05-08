@@ -144,13 +144,18 @@
                         android:paddingStart="@dimen/dp_40"
                         android:paddingEnd="@dimen/dp_33">
 
+                        <ImageView
+                            android:layout_width="@dimen/dp_18"
+                            android:layout_height="@dimen/dp_18"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/icon_leave_time" />
+
                         <TextView
+                            android:id="@+id/consultation_receive_time_text_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:drawableStart="@mipmap/icon_leave_time"
-                            android:drawablePadding="@dimen/dp_10"
-                            android:gravity="center"
+                            android:layout_marginStart="@dimen/dp_30"
                             android:text="申请时间"
                             android:textColor="@color/color_69"
                             android:textSize="@dimen/sp_12" />

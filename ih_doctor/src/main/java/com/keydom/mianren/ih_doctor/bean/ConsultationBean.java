@@ -21,7 +21,7 @@ public class ConsultationBean implements Serializable {
     private String patientGender;
     private String patientAge;
     private String eleCardNumber;
-    private String admissionTime;
+    private String visitTime;
     private String mdtTime;
 
     public int getLevel() {
@@ -96,12 +96,12 @@ public class ConsultationBean implements Serializable {
         this.eleCardNumber = eleCardNumber;
     }
 
-    public String getAdmissionTime() {
-        return admissionTime;
+    public String getVisitTime() {
+        return visitTime;
     }
 
-    public void setAdmissionTime(String admissionTime) {
-        this.admissionTime = admissionTime;
+    public void setVisitTime(String visitTime) {
+        this.visitTime = visitTime;
     }
 
     public String getMdtTime() {

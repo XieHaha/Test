@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.widget.LinearLayout;
 
+import com.keydom.ih_common.avchatkit.AVChatKit;
 import com.keydom.ih_common.avchatkit.teamavchat.activity.TeamAVChatFragment;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.ToastUtil;
@@ -116,7 +117,10 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         ArrayList<String> accounts = new ArrayList<>();
         List<ConsultationDoctorBean> data = detailBean.getMdtDoctors();
         for (ConsultationDoctorBean bean : data) {
-            accounts.add(bean.getId());
+            if (bean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())) {
+                continue;
+            }
+            accounts.add(bean.getDoctorCode());
         }
         return accounts;
     }

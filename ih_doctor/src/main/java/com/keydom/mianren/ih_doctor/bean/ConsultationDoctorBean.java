@@ -11,6 +11,7 @@ public class ConsultationDoctorBean implements Serializable {
     private String id;
     private String name;
     private String doctorImage;
+    private String doctorCode;
 
     public String getId() {
         return id;
@@ -34,5 +35,13 @@ public class ConsultationDoctorBean implements Serializable {
 
     public void setDoctorImage(String doctorImage) {
         this.doctorImage = doctorImage;
+    }
+
+    public String getDoctorCode() {
+        return doctorCode;
+    }
+
+    public void setDoctorCode(String doctorCode) {
+        this.doctorCode = doctorCode;
     }
 }

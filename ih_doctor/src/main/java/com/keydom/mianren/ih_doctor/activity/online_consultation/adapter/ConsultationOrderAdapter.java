@@ -11,6 +11,7 @@ import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.bean.ConsultationBean;
+import com.keydom.mianren.ih_doctor.utils.DateUtils;
 
 import java.util.List;
 
@@ -32,7 +33,8 @@ public class ConsultationOrderAdapter extends BaseQuickAdapter<ConsultationBean,
                 .setText(R.id.consultation_order_card_tv,
                         String.format(mContext.getString(R.string.txt_visit_card),
                                 item.getEleCardNumber()))
-                .setText(R.id.consultation_order_date_tv, item.getMdtTime());
+                .setText(R.id.consultation_order_date_tv,
+                        DateUtils.longToString(item.getVisitTime(), DateUtils.YYYY_MM_DD_HH_MM_SS));
         ImageView headerImage = helper.getView(R.id.consultation_order_header_iv);
         GlideUtils.load(headerImage, BaseImageUtils.getHeaderUrl(item.getRegisterImage()), 0,
                 R.mipmap.im_default_head_image, true, null);

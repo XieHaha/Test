@@ -108,15 +108,20 @@
             android:layout_marginTop="@dimen/dp_20"
             android:background="@color/line_color" />
 
+        <ImageView
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_40"
+            android:layout_below="@id/view"
+            android:layout_marginStart="@dimen/dp_30"
+            android:src="@mipmap/icon_leave_time" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_40"
             android:layout_below="@id/view"
-            android:layout_marginStart="@dimen/dp_30"
-            android:drawableStart="@mipmap/icon_leave_time"
-            android:drawablePadding="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_58"
             android:gravity="center"
-            android:text="@string/txt_visit_time"
+            android:text="@string/txt_apply_time"
             android:textColor="@color/tab_nol_color"
             android:textSize="@dimen/sp_12" />
 

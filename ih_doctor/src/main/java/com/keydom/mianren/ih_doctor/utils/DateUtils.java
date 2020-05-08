@@ -301,6 +301,13 @@ public class DateUtils {
         return format.format(new Date(Long.valueOf(date)));
     }
 
+    public static String longToString(String longTime, String pattern) {
+        if (TextUtils.isEmpty(longTime)) {
+            return "";
+        }
+        return dateToString(new Date(Long.valueOf(longTime)), pattern);
+    }
+
     public static String dateToString(Date date, String pattern) {
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         return formatter.format(date);

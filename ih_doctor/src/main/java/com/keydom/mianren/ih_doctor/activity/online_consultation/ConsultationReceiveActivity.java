@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,6 +34,7 @@ import com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -59,6 +61,8 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
     TextView consultationReceiveLevelTv;
     @BindView(R.id.consultation_receive_card_tv)
     TextView consultationReceiveCardTv;
+    @BindView(R.id.consultation_receive_time_text_tv)
+    TextView consultationReceiveTimeTextTv;
     @BindView(R.id.consultation_receive_visit_time_tv)
     TextView consultationReceiveVisitTimeTv;
     @BindView(R.id.consultation_receive_apply_doctor_header_iv)
@@ -157,6 +161,7 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
             getController().consultationOrderAdviceList(recordId);
             orderStatus = detailBean.getStatus();
             if (orderStatus == CONSULTATION_WAIT) {
+                consultationReceiveTimeTextTv.setText("申请时间");
                 receiveStatus = detailBean.getDoctorStatus();
                 switch (receiveStatus) {
                     case CONSULTATION_NONE:
@@ -174,6 +179,7 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
             } else {
                 consultationReceiveCommitLayout.setVisibility(View.GONE);
                 consultationReceiveAdviceLayout.setVisibility(View.VISIBLE);
+                consultationReceiveTimeTextTv.setText("结束时间");
             }
             //会诊医生信息
             doctorAdapter.setData(detailBean.getMdtDoctors());
@@ -195,6 +201,7 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
                 consultationReceiveLevelTv.setText("普通");
             }
             consultationReceiveConsultationDateTv.setText(DateUtils.getDate(detailBean.getVisitTime()));
+
             //申请医生信息
             ConsultationDoctorBean bean = detailBean.getApplyDoctor();
             if (bean != null) {
@@ -203,7 +210,14 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
                         R.mipmap.im_default_head_image, true, null);
                 consultationReceiveApplyDoctorNameTv.setText(bean.getName());
             }
-            consultationReceiveConsultationTimeTv.setText(DateUtils.getDate(detailBean.getMdtTime()));
+            //会诊时间
+            if (!TextUtils.isEmpty(detailBean.getMdtTime())) {
+                Date date = new Date(Long.valueOf(detailBean.getMdtTime()));
+                consultationReceiveConsultationTimeTv.setText(String.format(getString(R.string.txt_three_value_space),
+                        DateUtils.dateToString(date, DateUtils.MM_DD_CH),
+                        DateUtils.getWeekString(date),
+                        DateUtils.dateToString(date, DateUtils.HH_MM)));
+            }
 
             consultationReceivePurposeItem.setText(detailBean.getReasonAndAim());
             consultationReceiveSummaryItem.setText(detailBean.getIllnessAbstract());
