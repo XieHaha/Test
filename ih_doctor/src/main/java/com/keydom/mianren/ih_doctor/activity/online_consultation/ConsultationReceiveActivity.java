@@ -73,10 +73,6 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
     AutoGridView consultationReceiveConsultationDoctorGridView;
     @BindView(R.id.consultation_receive_consultation_date_tv)
     TextView consultationReceiveConsultationDateTv;
-    @BindView(R.id.consultation_receive_consultation_week_tv)
-    TextView consultationReceiveConsultationWeekTv;
-    @BindView(R.id.consultation_receive_consultation_time_tv)
-    TextView consultationReceiveConsultationTimeTv;
     @BindView(R.id.consultation_receive_purpose_item)
     DiagnosePrescriptionItemView consultationReceivePurposeItem;
     @BindView(R.id.consultation_receive_summary_item)
@@ -162,7 +158,7 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
             orderStatus = detailBean.getStatus();
             if (orderStatus == CONSULTATION_WAIT) {
                 consultationReceiveTimeTextTv.setText("申请时间");
-                consultationReceiveConsultationDateTv.setText(DateUtils.getDate(detailBean.getVisitTime()));
+                consultationReceiveVisitTimeTv.setText(DateUtils.getDate(detailBean.getApplyTime()));
                 receiveStatus = detailBean.getDoctorStatus();
                 switch (receiveStatus) {
                     case CONSULTATION_NONE:
@@ -181,7 +177,7 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
                 consultationReceiveCommitLayout.setVisibility(View.GONE);
                 consultationReceiveAdviceLayout.setVisibility(View.VISIBLE);
                 consultationReceiveTimeTextTv.setText("结束时间");
-                consultationReceiveConsultationDateTv.setText(DateUtils.getDate(detailBean.getEndTime()));
+                consultationReceiveVisitTimeTv.setText(DateUtils.getDate(detailBean.getEndTime()));
             }
             //会诊医生信息
             doctorAdapter.setData(detailBean.getMdtDoctors());
@@ -214,7 +210,7 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
             //会诊时间
             if (!TextUtils.isEmpty(detailBean.getMdtTime())) {
                 Date date = new Date(Long.valueOf(detailBean.getMdtTime()));
-                consultationReceiveConsultationTimeTv.setText(String.format(getString(R.string.txt_three_value_space),
+                consultationReceiveConsultationDateTv.setText(String.format(getString(R.string.txt_three_value_space),
                         DateUtils.dateToString(date, DateUtils.MM_DD_CH),
                         DateUtils.getWeekString(date),
                         DateUtils.dateToString(date, DateUtils.HH_MM)));

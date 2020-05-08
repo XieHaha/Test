@@ -126,7 +126,9 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
             if (bean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())) {
                 continue;
             }
-            accounts.add(bean.getDoctorCode());
+            if (!TextUtils.isEmpty(bean.getDoctorCode())) {
+                accounts.add(bean.getDoctorCode().toLowerCase());
+            }
         }
         return accounts;
     }

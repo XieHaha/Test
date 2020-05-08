@@ -34,7 +34,7 @@ public class ConsultationOrderAdapter extends BaseQuickAdapter<ConsultationBean,
                         String.format(mContext.getString(R.string.txt_visit_card),
                                 item.getEleCardNumber()))
                 .setText(R.id.consultation_order_date_tv,
-                        DateUtils.longToString(item.getVisitTime(), DateUtils.YYYY_MM_DD_HH_MM_SS));
+                        DateUtils.longToString(item.getApplyTime(), DateUtils.YYYY_MM_DD_HH_MM_SS));
         ImageView headerImage = helper.getView(R.id.consultation_order_header_iv);
         GlideUtils.load(headerImage, BaseImageUtils.getHeaderUrl(item.getRegisterImage()), 0,
                 R.mipmap.im_default_head_image, true, null);

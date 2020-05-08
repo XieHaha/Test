@@ -58,7 +58,12 @@ public class TeamAVChatItemViewHolder extends TeamAVChatItemViewHolderBase {
     }
 
     protected void refresh(final TeamAVChatItem data) {
-        nickNameText.setText(ImClient.getTeamProvider().getTeamMember(data.teamId,data.account).getTeamNick());
+        UserInfo userInfo = ImClient.getUserInfoProvider().getUserInfo(data.account);
+        if (userInfo != null) {
+            nickNameText.setText(userInfo.getName());
+        } else {
+            nickNameText.setText("");
+        }
         loadAvatar(data);
         if (data.state == TeamAVChatItem.STATE.STATE_WAITING) {
             // 等待接听
@@ -85,7 +90,7 @@ public class TeamAVChatItemViewHolder extends TeamAVChatItemViewHolderBase {
     }
 
     private void loadAvatar(TeamAVChatItem data) {
-        final UserInfo userInfo = ImClient.getUserInfoProvider().getUserInfo(data.account);;
+        final UserInfo userInfo = ImClient.getUserInfoProvider().getUserInfo(data.account);
         final int defaultResId = R.mipmap.t_avchat_avatar_default;
         changeUrlBeforeLoad(userInfo != null ? userInfo.getAvatar() : null, defaultResId,
                 DEFAULT_AVATAR_THUMB_SIZE);

@@ -264,24 +264,6 @@
                                 android:textSize="@dimen/sp_14"
                                 tools:text="3月28日" />
 
-                            <TextView
-                                android:id="@+id/consultation_receive_consultation_week_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dp_10"
-                                android:textColor="@color/primary_font_color"
-                                android:textSize="@dimen/sp_14"
-                                tools:text="星期六" />
-
-                            <TextView
-                                android:id="@+id/consultation_receive_consultation_time_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dp_10"
-                                android:textColor="@color/primary_font_color"
-                                android:textSize="@dimen/sp_14"
-                                tools:text="13:31" />
-
                         </LinearLayout>
 
                     </LinearLayout>

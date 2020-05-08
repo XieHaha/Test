@@ -192,6 +192,7 @@ public class TeamAVChatFragment extends Fragment {
      * 开启会诊室
      */
     public void startConsultation() {
+        destroyRTC = false;
         if (isApply) {
             ImClient.createRoom(getContext(), teamId, accounts, AVChatKit.teamChatType,
                     new CreateRoomCallback() {
@@ -271,7 +272,8 @@ public class TeamAVChatFragment extends Fragment {
         if (mainHandler != null) {
             mainHandler.removeCallbacksAndMessages(null);
         }
-        hangup(); // 页面销毁的时候要保证离开房间，rtc释放。
+        // 页面销毁的时候要保证离开房间，rtc释放。
+        hangup();
         activeCallingNotifier(false);
         setChatting(false);
         NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatus, false);
@@ -504,10 +506,14 @@ public class TeamAVChatFragment extends Fragment {
                 AVChatVideoCropRatio.CROP_RATIO_1_1);
 
         AVChatConfigs avChatConfigs = new AVChatConfigs(getContext());
-        AVChatManager.getInstance().setParameter(AVChatParameters.KEY_SERVER_AUDIO_RECORD,
-                avChatConfigs.isServerRecordAudio());
-        AVChatManager.getInstance().setParameter(AVChatParameters.KEY_SERVER_VIDEO_RECORD,
-                avChatConfigs.isServerRecordVideo());
+        try {
+            AVChatManager.getInstance().setParameter(AVChatParameters.KEY_SERVER_AUDIO_RECORD,
+                    avChatConfigs.isServerRecordAudio());
+            AVChatManager.getInstance().setParameter(AVChatParameters.KEY_SERVER_VIDEO_RECORD,
+                    avChatConfigs.isServerRecordVideo());
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
 
         AVChatManager.getInstance().joinRoom2(roomId, AVChatType.VIDEO,
                 new AVChatCallback<AVChatData>() {
@@ -654,7 +660,22 @@ public class TeamAVChatFragment extends Fragment {
         try {
             AVChatManager.getInstance().stopVideoPreview();
             AVChatManager.getInstance().disableVideo();
-            AVChatManager.getInstance().leaveRoom2(roomId, null);
+            AVChatManager.getInstance().leaveRoom2(roomId, new AVChatCallback<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    LogUtil.i(TAG, "onSuccess:退出room成功");
+                }
+
+                @Override
+                public void onFailed(int code) {
+                    LogUtil.i(TAG, "onFailed:退出room失败");
+                }
+
+                @Override
+                public void onException(Throwable exception) {
+                    LogUtil.i(TAG, "onException:" + exception.getMessage());
+                }
+            });
             AVChatManager.getInstance().disableRtc();
         } catch (Exception e) {
             e.printStackTrace();
