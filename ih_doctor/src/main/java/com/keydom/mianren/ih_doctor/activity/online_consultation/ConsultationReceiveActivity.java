@@ -162,6 +162,7 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
             orderStatus = detailBean.getStatus();
             if (orderStatus == CONSULTATION_WAIT) {
                 consultationReceiveTimeTextTv.setText("申请时间");
+                consultationReceiveConsultationDateTv.setText(DateUtils.getDate(detailBean.getVisitTime()));
                 receiveStatus = detailBean.getDoctorStatus();
                 switch (receiveStatus) {
                     case CONSULTATION_NONE:
@@ -180,6 +181,7 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
                 consultationReceiveCommitLayout.setVisibility(View.GONE);
                 consultationReceiveAdviceLayout.setVisibility(View.VISIBLE);
                 consultationReceiveTimeTextTv.setText("结束时间");
+                consultationReceiveConsultationDateTv.setText(DateUtils.getDate(detailBean.getEndTime()));
             }
             //会诊医生信息
             doctorAdapter.setData(detailBean.getMdtDoctors());
@@ -200,7 +202,6 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
                 consultationReceiveLevelTv.setBackgroundResource(R.drawable.corner5_fbd54e_bg);
                 consultationReceiveLevelTv.setText("普通");
             }
-            consultationReceiveConsultationDateTv.setText(DateUtils.getDate(detailBean.getVisitTime()));
 
             //申请医生信息
             ConsultationDoctorBean bean = detailBean.getApplyDoctor();

@@ -33,7 +33,7 @@ public class ConsultationReceiveController extends ControllerImpl<ConsultationRe
      * 会诊接收
      */
     public void consultationOrderAccept(String id) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderAccept(id), new HttpSubscriber<String>(mContext, getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderAccept(id), new HttpSubscriber<String>(mContext, getDisposable(), true,false) {
             @Override
             public void requestComplete(@Nullable String data) {
                 getConsultationOrderDetail(id);

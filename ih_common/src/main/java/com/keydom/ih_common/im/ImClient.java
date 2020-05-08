@@ -112,7 +112,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
@@ -873,24 +872,25 @@ public class ImClient {
     public static void createRoom(final Context context, final String teamId,
                                   final ArrayList<String> accounts, String teamChatType,
                                   final TeamAVChatFragment.CreateRoomCallback callback) {
-        final String roomId = teamChatType + UUID.randomUUID().toString().replaceAll("-", "");
+        //final String roomName = teamChatType + UUID.randomUUID().toString().replaceAll("-", "");
+        final String roomName = teamChatType + teamId;
         // 创建房间
-        AVChatManager.getInstance().createRoom(roomId, null,
+        AVChatManager.getInstance().createRoom(roomName, null,
                 new AVChatCallback<AVChatChannelInfo>() {
                     @Override
                     public void onSuccess(AVChatChannelInfo avChatChannelInfo) {
-                        LogUtil.ui("create room " + roomId + " success !");
-                        onCreateRoomSuccess(context, teamId, roomId, accounts);
+                        LogUtil.ui("create room " + roomName + " success !");
+                        onCreateRoomSuccess(context, teamId, roomName, accounts);
 
                         String teamName = getTeamProvider().getTeamById(teamId).getName();
 
                         TeamAVChatProfile.sharedInstance().setTeamAVChatting(true);
 
                         if (callback == null) {
-                            AVChatKit.outgoingTeamCall(context, false, teamId, roomId, accounts,
+                            AVChatKit.outgoingTeamCall(context, false, teamId, roomName, accounts,
                                     teamName);
                         } else {
-                            callback.success(roomId);
+                            callback.success(roomName);
                         }
                     }
 
@@ -898,13 +898,16 @@ public class ImClient {
                     public void onFailed(int code) {
                         onCreateRoomFail(context, teamId);
                         if (callback != null) {
-                            callback.failed();
+                            callback.failed(code);
                         }
                     }
 
                     @Override
                     public void onException(Throwable exception) {
                         onCreateRoomFail(context, teamId);
+                        if (callback != null) {
+                            callback.failed(-1);
+                        }
                     }
                 });
     }

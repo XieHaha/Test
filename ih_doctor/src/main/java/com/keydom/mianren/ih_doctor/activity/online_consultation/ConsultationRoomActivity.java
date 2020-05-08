@@ -52,6 +52,11 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     private String orderId, applyId, recordId;
 
     /**
+     * 是否为发起人
+     */
+    private boolean isApply;
+
+    /**
      * 结束会诊
      */
     public static final int REQUEST_CODE_END = 100;
@@ -84,12 +89,13 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,
                 R.drawable.layout_divider_vertical));
-        initOrderListFragment();
 
         if (TextUtils.equals(applyId, String.valueOf(MyApplication.userInfo.getId()))) {
+            isApply = true;
             setRightTxt(getString(R.string.txt_exit_consultation));
             setRightBtnListener(v -> endConsultation());
         }
+        initOrderListFragment();
     }
 
 
@@ -105,7 +111,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         consultationRoomTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mFragmentArrays[0] = ConsultationInfoFragment.newInstance(orderId);
         mFragmentArrays[1] = TeamAVChatFragment.newInstance(false, detailBean.getTid(),
-                getAccounts());
+                getAccounts(), isApply);
         mFragmentArrays[2] = ConsultationAdviceFragment.newInstance(recordId);
         consultationRoomViewPager.setOffscreenPageLimit(3);
         PagerAdapter pagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());
