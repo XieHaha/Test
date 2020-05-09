@@ -597,14 +597,15 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 }
             }
         } else {
-            if (orderBean != null && orderBean.getInquisitionType() == 1) {
-                if (!isWaitingForComment) {
-                    videoPlugin = new VideoPlugin(this);
-                    videoPlugin.setTeam(team);
-                    videoPlugin.setTeamId(sessionId);
-                    mMessageView.addPlugin(videoPlugin);
-                }
-            }
+            //用户端暂不能发起视频
+            //            if (orderBean != null && orderBean.getInquisitionType() == 1) {
+            //                if (!isWaitingForComment) {
+            //                    videoPlugin = new VideoPlugin(this);
+            //                    videoPlugin.setTeam(team);
+            //                    videoPlugin.setTeamId(sessionId);
+            //                    mMessageView.addPlugin(videoPlugin);
+            //                }
+            //            }
 
             //            mRightText.setVisibility(View.VISIBLE);
             //            mRightText.setText("结束诊断");

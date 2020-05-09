@@ -202,7 +202,7 @@ public class ConsultationApplyFragment extends BaseControllerFragment<Consultati
         consultationApplyPatientNameTv.setText(inquiryBean.getName());
         consultationApplyPatientSexTv.setText(CommonUtils.getSex(inquiryBean.getSex()));
         consultationApplyPatientAgeTv.setText(String.format(getString(R.string.txt_age),
-                String.valueOf(inquiryBean.getAge())));
+                inquiryBean.getAge()));
 
         mAdapter = new DiagnoseChangePlusImgAdapter(getContext(), gridList);
         consultationApplyConditionImageGrid.setAdapter(mAdapter);

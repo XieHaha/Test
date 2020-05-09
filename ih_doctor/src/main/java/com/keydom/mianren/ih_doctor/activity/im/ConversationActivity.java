@@ -142,8 +142,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private ImMessageView mMessageView;
     private PopupWindow mPopupWindow;
     private TextView inspection, examination, referralTv, inquiryPopTriageTv,
-            inquiryPopConsultationTv,
-            inquiryPopDiagnosticPrescriptionTv, inquiryPopAdvice;
+            inquiryPopConsultationTv, inquiryPopDiagnosticPrescriptionTv, inquiryPopAdvice;
     private String sessionId;
     private InquiryBean orderBean;
     private boolean isGetStatus = false;
@@ -177,8 +176,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     private String inquiryRemainingTime = "";
 
+    /**
+     * 是否为纯聊天模式
+     */
     private boolean chatting;
-    private boolean team;
+    /**
+     * 是否为群聊
+     */
+    private boolean teamChat;
     private Disposable timeDisposable;
     private int mMin;
     private int mHour;
@@ -195,7 +200,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     @Override
     protected void onResume() {
         super.onResume();
-        if (team) {
+        if (teamChat) {
             NIMClient.getService(MsgService.class).setChattingAccount(sessionId,
                     SessionTypeEnum.Team);
         } else {
@@ -244,7 +249,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             isGetStatus = extras.getBoolean(DiagnoseOrderRecyclrViewAdapter.IS_ORDER);
-            team = extras.getBoolean(ImConstants.TEAM);
+            teamChat = extras.getBoolean(ImConstants.TEAM);
             orderId = extras.getLong("orderId");
         }
         initView();
@@ -483,7 +488,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         Uri data = getIntent().getData();
         if (data != null) {
             sessionId = data.getQueryParameter(ImConstants.CALL_SESSION_ID);
-            if (team) {
+            if (teamChat) {
                 mMessageView.setMessageInfo(sessionId, SessionTypeEnum.Team);
                 if (ImClient.getTeamProvider().getTeamById(sessionId) != null) {
                     setTitle(ImClient.getTeamProvider().getTeamById(sessionId).getName());
@@ -534,7 +539,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
         mVideoPlugin = new VideoPlugin(this);
         //区分群聊单聊视频发起
-        mVideoPlugin.setTeam(team);
+        mVideoPlugin.setTeam(teamChat);
         mVideoPlugin.setTeamId(sessionId);
 
         mEndInquiryPlugin = new EndInquiryPlugin(() -> {
@@ -569,7 +574,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         } else {
             mMessageView.removePlugin(mVideoPlugin);
             mMessageView.removePlugin(mEndInquiryPlugin);
-            if ((orderBean != null && orderBean.getInquisitionType() == 1) || team) {
+            if ((orderBean != null && orderBean.getInquisitionType() == 1) || teamChat) {
                 mMessageView.addPlugin(mVideoPlugin);
             }
             mMessageView.addPlugin(mEndInquiryPlugin);
@@ -646,7 +651,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             } else {
                 inquiryPopConsultationTv.setVisibility(View.VISIBLE);
             }
-            if (orderBean.getState() == InquiryStatus.INQUIRY_TRIAGE_DOING || orderBean.getState() == InquiryStatus.INQUIRY_ING) {
+            if (orderBean.getState() == InquiryStatus.INQUIRY_TRIAGE_DOING
+                    || orderBean.getState() == InquiryStatus.INQUIRY_ING
+                    || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_COMPLETE
+                    || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_DOING) {
                 inquiryPopDiagnosticPrescriptionTv.setVisibility(View.VISIBLE);
             } else {
                 inquiryPopDiagnosticPrescriptionTv.setVisibility(View.GONE);
@@ -845,7 +853,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == FINISH_PRESCRIPTION) {
-            if (team) {
+            if (teamChat) {
                 mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
                         SessionTypeEnum.Team, "处方已发送,请等待药师审核结果"));
             } else {
@@ -911,7 +919,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.DIAGNOSE_ORDER_UPDATE).build());
                 inquiryStatus = InquiryStatus.INQUIRY_PRESCRIBE;
                 inquiryEnd();
-                if (team) {
+                if (teamChat) {
                     mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
                             SessionTypeEnum.Team, "患者已同意结束此次问诊"));
                 } else {
@@ -923,7 +931,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             else if (attachment.getEndType() == EndInquiryAttachment.PATIENT_REFUSE) {
                 inquiryStatus = InquiryStatus.INQUIRY_ING;
                 inquiryIng();
-                if (team) {
+                if (teamChat) {
                     mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
                             SessionTypeEnum.Team, "患者取消了结束问诊，请与患者沟通完成以后再结束"));
                 } else {
@@ -937,7 +945,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 inquiryStatus = InquiryStatus.INQUIRY_PRESCRIBE;
                 inquiryEnd();
                 if (orderType == 0) {
-                    if (team) {
+                    if (teamChat) {
                         mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
                                 SessionTypeEnum.Team, "患者已结束此次问诊"));
                     } else {
@@ -945,7 +953,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                                 SessionTypeEnum.P2P, "患者已结束此次问诊"));
                     }
                 } else {
-                    if (team) {
+                    if (teamChat) {
                         mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
                                 SessionTypeEnum.Team, "患者已结束此次问诊"));
                     } else {
@@ -969,7 +977,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     @Override
     public boolean isTeam() {
-        return team;
+        return teamChat;
     }
 
     @Override
@@ -995,7 +1003,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     @Override
     public void acceptSuccess() {
-        if (team) {
+        if (teamChat) {
             mMessageView.addData(ImClient.createTipMessage(sessionId, SessionTypeEnum.Team,
                     "问诊开始，本次问诊可持续" + orderBean.getDuration() + "小时"));
         } else {
@@ -1024,7 +1032,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         endInquiryAttachment.setReceiverId(sessionId);
         endInquiryAttachment.setEndType(EndInquiryAttachment.DOCTOR_APPLY_END);
 
-        if (team) {
+        if (teamChat) {
             mMessageView.addData(ImClient.createEndInquiryMessage(sessionId, SessionTypeEnum.Team,
                     "[结束问诊消息]", endInquiryAttachment));
             mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.Team,
@@ -1191,7 +1199,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 userFollowUpAttachment.setFileName("糖尿病随访管理表");
                 userFollowUpAttachment.setUrl("https://www.baidu.com/");
 
-                if (team) {
+                if (teamChat) {
                     mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
                             SessionTypeEnum.Team, "[随访表消息]", userFollowUpAttachment));
                 } else {
@@ -1207,7 +1215,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 userFollowUpAttachment.setFileName("慢性肺炎随访管理表");
                 userFollowUpAttachment.setUrl("https://www.baidu.com/");
 
-                if (team) {
+                if (teamChat) {
                     mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
                             SessionTypeEnum.Team, "[随访表消息]", userFollowUpAttachment));
                 } else {
@@ -1224,7 +1232,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 userFollowUpAttachment.setFileName("高血压随访管理表");
                 userFollowUpAttachment.setUrl("https://www.baidu.com/");
 
-                if (team) {
+                if (teamChat) {
                     mMessageView.addData(ImClient.createUserFollowUpMessage(sessionId,
                             SessionTypeEnum.Team, "[随访表消息]", userFollowUpAttachment));
                 } else {

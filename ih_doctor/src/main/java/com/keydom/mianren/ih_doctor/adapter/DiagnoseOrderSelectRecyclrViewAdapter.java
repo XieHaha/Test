@@ -79,7 +79,7 @@ public class DiagnoseOrderSelectRecyclrViewAdapter extends BaseEmptyAdapter<Inqu
             delete.setVisibility(View.GONE);
             order_status.setVisibility(View.GONE);
             userName.setText(mDatas.get(position).getName());
-            userAge.setText(String.valueOf(mDatas.get(position).getAge()));
+            userAge.setText(mDatas.get(position).getAge());
             userSex.setText(CommonUtils.getSex(mDatas.get(position).getSex()));
             diagnoseDec.setText(mDatas.get(position).getConditionDesc());
             diagnoseTime.setText(mDatas.get(position).getApplyTime());

@@ -29,7 +29,7 @@ public class InquiryBean implements Serializable {
     private long id;
     private String name;
     private int sex;
-    private int age;
+    private String age;
     private String avatar;
     private String applyTime;
     private String conditionDesc;
@@ -132,11 +132,11 @@ public class InquiryBean implements Serializable {
         this.sex = sex;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

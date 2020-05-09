@@ -251,7 +251,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
         if (orderBean != null) {
             userName.setText(orderBean.getName());
             userSex.setText(CommonUtils.getSex(orderBean.getSex()));
-            userAge.setText(String.valueOf(orderBean.getAge()));
+            userAge.setText(orderBean.getAge());
         }
     }
 

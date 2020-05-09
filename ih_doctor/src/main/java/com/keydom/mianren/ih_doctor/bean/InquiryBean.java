@@ -30,7 +30,7 @@ public class InquiryBean implements Serializable {
     private long patientId;
     private String name;
     private int sex;
-    private int age;
+    private String age;
     private String avatar;
     private String userAvatar;
     private String applyTime;
@@ -80,7 +80,8 @@ public class InquiryBean implements Serializable {
     /**
      * 4转诊 2问诊中 3 不通过
      * <p>
-     * 返回state 0未支付 1 待接收 2问诊中 3审核不通过 4 待转诊确认 5医生发起结束问诊 6 等待医生开处置建议或者处方  8 待评价 9完成 -1已取消  11分诊中。13、待会诊，14、会诊结束
+     * 返回state 0未支付 1 待接收 2问诊中 3审核不通过 4 待转诊确认 5医生发起结束问诊 6 等待医生开处置建议或者处方  8 待评价 9完成 -1已取消
+     * 11分诊中。13、待会诊，14、会诊结束
      */
     private int state;
     /**
@@ -223,11 +224,11 @@ public class InquiryBean implements Serializable {
         this.sex = sex;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

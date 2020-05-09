@@ -292,7 +292,7 @@ public class FillOutApplyActivity extends BaseControllerActivity<FillOutApplyCon
         ImageView delete = view.findViewById(R.id.delete);
         RecyclerView imgRv = view.findViewById(R.id.img_rv);
         userName.setText(bean.getName());
-        userAge.setText(String.valueOf(bean.getAge()));
+        userAge.setText(bean.getAge());
         userSex.setText(CommonUtils.getSex(bean.getSex()));
         diagnoseDec.setText(bean.getConditionDesc());
         diagnoseTime.setText(bean.getApplyTime());
