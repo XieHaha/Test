@@ -37,7 +37,6 @@ import com.keydom.mianren.ih_patient.bean.DiagnosesOrderBean;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.bean.LocationInfo;
 import com.keydom.mianren.ih_patient.bean.entity.pharmacy.PharmacyBean;
-import com.keydom.mianren.ih_patient.callback.GeneralCallback;
 import com.keydom.mianren.ih_patient.callback.SingleClick;
 import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.constant.EventType;
@@ -202,13 +201,10 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     @Override
     public void onCancelDiagnosesClick(DiagnosesOrderBean item) {
         new GeneralDialog(getContext(), "问诊费用将在5个工作日内按支付路径退回到您的付款账号中,确认要退诊？",
-                new GeneralDialog.OnCloseListener() {
-                    @Override
-                    public void onCommit() {
-                        Map<String, Object> map = new HashMap<>();
-                        map.put("id", item.getId());
-                        getController().returnedInquisition(map);
-                    }
+                () -> {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("id", item.getId());
+                    getController().returnedInquisition(map);
                 }).setTitle("提示").setPositiveButton("确认").show();
 
     }
@@ -219,10 +215,17 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
             String descStr = item.getInquisitionType() == 0 ?
                     "图文问诊-" + item.getDoctorName() :
                     "视频问诊-" + item.getDoctorName();
-            SelectDialogUtils.showPayDialog(getContext(), item.getFee() + "", descStr,
-                    new GeneralCallback.SelectPayMentListener() {
-                        @Override
-                        public void getSelectPayMent(String type) {
+            if (Global.isMember()) {
+                SelectDialogUtils.showPrePaidDialog(getContext(), String.valueOf(item.getFee()),
+                        descStr, type -> {
+                            Map<String, Object> payMap = new HashMap<>();
+                            payMap.put("orderId", item.getId());
+                            payMap.put("type", 4);
+                            getController().inquiryPay(payMap, item, 4);
+                        });
+            } else {
+                SelectDialogUtils.showPayDialog(getContext(), item.getFee() + "", descStr,
+                        type -> {
                             Map<String, Object> payMap = new HashMap<>();
                             payMap.put("orderId", item.getId());
                             if (Type.ALIPAY.equals(type)) {
@@ -232,12 +235,12 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                                 payMap.put("type", 1);
                                 getController().inquiryPay(payMap, item, 1);
                             }
+                        });
+            }
 
-                        }
-                    });
-
-        } else if (item.getState() != 0 && item.getIsSubOrderUnPay() == 1)
+        } else if (item.getState() != 0 && item.getIsSubOrderUnPay() == 1) {
             getController().getChildOrderBean(item.getId(), item.getPrescriptionId());
+        }
     }
 
     @Override
@@ -397,6 +400,9 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
     LinearLayout mLinShop;
     RelativeLayout mReZxingTitle;
 
+    LinearLayout payOutSideNormalLayout, payOutSideVipLayout;
+    TextView payOutSideNextTv;
+
     /**
      * 外延地址ID
      */
@@ -437,6 +443,45 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                 LayoutInflater.from(getActivity()).inflate(R.layout.pay_outside_dialog_layout
                         , null, false);
         bottomWaiYanSheetDialog.setContentView(view);
+
+        //区别普通用户和预付费用户
+        payOutSideNormalLayout = view.findViewById(R.id.pay_outside_normal);
+        payOutSideVipLayout = view.findViewById(R.id.pay_outside_normal);
+        payOutSideNextTv = view.findViewById(R.id.prepaid_order_next_tv);
+        if (Global.isMember()) {
+            //预付费用户
+            payOutSideNormalLayout.setVisibility(View.GONE);
+            payOutSideVipLayout.setVisibility(View.VISIBLE);
+            payOutSideNextTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PharmacyBean pharmacyBean = null;
+                    if (mRadioHome.isChecked()) {
+                        if (mWaiYanAddressId == 0) {
+                            ToastUtils.showShort("请选择配送地址");
+                            return;
+                        }
+                        pharmacyBean = mPharmacyBeans.get(0);
+                    } else {
+                        if (CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)) {
+                            ToastUtils.showShort("请选择药店");
+                            return;
+                        }
+                        pharmacyBean = mPharmacyBean;
+                    }
+
+                    getController().updatePrescriptionOrder(WaiPayType[0],
+                            isSendDrugsToHome,
+                            false, prescriptionId, orderNum, pharmacyBean, mLocationInfo);
+                    bottomWaiYanSheetDialog.dismiss();
+                }
+            });
+
+        } else {
+            payOutSideNormalLayout.setVisibility(View.VISIBLE);
+            payOutSideVipLayout.setVisibility(View.GONE);
+        }
+
         mOrderPriceTv = view.findViewById(R.id.order_price_tv);
         mOrderPriceTv.setText("¥" + titleFee + "起");
         LinearLayout addressSelect = view.findViewById(R.id.address_select);

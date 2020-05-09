@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.ih_common.bean.TriageBean;
 import com.keydom.mianren.ih_doctor.R;
+import com.keydom.mianren.ih_doctor.utils.DateUtils;
 
 import java.util.ArrayList;
 
@@ -27,7 +28,8 @@ public class TriageOrderAdapter extends BaseQuickAdapter<TriageBean, BaseViewHol
 
     @Override
     protected void convert(BaseViewHolder helper, TriageBean item) {
-        helper.setText(R.id.triage_order_list_date_tv, item.getTriageTime())
+        helper.setText(R.id.triage_order_list_date_tv,
+                DateUtils.timestampToString(item.getTriageTime(), DateUtils.YYYY_MM_DD_HH_MM_SS))
                 .setText(R.id.triage_order_list_status_tv, status == 0 ? "待接收" : "已接收")
                 .setText(R.id.triage_order_list_patient_info_tv,
                         String.format(mContext.getString(R.string.txt_three_value),

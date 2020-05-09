@@ -87,79 +87,73 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
      * 问诊订单支付
      */
     public void inquiryPay(Map<String, Object> map, DiagnosesOrderBean item, int type) {
-        if (map != null) {
-            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).inquiryPay(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false, false) {
-                @Override
-                public void requestComplete(@Nullable String data) {
-                    if (type == 2) {
-                        try {
-                            JSONObject object = new JSONObject(data);
-                            Logger.e("return_msg:" + object.getString("return_msg"));
-                            new Alipay(getContext(), object.getString("return_msg"),
-                                    new Alipay.AlipayResultCallBack() {
-                                        @Override
-                                        public void onSuccess() {
-                                            ToastUtil.showMessage(getContext(), "支付成功");
-                                            new GeneralDialog(getContext(),
-                                                    "问诊订单支付成功，近期请留意订单状态以及接诊医生给你发送的消息",
-                                                    new GeneralDialog.OnCloseListener() {
-                                                        @Override
-                                                        public void onCommit() {
-                                                            EventBus.getDefault().post(new Event(EventType.REFRESHDIAGNOSESORDER, null));
-                                                        }
-                                                    }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
-                                        }
-
-                                        @Override
-                                        public void onDealing() {
-
-                                        }
-
-                                        @Override
-                                        public void onError(int error_code) {
-
-                                        }
-
-                                        @Override
-                                        public void onCancel() {
-
-                                        }
-                                    }).doPay();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    } else if (type == 1) {
-                        WXPay.getInstance().doPay(getContext(), data,
-                                new WXPay.WXPayResultCallBack() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).inquiryPay(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false, false) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                if (type == 2) {
+                    try {
+                        JSONObject object = new JSONObject(data);
+                        Logger.e("return_msg:" + object.getString("return_msg"));
+                        new Alipay(getContext(), object.getString("return_msg"),
+                                new Alipay.AlipayResultCallBack() {
                                     @Override
                                     public void onSuccess() {
-                                        ToastUtil.showMessage(getContext(), "支付成功");
-                                        new GeneralDialog(getContext(),
-                                                "问诊订单支付成功，近期请留意订单状态以及接诊医生给你发送的消息"
-                                                , new GeneralDialog.OnCloseListener() {
-                                            @Override
-                                            public void onCommit() {
-                                                EventBus.getDefault().post(new Event(EventType.REFRESHDIAGNOSESORDER, null));
-                                            }
-                                        }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
+                                        paySuccess();
+                                    }
+
+                                    @Override
+                                    public void onDealing() {
+
                                     }
 
                                     @Override
                                     public void onError(int error_code) {
-                                        ToastUtil.showMessage(getContext(), "支付失败" + error_code
-                                        );
+
                                     }
 
                                     @Override
                                     public void onCancel() {
 
                                     }
-                                });
+                                }).doPay();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                } else if (type == 1) {
+                    WXPay.getInstance().doPay(getContext(), data,
+                            new WXPay.WXPayResultCallBack() {
+                                @Override
+                                public void onSuccess() {
+                                    paySuccess();
+                                }
 
+                                @Override
+                                public void onError(int error_code) {
+                                    ToastUtil.showMessage(getContext(), "支付失败" + error_code
+                                    );
+                                }
+
+                                @Override
+                                public void onCancel() {
+
+                                }
+                            });
+                } else if (type == 4) {
+                    paySuccess();
                 }
-            });
-        }
+            }
+        });
+    }
+
+    /**
+     * 支付成功
+     */
+    private void paySuccess() {
+        ToastUtil.showMessage(getContext(), "支付成功");
+        new GeneralDialog(getContext(),
+                "问诊订单支付成功，近期请留意订单状态以及接诊医生给你发送的消息"
+                , () -> EventBus.getDefault().post(new Event(EventType.REFRESHDIAGNOSESORDER,
+                null))).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
     }
 
     /**
@@ -298,7 +292,7 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getUnPaySubOrderInfo(inquiryId), new HttpSubscriber<ChildOrderBean>() {
             @Override
             public void requestComplete(@Nullable ChildOrderBean data) {
-                boolean isNeedAddress = false;
+                boolean isNeedAddress;
                 if (data.getIsPrescription() == 1)
                     isNeedAddress = true;
                 else

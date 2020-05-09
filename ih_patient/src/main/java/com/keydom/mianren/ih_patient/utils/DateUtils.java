@@ -292,11 +292,11 @@ public class DateUtils {
         return "";
     }
 
-    public static String getDate(String date) {
+    public static String getDate(String date,String pattern) {
         if (TextUtils.isEmpty(date)) {
             return "";
         }
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
         return format.format(new Date(Long.valueOf(date)));
     }
 }

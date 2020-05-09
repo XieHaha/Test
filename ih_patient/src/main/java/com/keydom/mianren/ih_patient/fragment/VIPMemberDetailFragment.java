@@ -101,8 +101,9 @@ public class VIPMemberDetailFragment extends BaseControllerFragment<VIPMemberDet
                 mCardNameTv.setText("持卡人：" + data.getCardHolder());
 
             if (null != data.getEndTime()) {
-                mCardDateTv.setText("有效期：" + DateUtils.getDate(data.getEndTime()));
-                mDateTv.setText(DateUtils.getDate(data.getEndTime()));
+                mCardDateTv.setText("有效期：" + DateUtils.getDate(data.getEndTime(),
+                        DateUtils.YYYY_MM_DD));
+                mDateTv.setText(DateUtils.getDate(data.getEndTime(), DateUtils.YYYY_MM_DD));
             }
 
             mBalanceTv.setText(String.valueOf(data.getSurplusAmount()));

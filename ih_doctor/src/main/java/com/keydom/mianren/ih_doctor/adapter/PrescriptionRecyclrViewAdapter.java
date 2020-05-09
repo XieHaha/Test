@@ -21,6 +21,7 @@ import com.keydom.mianren.ih_doctor.bean.PrescriptionBean;
 import com.keydom.mianren.ih_doctor.constant.ServiceConst;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
+import com.keydom.mianren.ih_doctor.utils.DateUtils;
 
 import java.util.List;
 
@@ -41,17 +42,19 @@ public class PrescriptionRecyclrViewAdapter extends BaseEmptyAdapter<Prescriptio
     private TypeEnum type;
     private String startcode;
 
-    public PrescriptionRecyclrViewAdapter(Context context, TypeEnum type, List<PrescriptionBean> data,String startCode) {
+    public PrescriptionRecyclrViewAdapter(Context context, TypeEnum type,
+                                          List<PrescriptionBean> data, String startCode) {
         super(data, context);
         this.type = type;
-        this.startcode=startCode;
+        this.startcode = startCode;
     }
 
 
     private void setCommon(PrescriptionBean item, ViewHolder holder) {
         holder.typePoint.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.point_green));
         holder.typeName.setText(item.getCate() == 1 ? "普通" : "儿科");
-        holder.timeTv.setText(item.getTime());
+        holder.timeTv.setText(DateUtils.timestampToString(item.getTime(),
+                DateUtils.YYYY_MM_DD_HH_MM_SS));
 
         holder.userNameTip.setText("患者:");
         holder.userName.setText(item.getName() + "、" + CommonUtils.getSex(item.getSex()) + "、" + item.getAge() + "岁");
@@ -83,7 +86,7 @@ public class PrescriptionRecyclrViewAdapter extends BaseEmptyAdapter<Prescriptio
         if (ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE.equals(startcode)) {
             switch (type) {
                 case CHECK_NOT_FINISH:
-//                    holder.twoLin.setVisibility(View.GONE);
+                    //                    holder.twoLin.setVisibility(View.GONE);
                     holder.doctorNameRl.setVisibility(View.GONE);
                     holder.distributionRl.setVisibility(View.GONE);
                     holder.userDiagnose.setLines(2);
@@ -127,7 +130,7 @@ public class PrescriptionRecyclrViewAdapter extends BaseEmptyAdapter<Prescriptio
 
                 }
             });
-        } else if(ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE.equals(startcode)){
+        } else if (ServiceConst.MEDICINE_PRESCRIPTION_SERVICE_CODE.equals(startcode)) {
             holder.checkUpdate.setVisibility(View.GONE);
             switch (type) {
                 case CHECK_NOT_FINISH:
@@ -171,7 +174,8 @@ public class PrescriptionRecyclrViewAdapter extends BaseEmptyAdapter<Prescriptio
 
     @Override
     public RecyclerView.ViewHolder createMyViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.prescription_item_layout, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.prescription_item_layout,
+                parent, false);
         return new ViewHolder(view);
     }
 
