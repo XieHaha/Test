@@ -224,6 +224,17 @@ public class TeamAVChatFragment extends Fragment {
         setChatting(true);
     }
 
+    /**
+     * 结束会诊
+     */
+    private void endConversultation() {
+        hangup();
+        consutationLayout.setVisibility(View.VISIBLE);
+        callLayout.setVisibility(View.GONE);
+        surfaceLayout.setVisibility(View.GONE);
+        releaseSource();
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(ConsultationEvent consultationEvent) {
         teamId = consultationEvent.getTeamId();
@@ -244,6 +255,8 @@ public class TeamAVChatFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        LogUtil.i(TAG, "TeamAVChatActivity onDestroy");
         releaseSource();
     }
 
@@ -251,9 +264,6 @@ public class TeamAVChatFragment extends Fragment {
      * 资源释放
      */
     private void releaseSource() {
-        EventBus.getDefault().unregister(this);
-        LogUtil.i(TAG, "TeamAVChatActivity onDestroy");
-
         if (timer != null) {
             timer.cancel();
         }
@@ -368,6 +378,7 @@ public class TeamAVChatFragment extends Fragment {
      * 接听界面
      */
     private void showReceivedCallLayout() {
+        receivedCall = false;
         callLayout.setVisibility(View.VISIBLE);
         // 提示
         TextView textView = callLayout.findViewById(R.id.received_call_tip);
@@ -549,11 +560,12 @@ public class TeamAVChatFragment extends Fragment {
 
     private void onJoinRoomFailed(int code, Throwable e) {
         if (code == ResponseCode.RES_ENONEXIST) {
-            showToast("加入房间失败，房间不存在");
+            showToast("会诊还未开始！");
         } else {
             showToast("join room failed, code=" + code + ", e=" + (e == null ? "" :
                     e.getMessage()));
         }
+        endConversultation();
     }
 
     public void onAVChatUserJoined(String account) {
@@ -822,11 +834,7 @@ public class TeamAVChatFragment extends Fragment {
                 disableUserAudio();
 
             } else if (i == R.id.hangup) {// 挂断
-                hangup();
-                consutationLayout.setVisibility(View.VISIBLE);
-                callLayout.setVisibility(View.GONE);
-                surfaceLayout.setVisibility(View.GONE);
-                releaseSource();
+                endConversultation();
                 //                getActivity().finish();
             }
         }

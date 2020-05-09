@@ -300,7 +300,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         bean.setTriageExplain(attachment.getContent());
                         bean.setGroupTid(attachment.getGroupTid());
                         bean.setDept(attachment.getDept());
-                        bean.setTriageTime(DateUtils.getDate(attachment.getApplyTime()));
+                        bean.setTriageTime(DateUtils.timestampToString(attachment.getApplyTime(),
+                                DateUtils.YYYY_MM_DD_HH_MM_SS));
                         bean.setDiseaseData(StringUtil.join(attachment.getImages(), ","));
                         TriageOrderDetailActivity.startWithAction(context, bean,
                                 TypeEnum.TRIAGE_RECEIVED, true);

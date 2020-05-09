@@ -293,15 +293,7 @@ public class DateUtils {
         return sd;
     }
 
-    public static String getDate(String date) {
-        if (TextUtils.isEmpty(date)) {
-            return "";
-        }
-        SimpleDateFormat format = new SimpleDateFormat(YYYY_MM_DD_HH_MM_SS);
-        return format.format(new Date(Long.valueOf(date)));
-    }
-
-    public static String longToString(String longTime, String pattern) {
+    public static String timestampToString(String longTime, String pattern) {
         if (TextUtils.isEmpty(longTime)) {
             return "";
         }

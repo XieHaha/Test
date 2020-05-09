@@ -27,8 +27,11 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.Consul
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationRoomView;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDoctorBean;
+import com.keydom.mianren.ih_doctor.bean.Event;
 import com.keydom.mianren.ih_doctor.constant.Const;
+import com.keydom.mianren.ih_doctor.constant.EventType;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -140,6 +143,8 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
 
     @Override
     public void endConsultationSuccess() {
+        //通知列表更新数据
+        EventBus.getDefault().post(new Event(EventType.UPDATECONSULTATION, null));
         setResult(RESULT_OK);
         finish();
     }
@@ -147,11 +152,6 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     @Override
     public void endConsultationFailed(String msg) {
         ToastUtil.showMessage(this, msg);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
     final class TabViewPagerAdapter extends FragmentPagerAdapter {

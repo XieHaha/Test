@@ -12,7 +12,7 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.Consult
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationOrderFragmentController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationOrderFragmentView;
 import com.keydom.mianren.ih_doctor.bean.ConsultationBean;
-import com.keydom.mianren.ih_doctor.bean.MessageEvent;
+import com.keydom.mianren.ih_doctor.bean.Event;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
@@ -85,6 +85,7 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         mType = (TypeEnum) getArguments().getSerializable(Const.TYPE);
         patientId = getArguments().getLong(Const.PATIENT_ID);
         if (mType == TypeEnum.CONSULTATION_WAIT) {
@@ -93,9 +94,6 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
             //            status = 1;
         } else if (mType == TypeEnum.CONSULTATION_COMPLETE) {
             status = 1;
-        }
-        if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this);
         }
         mAdapter = new ConsultationOrderAdapter(dataList);
         mAdapter.setOnItemClickListener(getController());
@@ -164,16 +162,14 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
 
     @Override
     public void onDestroy() {
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
 
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void Event(MessageEvent messageEvent) {
-        if (messageEvent.getType() == EventType.DIAGNOSE_ORDER_UPDATE) {
+    public void update(Event event) {
+        if (event.getType() == EventType.UPDATECONSULTATION) {
             getController().getConsultationOrderList(TypeEnum.REFRESH);
         }
     }

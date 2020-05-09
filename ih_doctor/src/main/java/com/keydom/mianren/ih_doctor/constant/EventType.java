@@ -33,6 +33,7 @@ public enum EventType {
     UPDATE_MY_SERVICE,
     UPDATE_SIGN_STATUS,//刷新签名状态
     UPDATEWARRANTLIST,//刷新授权列表
-    UPDATENURSENUM;//刷新为接单数据
+    UPDATENURSENUM,//刷新为接单数据
+    UPDATECONSULTATION;//刷新会诊列表
 
 }
