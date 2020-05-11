@@ -360,15 +360,13 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
         Map<String, Object> map = new HashMap<>();
         if (isOnline) {
             map.put("isOnline", 1);
-
         }
         if (areaId != -1)
             map.put("hospitalAreaId", areaId);
         map.put("isRecommend", 1);
         map.put("hospitalId", App.hospitalId);
+        map.put("deptId", deptId);
         map.put("type", 0);
-        map.put("currentPage", getController().getCurrentPage());
-        map.put("pageSize", com.keydom.mianren.ih_patient.constant.Const.PAGE_SIZE);
         return map;
     }
 
@@ -379,7 +377,6 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
         Map<String, Object> map = new HashMap<>();
         if (isOnline) {
             map.put("isOnline", 1);
-
         }
         map.put("deptId", deptId);
         map.put("type", 0);
@@ -410,15 +407,15 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
             recommendList.clear();
         }
         pageLoadingSuccess();
-        diagnose_index_refresh.finishLoadMore();
         diagnose_index_refresh.finishRefresh();
 
-        if (null == dataList || dataList.size() == 0) {
-            diagnose_index_refresh.setNoMoreData(true);
+        if (dataList.size() < com.keydom.mianren.ih_patient.constant.Const.PAGE_SIZE) {
+            diagnose_index_refresh.finishLoadMoreWithNoMoreData();
         } else {
-            recommendList.addAll(dataList);
-            getController().currentPagePlus();
+            diagnose_index_refresh.finishLoadMore();
         }
+        recommendList.addAll(dataList);
+        getController().currentPagePlus();
         recommendDocAndNurAdapter.notifyDataSetChanged();
     }
 

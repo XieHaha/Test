@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,8 +28,6 @@ import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.utils.JsonUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
-import io.reactivex.functions.Consumer;
-
 
 public class DiagnosePrescriptionItemView extends RelativeLayout {
     private TextView addTv, tipTv;
@@ -46,14 +43,10 @@ public class DiagnosePrescriptionItemView extends RelativeLayout {
     /**
      * 初始化监听器。
      */
-    private InitListener mInitListener = new InitListener() {
-
-        @Override
-        public void onInit(int code) {
-            if (code != ErrorCode.SUCCESS) {
-                Log.e("xunfei", "初始化失败，错误码：" + code + ",请点击网址https://www.xfyun" +
-                        ".cn/document/error-code查询解决方案");
-            }
+    private InitListener mInitListener = code -> {
+        if (code != ErrorCode.SUCCESS) {
+            Log.e("xunfei", "初始化失败，错误码：" + code + ",请点击网址https://www.xfyun" +
+                    ".cn/document/error-code查询解决方案");
         }
     };
 
@@ -136,20 +129,17 @@ public class DiagnosePrescriptionItemView extends RelativeLayout {
         rxPermissions.request(Manifest.permission.RECORD_AUDIO,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean granted) throws Exception {
-                        if (granted) {
-                            if (mIatDialog.isShowing()) {
-                                mIatDialog.dismiss();
-                            }
-                            mIatDialog.show();
-                            ToastUtil.showMessage(MyApplication.mApplication, "请开始说话…");
-
-                        } else {
-                            ToastUtil.showMessage(MyApplication.mApplication, "请开启录音需要的权限");
-
+                .subscribe(granted -> {
+                    if (granted) {
+                        if (mIatDialog.isShowing()) {
+                            mIatDialog.dismiss();
                         }
+                        mIatDialog.show();
+                        ToastUtil.showMessage(MyApplication.mApplication, "请开始说话…");
+
+                    } else {
+                        ToastUtil.showMessage(MyApplication.mApplication, "请开启录音需要的权限");
+
                     }
                 });
 
@@ -160,7 +150,7 @@ public class DiagnosePrescriptionItemView extends RelativeLayout {
     }
 
     private void setMaxSize(String titleStr) {
-        if (titleStr != null && !"".equals(titleStr))
+        if (!TextUtils.isEmpty(titleStr))
             inputEv.setFilters(new InputFilter[]{new MyLengthFilter(Integer.parseInt(titleStr),
                     getContext())});
     }
@@ -192,12 +182,7 @@ public class DiagnosePrescriptionItemView extends RelativeLayout {
     }
 
     public void setAddOnClikListener(final OnClickListener onClikListener) {
-        addTv.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClikListener.onClick(DiagnosePrescriptionItemView.this);
-            }
-        });
+        addTv.setOnClickListener(v -> onClikListener.onClick(DiagnosePrescriptionItemView.this));
     }
 
     private class MyLengthFilter implements InputFilter {

@@ -266,13 +266,15 @@
                     android:id="@+id/recommend_doctor_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
-                <com.scwang.smartrefresh.layout.footer.ClassicsFooter
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
             </LinearLayout>
         </com.keydom.mianren.ih_patient.view.MyNestedScollView>
+
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/diagnose_sv" />
 
         <LinearLayout
             android:id="@+id/title_layout"

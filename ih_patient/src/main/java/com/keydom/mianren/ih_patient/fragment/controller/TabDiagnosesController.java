@@ -19,6 +19,7 @@ import com.keydom.mianren.ih_patient.bean.DiagnosesAndNurDepart;
 import com.keydom.mianren.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.mianren.ih_patient.bean.RecommendDocAndNurBean;
 import com.keydom.mianren.ih_patient.callback.SingleClick;
+import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.TypeEnum;
 import com.keydom.mianren.ih_patient.fragment.view.TabDiagnosesView;
@@ -30,6 +31,7 @@ import com.orhanobut.logger.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -51,58 +53,67 @@ public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> imp
                 break;
             case R.id.await_pay_cv:
                 if (Global.getUserId() == -1) {
-                    new GeneralDialog(getContext(), "暂未登录，是否前往登录？", new GeneralDialog.OnCloseListener() {
-                        @Override
-                        public void onCommit() {
-                            LoginActivity.start(getContext());
-                        }
-                    }).setTitle("提示").setPositiveButton("确认").show();
+                    new GeneralDialog(getContext(), "暂未登录，是否前往登录？",
+                            new GeneralDialog.OnCloseListener() {
+                                @Override
+                                public void onCommit() {
+                                    LoginActivity.start(getContext());
+                                }
+                            }).setTitle("提示").setPositiveButton("确认").show();
                 } else
-                    OnlineDiagnonsesOrderActivity.start(getContext(),  getView().getUnpaytag());
+                    OnlineDiagnonsesOrderActivity.start(getContext(), getView().getUnpaytag());
                 break;
             case R.id.await_diagnose_cv:
                 if (Global.getUserId() == -1) {
-                    new GeneralDialog(getContext(), "暂未登录，是否前往登录？", new GeneralDialog.OnCloseListener() {
-                        @Override
-                        public void onCommit() {
-                            LoginActivity.start(getContext());
-                        }
-                    }).setTitle("提示").setPositiveButton("确认").show();
+                    new GeneralDialog(getContext(), "暂未登录，是否前往登录？",
+                            new GeneralDialog.OnCloseListener() {
+                                @Override
+                                public void onCommit() {
+                                    LoginActivity.start(getContext());
+                                }
+                            }).setTitle("提示").setPositiveButton("确认").show();
                 } else
-                    OnlineDiagnonsesOrderActivity.start(getContext(), OnlineDiagnonsesOrderActivity.WAITEDIAGNOSES);
+                    OnlineDiagnonsesOrderActivity.start(getContext(),
+                            OnlineDiagnonsesOrderActivity.WAITEDIAGNOSES);
                 break;
             case R.id.diagnose_cv:
                 if (Global.getUserId() == -1) {
-                    new GeneralDialog(getContext(), "暂未登录，是否前往登录？", new GeneralDialog.OnCloseListener() {
-                        @Override
-                        public void onCommit() {
-                            LoginActivity.start(getContext());
-                        }
-                    }).setTitle("提示").setPositiveButton("确认").show();
+                    new GeneralDialog(getContext(), "暂未登录，是否前往登录？",
+                            new GeneralDialog.OnCloseListener() {
+                                @Override
+                                public void onCommit() {
+                                    LoginActivity.start(getContext());
+                                }
+                            }).setTitle("提示").setPositiveButton("确认").show();
                 } else
-                    OnlineDiagnonsesOrderActivity.start(getContext(), OnlineDiagnonsesOrderActivity.DIAGNOSESING);
+                    OnlineDiagnonsesOrderActivity.start(getContext(),
+                            OnlineDiagnonsesOrderActivity.DIAGNOSESING);
                 break;
             case R.id.finished_cv:
                 if (Global.getUserId() == -1) {
-                    new GeneralDialog(getContext(), "暂未登录，是否前往登录？", new GeneralDialog.OnCloseListener() {
-                        @Override
-                        public void onCommit() {
-                            LoginActivity.start(getContext());
-                        }
-                    }).setTitle("提示").setPositiveButton("确认").show();
+                    new GeneralDialog(getContext(), "暂未登录，是否前往登录？",
+                            new GeneralDialog.OnCloseListener() {
+                                @Override
+                                public void onCommit() {
+                                    LoginActivity.start(getContext());
+                                }
+                            }).setTitle("提示").setPositiveButton("确认").show();
                 } else
-                    OnlineDiagnonsesOrderActivity.start(getContext(), OnlineDiagnonsesOrderActivity.COMPLETEDIAGNOSES);
+                    OnlineDiagnonsesOrderActivity.start(getContext(),
+                            OnlineDiagnonsesOrderActivity.COMPLETEDIAGNOSES);
                 break;
             case R.id.await_evaluation_cv:
                 if (Global.getUserId() == -1) {
-                    new GeneralDialog(getContext(), "暂未登录，是否前往登录？", new GeneralDialog.OnCloseListener() {
-                        @Override
-                        public void onCommit() {
-                            LoginActivity.start(getContext());
-                        }
-                    }).setTitle("提示").setPositiveButton("确认").show();
+                    new GeneralDialog(getContext(), "暂未登录，是否前往登录？",
+                            new GeneralDialog.OnCloseListener() {
+                                @Override
+                                public void onCommit() {
+                                    LoginActivity.start(getContext());
+                                }
+                            }).setTitle("提示").setPositiveButton("确认").show();
                 } else
-                    OnlineDiagnonsesOrderActivity.start(getContext(), OnlineDiagnonsesOrderActivity.COMPLETEDIAGNOSES);
+                    OnlineDiagnonsesOrderActivity.start(getContext(),
+                            OnlineDiagnonsesOrderActivity.COMPLETEDIAGNOSES);
                 break;
 
         }
@@ -112,8 +123,8 @@ public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> imp
      * 获取首页数据
      */
     public void getHomeData(Map<String, Object> map) {
-        Logger.e("test","getHomeData");
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getHomeData(map), new HttpSubscriber<DiagnoseIndexBean>(getContext(),getDisposable(),false,false) {
+        Logger.e("test", "getHomeData");
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getHomeData(map), new HttpSubscriber<DiagnoseIndexBean>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable DiagnoseIndexBean data) {
                 getView().getHomeDataSuccess(data);
@@ -125,10 +136,16 @@ public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> imp
      * 获取护士数据
      */
     public void getRecommendNurse(Map<String, Object> map, TypeEnum type) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getListHomeRecommendDoctor(map), new HttpSubscriber<PageBean<RecommendDocAndNurBean>>(getContext(),getDisposable(),false,false) {
+        map.put("currentPage", getCurrentPage());
+        map.put("pageSize", Const.PAGE_SIZE);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getListHomeRecommendDoctor(map), new HttpSubscriber<PageBean<RecommendDocAndNurBean>>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable PageBean<RecommendDocAndNurBean> data) {
-                getView().getRecommendSuccess(data.getRecords(),type);
+                List<RecommendDocAndNurBean> list = data.getRecords();
+                if (list == null) {
+                    list = new ArrayList<>();
+                }
+                getView().getRecommendSuccess(list, type);
             }
         });
     }
@@ -136,8 +153,8 @@ public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> imp
     /**
      * 获取科室数据
      */
-    public void getListCateDeptByHospital(Map<String,Object> map) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getListCateDeptByHospital(map), new HttpSubscriber<List<DiagnosesAndNurDepart>>(getContext(),getDisposable(),false,false) {
+    public void getListCateDeptByHospital(Map<String, Object> map) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getListCateDeptByHospital(map), new HttpSubscriber<List<DiagnosesAndNurDepart>>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable List<DiagnosesAndNurDepart> data) {
                 getView().getDepartListSuccess(data);
@@ -149,14 +166,15 @@ public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> imp
      * 获取banner数据
      */
     public void getBannerPicByHospitalId(Map<String, Object> map) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getPicture(map), new HttpSubscriber<List<BannerBean>>(getContext(),getDisposable(),false,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getPicture(map), new HttpSubscriber<List<BannerBean>>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable List<BannerBean> data) {
                 getView().getPicListSuccess(data);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getPicListFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -166,15 +184,16 @@ public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> imp
     /**
      * 查询医院
      */
-    public void queryHospitalAreaList(){
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).findHospitalAreaList(App.hospitalId), new HttpSubscriber<List<HospitalAreaInfo>>(getContext(),getDisposable(),false) {
+    public void queryHospitalAreaList() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).findHospitalAreaList(App.hospitalId), new HttpSubscriber<List<HospitalAreaInfo>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable List<HospitalAreaInfo> data) {
                 getView().getAreaList(data);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getAreaListFailed(msg);
                 return super.requestError(exception, code, msg);
             }
