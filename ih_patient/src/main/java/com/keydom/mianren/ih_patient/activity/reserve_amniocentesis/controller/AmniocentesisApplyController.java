@@ -24,6 +24,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Calendar;
+
 /**
  * @date 20/3/9 16:09
  * @des 羊水穿刺预约申请
@@ -36,11 +38,17 @@ public class AmniocentesisApplyController extends ControllerImpl<AmniocentesisAp
             case R.id.amniocentesis_apply_surgery_time_layout:
             case R.id.amniocentesis_apply_last_menstruation_layout:
             case R.id.amniocentesis_apply_due_date_layout:
-            case R.id.amniocentesis_apply_birth_layout:
                 KeyboardUtils.hideSoftInput((Activity) getContext());
                 TimePickerView pickerView = new TimePickerBuilder(getContext(),
                         (date, v1) -> getView().onDateSelect(v, date)).build();
                 pickerView.show();
+                break;
+            case R.id.amniocentesis_apply_birth_layout:
+                Calendar endDate = Calendar.getInstance();
+                KeyboardUtils.hideSoftInput((Activity) getContext());
+                TimePickerView view = new TimePickerBuilder(getContext(),
+                        (date, v1) -> getView().onDateSelect(v, date)).setRangDate(null, endDate).build();
+                view.show();
                 break;
             case R.id.amniocentesis_apply_get_verify_tv:
                 String phone = getView().getPhone();

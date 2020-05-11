@@ -163,26 +163,10 @@
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:layout_marginTop="@dimen/dp_24"
-            android:background="@color/color_f1f1f1" />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_27"
-            android:layout_marginTop="@dimen/dp_23"
-            android:layout_marginEnd="@dimen/dp_27"
-            android:text="@string/txt_check_blood"
-            android:textColor="@color/color_333333"
-            android:textSize="@dimen/sp_14" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_47"
+            android:layout_marginStart="@dimen/dp_48"
             android:layout_marginTop="@dimen/dp_23"
             android:layout_marginEnd="@dimen/dp_27"
             android:text="@string/txt_hiv"
@@ -192,7 +176,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_45"
+            android:layout_marginStart="@dimen/dp_47"
             android:layout_marginTop="@dimen/dp_3"
             android:layout_marginEnd="@dimen/dp_45">
 
@@ -246,10 +230,26 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_24"
+            android:background="@color/color_f1f1f1" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_47"
+            android:layout_marginStart="@dimen/dp_27"
+            android:layout_marginTop="@dimen/dp_23"
+            android:layout_marginEnd="@dimen/dp_27"
+            android:text="@string/txt_check_blood"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_50"
             android:layout_marginTop="@dimen/dp_13"
             android:layout_marginEnd="@dimen/dp_27"
             android:text="@string/txt_blood"
@@ -259,7 +259,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_45"
+            android:layout_marginStart="@dimen/dp_47"
             android:layout_marginTop="@dimen/dp_3"
             android:layout_marginEnd="@dimen/dp_45">
 
@@ -316,7 +316,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_47"
+            android:layout_marginStart="@dimen/dp_50"
             android:layout_marginTop="@dimen/dp_13"
             android:layout_marginEnd="@dimen/dp_27"
             android:text="@string/txt_ultrasound"
@@ -326,7 +326,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_45"
+            android:layout_marginStart="@dimen/dp_47"
             android:layout_marginTop="@dimen/dp_3"
             android:layout_marginEnd="@dimen/dp_45">
 
@@ -399,7 +399,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_47"
+            android:layout_marginStart="@dimen/dp_50"
             android:layout_marginTop="@dimen/dp_23"
             android:layout_marginEnd="@dimen/dp_27"
             android:text="@string/txt_hypertension_colon"
@@ -409,7 +409,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_45"
+            android:layout_marginStart="@dimen/dp_47"
             android:layout_marginTop="@dimen/dp_3"
             android:layout_marginEnd="@dimen/dp_45">
 
@@ -466,7 +466,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_47"
+            android:layout_marginStart="@dimen/dp_50"
             android:layout_marginTop="@dimen/dp_13"
             android:layout_marginEnd="@dimen/dp_27"
             android:text="@string/txt_diabetes_colon"
@@ -476,7 +476,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_45"
+            android:layout_marginStart="@dimen/dp_47"
             android:layout_marginTop="@dimen/dp_3"
             android:layout_marginEnd="@dimen/dp_45">
 

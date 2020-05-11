@@ -253,7 +253,7 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/prescription_rv"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                        android:layout_height="wrap_content" />
 
                     <RelativeLayout
                         android:id="@+id/add_prescription_item_rl"
@@ -420,7 +420,6 @@
                             android:textSize="@dimen/sp_14" />
                     </RelativeLayout>
 
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -435,65 +434,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         mitem:itemInputHint="请输入初诊判断以及相应的处置建议（300字以内）"
-                        mitem:itemTip="处置建议">
-
-                    </com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView>
-
-                    <!--<RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true">
-
-                        <ImageView
-                            android:id="@+id/left_img"
-                            android:layout_width="@dimen/dp_2"
-                            android:layout_height="@dimen/dp_15"
-                            android:layout_marginStart="@dimen/padding_left_right_dp"
-                            android:layout_marginTop="@dimen/dp_18"
-                            android:background="#71A4FF" />
-
-                        <TextView
-                            android:id="@+id/tip_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp_6"
-                            android:layout_toRightOf="@id/left_img"
-                            android:paddingTop="@dimen/dp_16"
-                            android:paddingBottom="@dimen/dp_16"
-                            android:text="处置建议"
-                            android:textColor="@color/primary_font_color"
-                            android:textSize="@dimen/sp_14" />
-
-
-                        <View
-                            android:id="@+id/line"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_1"
-                            android:layout_below="@id/tip_tv"
-                            android:background="@color/line_color" />
-
-                        <com.keydom.ih_common.view.InterceptorEditText
-                            android:id="@+id/handle_entrust_et"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/line"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginStart="@dimen/padding_left_right_dp"
-                            android:layout_marginTop="@dimen/dp_16"
-                            android:layout_marginEnd="@dimen/padding_left_right_dp"
-                            android:layout_marginBottom="@dimen/dp_19"
-                            android:background="@drawable/check_dialog_input_bg"
-                            android:gravity="left|top"
-                            android:singleLine="false"
-                            android:hint="请输入初诊判断以及相应的处置建议（300字以内）"
-                            android:maxLength="300"
-                            android:minHeight="@dimen/dp_144"
-                            android:padding="@dimen/dp_13"
-                            android:textColor="@color/edit_font_color"
-                            android:textCursorDrawable="@null"
-                            android:textSize="@dimen/font_size_auxiliary" />
-                    </RelativeLayout>-->
+                        mitem:itemTip="处置建议"
+                        mitem:limit="300" />
 
                     <Button
                         android:id="@+id/submit_btn"

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -48,7 +50,6 @@ public class DiagnosePrescriptionItemView extends RelativeLayout {
 
         @Override
         public void onInit(int code) {
-
             if (code != ErrorCode.SUCCESS) {
                 Log.e("xunfei", "初始化失败，错误码：" + code + ",请点击网址https://www.xfyun" +
                         ".cn/document/error-code查询解决方案");
@@ -160,7 +161,8 @@ public class DiagnosePrescriptionItemView extends RelativeLayout {
 
     private void setMaxSize(String titleStr) {
         if (titleStr != null && !"".equals(titleStr))
-            inputEv.setFilters(new InputFilter[]{new InputFilter.LengthFilter(Integer.parseInt(titleStr))});
+            inputEv.setFilters(new InputFilter[]{new MyLengthFilter(Integer.parseInt(titleStr),
+                    getContext())});
     }
 
     private void setAddStr(String addStr) {
@@ -196,6 +198,44 @@ public class DiagnosePrescriptionItemView extends RelativeLayout {
                 onClikListener.onClick(DiagnosePrescriptionItemView.this);
             }
         });
+    }
 
+    private class MyLengthFilter implements InputFilter {
+
+        private final int mMax;
+        private Context context;
+
+        public MyLengthFilter(int max, Context context) {
+            mMax = max;
+            this.context = context;
+        }
+
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest,
+                                   int dstart, int dend) {
+            int keep = mMax - (dest.length() - (dend - dstart));
+            if (keep <= 0) {
+                //这里，用来给用户提示
+                Toast.makeText(context, "字数不能超过" + mMax + "位", Toast.LENGTH_SHORT).show();
+                return "";
+            } else if (keep >= end - start) {
+                return null; // keep original
+            } else {
+                keep += start;
+                if (Character.isHighSurrogate(source.charAt(keep - 1))) {
+                    --keep;
+                    if (keep == start) {
+                        return "";
+                    }
+                }
+                return source.subSequence(start, keep);
+            }
+        }
+
+        /**
+         * @return the maximum length enforced by this input filter
+         */
+        public int getMax() {
+            return mMax;
+        }
     }
 }

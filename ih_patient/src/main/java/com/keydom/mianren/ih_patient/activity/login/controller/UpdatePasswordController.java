@@ -72,14 +72,15 @@ public class UpdatePasswordController extends ControllerImpl<UpdatePasswordView>
         Map<String, String> map = new HashMap<>();
         map.put("password", MD5.getStringMD5(getView().getPassWord()));
         map.put("phoneNumber", getView().getPhoneNum());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).updatePassword(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), true,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).updatePassword(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), true, false) {
             @Override
             public void requestComplete(@Nullable Object data) {
                 getView().registerSuccess();
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().registerFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -90,7 +91,7 @@ public class UpdatePasswordController extends ControllerImpl<UpdatePasswordView>
      * 获取验证码
      */
     private void getMsgCode(String s) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).sendValidate(s), new HttpSubscriber<Object>(getContext(), getDisposable(), true,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).sendValidate(s), new HttpSubscriber<Object>(getContext(), getDisposable(), true, false) {
 
             @Override
             public void requestComplete(@Nullable Object data) {
@@ -98,13 +99,15 @@ public class UpdatePasswordController extends ControllerImpl<UpdatePasswordView>
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getMsgCodeFailed(msg);
                 return super.requestError(exception, code, msg);
 
             }
         });
     }
+
     /**
      * 验证验证码
      */
@@ -112,15 +115,16 @@ public class UpdatePasswordController extends ControllerImpl<UpdatePasswordView>
         Map<String, String> map = new HashMap<>();
         map.put("phoneNumber", getView().getPhoneNum());
         map.put("verificationCode", getView().getMsgCode());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).verificationCode(map), new HttpSubscriber<Object>(getContext(), getDisposable(), true,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).verificationCode(map), new HttpSubscriber<Object>(getContext(), getDisposable(), true, false) {
             @Override
             public void requestComplete(@Nullable Object data) {
-                addCard();
+                //                addCard();
                 getView().msgInspectSuccess();
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().msgInspectFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -136,14 +140,15 @@ public class UpdatePasswordController extends ControllerImpl<UpdatePasswordView>
         map.put("name", App.userInfo.getCertificationName());
         map.put("idNo", App.userInfo.getIdCard());
         map.put("cellphone", App.userInfo.getPhoneNumber());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(HealthCardService.class).addCard(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Boolean>(getContext(), getDisposable(), true,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(HealthCardService.class).addCard(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Boolean>(getContext(), getDisposable(), true, false) {
             @Override
             public void requestComplete(@Nullable Boolean data) {
                 getView().addCardSuccess(data);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().addCardFailed(msg);
                 return super.requestError(exception, code, msg);
             }

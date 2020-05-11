@@ -593,7 +593,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     mRightText2.setText("在线问诊");
                     mRightText.setText("挂号");
                 } else {
-                    mRightText.setText("在线咨询");
+//                    mRightText.setText("在线咨询");
                 }
             }
         } else {
