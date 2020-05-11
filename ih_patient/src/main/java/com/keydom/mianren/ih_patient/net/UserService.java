@@ -10,6 +10,7 @@ import com.keydom.mianren.ih_patient.bean.BodyCheckRecordInfo;
 import com.keydom.mianren.ih_patient.bean.ChildOrderBean;
 import com.keydom.mianren.ih_patient.bean.CityBean;
 import com.keydom.mianren.ih_patient.bean.CommonDocumentBean;
+import com.keydom.mianren.ih_patient.bean.DiagnoseIndexBean;
 import com.keydom.mianren.ih_patient.bean.DiagnosesAndNurDepart;
 import com.keydom.mianren.ih_patient.bean.DiagnosesOrderBean;
 import com.keydom.mianren.ih_patient.bean.DoctorEvaluateItem;
@@ -285,6 +286,12 @@ public interface UserService {
     Observable<HttpResult<PageBean<RecommendDocAndNurBean>>> getListHomeRecommendDoctor(@QueryMap Map<String, Object> map);
 
     /**
+     * 在线问诊首页(普通用户)
+     */
+    @GET("user/online/home")
+    Observable<HttpResult<DiagnoseIndexBean>> getHomeData(@QueryMap Map<String, Object> body);
+
+    /**
      * 获取手势密码
      */
     @GET("user/gesturePassword/getPassword")
@@ -305,7 +312,6 @@ public interface UserService {
     /**
      * 全局搜索
      *
-     * @param maps
      * @return
      */
     @GET("user/search")

@@ -17,7 +17,6 @@ import com.keydom.mianren.ih_patient.bean.DiagnosesAndNurDepart;
 import com.keydom.mianren.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.mianren.ih_patient.bean.RecommendDocAndNurBean;
 import com.keydom.mianren.ih_patient.constant.TypeEnum;
-import com.keydom.mianren.ih_patient.net.InquiryService;
 import com.keydom.mianren.ih_patient.net.OrderService;
 import com.keydom.mianren.ih_patient.net.UserService;
 import com.orhanobut.logger.Logger;
@@ -37,7 +36,7 @@ public class NursingOnlineConsultController extends ControllerImpl<NursingOnline
      * 获取主页数据
      */
     public void getHomeData(Map<String,Object> map){
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getHomeData(map), new HttpSubscriber<DiagnoseIndexBean>(getContext(),getDisposable(),false,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getHomeData(map), new HttpSubscriber<DiagnoseIndexBean>(getContext(),getDisposable(),false,false) {
             @Override
             public void requestComplete(@Nullable DiagnoseIndexBean data) {
                 getView().getHomeDataSuccess(data);
@@ -49,7 +48,7 @@ public class NursingOnlineConsultController extends ControllerImpl<NursingOnline
      * 获取推荐服务
      */
     public void getRecommendNurse(Map<String,Object> map, TypeEnum type){
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getListHomeRecommendDoctor(map), new HttpSubscriber<PageBean<RecommendDocAndNurBean>>(getContext(),getDisposable(),false,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getListHomeRecommendDoctor(map), new HttpSubscriber<PageBean<RecommendDocAndNurBean>>(getContext(),getDisposable(),false,false) {
             @Override
             public void requestComplete(@Nullable PageBean<RecommendDocAndNurBean> data) {
                 getView().getRecommendSuccess(data.getRecords(), type);

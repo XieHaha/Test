@@ -23,7 +23,6 @@ import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.TypeEnum;
 import com.keydom.mianren.ih_patient.fragment.view.TabDiagnosesView;
-import com.keydom.mianren.ih_patient.net.InquiryService;
 import com.keydom.mianren.ih_patient.net.OrderService;
 import com.keydom.mianren.ih_patient.net.UserService;
 import com.orhanobut.logger.Logger;
@@ -124,7 +123,7 @@ public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> imp
      */
     public void getHomeData(Map<String, Object> map) {
         Logger.e("test", "getHomeData");
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getHomeData(map), new HttpSubscriber<DiagnoseIndexBean>(getContext(), getDisposable(), false, false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getHomeData(map), new HttpSubscriber<DiagnoseIndexBean>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable DiagnoseIndexBean data) {
                 getView().getHomeDataSuccess(data);
@@ -138,7 +137,7 @@ public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> imp
     public void getRecommendNurse(Map<String, Object> map, TypeEnum type) {
         map.put("currentPage", getCurrentPage());
         map.put("pageSize", Const.PAGE_SIZE);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getListHomeRecommendDoctor(map), new HttpSubscriber<PageBean<RecommendDocAndNurBean>>(getContext(), getDisposable(), false, false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getListHomeRecommendDoctor(map), new HttpSubscriber<PageBean<RecommendDocAndNurBean>>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable PageBean<RecommendDocAndNurBean> data) {
                 List<RecommendDocAndNurBean> list = data.getRecords();

@@ -24,21 +24,22 @@ import java.util.Map;
  */
 public class DiagnoseSearchController extends ControllerImpl<DiagnoseSearchView> implements OnRefreshListener, OnLoadMoreListener {
 
-    Map<String,Object> mCurrentMap;
+    Map<String, Object> mCurrentMap;
 
     /**
      * 查询医生或者护士
      */
-    public void searchDoctor(Map<String,Object> map, TypeEnum type){
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getListHomeRecommendDoctor(map), new HttpSubscriber<PageBean<RecommendDocAndNurBean>>(getContext(),getDisposable(),false) {
+    public void searchDoctor(Map<String, Object> map, TypeEnum type) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getListHomeRecommendDoctor(map), new HttpSubscriber<PageBean<RecommendDocAndNurBean>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable PageBean<RecommendDocAndNurBean> data) {
                 mCurrentMap = map;
-                getView().getSearchSuccess(data.getRecords(),type);
+                getView().getSearchSuccess(data.getRecords(), type);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getSearchFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -47,12 +48,12 @@ public class DiagnoseSearchController extends ControllerImpl<DiagnoseSearchView>
 
     @Override
     public void onLoadMore(RefreshLayout refreshLayout) {
-        searchDoctor(mCurrentMap,TypeEnum.LOAD_MORE);
+        searchDoctor(mCurrentMap, TypeEnum.LOAD_MORE);
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshLayout) {
         setDefaultPage();
-        searchDoctor(mCurrentMap,TypeEnum.REFRESH);
+        searchDoctor(mCurrentMap, TypeEnum.REFRESH);
     }
 }
