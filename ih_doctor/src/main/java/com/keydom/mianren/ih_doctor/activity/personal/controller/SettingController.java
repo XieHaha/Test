@@ -58,14 +58,14 @@ public class SettingController extends ControllerImpl<MyVisitingCardView> implem
             default:
         }
     }
+
     /**
      * 退出登录
      */
     private void loginoutFromService() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).logout(), new HttpSubscriber<Object>(getContext(),getDisposable(),false,false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).logout(), new HttpSubscriber<Object>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable Object data) {
-
                 PushManager.deleteAlias(getContext());
                 SharePreferenceManager.setToken("Bearer ");
                 SharePreferenceManager.setImToken("");
@@ -78,7 +78,8 @@ public class SettingController extends ControllerImpl<MyVisitingCardView> implem
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 PushManager.deleteAlias(getContext());
                 SharePreferenceManager.setToken("Bearer ");
                 SharePreferenceManager.setImToken("");

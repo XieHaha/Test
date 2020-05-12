@@ -389,9 +389,10 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 
         } else {
-            UserInfo userInfo = (UserInfo) LocalizationUtils.readFileFromLocal(getContext(), "userInfo");
+            UserInfo userInfo = (UserInfo) LocalizationUtils.readFileFromLocal(getContext(),
+                    "userInfo");
             if (Global.getUserId() != -1 && userInfo != null) {
-                if (userInfo.getIsVip() != 1) {
+                if (userInfo.getMember() != 1) {
                     notLoginUiInit();
                     unLoginLayout.setVisibility(View.GONE);
                     if (userInfo.getUserImage() != null && !"".equals(userInfo.getUserImage())) {

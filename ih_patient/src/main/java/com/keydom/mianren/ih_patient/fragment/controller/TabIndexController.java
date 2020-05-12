@@ -17,7 +17,6 @@ import com.keydom.mianren.ih_patient.activity.member.MemberDetailActivity;
 import com.keydom.mianren.ih_patient.activity.my_message.MyMessageActivity;
 import com.keydom.mianren.ih_patient.bean.CityBean;
 import com.keydom.mianren.ih_patient.bean.Event;
-import com.keydom.mianren.ih_patient.bean.HealthKnowledgeBean;
 import com.keydom.mianren.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.mianren.ih_patient.bean.IndexData;
 import com.keydom.mianren.ih_patient.bean.IndexFunction;
@@ -60,7 +59,8 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
                 ChooseCityActivity.start(getContext());
                 break;
             case R.id.search_layout:
-//                Toast.makeText(getContext(), "点击了Search", Toast.LENGTH_SHORT).show();
+                //                Toast.makeText(getContext(), "点击了Search", Toast.LENGTH_SHORT)
+                //                .show();
                 SearchActivity.start(getContext());
                 break;
             case R.id.qr_code_layout:
@@ -80,9 +80,9 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
                 break;
             case R.id.more_tv:
                 if (getView().getNoticeList() != null && getView().getNoticeList().size() > 0)
-                    MyMessageActivity.start(getContext(), Type.NOTICEMESSAGE,null);
+                    MyMessageActivity.start(getContext(), Type.NOTICEMESSAGE, null);
                 else
-                    ToastUtil.showMessage(getContext(),"暂无通知公告");
+                    ToastUtil.showMessage(getContext(), "暂无通知公告");
                 break;
             default:
         }
@@ -107,7 +107,9 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
                 Global.setFuncitonList(data);
                 String filename = "index_function_" + Global.getUserId();
                 String allFunctionFilename = "all_function_" + Global.getUserId();
-                List<IndexFunction> dataList = (List<IndexFunction>) LocalizationUtils.readFileFromLocal(getContext(), filename);
+                List<IndexFunction> dataList =
+                        (List<IndexFunction>) LocalizationUtils.readFileFromLocal(getContext(),
+                                filename);
                 List<IndexFunction> savedLocalFunction = new ArrayList<>();
                 if (dataList != null && dataList.size() != 0) {
                     Map<Long, IndexFunction> id2IndexFunctionServerMap = new LinkedHashMap<>();
@@ -122,23 +124,26 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
                     }
 
 
-                    for (Map.Entry<Long, IndexFunction> entry : id2IndexFunctionLocalMap.entrySet()) {
+                    for (Map.Entry<Long, IndexFunction> entry :
+                            id2IndexFunctionLocalMap.entrySet()) {
                         if (null != id2IndexFunctionServerMap.get(entry.getKey())) {
                             id2IndexFunctionServerMap.get(entry.getKey()).setSelected(true);
                             savedLocalFunction.add(id2IndexFunctionServerMap.get(entry.getKey()));
                         }
                     }
                     List<IndexFunction> savedServiceFunction = new ArrayList<>();
-                    for (Map.Entry<Long, IndexFunction> entry : id2IndexFunctionServerMap.entrySet()) {
+                    for (Map.Entry<Long, IndexFunction> entry :
+                            id2IndexFunctionServerMap.entrySet()) {
                         savedServiceFunction.add(id2IndexFunctionServerMap.get(entry.getKey()));
                     }
                     if (Global.getUserId() != -1) {
-                        LocalizationUtils.fileSave2Local(getContext(), savedLocalFunction, filename);
+                        LocalizationUtils.fileSave2Local(getContext(), savedLocalFunction,
+                                filename);
                         Logger.e("更改后菜单配置写入成功");
 
                     }
                     LocalizationUtils.fileSave2Local(getContext(), data, allFunctionFilename);
-//                    Global.setFuncitonList(data);
+                    //                    Global.setFuncitonList(data);
                 } else {
                     int size = data.size() > 7 ? 7 : data.size();
                     for (int i = 0; i < size; i++) {
@@ -148,10 +153,11 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
                         savedLocalFunction.add(data.get(i));
                     }
                     LocalizationUtils.fileSave2Local(getContext(), data, allFunctionFilename);
-//                    Global.setFuncitonList(data);
-//                    savedLocalFunction.addAll(data);
+                    //                    Global.setFuncitonList(data);
+                    //                    savedLocalFunction.addAll(data);
                     if (Global.getUserId() != -1) {
-                        LocalizationUtils.fileSave2Local(getContext(), savedLocalFunction, filename);
+                        LocalizationUtils.fileSave2Local(getContext(), savedLocalFunction,
+                                filename);
                         Logger.e("首次菜单配置写入成功");
 
                     }
@@ -166,7 +172,8 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().dataRequestFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -187,7 +194,8 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().dataRequestFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -203,19 +211,21 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
         map.put("currentPage", currentPage);
         map.put("pageSize", 10);
         map.put("hospitalId", App.hospitalId);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(IndexService.class).getHealthKnowledgeLimit(map), new HttpSubscriber<HealthKnowledgeBean>(getContext(), getDisposable(), false) {
-            @Override
-            public void requestComplete(@Nullable HealthKnowledgeBean data) {
-                getView().setArticleData(data.getRecords());
-            }
-
-            @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-//                getView().dataRequestFailed(msg);
-                return super.requestError(exception, code, msg);
-            }
-        });
-
+        //        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(IndexService
+        //        .class).getHealthKnowledgeLimit(map), new HttpSubscriber<HealthKnowledgeBean>
+        //        (getContext(), getDisposable(), false) {
+        //            @Override
+        //            public void requestComplete(@Nullable HealthKnowledgeBean data) {
+        //                getView().setArticleData(data.getRecords());
+        //            }
+        //
+        //            @Override
+        //            public boolean requestError(@NotNull ApiException exception, int code,
+        //            @NotNull String msg) {
+        ////                getView().dataRequestFailed(msg);
+        //                return super.requestError(exception, code, msg);
+        //            }
+        //        });
     }
 
 
@@ -230,7 +240,8 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 return super.requestError(exception, code, msg);
             }
         });
@@ -243,7 +254,7 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
         getView().setPicBannerData(data.getHeaderbanner());
         getView().setAdBannerData(data.getAdvertisement());
         getView().setNoticeData(data.getNotifications());
-//        getView().setArticleData(data.getHealthKnowledges());
+        //        getView().setArticleData(data.getHealthKnowledges());
         getView().setRedPointView(data);
         EventBus.getDefault().post(new MainLoadingEvent());
     }

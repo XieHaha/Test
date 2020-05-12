@@ -14,9 +14,11 @@ import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.member.controller.SignMemberController;
 import com.keydom.mianren.ih_patient.activity.member.view.SignMemberView;
 import com.keydom.mianren.ih_patient.bean.Event;
+import com.keydom.mianren.ih_patient.bean.UserInfo;
 import com.keydom.mianren.ih_patient.bean.VIPCardInfoResponse;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.constant.Global;
+import com.keydom.mianren.ih_patient.utils.LocalizationUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
@@ -76,7 +78,8 @@ public class SignMemberActivity extends BaseControllerActivity<SignMemberControl
         if (null != mVIPCardInfo) {
             mPriceTv.setText(mVIPCardInfo.getPrice() + "元");
             mToPayTv.setText("去付款" + mVIPCardInfo.getPrice() + "元");
-            mDescTv.setText(TextUtils.isEmpty(mVIPCardInfo.getDescription()) ? "" : mVIPCardInfo.getDescription());
+            mDescTv.setText(TextUtils.isEmpty(mVIPCardInfo.getDescription()) ? "" :
+                    mVIPCardInfo.getDescription());
         }
     }
 
@@ -111,6 +114,11 @@ public class SignMemberActivity extends BaseControllerActivity<SignMemberControl
     @Override
     public void paySuccess() {
         Global.setMember(1);
+        UserInfo userInfo = (UserInfo) LocalizationUtils.readFileFromLocal(this, "userInfo");
+        if (userInfo != null) {
+            userInfo.setMember(1);
+        }
+        LocalizationUtils.fileSave2Local(getContext(), userInfo, "userInfo");
         EventBus.getDefault().post(new Event(EventType.UPDATELOGINSTATE, null));
         ActivityStackManager.getInstance().finishActivity(MemberDetailActivity.class);
         MemberDetailActivity.start(this);

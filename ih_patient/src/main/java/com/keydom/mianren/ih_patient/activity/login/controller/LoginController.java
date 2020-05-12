@@ -77,11 +77,9 @@ public class LoginController extends ControllerImpl<ILoginView> implements View.
         map.put("password", MD5.getStringMD5(getView().getPassword()));
         if (getView().isLoginLocked())
             map.put("code", getView().getValidateCode());
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).doLogin(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<UserInfo>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).doLogin(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<UserInfo>(getContext(), getDisposable(), true,false) {
             @Override
             public void requestComplete(@Nullable UserInfo data) {
-                hideLoading();
                 ImClient.loginIM(data.getId() + "", data.getImToken(), new OnLoginListener() {
                     @Override
                     public void success(String msg) {
@@ -107,7 +105,6 @@ public class LoginController extends ControllerImpl<ILoginView> implements View.
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 if (code == 305) {
                     getView().loginLocked();
                     getValidateCode(getView().getAccountMobile());
