@@ -19,8 +19,6 @@ import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.ToastUtil;
-import com.keydom.ih_common.view.PageIndicatorView;
-import com.keydom.ih_common.view.PageRecyclerView;
 import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.consulting_arrange.ConsultingArrangeActivity;
@@ -63,9 +61,6 @@ import java.util.List;
  * 修改时间：18/11/5 下午5:25
  */
 public class WorkFragment extends BaseControllerFragment<WorkFragmentController> implements WorkFragmentView {
-    private RecyclerView.Adapter rwAdapter = null;
-    private PageRecyclerView workFunctionRecyclerView;
-    private PageIndicatorView indicatorView;
     private ImageView iconCircleImageView;
     private ImageView editTv;
     private TextView userNameTv;
@@ -84,7 +79,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
     private ScrollView scrollView;
     private RelativeLayout titleBarLayout;
     private Button searchButton;
-    private List<IndexMenuBean> dataList = new ArrayList<>();
+    private List<IndexMenuBean> dataList;
     private HomeBean homeBean;
     private RefreshLayout refreshLayout;
     private RecyclerView work_function_rv;
@@ -114,7 +109,6 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         EventBus.getDefault().register(this);
         receive_redpoint_view = getView().findViewById(R.id.receive_redpoint_view);
         cooperate_redpoint_view = getView().findViewById(R.id.cooperate_redpoint_view);
-        indicatorView = getView().findViewById(R.id.indicator);
         iconCircleImageView = getView().findViewById(R.id.user_icon);
         work_function_rv = getView().findViewById(R.id.work_function_rv);
         RvWidth = getRvWidth();
@@ -209,7 +203,6 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
             }
         });
         work_function_rv.setAdapter(workFunctionAdapter);
-        workFunctionRecyclerView = getView().findViewById(R.id.work_function_rw);
         editTv = getView().findViewById(R.id.edit);
         userNameTv = getView().findViewById(R.id.user_name);
         refreshLayout = getView().findViewById(R.id.refreshLayout);
@@ -318,7 +311,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         //        hospitalTv.setText(bean.getInfo().getHospitalName());
         departmentTv.setText(bean.getInfo().getDeptName());
         doctorTitle.setText(bean.getInfo().getJobTitle());
-        dataList.clear();
+        dataList = new ArrayList<>();
         dataList.addAll(bean.getList());
         for (int i = 0; i < dataList.size(); i++) {
             IndexMenuBean menuBean = dataList.get(i);
@@ -360,16 +353,14 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         }
 
         //TODO 模拟健康管理数据
-        IndexMenuBean menuBean = new IndexMenuBean();
-        menuBean.setName("健康管理");
+        //        IndexMenuBean menuBean = new IndexMenuBean();
+        //        menuBean.setName("健康管理");
         IndexMenuBean menuBean1 = new IndexMenuBean();
         menuBean1.setName("分诊接收");
-        dataList.add(menuBean);
+        //        dataList.add(menuBean);
         dataList.add(menuBean1);
 
-
         workFunctionAdapter.setNewData(dataList);
-
         if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
             if (receiveNurse > 0 || visitNurse > 0)
                 receive_redpoint_view.setVisibility(View.VISIBLE);

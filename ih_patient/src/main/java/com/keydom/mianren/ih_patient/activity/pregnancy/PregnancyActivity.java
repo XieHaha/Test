@@ -86,7 +86,8 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         getTitleLayout().setBackgroundColor(getResources().getColor(R.color.vip_pregnancy_tool_bar_bg));
         setTitle("产检预约");
 
-        MedicalCardInfo mMedicalCardInfo = (MedicalCardInfo) getIntent().getSerializableExtra(Const.MEDICAL_CARD_INFO);
+        MedicalCardInfo mMedicalCardInfo =
+                (MedicalCardInfo) getIntent().getSerializableExtra(Const.MEDICAL_CARD_INFO);
         mCardNumber = mMedicalCardInfo.getEleCardNumber();
         //mCardNumber = "37e0fcd8-c38f-43e4-b";
 
@@ -148,35 +149,33 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
     }
 
     @Override
-    public void listPersonInspectionRecordSuccess(List<PregnancyRecordItem> list, TypeEnum typeEnum) {
-        mRefreshLayout.finishLoadMore();
+    public void listPersonInspectionRecordSuccess(List<PregnancyRecordItem> list,
+                                                  TypeEnum typeEnum) {
         mRefreshLayout.finishRefresh();
         pageLoadingSuccess();
-
-
-        if (null != list) {
-
-            for (int i = 0; i < list.size(); i++) {
-                PregnancyRecordItem data = list.get(i);
-                if (!data.isFinsh()) {
-                    mRecordId = data.getRecordId();
-                    orderNext(data);
-                    list.remove(i);
-                    break;
-                }
-            }
-
-
-            if (typeEnum == TypeEnum.REFRESH) {
-                mFinishOrderCountsTv.setText("已完成" + list.size() + "次产检");
-                mAdapter.replaceData(list);
-            } else {
-                mAdapter.addData(list);
-            }
-
-            getController().currentPagePlus();
+        if (list.size() >= Const.PAGE_SIZE) {
+            mRefreshLayout.finishLoadMore();
+        } else {
+            mRefreshLayout.finishLoadMoreWithNoMoreData();
         }
 
+        for (int i = 0; i < list.size(); i++) {
+            PregnancyRecordItem data = list.get(i);
+            if (!data.isFinsh()) {
+                mRecordId = data.getRecordId();
+                orderNext(data);
+                list.remove(i);
+                break;
+            }
+        }
+
+        if (typeEnum == TypeEnum.REFRESH) {
+            mFinishOrderCountsTv.setText("已完成" + list.size() + "次产检");
+            mAdapter.replaceData(list);
+        } else {
+            mAdapter.addData(list);
+        }
+        getController().currentPagePlus();
     }
 
     @Override

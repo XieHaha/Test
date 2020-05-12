@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
-import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.ControllerImpl;
@@ -14,10 +13,11 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.pregnancy.ChooseInspectItemActivity;
-import com.keydom.mianren.ih_patient.activity.pregnancy.view.PregnancyDetailView;
+import com.keydom.mianren.ih_patient.activity.pregnancy.view.PregnancyReserveView;
 import com.keydom.mianren.ih_patient.bean.CheckProjectsItem;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderTime;
 import com.keydom.mianren.ih_patient.net.PregnancyService;
+import com.keydom.mianren.ih_patient.utils.DateUtils;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PregnancyDetailController extends ControllerImpl<PregnancyDetailView> implements View.OnClickListener {
+public class PregnancyReserveController extends ControllerImpl<PregnancyReserveView> implements View.OnClickListener {
 
 
     @Override
@@ -81,21 +81,22 @@ public class PregnancyDetailController extends ControllerImpl<PregnancyDetailVie
 
 
     private void showDateDialog(String dateStr) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
+        SimpleDateFormat formatter = new SimpleDateFormat(DateUtils.YYYY_MM_DD);
+        Date date;
         try {
             if (!TextUtils.isEmpty(dateStr)) {
                 date = formatter.parse(dateStr);
-            } else
+            } else {
                 date = new Date();
+            }
+            Calendar startDate = Calendar.getInstance();
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
-            TimePickerView pvTime = new TimePickerBuilder(getContext(), new OnTimeSelectListener() {
-                @Override
-                public void onTimeSelect(Date date, View v) {
-                    getView().setOrderDate(date);
-                }
-            }).setDate(calendar).build();
+            TimePickerView pvTime = new TimePickerBuilder(getContext(),
+                    (date1, v) -> getView().setOrderDate(date1))
+                    .setDate(calendar)
+                    .setRangDate(startDate, null)
+                    .build();
             pvTime.show();
         } catch (ParseException e) {
             e.printStackTrace();
@@ -116,7 +117,8 @@ public class PregnancyDetailController extends ControllerImpl<PregnancyDetailVie
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getCheckProjectsFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -137,7 +139,8 @@ public class PregnancyDetailController extends ControllerImpl<PregnancyDetailVie
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getCheckProjectsTimesFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -165,7 +168,8 @@ public class PregnancyDetailController extends ControllerImpl<PregnancyDetailVie
 
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }

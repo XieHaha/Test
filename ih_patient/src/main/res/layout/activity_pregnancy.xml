@@ -285,7 +285,7 @@
                                 android:paddingTop="7dp"
                                 android:paddingRight="13dp"
                                 android:paddingBottom="7dp"
-                                android:text="检查预约"
+                                android:text="产检预约"
                                 android:textColor="@color/black"
                                 android:textSize="12sp"
                                 android:visibility="gone" />

@@ -7,7 +7,7 @@ import com.keydom.mianren.ih_patient.bean.PregnancyOrderTime;
 import java.util.Date;
 import java.util.List;
 
-public interface PregnancyDetailView extends BaseView {
+public interface PregnancyReserveView extends BaseView {
 
     void setOrderDate(Date date);
 

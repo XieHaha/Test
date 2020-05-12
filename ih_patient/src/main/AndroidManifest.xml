@@ -463,7 +463,7 @@
             android:name=".activity.pregnancy.PregnancyActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".activity.pregnancy.PregnancyDetailActivity"
+            android:name=".activity.pregnancy.PregnancyReverseActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.health_card.HealthCardDetailActivity"

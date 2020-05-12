@@ -9,7 +9,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.pregnancy.PregnancyDetailActivity;
+import com.keydom.mianren.ih_patient.activity.pregnancy.PregnancyReverseActivity;
 import com.keydom.mianren.ih_patient.activity.pregnancy.PregnancyOrderDetailActivity;
 import com.keydom.mianren.ih_patient.activity.pregnancy.view.PregnancyView;
 import com.keydom.mianren.ih_patient.bean.PregnancyDetailBean;
@@ -22,6 +22,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PregnancyController extends ControllerImpl<PregnancyView> implements View.OnClickListener {
 
 
@@ -29,16 +32,20 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pregnancy_order_root_Ll:
-                PregnancyOrderDetailActivity.start(getContext(),getView().getPregnancyDetail(),getView().getRecordID());
+                PregnancyOrderDetailActivity.start(getContext(), getView().getPregnancyDetail(),
+                        getView().getRecordID());
                 break;
             case R.id.pregnancy_order_now_tv:
-                PregnancyDetailActivity.start(getContext(),getView().getRecordID(),Const.PREGNANCY_ORDER_TYPE_ALL);
+                PregnancyReverseActivity.start(getContext(), getView().getRecordID(),
+                        Const.PREGNANCY_ORDER_TYPE_ALL);
                 break;
             case R.id.pregnancy_order_check_tv:
-                PregnancyDetailActivity.start(getContext(),getView().getRecordID(),Const.PREGNANCY_ORDER_TYPE_CHECK);
+                PregnancyReverseActivity.start(getContext(), getView().getRecordID(),
+                        Const.PREGNANCY_ORDER_TYPE_CHECK);
                 break;
             case R.id.pregnancy_order_doctor_tv:
-                PregnancyDetailActivity.start(getContext(),getView().getRecordID(),Const.PREGNANCY_ORDER_TYPE_DIAGNOSE);
+                PregnancyReverseActivity.start(getContext(), getView().getRecordID(),
+                        Const.PREGNANCY_ORDER_TYPE_DIAGNOSE);
                 break;
         }
     }
@@ -47,7 +54,8 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
     /**
      * APP-获取个人产检列表
      */
-    public void listPersonInspectionRecord(SmartRefreshLayout refreshLayout, String cardNumber, final TypeEnum typeEnum) {
+    public void listPersonInspectionRecord(SmartRefreshLayout refreshLayout, String cardNumber,
+                                           final TypeEnum typeEnum) {
         if (typeEnum == TypeEnum.REFRESH) {
             setCurrentPage(1);
         }
@@ -55,12 +63,17 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
             @Override
             public void requestComplete(@Nullable PageBean<PregnancyRecordItem> data) {
                 if (data != null) {
-                    getView().listPersonInspectionRecordSuccess(data.getRecords(), typeEnum);
+                    List<PregnancyRecordItem> list = data.getRecords();
+                    if (list == null) {
+                        list = new ArrayList<>();
+                    }
+                    getView().listPersonInspectionRecordSuccess(list, typeEnum);
                 }
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().listPersonInspectionRecordFailed(msg);
                 refreshLayout.finishLoadMore();
                 refreshLayout.finishRefresh();
@@ -84,7 +97,8 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getPregnancyDetailFailed(msg);
                 return super.requestError(exception, code, msg);
             }

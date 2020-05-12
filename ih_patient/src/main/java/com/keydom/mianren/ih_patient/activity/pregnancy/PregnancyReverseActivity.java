@@ -16,8 +16,8 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.pregnancy.controller.PregnancyDetailController;
-import com.keydom.mianren.ih_patient.activity.pregnancy.view.PregnancyDetailView;
+import com.keydom.mianren.ih_patient.activity.pregnancy.controller.PregnancyReserveController;
+import com.keydom.mianren.ih_patient.activity.pregnancy.view.PregnancyReserveView;
 import com.keydom.mianren.ih_patient.adapter.PrenancyOrderTimeAdapter;
 import com.keydom.mianren.ih_patient.bean.CheckProjectsItem;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderTime;
@@ -32,8 +32,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDetailController> implements PregnancyDetailView {
-
+public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyReserveController> implements PregnancyReserveView {
 
     private PrenancyOrderTimeAdapter mAdapter;
 
@@ -55,7 +54,6 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
     private boolean isOrderDiagnose = false;
 
 
-
     private String mRecordId;
     private long mPrenatalProjectId;
     private int mPrenancyType;
@@ -65,7 +63,7 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
      * 启动
      */
     public static void start(Context context, String recordId, int type) {
-        Intent intent = new Intent(context, PregnancyDetailActivity.class);
+        Intent intent = new Intent(context, PregnancyReverseActivity.class);
         intent.putExtra(Const.PREGNANCY_ORDER_TYPE, type);
         intent.putExtra(Const.RECORD_ID, recordId);
         context.startActivity(intent);
@@ -74,7 +72,7 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
 
     @Override
     public int getLayoutRes() {
-        return R.layout.activity_pregnancy_detail;
+        return R.layout.activity_pregnancy_reserve;
     }
 
     @Override
@@ -88,7 +86,8 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
         setTitle("产检预约");
 
         mRecordId = (String) getIntent().getSerializableExtra(Const.RECORD_ID);
-        mPrenancyType = getIntent().getIntExtra(Const.PREGNANCY_ORDER_TYPE, Const.PREGNANCY_ORDER_TYPE_ALL);
+        mPrenancyType = getIntent().getIntExtra(Const.PREGNANCY_ORDER_TYPE,
+                Const.PREGNANCY_ORDER_TYPE_ALL);
 
         mRecyclerView = findViewById(R.id.pregnancy_detail_time_rv);
         mDateTv = findViewById(R.id.pregnancy_order_date_tv);
@@ -111,7 +110,6 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
         mCheckProjectsRootRl.setOnClickListener(getController());
         mOrderCheckRootLl.setOnClickListener(getController());
         mOrderDiagnoseRootLl.setOnClickListener(getController());
-
 
 
         showLayoutAndLogic(mPrenancyType);
@@ -180,7 +178,8 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                PregnancyOrderTime pregnancyOrderTime = (PregnancyOrderTime) adapter.getData().get(position);
+                PregnancyOrderTime pregnancyOrderTime =
+                        (PregnancyOrderTime) adapter.getData().get(position);
                 pregnancyOrderTime.setSelected(!pregnancyOrderTime.isSelected());
                 for (int i = 0; i < adapter.getData().size(); i++) {
                     PregnancyOrderTime data = (PregnancyOrderTime) adapter.getData().get(i);
@@ -283,7 +282,8 @@ public class PregnancyDetailActivity extends BaseControllerActivity<PregnancyDet
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case ChooseInspectItemActivity.CHOOSE_INSPECT_ITEM:
-                    List<CheckProjectsItem> projectsItems = (List<CheckProjectsItem>) data.getSerializableExtra(Const.DATA);
+                    List<CheckProjectsItem> projectsItems =
+                            (List<CheckProjectsItem>) data.getSerializableExtra(Const.DATA);
                     if (null != projectsItems && projectsItems.size() > 0) {
                         mPrenatalProjectId = projectsItems.get(0).getId();
                         mCheckProjectsTv.setText(projectsItems.get(0).getAntepartumExamProjectName());
