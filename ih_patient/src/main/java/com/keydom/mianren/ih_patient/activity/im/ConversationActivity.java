@@ -311,6 +311,17 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private long orderId;
 
     /**
+     * 预付费用户扣费
+     */
+    private LinearLayout prePayLayout;
+    private TextView prePayNextTv;
+
+    /**
+     * 普通用户扣费
+     */
+    private LinearLayout normalLayout;
+
+    /**
      * 成员邀请
      */
     public static final int SELECT_MEMBER = 1000;
@@ -427,7 +438,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         bean.setTriageExplain(attachment.getContent());
                         bean.setGroupTid(attachment.getGroupTid());
                         bean.setDept(attachment.getDept());
-                        bean.setTriageTime(DateUtils.getDate(attachment.getApplyTime(),DateUtils.YYYY_MM_DD_HH_MM_SS));
+                        bean.setTriageTime(DateUtils.getDate(attachment.getApplyTime(),
+                                DateUtils.YYYY_MM_DD_HH_MM_SS));
                         bean.setDiseaseData(StringUtil.join(attachment.getImages(), ","));
                         TriageOrderDetailActivity.startWithAction(context, bean,
                                 null, true);
@@ -593,7 +605,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     mRightText2.setText("在线问诊");
                     mRightText.setText("挂号");
                 } else {
-//                    mRightText.setText("在线咨询");
+                    //                    mRightText.setText("在线咨询");
                 }
             }
         } else {
@@ -1526,6 +1538,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mPyName = view.findViewById(R.id.tv_shop_name);
         mDeliveryCostTv = view.findViewById(R.id.tv_logistic_fee);
 
+        //普通用户
+        normalLayout = view.findViewById(R.id.pay_outside_normal);
+        //预付费
+        prePayLayout = view.findViewById(R.id.pay_outside_vip);
+        prePayNextTv = view.findViewById(R.id.prepaid_order_next_tv);
+
 
         //todo 跳转选择地址界面
         addressSelect.setOnClickListener(new View.OnClickListener() {
@@ -1679,6 +1697,40 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 //   ToastUtils.showShort("暂未接入支付");
             }
         });
+
+        if (Global.isMember()) {
+            normalLayout.setVisibility(View.GONE);
+            prePayLayout.setVisibility(View.VISIBLE);
+            prePayNextTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    payWaiType = Type.PREPAY;
+                    PharmacyBean pharmacyBean = null;
+                    if (mRadioHome.isChecked()) {
+                        if (mWaiYanAddressId == 0) {
+                            ToastUtils.showShort("请选择配送地址");
+                            return;
+                        }
+                        pharmacyBean = mPharmacyBeans.get(0);
+                    } else {
+                        if (CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)) {
+                            ToastUtils.showShort("请选择药店");
+                            return;
+                        }
+                        pharmacyBean = mPharmacyBean;
+                    }
+                    //去支付
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("orderId", isPayOrderId);
+                    map.put("type", 4);
+                    updatePrescriptionOrder(true, map);
+                    bottomWaiYanSheetDialog.dismiss();
+                }
+            });
+        } else {
+            normalLayout.setVisibility(View.VISIBLE);
+            prePayLayout.setVisibility(View.GONE);
+        }
 
 
         //  mTotalPayTv.setText("去付款¥" + totalFee + "元");
@@ -1891,11 +1943,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 if (isOnline) {
                     if (payWaiType.equals(Type.WECHATPAY)) {
                         getController().inquiryPay(payMap, 1);
-                    }
-                    if (payWaiType.equals(Type.ALIPAY)) {
+                    } else if (payWaiType.equals(Type.ALIPAY)) {
                         getController().inquiryPay(payMap, 2);
+                    } else if (payWaiType.equals(Type.PREPAY)) {
+                        getController().inquiryPay(payMap, 4);
                     }
-
                 } else {
                     paySuccess();
                     ToastUtils.showShort("提交成功");

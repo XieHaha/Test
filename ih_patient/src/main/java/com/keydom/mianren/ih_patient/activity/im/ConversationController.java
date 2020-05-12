@@ -125,14 +125,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                                     new Alipay.AlipayResultCallBack() {
                                         @Override
                                         public void onSuccess() {
-                                            ToastUtil.showMessage(getContext(), "支付成功");
-                                            new GeneralDialog(getContext(), "支付成功",
-                                                    new GeneralDialog.OnCloseListener() {
-                                                        @Override
-                                                        public void onCommit() {
-                                                            getView().paySuccess();
-                                                        }
-                                                    }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
+                                            paySuccess();
                                         }
 
                                         @Override
@@ -159,14 +152,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                                 new WXPay.WXPayResultCallBack() {
                                     @Override
                                     public void onSuccess() {
-                                        ToastUtil.showMessage(getContext(), "支付成功");
-                                        new GeneralDialog(getContext(), "支付成功",
-                                                new GeneralDialog.OnCloseListener() {
-                                                    @Override
-                                                    public void onCommit() {
-                                                        getView().paySuccess();
-                                                    }
-                                                }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
+                                        paySuccess();
                                     }
 
                                     @Override
@@ -180,8 +166,10 @@ public class ConversationController extends ControllerImpl<ConversationView> {
 
                                     }
                                 });
+                    } else if (type == 4) {
+                        //预付费
+                        paySuccess();
                     }
-
                 }
             });
         }
@@ -377,5 +365,11 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                 return super.requestError(exception, code, msg);
             }
         });
+    }
+
+    private void paySuccess() {
+        ToastUtil.showMessage(getContext(), "支付成功");
+        new GeneralDialog(getContext(), "支付成功",
+                () -> getView().paySuccess()).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
     }
 }

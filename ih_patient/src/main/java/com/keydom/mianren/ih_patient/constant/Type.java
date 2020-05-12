@@ -18,6 +18,7 @@ public class Type {
     public static final String ALIPAY = "aliPay";
     public static final String WECHATPAY = "wechatPay";
     public static final String UNIONPAY = "unionPay";
+    public static final String PREPAY = "prepay";
 
     public static final String PHYSICALEXACOMMENTSRELOAD = "reload";
     public static final String PHYSICALEXACOMMENTSLOADMORE = "load_more";

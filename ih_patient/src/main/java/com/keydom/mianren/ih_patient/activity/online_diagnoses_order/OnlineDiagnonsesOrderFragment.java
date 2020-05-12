@@ -446,7 +446,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
 
         //区别普通用户和预付费用户
         payOutSideNormalLayout = view.findViewById(R.id.pay_outside_normal);
-        payOutSideVipLayout = view.findViewById(R.id.pay_outside_normal);
+        payOutSideVipLayout = view.findViewById(R.id.pay_outside_vip);
         payOutSideNextTv = view.findViewById(R.id.prepaid_order_next_tv);
         if (Global.isMember()) {
             //预付费用户
