@@ -83,7 +83,6 @@ public class TriageOrderFragment extends BaseControllerFragment<TriageOrderFragm
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        //模拟数据
         mAdapter = new TriageOrderAdapter(dataList);
         mAdapter.setOnItemClickListener(getController());
         mAdapter.setStatus(status);

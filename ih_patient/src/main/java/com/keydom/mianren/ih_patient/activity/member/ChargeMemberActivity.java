@@ -91,8 +91,8 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
     @Override
     public double getSelectedPrice() {
         ChargeMemberPriceItemBean lastItem = mDatas.get(mDatas.size() - 1);
-
-        if (lastItem.getPrice() > 0) return lastItem.getPrice();
+        if (lastItem.getPrice() > 0)
+            return lastItem.getPrice();
 
         for (ChargeMemberPriceItemBean item : mDatas) {
             if (item.isSelected()) {
@@ -107,10 +107,10 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
         if (null != data) {
             pageLoadingSuccess();
             if (null != data.getEndTime()) {
-                mEndDateTv.setText(DateUtils.getYMDfromYMDHMS(data.getEndTime()));
+                mEndDateTv.setText(DateUtils.getDate(data.getEndTime(), DateUtils.YYYY_MM_DD));
             }
             mBalanceTv.setText(data.getSurplusAmount() + "元");
-        }else{
+        } else {
             pageEmpty();
         }
     }

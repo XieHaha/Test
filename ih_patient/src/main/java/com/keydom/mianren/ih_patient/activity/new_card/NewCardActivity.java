@@ -43,16 +43,21 @@ import java.util.Map;
 public class NewCardActivity extends BaseControllerActivity<NewCardController> implements NewCardView {
     private LinearLayout new_card_audit_layout;
     private ScrollView new_card_operate_layout;
-    private LinearLayout other_certificate_address_now_layout, other_certificate_address_detail_layout, id_card_region_layout, id_card_address_detail_layout;
-    private LinearLayout contactor_name_layout, contactor_phone_layout, contactor_relationship_layout, id_card_validity_period_layout;
+    private LinearLayout other_certificate_address_now_layout,
+            other_certificate_address_detail_layout, id_card_region_layout,
+            id_card_address_detail_layout;
+    private LinearLayout contactor_name_layout, contactor_phone_layout,
+            contactor_relationship_layout, id_card_validity_period_layout;
     private TextView certificate_type_tv, user_birth_tv, id_card_validity_period_tv;
     private String type, birthDateStr, idCardValidityPeriodDateStr;
     private String idCardValidityStartDateStr;
     private Date birthDate, idCardValidityPeriodDate;
-    private TextView new_card_commit, user_sex_tv, user_national_tv, other_certificate_address_now_tv, id_card_region_tv;
+    private TextView new_card_commit, user_sex_tv, user_national_tv,
+            other_certificate_address_now_tv, id_card_region_tv;
     private TextView mCancelCommitTv;
     private InterceptorEditText userName_edt, certificate_id_edt;
-    private InterceptorEditText other_certificate_address_detail_edt, di_card_address_detail_edt, contactor_name_edt, contactor_phone_edt, contactor_relationship_edt;
+    private InterceptorEditText other_certificate_address_detail_edt, di_card_address_detail_edt,
+            contactor_name_edt, contactor_phone_edt, contactor_relationship_edt;
     private ArrayList<String> cardUrlList;
     private String sexStr = "", nationStr = "", regionStr = "";
     private String provinceName, cityName, areaName;
@@ -63,7 +68,8 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     /**
      * 启动， 为他人办卡
      */
-    public static void start(Context context, String type, List<String> urlList, IdCardBean result) {
+    public static void start(Context context, String type, List<String> urlList,
+                             IdCardBean result) {
         Intent intent = new Intent(context, NewCardActivity.class);
         intent.putExtra(Const.CERTIFICATE_TYPE, type);
         intent.putStringArrayListExtra("urlList", (ArrayList<String>) urlList);
@@ -76,7 +82,8 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     /**
      * 启动 ， 实名认证
      */
-    public static void start(Context context, String type, List<String> urlList, IdCardBean result,boolean isOnlyIdCard) {
+    public static void start(Context context, String type, List<String> urlList,
+                             IdCardBean result, boolean isOnlyIdCard) {
         Intent intent = new Intent(context, NewCardActivity.class);
         intent.putExtra(Const.CERTIFICATE_TYPE, type);
         intent.putExtra("isOnlyIdCard", isOnlyIdCard);
@@ -106,11 +113,11 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     public void initData(@Nullable Bundle savedInstanceState) {
         type = getIntent().getStringExtra(Const.CERTIFICATE_TYPE);
         cardUrlList = getIntent().getStringArrayListExtra("urlList");
-        isOnlyIdCard = getIntent().getBooleanExtra("isOnlyIdCard",false);
+        isOnlyIdCard = getIntent().getBooleanExtra("isOnlyIdCard", false);
 
-        if(type.equals(Const.CARD_ID_CARD) && isOnlyIdCard){
+        if (type.equals(Const.CARD_ID_CARD) && isOnlyIdCard) {
             setTitle("实名认证");
-        }else{
+        } else {
             setTitle("新增就诊卡");
         }
         getController().setOnlyIdCard(isOnlyIdCard);
@@ -121,8 +128,10 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         mCancelCommitTv = this.findViewById(R.id.new_card_layout_cancel_commit_tv);
         mCancelCommitTv.setOnClickListener(getController());
 
-        other_certificate_address_now_layout = this.findViewById(R.id.other_certificate_address_now_layout);
-        other_certificate_address_detail_layout = this.findViewById(R.id.other_certificate_address_detail_layout);
+        other_certificate_address_now_layout =
+                this.findViewById(R.id.other_certificate_address_now_layout);
+        other_certificate_address_detail_layout =
+                this.findViewById(R.id.other_certificate_address_detail_layout);
         contactor_name_layout = this.findViewById(R.id.contactor_name_layout);
         contactor_phone_layout = this.findViewById(R.id.contactor_phone_layout);
         contactor_relationship_layout = this.findViewById(R.id.contactor_relationship_layout);
@@ -133,7 +142,6 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
 
         new_card_commit = this.findViewById(R.id.new_card_commit);
         new_card_commit.setOnClickListener(getController());
-
 
 
         userName_edt = this.findViewById(R.id.userName_edt);
@@ -147,7 +155,8 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
 
         other_certificate_address_now_tv = this.findViewById(R.id.other_certificate_address_now_tv);
         other_certificate_address_now_tv.setOnClickListener(getController());
-        other_certificate_address_detail_edt = this.findViewById(R.id.other_certificate_address_detail_edt);
+        other_certificate_address_detail_edt =
+                this.findViewById(R.id.other_certificate_address_detail_edt);
         contactor_name_edt = this.findViewById(R.id.contactor_name_edt);
         contactor_phone_edt = this.findViewById(R.id.contactor_phone_edt);
         contactor_relationship_edt = this.findViewById(R.id.contactor_relationship_edt);
@@ -159,11 +168,11 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         id_card_validity_period_tv.setOnClickListener(getController());
         if (type.equals(Const.CARD_ID_CARD)) {
             certificate_type_tv.setText("身份证");
-            if(isOnlyIdCard){
+            if (isOnlyIdCard) {
                 contactor_phone_layout.setVisibility(View.GONE);
                 contactor_name_layout.setVisibility(View.GONE);
                 contactor_relationship_layout.setVisibility(View.GONE);
-            }else{
+            } else {
                 contactor_phone_layout.setVisibility(View.VISIBLE);
                 contactor_name_layout.setVisibility(View.VISIBLE);
                 contactor_relationship_layout.setVisibility(View.VISIBLE);
@@ -176,12 +185,12 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
             result = (IdCardBean) getIntent().getSerializableExtra("result");
             if (result.getName() != null && !"".equals(result.getName()))
                 userName_edt.setText(result.getName());
-            if (result.getGender() != null && !"".equals(result.getGender())){
+            if (result.getGender() != null && !"".equals(result.getGender())) {
                 user_sex_tv.setText(result.getGender());
-                if("男".equals(result.getGender())){
-                    sexStr="0";
-                }else {
-                    sexStr="1";
+                if ("男".equals(result.getGender())) {
+                    sexStr = "0";
+                } else {
+                    sexStr = "1";
                 }
             }
 
@@ -189,22 +198,22 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
                 getController().matchNation(result.getEthnic());
             }
             if (result.getBirthday() != null && !"".equals(result.getBirthday())) {
-                birthDateStr=result.getBirthday();
-                user_birth_tv.setText(result.getBirthday().substring(0,4)+"-"+result.getBirthday().substring(4,6)+"-"+result.getBirthday().substring(6));
+                birthDateStr = result.getBirthday();
+                user_birth_tv.setText(result.getBirthday().substring(0, 4) + "-" + result.getBirthday().substring(4, 6) + "-" + result.getBirthday().substring(6));
             }
             if (result.getIdNumber() != null && !"".equals(result.getIdNumber()))
                 certificate_id_edt.setText(result.getIdNumber());
             if (result.getAddress() != null && !"".equals(result.getAddress()))
                 di_card_address_detail_edt.setText(result.getAddress());
             if (result.getExpiryDate() != null && !"".equals(result.getExpiryDate())) {
-                idCardValidityPeriodDateStr=result.getExpiryDate();
-                id_card_validity_period_tv.setText(result.getExpiryDate().substring(0,4)+"-"+result.getExpiryDate().substring(4,6)+"-"+result.getExpiryDate().substring(6));
+                idCardValidityPeriodDateStr = result.getExpiryDate();
+                id_card_validity_period_tv.setText(result.getExpiryDate().substring(0, 4) + "-" + result.getExpiryDate().substring(4, 6) + "-" + result.getExpiryDate().substring(6));
             }
-            if(result.getSignDate() != null && !"".equals(result.getSignDate())){
-                idCardValidityStartDateStr= result.getSignDate();
+            if (result.getSignDate() != null && !"".equals(result.getSignDate())) {
+                idCardValidityStartDateStr = result.getSignDate();
             }
 
-        }else if(type.equals(Const.CARD_GET_INFO)){
+        } else if (type.equals(Const.CARD_GET_INFO)) {
             certificate_type_tv.setText("身份证");
             contactor_phone_layout.setVisibility(View.VISIBLE);
             contactor_name_layout.setVisibility(View.VISIBLE);
@@ -236,7 +245,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
             App.userInfo.setCertification(true);
             EventBus.getDefault().post(new CertificateSuccess());
             finish();
-        }else{
+        } else {
             new_card_operate_layout.setVisibility(View.GONE);
             new_card_audit_layout.setVisibility(View.VISIBLE);
             EventBus.getDefault().post(new CertificateSuccess());
@@ -251,8 +260,8 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     @Override
     public Map<String, Object> getParams() {
         if (type.equals(Const.CARD_ID_CARD)) {
-            return isOnlyIdCard ? getCertificateParams():sendTypeCardParams();
-        } else if(type.equals(Const.CARD_GET_INFO)){
+            return isOnlyIdCard ? getCertificateParams() : sendTypeCardParams();
+        } else if (type.equals(Const.CARD_GET_INFO)) {
             return sendTypeCardParams();
         } else {
             return sendTypeOtherCerTificateParams();
@@ -367,7 +376,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
         Map<String, Object> map = new HashMap<>();
         map.put("userId", Global.getUserId());
         map.put("cardImage", cardUrlList.get(0));
-        map.put("cardImageBack",cardUrlList.get(1));
+        map.put("cardImageBack", cardUrlList.get(1));
         if (userName_edt.getText().toString().trim() != null && !"".equals(userName_edt.getText().toString().trim())) {
             map.put("name", userName_edt.getText().toString().trim());
         } else {
@@ -490,7 +499,8 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
             return null;
         }
         if (other_certificate_address_detail_edt.getText().toString().trim() != null && !"".equals(other_certificate_address_detail_edt.getText().toString().trim())) {
-            map.put("detailAddress", other_certificate_address_detail_edt.getText().toString().trim());
+            map.put("detailAddress",
+                    other_certificate_address_detail_edt.getText().toString().trim());
         } else {
             ToastUtil.showMessage(getContext(), "请输入详细地址");
             return null;
@@ -546,7 +556,8 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     }
 
     @Override
-    public void saveRegion(List<PackageData.ProvinceBean> data, int options1, int option2, int options3) {
+    public void saveRegion(List<PackageData.ProvinceBean> data, int options1, int option2,
+                           int options3) {
         if (data.get(options1).getCity().size() == 0) {
             if (type.equals(Const.CARD_ID_CARD)) {
                 id_card_region_tv.setTextColor(getResources().getColor(R.color.color_333333));
@@ -568,7 +579,8 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
                 other_certificate_address_now_tv.setText(data.get(options1).getName() + "-" + data.get(options1).getCity().get(option2).getName());
                 other_certificate_address_now_tv.setTextColor(getResources().getColor(R.color.color_333333));
             }
-            regionStr = data.get(options1).getCode() + "-" + data.get(options1).getCity().get(option2).getCode();
+            regionStr =
+                    data.get(options1).getCode() + "-" + data.get(options1).getCity().get(option2).getCode();
             provinceName = data.get(options1).getName();
             cityName = data.get(options1).getCity().get(option2).getName();
             areaName = "";
@@ -581,7 +593,8 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
                 other_certificate_address_now_tv.setText(data.get(options1).getName() + "-" + data.get(options1).getCity().get(option2).getName() + "-" + data.get(options1).getCity().get(option2).getArea().get(options3).getName());
                 other_certificate_address_now_tv.setTextColor(getResources().getColor(R.color.color_333333));
             }
-            regionStr = data.get(options1).getCode() + "-" + data.get(options1).getCity().get(option2).getCode() + "-" + data.get(options1).getCity().get(option2).getArea().get(options3).getCode();
+            regionStr =
+                    data.get(options1).getCode() + "-" + data.get(options1).getCity().get(option2).getCode() + "-" + data.get(options1).getCity().get(option2).getArea().get(options3).getCode();
             provinceName = data.get(options1).getName();
             cityName = data.get(options1).getCity().get(option2).getName();
             areaName = data.get(options1).getCity().get(option2).getArea().get(options3).getName();
@@ -636,53 +649,54 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
     @Override
     public void matchNation(PackageData.NationBean nationBean) {
         user_national_tv.setText(nationBean.getNationName());
-        nationStr=nationBean.getNotionCode();
+        nationStr = nationBean.getNotionCode();
     }
 
     @Override
     public void getIdCardSuccess(IdCardInfo idCardInfo) {
 
-        if(null != idCardInfo){
+        if (null != idCardInfo) {
 
-            if(!TextUtils.isEmpty(idCardInfo.getName())){
+            if (!TextUtils.isEmpty(idCardInfo.getName())) {
                 userName_edt.setText(idCardInfo.getName());
             }
 
-            if(!TextUtils.isEmpty(idCardInfo.getSex())){
+            if (!TextUtils.isEmpty(idCardInfo.getSex())) {
                 sexStr = idCardInfo.getSex();
-                user_sex_tv.setText("0".equals(sexStr)? "男" : "女");
+                user_sex_tv.setText("0".equals(sexStr) ? "男" : "女");
             }
 
 
-            if(!TextUtils.isEmpty(idCardInfo.getNation())){
+            if (!TextUtils.isEmpty(idCardInfo.getNation())) {
                 nationStr = idCardInfo.getNation();
             }
 
-            if(!TextUtils.isEmpty(idCardInfo.getNationName())){
+            if (!TextUtils.isEmpty(idCardInfo.getNationName())) {
                 user_national_tv.setText(idCardInfo.getNationName());
             }
 
-            if(!TextUtils.isEmpty(idCardInfo.getCardNumber())){
+            if (!TextUtils.isEmpty(idCardInfo.getCardNumber())) {
                 certificate_id_edt.setText(idCardInfo.getCardNumber());
             }
 
-            if(!TextUtils.isEmpty(idCardInfo.getDetailAddress())){
+            if (!TextUtils.isEmpty(idCardInfo.getDetailAddress())) {
                 di_card_address_detail_edt.setText(idCardInfo.getDetailAddress());
             }
 
-            if(!TextUtils.isEmpty(idCardInfo.getBirthDate())){
-                birthDateStr = DateUtils.getYMDfromYMDHMSNoFormat(idCardInfo.getBirthDate());
-                user_birth_tv.setText(DateUtils.getYMDfromYMDHMS(idCardInfo.getBirthDate()));
+            if (!TextUtils.isEmpty(idCardInfo.getBirthDate())) {
+                birthDateStr = DateUtils.getDate(idCardInfo.getBirthDate(), DateUtils.YYYY_MM_DD);
+                user_birth_tv.setText(DateUtils.getDate(idCardInfo.getBirthDate(),
+                        DateUtils.YYYY_MM_DD_HH_MM_SS));
             }
 
 
             cardUrlList = new ArrayList<>();
-            if(!TextUtils.isEmpty(idCardInfo.getCardImage()) && !TextUtils.isEmpty(idCardInfo.getCardImageBack())){
+            if (!TextUtils.isEmpty(idCardInfo.getCardImage()) && !TextUtils.isEmpty(idCardInfo.getCardImageBack())) {
                 cardUrlList.add(idCardInfo.getCardImage());
                 cardUrlList.add(idCardInfo.getCardImageBack());
             }
 
-            if(!TextUtils.isEmpty(idCardInfo.getCardValidEnd())){
+            if (!TextUtils.isEmpty(idCardInfo.getCardValidEnd())) {
                 idCardValidityPeriodDateStr = idCardInfo.getCardValidEnd();
                 id_card_validity_period_tv.setText(idCardInfo.getCardValidEnd());
             }
@@ -693,7 +707,7 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
 
     @Override
     public void getIdCardFailed(String msg) {
-        ToastUtil.showMessage(this,msg);
+        ToastUtil.showMessage(this, msg);
     }
 
     @Override
