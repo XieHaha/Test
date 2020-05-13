@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_doctor.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -46,7 +47,19 @@ public class DrugChooseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder
         TextView medical_vender_tv = helper.itemView.findViewById(R.id.medical_vender_tv);
         medical_name_tv.setText(item.getDrugsName());
         medical_spec_tv.setText("规格:" + item.getSpec());
-        medical_usage_tv.setText(item.getWay() + "," + item.getUsage());
+        StringBuilder builder = new StringBuilder();
+        if (!TextUtils.isEmpty(item.getWay())) {
+            builder.append(item.getWay());
+            if (!TextUtils.isEmpty(item.getUsage())) {
+                builder.append(",");
+                builder.append(item.getUsage());
+            }
+        } else {
+            if (!TextUtils.isEmpty(item.getUsage())) {
+                builder.append(item.getUsage());
+            }
+        }
+        medical_usage_tv.setText(builder.toString());
         medical_vender_tv.setText(item.getManufacturerName());
         if (item.isSelecte()) {
             prient_rl.setBackground(mContext.getResources().getDrawable(R.drawable.blue_corner_bg));

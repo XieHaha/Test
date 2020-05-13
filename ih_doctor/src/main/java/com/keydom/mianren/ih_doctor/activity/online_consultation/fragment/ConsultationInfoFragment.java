@@ -15,6 +15,8 @@ import com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 
 /**
@@ -76,7 +78,8 @@ public class ConsultationInfoFragment extends BaseControllerFragment<Consultatio
 
             //图片适配器，病情资料和问诊说明图片适配器
             ImageAdapter imageAdapter = new ImageAdapter(getContext(),
-                    infoBean.getMedicalHistoryImg(), false);
+                    infoBean.getMedicalHistoryImg() == null ? new ArrayList<>() :
+                            infoBean.getMedicalHistoryImg(), false);
             consultationInfoConditionImageGrid.setAdapter(imageAdapter);
         }
     }
