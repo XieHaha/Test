@@ -35,6 +35,7 @@ import com.keydom.ih_common.im.model.custom.ConsultationResultAttachment;
 import com.keydom.ih_common.im.model.custom.DisposalAdviceAttachment;
 import com.keydom.ih_common.im.model.custom.EndInquiryAttachment;
 import com.keydom.ih_common.im.model.custom.ExaminationAttachment;
+import com.keydom.ih_common.im.model.custom.GetDrugsAttachment;
 import com.keydom.ih_common.im.model.custom.InquiryAttachment;
 import com.keydom.ih_common.im.model.custom.InspectionAttachment;
 import com.keydom.ih_common.im.model.custom.ReferralApplyAttachment;
@@ -373,6 +374,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         CommonDocumentActivity.start(getContext(),
                                 userFollowUpAttachment.getFileName(),
                                 userFollowUpAttachment.getUrl());
+                    }else if(message.getAttachment() instanceof GetDrugsAttachment)
+                    {
+                        GetDrugsAttachment getDrugsAttachment =
+                                (GetDrugsAttachment) message.getAttachment();
+//                        GotoActivityUtil.gotoPrescriptionGetDetailActivity(ConversationActivity.this, getDrugsAttachment.getId(), PrescriptionGetDetailActivity.TAKE_MEDICINE);
                     }
                 }
                 return false;
