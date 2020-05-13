@@ -75,24 +75,26 @@ public class DiagnoseOrderDetailActivity extends BaseControllerActivity<Diagnose
         userAge = this.findViewById(R.id.user_age);
         userPhone = this.findViewById(R.id.user_phone);
         orderTime = this.findViewById(R.id.order_time);
-//        descTv = this.findViewById(R.id.desc_tv);
+        //        descTv = this.findViewById(R.id.desc_tv);
         diseaseHistoryTv = this.findViewById(R.id.disease_history_tv);
         questionDescTv = this.findViewById(R.id.question_desc_tv);
         conditionRv = this.findViewById(R.id.condition_rv);
     }
 
     private void setInfo(DiagnoseOrderDetailBean bean) {
-        diagnoseConditionImgAdapter = new DiagnoseConditionImgAdapter(this, CommonUtils.getImgList(bean.getConditionData()));
-//        LinearLayoutManager diagnoseInfoImgRvLm = new LinearLayoutManager(this);
-//        diagnoseInfoImgRvLm.setOrientation(LinearLayoutManager.HORIZONTAL);
+        diagnoseConditionImgAdapter = new DiagnoseConditionImgAdapter(this,
+                CommonUtils.getImgList(bean.getConditionData()));
+        //        LinearLayoutManager diagnoseInfoImgRvLm = new LinearLayoutManager(this);
+        //        diagnoseInfoImgRvLm.setOrientation(LinearLayoutManager.HORIZONTAL);
         conditionRv.setAdapter(diagnoseConditionImgAdapter);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2,
+                LinearLayoutManager.VERTICAL, false);
         conditionRv.setLayoutManager(layoutManager);
         userName.setText(bean.getName());
-        userAge.setText(String.valueOf(bean.getAge()) + "岁");
+        userAge.setText(bean.getAge());
         userPhone.setText(bean.getPhoneNumber());
         orderTime.setText(bean.getApplyTime());
-//        descTv.setText(bean.getConditionDesc());
+        //        descTv.setText(bean.getConditionDesc());
         diseaseHistoryTv.setText(bean.getPastMedicalHistory());
         questionDescTv.setText(bean.getConditionDesc());
 

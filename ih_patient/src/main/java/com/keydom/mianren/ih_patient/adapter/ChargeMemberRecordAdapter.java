@@ -2,11 +2,11 @@ package com.keydom.mianren.ih_patient.adapter;
 
 import android.support.annotation.Nullable;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.bean.RenewalRecordItem;
+import com.keydom.mianren.ih_patient.utils.DateUtils;
 
 import java.util.List;
 
@@ -24,7 +24,8 @@ public class ChargeMemberRecordAdapter extends BaseQuickAdapter<RenewalRecordIte
 
     @Override
     protected void convert(BaseViewHolder helper, RenewalRecordItem item) {
-        helper.setText(R.id.item_charge_member_record_date_tv, StringUtils.isEmpty(item.getCreateTime()) ? "" : item.getCreateTime())
+        helper.setText(R.id.item_charge_member_record_date_tv,
+                DateUtils.getDate(item.getCreateTime(), DateUtils.YYYY_MM_DD_HH_MM_SS))
                 .setText(R.id.item_charge_member_record_money_tv, item.getRenewalAmount() + "");
     }
 }

@@ -130,7 +130,7 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
     private void bindData(DiagnoseOrderDetailBean detailBean) {
         triageOrderDetailNameTv.setText(triageBean.getPatientName());
         triageOrderDetailSexTv.setText(triageBean.getPatientSex());
-        triageOrderDetailAgeTv.setText(triageBean.getPatientAge() + "岁");
+        triageOrderDetailAgeTv.setText(triageBean.getPatientAge());
         triageOrderDetailDiagnoseExplainTv.setText(triageBean.getTriageExplain());
         triageOrderDetailDoctorNameTv.setText(triageBean.getDoctor());
         triageOrderDetailDoctorJobIv.setText(triageBean.getJobTitle());

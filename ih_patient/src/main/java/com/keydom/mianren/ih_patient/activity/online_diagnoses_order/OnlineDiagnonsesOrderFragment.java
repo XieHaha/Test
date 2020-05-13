@@ -470,9 +470,8 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                         pharmacyBean = mPharmacyBean;
                     }
 
-                    getController().updatePrescriptionOrder(WaiPayType[0],
-                            isSendDrugsToHome,
-                            false, prescriptionId, orderNum, pharmacyBean, mLocationInfo);
+                    getController().updatePrescriptionOrder(4, isSendDrugsToHome, true,
+                            prescriptionId, orderNum, pharmacyBean, mLocationInfo);
                     bottomWaiYanSheetDialog.dismiss();
                 }
             });

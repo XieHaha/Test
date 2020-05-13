@@ -220,59 +220,68 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
                     return;
                 }
 
-                if (type == 1) {
-                    WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
-                        @Override
-                        public void onSuccess() {
-                            getView().paySuccess();
-                            EventBus.getDefault().post(new Event(EventType.REFRESHDIAGNOSESORDER,
-                                    null));
-                            ToastUtils.showShort("支付成功");
+                switch (type) {
+                    case 1:
+                        WXPay.getInstance().doPay(getContext(), data,
+                                new WXPay.WXPayResultCallBack() {
+                                    @Override
+                                    public void onSuccess() {
+                                        getView().paySuccess();
+                                        EventBus.getDefault().post(new Event(EventType.REFRESHDIAGNOSESORDER,
+                                                null));
+                                        ToastUtils.showShort("支付成功");
+                                    }
+
+                                    @Override
+                                    public void onError(int error_code) {
+                                        ToastUtil.showMessage(getContext(), "支付失败" + error_code
+                                        );
+                                    }
+
+                                    @Override
+                                    public void onCancel() {
+
+                                    }
+                                });
+                        break;
+                    case 2:
+                        com.alibaba.fastjson.JSONObject js =
+                                com.alibaba.fastjson.JSONObject.parseObject(data);
+                        if (!js.containsKey("return_msg")) {
+                            return;
                         }
+                        new Alipay(getContext(), js.getString("return_msg"),
+                                new Alipay.AlipayResultCallBack() {
+                                    @Override
+                                    public void onSuccess() {
+                                        getView().paySuccess();
+                                        EventBus.getDefault().post(new Event(EventType.REFRESHDIAGNOSESORDER,
+                                                null));
+                                        ToastUtils.showShort("支付成功");
+                                    }
 
-                        @Override
-                        public void onError(int error_code) {
-                            ToastUtil.showMessage(getContext(), "支付失败" + error_code
-                            );
-                        }
+                                    @Override
+                                    public void onDealing() {
+                                        ToastUtils.showShort("等待支付结果确认");
+                                    }
 
-                        @Override
-                        public void onCancel() {
+                                    @Override
+                                    public void onError(int error_code) {
+                                        ToastUtils.showShort("支付失败");
+                                    }
 
-                        }
-                    });
-                }
-                if (type == 2) {
-                    com.alibaba.fastjson.JSONObject js =
-                            com.alibaba.fastjson.JSONObject.parseObject(data);
-                    if (!js.containsKey("return_msg")) {
-                        return;
-                    }
-                    new Alipay(getContext(), js.getString("return_msg"),
-                            new Alipay.AlipayResultCallBack() {
-                                @Override
-                                public void onSuccess() {
-                                    getView().paySuccess();
-                                    EventBus.getDefault().post(new Event(EventType.REFRESHDIAGNOSESORDER,
-                                            null));
-                                    ToastUtils.showShort("支付成功");
-                                }
-
-                                @Override
-                                public void onDealing() {
-                                    ToastUtils.showShort("等待支付结果确认");
-                                }
-
-                                @Override
-                                public void onError(int error_code) {
-                                    ToastUtils.showShort("支付失败");
-                                }
-
-                                @Override
-                                public void onCancel() {
-                                    ToastUtils.showShort("取消支付");
-                                }
-                            }).doPay();
+                                    @Override
+                                    public void onCancel() {
+                                        ToastUtils.showShort("取消支付");
+                                    }
+                                }).doPay();
+                        break;
+                    case 4:
+                        getView().paySuccess();
+                        EventBus.getDefault().post(new Event(EventType.REFRESHDIAGNOSESORDER,
+                                null));
+                        ToastUtils.showShort("支付成功");
+                        break;
                 }
             }
 
