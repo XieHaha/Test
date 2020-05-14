@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -52,10 +54,11 @@ public class CommUtil {
     public static boolean isMobileNumber(String mobiles) {
         /*
          * 移动：134、135、136、137、138、139、150、151、157(TD)、158、159、187、188
-		 * 联通：130、131、132、152、155、156、185、186 电信：133、153、180、189、（1349卫通）
-		 * 总结起来就是第一位必定为1，第二位必定为3或5或8，其他位置的可以为0-9
-		 */
-        String telRegex = "[1][34578]\\d{9}";// "[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
+         * 联通：130、131、132、152、155、156、185、186 电信：133、153、180、189、（1349卫通）
+         * 总结起来就是第一位必定为1，第二位必定为3或5或8，其他位置的可以为0-9
+         */
+        String telRegex = "[1][34578]\\d{9}";// "[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9
+        // }"代表后面是可以是0～9的数字，有9位。
         if (TextUtils.isEmpty(mobiles)) {
             return false;
         } else {
@@ -65,7 +68,8 @@ public class CommUtil {
 
     public static String getCombinedDeviceID(Context context) {
         try {
-            TelephonyManager TelephonyMgr = (TelephonyManager) context.getSystemService(Service.TELEPHONY_SERVICE);
+            TelephonyManager TelephonyMgr =
+                    (TelephonyManager) context.getSystemService(Service.TELEPHONY_SERVICE);
             return TelephonyMgr.getDeviceId();
         } catch (SecurityException e) {
             return "";
@@ -122,7 +126,7 @@ public class CommUtil {
         return stringBuilder.toString();
     }
 
-    public static boolean isUrl(String url){
+    public static boolean isUrl(String url) {
         return !isEmpty(url) && url.startsWith("http");
     }
 
@@ -184,7 +188,8 @@ public class CommUtil {
         }
         String[] localArray = localVersion.split("\\.");
         String[] onlineArray = onlineVersion.split("\\.");
-        int length = localArray.length < onlineArray.length ? localArray.length : onlineArray.length;
+        int length = localArray.length < onlineArray.length ? localArray.length :
+                onlineArray.length;
         try {
             for (int i = 0; i < length; i++) {
                 if (Integer.parseInt(onlineArray[i]) > Integer.parseInt(localArray[i])) {
@@ -234,7 +239,8 @@ public class CommUtil {
         if (distance < 1000) {
             return distance + "m";
         } else {
-            String distanceKm = new BigDecimal(distance).divide(new BigDecimal(1000), 1, BigDecimal.ROUND_HALF_UP).toString();
+            String distanceKm = new BigDecimal(distance).divide(new BigDecimal(1000), 1,
+                    BigDecimal.ROUND_HALF_UP).toString();
             return distanceKm + "km";
         }
     }
@@ -243,19 +249,21 @@ public class CommUtil {
         if (distance < 1000) {
             return distance + "m";
         } else {
-            int distanceKm = distance/1000;
+            int distanceKm = distance / 1000;
             return distanceKm + "km";
         }
     }
 
     public static String getScan(int scanCnt) {
-        if(scanCnt < 1000){
+        if (scanCnt < 1000) {
             return scanCnt + "次";
-        }else if(scanCnt < 10000){
-            String scanCntStr = new BigDecimal(scanCnt).divide(new BigDecimal(1000), 1, BigDecimal.ROUND_HALF_UP).toString();
+        } else if (scanCnt < 10000) {
+            String scanCntStr = new BigDecimal(scanCnt).divide(new BigDecimal(1000), 1,
+                    BigDecimal.ROUND_HALF_UP).toString();
             return scanCntStr + "千";
-        }else{
-            String scanCntStr = new BigDecimal(scanCnt).divide(new BigDecimal(1000), 1, BigDecimal.ROUND_HALF_UP).toString();
+        } else {
+            String scanCntStr = new BigDecimal(scanCnt).divide(new BigDecimal(1000), 1,
+                    BigDecimal.ROUND_HALF_UP).toString();
             return scanCntStr + "万";
         }
     }
@@ -314,7 +322,7 @@ public class CommUtil {
         return sb.toString();
     }
 
-    public static boolean checkStringLengthWithCAndE(String source, int len){
+    public static boolean checkStringLengthWithCAndE(String source, int len) {
         int max = len * 2;
         int sum = 0;
         boolean isAndEllip = false;
@@ -341,11 +349,11 @@ public class CommUtil {
         if (value == null) {
             return false;
         }
-        if(value.length() >= 1 && value.length() <= maxLen) {
+        if (value.length() >= 1 && value.length() <= maxLen) {
             return true;
         } else {
             int withChineseLength = getWordCount(value);
-            if(withChineseLength >= 1 * 2 && withChineseLength <= maxLen * 2) {
+            if (withChineseLength >= 1 * 2 && withChineseLength <= maxLen * 2) {
                 return true;
             }
         }
@@ -355,30 +363,32 @@ public class CommUtil {
     public static int getWordCount(String s) {
         long l = System.currentTimeMillis();
         int length = 0;
-        for(int i = 0; i < s.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
             int ascii = Character.codePointAt(s, i);
-            if(ascii >= 0 && ascii <= 255)
+            if (ascii >= 0 && ascii <= 255)
                 length++;
             else
                 length += 2;
         }
         long l1 = System.currentTimeMillis();
-      //  LoggerUtil.e("length = " + length + " time  : " + (l1 - l) + "ms");
+        //  LoggerUtil.e("length = " + length + " time  : " + (l1 - l) + "ms");
         return length;
     }
+
     public static int getDisplayWordCount(String s) {
         long l = System.currentTimeMillis();
         int lengthCharacter = 0;
         int lengthChinese = 0;
-        for(int i = 0; !TextUtils.isEmpty(s)  && i < s.length(); i++) {
+        for (int i = 0; !TextUtils.isEmpty(s) && i < s.length(); i++) {
             int ascii = Character.codePointAt(s, i);
-            if(ascii >= 0 && ascii <= 255)
+            if (ascii >= 0 && ascii <= 255)
                 lengthCharacter++;
             else
-                lengthChinese ++ ;
+                lengthChinese++;
         }
         lengthCharacter = lengthCharacter % 2 == 0 ? lengthCharacter / 2 : lengthCharacter / 2 + 1;
-     //   LoggerUtil.e("lengthCharacter = " + lengthCharacter + " lengthChinese = " + lengthChinese);
+        //   LoggerUtil.e("lengthCharacter = " + lengthCharacter + " lengthChinese = " +
+        //   lengthChinese);
         return lengthChinese + lengthCharacter;
     }
 
@@ -423,11 +433,12 @@ public class CommUtil {
 
     /**
      * 比较版本号大小
+     *
      * @param newVersion
      * @param oldVersion
      * @return
      */
-    public static boolean  ckeckVersion(String newVersion,String oldVersion){
+    public static boolean ckeckVersion(String newVersion, String oldVersion) {
         if (CommUtil.isEmpty(newVersion) || !newVersion.contains(".")) {
             return false;
         }
@@ -435,44 +446,93 @@ public class CommUtil {
             return false;
         }
         String[] newVersionSplit = newVersion.split("\\.");
-        if(newVersionSplit.length!=3){
+        if (newVersionSplit.length != 3) {
             return false;
         }
         String[] oldVersionSplit = oldVersion.split("\\.");
-        if(oldVersionSplit.length!=3){
+        if (oldVersionSplit.length != 3) {
             return false;
         }
 
-        for(int i = 0 ;i< newVersionSplit.length ;i++) {
+        for (int i = 0; i < newVersionSplit.length; i++) {
             int compare = compareString(newVersionSplit[i], oldVersionSplit[i]);
-            if(compare == 0){
+            if (compare == 0) {
                 continue;
-            }else if(compare>0){
+            } else if (compare > 0) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
         return false;
     }
 
-    public static int compareString(String newVersion,String oldVersion){
+    public static int compareString(String newVersion, String oldVersion) {
 
         try {
             int newVersionNum = Integer.parseInt(newVersion);
             int oldVersionNum = Integer.parseInt(oldVersion);
 
-            if(newVersionNum > oldVersionNum){
+            if (newVersionNum > oldVersionNum) {
                 return 1;
-            }else if(newVersionNum == oldVersionNum){
+            } else if (newVersionNum == oldVersionNum) {
                 return 0;
-            }else{
+            } else {
                 return -1;
             }
         } catch (NumberFormatException e) {
-         //   LoggerUtil.e(Log.getStackTraceString(e));
+            //   LoggerUtil.e(Log.getStackTraceString(e));
             e.printStackTrace();
         }
         return -1;
+    }
+
+
+    /**
+     * 通过身份证号码获取出生日期、性别、年龄
+     *
+     * @return 返回的出生日期格式：1990-01-01   性别格式：F-女，M-男
+     */
+    public static String getBirAgeSex(String certificateNo) {
+        String birthday = "";
+        String age = "";
+        String sexCode = "";
+
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        char[] number = certificateNo.toCharArray();
+        boolean flag = true;
+        if (number.length == 15) {
+            for (char c : number) {
+                if (!flag)
+                    return "";
+                flag = Character.isDigit(c);
+            }
+        } else if (number.length == 18) {
+            for (int x = 0; x < number.length - 1; x++) {
+                if (!flag)
+                    return "";
+                flag = Character.isDigit(number[x]);
+            }
+        }
+        if (flag && certificateNo.length() == 15) {
+            birthday = "19" + certificateNo.substring(6, 8) + "-"
+                    + certificateNo.substring(8, 10) + "-"
+                    + certificateNo.substring(10, 12);
+            sexCode = Integer.parseInt(certificateNo.substring(certificateNo.length() - 3,
+                    certificateNo.length())) % 2 == 0 ? "F" : "M";
+            age = (year - Integer.parseInt("19" + certificateNo.substring(6, 8))) + "";
+        } else if (flag && certificateNo.length() == 18) {
+            birthday = certificateNo.substring(6, 10) + "-"
+                    + certificateNo.substring(10, 12) + "-"
+                    + certificateNo.substring(12, 14);
+            sexCode = Integer.parseInt(certificateNo.substring(certificateNo.length() - 4,
+                    certificateNo.length() - 1)) % 2 == 0 ? "F" : "M";
+            age = (year - Integer.parseInt(certificateNo.substring(6, 10))) + "";
+        }
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("birthday", birthday);
+        map.put("age", age);
+        map.put("sexCode", sexCode);
+        return birthday;
     }
 }

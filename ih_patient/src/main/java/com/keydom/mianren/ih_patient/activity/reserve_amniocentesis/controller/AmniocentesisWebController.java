@@ -51,7 +51,7 @@ public class AmniocentesisWebController extends ControllerImpl<AmniocentesisWebV
                 switch (getView().getProtocol()) {
                     case AMNIOCENTESIS_WEB_RESERVE:
                         if (!getView().isSelectReserveProtocol()) {
-                            ToastUtil.showMessage(mContext, "请同意以上协议内容");
+                            ToastUtil.showMessage(mContext, "请仔细阅读并同意以上协议内容");
                             return;
                         }
                         EventBus.getDefault().post(new Event(EventType.AMNIOCENTESIS_EVALUATE,
@@ -59,14 +59,14 @@ public class AmniocentesisWebController extends ControllerImpl<AmniocentesisWebV
                         break;
                     case AMNIOCENTESIS_AGREE_PROTOCOL:
                         if (!getView().isSelectAgreeProtocol()) {
-                            ToastUtil.showMessage(mContext, "请同意以上协议内容");
+                            ToastUtil.showMessage(mContext, "请仔细阅读并同意以上协议内容");
                             return;
                         }
                         EventBus.getDefault().post(new Event(EventType.AMNIOCENTESIS_APPLY, null));
                         break;
                     case AMNIOCENTESIS_NOTICE:
                         if (!getView().isSelectNoticeProtocol()) {
-                            ToastUtil.showMessage(mContext, "请同意以上协议内容");
+                            ToastUtil.showMessage(mContext, "请仔细阅读并同意以上协议内容");
                             return;
                         }
                         amniocentesisApply();

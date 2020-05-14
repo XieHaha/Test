@@ -2,7 +2,9 @@ package com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller.A
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisApplyView;
 import com.keydom.mianren.ih_patient.adapter.AmniocentesisReasonAdapter;
 import com.keydom.mianren.ih_patient.bean.AmniocentesisReserveBean;
+import com.keydom.mianren.ih_patient.utils.CommUtil;
 import com.keydom.mianren.ih_patient.utils.DateUtils;
 
 import org.jetbrains.annotations.Nullable;
@@ -103,6 +106,25 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
         reasonAdapter.setOnItemClickListener(this);
         amniocentesisApplyRecyclerView.setNestedScrollingEnabled(false);
         amniocentesisApplyRecyclerView.setAdapter(reasonAdapter);
+
+        amniocentesisApplyIdCardEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!TextUtils.isEmpty(s) && s.length() == 18) {
+                    amniocentesisApplyBirthTv.setText(CommUtil.getBirAgeSex(s.toString()));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
