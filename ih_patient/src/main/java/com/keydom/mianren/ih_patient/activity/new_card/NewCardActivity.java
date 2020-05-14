@@ -694,6 +694,9 @@ public class NewCardActivity extends BaseControllerActivity<NewCardController> i
             if (!TextUtils.isEmpty(idCardInfo.getCardImage()) && !TextUtils.isEmpty(idCardInfo.getCardImageBack())) {
                 cardUrlList.add(idCardInfo.getCardImage());
                 cardUrlList.add(idCardInfo.getCardImageBack());
+            } else {
+                cardUrlList.add("");
+                cardUrlList.add("");
             }
 
             if (!TextUtils.isEmpty(idCardInfo.getCardValidEnd())) {
