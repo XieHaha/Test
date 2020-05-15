@@ -214,14 +214,12 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PayService.class).patientPayByOrderNumber(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), true, true) {
             @Override
             public void requestComplete(@Nullable String data) {
-                hideLoading();
-                if (StringUtils.isEmpty(data)) {
-                    ToastUtils.showShort("返回支付参数为空");
-                    return;
-                }
-
                 switch (type) {
                     case 1:
+                        if (StringUtils.isEmpty(data)) {
+                            ToastUtils.showShort("返回支付参数为空");
+                            return;
+                        }
                         WXPay.getInstance().doPay(getContext(), data,
                                 new WXPay.WXPayResultCallBack() {
                                     @Override
@@ -245,6 +243,10 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
                                 });
                         break;
                     case 2:
+                        if (StringUtils.isEmpty(data)) {
+                            ToastUtils.showShort("返回支付参数为空");
+                            return;
+                        }
                         com.alibaba.fastjson.JSONObject js =
                                 com.alibaba.fastjson.JSONObject.parseObject(data);
                         if (!js.containsKey("return_msg")) {
