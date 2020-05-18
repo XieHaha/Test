@@ -257,6 +257,11 @@ public class TriageOrderDetailActivity extends BaseControllerActivity<TriageOrde
     }
 
     @Override
+    public TypeEnum getOrderType() {
+        return mType;
+    }
+
+    @Override
     public void showDialog() {
         notReceiveDialog.show();
     }

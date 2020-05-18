@@ -25,6 +25,7 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.Cons
 import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationAdviceFragment;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationInfoFragment;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationRoomView;
+import com.keydom.mianren.ih_doctor.bean.ConsultationBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDoctorBean;
 import com.keydom.mianren.ih_doctor.bean.Event;
@@ -52,7 +53,12 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     private String[] mTabTitles;
 
     private ConsultationDetailBean detailBean;
-    private String orderId, applyId, recordId;
+    private ConsultationBean consultationBean;
+    private String orderId, applyId, recordId, tid;
+    /**
+     * 参加会诊的医生信息
+     */
+    private List<ConsultationDoctorBean> mdtDoctors;
 
     /**
      * 是否为发起人
@@ -65,12 +71,21 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     public static final int REQUEST_CODE_END = 100;
 
     /**
-     * 启动会诊订单列表页面
+     * 启动会诊室 （接收页面）
      */
     public static void start(Context context, ConsultationDetailBean detailBean) {
         Intent intent = new Intent(context, ConsultationRoomActivity.class);
         intent.putExtra(Const.DATA, detailBean);
         ((Activity) context).startActivityForResult(intent, REQUEST_CODE_END);
+    }
+
+    /**
+     * 启动会诊室 （列表页面）
+     */
+    public static void start(Context context, ConsultationBean bean) {
+        Intent intent = new Intent(context, ConsultationRoomActivity.class);
+        intent.putExtra(Const.DATA_OTHER, bean);
+        context.startActivity(intent);
     }
 
     @Override
@@ -81,11 +96,22 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         detailBean = (ConsultationDetailBean) getIntent().getSerializableExtra(Const.DATA);
+        consultationBean = (ConsultationBean) getIntent().getSerializableExtra(Const.DATA_OTHER);
         if (detailBean != null) {
             setTitle(detailBean.getPatientName());
             orderId = detailBean.getApplicationId();
             applyId = detailBean.getApplyDoctor().getId();
             recordId = detailBean.getRecordId();
+            tid = detailBean.getTid();
+            mdtDoctors = detailBean.getMdtDoctors();
+        }
+        if (consultationBean != null) {
+            setTitle(consultationBean.getPatientName());
+            orderId = consultationBean.getApplicationId();
+            applyId = consultationBean.getApplicantId();
+            //            recordId = consultationBean.getRecordId();
+            tid = consultationBean.getApplicantId();
+            //            mdtDoctors = consultationBean.getMdtTime();
         }
 
         LinearLayout linearLayout = (LinearLayout) consultationRoomTabLayout.getChildAt(0);
@@ -113,8 +139,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         mTabTitles[2] = "会诊意见";
         consultationRoomTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mFragmentArrays[0] = ConsultationInfoFragment.newInstance(orderId);
-        mFragmentArrays[1] = TeamAVChatFragment.newInstance(false, detailBean.getTid(),
-                getAccounts(), isApply);
+        mFragmentArrays[1] = TeamAVChatFragment.newInstance(false, tid, getAccounts(), isApply);
         mFragmentArrays[2] = ConsultationAdviceFragment.newInstance(recordId);
         consultationRoomViewPager.setOffscreenPageLimit(3);
         PagerAdapter pagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());
@@ -124,8 +149,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
 
     private ArrayList<String> getAccounts() {
         ArrayList<String> accounts = new ArrayList<>();
-        List<ConsultationDoctorBean> data = detailBean.getMdtDoctors();
-        for (ConsultationDoctorBean bean : data) {
+        for (ConsultationDoctorBean bean : mdtDoctors) {
             if (bean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())) {
                 continue;
             }

@@ -2,6 +2,7 @@ package com.keydom.mianren.ih_doctor.activity.online_triage.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.ih_common.bean.DiagnoseOrderDetailBean;
+import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 
 import java.util.Map;
 
@@ -49,6 +50,8 @@ public interface TriageOrderDetailView extends BaseView {
      * @return 备注
      */
     String getDialogValue();
+
+    TypeEnum getOrderType();
 
     /**
      * 显示填写原因弹窗

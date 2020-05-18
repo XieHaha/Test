@@ -10,6 +10,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationReceiveActivity;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationRoomActivity;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationOrderFragmentView;
 import com.keydom.mianren.ih_doctor.bean.ConsultationBean;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
@@ -63,7 +64,11 @@ public class ConsultationOrderFragmentController extends ControllerImpl<Consulta
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         ConsultationBean bean = (ConsultationBean) adapter.getItem(position);
         if (bean != null) {
-            ConsultationReceiveActivity.start(mContext, bean.getApplicationId());
+            if (getView().getType() == TypeEnum.CONSULTATION_ING) {
+                ConsultationRoomActivity.start(mContext, bean);
+            } else {
+                ConsultationReceiveActivity.start(mContext, bean.getApplicationId());
+            }
         }
     }
 }

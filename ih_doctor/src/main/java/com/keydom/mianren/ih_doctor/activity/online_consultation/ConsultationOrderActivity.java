@@ -64,15 +64,15 @@ public class ConsultationOrderActivity extends BaseControllerActivity<Consultati
      * 设置fragment
      */
     private void initOrderListFragment() {
-        mTabTitles = new String[2];
-        mFragmentArrays = new Fragment[2];
+        mTabTitles = new String[3];
+        mFragmentArrays = new Fragment[3];
         mTabTitles[0] = "待会诊";
-//        mTabTitles[1] = "会诊中";
-        mTabTitles[1] = "会诊完成";
+        mTabTitles[1] = "会诊中";
+        mTabTitles[2] = "会诊完成";
         consultationOrderTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mFragmentArrays[0] = ConsultationOrderFragment.newInstance(TypeEnum.CONSULTATION_WAIT);
-//        mFragmentArrays[1] = ConsultationOrderFragment.newInstance(TypeEnum.CONSULTATION_ING);
-        mFragmentArrays[1] = ConsultationOrderFragment.newInstance(TypeEnum.CONSULTATION_COMPLETE);
+        mFragmentArrays[1] = ConsultationOrderFragment.newInstance(TypeEnum.CONSULTATION_ING);
+        mFragmentArrays[2] = ConsultationOrderFragment.newInstance(TypeEnum.CONSULTATION_COMPLETE);
         consultationOrderViewPager.setOffscreenPageLimit(2);
         PagerAdapter pagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());
         consultationOrderViewPager.setAdapter(pagerAdapter);

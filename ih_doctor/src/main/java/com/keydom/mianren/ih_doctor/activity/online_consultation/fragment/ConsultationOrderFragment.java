@@ -90,10 +90,10 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
         patientId = getArguments().getLong(Const.PATIENT_ID);
         if (mType == TypeEnum.CONSULTATION_WAIT) {
             status = 0;
-            //        } else if (mType == TypeEnum.CONSULTATION_ING) {
-            //            status = 1;
-        } else if (mType == TypeEnum.CONSULTATION_COMPLETE) {
+        } else if (mType == TypeEnum.CONSULTATION_ING) {
             status = 1;
+        } else if (mType == TypeEnum.CONSULTATION_COMPLETE) {
+            status = 2;
         }
         mAdapter = new ConsultationOrderAdapter(dataList);
         mAdapter.setOnItemClickListener(getController());

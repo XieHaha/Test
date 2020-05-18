@@ -9,8 +9,10 @@ import com.keydom.ih_common.net.ApiService;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_triage.view.TriageOrderDetailView;
+import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.TriageApiService;
 
@@ -33,12 +35,12 @@ public class TriageOrderDetailController extends ControllerImpl<TriageOrderDetai
     @SingleClick(1000)
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.triage_order_detail_bottom_right:
-                receiveTriage(RECEIVE_OPERATE);
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.triage_order_detail_bottom_right) {
+            if (getView().getOrderType() == TypeEnum.TRIAGE_WAIT) {
+                ToastUtil.showMessage(mContext, "请先接收分诊！");
+                return;
+            }
+            receiveTriage(RECEIVE_OPERATE);
         }
     }
 
