@@ -139,7 +139,9 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         mTabTitles[2] = "会诊意见";
         consultationRoomTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mFragmentArrays[0] = ConsultationInfoFragment.newInstance(orderId);
-        mFragmentArrays[1] = TeamAVChatFragment.newInstance(false, tid, getAccounts(), isApply);
+        mFragmentArrays[1] = TeamAVChatFragment.newInstance(false, tid, getAccounts(),
+                isApply);
+        //        mFragmentArrays[1] = ConversationFragment.newInstance(orderId, tid);
         mFragmentArrays[2] = ConsultationAdviceFragment.newInstance(recordId);
         consultationRoomViewPager.setOffscreenPageLimit(3);
         PagerAdapter pagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());

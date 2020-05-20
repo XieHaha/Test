@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/inquiry_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="#fffffae2"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/inquiry_type_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_24"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/inquiry_type_image_waiting"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/inquiry_type_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:gravity="center"
+            android:textColor="#FFFFC700"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/inquiry_type_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="待接诊" />
+
+        <TextView
+            android:id="@+id/question_remaining_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:textColor="#FFFFA92D"
+            android:textSize="@dimen/sp_14"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="10小时59分后问诊结束" />
+    </android.support.constraint.ConstraintLayout>
+
+    <com.keydom.ih_common.im.widget.ImMessageView
+        android:id="@+id/im_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    <!--接诊布局-->
+    <LinearLayout
+        android:id="@+id/visiting_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/visiting_remaining_time_tv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:background="#fffffae2"
+            android:gravity="center"
+            android:textColor="#FFEDA823"
+            tools:text="请在 11小时25分 内接单，超时将自动退诊" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_150">
+
+            <ImageView
+                android:id="@+id/visiting_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_27"
+                android:src="@mipmap/visiting_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/visiting_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="接诊"
+                android:textColor="#FF3F9BF9"
+                android:textSize="@dimen/sp_16"
+                app:layout_constraintEnd_toEndOf="@+id/visiting_image"
+                app:layout_constraintStart_toStartOf="@+id/visiting_image"
+                app:layout_constraintTop_toBottomOf="@+id/visiting_image" />
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+
+    <!--结束问诊布局-->
+    <LinearLayout
+        android:id="@+id/end_the_consultation_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_150"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_64"
+            android:background="#FFFFFAE2"
+            android:visibility="gone"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="您将发起结束诊疗，需等待患者确认"
+                android:textColor="#FFFFC700"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:gravity="center"
+                android:text="如果患者还要追问，问诊将继续"
+                android:textColor="#FFBBBBBB"
+                android:textSize="@dimen/dp_12" />
+
+        </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/back_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@+id/end_ll"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/back_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_27"
+                    android:src="@mipmap/inquiry_back" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="返回"
+                    android:textColor="#FF999999"
+                    android:textSize="@dimen/sp_16"
+                    app:layout_constraintEnd_toEndOf="@+id/back_image"
+                    app:layout_constraintStart_toStartOf="@+id/back_image"
+                    app:layout_constraintTop_toBottomOf="@+id/back_image" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/end_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/back_ll"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/end_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_27"
+                    android:src="@mipmap/inquiry_end" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="结束诊疗"
+                    android:textColor="#FF3F9BF9"
+                    android:textSize="@dimen/sp_16" />
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+
+    <!--已完成后诊断处方布局-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/completed_cl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_124"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/diagnostic_prescription_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@+id/disposal_advice_ll"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:src="@mipmap/disposal_advice" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="诊断与处方"
+                android:textColor="#FF3F98F7"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/disposal_advice_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/diagnostic_prescription_ll"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:src="@mipmap/diagnostic_prescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="处置建议"
+                android:textColor="#FF22E17E"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>

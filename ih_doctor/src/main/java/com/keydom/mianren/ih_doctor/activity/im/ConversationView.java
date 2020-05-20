@@ -12,7 +12,7 @@ interface ConversationView extends BaseView {
      *
      * @return
      */
-    long getId();
+    long getOrderId();
 
     void loadSuccess(InquiryBean data);
 

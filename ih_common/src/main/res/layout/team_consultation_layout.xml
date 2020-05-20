@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/start"
@@ -9,8 +10,8 @@
         android:layout_height="@dimen/dp_49"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:background="@drawable/attention_bg"
         android:layout_marginBottom="@dimen/dp_80"
-        android:background="@color/backgroundColorEnable"
         android:gravity="center"
         android:text="开始会诊"
         android:textColor="@color/white"

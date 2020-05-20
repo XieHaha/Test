@@ -618,12 +618,12 @@ public class ImExtension extends LinearLayout {
         mEditText.clearFocus();
     }
 
-    private boolean isFristLayout = true;
+    private boolean isFirstLayout = true;
 
     @Override
     protected void onLayout(boolean changed, int l, final int t, int r, final int b) {
         super.onLayout(changed, l, t, r, b);
-        if (!isFristLayout) {
+        if (!isFirstLayout) {
             if (originalTop != 0) {
                 if (originalTop > t) {
                     if (originalBottom > b && mExtensionClickListener != null && collapsed) {
@@ -647,7 +647,7 @@ public class ImExtension extends LinearLayout {
                 originalBottom = b;
             }
         } else {
-            isFristLayout = false;
+            isFirstLayout = false;
         }
     }
 

@@ -1,5 +1,6 @@
 package com.keydom.mianren.ih_doctor.activity.im;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,7 +16,6 @@ import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import com.keydom.ih_common.activity.DiagnoseOrderDetailActivity;
 import com.keydom.ih_common.activity.HandleProposeAcitivity;
-import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.bean.InquiryStatus;
 import com.keydom.ih_common.bean.TriageBean;
 import com.keydom.ih_common.im.ImClient;
@@ -103,7 +103,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -116,7 +115,7 @@ import io.reactivex.disposables.Disposable;
  *
  * @author THINKPAD B
  */
-public class ConversationActivity extends BaseControllerActivity<ConversationController> implements View.OnClickListener, ConversationView {
+public class ConversationFragment extends BaseControllerFragment<ConversationController> implements View.OnClickListener, ConversationView {
 
     public static final int FINISH_PRESCRIPTION = 1003;
     /**
@@ -198,8 +197,19 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     private View view;
 
+    public static ConversationFragment newInstance(String orderId, String sessionId) {
+        ConversationFragment fragment = new ConversationFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(ImConstants.TEAM, true);
+        bundle.putString(Const.ORDER_ID, orderId);
+        bundle.putString(ImConstants.CALL_SESSION_ID, sessionId);
+        bundle.putBoolean(DiagnoseOrderRecyclrViewAdapter.IS_ORDER, true);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         if (teamChat) {
             NIMClient.getService(MsgService.class).setChattingAccount(sessionId,
@@ -219,26 +229,26 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     @Override
     public int getLayoutRes() {
-        return R.layout.activity_conversation;
+        return R.layout.fragment_conversation;
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
-        mInquiryTypeImage = findViewById(R.id.inquiry_type_image);
-        mInquiryTypeTv = findViewById(R.id.inquiry_type_tv);
-        mQuestionRemainingTimeTv = findViewById(R.id.question_remaining_time_tv);
-        ImageView mVisitingImage = findViewById(R.id.visiting_image);
-        TextView mVisitingTv = findViewById(R.id.visiting_tv);
-        mVisitingLl = findViewById(R.id.visiting_ll);
-        mVisitingRemainingTimeTv = findViewById(R.id.visiting_remaining_time_tv);
-        LinearLayout mBackLl = findViewById(R.id.back_ll);
-        LinearLayout mEndLl = findViewById(R.id.end_ll);
-        mEndTheConsultationLl = findViewById(R.id.end_the_consultation_ll);
-        mDiagnosticPrescriptionLl = findViewById(R.id.diagnostic_prescription_ll);
-        mDisposalAdviceLl = findViewById(R.id.disposal_advice_ll);
-        mCompletedCl = findViewById(R.id.completed_cl);
-        mMessageView = findViewById(R.id.im_view);
+        mInquiryTypeImage = getView().findViewById(R.id.inquiry_type_image);
+        mInquiryTypeTv = getView().findViewById(R.id.inquiry_type_tv);
+        mQuestionRemainingTimeTv = getView().findViewById(R.id.question_remaining_time_tv);
+        ImageView mVisitingImage = getView().findViewById(R.id.visiting_image);
+        TextView mVisitingTv = getView().findViewById(R.id.visiting_tv);
+        mVisitingLl = getView().findViewById(R.id.visiting_ll);
+        mVisitingRemainingTimeTv = getView().findViewById(R.id.visiting_remaining_time_tv);
+        LinearLayout mBackLl = getView().findViewById(R.id.back_ll);
+        LinearLayout mEndLl = getView().findViewById(R.id.end_ll);
+        mEndTheConsultationLl = getView().findViewById(R.id.end_the_consultation_ll);
+        mDiagnosticPrescriptionLl = getView().findViewById(R.id.diagnostic_prescription_ll);
+        mDisposalAdviceLl = getView().findViewById(R.id.disposal_advice_ll);
+        mCompletedCl = getView().findViewById(R.id.completed_cl);
+        mMessageView = getView().findViewById(R.id.im_view);
         getLifecycle().addObserver(mMessageView);
         mVisitingImage.setOnClickListener(this);
         mVisitingTv.setOnClickListener(this);
@@ -247,11 +257,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mBackLl.setOnClickListener(this);
         mEndLl.setOnClickListener(this);
         //        mMessageView.addPlugin(new EmojiPlugin());
-        Bundle extras = getIntent().getExtras();
+        Bundle extras = getArguments();
         if (extras != null) {
             isGetStatus = extras.getBoolean(DiagnoseOrderRecyclrViewAdapter.IS_ORDER);
             teamChat = extras.getBoolean(ImConstants.TEAM);
-            orderId = extras.getLong("orderId");
+            orderId = extras.getLong(Const.ORDER_ID);
+            sessionId = extras.getString(ImConstants.CALL_SESSION_ID);
         }
         initView();
         initListener();
@@ -278,7 +289,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                             (NimUserInfo) ImClient.getUserInfoProvider().getUserInfo(SharePreferenceManager.getUserCode());
                     if ((ImMessageConstant.DOCTOR).equals(currentUserInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
                         if ((ImMessageConstant.DOCTOR).equals(patientInfo.getExtensionMap().get(ImConstants.CALL_USER_TYPE))) {
-                            Intent intent = new Intent(ConversationActivity.this,
+                            Intent intent = new Intent(getContext(),
                                     DoctorOrNurseDetailActivity.class);
                             intent.putExtra("doctorCode", String.valueOf(patientInfo.getAccount()));
                             startActivity(intent);
@@ -312,7 +323,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         TriageOrderDetailActivity.startWithAction(context, bean,
                                 TypeEnum.TRIAGE_RECEIVED, true);
                     } else if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
-                        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
+                        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>() {
                             @Override
                             public void requestComplete(@Nullable CheckItemListBean data) {
                                 if (data != null) {
@@ -332,7 +343,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         });
 
                     } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
-                        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((InspectionAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
+                        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((InspectionAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>() {
                             @Override
                             public void requestComplete(@Nullable CheckItemListBean data) {
                                 if (data != null) {
@@ -374,11 +385,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         CommonDocumentActivity.start(getContext(),
                                 userFollowUpAttachment.getFileName(),
                                 userFollowUpAttachment.getUrl());
-                    }else if(message.getAttachment() instanceof GetDrugsAttachment)
-                    {
+                    } else if (message.getAttachment() instanceof GetDrugsAttachment) {
                         GetDrugsAttachment getDrugsAttachment =
                                 (GetDrugsAttachment) message.getAttachment();
-//                        GotoActivityUtil.gotoPrescriptionGetDetailActivity(ConversationActivity.this, getDrugsAttachment.getId(), PrescriptionGetDetailActivity.TAKE_MEDICINE);
+                        //                        GotoActivityUtil
+                        //                        .gotoPrescriptionGetDetailActivity
+                        //                        (ConversationActivity.this, getDrugsAttachment
+                        //                        .getId(), PrescriptionGetDetailActivity
+                        //                        .TAKE_MEDICINE);
                     }
                 }
                 return false;
@@ -387,7 +401,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             @Override
             public boolean onPayClick(Context context, View view, IMMessage message) {
                 if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
-                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
+                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>() {
                         @Override
                         public void requestComplete(@Nullable CheckItemListBean data) {
                             if (data != null) {
@@ -408,7 +422,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     });
 
                 } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
-                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((InspectionAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
+                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((InspectionAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>() {
                         @Override
                         public void requestComplete(@Nullable CheckItemListBean data) {
                             if (data != null) {
@@ -440,7 +454,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
 
 
-                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
+                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>() {
                         @Override
                         public void requestComplete(@Nullable CheckItemListBean data) {
                             if (data != null) {
@@ -462,7 +476,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
                 } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
 
-                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((InspectionAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
+                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((InspectionAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>() {
                         @Override
                         public void requestComplete(@Nullable CheckItemListBean data) {
                             if (data != null) {
@@ -491,32 +505,15 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     }
 
     private void initView() {
-        Uri data = getIntent().getData();
+        Uri data = getActivity().getIntent().getData();
         if (data != null) {
-            sessionId = data.getQueryParameter(ImConstants.CALL_SESSION_ID);
+            //            sessionId = data.getQueryParameter(ImConstants.CALL_SESSION_ID);
             if (teamChat) {
                 mMessageView.setMessageInfo(sessionId, SessionTypeEnum.Team);
-                if (ImClient.getTeamProvider().getTeamById(sessionId) != null) {
-                    setTitle(ImClient.getTeamProvider().getTeamById(sessionId).getName());
-                }
             } else {
                 mMessageView.setMessageInfo(sessionId, SessionTypeEnum.P2P);
-                setTitle("问诊详情");
             }
         }
-
-        setRightImgListener(v -> {
-            mPopupWindow.showAsDropDown(getTitleLayout().mViewHolder.ivRightComplete);
-            mPopupWindow.setOutsideTouchable(true);
-            WindowManager.LayoutParams lp = getWindow().getAttributes();
-            lp.alpha = 0.7f;
-            getWindow().setAttributes(lp);
-            mPopupWindow.setOnDismissListener(() -> {
-                WindowManager.LayoutParams lp1 = getWindow().getAttributes();
-                lp1.alpha = 1f;
-                getWindow().setAttributes(lp1);
-            });
-        });
 
         view = getLayoutInflater().inflate(R.layout.im_inquiry_pop_layout, null, false);
         initPopupWindow();
@@ -543,7 +540,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         inquiryPopAdvice = view.findViewById(R.id.inquiry_pop_advice_tv);
         inquiryPopAdvice.setOnClickListener(this);
 
-        mVideoPlugin = new VideoPlugin(this);
+        mVideoPlugin = new VideoPlugin(getContext());
         //区分群聊单聊视频发起
         mVideoPlugin.setTeam(teamChat);
         mVideoPlugin.setTeamId(sessionId);
@@ -556,7 +553,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mUserFollowUpPlugin = new UserFollowUpPlugin(() -> showUserFollowUp());
         //mMessageView.addPlugin(mUserFollowUpPlugin);
 
-        mVoiceInputPlugin = new VoiceInputPlugin(this);
+        mVoiceInputPlugin = new VoiceInputPlugin(getContext());
         mMessageView.addPlugin(mVoiceInputPlugin);
     }
 
@@ -576,7 +573,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             mVisitingLl.setVisibility(View.GONE);
             mCompletedCl.setVisibility(View.GONE);
             mEndTheConsultationLl.setVisibility(View.GONE);
-            findViewById(R.id.inquiry_header).setVisibility(View.GONE);
+            getView().findViewById(R.id.inquiry_header).setVisibility(View.GONE);
         } else {
             mMessageView.removePlugin(mVideoPlugin);
             mMessageView.removePlugin(mEndInquiryPlugin);
@@ -584,16 +581,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 mMessageView.addPlugin(mVideoPlugin);
             }
             mMessageView.addPlugin(mEndInquiryPlugin);
-            setRightImg(Objects.requireNonNull(ContextCompat.getDrawable(this,
-                    R.mipmap.more_icon)));
         }
         //待接诊
         if (InquiryStatus.INQUIRY_WAIT == inquiryStatus || InquiryStatus.INQUIRY_REFERRAL_DOCTOR == inquiryStatus) {
-            setRightImgVisibility(false);
-            findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
+            getView().findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
             mInquiryTypeImage.setImageResource(R.drawable.inquiry_type_image_waiting);
             mInquiryTypeTv.setText("待接诊");
-            mInquiryTypeTv.setTextColor(ContextCompat.getColor(this, R.color.im_status_waiting));
+            mInquiryTypeTv.setTextColor(ContextCompat.getColor(getContext(),
+                    R.color.im_status_waiting));
             mQuestionRemainingTimeTv.setVisibility(View.GONE);
             mVisitingLl.setVisibility(View.VISIBLE);
             mCompletedCl.setVisibility(View.GONE);
@@ -644,7 +639,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         } else {
             referralTv.setText("转诊");
         }
-        if (orderBean.getIsVip() == 1) {
+        if (orderBean != null && orderBean.getIsVip() == 1) {
             //分诊中
             if (orderBean.getState() == InquiryStatus.INQUIRY_TRIAGE_DOING || !SharePreferenceManager.getIsReceptionDoctor()) {
                 inquiryPopTriageTv.setVisibility(View.GONE);
@@ -672,10 +667,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     }
 
     private void inquiryEnd() {
-        setRightImgVisibility(false);
-        findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
         mInquiryTypeImage.setImageResource(R.drawable.inquiry_type_image_completed);
-        mInquiryTypeTv.setTextColor(ContextCompat.getColor(this, R.color.im_status_completed));
+        mInquiryTypeTv.setTextColor(ContextCompat.getColor(getContext(),
+                R.color.im_status_completed));
         mQuestionRemainingTimeTv.setVisibility(View.VISIBLE);
         if (InquiryStatus.INQUIRY_PRESCRIBE == inquiryStatus) {
             //            mInquiryTypeTv.setText("已完成");
@@ -716,10 +711,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      * 问诊中布局设置
      */
     private void inquiryIng() {
-        findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
         mInquiryTypeImage.setImageResource(R.drawable.inquiry_type_image_ing);
         mInquiryTypeTv.setText("问诊中");
-        mInquiryTypeTv.setTextColor(ContextCompat.getColor(this, R.color.im_status_ing));
+        mInquiryTypeTv.setTextColor(ContextCompat.getColor(getContext(), R.color.im_status_ing));
         mQuestionRemainingTimeTv.setVisibility(View.VISIBLE);
         mVisitingLl.setVisibility(View.GONE);
         mMessageView.showExtension();
@@ -729,11 +724,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      * 申请结束问诊后，患者还未处理时布局
      */
     private void inquiryApply() {
-        setRightImgVisibility(false);
-        findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
         mInquiryTypeTv.setText("问诊中");
         mInquiryTypeImage.setImageResource(R.drawable.inquiry_type_image_ing);
-        mInquiryTypeTv.setTextColor(ContextCompat.getColor(this, R.color.im_status_ing));
+        mInquiryTypeTv.setTextColor(ContextCompat.getColor(getContext(), R.color.im_status_ing));
         mEndTheConsultationLl.setVisibility(View.GONE);
         mQuestionRemainingTimeTv.setVisibility(View.VISIBLE);
         mMessageView.showExtension();
@@ -756,13 +750,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 break;
             case R.id.diagnostic_prescription_ll:
                 if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE})) {
-                    DiagnosePrescriptionActivity.startCreate(this, orderBean);
+                    DiagnosePrescriptionActivity.startCreate(getContext(), orderBean);
                 } else {
                     showNotAccessDialog();
                 }
                 break;
             case R.id.disposal_advice_ll:
-                DiagnosePrescriptionActivity.startHandle(this, orderBean);
+                DiagnosePrescriptionActivity.startHandle(getContext(), orderBean);
                 break;
             case R.id.inspection:
                 if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_CHECKOUT_SERVICE_CODE})) {
@@ -777,7 +771,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         });
                         builder.create().show();
                     } else {
-                        ApplyForCheckActivity.startCreateTest(this, orderBean);
+                        ApplyForCheckActivity.startCreateTest(getContext(), orderBean);
                     }
                 } else {
                     showNotAccessDialog();
@@ -799,7 +793,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         });
                         builder.create().show();
                     } else {
-                        ApplyForCheckActivity.startCreateInspect(this, orderBean);
+                        ApplyForCheckActivity.startCreateInspect(getContext(), orderBean);
                     }
                 } else {
                     showNotAccessDialog();
@@ -814,7 +808,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                             () -> getController().stopReferral()).setTitle("提示").show();
 
                 } else {
-                    FillOutApplyActivity.startFillOut(this, orderBean);
+                    FillOutApplyActivity.startFillOut(getContext(), orderBean);
                 }
                 if (mPopupWindow != null) {
                     mPopupWindow.dismiss();
@@ -823,7 +817,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             case R.id.inquiry_pop_diagnostic_prescription_tv:
                 //诊断与处方
                 if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE})) {
-                    DiagnosePrescriptionActivity.startCreate(this, orderBean);
+                    DiagnosePrescriptionActivity.startCreate(getContext(), orderBean);
                 } else {
                     showNotAccessDialog();
                 }
@@ -833,21 +827,21 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 break;
             case R.id.inquiry_pop_advice_tv:
                 //处置建议
-                DiagnosePrescriptionActivity.startHandle(this, orderBean);
+                DiagnosePrescriptionActivity.startHandle(getContext(), orderBean);
                 if (mPopupWindow != null) {
                     mPopupWindow.dismiss();
                 }
                 break;
             case R.id.inquiry_pop_triage_tv:
                 //分诊
-                TriageOrderApplyActivity.start(this, orderBean);
+                TriageOrderApplyActivity.start(getContext(), orderBean);
                 if (mPopupWindow != null) {
                     mPopupWindow.dismiss();
                 }
                 break;
             case R.id.inquiry_pop_consultation_tv:
                 //会诊
-                ConsultationMainActivity.start(this, orderBean);
+                ConsultationMainActivity.start(getContext(), orderBean);
                 if (mPopupWindow != null) {
                     mPopupWindow.dismiss();
                 }
@@ -857,7 +851,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == FINISH_PRESCRIPTION) {
             if (teamChat) {
                 mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
@@ -868,7 +862,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             }
             getController().getInquiryStatus();
         }
-        if (resultCode == RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 default:
                     break;
@@ -907,7 +901,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     }
 
     private void startTeamAVChat(ArrayList<String> accounts) {
-        ImClient.createRoom(this, sessionId, accounts);
+        ImClient.createRoom(getContext(), sessionId, accounts);
     }
 
     /**
@@ -991,12 +985,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         inquiryStatus = (data == null ? InquiryStatus.INQUIRY_COMPLETE : data.getState());
         chatting =
                 inquiryStatus == InquiryStatus.INQUIRY_COMPLETE || inquiryStatus == InquiryStatus.INQUIRY_UNPAID || inquiryStatus == InquiryStatus.INQUIRY_NOT_EVALUATED;
-        if (inquiryStatus != InquiryStatus.INQUIRY_ING) {
-            setRightImgVisibility(false);
-        } else {
-            setRightImgVisibility(true);
-        }
-
         if (data != null) {
             orderType = data.getType();
             orderBean = data;
@@ -1026,7 +1014,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     @Override
     public void acceptFailed(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -1108,7 +1096,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             ssb.append("请在");
             ssb.append(" ");
             SpannableString ss = new SpannableString(visitingRemainingTime);
-            ss.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color.colorPrimary)), 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+                    R.color.colorPrimary)), 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             ssb.append(ss);
             ssb.append(" ");
             ssb.append("内接单，超时将自动退诊");
@@ -1150,7 +1139,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             ssb.append("请在");
             ssb.append(" ");
             SpannableString ss = new SpannableString(visitingRemainingTime);
-            ss.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color.colorPrimary)), 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+                    R.color.colorPrimary)), 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             ssb.append(ss);
             ssb.append(" ");
             ssb.append("内接单，超时将自动退诊");
@@ -1163,12 +1153,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         if (timeDisposable != null && !timeDisposable.isDisposed()) {
             timeDisposable.dispose();
         }
-        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(getContext());
     }
 
     public void showNotAccessDialog() {
@@ -1192,11 +1182,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private void showUserFollowUp() {
 
         if (null == mFixHeightBottomSheetDialog) {
-            mFixHeightBottomSheetDialog = new FixHeightBottomSheetDialog(this);
+            mFixHeightBottomSheetDialog = new FixHeightBottomSheetDialog(getContext());
             mFixHeightBottomSheetDialog.setCancelable(true);
             mFixHeightBottomSheetDialog.setCanceledOnTouchOutside(true);
-            View view = LayoutInflater.from(this).inflate(R.layout.user_follow_up_dialog_layout,
-                    null, false);
+            View view =
+                    LayoutInflater.from(getContext()).inflate(R.layout.user_follow_up_dialog_layout,
+                            null, false);
             mFixHeightBottomSheetDialog.setContentView(view);
             view.findViewById(R.id.user_follow_up_dialog_first_rl).setOnClickListener(view1 -> {
                 UserFollowUpAttachment userFollowUpAttachment = new UserFollowUpAttachment();

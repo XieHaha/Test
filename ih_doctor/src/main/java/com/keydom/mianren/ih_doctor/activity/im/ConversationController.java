@@ -23,7 +23,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
      */
     public void getInquiryStatus() {
         if (getView().isGetStatus()) {
-            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getOrderDetails(getView().getUserId(), getView().getId(), "0"),
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getOrderDetails(getView().getUserId(), getView().getOrderId(), "0"),
                     new HttpSubscriber<InquiryBean>(getContext(), getDisposable(), true, false) {
                         @Override
                         public void requestComplete(@Nullable InquiryBean data) {
@@ -38,7 +38,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
      */
     public void acceptInquisition() {
         Map<String, Object> map = new HashMap<>();
-        map.put("id", getView().getId());
+        map.put("id", getView().getOrderId());
         RequestBody body = HttpService.INSTANCE.object2Body(map);
         if (getView().isTeam()) {
             ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).pcAcceptInquisition(body),
@@ -86,7 +86,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
      */
     public void endInquisition() {
         Map<String, Object> map = new HashMap<>();
-        map.put("id", getView().getId());
+        map.put("id", getView().getOrderId());
         RequestBody body = HttpService.INSTANCE.object2Body(map);
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).endInquisition(body),
                 new HttpSubscriber<Object>(getContext(), getDisposable(), true, false) {
@@ -106,7 +106,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
     }
 
     public void stopReferral() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).stopReferral(getView().getId()),
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).stopReferral(getView().getOrderId()),
                 new HttpSubscriber<Object>(getContext(), getDisposable(), true, false) {
                     @Override
                     public void requestComplete(@Nullable Object data) {
