@@ -187,5 +187,4 @@ public class ConsultationAdviceController extends ControllerImpl<ConsultationAdv
             }
         };
     }
-
 }

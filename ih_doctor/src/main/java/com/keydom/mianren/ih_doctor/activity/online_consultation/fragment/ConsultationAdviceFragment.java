@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerResult;
@@ -44,7 +45,7 @@ import butterknife.BindView;
  * @date 20/4/9 11:27
  * @des 会诊室-会诊意见
  */
-public class ConsultationAdviceFragment extends BaseControllerFragment<ConsultationAdviceController> implements ConsultationAdviceView {
+public class ConsultationAdviceFragment extends BaseControllerFragment<ConsultationAdviceController> implements ConsultationAdviceView, BaseQuickAdapter.OnItemChildClickListener {
     @BindView(R.id.consultation_advice_edit_et)
     InterceptorEditText consultationAdviceEditEt;
     @BindView(R.id.consultation_advice_voice_iv)
@@ -118,6 +119,7 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
         //音频文件
         consultationAdviceVoiceRecyclerView.setNestedScrollingEnabled(false);
         voiceAdapter = new ConsultationVoiceAdapter(getContext(), voiceBeans);
+        voiceAdapter.setOnItemChildClickListener(this);
         consultationAdviceVoiceRecyclerView.setAdapter(voiceAdapter);
         consultationAdviceVoiceLayout.setOnTouchListener(getController());
 
@@ -232,4 +234,16 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
     public void getConsultationAdviceFailed(String msg) {
         ToastUtil.showMessage(getContext(), msg);
     }
+
+    @Override
+    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+        if (view.getId() == R.id.consultation_voice_delete) {
+            voiceBeans.remove(position);
+            voiceAdapter.notifyItemRemoved(position);
+            voiceAdapter.notifyItemRangeChanged(position,
+                    voiceAdapter.getItemCount() - position);
+        }
+    }
+
+
 }

@@ -57,6 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_23"
+            android:layout_marginTop="@dimen/dp_10"
             android:layout_marginEnd="@dimen/dp_25"
             android:background="@drawable/corner5_f9f9f9_bg">
 
