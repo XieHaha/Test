@@ -214,7 +214,11 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
 
     @Override
     public void commitSuccess() {
+        //清空会诊意见
         consultationAdviceEditEt.setText("");
+        //会诊语音
+        voiceBeans.clear();
+        voiceAdapter.notifyDataSetChanged();
         ToastUtil.showMessage(getContext(), "会诊意见提交成功");
         getController().getConsultationAdviceList();
     }

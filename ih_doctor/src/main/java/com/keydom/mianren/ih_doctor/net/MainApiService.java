@@ -11,6 +11,7 @@ import com.keydom.mianren.ih_doctor.bean.IndexMenuBean;
 import com.keydom.mianren.ih_doctor.bean.MenuBean;
 import com.keydom.mianren.ih_doctor.bean.NotificationBean;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -99,7 +100,8 @@ public interface MainApiService {
      * @return
      */
     @GET("user/article/myAttention")
-    Observable<HttpResult<List<ArticleListBean>>> getAttentionArticle(@QueryMap Map<String, Object> maps);
+    Observable<HttpResult<List<ArticleListBean>>> getAttentionArticle(@QueryMap Map<String,
+            Object> maps);
 
 
     /**
@@ -199,6 +201,10 @@ public interface MainApiService {
     @Multipart
     @POST("api/file/upload")
     Observable<HttpResult<String>> upload(@Part MultipartBody.Part file);
+
+    @Multipart
+    @POST("api/file/upload")
+    Observable<HttpResult<String>> uploadMore(@Part ArrayList<MultipartBody.Part> files);
 
     /**
      * 获取当前院区下所有科室

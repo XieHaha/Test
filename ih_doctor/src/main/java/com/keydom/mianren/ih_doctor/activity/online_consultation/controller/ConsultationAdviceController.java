@@ -18,6 +18,7 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.view.Consultati
 import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
 import com.keydom.mianren.ih_doctor.bean.VoiceBean;
 import com.keydom.mianren.ih_doctor.net.ConsultationService;
+import com.keydom.mianren.ih_doctor.net.MainApiService;
 import com.netease.nimlib.sdk.media.record.IAudioRecordCallback;
 import com.netease.nimlib.sdk.media.record.RecordType;
 import com.orhanobut.logger.Logger;
@@ -26,7 +27,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * @date 20/4/9 11:28
@@ -97,6 +103,32 @@ public class ConsultationAdviceController extends ControllerImpl<ConsultationAdv
             default:
         }
         return true;
+    }
+
+    /**
+     * 上传file
+     */
+    public void uploadVoiceFile(ArrayList<VoiceBean> voiceBeans) {
+        ArrayList<MultipartBody.Part> files = new ArrayList<>();
+        for (VoiceBean bean : voiceBeans) {
+            File file = new File(bean.getVoiceUrl());
+            RequestBody requestFile =
+                    RequestBody.create(MediaType.parse("application/otcet-stream"), file);
+            MultipartBody.Part body =
+                    MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+            files.add(body);
+        }
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).uploadMore(files), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                return super.requestError(exception, code, msg);
+            }
+        });
     }
 
     /**

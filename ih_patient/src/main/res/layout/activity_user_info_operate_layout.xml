@@ -27,7 +27,7 @@
             android:layout_marginEnd="@dimen/dp_29"
             android:layout_width="@dimen/dp_38"
             android:layout_height="@dimen/dp_38"
-            android:src="@mipmap/mine_user_head"/>
+            android:src="@mipmap/user_icon"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
