@@ -1,7 +1,10 @@
 package com.keydom.mianren.ih_doctor.activity.online_consultation.view;
 
+import android.view.View;
+
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
+import com.keydom.mianren.ih_doctor.bean.VoiceBean;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +20,10 @@ public interface ConsultationAdviceView extends BaseView {
     String getConsultationAdvice();
 
     String getRecordId();
+
+    View getRoot();
+
+    void onRecordSuccess(VoiceBean bean);
 
     void commitSuccess();
 

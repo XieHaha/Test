@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.iflytek.cloud.ErrorCode;
@@ -19,9 +21,11 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.ConsultationAdviceAdapter;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.ConsultationVoiceAdapter;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationAdviceController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationAdviceView;
 import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
+import com.keydom.mianren.ih_doctor.bean.VoiceBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.utils.JsonUtils;
 import com.keydom.mianren.ih_doctor.view.CustomRecognizerDialog;
@@ -29,6 +33,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +51,10 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
     ImageView consultationAdviceVoiceIv;
     @BindView(R.id.consultation_advice_commit_tv)
     TextView consultationAdviceCommitTv;
+    @BindView(R.id.consultation_advice_voice_layout)
+    RelativeLayout consultationAdviceVoiceLayout;
+    @BindView(R.id.consultation_advice_voice_recycler)
+    RecyclerView consultationAdviceVoiceRecyclerView;
     @BindView(R.id.consultation_advice_recycler_view)
     RecyclerView consultationAdviceRecyclerView;
 
@@ -53,8 +62,14 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
      * 语音听写UI
      */
     private CustomRecognizerDialog mIatDialog;
-
+    /**
+     * 会诊意见
+     */
     private ConsultationAdviceAdapter adviceAdapter;
+    /**
+     * 会诊意见语音
+     */
+    private ConsultationVoiceAdapter voiceAdapter;
 
     private String recordId;
     /**
@@ -63,6 +78,7 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
     private String consultationAdvice;
 
     private List<ConsultationAdviceBean> adviceBeans;
+    private List<VoiceBean> voiceBeans = new ArrayList<>();
 
     public static ConsultationAdviceFragment newInstance(String id) {
         ConsultationAdviceFragment fragment = new ConsultationAdviceFragment();
@@ -98,6 +114,12 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
         consultationAdviceCommitTv.setOnClickListener(getController());
         adviceAdapter = new ConsultationAdviceAdapter(getContext(), adviceBeans);
         consultationAdviceRecyclerView.setAdapter(adviceAdapter);
+
+        //音频文件
+        consultationAdviceVoiceRecyclerView.setNestedScrollingEnabled(false);
+        voiceAdapter = new ConsultationVoiceAdapter(getContext(), voiceBeans);
+        consultationAdviceVoiceRecyclerView.setAdapter(voiceAdapter);
+        consultationAdviceVoiceLayout.setOnTouchListener(getController());
 
         //语音输入
         initVoice();
@@ -175,6 +197,17 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
     @Override
     public String getRecordId() {
         return recordId;
+    }
+
+    @Override
+    public View getRoot() {
+        return consultationAdviceVoiceLayout.getRootView();
+    }
+
+    @Override
+    public void onRecordSuccess(VoiceBean bean) {
+        voiceBeans.add(bean);
+        voiceAdapter.notifyDataSetChanged();
     }
 
     @Override

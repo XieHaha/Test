@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/dp_20"
+    android:paddingTop="@dimen/dp_7"
+    android:paddingEnd="@dimen/dp_20"
+    android:paddingBottom="@dimen/dp_7">
+
+    <TextView
+        android:id="@+id/consultation_advice_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="语音文件"
+        android:textColor="@color/fontColorPrimary"
+        android:textSize="@dimen/sp_14" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_30"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:layout_weight="1"
+        android:background="@drawable/corner5_9eea6a_bg"
+        android:paddingStart="@dimen/dp_10"
+        android:paddingEnd="@dimen/dp_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_12"
+            tools:text="10' " />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/im_voice_sent" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/consultation_advice_date"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_30"
+        android:background="@drawable/corner5_f9f9f9_bg"
+        android:drawableStart="@mipmap/icon_voice"
+        android:drawablePadding="@dimen/dp_5"
+        android:gravity="center"
+        android:paddingStart="@dimen/dp_13"
+        android:paddingEnd="@dimen/dp_13"
+        android:text="删除"
+        android:textColor="@color/fontColorPrimary"
+        android:textSize="@dimen/sp_14" />
+
+</LinearLayout>

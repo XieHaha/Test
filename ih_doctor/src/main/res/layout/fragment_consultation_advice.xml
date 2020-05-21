@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_bg_color">
@@ -45,12 +46,40 @@
                 android:src="@drawable/im_voice_toggle_selector" />
         </RelativeLayout>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/consultation_advice_voice_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <RelativeLayout
+            android:id="@+id/consultation_advice_voice_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_23"
+            android:layout_marginEnd="@dimen/dp_25"
+            android:background="@drawable/corner5_f9f9f9_bg">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_38"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:drawableStart="@mipmap/im_voice_sent"
+                android:drawablePadding="@dimen/dp_5"
+                android:gravity="center"
+                android:text="@string/txt_press_voice"
+                android:textColor="@color/fontColorPrimary"
+                android:textSize="@dimen/sp_14" />
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/consultation_advice_commit_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_19"
             android:layout_marginEnd="@dimen/dp_20"
             android:background="@mipmap/pay_commit_bg"
             android:gravity="center"

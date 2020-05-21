@@ -87,6 +87,7 @@
     <string name="txt_visit_card">就诊卡：%s</string>
     <string name="txt_visit_time">就诊时间</string>
     <string name="txt_apply_time">申请时间</string>
+    <string name="txt_press_voice">按住输入语音</string>
 
 
     <!-- 讯飞SDK appid -->

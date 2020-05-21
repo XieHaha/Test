@@ -234,7 +234,7 @@
                                 android:id="@+id/consultation_receive_consultation_doctor_grid_view"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dp_28"
+                                android:layout_marginStart="@dimen/dp_22"
                                 android:horizontalSpacing="@dimen/dp_29"
                                 android:numColumns="4"
                                 android:verticalSpacing="@dimen/dp_12" />

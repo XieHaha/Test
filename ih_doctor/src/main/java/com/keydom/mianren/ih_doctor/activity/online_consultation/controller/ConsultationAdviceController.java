@@ -1,9 +1,13 @@
 package com.keydom.mianren.ih_doctor.activity.online_consultation.controller;
 
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.im.manager.AudioPlayerManager;
+import com.keydom.ih_common.im.manager.AudioRecorderManager;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -12,18 +16,31 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationAdviceView;
 import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
+import com.keydom.mianren.ih_doctor.bean.VoiceBean;
 import com.keydom.mianren.ih_doctor.net.ConsultationService;
+import com.netease.nimlib.sdk.media.record.IAudioRecordCallback;
+import com.netease.nimlib.sdk.media.record.RecordType;
+import com.orhanobut.logger.Logger;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
 import java.util.List;
 
 /**
  * @date 20/4/9 11:28
  * @des 会诊室-视频
  */
-public class ConsultationAdviceController extends ControllerImpl<ConsultationAdviceView> implements View.OnClickListener {
+public class ConsultationAdviceController extends ControllerImpl<ConsultationAdviceView> implements View.OnClickListener, View.OnTouchListener {
+    private IAudioRecordCallback mCallback;
+    /**
+     * 语音
+     */
+    private float mLastTouchY = 0;
+    private boolean mUpDirection = false;
+    private float mOffsetLimit = 0;
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.consultation_advice_commit_tv) {
@@ -33,6 +50,53 @@ public class ConsultationAdviceController extends ControllerImpl<ConsultationAdv
             }
             commitConsultationAdvice();
         }
+    }
+
+    /**
+     * 录音处理
+     */
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if (AudioPlayerManager.getInstance().isPlaying()) {
+                    AudioPlayerManager.getInstance().stopPlay();
+                }
+                initCallback();
+                AudioRecorderManager.getInstance().init((AppCompatActivity) mContext, mCallback);
+                AudioRecorderManager.getInstance().setTouched(true);
+                AudioRecorderManager.getInstance().onStartAudioRecord();
+                mLastTouchY = event.getY();
+                mUpDirection = false;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (mLastTouchY - event.getY() > mOffsetLimit && !mUpDirection) {
+                    Logger.e(
+                            "mLastTouchY - event.getY()=" + (mLastTouchY - event.getY()));
+                    AudioRecorderManager.getInstance().cancelAudioRecord(true);
+                    mUpDirection = true;
+                    AudioRecorderManager.getInstance().setUpDirection(mUpDirection);
+                } else if (event.getY() - mLastTouchY > -mOffsetLimit && mUpDirection) {
+                    Logger.e(
+                            "event.getY() - mLastTouchY=" + (event.getY() - mLastTouchY));
+                    mUpDirection = false;
+                    AudioRecorderManager.getInstance().setUpDirection(mUpDirection);
+                    AudioRecorderManager.getInstance().cancelAudioRecord(false);
+                }
+                AudioRecorderManager.getInstance().setTouched(true);
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                if (mLastTouchY - event.getY() > mOffsetLimit) {
+                    AudioRecorderManager.getInstance().onEndAudioRecord(true);
+                } else /*if (event.getY() - mLastTouchY > -mOffsetLimit)*/ {
+                    AudioRecorderManager.getInstance().onEndAudioRecord(false);
+                }
+                AudioRecorderManager.getInstance().setTouched(false);
+                break;
+            default:
+        }
+        return true;
     }
 
     /**
@@ -72,4 +136,56 @@ public class ConsultationAdviceController extends ControllerImpl<ConsultationAdv
             }
         });
     }
+
+    private void initCallback() {
+        mCallback = new IAudioRecordCallback() {
+            @Override
+            public void onRecordReady() {
+                Logger.e("onRecordReady");
+            }
+
+            @Override
+            public void onRecordStart(File audioFile, RecordType recordType) {
+                Logger.e("onRecordStart");
+                AudioRecorderManager.getInstance().setStarted(true);
+                if (!AudioRecorderManager.getInstance().isTouched()) {
+                    return;
+                }
+                AudioRecorderManager.getInstance().initAudioPopView(getView().getRoot());
+            }
+
+            @Override
+            public void onRecordSuccess(File audioFile, long audioLength, RecordType recordType) {
+                Logger.e("onRecordSuccess");
+                if (audioLength < 1000) {
+                    AudioRecorderManager.getInstance().setTimeShortView();
+                } else {
+                    VoiceBean bean = new VoiceBean();
+                    bean.setVoiceTime(audioLength);
+                    bean.setVoiceUrl(audioFile.getPath());
+                    getView().onRecordSuccess(bean);
+                }
+            }
+
+            @Override
+            public void onRecordFail() {
+                Logger.e("onRecordFail");
+            }
+
+            @Override
+            public void onRecordCancel() {
+                Logger.e("onRecordCancel");
+            }
+
+            @Override
+            public void onRecordReachedMaxTime(int maxTime) {
+                Logger.e("onRecordReachedMaxTime");
+                AudioRecorderManager.getInstance().setTimeoutView(-1);
+                AudioRecorderManager.getInstance().getAudioRecorder().handleEndRecord(true,
+                        maxTime);
+
+            }
+        };
+    }
+
 }
