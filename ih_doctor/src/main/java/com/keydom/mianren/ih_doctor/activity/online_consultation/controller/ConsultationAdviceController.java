@@ -76,20 +76,20 @@ public class ConsultationAdviceController extends ControllerImpl<ConsultationAdv
                 mUpDirection = false;
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (mLastTouchY - event.getY() > mOffsetLimit && !mUpDirection) {
-                    Logger.e(
-                            "mLastTouchY - event.getY()=" + (mLastTouchY - event.getY()));
-                    AudioRecorderManager.getInstance().cancelAudioRecord(true);
-                    mUpDirection = true;
-                    AudioRecorderManager.getInstance().setUpDirection(mUpDirection);
-                } else if (event.getY() - mLastTouchY > -mOffsetLimit && mUpDirection) {
-                    Logger.e(
-                            "event.getY() - mLastTouchY=" + (event.getY() - mLastTouchY));
-                    mUpDirection = false;
-                    AudioRecorderManager.getInstance().setUpDirection(mUpDirection);
-                    AudioRecorderManager.getInstance().cancelAudioRecord(false);
-                }
-                AudioRecorderManager.getInstance().setTouched(true);
+//                if (mLastTouchY - event.getY() > mOffsetLimit && !mUpDirection) {
+//                    Logger.e(
+//                            "mLastTouchY - event.getY()=" + (mLastTouchY - event.getY()));
+//                    AudioRecorderManager.getInstance().cancelAudioRecord(true);
+//                    mUpDirection = true;
+//                    AudioRecorderManager.getInstance().setUpDirection(mUpDirection);
+//                } else if (event.getY() - mLastTouchY > -mOffsetLimit && mUpDirection) {
+//                    Logger.e(
+//                            "event.getY() - mLastTouchY=" + (event.getY() - mLastTouchY));
+//                    mUpDirection = false;
+//                    AudioRecorderManager.getInstance().setUpDirection(mUpDirection);
+//                    AudioRecorderManager.getInstance().cancelAudioRecord(false);
+//                }
+//                AudioRecorderManager.getInstance().setTouched(true);
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:

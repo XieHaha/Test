@@ -9,6 +9,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationReceiveActivity;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationRoomActivity;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationOrderFragmentView;
@@ -59,15 +60,42 @@ public class ConsultationOrderFragmentController extends ControllerImpl<Consulta
         });
     }
 
+    /**
+     * 变更会诊订单状态
+     */
+    private void changeConsultationOrderStatus(ConsultationBean bean) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).changeConsultationOrderStatus(bean.getApplicationId()), new HttpSubscriber<String>() {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                ConsultationRoomActivity.start(mContext, bean);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtil.showMessage(mContext, msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         ConsultationBean bean = (ConsultationBean) adapter.getItem(position);
         if (bean != null) {
-            if (getView().getType() == TypeEnum.CONSULTATION_ING) {
-                ConsultationRoomActivity.start(mContext, bean);
-            } else {
-                ConsultationReceiveActivity.start(mContext, bean.getApplicationId());
+            switch (getView().getType()) {
+                case CONSULTATION_WAIT:
+                    changeConsultationOrderStatus(bean);
+                    break;
+                case CONSULTATION_ING:
+                    ConsultationRoomActivity.start(mContext, bean);
+                    break;
+                case CONSULTATION_COMPLETE:
+                    ConsultationReceiveActivity.start(mContext, bean.getApplicationId());
+                    break;
+                default:
+                    break;
             }
         }
     }

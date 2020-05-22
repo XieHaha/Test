@@ -64,16 +64,17 @@ public class ConsultationPatientOrderFragment extends BaseControllerFragment<Con
      * 设置fragment
      */
     private void initOrderListFragment() {
-        mTabTitles = new String[2];
-        mFragmentArrays = new Fragment[2];
+        mTabTitles = new String[3];
+        mFragmentArrays = new Fragment[3];
         mTabTitles[0] = "待会诊";
-        //        mTabTitles[1] = "会诊中";
-        mTabTitles[1] = "会诊完成";
+        mTabTitles[1] = "会诊中";
+        mTabTitles[2] = "会诊完成";
         consultationOrderTabLayout.setTabMode(TabLayout.MODE_FIXED);
-        mFragmentArrays[0] = ConsultationOrderFragment.newInstance(TypeEnum.CONSULTATION_WAIT,inquiryBean.getPatientId());
-        //        mFragmentArrays[1] = ConsultationOrderFragment.newInstance(TypeEnum
-        //        .CONSULTATION_ING);
-        mFragmentArrays[1] = ConsultationOrderFragment.newInstance(TypeEnum.CONSULTATION_COMPLETE,inquiryBean.getPatientId());
+        mFragmentArrays[0] = ConsultationOrderFragment.newInstance(TypeEnum.CONSULTATION_WAIT,
+                inquiryBean.getPatientId());
+        mFragmentArrays[1] = ConsultationOrderFragment.newInstance(TypeEnum.CONSULTATION_ING);
+        mFragmentArrays[2] = ConsultationOrderFragment.newInstance(TypeEnum.CONSULTATION_COMPLETE
+                , inquiryBean.getPatientId());
         consultationOrderViewPager.setOffscreenPageLimit(2);
         PagerAdapter pagerAdapter = new TabViewPagerAdapter(getChildFragmentManager());
         consultationOrderViewPager.setAdapter(pagerAdapter);
