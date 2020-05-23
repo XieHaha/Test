@@ -9,7 +9,7 @@ import com.keydom.ih_common.constant.Const;
  * @date 20/4/26 14:17
  * @des
  */
-public class BaseImageUtils {
+public class BaseFileUtils {
 
     public static String getHeaderUrl(String url) {
         if (TextUtils.isEmpty(url)) {

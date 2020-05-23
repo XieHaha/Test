@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_doctor.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * @date 20/5/6 14:57
@@ -15,6 +16,7 @@ public class ConsultationAdviceBean implements Serializable {
     private String createTime;
     private String audioUrl;
     private String content;
+    private ArrayList<VoiceBean> audioInfos;
 
     public int getType() {
         return type;
@@ -62,5 +64,13 @@ public class ConsultationAdviceBean implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public ArrayList<VoiceBean> getAudioInfos() {
+        return audioInfos;
+    }
+
+    public void setAudioInfos(ArrayList<VoiceBean> audioInfos) {
+        this.audioInfos = audioInfos;
     }
 }

@@ -22,7 +22,7 @@ import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.keydom.ih_common.base.BaseControllerActivity;
-import com.keydom.ih_common.utils.BaseImageUtils;
+import com.keydom.ih_common.utils.BaseFileUtils;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.ToastUtil;
@@ -278,7 +278,7 @@ public class TriageOrderApplyActivity extends BaseControllerActivity<TriageOrder
                     diagnoseOrderLl.removeAllViews();
                     triageApplyInquiryOrderTv.setText("");
                 }).show());
-        GlideUtils.load(userIcon, BaseImageUtils.getHeaderUrl(orderBean.getUserAvatar()), 0,
+        GlideUtils.load(userIcon, BaseFileUtils.getHeaderUrl(orderBean.getUserAvatar()), 0,
                 R.mipmap.user_icon, false, null);
         DiagnoseOrderDetailAdapter adapter = new DiagnoseOrderDetailAdapter(this,
                 CommonUtils.getImgList(orderBean.getConditionData()));

@@ -109,9 +109,8 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
             setTitle(consultationBean.getPatientName());
             orderId = consultationBean.getApplicationId();
             applyId = consultationBean.getApplicantId();
-            //            recordId = consultationBean.getRecordId();
+            recordId = consultationBean.getRecordId();
             tid = consultationBean.getApplicantId();
-            //            mdtDoctors = consultationBean.getMdtTime();
         }
 
         LinearLayout linearLayout = (LinearLayout) consultationRoomTabLayout.getChildAt(0);
@@ -150,6 +149,9 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     }
 
     private ArrayList<String> getAccounts() {
+        if (consultationBean != null) {
+            return consultationBean.getDoctorCode();
+        }
         ArrayList<String> accounts = new ArrayList<>();
         for (ConsultationDoctorBean bean : mdtDoctors) {
             if (bean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())) {

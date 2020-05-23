@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.im.widget.AutoGridView;
-import com.keydom.ih_common.utils.BaseImageUtils;
+import com.keydom.ih_common.utils.BaseFileUtils;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.ToastUtil;
@@ -189,7 +189,7 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
             consultationReceiveCardTv.setText(String.format(getString(R.string.txt_visit_card),
                     detailBean.getEleCardNumber()));
             GlideUtils.load(consultationReceiveHeaderIv,
-                    BaseImageUtils.getHeaderUrl(detailBean.getRegisterUserImage()), 0,
+                    BaseFileUtils.getHeaderUrl(detailBean.getRegisterUserImage()), 0,
                     R.mipmap.im_default_head_image, true, null);
             if (detailBean.getLevel() == 0) {
                 consultationReceiveLevelTv.setBackgroundResource(R.drawable.corner5_ff3939_bg);
@@ -203,7 +203,7 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
             ConsultationDoctorBean bean = detailBean.getApplyDoctor();
             if (bean != null) {
                 GlideUtils.load(consultationReceiveApplyDoctorHeaderIv,
-                        BaseImageUtils.getHeaderUrl(bean.getDoctorImage()), 0,
+                        BaseFileUtils.getHeaderUrl(bean.getDoctorImage()), 0,
                         R.mipmap.im_default_head_image, true, null);
                 consultationReceiveApplyDoctorNameTv.setText(bean.getName());
             }

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.keydom.ih_common.utils.BaseImageUtils;
+import com.keydom.ih_common.utils.BaseFileUtils;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.mianren.ih_patient.R;
 
@@ -45,9 +45,9 @@ public class DiagnoseOrderDetailAdapter extends RecyclerView.Adapter<DiagnoseOrd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        Glide.with(context).load(BaseImageUtils.getHeaderUrl(data.get(position))).into(holder.itemIcon);
+        Glide.with(context).load(BaseFileUtils.getHeaderUrl(data.get(position))).into(holder.itemIcon);
         holder.itemView.setOnClickListener(v -> CommonUtils.previewImageList(context, data,
-                position, BaseImageUtils.needAddHead(data.get(position))));
+                position, BaseFileUtils.needAddHead(data.get(position))));
 
     }
 

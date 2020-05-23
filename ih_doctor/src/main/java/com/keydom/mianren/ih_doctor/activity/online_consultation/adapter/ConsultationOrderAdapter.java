@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.keydom.ih_common.utils.BaseImageUtils;
+import com.keydom.ih_common.utils.BaseFileUtils;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.mianren.ih_doctor.R;
@@ -36,7 +36,7 @@ public class ConsultationOrderAdapter extends BaseQuickAdapter<ConsultationBean,
                 .setText(R.id.consultation_order_date_tv,
                         DateUtils.timestampToString(item.getApplyTime(), DateUtils.YYYY_MM_DD_HH_MM_SS));
         ImageView headerImage = helper.getView(R.id.consultation_order_header_iv);
-        GlideUtils.load(headerImage, BaseImageUtils.getHeaderUrl(item.getRegisterImage()), 0,
+        GlideUtils.load(headerImage, BaseFileUtils.getHeaderUrl(item.getRegisterImage()), 0,
                 R.mipmap.im_default_head_image, true, null);
         TextView tvStatus = helper.getView(R.id.consultation_order_status_tv);
         if (item.getLevel() == 0) {

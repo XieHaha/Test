@@ -78,21 +78,38 @@
                 android:textColor="@color/fontColorNavigate"
                 android:textSize="@dimen/sp_14" />
 
-            <!--<com.keydom.ih_common.view.GridViewForScrollView-->
-            <!--android:id="@+id/consultation_info_chief"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="@dimen/dp_14"-->
-            <!--android:columnWidth="@dimen/dp_86"-->
-            <!--android:horizontalSpacing="@dimen/dp_10"-->
-            <!--android:listSelector="@android:color/transparent"-->
-            <!--android:numColumns="auto_fit"-->
-            <!--android:paddingStart="@dimen/padding_left_right_dp"-->
-            <!--android:paddingTop="@dimen/dp_17"-->
-            <!--android:paddingEnd="@dimen/padding_left_right_dp"-->
-            <!--android:paddingBottom="@dimen/dp_19"-->
-            <!--android:scrollbars="none"-->
-            <!--android:verticalSpacing="@dimen/dp_10" />-->
+            <com.keydom.ih_common.view.GridViewForScrollView
+                android:id="@+id/consultation_info_patient_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_14"
+                android:columnWidth="@dimen/dp_86"
+                android:horizontalSpacing="@dimen/dp_10"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="auto_fit"
+                android:paddingStart="@dimen/padding_left_right_dp"
+                android:paddingTop="@dimen/dp_17"
+                android:paddingEnd="@dimen/padding_left_right_dp"
+                android:paddingBottom="@dimen/dp_19"
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/dp_10" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/line_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_44"
+                android:drawableStart="@mipmap/icon_voice"
+                android:drawablePadding="@dimen/dp_12"
+                android:gravity="center"
+                android:paddingStart="@dimen/dp_25"
+                android:paddingEnd="@dimen/dp_0"
+                android:text="问诊申请单"
+                android:textColor="@color/font_order_type_image_with_video"
+                android:textSize="@dimen/sp_12" />
 
             <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
                 android:id="@+id/consultation_info_chief_item"

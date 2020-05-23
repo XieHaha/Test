@@ -9,22 +9,31 @@ import java.io.Serializable;
 public class VoiceBean implements Serializable {
 
     private static final long serialVersionUID = 8988375127618926907L;
-    private String voiceUrl;
-    private long voiceTime;
+    private String url;
+    private String createTime;
+    private String duration;
 
-    public String getVoiceUrl() {
-        return voiceUrl;
+    public String getUrl() {
+        return url;
     }
 
-    public void setVoiceUrl(String voiceUrl) {
-        this.voiceUrl = voiceUrl;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public long getVoiceTime() {
-        return voiceTime;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setVoiceTime(long voiceTime) {
-        this.voiceTime = voiceTime;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 }

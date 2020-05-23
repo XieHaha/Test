@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.ih_common.im.manager.AudioPlayerManager;
+import com.keydom.ih_common.utils.BaseFileUtils;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.bean.VoiceBean;
 import com.netease.nimlib.sdk.media.player.OnPlayListener;
@@ -30,12 +31,12 @@ public class ConsultationVoiceAdapter extends BaseQuickAdapter<VoiceBean,
 
     @Override
     protected void convert(BaseViewHolder helper, final VoiceBean item) {
-        helper.setText(R.id.consultation_voice_time, item.getVoiceTime() / 1000 + "'")
+        helper.setText(R.id.consultation_voice_time, Long.valueOf(item.getDuration()) / 1000 + "'")
                 .addOnClickListener(R.id.consultation_voice_delete);
         ImageView voiceImg = helper.getView(R.id.consultation_voice_img);
         RelativeLayout layout = helper.getView(R.id.consultation_voice_layout);
         layout.setOnClickListener(v -> {
-            AudioPlayerManager.getInstance().setDataSource(item.getVoiceUrl())
+            AudioPlayerManager.getInstance().setDataSource(BaseFileUtils.getHeaderUrl(item.getUrl()))
                     .setOnPlayListener(new OnVoicePlayListener(voiceImg));
             if (AudioPlayerManager.getInstance().isPlaying()) {
                 AudioPlayerManager.getInstance().stopPlay();

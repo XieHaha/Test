@@ -311,4 +311,19 @@ public class DateUtils {
         calendar.setTime(date);
         return weekDays[calendar.get(Calendar.DAY_OF_WEEK) - 1];
     }
+
+    public static String getMinute(String m) {
+        if (TextUtils.isEmpty(m)) {
+            return "";
+        }
+
+        int time = Integer.valueOf(m) / 1000;
+        int min = time / 60;
+        int s = time % 60;
+        if (min > 0) {
+            return min + ":" + s;
+        } else {
+            return s + "'";
+        }
+    }
 }

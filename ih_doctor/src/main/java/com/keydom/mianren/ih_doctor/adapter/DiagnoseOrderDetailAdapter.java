@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.keydom.ih_common.utils.BaseImageUtils;
+import com.keydom.ih_common.utils.BaseFileUtils;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.mianren.ih_doctor.R;
@@ -45,14 +45,14 @@ public class DiagnoseOrderDetailAdapter extends RecyclerView.Adapter<DiagnoseOrd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        GlideUtils.load(holder.itemIcon, BaseImageUtils.getHeaderUrl(data.get(position)), 0, 0, false,
+        GlideUtils.load(holder.itemIcon, BaseFileUtils.getHeaderUrl(data.get(position)), 0, 0, false,
                 null);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @SingleClick(1000)
             @Override
             public void onClick(View v) {
                 CommonUtils.previewImageList(context, data, position,
-                        BaseImageUtils.needAddHead(data.get(position)));
+                        BaseFileUtils.needAddHead(data.get(position)));
             }
         });
 

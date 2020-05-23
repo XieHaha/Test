@@ -20,7 +20,7 @@ import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.keydom.ih_common.base.BaseControllerFragment;
-import com.keydom.ih_common.utils.BaseImageUtils;
+import com.keydom.ih_common.utils.BaseFileUtils;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.ToastUtil;
@@ -197,7 +197,7 @@ public class ConsultationApplyFragment extends BaseControllerFragment<Consultati
         gradeStr.add("紧急");
         gradeStr.add("普通");
         GlideUtils.load(consultationApplyPatientHeaderIv,
-                BaseImageUtils.getHeaderUrl(inquiryBean.getUserAvatar()), 0, R.mipmap.user_icon,
+                BaseFileUtils.getHeaderUrl(inquiryBean.getUserAvatar()), 0, R.mipmap.user_icon,
                 false, null);
         consultationApplyPatientNameTv.setText(inquiryBean.getName());
         consultationApplyPatientSexTv.setText(CommonUtils.getSex(inquiryBean.getSex()));

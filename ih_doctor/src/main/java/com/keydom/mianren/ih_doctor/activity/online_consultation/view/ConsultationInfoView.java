@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_doctor.activity.online_consultation.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.ih_common.bean.DiagnoseOrderDetailBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
 
 /**
@@ -31,4 +32,8 @@ public interface ConsultationInfoView extends BaseView {
     void requestInfoSuccess(ConsultationDetailBean bean);
 
     void requestInfoFailed(String error);
+
+    void requestInquisitionSuccess(DiagnoseOrderDetailBean bean);
+
+    void requestInquisitionFailed(String error);
 }

@@ -183,8 +183,7 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
     @Override
     public Map<String, Object> getCommitParams() {
         Map<String, Object> params = new HashMap<>();
-        //type 1 文字，2、语音
-        params.put("type", 1);
+        params.put("audioInfo", voiceBeans);
         params.put("content", consultationAdvice);
         params.put("recordId", recordId);
         return params;
@@ -194,6 +193,11 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
     public String getConsultationAdvice() {
         consultationAdvice = consultationAdviceEditEt.getText().toString().trim();
         return consultationAdvice;
+    }
+
+    @Override
+    public List<VoiceBean> getConsultationVoiceAdvice() {
+        return voiceBeans;
     }
 
     @Override

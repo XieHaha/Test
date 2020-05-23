@@ -1,9 +1,16 @@
 package com.keydom.mianren.ih_doctor.activity.online_consultation.fragment;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.bean.DiagnoseOrderDetailBean;
+import com.keydom.ih_common.utils.BaseFileUtils;
+import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.utils.GlideUtils;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GridViewForScrollView;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.ImageAdapter;
@@ -40,6 +47,18 @@ public class ConsultationInfoFragment extends BaseControllerFragment<Consultatio
     LinearLayout consultationInfoReportLayout;
     @BindView(R.id.consultation_info_video_layout)
     LinearLayout consultationInfoVideoLayout;
+    @BindView(R.id.consultation_info_patient_header)
+    ImageView consultationInfoPatientHeader;
+    @BindView(R.id.consultation_info_patient_name)
+    TextView consultationInfoPatientName;
+    @BindView(R.id.consultation_info_patient_age)
+    TextView consultationInfoPatientAge;
+    @BindView(R.id.consultation_info_patient_sex)
+    TextView consultationInfoPatientSex;
+    @BindView(R.id.consultation_info_chief)
+    TextView consultationInfoChief;
+    @BindView(R.id.consultation_info_patient_image)
+    GridViewForScrollView consultationInfoPatientImageGrid;
 
     private String orderId;
 
@@ -70,11 +89,20 @@ public class ConsultationInfoFragment extends BaseControllerFragment<Consultatio
         getController().getConsultationOrderDetail(orderId);
     }
 
+    /**
+     * 病历资料信息
+     */
     private void bindData() {
         if (infoBean != null) {
             consultationInfoChiefItem.setText(infoBean.getMainTell());
             consultationInfoPurposeItem.setText(infoBean.getReasonAndAim());
             consultationInfoSummaryItem.setText(infoBean.getIllnessAbstract());
+
+            GlideUtils.load(consultationInfoPatientHeader,
+                    BaseFileUtils.getHeaderUrl(BaseFileUtils.getHeaderUrl(infoBean.getRegisterUserImage())), 0, R.mipmap.im_default_head_image, true, null);
+            consultationInfoPatientName.setText(infoBean.getPatientName());
+            consultationInfoPatientAge.setText(infoBean.getPatientAge());
+            consultationInfoPatientSex.setText(CommonUtils.getSex(infoBean.getPatientGender()));
 
             //图片适配器，病情资料和问诊说明图片适配器
             ImageAdapter imageAdapter = new ImageAdapter(getContext(),
@@ -82,6 +110,19 @@ public class ConsultationInfoFragment extends BaseControllerFragment<Consultatio
                             infoBean.getMedicalHistoryImg(), false);
             consultationInfoConditionImageGrid.setAdapter(imageAdapter);
         }
+    }
+
+    /**
+     * 患者问诊单信息
+     */
+    private void setInfo(DiagnoseOrderDetailBean bean) {
+        GlideUtils.load(consultationInfoPatientHeader,
+                BaseFileUtils.getHeaderUrl(bean.getAvatar()), 0, R.mipmap.im_default_head_image,
+                true, null);
+        consultationInfoPatientName.setText(bean.getName());
+        consultationInfoPatientAge.setText(bean.getAge());
+        consultationInfoPatientSex.setText(CommonUtils.getSex(bean.getSex()));
+        consultationInfoChief.setText(bean.getConditionDesc());
     }
 
     @Override
@@ -143,6 +184,16 @@ public class ConsultationInfoFragment extends BaseControllerFragment<Consultatio
 
     @Override
     public void requestInfoFailed(String error) {
+        ToastUtil.showMessage(getContext(), error);
+    }
 
+    @Override
+    public void requestInquisitionSuccess(DiagnoseOrderDetailBean bean) {
+        setInfo(bean);
+    }
+
+    @Override
+    public void requestInquisitionFailed(String error) {
+        ToastUtil.showMessage(getContext(), error);
     }
 }

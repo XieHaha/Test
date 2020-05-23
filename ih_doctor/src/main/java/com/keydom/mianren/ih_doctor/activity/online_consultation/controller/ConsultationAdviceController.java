@@ -27,7 +27,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -50,8 +49,8 @@ public class ConsultationAdviceController extends ControllerImpl<ConsultationAdv
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.consultation_advice_commit_tv) {
-            if (TextUtils.isEmpty(getView().getConsultationAdvice()) || getView().getConsultationAdvice().length() < 10) {
-                ToastUtil.showMessage(mContext, "会诊意见不能少于10个字");
+            if (TextUtils.isEmpty(getView().getConsultationAdvice()) && getView().getConsultationVoiceAdvice().size() == 0) {
+                ToastUtil.showMessage(mContext, "会诊意见不能为空");
                 return;
             }
             commitConsultationAdvice();
@@ -76,20 +75,25 @@ public class ConsultationAdviceController extends ControllerImpl<ConsultationAdv
                 mUpDirection = false;
                 break;
             case MotionEvent.ACTION_MOVE:
-//                if (mLastTouchY - event.getY() > mOffsetLimit && !mUpDirection) {
-//                    Logger.e(
-//                            "mLastTouchY - event.getY()=" + (mLastTouchY - event.getY()));
-//                    AudioRecorderManager.getInstance().cancelAudioRecord(true);
-//                    mUpDirection = true;
-//                    AudioRecorderManager.getInstance().setUpDirection(mUpDirection);
-//                } else if (event.getY() - mLastTouchY > -mOffsetLimit && mUpDirection) {
-//                    Logger.e(
-//                            "event.getY() - mLastTouchY=" + (event.getY() - mLastTouchY));
-//                    mUpDirection = false;
-//                    AudioRecorderManager.getInstance().setUpDirection(mUpDirection);
-//                    AudioRecorderManager.getInstance().cancelAudioRecord(false);
-//                }
-//                AudioRecorderManager.getInstance().setTouched(true);
+                //                if (mLastTouchY - event.getY() > mOffsetLimit && !mUpDirection) {
+                //                    Logger.e(
+                //                            "mLastTouchY - event.getY()=" + (mLastTouchY -
+                //                            event.getY()));
+                //                    AudioRecorderManager.getInstance().cancelAudioRecord(true);
+                //                    mUpDirection = true;
+                //                    AudioRecorderManager.getInstance().setUpDirection
+                //                    (mUpDirection);
+                //                } else if (event.getY() - mLastTouchY > -mOffsetLimit &&
+                //                mUpDirection) {
+                //                    Logger.e(
+                //                            "event.getY() - mLastTouchY=" + (event.getY() -
+                //                            mLastTouchY));
+                //                    mUpDirection = false;
+                //                    AudioRecorderManager.getInstance().setUpDirection
+                //                    (mUpDirection);
+                //                    AudioRecorderManager.getInstance().cancelAudioRecord(false);
+                //                }
+                //                AudioRecorderManager.getInstance().setTouched(true);
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
@@ -108,19 +112,19 @@ public class ConsultationAdviceController extends ControllerImpl<ConsultationAdv
     /**
      * 上传file
      */
-    public void uploadVoiceFile(ArrayList<VoiceBean> voiceBeans) {
-        ArrayList<MultipartBody.Part> files = new ArrayList<>();
-        for (VoiceBean bean : voiceBeans) {
-            File file = new File(bean.getVoiceUrl());
-            RequestBody requestFile =
-                    RequestBody.create(MediaType.parse("application/otcet-stream"), file);
-            MultipartBody.Part body =
-                    MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-            files.add(body);
-        }
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).uploadMore(files), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+    private void uploadVoiceFile(File file, long audioLength) {
+        RequestBody requestFile = RequestBody.create(MediaType.parse("application/otcet-stream"),
+                file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(),
+                requestFile);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).upload(body), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable String data) {
+                VoiceBean bean = new VoiceBean();
+                bean.setDuration(String.valueOf(audioLength));
+                bean.setCreateTime(String.valueOf(System.currentTimeMillis()));
+                bean.setUrl(data);
+                getView().onRecordSuccess(bean);
             }
 
             @Override
@@ -192,10 +196,7 @@ public class ConsultationAdviceController extends ControllerImpl<ConsultationAdv
                 if (audioLength < 1000) {
                     AudioRecorderManager.getInstance().setTimeShortView();
                 } else {
-                    VoiceBean bean = new VoiceBean();
-                    bean.setVoiceTime(audioLength);
-                    bean.setVoiceUrl(audioFile.getPath());
-                    getView().onRecordSuccess(bean);
+                    uploadVoiceFile(audioFile, audioLength);
                 }
             }
 

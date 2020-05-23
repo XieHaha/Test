@@ -19,6 +19,8 @@ public interface ConsultationAdviceView extends BaseView {
 
     String getConsultationAdvice();
 
+    List<VoiceBean> getConsultationVoiceAdvice();
+
     String getRecordId();
 
     View getRoot();

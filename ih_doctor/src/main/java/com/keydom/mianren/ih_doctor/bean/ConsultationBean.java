@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_doctor.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * @date 20/4/27 11:00
@@ -24,6 +25,9 @@ public class ConsultationBean implements Serializable {
     private String visitTime;
     private String applyTime;
     private String mdtTime;
+    private String tid;
+    private String recordId;
+    private ArrayList<String> doctorCode;
 
     public int getLevel() {
         return level;
@@ -119,5 +123,29 @@ public class ConsultationBean implements Serializable {
 
     public void setMdtTime(String mdtTime) {
         this.mdtTime = mdtTime;
+    }
+
+    public String getTid() {
+        return tid;
+    }
+
+    public void setTid(String tid) {
+        this.tid = tid;
+    }
+
+    public String getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(String recordId) {
+        this.recordId = recordId;
+    }
+
+    public ArrayList<String> getDoctorCode() {
+        return doctorCode;
+    }
+
+    public void setDoctorCode(ArrayList<String> doctorCode) {
+        this.doctorCode = doctorCode;
     }
 }
