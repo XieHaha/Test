@@ -316,14 +316,13 @@ public class DateUtils {
         if (TextUtils.isEmpty(m)) {
             return "";
         }
-
         int time = Integer.valueOf(m) / 1000;
         int min = time / 60;
         int s = time % 60;
         if (min > 0) {
-            return min + ":" + s;
+            return "··· " + min + ":" + s + " ···";
         } else {
-            return s + "'";
+            return "··· " + s + " ···";
         }
     }
 }

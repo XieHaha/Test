@@ -1,12 +1,13 @@
 package com.keydom.mianren.ih_doctor.activity.online_consultation.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -25,10 +26,13 @@ import java.util.List;
 public class ConsultationAdviceAdapter extends BaseQuickAdapter<ConsultationAdviceBean,
         BaseViewHolder> {
     private Context context;
+    private AnimationDrawable animationDrawable;
 
     public ConsultationAdviceAdapter(Context context, List<ConsultationAdviceBean> data) {
         super(R.layout.item_consultation_advice, data);
         this.context = context;
+        animationDrawable = (AnimationDrawable) ContextCompat.getDrawable(context,
+                R.drawable.im_anim_voice_sent);
     }
 
     @Override
@@ -49,33 +53,22 @@ public class ConsultationAdviceAdapter extends BaseQuickAdapter<ConsultationAdvi
 
     private void addVoiceView(LinearLayout voiceLayout, ArrayList<VoiceBean> audioInfos) {
         for (VoiceBean bean : audioInfos) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.item_voice, null);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_consultation_voice,
+                    null);
 
-            ImageView imageStart = view.findViewById(R.id.voice_start);
-            TextView voiceTime = view.findViewById(R.id.voice_time);
-            ProgressBar progressBar = view.findViewById(R.id.voice_progress);
-
+            ImageView imageStart = view.findViewById(R.id.consultation_voice_img);
+            TextView voiceTime = view.findViewById(R.id.consultation_voice_time);
+            TextView deleteTv = view.findViewById(R.id.consultation_voice_delete);
+            deleteTv.setVisibility(View.GONE);
             voiceTime.setText(DateUtils.getMinute(bean.getDuration()));
-            progressBar.setMax(Integer.valueOf(bean.getDuration()));
-            imageStart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (imageStart.isSelected()) {
-                        imageStart.setSelected(false);
-                        if (AudioPlayerManager.getInstance().isPlaying()) {
-                            AudioPlayerManager.getInstance().stopPlay();
-                        }
-                    } else {
-                        imageStart.setSelected(true);
-                        AudioPlayerManager.getInstance().setDataSource(BaseFileUtils.getHeaderUrl(bean.getUrl()))
-                                .setOnPlayListener(new OnVoicePlayListener(voiceTime, progressBar
-                                        , imageStart));
-                        if (AudioPlayerManager.getInstance().isPlaying()) {
-                            AudioPlayerManager.getInstance().stopPlay();
-                        }
-                        AudioPlayerManager.getInstance().start(AudioManager.STREAM_MUSIC);
-                    }
+
+            view.setOnClickListener(v -> {
+                AudioPlayerManager.getInstance().setDataSource(BaseFileUtils.getHeaderUrl(bean.getUrl()))
+                        .setOnPlayListener(new OnVoicePlayListener(imageStart));
+                if (AudioPlayerManager.getInstance().isPlaying()) {
+                    AudioPlayerManager.getInstance().stopPlay();
                 }
+                AudioPlayerManager.getInstance().start(AudioManager.STREAM_MUSIC);
             });
             voiceLayout.addView(view);
         }
@@ -83,14 +76,9 @@ public class ConsultationAdviceAdapter extends BaseQuickAdapter<ConsultationAdvi
 
     private class OnVoicePlayListener implements OnPlayListener {
         private ImageView imageView;
-        private TextView voiceTime;
-        private ProgressBar progressBar;
 
-        public OnVoicePlayListener(TextView voiceTime, ProgressBar progressBar,
-                                   ImageView imageView) {
+        public OnVoicePlayListener(ImageView imageView) {
             this.imageView = imageView;
-            this.voiceTime = voiceTime;
-            this.progressBar = progressBar;
         }
 
         @Override
@@ -100,30 +88,32 @@ public class ConsultationAdviceAdapter extends BaseQuickAdapter<ConsultationAdvi
 
         @Override
         public void onCompletion() {
-            imageView.setSelected(false);
-            progressBar.setProgress(0);
-            voiceTime.setText(DateUtils.getMinute(String.valueOf(progressBar.getMax())));
+            setVoiceAnim(imageView, false);
         }
 
         @Override
         public void onInterrupt() {
-            imageView.setSelected(false);
-            progressBar.setProgress(0);
-            voiceTime.setText(DateUtils.getMinute(String.valueOf(progressBar.getMax())));
+            setVoiceAnim(imageView, false);
         }
 
         @Override
         public void onError(String error) {
-            imageView.setSelected(false);
-            progressBar.setProgress(0);
-            voiceTime.setText(DateUtils.getMinute(String.valueOf(progressBar.getMax())));
+            setVoiceAnim(imageView, false);
         }
 
         @Override
         public void onPlaying(long curPosition) {
-            voiceTime.setText(DateUtils.getMinute(String.valueOf(progressBar.getMax() - (int) curPosition)));
-            progressBar.setProgress((int) curPosition);
+            setVoiceAnim(imageView, true);
         }
     }
 
+    private void setVoiceAnim(ImageView imageView, boolean playing) {
+        if (playing) {
+            imageView.setImageDrawable(animationDrawable);
+            animationDrawable.start();
+        } else {
+            imageView.setImageResource(R.mipmap.im_voice_sent);
+            animationDrawable.stop();
+        }
+    }
 }

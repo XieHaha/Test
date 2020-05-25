@@ -55,6 +55,7 @@
         android:background="@drawable/corner5_f9f9f9_bg"
         android:drawableStart="@mipmap/icon_voice"
         android:drawablePadding="@dimen/dp_5"
+        android:visibility="visible"
         android:gravity="center"
         android:paddingStart="@dimen/dp_13"
         android:paddingEnd="@dimen/dp_13"
