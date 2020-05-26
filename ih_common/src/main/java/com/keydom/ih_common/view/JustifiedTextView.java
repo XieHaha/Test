@@ -1,4 +1,4 @@
-package com.keydom.mianren.ih_patient.view.textview;
+package com.keydom.ih_common.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

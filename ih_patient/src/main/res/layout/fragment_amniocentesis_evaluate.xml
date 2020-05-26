@@ -22,7 +22,7 @@
             android:textStyle="bold" />
 
 
-        <com.keydom.mianren.ih_patient.view.textview.JustifiedTextView
+        <com.keydom.ih_common.view.JustifiedTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_27"
@@ -142,7 +142,7 @@
             android:textSize="@dimen/sp_14"
             android:textStyle="bold" />
 
-        <com.keydom.mianren.ih_patient.view.textview.JustifiedTextView
+        <com.keydom.ih_common.view.JustifiedTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_27"

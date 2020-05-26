@@ -5,15 +5,16 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationRoomView;
 import com.keydom.mianren.ih_doctor.net.ConsultationService;
 import com.keydom.mianren.ih_doctor.net.MainApiService;
-import com.orhanobut.logger.Logger;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -24,7 +25,7 @@ public class ConsultationRoomController extends ControllerImpl<ConsultationRoomV
      * 申请加入会诊
      */
     public void applyJoinConsultation() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).applyJoinConsultation(getView().getApplyParams()), new HttpSubscriber<String>(mContext, getDisposable(), true, false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).applyJoinConsultation(HttpService.INSTANCE.object2Body(getView().getApplyParams())), new HttpSubscriber<String>(mContext, getDisposable(), true, false) {
             @Override
             public void requestComplete(@Nullable String data) {
                 getView().applyJoinConsultationSuccess();
@@ -34,6 +35,24 @@ public class ConsultationRoomController extends ControllerImpl<ConsultationRoomV
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
                 getView().applyJoinConsultationFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 处理会诊加入申请
+     */
+    public void dealConsultationApply() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).dealConsultationApply(HttpService.INSTANCE.object2Body(getView().getDealParams())), new HttpSubscriber<String>(mContext, getDisposable(), true, false) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtil.showMessage(mContext, msg);
                 return super.requestError(exception, code, msg);
             }
         });
@@ -69,15 +88,35 @@ public class ConsultationRoomController extends ControllerImpl<ConsultationRoomV
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).upload(body), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable String data) {
-                Logger.e("upload success date:" + data);
+                uploadConsultationVoice(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
+                ToastUtil.showMessage(mContext, msg);
                 return super.requestError(exception, code, msg);
             }
         });
     }
 
+    /**
+     * 上传会诊语音
+     */
+    private void uploadConsultationVoice(String voiceUrl) {
+        Map<String, Object> params = getView().getUploadVoiceParams();
+        params.put("url", voiceUrl);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).uploadConsultationVoice(HttpService.INSTANCE.object2Body(params)), new HttpSubscriber<String>(mContext, getDisposable(), true, false) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtil.showMessage(mContext, msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
 }

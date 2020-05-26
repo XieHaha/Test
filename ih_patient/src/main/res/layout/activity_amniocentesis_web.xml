@@ -110,7 +110,7 @@
                         android:layout_height="@dimen/dp_21"
                         android:src="@drawable/selector_amniocentesis_reason" />
 
-                    <com.keydom.mianren.ih_patient.view.textview.JustifiedTextView
+                    <com.keydom.ih_common.view.JustifiedTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_16"
@@ -142,7 +142,7 @@
                             android:layout_height="@dimen/dp_21"
                             android:src="@drawable/selector_amniocentesis_reason" />
 
-                        <com.keydom.mianren.ih_patient.view.textview.JustifiedTextView
+                        <com.keydom.ih_common.view.JustifiedTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp_16"
@@ -164,7 +164,7 @@
                             android:layout_height="@dimen/dp_21"
                             android:src="@drawable/selector_amniocentesis_reason" />
 
-                        <com.keydom.mianren.ih_patient.view.textview.JustifiedTextView
+                        <com.keydom.ih_common.view.JustifiedTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp_16"

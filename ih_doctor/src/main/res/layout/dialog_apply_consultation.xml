@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:Android="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -11,6 +11,7 @@
         android:layout_height="@dimen/dp_63">
 
         <ImageView
+            android:id="@+id/dialog_apply_close"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingStart="@dimen/dp_20"
@@ -31,12 +32,13 @@
         android:layout_height="@dimen/dp_1"
         android:background="@color/line_color" />
 
-    <TextView
+    <com.keydom.ih_common.view.JustifiedTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_33"
         android:layout_marginTop="@dimen/dp_22"
         android:layout_marginEnd="@dimen/dp_33"
+        android:lineSpacingMultiplier="1.5"
         android:text="@string/txt_add_consultation_des"
         android:textColor="@color/fontColorPrimary"
         android:textSize="@dimen/sp_14" />
@@ -44,7 +46,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_33"
+        android:layout_marginStart="@dimen/dp_31"
         android:layout_marginTop="@dimen/dp_30"
         android:layout_marginEnd="@dimen/dp_33"
         android:drawableStart="@mipmap/icon_add_consultation"
@@ -55,8 +57,23 @@
         android:textSize="@dimen/sp_14" />
 
     <com.keydom.ih_common.view.InterceptorEditText
+        android:id="@+id/dialog_apply_edit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_31"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginEnd="@dimen/dp_33"
+        android:background="@drawable/check_dialog_input_bg"
+        android:gravity="start|top"
+        android:hint="请您填写加入理由"
+        android:maxLength="1000"
+        android:minHeight="@dimen/dp_81"
+        android:padding="@dimen/dp_13"
+        android:singleLine="false"
+        android:textColor="@color/edit_font_color"
+        android:textCursorDrawable="@null"
+        android:textSize="@dimen/sp_14"
+        android:adjustViewBounds="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -67,19 +84,21 @@
         android:paddingBottom="@dimen/dp_37">
 
         <TextView
+            android:id="@+id/dialog_apply_cancel"
             android:layout_width="@dimen/dp_100"
             android:layout_height="@dimen/dp_32"
-            android:background="@drawable/corner5_f9f9f9_bg"
+            android:background="@drawable/corner5_f4f1f4_bg"
             android:gravity="center"
             android:text="@string/cancel"
             android:textColor="@color/fontColorPrimary"
             android:textSize="@dimen/sp_14" />
 
         <TextView
+            android:id="@+id/dialog_apply_sure"
             android:layout_width="@dimen/dp_100"
             android:layout_height="@dimen/dp_32"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/corner5_ff3939_bg"
+            android:background="@drawable/corner5_3fb0f7_bg"
             android:gravity="center"
             android:text="@string/txt_apply"
             android:textColor="@color/white"

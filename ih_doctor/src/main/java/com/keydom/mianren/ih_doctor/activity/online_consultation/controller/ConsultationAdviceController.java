@@ -16,7 +16,7 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationAdviceView;
 import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
-import com.keydom.mianren.ih_doctor.bean.VoiceBean;
+import com.keydom.ih_common.bean.VoiceBean;
 import com.keydom.mianren.ih_doctor.net.ConsultationService;
 import com.keydom.mianren.ih_doctor.net.MainApiService;
 import com.netease.nimlib.sdk.media.record.IAudioRecordCallback;

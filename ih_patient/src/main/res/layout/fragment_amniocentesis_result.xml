@@ -33,7 +33,7 @@
             android:textColor="@color/register_success_color"
             android:textSize="@dimen/sp_18" />
 
-        <com.keydom.mianren.ih_patient.view.textview.JustifiedTextView
+        <com.keydom.ih_common.view.JustifiedTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_32"
@@ -51,7 +51,7 @@
             android:layout_marginTop="@dimen/dp_26"
             android:background="@color/color_f1f1f1" />
 
-        <com.keydom.mianren.ih_patient.view.textview.JustifiedTextView
+        <com.keydom.ih_common.view.JustifiedTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_32"
@@ -85,7 +85,7 @@
                     android:layout_marginStart="@dimen/dp_28"
                     android:src="@mipmap/point_icon_2" />
 
-                <com.keydom.mianren.ih_patient.view.textview.JustifiedTextView
+                <com.keydom.ih_common.view.JustifiedTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_11"
@@ -132,7 +132,7 @@
                     android:layout_marginStart="@dimen/dp_28"
                     android:src="@mipmap/point_icon_4" />
 
-                <com.keydom.mianren.ih_patient.view.textview.JustifiedTextView
+                <com.keydom.ih_common.view.JustifiedTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_11"
@@ -180,7 +180,7 @@
                     android:layout_marginStart="@dimen/dp_28"
                     android:src="@mipmap/point_icon_5" />
 
-                <com.keydom.mianren.ih_patient.view.textview.JustifiedTextView
+                <com.keydom.ih_common.view.JustifiedTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_11"

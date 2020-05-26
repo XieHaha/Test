@@ -1,5 +1,7 @@
 package com.keydom.mianren.ih_doctor.bean;
 
+import com.keydom.ih_common.bean.VoiceBean;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

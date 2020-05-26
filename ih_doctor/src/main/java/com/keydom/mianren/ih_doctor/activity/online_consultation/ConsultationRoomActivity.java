@@ -20,8 +20,10 @@ import com.keydom.ih_common.avchatkit.AVChatKit;
 import com.keydom.ih_common.avchatkit.teamavchat.activity.TeamAVChatFragment;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.MessageEvent;
+import com.keydom.ih_common.bean.VoiceBean;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
+import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationRoomController;
@@ -59,9 +61,18 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     private String[] mTabTitles;
 
     private ConsultationBean consultationBean;
+    /**
+     * 当前视频音频moudle
+     */
+    private VoiceBean voiceBean;
     private String orderId, applyId, recordId, tid, inquiryId;
 
-    private ArrayList<String> docotorCodes = new ArrayList<>();
+    private ArrayList<String> doctorCodes = new ArrayList<>();
+
+    /**
+     * 申请原因
+     */
+    private String applyReason;
 
     /**
      * 是否为发起人
@@ -120,18 +131,18 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
 
         //所有参与会诊的医生
         if (consultationBean != null && consultationBean.getDoctorCode() != null) {
-            docotorCodes = consultationBean.getDoctorCode();
+            doctorCodes = consultationBean.getDoctorCode();
         }
 
         if (TextUtils.equals(applyId, String.valueOf(MyApplication.userInfo.getId()))) {
             isApply = true;
             setRightTxt(getString(R.string.txt_exit_consultation));
-            setRightBtnListener(v -> endConsultation());
+            setRightBtnListener(v -> endConsultationDialog());
         } else {
-            if (!docotorCodes.contains(AVChatKit.getAccount().toUpperCase())) {
+            if (!doctorCodes.contains(AVChatKit.getAccount().toUpperCase())) {
                 outConsultationDoctor = true;
                 setRightTxt(getString(R.string.txt_add_consultation));
-                setRightBtnListener(v -> applyJoinConsultation());
+                setRightBtnListener(v -> applyJoinConsultationDialog());
             }
         }
         initOrderListFragment();
@@ -161,7 +172,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
 
     private ArrayList<String> getAccounts() {
         ArrayList<String> accounts = new ArrayList<>();
-        for (String doctorCode : docotorCodes) {
+        for (String doctorCode : doctorCodes) {
             if (doctorCode.equalsIgnoreCase(AVChatKit.getAccount())) {
                 continue;
             }
@@ -173,7 +184,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     /**
      * 结束会诊（申请人权限）
      */
-    private void endConsultation() {
+    private void endConsultationDialog() {
         new GeneralDialog(this, "结束会诊?",
                 () -> getController().endConsultationOrder(recordId, "")).show();
     }
@@ -181,11 +192,23 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     /**
      * 申请加入会诊（未在会诊中医生）
      */
-    private void applyJoinConsultation() {
+    private void applyJoinConsultationDialog() {
         BottomSheetDialog dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
-        View view =getLayoutInflater().inflate(R.layout.item_consultation_order, null, false);
+        View view = getLayoutInflater().inflate(R.layout.dialog_apply_consultation, null, false);
+        InterceptorEditText reasonEt = view.findViewById(R.id.dialog_apply_edit);
+        view.findViewById(R.id.dialog_apply_close).setOnClickListener(v -> dialog.dismiss());
+        view.findViewById(R.id.dialog_apply_cancel).setOnClickListener(v -> dialog.dismiss());
+        view.findViewById(R.id.dialog_apply_sure).setOnClickListener(v -> {
+            applyReason = reasonEt.getText().toString();
+            if (TextUtils.isEmpty(applyReason)) {
+                ToastUtil.showMessage(ConsultationRoomActivity.this, "加入理由不能为空");
+                return;
+            }
+            getController().applyJoinConsultation();
+            dialog.dismiss();
+        });
         dialog.setContentView(view);
         dialog.show();
     }
@@ -217,9 +240,27 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     public Map<String, String> getApplyParams() {
         Map<String, String> params = new HashMap<>();
         params.put("applyDoctorId", String.valueOf(MyApplication.userInfo.getId()));
-        params.put("applyReason", "原因");
+        params.put("applyReason", applyReason);
         params.put("mdtApplicationId", orderId);
-        return null;
+        return params;
+    }
+
+    @Override
+    public Map<String, Object> getDealParams() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("accept", true);
+        params.put("auditId", "");
+        //        params.put("suggest", “拒绝预留字段”);
+        return params;
+    }
+
+    @Override
+    public Map<String, Object> getUploadVoiceParams() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("recordId", recordId);
+        params.put("createTime", System.currentTimeMillis());
+        params.put("duration", voiceBean == null ? 0 : voiceBean.getDuration());
+        return params;
     }
 
     final class TabViewPagerAdapter extends FragmentPagerAdapter {
@@ -250,8 +291,11 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
         if (messageEvent.getType() == com.keydom.ih_common.constant.EventType.FILE) {
-            File file = new File((String) messageEvent.getData());
-            getController().uploadVoiceFile(file);
+            voiceBean = (VoiceBean) messageEvent.getData();
+            if (voiceBean != null) {
+                File file = new File(voiceBean.getUrl());
+                getController().uploadVoiceFile(file);
+            }
         }
     }
 

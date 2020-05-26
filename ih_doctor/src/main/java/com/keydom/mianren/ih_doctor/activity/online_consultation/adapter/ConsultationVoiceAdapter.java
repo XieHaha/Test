@@ -12,7 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.ih_common.im.manager.AudioPlayerManager;
 import com.keydom.ih_common.utils.BaseFileUtils;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.bean.VoiceBean;
+import com.keydom.ih_common.bean.VoiceBean;
 import com.netease.nimlib.sdk.media.player.OnPlayListener;
 
 import java.util.List;

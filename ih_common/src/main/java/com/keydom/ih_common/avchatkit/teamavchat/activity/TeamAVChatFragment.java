@@ -35,6 +35,7 @@ import com.keydom.ih_common.avchatkit.teamavchat.TeamAVChatVoiceMuteDialog;
 import com.keydom.ih_common.avchatkit.teamavchat.adapter.TeamAVChatAdapter;
 import com.keydom.ih_common.avchatkit.teamavchat.module.TeamAVChatItem;
 import com.keydom.ih_common.bean.MessageEvent;
+import com.keydom.ih_common.bean.VoiceBean;
 import com.keydom.ih_common.constant.EventType;
 import com.keydom.ih_common.event.ConsultationEvent;
 import com.keydom.ih_common.im.ImClient;
@@ -565,7 +566,10 @@ public class TeamAVChatFragment extends Fragment {
                 LogUtil.i(TAG, "录制结束...filePath:" + filePath);
                 //音频录制回调
                 if (!TextUtils.isEmpty(filePath)) {
-                    EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.FILE).setData(filePath).build());
+                    VoiceBean voiceBean = new VoiceBean();
+                    voiceBean.setUrl(filePath);
+                    voiceBean.setDuration(String.valueOf(seconds * 1000));
+                    EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.FILE).setData(voiceBean).build());
                 }
             }
         }

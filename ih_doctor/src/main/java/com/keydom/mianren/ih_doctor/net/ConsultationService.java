@@ -84,8 +84,18 @@ public interface ConsultationService {
     Observable<HttpResult<String>> endConsultationOrder(@Query("recordId") String id, @Query(
             "videoUrl") String videoUrl);
     /**
-     * 结束会诊
+     * 上传会诊语音
      */
-    @GET("user/mdt/application/apply/join")
-    Observable<HttpResult<String>> applyJoinConsultation(@QueryMap Map<String, String> maps);
+    @POST("user/mdt/record/audio/save")
+    Observable<HttpResult<String>> uploadConsultationVoice(@Body RequestBody body);
+    /**
+     * 申请加入会诊
+     */
+    @POST("user/mdt/application/apply/join")
+    Observable<HttpResult<String>> applyJoinConsultation(@Body RequestBody body);
+    /**
+     * 处理会诊加入申请
+     */
+    @POST("user/mdt/application/apply/audit")
+    Observable<HttpResult<String>> dealConsultationApply(@Body RequestBody body);
 }

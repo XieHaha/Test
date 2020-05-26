@@ -26,7 +26,7 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.Consult
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationAdviceController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationAdviceView;
 import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
-import com.keydom.mianren.ih_doctor.bean.VoiceBean;
+import com.keydom.ih_common.bean.VoiceBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.utils.JsonUtils;
 import com.keydom.mianren.ih_doctor.view.CustomRecognizerDialog;
