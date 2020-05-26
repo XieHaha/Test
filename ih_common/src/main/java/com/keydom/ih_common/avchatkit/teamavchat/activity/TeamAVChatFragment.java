@@ -33,10 +33,10 @@ import com.keydom.ih_common.avchatkit.controll.AVChatSoundPlayer;
 import com.keydom.ih_common.avchatkit.teamavchat.TeamAVChatNotification;
 import com.keydom.ih_common.avchatkit.teamavchat.TeamAVChatVoiceMuteDialog;
 import com.keydom.ih_common.avchatkit.teamavchat.adapter.TeamAVChatAdapter;
-import com.keydom.ih_common.avchatkit.teamavchat.module.SimpleAVChatStateObserver;
 import com.keydom.ih_common.avchatkit.teamavchat.module.TeamAVChatItem;
 import com.keydom.ih_common.event.ConsultationEvent;
 import com.keydom.ih_common.im.ImClient;
+import com.keydom.ih_common.im.listener.observer.SimpleAVChatStateObserver;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
@@ -58,6 +58,7 @@ import com.netease.nimlib.sdk.avchat.model.AVChatData;
 import com.netease.nimlib.sdk.avchat.model.AVChatParameters;
 import com.netease.nimlib.sdk.avchat.model.AVChatVideoCapturerFactory;
 import com.netease.nrtc.video.render.IVideoRender;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -146,7 +147,7 @@ public class TeamAVChatFragment extends Fragment {
     boolean speakerMode = true;
 
     // AVCAHT OBSERVER
-    private AVChatStateObserver stateObserver;
+    //    private AVChatStateObserver stateObserver;
     private Observer<AVChatControlEvent> notificationObserver;
     private AVChatCameraCapturer mVideoCapturer;
 
@@ -184,6 +185,8 @@ public class TeamAVChatFragment extends Fragment {
         //        showViews();
         //        setChatting(true);
         NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatus, true);
+
+        AVChatManager.getInstance().observeAVChatState(stateObserver, true);
 
         return view;
     }
@@ -257,6 +260,9 @@ public class TeamAVChatFragment extends Fragment {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
         LogUtil.i(TAG, "TeamAVChatActivity onDestroy");
+        if (stateObserver != null) {
+            AVChatManager.getInstance().observeAVChatState(stateObserver, false);
+        }
         releaseSource();
     }
 
@@ -272,9 +278,9 @@ public class TeamAVChatFragment extends Fragment {
             timerTask.cancel();
         }
 
-        if (stateObserver != null) {
-            AVChatManager.getInstance().observeAVChatState(stateObserver, false);
-        }
+        //        if (stateObserver != null) {
+        //            AVChatManager.getInstance().observeAVChatState(stateObserver, false);
+        //        }
 
         if (notificationObserver != null) {
             AVChatManager.getInstance().observeControlNotification(notificationObserver, false);
@@ -282,6 +288,7 @@ public class TeamAVChatFragment extends Fragment {
         if (mainHandler != null) {
             mainHandler.removeCallbacksAndMessages(null);
         }
+
         // 页面销毁的时候要保证离开房间，rtc释放。
         hangup();
         activeCallingNotifier(false);
@@ -461,35 +468,10 @@ public class TeamAVChatFragment extends Fragment {
         AVChatManager.getInstance().setupVideoCapturer(mVideoCapturer);
 
         // state observer
-        if (stateObserver != null) {
-            AVChatManager.getInstance().observeAVChatState(stateObserver, false);
-        }
-        stateObserver = new SimpleAVChatStateObserver() {
-            @Override
-            public void onJoinedChannel(int code, String audioFile, String videoFile, int i) {
-                if (code == 200) {
-                    onJoinRoomSuccess();
-                } else {
-                    onJoinRoomFailed(code, null);
-                }
-            }
+        //        if (stateObserver != null) {
+        //            AVChatManager.getInstance().observeAVChatState(stateObserver, false);
+        //        }
 
-            @Override
-            public void onUserJoined(String account) {
-                onAVChatUserJoined(account);
-            }
-
-            @Override
-            public void onUserLeave(String account, int event) {
-                onAVChatUserLeave(account);
-            }
-
-            @Override
-            public void onReportSpeaker(Map<String, Integer> speakers, int mixedEnergy) {
-                onAudioVolume(speakers);
-            }
-        };
-        AVChatManager.getInstance().observeAVChatState(stateObserver, true);
         LogUtil.i(TAG, "observe rtc state done");
 
         // notification observer
@@ -551,11 +533,49 @@ public class TeamAVChatFragment extends Fragment {
         LogUtil.i(TAG, "start join room, roomId=" + roomId);
     }
 
+    private SimpleAVChatStateObserver stateObserver = new SimpleAVChatStateObserver() {
+        @Override
+        public void onJoinedChannel(int code, String audioFile, String videoFile, int i) {
+            if (code == 200) {
+                onJoinRoomSuccess();
+            } else {
+                onJoinRoomFailed(code, null);
+            }
+        }
+
+        @Override
+        public void onUserJoined(String account) {
+            onAVChatUserJoined(account);
+        }
+
+        @Override
+        public void onUserLeave(String account, int event) {
+            onAVChatUserLeave(account);
+        }
+
+        @Override
+        public void onReportSpeaker(Map<String, Integer> speakers, int mixedEnergy) {
+            onAudioVolume(speakers);
+        }
+
+        @Override
+        public void onAudioRecordingCompletion(String filePath) {
+            LogUtil.i(TAG, "录制结束...filePath:" + filePath);
+            //音频录制回调
+            if (!TextUtils.isEmpty(filePath)) {
+
+            }
+        }
+    };
+
     private void onJoinRoomSuccess() {
         startTimer();
         startLocalPreview();
         startTimerForCheckReceivedCall();
         LogUtil.i(TAG, "team avchat running..." + ", roomId=" + roomId);
+        //开始录制音频
+        boolean startAudio = AVChatManager.getInstance().startAudioRecording();
+        LogUtil.i(TAG, "startAudio..." + startAudio);
     }
 
     private void onJoinRoomFailed(int code, Throwable e) {
@@ -670,6 +690,8 @@ public class TeamAVChatFragment extends Fragment {
         }
 
         try {
+            //结束音频录制
+            AVChatManager.getInstance().stopAudioRecording();
             AVChatManager.getInstance().stopVideoPreview();
             AVChatManager.getInstance().disableVideo();
             AVChatManager.getInstance().leaveRoom2(roomId, new AVChatCallback<Void>() {
@@ -702,6 +724,7 @@ public class TeamAVChatFragment extends Fragment {
      */
 
     private void startTimer() {
+        seconds = 0;
         timer = new Timer();
         timer.schedule(timerTask = new VideoTimeTask(), 0, 1000);
         timerText.setText("00:00");
@@ -915,7 +938,7 @@ public class TeamAVChatFragment extends Fragment {
         int index = 0;
         boolean find = false;
         for (TeamAVChatItem item : data) {
-            if (item.account.equals(account)) {
+            if (item.account.equalsIgnoreCase(account)) {
                 find = true;
                 break;
             }

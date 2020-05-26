@@ -60,14 +60,15 @@ public class ConsultationInfoFragment extends BaseControllerFragment<Consultatio
     @BindView(R.id.consultation_info_patient_image)
     GridViewForScrollView consultationInfoPatientImageGrid;
 
-    private String orderId;
+    private String orderId, inquiryId;
 
     private ConsultationDetailBean infoBean;
 
-    public static ConsultationInfoFragment newInstance(String id) {
+    public static ConsultationInfoFragment newInstance(String id, String inquiryId) {
         ConsultationInfoFragment fragment = new ConsultationInfoFragment();
         Bundle args = new Bundle();
         args.putString(Const.ORDER_ID, id);
+        args.putString("inquiryId", inquiryId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -81,12 +82,14 @@ public class ConsultationInfoFragment extends BaseControllerFragment<Consultatio
     public void initData(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         orderId = bundle.getString(Const.ORDER_ID);
+        inquiryId = bundle.getString("inquiryId");
         consultationInfoApplyLayout.setOnClickListener(getController());
         consultationInfoMedicalLayout.setOnClickListener(getController());
         consultationInfoReportLayout.setOnClickListener(getController());
         consultationInfoVideoLayout.setOnClickListener(getController());
 
         getController().getConsultationOrderDetail(orderId);
+        getController().getPatientInquisitionById(inquiryId);
     }
 
     /**
@@ -97,12 +100,6 @@ public class ConsultationInfoFragment extends BaseControllerFragment<Consultatio
             consultationInfoChiefItem.setText(infoBean.getMainTell());
             consultationInfoPurposeItem.setText(infoBean.getReasonAndAim());
             consultationInfoSummaryItem.setText(infoBean.getIllnessAbstract());
-
-            GlideUtils.load(consultationInfoPatientHeader,
-                    BaseFileUtils.getHeaderUrl(BaseFileUtils.getHeaderUrl(infoBean.getRegisterUserImage())), 0, R.mipmap.im_default_head_image, true, null);
-            consultationInfoPatientName.setText(infoBean.getPatientName());
-            consultationInfoPatientAge.setText(infoBean.getPatientAge());
-            consultationInfoPatientSex.setText(CommonUtils.getSex(infoBean.getPatientGender()));
 
             //图片适配器，病情资料和问诊说明图片适配器
             ImageAdapter imageAdapter = new ImageAdapter(getContext(),

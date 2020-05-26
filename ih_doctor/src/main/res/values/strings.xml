@@ -73,7 +73,7 @@
     <string name="txt_medical">病历</string>
     <string name="txt_report_info">报告单</string>
     <string name="txt_video">影像</string>
-    <string name="txt_consultation_receive">会诊接收</string>
+    <string name="txt_consultation_receive">会诊结论</string>
     <string name="txt_consultation_grade_colon">会诊等级:</string>
     <string name="txt_select_consultation_grade">请选择会诊等级</string>
     <string name="txt_apply_doctor_colon">申请医生:</string>

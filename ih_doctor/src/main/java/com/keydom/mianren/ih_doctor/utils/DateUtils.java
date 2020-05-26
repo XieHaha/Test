@@ -322,7 +322,7 @@ public class DateUtils {
         if (min > 0) {
             return "··· " + min + ":" + s + " ···";
         } else {
-            return "··· " + s + " ···";
+            return "··· " + s + "' ···";
         }
     }
 }

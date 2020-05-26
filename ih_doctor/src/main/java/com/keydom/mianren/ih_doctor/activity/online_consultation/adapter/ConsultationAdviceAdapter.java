@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -41,8 +42,14 @@ public class ConsultationAdviceAdapter extends BaseQuickAdapter<ConsultationAdvi
                 .setText(R.id.consultation_advice_depart, item.getDeptName())
                 .setText(R.id.consultation_advice_date,
                         DateUtils.timestampToString(item.getCreateTime(),
-                                DateUtils.YYYY_MM_DD_HH_MM_SS))
-                .setText(R.id.consultation_advice_content, item.getContent());
+                                DateUtils.YYYY_MM_DD_HH_MM_SS));
+        TextView tvContent = helper.getView(R.id.consultation_advice_content);
+        if (TextUtils.isEmpty(item.getContent())) {
+            tvContent.setVisibility(View.GONE);
+        } else {
+            tvContent.setVisibility(View.VISIBLE);
+            tvContent.setText(item.getContent());
+        }
         LinearLayout voiceLayout = helper.getView(R.id.consultation_advice_voice_layout);
 
         if (item.getAudioInfos() != null && item.getAudioInfos().size() > 0) {

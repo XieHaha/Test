@@ -27,6 +27,7 @@ public class ConsultationBean implements Serializable {
     private String mdtTime;
     private String tid;
     private String recordId;
+    private String userOrderId;
     private ArrayList<String> doctorCode;
 
     public int getLevel() {
@@ -147,5 +148,13 @@ public class ConsultationBean implements Serializable {
 
     public void setDoctorCode(ArrayList<String> doctorCode) {
         this.doctorCode = doctorCode;
+    }
+
+    public String getUserOrderId() {
+        return userOrderId;
+    }
+
+    public void setUserOrderId(String userOrderId) {
+        this.userOrderId = userOrderId;
     }
 }

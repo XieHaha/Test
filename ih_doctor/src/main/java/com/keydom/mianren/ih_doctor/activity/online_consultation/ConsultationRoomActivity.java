@@ -54,7 +54,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
 
     private ConsultationDetailBean detailBean;
     private ConsultationBean consultationBean;
-    private String orderId, applyId, recordId, tid;
+    private String orderId, applyId, recordId, tid, inquiryId;
     /**
      * 参加会诊的医生信息
      */
@@ -107,10 +107,11 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         }
         if (consultationBean != null) {
             setTitle(consultationBean.getPatientName());
+            inquiryId = consultationBean.getUserOrderId();
             orderId = consultationBean.getApplicationId();
             applyId = consultationBean.getApplicantId();
             recordId = consultationBean.getRecordId();
-            tid = consultationBean.getApplicantId();
+            tid = consultationBean.getTid();
         }
 
         LinearLayout linearLayout = (LinearLayout) consultationRoomTabLayout.getChildAt(0);
@@ -137,7 +138,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         mTabTitles[1] = "会诊室";
         mTabTitles[2] = "会诊意见";
         consultationRoomTabLayout.setTabMode(TabLayout.MODE_FIXED);
-        mFragmentArrays[0] = ConsultationInfoFragment.newInstance(orderId);
+        mFragmentArrays[0] = ConsultationInfoFragment.newInstance(orderId, inquiryId);
         mFragmentArrays[1] = TeamAVChatFragment.newInstance(false, tid, getAccounts(),
                 isApply);
         //        mFragmentArrays[1] = ConversationFragment.newInstance(orderId, tid);

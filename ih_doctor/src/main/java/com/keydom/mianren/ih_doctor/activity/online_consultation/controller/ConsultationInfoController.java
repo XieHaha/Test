@@ -60,6 +60,7 @@ public class ConsultationInfoController extends ControllerImpl<ConsultationInfoV
             }
         });
     }
+
     /**
      * 获取会诊详情
      */
@@ -67,11 +68,13 @@ public class ConsultationInfoController extends ControllerImpl<ConsultationInfoV
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ApiService.class).getPatientInquisitionById(id), new HttpSubscriber<DiagnoseOrderDetailBean>(mContext, getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable DiagnoseOrderDetailBean data) {
+                getView().requestInquisitionSuccess(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
+                getView().requestInquisitionFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });
