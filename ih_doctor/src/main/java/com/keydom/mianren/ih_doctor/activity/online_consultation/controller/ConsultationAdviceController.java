@@ -64,6 +64,7 @@ public class ConsultationAdviceController extends ControllerImpl<ConsultationAdv
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                v.setSelected(true);
                 if (AudioPlayerManager.getInstance().isPlaying()) {
                     AudioPlayerManager.getInstance().stopPlay();
                 }
@@ -97,11 +98,14 @@ public class ConsultationAdviceController extends ControllerImpl<ConsultationAdv
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                if (mLastTouchY - event.getY() > mOffsetLimit) {
-                    AudioRecorderManager.getInstance().onEndAudioRecord(true);
-                } else /*if (event.getY() - mLastTouchY > -mOffsetLimit)*/ {
-                    AudioRecorderManager.getInstance().onEndAudioRecord(false);
-                }
+                v.setSelected(false);
+                //                if (mLastTouchY - event.getY() > mOffsetLimit) {
+                //                    AudioRecorderManager.getInstance().onEndAudioRecord(true);
+                //
+                //                } else /*if (event.getY() - mLastTouchY > -mOffsetLimit)*/ {
+                //                    AudioRecorderManager.getInstance().onEndAudioRecord(false);
+                //                }
+                AudioRecorderManager.getInstance().onEndAudioRecord(false);
                 AudioRecorderManager.getInstance().setTouched(false);
                 break;
             default:

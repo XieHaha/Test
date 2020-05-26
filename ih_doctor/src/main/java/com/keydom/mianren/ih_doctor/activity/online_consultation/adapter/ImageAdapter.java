@@ -6,11 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.keydom.ih_common.utils.BaseFileUtils;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -76,7 +76,8 @@ public class ImageAdapter extends BaseAdapter {
 
                 }
             });
-            GlideUtils.load(mImageView, Const.IMAGE_HOST + list.get(position), 0, 0, false, null);
+            GlideUtils.load(mImageView, BaseFileUtils.getHeaderUrl(list.get(position)), 0, 0,
+                    false, null);
         } else {
             mImageView.setBackgroundResource(R.mipmap.plus);
         }

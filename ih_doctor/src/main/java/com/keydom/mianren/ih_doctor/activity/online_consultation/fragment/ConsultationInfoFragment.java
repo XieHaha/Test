@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_doctor.activity.online_consultation.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +24,8 @@ import com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -114,12 +117,21 @@ public class ConsultationInfoFragment extends BaseControllerFragment<Consultatio
      */
     private void setInfo(DiagnoseOrderDetailBean bean) {
         GlideUtils.load(consultationInfoPatientHeader,
-                BaseFileUtils.getHeaderUrl(bean.getAvatar()), 0, R.mipmap.im_default_head_image,
+                BaseFileUtils.getHeaderUrl(bean.getUserAvatar()), 0, R.mipmap.im_default_head_image,
                 true, null);
         consultationInfoPatientName.setText(bean.getName());
         consultationInfoPatientAge.setText(bean.getAge());
         consultationInfoPatientSex.setText(CommonUtils.getSex(bean.getSex()));
         consultationInfoChief.setText(bean.getConditionDesc());
+
+        if (!TextUtils.isEmpty(bean.getConditionData())) {
+            String[] imageDesc = bean.getConditionData().split(",");
+            List<String> images = new ArrayList<>();
+            Collections.addAll(images, imageDesc);
+            //问诊说明图片适配器
+            ImageAdapter imageAdapter = new ImageAdapter(getContext(), images, false);
+            consultationInfoPatientImageGrid.setAdapter(imageAdapter);
+        }
     }
 
     @Override
