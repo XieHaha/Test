@@ -8,7 +8,6 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationRoomActivity;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationReceiveView;
 import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
@@ -91,7 +90,7 @@ public class ConsultationReceiveController extends ControllerImpl<ConsultationRe
             switch (getView().getReceiveStatus()) {
                 case CONSULTATION_NONE:
                 case CONSULTATION_RECEIVED:
-                    ConsultationRoomActivity.start(mContext, getView().getDetailBean());
+//                    ConsultationRoomActivity.start(mContext, getView().getDetailBean());
                     break;
                 case CONSULTATION_WAIT:
                     //接收会诊

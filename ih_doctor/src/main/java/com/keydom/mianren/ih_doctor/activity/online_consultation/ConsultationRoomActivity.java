@@ -28,7 +28,6 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.Consul
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationRoomView;
 import com.keydom.mianren.ih_doctor.bean.ConsultationBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
-import com.keydom.mianren.ih_doctor.bean.ConsultationDoctorBean;
 import com.keydom.mianren.ih_doctor.bean.Event;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
@@ -40,7 +39,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -56,13 +54,8 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     private Fragment[] mFragmentArrays;
     private String[] mTabTitles;
 
-    private ConsultationDetailBean detailBean;
     private ConsultationBean consultationBean;
     private String orderId, applyId, recordId, tid, inquiryId;
-    /**
-     * 参加会诊的医生信息
-     */
-    private List<ConsultationDoctorBean> mdtDoctors;
 
     /**
      * 是否为发起人
@@ -100,16 +93,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
-        detailBean = (ConsultationDetailBean) getIntent().getSerializableExtra(Const.DATA);
         consultationBean = (ConsultationBean) getIntent().getSerializableExtra(Const.DATA_OTHER);
-        if (detailBean != null) {
-            setTitle(detailBean.getPatientName());
-            orderId = detailBean.getApplicationId();
-            applyId = detailBean.getApplyDoctor().getId();
-            recordId = detailBean.getRecordId();
-            tid = detailBean.getTid();
-            mdtDoctors = detailBean.getMdtDoctors();
-        }
         if (consultationBean != null) {
             setTitle(consultationBean.getPatientName());
             inquiryId = consultationBean.getUserOrderId();
@@ -123,6 +107,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,
                 R.drawable.layout_divider_vertical));
+
 
         if (TextUtils.equals(applyId, String.valueOf(MyApplication.userInfo.getId()))) {
             isApply = true;
@@ -162,15 +147,6 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
                     continue;
                 }
                 accounts.add(doctorCode.toLowerCase());
-            }
-            return accounts;
-        }
-        for (ConsultationDoctorBean bean : mdtDoctors) {
-            if (bean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())) {
-                continue;
-            }
-            if (!TextUtils.isEmpty(bean.getDoctorCode())) {
-                accounts.add(bean.getDoctorCode().toLowerCase());
             }
         }
         return accounts;
@@ -217,7 +193,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     }
 
     /**
-     * 刷新首页
+     * 接收到会诊视频结束的音频
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
