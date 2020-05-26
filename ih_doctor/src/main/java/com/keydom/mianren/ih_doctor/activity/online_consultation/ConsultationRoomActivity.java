@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import com.keydom.ih_common.avchatkit.AVChatKit;
 import com.keydom.ih_common.avchatkit.teamavchat.activity.TeamAVChatFragment;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.bean.MessageEvent;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_doctor.MyApplication;
@@ -33,8 +34,11 @@ import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,6 +99,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         detailBean = (ConsultationDetailBean) getIntent().getSerializableExtra(Const.DATA);
         consultationBean = (ConsultationBean) getIntent().getSerializableExtra(Const.DATA_OTHER);
         if (detailBean != null) {
@@ -150,10 +155,16 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     }
 
     private ArrayList<String> getAccounts() {
-        if (consultationBean != null) {
-            return consultationBean.getDoctorCode();
-        }
         ArrayList<String> accounts = new ArrayList<>();
+        if (consultationBean != null && consultationBean.getDoctorCode() != null) {
+            for (String doctorCode : consultationBean.getDoctorCode()) {
+                if (doctorCode.equalsIgnoreCase(AVChatKit.getAccount())) {
+                    continue;
+                }
+                accounts.add(doctorCode.toLowerCase());
+            }
+            return accounts;
+        }
         for (ConsultationDoctorBean bean : mdtDoctors) {
             if (bean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())) {
                 continue;
@@ -203,5 +214,22 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         public CharSequence getPageTitle(int position) {
             return mTabTitles[position];
         }
+    }
+
+    /**
+     * 刷新首页
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(MessageEvent messageEvent) {
+        if (messageEvent.getType() == com.keydom.ih_common.constant.EventType.FILE) {
+            File file = new File((String) messageEvent.getData());
+            getController().uploadVoiceFile(file);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

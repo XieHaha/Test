@@ -34,6 +34,8 @@ import com.keydom.ih_common.avchatkit.teamavchat.TeamAVChatNotification;
 import com.keydom.ih_common.avchatkit.teamavchat.TeamAVChatVoiceMuteDialog;
 import com.keydom.ih_common.avchatkit.teamavchat.adapter.TeamAVChatAdapter;
 import com.keydom.ih_common.avchatkit.teamavchat.module.TeamAVChatItem;
+import com.keydom.ih_common.bean.MessageEvent;
+import com.keydom.ih_common.constant.EventType;
 import com.keydom.ih_common.event.ConsultationEvent;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.listener.observer.SimpleAVChatStateObserver;
@@ -45,7 +47,6 @@ import com.netease.nimlib.sdk.StatusCode;
 import com.netease.nimlib.sdk.auth.AuthServiceObserver;
 import com.netease.nimlib.sdk.avchat.AVChatCallback;
 import com.netease.nimlib.sdk.avchat.AVChatManager;
-import com.netease.nimlib.sdk.avchat.AVChatStateObserver;
 import com.netease.nimlib.sdk.avchat.AVChatStateObserverLite;
 import com.netease.nimlib.sdk.avchat.constant.AVChatControlCommand;
 import com.netease.nimlib.sdk.avchat.constant.AVChatType;
@@ -58,7 +59,6 @@ import com.netease.nimlib.sdk.avchat.model.AVChatData;
 import com.netease.nimlib.sdk.avchat.model.AVChatParameters;
 import com.netease.nimlib.sdk.avchat.model.AVChatVideoCapturerFactory;
 import com.netease.nrtc.video.render.IVideoRender;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -155,6 +155,9 @@ public class TeamAVChatFragment extends Fragment {
 
     private View view;
 
+    /**
+     * 会诊申请人（接待人）
+     */
     private boolean isApply;
 
     public static TeamAVChatFragment newInstance(boolean receivedCall, String teamId,
@@ -402,9 +405,7 @@ public class TeamAVChatFragment extends Fragment {
             public void onClick(View v) {
                 AVChatSoundPlayer.instance().stop();
                 cancelAutoRejectTask();
-
-                releaseSource();
-                //                getActivity().finish();
+                endConversultation();
             }
         });
 
@@ -560,10 +561,12 @@ public class TeamAVChatFragment extends Fragment {
 
         @Override
         public void onAudioRecordingCompletion(String filePath) {
-            LogUtil.i(TAG, "录制结束...filePath:" + filePath);
-            //音频录制回调
-            if (!TextUtils.isEmpty(filePath)) {
-
+            if (isApply) {
+                LogUtil.i(TAG, "录制结束...filePath:" + filePath);
+                //音频录制回调
+                if (!TextUtils.isEmpty(filePath)) {
+                    EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.FILE).setData(filePath).build());
+                }
             }
         }
     };
@@ -573,9 +576,6 @@ public class TeamAVChatFragment extends Fragment {
         startLocalPreview();
         startTimerForCheckReceivedCall();
         LogUtil.i(TAG, "team avchat running..." + ", roomId=" + roomId);
-        //开始录制音频
-        boolean startAudio = AVChatManager.getInstance().startAudioRecording();
-        LogUtil.i(TAG, "startAudio..." + startAudio);
     }
 
     private void onJoinRoomFailed(int code, Throwable e) {
@@ -603,6 +603,12 @@ public class TeamAVChatFragment extends Fragment {
         }
         updateAudioMuteButtonState();
 
+        if (isApply) {
+            //开始录制音频
+            boolean startAudio = AVChatManager.getInstance().startAudioRecording();
+            LogUtil.i(TAG, "startAudio..." + startAudio);
+        }
+
         LogUtil.i(TAG, "on user joined, account=" + account);
     }
 
@@ -620,7 +626,7 @@ public class TeamAVChatFragment extends Fragment {
     }
 
     private void startLocalPreview() {
-        if (data.size() > 1 && data.get(0).account.equals(AVChatKit.getAccount())) {
+        if (data.size() > 1 && data.get(0).account.equalsIgnoreCase(AVChatKit.getAccount())) {
             IVideoRender surfaceView = adapter.getViewHolderSurfaceView(data.get(0));
             if (surfaceView != null) {
                 AVChatManager.getInstance().setupLocalVideoRender(surfaceView, false,
@@ -690,8 +696,10 @@ public class TeamAVChatFragment extends Fragment {
         }
 
         try {
-            //结束音频录制
-            AVChatManager.getInstance().stopAudioRecording();
+            if (isApply) {
+                //结束音频录制
+                AVChatManager.getInstance().stopAudioRecording();
+            }
             AVChatManager.getInstance().stopVideoPreview();
             AVChatManager.getInstance().disableVideo();
             AVChatManager.getInstance().leaveRoom2(roomId, new AVChatCallback<Void>() {

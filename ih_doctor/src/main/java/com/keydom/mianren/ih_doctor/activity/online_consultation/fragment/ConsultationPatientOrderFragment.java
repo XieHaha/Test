@@ -72,7 +72,8 @@ public class ConsultationPatientOrderFragment extends BaseControllerFragment<Con
         consultationOrderTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mFragmentArrays[0] = ConsultationOrderFragment.newInstance(TypeEnum.CONSULTATION_WAIT,
                 inquiryBean.getPatientId());
-        mFragmentArrays[1] = ConsultationOrderFragment.newInstance(TypeEnum.CONSULTATION_ING);
+        mFragmentArrays[1] = ConsultationOrderFragment.newInstance(TypeEnum.CONSULTATION_ING,
+                inquiryBean.getPatientId());
         mFragmentArrays[2] = ConsultationOrderFragment.newInstance(TypeEnum.CONSULTATION_COMPLETE
                 , inquiryBean.getPatientId());
         consultationOrderViewPager.setOffscreenPageLimit(2);

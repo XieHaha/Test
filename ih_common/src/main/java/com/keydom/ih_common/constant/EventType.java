@@ -11,5 +11,6 @@ package com.keydom.ih_common.constant;
 public enum EventType {
     UPDATE,
     SEND,
-    OFFLINE;
+    OFFLINE,
+    FILE
 }
