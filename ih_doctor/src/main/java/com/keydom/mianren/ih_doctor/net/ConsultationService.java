@@ -83,4 +83,9 @@ public interface ConsultationService {
     @GET("user/mdt/application/ending")
     Observable<HttpResult<String>> endConsultationOrder(@Query("recordId") String id, @Query(
             "videoUrl") String videoUrl);
+    /**
+     * 结束会诊
+     */
+    @GET("user/mdt/application/apply/join")
+    Observable<HttpResult<String>> applyJoinConsultation(@QueryMap Map<String, String> maps);
 }

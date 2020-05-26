@@ -21,6 +21,25 @@ import okhttp3.RequestBody;
 
 public class ConsultationRoomController extends ControllerImpl<ConsultationRoomView> {
     /**
+     * 申请加入会诊
+     */
+    public void applyJoinConsultation() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).applyJoinConsultation(getView().getApplyParams()), new HttpSubscriber<String>(mContext, getDisposable(), true, false) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                getView().applyJoinConsultationSuccess();
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                getView().applyJoinConsultationFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
      * 结束会诊
      */
     public void endConsultationOrder(String recordId, String videoUrl) {

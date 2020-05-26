@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.keydom.ih_common.avchatkit.AVChatKit;
@@ -39,6 +41,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -57,10 +61,16 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     private ConsultationBean consultationBean;
     private String orderId, applyId, recordId, tid, inquiryId;
 
+    private ArrayList<String> docotorCodes = new ArrayList<>();
+
     /**
      * 是否为发起人
      */
     private boolean isApply;
+    /**
+     * 还未加入的会诊医生
+     */
+    private boolean outConsultationDoctor;
 
     /**
      * 结束会诊
@@ -108,11 +118,21 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,
                 R.drawable.layout_divider_vertical));
 
+        //所有参与会诊的医生
+        if (consultationBean != null && consultationBean.getDoctorCode() != null) {
+            docotorCodes = consultationBean.getDoctorCode();
+        }
 
         if (TextUtils.equals(applyId, String.valueOf(MyApplication.userInfo.getId()))) {
             isApply = true;
             setRightTxt(getString(R.string.txt_exit_consultation));
             setRightBtnListener(v -> endConsultation());
+        } else {
+            if (!docotorCodes.contains(AVChatKit.getAccount().toUpperCase())) {
+                outConsultationDoctor = true;
+                setRightTxt(getString(R.string.txt_add_consultation));
+                setRightBtnListener(v -> applyJoinConsultation());
+            }
         }
         initOrderListFragment();
     }
@@ -141,20 +161,33 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
 
     private ArrayList<String> getAccounts() {
         ArrayList<String> accounts = new ArrayList<>();
-        if (consultationBean != null && consultationBean.getDoctorCode() != null) {
-            for (String doctorCode : consultationBean.getDoctorCode()) {
-                if (doctorCode.equalsIgnoreCase(AVChatKit.getAccount())) {
-                    continue;
-                }
-                accounts.add(doctorCode.toLowerCase());
+        for (String doctorCode : docotorCodes) {
+            if (doctorCode.equalsIgnoreCase(AVChatKit.getAccount())) {
+                continue;
             }
+            accounts.add(doctorCode.toLowerCase());
         }
         return accounts;
     }
 
+    /**
+     * 结束会诊（申请人权限）
+     */
     private void endConsultation() {
         new GeneralDialog(this, "结束会诊?",
                 () -> getController().endConsultationOrder(recordId, "")).show();
+    }
+
+    /**
+     * 申请加入会诊（未在会诊中医生）
+     */
+    private void applyJoinConsultation() {
+        BottomSheetDialog dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        View view =getLayoutInflater().inflate(R.layout.item_consultation_order, null, false);
+        dialog.setContentView(view);
+        dialog.show();
     }
 
     @Override
@@ -168,6 +201,25 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     @Override
     public void endConsultationFailed(String msg) {
         ToastUtil.showMessage(this, msg);
+    }
+
+    @Override
+    public void applyJoinConsultationSuccess() {
+        new GeneralDialog(this, "您已提交申请，请等待审核").setNegativeButtonIsGone(true).show();
+    }
+
+    @Override
+    public void applyJoinConsultationFailed(String msg) {
+        ToastUtil.showMessage(this, msg);
+    }
+
+    @Override
+    public Map<String, String> getApplyParams() {
+        Map<String, String> params = new HashMap<>();
+        params.put("applyDoctorId", String.valueOf(MyApplication.userInfo.getId()));
+        params.put("applyReason", "原因");
+        params.put("mdtApplicationId", orderId);
+        return null;
     }
 
     final class TabViewPagerAdapter extends FragmentPagerAdapter {

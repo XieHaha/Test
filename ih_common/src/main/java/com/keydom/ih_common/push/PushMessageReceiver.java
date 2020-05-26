@@ -35,6 +35,7 @@ public class PushMessageReceiver extends JPushMessageReceiver {
 
     @Override
     public void onTagOperatorResult(Context context, JPushMessage jPushMessage) {
+        Logger.e("PushMessageReceiver:tags-->=" + jPushMessage.getTags());
         mContext = context;
         if (jPushMessage.getErrorCode() == 0) {
             PushPreference.saveTags(jPushMessage.getTags());
@@ -53,12 +54,10 @@ public class PushMessageReceiver extends JPushMessageReceiver {
 
     /**
      * 返回的错误码为6002 超时,6014 服务器繁忙,都建议延迟重试
-     *
-     * @param context
-     * @param jPushMessage
      */
     @Override
     public void onAliasOperatorResult(Context context, JPushMessage jPushMessage) {
+        Logger.e("PushMessageReceiver:tags-->=" + jPushMessage.getAlias());
         mContext = context;
         if (jPushMessage.getErrorCode() == 0) {
             PushPreference.saveAlias(jPushMessage.getAlias());
