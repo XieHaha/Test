@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.keydom.ih_common.activity.DiagnoseOrderDetailActivity;
 import com.keydom.ih_common.activity.HandleProposeAcitivity;
+import com.keydom.ih_common.avchatkit.AVChatKit;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.InquiryStatus;
 import com.keydom.ih_common.bean.TriageBean;
@@ -627,29 +628,29 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             mPopupWindow.getContentView().findViewById(R.id.inspection).setVisibility(View.GONE);
             mPopupWindow.getContentView().findViewById(R.id.examination).setVisibility(View.GONE);
         }
+        if (referralState == 0 || referralState == 1) {
+            referralTv.setText("取消转诊");
+        } else {
+            referralTv.setText("转诊");
+        }
+
         if (orderType == 1) {
-            //            mPopupWindow.getContentView().findViewById(R.id.referral).setVisibility
-            //            (View.GONE);
-            //            setRightImgVisibility(false);
             inspection.setVisibility(View.GONE);
             examination.setVisibility(View.GONE);
             referralTv.setVisibility(View.GONE);
             inquiryPopConsultationTv.setVisibility(View.GONE);
             inquiryPopDiagnosticPrescriptionTv.setVisibility(View.GONE);
         }
-        if (referralState == 0 || referralState == 1) {
-            referralTv.setText("取消转诊");
-        } else {
-            referralTv.setText("转诊");
-        }
         if (orderBean.getIsVip() == 1) {
-            if (orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_DOING
-                    || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_COMPLETE) {
-                inquiryPopConsultationTv.setVisibility(View.GONE);
-            } else {
+
+            if (orderBean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())
+                    && orderBean.getState() != InquiryStatus.INQUIRY_CONSULTATION_DOING
+                    && orderBean.getState() != InquiryStatus.INQUIRY_CONSULTATION_COMPLETE) {
                 inquiryPopConsultationTv.setVisibility(View.VISIBLE);
+            } else {
+                inquiryPopConsultationTv.setVisibility(View.GONE);
             }
-            if ( orderBean.getState() == InquiryStatus.INQUIRY_ING
+            if (orderBean.getState() == InquiryStatus.INQUIRY_ING
                     || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_COMPLETE
                     || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_DOING) {
                 inquiryPopDiagnosticPrescriptionTv.setVisibility(View.VISIBLE);
