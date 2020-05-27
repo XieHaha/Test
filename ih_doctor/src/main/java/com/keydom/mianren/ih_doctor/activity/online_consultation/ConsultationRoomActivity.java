@@ -143,6 +143,8 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
                 outConsultationDoctor = true;
                 setRightTxt(getString(R.string.txt_add_consultation));
                 setRightBtnListener(v -> applyJoinConsultationDialog());
+            } else {
+                outConsultationDoctor = false;
             }
         }
         initOrderListFragment();
@@ -161,9 +163,10 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         consultationRoomTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mFragmentArrays[0] = ConsultationInfoFragment.newInstance(orderId, inquiryId);
         mFragmentArrays[1] = TeamAVChatFragment.newInstance(false, tid, getAccounts(),
-                isApply);
+                isApply, outConsultationDoctor);
         //        mFragmentArrays[1] = ConversationFragment.newInstance(orderId, tid);
-        mFragmentArrays[2] = ConsultationAdviceFragment.newInstance(recordId);
+        mFragmentArrays[2] = ConsultationAdviceFragment.newInstance(recordId,
+                outConsultationDoctor);
         consultationRoomViewPager.setOffscreenPageLimit(3);
         PagerAdapter pagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());
         consultationRoomViewPager.setAdapter(pagerAdapter);
@@ -296,6 +299,16 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
                 File file = new File(voiceBean.getUrl());
                 getController().uploadVoiceFile(file);
             }
+        }
+    }
+
+    /**
+     * 申请加入会诊
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void applyJoin(MessageEvent messageEvent) {
+        if (messageEvent.getType() == com.keydom.ih_common.constant.EventType.APPLY_JOIN_CONSULTATION) {
+            applyJoinConsultationDialog();
         }
     }
 

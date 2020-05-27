@@ -6,6 +6,9 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.MessageEvent;
+import com.keydom.ih_common.bean.VoiceBean;
+import com.keydom.ih_common.constant.EventType;
 import com.keydom.ih_common.im.manager.AudioPlayerManager;
 import com.keydom.ih_common.im.manager.AudioRecorderManager;
 import com.keydom.ih_common.net.ApiRequest;
@@ -13,16 +16,17 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationAdviceView;
 import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
-import com.keydom.ih_common.bean.VoiceBean;
 import com.keydom.mianren.ih_doctor.net.ConsultationService;
 import com.keydom.mianren.ih_doctor.net.MainApiService;
 import com.netease.nimlib.sdk.media.record.IAudioRecordCallback;
 import com.netease.nimlib.sdk.media.record.RecordType;
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -53,8 +57,17 @@ public class ConsultationAdviceController extends ControllerImpl<ConsultationAdv
                 ToastUtil.showMessage(mContext, "会诊意见不能为空");
                 return;
             }
-            commitConsultationAdvice();
+            if (getView().isOutConsultationDoctor()) {
+                showApplyTipsDialog();
+            } else {
+                commitConsultationAdvice();
+            }
         }
+    }
+
+    private void showApplyTipsDialog() {
+        new GeneralDialog(mContext, "加入会诊才能填写会诊意见，是否发起申请？",
+                () -> EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.APPLY_JOIN_CONSULTATION).build())).setPositiveButton("申请").show();
     }
 
     /**

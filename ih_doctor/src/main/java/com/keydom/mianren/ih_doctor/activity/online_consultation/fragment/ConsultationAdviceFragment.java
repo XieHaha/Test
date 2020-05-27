@@ -78,13 +78,19 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
      */
     private String consultationAdvice;
 
+    /**
+     * 是否为未邀请的会诊医生
+     */
+    private boolean outConsultationDoctor;
+
     private List<ConsultationAdviceBean> adviceBeans;
     private List<VoiceBean> voiceBeans = new ArrayList<>();
 
-    public static ConsultationAdviceFragment newInstance(String id) {
+    public static ConsultationAdviceFragment newInstance(String id, boolean outConsultationDoctor) {
         ConsultationAdviceFragment fragment = new ConsultationAdviceFragment();
         Bundle args = new Bundle();
         args.putString(Const.RECORD_ID, id);
+        args.putBoolean("outConsultationDoctor", outConsultationDoctor);
         fragment.setArguments(args);
         return fragment;
     }
@@ -109,6 +115,7 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
     public void initData(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         recordId = bundle.getString(Const.RECORD_ID);
+        outConsultationDoctor = bundle.getBoolean("outConsultationDoctor");
 
         consultationAdviceRecyclerView.setNestedScrollingEnabled(false);
         consultationAdviceRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -179,6 +186,11 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
         }
 
     };
+
+    @Override
+    public boolean isOutConsultationDoctor() {
+        return outConsultationDoctor;
+    }
 
     @Override
     public Map<String, Object> getCommitParams() {

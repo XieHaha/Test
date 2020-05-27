@@ -41,6 +41,7 @@ import com.keydom.ih_common.event.ConsultationEvent;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.listener.observer.SimpleAVChatStateObserver;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.ResponseCode;
@@ -160,14 +161,20 @@ public class TeamAVChatFragment extends Fragment {
      * 会诊申请人（接待人）
      */
     private boolean isApply;
+    /**
+     * 是否为未邀请的会诊医生
+     */
+    private boolean outConsultationDoctor;
 
     public static TeamAVChatFragment newInstance(boolean receivedCall, String teamId,
-                                                 ArrayList<String> accounts, boolean isApply) {
+                                                 ArrayList<String> accounts, boolean isApply,
+                                                 boolean outConsultationDoctor) {
         TeamAVChatFragment fragment = new TeamAVChatFragment();
         Bundle bundle = new Bundle();
         bundle.putBoolean(KEY_RECEIVED_CALL, receivedCall);
         bundle.putString(KEY_TEAM_ID, teamId);
         bundle.putBoolean(KEY_APPLY, isApply);
+        bundle.putBoolean("outConsultationDoctor", outConsultationDoctor);
         bundle.putSerializable(KEY_ACCOUNTS, accounts);
         fragment.setArguments(bundle);
         return fragment;
@@ -337,6 +344,7 @@ public class TeamAVChatFragment extends Fragment {
         teamId = bundle.getString(KEY_TEAM_ID);
         accounts = (ArrayList<String>) bundle.getSerializable(KEY_ACCOUNTS);
         isApply = bundle.getBoolean(KEY_APPLY);
+        outConsultationDoctor = bundle.getBoolean("outConsultationDoctor");
     }
 
     private void findLayouts() {
@@ -355,9 +363,23 @@ public class TeamAVChatFragment extends Fragment {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startConsultation();
+                if (outConsultationDoctor) {
+                    showApplyTipsDialog();
+                } else {
+                    startConsultation();
+                }
             }
         });
+    }
+
+    private void showApplyTipsDialog() {
+        new GeneralDialog(getContext(), "加入会诊才能进行会诊视频，是否发起申请？",
+                new GeneralDialog.OnCloseListener() {
+                    @Override
+                    public void onCommit() {
+                        EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.APPLY_JOIN_CONSULTATION).build());
+                    }
+                }).setPositiveButton("申请").show();
     }
 
     private void initNotification() {

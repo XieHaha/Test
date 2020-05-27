@@ -15,6 +15,8 @@ import java.util.Map;
  */
 public interface ConsultationAdviceView extends BaseView {
 
+    boolean isOutConsultationDoctor();
+
     Map<String, Object> getCommitParams();
 
     String getConsultationAdvice();

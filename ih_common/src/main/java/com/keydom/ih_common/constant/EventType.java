@@ -12,5 +12,6 @@ public enum EventType {
     UPDATE,
     SEND,
     OFFLINE,
-    FILE
+    FILE,
+    APPLY_JOIN_CONSULTATION
 }
