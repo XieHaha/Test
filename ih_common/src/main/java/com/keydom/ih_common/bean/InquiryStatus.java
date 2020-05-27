@@ -51,10 +51,6 @@ public class InquiryStatus {
      */
     public static final int INQUIRY_COMPLETE = 9;
     /**
-     * 分诊中
-     */
-    public static final int INQUIRY_TRIAGE_DOING = 11;
-    /**
      * 会诊中
      */
     public static final int INQUIRY_CONSULTATION_DOING = 13;

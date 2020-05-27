@@ -65,7 +65,6 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationMai
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.ApplyForCheckActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.CheckOrderDetailActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.DiagnosePatientInfoActivity;
-import com.keydom.mianren.ih_doctor.activity.online_triage.TriageOrderApplyActivity;
 import com.keydom.mianren.ih_doctor.activity.online_triage.TriageOrderDetailActivity;
 import com.keydom.mianren.ih_doctor.activity.patient_manage.PatientDatumActivity;
 import com.keydom.mianren.ih_doctor.activity.prescription_check.DiagnosePrescriptionActivity;
@@ -142,8 +141,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private ConstraintLayout mCompletedCl;
     private ImMessageView mMessageView;
     private PopupWindow mPopupWindow;
-    private TextView inspection, examination, referralTv, inquiryPopTriageTv,
-            inquiryPopConsultationTv, inquiryPopDiagnosticPrescriptionTv, inquiryPopAdvice;
+    private TextView inspection, examination, referralTv, inquiryPopConsultationTv,
+            inquiryPopDiagnosticPrescriptionTv, inquiryPopAdvice;
     private String sessionId;
     private InquiryBean orderBean;
     private boolean isGetStatus = false;
@@ -374,11 +373,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         CommonDocumentActivity.start(getContext(),
                                 userFollowUpAttachment.getFileName(),
                                 userFollowUpAttachment.getUrl());
-                    }else if(message.getAttachment() instanceof GetDrugsAttachment)
-                    {
+                    } else if (message.getAttachment() instanceof GetDrugsAttachment) {
                         GetDrugsAttachment getDrugsAttachment =
                                 (GetDrugsAttachment) message.getAttachment();
-//                        GotoActivityUtil.gotoPrescriptionGetDetailActivity(ConversationActivity.this, getDrugsAttachment.getId(), PrescriptionGetDetailActivity.TAKE_MEDICINE);
+                        //                        GotoActivityUtil
+                        //                        .gotoPrescriptionGetDetailActivity
+                        //                        (ConversationActivity.this, getDrugsAttachment
+                        //                        .getId(), PrescriptionGetDetailActivity
+                        //                        .TAKE_MEDICINE);
                     }
                 }
                 return false;
@@ -529,9 +531,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         //转诊
         referralTv = view.findViewById(R.id.referral);
         referralTv.setOnClickListener(this);
-        //分诊
-        inquiryPopTriageTv = view.findViewById(R.id.inquiry_pop_triage_tv);
-        inquiryPopTriageTv.setOnClickListener(this);
         //会诊
         inquiryPopConsultationTv = view.findViewById(R.id.inquiry_pop_consultation_tv);
         inquiryPopConsultationTv.setOnClickListener(this);
@@ -635,7 +634,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             inspection.setVisibility(View.GONE);
             examination.setVisibility(View.GONE);
             referralTv.setVisibility(View.GONE);
-            inquiryPopTriageTv.setVisibility(View.GONE);
             inquiryPopConsultationTv.setVisibility(View.GONE);
             inquiryPopDiagnosticPrescriptionTv.setVisibility(View.GONE);
         }
@@ -645,20 +643,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             referralTv.setText("转诊");
         }
         if (orderBean.getIsVip() == 1) {
-            //分诊中
-            if (orderBean.getState() == InquiryStatus.INQUIRY_TRIAGE_DOING || !SharePreferenceManager.getIsReceptionDoctor()) {
-                inquiryPopTriageTv.setVisibility(View.GONE);
-            } else {
-                inquiryPopTriageTv.setVisibility(View.VISIBLE);
-            }
             if (orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_DOING
                     || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_COMPLETE) {
                 inquiryPopConsultationTv.setVisibility(View.GONE);
             } else {
                 inquiryPopConsultationTv.setVisibility(View.VISIBLE);
             }
-            if (orderBean.getState() == InquiryStatus.INQUIRY_TRIAGE_DOING
-                    || orderBean.getState() == InquiryStatus.INQUIRY_ING
+            if ( orderBean.getState() == InquiryStatus.INQUIRY_ING
                     || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_COMPLETE
                     || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_DOING) {
                 inquiryPopDiagnosticPrescriptionTv.setVisibility(View.VISIBLE);
@@ -666,7 +657,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 inquiryPopDiagnosticPrescriptionTv.setVisibility(View.GONE);
             }
         } else {
-            inquiryPopTriageTv.setVisibility(View.GONE);
             inquiryPopConsultationTv.setVisibility(View.GONE);
         }
     }
@@ -834,13 +824,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             case R.id.inquiry_pop_advice_tv:
                 //处置建议
                 DiagnosePrescriptionActivity.startHandle(this, orderBean);
-                if (mPopupWindow != null) {
-                    mPopupWindow.dismiss();
-                }
-                break;
-            case R.id.inquiry_pop_triage_tv:
-                //分诊
-                TriageOrderApplyActivity.start(this, orderBean);
                 if (mPopupWindow != null) {
                     mPopupWindow.dismiss();
                 }
