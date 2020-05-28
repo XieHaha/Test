@@ -155,7 +155,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
             }
         }
         initOrderListFragment();
-
+        //会诊申请人处理加入请求
         if (isApply) {
             initApplyDoctors();
         }
@@ -203,7 +203,6 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
             dealConsultationApply();
         }
     }
-
 
     private ArrayList<String> getAccounts() {
         ArrayList<String> accounts = new ArrayList<>();
