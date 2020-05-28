@@ -2,7 +2,10 @@ package com.keydom.mianren.ih_doctor.activity.online_consultation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
+import android.media.AudioManager;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -13,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.im.manager.AudioPlayerManager;
 import com.keydom.ih_common.im.widget.AutoGridView;
 import com.keydom.ih_common.utils.BaseFileUtils;
 import com.keydom.ih_common.utils.CommonUtils;
@@ -28,12 +32,15 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.view.Consultati
 import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDoctorBean;
+import com.keydom.mianren.ih_doctor.bean.RecordVideoInfoBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.utils.DateUtils;
 import com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView;
+import com.netease.nimlib.sdk.media.player.OnPlayListener;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -83,6 +90,8 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
     TextView consultationReceiveCommitTv;
     @BindView(R.id.consultation_receive_commit_layout)
     LinearLayout consultationReceiveCommitLayout;
+    @BindView(R.id.consultation_receive_video_layout)
+    LinearLayout consultationReceiveVideoLayout;
     @BindView(R.id.consultation_receive_advice_layout)
     RelativeLayout consultationReceiveAdviceLayout;
     @BindView(R.id.consultation_receive_recycler_view)
@@ -99,7 +108,14 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
 
     private List<ConsultationAdviceBean> adviceBeans;
 
+    /**
+     * 会诊结论详情
+     */
     private ConsultationDetailBean detailBean;
+    /**
+     * 语音播放动画
+     */
+    private AnimationDrawable animationDrawable;
 
     private String orderId, recordId;
 
@@ -128,14 +144,16 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
         setTitle(getString(R.string.txt_consultation_receive));
         orderId = getIntent().getStringExtra(Const.ORDER_ID);
 
-        consultationReceiveCommitTv.setOnClickListener(getController());
+        animationDrawable = (AnimationDrawable) ContextCompat.getDrawable(this,
+                R.drawable.im_anim_voice_sent);
 
+        consultationReceiveCommitTv.setOnClickListener(getController());
         doctorAdapter = new ConsultationDoctorAdapter(this);
         consultationReceiveConsultationDoctorGridView.setAdapter(doctorAdapter);
         //会诊意见
         consultationReceiveRecyclerView.setNestedScrollingEnabled(false);
         consultationReceiveRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adviceAdapter = new ConsultationAdviceAdapter(this, adviceBeans);
+        adviceAdapter = new ConsultationAdviceAdapter(this, adviceBeans, animationDrawable);
         consultationReceiveRecyclerView.setAdapter(adviceAdapter);
 
         pageLoading();
@@ -223,6 +241,92 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
             ImageAdapter imageAdapter = new ImageAdapter(getContext(),
                     detailBean.getMedicalHistoryImg(), false);
             consultationReceiveConditionImageGrid.setAdapter(imageAdapter);
+
+            //多人音频处理
+            ArrayList<RecordVideoInfoBean> videoInfoBeans = detailBean.getRecordVideoInfo();
+            if (videoInfoBeans != null && videoInfoBeans.size() > 0) {
+                consultationReceiveVideoLayout.removeAllViews();
+                addVoiceView(videoInfoBeans);
+            }
+        }
+    }
+
+    private RecordVideoInfoBean curVoiceBean;
+
+    private void addVoiceView(ArrayList<RecordVideoInfoBean> videoInfoBeans) {
+        for (RecordVideoInfoBean bean : videoInfoBeans) {
+            View view = getLayoutInflater().inflate(R.layout.item_consultation_voice, null);
+
+            ImageView imageStart = view.findViewById(R.id.consultation_voice_img);
+            TextView voiceTime = view.findViewById(R.id.consultation_voice_time);
+            TextView deleteTv = view.findViewById(R.id.consultation_voice_delete);
+            deleteTv.setVisibility(View.GONE);
+            voiceTime.setText(DateUtils.getMinute(bean.getDuration()));
+
+            view.setOnClickListener(v -> {
+                if (AudioPlayerManager.getInstance().isPlaying()) {
+                    AudioPlayerManager.getInstance().stopPlay();
+                    if (curVoiceBean != null && TextUtils.equals(curVoiceBean.getUrl(),
+                            bean.getUrl())) {
+                        //中断播放
+                        setVoiceAnim(imageStart, false);
+                    } else {
+                        //播放其他的
+                        AudioPlayerManager.getInstance().setDataSource(BaseFileUtils.getHeaderUrl(bean.getUrl()))
+                                .setOnPlayListener(new OnVoicePlayListener(imageStart));
+                        AudioPlayerManager.getInstance().start(AudioManager.STREAM_MUSIC);
+                    }
+                } else {
+                    AudioPlayerManager.getInstance().setDataSource(BaseFileUtils.getHeaderUrl(bean.getUrl()))
+                            .setOnPlayListener(new OnVoicePlayListener(imageStart));
+                    AudioPlayerManager.getInstance().start(AudioManager.STREAM_MUSIC);
+                }
+                curVoiceBean = bean;
+            });
+            consultationReceiveVideoLayout.addView(view);
+        }
+    }
+
+    private class OnVoicePlayListener implements OnPlayListener {
+        private ImageView imageView;
+
+        public OnVoicePlayListener(ImageView imageView) {
+            this.imageView = imageView;
+        }
+
+        @Override
+        public void onPrepared() {
+
+        }
+
+        @Override
+        public void onCompletion() {
+            setVoiceAnim(imageView, false);
+        }
+
+        @Override
+        public void onInterrupt() {
+            setVoiceAnim(imageView, false);
+        }
+
+        @Override
+        public void onError(String error) {
+            setVoiceAnim(imageView, false);
+        }
+
+        @Override
+        public void onPlaying(long curPosition) {
+            setVoiceAnim(imageView, true);
+        }
+    }
+
+    private void setVoiceAnim(ImageView imageView, boolean playing) {
+        if (playing) {
+            imageView.setImageDrawable(animationDrawable);
+            animationDrawable.start();
+        } else {
+            imageView.setImageResource(R.mipmap.im_voice_sent);
+            animationDrawable.stop();
         }
     }
 

@@ -2,7 +2,9 @@ package com.keydom.mianren.ih_doctor.activity.online_consultation.fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +20,7 @@ import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.bean.VoiceBean;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.mianren.ih_doctor.R;
@@ -26,7 +29,6 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.Consult
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationAdviceController;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationAdviceView;
 import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
-import com.keydom.ih_common.bean.VoiceBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.utils.JsonUtils;
 import com.keydom.mianren.ih_doctor.view.CustomRecognizerDialog;
@@ -71,6 +73,10 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
      * 会诊意见语音
      */
     private ConsultationVoiceAdapter voiceAdapter;
+    /**
+     * 语音播放动画
+     */
+    private AnimationDrawable animationDrawable;
 
     private String recordId;
     /**
@@ -117,10 +123,13 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
         recordId = bundle.getString(Const.RECORD_ID);
         outConsultationDoctor = bundle.getBoolean("outConsultationDoctor");
 
+        animationDrawable = (AnimationDrawable) ContextCompat.getDrawable(getContext(),
+                R.drawable.im_anim_voice_sent);
+
         consultationAdviceRecyclerView.setNestedScrollingEnabled(false);
         consultationAdviceRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         consultationAdviceCommitTv.setOnClickListener(getController());
-        adviceAdapter = new ConsultationAdviceAdapter(getContext(), adviceBeans);
+        adviceAdapter = new ConsultationAdviceAdapter(getContext(), adviceBeans, animationDrawable);
         consultationAdviceRecyclerView.setAdapter(adviceAdapter);
 
         //音频文件

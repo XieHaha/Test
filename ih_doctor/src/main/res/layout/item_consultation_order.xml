@@ -100,6 +100,22 @@
             android:textColor="@color/tab_nol_color"
             android:textSize="@dimen/sp_12" />
 
+        <TextView
+            android:id="@+id/consultation_order_apply_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_18"
+            android:layout_below="@id/layout"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_23"
+            android:background="@drawable/corner20_22e17e_bg"
+            android:gravity="center"
+            android:paddingStart="@dimen/dp_5"
+            android:paddingEnd="@dimen/dp_5"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_12"
+            android:visibility="gone" />
+
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"

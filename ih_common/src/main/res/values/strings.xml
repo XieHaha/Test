@@ -36,6 +36,8 @@
     <string name="im_plugin_video">视频咨询</string>
     <string name="im_plugin_phone">电话咨询</string>
 
+    <string name="txt_apply_info">%s&#160;医生申请参与&#160;%s&#160;视频会诊</string>
+
     <!--视频通话-->
     <string name="im_call_video_start_fail">正在视频通话中</string>
     <string name="im_call_network_error">当前网络不可用,请检查你的网络设置</string>

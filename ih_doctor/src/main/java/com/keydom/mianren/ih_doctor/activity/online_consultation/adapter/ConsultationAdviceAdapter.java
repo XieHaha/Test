@@ -3,7 +3,6 @@ package com.keydom.mianren.ih_doctor.activity.online_consultation.adapter;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +12,11 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.keydom.ih_common.bean.VoiceBean;
 import com.keydom.ih_common.im.manager.AudioPlayerManager;
 import com.keydom.ih_common.utils.BaseFileUtils;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
-import com.keydom.ih_common.bean.VoiceBean;
 import com.keydom.mianren.ih_doctor.utils.DateUtils;
 import com.netease.nimlib.sdk.media.player.OnPlayListener;
 
@@ -29,11 +28,11 @@ public class ConsultationAdviceAdapter extends BaseQuickAdapter<ConsultationAdvi
     private Context context;
     private AnimationDrawable animationDrawable;
 
-    public ConsultationAdviceAdapter(Context context, List<ConsultationAdviceBean> data) {
+    public ConsultationAdviceAdapter(Context context, List<ConsultationAdviceBean> data,
+                                     AnimationDrawable animationDrawable) {
         super(R.layout.item_consultation_advice, data);
         this.context = context;
-        animationDrawable = (AnimationDrawable) ContextCompat.getDrawable(context,
-                R.drawable.im_anim_voice_sent);
+        this.animationDrawable = animationDrawable;
     }
 
     @Override
@@ -58,6 +57,8 @@ public class ConsultationAdviceAdapter extends BaseQuickAdapter<ConsultationAdvi
         }
     }
 
+    private VoiceBean curVoiceBean;
+
     private void addVoiceView(LinearLayout voiceLayout, ArrayList<VoiceBean> audioInfos) {
         for (VoiceBean bean : audioInfos) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.item_consultation_voice,
@@ -70,12 +71,24 @@ public class ConsultationAdviceAdapter extends BaseQuickAdapter<ConsultationAdvi
             voiceTime.setText(DateUtils.getMinute(bean.getDuration()));
 
             view.setOnClickListener(v -> {
-                AudioPlayerManager.getInstance().setDataSource(BaseFileUtils.getHeaderUrl(bean.getUrl()))
-                        .setOnPlayListener(new OnVoicePlayListener(imageStart));
                 if (AudioPlayerManager.getInstance().isPlaying()) {
                     AudioPlayerManager.getInstance().stopPlay();
+                    if (curVoiceBean != null && TextUtils.equals(curVoiceBean.getUrl(),
+                            bean.getUrl())) {
+                        //中断播放
+                        setVoiceAnim(imageStart, false);
+                    } else {
+                        //播放其他的
+                        AudioPlayerManager.getInstance().setDataSource(BaseFileUtils.getHeaderUrl(bean.getUrl()))
+                                .setOnPlayListener(new OnVoicePlayListener(imageStart));
+                        AudioPlayerManager.getInstance().start(AudioManager.STREAM_MUSIC);
+                    }
+                } else {
+                    AudioPlayerManager.getInstance().setDataSource(BaseFileUtils.getHeaderUrl(bean.getUrl()))
+                            .setOnPlayListener(new OnVoicePlayListener(imageStart));
+                    AudioPlayerManager.getInstance().start(AudioManager.STREAM_MUSIC);
                 }
-                AudioPlayerManager.getInstance().start(AudioManager.STREAM_MUSIC);
+                curVoiceBean = bean;
             });
             voiceLayout.addView(view);
         }
@@ -84,7 +97,7 @@ public class ConsultationAdviceAdapter extends BaseQuickAdapter<ConsultationAdvi
     private class OnVoicePlayListener implements OnPlayListener {
         private ImageView imageView;
 
-        public OnVoicePlayListener(ImageView imageView) {
+        OnVoicePlayListener(ImageView imageView) {
             this.imageView = imageView;
         }
 

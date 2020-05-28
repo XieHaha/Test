@@ -36,6 +36,7 @@ public class ConsultationDetailBean implements Serializable {
     private ConsultationDoctorBean applyDoctor;
     private ArrayList<ConsultationDoctorBean> mdtDoctors;
     private ArrayList<String> medicalHistoryImg;
+    private ArrayList<RecordVideoInfoBean> recordVideoInfo;
 
     public int getLevel() {
         return level;
@@ -203,5 +204,13 @@ public class ConsultationDetailBean implements Serializable {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public ArrayList<RecordVideoInfoBean> getRecordVideoInfo() {
+        return recordVideoInfo;
+    }
+
+    public void setRecordVideoInfo(ArrayList<RecordVideoInfoBean> recordVideoInfo) {
+        this.recordVideoInfo = recordVideoInfo;
     }
 }

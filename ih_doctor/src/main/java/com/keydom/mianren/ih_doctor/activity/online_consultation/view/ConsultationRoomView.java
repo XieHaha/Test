@@ -16,15 +16,12 @@ public interface ConsultationRoomView extends BaseView {
 
     void applyJoinConsultationFailed(String msg);
 
+    void dealConsultationApplySuccess();
+
     /**
      * 申请加入会诊参数
      */
     Map<String, String> getApplyParams();
-
-    /**
-     * 处理会诊加入申请参数
-     */
-    Map<String, Object> getDealParams();
 
     /**
      * 申请加入会诊参数

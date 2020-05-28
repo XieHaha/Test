@@ -22,6 +22,7 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.MessageEvent;
 import com.keydom.ih_common.bean.VoiceBean;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_common.view.ConsultationApplyDialog;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.mianren.ih_doctor.MyApplication;
@@ -30,6 +31,7 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.Cons
 import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationAdviceFragment;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.fragment.ConsultationInfoFragment;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationRoomView;
+import com.keydom.mianren.ih_doctor.bean.AuditInfoBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
 import com.keydom.mianren.ih_doctor.bean.Event;
@@ -68,6 +70,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     private String orderId, applyId, recordId, tid, inquiryId;
 
     private ArrayList<String> doctorCodes = new ArrayList<>();
+    private ArrayList<AuditInfoBean> auditInfoBeans;
 
     /**
      * 申请原因
@@ -82,6 +85,10 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
      * 还未加入的会诊医生
      */
     private boolean outConsultationDoctor;
+    /**
+     * 当前操作的申请人
+     */
+    private int position;
 
     /**
      * 结束会诊
@@ -148,6 +155,10 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
             }
         }
         initOrderListFragment();
+
+        if (isApply) {
+            initApplyDoctors();
+        }
     }
 
 
@@ -172,6 +183,27 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         consultationRoomViewPager.setAdapter(pagerAdapter);
         consultationRoomTabLayout.setupWithViewPager(consultationRoomViewPager);
     }
+
+    /**
+     * 会诊申请人信息
+     */
+    private void initApplyDoctors() {
+        auditInfoBeans = new ArrayList<>();
+        ArrayList<AuditInfoBean> list = consultationBean.getAuditInfo();
+        if (list != null && list.size() > 0) {
+            for (AuditInfoBean bean : list) {
+                if (bean.getStatus() == 0) {
+                    auditInfoBeans.add(bean);
+                }
+            }
+        }
+
+        if (auditInfoBeans.size() > 0) {
+            position = 0;
+            dealConsultationApply();
+        }
+    }
+
 
     private ArrayList<String> getAccounts() {
         ArrayList<String> accounts = new ArrayList<>();
@@ -216,6 +248,15 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         dialog.show();
     }
 
+    private void dealConsultationApply() {
+        if (auditInfoBeans.size() > position) {
+            AuditInfoBean bean = auditInfoBeans.get(position);
+            new ConsultationApplyDialog(this, bean.getApplyDoctorName(), bean.getPatientName(),
+                    bean.getApplyReason(),
+                    () -> getController().dealConsultationApply(bean), null).show();
+        }
+    }
+
     @Override
     public void endConsultationSuccess() {
         //通知列表更新数据
@@ -240,20 +281,18 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     }
 
     @Override
+    public void dealConsultationApplySuccess() {
+        ToastUtil.showMessage(this, "操作成功");
+        position++;
+        dealConsultationApply();
+    }
+
+    @Override
     public Map<String, String> getApplyParams() {
         Map<String, String> params = new HashMap<>();
         params.put("applyDoctorId", String.valueOf(MyApplication.userInfo.getId()));
         params.put("applyReason", applyReason);
         params.put("mdtApplicationId", orderId);
-        return params;
-    }
-
-    @Override
-    public Map<String, Object> getDealParams() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("accept", true);
-        params.put("auditId", "");
-        //        params.put("suggest", “拒绝预留字段”);
         return params;
     }
 

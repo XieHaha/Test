@@ -7,6 +7,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationRoomView;
+import com.keydom.mianren.ih_doctor.bean.AuditInfoBean;
 import com.keydom.mianren.ih_doctor.net.ConsultationService;
 import com.keydom.mianren.ih_doctor.net.MainApiService;
 
@@ -14,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.MediaType;
@@ -43,10 +45,14 @@ public class ConsultationRoomController extends ControllerImpl<ConsultationRoomV
     /**
      * 处理会诊加入申请
      */
-    public void dealConsultationApply() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).dealConsultationApply(HttpService.INSTANCE.object2Body(getView().getDealParams())), new HttpSubscriber<String>(mContext, getDisposable(), true, false) {
+    public void dealConsultationApply(AuditInfoBean bean) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("accept", true);
+        params.put("auditId", bean.getAuditorId());
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).dealConsultationApply(HttpService.INSTANCE.object2Body(params)), new HttpSubscriber<String>(mContext, getDisposable(), true, false) {
             @Override
             public void requestComplete(@Nullable String data) {
+                getView().dealConsultationApplySuccess();
             }
 
             @Override

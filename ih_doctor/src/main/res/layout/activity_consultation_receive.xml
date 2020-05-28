@@ -348,7 +348,7 @@
                         android:id="@+id/consultation_receive_advice_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone">
+                        android:visibility="visible">
 
                         <ImageView
                             android:id="@+id/image"
@@ -366,15 +366,60 @@
                             android:layout_toEndOf="@id/image"
                             android:paddingTop="@dimen/dp_22"
                             android:paddingBottom="@dimen/dp_16"
-                            android:text="会诊意见"
+                            android:text="会诊意见(含文案和语音)"
                             android:textColor="@color/primary_font_color"
                             android:textSize="@dimen/sp_14" />
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/consultation_receive_recycler_view"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_below="@id/text" />
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/text"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@mipmap/point_red"
+                                android:drawablePadding="@dimen/dp_12"
+                                android:gravity="center"
+                                android:paddingStart="@dimen/dp_30"
+                                android:paddingTop="@dimen/dp_22"
+                                android:paddingEnd="0dp"
+                                android:paddingBottom="@dimen/dp_22"
+                                android:text="专家会诊全程音频"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/sp_14" />
+
+                            <LinearLayout
+                                android:id="@+id/consultation_receive_video_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp_10"
+                                android:background="@color/login_input_color" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@mipmap/point_green"
+                                android:drawablePadding="@dimen/dp_12"
+                                android:gravity="center"
+                                android:paddingStart="@dimen/dp_30"
+                                android:paddingTop="@dimen/dp_22"
+                                android:paddingEnd="0dp"
+                                android:paddingBottom="@dimen/dp_22"
+                                android:text="其他专家意见"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/sp_14" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/consultation_receive_recycler_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
                     </RelativeLayout>
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
@@ -385,7 +430,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:background="@color/white"
-                android:padding="@dimen/dp_27">
+                android:padding="@dimen/dp_27"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/consultation_receive_commit_tv"

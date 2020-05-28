@@ -34,7 +34,8 @@ public class ConsultationOrderAdapter extends BaseQuickAdapter<ConsultationBean,
                         String.format(mContext.getString(R.string.txt_visit_card),
                                 item.getEleCardNumber()))
                 .setText(R.id.consultation_order_date_tv,
-                        DateUtils.timestampToString(item.getApplyTime(), DateUtils.YYYY_MM_DD_HH_MM_SS));
+                        DateUtils.timestampToString(item.getApplyTime(),
+                                DateUtils.YYYY_MM_DD_HH_MM_SS));
         ImageView headerImage = helper.getView(R.id.consultation_order_header_iv);
         GlideUtils.load(headerImage, BaseFileUtils.getHeaderUrl(item.getRegisterImage()), 0,
                 R.mipmap.im_default_head_image, true, null);
@@ -46,5 +47,23 @@ public class ConsultationOrderAdapter extends BaseQuickAdapter<ConsultationBean,
             tvStatus.setBackgroundResource(R.drawable.corner5_fbd54e_bg);
             tvStatus.setText("普通");
         }
+        //会诊申请人数量
+        //        int applyNum = 0;
+        //        TextView applyTv = helper.getView(R.id.consultation_order_apply_tv);
+        //        ArrayList<AuditInfoBean> auditInfoBeans = item.getAuditInfo();
+        //        if (auditInfoBeans != null && auditInfoBeans.size() > 0) {
+        //            for (AuditInfoBean bean : auditInfoBeans) {
+        //                if (bean.getStatus() == 0) {
+        //                    applyNum++;
+        //                }
+        //            }
+        //        }
+        //        if (applyNum > 0) {
+        //            applyTv.setVisibility(View.VISIBLE);
+        //            applyTv.setText("申请 " + applyNum);
+        //        } else {
+        //            applyTv.setVisibility(View.GONE);
+        //        }
+
     }
 }
