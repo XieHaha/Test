@@ -252,7 +252,8 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
             AuditInfoBean bean = auditInfoBeans.get(position);
             new ConsultationApplyDialog(this, bean.getApplyDoctorName(), bean.getPatientName(),
                     bean.getApplyReason(),
-                    () -> getController().dealConsultationApply(bean), null).show();
+                    () -> getController().dealConsultationApply(true, bean),
+                    () -> getController().dealConsultationApply(false, bean)).show();
         }
     }
 
@@ -280,7 +281,11 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     }
 
     @Override
-    public void dealConsultationApplySuccess() {
+    public void dealConsultationApplySuccess(String doctorCode) {
+        //通知列表更新数据
+        EventBus.getDefault().post(new Event(EventType.UPDATECONSULTATION, null));
+        //开放会诊视频权限
+        ((TeamAVChatFragment) mFragmentArrays[1]).addNewDoctor(doctorCode);
         ToastUtil.showMessage(this, "操作成功");
         position++;
         dealConsultationApply();

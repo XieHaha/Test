@@ -145,6 +145,10 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
         getController().getConsultationAdviceList();
     }
 
+    public void setOutConsultationDoctor(boolean outConsultationDoctor) {
+        this.outConsultationDoctor = outConsultationDoctor;
+    }
+
     /**
      * 语音输入
      */

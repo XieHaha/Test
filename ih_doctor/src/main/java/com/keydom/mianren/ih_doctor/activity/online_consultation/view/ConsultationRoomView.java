@@ -16,7 +16,7 @@ public interface ConsultationRoomView extends BaseView {
 
     void applyJoinConsultationFailed(String msg);
 
-    void dealConsultationApplySuccess();
+    void dealConsultationApplySuccess(String doctorCode);
 
     /**
      * 申请加入会诊参数

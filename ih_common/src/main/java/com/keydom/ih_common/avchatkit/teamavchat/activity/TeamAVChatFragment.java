@@ -202,6 +202,19 @@ public class TeamAVChatFragment extends Fragment {
         return view;
     }
 
+    public void setOutConsultationDoctor(boolean outConsultationDoctor) {
+        this.outConsultationDoctor = outConsultationDoctor;
+    }
+
+    /**
+     * 新增会诊人员
+     */
+    public void addNewDoctor(String doctorCode) {
+        if (!accounts.contains(doctorCode)) {
+            accounts.add(doctorCode);
+        }
+    }
+
     /**
      * 开启会诊室
      */
@@ -695,6 +708,9 @@ public class TeamAVChatFragment extends Fragment {
     }
 
     private void onAudioVolume(Map<String, Integer> speakers) {
+        if (speakers == null || speakers.size() == 0) {
+            return;
+        }
         for (TeamAVChatItem item : data) {
             if (speakers.containsKey(item.account)) {
                 item.volume = speakers.get(item.account);

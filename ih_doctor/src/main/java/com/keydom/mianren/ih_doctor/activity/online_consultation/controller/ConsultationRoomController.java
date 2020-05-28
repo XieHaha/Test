@@ -45,14 +45,14 @@ public class ConsultationRoomController extends ControllerImpl<ConsultationRoomV
     /**
      * 处理会诊加入申请
      */
-    public void dealConsultationApply(AuditInfoBean bean) {
+    public void dealConsultationApply(boolean accept, AuditInfoBean bean) {
         Map<String, Object> params = new HashMap<>();
-        params.put("accept", true);
-        params.put("auditId", bean.getAuditorId());
+        params.put("accept", accept);
+        params.put("auditId", bean.getId());
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).dealConsultationApply(HttpService.INSTANCE.object2Body(params)), new HttpSubscriber<String>(mContext, getDisposable(), true, false) {
             @Override
             public void requestComplete(@Nullable String data) {
-                getView().dealConsultationApplySuccess();
+                getView().dealConsultationApplySuccess(bean.getApplyDoctorId());
             }
 
             @Override
