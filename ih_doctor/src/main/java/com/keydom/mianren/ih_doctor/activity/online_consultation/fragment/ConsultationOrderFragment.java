@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
+import com.keydom.ih_common.bean.MessageEvent;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.adapter.ConsultationOrderAdapter;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.ConsultationOrderFragmentController;
@@ -170,6 +171,16 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void update(Event event) {
         if (event.getType() == EventType.UPDATECONSULTATION) {
+            getController().getConsultationOrderList(TypeEnum.REFRESH);
+        }
+    }
+
+    /**
+     * 收到会诊申请
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void applyJoin(MessageEvent messageEvent) {
+        if (messageEvent.getType() == com.keydom.ih_common.constant.EventType.NOTIFY_APPLY_JOIN_CONSULTATION) {
             getController().getConsultationOrderList(TypeEnum.REFRESH);
         }
     }
