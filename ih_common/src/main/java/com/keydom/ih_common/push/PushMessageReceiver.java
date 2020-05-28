@@ -10,9 +10,11 @@ import com.orhanobut.logger.Logger;
 import java.util.Set;
 
 import cn.jpush.android.api.JPushMessage;
+import cn.jpush.android.api.NotificationMessage;
 import cn.jpush.android.service.JPushMessageReceiver;
 
 public class PushMessageReceiver extends JPushMessageReceiver {
+    private static final String TAG = "JPushReceiver";
 
     private Context mContext;
     private static final int SEND_ALIAS = 1;
@@ -34,8 +36,18 @@ public class PushMessageReceiver extends JPushMessageReceiver {
     };
 
     @Override
+    public void onNotifyMessageArrived(Context context, NotificationMessage message) {
+        Logger.e(TAG + "PushMessageReceiver:tags-->=" + message.notificationExtras);
+    }
+
+    @Override
+    public void onNotifyMessageOpened(Context context, NotificationMessage message) {
+        Logger.e(TAG + "PushMessageReceiver:tags-->=" + message.notificationExtras);
+    }
+
+
+    @Override
     public void onTagOperatorResult(Context context, JPushMessage jPushMessage) {
-        Logger.e("PushMessageReceiver:tags-->=" + jPushMessage.getTags());
         mContext = context;
         if (jPushMessage.getErrorCode() == 0) {
             PushPreference.saveTags(jPushMessage.getTags());
@@ -57,7 +69,6 @@ public class PushMessageReceiver extends JPushMessageReceiver {
      */
     @Override
     public void onAliasOperatorResult(Context context, JPushMessage jPushMessage) {
-        Logger.e("PushMessageReceiver:tags-->=" + jPushMessage.getAlias());
         mContext = context;
         if (jPushMessage.getErrorCode() == 0) {
             PushPreference.saveAlias(jPushMessage.getAlias());
