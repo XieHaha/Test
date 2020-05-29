@@ -5,16 +5,11 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
-import com.keydom.ih_common.bean.MessageEvent;
-import com.keydom.ih_common.constant.EventType;
 import com.orhanobut.logger.Logger;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.Set;
 
 import cn.jpush.android.api.JPushMessage;
-import cn.jpush.android.api.NotificationMessage;
 import cn.jpush.android.service.JPushMessageReceiver;
 
 public class PushMessageReceiver extends JPushMessageReceiver {
@@ -39,16 +34,17 @@ public class PushMessageReceiver extends JPushMessageReceiver {
         }
     };
 
-    @Override
-    public void onNotifyMessageArrived(Context context, NotificationMessage message) {
-        Logger.e(TAG + "PushMessageReceiver:tags-->=" + message.notificationExtras);
-        EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NOTIFY_APPLY_JOIN_CONSULTATION).build());
-    }
-
-    @Override
-    public void onNotifyMessageOpened(Context context, NotificationMessage message) {
-        Logger.e(TAG + "PushMessageReceiver:tags-->=" + message.notificationExtras);
-    }
+    //    @Override
+    //    public void onNotifyMessageArrived(Context context, NotificationMessage message) {
+    //        Logger.e(TAG + "PushMessageReceiver:tags-->=" + message.notificationExtras);
+    //        EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType
+    //        .NOTIFY_APPLY_JOIN_CONSULTATION).build());
+    //    }
+    //
+    //    @Override
+    //    public void onNotifyMessageOpened(Context context, NotificationMessage message) {
+    //        Logger.e(TAG + "PushMessageReceiver:tags-->=" + message.notificationExtras);
+    //    }
 
     //    /**
     //     * 状态通知

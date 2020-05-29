@@ -52,17 +52,17 @@
         <!-- APP key, 可以在这里设置，也可以在 SDKOptions 中提供。
                    如果 SDKOptions 中提供了，取 SDKOptions 中的值。 -->
         <!--测试环境参数-->
-       <!-- <meta-data
-            android:name="com.netease.nim.appKey"
-            android:value="e59959f8bc17c29f3d341af5d6bba137" />-->
+        <!-- <meta-data
+             android:name="com.netease.nim.appKey"
+             android:value="e59959f8bc17c29f3d341af5d6bba137" />-->
         <!--小程序环境参数-->
         <meta-data
             android:name="com.netease.nim.appKey"
             android:value="5df521769f05e5e6ce93dd7904564c22" />
         <!--演示环境参数-->
-<!--        <meta-data
-            android:name="com.netease.nim.appKey"
-            android:value="fd082df365283763246ff489028d43dd" />-->
+        <!--        <meta-data
+                    android:name="com.netease.nim.appKey"
+                    android:value="fd082df365283763246ff489028d43dd" />-->
         <!-- 云信后台服务，请使用独立进程。 -->
         <service
             android:name="com.netease.nimlib.service.NimService"
@@ -93,6 +93,19 @@
 
         <!-- 云信进程间通信 Receiver -->
         <receiver android:name="com.netease.nimlib.service.ResponseReceiver" />
+        <!--<receiver-->
+        <!--android:name=".push.JPushReceiver"-->
+        <!--android:enabled="true"-->
+        <!--android:exported="false">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="cn.jpush.android.intent.REGISTRATION" /> &lt;!&ndash;Required  用户注册SDK的intent&ndash;&gt;-->
+        <!--<action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> &lt;!&ndash;Required  用户接收SDK消息的intent&ndash;&gt;-->
+        <!--<action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> &lt;!&ndash;Required  用户接收SDK通知栏信息的intent&ndash;&gt;-->
+        <!--<action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> &lt;!&ndash;Required  用户打开自定义通知栏的intent&ndash;&gt;-->
+        <!--<action android:name="cn.jpush.android.intent.CONNECTION" />&lt;!&ndash; 接收网络变化 连接/断开 since 1.6.3 &ndash;&gt;-->
+        <!--<category android:name="com.keydom.mianren.ih_doctor" />-->
+        <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <!-- 云信进程间通信service -->
         <service android:name="com.netease.nimlib.service.ResponseService" />
@@ -109,8 +122,9 @@
             android:name=".activity.ArticleDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".activity.HandleProposeAcitivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.HandleProposeAcitivity"
+            android:launchMode="singleTop" />
 
         <activity android:name=".im.activity.PlayVideoActivity" />
         <activity android:name=".activity.DiagnoseOrderDetailActivity" />
@@ -121,10 +135,11 @@
             android:name=".activity.FloatPermissionActivity"
             android:theme="@style/http_domain_theme"
             tools:replace="theme" />
-        <activity android:name=".avchatkit.teamavchat.activity.TeamAVChatActivity"
+        <activity
+            android:name=".avchatkit.teamavchat.activity.TeamAVChatActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".avchatkit.selector.activity.ContactSelectActivity" />
     </application>
 
