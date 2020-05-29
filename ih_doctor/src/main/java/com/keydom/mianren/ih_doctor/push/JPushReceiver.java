@@ -9,10 +9,17 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.keydom.ih_common.bean.MessageEvent;
+import com.keydom.ih_common.constant.EventType;
 import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.activity.WelcomeActivity;
-import com.keydom.mianren.ih_doctor.activity.my_message.MyMessageActivity;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationOrderActivity;
+import com.keydom.mianren.ih_doctor.bean.AuditInfoBean;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -23,44 +30,56 @@ public class JPushReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         try {
             Bundle bundle = intent.getExtras();
-            Logger.d(TAG + ":[MyReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
+            Logger.e(TAG + ":[MyReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
 
             if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
                 String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
-                Logger.d(TAG + ":[MyReceiver] 接收Registration Id : " + regId);
+                Logger.e(TAG + ":[MyReceiver] 接收Registration Id : " + regId);
 
             } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
-                Logger.d(TAG + ":[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
-//                processCustomMessage(context, bundle);
+                Logger.e(TAG + ":[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
+                //                processCustomMessage(context, bundle);
 
             } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
-                Logger.d(TAG + ":[MyReceiver] 接收到推送下来的通知");
                 int notificationId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-                Logger.d(TAG + ":[MyReceiver] 接收到推送下来的通知的ID: " + notificationId);
+                Logger.e(TAG + ":[MyReceiver] 接收到推送下来的通知的ID: " + notificationId);
+                bundle.getString(JPushInterface.EXTRA_EXTRA);
+                try {
+                    AuditInfoBean notifyKeyBean =
+                            new Gson().fromJson(bundle.getString(JPushInterface.EXTRA_EXTRA),
+                                    AuditInfoBean.class);
+
+                    EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NOTIFY_AGREE_JOIN_CONSULTATION).setData(notifyKeyBean).build());
+                } catch (JsonSyntaxException e) {
+                    e.printStackTrace();
+                    Logger.e(TAG + "  Get message extra JSON error!");
+                }
 
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
-                Logger.d(TAG + ":[MyReceiver] 用户点击打开了通知");
-
+                Logger.e(TAG + ":[MyReceiver] 用户点击打开了通知");
                 //打开自定义的Activity
-//                Intent i = new Intent(context, TestActivity.class);
-//                i.putExtras(bundle);
+                //                Intent i = new Intent(context, TestActivity.class);
+                //                i.putExtras(bundle);
                 //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                context.startActivity(i);
-                if (MyApplication.isNeedInit)
+                //                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent
+                //                .FLAG_ACTIVITY_CLEAR_TOP);
+                //                context.startActivity(i);
+                if (MyApplication.isNeedInit) {
                     WelcomeActivity.startFromJpush(context, true);
-                else
-                    MyMessageActivity.start(context,null);
-
+                } else {
+                    ConsultationOrderActivity.start(context);
+                }
             } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
-                Logger.d(TAG + ":[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
+                Logger.e(TAG + ":[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
                 //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
 
             } else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
-                boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
-                Logger.w(TAG + ":[MyReceiver]" + intent.getAction() + " connected state change to " + connected);
+                boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE
+                        , false);
+                Logger.w(TAG + ":[MyReceiver]" + intent.getAction() + " connected state change to" +
+                        " " + connected);
             } else {
-                Logger.d(TAG + ":[MyReceiver] Unhandled intent - " + intent.getAction());
+                Logger.e(TAG + ":[MyReceiver] Unhandled intent - " + intent.getAction());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,7 +103,8 @@ public class JPushReceiver extends BroadcastReceiver {
                     }
 
                     try {
-                        JSONObject json = JSON.parseObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
+                        JSONObject json =
+                                JSON.parseObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
 
                         for (String myKey : json.keySet()) {
                             sb.append("\nkey:").append(key).append(", value: [").append(myKey).append(" - ").append(json.get(myKey)).append("]");

@@ -20,6 +20,7 @@ public class AuditInfoBean implements Serializable {
     private String auditTime;
     private String patientName;
     private String applyDoctorName;
+    private String applyDoctorCode;
 
     public int getStatus() {
         return status;
@@ -107,5 +108,13 @@ public class AuditInfoBean implements Serializable {
 
     public void setApplyDoctorName(String applyDoctorName) {
         this.applyDoctorName = applyDoctorName;
+    }
+
+    public String getApplyDoctorCode() {
+        return applyDoctorCode;
+    }
+
+    public void setApplyDoctorCode(String applyDoctorCode) {
+        this.applyDoctorCode = applyDoctorCode;
     }
 }

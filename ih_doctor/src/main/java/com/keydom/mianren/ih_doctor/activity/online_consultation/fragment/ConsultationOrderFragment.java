@@ -179,7 +179,7 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
      * 收到会诊申请
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void applyJoin(MessageEvent messageEvent) {
+    public void receiveApply(MessageEvent messageEvent) {
         if (messageEvent.getType() == com.keydom.ih_common.constant.EventType.NOTIFY_APPLY_JOIN_CONSULTATION) {
             getController().getConsultationOrderList(TypeEnum.REFRESH);
         }

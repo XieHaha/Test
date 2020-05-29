@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -118,6 +120,11 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         return R.layout.activity_consultation_room;
     }
 
+    private Handler handler = new Handler(msg -> {
+        dealConsultationApply((AuditInfoBean) msg.obj);
+        return true;
+    });
+
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
@@ -200,7 +207,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
 
         if (auditInfoBeans.size() > 0) {
             position = 0;
-            dealConsultationApply();
+            dealConsultationApply(auditInfoBeans.get(0));
         }
     }
 
@@ -247,14 +254,11 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         dialog.show();
     }
 
-    private void dealConsultationApply() {
-        if (auditInfoBeans.size() > position) {
-            AuditInfoBean bean = auditInfoBeans.get(position);
-            new ConsultationApplyDialog(this, bean.getApplyDoctorName(), bean.getPatientName(),
-                    bean.getApplyReason(),
-                    () -> getController().dealConsultationApply(true, bean),
-                    () -> getController().dealConsultationApply(false, bean)).show();
-        }
+    private void dealConsultationApply(AuditInfoBean bean) {
+        new ConsultationApplyDialog(this, bean.getApplyDoctorName(), bean.getPatientName(),
+                bean.getApplyReason(),
+                () -> getController().dealConsultationApply(true, bean),
+                () -> getController().dealConsultationApply(false, bean)).show();
     }
 
     @Override
@@ -288,7 +292,9 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         ((TeamAVChatFragment) mFragmentArrays[1]).addNewDoctor(doctorCode);
         ToastUtil.showMessage(this, "操作成功");
         position++;
-        dealConsultationApply();
+        if (auditInfoBeans.size() > position) {
+            dealConsultationApply(auditInfoBeans.get(position));
+        }
     }
 
     @Override
@@ -352,6 +358,30 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     public void applyJoin(MessageEvent messageEvent) {
         if (messageEvent.getType() == com.keydom.ih_common.constant.EventType.APPLY_JOIN_CONSULTATION) {
             applyJoinConsultationDialog();
+        }
+    }
+
+    /**
+     * 收到会诊申请
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void receiveApply(MessageEvent messageEvent) {
+        if (messageEvent.getType() == com.keydom.ih_common.constant.EventType.NOTIFY_APPLY_JOIN_CONSULTATION) {
+            Message message = handler.obtainMessage();
+            message.obj = messageEvent.getData();
+            handler.handleMessage(message);
+        }
+    }
+    /**
+     * 同意会诊申请
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void agreeApply(MessageEvent messageEvent) {
+        if (messageEvent.getType() == com.keydom.ih_common.constant.EventType.NOTIFY_AGREE_JOIN_CONSULTATION) {
+            //开放会诊视频权限
+            ((TeamAVChatFragment) mFragmentArrays[1]).setOutConsultationDoctor(false);
+            ((ConsultationAdviceFragment) mFragmentArrays[2]).setOutConsultationDoctor(false);
+            ToastUtil.showMessage(this,"通过了您的申请");
         }
     }
 

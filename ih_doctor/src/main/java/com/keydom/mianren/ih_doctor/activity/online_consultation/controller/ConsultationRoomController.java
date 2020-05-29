@@ -52,7 +52,7 @@ public class ConsultationRoomController extends ControllerImpl<ConsultationRoomV
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).dealConsultationApply(HttpService.INSTANCE.object2Body(params)), new HttpSubscriber<String>(mContext, getDisposable(), true, false) {
             @Override
             public void requestComplete(@Nullable String data) {
-                getView().dealConsultationApplySuccess(bean.getApplyDoctorId());
+                getView().dealConsultationApplySuccess(bean.getApplyDoctorCode());
             }
 
             @Override
