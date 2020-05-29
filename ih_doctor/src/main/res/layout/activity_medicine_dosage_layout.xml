@@ -22,13 +22,15 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/dp_20">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/medicine_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false">
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/medicine_rv"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:focusable="false">-->
 
-            </android.support.v7.widget.RecyclerView>
+            <!--</android.support.v7.widget.RecyclerView>-->
+
+            <include layout="@layout/drug_use_item_layout"/>
 
             <TextView
                 android:id="@+id/save_drug"

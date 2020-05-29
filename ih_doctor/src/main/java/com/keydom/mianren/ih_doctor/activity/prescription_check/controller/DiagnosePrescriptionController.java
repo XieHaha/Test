@@ -68,9 +68,9 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                     dialog.setCancelListener(this);
                     dialog.reset();
                     dialog.show();
-
+                    //默认外延处方
+                    getView().setIsOutPrescription(1);
                 }
-
                 break;
             case R.id.prescription_model_rl:
                 PrescriptionTempletActivity.start(getContext(),getView().getIsOutPrescription());

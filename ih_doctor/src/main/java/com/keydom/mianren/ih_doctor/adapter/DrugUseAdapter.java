@@ -35,7 +35,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
         this.configBean = bean;
     }
 
-    boolean ischange;
+    boolean isChange;
 
     @Override
     protected void convert(BaseViewHolder helper, DrugBean item) {
@@ -49,7 +49,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                 dose = Double.valueOf(item.getSingleMaximum());
             }
         }
-        ischange = true;
+        isChange = true;
         helper.setText(R.id.medical_name_tv, item.getDrugsName())
                 .setText(R.id.medical_desc_tv, item.getSpec())
                 .setText(R.id.medical_num_scaler_text_layout, String.valueOf(item.getQuantity()))
@@ -59,22 +59,17 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                 .setText(R.id.eat_medical_rate_tv, item.getFrequency())
                 .setText(R.id.eat_medical_day_scaler_text_layout, String.valueOf(item.getDays()))
                 .setText(R.id.doctor_entrust, item.getDoctorAdvice());
-        ischange = false;
+        isChange = false;
         item.setSingleDose(Double.parseDouble(df1.format(dose)));
         EditText doctor_entrust = helper.itemView.findViewById(R.id.doctor_entrust);
-        EditText medical_num_scaler_text_layout =
+        TextView medical_num_scaler_text_layout =
                 helper.itemView.findViewById(R.id.medical_num_scaler_text_layout);
         EditText medical_dosage_scaler_text_layout =
                 helper.itemView.findViewById(R.id.medical_dosage_scaler_text_layout);
         EditText eat_medical_day_scaler_text_layout =
                 helper.itemView.findViewById(R.id.eat_medical_day_scaler_text_layout);
         TextView eat_medical_rate_tv = helper.itemView.findViewById(R.id.eat_medical_rate_tv);
-        TextView dosage_unit_tv = helper.itemView.findViewById(R.id.dosage_unit_tv);
         TextView get_medical_way_tv = helper.itemView.findViewById(R.id.get_medical_way_tv);
-        RelativeLayout medical_num_scaler_minus_layout =
-                helper.itemView.findViewById(R.id.medical_num_scaler_minus_layout);
-        RelativeLayout medical_num_scaler_add_layout =
-                helper.itemView.findViewById(R.id.medical_num_scaler_add_layout);
         RelativeLayout medical_dosage_scaler_minus_layout =
                 helper.itemView.findViewById(R.id.medical_dosage_scaler_minus_layout);
         RelativeLayout medical_dosage_scaler_add_layout =
@@ -95,7 +90,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!ischange) {
+                if (!isChange) {
                     if ("".equals(s.toString())) {
 
                     } else {
@@ -124,7 +119,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!ischange) {
+                if (!isChange) {
                     if ("".equals(s.toString())) {
 
                     } else {
@@ -204,7 +199,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!ischange && !TextUtils.isEmpty(s.toString())) {
+                if (!isChange && !TextUtils.isEmpty(s.toString())) {
                     if (item.getMaximumMedicationDays() != 0 && Integer.valueOf(s.toString()) > item.getMaximumMedicationDays()) {
                         ToastUtil.showMessage(mContext, "输入的值超过最大用药天数");// + item
                         // .getSingleMaximum()
@@ -232,33 +227,10 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!ischange) {
+                if (!isChange) {
                     item.setDoctorAdvice(s.toString());
                 }
 
-            }
-        });
-
-        medical_num_scaler_minus_layout.setOnClickListener(new View.OnClickListener() {
-            @SingleClick(1000)
-            @Override
-            public void onClick(View v) {
-                if (item.getQuantity() > 0) {
-                    if (!ischange) {
-                        item.setQuantity(item.getQuantity() - 1);
-                    }
-                    notifyDataSetChanged();
-                }
-            }
-        });
-        medical_num_scaler_add_layout.setOnClickListener(new View.OnClickListener() {
-            @SingleClick(1000)
-            @Override
-            public void onClick(View v) {
-                if (!ischange) {
-                    item.setQuantity(item.getQuantity() + 1);
-                }
-                notifyDataSetChanged();
             }
         });
 
@@ -267,7 +239,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
             @Override
             public void onClick(View v) {
                 if (item.getSingleDose() > 0.1) {
-                    if (!ischange) {
+                    if (!isChange) {
                         item.setSingleDose(Double.parseDouble(df1.format(item.getSingleDose() - 0.1)));
                         item.setQuantity(computeDosage(item));
                     }
@@ -284,7 +256,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                     item.setSingleMaximum("0");
                 }
                 if (Double.valueOf(item.getSingleMaximum()) == 0 || Double.parseDouble(df1.format(item.getSingleDose() + 0.1)) <= Double.valueOf(item.getSingleMaximum())) {
-                    if (!ischange) {
+                    if (!isChange) {
                         item.setSingleDose(Double.parseDouble(df1.format(item.getSingleDose() + 0.1)));
                         item.setQuantity(computeDosage(item));
                     }
@@ -300,7 +272,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
             @Override
             public void onClick(View v) {
                 if (item.getDays() > 0) {
-                    if (!ischange) {
+                    if (!isChange) {
                         item.setDays(item.getDays() - 1);
                         item.setQuantity(computeDosage(item));
                     }
@@ -314,7 +286,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
             @Override
             public void onClick(View v) {
                 if (item.getMaximumMedicationDays() == 0 || item.getDays() < item.getMaximumMedicationDays()) {
-                    if (!ischange) {
+                    if (!isChange) {
                         item.setDays(item.getDays() + 1);
 
                         item.setQuantity(computeDosage(item));
@@ -329,7 +301,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                 new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                        if (!ischange) {
+                        if (!isChange) {
                             item.setFrequency(configBean.getFrequencyList().get(options1).getRemark());
                             item.setFrequencyEnglish(configBean.getFrequencyList().get(options1).getName());
                             eat_medical_rate_tv.setText(configBean.getFrequencyList().get(options1).getRemark());
@@ -337,9 +309,9 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
 
                     }
                 }).build();
-        ArrayList<String> frequencys =new ArrayList<>();
+        ArrayList<String> frequencys = new ArrayList<>();
         for (FrequencyBean bean : configBean.getFrequencyList()) {
-            frequencys.add(bean.getRemark());
+            frequencys.add(bean.getName());
         }
         frequencyPickerView.setPicker(frequencys);
 
@@ -347,9 +319,8 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                 new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                        if (!ischange) {
+                        if (!isChange) {
                             item.setDosageUnit(configBean.getUnitList().get(options1));
-                            dosage_unit_tv.setText(configBean.getUnitList().get(options1));
                         }
                     }
                 }).build();
@@ -359,7 +330,7 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                 new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                        if (!ischange) {
+                        if (!isChange) {
                             item.setWay(configBean.getWayList().get(options1));
                             get_medical_way_tv.setText(configBean.getWayList().get(options1));
                         }
@@ -370,9 +341,6 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
         eat_medical_rate_tv.setOnClickListener(v -> frequencyPickerView.show());
 
         get_medical_way_tv.setOnClickListener(v -> wayPickerView.show());
-
-        dosage_unit_tv.setOnClickListener(v -> unitPickerView.show());
-
     }
 
     private int computeDosage(DrugBean item) {
