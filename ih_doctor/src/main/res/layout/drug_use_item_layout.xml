@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
                 android:drawableStart="@mipmap/point_green"
-                android:drawablePadding="@dimen/dp_14"
+                android:drawablePadding="@dimen/dp_12"
                 android:gravity="center_vertical"
                 android:paddingStart="@dimen/dp_20"
                 android:paddingEnd="@dimen/dp_0"
@@ -202,14 +202,16 @@
                 android:textSize="@dimen/sp_14" />
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_52">
+            android:layout_height="@dimen/dp_52"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_weight="1"
                 android:paddingStart="@dimen/dp_20"
                 android:paddingEnd="@dimen/dp_0"
                 android:text="用药天数"
@@ -220,9 +222,7 @@
                 android:id="@+id/eat_medical_day_sacler"
                 android:layout_width="@dimen/dp_122"
                 android:layout_height="@dimen/dp_31"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_10"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -271,7 +271,20 @@
                         android:background="#FFFFFF" />
                 </RelativeLayout>
             </LinearLayout>
-        </RelativeLayout>
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:gravity="center"
+                android:maxLength="6"
+                android:singleLine="true"
+                android:text="天"
+                android:textColor="#999999"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/medical_num_sacler"
@@ -281,9 +294,8 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_weight="1"
                 android:paddingStart="@dimen/dp_20"
                 android:paddingEnd="@dimen/dp_0"
@@ -291,12 +303,29 @@
                 android:textColor="#999999"
                 android:textSize="@dimen/sp_14" />
 
-            <TextView
+            <RelativeLayout
+                android:id="@+id/medical_num_scaler_minus_layout"
+                android:layout_width="@dimen/dp_31"
+                android:layout_height="@dimen/dp_31"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dp_40"
+                android:background="@drawable/scaler_minus_bg">
+
+                <View
+                    android:layout_width="@dimen/dp_12"
+                    android:layout_height="@dimen/dp_2"
+                    android:layout_centerInParent="true"
+                    android:background="#999999" />
+            </RelativeLayout>
+
+            <EditText
                 android:id="@+id/medical_num_scaler_text_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_31"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/scaler_text_bg"
                 android:gravity="center"
+                android:inputType="number"
                 android:maxLength="6"
                 android:paddingStart="@dimen/dp_12"
                 android:paddingTop="@dimen/dp_5"
@@ -307,6 +336,27 @@
                 android:textSize="@dimen/sp_17"
                 tools:text="2" />
 
+            <RelativeLayout
+                android:id="@+id/medical_num_scaler_add_layout"
+                android:layout_width="@dimen/dp_31"
+                android:layout_height="@dimen/dp_31"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:background="@drawable/scaler_add_bg">
+
+                <View
+                    android:layout_width="@dimen/dp_12"
+                    android:layout_height="@dimen/dp_2"
+                    android:layout_centerInParent="true"
+                    android:background="#FFFFFF" />
+
+                <View
+                    android:layout_width="@dimen/dp_2"
+                    android:layout_height="@dimen/dp_12"
+                    android:layout_centerInParent="true"
+                    android:background="#FFFFFF" />
+            </RelativeLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -314,8 +364,8 @@
                 android:maxLength="6"
                 android:singleLine="true"
                 android:text="盒"
-                android:textColor="#666666"
-                android:textSize="@dimen/sp_17" />
+                android:textColor="#999999"
+                android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
 

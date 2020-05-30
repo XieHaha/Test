@@ -79,11 +79,15 @@ public class DrugUseActivity extends BaseActivity {
     @BindView(R.id.eat_medical_day_sacler)
     LinearLayout eatMedicalDaySacler;
     @BindView(R.id.medical_num_scaler_text_layout)
-    TextView medicalNumScalerTextLayout;
+    EditText medicalNumScalerTextLayout;
     @BindView(R.id.medical_num_sacler)
     LinearLayout medicalNumSacler;
     @BindView(R.id.eat_medical_day_labei)
     TextView eatMedicalDayLabei;
+    @BindView(R.id.medical_num_scaler_minus_layout)
+    RelativeLayout medicalNumScalerMinusLayout;
+    @BindView(R.id.medical_num_scaler_add_layout)
+    RelativeLayout medicalNumScalerAddLayout;
     @BindView(R.id.doctor_entrust)
     InterceptorEditText doctorEntrust;
     @BindView(R.id.save_drug)
@@ -162,6 +166,8 @@ public class DrugUseActivity extends BaseActivity {
         doctorEntrust.setText(drugBean.getDoctorAdvice());
 
         drugBean.setSingleDose(Double.parseDouble(df1.format(dose)));
+
+        //用法用量
         medicalDosageScalerTextLayout.addTextChangedListener(new AbsTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -173,54 +179,36 @@ public class DrugUseActivity extends BaseActivity {
                             ToastUtil.showMessage(DrugUseActivity.this, "仅支持输入一位小数");
                             String value = s.toString();
                             value = value.substring(0, s.toString().indexOf(".") + 2);
-
                             s.replace(0, s.length(), value);
-                        } else {
-                            if (TextUtils.isEmpty(drugBean.getSingleMaximum())) {
-                                return;
-                            }
-                            if (Double.parseDouble(drugBean.getSingleMaximum()) > 0 && Double.parseDouble(df1.format(Double.valueOf(s.toString()))) > Double.parseDouble(drugBean.getSingleMaximum())) {
-                                ToastUtil.showMessage(DrugUseActivity.this, "输入的值超过最大单次剂量");
-                                s.replace(0, s.length(), drugBean.getSingleMaximum() + "");
-                            } else {
-                                drugBean.setSingleDose(Double.parseDouble(df1.format(Double.valueOf(s.toString()))));
-                                drugBean.setQuantity(computeDosage(drugBean));
-
-                            }
-                        }
-                    } else {
-                        String s1 = s.toString();
-                        if (TextUtils.isEmpty(s1) || TextUtils.isEmpty(drugBean.getSingleMaximum())) {
-                            return;
-                        }
-                        if (Double.parseDouble(drugBean.getSingleMaximum()) > 0 && Double.parseDouble(df1.format(Double.valueOf(s1))) > Double.parseDouble(drugBean.getSingleMaximum())) {
-                            ToastUtil.showMessage(DrugUseActivity.this, "输入的值超过最大单次剂量");//+ drugBean
-                            s.replace(0, s.length(), drugBean.getSingleMaximum() + "");
                         } else {
                             drugBean.setSingleDose(Double.parseDouble(df1.format(Double.valueOf(s.toString()))));
                             drugBean.setQuantity(computeDosage(drugBean));
                         }
+                    } else {
+                        String s1 = s.toString();
+                        if (TextUtils.isEmpty(s1)) {
+                            return;
+                        }
+                        drugBean.setSingleDose(Double.parseDouble(df1.format(Double.valueOf(s.toString()))));
+                        drugBean.setQuantity(computeDosage(drugBean));
                     }
                 }
             }
         });
+
+        //用药天数
         eatMedicalDayScalerTextLayout.addTextChangedListener(new AbsTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 if (!TextUtils.isEmpty(s.toString())) {
-                    if (drugBean.getMaximumMedicationDays() != 0 && Integer.valueOf(s.toString()) > drugBean.getMaximumMedicationDays()) {
-                        ToastUtil.showMessage(DrugUseActivity.this, "输入的值超过最大用药天数");// + drugBean
-                        s.clear();
-                        s.append(drugBean.getMaximumMedicationDays() + "");
-                    } else {
-                        drugBean.setDays(Integer.valueOf(s.toString()));
-                        drugBean.setQuantity(computeDosage(drugBean));
-                    }
+                    drugBean.setDays(Integer.valueOf(s.toString()));
+                    drugBean.setQuantity(computeDosage(drugBean));
                 }
 
             }
         });
 
+        //医嘱事项
         doctorEntrust.addTextChangedListener(new AbsTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -228,54 +216,65 @@ public class DrugUseActivity extends BaseActivity {
             }
         });
 
+        //单次剂量 减号
         medicalDosageScalerMinusLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (drugBean.getSingleDose() > 0.1) {
                     drugBean.setSingleDose(Double.parseDouble(df1.format(drugBean.getSingleDose() - 0.1)));
-                    drugBean.setQuantity(computeDosage(drugBean));
                     medicalDosageScalerTextLayout.setText(String.valueOf(drugBean.getSingleDose()));
-                }
-            }
-        });
-        medicalDosageScalerAddLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(drugBean.getSingleMaximum())) {
-                    drugBean.setSingleMaximum("0");
-                }
-                if (Double.valueOf(drugBean.getSingleMaximum()) == 0 || Double.parseDouble(df1.format(drugBean.getSingleDose() + 0.1)) <= Double.valueOf(drugBean.getSingleMaximum())) {
-                    drugBean.setSingleDose(Double.parseDouble(df1.format(drugBean.getSingleDose() + 0.1)));
-                    drugBean.setQuantity(computeDosage(drugBean));
-                    medicalDosageScalerTextLayout.setText(String.valueOf(drugBean.getSingleDose()));
-                } else if (Double.parseDouble(df1.format(drugBean.getSingleDose() + 0.1)) > Double.valueOf(drugBean.getSingleMaximum())) {
-                    ToastUtil.showMessage(DrugUseActivity.this, "已达到最大单次剂量");
                 }
             }
         });
 
+        //单次剂量 加号
+        medicalDosageScalerAddLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drugBean.setSingleDose(Double.parseDouble(df1.format(drugBean.getSingleDose() + 0.1)));
+                drugBean.setQuantity(computeDosage(drugBean));
+                medicalDosageScalerTextLayout.setText(String.valueOf(drugBean.getSingleDose()));
+            }
+        });
+
+        // 用药天数  减
         eatMedicalDayScalerMinusLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (drugBean.getDays() > 0) {
                     drugBean.setDays(drugBean.getDays() - 1);
-                    drugBean.setQuantity(computeDosage(drugBean));
+                    eatMedicalDayScalerTextLayout.setText(String.valueOf(drugBean.getDays()));
                 }
             }
         });
-
+        // 用药天数  加
         eatMedicalDayScalerAddLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (drugBean.getMaximumMedicationDays() == 0 || drugBean.getDays() < drugBean.getMaximumMedicationDays()) {
-                    drugBean.setDays(drugBean.getDays() + 1);
-
-                    drugBean.setQuantity(computeDosage(drugBean));
-                } else if (drugBean.getDays() >= drugBean.getMaximumMedicationDays()) {
-                    ToastUtil.showMessage(DrugUseActivity.this, "已达到最大用药天数");
+                drugBean.setDays(drugBean.getDays() + 1);
+                eatMedicalDayScalerTextLayout.setText(String.valueOf(drugBean.getDays()));
+            }
+        });
+        // 用药总量  减
+        medicalNumScalerMinusLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drugBean.getQuantity() > 0) {
+                    drugBean.setQuantity(drugBean.getQuantity() - 1);
+                    medicalNumScalerTextLayout.setText(String.valueOf(drugBean.getQuantity()));
                 }
             }
         });
+        // 用药总量 加
+        medicalNumScalerAddLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drugBean.setQuantity(drugBean.getQuantity() + 1);
+                medicalNumScalerTextLayout.setText(String.valueOf(drugBean.getQuantity()));
+            }
+        });
+
+        //用药频率
         OptionsPickerView frequencyPickerView = new OptionsPickerBuilder(DrugUseActivity.this,
                 (options1, option2, options3, v) -> {
                     drugBean.setFrequency(configBean.getFrequencyList().get(options1).getRemark());
@@ -288,20 +287,15 @@ public class DrugUseActivity extends BaseActivity {
             frequencys.add(bean.getName());
         }
         frequencyPickerView.setPicker(frequencys);
+        eatMedicalRateTv.setOnClickListener(v -> frequencyPickerView.show());
 
-        OptionsPickerView unitPickerView = new OptionsPickerBuilder(DrugUseActivity.this,
-                (options1, option2, options3, v) -> drugBean.setDosageUnit(configBean.getUnitList().get(options1))).build();
-        unitPickerView.setPicker(configBean.getUnitList());
-
+        //给药途径
         OptionsPickerView wayPickerView = new OptionsPickerBuilder(DrugUseActivity.this,
                 (options1, option2, options3, v) -> {
                     drugBean.setWay(configBean.getWayList().get(options1));
                     getMedicalWayTv.setText(configBean.getWayList().get(options1));
                 }).build();
         wayPickerView.setPicker(configBean.getWayList());
-
-        eatMedicalRateTv.setOnClickListener(v -> frequencyPickerView.show());
-
         getMedicalWayTv.setOnClickListener(v -> wayPickerView.show());
     }
 
