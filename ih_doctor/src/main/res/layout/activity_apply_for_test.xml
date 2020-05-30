@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.mianren.ih_doctor.view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -22,7 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -168,6 +166,15 @@
                 android:layout_height="@dimen/dp_10"
                 android:background="@color/line_color" />
 
+            <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
+                android:id="@+id/main_dec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                mitem:itemAddText="快捷添加"
+                mitem:itemInputHint="请您填写患者主诉，或点击快捷添加常用样例"
+                mitem:itemTip="主诉"
+                mitem:limit="20"/>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -190,7 +197,7 @@
                     android:paddingBottom="@dimen/dp_16"
                     android:text="诊断"
                     android:textColor="@color/primary_font_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <View
                     android:id="@+id/line"
@@ -235,7 +242,6 @@
                     android:singleLine="true"
                     android:textSize="@dimen/font_size_primary" />
             </RelativeLayout>
-
 
             <RelativeLayout
                 android:id="@+id/disease_rl"

@@ -19,6 +19,20 @@ public interface DiagnoseCheckSelectItemView extends BaseView {
      *
      * @param list 检验项目列表
      */
+    void getGroupListSuccess(List<CheckOutItemBean> list);
+
+    /**
+     * 获取检验项目失败
+     *
+     * @param errMsg 失败提示信息
+     */
+    void getGroupListFailed(String errMsg);
+
+    /**
+     * 获取检验项目成功
+     *
+     * @param list 检验项目列表
+     */
     void getItemListSuccess(List<CheckOutItemBean> list);
 
     /**

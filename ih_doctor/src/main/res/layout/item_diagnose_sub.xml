@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_57"
+    android:background="@color/line_color"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/dp_12"
+    android:paddingEnd="@dimen/dp_10">
+
+    <CheckBox
+        android:layout_width="@dimen/dp_18"
+        android:layout_height="@dimen/dp_18" />
+
+    <TextView
+        android:id="@+id/diagnose_sub_name"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/dp_20"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_333333_3f98f7_selector"
+        android:textSize="@dimen/sp_14"
+        tools:text="检验乙肝五项" />
+
+</LinearLayout>

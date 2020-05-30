@@ -21,10 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdapter<DiagnoseOrderSecondaryListRecyclerAdapter.GroupItemViewHolder, DiagnoseOrderSecondaryListRecyclerAdapter.SubItemViewHolder> {
-
     private Context context;
-
-    private boolean delete = false;
+    private boolean delete;
 
     private List<DataTree<CheckOutItemBean, CheckOutItemBean>> dts = new ArrayList<>();
 
@@ -71,17 +69,6 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
             ((GroupItemViewHolder) holder).testItemFee.setVisibility(View.GONE);
             ((GroupItemViewHolder) holder).deleteBtn.setVisibility(View.GONE);
             ((GroupItemViewHolder) holder).deptName.setVisibility(View.GONE);
-
-            /*((GroupItemViewHolder) holder).testItemFee.setLayoutParams(new LinearLayout
-            .LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams
-            .WRAP_CONTENT, 0.0f));
-            ((GroupItemViewHolder) holder).deleteBtn.setLayoutParams(new LinearLayout
-            .LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams
-            .WRAP_CONTENT, 0.0f));
-            ((GroupItemViewHolder) holder).deptName.setLayoutParams(new LinearLayout.LayoutParams
-            (LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.0f));
-            ((GroupItemViewHolder) holder).rightImg.setLayoutParams(new LinearLayout.LayoutParams
-            (0, LinearLayout.LayoutParams.WRAP_CONTENT, 5.0f));*/
         }
         ((GroupItemViewHolder) holder).deptName.setText(bean.getDeptName());
         ((GroupItemViewHolder) holder).testItemFee.setText(String.valueOf(bean.getTotalFee()));
@@ -164,6 +151,8 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
         }
         rightImg.setBounds(0, 0, rightImg.getMinimumWidth(), rightImg.getMinimumHeight());
         holder.rightImg.setCompoundDrawables(null, null, rightImg, null);
+
+
     }
 
     @Override
@@ -185,32 +174,30 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
         notifyDataSetChanged();
     }
 
-    public static class GroupItemViewHolder extends RecyclerView.ViewHolder {
+    static class GroupItemViewHolder extends RecyclerView.ViewHolder {
+        TextView itemName, deptName, testItemFee, rightImg;
+        ImageButton deleteBtn;
+        TextView allChooseRb;
 
-        public TextView itemName, deptName, testItemFee, rightImg;
-        public ImageButton deleteBtn;
-        public TextView allChooseRb;
-
-        public GroupItemViewHolder(View itemView) {
+        GroupItemViewHolder(View itemView) {
             super(itemView);
-            itemName = (TextView) itemView.findViewById(R.id.inspact_item_name);
-            deptName = (TextView) itemView.findViewById(R.id.dept_name);
-            testItemFee = (TextView) itemView.findViewById(R.id.test_item_fee);
-            deleteBtn = (ImageButton) itemView.findViewById(R.id.sub_item_delete_btn);
-            rightImg = (TextView) itemView.findViewById(R.id.right_img);
+            itemName = itemView.findViewById(R.id.inspact_item_name);
+            deptName = itemView.findViewById(R.id.dept_name);
+            testItemFee = itemView.findViewById(R.id.test_item_fee);
+            deleteBtn = itemView.findViewById(R.id.sub_item_delete_btn);
+            rightImg = itemView.findViewById(R.id.right_img);
             allChooseRb = itemView.findViewById(R.id.all_choose_rb);
         }
     }
 
-    public static class SubItemViewHolder extends RecyclerView.ViewHolder {
+    static class SubItemViewHolder extends RecyclerView.ViewHolder {
+        TextView tvSub;
+        MRadioButton mRb;
 
-        public TextView tvSub;
-        public MRadioButton mRb;
-
-        public SubItemViewHolder(View itemView) {
+        SubItemViewHolder(View itemView) {
             super(itemView);
-            tvSub = (TextView) itemView.findViewById(R.id.test_child_item_name);
-            mRb = (MRadioButton) itemView.findViewById(R.id.diagnose_rb);
+            tvSub = itemView.findViewById(R.id.test_child_item_name);
+            mRb = itemView.findViewById(R.id.diagnose_rb);
         }
     }
 

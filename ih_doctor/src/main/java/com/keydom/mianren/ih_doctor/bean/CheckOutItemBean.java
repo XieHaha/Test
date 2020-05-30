@@ -27,6 +27,7 @@ public class CheckOutItemBean implements Serializable {
     private String specimenName;
     private String name;
     private String remark;
+    private String cateCode;
     private BigDecimal price = BigDecimal.ZERO;
     private List<CheckOutItemBean> items;
     private BigDecimal totalFee = BigDecimal.ZERO;
@@ -111,6 +112,14 @@ public class CheckOutItemBean implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getCateCode() {
+        return cateCode;
+    }
+
+    public void setCateCode(String cateCode) {
+        this.cateCode = cateCode;
     }
 
     public BigDecimal getPrice() {

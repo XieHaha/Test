@@ -23,6 +23,7 @@ import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.im.ConversationActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.controller.ApplyForCheckController;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.ApplyForCheckView;
+import com.keydom.mianren.ih_doctor.activity.patient_main_suit.PatientMainSuitActivity;
 import com.keydom.mianren.ih_doctor.adapter.DiagnoseOrderSecondaryListRecyclerAdapter;
 import com.keydom.mianren.ih_doctor.adapter.InspectItemListAdapter;
 import com.keydom.mianren.ih_doctor.adapter.SecondaryListAdapter;
@@ -35,6 +36,7 @@ import com.keydom.mianren.ih_doctor.bean.SubmitInspectOrderReqBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.m_interface.OnItemChangeListener;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
+import com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
@@ -90,6 +92,10 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     private RecyclerView recyclerView;
     private RelativeLayout diseaseRl;
     private TextView applyTestAddTv, diagnoseTv, userName, userSex, userAge, diseaseTv;
+    /**
+     * 主诉
+     */
+    private DiagnosePrescriptionItemView mainDec;
     /**
      * 检查项目适配器（两级列表）
      */
@@ -270,9 +276,14 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
         recyclerView = this.findViewById(R.id.apply_item_rv);
         applyTestAddTv = this.findViewById(R.id.apply_test_add_tv);
         diagnoseTv = this.findViewById(R.id.diagnose_tv);
+        mainDec = findViewById(R.id.main_dec);
+        mainDec.setFragmentActivity(this);
         applyTestAddTv.setOnClickListener(getController());
         diagnoseTv.setOnClickListener(getController());
         diseaseTv.setOnClickListener(getController());
+
+        mainDec.setAddOnClikListener(v -> PatientMainSuitActivity.start(ApplyForCheckActivity.this,
+                mainDec.getInputStr()));
     }
 
 
@@ -303,7 +314,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     private void setTestListData(List<CheckOutItemBean> list) {
         datas.clear();
         for (int i = 0; i < list.size(); i++) {
-            datas.add(new SecondaryListAdapter.DataTree<CheckOutItemBean, CheckOutItemBean>(list.get(i), list.get(i).getItems()));
+            datas.add(new SecondaryListAdapter.DataTree<>(list.get(i), list.get(i).getItems()));
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setSmoothScrollbarEnabled(true);
@@ -616,6 +627,12 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
                     break;
                 case ChooseInspectItemActivity.CHOOSE_INSPECT_ITEM:
                     getSelectInspactItemList((List<CheckOutItemBean>) data.getSerializableExtra(Const.DATA));
+                    break;
+                case PatientMainSuitActivity.SELECT_PATIENT_MAIN_DEC:
+                    String decStr = (String) data.getSerializableExtra(Const.DATA);
+                    mainDec.setText(decStr);
+                    break;
+                default:
                     break;
             }
         }

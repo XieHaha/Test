@@ -7,7 +7,6 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
-import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.DiagnoseCheckSelectItemView;
 import com.keydom.mianren.ih_doctor.bean.CheckOutItemBean;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
@@ -38,14 +37,34 @@ public class DiagnoseCheckSelectItemController extends ControllerImpl<DiagnoseCh
      * 获取检验项目列表
      */
     public void checkoutList() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).checkoutList(MyApplication.userInfo.getHospitalId()), new HttpSubscriber<List<CheckOutItemBean>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).checkoutCategoryList("1"), new HttpSubscriber<List<CheckOutItemBean>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable List<CheckOutItemBean> data) {
                 getView().getItemListSuccess(data);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                getView().getItemListFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 获取检验项目下子项目列表
+     */
+    public void checkoutItemList(String code) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).checkoutItemList("1", code), new HttpSubscriber<List<CheckOutItemBean>>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable List<CheckOutItemBean> data) {
+                getView().getItemListSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getItemListFailed(msg);
                 return super.requestError(exception, code, msg);
             }
