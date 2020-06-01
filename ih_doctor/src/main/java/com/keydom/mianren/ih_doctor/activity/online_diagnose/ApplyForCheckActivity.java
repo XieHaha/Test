@@ -28,7 +28,7 @@ import com.keydom.mianren.ih_doctor.adapter.DiagnoseOrderSecondaryListRecyclerAd
 import com.keydom.mianren.ih_doctor.adapter.InspectItemListAdapter;
 import com.keydom.mianren.ih_doctor.adapter.SecondaryListAdapter;
 import com.keydom.mianren.ih_doctor.bean.CheckItemListBean;
-import com.keydom.mianren.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.bean.OrderApplyResponse;
 import com.keydom.mianren.ih_doctor.bean.SubmitCheckOrderReqBean;
@@ -88,7 +88,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     /**
      * 选择的检查项目列表
      */
-    private List<CheckOutItemBean> selectTestList = new ArrayList<>();
+    private List<CheckOutGroupBean> selectTestList = new ArrayList<>();
     private RecyclerView recyclerView;
     private RelativeLayout diseaseRl;
     private TextView applyTestAddTv, diagnoseTv, userName, userSex, userAge, diseaseTv;
@@ -107,7 +107,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     /**
      * 检查项目两级列表数据
      */
-    private List<SecondaryListAdapter.DataTree<CheckOutItemBean, CheckOutItemBean>> datas =
+    private List<SecondaryListAdapter.DataTree<CheckOutGroupBean, CheckOutGroupBean>> datas =
             new ArrayList<>();
     /**
      * 总费用
@@ -120,11 +120,11 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     /**
      * 查询到的所有检查项目列表
      */
-    private List<CheckOutItemBean> inspactItemList;
+    private List<CheckOutGroupBean> inspactItemList;
     /**
      * 选中的检查项目列表
      */
-    private List<CheckOutItemBean> inspactSelectItemList = new ArrayList<>();
+    private List<CheckOutGroupBean> inspactSelectItemList = new ArrayList<>();
     /**
      * 问诊单对象
      */
@@ -292,9 +292,9 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
      */
     private void setCheckFee() {
         totalFee = BigDecimal.ZERO;
-        for (CheckOutItemBean bean : selectTestList) {
+        for (CheckOutGroupBean bean : selectTestList) {
             bean.setTotalFee(BigDecimal.ZERO);
-            for (CheckOutItemBean subBean : bean.getItems()) {
+            for (CheckOutGroupBean subBean : bean.getItems()) {
                 if (subBean.isSelect()) {
                     if (subBean.getPrice() != null && bean.getTotalFee() != null) {
                         bean.setTotalFee(subBean.getPrice().add(bean.getTotalFee()));
@@ -311,7 +311,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     /**
      * 设置检验列表
      */
-    private void setTestListData(List<CheckOutItemBean> list) {
+    private void setTestListData(List<CheckOutGroupBean> list) {
         datas.clear();
         for (int i = 0; i < list.size(); i++) {
             datas.add(new SecondaryListAdapter.DataTree<>(list.get(i), list.get(i).getItems()));
@@ -363,10 +363,10 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     @Override
     public Map<String, Object> getTestMap() {
         List<SubmitCheckOrderReqBean> list = new ArrayList<>();
-        for (CheckOutItemBean testItemBean : selectTestList) {
+        for (CheckOutGroupBean testItemBean : selectTestList) {
             SubmitCheckOrderReqBean bean = new SubmitCheckOrderReqBean();
             List<SubmitCheckOrderReqBean> childList = new ArrayList<>();
-            for (CheckOutItemBean item : testItemBean.getItems()) {
+            for (CheckOutGroupBean item : testItemBean.getItems()) {
                 if (item.isSelect()) {
                     SubmitCheckOrderReqBean submitCheckOrderReqBean = new SubmitCheckOrderReqBean();
                     submitCheckOrderReqBean.setId(item.getProjectId());
@@ -398,7 +398,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     @Override
     public Map<String, Object> getInspectMap() {
         List<SubmitInspectOrderReqBean> reqList = new ArrayList<>();
-        for (CheckOutItemBean bean : inspactSelectItemList) {
+        for (CheckOutGroupBean bean : inspactSelectItemList) {
             SubmitInspectOrderReqBean reqLevel1Bean = new SubmitInspectOrderReqBean();
             reqLevel1Bean.setItems(bean.getSelectReqList());
             reqLevel1Bean.setId(bean.getProjectId());
@@ -470,7 +470,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     }
 
     @Override
-    public void getInspactItemListSuccess(List<CheckOutItemBean> list) {
+    public void getInspactItemListSuccess(List<CheckOutGroupBean> list) {
         inspactItemList = list;
     }
 
@@ -485,17 +485,17 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     }
 
     @Override
-    public List<CheckOutItemBean> getInspactItemList() {
+    public List<CheckOutGroupBean> getInspactItemList() {
         return inspactItemList;
     }
 
     @Override
-    public List<CheckOutItemBean> getInspactSelectItemList() {
+    public List<CheckOutGroupBean> getInspactSelectItemList() {
         return inspactSelectItemList;
     }
 
     @Override
-    public void getSelectInspactItemList(List<CheckOutItemBean> list) {
+    public void getSelectInspactItemList(List<CheckOutGroupBean> list) {
         //        inspactSelectItemList.clear();
         inspactSelectItemList.addAll(list);
         inspectItemListAdapter.notifyDataSetChanged();
@@ -537,9 +537,9 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
      */
     public void setInspactFee() {
         totalFee = BigDecimal.ZERO;
-        for (CheckOutItemBean bean : inspactSelectItemList) {
-            List<CheckOutItemBean> list = bean.selectedItems();
-            for (CheckOutItemBean subBean : list) {
+        for (CheckOutGroupBean bean : inspactSelectItemList) {
+            List<CheckOutGroupBean> list = bean.selectedItems();
+            for (CheckOutGroupBean subBean : list) {
                 if (subBean != null) {
                     if (subBean.selectedItem() != null) {
                         totalFee = totalFee.add(subBean.getSelectTotalFee());
@@ -556,11 +556,11 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
         if (inspactSelectItemList == null || inspactSelectItemList.size() == 0) {
             return false;
         }
-        for (CheckOutItemBean bean : inspactSelectItemList) {
+        for (CheckOutGroupBean bean : inspactSelectItemList) {
             if (bean.selectedItem() == null) {
                 return false;
             } else {
-                for (CheckOutItemBean subBean : bean.selectedItems()) {
+                for (CheckOutGroupBean subBean : bean.selectedItems()) {
                     if (subBean.selectedItem() == null || subBean.selectedItems().size() == 0) {
                         return false;
                     }
@@ -573,10 +573,10 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
 
     @Override
     public boolean isSaveCheckOutOrder() {
-        for (CheckOutItemBean testItemBean : selectTestList) {
+        for (CheckOutGroupBean testItemBean : selectTestList) {
             SubmitCheckOrderReqBean bean = new SubmitCheckOrderReqBean();
             List<SubmitCheckOrderReqBean> childList = new ArrayList<>();
-            for (CheckOutItemBean item : testItemBean.getItems()) {
+            for (CheckOutGroupBean item : testItemBean.getItems()) {
                 if (item.isSelect()) {
                     return true;
                 }
@@ -603,7 +603,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     }
 
     @Override
-    public List<CheckOutItemBean> getCheckOutSelectItemList() {
+    public List<CheckOutGroupBean> getCheckOutSelectItemList() {
         return selectTestList;
     }
 
@@ -614,7 +614,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
             switch (requestCode) {
                 case Const.TEST_ITEM_SELECT:
                     selectTestList.clear();
-                    selectTestList.addAll((List<CheckOutItemBean>) data.getSerializableExtra(Const.DATA));
+                    selectTestList.addAll((List<CheckOutGroupBean>) data.getSerializableExtra(Const.DATA));
                     setTestListData(selectTestList);
                     setCheckFee();
                     adapter.notifyDataSetChanged();
@@ -626,7 +626,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
                     diseaseTv.setText(data.getStringExtra(Const.DATA));
                     break;
                 case ChooseInspectItemActivity.CHOOSE_INSPECT_ITEM:
-                    getSelectInspactItemList((List<CheckOutItemBean>) data.getSerializableExtra(Const.DATA));
+                    getSelectInspactItemList((List<CheckOutGroupBean>) data.getSerializableExtra(Const.DATA));
                     break;
                 case PatientMainSuitActivity.SELECT_PATIENT_MAIN_DEC:
                     String decStr = (String) data.getSerializableExtra(Const.DATA);

@@ -21,7 +21,7 @@ import com.keydom.mianren.ih_doctor.activity.online_diagnose.controller.CheckOrd
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.CheckOrderDetailView;
 import com.keydom.mianren.ih_doctor.adapter.TestDetailItemListAdapter;
 import com.keydom.mianren.ih_doctor.bean.CheckItemListBean;
-import com.keydom.mianren.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 
@@ -64,7 +64,7 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
     /**
      * 检验、检查项目列表
      */
-    private List<CheckOutItemBean> checkOutList = new ArrayList<>();
+    private List<CheckOutGroupBean> checkOutList = new ArrayList<>();
     /**
      * 检验、检查详情对象
      */
@@ -206,13 +206,13 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
      * @param list
      * @return
      */
-    private List<CheckOutItemBean> assembleInspactItemList(List<CheckOutItemBean> list) {
-        List<CheckOutItemBean> assembleList = new ArrayList<>();
-        for (CheckOutItemBean bean : list) {
+    private List<CheckOutGroupBean> assembleInspactItemList(List<CheckOutGroupBean> list) {
+        List<CheckOutGroupBean> assembleList = new ArrayList<>();
+        for (CheckOutGroupBean bean : list) {
             if (bean.selectedItems() != null && bean.selectedItems().size() > 1) {
-                for (CheckOutItemBean subBean : bean.selectedItems()) {
+                for (CheckOutGroupBean subBean : bean.selectedItems()) {
                     try {
-                        CheckOutItemBean cpBean = bean.copy();
+                        CheckOutGroupBean cpBean = bean.copy();
                         cpBean.reset();
                         cpBean.setSelectItem(subBean);
                         assembleList.add(cpBean);
@@ -236,7 +236,7 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
      * @param bean
      */
     private void setInspactOrderInfo(CheckItemListBean bean) {
-        List<CheckOutItemBean> beans = assembleInspactItemList(bean.getItems());
+        List<CheckOutGroupBean> beans = assembleInspactItemList(bean.getItems());
         bean.setItems(beans);
         editOrderIb.setVisibility((bean.isEdit() && inquiryBean != null) ? View.VISIBLE :
                 View.GONE);
@@ -249,7 +249,7 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         String sampleTypeString = "";
         String checkItemStr = "";
         String doctorInstructionStr = "";
-        for (CheckOutItemBean item : bean.getItems()) {
+        for (CheckOutGroupBean item : bean.getItems()) {
             if ("".equals(checkItemStr)) {
                 if (item.selectedItem() != null) {
                     checkItemStr = item.selectedItem().getName();
@@ -287,12 +287,12 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         recyclerView.setVisibility(View.GONE);
     }
 
-    private String assembleProjectName(List<CheckOutItemBean> items) {
+    private String assembleProjectName(List<CheckOutGroupBean> items) {
         String assembleNameStr = "";
-        for (CheckOutItemBean item : items) {
+        for (CheckOutGroupBean item : items) {
             if (item.isSelect()) {
                 if (item.getItems() != null && item.getItems().size() != 0) {
-                    for (CheckOutItemBean secodItem : item.getItems()) {
+                    for (CheckOutGroupBean secodItem : item.getItems()) {
                         if (secodItem.isSelect()) {
                             if ("".equals(assembleNameStr)) {
                                 assembleNameStr = assembleNameStr + secodItem.getName();
@@ -326,10 +326,10 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         BigDecimal totalFee = BigDecimal.ZERO;
         if (bean != null) {
             if (bean.getItems() != null && bean.getItems().size() > 0) {
-                for (CheckOutItemBean subBean : bean.getItems()) {
+                for (CheckOutGroupBean subBean : bean.getItems()) {
                     if (subBean.selectedItem() != null) {
                         if (subBean.selectedItem().selectedItem() != null) {
-                            for (CheckOutItemBean partBean : subBean.selectedItems()) {
+                            for (CheckOutGroupBean partBean : subBean.selectedItems()) {
                                 totalFee = totalFee.add(partBean.totalFee());
                             }
                         } else {

@@ -1,7 +1,7 @@
 package com.keydom.mianren.ih_doctor.activity.online_diagnose.view;
 
 import com.keydom.ih_common.base.BaseView;
-import com.keydom.mianren.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
 
 import java.util.List;
 
@@ -19,6 +19,6 @@ public interface ChooseInspectItemView extends BaseView {
      *
      * @return
      */
-    List<CheckOutItemBean> getSelectItem();
+    List<CheckOutGroupBean> getSelectItem();
 
 }

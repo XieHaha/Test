@@ -18,7 +18,7 @@ import java.util.List;
  * 修改人：xusong
  * 修改时间：19/1/14 下午2:02
  */
-public class CheckOutItemBean implements Serializable {
+public class CheckOutGroupBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private long id;
     private long projectId;
@@ -29,7 +29,7 @@ public class CheckOutItemBean implements Serializable {
     private String remark;
     private String cateCode;
     private BigDecimal price = BigDecimal.ZERO;
-    private List<CheckOutItemBean> items;
+    private List<CheckOutGroupBean> items;
     private BigDecimal totalFee = BigDecimal.ZERO;
     private boolean select = false;
     private boolean isAllSelect=false;
@@ -133,11 +133,11 @@ public class CheckOutItemBean implements Serializable {
         this.price = price;
     }
 
-    public List<CheckOutItemBean> getItems() {
+    public List<CheckOutGroupBean> getItems() {
         return items;
     }
 
-    public void setItems(List<CheckOutItemBean> items) {
+    public void setItems(List<CheckOutGroupBean> items) {
         this.items = items;
     }
 
@@ -146,10 +146,10 @@ public class CheckOutItemBean implements Serializable {
      *
      * @return
      */
-    public List<CheckOutItemBean> selectedItems() {
-        List<CheckOutItemBean> list = new ArrayList<>();
+    public List<CheckOutGroupBean> selectedItems() {
+        List<CheckOutGroupBean> list = new ArrayList<>();
         if (items != null && items.size() > 0) {
-            for (CheckOutItemBean item : items) {
+            for (CheckOutGroupBean item : items) {
                 if (item.isSelect()) {
                     list.add(item);
                 }
@@ -164,7 +164,7 @@ public class CheckOutItemBean implements Serializable {
      *
      * @return
      */
-    public CheckOutItemBean selectedItem() {
+    public CheckOutGroupBean selectedItem() {
         if (items != null && items.size() > 0) {
             for (int i = 0; i < items.size(); i++) {
                 if (items.get(i).isSelect()) {
@@ -178,7 +178,7 @@ public class CheckOutItemBean implements Serializable {
 
     public BigDecimal getSelectTotalFee() {
         BigDecimal selectTotal = BigDecimal.ZERO;
-        for (CheckOutItemBean bean : selectedItems()) {
+        for (CheckOutGroupBean bean : selectedItems()) {
             selectTotal = selectTotal.add(bean.getPrice());
         }
         return selectTotal;
@@ -186,7 +186,7 @@ public class CheckOutItemBean implements Serializable {
 
     public List<SubmitInspectOrderReqBean> getSelectReqList() {
         List<SubmitInspectOrderReqBean> list = new ArrayList<>();
-        for (CheckOutItemBean bean : selectedItems()) {
+        for (CheckOutGroupBean bean : selectedItems()) {
             SubmitInspectOrderReqBean reqBean = new SubmitInspectOrderReqBean();
             reqBean.setId(bean.getProjectId());
             reqBean.setName(bean.getName());
@@ -202,7 +202,7 @@ public class CheckOutItemBean implements Serializable {
 
     public BigDecimal totalFee() {
         if (items != null && items.size() > 0) {
-            for (CheckOutItemBean item : items) {
+            for (CheckOutGroupBean item : items) {
                 if (item.isSelect()) {
                     totalFee = totalFee.add(item.price);
                 }
@@ -214,7 +214,7 @@ public class CheckOutItemBean implements Serializable {
     public void reset() {
         this.setSelect(false);
         if (items != null && items.size() > 0) {
-            for (CheckOutItemBean item : items) {
+            for (CheckOutGroupBean item : items) {
                 if (item.isSelect()) {
                     item.reset();
                 }
@@ -222,15 +222,15 @@ public class CheckOutItemBean implements Serializable {
         }
     }
 
-    public CheckOutItemBean copy() throws IOException, ClassNotFoundException {
+    public CheckOutGroupBean copy() throws IOException, ClassNotFoundException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(this);
         ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
-        return (CheckOutItemBean) ois.readObject();
+        return (CheckOutGroupBean) ois.readObject();
     }
 
-    public void setSelectItem(CheckOutItemBean bean) {
+    public void setSelectItem(CheckOutGroupBean bean) {
         if (items != null && items.size() > 0) {
             for (int i = 0; i < items.size(); i++) {
                 if (items.get(i).getProjectId() == bean.getProjectId()) {

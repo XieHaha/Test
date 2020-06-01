@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.ToastUtil;
@@ -18,7 +19,8 @@ import com.keydom.mianren.ih_doctor.activity.online_diagnose.adapter.DiagnoseChe
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.adapter.DiagnoseCheckItemAdapter;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.controller.DiagnoseCheckSelectItemController;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.DiagnoseCheckSelectItemView;
-import com.keydom.mianren.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutSubBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 
@@ -26,7 +28,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -38,7 +42,7 @@ import butterknife.BindView;
  * 修改人：xusong
  * 修改时间：18/11/14 上午10:37
  */
-public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<DiagnoseCheckSelectItemController> implements DiagnoseCheckSelectItemView {
+public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<DiagnoseCheckSelectItemController> implements DiagnoseCheckSelectItemView, BaseQuickAdapter.OnItemClickListener {
     @BindView(R.id.search_input_ev)
     InterceptorEditText searchInputEv;
     @BindView(R.id.search_tv)
@@ -54,19 +58,21 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     /**
      * 一级列表
      */
-    private List<CheckOutItemBean> groupData = new ArrayList<>();
-    private List<CheckOutItemBean> itemData = new ArrayList<>();
+    private List<CheckOutGroupBean> groupData = new ArrayList<>();
+    private List<CheckOutSubBean> itemData = new ArrayList<>();
 
-    private CheckOutItemBean curSelectGroup;
+    private CheckOutGroupBean curSelectGroup;
+
+    private Map<String, ArrayList<CheckOutSubBean>> select = new HashMap<>();
 
     /**
      * 启动检验项目选择页面
      *
-     * @param selectedDatas 已经选择的检验项目列表
+     * @param selectedData 已经选择的检验项目列表
      */
-    public static void start(Context context, List<CheckOutItemBean> selectedDatas) {
+    public static void start(Context context, List<CheckOutGroupBean> selectedData) {
         Intent starter = new Intent(context, DiagnoseCheckSelectItemActivity.class);
-        starter.putExtra(Const.DATA, (Serializable) selectedDatas);
+        starter.putExtra(Const.DATA, (Serializable) selectedData);
         ((Activity) context).startActivityForResult(starter, Const.TEST_ITEM_SELECT);
     }
 
@@ -79,12 +85,14 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle("检验申请");
         setRightTxt("确定");
-        //        selectedDatas = (List<CheckOutItemBean>) getIntent().getSerializableExtra(Const
+        //        selectedDatas = (List<CheckOutGroupBean>) getIntent().getSerializableExtra(Const
         //        .DATA);
 
         checkGroupAdapter = new DiagnoseCheckGroupAdapter(groupData);
+        checkGroupAdapter.setOnItemClickListener(this);
         groupItemRv.setAdapter(checkGroupAdapter);
         checkItemAdapter = new DiagnoseCheckItemAdapter(itemData);
+        checkItemAdapter.setOnItemClickListener(this);
         itemRv.setAdapter(checkItemAdapter);
 
         initListener();
@@ -111,7 +119,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     }
 
     @Override
-    public void getItemListSuccess(List<CheckOutItemBean> list) {
+    public void getItemListSuccess(List<CheckOutSubBean> list) {
         itemData.clear();
         itemData.addAll(list);
         checkItemAdapter.notifyDataSetChanged();
@@ -123,7 +131,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     }
 
     @Override
-    public void getGroupListSuccess(List<CheckOutItemBean> list) {
+    public void getGroupListSuccess(List<CheckOutGroupBean> list) {
         groupData.clear();
         groupData.addAll(list);
         checkGroupAdapter.notifyDataSetChanged();
@@ -137,5 +145,34 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     @Override
     public void getGroupListFailed(String errMsg) {
 
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        if (adapter instanceof DiagnoseCheckGroupAdapter) {
+            checkGroupAdapter.setCurPosition(position);
+            //获取子菜单数据
+            curSelectGroup = groupData.get(position);
+            getController().checkoutItemList(curSelectGroup.getCateCode());
+        } else if (adapter instanceof DiagnoseCheckItemAdapter) {
+            if (curSelectGroup != null) {
+                String cateCode = curSelectGroup.getCateCode();
+                ArrayList<CheckOutSubBean> checkOutSubBeans;
+                if (select.containsKey(cateCode)) {
+                    checkOutSubBeans = select.get(cateCode);
+                } else {
+                    checkOutSubBeans = new ArrayList<>();
+                }
+                if (checkOutSubBeans.contains(itemData.get(position))) {
+                    checkOutSubBeans.remove(itemData.get(position));
+                } else {
+                    checkOutSubBeans.add(itemData.get(position));
+                }
+                select.put(cateCode, checkOutSubBeans);
+                checkItemAdapter.setCurGroupCode(cateCode);
+                checkItemAdapter.setSelect(select);
+                checkGroupAdapter.setSelect(select);
+            }
+        }
     }
 }

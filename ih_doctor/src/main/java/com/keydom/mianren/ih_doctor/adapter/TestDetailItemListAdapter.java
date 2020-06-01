@@ -5,20 +5,20 @@ import android.content.Context;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
 
 import java.util.List;
 
-public class TestDetailItemListAdapter extends BaseQuickAdapter<CheckOutItemBean, BaseViewHolder> {
+public class TestDetailItemListAdapter extends BaseQuickAdapter<CheckOutGroupBean, BaseViewHolder> {
     private Context context;
 
-    public TestDetailItemListAdapter(Context context, List<CheckOutItemBean> data) {
+    public TestDetailItemListAdapter(Context context, List<CheckOutGroupBean> data) {
         super(R.layout.test_order_detail_item, data);
         this.context = context;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, final CheckOutItemBean item) {
+    protected void convert(BaseViewHolder helper, final CheckOutGroupBean item) {
         helper.setText(R.id.inspact_item_name, item.getName())
                 .setText(R.id.test_item_fee, "￥" + item.getPrice() + "元");
     }

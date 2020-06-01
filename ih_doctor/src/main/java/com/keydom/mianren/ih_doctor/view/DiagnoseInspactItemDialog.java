@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.adapter.InspactItemSelectRecyclrViewAdapter;
-import com.keydom.mianren.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.m_interface.SelectInspectItemListener;
 import com.keydom.mianren.ih_doctor.utils.CloneUtil;
 
@@ -38,14 +38,14 @@ public class DiagnoseInspactItemDialog extends Dialog implements View.OnClickLis
     private InspactItemSelectRecyclrViewAdapter inspactItemSelectRecyclrViewAdapter;
     private View.OnClickListener cancelListener;
     private RecyclerView recyclerView;
-    List<CheckOutItemBean> mList;
+    List<CheckOutGroupBean> mList;
     private SelectInspectItemListener listener;
 
 
     /**
      * @param context
      */
-    public DiagnoseInspactItemDialog(Context context, List<CheckOutItemBean> list, SelectInspectItemListener listener) {
+    public DiagnoseInspactItemDialog(Context context, List<CheckOutGroupBean> list, SelectInspectItemListener listener) {
         super(context, R.style.dialogFullscreen);
         mContext = context;
         this.mList = list;
@@ -74,7 +74,7 @@ public class DiagnoseInspactItemDialog extends Dialog implements View.OnClickLis
         setOnDismissListener(new OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                for (CheckOutItemBean bean : mList) {
+                for (CheckOutGroupBean bean : mList) {
 //                    if (bean.isSelect()) {
 //                        bean.setSelect(false);
 //                    }
@@ -107,12 +107,12 @@ public class DiagnoseInspactItemDialog extends Dialog implements View.OnClickLis
         }
     }
 
-    public List<CheckOutItemBean> getSelectList() {
-        List<CheckOutItemBean> selectList = new ArrayList<>();
+    public List<CheckOutGroupBean> getSelectList() {
+        List<CheckOutGroupBean> selectList = new ArrayList<>();
         if (mList == null || mList.size() == 0) {
             return selectList;
         }
-        for (CheckOutItemBean bean : mList) {
+        for (CheckOutGroupBean bean : mList) {
             if (bean.isSelect()) {
                 try {
                     selectList.add(CloneUtil.clone(bean));

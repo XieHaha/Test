@@ -5,7 +5,8 @@ import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_doctor.bean.BodyCheckDetailInfo;
 import com.keydom.mianren.ih_doctor.bean.CheckItemListBean;
-import com.keydom.mianren.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutSubBean;
 import com.keydom.mianren.ih_doctor.bean.DiagnoseHandleBean;
 import com.keydom.mianren.ih_doctor.bean.DiagnosePatientInfoBean;
 import com.keydom.mianren.ih_doctor.bean.DrugBean;
@@ -55,16 +56,10 @@ public interface DiagnoseApiService {
 
 
     /**
-     * 提交检验申请单
+     * 提交检验、检查申请单
      */
-    @POST("user/online/saveCheckout")
+    @POST("user/insCheckApplication/saveInsOrCheck")
     Observable<HttpResult<List<OrderApplyResponse>>> saveCheckout(@Body RequestBody body);
-
-    /**
-     * 提交检查申请单
-     */
-    @POST("user/online/saveInspect")
-    Observable<HttpResult<List<OrderApplyResponse>>> saveInspect(@Body RequestBody body);
 
 
     /**
@@ -112,20 +107,20 @@ public interface DiagnoseApiService {
      * 获取检验检查目录（一级）  1 检验 2检查 3 治疗
      */
     @GET("reservation/insCheckCategory/getInsCheckCategory")
-    Observable<HttpResult<List<CheckOutItemBean>>> checkoutCategoryList(@Query("type") String id);
+    Observable<HttpResult<List<CheckOutGroupBean>>> checkoutCategoryList(@Query("type") String id);
 
     /**
      * 获取检验检查项目（二级）  1 检验 2检查 3 治疗
      */
     @GET("reservation/insCheckCategory/getInsCheckItem")
-    Observable<HttpResult<List<CheckOutItemBean>>> checkoutItemList(@Query("type") String id,
-                                                                    @Query("cateCode") String code);
+    Observable<HttpResult<List<CheckOutSubBean>>> checkoutItemList(@Query("type") String id,
+                                                                   @Query("cateCode") String code);
 
     /**
      * 获取检查项目
      */
     @GET("user/online/inspectList")
-    Observable<HttpResult<List<CheckOutItemBean>>> inspectList(@Query("hospitalId") long id);
+    Observable<HttpResult<List<CheckOutGroupBean>>> inspectList(@Query("hospitalId") long id);
 
 
     /**

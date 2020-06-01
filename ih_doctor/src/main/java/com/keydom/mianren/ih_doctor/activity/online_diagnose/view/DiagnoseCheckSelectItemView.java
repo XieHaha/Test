@@ -1,7 +1,8 @@
 package com.keydom.mianren.ih_doctor.activity.online_diagnose.view;
 
 import com.keydom.ih_common.base.BaseView;
-import com.keydom.mianren.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutSubBean;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface DiagnoseCheckSelectItemView extends BaseView {
      *
      * @param list 检验项目列表
      */
-    void getGroupListSuccess(List<CheckOutItemBean> list);
+    void getGroupListSuccess(List<CheckOutGroupBean> list);
 
     /**
      * 获取检验项目失败
@@ -33,7 +34,7 @@ public interface DiagnoseCheckSelectItemView extends BaseView {
      *
      * @param list 检验项目列表
      */
-    void getItemListSuccess(List<CheckOutItemBean> list);
+    void getItemListSuccess(List<CheckOutSubBean> list);
 
     /**
      * 获取检验项目失败

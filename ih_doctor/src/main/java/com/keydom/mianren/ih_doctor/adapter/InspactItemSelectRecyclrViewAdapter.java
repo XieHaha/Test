@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 
 import java.util.List;
@@ -27,9 +27,9 @@ public class InspactItemSelectRecyclrViewAdapter extends RecyclerView.Adapter<In
 
 
     private Context context;
-    private List<CheckOutItemBean> data;
+    private List<CheckOutGroupBean> data;
 
-    public InspactItemSelectRecyclrViewAdapter(Context context, List<CheckOutItemBean> data) {
+    public InspactItemSelectRecyclrViewAdapter(Context context, List<CheckOutGroupBean> data) {
         this.context = context;
         this.data = data;
     }

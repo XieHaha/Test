@@ -18,7 +18,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.ApplyForCheckActivity;
-import com.keydom.mianren.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.m_interface.SelectInspectItemListener;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.view.DiagnoseInspactItemDialog;
@@ -28,15 +28,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutItemBean, BaseViewHolder> {
+public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutGroupBean, BaseViewHolder> {
     boolean ischange;
 
-    public InspectItemListAdapter(@Nullable List<CheckOutItemBean> data) {
+    public InspectItemListAdapter(@Nullable List<CheckOutGroupBean> data) {
         super(R.layout.add_inspect_item, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, CheckOutItemBean item) {
+    protected void convert(BaseViewHolder helper, CheckOutGroupBean item) {
         if (item == null) {
             return;
         }
@@ -61,7 +61,7 @@ public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutItemBean, B
             String selectItemStr = "";
             BigDecimal totalFee = BigDecimal.ZERO;
             if (item.selectedItem().selectedItems() != null && item.selectedItem().selectedItems().size() > 0) {
-                for (CheckOutItemBean selectItem : item.selectedItem().selectedItems()) {
+                for (CheckOutGroupBean selectItem : item.selectedItem().selectedItems()) {
                     if ("".equals(selectItemStr)) {
                         selectItemStr = selectItem.getName();
                     } else {
@@ -118,13 +118,13 @@ public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutItemBean, B
             public void onClick(View v) {
                 if (item != null && item.getItems() != null) {
                     final List<String> list = new ArrayList<>();
-                    for (CheckOutItemBean bean : item.getItems()) {
+                    for (CheckOutGroupBean bean : item.getItems()) {
                         list.add(bean.getName());
                     }
                     OptionsPickerView pvOptions = new OptionsPickerBuilder(mContext, new OnOptionsSelectListener() {
                         @Override
                         public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                            for (CheckOutItemBean item : item.getItems()) {
+                            for (CheckOutGroupBean item : item.getItems()) {
                                 item.setSelect(false);
                             }
                             item.getItems().get(options1).setSelect(true);
@@ -144,17 +144,17 @@ public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutItemBean, B
             public void onClick(View v) {
                 if (item != null && item.selectedItem() != null && item.selectedItem().getItems() != null && item.selectedItem().getItems().size() > 0) {
                     final List<String> list = new ArrayList<>();
-                    for (CheckOutItemBean bean : item.selectedItem().getItems()) {
+                    for (CheckOutGroupBean bean : item.selectedItem().getItems()) {
                         list.add(bean.getName());
                     }
-                    List<CheckOutItemBean> partList = new ArrayList<>();
+                    List<CheckOutGroupBean> partList = new ArrayList<>();
                     partList.addAll(item.selectedItem().getItems());
                     DiagnoseInspactItemDialog dialog = new DiagnoseInspactItemDialog(mContext, partList, new SelectInspectItemListener() {
                         @Override
-                        public void selectItem(List<CheckOutItemBean> list) {
+                        public void selectItem(List<CheckOutGroupBean> list) {
                             String partStr = "";
                             BigDecimal totalFee = BigDecimal.ZERO;
-                            for (CheckOutItemBean selectBean : list) {
+                            for (CheckOutGroupBean selectBean : list) {
                                 partStr += "".equals(partStr) ? selectBean.getName() : ("、" + selectBean.getName());
                                 totalFee = totalFee.add(selectBean.getPrice());
                                 for (int i = 0; i < item.selectedItem().getItems().size(); i++) {

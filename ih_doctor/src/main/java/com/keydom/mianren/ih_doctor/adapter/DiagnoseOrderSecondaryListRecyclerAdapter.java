@@ -13,7 +13,7 @@ import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_common.view.MRadioButton;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.m_interface.OnItemChangeListener;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 
@@ -24,7 +24,7 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
     private Context context;
     private boolean delete;
 
-    private List<DataTree<CheckOutItemBean, CheckOutItemBean>> dts = new ArrayList<>();
+    private List<DataTree<CheckOutGroupBean, CheckOutGroupBean>> dts = new ArrayList<>();
 
     public DiagnoseOrderSecondaryListRecyclerAdapter(Context context, boolean delete) {
         this.context = context;
@@ -56,7 +56,7 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
 
     @Override
     public void onGroupItemBindViewHolder(RecyclerView.ViewHolder holder, int groupItemIndex) {
-        CheckOutItemBean bean = dts.get(groupItemIndex).getGroupItem();
+        CheckOutGroupBean bean = dts.get(groupItemIndex).getGroupItem();
         ((GroupItemViewHolder) holder).itemName.setText(bean.getName());
         if (delete) {
             ((GroupItemViewHolder) holder).testItemFee.setVisibility(View.VISIBLE);
@@ -98,7 +98,7 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
         ((GroupItemViewHolder) holder).allChooseRb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<CheckOutItemBean> subBeanList = dts.get(groupItemIndex).getSubItems();
+                List<CheckOutGroupBean> subBeanList = dts.get(groupItemIndex).getSubItems();
                 for (int i = 0; i < subBeanList.size(); i++) {
                     subBeanList.get(i).setSelect(true);
                 }
@@ -126,8 +126,8 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
     @Override
     public void onSubItemBindViewHolder(RecyclerView.ViewHolder holder, int groupItemIndex,
                                         int subItemIndex) {
-        CheckOutItemBean bean = dts.get(groupItemIndex).getGroupItem();
-        CheckOutItemBean subBean = dts.get(groupItemIndex).getSubItems().get(subItemIndex);
+        CheckOutGroupBean bean = dts.get(groupItemIndex).getGroupItem();
+        CheckOutGroupBean subBean = dts.get(groupItemIndex).getSubItems().get(subItemIndex);
         ((SubItemViewHolder) holder).tvSub.setText(subBean.getName());
         ((SubItemViewHolder) holder).mRb.setChecked(subBean.isSelect());
         if (delete) {
@@ -158,8 +158,8 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
     @Override
     public void onSubItemClick(SubItemViewHolder holder, int groupItemIndex, int subItemIndex) {
 
-        CheckOutItemBean bean = dts.get(groupItemIndex).getGroupItem();
-        CheckOutItemBean subBean = dts.get(groupItemIndex).getSubItems().get(subItemIndex);
+        CheckOutGroupBean bean = dts.get(groupItemIndex).getGroupItem();
+        CheckOutGroupBean subBean = dts.get(groupItemIndex).getSubItems().get(subItemIndex);
         subBean.setSelect(!subBean.isSelect());
         if (bean.getItems() != null) {
             for (int i = 0; i < bean.getItems().size(); i++) {

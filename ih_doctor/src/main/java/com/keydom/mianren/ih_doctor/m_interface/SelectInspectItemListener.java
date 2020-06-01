@@ -1,6 +1,6 @@
 package com.keydom.mianren.ih_doctor.m_interface;
 
-import com.keydom.mianren.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface SelectInspectItemListener {
 
-    void selectItem(List<CheckOutItemBean> list);
+    void selectItem(List<CheckOutGroupBean> list);
 
 
 }

@@ -27,7 +27,7 @@ public class CheckItemListBean implements Serializable {
     private String conditionDesc;
     private String outpatientNumber;
     private String specimenName;
-    private List<CheckOutItemBean> items;
+    private List<CheckOutGroupBean> items;
     private BigDecimal totalFee;
     private boolean edit;
     private boolean select = false;
@@ -152,11 +152,11 @@ public class CheckItemListBean implements Serializable {
         this.diagnosis = diagnosis;
     }
 
-    public List<CheckOutItemBean> getItems() {
+    public List<CheckOutGroupBean> getItems() {
         return items;
     }
 
-    public void setItems(List<CheckOutItemBean> items) {
+    public void setItems(List<CheckOutGroupBean> items) {
         this.items = items;
     }
 
@@ -168,9 +168,9 @@ public class CheckItemListBean implements Serializable {
         this.select = select;
     }
 
-    public CheckOutItemBean selectedItem() {
+    public CheckOutGroupBean selectedItem() {
         if (items != null && items.size() > 0) {
-            for (CheckOutItemBean item : items) {
+            for (CheckOutGroupBean item : items) {
                 if (item.isSelect()) {
                     return item;
                 }

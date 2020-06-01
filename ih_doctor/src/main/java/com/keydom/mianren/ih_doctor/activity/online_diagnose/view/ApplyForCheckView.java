@@ -1,7 +1,7 @@
 package com.keydom.mianren.ih_doctor.activity.online_diagnose.view;
 
 import com.keydom.ih_common.base.BaseView;
-import com.keydom.mianren.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.bean.OrderApplyResponse;
 
 import java.util.List;
@@ -70,7 +70,7 @@ public interface ApplyForCheckView extends BaseView {
      *
      * @param list 检查项目数据
      */
-    void getInspactItemListSuccess(List<CheckOutItemBean> list);
+    void getInspactItemListSuccess(List<CheckOutGroupBean> list);
 
     /**
      * 获取检查项目失败
@@ -91,14 +91,14 @@ public interface ApplyForCheckView extends BaseView {
      *
      * @return 检查项目列表
      */
-    List<CheckOutItemBean> getInspactItemList();
+    List<CheckOutGroupBean> getInspactItemList();
 
     /**
      * 获取选中的检查项目列表
      *
      * @return 检查项目列表
      */
-    List<CheckOutItemBean> getInspactSelectItemList();
+    List<CheckOutGroupBean> getInspactSelectItemList();
 
 
     /**
@@ -106,7 +106,7 @@ public interface ApplyForCheckView extends BaseView {
      *
      * @param list 检查项目列表
      */
-    void getSelectInspactItemList(List<CheckOutItemBean> list);
+    void getSelectInspactItemList(List<CheckOutGroupBean> list);
 
     /**
      * 是否是保存的检查单
@@ -147,5 +147,5 @@ public interface ApplyForCheckView extends BaseView {
      *
      * @return 检验项目列表数据
      */
-    List<CheckOutItemBean> getCheckOutSelectItemList();
+    List<CheckOutGroupBean> getCheckOutSelectItemList();
 }

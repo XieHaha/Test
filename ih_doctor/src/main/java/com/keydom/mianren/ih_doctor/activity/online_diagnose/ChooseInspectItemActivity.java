@@ -15,7 +15,7 @@ import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.controller.ChooseInspectItemController;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.ChooseInspectItemView;
 import com.keydom.mianren.ih_doctor.adapter.InspactItemSelectRecyclrViewAdapter;
-import com.keydom.mianren.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 
 import java.io.Serializable;
@@ -50,11 +50,11 @@ public class ChooseInspectItemActivity extends BaseControllerActivity<ChooseInsp
     /**
      * 所有检查项目列表
      */
-    List<CheckOutItemBean> mList;
+    List<CheckOutGroupBean> mList;
     /**
      * 选择的检查项目列表
      */
-    List<CheckOutItemBean> mSelectList;
+    List<CheckOutGroupBean> mSelectList;
 
     /**
      * 启动检查单选择页面
@@ -63,7 +63,7 @@ public class ChooseInspectItemActivity extends BaseControllerActivity<ChooseInsp
      * @param mList          检查项目列表
      * @param selectItemList 选中的检查项目列表
      */
-    public static void start(Context context, List<CheckOutItemBean> mList, List<CheckOutItemBean> selectItemList) {
+    public static void start(Context context, List<CheckOutGroupBean> mList, List<CheckOutGroupBean> selectItemList) {
         Intent starter = new Intent(context, ChooseInspectItemActivity.class);
         starter.putExtra(SELECT_LIST, (Serializable) selectItemList);
         starter.putExtra(INSPECT_LIST, (Serializable) mList);
@@ -78,8 +78,8 @@ public class ChooseInspectItemActivity extends BaseControllerActivity<ChooseInsp
     @Override
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         recyclerView = this.findViewById(R.id.inspect_list_rv);
-        this.mSelectList = (List<CheckOutItemBean>) getIntent().getSerializableExtra(SELECT_LIST);
-        this.mList = (List<CheckOutItemBean>) getIntent().getSerializableExtra(INSPECT_LIST);
+        this.mSelectList = (List<CheckOutGroupBean>) getIntent().getSerializableExtra(SELECT_LIST);
+        this.mList = (List<CheckOutGroupBean>) getIntent().getSerializableExtra(INSPECT_LIST);
         setSelect();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setSmoothScrollbarEnabled(true);
@@ -109,8 +109,8 @@ public class ChooseInspectItemActivity extends BaseControllerActivity<ChooseInsp
      */
     private void setSelect() {
         if (mList != null && mSelectList != null) {
-            for (CheckOutItemBean bean : mList) {
-                for (CheckOutItemBean selectBean : mSelectList) {
+            for (CheckOutGroupBean bean : mList) {
+                for (CheckOutGroupBean selectBean : mSelectList) {
                     if (bean.getProjectId() == selectBean.getProjectId()) {
                         bean.setSelect(true);
                     }
@@ -120,9 +120,9 @@ public class ChooseInspectItemActivity extends BaseControllerActivity<ChooseInsp
     }
 
     @Override
-    public List<CheckOutItemBean> getSelectItem() {
-        List<CheckOutItemBean> result = new ArrayList<>();
-        for (CheckOutItemBean bean : mList) {
+    public List<CheckOutGroupBean> getSelectItem() {
+        List<CheckOutGroupBean> result = new ArrayList<>();
+        for (CheckOutGroupBean bean : mList) {
             if (bean.isSelect()) {
                 result.add(bean);
             }

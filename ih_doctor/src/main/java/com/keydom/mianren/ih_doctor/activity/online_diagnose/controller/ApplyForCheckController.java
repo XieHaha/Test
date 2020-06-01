@@ -17,7 +17,7 @@ import com.keydom.mianren.ih_doctor.activity.online_diagnose.ChooseInspectItemAc
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.DiagnoseCheckSelectItemActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.DiagnoseInputActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.ApplyForCheckView;
-import com.keydom.mianren.ih_doctor.bean.CheckOutItemBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.bean.OrderApplyResponse;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
@@ -92,7 +92,7 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
      */
     public void saveInspect() {
         showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).saveInspect(HttpService.INSTANCE.object2Body(getView().getInspectMap())), new HttpSubscriber<List<OrderApplyResponse>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).saveCheckout(HttpService.INSTANCE.object2Body(getView().getInspectMap())), new HttpSubscriber<List<OrderApplyResponse>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable List<OrderApplyResponse> data) {
                 hideLoading();
@@ -113,9 +113,9 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
      * 获取检查项目列表
      */
     public void inspectList() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).inspectList(MyApplication.userInfo.getHospitalId()), new HttpSubscriber<List<CheckOutItemBean>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).inspectList(MyApplication.userInfo.getHospitalId()), new HttpSubscriber<List<CheckOutGroupBean>>(getContext(), getDisposable(), false) {
             @Override
-            public void requestComplete(@Nullable List<CheckOutItemBean> data) {
+            public void requestComplete(@Nullable List<CheckOutGroupBean> data) {
                 getView().getInspactItemListSuccess(data);
             }
 
