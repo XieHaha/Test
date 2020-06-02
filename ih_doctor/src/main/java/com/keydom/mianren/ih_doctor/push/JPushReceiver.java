@@ -48,12 +48,17 @@ public class JPushReceiver extends BroadcastReceiver {
                     AuditInfoBean notifyKeyBean =
                             new Gson().fromJson(bundle.getString(JPushInterface.EXTRA_EXTRA),
                                     AuditInfoBean.class);
+                    String title = bundle.getString(JPushInterface.EXTRA_TITLE);
                     //字段统一
                     notifyKeyBean.setId(notifyKeyBean.getAuditId());
                     if (TextUtils.equals(notifyKeyBean.getType(), "0")) {
                         EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NOTIFY_APPLY_JOIN_CONSULTATION).setData(notifyKeyBean).build());
                     } else {
-                        EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NOTIFY_AGREE_JOIN_CONSULTATION).setData(notifyKeyBean).build());
+                        if (TextUtils.isEmpty(title) || title.contains("拒绝")) {
+                            //拒绝暂不通知
+                        } else {
+                            EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NOTIFY_AGREE_JOIN_CONSULTATION).setData(notifyKeyBean).build());
+                        }
                     }
 
                 } catch (JsonSyntaxException e) {

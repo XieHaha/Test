@@ -45,14 +45,17 @@ public class ImProviderContainerView extends LinearLayout implements IContainerI
         this(context, attrs, 0);
     }
 
-    public ImProviderContainerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ImProviderContainerView(Context context, @Nullable AttributeSet attrs,
+                                   int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
     }
 
     private void init(@Nullable AttributeSet attrs) {
-        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ImProviderContainerView);
-        int layoutId = typedArray.getResourceId(R.styleable.ImProviderContainerView_ipcv_container_layout, 0);
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs,
+                R.styleable.ImProviderContainerView);
+        int layoutId =
+                typedArray.getResourceId(R.styleable.ImProviderContainerView_ipcv_container_layout, 0);
         typedArray.recycle();
         setOrientation(LinearLayout.VERTICAL);
         LayoutInflater.from(getContext()).inflate(R.layout.im_item_view_message, this);
@@ -95,6 +98,7 @@ public class ImProviderContainerView extends LinearLayout implements IContainerI
 
     public void containerViewCenter() {
         avatarLeft.setVisibility(GONE);
+        leftName.setVisibility(GONE);
         avatarRight.setVisibility(GONE);
         content.setGravity(Gravity.CENTER);
         if (containerProvide instanceof IContainerItemProvider) {
@@ -120,13 +124,15 @@ public class ImProviderContainerView extends LinearLayout implements IContainerI
 
     public void setAvatar(String account) {
         UserInfo userInfo = ImClient.getUserInfoProvider().getUserInfo(account);
-        GlideUtils.load(avatar, userInfo != null ? userInfo.getAvatar() : "", R.mipmap.im_default_head_image, R.mipmap.im_default_head_image, true, null);
+        GlideUtils.load(avatar, userInfo != null ? userInfo.getAvatar() : "",
+                R.mipmap.im_default_head_image, R.mipmap.im_default_head_image, true, null);
     }
 
     public void setLeftName(IMMessage message) {
         if (message.getSessionType() == SessionTypeEnum.Team && message.getDirect() == MsgDirectionEnum.In) {
             Team team = ImClient.getTeamProvider().getTeamById(message.getSessionId());
-            TeamMember teamMember = ImClient.getTeamProvider().getTeamMember(team.getId(), message.getFromAccount());
+            TeamMember teamMember = ImClient.getTeamProvider().getTeamMember(team.getId(),
+                    message.getFromAccount());
             leftName.setVisibility(VISIBLE);
             leftName.setText(message.getFromNick());
         } else {

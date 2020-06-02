@@ -120,9 +120,25 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         return R.layout.activity_consultation_room;
     }
 
-    private Handler handler = new Handler(msg -> {
-        dealConsultationApply((AuditInfoBean) msg.obj);
-        return true;
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    dealConsultationApply((AuditInfoBean) msg.obj);
+                    break;
+                case 1:
+                    setRightTxt("");
+                    //开放会诊视频权限
+                    ((TeamAVChatFragment) mFragmentArrays[1]).setOutConsultationDoctor(false);
+                    ((ConsultationAdviceFragment) mFragmentArrays[2]).setOutConsultationDoctor(false);
+                    ToastUtil.showMessage(ConsultationRoomActivity.this, "已同意您的申请！");
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        }
     });
 
     @Override
@@ -371,6 +387,7 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         if (messageEvent.getType() == com.keydom.ih_common.constant.EventType.NOTIFY_APPLY_JOIN_CONSULTATION) {
             Message message = handler.obtainMessage();
             message.obj = messageEvent.getData();
+            message.what = 0;
             handler.sendMessage(message);
         }
     }
@@ -381,9 +398,9 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void agreeApply(MessageEvent messageEvent) {
         if (messageEvent.getType() == com.keydom.ih_common.constant.EventType.NOTIFY_AGREE_JOIN_CONSULTATION) {
-            //开放会诊视频权限
-            ((TeamAVChatFragment) mFragmentArrays[1]).setOutConsultationDoctor(false);
-            ((ConsultationAdviceFragment) mFragmentArrays[2]).setOutConsultationDoctor(false);
+            Message message = handler.obtainMessage();
+            message.what = 1;
+            handler.sendMessage(message);
         }
     }
 

@@ -57,6 +57,7 @@ public class ImMessageAdapter extends BaseMultiItemQuickAdapter<ImUIMessage, Bas
         if (item.getItemType() == MsgTypeEnum.undef.getValue() || item.getItemType() == MsgTypeEnum.tip.getValue()) {
             containerView.containerViewCenter();
         } else {
+            containerView.setLeftName(item.getMessage());
             if (item.getMessage().getDirect() == MsgDirectionEnum.In) {
                 containerView.containerViewLeft();
             } else {
@@ -65,7 +66,7 @@ public class ImMessageAdapter extends BaseMultiItemQuickAdapter<ImUIMessage, Bas
         }
         containerView.setDateTime(getItem(helper.getAdapterPosition() - 1), item);
         containerView.setAvatar(item.getMessage().getFromAccount());
-        containerView.setLeftName(item.getMessage());
+
         containerView.bindView(helper.getView(R.id.im_addition_layout), item);
     }
 
