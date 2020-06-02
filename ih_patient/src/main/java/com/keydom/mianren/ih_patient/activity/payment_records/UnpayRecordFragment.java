@@ -24,7 +24,6 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerFragment;
-import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.AgreementActivity;
 import com.keydom.mianren.ih_patient.activity.location_manage.LocationManageActivity;
@@ -38,6 +37,7 @@ import com.keydom.mianren.ih_patient.bean.PayRecordBean;
 import com.keydom.mianren.ih_patient.bean.entity.pharmacy.PharmacyBean;
 import com.keydom.mianren.ih_patient.callback.SingleClick;
 import com.keydom.mianren.ih_patient.constant.EventType;
+import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.Type;
 import com.keydom.mianren.ih_patient.constant.TypeEnum;
 import com.keydom.mianren.ih_patient.utils.CommUtil;
@@ -120,6 +120,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     mUnPayRecordAdapter.getData().get(i).setSelect(false);
                 }
             }
+            refreshTotal();
             mUnPayRecordAdapter.notifyDataSetChanged();
         });
         //        mCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -756,6 +757,8 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
      */
     List<PharmacyBean> mPharmacyBeans = null;
 
+    LinearLayout payOutSideNormalLayout, payOutSideVipLayout;
+    TextView payOutSideNextTv;
 
     /**
      * 展示支付弹框
@@ -778,9 +781,48 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         mPprescriptionId = prescriptionId;
 
         bottomWaiYanSheetDialog.setCanceledOnTouchOutside(false);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.pay_outside_dialog_layout
-                , null, false);
+        View view =
+                LayoutInflater.from(getActivity()).inflate(R.layout.pay_outside_dialog_layout
+                        , null, false);
         bottomWaiYanSheetDialog.setContentView(view);
+
+        //区别普通用户和预付费用户
+        payOutSideNormalLayout = view.findViewById(R.id.pay_outside_normal);
+        payOutSideVipLayout = view.findViewById(R.id.pay_outside_vip);
+        payOutSideNextTv = view.findViewById(R.id.prepaid_order_next_tv);
+        if (Global.isMember()) {
+            //预付费用户
+            payOutSideNormalLayout.setVisibility(View.GONE);
+            payOutSideVipLayout.setVisibility(View.VISIBLE);
+            payOutSideNextTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PharmacyBean pharmacyBean = null;
+                    if (mRadioHome.isChecked()) {
+                        if (mWaiYanAddressId == 0) {
+                            ToastUtils.showShort("请选择配送地址");
+                            return;
+                        }
+                        pharmacyBean = mPharmacyBeans.get(0);
+                    } else {
+                        if (CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)) {
+                            ToastUtils.showShort("请选择药店");
+                            return;
+                        }
+                        pharmacyBean = mPharmacyBean;
+                    }
+
+                    getController().updatePrescriptionOrder(4, isSendDrugsToHome, true,
+                            prescriptionId, orderNum, pharmacyBean, mLocationInfo);
+                    bottomWaiYanSheetDialog.dismiss();
+                }
+            });
+
+        } else {
+            payOutSideNormalLayout.setVisibility(View.VISIBLE);
+            payOutSideVipLayout.setVisibility(View.GONE);
+        }
+
         mOrderPriceTv = view.findViewById(R.id.order_price_tv);
         mOrderPriceTv.setText("¥" + titleFee + "起");
         LinearLayout addressSelect = view.findViewById(R.id.address_select);
@@ -882,13 +924,10 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                 if (mRadioHome.isChecked() && mWaiYanAddressId == 0) {
                     ToastUtils.showShort("请选择配送地址");
                 } else {
-                    if (mPharmacyBeans == null || mPharmacyBeans.size() == 0) {
-                        ToastUtil.showMessage(getContext(), "地址查询失败！");
-                        return;
-                    }
                     PharmacyBean pharmacyBean = mPharmacyBeans.get(0);
 
-                    getController().updatePrescriptionOrder(WaiPayType[0], isSendDrugsToHome,
+                    getController().updatePrescriptionOrder(WaiPayType[0],
+                            isSendDrugsToHome,
                             true, prescriptionId, orderNum, pharmacyBean, mLocationInfo);
 
                     Logger.e("1=" + mWaiYanAddressId);
@@ -906,7 +945,9 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     ToastUtils.showShort("请选择药店");
                 } else {
                     PharmacyBean pharmacyBean = mPharmacyBean;
-                    getController().updatePrescriptionOrder(WaiPayType[0], isSendDrugsToHome,
+
+                    getController().updatePrescriptionOrder(WaiPayType[0],
+                            isSendDrugsToHome,
                             false, prescriptionId, orderNum, pharmacyBean, mLocationInfo);
                     bottomWaiYanSheetDialog.dismiss();
                 }
@@ -929,10 +970,14 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     }
 
                     PharmacyBean pharmacyBean = mPharmacyBean;
+
                     if (null != pharmacyBean) {
-                        getController().updatePrescriptionOrder(WaiPayType[0], isSendDrugsToHome,
-                                true, prescriptionId, orderNum, pharmacyBean, mLocationInfo);
+                        getController().updatePrescriptionOrder(WaiPayType[0],
+                                isSendDrugsToHome,
+                                true, prescriptionId, orderNum, pharmacyBean,
+                                mLocationInfo);
                     }
+
 
                     Logger.e("map=" + map);
                     bottomWaiYanSheetDialog.dismiss();
