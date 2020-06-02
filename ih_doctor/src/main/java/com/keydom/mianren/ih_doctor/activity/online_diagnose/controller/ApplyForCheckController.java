@@ -91,17 +91,14 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
      * 提交保存检查报告
      */
     public void saveInspect() {
-        showLoading();
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).saveCheckout(HttpService.INSTANCE.object2Body(getView().getInspectMap())), new HttpSubscriber<List<OrderApplyResponse>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable List<OrderApplyResponse> data) {
-                hideLoading();
                 getView().saveInspactOrderSuccess(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 getView().saveInspactOrderFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -159,19 +156,16 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
      * @param orderId
      */
     public void deleteInquisition(long orderId) {
-        showLoading();
         Map<String, Object> map = new HashMap<>();
         map.put("id", orderId);
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).deleteInquisition(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable String data) {
-                hideLoading();
                 getView().deleteOrderSuccess();
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 getView().deleteOrderFailed(msg);
                 return super.requestError(exception, code, msg);
             }

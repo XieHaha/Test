@@ -6,6 +6,7 @@ import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_doctor.bean.BodyCheckDetailInfo;
 import com.keydom.mianren.ih_doctor.bean.CheckItemListBean;
 import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutParentBean;
 import com.keydom.mianren.ih_doctor.bean.CheckOutSubBean;
 import com.keydom.mianren.ih_doctor.bean.DiagnoseHandleBean;
 import com.keydom.mianren.ih_doctor.bean.DiagnosePatientInfoBean;
@@ -107,7 +108,7 @@ public interface DiagnoseApiService {
      * 获取检验检查目录（一级）  1 检验 2检查 3 治疗
      */
     @GET("reservation/insCheckCategory/getInsCheckCategory")
-    Observable<HttpResult<List<CheckOutGroupBean>>> checkoutCategoryList(@Query("type") String id);
+    Observable<HttpResult<List<CheckOutParentBean>>> checkoutCategoryList(@Query("type") String id);
 
     /**
      * 获取检验检查项目（二级）  1 检验 2检查 3 治疗

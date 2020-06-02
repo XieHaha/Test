@@ -8,7 +8,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.DiagnoseCheckSelectItemView;
-import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutParentBean;
 import com.keydom.mianren.ih_doctor.bean.CheckOutSubBean;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
@@ -38,9 +38,9 @@ public class DiagnoseCheckSelectItemController extends ControllerImpl<DiagnoseCh
      * 获取检验项目列表
      */
     public void checkoutList() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).checkoutCategoryList("1"), new HttpSubscriber<List<CheckOutGroupBean>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).checkoutCategoryList("1"), new HttpSubscriber<List<CheckOutParentBean>>(getContext(), getDisposable(), false) {
             @Override
-            public void requestComplete(@Nullable List<CheckOutGroupBean> data) {
+            public void requestComplete(@Nullable List<CheckOutParentBean> data) {
                 getView().getGroupListSuccess(data);
             }
 

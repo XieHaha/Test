@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import com.keydom.mianren.ih_doctor.activity.online_diagnose.adapter.DiagnoseChe
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.controller.DiagnoseCheckSelectItemController;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.DiagnoseCheckSelectItemView;
 import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.mianren.ih_doctor.bean.CheckOutParentBean;
 import com.keydom.mianren.ih_doctor.bean.CheckOutSubBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
@@ -28,9 +30,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 
@@ -58,12 +58,16 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     /**
      * 一级列表
      */
-    private List<CheckOutGroupBean> groupData = new ArrayList<>();
+    private List<CheckOutParentBean> groupData = new ArrayList<>();
     private List<CheckOutSubBean> itemData = new ArrayList<>();
 
-    private CheckOutGroupBean curSelectGroup;
+    /**
+     * 当前选中的一级菜单
+     */
+    private CheckOutParentBean curSelectGroup;
+    private int curPosition = -1;
 
-    private Map<String, ArrayList<CheckOutSubBean>> select = new HashMap<>();
+    private SparseArray<ArrayList<CheckOutSubBean>> selectCheck = new SparseArray<>();
 
     /**
      * 启动检验项目选择页面
@@ -105,7 +109,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
             @Override
             public void OnRightTextClick(View v) {
                 Intent intent = new Intent();
-                //                intent.putExtra(Const.DATA, (Serializable) getSelectList());
+                intent.putExtra(Const.DATA, (Serializable) getSelectList());
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -118,11 +122,19 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
         });
     }
 
+    /**
+     * 已选数据
+     */
+    private List<CheckOutParentBean> getSelectList() {
+        List<CheckOutParentBean> list = new ArrayList<>();
+        return list;
+    }
+
     @Override
     public void getItemListSuccess(List<CheckOutSubBean> list) {
         itemData.clear();
         itemData.addAll(list);
-        checkItemAdapter.notifyDataSetChanged();
+        checkItemAdapter.setSelectCheck(selectCheck, curPosition);
     }
 
     @Override
@@ -131,36 +143,38 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     }
 
     @Override
-    public void getGroupListSuccess(List<CheckOutGroupBean> list) {
+    public void getGroupListSuccess(List<CheckOutParentBean> list) {
         groupData.clear();
         groupData.addAll(list);
         checkGroupAdapter.notifyDataSetChanged();
 
         if (groupData.size() > 0) {
-            curSelectGroup = groupData.get(0);
+            curPosition = 0;
+            curSelectGroup = groupData.get(curPosition);
             getController().checkoutItemList(curSelectGroup.getCateCode());
         }
     }
 
     @Override
     public void getGroupListFailed(String errMsg) {
-
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         if (adapter instanceof DiagnoseCheckGroupAdapter) {
+            if (curPosition == position) {
+                return;
+            }
             checkGroupAdapter.setCurPosition(position);
             //获取子菜单数据
-            curSelectGroup = groupData.get(position);
+            curPosition = position;
+            curSelectGroup = groupData.get(curPosition);
             getController().checkoutItemList(curSelectGroup.getCateCode());
         } else if (adapter instanceof DiagnoseCheckItemAdapter) {
             if (curSelectGroup != null) {
-                String cateCode = curSelectGroup.getCateCode();
-                ArrayList<CheckOutSubBean> checkOutSubBeans;
-                if (select.containsKey(cateCode)) {
-                    checkOutSubBeans = select.get(cateCode);
-                } else {
+                ArrayList<CheckOutSubBean> checkOutSubBeans = selectCheck.get(curPosition);
+                if (checkOutSubBeans == null) {
                     checkOutSubBeans = new ArrayList<>();
                 }
                 if (checkOutSubBeans.contains(itemData.get(position))) {
@@ -168,10 +182,9 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
                 } else {
                     checkOutSubBeans.add(itemData.get(position));
                 }
-                select.put(cateCode, checkOutSubBeans);
-                checkItemAdapter.setCurGroupCode(cateCode);
-                checkItemAdapter.setSelect(select);
-                checkGroupAdapter.setSelect(select);
+                selectCheck.put(curPosition, checkOutSubBeans);
+                checkItemAdapter.setSelectCheck(selectCheck, curPosition);
+                checkGroupAdapter.setSelectCheck(selectCheck);
             }
         }
     }
