@@ -59,6 +59,10 @@ public class InquiryStatus {
      */
     public static final int INQUIRY_CONSULTATION_COMPLETE = 14;
     /**
+     * 待会诊
+     */
+    public static final int INQUIRY_CONSULTATION_WAIT = 15;
+    /**
      * 取消
      */
     public static final int INQUIRY_CANCELLED = -1;

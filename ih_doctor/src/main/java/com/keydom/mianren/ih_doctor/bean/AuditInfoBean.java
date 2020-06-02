@@ -10,7 +10,9 @@ public class AuditInfoBean implements Serializable {
     private static final long serialVersionUID = 4628163680618667067L;
 
     private int status;
+    private String type;
     private String id;
+    private String auditId;
     private String mdtApplicationId;
     private String applyDoctorId;
     private String applyReason;
@@ -30,12 +32,28 @@ public class AuditInfoBean implements Serializable {
         this.status = status;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getAuditId() {
+        return auditId;
+    }
+
+    public void setAuditId(String auditId) {
+        this.auditId = auditId;
     }
 
     public String getMdtApplicationId() {

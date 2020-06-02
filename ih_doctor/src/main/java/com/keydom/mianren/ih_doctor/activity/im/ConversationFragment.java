@@ -636,14 +636,16 @@ public class ConversationFragment extends BaseControllerFragment<ConversationCon
         }
         if (orderBean != null && orderBean.getIsVip() == 1) {
             if (orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_DOING
-                    || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_COMPLETE) {
+                    || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_COMPLETE
+                    || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_WAIT) {
                 inquiryPopConsultationTv.setVisibility(View.GONE);
             } else {
                 inquiryPopConsultationTv.setVisibility(View.VISIBLE);
             }
             if (orderBean.getState() == InquiryStatus.INQUIRY_ING
                     || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_COMPLETE
-                    || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_DOING) {
+                    || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_DOING
+                    || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_WAIT) {
                 inquiryPopDiagnosticPrescriptionTv.setVisibility(View.VISIBLE);
             } else {
                 inquiryPopDiagnosticPrescriptionTv.setVisibility(View.GONE);

@@ -48,8 +48,14 @@ public class JPushReceiver extends BroadcastReceiver {
                     AuditInfoBean notifyKeyBean =
                             new Gson().fromJson(bundle.getString(JPushInterface.EXTRA_EXTRA),
                                     AuditInfoBean.class);
+                    //字段统一
+                    notifyKeyBean.setId(notifyKeyBean.getAuditId());
+                    if (TextUtils.equals(notifyKeyBean.getType(), "0")) {
+                        EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NOTIFY_APPLY_JOIN_CONSULTATION).setData(notifyKeyBean).build());
+                    } else {
+                        EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NOTIFY_AGREE_JOIN_CONSULTATION).setData(notifyKeyBean).build());
+                    }
 
-                    EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NOTIFY_AGREE_JOIN_CONSULTATION).setData(notifyKeyBean).build());
                 } catch (JsonSyntaxException e) {
                     e.printStackTrace();
                     Logger.e(TAG + "  Get message extra JSON error!");

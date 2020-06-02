@@ -644,14 +644,16 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         if (orderBean.getIsVip() == 1 && orderBean.getState() != InquiryStatus.INQUIRY_WAIT) {
             if (orderBean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())
                     && orderBean.getState() != InquiryStatus.INQUIRY_CONSULTATION_DOING
-                    && orderBean.getState() != InquiryStatus.INQUIRY_CONSULTATION_COMPLETE) {
+                    && orderBean.getState() != InquiryStatus.INQUIRY_CONSULTATION_COMPLETE
+                    && orderBean.getState() != InquiryStatus.INQUIRY_CONSULTATION_WAIT) {
                 inquiryPopConsultationTv.setVisibility(View.VISIBLE);
             } else {
                 inquiryPopConsultationTv.setVisibility(View.GONE);
             }
             if (orderBean.getState() == InquiryStatus.INQUIRY_ING
                     || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_COMPLETE
-                    || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_DOING) {
+                    || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_DOING
+                    || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_WAIT) {
                 inquiryPopDiagnosticPrescriptionTv.setVisibility(View.VISIBLE);
             } else {
                 inquiryPopDiagnosticPrescriptionTv.setVisibility(View.GONE);

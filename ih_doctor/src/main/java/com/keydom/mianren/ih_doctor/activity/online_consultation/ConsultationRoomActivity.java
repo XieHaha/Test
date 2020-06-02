@@ -288,8 +288,10 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
     public void dealConsultationApplySuccess(String doctorCode) {
         //通知列表更新数据
         EventBus.getDefault().post(new Event(EventType.UPDATECONSULTATION, null));
-        //开放会诊视频权限
-        ((TeamAVChatFragment) mFragmentArrays[1]).addNewDoctor(doctorCode);
+        if (!TextUtils.isEmpty(doctorCode)) {
+            //开放会诊视频权限
+            ((TeamAVChatFragment) mFragmentArrays[1]).addNewDoctor(doctorCode);
+        }
         ToastUtil.showMessage(this, "操作成功");
         position++;
         if (auditInfoBeans.size() > position) {
@@ -369,9 +371,10 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
         if (messageEvent.getType() == com.keydom.ih_common.constant.EventType.NOTIFY_APPLY_JOIN_CONSULTATION) {
             Message message = handler.obtainMessage();
             message.obj = messageEvent.getData();
-            handler.handleMessage(message);
+            handler.sendMessage(message);
         }
     }
+
     /**
      * 同意会诊申请
      */
@@ -381,7 +384,6 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
             //开放会诊视频权限
             ((TeamAVChatFragment) mFragmentArrays[1]).setOutConsultationDoctor(false);
             ((ConsultationAdviceFragment) mFragmentArrays[2]).setOutConsultationDoctor(false);
-            ToastUtil.showMessage(this,"通过了您的申请");
         }
     }
 
