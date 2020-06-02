@@ -138,7 +138,7 @@ public class ConsultationAdviceController extends ControllerImpl<ConsultationAdv
             @Override
             public void requestComplete(@Nullable String data) {
                 VoiceBean bean = new VoiceBean();
-                bean.setDuration(String.valueOf(audioLength));
+                bean.setDuration(String.valueOf(audioLength / 1000));
                 bean.setCreateTime(String.valueOf(System.currentTimeMillis()));
                 bean.setUrl(data);
                 getView().onRecordSuccess(bean);

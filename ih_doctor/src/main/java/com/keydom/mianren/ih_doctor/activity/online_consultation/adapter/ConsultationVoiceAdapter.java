@@ -31,7 +31,7 @@ public class ConsultationVoiceAdapter extends BaseQuickAdapter<VoiceBean,
 
     @Override
     protected void convert(BaseViewHolder helper, final VoiceBean item) {
-        helper.setText(R.id.consultation_voice_time, Long.valueOf(item.getDuration()) / 1000 + "'")
+        helper.setText(R.id.consultation_voice_time, Long.valueOf(item.getDuration()) + "'")
                 .addOnClickListener(R.id.consultation_voice_delete);
         ImageView voiceImg = helper.getView(R.id.consultation_voice_img);
         RelativeLayout layout = helper.getView(R.id.consultation_voice_layout);
@@ -48,7 +48,7 @@ public class ConsultationVoiceAdapter extends BaseQuickAdapter<VoiceBean,
     private class OnVoicePlayListener implements OnPlayListener {
         private ImageView imageView;
 
-        public OnVoicePlayListener(ImageView imageView) {
+        OnVoicePlayListener(ImageView imageView) {
             this.imageView = imageView;
         }
 

@@ -603,7 +603,7 @@ public class TeamAVChatFragment extends Fragment {
                 if (!TextUtils.isEmpty(filePath)) {
                     VoiceBean voiceBean = new VoiceBean();
                     voiceBean.setUrl(filePath);
-                    voiceBean.setDuration(String.valueOf(seconds * 1000));
+                    voiceBean.setDuration(String.valueOf(seconds));
                     EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.FILE).setData(voiceBean).build());
                 }
             }

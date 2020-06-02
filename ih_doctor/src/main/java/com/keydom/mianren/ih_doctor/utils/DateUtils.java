@@ -316,7 +316,7 @@ public class DateUtils {
         if (TextUtils.isEmpty(m)) {
             return "";
         }
-        int time = Integer.valueOf(m) / 1000;
+        int time = Integer.valueOf(m);
         int min = time / 60;
         int s = time % 60;
         if (min > 0) {
