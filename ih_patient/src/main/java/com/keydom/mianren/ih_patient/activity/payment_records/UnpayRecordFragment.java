@@ -380,9 +380,9 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         }
         SpannableStringBuilder medicalTv =
                 new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
-                .append("（配送费用").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color))
-                .append("¥" + fee + "元").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.nursing_status_red))
-                .append("）").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color)).create();
+                        .append("（配送费用").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color))
+                        .append("¥" + fee + "元").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.nursing_status_red))
+                        .append("）").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color)).create();
         mHosptalCost.setText(medicalTv);
     }
 
@@ -598,6 +598,38 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         View view = LayoutInflater.from(getContext()).inflate(R.layout.pay_ment_dialog_layout,
                 null, false);
         bottomSheetDialog.setContentView(view);
+
+        //区别普通用户和预付费用户
+        paymentNormalLayout = view.findViewById(R.id.payment_normal_layout);
+        paymentVipLayout = view.findViewById(R.id.payment_vip_layout);
+        paymentNextTv = view.findViewById(R.id.prepaid_order_next_tv);
+        if (Global.isMember()) {
+            //预付费用户
+            payType[0] = 4;
+            paymentNormalLayout.setVisibility(View.GONE);
+            paymentVipLayout.setVisibility(View.VISIBLE);
+            paymentNextTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (needAddress && mHosptalCost.isChecked()) {
+                        if (mAddressId == 0) {
+                            ToastUtils.showShort("请选择配送地址");
+                        } else {
+                            getController().pay(mAddressId, orderNum, payType[0], mPsTotal);
+                            bottomSheetDialog.dismiss();
+                        }
+                    } else {
+                        getController().pay(0, orderNum, payType[0], totalFee);
+                        bottomSheetDialog.dismiss();
+                    }
+                }
+            });
+
+        } else {
+            paymentNormalLayout.setVisibility(View.VISIBLE);
+            paymentVipLayout.setVisibility(View.GONE);
+        }
+
         final TextView order_price_tv = view.findViewById(R.id.order_price_tv);
         order_price_tv.setText("¥" + titleFee + "");
         LinearLayout addressSelectGroup = view.findViewById(R.id.address_select_group);
@@ -611,7 +643,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         addressSelectGroup.setVisibility(needAddress ? View.VISIBLE : View.GONE);
         SpannableStringBuilder medicalTv =
                 new SpanUtils().append("医院配送").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.pay_unselected))
-                .create();
+                        .create();
         mHosptalCost.setText(medicalTv);
         addressSelect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -759,6 +791,9 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
 
     LinearLayout payOutSideNormalLayout, payOutSideVipLayout;
     TextView payOutSideNextTv;
+
+    LinearLayout paymentNormalLayout, paymentVipLayout;
+    TextView paymentNextTv;
 
     /**
      * 展示支付弹框
@@ -1114,7 +1149,8 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
             getController().getDistributionFee(mAddressId);
         } else if (event.getType() == EventType.WAI_PAY_SELECT_ADDRESS) {
             mLocationInfo = (LocationInfo) event.getData();
-            String address = mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress();
+            String address =
+                    mLocationInfo.getProvinceName() + mLocationInfo.getCityName() + mLocationInfo.getAreaName() + mLocationInfo.getAddress();
             mPayAddress.setText(address);
             mWaiYanAddressId = mLocationInfo.getId();
             Logger.e("地址=" + address);

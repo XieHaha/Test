@@ -280,6 +280,38 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                 LayoutInflater.from(getContext()).inflate(R.layout.pay_ment_dialog_layout,
                         null, false);
         bottomSheetDialog.setContentView(view);
+
+        //区别普通用户和预付费用户
+        paymentNormalLayout = view.findViewById(R.id.payment_normal_layout);
+        paymentVipLayout = view.findViewById(R.id.payment_vip_layout);
+        paymentNextTv = view.findViewById(R.id.prepaid_order_next_tv);
+        if (Global.isMember()) {
+            //预付费用户
+            payType[0] = 4;
+            paymentNormalLayout.setVisibility(View.GONE);
+            paymentVipLayout.setVisibility(View.VISIBLE);
+            paymentNextTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (needAddress && mHosptalCost.isChecked()) {
+                        if (mAddressId == 0) {
+                            ToastUtils.showShort("请选择配送地址");
+                        } else {
+                            getController().pay(mAddressId, orderNum, payType[0], mPsTotal);
+                            bottomSheetDialog.dismiss();
+                        }
+                    } else {
+                        getController().pay(0, orderNum, payType[0], totalFee);
+                        bottomSheetDialog.dismiss();
+                    }
+                }
+            });
+
+        } else {
+            paymentNormalLayout.setVisibility(View.VISIBLE);
+            paymentVipLayout.setVisibility(View.GONE);
+        }
+
         final TextView order_price_tv = view.findViewById(R.id.order_price_tv);
         order_price_tv.setText("¥" + titleFee + "");
         LinearLayout addressSelectGroup = view.findViewById(R.id.address_select_group);
@@ -402,6 +434,9 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
 
     LinearLayout payOutSideNormalLayout, payOutSideVipLayout;
     TextView payOutSideNextTv;
+
+    LinearLayout paymentNormalLayout, paymentVipLayout;
+    TextView paymentNextTv;
 
     /**
      * 外延地址ID
