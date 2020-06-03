@@ -6,7 +6,7 @@ import android.util.SparseArray;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.bean.CheckOutSubBean;
+import com.keydom.ih_common.bean.CheckOutSubBean;
 
 import java.util.ArrayList;
 import java.util.List;

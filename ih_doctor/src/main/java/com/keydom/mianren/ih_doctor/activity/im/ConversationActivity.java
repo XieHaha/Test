@@ -332,12 +332,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         });
 
                     } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
-                        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((InspectionAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
+                        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(Long.valueOf(((InspectionAttachment) message.getAttachment()).getInsCheckOrderId())), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
                             @Override
                             public void requestComplete(@Nullable CheckItemListBean data) {
                                 if (data != null) {
                                     CheckOrderDetailActivity.startTestOrder(context,
-                                            ((InspectionAttachment) message.getAttachment()).getId(), orderBean);
+                                            Long.valueOf(((InspectionAttachment) message.getAttachment()).getInsCheckOrderId()), orderBean);
                                 } else {
                                     ToastUtil.showMessage(context, "检验报告单不存在");
                                 }
@@ -411,12 +411,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     });
 
                 } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
-                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((InspectionAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
+                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(Long.valueOf(((InspectionAttachment) message.getAttachment()).getInsCheckOrderId())), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
                         @Override
                         public void requestComplete(@Nullable CheckItemListBean data) {
                             if (data != null) {
                                 CheckOrderDetailActivity.startTestOrder(context,
-                                        ((InspectionAttachment) message.getAttachment()).getId(),
+                                        Long.valueOf(((InspectionAttachment) message.getAttachment()).getInsCheckOrderId()),
                                         orderBean);
                             } else {
                                 ToastUtil.showMessage(context, "检验报告单不存在");
@@ -465,12 +465,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
                 } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
 
-                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((InspectionAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
+                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(Long.valueOf(((InspectionAttachment) message.getAttachment()).getInsCheckOrderId())), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
                         @Override
                         public void requestComplete(@Nullable CheckItemListBean data) {
                             if (data != null) {
                                 CheckOrderDetailActivity.startTestOrder(context,
-                                        ((InspectionAttachment) message.getAttachment()).getId(),
+                                        Long.valueOf(((InspectionAttachment) message.getAttachment()).getInsCheckOrderId()),
                                         orderBean);
                             } else {
                                 ToastUtil.showMessage(context, "检验报告单不存在");

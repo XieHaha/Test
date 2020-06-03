@@ -8,8 +8,8 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.DiagnoseCheckSelectItemView;
-import com.keydom.mianren.ih_doctor.bean.CheckOutParentBean;
-import com.keydom.mianren.ih_doctor.bean.CheckOutSubBean;
+import com.keydom.ih_common.bean.CheckOutParentBean;
+import com.keydom.ih_common.bean.CheckOutSubBean;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
 

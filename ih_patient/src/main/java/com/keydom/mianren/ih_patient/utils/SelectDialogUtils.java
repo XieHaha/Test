@@ -318,7 +318,8 @@ public class SelectDialogUtils {
      * @param descStr               订单描述
      * @param selectPayMentListener 选择支付方式回调
      */
-    public static void showPrePaidDialog(Context context, String feeStr, String descStr,
+    public static void showPrePaidDialog(Context context, boolean needAddress, String feeStr,
+                                         String descStr,
                                          GeneralCallback.SelectPayMentListener selectPayMentListener) {
 
         final BottomSheetDialog prepaidDialog = new BottomSheetDialog(context);
@@ -334,39 +335,56 @@ public class SelectDialogUtils {
         final TextView orderNameTv = view.findViewById(R.id.prepaid_order_name_tv);
         orderNameTv.setText(descStr);
 
-        //配送方式 药店自取
-        final LinearLayout selfLayout = view.findViewById(R.id.prepaid_order_self_layout);
-        final ImageView selfIv = view.findViewById(R.id.prepaid_order_self_iv);
-        //配送方式 配送到家
-        final LinearLayout deliveryLayout = view.findViewById(R.id.prepaid_order_delivery_layout);
-        final LinearLayout deliveryIv = view.findViewById(R.id.prepaid_order_delivery_iv);
-        //配送费用
-        final TextView deliveryPriceTv = view.findViewById(R.id.prepaid_order_delivery_price_tv);
-        //配送地址配送人
-        final TextView deliveryDetailTv = view.findViewById(R.id.prepaid_order_delivery_detail_tv);
-        selfLayout.setOnClickListener(v -> {
-            selfIv.setVisibility(View.VISIBLE);
-            deliveryIv.setVisibility(View.INVISIBLE);
-            deliveryPriceTv.setVisibility(View.GONE);
-            deliveryDetailTv.setVisibility(View.GONE);
-        });
-        deliveryLayout.setOnClickListener(v -> {
-            selfIv.setVisibility(View.INVISIBLE);
-            deliveryIv.setVisibility(View.VISIBLE);
-            deliveryPriceTv.setVisibility(View.VISIBLE);
-            deliveryDetailTv.setVisibility(View.VISIBLE);
-        });
-        deliveryDetailTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        final LinearLayout addressRootLayout = view.findViewById(R.id.pay_address_root_layout);
+        if (needAddress) {
+            addressRootLayout.setVisibility(View.VISIBLE);
+            //配送方式 药店自取
+            final LinearLayout selfLayout = view.findViewById(R.id.prepaid_order_self_layout);
+            final ImageView selfIv = view.findViewById(R.id.prepaid_order_self_iv);
+            //配送方式 配送到家
+            final LinearLayout deliveryLayout =
+                    view.findViewById(R.id.prepaid_order_delivery_layout);
+            final ImageView deliveryIv = view.findViewById(R.id.prepaid_order_delivery_iv);
+            //配送费用
+            final TextView deliveryPriceTv =
+                    view.findViewById(R.id.prepaid_order_delivery_price_tv);
+            //配送地址配送人
+            final TextView deliveryDetailTv =
+                    view.findViewById(R.id.prepaid_order_delivery_detail_tv);
 
-            }
-        });
+            selfLayout.setOnClickListener(v -> {
+                selfIv.setVisibility(View.VISIBLE);
+                deliveryIv.setVisibility(View.INVISIBLE);
+                deliveryPriceTv.setVisibility(View.GONE);
+                deliveryDetailTv.setVisibility(View.GONE);
+            });
+            deliveryLayout.setOnClickListener(v -> {
+                selfIv.setVisibility(View.INVISIBLE);
+                deliveryIv.setVisibility(View.VISIBLE);
+                deliveryPriceTv.setVisibility(View.VISIBLE);
+                deliveryDetailTv.setVisibility(View.VISIBLE);
+            });
+            deliveryDetailTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        } else {
+            addressRootLayout.setVisibility(View.GONE);
+        }
+
+
         //确定
         final TextView nextTv = view.findViewById(R.id.prepaid_order_next_tv);
         //关闭icon
         final ImageView closeImg = view.findViewById(R.id.prepaid_order_close_iv);
-        nextTv.setOnClickListener(view12 -> prepaidDialog.dismiss());
+        nextTv.setOnClickListener(view12 -> {
+            prepaidDialog.dismiss();
+            if (selectPayMentListener != null) {
+                selectPayMentListener.getSelectPayMent("4");
+            }
+        });
         //关闭
         closeImg.setOnClickListener(view1 -> prepaidDialog.dismiss());
         prepaidDialog.show();

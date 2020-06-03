@@ -321,6 +321,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     private LinearLayout normalLayout;
 
+    LinearLayout paymentNormalLayout, paymentVipLayout;
+    TextView paymentNextTv;
+
     /**
      * 成员邀请
      */
@@ -453,7 +456,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     //检验单
                     else if (message.getAttachment() instanceof InspectionAttachment) {
                         CheckOrderDetailActivity.startCheckOrder(context,
-                                ((InspectionAttachment) message.getAttachment()).getId(),
+                                Long.valueOf(((InspectionAttachment) message.getAttachment()).getInsCheckOrderId()),
                                 orderBean);
                     }
                     //转诊单
@@ -517,8 +520,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     } else if (message.getAttachment() instanceof InspectionAttachment) {
                         InspectionAttachment attachment =
                                 (InspectionAttachment) message.getAttachment();
-                        isPayOrderId = attachment.getId();
-                        orderFee = attachment.getAmount();
+                        isPayOrderId = Long.valueOf(attachment.getInsCheckOrderId());
+                        orderFee = attachment.getInsCheckApplication().getAmount();
                         isPrescription = false;
                     } else if (message.getAttachment() instanceof ConsultationResultAttachment) {
                         ConsultationResultAttachment attachment =
@@ -1157,18 +1160,37 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     public void payType(boolean isPay, boolean isWaiYan) {
         if (!isPay) {
             if (!isPrescription) {
-                SelectDialogUtils.showPayDialog(getContext(), orderFee, "", type -> {
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("orderId", isPayOrderId);
-                    if (type.equals(Type.WECHATPAY)) {
-                        map.put("type", 1);
-                        getController().inquiryPay(map, 1);
-                    }
-                    if (type.equals(Type.ALIPAY)) {
-                        map.put("type", 2);
-                        getController().inquiryPay(map, 2);
-                    }
-                });
+                if (Global.isMember()) {
+                    SelectDialogUtils.showPrePaidDialog(getContext(), false,
+                            orderFee, "",
+                            new GeneralCallback.SelectPayMentListener() {
+                                @Override
+                                public void getSelectPayMent(String type) {
+                                    Map<String, Object> map = new HashMap<>();
+                                    map.put("orderId", isPayOrderId);
+                                    map.put("type", type);
+                                    getController().inquiryPay(map, 4);
+                                }
+                            });
+                    //                    showPayDialog(false, orderFee, Double.valueOf(orderFee),
+                    //                            String.valueOf(isPayOrderId));
+                    //                    getController().createOrder(false, String.valueOf
+                    //                    (isPayOrderId),
+                    //                            new BigDecimal(orderFee), isWaiYan);
+                } else {
+                    SelectDialogUtils.showPayDialog(getContext(), orderFee, "", type -> {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("orderId", isPayOrderId);
+                        if (type.equals(Type.WECHATPAY)) {
+                            map.put("type", 1);
+                            getController().inquiryPay(map, 1);
+                        }
+                        if (type.equals(Type.ALIPAY)) {
+                            map.put("type", 2);
+                            getController().inquiryPay(map, 2);
+                        }
+                    });
+                }
             } else {
                 if (isWaiYan) {
                     showPayTypeDialog(orderFee, Double.parseDouble(orderFee), orderNum,
@@ -1184,6 +1206,18 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             new GeneralDialog(getContext(), "该订单已支付！", () -> {
             }).setTitle("提示").setPositiveButton("确认").show();
         }
+    }
+
+    @Override
+    public void goPay(boolean needDispatch, String orderNum, String orderId, double totalMoney,
+                      boolean isWaiYan) {
+        mTotalFee = totalMoney;
+        if (isWaiYan) {
+            showPayTypeDialog(String.valueOf(totalMoney), totalMoney, orderNum, orderId);
+        } else {
+            showPayDialog(needDispatch, String.valueOf(totalMoney), totalMoney, orderNum);
+        }
+
     }
 
     @Override
@@ -1390,9 +1424,47 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         View view = LayoutInflater.from(getContext()).inflate(R.layout.pay_ment_dialog_layout,
                 null, false);
         bottomSheetDialog.setContentView(view);
+
+        //区别普通用户和预付费用户
+        paymentNormalLayout = view.findViewById(R.id.payment_normal_layout);
+        paymentVipLayout = view.findViewById(R.id.payment_vip_layout);
+        paymentNextTv = view.findViewById(R.id.prepaid_order_next_tv);
+        if (Global.isMember()) {
+            //预付费用户
+            payType[0] = 4;
+            paymentNormalLayout.setVisibility(View.GONE);
+            paymentVipLayout.setVisibility(View.VISIBLE);
+            paymentNextTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (needAddress && mHosptalCost.isChecked()) {
+                        if (mAddressId == 0) {
+                            ToastUtils.showShort("请选择配送地址");
+                        } else {
+                            getController().pay(mAddressId, orderNum, payType[0], mPsTotal);
+                            bottomSheetDialog.dismiss();
+                        }
+                    } else {
+                        getController().pay(0, orderNum, payType[0], totalFee);
+                        bottomSheetDialog.dismiss();
+                    }
+                }
+            });
+
+        } else {
+            paymentNormalLayout.setVisibility(View.VISIBLE);
+            paymentVipLayout.setVisibility(View.GONE);
+        }
+
+
         final TextView order_price_tv = view.findViewById(R.id.order_price_tv);
         order_price_tv.setText("¥" + titleFee + "");
         LinearLayout addressSelectGroup = view.findViewById(R.id.address_select_group);
+        if (needAddress) {
+            addressSelectGroup.setVisibility(View.VISIBLE);
+        } else {
+            addressSelectGroup.setVisibility(View.GONE);
+        }
         LinearLayout addressSelect = view.findViewById(R.id.address_select);
         mPayAddress = view.findViewById(R.id.address);
         mPayAddress.setText("请选择配送详细地址和联系人");

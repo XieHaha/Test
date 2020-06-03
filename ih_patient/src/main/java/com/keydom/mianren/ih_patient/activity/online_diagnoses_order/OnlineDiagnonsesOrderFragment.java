@@ -216,7 +216,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                     "图文问诊-" + item.getDoctorName() :
                     "视频问诊-" + item.getDoctorName();
             if (Global.isMember()) {
-                SelectDialogUtils.showPrePaidDialog(getContext(), String.valueOf(item.getFee()),
+                SelectDialogUtils.showPrePaidDialog(getContext(),false, String.valueOf(item.getFee()),
                         descStr, type -> {
                             Map<String, Object> payMap = new HashMap<>();
                             payMap.put("orderId", item.getId());

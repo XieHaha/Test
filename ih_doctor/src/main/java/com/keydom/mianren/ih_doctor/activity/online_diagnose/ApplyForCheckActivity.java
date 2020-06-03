@@ -426,9 +426,9 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
         if (list != null && list.size() > 0) {
             for (OrderApplyResponse bean : list) {
                 InspectionAttachment examinationAttachment = new InspectionAttachment();
-                examinationAttachment.setId(bean.getId());
-                examinationAttachment.setAmount(bean.getFee().toString());
-                examinationAttachment.setInspectionContent(bean.getName());
+                examinationAttachment.setInsCheckOrderId(String.valueOf(bean.getId()));
+                examinationAttachment.getInsCheckApplication().setAmount(bean.getFee().toString());
+                examinationAttachment.getInsCheckApplication().setDiagnosis(bean.getName());
                 messageList.add(ImClient.createInspectionMessage(orderBean.getUserCode(),
                         SessionTypeEnum.P2P, "检验申请单", examinationAttachment));
             }
