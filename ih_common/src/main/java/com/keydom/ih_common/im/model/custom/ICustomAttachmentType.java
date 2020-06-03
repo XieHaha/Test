@@ -21,12 +21,12 @@ public interface ICustomAttachmentType {
     /**
      * 检验申请单消息
      */
-    int INSPECTION = 10000;
+    int INSPECTION = 90001;
 
     /**
      * 检查申请单消息
      */
-    int EXAMINATION = 95566;
+    int EXAMINATION = 90002;
 
     /**
      * 自动换诊消息

@@ -31,7 +31,7 @@ class ImMessageItemInspectionProvider(context: Context?, attrs: AttributeSet?) :
 
     override fun bindView(message: ImUIMessage) {
         val attachment = message.message.attachment as InspectionAttachment
-        inspectionContent.text = attachment.inspectionContent
+        inspectionContent.text = attachment.insCheckApplication.diagnosis
         val userInfo = ImClient.getUserInfoProvider().getUserInfo(ImClient.getUserInfoProvider().account) as NimUserInfo
         var type = ImMessageConstant.DOCTOR
         if(null == userInfo.extensionMap){
@@ -50,7 +50,7 @@ class ImMessageItemInspectionProvider(context: Context?, attrs: AttributeSet?) :
         } else {
             paymentAmount.visibility = View.VISIBLE
             resultPay.visibility = View.VISIBLE
-            paymentAmount.text = String.format("￥(%s元)", attachment.amount)
+            paymentAmount.text = String.format("￥(%s元)", attachment.insCheckApplication.amount)
             resultPay.text = "去支付"
         }
     }

@@ -1,6 +1,7 @@
 package com.keydom.ih_common.im.model.custom;
 
 import com.alibaba.fastjson.JSONObject;
+import com.keydom.ih_common.bean.InspectionBean;
 
 /**
  * 检验单消息
@@ -10,22 +11,22 @@ import com.alibaba.fastjson.JSONObject;
 public class InspectionAttachment extends BaseCustomAttachment {
 
     /**
-     * 检验项目
+     * 检验详情
      */
-    private String inspectionContent;
+    private InspectionBean insCheckApplication;
     /**
      * 检验单ID
      */
-    private long id;
+    private String id;
 
     /**
-     * 检验单金额
+     *
      */
-    private String amount;
+    private String insCheckOrderId;
     /**
-     * 支付状态
+     * 时间
      */
-    private int payStatus;
+    private String updateTime;
 
     public InspectionAttachment() {
         super(ICustomAttachmentType.INSPECTION);
@@ -33,58 +34,58 @@ public class InspectionAttachment extends BaseCustomAttachment {
 
     @Override
     protected void paresData(JSONObject data) {
-        id = data.getLongValue("id");
-        inspectionContent = data.getString("inspectionContent");
-        amount = data.getString("amount");
-        payStatus = data.getInteger("payStatus");
+        id = data.getString("id");
+        insCheckApplication = data.getJSONObject("insCheckApplication").toJavaObject(InspectionBean.class);
+        insCheckOrderId = data.getString("insCheckOrderId");
+        updateTime = data.getString("updateTime");
     }
 
     @Override
     protected JSONObject packData() {
         JSONObject data = new JSONObject();
         data.put("id", id);
-        data.put("inspectionContent", inspectionContent);
-        data.put("payStatus", payStatus);
-        data.put("amount", amount);
+        data.put("insCheckApplication", insCheckApplication);
+        data.put("updateTime", updateTime);
+        data.put("insCheckOrderId", insCheckOrderId);
         return data;
     }
 
-    public String getInspectionContent() {
-        return inspectionContent;
+    public InspectionBean getInsCheckApplication() {
+        return insCheckApplication;
     }
 
-    public void setInspectionContent(String inspectionContent) {
-        this.inspectionContent = inspectionContent;
+    public void setInsCheckApplication(InspectionBean insCheckApplication) {
+        this.insCheckApplication = insCheckApplication;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getAmount() {
-        return amount;
+    public String getInsCheckOrderId() {
+        return insCheckOrderId;
     }
 
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public void setInsCheckOrderId(String insCheckOrderId) {
+        this.insCheckOrderId = insCheckOrderId;
     }
 
-    public int getPayStatus() {
-        return payStatus;
+    public String getUpdateTime() {
+        return updateTime;
     }
 
-    public void setPayStatus(int payStatus) {
-        this.payStatus = payStatus;
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 
     @Override
     public String toString() {
         return "InspectionAttachment{" +
-                "inspectionContent='" + inspectionContent + '\'' +
+                "insCheckApplication='" + insCheckApplication + '\'' +
                 ", id='" + id + '\'' +
                 ", type=" + type +
                 '}';
