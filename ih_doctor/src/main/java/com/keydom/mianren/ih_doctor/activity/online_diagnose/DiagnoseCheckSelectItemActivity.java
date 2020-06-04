@@ -6,12 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.SparseArray;
 import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.bean.CheckOutParentBean;
+import com.keydom.ih_common.bean.CheckOutSubBean;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
@@ -21,9 +22,6 @@ import com.keydom.mianren.ih_doctor.activity.online_diagnose.adapter.DiagnoseChe
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.adapter.DiagnoseCheckItemAdapter;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.controller.DiagnoseCheckSelectItemController;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.DiagnoseCheckSelectItemView;
-import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
-import com.keydom.ih_common.bean.CheckOutParentBean;
-import com.keydom.ih_common.bean.CheckOutSubBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 
@@ -68,11 +66,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     /**
      * 已选项目
      */
-    private List<CheckOutParentBean> selectData = new ArrayList<>();
-    /**
-     * 选择的项目（未数据处理）
-     */
-    private SparseArray<ArrayList<CheckOutSubBean>> selectCheck = new SparseArray<>();
+    private List<CheckOutParentBean> selectData;
 
     /**
      * 判断选择项目互斥
@@ -83,7 +77,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     /**
      * 当前选中的一级菜单
      */
-    private CheckOutParentBean curSelectGroup;
+    private CheckOutParentBean curSelectParent;
     private int curPosition = -1;
 
 
@@ -92,7 +86,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
      *
      * @param selectedData 已经选择的检验项目列表
      */
-    public static void start(Context context, List<CheckOutGroupBean> selectedData) {
+    public static void start(Context context, List<CheckOutParentBean> selectedData) {
         Intent starter = new Intent(context, DiagnoseCheckSelectItemActivity.class);
         starter.putExtra(Const.DATA, (Serializable) selectedData);
         ((Activity) context).startActivityForResult(starter, Const.TEST_ITEM_SELECT);
@@ -107,8 +101,10 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle("检验申请");
         setRightTxt("确定");
-        //        selectedDatas = (List<CheckOutGroupBean>) getIntent().getSerializableExtra(Const
-        //        .DATA);
+        selectData = (List<CheckOutParentBean>) getIntent().getSerializableExtra(Const.DATA);
+        if (selectData == null) {
+            selectData = new ArrayList<>();
+        }
 
         checkGroupAdapter = new DiagnoseCheckGroupAdapter(groupData);
         checkGroupAdapter.setOnItemClickListener(this);
@@ -126,7 +122,6 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
             @SingleClick(1000)
             @Override
             public void OnRightTextClick(View v) {
-                dealSelectList();
                 if (selectData.size() > 0) {
                     Intent intent = new Intent();
                     intent.putExtra(Const.DATA, (Serializable) selectData);
@@ -145,53 +140,33 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
         });
     }
 
-    /**
-     * 已选数据
-     */
-    private void dealSelectList() {
-        selectData.clear();
-        int size = selectCheck.size();
-        for (int i = 0; i < size; i++) {
-            //得到key
-            int key = selectCheck.keyAt(i);
-            //得到父级项目
-            CheckOutParentBean parentBean = groupData.get(key);
-            //得到子级项目
-            ArrayList<CheckOutSubBean> subBeans = selectCheck.get(key);
-            if (parentBean != null && subBeans != null && subBeans.size() > 0) {
-                parentBean.setItems(subBeans);
-                selectData.add(parentBean);
-            }
+    @Override
+    public void getGroupListSuccess(List<CheckOutParentBean> list) {
+        groupData.clear();
+        groupData.addAll(list);
+        checkGroupAdapter.setSelectData(selectData);
+
+        if (groupData.size() > 0) {
+            curPosition = 0;
+            curSelectParent = groupData.get(curPosition);
+            getController().checkoutItemList(curSelectParent.getInsCheckCateCode());
         }
+    }
+
+    @Override
+    public void getGroupListFailed(String errMsg) {
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
     public void getItemListSuccess(List<CheckOutSubBean> list) {
         itemData.clear();
         itemData.addAll(list);
-        checkItemAdapter.setSelectCheck(selectCheck, curPosition);
+        checkItemAdapter.setSelectCheck(selectData, selectData.indexOf(curSelectParent));
     }
 
     @Override
     public void getItemListFailed(String errMsg) {
-        ToastUtil.showMessage(this, errMsg);
-    }
-
-    @Override
-    public void getGroupListSuccess(List<CheckOutParentBean> list) {
-        groupData.clear();
-        groupData.addAll(list);
-        checkGroupAdapter.notifyDataSetChanged();
-
-        if (groupData.size() > 0) {
-            curPosition = 0;
-            curSelectGroup = groupData.get(curPosition);
-            getController().checkoutItemList(curSelectGroup.getInsCheckCateCode());
-        }
-    }
-
-    @Override
-    public void getGroupListFailed(String errMsg) {
         ToastUtil.showMessage(this, errMsg);
     }
 
@@ -204,10 +179,11 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
             checkGroupAdapter.setCurPosition(position);
             //获取子菜单数据
             curPosition = position;
-            curSelectGroup = groupData.get(curPosition);
-            getController().checkoutItemList(curSelectGroup.getInsCheckCateCode());
+            curSelectParent = groupData.get(curPosition);
+            getController().checkoutItemList(curSelectParent.getInsCheckCateCode());
         } else if (adapter instanceof DiagnoseCheckItemAdapter) {
-            if (curSelectGroup != null) {
+            if (curSelectParent != null) {
+                //项目互斥判断（code）
                 CheckOutSubBean subBean = itemData.get(position);
                 if (TextUtils.isEmpty(curSelectApplicationCode) || TextUtils.isEmpty(curSelectExecuteDeptCode)) {
                     curSelectApplicationCode = subBean.getApplicationCode();
@@ -220,30 +196,39 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
                     return;
                 }
 
-                ArrayList<CheckOutSubBean> checkOutSubBeans = selectCheck.get(curPosition);
-                if (checkOutSubBeans == null) {
-                    checkOutSubBeans = new ArrayList<>();
-                }
-                //判断已选未选逻辑
-                if (checkOutSubBeans.contains(subBean)) {
-                    checkOutSubBeans.remove(subBean);
+                CheckOutParentBean parentBean;
+                ArrayList<CheckOutSubBean> subBeans;
+                if (selectData.contains(curSelectParent)) {
+                    parentBean = selectData.get(selectData.indexOf(curSelectParent));
+                    subBeans = parentBean.getItems();
                 } else {
-                    checkOutSubBeans.add(subBean);
+                    parentBean = curSelectParent;
+                    subBeans = new ArrayList<>();
                 }
-                if (checkOutSubBeans.size() > 0) {
-                    selectCheck.put(curPosition, checkOutSubBeans);
+
+                //判断已选未选逻辑
+                if (subBeans.contains(subBean)) {
+                    subBeans.remove(subBean);
+                } else {
+                    subBeans.add(subBean);
+                }
+                if (subBeans.size() > 0) {
+                    parentBean.setItems(subBeans);
+                    if (!selectData.contains(parentBean)) {
+                        selectData.add(parentBean);
+                    }
                 } else {
                     //无数据删除key
-                    selectCheck.delete(curPosition);
+                    selectData.remove(parentBean);
                 }
 
                 //项目互斥逻辑 未选中项目时数据初始化
-                if (selectCheck.size() == 0) {
+                if (selectData.size() == 0) {
                     curSelectApplicationCode = "";
                     curSelectExecuteDeptCode = "";
                 }
-                checkItemAdapter.setSelectCheck(selectCheck, curPosition);
-                checkGroupAdapter.setSelectCheck(selectCheck);
+                checkItemAdapter.setSelectCheck(selectData, selectData.indexOf(curSelectParent));
+                checkGroupAdapter.setSelectData(selectData);
             }
         }
     }

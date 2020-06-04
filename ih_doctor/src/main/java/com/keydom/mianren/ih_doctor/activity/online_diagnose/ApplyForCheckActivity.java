@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.bean.CheckOutParentBean;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.model.custom.ExaminationAttachment;
 import com.keydom.ih_common.im.model.custom.InspectionAttachment;
@@ -89,6 +90,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
      * 选择的检查项目列表
      */
     private List<CheckOutGroupBean> selectTestList = new ArrayList<>();
+    private List<CheckOutParentBean> selectData = new ArrayList<>();
     private RecyclerView recyclerView;
     private RelativeLayout diseaseRl;
     private TextView applyTestAddTv, diagnoseTv, userName, userSex, userAge, diseaseTv;
@@ -337,6 +339,8 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
         recyclerView.setAdapter(adapter);
     }
 
+
+
     /**
      * 设置检查列表
      */
@@ -493,6 +497,11 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     }
 
     @Override
+    public List<CheckOutParentBean> getSelectData() {
+        return selectData;
+    }
+
+    @Override
     public void getSelectInspectItemList(List<CheckOutGroupBean> list) {
         //        inspactSelectItemList.clear();
         inspactSelectItemList.addAll(list);
@@ -611,8 +620,14 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case Const.TEST_ITEM_SELECT:
-                    selectTestList.clear();
-                    selectTestList.addAll((List<CheckOutGroupBean>) data.getSerializableExtra(Const.DATA));
+                    //                    selectTestList.clear();
+                    //                    selectTestList.addAll((List<CheckOutGroupBean>) data
+                    //                    .getSerializableExtra(Const.DATA));
+                    //                    setTestListData(selectTestList);
+                    //                    setCheckFee();
+
+                    selectData.clear();
+                    selectData.addAll((List<CheckOutParentBean>) data.getSerializableExtra(Const.DATA));
                     setTestListData(selectTestList);
                     setCheckFee();
                     adapter.notifyDataSetChanged();

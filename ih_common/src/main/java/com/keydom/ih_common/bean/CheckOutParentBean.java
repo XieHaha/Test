@@ -1,5 +1,7 @@
 package com.keydom.ih_common.bean;
 
+import android.text.TextUtils;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
@@ -116,5 +118,10 @@ public class CheckOutParentBean implements Serializable {
 
     public void setItems(ArrayList<CheckOutSubBean> items) {
         this.items = items;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return TextUtils.equals(getInsCheckCateCode(), ((CheckOutParentBean) obj).getInsCheckCateCode());
     }
 }

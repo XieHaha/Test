@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_doctor.activity.online_diagnose.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.ih_common.bean.CheckOutParentBean;
 import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.bean.OrderApplyResponse;
 
@@ -87,6 +88,8 @@ public interface ApplyForCheckView extends BaseView {
      */
     List<CheckOutGroupBean> getInspactSelectItemList();
 
+
+    List<CheckOutParentBean> getSelectData();
 
     /**
      * 设置选中的检查项目列表

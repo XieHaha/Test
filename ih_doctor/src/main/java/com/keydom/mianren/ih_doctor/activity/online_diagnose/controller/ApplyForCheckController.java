@@ -51,8 +51,7 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
                                 getView().getInspectItemList(), null);
                     }
                 } else {
-                    DiagnoseCheckSelectItemActivity.start(getContext(),
-                            getView().getCheckOutSelectItemList());
+                    DiagnoseCheckSelectItemActivity.start(getContext(), getView().getSelectData());
                 }
                 break;
             case R.id.diagnose_tv:
