@@ -21,7 +21,7 @@ import com.keydom.mianren.ih_doctor.activity.online_diagnose.controller.CheckOrd
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.CheckOrderDetailView;
 import com.keydom.mianren.ih_doctor.adapter.TestDetailItemListAdapter;
 import com.keydom.mianren.ih_doctor.bean.CheckItemListBean;
-import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.ih_common.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 
@@ -252,11 +252,11 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         for (CheckOutGroupBean item : bean.getItems()) {
             if ("".equals(checkItemStr)) {
                 if (item.selectedItem() != null) {
-                    checkItemStr = item.selectedItem().getName();
+                    checkItemStr = item.selectedItem().getInsCheckCateName();
                 }
             } else {
                 if (item.selectedItem() != null) {
-                    checkItemStr = checkItemStr + " " + item.selectedItem().getName();
+                    checkItemStr = checkItemStr + " " + item.selectedItem().getInsCheckCateName();
                 }
             }
             if ("".equals(doctorInstructionStr)) {
@@ -269,9 +269,9 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
                 }
             }
             if ("".equals(sampleTypeString)) {
-                sampleTypeString = sampleTypeString + item.getName();
+                sampleTypeString = sampleTypeString + item.getInsCheckCateName();
             } else {
-                sampleTypeString = sampleTypeString + "," + item.getName();
+                sampleTypeString = sampleTypeString + "," + item.getInsCheckCateName();
             }
         }
         sampleType.setText(sampleTypeString);
@@ -295,9 +295,9 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
                     for (CheckOutGroupBean secodItem : item.getItems()) {
                         if (secodItem.isSelect()) {
                             if ("".equals(assembleNameStr)) {
-                                assembleNameStr = assembleNameStr + secodItem.getName();
+                                assembleNameStr = assembleNameStr + secodItem.getInsCheckCateName();
                             } else {
-                                assembleNameStr = assembleNameStr + "," + secodItem.getName();
+                                assembleNameStr = assembleNameStr + "," + secodItem.getInsCheckCateName();
                             }
                         }
 

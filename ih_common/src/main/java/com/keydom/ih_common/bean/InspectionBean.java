@@ -25,7 +25,7 @@ public class InspectionBean implements Serializable {
     private String patientId;
     private String patientName;
     private String sex;
-    private ArrayList<CheckOutParentBean> cateS;
+    private ArrayList<CheckOutGroupBean> cateS;
 
     public int getType() {
         return type;
@@ -155,11 +155,13 @@ public class InspectionBean implements Serializable {
         this.sex = sex;
     }
 
-    public ArrayList<CheckOutParentBean> getCateS() {
+    public ArrayList<CheckOutGroupBean> getCateS() {
         return cateS;
     }
 
-    public void setCateS(ArrayList<CheckOutParentBean> cateS) {
+    public void setCateS(ArrayList<CheckOutGroupBean> cateS) {
         this.cateS = cateS;
     }
+
+
 }

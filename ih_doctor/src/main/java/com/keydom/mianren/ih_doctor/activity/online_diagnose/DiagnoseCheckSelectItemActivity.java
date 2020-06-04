@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.BaseControllerActivity;
-import com.keydom.ih_common.bean.CheckOutParentBean;
-import com.keydom.ih_common.bean.CheckOutSubBean;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
@@ -22,6 +20,7 @@ import com.keydom.mianren.ih_doctor.activity.online_diagnose.adapter.DiagnoseChe
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.adapter.DiagnoseCheckItemAdapter;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.controller.DiagnoseCheckSelectItemController;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.DiagnoseCheckSelectItemView;
+import com.keydom.ih_common.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 
@@ -57,16 +56,16 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     /**
      * 一级列表
      */
-    private List<CheckOutParentBean> groupData = new ArrayList<>();
+    private List<CheckOutGroupBean> groupData = new ArrayList<>();
     /**
      * 二级项目
      */
-    private List<CheckOutSubBean> itemData = new ArrayList<>();
+    private List<CheckOutGroupBean> itemData = new ArrayList<>();
 
     /**
      * 已选项目
      */
-    private List<CheckOutParentBean> selectData;
+    private List<CheckOutGroupBean> selectData;
 
     /**
      * 判断选择项目互斥
@@ -77,7 +76,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     /**
      * 当前选中的一级菜单
      */
-    private CheckOutParentBean curSelectParent;
+    private CheckOutGroupBean curSelectParent;
     private int curPosition = -1;
 
 
@@ -86,7 +85,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
      *
      * @param selectedData 已经选择的检验项目列表
      */
-    public static void start(Context context, List<CheckOutParentBean> selectedData) {
+    public static void start(Context context, List<CheckOutGroupBean> selectedData) {
         Intent starter = new Intent(context, DiagnoseCheckSelectItemActivity.class);
         starter.putExtra(Const.DATA, (Serializable) selectedData);
         ((Activity) context).startActivityForResult(starter, Const.TEST_ITEM_SELECT);
@@ -101,7 +100,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle("检验申请");
         setRightTxt("确定");
-        selectData = (List<CheckOutParentBean>) getIntent().getSerializableExtra(Const.DATA);
+        selectData = (List<CheckOutGroupBean>) getIntent().getSerializableExtra(Const.DATA);
         if (selectData == null) {
             selectData = new ArrayList<>();
         }
@@ -141,7 +140,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     }
 
     @Override
-    public void getGroupListSuccess(List<CheckOutParentBean> list) {
+    public void getGroupListSuccess(List<CheckOutGroupBean> list) {
         groupData.clear();
         groupData.addAll(list);
         checkGroupAdapter.setSelectData(selectData);
@@ -159,7 +158,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     }
 
     @Override
-    public void getItemListSuccess(List<CheckOutSubBean> list) {
+    public void getItemListSuccess(List<CheckOutGroupBean> list) {
         itemData.clear();
         itemData.addAll(list);
         checkItemAdapter.setSelectCheck(selectData, selectData.indexOf(curSelectParent));
@@ -184,7 +183,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
         } else if (adapter instanceof DiagnoseCheckItemAdapter) {
             if (curSelectParent != null) {
                 //项目互斥判断（code）
-                CheckOutSubBean subBean = itemData.get(position);
+                CheckOutGroupBean subBean = itemData.get(position);
                 if (TextUtils.isEmpty(curSelectApplicationCode) || TextUtils.isEmpty(curSelectExecuteDeptCode)) {
                     curSelectApplicationCode = subBean.getApplicationCode();
                     curSelectExecuteDeptCode = subBean.getExecuteDeptCode();
@@ -196,8 +195,8 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
                     return;
                 }
 
-                CheckOutParentBean parentBean;
-                ArrayList<CheckOutSubBean> subBeans;
+                CheckOutGroupBean parentBean;
+                List<CheckOutGroupBean> subBeans;
                 if (selectData.contains(curSelectParent)) {
                     parentBean = selectData.get(selectData.indexOf(curSelectParent));
                     subBeans = parentBean.getItems();
@@ -215,6 +214,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
                 if (subBeans.size() > 0) {
                     parentBean.setItems(subBeans);
                     if (!selectData.contains(parentBean)) {
+                        parentBean.setDeptName(subBean.getExecuteDeptName());
                         selectData.add(parentBean);
                     }
                 } else {

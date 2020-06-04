@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
-import com.keydom.ih_common.bean.CheckOutParentBean;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.model.custom.ExaminationAttachment;
 import com.keydom.ih_common.im.model.custom.InspectionAttachment;
@@ -29,11 +28,11 @@ import com.keydom.mianren.ih_doctor.adapter.DiagnoseOrderSecondaryListRecyclerAd
 import com.keydom.mianren.ih_doctor.adapter.InspectItemListAdapter;
 import com.keydom.mianren.ih_doctor.adapter.SecondaryListAdapter;
 import com.keydom.mianren.ih_doctor.bean.CheckItemListBean;
-import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.ih_common.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.bean.OrderApplyResponse;
 import com.keydom.mianren.ih_doctor.bean.SubmitCheckOrderReqBean;
-import com.keydom.mianren.ih_doctor.bean.SubmitInspectOrderReqBean;
+import com.keydom.ih_common.bean.SubmitInspectOrderReqBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.m_interface.OnItemChangeListener;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
@@ -90,7 +89,6 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
      * 选择的检查项目列表
      */
     private List<CheckOutGroupBean> selectTestList = new ArrayList<>();
-    private List<CheckOutParentBean> selectData = new ArrayList<>();
     private RecyclerView recyclerView;
     private RelativeLayout diseaseRl;
     private TextView applyTestAddTv, diagnoseTv, userName, userSex, userAge, diseaseTv;
@@ -340,7 +338,6 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     }
 
 
-
     /**
      * 设置检查列表
      */
@@ -372,13 +369,13 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
                 if (item.isSelect()) {
                     SubmitCheckOrderReqBean submitCheckOrderReqBean = new SubmitCheckOrderReqBean();
                     submitCheckOrderReqBean.setId(item.getProjectId());
-                    submitCheckOrderReqBean.setName(item.getName());
+                    submitCheckOrderReqBean.setName(item.getInsCheckCateName());
                     childList.add(submitCheckOrderReqBean);
                 }
             }
             bean.setItems(childList);
             bean.setId(testItemBean.getProjectId());
-            bean.setName(testItemBean.getName());
+            bean.setName(testItemBean.getInsCheckCateName());
             bean.setDeptName(testItemBean.getDeptName());
             bean.setSpecimenName(testItemBean.getSpecimenName());
             bean.setDeptId(testItemBean.getDeptId());
@@ -404,7 +401,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
             SubmitInspectOrderReqBean reqLevel1Bean = new SubmitInspectOrderReqBean();
             reqLevel1Bean.setItems(bean.getSelectReqList());
             reqLevel1Bean.setId(bean.getProjectId());
-            reqLevel1Bean.setName(bean.getName());
+            reqLevel1Bean.setName(bean.getInsCheckCateName());
             reqLevel1Bean.setDeptId(bean.getDeptId());
             reqLevel1Bean.setRemark(bean.getRemark());
             reqList.add(reqLevel1Bean);
@@ -494,11 +491,6 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     @Override
     public List<CheckOutGroupBean> getInspactSelectItemList() {
         return inspactSelectItemList;
-    }
-
-    @Override
-    public List<CheckOutParentBean> getSelectData() {
-        return selectData;
     }
 
     @Override
@@ -620,14 +612,8 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case Const.TEST_ITEM_SELECT:
-                    //                    selectTestList.clear();
-                    //                    selectTestList.addAll((List<CheckOutGroupBean>) data
-                    //                    .getSerializableExtra(Const.DATA));
-                    //                    setTestListData(selectTestList);
-                    //                    setCheckFee();
-
-                    selectData.clear();
-                    selectData.addAll((List<CheckOutParentBean>) data.getSerializableExtra(Const.DATA));
+                    selectTestList.clear();
+                    selectTestList.addAll((List<CheckOutGroupBean>) data.getSerializableExtra(Const.DATA));
                     setTestListData(selectTestList);
                     setCheckFee();
                     adapter.notifyDataSetChanged();

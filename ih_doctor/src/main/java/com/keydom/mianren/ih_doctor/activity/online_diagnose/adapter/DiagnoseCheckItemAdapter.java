@@ -4,9 +4,8 @@ import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.keydom.ih_common.bean.CheckOutParentBean;
-import com.keydom.ih_common.bean.CheckOutSubBean;
 import com.keydom.mianren.ih_doctor.R;
+import com.keydom.ih_common.bean.CheckOutGroupBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +14,15 @@ import java.util.List;
  * @date 20/4/26 10:52
  * @des 检查项目  二级列表
  */
-public class DiagnoseCheckItemAdapter extends BaseQuickAdapter<CheckOutSubBean, BaseViewHolder> {
-    private List<CheckOutParentBean> selectCheck = new ArrayList<>();
+public class DiagnoseCheckItemAdapter extends BaseQuickAdapter<CheckOutGroupBean, BaseViewHolder> {
+    private List<CheckOutGroupBean> selectCheck = new ArrayList<>();
     private int groupPosition;
 
-    public DiagnoseCheckItemAdapter(@Nullable List<CheckOutSubBean> data) {
+    public DiagnoseCheckItemAdapter(@Nullable List<CheckOutGroupBean> data) {
         super(R.layout.item_diagnose_sub, data);
     }
 
-    public void setSelectCheck(List<CheckOutParentBean> selectCheck,
+    public void setSelectCheck(List<CheckOutGroupBean> selectCheck,
                                int groupPosition) {
         this.selectCheck = selectCheck;
         this.groupPosition = groupPosition;
@@ -31,11 +30,11 @@ public class DiagnoseCheckItemAdapter extends BaseQuickAdapter<CheckOutSubBean, 
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, CheckOutSubBean item) {
+    protected void convert(BaseViewHolder helper, CheckOutGroupBean item) {
         helper.setText(R.id.diagnose_sub_name, item.getItemName());
 
         if (selectCheck.size() > 0 && groupPosition != -1) {
-            ArrayList<CheckOutSubBean> list = selectCheck.get(groupPosition).getItems();
+            List<CheckOutGroupBean> list = selectCheck.get(groupPosition).getItems();
             if (list != null && list.contains(item)) {
                 helper.itemView.setSelected(true);
             } else {

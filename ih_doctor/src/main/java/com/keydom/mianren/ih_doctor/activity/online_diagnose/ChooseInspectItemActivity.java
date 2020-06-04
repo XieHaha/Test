@@ -15,7 +15,7 @@ import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.controller.ChooseInspectItemController;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.ChooseInspectItemView;
 import com.keydom.mianren.ih_doctor.adapter.InspactItemSelectRecyclrViewAdapter;
-import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.ih_common.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 
 import java.io.Serializable;

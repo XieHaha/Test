@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.ih_common.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public class InspactItemSelectRecyclrViewAdapter extends RecyclerView.Adapter<In
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.itemName.setText(data.get(position).getName());
+        holder.itemName.setText(data.get(position).getInsCheckCateName());
         if (data.get(position).isSelect()) {
             holder.itemName.setTextColor(context.getResources().getColor(R.color.font_select));
             holder.itemIcon.setBackground(context.getResources().getDrawable(R.mipmap.point_green));

@@ -1,6 +1,6 @@
 package com.keydom.mianren.ih_doctor.m_interface;
 
-import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.ih_common.bean.CheckOutGroupBean;
 
 import java.util.List;
 

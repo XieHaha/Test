@@ -1,7 +1,7 @@
 package com.keydom.mianren.ih_doctor.activity.online_diagnose.view;
 
 import com.keydom.ih_common.base.BaseView;
-import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.ih_common.bean.CheckOutGroupBean;
 
 import java.util.List;
 

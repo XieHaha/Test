@@ -18,7 +18,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.ApplyForCheckActivity;
-import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.ih_common.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.m_interface.SelectInspectItemListener;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.view.DiagnoseInspactItemDialog;
@@ -41,7 +41,7 @@ public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutGroupBean, 
             return;
         }
         ischange = true;
-        helper.setText(R.id.inspact_item_name, item.getName());
+        helper.setText(R.id.inspact_item_name, item.getInsCheckCateName());
         TextView inspactItemName = helper.getView(R.id.inspact_item_name);
         TextView subItemName = helper.getView(R.id.sub_item_name);
         TextView subItemPart = helper.getView(R.id.sub_item_part);
@@ -56,16 +56,16 @@ public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutGroupBean, 
         subItemPart.setText("");
         subItemFee.setText("金额：¥0.0");
         if (item.selectedItem() != null) {
-            subItemName.setText(item.selectedItem().getName());
+            subItemName.setText(item.selectedItem().getInsCheckCateName());
             subItemDept.setText(item.selectedItem().getDeptName());
             String selectItemStr = "";
             BigDecimal totalFee = BigDecimal.ZERO;
             if (item.selectedItem().selectedItems() != null && item.selectedItem().selectedItems().size() > 0) {
                 for (CheckOutGroupBean selectItem : item.selectedItem().selectedItems()) {
                     if ("".equals(selectItemStr)) {
-                        selectItemStr = selectItem.getName();
+                        selectItemStr = selectItem.getInsCheckCateName();
                     } else {
-                        selectItemStr = selectItemStr + "," + selectItem.getName();
+                        selectItemStr = selectItemStr + "," + selectItem.getInsCheckCateName();
                     }
                     totalFee = totalFee.add((selectItem.getPrice() == null ? BigDecimal.ZERO : selectItem.getPrice()));
                 }
@@ -119,7 +119,7 @@ public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutGroupBean, 
                 if (item != null && item.getItems() != null) {
                     final List<String> list = new ArrayList<>();
                     for (CheckOutGroupBean bean : item.getItems()) {
-                        list.add(bean.getName());
+                        list.add(bean.getInsCheckCateName());
                     }
                     OptionsPickerView pvOptions = new OptionsPickerBuilder(mContext, new OnOptionsSelectListener() {
                         @Override
@@ -128,7 +128,7 @@ public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutGroupBean, 
                                 item.setSelect(false);
                             }
                             item.getItems().get(options1).setSelect(true);
-                            subItemName.setText(item.getItems().get(options1).getName());
+                            subItemName.setText(item.getItems().get(options1).getInsCheckCateName());
                             subItemDept.setText(item.getItems().get(options1).getDeptName());
                             subItemPart.setText("");
                         }
@@ -145,7 +145,7 @@ public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutGroupBean, 
                 if (item != null && item.selectedItem() != null && item.selectedItem().getItems() != null && item.selectedItem().getItems().size() > 0) {
                     final List<String> list = new ArrayList<>();
                     for (CheckOutGroupBean bean : item.selectedItem().getItems()) {
-                        list.add(bean.getName());
+                        list.add(bean.getInsCheckCateName());
                     }
                     List<CheckOutGroupBean> partList = new ArrayList<>();
                     partList.addAll(item.selectedItem().getItems());
@@ -155,7 +155,7 @@ public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutGroupBean, 
                             String partStr = "";
                             BigDecimal totalFee = BigDecimal.ZERO;
                             for (CheckOutGroupBean selectBean : list) {
-                                partStr += "".equals(partStr) ? selectBean.getName() : ("、" + selectBean.getName());
+                                partStr += "".equals(partStr) ? selectBean.getInsCheckCateName() : ("、" + selectBean.getInsCheckCateName());
                                 totalFee = totalFee.add(selectBean.getPrice());
                                 for (int i = 0; i < item.selectedItem().getItems().size(); i++) {
                                     if (item.selectedItem().getItems().get(i).getProjectId() == selectBean.getProjectId()) {

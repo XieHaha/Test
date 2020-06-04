@@ -13,7 +13,7 @@ import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_common.view.MRadioButton;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.ih_common.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.m_interface.OnItemChangeListener;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 
@@ -57,7 +57,7 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
     @Override
     public void onGroupItemBindViewHolder(RecyclerView.ViewHolder holder, int groupItemIndex) {
         CheckOutGroupBean bean = dts.get(groupItemIndex).getGroupItem();
-        ((GroupItemViewHolder) holder).itemName.setText(bean.getName());
+        ((GroupItemViewHolder) holder).itemName.setText(bean.getInsCheckCateName());
         if (delete) {
             ((GroupItemViewHolder) holder).testItemFee.setVisibility(View.VISIBLE);
             ((GroupItemViewHolder) holder).deleteBtn.setVisibility(View.VISIBLE);
@@ -128,7 +128,7 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
                                         int subItemIndex) {
         CheckOutGroupBean bean = dts.get(groupItemIndex).getGroupItem();
         CheckOutGroupBean subBean = dts.get(groupItemIndex).getSubItems().get(subItemIndex);
-        ((SubItemViewHolder) holder).tvSub.setText(subBean.getName());
+        ((SubItemViewHolder) holder).tvSub.setText(subBean.getItemName());
         ((SubItemViewHolder) holder).mRb.setChecked(subBean.isSelect());
         if (delete) {
             ((SubItemViewHolder) holder).mRb.setPadding(CommonUtils.px2dip(context,

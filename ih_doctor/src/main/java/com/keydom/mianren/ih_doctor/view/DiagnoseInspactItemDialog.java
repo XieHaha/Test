@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.adapter.InspactItemSelectRecyclrViewAdapter;
-import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.ih_common.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.m_interface.SelectInspectItemListener;
 import com.keydom.mianren.ih_doctor.utils.CloneUtil;
 

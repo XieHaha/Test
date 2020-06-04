@@ -8,8 +8,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.DiagnoseCheckSelectItemView;
-import com.keydom.ih_common.bean.CheckOutParentBean;
-import com.keydom.ih_common.bean.CheckOutSubBean;
+import com.keydom.ih_common.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
 
@@ -38,9 +37,9 @@ public class DiagnoseCheckSelectItemController extends ControllerImpl<DiagnoseCh
      * 获取检验项目列表
      */
     public void checkoutList() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).checkoutCategoryList("1"), new HttpSubscriber<List<CheckOutParentBean>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).checkoutCategoryList("1"), new HttpSubscriber<List<CheckOutGroupBean>>(getContext(), getDisposable(), false) {
             @Override
-            public void requestComplete(@Nullable List<CheckOutParentBean> data) {
+            public void requestComplete(@Nullable List<CheckOutGroupBean> data) {
                 getView().getGroupListSuccess(data);
             }
 
@@ -57,9 +56,9 @@ public class DiagnoseCheckSelectItemController extends ControllerImpl<DiagnoseCh
      * 获取检验项目下子项目列表
      */
     public void checkoutItemList(String code) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).checkoutItemList("1", code), new HttpSubscriber<List<CheckOutSubBean>>(getContext(), getDisposable(), true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).checkoutItemList("1", code), new HttpSubscriber<List<CheckOutGroupBean>>(getContext(), getDisposable(), true) {
             @Override
-            public void requestComplete(@Nullable List<CheckOutSubBean> data) {
+            public void requestComplete(@Nullable List<CheckOutGroupBean> data) {
                 getView().getItemListSuccess(data);
             }
 

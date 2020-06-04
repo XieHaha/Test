@@ -1,5 +1,7 @@
 package com.keydom.mianren.ih_doctor.bean;
 
+import com.keydom.ih_common.bean.CheckOutGroupBean;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;

@@ -17,7 +17,7 @@ import com.keydom.mianren.ih_doctor.activity.online_diagnose.ChooseInspectItemAc
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.DiagnoseCheckSelectItemActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.DiagnoseInputActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.ApplyForCheckView;
-import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.ih_common.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.bean.OrderApplyResponse;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
@@ -51,7 +51,8 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
                                 getView().getInspectItemList(), null);
                     }
                 } else {
-                    DiagnoseCheckSelectItemActivity.start(getContext(), getView().getSelectData());
+                    DiagnoseCheckSelectItemActivity.start(getContext(),
+                            getView().getCheckOutSelectItemList());
                 }
                 break;
             case R.id.diagnose_tv:
@@ -68,7 +69,7 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
     /**
      * 提交保存检验报告
      */
-    public void saveCheckout() {
+    private void saveCheckout() {
         showLoading();
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).saveCheckout(HttpService.INSTANCE.object2Body(getView().getTestMap())), new HttpSubscriber<List<OrderApplyResponse>>(getContext(), getDisposable(), false) {
             @Override
@@ -91,7 +92,7 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
     /**
      * 提交保存检查报告
      */
-    public void saveInspect() {
+    private void saveInspect() {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).saveCheckout(HttpService.INSTANCE.object2Body(getView().getInspectMap())), new HttpSubscriber<List<OrderApplyResponse>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable List<OrderApplyResponse> data) {

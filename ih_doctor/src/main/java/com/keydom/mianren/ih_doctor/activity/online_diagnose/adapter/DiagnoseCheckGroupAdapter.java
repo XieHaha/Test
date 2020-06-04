@@ -6,9 +6,8 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.keydom.ih_common.bean.CheckOutParentBean;
-import com.keydom.ih_common.bean.CheckOutSubBean;
 import com.keydom.mianren.ih_doctor.R;
+import com.keydom.ih_common.bean.CheckOutGroupBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +16,16 @@ import java.util.List;
  * @date 20/4/26 10:52
  * @des 检查项目 一级列表
  */
-public class DiagnoseCheckGroupAdapter extends BaseQuickAdapter<CheckOutParentBean,
+public class DiagnoseCheckGroupAdapter extends BaseQuickAdapter<CheckOutGroupBean,
         BaseViewHolder> {
     private int curPosition = 0;
-    private List<CheckOutParentBean> selectData = new ArrayList<>();
+    private List<CheckOutGroupBean> selectData = new ArrayList<>();
 
-    public DiagnoseCheckGroupAdapter(@Nullable List<CheckOutParentBean> data) {
+    public DiagnoseCheckGroupAdapter(@Nullable List<CheckOutGroupBean> data) {
         super(R.layout.item_diagnose_group, data);
     }
 
-    public void setSelectData(List<CheckOutParentBean> selectData) {
+    public void setSelectData(List<CheckOutGroupBean> selectData) {
         this.selectData = selectData;
         notifyDataSetChanged();
     }
@@ -37,7 +36,7 @@ public class DiagnoseCheckGroupAdapter extends BaseQuickAdapter<CheckOutParentBe
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, CheckOutParentBean item) {
+    protected void convert(BaseViewHolder helper, CheckOutGroupBean item) {
         helper.setText(R.id.diagnose_group_name, item.getInsCheckCateName());
         //选中状态
         if (curPosition == helper.getAdapterPosition()) {
@@ -48,7 +47,7 @@ public class DiagnoseCheckGroupAdapter extends BaseQuickAdapter<CheckOutParentBe
         //已选子选项统计
         TextView selectNum = helper.getView(R.id.diagnose_group_select);
         if (selectData.contains(item)) {
-            ArrayList<CheckOutSubBean> list = selectData.get(selectData.indexOf(item)).getItems();
+            List<CheckOutGroupBean> list = selectData.get(selectData.indexOf(item)).getItems();
             if (list != null && list.size() > 0) {
                 selectNum.setVisibility(View.VISIBLE);
                 selectNum.setText(String.valueOf(list.size()));

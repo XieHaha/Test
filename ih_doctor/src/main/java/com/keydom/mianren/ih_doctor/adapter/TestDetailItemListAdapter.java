@@ -5,7 +5,7 @@ import android.content.Context;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.bean.CheckOutGroupBean;
+import com.keydom.ih_common.bean.CheckOutGroupBean;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class TestDetailItemListAdapter extends BaseQuickAdapter<CheckOutGroupBea
 
     @Override
     protected void convert(BaseViewHolder helper, final CheckOutGroupBean item) {
-        helper.setText(R.id.inspact_item_name, item.getName())
+        helper.setText(R.id.inspact_item_name, item.getInsCheckCateName())
                 .setText(R.id.test_item_fee, "￥" + item.getPrice() + "元");
     }
 }
