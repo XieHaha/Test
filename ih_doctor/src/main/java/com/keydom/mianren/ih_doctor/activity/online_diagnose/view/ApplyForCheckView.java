@@ -18,66 +18,53 @@ public interface ApplyForCheckView extends BaseView {
 
     /**
      * 获取页面上的诊断信息
-     *
-     * @return
      */
     String getMainDec();
 
     /**
      * 获取创建、修改检验订单参数
-     *
-     * @return
      */
     Map<String, Object> getTestMap();
 
     /**
      * 获取创建、修改检查订单参数
-     *
-     * @return
      */
     Map<String, Object> getInspectMap();
 
 
     /**
      * 创建、修改检验订单成功
-     * @param bean
      */
     void saveTestOrderSuccess(List<OrderApplyResponse> bean);
 
     /**
      * 创建、修改检验订单失败
-     *
-     * @param errMsg
      */
     void saveTestOrderFailed(String errMsg);
 
     /**
      * 创建、修改检查订单成功
-     *
-     * @param bean
      */
-    void saveInspactOrderSuccess(List<OrderApplyResponse> bean);
+    void saveInspectOrderSuccess(List<OrderApplyResponse> bean);
 
     /**
      * 创建、修改检查订单失败
-     *
-     * @param errMsg 失败提示信息
      */
-    void saveInspactOrderFailed(String errMsg);
+    void saveInspectOrderFailed(String errMsg);
 
     /**
      * 获取检查项目成功
      *
      * @param list 检查项目数据
      */
-    void getInspactItemListSuccess(List<CheckOutGroupBean> list);
+    void getInspectItemListSuccess(List<CheckOutGroupBean> list);
 
     /**
      * 获取检查项目失败
      *
      * @param errMsg 失败信息
      */
-    void getInspactItemListFailed(String errMsg);
+    void getInspectItemListFailed(String errMsg);
 
     /**
      * 是否是检查单
@@ -91,7 +78,7 @@ public interface ApplyForCheckView extends BaseView {
      *
      * @return 检查项目列表
      */
-    List<CheckOutGroupBean> getInspactItemList();
+    List<CheckOutGroupBean> getInspectItemList();
 
     /**
      * 获取选中的检查项目列表
@@ -106,14 +93,14 @@ public interface ApplyForCheckView extends BaseView {
      *
      * @param list 检查项目列表
      */
-    void getSelectInspactItemList(List<CheckOutGroupBean> list);
+    void getSelectInspectItemList(List<CheckOutGroupBean> list);
 
     /**
      * 是否是保存的检查单
      *
      * @return true 检查单
      */
-    boolean isSaveInspactOrder();
+    boolean isSaveInspectOrder();
 
     /**
      * 是否是保存的检验单

@@ -138,8 +138,6 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
 
     /**
      * 新建检查单
-     *
-     * @param context
      */
     public static void startCreateInspect(Context context, InquiryBean bean) {
         Intent starter = new Intent(context, ApplyForCheckActivity.class);
@@ -425,12 +423,12 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
         List<IMMessage> messageList = new ArrayList<>();
         if (list != null && list.size() > 0) {
             for (OrderApplyResponse bean : list) {
-                InspectionAttachment examinationAttachment = new InspectionAttachment();
-                examinationAttachment.setInsCheckOrderId(String.valueOf(bean.getId()));
-                examinationAttachment.getInsCheckApplication().setAmount(bean.getFee().toString());
-                examinationAttachment.getInsCheckApplication().setDiagnosis(bean.getName());
+                InspectionAttachment inspectionAttachment = new InspectionAttachment();
+                inspectionAttachment.setInsCheckOrderId(String.valueOf(bean.getId()));
+                inspectionAttachment.getInsCheckApplication().setAmount(bean.getFee().toString());
+                inspectionAttachment.getInsCheckApplication().setDiagnosis(bean.getName());
                 messageList.add(ImClient.createInspectionMessage(orderBean.getUserCode(),
-                        SessionTypeEnum.P2P, "检验申请单", examinationAttachment));
+                        SessionTypeEnum.P2P, "检验申请单", inspectionAttachment));
             }
         }
         Intent intent = new Intent();
@@ -446,7 +444,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     }
 
     @Override
-    public void saveInspactOrderSuccess(List<OrderApplyResponse> list) {
+    public void saveInspectOrderSuccess(List<OrderApplyResponse> list) {
         List<IMMessage> messageList = new ArrayList<>();
         if (list != null && list.size() > 0) {
             for (OrderApplyResponse bean : list) {
@@ -465,17 +463,17 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     }
 
     @Override
-    public void saveInspactOrderFailed(String errMsg) {
+    public void saveInspectOrderFailed(String errMsg) {
         ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
-    public void getInspactItemListSuccess(List<CheckOutGroupBean> list) {
+    public void getInspectItemListSuccess(List<CheckOutGroupBean> list) {
         inspactItemList = list;
     }
 
     @Override
-    public void getInspactItemListFailed(String errMsg) {
+    public void getInspectItemListFailed(String errMsg) {
         ToastUtil.showMessage(this, errMsg);
     }
 
@@ -485,7 +483,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     }
 
     @Override
-    public List<CheckOutGroupBean> getInspactItemList() {
+    public List<CheckOutGroupBean> getInspectItemList() {
         return inspactItemList;
     }
 
@@ -495,7 +493,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     }
 
     @Override
-    public void getSelectInspactItemList(List<CheckOutGroupBean> list) {
+    public void getSelectInspectItemList(List<CheckOutGroupBean> list) {
         //        inspactSelectItemList.clear();
         inspactSelectItemList.addAll(list);
         inspectItemListAdapter.notifyDataSetChanged();
@@ -552,7 +550,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     }
 
     @Override
-    public boolean isSaveInspactOrder() {
+    public boolean isSaveInspectOrder() {
         if (inspactSelectItemList == null || inspactSelectItemList.size() == 0) {
             return false;
         }
@@ -626,7 +624,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
                     diseaseTv.setText(data.getStringExtra(Const.DATA));
                     break;
                 case ChooseInspectItemActivity.CHOOSE_INSPECT_ITEM:
-                    getSelectInspactItemList((List<CheckOutGroupBean>) data.getSerializableExtra(Const.DATA));
+                    getSelectInspectItemList((List<CheckOutGroupBean>) data.getSerializableExtra(Const.DATA));
                     break;
                 case PatientMainSuitActivity.SELECT_PATIENT_MAIN_DEC:
                     String decStr = (String) data.getSerializableExtra(Const.DATA);

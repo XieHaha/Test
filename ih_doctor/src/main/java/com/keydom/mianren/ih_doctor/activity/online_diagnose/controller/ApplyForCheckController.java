@@ -44,11 +44,11 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
         switch (v.getId()) {
             case R.id.apply_test_add_tv:
                 if (getView().isInspect()) {
-                    if (getView().getInspactItemList() == null) {
+                    if (getView().getInspectItemList() == null) {
                         ToastUtil.showMessage(getContext(), "没有查询到检查项目");
                     } else {
-//                        ChooseInspectItemActivity.start(getContext(), getView().getInspactItemList(), getView().getInspactSelectItemList());
-                        ChooseInspectItemActivity.start(getContext(), getView().getInspactItemList(), null);
+//                        ChooseInspectItemActivity.start(getContext(), getView().getInspectItemList(), getView().getInspactSelectItemList());
+                        ChooseInspectItemActivity.start(getContext(), getView().getInspectItemList(), null);
                         ;
                     }
                 } else {
@@ -94,12 +94,12 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).saveCheckout(HttpService.INSTANCE.object2Body(getView().getInspectMap())), new HttpSubscriber<List<OrderApplyResponse>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable List<OrderApplyResponse> data) {
-                getView().saveInspactOrderSuccess(data);
+                getView().saveInspectOrderSuccess(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                getView().saveInspactOrderFailed(msg);
+                getView().saveInspectOrderFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });
@@ -113,12 +113,12 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).inspectList(MyApplication.userInfo.getHospitalId()), new HttpSubscriber<List<CheckOutGroupBean>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable List<CheckOutGroupBean> data) {
-                getView().getInspactItemListSuccess(data);
+                getView().getInspectItemListSuccess(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                getView().getInspactItemListFailed(msg);
+                getView().getInspectItemListFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });
@@ -134,7 +134,7 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
      */
     public void saveOrder() {
         if (getView().isInspect()) {
-            if (getView().isSaveInspactOrder()) {
+            if (getView().isSaveInspectOrder()) {
                 saveInspect();
             } else {
                 ToastUtil.showMessage(getContext(), "请完善检查项目后再提交！");
