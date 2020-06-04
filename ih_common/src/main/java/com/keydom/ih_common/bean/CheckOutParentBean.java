@@ -1,5 +1,7 @@
 package com.keydom.ih_common.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -13,20 +15,20 @@ import java.util.ArrayList;
  */
 public class CheckOutParentBean implements Serializable {
     private static final long serialVersionUID = 1586585847716670162L;
-private String advice;
-private String applicationCode;
-private String applicationName;
-private String executeDeptCode;
-private String executeDeptName;
-private String fee;
-private String id;
-private String name;
-private String cateCode;
-private String insCheckApplicationId;
-private String insCheckCateCode;
-private String insCheckCateName;
-private String isDel;
-private ArrayList<CheckOutSubBean> items;
+    private String advice;
+    private String applicationCode;
+    private String applicationName;
+    private String executeDeptCode;
+    private String executeDeptName;
+    private String fee;
+    @JSONField(name = "id")
+    private String insCheckApplicationId;
+    @JSONField(name = "cateCode")
+    private String insCheckCateCode;
+    @JSONField(name = "name")
+    private String insCheckCateName;
+    private String isDel;
+    private ArrayList<CheckOutSubBean> items;
 
     public String getAdvice() {
         return advice;
@@ -74,30 +76,6 @@ private ArrayList<CheckOutSubBean> items;
 
     public void setFee(String fee) {
         this.fee = fee;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCateCode() {
-        return cateCode;
-    }
-
-    public void setCateCode(String cateCode) {
-        this.cateCode = cateCode;
     }
 
     public ArrayList<CheckOutSubBean> getItems() {

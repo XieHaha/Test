@@ -47,19 +47,20 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
                     if (getView().getInspectItemList() == null) {
                         ToastUtil.showMessage(getContext(), "没有查询到检查项目");
                     } else {
-//                        ChooseInspectItemActivity.start(getContext(), getView().getInspectItemList(), getView().getInspactSelectItemList());
-                        ChooseInspectItemActivity.start(getContext(), getView().getInspectItemList(), null);
-                        ;
+                        ChooseInspectItemActivity.start(getContext(),
+                                getView().getInspectItemList(), null);
                     }
                 } else {
-                    DiagnoseCheckSelectItemActivity.start(getContext(), getView().getCheckOutSelectItemList());
+                    DiagnoseCheckSelectItemActivity.start(getContext(),
+                            getView().getCheckOutSelectItemList());
                 }
                 break;
             case R.id.diagnose_tv:
                 DiagnoseInputActivity.start(getContext(), getView().getMainDec());
                 break;
             case R.id.disease_tv:
-                CommonInputActivity.start(getContext(), ApplyForCheckActivity.INPUT_DISEASE, "病情描述", getView().getDisease(), 500, 10);
+                CommonInputActivity.start(getContext(), ApplyForCheckActivity.INPUT_DISEASE,
+                        "病情描述", getView().getDisease(), 500, 10);
                 break;
         }
 
@@ -78,7 +79,8 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 hideLoading();
                 getView().saveTestOrderFailed(msg);
                 return super.requestError(exception, code, msg);
@@ -98,7 +100,8 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().saveInspectOrderFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -117,7 +120,8 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getInspectItemListFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -165,7 +169,8 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().deleteOrderFailed(msg);
                 return super.requestError(exception, code, msg);
             }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.TextView;
@@ -59,7 +60,25 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
      * 一级列表
      */
     private List<CheckOutParentBean> groupData = new ArrayList<>();
+    /**
+     * 二级项目
+     */
     private List<CheckOutSubBean> itemData = new ArrayList<>();
+
+    /**
+     * 已选项目
+     */
+    private List<CheckOutParentBean> selectData = new ArrayList<>();
+    /**
+     * 选择的项目（未数据处理）
+     */
+    private SparseArray<ArrayList<CheckOutSubBean>> selectCheck = new SparseArray<>();
+
+    /**
+     * 判断选择项目互斥
+     */
+    private String curSelectApplicationCode;
+    private String curSelectExecuteDeptCode;
 
     /**
      * 当前选中的一级菜单
@@ -67,7 +86,6 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     private CheckOutParentBean curSelectGroup;
     private int curPosition = -1;
 
-    private SparseArray<ArrayList<CheckOutSubBean>> selectCheck = new SparseArray<>();
 
     /**
      * 启动检验项目选择页面
@@ -108,10 +126,15 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
             @SingleClick(1000)
             @Override
             public void OnRightTextClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra(Const.DATA, (Serializable) getSelectList());
-                setResult(RESULT_OK, intent);
-                finish();
+                dealSelectList();
+                if (selectData.size() > 0) {
+                    Intent intent = new Intent();
+                    intent.putExtra(Const.DATA, (Serializable) selectData);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                } else {
+                    ToastUtil.showMessage(DiagnoseCheckSelectItemActivity.this, "请选择项目");
+                }
             }
         });
         searchTv.setOnClickListener(new View.OnClickListener() {
@@ -125,9 +148,21 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     /**
      * 已选数据
      */
-    private List<CheckOutParentBean> getSelectList() {
-        List<CheckOutParentBean> list = new ArrayList<>();
-        return list;
+    private void dealSelectList() {
+        selectData.clear();
+        int size = selectCheck.size();
+        for (int i = 0; i < size; i++) {
+            //得到key
+            int key = selectCheck.keyAt(i);
+            //得到父级项目
+            CheckOutParentBean parentBean = groupData.get(key);
+            //得到子级项目
+            ArrayList<CheckOutSubBean> subBeans = selectCheck.get(key);
+            if (parentBean != null && subBeans != null && subBeans.size() > 0) {
+                parentBean.setItems(subBeans);
+                selectData.add(parentBean);
+            }
+        }
     }
 
     @Override
@@ -151,7 +186,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
         if (groupData.size() > 0) {
             curPosition = 0;
             curSelectGroup = groupData.get(curPosition);
-            getController().checkoutItemList(curSelectGroup.getCateCode());
+            getController().checkoutItemList(curSelectGroup.getInsCheckCateCode());
         }
     }
 
@@ -170,19 +205,43 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
             //获取子菜单数据
             curPosition = position;
             curSelectGroup = groupData.get(curPosition);
-            getController().checkoutItemList(curSelectGroup.getCateCode());
+            getController().checkoutItemList(curSelectGroup.getInsCheckCateCode());
         } else if (adapter instanceof DiagnoseCheckItemAdapter) {
             if (curSelectGroup != null) {
+                CheckOutSubBean subBean = itemData.get(position);
+                if (TextUtils.isEmpty(curSelectApplicationCode) || TextUtils.isEmpty(curSelectExecuteDeptCode)) {
+                    curSelectApplicationCode = subBean.getApplicationCode();
+                    curSelectExecuteDeptCode = subBean.getExecuteDeptCode();
+                } else if (!TextUtils.equals(curSelectApplicationCode, subBean.getApplicationCode())
+                        || !TextUtils.equals(curSelectExecuteDeptCode,
+                        subBean.getExecuteDeptCode())) {
+                    //所选项目code必须一致，否则不能选择
+                    ToastUtil.showMessageLong(this, "存在执行科室和申请单不一致的项目!");
+                    return;
+                }
+
                 ArrayList<CheckOutSubBean> checkOutSubBeans = selectCheck.get(curPosition);
                 if (checkOutSubBeans == null) {
                     checkOutSubBeans = new ArrayList<>();
                 }
-                if (checkOutSubBeans.contains(itemData.get(position))) {
-                    checkOutSubBeans.remove(itemData.get(position));
+                //判断已选未选逻辑
+                if (checkOutSubBeans.contains(subBean)) {
+                    checkOutSubBeans.remove(subBean);
                 } else {
-                    checkOutSubBeans.add(itemData.get(position));
+                    checkOutSubBeans.add(subBean);
                 }
-                selectCheck.put(curPosition, checkOutSubBeans);
+                if (checkOutSubBeans.size() > 0) {
+                    selectCheck.put(curPosition, checkOutSubBeans);
+                } else {
+                    //无数据删除key
+                    selectCheck.delete(curPosition);
+                }
+
+                //项目互斥逻辑 未选中项目时数据初始化
+                if (selectCheck.size() == 0) {
+                    curSelectApplicationCode = "";
+                    curSelectExecuteDeptCode = "";
+                }
                 checkItemAdapter.setSelectCheck(selectCheck, curPosition);
                 checkGroupAdapter.setSelectCheck(selectCheck);
             }

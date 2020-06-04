@@ -38,7 +38,7 @@ public class DiagnoseCheckGroupAdapter extends BaseQuickAdapter<CheckOutParentBe
 
     @Override
     protected void convert(BaseViewHolder helper, CheckOutParentBean item) {
-        helper.setText(R.id.diagnose_group_name, item.getName());
+        helper.setText(R.id.diagnose_group_name, item.getInsCheckCateName());
         //选中状态
         if (curPosition == helper.getAdapterPosition()) {
             helper.itemView.setSelected(true);
