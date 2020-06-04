@@ -205,7 +205,7 @@ public class ImClient {
         @Override
         public void onEvent(StatusCode status) {
             if (status.wontAutoLoginForever()) {
-                // TODO 被踢出、账号被禁用、密码错误等情况，自动登录失败，需要返回到登录界面进行重新登录操作
+                //  被踢出、账号被禁用、密码错误等情况，自动登录失败，需要返回到登录界面进行重新登录操作
                 Logger.e("发送挤掉线通知。");
                 EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.OFFLINE).build());
             }
@@ -558,6 +558,14 @@ public class ImClient {
             return storageRootPath;
         }
         return null;
+    }
+
+    /**
+     * 判断im登录状态
+     */
+    public static boolean isLoginedIM() {
+        StatusCode status = NIMClient.getStatus();
+        return status == StatusCode.LOGINED;
     }
 
     public static void loginIM(final String account, String token, final OnLoginListener listener) {

@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,7 @@ import com.keydom.ih_common.im.widget.ImMessageView;
 import com.keydom.ih_common.im.widget.plugin.EndInquiryPlugin;
 import com.keydom.ih_common.im.widget.plugin.UserFollowUpPlugin;
 import com.keydom.ih_common.im.widget.plugin.VideoPlugin;
+import com.keydom.ih_common.minterface.OnLoginListener;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -90,6 +92,7 @@ import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
+import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -253,8 +256,37 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             teamChat = extras.getBoolean(ImConstants.TEAM);
             orderId = extras.getLong("orderId");
         }
+
+        initIM();
         initView();
         initListener();
+    }
+
+    /**
+     * im登录状态
+     */
+    private void initIM() {
+        if (!ImClient.isLoginedIM()) {
+            Logger.e("IM已掉线");
+            final String userCode = SharePreferenceManager.getUserCode();
+            final String imToken = SharePreferenceManager.getImToken();
+            if (!TextUtils.isEmpty(userCode) && !TextUtils.isEmpty(imToken)) {
+                ImClient.loginIM(userCode, imToken, new OnLoginListener() {
+                    @Override
+                    public void success(String msg) {
+                        Logger.e("IM已重新登录");
+                    }
+
+                    @Override
+                    public void failed(String errMsg) {
+                        Logger.e("IM重新登录失败：" + errMsg);
+                        EventBus.getDefault().post(new com.keydom.ih_common.bean.MessageEvent.Buidler().setType(com.keydom.ih_common.constant.EventType.OFFLINE).build());
+                    }
+                });
+            }
+        } else {
+            Logger.e("IM已登录");
+        }
     }
 
     /**

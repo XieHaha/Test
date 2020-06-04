@@ -8,6 +8,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -87,7 +88,7 @@ public class WelcomeActivity extends AppCompatActivity {
         if (!SharePreferenceManager.getUserId().equals("") && !SharePreferenceManager.getUserPwd().equals("")) {
             final String userCode = SharePreferenceManager.getUserCode();
             final String imToken = SharePreferenceManager.getImToken();
-            if (userCode != null && !"".equals(userCode) && imToken != null && !"".equals(imToken)) {
+            if (!TextUtils.isEmpty(userCode) && !TextUtils.isEmpty(imToken)) {
                 ImClient.loginIM(userCode, imToken, new OnLoginListener() {
                     @Override
                     public void success(String msg) {
