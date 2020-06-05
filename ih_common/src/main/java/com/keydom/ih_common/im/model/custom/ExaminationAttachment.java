@@ -1,6 +1,7 @@
 package com.keydom.ih_common.im.model.custom;
 
 import com.alibaba.fastjson.JSONObject;
+import com.keydom.ih_common.bean.InspectionBean;
 
 /**
  * 检查单消息
@@ -10,22 +11,25 @@ import com.alibaba.fastjson.JSONObject;
 public class ExaminationAttachment extends BaseCustomAttachment {
     private static final long serialVersionUID = 5290624928074902667L;
     /**
-     * 检查单内容
+     * 检验详情
      */
-    private String examinationContent;
+    private InspectionBean insCheckApplication;
     /**
-     * 检查单id
+     * 检验单ID
      */
     private String id;
 
     /**
-     * 检查单金额
+     *
      */
-    private String amount;
+    private String insCheckOrderId;
     /**
-     * 支付状态
+     * 时间
      */
-    private int payStatus;
+    private String updateTime;
+    private String doctorName;
+
+    private int applicationType;
 
     public ExaminationAttachment() {
         super(ICustomAttachmentType.EXAMINATION);
@@ -33,58 +37,79 @@ public class ExaminationAttachment extends BaseCustomAttachment {
 
     @Override
     protected void paresData(JSONObject data) {
-        examinationContent = data.getString("examinationContent");
-        id = String.valueOf(data.getLong("id"));
-        amount = data.getString("amount");
-        payStatus = data.getInteger("payStatus");
+        id = data.getString("id");
+        applicationType = data.getInteger("applicationType");
+        insCheckApplication =
+                data.getJSONObject("insCheckApplication").toJavaObject(InspectionBean.class);
+        insCheckOrderId = data.getString("insCheckOrderId");
+        updateTime = data.getString("updateTime");
+        doctorName = data.getString("doctorName");
     }
 
     @Override
     protected JSONObject packData() {
         JSONObject data = new JSONObject();
         data.put("id", id);
-        data.put("amount", amount);
-        data.put("payStatus", payStatus);
-        data.put("examinationContent", examinationContent);
+        data.put("doctorName", doctorName);
+        data.put("applicationType", applicationType);
+        data.put("insCheckApplication", insCheckApplication);
+        data.put("updateTime", updateTime);
+        data.put("insCheckOrderId", insCheckOrderId);
         return data;
     }
 
-    public String getExaminationContent() {
-        return examinationContent;
+    public InspectionBean getInsCheckApplication() {
+        return insCheckApplication;
     }
 
-    public void setExaminationContent(String examinationContent) {
-        this.examinationContent = examinationContent;
+    public void setInsCheckApplication(InspectionBean insCheckApplication) {
+        this.insCheckApplication = insCheckApplication;
     }
 
-    public Long getId() {
-        return Long.valueOf(id);
+    public String getId() {
+        return id;
     }
 
-    public void setId(Long id) {
-        this.id = String.valueOf(id);
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getAmount() {
-        return amount;
+    public String getInsCheckOrderId() {
+        return insCheckOrderId;
     }
 
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public void setInsCheckOrderId(String insCheckOrderId) {
+        this.insCheckOrderId = insCheckOrderId;
     }
 
-    public int getPayStatus() {
-        return payStatus;
+    public String getUpdateTime() {
+        return updateTime;
     }
 
-    public void setPayStatus(int payStatus) {
-        this.payStatus = payStatus;
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public int getApplicationType() {
+        return applicationType;
+    }
+
+    public void setApplicationType(int applicationType) {
+        this.applicationType = applicationType;
     }
 
     @Override
     public String toString() {
-        return "ExaminationAttachment{" +
-                "examinationContent='" + examinationContent + '\'' +
+        return "InspectionAttachment{" +
+                "insCheckApplication='" + insCheckApplication + '\'' +
                 ", id='" + id + '\'' +
                 ", type=" + type +
                 '}';

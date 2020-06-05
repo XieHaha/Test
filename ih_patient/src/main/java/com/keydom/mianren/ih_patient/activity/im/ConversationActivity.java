@@ -481,7 +481,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     //检查单
                     else if (message.getAttachment() instanceof ExaminationAttachment) {
                         CheckOrderDetailActivity.startInspactOrder(context,
-                                ((ExaminationAttachment) message.getAttachment()).getId(),
+                                ((ExaminationAttachment) message.getAttachment()).getInsCheckApplication(),
                                 orderBean);
                     }
                     //检验单
@@ -545,8 +545,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     if (message.getAttachment() instanceof ExaminationAttachment) {
                         ExaminationAttachment attachment =
                                 (ExaminationAttachment) message.getAttachment();
-                        isPayOrderId = attachment.getId();
-                        orderFee = attachment.getAmount();
+                        isPayOrderId = Long.valueOf(attachment.getInsCheckOrderId());
+                        orderFee = attachment.getInsCheckApplication().getAmount();
                         isPrescription = false;
                     } else if (message.getAttachment() instanceof InspectionAttachment) {
                         InspectionAttachment attachment =

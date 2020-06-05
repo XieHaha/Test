@@ -31,16 +31,16 @@ class ImMessageItemExaminationProvider(context: Context?, attrs: AttributeSet?) 
 
     override fun bindView(message: ImUIMessage) {
         val attachment = message.message.attachment as ExaminationAttachment
-        examinationContent.text = attachment.examinationContent
+        examinationContent.text = attachment.insCheckApplication.diagnosis
         val userInfo = ImClient.getUserInfoProvider().getUserInfo(ImClient.getUserInfoProvider().account) as NimUserInfo
         var type = ImMessageConstant.DOCTOR
-        if(null == userInfo.extensionMap){
+        if (null == userInfo.extensionMap) {
             if ("com.keydom.mianren.ih_patient" == context.packageName) {
                 type = ImMessageConstant.DOCTOR
             } else {
                 type = ImMessageConstant.PATIENT
             }
-        }else{
+        } else {
             type = userInfo.extensionMap[ImConstants.CALL_USER_TYPE].toString()
         }
         bottomTitle.text = if (type == ImMessageConstant.DOCTOR) "详情" else "检查申请单"
@@ -50,7 +50,7 @@ class ImMessageItemExaminationProvider(context: Context?, attrs: AttributeSet?) 
         } else {
             paymentAmount.visibility = View.VISIBLE
             resultPay.visibility = View.VISIBLE
-            paymentAmount.text = String.format("￥(%s元)", attachment.amount)
+            paymentAmount.text = String.format("￥(%s元)", attachment.insCheckApplication.amount)
             resultPay.text = "去支付"
         }
     }

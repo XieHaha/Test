@@ -50,10 +50,6 @@ import com.keydom.ih_common.im.widget.plugin.EndInquiryPlugin;
 import com.keydom.ih_common.im.widget.plugin.UserFollowUpPlugin;
 import com.keydom.ih_common.im.widget.plugin.VideoPlugin;
 import com.keydom.ih_common.minterface.OnLoginListener;
-import com.keydom.ih_common.net.ApiRequest;
-import com.keydom.ih_common.net.exception.ApiException;
-import com.keydom.ih_common.net.service.HttpService;
-import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.CalculateTimeUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.ToastUtil;
@@ -73,7 +69,6 @@ import com.keydom.mianren.ih_doctor.activity.patient_manage.PatientDatumActivity
 import com.keydom.mianren.ih_doctor.activity.prescription_check.DiagnosePrescriptionActivity;
 import com.keydom.mianren.ih_doctor.activity.prescription_check.PrescriptionActivity;
 import com.keydom.mianren.ih_doctor.adapter.DiagnoseOrderRecyclrViewAdapter;
-import com.keydom.mianren.ih_doctor.bean.CheckItemListBean;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.bean.MessageEvent;
 import com.keydom.mianren.ih_doctor.constant.Const;
@@ -81,7 +76,6 @@ import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.constant.ServiceConst;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
-import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
 import com.keydom.mianren.ih_doctor.utils.DateUtils;
 import com.keydom.mianren.ih_doctor.view.FixHeightBottomSheetDialog;
 import com.keydom.mianren.ih_doctor.view.im_plugin.VoiceInputPlugin;
@@ -98,7 +92,6 @@ import com.scwang.smartrefresh.layout.util.DensityUtil;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jsoup.helper.StringUtil;
 
@@ -344,25 +337,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         TriageOrderDetailActivity.startWithAction(context, bean,
                                 TypeEnum.TRIAGE_RECEIVED, true);
                     } else if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
-                        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((ExaminationAttachment) message.getAttachment()).getId(), 2), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
-                            @Override
-                            public void requestComplete(@Nullable CheckItemListBean data) {
-                                if (data != null) {
-                                    CheckOrderDetailActivity.startInspectOrder(context,
-                                            ((ExaminationAttachment) message.getAttachment()).getId(), orderBean);
-                                } else {
-                                    ToastUtil.showMessage(context, "检查报告单不存在");
-                                }
-                            }
-
-                            @Override
-                            public boolean requestError(@NotNull ApiException exception, int code
-                                    , @NotNull String msg) {
-                                ToastUtil.showMessage(context, msg);
-                                return super.requestError(exception, code, msg);
-                            }
-                        });
-
+                        CheckOrderDetailActivity.startInspectOrder(context,
+                                ((ExaminationAttachment) message.getAttachment()).getInsCheckApplication(), orderBean);
                     } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
                         CheckOrderDetailActivity.startTestOrder(context,
                                 ((InspectionAttachment) message.getAttachment()).getInsCheckApplication(), orderBean);
@@ -406,26 +382,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             @Override
             public boolean onPayClick(Context context, View view, IMMessage message) {
                 if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
-                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((ExaminationAttachment) message.getAttachment()).getId(), 2), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
-                        @Override
-                        public void requestComplete(@Nullable CheckItemListBean data) {
-                            if (data != null) {
-                                CheckOrderDetailActivity.startInspectOrder(context,
-                                        ((ExaminationAttachment) message.getAttachment()).getId()
-                                        , orderBean);
-                            } else {
-                                ToastUtil.showMessage(context, "检查报告单不存在");
-                            }
-                        }
-
-                        @Override
-                        public boolean requestError(@NotNull ApiException exception, int code,
-                                                    @NotNull String msg) {
-                            ToastUtil.showMessage(context, msg);
-                            return super.requestError(exception, code, msg);
-                        }
-                    });
-
+                    CheckOrderDetailActivity.startInspectOrder(context,
+                            ((ExaminationAttachment) message.getAttachment()).getInsCheckApplication(), orderBean);
                 } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
                     CheckOrderDetailActivity.startTestOrder(context,
                             ((InspectionAttachment) message.getAttachment()).getInsCheckApplication(), orderBean);
@@ -439,28 +397,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             public boolean onPrescriptionClick(Context context,
                                                @android.support.annotation.Nullable IMMessage message) {
                 if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
-
-
-                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((ExaminationAttachment) message.getAttachment()).getId(), 2), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
-                        @Override
-                        public void requestComplete(@Nullable CheckItemListBean data) {
-                            if (data != null) {
-                                CheckOrderDetailActivity.startInspectOrder(context,
-                                        ((ExaminationAttachment) message.getAttachment()).getId()
-                                        , orderBean);
-                            } else {
-                                ToastUtil.showMessage(context, "检查报告单不存在");
-                            }
-                        }
-
-                        @Override
-                        public boolean requestError(@NotNull ApiException exception, int code,
-                                                    @NotNull String msg) {
-                            ToastUtil.showMessage(context, msg);
-                            return super.requestError(exception, code, msg);
-                        }
-                    });
-
+                    CheckOrderDetailActivity.startInspectOrder(context,
+                            ((ExaminationAttachment) message.getAttachment()).getInsCheckApplication(), orderBean);
                 } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
                     CheckOrderDetailActivity.startTestOrder(context,
                             ((InspectionAttachment) message.getAttachment()).getInsCheckApplication(), orderBean);

@@ -19,11 +19,8 @@ import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.apply_for_order_detail.controller.CheckOrderDetailController;
 import com.keydom.mianren.ih_patient.activity.apply_for_order_detail.view.CheckOrderDetailView;
 import com.keydom.mianren.ih_patient.adapter.TestDetailItemListAdapter;
-import com.keydom.mianren.ih_patient.bean.CheckItemListBean;
-import com.keydom.mianren.ih_patient.bean.CheckOutItemBean;
 import com.keydom.mianren.ih_patient.bean.InquiryBean;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +47,6 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
             table_title_tv;
     private ImageButton editOrderIb;
     private List<CheckOutGroupBean> checkOutList = new ArrayList<>();
-    private CheckItemListBean checkItemListBean;
     private InspectionBean inspectionBean;
 
     /**
@@ -100,14 +96,14 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         context.startActivity(starter);
     }
 
-
     /**
      * 启动方法
      */
-    public static void startInspactOrder(Context context, long orderId, InquiryBean bean) {
+    public static void startInspactOrder(Context context, InspectionBean inspectionBean,
+                                         InquiryBean bean) {
         Intent starter = new Intent(context, CheckOrderDetailActivity.class);
         starter.putExtra(INQUIRYBEAN, bean);
-        starter.putExtra(ID, orderId);
+        starter.putExtra(Const.DATA, inspectionBean);
         starter.putExtra(Const.TYPE, INSPACT_ORDER);
         context.startActivity(starter);
     }
@@ -127,14 +123,12 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
             setTitle("检验申请详情");
             table_title_tv.setText("检验申请单");
             check_item_tip_tv.setText("检验项目：");
-            setCheckOrderInfo();
         } else {
             setTitle("检查申请详情");
             table_title_tv.setText("检查申请单");
             check_item_tip_tv.setText("检查项目：");
-
         }
-
+        setCheckOrderInfo();
     }
 
     /**
@@ -164,7 +158,6 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         testDetailItemListAdapter.notifyDataSetChanged();
     }
 
-
     /**
      * 过滤一级列表（只展示二级）
      */
@@ -175,109 +168,6 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
             list.addAll(bean.getItems());
         }
         return list;
-    }
-
-    /**
-     * 设置检查单数据
-     */
-    private void setInspactOrderInfo(CheckItemListBean bean) {
-        hospitalName.setText(bean.getHospitalName());
-        userName.setText(bean.getName());
-        userSex.setText(CommonUtils.getSex(bean.getSex()));
-        userAge.setText(String.valueOf(bean.getAge()));
-        diagnoseNumber.setText(String.valueOf(bean.getOutpatientNumber()));
-        sampleTypeTip.setText("申请项目：");
-        String sampleTypeString = "";
-        String checkItemStr = "";
-        String doctorInstructionStr = "";
-        for (CheckOutItemBean item : bean.getItems()) {
-            checkItemStr += assembleProjectName(item.getItems());
-            if ("".equals(doctorInstructionStr)) {
-                if (item.selectedItem() != null) {
-                    doctorInstructionStr = doctorInstructionStr + item.getRemark();
-                }
-            } else {
-                if (item.selectedItem() != null) {
-                    doctorInstructionStr = doctorInstructionStr + " " + item.getRemark();
-                }
-            }
-            if ("".equals(sampleTypeString)) {
-                sampleTypeString = sampleTypeString + item.getName();
-            } else {
-                sampleTypeString = sampleTypeString + "," + item.getName();
-            }
-        }
-        sampleType.setText(sampleTypeString);
-        deptName.setText(bean.getDeptName());
-        diagnoseResTv.setText(bean.getDiagnosis());
-        checkItemAmount.setText("总共" + CommonUtils.numberToChinese(bean.getItems().size()) + "项");
-        totalFee.setText("总金额：¥" + getTotalFee(bean));
-        applyDoctor.setText(bean.getDoctor());
-        applyTime.setText(bean.getApplyTime());
-        diseaseDecTv.setText(bean.getConditionDesc());
-        checkItemTv.setText(checkItemStr);
-        doctorInstructionTv.setText(doctorInstructionStr);
-        recyclerView.setVisibility(View.GONE);
-    }
-
-    private String assembleProjectName(List<CheckOutItemBean> items) {
-        String assembleNameStr = "";
-        for (CheckOutItemBean item : items) {
-            if (item.isSelect()) {
-                if (item.getItems() != null && item.getItems().size() != 0) {
-                    for (CheckOutItemBean secodItem : item.getItems()) {
-                        if (secodItem.isSelect()) {
-                            if ("".equals(assembleNameStr)) {
-                                assembleNameStr = assembleNameStr + secodItem.getName();
-                            } else {
-                                assembleNameStr = assembleNameStr + "," + secodItem.getName();
-                            }
-                        }
-
-                    }
-                }/*else {
-                    if ("".equals(assembleNameStr)) {
-                        assembleNameStr = assembleNameStr + item.getName();
-                    } else {
-                        assembleNameStr = assembleNameStr + "," + item.getName();
-                    }
-                }*/
-            }
-        }
-
-        return assembleNameStr;
-    }
-
-    /**
-     * 计算总的费用
-     */
-    private BigDecimal getTotalFee(CheckItemListBean bean) {
-        BigDecimal totalFee = BigDecimal.ZERO;
-        if (bean != null) {
-            if (bean.getItems() != null && bean.getItems().size() > 0) {
-                for (CheckOutItemBean subBean : bean.getItems()) {
-                    if (subBean.selectedItem() != null) {
-                        if (subBean.selectedItem().selectedItem() != null) {
-                            totalFee = totalFee.add(subBean.selectedItem().totalFee());
-                        } else {
-                            totalFee = totalFee.add(subBean.getPrice());
-                        }
-                    }
-                }
-            }
-        }
-        return totalFee;
-    }
-
-
-    @Override
-    public CheckItemListBean getCheckOutOrder() {
-        return checkItemListBean;
-    }
-
-    @Override
-    public InquiryBean getInqueryOrder() {
-        return inquiryBean;
     }
 
     @Override

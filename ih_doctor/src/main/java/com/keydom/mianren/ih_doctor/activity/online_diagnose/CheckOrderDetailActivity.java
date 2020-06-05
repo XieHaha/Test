@@ -20,12 +20,9 @@ import com.keydom.mianren.ih_doctor.activity.im.ConversationActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.controller.CheckOrderDetailController;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.CheckOrderDetailView;
 import com.keydom.mianren.ih_doctor.adapter.TestDetailItemListAdapter;
-import com.keydom.mianren.ih_doctor.bean.CheckItemListBean;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 
-import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,10 +59,6 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
      * 检验、检查项目列表
      */
     private List<CheckOutGroupBean> checkOutList = new ArrayList<>();
-    /**
-     * 检验、检查详情对象
-     */
-    private CheckItemListBean checkItemListBean;
 
     private void initView() {
         doctorInstructionTipTv = this.findViewById(R.id.doctor_instruction_tip_tv);
@@ -116,13 +109,13 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
     /**
      * 启动检查单详情页面
      *
-     * @param orderId 检查单ID
-     * @param bean    问诊单对象
+     * @param bean 问诊单对象
      */
-    public static void startInspectOrder(Context context, long orderId, InquiryBean bean) {
+    public static void startInspectOrder(Context context, InspectionBean inspectionBean,
+                                         InquiryBean bean) {
         Intent starter = new Intent(context, CheckOrderDetailActivity.class);
         starter.putExtra(INQUIRYBEAN, bean);
-        starter.putExtra(ID, orderId);
+        starter.putExtra(Const.DATA, inspectionBean);
         starter.putExtra(Const.TYPE, INSPACT_ORDER);
         ((Activity) context).startActivityForResult(starter, ConversationActivity.SEND_MESSAGE);
     }
@@ -142,12 +135,12 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
             setTitle("检验申请详情");
             titleTipTv.setText("检验申请单");
             checkItemTipTv.setText("检验项目：");
-            setCheckOrderInfo();
         } else {
             setTitle("检查申请详情");
             titleTipTv.setText("检查申请单");
             checkItemTipTv.setText("检查项目：");
         }
+        setCheckOrderInfo();
     }
 
 
@@ -188,151 +181,6 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
             list.addAll(bean.getItems());
         }
         return list;
-    }
-
-    /**
-     * 组装检验项目列表
-     */
-    private List<CheckOutGroupBean> assembleInspectItemList(List<CheckOutGroupBean> list) {
-        List<CheckOutGroupBean> assembleList = new ArrayList<>();
-        for (CheckOutGroupBean bean : list) {
-            if (bean.selectedItems() != null && bean.selectedItems().size() > 1) {
-                for (CheckOutGroupBean subBean : bean.selectedItems()) {
-                    try {
-                        CheckOutGroupBean cpBean = bean.copy();
-                        cpBean.reset();
-                        cpBean.setSelectItem(subBean);
-                        assembleList.add(cpBean);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            } else {
-                assembleList.add(bean);
-            }
-        }
-        return assembleList;
-    }
-
-
-    /**
-     * 设置检查单详情
-     */
-    private void setInspectOrderInfo(CheckItemListBean bean) {
-        List<CheckOutGroupBean> beans = assembleInspectItemList(bean.getItems());
-        bean.setItems(beans);
-        editOrderIb.setVisibility((bean.isEdit() && inquiryBean != null) ? View.VISIBLE :
-                View.GONE);
-        hospitalName.setText(MyApplication.userInfo.getHospitalName());
-        userName.setText(bean.getName());
-        userSex.setText(CommonUtils.getSex(bean.getSex()));
-        userAge.setText(String.valueOf(bean.getAge()));
-        diagnoseNumber.setText(String.valueOf(bean.getOutpatientNumber()));
-        sampleTypeTip.setText("申请项目：");
-        String sampleTypeString = "";
-        String checkItemStr = "";
-        String doctorInstructionStr = "";
-        for (CheckOutGroupBean item : bean.getItems()) {
-            if ("".equals(checkItemStr)) {
-                if (item.selectedItem() != null) {
-                    checkItemStr = item.selectedItem().getInsCheckCateName();
-                }
-            } else {
-                if (item.selectedItem() != null) {
-                    checkItemStr = checkItemStr + " " + item.selectedItem().getInsCheckCateName();
-                }
-            }
-            if ("".equals(doctorInstructionStr)) {
-                if (item.selectedItem() != null) {
-                    doctorInstructionStr = doctorInstructionStr + item.getRemark();
-                }
-            } else {
-                if (item.selectedItem() != null) {
-                    doctorInstructionStr = doctorInstructionStr + " " + item.getRemark();
-                }
-            }
-            if ("".equals(sampleTypeString)) {
-                sampleTypeString = sampleTypeString + item.getInsCheckCateName();
-            } else {
-                sampleTypeString = sampleTypeString + "," + item.getInsCheckCateName();
-            }
-        }
-        sampleType.setText(sampleTypeString);
-        deptName.setText(bean.getDeptName());
-        diagnoseResTv.setText(bean.getDiagnosis());
-        checkItemAmount.setText("总共" + CommonUtils.numberToChinese(bean.getItems().size()) + "项");
-        totalFee.setText("总金额：¥" + getTotalFee(bean));
-        applyDoctor.setText(bean.getDoctor());
-        applyTime.setText(bean.getApplyTime());
-        diseaseDecTv.setText(bean.getConditionDesc());
-        checkItemTv.setText(checkItemStr);
-        doctorInstructionTv.setText(doctorInstructionStr);
-        recyclerView.setVisibility(View.GONE);
-    }
-
-    private String assembleProjectName(List<CheckOutGroupBean> items) {
-        String assembleNameStr = "";
-        for (CheckOutGroupBean item : items) {
-            if (item.isSelect()) {
-                if (item.getItems() != null && item.getItems().size() != 0) {
-                    for (CheckOutGroupBean secodItem : item.getItems()) {
-                        if (secodItem.isSelect()) {
-                            if ("".equals(assembleNameStr)) {
-                                assembleNameStr = assembleNameStr + secodItem.getInsCheckCateName();
-                            } else {
-                                assembleNameStr =
-                                        assembleNameStr + "," + secodItem.getInsCheckCateName();
-                            }
-                        }
-
-                    }
-                }/*else {
-                    if ("".equals(assembleNameStr)) {
-                        assembleNameStr = assembleNameStr + item.getName();
-                    } else {
-                        assembleNameStr = assembleNameStr + "," + item.getName();
-                    }
-                }*/
-            }
-        }
-
-        return assembleNameStr;
-    }
-
-
-    /**
-     * 获取总费用
-     */
-    private BigDecimal getTotalFee(CheckItemListBean bean) {
-        BigDecimal totalFee = BigDecimal.ZERO;
-        if (bean != null) {
-            if (bean.getItems() != null && bean.getItems().size() > 0) {
-                for (CheckOutGroupBean subBean : bean.getItems()) {
-                    if (subBean.selectedItem() != null) {
-                        if (subBean.selectedItem().selectedItem() != null) {
-                            for (CheckOutGroupBean partBean : subBean.selectedItems()) {
-                                totalFee = totalFee.add(partBean.totalFee());
-                            }
-                        } else {
-                            totalFee = totalFee.add(subBean.getPrice());
-                        }
-                    }
-                }
-            }
-        }
-        return totalFee;
-    }
-
-    @Override
-    public CheckItemListBean getCheckOutOrder() {
-        return checkItemListBean;
-    }
-
-    @Override
-    public InquiryBean getInqueryOrder() {
-        return inquiryBean;
     }
 
     @Override
