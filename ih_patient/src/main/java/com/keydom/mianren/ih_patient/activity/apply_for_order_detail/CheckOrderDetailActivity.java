@@ -1,6 +1,5 @@
 package com.keydom.mianren.ih_patient.activity.apply_for_order_detail;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +10,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.bean.CheckOutGroupBean;
+import com.keydom.ih_common.bean.InspectionBean;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.utils.CommonUtils;
-import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.apply_for_order_detail.controller.CheckOrderDetailController;
 import com.keydom.mianren.ih_patient.activity.apply_for_order_detail.view.CheckOrderDetailView;
@@ -40,22 +41,24 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
     public static final int INSPACT_ORDER = 801;
     private RecyclerView recyclerView;
     private TestDetailItemListAdapter testDetailItemListAdapter;
-    private long orderId;
     private int mType;
 
     private TextView hospitalName, userName, userSex, userAge, diagnoseNumber, sampleType, deptName,
-            diagnoseResTv, diseaseDecTv, checkItemTv, doctorInstructionTv, diseaseDecTipTv, doctorInstructionTipTv,
-            checkItemAmount, totalFee, applyDoctor, applyTime, sampleTypeTip,check_item_tip_tv,table_title_tv;
+            diagnoseResTv, diseaseDecTv, checkItemTv, doctorInstructionTv, diseaseDecTipTv,
+            doctorInstructionTipTv,
+            checkItemAmount, totalFee, applyDoctor, applyTime, sampleTypeTip, check_item_tip_tv,
+            table_title_tv;
     private ImageButton editOrderIb;
-    private List<CheckOutItemBean> checkOutList = new ArrayList<>();
+    private List<CheckOutGroupBean> checkOutList = new ArrayList<>();
     private CheckItemListBean checkItemListBean;
+    private InspectionBean inspectionBean;
 
     /**
      * 初始化控件
      */
     private void initView() {
-        table_title_tv=findViewById(R.id.table_title_tv);
-        check_item_tip_tv=findViewById(R.id.check_item_tip_tv);
+        table_title_tv = findViewById(R.id.table_title_tv);
+        check_item_tip_tv = findViewById(R.id.check_item_tip_tv);
         doctorInstructionTipTv = this.findViewById(R.id.doctor_instruction_tip_tv);
         diseaseDecTipTv = this.findViewById(R.id.disease_dec_tip_tv);
         editOrderIb = this.findViewById(R.id.edit_order_ib);
@@ -86,15 +89,17 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
     private InquiryBean inquiryBean;
 
     /**
-     * 启动方法
+     * 启动检验单详情页面
      */
-    public static void startCheckOrder(Context context, long orderId, InquiryBean bean) {
+    public static void startTestOrder(Context context, InspectionBean inspectionBean,
+                                      InquiryBean bean) {
         Intent starter = new Intent(context, CheckOrderDetailActivity.class);
         starter.putExtra(INQUIRYBEAN, bean);
-        starter.putExtra(ID, orderId);
+        starter.putExtra(Const.DATA, inspectionBean);
         starter.putExtra(Const.TYPE, TEST_ORDER);
-        ((Activity) context).startActivity(starter);
+        context.startActivity(starter);
     }
+
 
     /**
      * 启动方法
@@ -104,7 +109,7 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         starter.putExtra(INQUIRYBEAN, bean);
         starter.putExtra(ID, orderId);
         starter.putExtra(Const.TYPE, INSPACT_ORDER);
-        ((Activity) context).startActivity(starter);
+        context.startActivity(starter);
     }
 
     @Override
@@ -114,18 +119,17 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
 
     @Override
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        orderId = getIntent().getLongExtra(ID, 0);
         inquiryBean = (InquiryBean) getIntent().getSerializableExtra(INQUIRYBEAN);
+        inspectionBean = (InspectionBean) getIntent().getSerializableExtra(Const.DATA);
         mType = getIntent().getIntExtra(Const.TYPE, -1);
         initView();
         if (mType == TEST_ORDER) {
             setTitle("检验申请详情");
-            getController().getCheckoutDetail(orderId);
             table_title_tv.setText("检验申请单");
             check_item_tip_tv.setText("检验项目：");
+            setCheckOrderInfo();
         } else {
             setTitle("检查申请详情");
-            getController().getInspectDetail(orderId);
             table_title_tv.setText("检查申请单");
             check_item_tip_tv.setText("检查项目：");
 
@@ -136,28 +140,41 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
     /**
      * 设置检验单数据
      */
-    private void setCheckOrderInfo(CheckItemListBean bean) {
-        hospitalName.setText(bean.getHospitalName());
-        userName.setText(bean.getName());
-        userSex.setText(CommonUtils.getSex(bean.getSex()));
-        userAge.setText(String.valueOf(bean.getAge()));
-        diagnoseNumber.setText(String.valueOf(bean.getOutpatientNumber()));
+    private void setCheckOrderInfo() {
+        //        editOrderIb.setVisibility(bean.isEdit() ? View.VISIBLE : View.GONE);
+        hospitalName.setText(App.hospitalName);
+        userName.setText(inspectionBean.getPatientName());
+        userSex.setText(CommonUtils.getSex(inspectionBean.getSex()));
+        userAge.setText(String.valueOf(inspectionBean.getAge()));
+        //        diagnoseNumber.setText(String.valueOf(inspectionBean.getOutpatientNumber()));
         sampleTypeTip.setText("标本类型：");
-        sampleType.setText(bean.getSpecimenName());
-        deptName.setText(bean.getDeptName());
-        diagnoseResTv.setText(bean.getDiagnosis());
-        checkItemAmount.setText("总共" + CommonUtils.numberToChinese(bean.getItems().size()) + "项");
-        totalFee.setText("总金额：¥" + getTotalFee(bean));
-        applyDoctor.setText(bean.getDoctor());
-        applyTime.setText(bean.getApplyTime());
+        //        sampleType.setText(inspectionBean.getSpecimenName());
+        deptName.setText(inspectionBean.getDeptName());
+        diagnoseResTv.setText(inspectionBean.getDiagnosis());
+        checkItemAmount.setText("总共" + CommonUtils.numberToChinese(inspectionBean.getCateS().size()) + "项");
+        totalFee.setText("总金额：¥" + inspectionBean.getAmount() + "元");
+        applyDoctor.setText(inspectionBean.getDoctorName());
+        applyTime.setText(inspectionBean.getUpdateTime());
         diseaseDecTv.setVisibility(View.GONE);
         checkItemTv.setVisibility(View.GONE);
         diseaseDecTipTv.setVisibility(View.GONE);
         doctorInstructionTv.setVisibility(View.GONE);
         doctorInstructionTipTv.setVisibility(View.GONE);
-        checkOutList.addAll(bean.getItems());
+        checkOutList.addAll(getCheckOutList());
         testDetailItemListAdapter.notifyDataSetChanged();
+    }
 
+
+    /**
+     * 过滤一级列表（只展示二级）
+     */
+    private List<CheckOutGroupBean> getCheckOutList() {
+        List<CheckOutGroupBean> list = new ArrayList<>();
+        for (CheckOutGroupBean bean :
+                inspectionBean.getCateS()) {
+            list.addAll(bean.getItems());
+        }
+        return list;
     }
 
     /**
@@ -174,7 +191,7 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         String checkItemStr = "";
         String doctorInstructionStr = "";
         for (CheckOutItemBean item : bean.getItems()) {
-            checkItemStr+=assembleProjectName(item.getItems());
+            checkItemStr += assembleProjectName(item.getItems());
             if ("".equals(doctorInstructionStr)) {
                 if (item.selectedItem() != null) {
                     doctorInstructionStr = doctorInstructionStr + item.getRemark();
@@ -202,13 +219,14 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         doctorInstructionTv.setText(doctorInstructionStr);
         recyclerView.setVisibility(View.GONE);
     }
-    private String assembleProjectName( List<CheckOutItemBean> items){
-        String assembleNameStr="";
+
+    private String assembleProjectName(List<CheckOutItemBean> items) {
+        String assembleNameStr = "";
         for (CheckOutItemBean item : items) {
-            if(item.isSelect()){
-                if(item.getItems()!=null&&item.getItems().size()!=0){
-                    for(CheckOutItemBean secodItem : item.getItems()){
-                        if(secodItem.isSelect()){
+            if (item.isSelect()) {
+                if (item.getItems() != null && item.getItems().size() != 0) {
+                    for (CheckOutItemBean secodItem : item.getItems()) {
+                        if (secodItem.isSelect()) {
                             if ("".equals(assembleNameStr)) {
                                 assembleNameStr = assembleNameStr + secodItem.getName();
                             } else {
@@ -251,32 +269,6 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         return totalFee;
     }
 
-
-    @Override
-    public void getCheckOutDetailSuccess(CheckItemListBean bean) {
-        checkItemListBean = bean;
-        setCheckOrderInfo(bean);
-    }
-
-    @Override
-    public void getCheckOutDetailFailed(String errMsg) {
-        pageLoadingFail();
-        ToastUtil.showMessage(this, "订单不存在");
-        finish();
-    }
-
-    @Override
-    public void getInspactDetailSuccess(CheckItemListBean bean) {
-        checkItemListBean = bean;
-        setInspactOrderInfo(bean);
-    }
-
-    @Override
-    public void getInspactDetailFailed(String errMsg) {
-        pageLoadingFail();
-        ToastUtil.showMessage(this, "订单不存在");
-        finish();
-    }
 
     @Override
     public CheckItemListBean getCheckOutOrder() {

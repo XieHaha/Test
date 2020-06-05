@@ -64,7 +64,7 @@ public class DiagnosePatientRecordAdapter extends BaseQuickAdapter<DiagnoseRecod
             @Override
             public void onClick(View view) {
                 //跳转到检查
-//                CheckOrderDetailActivity.startInspactOrder(mContext, item.getInspectId(), null);
+//                CheckOrderDetailActivity.startInspectOrder(mContext, item.getInspectId(), null);
 //                BodyCheckDetailActivity.start(mContext, String.valueOf(item.getInspectId()));
                 ReportListActivity.startInspectPage(mContext, item.getInspectList());
             }

@@ -148,7 +148,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
         if (groupData.size() > 0) {
             curPosition = 0;
             curSelectParent = groupData.get(curPosition);
-            getController().checkoutItemList(curSelectParent.getInsCheckCateCode());
+            getController().checkoutItemList(curSelectParent.getCateCode());
         }
     }
 
@@ -179,7 +179,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
             //获取子菜单数据
             curPosition = position;
             curSelectParent = groupData.get(curPosition);
-            getController().checkoutItemList(curSelectParent.getInsCheckCateCode());
+            getController().checkoutItemList(curSelectParent.getCateCode());
         } else if (adapter instanceof DiagnoseCheckItemAdapter) {
             if (curSelectParent != null) {
                 //项目互斥判断（code）

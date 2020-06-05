@@ -19,7 +19,7 @@ public class TestDetailItemListAdapter extends BaseQuickAdapter<CheckOutGroupBea
 
     @Override
     protected void convert(BaseViewHolder helper, final CheckOutGroupBean item) {
-        helper.setText(R.id.inspact_item_name, item.getInsCheckCateName())
+        helper.setText(R.id.inspact_item_name, item.getInsCheckItemName())
                 .setText(R.id.test_item_fee, "￥" + item.getPrice() + "元");
     }
 }

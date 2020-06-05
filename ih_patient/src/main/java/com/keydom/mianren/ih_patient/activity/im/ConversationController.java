@@ -114,7 +114,8 @@ public class ConversationController extends ControllerImpl<ConversationView> {
     /**
      * 创建支付订单
      */
-    public void createOrder(boolean needDispatch, String document, BigDecimal fee, boolean isWaiYan) {
+    public void createOrder(boolean needDispatch, String document, BigDecimal fee,
+                            boolean isWaiYan) {
         Map<String, Object> map = new HashMap<>();
         map.put("registerUserId", Global.getUserId());
         map.put("documentNo", document);
@@ -140,7 +141,7 @@ public class ConversationController extends ControllerImpl<ConversationView> {
      */
     public void inquiryPay(Map<String, Object> map, int type) {
         if (map != null) {
-            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).inquiryPay(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>() {
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).inquiryPay(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), true, false) {
                 @Override
                 public void requestComplete(@org.jetbrains.annotations.Nullable String data) {
                     if (type == 2) {

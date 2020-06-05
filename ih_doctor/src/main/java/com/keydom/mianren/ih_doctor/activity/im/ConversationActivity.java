@@ -344,11 +344,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         TriageOrderDetailActivity.startWithAction(context, bean,
                                 TypeEnum.TRIAGE_RECEIVED, true);
                     } else if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
-                        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
+                        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((ExaminationAttachment) message.getAttachment()).getId(), 2), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
                             @Override
                             public void requestComplete(@Nullable CheckItemListBean data) {
                                 if (data != null) {
-                                    CheckOrderDetailActivity.startInspactOrder(context,
+                                    CheckOrderDetailActivity.startInspectOrder(context,
                                             ((ExaminationAttachment) message.getAttachment()).getId(), orderBean);
                                 } else {
                                     ToastUtil.showMessage(context, "检查报告单不存在");
@@ -364,24 +364,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         });
 
                     } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
-                        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(Long.valueOf(((InspectionAttachment) message.getAttachment()).getInsCheckOrderId())), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
-                            @Override
-                            public void requestComplete(@Nullable CheckItemListBean data) {
-                                if (data != null) {
-                                    CheckOrderDetailActivity.startTestOrder(context,
-                                            Long.valueOf(((InspectionAttachment) message.getAttachment()).getInsCheckOrderId()), orderBean);
-                                } else {
-                                    ToastUtil.showMessage(context, "检验报告单不存在");
-                                }
-                            }
-
-                            @Override
-                            public boolean requestError(@NotNull ApiException exception, int code
-                                    , @NotNull String msg) {
-                                ToastUtil.showMessage(context, msg);
-                                return super.requestError(exception, code, msg);
-                            }
-                        });
+                        CheckOrderDetailActivity.startTestOrder(context,
+                                ((InspectionAttachment) message.getAttachment()).getInsCheckApplication(), orderBean);
 
                     } else if (message.getAttachment() instanceof ReferralApplyAttachment) {//转诊单
                         com.keydom.mianren.ih_doctor.activity.doctor_cooperation.DiagnoseOrderDetailActivity.startCommon(context, ((ReferralApplyAttachment) message.getAttachment()).getId());
@@ -422,11 +406,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             @Override
             public boolean onPayClick(Context context, View view, IMMessage message) {
                 if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
-                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
+                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((ExaminationAttachment) message.getAttachment()).getId(), 2), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
                         @Override
                         public void requestComplete(@Nullable CheckItemListBean data) {
                             if (data != null) {
-                                CheckOrderDetailActivity.startInspactOrder(context,
+                                CheckOrderDetailActivity.startInspectOrder(context,
                                         ((ExaminationAttachment) message.getAttachment()).getId()
                                         , orderBean);
                             } else {
@@ -443,26 +427,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     });
 
                 } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
-                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(Long.valueOf(((InspectionAttachment) message.getAttachment()).getInsCheckOrderId())), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
-                        @Override
-                        public void requestComplete(@Nullable CheckItemListBean data) {
-                            if (data != null) {
-                                CheckOrderDetailActivity.startTestOrder(context,
-                                        Long.valueOf(((InspectionAttachment) message.getAttachment()).getInsCheckOrderId()),
-                                        orderBean);
-                            } else {
-                                ToastUtil.showMessage(context, "检验报告单不存在");
-                            }
-                        }
-
-                        @Override
-                        public boolean requestError(@NotNull ApiException exception, int code,
-                                                    @NotNull String msg) {
-                            ToastUtil.showMessage(context, msg);
-                            return super.requestError(exception, code, msg);
-                        }
-                    });
-
+                    CheckOrderDetailActivity.startTestOrder(context,
+                            ((InspectionAttachment) message.getAttachment()).getInsCheckApplication(), orderBean);
                 } else
                     PrescriptionActivity.startCommon(context,
                             Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
@@ -475,11 +441,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
 
 
-                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getInspectDetail(((ExaminationAttachment) message.getAttachment()).getId()), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
+                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(((ExaminationAttachment) message.getAttachment()).getId(), 2), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
                         @Override
                         public void requestComplete(@Nullable CheckItemListBean data) {
                             if (data != null) {
-                                CheckOrderDetailActivity.startInspactOrder(context,
+                                CheckOrderDetailActivity.startInspectOrder(context,
                                         ((ExaminationAttachment) message.getAttachment()).getId()
                                         , orderBean);
                             } else {
@@ -496,27 +462,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     });
 
                 } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
-
-                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckoutDetail(Long.valueOf(((InspectionAttachment) message.getAttachment()).getInsCheckOrderId())), new HttpSubscriber<CheckItemListBean>(getContext(), getDisposable(), false) {
-                        @Override
-                        public void requestComplete(@Nullable CheckItemListBean data) {
-                            if (data != null) {
-                                CheckOrderDetailActivity.startTestOrder(context,
-                                        Long.valueOf(((InspectionAttachment) message.getAttachment()).getInsCheckOrderId()),
-                                        orderBean);
-                            } else {
-                                ToastUtil.showMessage(context, "检验报告单不存在");
-                            }
-                        }
-
-                        @Override
-                        public boolean requestError(@NotNull ApiException exception, int code,
-                                                    @NotNull String msg) {
-                            ToastUtil.showMessage(context, msg);
-                            return super.requestError(exception, code, msg);
-                        }
-                    });
-
+                    CheckOrderDetailActivity.startTestOrder(context,
+                            ((InspectionAttachment) message.getAttachment()).getInsCheckApplication(), orderBean);
                 } else
                     PrescriptionActivity.startCommon(context,
                             Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
@@ -890,14 +837,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 default:
                     break;
                 case SEND_MESSAGE:
-//                    List<IMMessage> messageList =
-//                            (List<IMMessage>) data.getSerializableExtra(Const.DATA);
-//                    if (messageList != null && messageList.size() > 0) {
-//                        for (IMMessage msg : messageList) {
-//                            mMessageView.addData(msg);
-//                        }
-//                    }
-//                                        getController().getInquiryStatus();
                     break;
                 case UPDATE_STATUS:
                     getController().getInquiryStatus();

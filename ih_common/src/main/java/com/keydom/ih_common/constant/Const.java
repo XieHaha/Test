@@ -51,6 +51,8 @@ public class Const {
      */
     public static final String AUDIT = "is_audit";
 
+    public static final String DATA = "data";
+
 
     /**
      * 处方流转

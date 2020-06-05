@@ -10,12 +10,16 @@ import java.util.ArrayList;
 public class InspectionBean implements Serializable {
     private static final long serialVersionUID = -8566700728479963990L;
     private int type;
+    private String id;
+    private String orderNo;
     private String amount;
     private String age;
     private String complaint;
     private String conditionDesc;
     private String diagnosis;
     private String doctorAdvice;
+    private String doctorName;
+    private String doctorId;
     private String elcCardNumber;
     private String historyAllergy;
     private String historyIllness;
@@ -25,6 +29,12 @@ public class InspectionBean implements Serializable {
     private String patientId;
     private String patientName;
     private String sex;
+    private String updateTime;
+    private String hisDeptCode;
+    private String hisOrderNo;
+    private String deptName;
+    private String applicationTime;
+    private String hisDoctorCode;
     private ArrayList<CheckOutGroupBean> cateS;
 
     public int getType() {
@@ -163,5 +173,83 @@ public class InspectionBean implements Serializable {
         this.cateS = cateS;
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public String getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getHisDeptCode() {
+        return hisDeptCode;
+    }
+
+    public void setHisDeptCode(String hisDeptCode) {
+        this.hisDeptCode = hisDeptCode;
+    }
+
+    public String getHisOrderNo() {
+        return hisOrderNo;
+    }
+
+    public void setHisOrderNo(String hisOrderNo) {
+        this.hisOrderNo = hisOrderNo;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public String getApplicationTime() {
+        return applicationTime;
+    }
+
+    public void setApplicationTime(String applicationTime) {
+        this.applicationTime = applicationTime;
+    }
+
+    public String getHisDoctorCode() {
+        return hisDoctorCode;
+    }
+
+    public void setHisDoctorCode(String hisDoctorCode) {
+        this.hisDoctorCode = hisDoctorCode;
+    }
 }

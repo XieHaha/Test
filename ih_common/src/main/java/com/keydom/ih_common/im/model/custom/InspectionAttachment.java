@@ -27,6 +27,9 @@ public class InspectionAttachment extends BaseCustomAttachment {
      * 时间
      */
     private String updateTime;
+    private String doctorName;
+
+    private int applicationType;
 
     public InspectionAttachment() {
         super(ICustomAttachmentType.INSPECTION);
@@ -35,15 +38,19 @@ public class InspectionAttachment extends BaseCustomAttachment {
     @Override
     protected void paresData(JSONObject data) {
         id = data.getString("id");
+        applicationType = data.getInteger("applicationType");
         insCheckApplication = data.getJSONObject("insCheckApplication").toJavaObject(InspectionBean.class);
         insCheckOrderId = data.getString("insCheckOrderId");
         updateTime = data.getString("updateTime");
+        doctorName = data.getString("doctorName");
     }
 
     @Override
     protected JSONObject packData() {
         JSONObject data = new JSONObject();
         data.put("id", id);
+        data.put("doctorName", doctorName);
+        data.put("applicationType", applicationType);
         data.put("insCheckApplication", insCheckApplication);
         data.put("updateTime", updateTime);
         data.put("insCheckOrderId", insCheckOrderId);
@@ -80,6 +87,22 @@ public class InspectionAttachment extends BaseCustomAttachment {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public int getApplicationType() {
+        return applicationType;
+    }
+
+    public void setApplicationType(int applicationType) {
+        this.applicationType = applicationType;
     }
 
     @Override

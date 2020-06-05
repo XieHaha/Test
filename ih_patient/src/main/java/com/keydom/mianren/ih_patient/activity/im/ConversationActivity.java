@@ -486,8 +486,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     }
                     //检验单
                     else if (message.getAttachment() instanceof InspectionAttachment) {
-                        CheckOrderDetailActivity.startCheckOrder(context,
-                                Long.valueOf(((InspectionAttachment) message.getAttachment()).getInsCheckOrderId()),
+                        CheckOrderDetailActivity.startTestOrder(context,
+                               ((InspectionAttachment) message.getAttachment()).getInsCheckApplication(),
                                 orderBean);
                     }
                     //转诊单

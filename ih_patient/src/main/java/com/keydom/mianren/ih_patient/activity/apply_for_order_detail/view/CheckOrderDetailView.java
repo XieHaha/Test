@@ -15,26 +15,6 @@ import com.keydom.mianren.ih_patient.bean.InquiryBean;
 public interface CheckOrderDetailView extends BaseView {
 
     /**
-     * 获取检验单详情接口回调
-     */
-    void getCheckOutDetailSuccess(CheckItemListBean bean);
-
-    /**
-     * 获取失败
-     */
-    void getCheckOutDetailFailed(String errMsg);
-
-    /**
-     * 获取检查单详情接口回调
-     */
-    void getInspactDetailSuccess(CheckItemListBean bean);
-
-    /**
-     * 获取失败
-     */
-    void getInspactDetailFailed(String errMsg);
-
-    /**
      * 获取检验单
      */
     CheckItemListBean getCheckOutOrder();

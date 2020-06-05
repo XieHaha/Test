@@ -421,15 +421,15 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
         for (CheckOutGroupBean groupItem : selectTestList) {
             //父级项目
             CheckOutApplyBean bean = new CheckOutApplyBean();
-            bean.setInsCheckApplicationId(groupItem.getInsCheckApplicationId());
-            bean.setInsCheckCateCode(groupItem.getInsCheckCateCode());
-            bean.setInsCheckCateName(groupItem.getInsCheckCateName());
+            bean.setInsCheckApplicationId(groupItem.getId());
+            bean.setInsCheckCateCode(groupItem.getCateCode());
+            bean.setInsCheckCateName(groupItem.getName());
             //子级项目
             List<CheckOutApplyBean> subList = new ArrayList<>();
             for (CheckOutGroupBean subItem : groupItem.getItems()) {
                 if (subItem.isSelect()) {
                     CheckOutApplyBean subBean = new CheckOutApplyBean();
-                    subBean.setInsCheckApplicationId(subItem.getInsCheckApplicationId());
+                    subBean.setInsCheckApplicationId(subItem.getId());
                     subBean.setExecuteDeptCode(subItem.getExecuteDeptCode());
                     subBean.setExecuteDeptName(subItem.getExecuteDeptName());
                     subBean.setApplicationCode(subItem.getApplicationCode());

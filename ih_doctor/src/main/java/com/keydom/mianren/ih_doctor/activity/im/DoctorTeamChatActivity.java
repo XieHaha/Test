@@ -164,7 +164,7 @@ public class DoctorTeamChatActivity extends TeamChatActivity {
                         //                            CheckItemListBean data) {
                         //                                if (data != null) {
                         //                                    CheckOrderDetailActivity
-                        //                                    .startInspactOrder(context,
+                        //                                    .startInspectOrder(context,
                         //                                            ((ExaminationAttachment)
                         //                                            message.getAttachment())
                         //                                            .getId(), orderBean);

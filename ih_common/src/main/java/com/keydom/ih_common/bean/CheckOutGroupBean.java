@@ -2,8 +2,6 @@ package com.keydom.ih_common.bean;
 
 import android.text.TextUtils;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -40,13 +38,13 @@ public class CheckOutGroupBean implements Serializable {
     private String executeDeptCode;
     private String executeDeptName;
     private String fee;
-    @JSONField(name = "id")
     private String insCheckApplicationId;
-    @JSONField(name = "cateCode")
+    private String id;
     private String insCheckCateCode;
-    @JSONField(name = "name")
     private String insCheckCateName;
     private String isDel;
+    private String name;
+    private String cateCode;
 
     private String itemCode;
     private String itemName;
@@ -56,6 +54,50 @@ public class CheckOutGroupBean implements Serializable {
     private String specs;
     private String type;
     private String is_del;
+
+    private String insCheckItemName;
+    private String insCheckItemCode;
+    private String insCheckApplicationCateId;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCateCode() {
+        return cateCode;
+    }
+
+    public void setCateCode(String cateCode) {
+        this.cateCode = cateCode;
+    }
+
+    public String getInsCheckItemName() {
+        return insCheckItemName;
+    }
+
+    public void setInsCheckItemName(String insCheckItemName) {
+        this.insCheckItemName = insCheckItemName;
+    }
+
+    public String getInsCheckItemCode() {
+        return insCheckItemCode;
+    }
+
+    public void setInsCheckItemCode(String insCheckItemCode) {
+        this.insCheckItemCode = insCheckItemCode;
+    }
+
+    public String getInsCheckApplicationCateId() {
+        return insCheckApplicationCateId;
+    }
+
+    public void setInsCheckApplicationCateId(String insCheckApplicationCateId) {
+        this.insCheckApplicationCateId = insCheckApplicationCateId;
+    }
 
     public String getSpecimenName() {
         return specimenName;
@@ -359,11 +401,16 @@ public class CheckOutGroupBean implements Serializable {
         this.is_del = is_del;
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Override
     public boolean equals(Object obj) {
-        return TextUtils.equals(getInsCheckApplicationId(),
-                ((CheckOutGroupBean) obj).getInsCheckApplicationId());
+        return TextUtils.equals(getId(), ((CheckOutGroupBean) obj).getId());
     }
 }

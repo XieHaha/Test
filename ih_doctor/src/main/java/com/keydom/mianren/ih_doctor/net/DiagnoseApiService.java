@@ -62,17 +62,10 @@ public interface DiagnoseApiService {
 
 
     /**
-     * 获取检验单详情
+     * 获取检验、检查单详情
      */
-    @GET("user/online/getCheckoutDetail")
-    Observable<HttpResult<CheckItemListBean>> getCheckoutDetail(@Query("id") long id);
-
-
-    /**
-     * 获取检查单详情
-     */
-    @GET("user/online/getInspectDetail")
-    Observable<HttpResult<CheckItemListBean>> getInspectDetail(@Query("id") long id);
+    @GET("user/insCheckApplication/getInsCheckOrder")
+    Observable<HttpResult<CheckItemListBean>> getCheckoutDetail(@Query("orderId") long id,@Query("type") int type);
 
 
     /**
