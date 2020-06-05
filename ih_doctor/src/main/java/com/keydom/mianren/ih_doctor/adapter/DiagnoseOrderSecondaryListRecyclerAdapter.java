@@ -57,14 +57,13 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
     @Override
     public void onGroupItemBindViewHolder(RecyclerView.ViewHolder holder, int groupItemIndex) {
         CheckOutGroupBean bean = dts.get(groupItemIndex).getGroupItem();
-        ((GroupItemViewHolder) holder).itemName.setText(bean.getInsCheckCateName());
+        ((GroupItemViewHolder) holder).itemName.setText(bean.getName());
         if (delete) {
             ((GroupItemViewHolder) holder).testItemFee.setVisibility(View.VISIBLE);
             ((GroupItemViewHolder) holder).deleteBtn.setVisibility(View.VISIBLE);
             ((GroupItemViewHolder) holder).deptName.setVisibility(View.VISIBLE);
             ((GroupItemViewHolder) holder).deptName.setVisibility(View.VISIBLE);
             ((GroupItemViewHolder) holder).allChooseRb.setVisibility(View.GONE);
-
         } else {
             ((GroupItemViewHolder) holder).testItemFee.setVisibility(View.GONE);
             ((GroupItemViewHolder) holder).deleteBtn.setVisibility(View.GONE);

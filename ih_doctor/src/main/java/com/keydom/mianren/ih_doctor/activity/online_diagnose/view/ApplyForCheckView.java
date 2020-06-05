@@ -6,7 +6,6 @@ import com.keydom.ih_common.bean.InspectionApplyBean;
 import com.keydom.mianren.ih_doctor.bean.OrderApplyResponse;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Name：com.keydom.ih_doctor.activity.view
@@ -25,14 +24,7 @@ public interface ApplyForCheckView extends BaseView {
     /**
      * 获取创建、修改检验订单参数
      */
-    Map<String, Object> getTestMap();
     InspectionApplyBean getCheckoutParams();
-
-    /**
-     * 获取创建、修改检查订单参数
-     */
-    Map<String, Object> getInspectMap();
-
 
     /**
      * 创建、修改检验订单成功
@@ -43,16 +35,6 @@ public interface ApplyForCheckView extends BaseView {
      * 创建、修改检验订单失败
      */
     void saveTestOrderFailed(String errMsg);
-
-    /**
-     * 创建、修改检查订单成功
-     */
-    void saveInspectOrderSuccess(List<OrderApplyResponse> bean);
-
-    /**
-     * 创建、修改检查订单失败
-     */
-    void saveInspectOrderFailed(String errMsg);
 
     /**
      * 获取检查项目成功

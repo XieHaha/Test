@@ -17,8 +17,6 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.CheckOutApplyBean;
 import com.keydom.ih_common.bean.CheckOutGroupBean;
 import com.keydom.ih_common.bean.InspectionApplyBean;
-import com.keydom.ih_common.im.ImClient;
-import com.keydom.ih_common.im.model.custom.ExaminationAttachment;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
@@ -34,20 +32,14 @@ import com.keydom.mianren.ih_doctor.adapter.SecondaryListAdapter;
 import com.keydom.mianren.ih_doctor.bean.CheckItemListBean;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.bean.OrderApplyResponse;
-import com.keydom.mianren.ih_doctor.bean.SubmitCheckOrderReqBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.m_interface.OnItemChangeListener;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView;
-import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
-import com.netease.nimlib.sdk.msg.model.IMMessage;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Name：com.keydom.ih_doctor.activity.personal
@@ -200,7 +192,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
             case CREATE_INSPECT_ORDER:
                 title = "检查申请";
                 initUserInfo();
-                getController().inspectList();
+                getController().checkoutList();
                 initInspactListDate();
                 diseaseTv.setText(orderBean.getConditionDesc());
                 diseaseRl.setVisibility(View.VISIBLE);
@@ -214,14 +206,13 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
                 break;
             case UPDATE_INSPECT:
                 title = "检查申请";
-                getController().inspectList();
+                getController().checkoutList();
                 setInspectInfo(checkItemListBean);
                 diseaseRl.setVisibility(View.VISIBLE);
                 checkTipLl.setVisibility(View.GONE);
                 break;
             case UPDATE_CHECK:
                 title = "检验申请";
-
                 setCheckOutInfo(checkItemListBean);
                 diseaseRl.setVisibility(View.GONE);
                 checkTipLl.setVisibility(View.VISIBLE);
@@ -362,45 +353,14 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     }
 
     @Override
-    public Map<String, Object> getTestMap() {
-        List<SubmitCheckOrderReqBean> list = new ArrayList<>();
-        for (CheckOutGroupBean testItemBean : selectTestList) {
-            SubmitCheckOrderReqBean bean = new SubmitCheckOrderReqBean();
-            List<SubmitCheckOrderReqBean> childList = new ArrayList<>();
-            for (CheckOutGroupBean item : testItemBean.getItems()) {
-                if (item.isSelect()) {
-                    SubmitCheckOrderReqBean submitCheckOrderReqBean = new SubmitCheckOrderReqBean();
-                    submitCheckOrderReqBean.setId(item.getProjectId());
-                    submitCheckOrderReqBean.setName(item.getInsCheckCateName());
-                    childList.add(submitCheckOrderReqBean);
-                }
-            }
-            bean.setItems(childList);
-            bean.setId(testItemBean.getProjectId());
-            bean.setName(testItemBean.getInsCheckCateName());
-            bean.setDeptName(testItemBean.getDeptName());
-            bean.setSpecimenName(testItemBean.getSpecimenName());
-            bean.setDeptId(testItemBean.getDeptId());
-            list.add(bean);
-        }
-        Map<String, Object> map = new HashMap<>();
-        map.put("items", list);
-        map.put("diagnosis", getDiagnose());
-        if (orderBean != null) {
-            map.put("inquiryId", orderBean.getId());
-        }
-        if (checkItemListBean != null) {
-            map.put("id", checkItemListBean.getId());
-        }
-
-        return map;
-    }
-
-    @Override
     public InspectionApplyBean getCheckoutParams() {
         InspectionApplyBean bean = new InspectionApplyBean();
         //type 1、检验，2、检查
-        bean.setType(1);
+        if (isInspect()) {
+            bean.setType(2);
+        } else {
+            bean.setType(1);
+        }
         bean.setPatientName(orderBean.getName());
         bean.setAge(orderBean.getAge());
         bean.setSex(String.valueOf(orderBean.getSex()));
@@ -447,66 +407,13 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     }
 
     @Override
-    public Map<String, Object> getInspectMap() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("diagnosis", getDiagnose());
-        map.put("conditionDesc", diseaseTv.getText().toString().trim());
-        if (orderBean != null) {
-            map.put("inquiryId", orderBean.getId());
-        }
-        if (checkItemListBean != null) {
-            map.put("id", checkItemListBean.getId());
-        }
-        return map;
-    }
-
-    @Override
     public void saveTestOrderSuccess(List<OrderApplyResponse> list) {
-        //        List<IMMessage> messageList = new ArrayList<>();
-        //        if (list != null && list.size() > 0) {
-        //            for (OrderApplyResponse bean : list) {
-        //                InspectionAttachment inspectionAttachment = new InspectionAttachment();
-        //                inspectionAttachment.setInsCheckOrderId(String.valueOf(bean.getId()));
-        //                inspectionAttachment.getInsCheckApplication().setAmount(bean.getFee()
-        //                .toString());
-        //                inspectionAttachment.getInsCheckApplication().setDiagnosis(bean.getName
-        //                ());
-        //                messageList.add(ImClient.createInspectionMessage(orderBean.getUserCode(),
-        //                        SessionTypeEnum.P2P, "检验申请单", inspectionAttachment));
-        //            }
-        //        }
-        //        Intent intent = new Intent();
-        //        intent.putExtra(Const.DATA, (Serializable) messageList);
         setResult(RESULT_OK);
         finish();
     }
 
     @Override
     public void saveTestOrderFailed(String errMsg) {
-        ToastUtil.showMessage(this, errMsg);
-    }
-
-    @Override
-    public void saveInspectOrderSuccess(List<OrderApplyResponse> list) {
-        List<IMMessage> messageList = new ArrayList<>();
-        if (list != null && list.size() > 0) {
-            for (OrderApplyResponse bean : list) {
-                ExaminationAttachment examinationAttachment = new ExaminationAttachment();
-                examinationAttachment.setId(bean.getId());
-                examinationAttachment.setAmount(bean.getFee().toString());
-                examinationAttachment.setExaminationContent(bean.getName());
-                messageList.add(ImClient.createInspectionMessage(orderBean.getUserCode(),
-                        SessionTypeEnum.P2P, "检查申请单", examinationAttachment));
-            }
-        }
-        Intent intent = new Intent();
-        intent.putExtra(Const.DATA, (Serializable) messageList);
-        setResult(RESULT_OK, intent);
-        finish();
-    }
-
-    @Override
-    public void saveInspectOrderFailed(String errMsg) {
         ToastUtil.showMessage(this, errMsg);
     }
 

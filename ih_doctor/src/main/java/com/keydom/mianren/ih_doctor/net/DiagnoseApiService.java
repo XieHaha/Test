@@ -99,13 +99,13 @@ public interface DiagnoseApiService {
      * 获取检验检查目录（一级）  1 检验 2检查 3 治疗
      */
     @GET("reservation/insCheckCategory/getInsCheckCategory")
-    Observable<HttpResult<List<CheckOutGroupBean>>> checkoutCategoryList(@Query("type") String id);
+    Observable<HttpResult<List<CheckOutGroupBean>>> checkoutCategoryList(@Query("type") int id);
 
     /**
      * 获取检验检查项目（二级）  1 检验 2检查 3 治疗
      */
     @GET("reservation/insCheckCategory/getInsCheckItem")
-    Observable<HttpResult<List<CheckOutGroupBean>>> checkoutItemList(@Query("type") String id,
+    Observable<HttpResult<List<CheckOutGroupBean>>> checkoutItemList(@Query("type") int id,
                                                                    @Query("cateCode") String code);
 
     /**

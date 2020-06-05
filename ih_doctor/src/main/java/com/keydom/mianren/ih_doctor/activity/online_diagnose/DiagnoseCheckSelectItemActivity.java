@@ -79,15 +79,19 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
     private CheckOutGroupBean curSelectParent;
     private int curPosition = -1;
 
+    private int type;
+
 
     /**
      * 启动检验项目选择页面
      *
      * @param selectedData 已经选择的检验项目列表
+     * @param type         1、检验，2、检查
      */
-    public static void start(Context context, List<CheckOutGroupBean> selectedData) {
+    public static void start(Context context, int type, List<CheckOutGroupBean> selectedData) {
         Intent starter = new Intent(context, DiagnoseCheckSelectItemActivity.class);
         starter.putExtra(Const.DATA, (Serializable) selectedData);
+        starter.putExtra(Const.TYPE, type);
         ((Activity) context).startActivityForResult(starter, Const.TEST_ITEM_SELECT);
     }
 
@@ -98,9 +102,14 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        setTitle("检验申请");
         setRightTxt("确定");
         selectData = (List<CheckOutGroupBean>) getIntent().getSerializableExtra(Const.DATA);
+        type = getIntent().getIntExtra(Const.TYPE, 1);
+        if (type == 1) {
+            setTitle("检验申请");
+        } else {
+            setTitle("检查申请");
+        }
         if (selectData == null) {
             selectData = new ArrayList<>();
         }
@@ -113,7 +122,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
         itemRv.setAdapter(checkItemAdapter);
 
         initListener();
-        getController().checkoutList();
+        getController().checkoutList(type);
     }
 
     private void initListener() {
@@ -148,7 +157,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
         if (groupData.size() > 0) {
             curPosition = 0;
             curSelectParent = groupData.get(curPosition);
-            getController().checkoutItemList(curSelectParent.getCateCode());
+            getController().checkoutItemList(type, curSelectParent.getCateCode());
         }
     }
 
@@ -179,7 +188,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
             //获取子菜单数据
             curPosition = position;
             curSelectParent = groupData.get(curPosition);
-            getController().checkoutItemList(curSelectParent.getCateCode());
+            getController().checkoutItemList(type, curSelectParent.getCateCode());
         } else if (adapter instanceof DiagnoseCheckItemAdapter) {
             if (curSelectParent != null) {
                 //项目互斥判断（code）

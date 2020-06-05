@@ -32,12 +32,11 @@ public class DiagnoseCheckSelectItemController extends ControllerImpl<DiagnoseCh
 
     }
 
-
     /**
      * 获取检验项目列表
      */
-    public void checkoutList() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).checkoutCategoryList("1"), new HttpSubscriber<List<CheckOutGroupBean>>(getContext(), getDisposable(), false) {
+    public void checkoutList(int type) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).checkoutCategoryList(type), new HttpSubscriber<List<CheckOutGroupBean>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable List<CheckOutGroupBean> data) {
                 getView().getGroupListSuccess(data);
@@ -55,8 +54,8 @@ public class DiagnoseCheckSelectItemController extends ControllerImpl<DiagnoseCh
     /**
      * 获取检验项目下子项目列表
      */
-    public void checkoutItemList(String code) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).checkoutItemList("1", code), new HttpSubscriber<List<CheckOutGroupBean>>(getContext(), getDisposable(), true) {
+    public void checkoutItemList(int type, String code) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).checkoutItemList(type, code), new HttpSubscriber<List<CheckOutGroupBean>>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable List<CheckOutGroupBean> data) {
                 getView().getItemListSuccess(data);
