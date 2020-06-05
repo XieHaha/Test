@@ -56,7 +56,7 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
                 }
                 break;
             case R.id.diagnose_tv:
-                DiagnoseInputActivity.start(getContext(), getView().getMainDec());
+                DiagnoseInputActivity.start(getContext(), getView().getDiagnose());
                 break;
             case R.id.disease_tv:
                 CommonInputActivity.start(getContext(), ApplyForCheckActivity.INPUT_DISEASE,
@@ -70,18 +70,15 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
      * 提交保存检验报告
      */
     private void saveCheckout() {
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).saveCheckout(HttpService.INSTANCE.object2Body(getView().getTestMap())), new HttpSubscriber<List<OrderApplyResponse>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).saveCheckout(HttpService.INSTANCE.object2Body(getView().getCheckoutParams())), new HttpSubscriber<List<OrderApplyResponse>>(getContext(), getDisposable(), true, false) {
             @Override
             public void requestComplete(@Nullable List<OrderApplyResponse> data) {
-                hideLoading();
                 getView().saveTestOrderSuccess(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
-                hideLoading();
                 getView().saveTestOrderFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -143,12 +140,11 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
             } else {
                 ToastUtil.showMessage(getContext(), "请完善检查项目后再提交！");
             }
-
         } else {
             if (getView().isSaveCheckOutOrder()) {
                 saveCheckout();
             } else {
-                ToastUtil.showMessage(getContext(), "请完善检验项目后再提交！");
+                ToastUtil.showMessage(getContext(), "请完善信息后再提交！");
             }
 
         }

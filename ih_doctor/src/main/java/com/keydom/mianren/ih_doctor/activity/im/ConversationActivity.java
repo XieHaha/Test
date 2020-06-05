@@ -890,14 +890,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 default:
                     break;
                 case SEND_MESSAGE:
-                    List<IMMessage> messageList =
-                            (List<IMMessage>) data.getSerializableExtra(Const.DATA);
-                    if (messageList != null && messageList.size() > 0) {
-                        for (IMMessage msg : messageList) {
-                            mMessageView.addData(msg);
-                        }
-                    }
-                    //                    getController().getInquiryStatus();
+//                    List<IMMessage> messageList =
+//                            (List<IMMessage>) data.getSerializableExtra(Const.DATA);
+//                    if (messageList != null && messageList.size() > 0) {
+//                        for (IMMessage msg : messageList) {
+//                            mMessageView.addData(msg);
+//                        }
+//                    }
+//                                        getController().getInquiryStatus();
                     break;
                 case UPDATE_STATUS:
                     getController().getInquiryStatus();

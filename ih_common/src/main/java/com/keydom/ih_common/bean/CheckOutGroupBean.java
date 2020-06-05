@@ -33,7 +33,6 @@ public class CheckOutGroupBean implements Serializable {
     private List<CheckOutGroupBean> items;
     private BigDecimal totalFee = BigDecimal.ZERO;
     private boolean select = false;
-    private boolean isAllSelect = false;
 
     private String advice;
     private String applicationCode;
@@ -57,14 +56,6 @@ public class CheckOutGroupBean implements Serializable {
     private String specs;
     private String type;
     private String is_del;
-
-    public boolean isAllSelect() {
-        return isAllSelect;
-    }
-
-    public void setAllSelect(boolean allSelect) {
-        isAllSelect = allSelect;
-    }
 
     public String getSpecimenName() {
         return specimenName;
@@ -184,22 +175,6 @@ public class CheckOutGroupBean implements Serializable {
         return selectTotal;
     }
 
-    public List<SubmitInspectOrderReqBean> getSelectReqList() {
-        List<SubmitInspectOrderReqBean> list = new ArrayList<>();
-        for (CheckOutGroupBean bean : selectedItems()) {
-            SubmitInspectOrderReqBean reqBean = new SubmitInspectOrderReqBean();
-            reqBean.setId(bean.getProjectId());
-            reqBean.setName(bean.getInsCheckCateName());
-            reqBean.setDeptId(bean.getDeptId());
-            reqBean.setDeptName(bean.getDeptName());
-            reqBean.setDeptName(bean.getDeptName());
-            reqBean.setRemark(bean.getRemark());
-            reqBean.setItems(bean.getSelectReqList());
-            list.add(reqBean);
-        }
-        return list;
-    }
-
     public BigDecimal totalFee() {
         if (items != null && items.size() > 0) {
             for (CheckOutGroupBean item : items) {
@@ -238,17 +213,6 @@ public class CheckOutGroupBean implements Serializable {
                 }
             }
         }
-    }
-
-    public boolean filter(String key) {
-        if (items != null && items.size() > 0) {
-            for (int i = 0; i < items.size(); i++) {
-                if (items.get(i).getInsCheckCateName() != null && items.get(i).getInsCheckCateName().contains(key)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     public String getAdvice() {
@@ -394,6 +358,8 @@ public class CheckOutGroupBean implements Serializable {
     public void setIs_del(String is_del) {
         this.is_del = is_del;
     }
+
+
 
     @Override
     public boolean equals(Object obj) {

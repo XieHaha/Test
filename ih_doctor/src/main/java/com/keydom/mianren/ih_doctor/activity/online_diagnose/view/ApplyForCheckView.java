@@ -2,6 +2,7 @@ package com.keydom.mianren.ih_doctor.activity.online_diagnose.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.ih_common.bean.CheckOutGroupBean;
+import com.keydom.ih_common.bean.InspectionApplyBean;
 import com.keydom.mianren.ih_doctor.bean.OrderApplyResponse;
 
 import java.util.List;
@@ -19,12 +20,13 @@ public interface ApplyForCheckView extends BaseView {
     /**
      * 获取页面上的诊断信息
      */
-    String getMainDec();
+    String getDiagnose();
 
     /**
      * 获取创建、修改检验订单参数
      */
     Map<String, Object> getTestMap();
+    InspectionApplyBean getCheckoutParams();
 
     /**
      * 获取创建、修改检查订单参数

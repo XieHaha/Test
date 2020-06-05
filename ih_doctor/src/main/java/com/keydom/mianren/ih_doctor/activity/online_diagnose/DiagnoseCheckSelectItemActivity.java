@@ -209,6 +209,7 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
                 if (subBeans.contains(subBean)) {
                     subBeans.remove(subBean);
                 } else {
+                    subBean.setSelect(true);
                     subBeans.add(subBean);
                 }
                 if (subBeans.size() > 0) {
