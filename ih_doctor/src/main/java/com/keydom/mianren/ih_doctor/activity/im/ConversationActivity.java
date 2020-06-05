@@ -28,6 +28,7 @@ import com.keydom.ih_common.activity.HandleProposeAcitivity;
 import com.keydom.ih_common.avchatkit.AVChatKit;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.InquiryStatus;
+import com.keydom.ih_common.bean.InspectionBean;
 import com.keydom.ih_common.bean.TriageBean;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.config.ImConstants;
@@ -50,6 +51,9 @@ import com.keydom.ih_common.im.widget.plugin.EndInquiryPlugin;
 import com.keydom.ih_common.im.widget.plugin.UserFollowUpPlugin;
 import com.keydom.ih_common.im.widget.plugin.VideoPlugin;
 import com.keydom.ih_common.minterface.OnLoginListener;
+import com.keydom.ih_common.net.ApiRequest;
+import com.keydom.ih_common.net.service.HttpService;
+import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.CalculateTimeUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.ToastUtil;
@@ -76,6 +80,7 @@ import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.constant.ServiceConst;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
+import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
 import com.keydom.mianren.ih_doctor.utils.DateUtils;
 import com.keydom.mianren.ih_doctor.view.FixHeightBottomSheetDialog;
 import com.keydom.mianren.ih_doctor.view.im_plugin.VoiceInputPlugin;
@@ -336,16 +341,47 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         bean.setDiseaseData(StringUtil.join(attachment.getImages(), ","));
                         TriageOrderDetailActivity.startWithAction(context, bean,
                                 TypeEnum.TRIAGE_RECEIVED, true);
-                    } else if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
-                        CheckOrderDetailActivity.startInspectOrder(context,
-                                ((ExaminationAttachment) message.getAttachment()).getInsCheckApplication(), orderBean);
-                    } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
-                        CheckOrderDetailActivity.startTestOrder(context,
-                                ((InspectionAttachment) message.getAttachment()).getInsCheckApplication(), orderBean);
+                    } else if (message.getAttachment() instanceof ExaminationAttachment) {
+                        //检查单
+                        ExaminationAttachment attachment =
+                                (ExaminationAttachment) message.getAttachment();
+                        InspectionBean inspectionBean = attachment.getInsCheckApplication();
+                        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).isPay(inspectionBean.getInsCheckOrderId()),
+                                new HttpSubscriber<Integer>(getContext(), getDisposable(), true,
+                                        false) {
+                                    @Override
+                                    public void requestComplete(@android.support.annotation.Nullable Integer data) {
+                                        // 0和3是未支付 , // 3是外延
+                                        if (0 == data || 3 == data) {
+                                            CheckOrderDetailActivity.startInspectOrder(context,
+                                                    attachment.getId(),
+                                                    inspectionBean, orderBean, false);
+                                        } else {
+                                            CheckOrderDetailActivity.startInspectOrder(context,
+                                                    attachment.getId(),
+                                                    inspectionBean, orderBean, true);
+                                        }
 
-                    } else if (message.getAttachment() instanceof ReferralApplyAttachment) {//转诊单
+                                    }
+                                });
+                    } else if (message.getAttachment() instanceof InspectionAttachment) {
+                        //检验单
+                        InspectionAttachment attachment =
+                                (InspectionAttachment) message.getAttachment();
+                        InspectionBean inspectionBean = attachment.getInsCheckApplication();
+                        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckOutOrderStatus(attachment.getId(), attachment.getUpdateTime()),
+                                new HttpSubscriber<String>(getContext(), getDisposable(), true,
+                                        false) {
+                                    @Override
+                                    public void requestComplete(@android.support.annotation.Nullable String data) {
+
+                                    }
+                                });
+                    } else if (message.getAttachment() instanceof ReferralApplyAttachment) {
+                        //转诊单
                         com.keydom.mianren.ih_doctor.activity.doctor_cooperation.DiagnoseOrderDetailActivity.startCommon(context, ((ReferralApplyAttachment) message.getAttachment()).getId());
-                    } else if (message.getAttachment() instanceof ReferralDoctorAttachment) {//换诊
+                    } else if (message.getAttachment() instanceof ReferralDoctorAttachment) {
+                        //换诊
 
                     } else if (message.getAttachment() instanceof ConsultationResultAttachment) {
                         //处方
@@ -358,9 +394,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         HandleProposeAcitivity.start(getContext(),
                                 ((DisposalAdviceAttachment) message.getAttachment()).getContent());
 
-                    }
-                    //随访表
-                    else if (message.getAttachment() instanceof UserFollowUpAttachment) {
+                    } else if (message.getAttachment() instanceof UserFollowUpAttachment) {
+                        //随访表
                         UserFollowUpAttachment userFollowUpAttachment =
                                 (UserFollowUpAttachment) message.getAttachment();
                         CommonDocumentActivity.start(getContext(),
@@ -382,11 +417,50 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             @Override
             public boolean onPayClick(Context context, View view, IMMessage message) {
                 if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
-                    CheckOrderDetailActivity.startInspectOrder(context,
-                            ((ExaminationAttachment) message.getAttachment()).getInsCheckApplication(), orderBean);
+                    ExaminationAttachment attachment =
+                            (ExaminationAttachment) message.getAttachment();
+                    InspectionBean inspectionBean = attachment.getInsCheckApplication();
+                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).isPay(inspectionBean.getInsCheckOrderId()),
+                            new HttpSubscriber<Integer>(getContext(), getDisposable(), true,
+                                    false) {
+                                @Override
+                                public void requestComplete(@android.support.annotation.Nullable Integer data) {
+                                    // 0和3是未支付 , // 3是外延
+                                    if (0 == data || 3 == data) {
+                                        CheckOrderDetailActivity.startInspectOrder(context,
+                                                attachment.getId(),
+                                                inspectionBean, orderBean, false);
+                                    } else {
+                                        CheckOrderDetailActivity.startInspectOrder(context,
+                                                attachment.getId(),
+                                                inspectionBean, orderBean, true);
+                                    }
+
+                                }
+                            });
                 } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
-                    CheckOrderDetailActivity.startTestOrder(context,
-                            ((InspectionAttachment) message.getAttachment()).getInsCheckApplication(), orderBean);
+                    //检验单
+                    InspectionAttachment attachment =
+                            (InspectionAttachment) message.getAttachment();
+                    InspectionBean inspectionBean = attachment.getInsCheckApplication();
+                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).isPay(inspectionBean.getInsCheckOrderId()),
+                            new HttpSubscriber<Integer>(getContext(), getDisposable(), true,
+                                    false) {
+                                @Override
+                                public void requestComplete(@android.support.annotation.Nullable Integer data) {
+                                    // 0和3是未支付 , // 3是外延
+                                    if (0 == data || 3 == data) {
+                                        CheckOrderDetailActivity.startTestOrder(context,
+                                                attachment.getId(),
+                                                inspectionBean, orderBean, false);
+                                    } else {
+                                        CheckOrderDetailActivity.startTestOrder(context,
+                                                attachment.getId(),
+                                                inspectionBean, orderBean, true);
+                                    }
+
+                                }
+                            });
                 } else
                     PrescriptionActivity.startCommon(context,
                             Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
@@ -396,12 +470,52 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             @Override
             public boolean onPrescriptionClick(Context context,
                                                @android.support.annotation.Nullable IMMessage message) {
-                if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
-                    CheckOrderDetailActivity.startInspectOrder(context,
-                            ((ExaminationAttachment) message.getAttachment()).getInsCheckApplication(), orderBean);
+                if (message.getAttachment() instanceof ExaminationAttachment) {
+                    //检查单
+                    ExaminationAttachment attachment =
+                            (ExaminationAttachment) message.getAttachment();
+                    InspectionBean inspectionBean = attachment.getInsCheckApplication();
+                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).isPay(inspectionBean.getInsCheckOrderId()),
+                            new HttpSubscriber<Integer>(getContext(), getDisposable(), true,
+                                    false) {
+                                @Override
+                                public void requestComplete(@android.support.annotation.Nullable Integer data) {
+                                    // 0和3是未支付 , // 3是外延
+                                    if (0 == data || 3 == data) {
+                                        CheckOrderDetailActivity.startInspectOrder(context,
+                                                attachment.getId(), inspectionBean, orderBean,
+                                                false);
+                                    } else {
+                                        CheckOrderDetailActivity.startInspectOrder(context,
+                                                attachment.getId(), inspectionBean, orderBean,
+                                                true);
+                                    }
+
+                                }
+                            });
                 } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
-                    CheckOrderDetailActivity.startTestOrder(context,
-                            ((InspectionAttachment) message.getAttachment()).getInsCheckApplication(), orderBean);
+                    //检验单
+                    InspectionAttachment attachment =
+                            (InspectionAttachment) message.getAttachment();
+                    InspectionBean inspectionBean = attachment.getInsCheckApplication();
+                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).isPay(inspectionBean.getInsCheckOrderId()),
+                            new HttpSubscriber<Integer>(getContext(), getDisposable(), true,
+                                    false) {
+                                @Override
+                                public void requestComplete(@android.support.annotation.Nullable Integer data) {
+                                    // 0和3是未支付 , // 3是外延
+                                    if (0 == data || 3 == data) {
+                                        CheckOrderDetailActivity.startTestOrder(context,
+                                                attachment.getId(), inspectionBean, orderBean,
+                                                false);
+                                    } else {
+                                        CheckOrderDetailActivity.startTestOrder(context,
+                                                attachment.getId(), inspectionBean, orderBean,
+                                                true);
+                                    }
+
+                                }
+                            });
                 } else
                     PrescriptionActivity.startCommon(context,
                             Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));

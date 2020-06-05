@@ -22,6 +22,13 @@ public interface ApplyForCheckView extends BaseView {
     String getDiagnose();
 
     /**
+     * 获取诊断
+     *
+     * @return 诊断内容
+     */
+    String getDisease();
+
+    /**
      * 获取创建、修改检验订单参数
      */
     InspectionApplyBean getCheckoutParams();
@@ -37,20 +44,6 @@ public interface ApplyForCheckView extends BaseView {
     void saveTestOrderFailed(String errMsg);
 
     /**
-     * 获取检查项目成功
-     *
-     * @param list 检查项目数据
-     */
-    void getInspectItemListSuccess(List<CheckOutGroupBean> list);
-
-    /**
-     * 获取检查项目失败
-     *
-     * @param errMsg 失败信息
-     */
-    void getInspectItemListFailed(String errMsg);
-
-    /**
      * 是否是检查单
      *
      * @return true 检查单
@@ -58,32 +51,11 @@ public interface ApplyForCheckView extends BaseView {
     boolean isInspect();
 
     /**
-     * 获取检查项目列表
-     *
-     * @return 检查项目列表
-     */
-    List<CheckOutGroupBean> getInspectItemList();
-
-    /**
-     * 获取选中的检查项目列表
-     *
-     * @return 检查项目列表
-     */
-    List<CheckOutGroupBean> getInspactSelectItemList();
-
-    /**
      * 设置选中的检查项目列表
      *
      * @param list 检查项目列表
      */
     void getSelectInspectItemList(List<CheckOutGroupBean> list);
-
-    /**
-     * 是否是保存的检查单
-     *
-     * @return true 检查单
-     */
-    boolean isSaveInspectOrder();
 
     /**
      * 是否是保存的检验单
@@ -104,13 +76,6 @@ public interface ApplyForCheckView extends BaseView {
      * @param errMsg 失败提示信息
      */
     void deleteOrderFailed(String errMsg);
-
-    /**
-     * 获取诊断
-     *
-     * @return 诊断内容
-     */
-    String getDisease();
 
     /**
      * 获取选中的检验项目列表

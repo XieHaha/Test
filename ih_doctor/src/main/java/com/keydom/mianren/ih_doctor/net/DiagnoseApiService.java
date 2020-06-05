@@ -65,7 +65,21 @@ public interface DiagnoseApiService {
      * 获取检验、检查单详情
      */
     @GET("user/insCheckApplication/getInsCheckOrder")
-    Observable<HttpResult<CheckItemListBean>> getCheckoutDetail(@Query("orderId") long id,@Query("type") int type);
+    Observable<HttpResult<CheckItemListBean>> getCheckoutDetail(@Query("orderId") long id,
+                                                                @Query("type") int type);
+
+    /**
+     * 取消检验、检查单订单
+     */
+    @GET("user/insCheckApplication/canOrder")
+    Observable<HttpResult<String>> cancelCheckout(@Query("applicationId") String id);
+
+    /**
+     * 检验、检查单订单状态
+     */
+    @GET("user/insCheckApplication/getApplicationById")
+    Observable<HttpResult<String>> getCheckOutOrderStatus(@Query("applicationId") String id, @Query(
+            "updateTime") String updateTime);
 
 
     /**
@@ -106,7 +120,7 @@ public interface DiagnoseApiService {
      */
     @GET("reservation/insCheckCategory/getInsCheckItem")
     Observable<HttpResult<List<CheckOutGroupBean>>> checkoutItemList(@Query("type") int id,
-                                                                   @Query("cateCode") String code);
+                                                                     @Query("cateCode") String code);
 
     /**
      * 获取检查项目

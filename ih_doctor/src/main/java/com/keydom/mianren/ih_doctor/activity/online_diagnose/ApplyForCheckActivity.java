@@ -17,6 +17,7 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.CheckOutApplyBean;
 import com.keydom.ih_common.bean.CheckOutGroupBean;
 import com.keydom.ih_common.bean.InspectionApplyBean;
+import com.keydom.ih_common.bean.InspectionBean;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
@@ -29,7 +30,6 @@ import com.keydom.mianren.ih_doctor.activity.patient_main_suit.PatientMainSuitAc
 import com.keydom.mianren.ih_doctor.adapter.DiagnoseOrderSecondaryListRecyclerAdapter;
 import com.keydom.mianren.ih_doctor.adapter.InspectItemListAdapter;
 import com.keydom.mianren.ih_doctor.adapter.SecondaryListAdapter;
-import com.keydom.mianren.ih_doctor.bean.CheckItemListBean;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.bean.OrderApplyResponse;
 import com.keydom.mianren.ih_doctor.constant.Const;
@@ -51,13 +51,9 @@ import java.util.List;
  */
 public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckController> implements ApplyForCheckView {
     /**
-     * 修改检查单类型
+     * 修改检验、检查单类型
      */
-    public static final int UPDATE_INSPECT = 803;
-    /**
-     * 修改检验单类型
-     */
-    public static final int UPDATE_CHECK = 804;
+    public static final int UPDATE_ORDER = 804;
     /**
      * 创建检查单类型
      */
@@ -77,7 +73,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     /**
      * 检查／检验单类型
      */
-    public static final String CHECKITEMLISTBEAN = "check_item_list_bean";
+    public static final String INSPECTION_BEAN = "inspection_bean";
     private TextView applyItemAmountTv, totalFeeTv;
     /**
      * 选择的检查项目列表
@@ -111,10 +107,11 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
      * 页面类型
      */
     private int mType;
+
     /**
-     * 查询到的所有检查项目列表
+     * 是否为检查订单
      */
-    private List<CheckOutGroupBean> inspactItemList;
+    private boolean isInspectOrder;
     /**
      * 选中的检查项目列表
      */
@@ -123,10 +120,11 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
      * 问诊单对象
      */
     private InquiryBean orderBean;
+    private String orderId;
     /**
-     * 检查、检验单项目（修改用）
+     * 已有订单数据（修改模式）
      */
-    private CheckItemListBean checkItemListBean;
+    private InspectionBean inspectionBean;
     private LinearLayout checkTipLl;
 
 
@@ -151,25 +149,14 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     }
 
     /**
-     * 修改检查单
+     * 修改检验、检查单
      */
-    public static void startUpdateInspect(Context context, CheckItemListBean checkItemListBean,
-                                          InquiryBean bean) {
+    public static void startUpdateTest(Context context, InspectionBean inspectionBean,
+                                       String orderId, InquiryBean bean) {
         Intent starter = new Intent(context, ApplyForCheckActivity.class);
-        starter.putExtra(Const.TYPE, UPDATE_INSPECT);
-        starter.putExtra(CHECKITEMLISTBEAN, checkItemListBean);
-        starter.putExtra(INQUIRYBEAN, bean);
-        ((Activity) context).startActivityForResult(starter, ConversationActivity.SEND_MESSAGE);
-    }
-
-    /**
-     * 修改检验单
-     */
-    public static void startUpdateTest(Context context, CheckItemListBean checkItemListBean,
-                                       InquiryBean bean) {
-        Intent starter = new Intent(context, ApplyForCheckActivity.class);
-        starter.putExtra(Const.TYPE, UPDATE_CHECK);
-        starter.putExtra(CHECKITEMLISTBEAN, checkItemListBean);
+        starter.putExtra(Const.TYPE, UPDATE_ORDER);
+        starter.putExtra(Const.ORDER_ID, orderId);
+        starter.putExtra(INSPECTION_BEAN, inspectionBean);
         starter.putExtra(INQUIRYBEAN, bean);
         ((Activity) context).startActivityForResult(starter, ConversationActivity.SEND_MESSAGE);
     }
@@ -184,38 +171,45 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         initView();
         mType = getIntent().getIntExtra(Const.TYPE, 0);
+        orderId = getIntent().getStringExtra(Const.ORDER_ID);
         orderBean = (InquiryBean) getIntent().getSerializableExtra(INQUIRYBEAN);
-        checkItemListBean = (CheckItemListBean) getIntent().getSerializableExtra(CHECKITEMLISTBEAN);
+        inspectionBean = (InspectionBean) getIntent().getSerializableExtra(INSPECTION_BEAN);
         String title = "";
-
         switch (mType) {
             case CREATE_INSPECT_ORDER:
+                isInspectOrder = true;
                 title = "检查申请";
                 initUserInfo();
-                getController().checkoutList();
-                initInspactListDate();
                 diseaseTv.setText(orderBean.getConditionDesc());
                 diseaseRl.setVisibility(View.VISIBLE);
                 checkTipLl.setVisibility(View.GONE);
                 break;
             case CREATE_TEST_ORDER:
+                isInspectOrder = false;
                 initUserInfo();
                 title = "检验申请";
                 diseaseRl.setVisibility(View.GONE);
                 checkTipLl.setVisibility(View.VISIBLE);
                 break;
-            case UPDATE_INSPECT:
-                title = "检查申请";
-                getController().checkoutList();
-                setInspectInfo(checkItemListBean);
-                diseaseRl.setVisibility(View.VISIBLE);
-                checkTipLl.setVisibility(View.GONE);
-                break;
-            case UPDATE_CHECK:
-                title = "检验申请";
-                setCheckOutInfo(checkItemListBean);
-                diseaseRl.setVisibility(View.GONE);
-                checkTipLl.setVisibility(View.VISIBLE);
+            case UPDATE_ORDER:
+                if (inspectionBean != null) {
+                    if (inspectionBean.getType() == 1) {
+                        isInspectOrder = false;
+                        title = "检验申请";
+                        diseaseRl.setVisibility(View.GONE);
+                        checkTipLl.setVisibility(View.VISIBLE);
+                    } else {
+                        isInspectOrder = true;
+                        title = "检查申请";
+                        diseaseRl.setVisibility(View.VISIBLE);
+                        checkTipLl.setVisibility(View.GONE);
+                    }
+                    selectTestList.clear();
+                    selectTestList.addAll(inspectionBean.getCateS());
+                    setTestListData(selectTestList);
+                    setCheckFee();
+                    adapter.notifyDataSetChanged();
+                }
                 break;
         }
         setTitle(title);
@@ -234,10 +228,16 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
                 @SingleClick(1000)
                 @Override
                 public void OnRightTextClick(View v) {
-                    getController().deleteInquisition(checkItemListBean.getId());
+                    getController().cancelCheckout(orderId);
                 }
             });
         }
+    }
+
+    /**
+     * 已有订单数据回填
+     */
+    private void bindData() {
 
     }
 
@@ -331,27 +331,6 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     }
 
 
-    /**
-     * 设置检查列表
-     */
-    private void initInspactListDate() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setSmoothScrollbarEnabled(true);
-        layoutManager.setAutoMeasureEnabled(true);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setNestedScrollingEnabled(false);
-        inspectItemListAdapter = new InspectItemListAdapter(inspactSelectItemList);
-        recyclerView.setAdapter(inspectItemListAdapter);
-        diseaseRl.setVisibility(View.VISIBLE);
-    }
-
-
-    @Override
-    public String getDiagnose() {
-        return diagnoseTv.getText().toString().trim();
-    }
-
     @Override
     public InspectionApplyBean getCheckoutParams() {
         InspectionApplyBean bean = new InspectionApplyBean();
@@ -418,65 +397,14 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     }
 
     @Override
-    public void getInspectItemListSuccess(List<CheckOutGroupBean> list) {
-        inspactItemList = list;
-    }
-
-    @Override
-    public void getInspectItemListFailed(String errMsg) {
-        ToastUtil.showMessage(this, errMsg);
-    }
-
-    @Override
     public boolean isInspect() {
-        return mType == UPDATE_INSPECT || mType == CREATE_INSPECT_ORDER;
-    }
-
-    @Override
-    public List<CheckOutGroupBean> getInspectItemList() {
-        return inspactItemList;
-    }
-
-    @Override
-    public List<CheckOutGroupBean> getInspactSelectItemList() {
-        return inspactSelectItemList;
+        return isInspectOrder;
     }
 
     @Override
     public void getSelectInspectItemList(List<CheckOutGroupBean> list) {
-        //        inspactSelectItemList.clear();
         inspactSelectItemList.addAll(list);
         inspectItemListAdapter.notifyDataSetChanged();
-        setInspactFee();
-    }
-
-
-    /**
-     * 设置检验报告信息
-     */
-    private void setCheckOutInfo(CheckItemListBean bean) {
-        userName.setText(bean.getName());
-        userSex.setText(CommonUtils.getSex(bean.getSex()));
-        userAge.setText(String.valueOf(bean.getAge()));
-        diagnoseTv.setText(bean.getDiagnosis());
-        selectTestList.clear();
-        selectTestList.addAll(bean.getItems());
-        setTestListData(selectTestList);
-        setCheckFee();
-        adapter.notifyDataSetChanged();
-    }
-
-    /**
-     * 设置检查报告信息
-     */
-    private void setInspectInfo(CheckItemListBean bean) {
-        inspactSelectItemList.addAll(checkItemListBean.getItems());
-        initInspactListDate();
-        userName.setText(bean.getName());
-        userSex.setText(CommonUtils.getSex(bean.getSex()));
-        userAge.setText(String.valueOf(bean.getAge()));
-        diagnoseTv.setText(bean.getDiagnosis());
-        diseaseTv.setText(bean.getConditionDesc());
         setInspactFee();
     }
 
@@ -497,26 +425,6 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
         }
         applyItemAmountTv.setText("总共" + CommonUtils.sectionTrans(inspactSelectItemList.size()) + "项");
         totalFeeTv.setText("金额：¥ " + totalFee);
-    }
-
-    @Override
-    public boolean isSaveInspectOrder() {
-        if (inspactSelectItemList == null || inspactSelectItemList.size() == 0) {
-            return false;
-        }
-        for (CheckOutGroupBean bean : inspactSelectItemList) {
-            if (bean.selectedItem() == null) {
-                return false;
-            } else {
-                for (CheckOutGroupBean subBean : bean.selectedItems()) {
-                    if (subBean.selectedItem() == null || subBean.selectedItems().size() == 0) {
-                        return false;
-                    }
-                }
-
-            }
-        }
-        return true;
     }
 
     @Override
@@ -552,6 +460,11 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     @Override
     public String getDisease() {
         return diseaseTv.getText().toString().trim();
+    }
+
+    @Override
+    public String getDiagnose() {
+        return diagnoseTv.getText().toString().trim();
     }
 
     @Override

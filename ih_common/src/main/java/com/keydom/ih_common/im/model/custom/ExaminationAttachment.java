@@ -15,7 +15,7 @@ public class ExaminationAttachment extends BaseCustomAttachment {
      */
     private InspectionBean insCheckApplication;
     /**
-     * 检验单ID
+     * ID
      */
     private String id;
 

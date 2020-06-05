@@ -71,4 +71,14 @@ public interface InquiryService {
      */
     @GET("user/referral/cancel")
     Observable<HttpResult<Object>> stopReferral(@Query("id") long id);
+
+    /**
+     * 判断订单是否支付
+     *
+     * @param orderId
+     * 0,3是未支付状态
+     * @return
+     */
+    @GET("user/online/isPay")
+    Observable<HttpResult<Integer>> isPay(@Query("orderId") String orderId);
 }

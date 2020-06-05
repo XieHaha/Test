@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.activity.online_diagnose.CheckOrderDetailActivity;
+import com.keydom.mianren.ih_doctor.activity.online_diagnose.ApplyForCheckActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.CheckOrderDetailView;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 
@@ -20,15 +20,8 @@ public class CheckOrderDetailController extends ControllerImpl<CheckOrderDetailV
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.edit_order_ib) {
-            if (getView().getType() == CheckOrderDetailActivity.INSPACT_ORDER) {
-                //                ApplyForCheckActivity.startUpdateInspect(getContext(),
-                //                        getView().getCheckOutOrder(), getView().getInqueryOrder
-                //                        ());
-            } else {
-                //                ApplyForCheckActivity.startUpdateTest(getContext(),
-                //                        getView().getCheckOutOrder(), getView().getInqueryOrder
-                //                        ());
-            }
+            ApplyForCheckActivity.startUpdateTest(getContext(), getView().getInspectionBean(),
+                    getView().getOrderId(), getView().getInquiryBean());
         }
     }
 }

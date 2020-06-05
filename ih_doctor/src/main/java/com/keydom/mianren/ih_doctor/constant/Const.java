@@ -94,6 +94,10 @@ public class Const {
      */
     public static final String TYPE = "type";
     /**
+     * 类型key
+     */
+    public static final String IS_PAY = "is_pay";
+    /**
      * 字数限制KEY
      */
     public static final String LIMITE = "limite";

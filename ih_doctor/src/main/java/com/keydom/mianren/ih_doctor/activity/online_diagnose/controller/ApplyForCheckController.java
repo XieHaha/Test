@@ -3,7 +3,6 @@ package com.keydom.mianren.ih_doctor.activity.online_diagnose.controller;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
-import com.keydom.ih_common.bean.CheckOutGroupBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -23,9 +22,7 @@ import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Name：com.keydom.ih_doctor.activity.controller
@@ -60,6 +57,22 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
 
     }
 
+    @Override
+    public void OnRightTextClick(View v) {
+        saveOrder();
+    }
+
+    /**
+     * 提供统一的提交方法，在这里进行判断到底是检查提交还是检验提交
+     */
+    public void saveOrder() {
+        if (getView().isSaveCheckOutOrder()) {
+            saveCheckout();
+        } else {
+            ToastUtil.showMessage(getContext(), "请完善信息后再提交！");
+        }
+    }
+
     /**
      * 提交保存检验报告
      */
@@ -80,50 +93,12 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
 
     }
 
-    /**
-     * 获取检查项目列表
-     */
-    public void checkoutList() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).checkoutCategoryList(2), new HttpSubscriber<List<CheckOutGroupBean>>(getContext(), getDisposable(), false) {
-            @Override
-            public void requestComplete(@Nullable List<CheckOutGroupBean> data) {
-                getView().getInspectItemListSuccess(data);
-            }
-
-            @Override
-            public boolean requestError(@NotNull ApiException exception, int code,
-                                        @NotNull String msg) {
-                getView().getInspectItemListFailed(msg);
-                return super.requestError(exception, code, msg);
-            }
-        });
-    }
-
-    @Override
-    public void OnRightTextClick(View v) {
-        saveOrder();
-    }
-
-    /**
-     * 提供统一的提交方法，在这里进行判断到底是检查提交还是检验提交
-     */
-    public void saveOrder() {
-        if (getView().isSaveCheckOutOrder()) {
-            saveCheckout();
-        } else {
-            ToastUtil.showMessage(getContext(), "请完善信息后再提交！");
-        }
-    }
 
     /**
      * 删除检查／检验单
-     *
-     * @param orderId
      */
-    public void deleteInquisition(long orderId) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("id", orderId);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).deleteInquisition(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
+    public void cancelCheckout(String orderId) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).cancelCheckout(orderId), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable String data) {
                 getView().deleteOrderSuccess();
