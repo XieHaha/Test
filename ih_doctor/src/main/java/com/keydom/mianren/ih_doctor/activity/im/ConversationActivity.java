@@ -28,6 +28,7 @@ import com.keydom.ih_common.activity.HandleProposeAcitivity;
 import com.keydom.ih_common.avchatkit.AVChatKit;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.InquiryStatus;
+import com.keydom.ih_common.bean.InspectionApplyBean;
 import com.keydom.ih_common.bean.InspectionBean;
 import com.keydom.ih_common.bean.TriageBean;
 import com.keydom.ih_common.im.ImClient;
@@ -52,6 +53,7 @@ import com.keydom.ih_common.im.widget.plugin.UserFollowUpPlugin;
 import com.keydom.ih_common.im.widget.plugin.VideoPlugin;
 import com.keydom.ih_common.minterface.OnLoginListener;
 import com.keydom.ih_common.net.ApiRequest;
+import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.CalculateTimeUtils;
@@ -97,6 +99,7 @@ import com.scwang.smartrefresh.layout.util.DensityUtil;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jsoup.helper.StringUtil;
 
@@ -342,41 +345,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                         TriageOrderDetailActivity.startWithAction(context, bean,
                                 TypeEnum.TRIAGE_RECEIVED, true);
                     } else if (message.getAttachment() instanceof ExaminationAttachment) {
-                        //检查单
-                        ExaminationAttachment attachment =
-                                (ExaminationAttachment) message.getAttachment();
-                        InspectionBean inspectionBean = attachment.getInsCheckApplication();
-                        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).isPay(inspectionBean.getInsCheckOrderId()),
-                                new HttpSubscriber<Integer>(getContext(), getDisposable(), true,
-                                        false) {
-                                    @Override
-                                    public void requestComplete(@android.support.annotation.Nullable Integer data) {
-                                        // 0和3是未支付 , // 3是外延
-                                        if (0 == data || 3 == data) {
-                                            CheckOrderDetailActivity.startInspectOrder(context,
-                                                    attachment.getId(),
-                                                    inspectionBean, orderBean, false);
-                                        } else {
-                                            CheckOrderDetailActivity.startInspectOrder(context,
-                                                    attachment.getId(),
-                                                    inspectionBean, orderBean, true);
-                                        }
-
-                                    }
-                                });
+                        dealExaminationAttachment((ExaminationAttachment) message.getAttachment());
                     } else if (message.getAttachment() instanceof InspectionAttachment) {
-                        //检验单
-                        InspectionAttachment attachment =
-                                (InspectionAttachment) message.getAttachment();
-                        InspectionBean inspectionBean = attachment.getInsCheckApplication();
-                        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckOutOrderStatus(attachment.getId(), attachment.getUpdateTime()),
-                                new HttpSubscriber<String>(getContext(), getDisposable(), true,
-                                        false) {
-                                    @Override
-                                    public void requestComplete(@android.support.annotation.Nullable String data) {
-
-                                    }
-                                });
+                        dealInspectionAttachment((InspectionAttachment) message.getAttachment());
                     } else if (message.getAttachment() instanceof ReferralApplyAttachment) {
                         //转诊单
                         com.keydom.mianren.ih_doctor.activity.doctor_cooperation.DiagnoseOrderDetailActivity.startCommon(context, ((ReferralApplyAttachment) message.getAttachment()).getId());
@@ -417,50 +388,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             @Override
             public boolean onPayClick(Context context, View view, IMMessage message) {
                 if (message.getAttachment() instanceof ExaminationAttachment) {//检查单
-                    ExaminationAttachment attachment =
-                            (ExaminationAttachment) message.getAttachment();
-                    InspectionBean inspectionBean = attachment.getInsCheckApplication();
-                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).isPay(inspectionBean.getInsCheckOrderId()),
-                            new HttpSubscriber<Integer>(getContext(), getDisposable(), true,
-                                    false) {
-                                @Override
-                                public void requestComplete(@android.support.annotation.Nullable Integer data) {
-                                    // 0和3是未支付 , // 3是外延
-                                    if (0 == data || 3 == data) {
-                                        CheckOrderDetailActivity.startInspectOrder(context,
-                                                attachment.getId(),
-                                                inspectionBean, orderBean, false);
-                                    } else {
-                                        CheckOrderDetailActivity.startInspectOrder(context,
-                                                attachment.getId(),
-                                                inspectionBean, orderBean, true);
-                                    }
-
-                                }
-                            });
+                    dealExaminationAttachment((ExaminationAttachment) message.getAttachment());
                 } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
-                    //检验单
-                    InspectionAttachment attachment =
-                            (InspectionAttachment) message.getAttachment();
-                    InspectionBean inspectionBean = attachment.getInsCheckApplication();
-                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).isPay(inspectionBean.getInsCheckOrderId()),
-                            new HttpSubscriber<Integer>(getContext(), getDisposable(), true,
-                                    false) {
-                                @Override
-                                public void requestComplete(@android.support.annotation.Nullable Integer data) {
-                                    // 0和3是未支付 , // 3是外延
-                                    if (0 == data || 3 == data) {
-                                        CheckOrderDetailActivity.startTestOrder(context,
-                                                attachment.getId(),
-                                                inspectionBean, orderBean, false);
-                                    } else {
-                                        CheckOrderDetailActivity.startTestOrder(context,
-                                                attachment.getId(),
-                                                inspectionBean, orderBean, true);
-                                    }
-
-                                }
-                            });
+                    dealInspectionAttachment((InspectionAttachment) message.getAttachment());
                 } else
                     PrescriptionActivity.startCommon(context,
                             Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
@@ -471,57 +401,63 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             public boolean onPrescriptionClick(Context context,
                                                @android.support.annotation.Nullable IMMessage message) {
                 if (message.getAttachment() instanceof ExaminationAttachment) {
-                    //检查单
-                    ExaminationAttachment attachment =
-                            (ExaminationAttachment) message.getAttachment();
-                    InspectionBean inspectionBean = attachment.getInsCheckApplication();
-                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).isPay(inspectionBean.getInsCheckOrderId()),
-                            new HttpSubscriber<Integer>(getContext(), getDisposable(), true,
-                                    false) {
-                                @Override
-                                public void requestComplete(@android.support.annotation.Nullable Integer data) {
-                                    // 0和3是未支付 , // 3是外延
-                                    if (0 == data || 3 == data) {
-                                        CheckOrderDetailActivity.startInspectOrder(context,
-                                                attachment.getId(), inspectionBean, orderBean,
-                                                false);
-                                    } else {
-                                        CheckOrderDetailActivity.startInspectOrder(context,
-                                                attachment.getId(), inspectionBean, orderBean,
-                                                true);
-                                    }
-
-                                }
-                            });
+                    dealExaminationAttachment((ExaminationAttachment) message.getAttachment());
                 } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
-                    //检验单
-                    InspectionAttachment attachment =
-                            (InspectionAttachment) message.getAttachment();
-                    InspectionBean inspectionBean = attachment.getInsCheckApplication();
-                    ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).isPay(inspectionBean.getInsCheckOrderId()),
-                            new HttpSubscriber<Integer>(getContext(), getDisposable(), true,
-                                    false) {
-                                @Override
-                                public void requestComplete(@android.support.annotation.Nullable Integer data) {
-                                    // 0和3是未支付 , // 3是外延
-                                    if (0 == data || 3 == data) {
-                                        CheckOrderDetailActivity.startTestOrder(context,
-                                                attachment.getId(), inspectionBean, orderBean,
-                                                false);
-                                    } else {
-                                        CheckOrderDetailActivity.startTestOrder(context,
-                                                attachment.getId(), inspectionBean, orderBean,
-                                                true);
-                                    }
-
-                                }
-                            });
+                    dealInspectionAttachment((InspectionAttachment) message.getAttachment());
                 } else
                     PrescriptionActivity.startCommon(context,
                             Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
                 return false;
             }
         });
+    }
+
+    /**
+     * 检验订单点击
+     */
+    private void dealInspectionAttachment(InspectionAttachment attachment) {
+        InspectionBean inspectionBean = attachment.getInsCheckApplication();
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckOutOrderStatus(attachment.getId(), attachment.getUpdateTime()),
+                new HttpSubscriber<InspectionApplyBean>(getContext(), getDisposable(), true,
+                        false) {
+                    @Override
+                    public void requestComplete(@android.support.annotation.Nullable InspectionApplyBean data) {
+                        inspectionBean.setPayState(data.getPayState());
+                        CheckOrderDetailActivity.startTestOrder(ConversationActivity.this,
+                                attachment.getId(), inspectionBean, orderBean);
+                    }
+
+                    @Override
+                    public boolean requestError(@NotNull ApiException exception, int code,
+                                                @NotNull String msg) {
+                        ToastUtil.showMessage(ConversationActivity.this, msg);
+                        return super.requestError(exception, code, msg);
+                    }
+                });
+    }
+
+    /**
+     * 检查订单点击
+     */
+    private void dealExaminationAttachment(ExaminationAttachment attachment) {
+        InspectionBean inspectionBean = attachment.getInsCheckApplication();
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).getCheckOutOrderStatus(attachment.getId(), attachment.getUpdateTime()),
+                new HttpSubscriber<InspectionApplyBean>(getContext(), getDisposable(), true,
+                        false) {
+                    @Override
+                    public void requestComplete(@android.support.annotation.Nullable InspectionApplyBean data) {
+                        inspectionBean.setPayState(data.getPayState());
+                        CheckOrderDetailActivity.startInspectOrder(ConversationActivity.this,
+                                attachment.getId(), inspectionBean, orderBean);
+                    }
+
+                    @Override
+                    public boolean requestError(@NotNull ApiException exception, int code,
+                                                @NotNull String msg) {
+                        ToastUtil.showMessage(ConversationActivity.this, msg);
+                        return super.requestError(exception, code, msg);
+                    }
+                });
     }
 
     private void initView() {

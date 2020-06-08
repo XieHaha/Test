@@ -3,6 +3,7 @@ package com.keydom.mianren.ih_doctor.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,7 +128,8 @@ public class DiagnoseOrderSecondaryListRecyclerAdapter extends SecondaryListAdap
                                         int subItemIndex) {
         CheckOutGroupBean bean = dts.get(groupItemIndex).getGroupItem();
         CheckOutGroupBean subBean = dts.get(groupItemIndex).getSubItems().get(subItemIndex);
-        ((SubItemViewHolder) holder).tvSub.setText(subBean.getItemName());
+        ((SubItemViewHolder) holder).tvSub.setText(TextUtils.isEmpty(subBean.getItemName()) ?
+                subBean.getInsCheckItemName() : subBean.getItemName());
         ((SubItemViewHolder) holder).mRb.setChecked(subBean.isSelect());
         if (delete) {
             ((SubItemViewHolder) holder).mRb.setPadding(CommonUtils.px2dip(context,

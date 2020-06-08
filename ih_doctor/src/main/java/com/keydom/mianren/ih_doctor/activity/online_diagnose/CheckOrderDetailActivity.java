@@ -100,22 +100,16 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
      * 检验检查申请单id
      */
     private String orderId;
-    /**
-     * 订单是否已支付
-     */
-    private boolean isPay;
 
     /**
      * 启动检验单详情页面
      */
     public static void startTestOrder(Context context, String orderId,
-                                      InspectionBean inspectionBean,
-                                      InquiryBean bean, boolean isPay) {
+                                      InspectionBean inspectionBean, InquiryBean bean) {
         Intent starter = new Intent(context, CheckOrderDetailActivity.class);
         starter.putExtra(INQUIRYBEAN, bean);
         starter.putExtra(Const.DATA, inspectionBean);
         starter.putExtra(Const.TYPE, TEST_ORDER);
-        starter.putExtra(Const.IS_PAY, isPay);
         starter.putExtra(Const.ORDER_ID, orderId);
         ((Activity) context).startActivityForResult(starter, ConversationActivity.SEND_MESSAGE);
     }
@@ -126,13 +120,11 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
      * @param bean 问诊单对象
      */
     public static void startInspectOrder(Context context, String orderId,
-                                         InspectionBean inspectionBean,
-                                         InquiryBean bean, boolean isPay) {
+                                         InspectionBean inspectionBean, InquiryBean bean) {
         Intent starter = new Intent(context, CheckOrderDetailActivity.class);
         starter.putExtra(INQUIRYBEAN, bean);
         starter.putExtra(Const.DATA, inspectionBean);
         starter.putExtra(Const.TYPE, INSPACT_ORDER);
-        starter.putExtra(Const.IS_PAY, isPay);
         starter.putExtra(Const.ORDER_ID, orderId);
         ((Activity) context).startActivityForResult(starter, ConversationActivity.SEND_MESSAGE);
     }
@@ -148,7 +140,6 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         inspectionBean = (InspectionBean) getIntent().getSerializableExtra(Const.DATA);
         orderId = getIntent().getStringExtra(Const.ORDER_ID);
         mType = getIntent().getIntExtra(Const.TYPE, -1);
-        isPay = getIntent().getBooleanExtra(Const.IS_PAY, false);
         initView();
         if (mType == TEST_ORDER) {
             setTitle("检验申请详情");
@@ -167,7 +158,7 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
      * 设置检验信息
      */
     private void setCheckOrderInfo() {
-        editOrderIb.setVisibility(isPay ? View.GONE : View.VISIBLE);
+        editOrderIb.setVisibility(inspectionBean.getPayState() == 1 ? View.GONE : View.VISIBLE);
         hospitalName.setText(MyApplication.userInfo.getHospitalName());
         userName.setText(inspectionBean.getPatientName());
         userSex.setText(CommonUtils.getSex(inspectionBean.getSex()));
@@ -195,8 +186,11 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
      */
     private List<CheckOutGroupBean> getCheckOutList() {
         List<CheckOutGroupBean> list = new ArrayList<>();
-        for (CheckOutGroupBean bean :
-                inspectionBean.getCateS()) {
+        for (CheckOutGroupBean bean : inspectionBean.getCateS()) {
+            for (CheckOutGroupBean subBean : bean.getItems()) {
+                //修改订单时 默认全部选中
+                subBean.setSelect(true);
+            }
             list.addAll(bean.getItems());
         }
         return list;
@@ -227,9 +221,7 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == ConversationActivity.SEND_MESSAGE) {
-                Intent intent = new Intent();
-                intent.putExtra(Const.DATA, data.getSerializableExtra(Const.DATA));
-                setResult(RESULT_OK, intent);
+                setResult(RESULT_OK);
                 finish();
             }
         }

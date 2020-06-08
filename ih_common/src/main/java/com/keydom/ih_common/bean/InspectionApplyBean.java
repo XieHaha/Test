@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public class InspectionApplyBean implements Serializable {
     private static final long serialVersionUID = -8566700728479963990L;
     private int type;
+    private int payState;
+    private String id;
     private String amount;
     private String age;
     private String complaint;
@@ -26,6 +28,22 @@ public class InspectionApplyBean implements Serializable {
     private String patientName;
     private String sex;
     private ArrayList<CheckOutApplyBean> cateS;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getPayState() {
+        return payState;
+    }
+
+    public void setPayState(int payState) {
+        this.payState = payState;
+    }
 
     public int getType() {
         return type;

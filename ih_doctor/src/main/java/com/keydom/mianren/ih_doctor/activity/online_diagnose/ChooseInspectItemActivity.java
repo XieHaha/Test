@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
@@ -63,7 +64,8 @@ public class ChooseInspectItemActivity extends BaseControllerActivity<ChooseInsp
      * @param mList          检查项目列表
      * @param selectItemList 选中的检查项目列表
      */
-    public static void start(Context context, List<CheckOutGroupBean> mList, List<CheckOutGroupBean> selectItemList) {
+    public static void start(Context context, List<CheckOutGroupBean> mList,
+                             List<CheckOutGroupBean> selectItemList) {
         Intent starter = new Intent(context, ChooseInspectItemActivity.class);
         starter.putExtra(SELECT_LIST, (Serializable) selectItemList);
         starter.putExtra(INSPECT_LIST, (Serializable) mList);
@@ -90,7 +92,8 @@ public class ChooseInspectItemActivity extends BaseControllerActivity<ChooseInsp
         inspactItemSelectRecyclrViewAdapter = new InspactItemSelectRecyclrViewAdapter(this, mList);
         recyclerView.setAdapter(inspactItemSelectRecyclrViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL));
         setRightTxt("确定");
         setTitle("检查申请");
         setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
@@ -111,7 +114,7 @@ public class ChooseInspectItemActivity extends BaseControllerActivity<ChooseInsp
         if (mList != null && mSelectList != null) {
             for (CheckOutGroupBean bean : mList) {
                 for (CheckOutGroupBean selectBean : mSelectList) {
-                    if (bean.getProjectId() == selectBean.getProjectId()) {
+                    if (TextUtils.equals(bean.getProjectId(), selectBean.getProjectId())) {
                         bean.setSelect(true);
                     }
                 }

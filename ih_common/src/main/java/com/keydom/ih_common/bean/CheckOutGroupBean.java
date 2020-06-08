@@ -22,8 +22,8 @@ import java.util.List;
  */
 public class CheckOutGroupBean implements Serializable {
     private static final long serialVersionUID = 1L;
-    private long projectId;
-    private long deptId;
+    private String projectId;
+    private String deptId;
     private String deptName;
     private String specimenName;
     private String remark;
@@ -123,19 +123,19 @@ public class CheckOutGroupBean implements Serializable {
         this.select = select;
     }
 
-    public long getProjectId() {
+    public String getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(long projectId) {
+    public void setProjectId(String projectId) {
         this.projectId = projectId;
     }
 
-    public long getDeptId() {
+    public String getDeptId() {
         return deptId;
     }
 
-    public void setDeptId(long deptId) {
+    public void setDeptId(String deptId) {
         this.deptId = deptId;
     }
 
@@ -250,7 +250,7 @@ public class CheckOutGroupBean implements Serializable {
     public void setSelectItem(CheckOutGroupBean bean) {
         if (items != null && items.size() > 0) {
             for (int i = 0; i < items.size(); i++) {
-                if (items.get(i).getProjectId() == bean.getProjectId()) {
+                if (TextUtils.equals(items.get(i).getProjectId(), bean.getProjectId())) {
                     items.set(i, bean);
                 }
             }

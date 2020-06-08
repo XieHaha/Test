@@ -1,11 +1,12 @@
 package com.keydom.mianren.ih_doctor.net;
 
+import com.keydom.ih_common.bean.CheckOutGroupBean;
+import com.keydom.ih_common.bean.InspectionApplyBean;
 import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_doctor.bean.BodyCheckDetailInfo;
 import com.keydom.mianren.ih_doctor.bean.CheckItemListBean;
-import com.keydom.ih_common.bean.CheckOutGroupBean;
 import com.keydom.mianren.ih_doctor.bean.DiagnoseHandleBean;
 import com.keydom.mianren.ih_doctor.bean.DiagnosePatientInfoBean;
 import com.keydom.mianren.ih_doctor.bean.DrugBean;
@@ -78,7 +79,7 @@ public interface DiagnoseApiService {
      * 检验、检查单订单状态
      */
     @GET("user/insCheckApplication/getApplicationById")
-    Observable<HttpResult<String>> getCheckOutOrderStatus(@Query("applicationId") String id, @Query(
+    Observable<HttpResult<InspectionApplyBean>> getCheckOutOrderStatus(@Query("applicationId") String id, @Query(
             "updateTime") String updateTime);
 
 

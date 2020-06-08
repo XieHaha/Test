@@ -901,6 +901,9 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             @SingleClick(1000)
             @Override
             public void onClick(View view) {
+                if (selectHospitalId == null) {
+                    return;
+                }
                 App.hospitalId = selectHospitalId;
                 App.hospitalName = selectHospitalName;
                 for (int i = 0; i < Global.getHospitalList().size(); i++) {

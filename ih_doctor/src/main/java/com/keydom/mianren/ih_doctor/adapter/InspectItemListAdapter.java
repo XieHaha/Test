@@ -3,6 +3,7 @@ package com.keydom.mianren.ih_doctor.adapter;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -158,7 +159,7 @@ public class InspectItemListAdapter extends BaseQuickAdapter<CheckOutGroupBean, 
                                 partStr += "".equals(partStr) ? selectBean.getInsCheckCateName() : ("、" + selectBean.getInsCheckCateName());
                                 totalFee = totalFee.add(selectBean.getPrice());
                                 for (int i = 0; i < item.selectedItem().getItems().size(); i++) {
-                                    if (item.selectedItem().getItems().get(i).getProjectId() == selectBean.getProjectId()) {
+                                    if (TextUtils.equals(item.selectedItem().getItems().get(i).getProjectId(),selectBean.getProjectId())) {
                                         item.selectedItem().getItems().get(i).setSelect(true);
                                     }
                                 }

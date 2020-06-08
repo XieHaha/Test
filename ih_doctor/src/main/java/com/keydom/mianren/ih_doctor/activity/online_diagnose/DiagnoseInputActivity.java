@@ -229,6 +229,7 @@ public class DiagnoseInputActivity extends BaseControllerActivity<DiagnoseInputC
         if (!TextUtils.isEmpty(inputStr)) {
             String[] strings = inputStr.split(",");
             List<String> list = Arrays.asList(strings);
+            selectData.clear();
             for (ICD10Bean bean : mList) {
                 if (list.contains(bean.getName())) {
                     selectData.add(bean);

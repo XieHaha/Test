@@ -20,6 +20,7 @@ import com.keydom.ih_common.bean.InspectionApplyBean;
 import com.keydom.ih_common.bean.InspectionBean;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
@@ -204,15 +205,11 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
                         diseaseRl.setVisibility(View.VISIBLE);
                         checkTipLl.setVisibility(View.GONE);
                     }
-                    selectTestList.clear();
-                    selectTestList.addAll(inspectionBean.getCateS());
-                    setTestListData(selectTestList);
-                    setCheckFee();
-                    adapter.notifyDataSetChanged();
                 }
                 break;
         }
         setTitle(title);
+        bindData();
         if (mType == CREATE_INSPECT_ORDER || mType == CREATE_TEST_ORDER) {
             setRightBtnListener(getController());
             setRightTxt("提交");
@@ -228,7 +225,9 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
                 @SingleClick(1000)
                 @Override
                 public void OnRightTextClick(View v) {
-                    getController().cancelCheckout(orderId);
+                    new GeneralDialog(ApplyForCheckActivity.this, "是否确认删除此申请单?",
+                            () -> getController().cancelCheckout(orderId)).show();
+
                 }
             });
         }
@@ -238,7 +237,20 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
      * 已有订单数据回填
      */
     private void bindData() {
-
+        if (inspectionBean != null) {
+            //主诉
+            mainDec.setText(inspectionBean.getComplaint());
+            //诊断
+            diagnoseTv.setText(inspectionBean.getDiagnosis());
+            //描述
+            diseaseTv.setText(inspectionBean.getConditionDesc());
+            //项目
+            selectTestList.clear();
+            selectTestList.addAll(inspectionBean.getCateS());
+            setTestListData(selectTestList);
+            setCheckFee();
+            adapter.notifyDataSetChanged();
+        }
     }
 
     /**
@@ -340,6 +352,15 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
         } else {
             bean.setType(1);
         }
+        switch (mType) {
+            case CREATE_INSPECT_ORDER:
+                bean.setConditionDesc(getDisease());
+                break;
+            case UPDATE_ORDER:
+                //修改订单时 需要订单id
+                bean.setId(orderId);
+                break;
+        }
         bean.setPatientName(orderBean.getName());
         bean.setAge(orderBean.getAge());
         bean.setSex(String.valueOf(orderBean.getSex()));
@@ -361,8 +382,10 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
             //父级项目
             CheckOutApplyBean bean = new CheckOutApplyBean();
             bean.setInsCheckApplicationId(groupItem.getId());
-            bean.setInsCheckCateCode(groupItem.getCateCode());
-            bean.setInsCheckCateName(groupItem.getName());
+            bean.setInsCheckCateCode(TextUtils.isEmpty(groupItem.getCateCode()) ?
+                    groupItem.getInsCheckCateCode() : groupItem.getCateCode());
+            bean.setInsCheckCateName(TextUtils.isEmpty(groupItem.getName()) ?
+                    groupItem.getInsCheckCateName() : groupItem.getName());
             //子级项目
             List<CheckOutApplyBean> subList = new ArrayList<>();
             for (CheckOutGroupBean subItem : groupItem.getItems()) {
@@ -373,8 +396,10 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
                     subBean.setExecuteDeptName(subItem.getExecuteDeptName());
                     subBean.setApplicationCode(subItem.getApplicationCode());
                     subBean.setApplicationName(subItem.getApplicationName());
-                    subBean.setInsCheckItemCode(subItem.getItemCode());
-                    subBean.setInsCheckItemName(subItem.getItemName());
+                    subBean.setInsCheckItemCode(TextUtils.isEmpty(subItem.getItemCode()) ?
+                            subItem.getInsCheckItemCode() : subItem.getItemCode());
+                    subBean.setInsCheckItemName(TextUtils.isEmpty(subItem.getItemName()) ?
+                            subItem.getInsCheckItemName() : subItem.getItemName());
                     subBean.setPrice(subItem.getPrice().toString());
                     subList.add(subBean);
                 }
@@ -447,6 +472,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
 
     @Override
     public void deleteOrderSuccess() {
+        ToastUtil.showMessage(this, "操作成功");
         ActivityUtils.finishActivity(CheckOrderDetailActivity.class);
         finish();
     }
