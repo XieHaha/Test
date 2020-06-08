@@ -16,24 +16,23 @@ import java.math.BigDecimal;
 
 
 /**
- *
- *       "manufacturerName": "四川制药",
- *       "singleMaximum": "5",
- *       "drugsName": "感冒药",
- *       "spec": "1.2*50",
- *       "packUnit": "袋",
- *       "frequency": "一日1次",
- *       "way": "口服1",
- *       "usage": "内用1",
- *       "dosageUnit": "袋",
- *       "price": 0.01,
- *       "id": 95,
- *       "drugsCode": "21030020002",
- *       "drugsId": 239,
- *       "preparation": "中型",
- *       "dosage": "21432"
- * */
-public class DrugBean implements Serializable,MultiItemEntity {
+ * "manufacturerName": "四川制药",
+ * "singleMaximum": "5",
+ * "drugsName": "感冒药",
+ * "spec": "1.2*50",
+ * "packUnit": "袋",
+ * "frequency": "一日1次",
+ * "way": "口服1",
+ * "usage": "内用1",
+ * "dosageUnit": "袋",
+ * "price": 0.01,
+ * "id": 95,
+ * "drugsCode": "21030020002",
+ * "drugsId": 239,
+ * "preparation": "中型",
+ * "dosage": "21432"
+ */
+public class DrugBean implements Serializable, MultiItemEntity {
     private static final long serialVersionUID = 1L;
     public final static int TYPE_BODY = 1;
     private long id;
@@ -45,6 +44,10 @@ public class DrugBean implements Serializable,MultiItemEntity {
      * 给药途径
      */
     private String way;
+    /**
+     * 给药途径code
+     */
+    private String wayCode;
     /**
      * 药品用法
      */
@@ -117,13 +120,13 @@ public class DrugBean implements Serializable,MultiItemEntity {
 
     private double singleDose;
 
-    private boolean isSelecte=false;
+    private boolean isSelecte = false;
 
     private float times;
 
     private float rate;
-	
-	    /**
+
+    /**
      * 药品代码
      */
     private String drugsCode;
@@ -213,6 +216,14 @@ public class DrugBean implements Serializable,MultiItemEntity {
 
     public void setWay(String way) {
         this.way = way;
+    }
+
+    public String getWayCode() {
+        return wayCode;
+    }
+
+    public void setWayCode(String wayCode) {
+        this.wayCode = wayCode;
     }
 
     public String getUsage() {

@@ -106,12 +106,19 @@ public interface PrescriptionService {
     @GET("user/prescription/drugsFrequencyList")
     Observable<HttpResult<DrugUseConfigBean>> drugsFrequencyList();
 
+//    /**
+//     * 药品用法列表
+//     *
+//     * @return
+//     */
+//    @GET("outer/drugsDict/drugsFrequencyList")
+//    Observable<HttpResult<DrugUseConfigBean>> getAllDrugsFrequencyList();
     /**
-     * 药品用法列表
+     * 药品用法列表 （处方流转）
      *
      * @return
      */
-    @GET("outer/drugsDict/drugsFrequencyList")
+    @GET("outer_mr/drugsDict/drugsFrequencyList")
     Observable<HttpResult<DrugUseConfigBean>> getAllDrugsFrequencyList();
 
 }

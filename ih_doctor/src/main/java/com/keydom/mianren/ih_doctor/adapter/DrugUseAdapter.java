@@ -331,8 +331,9 @@ public class DrugUseAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolder> {
                     @Override
                     public void onOptionsSelect(int options1, int option2, int options3, View v) {
                         if (!isChange) {
-                            item.setWay(configBean.getWayList().get(options1));
-                            get_medical_way_tv.setText(configBean.getWayList().get(options1));
+                            item.setWay(configBean.getWayList().get(options1).getCodeValue());
+                            item.setWayCode(configBean.getWayList().get(options1).getCode());
+                            get_medical_way_tv.setText(configBean.getWayList().get(options1).getCodeValue());
                         }
                     }
                 }).build();

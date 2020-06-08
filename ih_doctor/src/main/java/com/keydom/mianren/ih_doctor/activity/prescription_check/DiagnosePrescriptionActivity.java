@@ -580,6 +580,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                 drugSavedBean.setUsage(saveData.get(i).get(j).getUsage());
                 drugSavedBean.setDays(saveData.get(i).get(j).getDays());
                 drugSavedBean.setWay(saveData.get(i).get(j).getWay());
+                drugSavedBean.setWayCode(saveData.get(i).get(j).getWayCode());
                 drugSavedBean.setDoctorAdvice(saveData.get(i).get(j).getDoctorAdvice());
                 drugSavedBean.setId(saveData.get(i).get(j).getId());
                 drugSavedBean.setPackUnit(saveData.get(i).get(j).getPackUnit());

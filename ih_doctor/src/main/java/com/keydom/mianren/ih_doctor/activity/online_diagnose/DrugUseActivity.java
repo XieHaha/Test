@@ -28,6 +28,7 @@ import com.keydom.mianren.ih_doctor.bean.DrugListBean;
 import com.keydom.mianren.ih_doctor.bean.DrugUseConfigBean;
 import com.keydom.mianren.ih_doctor.bean.Event;
 import com.keydom.mianren.ih_doctor.bean.FrequencyBean;
+import com.keydom.mianren.ih_doctor.bean.UseWayBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
@@ -39,6 +40,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -102,6 +104,14 @@ public class DrugUseActivity extends BaseActivity {
      */
     private DrugBean drugBean;
     private DecimalFormat df1 = new DecimalFormat("#.#");
+    /**
+     * 用法途径数据
+     */
+    private List<UseWayBean> useWayBeans;
+    /**
+     * 用药频率
+     */
+    private List<FrequencyBean> frequencyBeans;
 
     /**
      * 启动药品规格、用法设置页面
@@ -159,6 +169,15 @@ public class DrugUseActivity extends BaseActivity {
         medicalDescTv.setText(drugBean.getSpec());
         medicalNumScalerTextLayout.setText(String.valueOf(drugBean.getQuantity()));
         getMedicalWayTv.setText(drugBean.getWay());
+        ArrayList<String> ways = new ArrayList<>();
+        for (UseWayBean bean : useWayBeans) {
+            ways.add(bean.getCodeValue());
+            //当用法不为空时，需要轮训处与其对应的用法code
+            if (TextUtils.equals(bean.getCodeValue(), drugBean.getWay())) {
+                drugBean.setWayCode(bean.getCode());
+            }
+        }
+
         medicalDosageScalerTextLayout.setText(df1.format(dose));
         dosageUnitTv.setText(drugBean.getDosageUnit());
         eatMedicalRateTv.setText(drugBean.getFrequency());
@@ -277,9 +296,9 @@ public class DrugUseActivity extends BaseActivity {
         //用药频率
         OptionsPickerView frequencyPickerView = new OptionsPickerBuilder(DrugUseActivity.this,
                 (options1, option2, options3, v) -> {
-                    drugBean.setFrequency(configBean.getFrequencyList().get(options1).getRemark());
-                    drugBean.setFrequencyEnglish(configBean.getFrequencyList().get(options1).getName());
-                    eatMedicalRateTv.setText(configBean.getFrequencyList().get(options1).getName());
+                    drugBean.setFrequency(frequencyBeans.get(options1).getFreqId());
+                    drugBean.setFrequencyEnglish(frequencyBeans.get(options1).getName());
+                    eatMedicalRateTv.setText(frequencyBeans.get(options1).getName());
 
                 }).build();
         ArrayList<String> frequencys = new ArrayList<>();
@@ -292,10 +311,12 @@ public class DrugUseActivity extends BaseActivity {
         //给药途径
         OptionsPickerView wayPickerView = new OptionsPickerBuilder(DrugUseActivity.this,
                 (options1, option2, options3, v) -> {
-                    drugBean.setWay(configBean.getWayList().get(options1));
-                    getMedicalWayTv.setText(configBean.getWayList().get(options1));
+                    drugBean.setWay(useWayBeans.get(options1).getCodeValue());
+                    drugBean.setWayCode(useWayBeans.get(options1).getCode());
+                    getMedicalWayTv.setText(useWayBeans.get(options1).getCodeValue());
                 }).build();
-        wayPickerView.setPicker(configBean.getWayList());
+
+        wayPickerView.setPicker(ways);
         getMedicalWayTv.setOnClickListener(v -> wayPickerView.show());
     }
 
@@ -313,7 +334,7 @@ public class DrugUseActivity extends BaseActivity {
      */
     private boolean checkSubmit() {
         for (DrugBean bean : drugListBean.getDrugList()) {
-            if (bean.getDays() == 0 || bean.getQuantity() == 0 || bean.getSingleDose() == 0) {
+            if (TextUtils.isEmpty(bean.getWay()) || bean.getDays() == 0 || bean.getQuantity() == 0 || bean.getSingleDose() == 0) {
                 return false;
             }
         }
@@ -327,7 +348,12 @@ public class DrugUseActivity extends BaseActivity {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getAllDrugsFrequencyList(), new HttpSubscriber<DrugUseConfigBean>(this, getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable DrugUseConfigBean data) {
+                if (data == null) {
+                    return;
+                }
                 configBean = data;
+                useWayBeans = configBean.getWayList();
+                frequencyBeans = configBean.getFrequencyList();
                 bindData();
             }
 

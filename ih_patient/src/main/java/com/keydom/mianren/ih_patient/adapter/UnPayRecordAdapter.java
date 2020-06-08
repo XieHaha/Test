@@ -40,19 +40,19 @@ public class UnPayRecordAdapter extends BaseQuickAdapter<PayRecordBean, BaseView
 
     @Override
     protected void convert(BaseViewHolder helper, PayRecordBean item) {
-        helper.setText(R.id.name, StringUtils.isEmpty(item.getName())?"":item.getName())
+        helper.setText(R.id.name, StringUtils.isEmpty(item.getName()) ? "" : item.getName())
                 .setText(R.id.project, item.getPayRegister() + "")
-                .setText(R.id.time, StringUtils.isEmpty(item.getDate())?"":item.getDate())
+                .setText(R.id.time, StringUtils.isEmpty(item.getDate()) ? "" : item.getDate())
                 .setText(R.id.money, item.getSumFee() + "")
                 .addOnClickListener(R.id.pay);
         CheckBox checkBox = helper.getView(R.id.select);
 
-        if(item.isWaiYan()){
+        if (item.isWaiYan()) {
             checkBox.setVisibility(View.INVISIBLE);
             checkBox.setChecked(false);
             checkBox.setOnCheckedChangeListener(null);
-        }else{
-            checkBox.setVisibility(View.VISIBLE);
+        } else {
+            //            checkBox.setVisibility(View.VISIBLE);
             checkBox.setChecked(item.isSelect());
             checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (checkBox.isPressed()) {

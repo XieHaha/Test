@@ -15,6 +15,11 @@ public class FrequencyBean implements Serializable {
     private String name;
     private String remark;
     private String times;
+    private String nameAct;
+    private String freqId;
+    private String freqUnit;
+    private String freqDeg;
+    private String freqCn;
 
     public String getId() {
         return id;
@@ -62,5 +67,45 @@ public class FrequencyBean implements Serializable {
 
     public void setTimes(String times) {
         this.times = times;
+    }
+
+    public String getNameAct() {
+        return nameAct;
+    }
+
+    public void setNameAct(String nameAct) {
+        this.nameAct = nameAct;
+    }
+
+    public String getFreqId() {
+        return freqId;
+    }
+
+    public void setFreqId(String freqId) {
+        this.freqId = freqId;
+    }
+
+    public String getFreqUnit() {
+        return freqUnit;
+    }
+
+    public void setFreqUnit(String freqUnit) {
+        this.freqUnit = freqUnit;
+    }
+
+    public String getFreqDeg() {
+        return freqDeg;
+    }
+
+    public void setFreqDeg(String freqDeg) {
+        this.freqDeg = freqDeg;
+    }
+
+    public String getFreqCn() {
+        return freqCn;
+    }
+
+    public void setFreqCn(String freqCn) {
+        this.freqCn = freqCn;
     }
 }

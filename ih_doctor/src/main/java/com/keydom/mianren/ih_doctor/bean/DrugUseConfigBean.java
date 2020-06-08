@@ -8,7 +8,7 @@ public class DrugUseConfigBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private List<FrequencyBean> frequencyList;
-    private List<String> wayList;
+    private List<UseWayBean> wayList;
     private List<String> unitList;
     private List<String> dispensingUnitList;
 
@@ -21,11 +21,11 @@ public class DrugUseConfigBean implements Serializable {
         this.frequencyList = frequencyList;
     }
 
-    public List<String> getWayList() {
+    public List<UseWayBean> getWayList() {
         return wayList;
     }
 
-    public void setWayList(List<String> wayList) {
+    public void setWayList(List<UseWayBean> wayList) {
         this.wayList = wayList;
     }
 

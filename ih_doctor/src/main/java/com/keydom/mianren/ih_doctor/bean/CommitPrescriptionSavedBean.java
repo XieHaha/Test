@@ -51,6 +51,7 @@ public class CommitPrescriptionSavedBean {
         private String usage;
         private int days;
         private String way;
+        private String wayCode;
         private String doctorAdvice;
         private long id;
         private String packUnit;
@@ -201,6 +202,14 @@ public class CommitPrescriptionSavedBean {
 
         public void setWay(String way) {
             this.way = way;
+        }
+
+        public String getWayCode() {
+            return wayCode;
+        }
+
+        public void setWayCode(String wayCode) {
+            this.wayCode = wayCode;
         }
 
         public String getDoctorAdvice() {
