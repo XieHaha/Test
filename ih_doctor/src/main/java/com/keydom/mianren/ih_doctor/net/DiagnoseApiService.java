@@ -3,7 +3,6 @@ package com.keydom.mianren.ih_doctor.net;
 import com.keydom.ih_common.bean.CheckOutGroupBean;
 import com.keydom.ih_common.bean.InspectionApplyBean;
 import com.keydom.ih_common.bean.PageBean;
-import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_doctor.bean.BodyCheckDetailInfo;
 import com.keydom.mianren.ih_doctor.bean.CheckItemListBean;
@@ -133,7 +132,7 @@ public interface DiagnoseApiService {
     /**
      * 外延处方获取药品
      */
-    @POST(Const.OUTER + "/drugsSpec/findByParam")
+    @POST("outer_mr/drugsSpec/findByParam")
     Observable<HttpResult<DrugEntity>> WaiYanDrugsList(@Body RequestBody body);
 
     /**

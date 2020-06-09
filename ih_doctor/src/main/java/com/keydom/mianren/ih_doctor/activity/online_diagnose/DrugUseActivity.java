@@ -92,6 +92,8 @@ public class DrugUseActivity extends BaseActivity {
     RelativeLayout medicalNumScalerAddLayout;
     @BindView(R.id.doctor_entrust)
     InterceptorEditText doctorEntrust;
+    @BindView(R.id.drug_item_quantity)
+    TextView drugItemPackUnit;
     @BindView(R.id.save_drug)
     TextView saveDrug;
     private DrugListBean drugListBean;
@@ -103,15 +105,21 @@ public class DrugUseActivity extends BaseActivity {
      * 当前药品
      */
     private DrugBean drugBean;
-    private DecimalFormat df1 = new DecimalFormat("#.#");
+    private DecimalFormat df1 = new DecimalFormat("#.###");
+    private String singleDosage;
     /**
      * 用法途径数据
      */
     private List<UseWayBean> useWayBeans;
+    private List<String> ways;
     /**
      * 用药频率
      */
     private List<FrequencyBean> frequencyBeans;
+    /**
+     * 当前选中的用药频率
+     */
+    private FrequencyBean curFrequencyBean;
 
     /**
      * 启动药品规格、用法设置页面
@@ -134,6 +142,7 @@ public class DrugUseActivity extends BaseActivity {
     public void initData(@Nullable Bundle savedInstanceState) {
         drugListBean = (DrugListBean) getIntent().getSerializableExtra(Const.DATA);
         drugBean = drugListBean.getDrugList().get(0);
+        singleDosage = drugBean.getSingleDosage();
         setTitle("用法用量");
         getAllDrugsFrequencyList();
 
@@ -155,21 +164,12 @@ public class DrugUseActivity extends BaseActivity {
     }
 
     private void bindData() {
-        double dose;
-        if (drugBean.getSingleDose() != 0) {
-            dose = drugBean.getSingleDose();
-        } else {
-            if (drugBean.getDosage() != null && Double.valueOf(drugBean.getDosage()) != 0) {
-                dose = Double.valueOf(drugBean.getDosage());
-            } else {
-                dose = Double.valueOf(drugBean.getSingleMaximum());
-            }
-        }
+        drugItemPackUnit.setText(drugBean.getPackUnit());
         medicalNameTv.setText(drugBean.getDrugsName());
         medicalDescTv.setText(drugBean.getSpec());
         medicalNumScalerTextLayout.setText(String.valueOf(drugBean.getQuantity()));
         getMedicalWayTv.setText(drugBean.getWay());
-        ArrayList<String> ways = new ArrayList<>();
+        ways = new ArrayList<>();
         for (UseWayBean bean : useWayBeans) {
             ways.add(bean.getCodeValue());
             //当用法不为空时，需要轮训处与其对应的用法code
@@ -178,54 +178,17 @@ public class DrugUseActivity extends BaseActivity {
             }
         }
 
-        medicalDosageScalerTextLayout.setText(df1.format(dose));
-        dosageUnitTv.setText(drugBean.getDosageUnit());
+        medicalDosageScalerTextLayout.setText("1");
+        dosageUnitTv.setText(drugBean.getBasicUnit());
         eatMedicalRateTv.setText(drugBean.getFrequency());
         eatMedicalDayScalerTextLayout.setText(String.valueOf(drugBean.getDays()));
         doctorEntrust.setText(drugBean.getDoctorAdvice());
 
-        drugBean.setSingleDose(Double.parseDouble(df1.format(dose)));
-
-        //用法用量
-        medicalDosageScalerTextLayout.addTextChangedListener(new AbsTextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(s.toString())) {
-                    if (s.toString().contains(".")) {
-                        if (s.toString().indexOf(".") == s.toString().length() - 1) {
-
-                        } else if (s.toString().indexOf(".") == s.toString().length() - 3) {
-                            ToastUtil.showMessage(DrugUseActivity.this, "仅支持输入一位小数");
-                            String value = s.toString();
-                            value = value.substring(0, s.toString().indexOf(".") + 2);
-                            s.replace(0, s.length(), value);
-                        } else {
-                            drugBean.setSingleDose(Double.parseDouble(df1.format(Double.valueOf(s.toString()))));
-                            drugBean.setQuantity(computeDosage(drugBean));
-                        }
-                    } else {
-                        String s1 = s.toString();
-                        if (TextUtils.isEmpty(s1)) {
-                            return;
-                        }
-                        drugBean.setSingleDose(Double.parseDouble(df1.format(Double.valueOf(s.toString()))));
-                        drugBean.setQuantity(computeDosage(drugBean));
-                    }
-                }
-            }
-        });
-
-        //用药天数
-        eatMedicalDayScalerTextLayout.addTextChangedListener(new AbsTextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(s.toString())) {
-                    drugBean.setDays(Integer.valueOf(s.toString()));
-                    drugBean.setQuantity(computeDosage(drugBean));
-                }
-
-            }
-        });
+        drugUseWay();
+        drugUseSingle();
+        drugUseDays();
+        drugUseFrequency();
+        drugUseTotal();
 
         //医嘱事项
         doctorEntrust.addTextChangedListener(new AbsTextWatcher() {
@@ -234,15 +197,74 @@ public class DrugUseActivity extends BaseActivity {
                 drugBean.setDoctorAdvice(s.toString());
             }
         });
+    }
+
+    /**
+     * 给药途径
+     */
+    private void drugUseWay() {
+        OptionsPickerView wayPickerView = new OptionsPickerBuilder(DrugUseActivity.this,
+                (options1, option2, options3, v) -> {
+                    drugBean.setWay(useWayBeans.get(options1).getCodeValue());
+                    drugBean.setWayCode(useWayBeans.get(options1).getCode());
+                    getMedicalWayTv.setText(useWayBeans.get(options1).getCodeValue());
+                }).build();
+
+        wayPickerView.setPicker(ways);
+        getMedicalWayTv.setOnClickListener(v -> wayPickerView.show());
+    }
+
+    /**
+     * 用药频率
+     */
+    private void drugUseFrequency() {
+        OptionsPickerView frequencyPickerView = new OptionsPickerBuilder(DrugUseActivity.this,
+                (options1, option2, options3, v) -> {
+                    curFrequencyBean = frequencyBeans.get(options1);
+                    drugBean.setFrequency(curFrequencyBean.getFreqId());
+                    drugBean.setFrequencyEnglish(curFrequencyBean.getName());
+                    eatMedicalRateTv.setText(curFrequencyBean.getFreqId());
+                    //判断发药量模式
+                    drugUseTotalMode();
+                }).build();
+        ArrayList<String> frequencys = new ArrayList<>();
+        for (FrequencyBean bean : configBean.getFrequencyList()) {
+            frequencys.add(bean.getFreqId());
+        }
+        frequencyPickerView.setPicker(frequencys);
+        eatMedicalRateTv.setOnClickListener(v -> frequencyPickerView.show());
+    }
+
+    /**
+     * 单次药量
+     */
+    private void drugUseSingle() {
+        medicalDosageScalerTextLayout.addTextChangedListener(new AbsTextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                String value = s.toString().trim();
+                if (!TextUtils.isEmpty(value)) {
+                    if (value.contains(".")) {
+                        if (value.indexOf(".") == value.length() - 1) {
+
+                        } else if (value.indexOf(".") == value.length() - 4) {
+                            ToastUtil.showMessage(DrugUseActivity.this, "最多支持输入两位小数");
+                            value = value.substring(0, value.indexOf(".") + 3);
+                            s.replace(0, s.length(), value);
+                        } else {
+                            drugBean.setSingleDosage(df1.format(Double.valueOf(value)));
+                        }
+                    } else {
+                        drugBean.setSingleDosage(df1.format(Double.valueOf(value)));
+                    }
+                }
+            }
+        });
 
         //单次剂量 减号
         medicalDosageScalerMinusLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (drugBean.getSingleDose() > 0.1) {
-                    drugBean.setSingleDose(Double.parseDouble(df1.format(drugBean.getSingleDose() - 0.1)));
-                    medicalDosageScalerTextLayout.setText(String.valueOf(drugBean.getSingleDose()));
-                }
             }
         });
 
@@ -250,9 +272,21 @@ public class DrugUseActivity extends BaseActivity {
         medicalDosageScalerAddLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drugBean.setSingleDose(Double.parseDouble(df1.format(drugBean.getSingleDose() + 0.1)));
-                drugBean.setQuantity(computeDosage(drugBean));
-                medicalDosageScalerTextLayout.setText(String.valueOf(drugBean.getSingleDose()));
+            }
+        });
+    }
+
+    /**
+     * 用药天数
+     */
+    private void drugUseDays() {
+        eatMedicalDayScalerTextLayout.addTextChangedListener(new AbsTextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s.toString())) {
+                    drugBean.setDays(Integer.valueOf(s.toString()));
+                }
+
             }
         });
 
@@ -260,18 +294,24 @@ public class DrugUseActivity extends BaseActivity {
         eatMedicalDayScalerMinusLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (drugBean.getDays() > 0) {
-                    drugBean.setDays(drugBean.getDays() - 1);
-                    eatMedicalDayScalerTextLayout.setText(String.valueOf(drugBean.getDays()));
-                }
             }
         });
         // 用药天数  加
         eatMedicalDayScalerAddLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drugBean.setDays(drugBean.getDays() + 1);
-                eatMedicalDayScalerTextLayout.setText(String.valueOf(drugBean.getDays()));
+            }
+        });
+    }
+
+    /**
+     * 用药总量
+     */
+    private void drugUseTotal() {
+        medicalNumScalerTextLayout.addTextChangedListener(new AbsTextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                super.afterTextChanged(s);
             }
         });
         // 用药总量  减
@@ -292,39 +332,43 @@ public class DrugUseActivity extends BaseActivity {
                 medicalNumScalerTextLayout.setText(String.valueOf(drugBean.getQuantity()));
             }
         });
-
-        //用药频率
-        OptionsPickerView frequencyPickerView = new OptionsPickerBuilder(DrugUseActivity.this,
-                (options1, option2, options3, v) -> {
-                    drugBean.setFrequency(frequencyBeans.get(options1).getFreqId());
-                    drugBean.setFrequencyEnglish(frequencyBeans.get(options1).getName());
-                    eatMedicalRateTv.setText(frequencyBeans.get(options1).getName());
-
-                }).build();
-        ArrayList<String> frequencys = new ArrayList<>();
-        for (FrequencyBean bean : configBean.getFrequencyList()) {
-            frequencys.add(bean.getName());
-        }
-        frequencyPickerView.setPicker(frequencys);
-        eatMedicalRateTv.setOnClickListener(v -> frequencyPickerView.show());
-
-        //给药途径
-        OptionsPickerView wayPickerView = new OptionsPickerBuilder(DrugUseActivity.this,
-                (options1, option2, options3, v) -> {
-                    drugBean.setWay(useWayBeans.get(options1).getCodeValue());
-                    drugBean.setWayCode(useWayBeans.get(options1).getCode());
-                    getMedicalWayTv.setText(useWayBeans.get(options1).getCodeValue());
-                }).build();
-
-        wayPickerView.setPicker(ways);
-        getMedicalWayTv.setOnClickListener(v -> wayPickerView.show());
     }
 
-    private int computeDosage(DrugBean item) {
+    /**
+     * 计算总量
+     */
+    private void drugUseTotalMode() {
+        //T表示不自动计算总量
+        if ("T".equalsIgnoreCase(curFrequencyBean.getFreqUnit())) {
+            medicalNumScalerMinusLayout.setVisibility(View.VISIBLE);
+            medicalNumScalerAddLayout.setVisibility(View.VISIBLE);
+            medicalNumScalerTextLayout.setBackgroundResource(R.drawable.scaler_text_bg);
+            medicalNumScalerTextLayout.setFocusable(true);
+            medicalNumScalerTextLayout.setFocusableInTouchMode(true);
+        } else {
+            medicalNumScalerMinusLayout.setVisibility(View.GONE);
+            medicalNumScalerAddLayout.setVisibility(View.GONE);
+            medicalNumScalerTextLayout.setBackgroundResource(R.drawable.corner5_f9f9f9_bg);
+            medicalNumScalerTextLayout.setFocusable(false);
+            medicalNumScalerTextLayout.setFocusableInTouchMode(false);
+        }
+    }
+
+
+    /**
+     * 用药天数
+     */
+    private int days;
+    /**
+     *
+     */
+    float freqCn, freqDeg, rate, amount;
+
+    private float computeDosage(DrugBean item) {
         if (item.getRate() == 0) {
             return item.getQuantity();
         }
-        return Double.valueOf(Math.ceil(item.getSingleDose() * item.getTimes() * item.getDays() / item.getRate())).intValue();
+        return (days / freqCn) * amount * freqDeg / rate;
     }
 
     /**
@@ -334,7 +378,7 @@ public class DrugUseActivity extends BaseActivity {
      */
     private boolean checkSubmit() {
         for (DrugBean bean : drugListBean.getDrugList()) {
-            if (TextUtils.isEmpty(bean.getWay()) || bean.getDays() == 0 || bean.getQuantity() == 0 || bean.getSingleDose() == 0) {
+            if (TextUtils.isEmpty(bean.getWay()) || bean.getDays() == 0 || bean.getQuantity() == 0 || TextUtils.isEmpty(bean.getSingleDosage())) {
                 return false;
             }
         }

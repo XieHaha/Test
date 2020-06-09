@@ -44,7 +44,7 @@ public class DrugTempletAdapter extends BaseQuickAdapter<DrugBean, BaseViewHolde
         TextView fee_tv = helper.itemView.findViewById(R.id.fee_tv);
         medical_name_tv.setText(item.getDrugsName());
         medical_spec_tv.setText("规格:" + item.getSpec());
-        medical_usage_tv.setText("用法:" + item.getSingleDose() + item.getDosageUnit());
+        medical_usage_tv.setText("用法:" + item.getSingleDosage() + item.getDosageUnit());
         way_tv.setText(item.getWay());
         usage_frequency_tv.setText(String.valueOf(item.getFrequency()));
         quantity_tv.setText(String.valueOf(item.getQuantity() + item.getPackUnit()));

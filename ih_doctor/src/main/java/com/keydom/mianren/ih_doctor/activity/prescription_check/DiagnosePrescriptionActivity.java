@@ -573,7 +573,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                 drugSavedBean.setDrugsName(saveData.get(i).get(j).getDrugsName());
                 drugSavedBean.setFrequency(saveData.get(i).get(j).getFrequency());
                 drugSavedBean.setFrequencyEnglish(saveData.get(i).get(j).getFrequencyEnglish());
-                drugSavedBean.setDosage(String.valueOf(saveData.get(i).get(j).getSingleDose()));
+                drugSavedBean.setDosage(String.valueOf(saveData.get(i).get(j).getSingleDosage()));
                 drugSavedBean.setDosageUnit(saveData.get(i).get(j).getDosageUnit());
                 drugSavedBean.setQuantity(saveData.get(i).get(j).getQuantity());
                 drugSavedBean.setSpec(saveData.get(i).get(j).getSpec());

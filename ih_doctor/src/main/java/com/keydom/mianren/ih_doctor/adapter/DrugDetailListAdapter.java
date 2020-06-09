@@ -35,7 +35,7 @@ public class DrugDetailListAdapter extends BaseQuickAdapter<DrugBean, BaseViewHo
         helper.setText(R.id.medicine_num, String.valueOf(helper.getPosition() + 1) + "、").setText(R.id.medicine_name, item.getDrugsName())
                 .setText(R.id.medicine_specifications, item.getSpec()).setText(R.id.medicine_amount, String.valueOf(item.getQuantity()) + item.getPackUnit())
                 .setText(R.id.medicine_fee, item.getPrice() == null ? "" : item.getPrice().multiply(new BigDecimal(item.getQuantity())) + "元")
-                .setText(R.id.use_once, "用法：" + item.getSingleDose() + item.getDosageUnit()).setText(R.id.use_method, item.getWay())
+                .setText(R.id.use_once, "用法：" + item.getSingleDosage() + item.getDosageUnit()).setText(R.id.use_method, item.getWay())
                 .setText(R.id.times, String.valueOf(item.getFrequency()));
         update_tv.setOnClickListener(new View.OnClickListener() {
             @SingleClick(1000)

@@ -118,8 +118,6 @@ public class DrugBean implements Serializable, MultiItemEntity {
     private String doctorAdvice;
 
 
-    private double singleDose;
-
     private boolean isSelecte = false;
 
     private float times;
@@ -144,6 +142,42 @@ public class DrugBean implements Serializable, MultiItemEntity {
      */
     private BigDecimal fee;
 
+    private String singleDosage;
+    private String tradeName;
+    private String specificationImg;
+    private String basicUnit;
+
+    public String getSingleDosage() {
+        return singleDosage;
+    }
+
+    public void setSingleDosage(String singleDosage) {
+        this.singleDosage = singleDosage;
+    }
+
+    public String getTradeName() {
+        return tradeName;
+    }
+
+    public void setTradeName(String tradeName) {
+        this.tradeName = tradeName;
+    }
+
+    public String getSpecificationImg() {
+        return specificationImg;
+    }
+
+    public void setSpecificationImg(String specificationImg) {
+        this.specificationImg = specificationImg;
+    }
+
+    public String getBasicUnit() {
+        return basicUnit;
+    }
+
+    public void setBasicUnit(String basicUnit) {
+        this.basicUnit = basicUnit;
+    }
 
     public String getDrugsCode() {
         return drugsCode;
@@ -344,14 +378,6 @@ public class DrugBean implements Serializable, MultiItemEntity {
 
     public void setDoctorAdvice(String doctorAdvice) {
         this.doctorAdvice = doctorAdvice;
-    }
-
-    public double getSingleDose() {
-        return singleDose;
-    }
-
-    public void setSingleDose(double singleDose) {
-        this.singleDose = singleDose;
     }
 
     @Override
