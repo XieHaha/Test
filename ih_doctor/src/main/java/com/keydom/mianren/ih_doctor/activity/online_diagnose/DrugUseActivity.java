@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -105,8 +106,15 @@ public class DrugUseActivity extends BaseActivity {
      * 当前药品
      */
     private DrugBean drugBean;
-    private DecimalFormat df1 = new DecimalFormat("#.###");
-    private String singleDosage;
+    private DecimalFormat df1 = new DecimalFormat("#.##");
+    /**
+     * 用药天数
+     */
+    private int days;
+    /**
+     * 总量计算参数
+     */
+    float freqCn, freqDeg, rate, amount;
     /**
      * 用法途径数据
      */
@@ -142,7 +150,6 @@ public class DrugUseActivity extends BaseActivity {
     public void initData(@Nullable Bundle savedInstanceState) {
         drugListBean = (DrugListBean) getIntent().getSerializableExtra(Const.DATA);
         drugBean = drugListBean.getDrugList().get(0);
-        singleDosage = drugBean.getSingleDosage();
         setTitle("用法用量");
         getAllDrugsFrequencyList();
 
@@ -178,12 +185,16 @@ public class DrugUseActivity extends BaseActivity {
             }
         }
 
-        medicalDosageScalerTextLayout.setText("1");
+        medicalDosageScalerTextLayout.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         dosageUnitTv.setText(drugBean.getBasicUnit());
         eatMedicalRateTv.setText(drugBean.getFrequency());
         eatMedicalDayScalerTextLayout.setText(String.valueOf(drugBean.getDays()));
         doctorEntrust.setText(drugBean.getDoctorAdvice());
 
+        rate = drugBean.getRate();
+        days = drugBean.getDays();
+
+        drugUseTotalMode();
         drugUseWay();
         drugUseSingle();
         drugUseDays();
@@ -221,17 +232,17 @@ public class DrugUseActivity extends BaseActivity {
         OptionsPickerView frequencyPickerView = new OptionsPickerBuilder(DrugUseActivity.this,
                 (options1, option2, options3, v) -> {
                     curFrequencyBean = frequencyBeans.get(options1);
-                    drugBean.setFrequency(curFrequencyBean.getFreqId());
-                    drugBean.setFrequencyEnglish(curFrequencyBean.getName());
+                    drugBean.setFrequency(curFrequencyBean.getName());
+                    drugBean.setFrequencyEnglish(curFrequencyBean.getFreqId());
                     eatMedicalRateTv.setText(curFrequencyBean.getFreqId());
                     //判断发药量模式
                     drugUseTotalMode();
                 }).build();
-        ArrayList<String> frequencys = new ArrayList<>();
+        ArrayList<String> frequencies = new ArrayList<>();
         for (FrequencyBean bean : configBean.getFrequencyList()) {
-            frequencys.add(bean.getFreqId());
+            frequencies.add(bean.getFreqId());
         }
-        frequencyPickerView.setPicker(frequencys);
+        frequencyPickerView.setPicker(frequencies);
         eatMedicalRateTv.setOnClickListener(v -> frequencyPickerView.show());
     }
 
@@ -243,20 +254,20 @@ public class DrugUseActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String value = s.toString().trim();
-                if (!TextUtils.isEmpty(value)) {
-                    if (value.contains(".")) {
-                        if (value.indexOf(".") == value.length() - 1) {
-
-                        } else if (value.indexOf(".") == value.length() - 4) {
-                            ToastUtil.showMessage(DrugUseActivity.this, "最多支持输入两位小数");
-                            value = value.substring(0, value.indexOf(".") + 3);
-                            s.replace(0, s.length(), value);
-                        } else {
-                            drugBean.setSingleDosage(df1.format(Double.valueOf(value)));
-                        }
+                if (value.contains(".")) {
+                    if (value.indexOf(".") == value.length() - 4) {
+                        ToastUtil.showMessage(DrugUseActivity.this, "最多支持输入两位小数");
+                        value = value.substring(0, value.indexOf(".") + 3);
+                        s.replace(0, s.length(), value);
+                        amount = Float.valueOf(value);
+                        computeDosage();
                     } else {
-                        drugBean.setSingleDosage(df1.format(Double.valueOf(value)));
+                        amount = Float.valueOf(value);
+                        computeDosage();
                     }
+                } else {
+                    amount = Float.valueOf(value);
+                    computeDosage();
                 }
             }
         });
@@ -265,6 +276,13 @@ public class DrugUseActivity extends BaseActivity {
         medicalDosageScalerMinusLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (amount > 0) {
+                    amount -= 0.01;
+                    if (amount < 0) {
+                        amount = 0;
+                    }
+                    medicalDosageScalerTextLayout.setText(df1.format(amount));
+                }
             }
         });
 
@@ -272,6 +290,8 @@ public class DrugUseActivity extends BaseActivity {
         medicalDosageScalerAddLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                amount += 0.01;
+                medicalDosageScalerTextLayout.setText(df1.format(amount));
             }
         });
     }
@@ -283,10 +303,10 @@ public class DrugUseActivity extends BaseActivity {
         eatMedicalDayScalerTextLayout.addTextChangedListener(new AbsTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(s.toString())) {
-                    drugBean.setDays(Integer.valueOf(s.toString()));
+                String value = s.toString().trim();
+                if (!TextUtils.isEmpty(value)) {
+                    computeDosage();
                 }
-
             }
         });
 
@@ -294,12 +314,18 @@ public class DrugUseActivity extends BaseActivity {
         eatMedicalDayScalerMinusLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (days > 0) {
+                    days--;
+                    eatMedicalDayScalerTextLayout.setText(String.valueOf(days));
+                }
             }
         });
         // 用药天数  加
         eatMedicalDayScalerAddLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                days++;
+                eatMedicalDayScalerTextLayout.setText(String.valueOf(days));
             }
         });
     }
@@ -308,12 +334,6 @@ public class DrugUseActivity extends BaseActivity {
      * 用药总量
      */
     private void drugUseTotal() {
-        medicalNumScalerTextLayout.addTextChangedListener(new AbsTextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                super.afterTextChanged(s);
-            }
-        });
         // 用药总量  减
         medicalNumScalerMinusLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -334,41 +354,49 @@ public class DrugUseActivity extends BaseActivity {
         });
     }
 
+
     /**
-     * 计算总量
+     * 总量自动计算模式 默认自动计算
+     */
+    private boolean autoDrugUseMode = true;
+
+    /**
+     * 计算总量mode
      */
     private void drugUseTotalMode() {
         //T表示不自动计算总量
-        if ("T".equalsIgnoreCase(curFrequencyBean.getFreqUnit())) {
-            medicalNumScalerMinusLayout.setVisibility(View.VISIBLE);
-            medicalNumScalerAddLayout.setVisibility(View.VISIBLE);
-            medicalNumScalerTextLayout.setBackgroundResource(R.drawable.scaler_text_bg);
-            medicalNumScalerTextLayout.setFocusable(true);
-            medicalNumScalerTextLayout.setFocusableInTouchMode(true);
-        } else {
-            medicalNumScalerMinusLayout.setVisibility(View.GONE);
-            medicalNumScalerAddLayout.setVisibility(View.GONE);
-            medicalNumScalerTextLayout.setBackgroundResource(R.drawable.corner5_f9f9f9_bg);
-            medicalNumScalerTextLayout.setFocusable(false);
-            medicalNumScalerTextLayout.setFocusableInTouchMode(false);
+        if (curFrequencyBean != null) {
+            autoDrugUseMode = !"T".equalsIgnoreCase(curFrequencyBean.getFreqUnit());
+            if (autoDrugUseMode) {
+                freqCn = Float.valueOf(curFrequencyBean.getFreqCn());
+                freqDeg = Float.valueOf(curFrequencyBean.getFreqDeg());
+                computeDosage();
+            }
         }
+        medicalNumScalerMinusLayout.setVisibility(autoDrugUseMode ? View.GONE : View.VISIBLE);
+        medicalNumScalerAddLayout.setVisibility(autoDrugUseMode ? View.GONE : View.VISIBLE);
+        medicalNumScalerTextLayout.setBackgroundResource(autoDrugUseMode ?
+                R.drawable.corner5_f9f9f9_bg : R.drawable.scaler_text_bg);
+        medicalNumScalerTextLayout.setFocusable(!autoDrugUseMode);
+        medicalNumScalerTextLayout.setFocusableInTouchMode(!autoDrugUseMode);
     }
 
-
     /**
-     * 用药天数
+     * 总量计算
+     * Math.ceil（24.1）--> 25
+     * Math.floor（24.8）--> 24
+     * Math.round（24.1）--> 24
+     * Math.round（24.8）--> 25
      */
-    private int days;
-    /**
-     *
-     */
-    float freqCn, freqDeg, rate, amount;
-
-    private float computeDosage(DrugBean item) {
-        if (item.getRate() == 0) {
-            return item.getQuantity();
+    private void computeDosage() {
+        if (autoDrugUseMode) {
+            if (days > 0 && amount > 0) {
+                float realTotal = (days / freqCn) * amount * freqDeg / rate;
+                medicalNumScalerTextLayout.setText(String.valueOf((int) Math.ceil(realTotal)));
+            } else {
+                medicalNumScalerTextLayout.setText("0");
+            }
         }
-        return (days / freqCn) * amount * freqDeg / rate;
     }
 
     /**
