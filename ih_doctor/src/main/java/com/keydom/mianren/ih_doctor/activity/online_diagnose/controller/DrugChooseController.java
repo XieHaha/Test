@@ -66,7 +66,7 @@ public class DrugChooseController extends ControllerImpl<DrugChooseView> impleme
      * 获取院内药品库存
      */
     public void drugsStock(String hisDrugsCode) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).drugsStock(hisDrugsCode), new HttpSubscriber<DrugStockBean>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).drugsStock(hisDrugsCode), new HttpSubscriber<DrugStockBean>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable DrugStockBean data) {
                 getView().getDrugStockSuccess(data);

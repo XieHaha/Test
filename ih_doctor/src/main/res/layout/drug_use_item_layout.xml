@@ -321,7 +321,7 @@
 
             <EditText
                 android:id="@+id/medical_num_scaler_text_layout"
-                android:layout_width="@dimen/dp_60"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_31"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/scaler_text_bg"
@@ -329,15 +329,14 @@
                 android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:inputType="number"
-                android:maxLength="6"
+                android:minWidth="@dimen/dp_60"
                 android:paddingStart="@dimen/dp_12"
                 android:paddingTop="@dimen/dp_5"
                 android:paddingEnd="@dimen/dp_12"
                 android:paddingBottom="@dimen/dp_5"
                 android:singleLine="true"
                 android:textColor="#666666"
-                android:textSize="@dimen/sp_17"
-                tools:text="2" />
+                android:textSize="@dimen/sp_17" />
 
             <RelativeLayout
                 android:id="@+id/medical_num_scaler_add_layout"

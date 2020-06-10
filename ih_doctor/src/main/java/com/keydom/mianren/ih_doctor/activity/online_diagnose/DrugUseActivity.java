@@ -120,7 +120,7 @@ public class DrugUseActivity extends BaseActivity {
     /**
      * 药品库存
      */
-    private int drugStock;
+    private float drugStock;
     /**
      * 用药时长
      */
@@ -187,7 +187,7 @@ public class DrugUseActivity extends BaseActivity {
     private void bindData() {
         try {
             if (!TextUtils.isEmpty(drugBean.getStock())) {
-                drugStock = Integer.valueOf(drugBean.getStock());
+                drugStock = Float.valueOf(drugBean.getStock());
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -421,12 +421,10 @@ public class DrugUseActivity extends BaseActivity {
         if (autoDrugUseMode) {
             if (days > 0 && amount > 0) {
                 float value = (days / freqCn) * amount * freqDeg / rate;
-                int realTotal = (int) Math.ceil(value);
-                if (drugStock != 0 && realTotal > drugStock) {
+                if (drugStock > 0 && value > drugStock) {
                     ToastUtil.showMessage(this, "库存不足！");
-                } else {
-                    medicalNumScalerTextLayout.setText(String.valueOf(realTotal));
                 }
+                medicalNumScalerTextLayout.setText(String.valueOf((int) Math.ceil(value)));
             } else {
                 medicalNumScalerTextLayout.setText("0");
             }

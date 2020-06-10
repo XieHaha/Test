@@ -287,21 +287,14 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
     public void getDrugStockSuccess(DrugStockBean stockBean) {
         String stock = stockBean.getStock();
         try {
-            if (TextUtils.isEmpty(stock) || Integer.valueOf(stock) <= 0) {
-                //            new GeneralDialog(getContext(), "库存不足！", new GeneralDialog
-                //            .OnCloseListener() {
-                //                @Override
-                //                public void onCommit() {
-                //                    LoginActivity.start(getContext());
-                //                }
-                //            }).setTitle("提示").setCancel(false).setPositiveButton("确定")
-                //            .setNegativeButtonIsGone(true).show();
+            if (TextUtils.isEmpty(stock) || Float.valueOf(stock) <= 0) {
                 ToastUtil.showMessage(this, "库存不足！");
                 return;
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
             ToastUtil.showMessage(this, "库存不足！");
+            return;
         }
         drugChooseAdapter.getSelectList().get(0).setStock(stock);
         drugChooseAdapter.getSelectList().get(0).setPrice(stockBean.getPrice());
