@@ -13,6 +13,7 @@ import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.DrugChooseView;
 import com.keydom.mianren.ih_doctor.bean.DrugBean;
 import com.keydom.mianren.ih_doctor.bean.DrugEntity;
+import com.keydom.mianren.ih_doctor.bean.DrugStockBean;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
 import com.orhanobut.logger.Logger;
@@ -34,59 +35,85 @@ import java.util.List;
  * 修改时间：18/11/16 上午9:09
  */
 public class DrugChooseController extends ControllerImpl<DrugChooseView> implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener {
-      private  String prescriptionType=null;
+    private String prescriptionType = null;
 
-    public void getIsPrescriptionType(String IsPrescriptionType ){
-        prescriptionType=IsPrescriptionType;
+    public void getIsPrescriptionType(String IsPrescriptionType) {
+        prescriptionType = IsPrescriptionType;
     }
+
     /**
      * 获取院内药品列表
+     *
      * @param type 刷新还是加载更多
      */
     public void drugsList(final TypeEnum type) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).drugsList(getView().getDrugListMap()), new HttpSubscriber<List<DrugBean>>(getContext(),getDisposable(),false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).drugsList(getView().getDrugListMap()), new HttpSubscriber<List<DrugBean>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable List<DrugBean> data) {
                 getView().getDrugListSuccess(data, type);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getDrugListFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });
     }
+
     /**
-     * 获取外延处方药品列表
-     * @param type 刷新还是加载更多
+     * 获取院内药品库存
      */
-    public void drugsListWaiYan(final TypeEnum type) {
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("currentPage", 1);
-//        map.put("pageSize", 8);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).WaiYanDrugsList(HttpService.INSTANCE.object2Body(getView().getDrugListWaiYanMap())), new HttpSubscriber<DrugEntity>(getContext(),getDisposable(),false) {
+    public void drugsStock(String hisDrugsCode) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).drugsStock(hisDrugsCode), new HttpSubscriber<DrugStockBean>(getContext(), getDisposable(), false) {
             @Override
-            public void requestComplete(@Nullable DrugEntity data) {
-                getView().getDrugListSuccess(data.getRecords(), type);
-                Logger.e("data.getRecords()="+data.getRecords());
+            public void requestComplete(@Nullable DrugStockBean data) {
+                getView().getDrugStockSuccess(data);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                getView().getDrugListFailed(msg);
-                Logger.e("失败="+getView().getDrugListWaiYanMap());
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                getView().getDrugStockFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });
     }
+
+    /**
+     * 获取外延处方药品列表
+     *
+     * @param type 刷新还是加载更多
+     */
+    public void drugsListWaiYan(final TypeEnum type) {
+        //        Map<String, Object> map = new HashMap<>();
+        //        map.put("currentPage", 1);
+        //        map.put("pageSize", 8);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).WaiYanDrugsList(HttpService.INSTANCE.object2Body(getView().getDrugListWaiYanMap())), new HttpSubscriber<DrugEntity>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable DrugEntity data) {
+                getView().getDrugListSuccess(data.getRecords(), type);
+                Logger.e("data.getRecords()=" + data.getRecords());
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                getView().getDrugListFailed(msg);
+                Logger.e("失败=" + getView().getDrugListWaiYanMap());
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.search_tv) {
             setCurrentPage(1);
-            if(prescriptionType.equals("0")){
+            if (prescriptionType.equals("0")) {
                 drugsList(TypeEnum.REFRESH);
-            }else if(prescriptionType.equals("1")){
+            } else if (prescriptionType.equals("1")) {
                 drugsListWaiYan(TypeEnum.REFRESH);
             }
 
@@ -97,9 +124,9 @@ public class DrugChooseController extends ControllerImpl<DrugChooseView> impleme
     @Override
     public void onLoadMore(RefreshLayout refreshLayout) {
         currentPagePlus();
-        if(prescriptionType.equals("0")){
+        if (prescriptionType.equals("0")) {
             drugsList(TypeEnum.LOAD_MORE);
-        }else if(prescriptionType.equals("1")){
+        } else if (prescriptionType.equals("1")) {
             drugsListWaiYan(TypeEnum.LOAD_MORE);
         }
 
@@ -108,9 +135,9 @@ public class DrugChooseController extends ControllerImpl<DrugChooseView> impleme
     @Override
     public void onRefresh(RefreshLayout refreshLayout) {
         setCurrentPage(1);
-        if(prescriptionType.equals("0")){
+        if (prescriptionType.equals("0")) {
             drugsList(TypeEnum.REFRESH);
-        }else if(prescriptionType.equals("1")){
+        } else if (prescriptionType.equals("1")) {
             drugsListWaiYan(TypeEnum.REFRESH);
         }
     }

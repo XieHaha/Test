@@ -29,6 +29,7 @@ import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.DrugChooseView
 import com.keydom.mianren.ih_doctor.adapter.DrugChooseAdapter;
 import com.keydom.mianren.ih_doctor.bean.DrugBean;
 import com.keydom.mianren.ih_doctor.bean.DrugListBean;
+import com.keydom.mianren.ih_doctor.bean.DrugStockBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
@@ -156,7 +157,6 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
             getController().drugsListWaiYan(TypeEnum.REFRESH);
         }
 
-
         setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
             @SingleClick(1000)
             @Override
@@ -165,10 +165,7 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
                     ToastUtil.showMessage(DrugChooseActivity.this, "请选择药品后再提交");
                     return;
                 } else {
-                    DrugListBean drugListBean = new DrugListBean();
-                    drugListBean.setPosition(position);
-                    drugListBean.setDrugList(drugChooseAdapter.getSelectList());
-                    DrugUseActivity.start(DrugChooseActivity.this, drugListBean);
+                    getController().drugsStock(drugChooseAdapter.getSelectList().get(0).getDrugsCode());
                 }
 
             }
@@ -284,5 +281,40 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
         pageLoadingFail();
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadMore();
+    }
+
+    @Override
+    public void getDrugStockSuccess(DrugStockBean stockBean) {
+        String stock = stockBean.getStock();
+        try {
+            if (TextUtils.isEmpty(stock) || Integer.valueOf(stock) <= 0) {
+                //            new GeneralDialog(getContext(), "库存不足！", new GeneralDialog
+                //            .OnCloseListener() {
+                //                @Override
+                //                public void onCommit() {
+                //                    LoginActivity.start(getContext());
+                //                }
+                //            }).setTitle("提示").setCancel(false).setPositiveButton("确定")
+                //            .setNegativeButtonIsGone(true).show();
+                ToastUtil.showMessage(this, "库存不足！");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            ToastUtil.showMessage(this, "库存不足！");
+        }
+        drugChooseAdapter.getSelectList().get(0).setStock(stock);
+        drugChooseAdapter.getSelectList().get(0).setPrice(stockBean.getPrice());
+        drugChooseAdapter.getSelectList().get(0).setManufacturerName(stockBean.getManufacturerName());
+        drugChooseAdapter.getSelectList().get(0).setPreparation(stockBean.getPreparation());
+        DrugListBean drugListBean = new DrugListBean();
+        drugListBean.setPosition(position);
+        drugListBean.setDrugList(drugChooseAdapter.getSelectList());
+        DrugUseActivity.start(DrugChooseActivity.this, drugListBean);
+    }
+
+    @Override
+    public void getDrugStockFailed(String msg) {
+        ToastUtil.showMessage(this, msg);
     }
 }

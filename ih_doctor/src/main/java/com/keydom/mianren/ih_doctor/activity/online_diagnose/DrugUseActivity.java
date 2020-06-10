@@ -118,6 +118,10 @@ public class DrugUseActivity extends BaseActivity {
      */
     private float freqCn, freqDeg, rate, amount;
     /**
+     * 药品库存
+     */
+    private int drugStock;
+    /**
      * 用药时长
      */
     private String freqUnit = "";
@@ -181,6 +185,13 @@ public class DrugUseActivity extends BaseActivity {
     }
 
     private void bindData() {
+        try {
+            if (!TextUtils.isEmpty(drugBean.getStock())) {
+                drugStock = Integer.valueOf(drugBean.getStock());
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
         drugItemPackUnit.setText(drugBean.getPackUnit());
         medicalNameTv.setText(drugBean.getDrugsName());
         medicalDescTv.setText(drugBean.getSpec());
@@ -409,8 +420,13 @@ public class DrugUseActivity extends BaseActivity {
     private void computeDosage() {
         if (autoDrugUseMode) {
             if (days > 0 && amount > 0) {
-                float realTotal = (days / freqCn) * amount * freqDeg / rate;
-                medicalNumScalerTextLayout.setText(String.valueOf((int) Math.ceil(realTotal)));
+                float value = (days / freqCn) * amount * freqDeg / rate;
+                int realTotal = (int) Math.ceil(value);
+                if (drugStock != 0 && realTotal > drugStock) {
+                    ToastUtil.showMessage(this, "库存不足！");
+                } else {
+                    medicalNumScalerTextLayout.setText(String.valueOf(realTotal));
+                }
             } else {
                 medicalNumScalerTextLayout.setText("0");
             }
@@ -425,13 +441,18 @@ public class DrugUseActivity extends BaseActivity {
     private boolean checkSubmit() {
         String quantity = medicalNumScalerTextLayout.getText().toString().trim();
         if (days > 0 && amount > 0 && curUseWayBean != null && curFrequencyBean != null && !TextUtils.isEmpty(quantity)) {
+            int total = Integer.valueOf(quantity);
+            if (total > drugStock) {
+                ToastUtil.showMessage(this, "库存不足！");
+                return false;
+            }
             String doctorAdvice = doctorEntrust.getText().toString().trim();
             drugBean.setWay(curUseWayBean.getCodeValue());
             drugBean.setWayCode(curUseWayBean.getCode());
             drugBean.setWayEnglish(curUseWayBean.getCodeName());
             drugBean.setDays(days);
             drugBean.setDaysUnit(freqUnit);
-            drugBean.setQuantity(Integer.valueOf(quantity));
+            drugBean.setQuantity(total);
             drugBean.setDoctorAdvice(doctorAdvice);
             drugBean.setAmount(amount);
             return true;

@@ -153,6 +153,16 @@ public class DrugBean implements Serializable, MultiItemEntity {
     private String specificationImg;
     private String basicUnit;
 
+    private String stock;
+
+    public String getStock() {
+        return stock;
+    }
+
+    public void setStock(String stock) {
+        this.stock = stock;
+    }
+
     public String getSingleDosage() {
         return singleDosage;
     }

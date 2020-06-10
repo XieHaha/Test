@@ -2,6 +2,7 @@ package com.keydom.mianren.ih_doctor.activity.online_diagnose.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_doctor.bean.DrugBean;
+import com.keydom.mianren.ih_doctor.bean.DrugStockBean;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 
 import java.util.List;
@@ -44,4 +45,8 @@ public interface DrugChooseView extends BaseView {
      * @param errMsg 失败提示信息
      */
     void getDrugListFailed(String errMsg);
+
+    void getDrugStockSuccess(DrugStockBean stockBean);
+
+    void getDrugStockFailed(String msg);
 }
