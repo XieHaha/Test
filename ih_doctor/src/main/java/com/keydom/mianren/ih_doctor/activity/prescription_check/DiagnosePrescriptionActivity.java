@@ -70,6 +70,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -104,6 +105,14 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     private RecyclerView recyclerView;
     private RelativeLayout rediagnoseRl;
     private ScrollView mScroller;
+    /**
+     * 长期用药原因
+     */
+    private LinearLayout drugUseReasonLayout;
+    private TextView drugUseReasonTv;
+    private ArrayList<String> drugUseReasones = new ArrayList<>();
+    private String drugUseReason;
+    private boolean needDrugUseReason;
     /**
      * 问诊单ID
      */
@@ -173,10 +182,18 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         ((Activity) context).startActivityForResult(starter, ConversationActivity.SEND_MESSAGE);
     }
 
+    @Override
+    public int getLayoutRes() {
+        return R.layout.activity_diagnose_prescription;
+    }
+
     /**
      * 初始化界面
      */
     private void initView() {
+        drugUseReasones.add("慢性病");
+        drugUseReasones.add("病情需要");
+        drugUseReasones.add("病人要求");
         mScroller = findViewById(R.id.mScroller);
         reDiagnoseRb = findViewById(R.id.re_diagnose_rb);
         rediagnoseRl = findViewById(R.id.rediagnose_rl);
@@ -224,6 +241,11 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         submit = findViewById(R.id.submit);
         feeCount = findViewById(R.id.fee_count);
         addMedicine = findViewById(R.id.add_medicine);
+
+        //长期用药
+        drugUseReasonLayout = findViewById(R.id.drug_use_reason_layout);
+        drugUseReasonTv = findViewById(R.id.drug_use_reason_tv);
+        drugUseReasonTv.setOnClickListener(getController());
 
         handleEntrust.setFragmentActivity(this);
         mainDec.setFragmentActivity(this);
@@ -303,11 +325,6 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         submit_btn = findViewById(R.id.submit_btn);
 
         submit_btn.setOnClickListener(getController());
-    }
-
-    @Override
-    public int getLayoutRes() {
-        return R.layout.activity_diagnose_prescription;
     }
 
     /**
@@ -445,6 +462,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
             bigDecimal =
                     bigDecimal.add(bean.getPrice().multiply(new BigDecimal(bean.getQuantity())));
         }
+        bigDecimal = bigDecimal.setScale(2, RoundingMode.CEILING);
         getController().setSumDrugFee(bigDecimal);
         //        feeCount.setText("￥" + bigDecimal.toString());
         return bigDecimal.toString();
@@ -458,6 +476,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         if (event.getType() == EventType.CHOOSE_DRUG_LIST) {
             DrugListBean drugListBean = (DrugListBean) event.getData();
             List<DrugBean> list = drugListBean.getDrugList();
+
             int samePosition = -1;
             boolean isUpdate = false;
             for (int i = 0; i < saveData.get(drugListBean.getPosition()).size(); i++) {
@@ -470,9 +489,13 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
             if (samePosition != -1 && isUpdate) {
                 saveData.get(drugListBean.getPosition()).remove(samePosition);
                 saveData.get(drugListBean.getPosition()).add(samePosition, list.get(0));
-            } else
+            } else {
                 saveData.get(drugListBean.getPosition()).addAll(list);
+            }
             prescriptionAdapter.setNewData(packagingData(saveData));
+            if (needDrugUseReason) {
+                drugUseReasonLayout.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -492,6 +515,17 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     }
 
     @Override
+    public ArrayList<String> getDrugUseReasones() {
+        return drugUseReasones;
+    }
+
+    @Override
+    public void setDrugUseReason(int index) {
+        drugUseReason = drugUseReasones.get(index);
+        drugUseReasonTv.setText(drugUseReason);
+    }
+
+    @Override
     public void addCommonPrescription() {
         prescription_type = 1;
         creatPrescription();
@@ -502,14 +536,6 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         prescription_type = 0;
         creatPrescription();
     }
-
-    public void getInPrescription() {
-    }
-
-    public void getOutPrescription() {
-
-    }
-
 
     @Override
     public void savePrescriptionModel(boolean isModel, String value) {
@@ -534,6 +560,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     @Override
     public Map<String, Object> getSaveMap() {
         Map<String, Object> map = new HashMap<>();
+        map.put("medicalReasonsName", drugUseReason);
         map.put("isReturnVisit", isReturnVisit);
         map.put("mainComplaint", mainDec.getInputStr());
         map.put("auxiliaryInspect", checkRes.getInputStr());
@@ -570,28 +597,37 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
             for (int j = 0; j < saveData.get(i).size(); j++) {
                 CommitPrescriptionSavedBean.DrugSavedBean drugSavedBean =
                         new CommitPrescriptionSavedBean.DrugSavedBean();
-                drugSavedBean.setDrugsName(saveData.get(i).get(j).getDrugsName());
-                drugSavedBean.setFrequency(saveData.get(i).get(j).getFrequency());
-                drugSavedBean.setFrequencyEnglish(saveData.get(i).get(j).getFrequencyEnglish());
-                drugSavedBean.setDosage(String.valueOf(saveData.get(i).get(j).getSingleDosage()));
-                drugSavedBean.setDosageUnit(saveData.get(i).get(j).getDosageUnit());
-                drugSavedBean.setQuantity(saveData.get(i).get(j).getQuantity());
-                drugSavedBean.setSpec(saveData.get(i).get(j).getSpec());
-                drugSavedBean.setUsage(saveData.get(i).get(j).getUsage());
-                drugSavedBean.setDays(saveData.get(i).get(j).getDays());
-                drugSavedBean.setWay(saveData.get(i).get(j).getWay());
-                drugSavedBean.setWayCode(saveData.get(i).get(j).getWayCode());
-                drugSavedBean.setDoctorAdvice(saveData.get(i).get(j).getDoctorAdvice());
-                drugSavedBean.setId(saveData.get(i).get(j).getId());
-                drugSavedBean.setPackUnit(saveData.get(i).get(j).getPackUnit());
-                String value = saveData.get(i).get(j).getSingleMaximum();
+                DrugBean drugBean = saveData.get(i).get(j);
+                drugSavedBean.setId(drugBean.getId());
+                drugSavedBean.setDrugsName(drugBean.getDrugsName());
+                drugSavedBean.setFrequency(drugBean.getFrequency());
+                drugSavedBean.setFrequencyEnglish(drugBean.getFrequencyEnglish());
+                drugSavedBean.setDosage(String.valueOf(drugBean.getSingleDosage()));
+                drugSavedBean.setSingleDosage(drugBean.getSingleDosage());
+                drugSavedBean.setDosageUnit(drugBean.getDosageUnit());
+                drugSavedBean.setQuantity(drugBean.getQuantity());
+                drugSavedBean.setSpec(drugBean.getSpec());
+                drugSavedBean.setUsage(drugBean.getUsage());
+                drugSavedBean.setDays(drugBean.getDays());
+                drugSavedBean.setDaysUnit(drugBean.getDaysUnit());
+                drugSavedBean.setWay(drugBean.getWay());
+                drugSavedBean.setWayCode(drugBean.getWayCode());
+                drugSavedBean.setWayEnglish(drugBean.getWayEnglish());
+                drugSavedBean.setDoctorAdvice(drugBean.getDoctorAdvice());
+                drugSavedBean.setId(drugBean.getId());
+                drugSavedBean.setPackUnit(drugBean.getPackUnit());
+                drugSavedBean.setMaximumMedicationDays(drugBean.getMaximumMedicationDays());
+                drugSavedBean.setPrice(drugBean.getPrice());
+                drugSavedBean.setDrugsCode(drugBean.getDrugsCode());
+                drugSavedBean.setDrugsId(drugBean.getDrugsId());
+                drugSavedBean.setSpecificationImg(drugBean.getSpecificationImg());
+                drugSavedBean.setBasicUnit(drugBean.getBasicUnit());
+                drugSavedBean.setManufacturerName(drugBean.getManufacturerName());
+                String value = drugBean.getSingleMaximum();
                 if (!TextUtils.isEmpty(value)) {
                     drugSavedBean.setSingleMaximum(Float.valueOf(value));
                 }
-                drugSavedBean.setMaximumMedicationDays(saveData.get(i).get(j).getMaximumMedicationDays());
-                drugSavedBean.setPrice(saveData.get(i).get(j).getPrice());
-                drugSavedBean.setDrugsCode(saveData.get(i).get(j).getDrugsCode());
-                drugSavedBean.setDrugsId(saveData.get(i).get(j).getDrugsId());
+
                 items.add(drugSavedBean);
             }
             commitPrescriptionSavedBean.setItems(items);
@@ -648,6 +684,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         checkRes.setText(bean.getAuxiliaryInspect());
         simpleDiagnose.setText(bean.getDiagnosis());
         dealIdea.setText(bean.getHandleOpinion());
+        drugUseReasonTv.setText(bean.getMedicalReasonsName());
     }
 
     @Override
@@ -675,6 +712,9 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
             saveData = bean.getList();
             isOutPrescription = bean.getType();
             prescriptionAdapter.setNewData(packagingData(bean.getList()));
+            if (needDrugUseReason) {
+                drugUseReasonLayout.setVisibility(View.VISIBLE);
+            }
             isHavePrescription = true;
         }
     }
@@ -732,6 +772,10 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
             ToastUtil.showMessage(getContext(), "请完善诊断信息！");
             return false;
         }
+        if (needDrugUseReason && TextUtils.isEmpty(drugUseReason)) {
+            ToastUtil.showMessage(getContext(), "请选择长时用药原因");
+            return false;
+        }
         if (saveData.size() == 0) {
             ToastUtil.showMessage(getContext(), "请添加处方！");
             return false;
@@ -755,6 +799,10 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
     @Override
     public void removePrescription(int position) {
+        //移除处方后 需要隐藏用药原因
+        needDrugUseReason = false;
+        drugUseReasonLayout.setVisibility(View.GONE);
+
         saveData.remove(position);
         prescriptionAdapter.setNewData(packagingData(saveData));
         if (saveData.size() == 0) {
@@ -814,6 +862,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
     private boolean isHaveEditInfo() {
         if (!"".equals(mainDec.getInputStr()) || !"".equals(checkRes.getInputStr()) || !"".equals(dealIdea.getInputStr()) || !"".equals(medicalHistory.getInputStr()) || !"".equals(oversensitiveHistory.getInputStr()) || !"".equals(simpleDiagnose.getInputStr()) || saveData.size() != 0)
+
             return true;
         else
             return false;
@@ -839,10 +888,20 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
             }
             dataList.add(prescriptionHeadBean);
             for (int j = 0; j < originalData.get(i).size(); j++) {
+                DrugBean drugBean = originalData.get(i).get(j);
+                if (TextUtils.equals(drugBean.getDaysUnit(), "W")) {
+                    if (drugBean.getDays() > 1) {
+                        needDrugUseReason = true;
+                    }
+                } else if (TextUtils.equals(drugBean.getDaysUnit(), "T") || TextUtils.equals(drugBean.getDaysUnit(), "D")) {
+                    if (drugBean.getDays() > 7) {
+                        needDrugUseReason = true;
+                    }
+                }
                 PrescriptionBodyBean prescriptionBodyBean = new PrescriptionBodyBean();
                 prescriptionBodyBean.setPosition(i);
                 prescriptionBodyBean.setChildPosition(j);
-                prescriptionBodyBean.setDrugBean(originalData.get(i).get(j));
+                prescriptionBodyBean.setDrugBean(drugBean);
                 dataList.add(prescriptionBodyBean);
             }
             PrescriptionBottomBean prescriptionBottomBean = new PrescriptionBottomBean();

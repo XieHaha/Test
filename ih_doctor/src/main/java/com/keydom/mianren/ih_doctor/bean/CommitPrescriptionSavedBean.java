@@ -49,9 +49,15 @@ public class CommitPrescriptionSavedBean {
         private String dosageUnit;
         private String spec;
         private String usage;
+        private String singleDosage;
         private int days;
+        /**
+         * 处方－给药时长单位（天 小时、周）
+         */
+        private String daysUnit;
         private String way;
         private String wayCode;
+        private String wayEnglish;
         private String doctorAdvice;
         private long id;
         private String packUnit;
@@ -68,6 +74,8 @@ public class CommitPrescriptionSavedBean {
          * 药品价格
          */
         private BigDecimal price = BigDecimal.ZERO;
+        private BigDecimal fee = BigDecimal.ZERO;
+
 
         /**
          * 处方－药品数量
@@ -83,6 +91,23 @@ public class CommitPrescriptionSavedBean {
          * 药品id
          */
         private Long drugsId;
+
+        /**
+         * 药品方
+         */
+        private String manufacturerName;
+        private String tradeName;
+        private String specificationImg;
+        private String basicUnit;
+        private String stock;
+
+        public String getSingleDosage() {
+            return singleDosage;
+        }
+
+        public void setSingleDosage(String singleDosage) {
+            this.singleDosage = singleDosage;
+        }
 
         public String getDrugsCode() {
             return drugsCode;
@@ -200,6 +225,14 @@ public class CommitPrescriptionSavedBean {
             return way;
         }
 
+        public String getDaysUnit() {
+            return daysUnit;
+        }
+
+        public void setDaysUnit(String daysUnit) {
+            this.daysUnit = daysUnit;
+        }
+
         public void setWay(String way) {
             this.way = way;
         }
@@ -210,6 +243,14 @@ public class CommitPrescriptionSavedBean {
 
         public void setWayCode(String wayCode) {
             this.wayCode = wayCode;
+        }
+
+        public String getWayEnglish() {
+            return wayEnglish;
+        }
+
+        public void setWayEnglish(String wayEnglish) {
+            this.wayEnglish = wayEnglish;
         }
 
         public String getDoctorAdvice() {
@@ -234,6 +275,54 @@ public class CommitPrescriptionSavedBean {
 
         public void setPrice(BigDecimal price) {
             this.price = price;
+        }
+
+        public BigDecimal getFee() {
+            return fee;
+        }
+
+        public void setFee(BigDecimal fee) {
+            this.fee = fee;
+        }
+
+        public String getManufacturerName() {
+            return manufacturerName;
+        }
+
+        public void setManufacturerName(String manufacturerName) {
+            this.manufacturerName = manufacturerName;
+        }
+
+        public String getTradeName() {
+            return tradeName;
+        }
+
+        public void setTradeName(String tradeName) {
+            this.tradeName = tradeName;
+        }
+
+        public String getSpecificationImg() {
+            return specificationImg;
+        }
+
+        public void setSpecificationImg(String specificationImg) {
+            this.specificationImg = specificationImg;
+        }
+
+        public String getBasicUnit() {
+            return basicUnit;
+        }
+
+        public void setBasicUnit(String basicUnit) {
+            this.basicUnit = basicUnit;
+        }
+
+        public String getStock() {
+            return stock;
+        }
+
+        public void setStock(String stock) {
+            this.stock = stock;
         }
     }
 }

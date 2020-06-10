@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
@@ -15,7 +17,6 @@ import com.keydom.mianren.ih_doctor.activity.online_diagnose.PrescriptionTemplet
 import com.keydom.mianren.ih_doctor.activity.prescription_check.view.DiagnosePrescriptionView;
 import com.keydom.mianren.ih_doctor.bean.DiagnoseHandleBean;
 import com.keydom.mianren.ih_doctor.bean.DoctorPrescriptionDetailBean;
-import com.keydom.mianren.ih_doctor.bean.PrescriptionMessageBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionModelBean;
 import com.keydom.mianren.ih_doctor.m_interface.OnModelAndCaseDialogListener;
 import com.keydom.mianren.ih_doctor.m_interface.OnModelDialogListener;
@@ -53,11 +54,10 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
         this.sumDrugFee = sumDrugFee;
     }
 
- 	@SingleClick(1000)
+    @SingleClick(1000)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.add_prescription_rl:
                 if (getView().isHavePrescription()) {
                     getView().creatPrescription();
@@ -73,62 +73,33 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                 }
                 break;
             case R.id.prescription_model_rl:
-                PrescriptionTempletActivity.start(getContext(),getView().getIsOutPrescription());
+                PrescriptionTempletActivity.start(getContext(), getView().getIsOutPrescription());
                 break;
-                //TODO : 待修改
-/*            case R.id.add_medicine:
-                DrugChooseActivity.start(getContext(), getView().getSelectList(), Integer.valueOf(IsPrescriptionStyle));
-                Logger.e("值="+IsPrescriptionStyle);
-                break;*/
             case R.id.submit_with_model:
                 if (getView().checkPrescription()) {
-                    DialogUtils.savePrescriptionAndCaseDialog(getContext(), getView().getTemplateList(), new OnModelAndCaseDialogListener() {
-                        @Override
-                        public void dialogClick(View v, String modelType, String modelName, List<PrescriptionModelBean> prescriptionModelBeanList) {
-                            modelNameTemp=modelName;
-                            modelTypeTemp=modelType;
-                            getView().updateTemplateList(prescriptionModelBeanList);
-                            getView().saveCaseModel(false);
-                            save(modelNameTemp, modelTypeTemp, "", "","2");
-//                            SignUtils.sign(getContext(), getView().getSaveMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
-//                                @Override
-//                                public void signSuccess(String signature, String jobId) {
-//                                    getView().saveCaseModel(false);
-//                                    save(modelNameTemp, modelTypeTemp, signature, jobId,"2");
-//                                }
-//                            });
-                        }
-                    }).show();
-                }else {
+                    DialogUtils.savePrescriptionAndCaseDialog(getContext(),
+                            getView().getTemplateList(), new OnModelAndCaseDialogListener() {
+                                @Override
+                                public void dialogClick(View v, String modelType, String modelName,
+                                                        List<PrescriptionModelBean> prescriptionModelBeanList) {
+                                    modelNameTemp = modelName;
+                                    modelTypeTemp = modelType;
+                                    getView().updateTemplateList(prescriptionModelBeanList);
+                                    getView().saveCaseModel(false);
+                                    save(modelNameTemp, modelTypeTemp, "", "", "2");
+                                }
+                            }).show();
+                } else {
                     ToastUtil.showMessage(getContext(), "请完善处方信息！");
                 }
                 break;
             case R.id.submit:
                 if (getView().checkPrescription()) {
                     getView().saveCaseModel(false);
-                    save(modelNameTemp, modelTypeTemp, "", "","1");
-//                    SignUtils.sign(getContext(), getView().getSaveMap().toString(), Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
-//                        @Override
-//                        public void signSuccess(String signature, String jobId) {
-//                            getView().saveCaseModel(false);
-//                            save(modelNameTemp, modelTypeTemp, signature, jobId,"1");
-//                        }
-//                    });
-                }else {
+                    save(modelNameTemp, modelTypeTemp, "", "", "1");
+                } else {
                     ToastUtil.showMessage(getContext(), "请完善处方信息！");
                 }
-
-
-//                if (getView().isSaveModel()) {
-//                    DialogUtils.saveModelDialog(getContext(), new OnModelDialogListener() {
-//                        @Override
-//                        public void dialogClick(View v, String modelType, String modelName) {
-//                            save(modelName, modelType);
-//                        }
-//                    }).show();
-//                } else {
-
-//                }
                 break;
             case R.id.select_save:
                 if (!"".equals(modelNameTemp) && !"".equals(modelTypeTemp)) {
@@ -146,7 +117,8 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                         public void onClick(DialogInterface dialog, int which) {
                             DialogUtils.saveModelDialog(getContext(), new OnModelDialogListener() {
                                 @Override
-                                public void dialogClick(View v, String modelType, String modelName) {
+                                public void dialogClick(View v, String modelType,
+                                                        String modelName) {
                                     getView().savePrescriptionModel(true, modelNameTemp);
                                     modelNameTemp = modelName;
                                     modelTypeTemp = modelType;
@@ -166,17 +138,20 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                     }).show();
                 }
 
-//                final List<String> list = new ArrayList<>();
-//                list.add("存为模版");
-//                list.add("不存为模版");
-//                OptionsPickerView pvOptions = new OptionsPickerBuilder(mContext, new OnOptionsSelectListener() {
-//                    @Override
-//                    public void onOptionsSelect(int options1, int option2, int options3, View v) {
-//                        getView().savePrescriptionModel(options1 == 0 ? true : false, list.get(options1));
-//                    }
-//                }).build();
-//                pvOptions.setPicker(list);
-//                pvOptions.show();
+                //                final List<String> list = new ArrayList<>();
+                //                list.add("存为模版");
+                //                list.add("不存为模版");
+                //                OptionsPickerView pvOptions = new OptionsPickerBuilder
+                //                (mContext, new OnOptionsSelectListener() {
+                //                    @Override
+                //                    public void onOptionsSelect(int options1, int option2, int
+                //                    options3, View v) {
+                //                        getView().savePrescriptionModel(options1 == 0 ? true :
+                //                        false, list.get(options1));
+                //                    }
+                //                }).build();
+                //                pvOptions.setPicker(list);
+                //                pvOptions.show();
                 break;
             case R.id.tv_hos:
                 getView().setIsOutPrescription(0);
@@ -203,8 +178,14 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                     ToastUtil.showMessage(getContext(), "请输入处置建议");
                 }
                 break;
-
-
+            case R.id.drug_use_reason_tv:
+                OptionsPickerView pvOptions = new OptionsPickerBuilder(getContext(),
+                        (options1, option2, options3, view) -> getView().setDrugUseReason(options1)).build();
+                pvOptions.setPicker(getView().getDrugUseReasones());
+                pvOptions.show();
+                break;
+            default:
+                break;
         }
 
     }
@@ -216,33 +197,36 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
      * @param name 模版名称
      * @param type 模版类型
      */
-    public void save(String name, String type, String signature, String jobId,String saveTemplate) {
+    public void save(String name, String type, String signature, String jobId,
+                     String saveTemplate) {
         Map<String, Object> map = getView().getSaveMap();
         map.put("medicaltemplateName", name);
         map.put("medicaltemplateType", type);
-        map.put("saveTemplate",saveTemplate);
+        map.put("saveTemplate", saveTemplate);
         map.put("signature", signature);
         map.put("signJobId", jobId);
-		map.put("prescriptionTemplateName", modelNameTemp);
+        map.put("prescriptionTemplateName", modelNameTemp);
         map.put("prescriptionTemplateType", modelTypeTemp);
-        if(getView().getIsOutPrescription() == -1){
+        if (getView().getIsOutPrescription() == -1) {
             map.put("type", "0");//默认传0
-        }else{
+        } else {
             map.put("type", String.valueOf(getView().getIsOutPrescription()));
         }
         map.put("fee", sumDrugFee.toString());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).save(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PrescriptionMessageBean>(getContext(), getDisposable(), true) {
-            @Override
-            public void requestComplete(@Nullable PrescriptionMessageBean data) {
-                getView().saveSuccess(data);
-            }
-
-            @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                getView().saveFailed(msg);
-                return super.requestError(exception, code, msg);
-            }
-        });
+        HttpService.INSTANCE.object2Body(map);
+//        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).save(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PrescriptionMessageBean>(getContext(), getDisposable(), true) {
+//            @Override
+//            public void requestComplete(@Nullable PrescriptionMessageBean data) {
+//                getView().saveSuccess(data);
+//            }
+//
+//            @Override
+//            public boolean requestError(@NotNull ApiException exception, int code,
+//                                        @NotNull String msg) {
+//                getView().saveFailed(msg);
+//                return super.requestError(exception, code, msg);
+//            }
+//        });
     }
 
 
@@ -257,7 +241,8 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getPrescriptionDetailFailed(msg);
                 return super.requestError(exception, code, msg);
             }

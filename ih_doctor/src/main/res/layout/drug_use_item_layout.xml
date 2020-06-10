@@ -130,6 +130,7 @@
                     android:digits="0123456789."
                     android:gravity="center"
                     android:inputType="number"
+                    android:maxLength="6"
                     android:singleLine="true"
                     android:textColor="#666666"
                     android:textSize="@dimen/sp_17" />
@@ -212,7 +213,7 @@
                 android:layout_weight="1"
                 android:paddingStart="@dimen/dp_20"
                 android:paddingEnd="@dimen/dp_0"
-                android:text="用药天数"
+                android:text="用药时长"
                 android:textColor="#999999"
                 android:textSize="@dimen/sp_14" />
 
@@ -272,7 +273,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/text"
+                android:id="@+id/drug_use_time_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"

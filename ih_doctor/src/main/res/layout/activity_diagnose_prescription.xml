@@ -88,9 +88,7 @@
                         mitem:itemAddText="快捷添加"
                         mitem:itemInputHint="请您填写患者主诉，或点击快捷添加常用样例"
                         mitem:itemTip="主诉"
-                        mitem:limit="20">
-
-                    </com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView>
+                        mitem:limit="20" />
 
 
                     <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
@@ -98,18 +96,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         mitem:itemInputHint="请填写现病史"
-                        mitem:itemTip="现病史">
-
-                    </com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView>
+                        mitem:itemTip="现病史" />
 
                     <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
                         android:id="@+id/oversensitive_history"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         mitem:itemInputHint="请填写过敏史"
-                        mitem:itemTip="过敏史">
-
-                    </com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView>
+                        mitem:itemTip="过敏史" />
 
 
                     <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
@@ -117,9 +111,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         mitem:itemInputHint="请输入体格和辅助检查结果"
-                        mitem:itemTip="辅助检查">
-
-                    </com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView>
+                        mitem:itemTip="辅助检查" />
 
                     <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
                         android:id="@+id/simple_diagnose"
@@ -128,9 +120,7 @@
                         mitem:editMode="false"
                         mitem:itemAddText="快捷添加"
                         mitem:itemInputHint="点击快捷添加常用样例"
-                        mitem:itemTip="初步诊断">
-
-                    </com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView>
+                        mitem:itemTip="初步诊断" />
 
 
                     <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
@@ -138,9 +128,66 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         mitem:itemInputHint="如饮食或用药注意事项等（1000字以内）"
-                        mitem:itemTip="处理意见">
+                        mitem:itemTip="处理意见" />
 
-                    </com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView>
+                    <LinearLayout
+                        android:id="@+id/drug_use_reason_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/reason_left_img"
+                                android:layout_width="@dimen/dp_2"
+                                android:layout_height="@dimen/dp_15"
+                                android:layout_marginStart="@dimen/padding_left_right_dp"
+                                android:layout_marginTop="@dimen/dp_18"
+                                android:background="#71A4FF" />
+
+                            <TextView
+                                android:id="@+id/reason_tip_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_6"
+                                android:layout_toRightOf="@id/reason_left_img"
+                                android:paddingTop="@dimen/dp_16"
+                                android:paddingBottom="@dimen/dp_16"
+                                android:text="长期用药原因"
+                                android:textColor="@color/primary_font_color"
+                                android:textSize="@dimen/sp_14" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_1"
+                            android:background="@color/line_color" />
+
+                        <TextView
+                            android:id="@+id/drug_use_reason_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_60"
+                            android:drawableEnd="@mipmap/arrow_right_grey"
+                            android:drawablePadding="@dimen/dp_15"
+                            android:gravity="right|center_vertical"
+                            android:hint="请选择长期用药原因"
+                            android:paddingStart="@dimen/dp_20"
+                            android:paddingEnd="@dimen/dp_20"
+                            android:textColor="@color/primary_font_color"
+                            android:textColorHint="@color/edit_hint_color"
+                            android:textSize="@dimen/sp_14" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_10"
+                            android:background="@color/line_color" />
+
+                    </LinearLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -408,6 +455,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp_37"
+                            android:layout_marginLeft="40dp"
                             android:layout_toRightOf="@id/submit_with_model"
                             android:background="@drawable/prescription_submit"
                             android:gravity="center"

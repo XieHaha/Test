@@ -355,10 +355,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         //TODO 模拟健康管理数据
         //        IndexMenuBean menuBean = new IndexMenuBean();
         //        menuBean.setName("健康管理");
-        IndexMenuBean menuBean1 = new IndexMenuBean();
-        menuBean1.setName("分诊接收");
         //        dataList.add(menuBean);
-        dataList.add(menuBean1);
 
         workFunctionAdapter.setNewData(dataList);
         if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {

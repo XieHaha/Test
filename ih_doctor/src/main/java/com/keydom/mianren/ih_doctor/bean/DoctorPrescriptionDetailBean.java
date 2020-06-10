@@ -42,8 +42,17 @@ public class DoctorPrescriptionDetailBean implements Serializable {
     private String historyAllergy;
     private String hospitalName;
     private String commonSeal;
+    private String medicalReasonsName;
     private int cate;
     private List<List<DrugBean>> list;
+
+    public String getMedicalReasonsName() {
+        return medicalReasonsName;
+    }
+
+    public void setMedicalReasonsName(String medicalReasonsName) {
+        this.medicalReasonsName = medicalReasonsName;
+    }
 
     public String getId() {
         return id;

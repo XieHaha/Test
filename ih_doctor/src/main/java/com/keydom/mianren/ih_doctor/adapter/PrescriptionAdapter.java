@@ -24,6 +24,7 @@ import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.utils.DialogUtils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,10 +101,12 @@ public class PrescriptionAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                 if (getData().get(helper.getPosition() - 1) instanceof PrescriptionHeadBean) {
                     num = helper.getPosition() - 1;
                 }
+                BigDecimal bigDecimal =
+                        drugBean.getPrice().multiply(new BigDecimal(drugBean.getQuantity()));
+                bigDecimal = bigDecimal.setScale(2, RoundingMode.CEILING);
                 helper.setText(R.id.medicine_num, helper.getPosition() - num + "、").setText(R.id.medicine_name, drugBean.getDrugsName())
                         .setText(R.id.medicine_specifications, drugBean.getSpec()).setText(R.id.medicine_amount, drugBean.getQuantity() + drugBean.getPackUnit())
-                        .setText(R.id.medicine_fee, drugBean.getPrice() == null ? "" :
-                                drugBean.getPrice().multiply(new BigDecimal(drugBean.getQuantity())) + "元")
+                        .setText(R.id.medicine_fee, drugBean.getPrice() == null ? "" : bigDecimal.toString()+"元")
                         .setText(R.id.use_once,
                                 "用法：" + drugBean.getSingleDosage() + drugBean.getDosageUnit()).setText(R.id.use_method, drugBean.getWay())
                         .setText(R.id.times, String.valueOf(drugBean.getFrequency()));

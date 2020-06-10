@@ -48,6 +48,7 @@ public class DrugBean implements Serializable, MultiItemEntity {
      * 给药途径code
      */
     private String wayCode;
+    private String wayEnglish;
     /**
      * 药品用法
      */
@@ -86,10 +87,15 @@ public class DrugBean implements Serializable, MultiItemEntity {
     private int quantity;
 
     /**
-     * 处方－给药天数
+     * 处方－给药时长（天 小时、周）
      */
     private int days;
+    /**
+     * 处方－给药时长单位（天 小时、周）
+     */
+    private String daysUnit;
 
+    private float amount;
 
     /**
      * 最大用药天数
@@ -260,6 +266,14 @@ public class DrugBean implements Serializable, MultiItemEntity {
         this.wayCode = wayCode;
     }
 
+    public String getWayEnglish() {
+        return wayEnglish;
+    }
+
+    public void setWayEnglish(String wayEnglish) {
+        this.wayEnglish = wayEnglish;
+    }
+
     public String getUsage() {
         return usage;
     }
@@ -340,6 +354,14 @@ public class DrugBean implements Serializable, MultiItemEntity {
         this.days = days;
     }
 
+    public String getDaysUnit() {
+        return daysUnit;
+    }
+
+    public void setDaysUnit(String daysUnit) {
+        this.daysUnit = daysUnit;
+    }
+
     public int getMaximumMedicationDays() {
         return maximumMedicationDays;
     }
@@ -378,6 +400,14 @@ public class DrugBean implements Serializable, MultiItemEntity {
 
     public void setDoctorAdvice(String doctorAdvice) {
         this.doctorAdvice = doctorAdvice;
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
     @Override

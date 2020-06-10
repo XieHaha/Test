@@ -95,6 +95,8 @@ public class DrugUseActivity extends BaseActivity {
     InterceptorEditText doctorEntrust;
     @BindView(R.id.drug_item_quantity)
     TextView drugItemPackUnit;
+    @BindView(R.id.drug_use_time_tv)
+    TextView drugUseTimeTv;
     @BindView(R.id.save_drug)
     TextView saveDrug;
     private DrugListBean drugListBean;
@@ -114,11 +116,19 @@ public class DrugUseActivity extends BaseActivity {
     /**
      * 总量计算参数
      */
-    float freqCn, freqDeg, rate, amount;
+    private float freqCn, freqDeg, rate, amount;
+    /**
+     * 用药时长
+     */
+    private String freqUnit = "";
     /**
      * 用法途径数据
      */
     private List<UseWayBean> useWayBeans;
+    /**
+     * 当前选中的用药途径
+     */
+    private UseWayBean curUseWayBean;
     private List<String> ways;
     /**
      * 用药频率
@@ -178,13 +188,13 @@ public class DrugUseActivity extends BaseActivity {
         getMedicalWayTv.setText(drugBean.getWay());
         ways = new ArrayList<>();
         for (UseWayBean bean : useWayBeans) {
-            ways.add(bean.getCodeValue());
+            ways.add(bean.getCodeName() + ":" + bean.getCodeValue());
             //当用法不为空时，需要轮训处与其对应的用法code
             if (TextUtils.equals(bean.getCodeValue(), drugBean.getWay())) {
                 drugBean.setWayCode(bean.getCode());
+                drugBean.setWayEnglish(bean.getCodeName());
             }
         }
-
         medicalDosageScalerTextLayout.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         dosageUnitTv.setText(drugBean.getBasicUnit());
         eatMedicalRateTv.setText(drugBean.getFrequency());
@@ -193,6 +203,7 @@ public class DrugUseActivity extends BaseActivity {
 
         rate = drugBean.getRate();
         days = drugBean.getDays();
+        amount = drugBean.getAmount();
 
         drugUseTotalMode();
         drugUseWay();
@@ -200,14 +211,6 @@ public class DrugUseActivity extends BaseActivity {
         drugUseDays();
         drugUseFrequency();
         drugUseTotal();
-
-        //医嘱事项
-        doctorEntrust.addTextChangedListener(new AbsTextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                drugBean.setDoctorAdvice(s.toString());
-            }
-        });
     }
 
     /**
@@ -216,9 +219,8 @@ public class DrugUseActivity extends BaseActivity {
     private void drugUseWay() {
         OptionsPickerView wayPickerView = new OptionsPickerBuilder(DrugUseActivity.this,
                 (options1, option2, options3, v) -> {
-                    drugBean.setWay(useWayBeans.get(options1).getCodeValue());
-                    drugBean.setWayCode(useWayBeans.get(options1).getCode());
-                    getMedicalWayTv.setText(useWayBeans.get(options1).getCodeValue());
+                    curUseWayBean = useWayBeans.get(options1);
+                    getMedicalWayTv.setText(curUseWayBean.getCodeName() + ":" + curUseWayBean.getCodeValue());
                 }).build();
 
         wayPickerView.setPicker(ways);
@@ -265,7 +267,7 @@ public class DrugUseActivity extends BaseActivity {
                         amount = Float.valueOf(value);
                         computeDosage();
                     }
-                } else {
+                } else if (!TextUtils.isEmpty(value)) {
                     amount = Float.valueOf(value);
                     computeDosage();
                 }
@@ -297,7 +299,7 @@ public class DrugUseActivity extends BaseActivity {
     }
 
     /**
-     * 用药天数
+     * 用药时长
      */
     private void drugUseDays() {
         eatMedicalDayScalerTextLayout.addTextChangedListener(new AbsTextWatcher() {
@@ -366,7 +368,8 @@ public class DrugUseActivity extends BaseActivity {
     private void drugUseTotalMode() {
         //T表示不自动计算总量
         if (curFrequencyBean != null) {
-            autoDrugUseMode = !"T".equalsIgnoreCase(curFrequencyBean.getFreqUnit());
+            freqUnit = curFrequencyBean.getFreqUnit();
+            autoDrugUseMode = !"T".equalsIgnoreCase(freqUnit);
             if (autoDrugUseMode) {
                 freqCn = Float.valueOf(curFrequencyBean.getFreqCn());
                 freqDeg = Float.valueOf(curFrequencyBean.getFreqDeg());
@@ -379,6 +382,21 @@ public class DrugUseActivity extends BaseActivity {
                 R.drawable.corner5_f9f9f9_bg : R.drawable.scaler_text_bg);
         medicalNumScalerTextLayout.setFocusable(!autoDrugUseMode);
         medicalNumScalerTextLayout.setFocusableInTouchMode(!autoDrugUseMode);
+        switch (freqUnit) {
+            case "H":
+                drugUseTimeTv.setText("小时");
+                break;
+            case "W":
+                drugUseTimeTv.setText("周");
+                break;
+            case "D":
+            case "T":
+                drugUseTimeTv.setText("天");
+                break;
+            default:
+                drugUseTimeTv.setText("天");
+                break;
+        }
     }
 
     /**
@@ -405,12 +423,20 @@ public class DrugUseActivity extends BaseActivity {
      * @return true 可以提交，false 不能提交
      */
     private boolean checkSubmit() {
-        for (DrugBean bean : drugListBean.getDrugList()) {
-            if (TextUtils.isEmpty(bean.getWay()) || bean.getDays() == 0 || bean.getQuantity() == 0 || TextUtils.isEmpty(bean.getSingleDosage())) {
-                return false;
-            }
+        String quantity = medicalNumScalerTextLayout.getText().toString().trim();
+        if (days > 0 && amount > 0 && curUseWayBean != null && curFrequencyBean != null && !TextUtils.isEmpty(quantity)) {
+            String doctorAdvice = doctorEntrust.getText().toString().trim();
+            drugBean.setWay(curUseWayBean.getCodeValue());
+            drugBean.setWayCode(curUseWayBean.getCode());
+            drugBean.setWayEnglish(curUseWayBean.getCodeName());
+            drugBean.setDays(days);
+            drugBean.setDaysUnit(freqUnit);
+            drugBean.setQuantity(Integer.valueOf(quantity));
+            drugBean.setDoctorAdvice(doctorAdvice);
+            drugBean.setAmount(amount);
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**

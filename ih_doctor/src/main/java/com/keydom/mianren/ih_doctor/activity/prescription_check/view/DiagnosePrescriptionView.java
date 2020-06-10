@@ -8,6 +8,7 @@ import com.keydom.mianren.ih_doctor.bean.PrescriptionMessageBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionModelBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionTemplateBean;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,10 @@ import java.util.Map;
  * 修改时间：18/11/16 上午9:14
  */
 public interface DiagnosePrescriptionView extends BaseView {
+
+    ArrayList<String> getDrugUseReasones();
+
+    void setDrugUseReason(int drugUseReason);
 
     /**
      * 添加普通处方
