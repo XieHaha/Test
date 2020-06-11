@@ -46,7 +46,7 @@
                 android:layout_marginStart="@dimen/dp_20"
                 android:text="请选择取药方式（外延处方）"
                 android:textColor="#666666"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
 
             <TextView
                 android:id="@+id/medical_money_tv"
@@ -57,7 +57,7 @@
                 android:layout_marginEnd="@dimen/dp_21"
                 android:text="药品费用"
                 android:textColor="#3F98F7"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
         </RelativeLayout>
 
         <RadioGroup
@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:text="(配送费用"
                     android:textColor="@color/edit_hint_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/tv_logistic_fee"
@@ -127,14 +127,14 @@
                     android:layout_marginStart="@dimen/dp_8"
                     android:text="￥0元"
                     android:textColor="@color/money_text_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=")"
                     android:textColor="@color/edit_hint_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
             </LinearLayout>
 
@@ -154,8 +154,9 @@
                     android:hint="请选择配送详细地址和联系人"
                     android:paddingTop="@dimen/dp_21"
                     android:paddingBottom="@dimen/dp_21"
-                    android:textColor="@color/edit_hint_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textColor="@color/edit_text_color"
+                    android:textColorHint="@color/edit_hint_color"
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:id="@+id/tv_se"
@@ -166,7 +167,7 @@
                     android:paddingBottom="@dimen/dp_21"
                     android:text="选择"
                     android:textColor="@color/edit_hint_color"
-                    android:textSize="@dimen/font_size_primary" />
+                    android:textSize="@dimen/sp_14" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -193,8 +194,9 @@
                 android:hint="取药药店"
                 android:paddingTop="@dimen/dp_21"
                 android:paddingBottom="@dimen/dp_21"
-                android:textColor="@color/edit_hint_color"
-                android:textSize="@dimen/font_size_primary" />
+                android:textColor="@color/edit_text_color"
+                android:textColorHint="@color/edit_hint_color"
+                android:textSize="@dimen/sp_14" />
 
             <TextView
                 android:id="@+id/tv_"
@@ -205,7 +207,7 @@
                 android:paddingBottom="@dimen/dp_21"
                 android:text="选择"
                 android:textColor="@color/edit_hint_color"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -226,7 +228,7 @@
             android:layout_marginStart="@dimen/dp_20"
             android:text="选择支付方式"
             android:textColor="#666666"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14" />
 
         <TextView
             android:id="@+id/order_name_tv"
@@ -236,7 +238,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/dp_21"
             android:textColor="#3F98F7"
-            android:textSize="@dimen/font_size_primary" />
+            android:textSize="@dimen/sp_14" />
     </RelativeLayout>
 
     <LinearLayout
@@ -265,7 +267,7 @@
                 android:layout_marginStart="@dimen/dp_105"
                 android:text="支付宝支付"
                 android:textColor="#7FBDFF"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
 
             <ImageView
                 android:id="@+id/ali_pay_selected_img"
@@ -304,7 +306,7 @@
                 android:layout_marginStart="@dimen/dp_105"
                 android:text="微信支付"
                 android:textColor="#666666"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
 
             <ImageView
                 android:id="@+id/wechat_pay_selected_img"
@@ -344,7 +346,7 @@
                 android:layout_marginStart="@dimen/dp_105"
                 android:text="银联支付"
                 android:textColor="#666666"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
 
             <ImageView
                 android:id="@+id/union_pay_selected_img"
@@ -388,7 +390,7 @@
                 android:layout_toRightOf="@+id/pay_agreement_cb"
                 android:text="我已阅读并同意《网络诊间服务条款》"
                 android:textColor="#666666"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -404,7 +406,7 @@
                 android:layout_centerVertical="true"
                 android:text="请于3天内到药店出示处方笺二维码取药"
                 android:textColor="#666666"
-                android:textSize="@dimen/font_size_primary" />
+                android:textSize="@dimen/sp_14" />
         </RelativeLayout>
 
         <TextView

@@ -859,7 +859,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         }
 
         mOrderPriceTv = view.findViewById(R.id.order_price_tv);
-        mOrderPriceTv.setText("¥" + titleFee + "起");
+        mOrderPriceTv.setText("¥" + titleFee);
         LinearLayout addressSelect = view.findViewById(R.id.address_select);
         mPayAddress = view.findViewById(R.id.tv_m_address);
         mPyName = view.findViewById(R.id.tv_shop_name);

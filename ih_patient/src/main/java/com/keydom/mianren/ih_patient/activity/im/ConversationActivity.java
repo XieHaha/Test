@@ -487,7 +487,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     //检验单
                     else if (message.getAttachment() instanceof InspectionAttachment) {
                         CheckOrderDetailActivity.startTestOrder(context,
-                               ((InspectionAttachment) message.getAttachment()).getInsCheckApplication(),
+                                ((InspectionAttachment) message.getAttachment()).getInsCheckApplication(),
                                 orderBean);
                     }
                     //转诊单
@@ -1635,7 +1635,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 false);
         bottomWaiYanSheetDialog.setContentView(view);
         mOrderPriceTv = view.findViewById(R.id.order_price_tv);
-        mOrderPriceTv.setText("¥" + titleFee + "起");
+        mOrderPriceTv.setText("¥" + titleFee);
         LinearLayout addressSelect = view.findViewById(R.id.address_select);
         mPayAddress = view.findViewById(R.id.tv_m_address);
         mPyName = view.findViewById(R.id.tv_shop_name);

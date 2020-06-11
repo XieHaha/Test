@@ -216,7 +216,8 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                     "图文问诊-" + item.getDoctorName() :
                     "视频问诊-" + item.getDoctorName();
             if (Global.isMember()) {
-                SelectDialogUtils.showPrePaidDialog(getContext(),false, String.valueOf(item.getFee()),
+                SelectDialogUtils.showPrePaidDialog(getContext(), false,
+                        String.valueOf(item.getFee()),
                         descStr, type -> {
                             Map<String, Object> payMap = new HashMap<>();
                             payMap.put("orderId", item.getId());
@@ -517,7 +518,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         }
 
         mOrderPriceTv = view.findViewById(R.id.order_price_tv);
-        mOrderPriceTv.setText("¥" + titleFee + "起");
+        mOrderPriceTv.setText("¥" + titleFee);
         LinearLayout addressSelect = view.findViewById(R.id.address_select);
         mPayAddress = view.findViewById(R.id.tv_m_address);
         mPyName = view.findViewById(R.id.tv_shop_name);
