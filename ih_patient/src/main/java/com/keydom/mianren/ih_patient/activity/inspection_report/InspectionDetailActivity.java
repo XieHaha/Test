@@ -28,10 +28,9 @@ public class InspectionDetailActivity extends BaseControllerActivity<InspectionD
     /**
      * 启动方法
      */
-    public static void start(Context context, String reportID, String checkoutName) {
+    public static void start(Context context, String reportID) {
         Intent intent = new Intent(context, InspectionDetailActivity.class);
         intent.putExtra("reportID", reportID);
-        intent.putExtra("checkoutName", checkoutName);
         context.startActivity(intent);
     }
 
@@ -45,7 +44,7 @@ public class InspectionDetailActivity extends BaseControllerActivity<InspectionD
     private RecyclerView inspectionDataRv;
     private InspectionDetailAdapter inspectionDetailAdapter;
     private List<CheckoutResultListBean> dataList = new ArrayList<>();
-    private String reportID, checkoutName;
+    private String reportID;
 
     @Override
     public int getLayoutRes() {
@@ -54,9 +53,8 @@ public class InspectionDetailActivity extends BaseControllerActivity<InspectionD
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        setTitle("检验检查报告");
+        setTitle("检查报告单结果");
         reportID = getIntent().getStringExtra("reportID");
-        checkoutName = getIntent().getStringExtra("checkoutName");
         inspectionTitleTv = findViewById(R.id.inspection_title_tv);
         nameTv = findViewById(R.id.name_tv);
         sexTv = findViewById(R.id.sex_tv);
@@ -85,7 +83,7 @@ public class InspectionDetailActivity extends BaseControllerActivity<InspectionD
 
     @Override
     public void getInspectionDetailFailed(String errMsg) {
-        ToastUtil.showMessage(getContext(), checkoutName + "报告单详情获取失败" + errMsg);
+        ToastUtil.showMessage(getContext(), "报告单详情获取失败" + errMsg);
         finish();
     }
 }

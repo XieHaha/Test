@@ -35,9 +35,9 @@ public class InspectionReportAdapter extends BaseQuickAdapter<InspectionRecordBe
             @Override
             public void onClick(View v) {
                 if (type == Type.INSPECTIONTYPE) {
-                    BodyCheckDetailActivity.start(mContext, item.getReportID(), item.getItemName());
+                    BodyCheckDetailActivity.start(mContext, item.getReportID());
                 } else {
-                    InspectionDetailActivity.start(mContext, item.getReportID(), item.getItemName());
+                    InspectionDetailActivity.start(mContext, item.getReportID());
                 }
             }
         });

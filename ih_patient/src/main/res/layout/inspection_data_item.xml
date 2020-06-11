@@ -40,10 +40,11 @@
             android:textColor="@color/edit_hint_color"
             android:textSize="@dimen/sp_14" />
 
-        <TextView
+        <com.keydom.ih_common.view.JustifiedTextView
             android:id="@+id/project_result_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.2"
             android:text=""
             android:textColor="#333333"
             android:textSize="@dimen/sp_14" />

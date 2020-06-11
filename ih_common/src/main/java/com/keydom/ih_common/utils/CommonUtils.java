@@ -253,7 +253,7 @@ public class CommonUtils {
         if ("1".equals(sex)) {
             return "女";
         }
-        return "未知";
+        return sex;
     }
 
     public static String getSex(int sex) {

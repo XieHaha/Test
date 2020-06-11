@@ -6,7 +6,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_patient.activity.inspection_report.view.BodyCheckDetailView;
-import com.keydom.mianren.ih_patient.bean.BodyCheckDetailInfo;
+import com.keydom.mianren.ih_patient.bean.InspectionDetailBean;
 import com.keydom.mianren.ih_patient.net.UserService;
 
 import org.jetbrains.annotations.NotNull;
@@ -17,20 +17,18 @@ import org.jetbrains.annotations.Nullable;
  */
 public class BodyCheckDetailController extends ControllerImpl<BodyCheckDetailView> {
     /**
-     * 查询检查单详情接口
+     * 获取检验详情
      */
-    public void getBodyCheckDetail(String applyNumber){
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getInspectResultInfo(applyNumber), new HttpSubscriber<BodyCheckDetailInfo>(getContext(),getDisposable(),false) {
+    public void getInspectionDetail(String reportID) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getCheckoutResultInfo(reportID, 1), new HttpSubscriber<InspectionDetailBean>(getContext(), getDisposable(), true) {
             @Override
-            public void requestComplete(@Nullable BodyCheckDetailInfo data) {
-                hideLoading();
+            public void requestComplete(@Nullable InspectionDetailBean data) {
                 getView().getBodyCheckDetailSuccess(data);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getBodyCheckDetailFailed(msg);
                 return super.requestError(exception, code, msg);
             }
