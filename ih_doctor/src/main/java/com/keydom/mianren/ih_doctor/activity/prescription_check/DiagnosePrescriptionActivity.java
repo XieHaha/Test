@@ -602,7 +602,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                 drugSavedBean.setDrugsName(drugBean.getDrugsName());
                 drugSavedBean.setFrequency(drugBean.getFrequency());
                 drugSavedBean.setFrequencyEnglish(drugBean.getFrequencyEnglish());
-                drugSavedBean.setDosage(String.valueOf(drugBean.getSingleDosage()));
+                drugSavedBean.setDosage(drugBean.getDosage());
                 drugSavedBean.setSingleDosage(drugBean.getSingleDosage());
                 drugSavedBean.setDosageUnit(drugBean.getDosageUnit());
                 drugSavedBean.setQuantity(drugBean.getQuantity());
@@ -623,6 +623,9 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                 drugSavedBean.setSpecificationImg(drugBean.getSpecificationImg());
                 drugSavedBean.setBasicUnit(drugBean.getBasicUnit());
                 drugSavedBean.setManufacturerName(drugBean.getManufacturerName());
+                drugSavedBean.setFee(drugBean.getFee());
+                drugSavedBean.setAmount(drugBean.getAmount());
+                drugSavedBean.setStock(drugBean.getStock());
                 String value = drugBean.getSingleMaximum();
                 if (!TextUtils.isEmpty(value)) {
                     drugSavedBean.setSingleMaximum(Float.valueOf(value));

@@ -17,6 +17,7 @@ import com.keydom.mianren.ih_doctor.activity.online_diagnose.PrescriptionTemplet
 import com.keydom.mianren.ih_doctor.activity.prescription_check.view.DiagnosePrescriptionView;
 import com.keydom.mianren.ih_doctor.bean.DiagnoseHandleBean;
 import com.keydom.mianren.ih_doctor.bean.DoctorPrescriptionDetailBean;
+import com.keydom.mianren.ih_doctor.bean.PrescriptionMessageBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionModelBean;
 import com.keydom.mianren.ih_doctor.m_interface.OnModelAndCaseDialogListener;
 import com.keydom.mianren.ih_doctor.m_interface.OnModelDialogListener;
@@ -213,20 +214,19 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
             map.put("type", String.valueOf(getView().getIsOutPrescription()));
         }
         map.put("fee", sumDrugFee.toString());
-        HttpService.INSTANCE.object2Body(map);
-//        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).save(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PrescriptionMessageBean>(getContext(), getDisposable(), true) {
-//            @Override
-//            public void requestComplete(@Nullable PrescriptionMessageBean data) {
-//                getView().saveSuccess(data);
-//            }
-//
-//            @Override
-//            public boolean requestError(@NotNull ApiException exception, int code,
-//                                        @NotNull String msg) {
-//                getView().saveFailed(msg);
-//                return super.requestError(exception, code, msg);
-//            }
-//        });
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).save(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PrescriptionMessageBean>(getContext(), getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable PrescriptionMessageBean data) {
+                getView().saveSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                getView().saveFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
     }
 
 
@@ -261,7 +261,8 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().handleFailed(msg);
                 return super.requestError(exception, code, msg);
             }

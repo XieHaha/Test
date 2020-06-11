@@ -21,6 +21,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ArithUtil;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.mianren.ih_doctor.R;
@@ -39,6 +40,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -453,6 +456,14 @@ public class DrugUseActivity extends BaseActivity {
             drugBean.setQuantity(total);
             drugBean.setDoctorAdvice(doctorAdvice);
             drugBean.setAmount(amount);
+            if (!TextUtils.isEmpty(drugBean.getSingleDosage())) {
+                BigDecimal b = ArithUtil.mul(String.valueOf(amount), drugBean.getSingleDosage());
+                b = b.setScale(2, RoundingMode.CEILING);
+                drugBean.setDosage(b.toString());
+            }
+            BigDecimal price = ArithUtil.mul(quantity, drugBean.getPrice().toString());
+            price = price.setScale(2, RoundingMode.CEILING);
+            drugBean.setFee(price);
             return true;
         }
         return false;

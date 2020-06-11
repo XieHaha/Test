@@ -69,6 +69,7 @@ public class CommitPrescriptionSavedBean {
          * 最大门诊用量
          */
         private float singleMaximum;
+        private float amount;
 
         /**
          * 药品价格
@@ -100,6 +101,14 @@ public class CommitPrescriptionSavedBean {
         private String specificationImg;
         private String basicUnit;
         private String stock;
+
+        public float getAmount() {
+            return amount;
+        }
+
+        public void setAmount(float amount) {
+            this.amount = amount;
+        }
 
         public String getSingleDosage() {
             return singleDosage;
