@@ -6,8 +6,10 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.activity.inspection_report.BodyCheckDetailActivity;
 import com.keydom.mianren.ih_patient.activity.inspection_report.InspectionDetailActivity;
 import com.keydom.mianren.ih_patient.bean.InspectionRecordBean;
+import com.keydom.mianren.ih_patient.constant.Type;
 
 import java.util.List;
 
@@ -32,8 +34,11 @@ public class InspectionReportAdapter extends BaseQuickAdapter<InspectionRecordBe
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InspectionDetailActivity.start(mContext, type, item.getReportID(),
-                        item.getItemName());
+                if (type == Type.INSPECTIONTYPE) {
+                    BodyCheckDetailActivity.start(mContext, item.getReportID(), item.getItemName());
+                } else {
+                    InspectionDetailActivity.start(mContext, item.getReportID(), item.getItemName());
+                }
             }
         });
     }

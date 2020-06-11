@@ -24,8 +24,6 @@ public class InspectionDetailAdapter extends BaseQuickAdapter<CheckoutResultList
     @Override
     protected void convert(BaseViewHolder helper, CheckoutResultListBean item) {
         helper.setText(R.id.project_name_tv, item.getItemDetailsName())
-                .setText(R.id.project_result_tv, item.getResultValue())
-                .setText(R.id.project_unit_tv, item.getUnit())
-                .setText(R.id.project_reference_value_tv, item.getReferenceValues());
+                .setText(R.id.project_result_tv, item.getResultValue());
     }
 }

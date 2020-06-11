@@ -58,7 +58,7 @@ public class InspectionReportFragment extends BaseControllerFragment<InspectionR
 
         refreshLayout = view.findViewById(R.id.containt_refresh);
         containRv = view.findViewById(R.id.containt_rv);
-        inspectionReportAdapter = new InspectionReportAdapter(type,recordBeans);
+        inspectionReportAdapter = new InspectionReportAdapter(type, recordBeans);
         containRv.setAdapter(inspectionReportAdapter);
         refreshLayout.setOnRefreshListener(refreshLayout -> getController().getInspectionReportList());
 
@@ -70,11 +70,7 @@ public class InspectionReportFragment extends BaseControllerFragment<InspectionR
     @Override
     public Map<String, Object> getParams() {
         Map<String, Object> params = new HashMap<>();
-        if (type == Type.BODYCHECKTYPE) {
-            params.put("elcCardNumber", "00721984");
-        } else {
-            params.put("elcCardNumber", "00056999");
-        }
+        params.put("elcCardNumber", "00721984");
         //        params.put("elcCardNumber", selectedCardNum);
         //        params.put("endDate", "");
         params.put("reportType", type);

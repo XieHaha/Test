@@ -13,15 +13,15 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * 检验控制器
+ * 检查控制器
  */
 public class InspectionDetailController extends ControllerImpl<InspectionDetailView> {
 
     /**
-     * 获取检验详情
+     * 获取检查详情
      */
-    public void getInspectionDetail(String reportID, int type) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getCheckoutResultInfo(reportID, type), new HttpSubscriber<InspectionDetailBean>(getContext(), getDisposable(), true) {
+    public void getInspectionDetail(String reportID) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getCheckoutResultInfo(reportID, 2), new HttpSubscriber<InspectionDetailBean>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable InspectionDetailBean data) {
                 getView().getInspectionDetailSuccess(data);
