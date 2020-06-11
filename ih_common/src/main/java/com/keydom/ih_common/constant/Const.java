@@ -57,7 +57,7 @@ public class Const {
     /**
      * 处方流转
      */
-    public static final String OUTER = "outer";
+    public static final String OUTER = "outer_mr";
     /**
      * 没有其他作用，仅做前期接口测试
      */
