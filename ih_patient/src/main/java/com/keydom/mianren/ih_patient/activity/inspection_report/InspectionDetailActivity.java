@@ -11,7 +11,7 @@ import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.inspection_report.controller.InspectionDetailController;
-import com.keydom.mianren.ih_patient.activity.inspection_report.view.InspectionDetailView;
+import com.keydom.mianren.ih_patient.activity.inspection_report.view.BodyCheckDetailView;
 import com.keydom.mianren.ih_patient.adapter.InspectionDetailAdapter;
 import com.keydom.mianren.ih_patient.bean.CheckoutResultListBean;
 import com.keydom.mianren.ih_patient.bean.InspectionDetailBean;
@@ -22,11 +22,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 检查详情
+ * @Author: LiuJie
+ * @Date: 2019/3/4 0004
+ * @Desc: 检查报告单详情页面
  */
-public class InspectionDetailActivity extends BaseControllerActivity<InspectionDetailController> implements InspectionDetailView {
+public class InspectionDetailActivity extends BaseControllerActivity<InspectionDetailController> implements BodyCheckDetailView {
     /**
-     * 启动方法
+     * 启动
      */
     public static void start(Context context, String reportID) {
         Intent intent = new Intent(context, InspectionDetailActivity.class);
@@ -34,13 +36,7 @@ public class InspectionDetailActivity extends BaseControllerActivity<InspectionD
         context.startActivity(intent);
     }
 
-    private TextView nameTv;
-    private TextView sexTv;
-    private TextView ageTv;
-    private TextView doctorNameTv;
-    private TextView dateTv;
-    private TextView inspectionTitleTv;
-    private TextView departNameTv;
+    private TextView inspectionTitleTv, nameTv, sexTv, ageTv, doctorNameTv, dateTv;
     private RecyclerView inspectionDataRv;
     private InspectionDetailAdapter inspectionDetailAdapter;
     private List<CheckoutResultListBean> dataList = new ArrayList<>();
@@ -48,42 +44,40 @@ public class InspectionDetailActivity extends BaseControllerActivity<InspectionD
 
     @Override
     public int getLayoutRes() {
-        return R.layout.activity_inspection_detail_layout;
+        return R.layout.activity_bodycheck_detail_layout;
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        setTitle("检查报告单结果");
-        reportID = getIntent().getStringExtra("reportID");
+        setTitle("检验报告单结果");
         inspectionTitleTv = findViewById(R.id.inspection_title_tv);
         nameTv = findViewById(R.id.name_tv);
         sexTv = findViewById(R.id.sex_tv);
         ageTv = findViewById(R.id.age_tv);
         doctorNameTv = findViewById(R.id.doctor_name_tv);
         dateTv = findViewById(R.id.date_tv);
-        departNameTv = findViewById(R.id.depart_name_tv);
         inspectionDataRv = findViewById(R.id.inspection_data_rv);
         inspectionDetailAdapter = new InspectionDetailAdapter(dataList);
+        inspectionDataRv.setNestedScrollingEnabled(false);
         inspectionDataRv.setAdapter(inspectionDetailAdapter);
-
+        reportID = getIntent().getStringExtra("reportID");
         getController().getInspectionDetail(reportID);
     }
 
     @Override
-    public void getInspectionDetailSuccess(InspectionDetailBean detailBean) {
-        inspectionTitleTv.setText(detailBean.getReportTitle());
-        nameTv.setText(detailBean.getPatientName());
+    public void getBodyCheckDetailSuccess(InspectionDetailBean detailBean) {
+        nameTv.setText(detailBean.getPatientName() != null && !"".equals(detailBean.getPatientName()) ? detailBean.getPatientName() : "");
         sexTv.setText(CommonUtils.getPatientSex(detailBean.getSex()));
         ageTv.setText(detailBean.getAge());
         doctorNameTv.setText(detailBean.getPatientName());
         dateTv.setText(detailBean.getReportTime());
-        departNameTv.setText(detailBean.getApplicationDepartment());
+        inspectionTitleTv.setText(detailBean.getReportTitle());
         inspectionDetailAdapter.setNewData(detailBean.getDataS());
     }
 
     @Override
-    public void getInspectionDetailFailed(String errMsg) {
-        ToastUtil.showMessage(getContext(), "报告单详情获取失败" + errMsg);
+    public void getBodyCheckDetailFailed(String errMsg) {
+        ToastUtil.showMessage(getContext(), "检验报告单详情获取失败" + errMsg);
         finish();
     }
 }

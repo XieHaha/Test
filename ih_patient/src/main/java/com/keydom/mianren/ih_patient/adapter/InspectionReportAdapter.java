@@ -1,7 +1,6 @@
 package com.keydom.mianren.ih_patient.adapter;
 
 import android.support.annotation.Nullable;
-import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -31,14 +30,11 @@ public class InspectionReportAdapter extends BaseQuickAdapter<InspectionRecordBe
     @Override
     protected void convert(BaseViewHolder helper, InspectionRecordBean item) {
         helper.setText(R.id.body_tv, item.getItemName());
-        helper.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (type == Type.INSPECTIONTYPE) {
-                    BodyCheckDetailActivity.start(mContext, item.getReportID());
-                } else {
-                    InspectionDetailActivity.start(mContext, item.getReportID());
-                }
+        helper.itemView.setOnClickListener(v -> {
+            if (type == Type.INSPECTIONTYPE) {
+                InspectionDetailActivity.start(mContext, item.getReportID());
+            } else {
+                BodyCheckDetailActivity.start(mContext, item.getReportID());
             }
         });
     }

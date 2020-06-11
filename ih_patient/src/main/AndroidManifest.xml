@@ -362,10 +362,10 @@
             android:name=".activity.my_message.NoticeDeatailActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".activity.inspection_report.InspectionDetailActivity"
+            android:name=".activity.inspection_report.BodyCheckDetailActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".activity.inspection_report.BodyCheckDetailActivity"
+            android:name=".activity.inspection_report.InspectionDetailActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.nursing_service.NursingChooseHospitalActivity"

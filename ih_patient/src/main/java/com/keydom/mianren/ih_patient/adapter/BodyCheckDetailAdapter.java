@@ -10,7 +10,7 @@ import com.keydom.mianren.ih_patient.bean.CheckoutResultListBean;
 import java.util.List;
 
 /**
- * 检验适配器
+ * 检查详情适配器
  */
 public class BodyCheckDetailAdapter extends BaseQuickAdapter<CheckoutResultListBean,
         BaseViewHolder> {
@@ -18,14 +18,12 @@ public class BodyCheckDetailAdapter extends BaseQuickAdapter<CheckoutResultListB
      * 构造方法
      */
     public BodyCheckDetailAdapter(@Nullable List<CheckoutResultListBean> checkoutResultList) {
-        super(R.layout.bodycheck_photo_item, checkoutResultList);
+        super(R.layout.inspection_data_item, checkoutResultList);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, CheckoutResultListBean item) {
         helper.setText(R.id.project_name_tv, item.getItemDetailsName())
-                .setText(R.id.project_result_tv, item.getResultValue())
-                .setText(R.id.project_unit_tv, item.getUnit())
-                .setText(R.id.project_reference_value_tv, item.getReferenceValues());
+                .setText(R.id.project_result_tv, item.getResultValue());
     }
 }
