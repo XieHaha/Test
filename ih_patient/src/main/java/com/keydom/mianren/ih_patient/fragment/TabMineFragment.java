@@ -73,7 +73,8 @@ import java.util.List;
  */
 public class TabMineFragment extends BaseControllerFragment<TabMineController> implements TabMineView {
     private MineFunctionItemView mineLocationControl, mineRegisteredMailOrder,
-            mineMedicalMailOrder, mineBookingOrder, minePeopleOrder, minePaymentRecords,
+            mineMedicalMailOrder, mineReportOrder, mineBookingOrder, minePeopleOrder,
+            minePaymentRecords,
             minePhysicianOrders, mineNursingOrders;
     private MineFunctionItemView itemRegister, itemCheck, itemObstetric, itemPainlessDelivery;
     private RelativeLayout layoutTopBg, layoutBase;
@@ -193,6 +194,8 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         mineRegisteredMailOrder.setOnClickListener(getController());
         mineMedicalMailOrder = view.findViewById(R.id.mine_medical_mail_order);
         mineMedicalMailOrder.setOnClickListener(getController());
+        mineReportOrder = view.findViewById(R.id.mine_report_order);
+        mineReportOrder.setOnClickListener(getController());
         mineBookingOrder = view.findViewById(R.id.mine_booking_order);
         mineBookingOrder.setOnClickListener(getController());
         minePeopleOrder = view.findViewById(R.id.mine_people_control);
@@ -494,6 +497,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         mineRegisteredMailOrder.setVisibility(View.VISIBLE);
         mineItemMyChatGroup.setVisibility(View.VISIBLE);
         mineMedicalMailOrder.setVisibility(View.GONE);
+        mineReportOrder.setVisibility(View.GONE);
         layoutTopBgVip.setVisibility(View.GONE);
         layoutBaseVip.setVisibility(View.GONE);
         layoutBase2Vip.setVisibility(View.GONE);
@@ -512,6 +516,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         mineRegisteredMailOrder.setVisibility(View.GONE);
         mineItemMyChatGroup.setVisibility(View.GONE);
         mineMedicalMailOrder.setVisibility(View.VISIBLE);
+        mineReportOrder.setVisibility(View.VISIBLE);
         layoutTopBgVip.setVisibility(View.VISIBLE);
         layoutBaseVip.setVisibility(View.VISIBLE);
         layoutBase2Vip.setVisibility(View.VISIBLE);

@@ -59,6 +59,7 @@
     <string name="mine_function_item_booking_order">体检预约订单</string>
     <string name="mine_function_item_registered_mail_order">挂号订单</string>
     <string name="mine_function_item_mine_medical_mail_order">病案邮寄订单</string>
+    <string name="mine_function_item_mine_report_order">检验检查报告</string>
 
     <string name="mine_function_type_base_information_control">基本信息管理</string>
     <string name="mine_function_item_payment_records">缴费记录</string>

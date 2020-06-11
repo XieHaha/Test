@@ -11,7 +11,6 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.CommonUtils;
-import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.MyScrollView;
 import com.keydom.mianren.ih_patient.R;
@@ -19,6 +18,7 @@ import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.ManageUserAc
 import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.ManageUserSelectActivity;
 import com.keydom.mianren.ih_patient.activity.global_search.SearchActivity;
 import com.keydom.mianren.ih_patient.activity.index_main.ChooseCityActivity;
+import com.keydom.mianren.ih_patient.activity.inspection_report.InspectionReportActivity;
 import com.keydom.mianren.ih_patient.activity.location_manage.LocationManageActivity;
 import com.keydom.mianren.ih_patient.activity.login.LoginActivity;
 import com.keydom.mianren.ih_patient.activity.medical_mail.MedicalMailListActivity;
@@ -27,11 +27,11 @@ import com.keydom.mianren.ih_patient.activity.my_doctor_or_nurse.MyDoctorOrNurse
 import com.keydom.mianren.ih_patient.activity.my_medical_card.MyMedicalCardActivity;
 import com.keydom.mianren.ih_patient.activity.my_message.MyMessageActivity;
 import com.keydom.mianren.ih_patient.activity.nursing_order.NursingOrderActivity;
-import com.keydom.mianren.ih_patient.activity.reserve_examination.ExaminationReserveListActivity;
-import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.ObstetricHospitalListActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.OnlineDiagnonsesOrderActivity;
 import com.keydom.mianren.ih_patient.activity.order_doctor_register.RegistrationRecordActivity;
 import com.keydom.mianren.ih_patient.activity.payment_records.PaymentRecordActivity;
+import com.keydom.mianren.ih_patient.activity.reserve_examination.ExaminationReserveListActivity;
+import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.ObstetricHospitalListActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.PainlessDeliveryListActivity;
 import com.keydom.mianren.ih_patient.activity.setting.FeedBackActivity;
 import com.keydom.mianren.ih_patient.activity.setting.SettingActivity;
@@ -58,104 +58,55 @@ public class TabMineController extends ControllerImpl<TabMineView> implements Vi
                 getView().showHospitalPopupWindow();
                 break;
             case R.id.mine_location_control:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     LocationManageActivity.start(getContext(), Type.STARTLOCATIONWITHOUTRESULT);
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
                 break;
             case R.id.mine_function_card:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     MyMedicalCardActivity.start(getContext());
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
-
                 break;
             case R.id.iv_setting_vip:
             case R.id.iv_setting:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     UserInfoOperateActivity.start(getContext(), UserInfoOperateActivity.EDITTYPE);
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
-
                 break;
             case R.id.mine_item_feedback:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     FeedBackActivity.start(getContext());
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
                 break;
             case R.id.mine_booking_order:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     SubscribeExaminationActivity.start(getContext());
-                    //                    GestureVerificationUtils.isGesturePassed(getContext(),
-                    //                    TabMineFragment.BOOKINGORDER);
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
                 break;
             case R.id.item_register:
             case R.id.mine_registered_mail_order:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     RegistrationRecordActivity.start(getContext());
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
-
                 break;
             case R.id.mine_medical_mail_order:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     MedicalMailListActivity.start(getContext());
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
-
                 break;
-            //            case R.id.mine_inspection_report:
-            //                if (Global.getUserId() != -1) {
-            //                    if(isCanGesture()){
-            //                        if (isNeedGesture())
-            //                            GestureVerificationUtils.isGesturePassed(getContext(),
-            //                            TabMineFragment.INSPECTIONORDER);
-            //                        else
-            //                            InspectionReportActivity.start(getContext());
-            //                    }else {
-            //                        long time = System.currentTimeMillis() -
-            //                        SharePreferenceManager.getLockTime();
-            //                        time = time / 1000 / 60;
-            //                        ToastUtil.showMessage(getContext(),"已锁定，请"+(5-time)
-            //                        +"分钟后稍后尝试");
-            //                    }
-            //
-            //                } else {
-            //                    ToastUtil.showMessage(getContext(), getContext().getString(R
-            //                    .string.unlogin_hint));
-            //                }
-            //                break;
+            case R.id.mine_report_order:
+                if (loginStatus()) {
+                    InspectionReportActivity.start(getContext());
+                }
+                break;
             case R.id.mine_people_control:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     ManageUserActivity.start(getContext(), ManageUserActivity.FROMUSERINDEX);
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
                 break;
             case R.id.mine_payment_records:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     PaymentRecordActivity.start(getContext());
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
                 break;
             case R.id.jump_to_login_tv:
@@ -165,153 +116,83 @@ public class TabMineController extends ControllerImpl<TabMineView> implements Vi
                 SettingActivity.start(getContext());
                 break;
             case R.id.mine_nursing_orders:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     ActivityUtils.startActivity(NursingOrderActivity.class);
-                    //                    GestureVerificationUtils.isGesturePassed(getContext(),
-                    //                    TabMineFragment.NURSINGORDER);
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
                 break;
             case R.id.mine_physician_orders:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     OnlineDiagnonsesOrderActivity.start(getContext(),
                             OnlineDiagnonsesOrderActivity.WAITEDIAGNOSES);
-                    //                    GestureVerificationUtils.isGesturePassed(getContext(),
-                    //                    TabMineFragment.DIAGNOSEORDER);
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
                 break;
-            //            case R.id.mine_case_record:
-            //                if (Global.getUserId() != -1) {
-            //                    if (isCanGesture()) {
-            //                        if (isNeedGesture())
-            //                            GestureVerificationUtils.isGesturePassed(getContext(),
-            //                                    TabMineFragment.MEDICALRECORD);
-            //                        else
-            //                            ActivityUtils.startActivity(MedicalRecordActivity.class);
-            //                    } else {
-            //                        long time =
-            //                                System.currentTimeMillis() - SharePreferenceManager
-            //                                .getLockTime();
-            //                        time = time / 1000 / 60;
-            //                        ToastUtil.showMessage(getContext(), "已锁定，请" + (5 - time) +
-            //                        "分钟后稍后尝试");
-            //                    }
-            //
-            //                } else {
-            //                    ToastUtil.showMessage(getContext(),
-            //                            getContext().getString(R.string.unlogin_hint));
-            //                }
-            //                break;
             case R.id.mine_function_doctor:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     Intent i = new Intent(getContext(), MyDoctorOrNurseActivity.class);
                     i.putExtra(MyDoctorOrNurseActivity.TYPE, MyDoctorOrNurseActivity.DOCTOR);
                     ActivityUtils.startActivity(i);
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
                 break;
             case R.id.mine_function_nurse:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     Intent i = new Intent(getContext(), MyDoctorOrNurseActivity.class);
                     i.putExtra(MyDoctorOrNurseActivity.TYPE, MyDoctorOrNurseActivity.NURSE);
                     ActivityUtils.startActivity(i);
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
                 break;
-            //            case R.id.mine_electronic_prescription:
-            //                if (Global.getUserId() != -1) {
-            //                    if (isCanGesture()) {
-            //                        if (isNeedGesture())
-            //                            GestureVerificationUtils.isGesturePassed(getContext(),
-            //                                    TabMineFragment.ELECTRONICPRESCRIBING);
-            //                        else
-            //                            ActivityUtils.startActivity(PrescriptionListActivity
-            //                            .class);
-            //                    } else {
-            //                        long time =
-            //                                System.currentTimeMillis() - SharePreferenceManager
-            //                                .getLockTime();
-            //                        time = time / 1000 / 60;
-            //                        ToastUtil.showMessage(getContext(), "已锁定，请" + (5 - time) +
-            //                        "分钟后稍后尝试");
-            //                    }
-            //
-            //                } else {
-            //                    ToastUtil.showMessage(getContext(),
-            //                            getContext().getString(R.string.unlogin_hint));
-            //                }
-            //                break;
             case R.id.mine_item_my_message:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     MyMessageActivity.start(getContext(), Type.MYMESSAGE, null);
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
                 break;
             case R.id.iv_user_header_vip:
             case R.id.iv_user_header:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     CommonUtils.previewImage(getContext(), getView().getImgStr());
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
                 break;
             case R.id.mine_item_my_chatgroup:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     ChatGoupActivity.start(getContext());
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
                 break;
             case R.id.search_layout:
-                //                Toast.makeText(getContext(), "点击了Search", Toast.LENGTH_SHORT)
-                //                .show();
                 SearchActivity.start(getContext());
                 break;
             case R.id.location_layout:
                 ChooseCityActivity.start(getContext());
                 break;
             case R.id.item_check:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     ExaminationReserveListActivity.start(getContext());
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
                 break;
             case R.id.item_obstetric:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     ObstetricHospitalListActivity.start(getContext());
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
                 break;
             case R.id.item_painless_delivery:
-                if (Global.getUserId() != -1) {
+                if (loginStatus()) {
                     PainlessDeliveryListActivity.start(getContext());
-                } else {
-                    ToastUtil.showMessage(getContext(),
-                            getContext().getString(R.string.unlogin_hint));
                 }
                 break;
             case R.id.mine_current_visit_change:
-                ManageUserSelectActivity.start(getContext(), getView().getCurUserId());
+                if (loginStatus()) {
+                    ManageUserSelectActivity.start(getContext(), getView().getCurUserId());
+                }
                 break;
             default:
                 break;
+        }
+    }
+
+    private boolean loginStatus() {
+        if (Global.getUserId() != -1) {
+            return true;
+        } else {
+            ToastUtil.showMessage(getContext(), R.string.unlogin_hint);
+            return false;
         }
     }
 
@@ -343,23 +224,5 @@ public class TabMineController extends ControllerImpl<TabMineView> implements Vi
                 return super.requestError(exception, code, msg);
             }
         });
-    }
-
-    private boolean isNeedGesture() {
-        long time = System.currentTimeMillis() - Global.getCurrentTimeMillis();
-        time = time / 1000 / 60;
-        if (time >= 5)
-            return true;
-        else
-            return false;
-    }
-
-    private boolean isCanGesture() {
-        long time = System.currentTimeMillis() - SharePreferenceManager.getLockTime();
-        time = time / 1000 / 60;
-        if (time >= 5)
-            return true;
-        else
-            return false;
     }
 }

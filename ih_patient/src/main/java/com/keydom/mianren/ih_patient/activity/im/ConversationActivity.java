@@ -58,6 +58,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.CalculateTimeUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.AgreementActivity;
@@ -1234,8 +1235,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 }
             }
         } else {
-            new GeneralDialog(getContext(), "该订单已支付！", () -> {
-            }).setTitle("提示").setPositiveButton("确认").show();
+            ToastUtil.showMessage(this, "该订单已支付！");
         }
     }
 

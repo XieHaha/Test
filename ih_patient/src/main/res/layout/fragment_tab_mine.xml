@@ -563,6 +563,16 @@
                                 funcitem:itemTitle="@string/mine_function_item_mine_medical_mail_order" />
 
                             <com.keydom.mianren.ih_patient.view.MineFunctionItemView
+                                android:id="@+id/mine_report_order"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/dp_20"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:visibility="gone"
+                                funcitem:iconImg="@mipmap/icon_medical_mail"
+                                funcitem:itemTitle="@string/mine_function_item_mine_report_order" />
+
+                            <com.keydom.mianren.ih_patient.view.MineFunctionItemView
                                 android:id="@+id/mine_registered_mail_order"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
