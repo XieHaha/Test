@@ -5,25 +5,27 @@ import android.support.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.bean.InspectionDetailInof;
+import com.keydom.mianren.ih_patient.bean.CheckoutResultListBean;
 
 import java.util.List;
+
 /**
  * 检查详情适配器
  */
-public class InspectionDetailAdapter extends BaseQuickAdapter<InspectionDetailInof.CheckoutResultListBean, BaseViewHolder> {
+public class InspectionDetailAdapter extends BaseQuickAdapter<CheckoutResultListBean,
+        BaseViewHolder> {
     /**
      * 构造方法
      */
-    public InspectionDetailAdapter(@Nullable List<InspectionDetailInof.CheckoutResultListBean> checkoutResultList) {
+    public InspectionDetailAdapter(@Nullable List<CheckoutResultListBean> checkoutResultList) {
         super(R.layout.inspection_data_item, checkoutResultList);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, InspectionDetailInof.CheckoutResultListBean item) {
-        helper.setText(R.id.project_name_tv, item.getName()!=null&&!"".equals(item.getName())?item.getName():"")
-                .setText(R.id.project_result_tv,item.getResult()!=null&&!"".equals(item.getResult())?item.getResult():"")
-                .setText(R.id.project_unit_tv,item.getResultUnit()!=null&&!"".equals(item.getResultUnit())?item.getResultUnit():"")
-                .setText(R.id.project_reference_value_tv, item.getReferenceValue()!=null&&!"".equals(item.getReferenceValue())?item.getReferenceValue():"");
+    protected void convert(BaseViewHolder helper, CheckoutResultListBean item) {
+        helper.setText(R.id.project_name_tv, item.getItemDetailsName())
+                .setText(R.id.project_result_tv, item.getResultValue())
+                .setText(R.id.project_unit_tv, item.getUnit())
+                .setText(R.id.project_reference_value_tv, item.getReferenceValues());
     }
 }

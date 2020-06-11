@@ -6,7 +6,6 @@ import com.keydom.ih_common.bean.SearchResultBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_patient.bean.BannerBean;
 import com.keydom.mianren.ih_patient.bean.BodyCheckDetailInfo;
-import com.keydom.mianren.ih_patient.bean.BodyCheckRecordInfo;
 import com.keydom.mianren.ih_patient.bean.ChildOrderBean;
 import com.keydom.mianren.ih_patient.bean.CityBean;
 import com.keydom.mianren.ih_patient.bean.CommonDocumentBean;
@@ -20,8 +19,8 @@ import com.keydom.mianren.ih_patient.bean.DoctorOrNurseBean;
 import com.keydom.mianren.ih_patient.bean.HistoryListBean;
 import com.keydom.mianren.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.mianren.ih_patient.bean.IdCardInfo;
-import com.keydom.mianren.ih_patient.bean.InspectionDetailInof;
-import com.keydom.mianren.ih_patient.bean.InspectionRecordInfo;
+import com.keydom.mianren.ih_patient.bean.InspectionDetailBean;
+import com.keydom.mianren.ih_patient.bean.InspectionRecordBean;
 import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
 import com.keydom.mianren.ih_patient.bean.MedicalRecordBean;
 import com.keydom.mianren.ih_patient.bean.PackageData;
@@ -73,23 +72,16 @@ public interface UserService {
     Observable<HttpResult<UserInfo>> initUserData(@Query("id") String id);
 
     /**
-     * 获取检验报告详情
+     * 获取检验、检查报告详情
      */
-    @GET("user/checkoutRecord/checkoutResultInfo")
-    Observable<HttpResult<InspectionDetailInof>> getCheckoutResultInfo(@Query("applyNumber") String patientNumber);
+    @GET("reservation/insCheckCategory/getInsCheckResultDetail")
+    Observable<HttpResult<InspectionDetailBean>> getCheckoutResultInfo(@Query("reportID") String reportID, @Query("reportType") int reportType);
 
     /**
-     * 获取检验报告列表
+     * 获取检验、检查报告列表
      */
-    @GET("user/checkoutRecord/getCheckoutRecordPage")
-    Observable<HttpResult<PageBean<InspectionRecordInfo>>> getCheckoutRecordPage(@QueryMap Map<String, Object> map);
-
-    /**
-     * 获取检查报告列表
-     */
-    @GET("user/inspectRecord/getInspectRecordPage")
-    Observable<HttpResult<List<BodyCheckRecordInfo>>> getInspectRecordPage(@QueryMap Map<String,
-            Object> map);
+    @POST("reservation/insCheckCategory/getInsCheckResult")
+    Observable<HttpResult<List<InspectionRecordBean>>> getCheckoutRecordPage(@Body RequestBody map);
 
     /**
      * 获取检验报告详情

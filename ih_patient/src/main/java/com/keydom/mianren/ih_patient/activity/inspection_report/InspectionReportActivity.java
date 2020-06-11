@@ -25,6 +25,7 @@ import com.keydom.mianren.ih_patient.adapter.ExaReportCardPopupWindowAdapter;
 import com.keydom.mianren.ih_patient.adapter.ViewPagerAdapter;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.callback.GeneralCallback;
+import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.Type;
 import com.keydom.mianren.ih_patient.fragment.InspectionReportFragment;
@@ -72,12 +73,7 @@ public class InspectionReportActivity extends BaseControllerActivity<InspectionR
         choose_patient_tv = this.findViewById(R.id.choose_patient_tv);
         choose_patient_tv.setOnClickListener(getController());
         back_layout = this.findViewById(R.id.back_layout);
-        back_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        back_layout.setOnClickListener(view -> finish());
         inspection_report_tab = this.findViewById(R.id.inspection_report_tab);
         inspection_report_vp = this.findViewById(R.id.inspection_report_vp);
         list.add("检查");
@@ -85,12 +81,12 @@ public class InspectionReportActivity extends BaseControllerActivity<InspectionR
         fm = getSupportFragmentManager();
         InspectionReportFragment bodyCheckReportFragment = new InspectionReportFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("type", Type.BODYCHECKTYPE);
+        bundle.putInt(Const.TYPE, Type.BODYCHECKTYPE);
         bodyCheckReportFragment.setArguments(bundle);
         fragmentList.add(bodyCheckReportFragment);
         InspectionReportFragment inspectionReportFragment = new InspectionReportFragment();
         Bundle bundle_f = new Bundle();
-        bundle_f.putString("type", Type.INSPECTIONTYPE);
+        bundle_f.putInt(Const.TYPE, Type.INSPECTIONTYPE);
         inspectionReportFragment.setArguments(bundle_f);
         fragmentList.add(inspectionReportFragment);
         if (viewPagerAdapter == null) {
@@ -99,17 +95,8 @@ public class InspectionReportActivity extends BaseControllerActivity<InspectionR
         inspection_report_vp.setAdapter(viewPagerAdapter);
         inspection_report_tab.setupWithViewPager(inspection_report_vp);
         if (Global.getUserId() == -1) {
-            new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？", new GeneralDialog.OnCloseListener() {
-                @Override
-                public void onCommit() {
-                    LoginActivity.start(getContext());
-                }
-            }, new GeneralDialog.CancelListener() {
-                @Override
-                public void onCancel() {
-                    finish();
-                }
-            }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
+            new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？",
+                    () -> LoginActivity.start(getContext()), () -> finish()).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
         } else
             getController().fillData();
     }
@@ -117,11 +104,14 @@ public class InspectionReportActivity extends BaseControllerActivity<InspectionR
     //弹出切换就诊卡的窗口
     @Override
     public void showCardPopupWindow() {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.general_popupwindow_layout, null, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.popup_rv);
-        ExaReportCardPopupWindowAdapter exaReportCardPopupWindowAdapter = new ExaReportCardPopupWindowAdapter(this, cardList);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.general_popupwindow_layout
+                , null, false);
+        RecyclerView recyclerView = view.findViewById(R.id.popup_rv);
+        ExaReportCardPopupWindowAdapter exaReportCardPopupWindowAdapter =
+                new ExaReportCardPopupWindowAdapter(this, cardList);
         recyclerView.setAdapter(exaReportCardPopupWindowAdapter);
-        cardpopupWindow = new PopupWindow(getContext(), null, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        cardpopupWindow = new PopupWindow(getContext(), null, ViewGroup.LayoutParams.MATCH_PARENT
+                , ViewGroup.LayoutParams.WRAP_CONTENT);
         cardpopupWindow.setContentView(view);
         cardpopupWindow.setFocusable(true);
         cardpopupWindow.setWidth(choose_patient_tv.getWidth());

@@ -1,12 +1,10 @@
 package com.keydom.mianren.ih_patient.utils;
 
-import com.keydom.mianren.ih_patient.bean.BodyCheckRecordInfo;
 import com.keydom.mianren.ih_patient.bean.CityBean;
 import com.keydom.mianren.ih_patient.bean.DepartmentSchedulingBean;
 import com.keydom.mianren.ih_patient.bean.DocAndDepSearchBean;
 import com.keydom.mianren.ih_patient.bean.HospitaldepartmentsInfo;
 import com.keydom.mianren.ih_patient.bean.IndexData;
-import com.keydom.mianren.ih_patient.bean.InspectionRecordInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -157,77 +155,6 @@ public class DepartmentDataHelper {
         }
         // dataList.addAll(doctorInfoList);
         return dataList;
-    }
-
-    /**
-     * 批量处理数据
-     *
-     * @param inspectionRecordInfoList
-     * @return
-     */
-    public static List<Object> getInspectionInfoAfterHandle(List<InspectionRecordInfo> inspectionRecordInfoList) {
-        List<Object> dataList = new ArrayList<>();
-        for (InspectionRecordInfo inspectionRecordInfo : inspectionRecordInfoList) {
-            InspectionReportGroup inspectionReportGroup = new InspectionReportGroup();
-            inspectionReportGroup.setData(inspectionRecordInfo.getDate());
-            inspectionReportGroup.setExpand(false);
-            inspectionReportGroup.setChildSize(inspectionRecordInfo.getCheckoutRecordVO().size());
-            dataList.add(inspectionReportGroup);
-            dataList.addAll(inspectionRecordInfo.getCheckoutRecordVO());
-        }
-        return dataList;
-    }
-
-    /**
-     * 批量添加数据
-     *
-     * @param bodyCheckRecordInfoList
-     * @return
-     */
-    public static List<Object> getBodyCheckInfoAfterHandle(List<BodyCheckRecordInfo> bodyCheckRecordInfoList) {
-        List<Object> dataList = new ArrayList<>();
-        for (BodyCheckRecordInfo bodyCheckRecordInfo : bodyCheckRecordInfoList) {
-            InspectionReportGroup inspectionReportGroup = new InspectionReportGroup();
-            inspectionReportGroup.setData(bodyCheckRecordInfo.getDate());
-            inspectionReportGroup.setExpand(false);
-            inspectionReportGroup.setChildSize(bodyCheckRecordInfo.getInspectRecordVOList().size());
-            dataList.add(inspectionReportGroup);
-            dataList.addAll(bodyCheckRecordInfo.getInspectRecordVOList());
-        }
-        return dataList;
-    }
-
-    /**
-     * 报告实体
-     */
-    public static class InspectionReportGroup {
-        String data;
-        int childSize;
-        boolean isExpand;
-
-        public String getData() {
-            return data;
-        }
-
-        public void setData(String data) {
-            this.data = data;
-        }
-
-        public int getChildSize() {
-            return childSize;
-        }
-
-        public void setChildSize(int childSize) {
-            this.childSize = childSize;
-        }
-
-        public boolean isExpand() {
-            return isExpand;
-        }
-
-        public void setExpand(boolean expand) {
-            isExpand = expand;
-        }
     }
 
     /**

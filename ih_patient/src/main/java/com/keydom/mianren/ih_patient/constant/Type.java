@@ -30,8 +30,8 @@ public class Type {
     public static final String DOINGREGISTRATIONRECORD = "doing_registration_record";
 
 
-    public static final String INSPECTIONTYPE = "inspection_type";
-    public static final String BODYCHECKTYPE = "body_check_type";
+    public static final int INSPECTIONTYPE = 1;//检验
+    public static final int BODYCHECKTYPE = 2;//检查
 
     public static final String BASENURSING = "base_nursing";
     public static final String PROFESSIONALNURSING = "professional_nursing";

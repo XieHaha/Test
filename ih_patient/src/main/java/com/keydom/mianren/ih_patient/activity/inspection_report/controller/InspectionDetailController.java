@@ -6,7 +6,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_patient.activity.inspection_report.view.InspectionDetailView;
-import com.keydom.mianren.ih_patient.bean.InspectionDetailInof;
+import com.keydom.mianren.ih_patient.bean.InspectionDetailBean;
 import com.keydom.mianren.ih_patient.net.UserService;
 
 import org.jetbrains.annotations.NotNull;
@@ -20,10 +20,10 @@ public class InspectionDetailController extends ControllerImpl<InspectionDetailV
     /**
      * 获取检验详情
      */
-    public void getInspectionDetail(String applyNumber) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getCheckoutResultInfo(applyNumber), new HttpSubscriber<InspectionDetailInof>(getContext(), getDisposable(), true) {
+    public void getInspectionDetail(String reportID, int type) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getCheckoutResultInfo(reportID, type), new HttpSubscriber<InspectionDetailBean>(getContext(), getDisposable(), true) {
             @Override
-            public void requestComplete(@Nullable InspectionDetailInof data) {
+            public void requestComplete(@Nullable InspectionDetailBean data) {
                 getView().getInspectionDetailSuccess(data);
             }
 

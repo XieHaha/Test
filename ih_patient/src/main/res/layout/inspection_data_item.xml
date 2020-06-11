@@ -1,43 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_40">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/dp_40"
+    android:orientation="horizontal">
+
     <TextView
         android:id="@+id/project_name_tv"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
+        android:gravity="center"
         android:text=""
         android:textColor="#333333"
-        android:textSize="@dimen/dp_12"
-        android:gravity="center"/>
+        android:textSize="@dimen/dp_12" />
+
     <TextView
         android:id="@+id/project_result_tv"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1.2"
+        android:gravity="center"
         android:text=""
         android:textColor="#333333"
-        android:textSize="@dimen/dp_12"
-        android:gravity="center"/>
+        android:textSize="@dimen/dp_12" />
+
     <TextView
         android:id="@+id/project_unit_tv"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1.2"
+        android:gravity="center"
         android:text=""
         android:textColor="#333333"
-        android:textSize="@dimen/dp_12"
-        android:gravity="center"/>
+        android:textSize="@dimen/dp_12" />
+
     <TextView
         android:id="@+id/project_reference_value_tv"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1.5"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_10"
         android:text=""
         android:textColor="#333333"
-        android:textSize="@dimen/dp_12"
-        android:paddingLeft="@dimen/dp_10"
-        android:gravity="center_vertical"/>
-    
+        android:textSize="@dimen/dp_12" />
+
 </LinearLayout>
