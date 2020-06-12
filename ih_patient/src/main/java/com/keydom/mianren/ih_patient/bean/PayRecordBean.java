@@ -56,8 +56,10 @@ public class PayRecordBean {
     private int recordState;
     private boolean isSelect;
     private int type;
+    private int isOnline;
     private String eleCardNumber;
     private String prescriptionId;
+    private String isPrescription;
     private boolean isWaiYan;
 
     public boolean isWaiYan() {
@@ -69,6 +71,22 @@ public class PayRecordBean {
 
     public void setWaiYan(boolean waiYan) {
         isWaiYan = waiYan;
+    }
+
+    public int getIsOnline() {
+        return isOnline;
+    }
+
+    public void setIsOnline(int isOnline) {
+        this.isOnline = isOnline;
+    }
+
+    public String getIsPrescription() {
+        return isPrescription;
+    }
+
+    public void setIsPrescription(String isPrescription) {
+        this.isPrescription = isPrescription;
     }
 
     public String getPrescriptionId() {

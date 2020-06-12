@@ -47,7 +47,7 @@ public class TypePatientFragment extends BaseControllerFragment<TypePatientContr
                     EventBus.getDefault().post(new Event(EventType.SENDSELECTDIAGNOSESPATIENT,selectedPatientInfo));
                     getActivity().finish();
                 }else {
-                    ToastUtil.showMessage(getContext(),"请选择就诊卡");
+                    ToastUtil.showMessage(getContext(),"请选择就诊人");
                 }
             }
         });

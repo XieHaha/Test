@@ -4,7 +4,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.CheckBox;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.mianren.ih_patient.R;
@@ -40,9 +39,9 @@ public class UnPayRecordAdapter extends BaseQuickAdapter<PayRecordBean, BaseView
 
     @Override
     protected void convert(BaseViewHolder helper, PayRecordBean item) {
-        helper.setText(R.id.name, StringUtils.isEmpty(item.getName()) ? "" : item.getName())
+        helper.setText(R.id.name, item.getName())
                 .setText(R.id.project, item.getPayRegister() + "")
-                .setText(R.id.time, StringUtils.isEmpty(item.getDate()) ? "" : item.getDate())
+                .setText(R.id.time, item.getDate())
                 .setText(R.id.money, item.getSumFee() + "")
                 .addOnClickListener(R.id.pay);
         CheckBox checkBox = helper.getView(R.id.select);

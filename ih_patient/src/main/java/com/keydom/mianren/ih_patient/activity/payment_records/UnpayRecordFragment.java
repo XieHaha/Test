@@ -36,10 +36,10 @@ import com.keydom.mianren.ih_patient.bean.LocationInfo;
 import com.keydom.mianren.ih_patient.bean.PayRecordBean;
 import com.keydom.mianren.ih_patient.bean.entity.pharmacy.PharmacyBean;
 import com.keydom.mianren.ih_patient.callback.SingleClick;
+import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.Type;
-import com.keydom.mianren.ih_patient.constant.TypeEnum;
 import com.keydom.mianren.ih_patient.utils.CommUtil;
 import com.keydom.mianren.ih_patient.utils.GotoActivityUtil;
 import com.orhanobut.logger.Logger;
@@ -99,13 +99,27 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
 
     private int mType = 0;
 
+    private long patientId;
+
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_unpay_record_layout;
     }
 
+    /**
+     * fragment创建
+     */
+    public static UnpayRecordFragment newInstance(long patient) {
+        Bundle args = new Bundle();
+        args.putLong(Const.PATIENT_ID, patient);
+        UnpayRecordFragment fragment = new UnpayRecordFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void getView(@Nullable View view) {
+        patientId = getArguments().getLong(Const.PATIENT_ID);
         mPayRecordBeanData = new ArrayList<>();
         mRecyclerView = view.findViewById(R.id.unpay_record_rv);
         mRefreshLayout = view.findViewById(R.id.unpay_record_refresh);
@@ -139,20 +153,17 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         mUnPayRecordAdapter = new UnPayRecordAdapter(new ArrayList<>(), this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mUnPayRecordAdapter);
-        mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout, TypeEnum.REFRESH));
-        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout, TypeEnum.LOAD_MORE));
+        mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout));
         mUnPayRecordAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @SingleClick(1000)
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (view.getId()) {
-                    case R.id.pay:
-                        PayRecordBean payRecordBean =
-                                (PayRecordBean) adapter.getData().get(position);
-                        getController().createOrder(payRecordBean.getRecordState() == 8,
-                                payRecordBean.getDocumentNo(), payRecordBean.getSumFee(),
-                                payRecordBean.getPrescriptionId(), payRecordBean.isWaiYan());
-                        break;
+                if (view.getId() == R.id.pay) {
+                    PayRecordBean payRecordBean =
+                            (PayRecordBean) adapter.getData().get(position);
+                    getController().createOrder(payRecordBean.getRecordState() == 8,
+                            payRecordBean.getDocumentNo(), payRecordBean.getSumFee(),
+                            payRecordBean.getPrescriptionId(), payRecordBean.isWaiYan());
                 }
             }
         });
@@ -283,12 +294,12 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                 ActivityUtils.startActivity(i);
             }
         });
-        getController().getConsultationPayList(mRefreshLayout, TypeEnum.REFRESH);
+        getController().getConsultationPayList(mRefreshLayout);
     }
 
     @Override
     public void refreshData() {
-        getController().getConsultationPayList(mRefreshLayout, TypeEnum.REFRESH);
+        getController().getConsultationPayList(mRefreshLayout);
     }
 
 
@@ -304,8 +315,13 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         mPayRecordBeanList = new ArrayList<>();
     }
 
+    public void setPatientId(long patientId) {
+        this.patientId = patientId;
+        getController().getConsultationPayList(mRefreshLayout);
+    }
+
     @Override
-    public void paymentListCallBack(List<PayRecordBean> list, TypeEnum typeEnum) {
+    public void paymentListCallBack(List<PayRecordBean> list) {
         if (mRefreshLayout.isRefreshing()) {
             initPayInfo();
             mCheckBox.setChecked(false);
@@ -314,15 +330,15 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
             mType = list.get(0).getType();
         }
 
-        mRefreshLayout.finishLoadMore();
         mRefreshLayout.finishRefresh();
         pageLoadingSuccess();
-        if (typeEnum == TypeEnum.REFRESH) {
-            mUnPayRecordAdapter.replaceData(list);
-        } else {
-            mUnPayRecordAdapter.addData(list);
-        }
+        mUnPayRecordAdapter.setNewData(list);
         getController().currentPagePlus();
+    }
+
+    @Override
+    public long getPatientId() {
+        return patientId;
     }
 
     @Override
@@ -362,7 +378,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
 
     @Override
     public void paySuccess() {
-        getController().getConsultationPayList(mRefreshLayout, TypeEnum.REFRESH);
+        getController().getConsultationPayList(mRefreshLayout);
         ActivityUtils.startActivity(PaymentSuccessActivity.class);
     }
 

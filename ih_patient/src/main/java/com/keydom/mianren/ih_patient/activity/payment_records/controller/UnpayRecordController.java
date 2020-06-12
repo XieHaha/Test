@@ -25,10 +25,8 @@ import com.keydom.mianren.ih_patient.bean.PrescriptionDetailBean;
 import com.keydom.mianren.ih_patient.bean.PrescriptionDrugBean;
 import com.keydom.mianren.ih_patient.bean.entity.pharmacy.PharmacyBean;
 import com.keydom.mianren.ih_patient.callback.SingleClick;
-import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.constant.Global;
-import com.keydom.mianren.ih_patient.constant.TypeEnum;
 import com.keydom.mianren.ih_patient.net.LocationService;
 import com.keydom.mianren.ih_patient.net.PayService;
 import com.keydom.mianren.ih_patient.net.PrescriptionService;
@@ -53,21 +51,17 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
     /**
      * 获取未缴费记录
      */
-    public void getConsultationPayList(SmartRefreshLayout refreshLayout, final TypeEnum typeEnum) {
-        if (typeEnum == TypeEnum.REFRESH) {
-            setCurrentPage(1);
-        }
+    public void getConsultationPayList(SmartRefreshLayout refreshLayout) {
         Map<String, Object> map = new HashMap<>();
+        map.put("patientId", getView().getPatientId());
         map.put("hospitalId", App.hospitalId);
         map.put("registerUserId", Global.getUserId());
         map.put("state", PaymentRecordActivity.NO_PAY);
-        map.put("currentPage", getCurrentPage());
-        map.put("pageSize", Const.PAGE_SIZE);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PayService.class).getConsultationPayList(map), new HttpSubscriber<PageBean<PayRecordBean>>(getContext(), getDisposable(), false, true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PayService.class).getConsultationPayList(map), new HttpSubscriber<List<PayRecordBean>>(getContext(), getDisposable(), false, true) {
             @Override
-            public void requestComplete(@Nullable PageBean<PayRecordBean> data) {
+            public void requestComplete(@Nullable List<PayRecordBean> data) {
                 if (data != null) {
-                    getView().paymentListCallBack(data.getRecords(), typeEnum);
+                    getView().paymentListCallBack(data);
                 }
             }
 
@@ -76,7 +70,6 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
                                         @NotNull String msg) {
                 if (!"token解析失败".equals(msg))
                     ToastUtils.showLong(msg);
-                refreshLayout.finishLoadMore();
                 refreshLayout.finishRefresh();
                 return super.requestError(exception, code, msg);
             }
@@ -192,24 +185,25 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
                             ToastUtils.showShort("返回支付参数为空");
                             return;
                         }
-                        WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
-                            @Override
-                            public void onSuccess() {
-                                getView().paySuccess();
-                                ToastUtils.showShort("支付成功");
-                            }
+                        WXPay.getInstance().doPay(getContext(), data,
+                                new WXPay.WXPayResultCallBack() {
+                                    @Override
+                                    public void onSuccess() {
+                                        getView().paySuccess();
+                                        ToastUtils.showShort("支付成功");
+                                    }
 
-                            @Override
-                            public void onError(int error_code) {
-                                ToastUtil.showMessage(getContext(), "支付失败" + error_code
-                                );
-                            }
+                                    @Override
+                                    public void onError(int error_code) {
+                                        ToastUtil.showMessage(getContext(), "支付失败" + error_code
+                                        );
+                                    }
 
-                            @Override
-                            public void onCancel() {
+                                    @Override
+                                    public void onCancel() {
 
-                            }
-                        });
+                                    }
+                                });
                         break;
                     case 2:
                         if (StringUtils.isEmpty(data)) {
@@ -409,7 +403,8 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 return super.requestError(exception, code, msg);
             }
         });
