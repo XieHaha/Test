@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/template_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dp_28"
+            android:paddingEnd="@dimen/dp_0"
+            android:text=""
+            android:textColor="@color/edit_text_color"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:id="@+id/template_idc_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:paddingStart="@dimen/dp_28"
+            android:paddingEnd="@dimen/dp_45"
+            android:text=""
+            android:textColor="#333333"
+            android:textSize="@dimen/sp_14" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/dp_10"
+        android:layout_height="@dimen/dp_20"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/dp_31"
+        android:src="@mipmap/consulting_arraw_right" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_below="@id/layout"
+        android:layout_marginTop="@dimen/dp_25"
+        android:background="#EEEEEE" />
+
+</RelativeLayout>

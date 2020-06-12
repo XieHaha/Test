@@ -74,7 +74,7 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                 }
                 break;
             case R.id.prescription_model_rl:
-                PrescriptionTempletActivity.start(getContext(), getView().getIsOutPrescription());
+                PrescriptionTempletActivity.start(getContext(), getView().getIsOutPrescription(),getView().getPatientId());
                 break;
             case R.id.submit_with_model:
                 if (getView().checkPrescription()) {

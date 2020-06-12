@@ -22,6 +22,7 @@ public class DoctorPrescriptionDetailBean implements Serializable {
     private String sex;
     private String age;
     private String doctorName;
+    private String doctorId;
     private String doctorDept;
     private String dept;
     private String diagnosis;
@@ -43,8 +44,61 @@ public class DoctorPrescriptionDetailBean implements Serializable {
     private String hospitalName;
     private String commonSeal;
     private String medicalReasonsName;
+    private String medicaltemplateType;
+    private String medicaltemplateName;
     private int cate;
+    private String initDiagnosis;
+    private String remark;
     private List<List<DrugBean>> list;
+    private List<ICD10Bean> idcItems;
+
+    public String getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public String getMedicaltemplateType() {
+        return medicaltemplateType;
+    }
+
+    public void setMedicaltemplateType(String medicaltemplateType) {
+        this.medicaltemplateType = medicaltemplateType;
+    }
+
+    public String getMedicaltemplateName() {
+        return medicaltemplateName;
+    }
+
+    public void setMedicaltemplateName(String medicaltemplateName) {
+        this.medicaltemplateName = medicaltemplateName;
+    }
+
+    public String getInitDiagnosis() {
+        return initDiagnosis;
+    }
+
+    public void setInitDiagnosis(String initDiagnosis) {
+        this.initDiagnosis = initDiagnosis;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public List<ICD10Bean> getIdcItems() {
+        return idcItems;
+    }
+
+    public void setIdcItems(List<ICD10Bean> idcItems) {
+        this.idcItems = idcItems;
+    }
 
     public String getMedicalReasonsName() {
         return medicalReasonsName;

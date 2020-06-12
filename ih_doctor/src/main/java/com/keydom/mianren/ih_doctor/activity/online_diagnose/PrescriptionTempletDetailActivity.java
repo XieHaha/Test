@@ -14,9 +14,11 @@ import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.controller.PrescriptionTempletDetailController;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.view.PrescriptionTempletDetailView;
 import com.keydom.mianren.ih_doctor.adapter.DrugTempletAdapter;
+import com.keydom.mianren.ih_doctor.bean.DoctorPrescriptionDetailBean;
 import com.keydom.mianren.ih_doctor.bean.DrugBean;
 import com.keydom.mianren.ih_doctor.bean.Event;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionDrugDetailBean;
+import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 
 import org.greenrobot.eventbus.EventBus;
@@ -63,6 +65,11 @@ public class PrescriptionTempletDetailActivity extends BaseControllerActivity<Pr
     private PrescriptionDrugDetailBean prescriptionDrugDetailBean;
 
     /**
+     * 历史处方详情
+     */
+    private DoctorPrescriptionDetailBean detailBean;
+
+    /**
      * 启动处方模版详情页面
      *
      * @param context
@@ -72,6 +79,12 @@ public class PrescriptionTempletDetailActivity extends BaseControllerActivity<Pr
     public static void start(Context context, long templetId, String templetName) {
         Intent intent = new Intent(context, PrescriptionTempletDetailActivity.class);
         intent.putExtra("templetId", templetId);
+        context.startActivity(intent);
+    }
+
+    public static void startHistory(Context context, DoctorPrescriptionDetailBean detailBean) {
+        Intent intent = new Intent(context, PrescriptionTempletDetailActivity.class);
+        intent.putExtra(Const.DATA, detailBean);
         context.startActivity(intent);
     }
 
@@ -85,18 +98,34 @@ public class PrescriptionTempletDetailActivity extends BaseControllerActivity<Pr
         setTitle("处方模板");
         setRightTxt("确定");
         setRightBtnListener(v -> {
-            List<List<DrugBean>> tempList=new ArrayList<>();
+            List<List<DrugBean>> tempList = new ArrayList<>();
+            if (detailBean != null) {
+                prescriptionDrugDetailBean = new PrescriptionDrugDetailBean();
+                prescriptionDrugDetailBean.setCate(detailBean.getCate());
+                prescriptionDrugDetailBean.setIsOutPrescription(1);
+            }
             tempList.add(drugChooseAdapter.getSelectList());
             prescriptionDrugDetailBean.setItems(tempList);
-            Event event = new Event(EventType.CHOOSE_PRESCRIPTION_TEMPLET, prescriptionDrugDetailBean);
+
+            Event event = new Event(EventType.CHOOSE_PRESCRIPTION_TEMPLET,
+                    prescriptionDrugDetailBean);
             EventBus.getDefault().post(event);
             ActivityUtils.finishActivity(PrescriptionTempletActivity.class);
             finish();
         });
         templet_detail_name_tv = findViewById(R.id.templet_detail_name_tv);
         recyclerView = findViewById(R.id.templet_detail_rv);
-        templetId = getIntent().getLongExtra("templetId", -1);
-        getController().getPrescriptionTemplateItemList(templetId);
+        detailBean = (DoctorPrescriptionDetailBean) getIntent().getSerializableExtra(Const.DATA);
+        if (detailBean == null) {
+            templetId = getIntent().getLongExtra("templetId", -1);
+            getController().getPrescriptionTemplateItemList(templetId);
+        } else {
+            templet_detail_name_tv.setText(detailBean.getInitDiagnosis());
+            drugBeans.clear();
+            drugBeans.addAll(detailBean.getList().get(0));
+            selectDrugList = detailBean.getList().get(0);
+            initList();
+        }
 
     }
 

@@ -17,7 +17,7 @@
             android:layout_height="55dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="院内处方"
+            android:text="历史处方"
             android:textColor="@color/tab_color"
             android:textSize="@dimen/dp_15" />
 

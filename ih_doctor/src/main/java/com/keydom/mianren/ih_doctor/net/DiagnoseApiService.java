@@ -8,6 +8,7 @@ import com.keydom.mianren.ih_doctor.bean.BodyCheckDetailInfo;
 import com.keydom.mianren.ih_doctor.bean.CheckItemListBean;
 import com.keydom.mianren.ih_doctor.bean.DiagnoseHandleBean;
 import com.keydom.mianren.ih_doctor.bean.DiagnosePatientInfoBean;
+import com.keydom.mianren.ih_doctor.bean.DoctorPrescriptionDetailBean;
 import com.keydom.mianren.ih_doctor.bean.DrugBean;
 import com.keydom.mianren.ih_doctor.bean.DrugEntity;
 import com.keydom.mianren.ih_doctor.bean.DrugStockBean;
@@ -102,6 +103,12 @@ public interface DiagnoseApiService {
      */
     @GET("user/prescription/prescriptionTemplateList")
     Observable<HttpResult<List<PrescriptionTempletBean>>> getPrescriptionTemplateList(@QueryMap Map<String, Object> maps);
+
+    /**
+     * 历史处方列表
+     */
+    @GET("user/prescription/historicalCases")
+    Observable<HttpResult<List<DoctorPrescriptionDetailBean>>> getPrescriptionTempletHistoryList(@Query("patientId") long patientId);
 
     /**
      * 处方模板明细列表

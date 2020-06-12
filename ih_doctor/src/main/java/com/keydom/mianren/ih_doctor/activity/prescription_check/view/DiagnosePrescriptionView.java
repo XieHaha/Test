@@ -153,5 +153,7 @@ public interface DiagnosePrescriptionView extends BaseView {
 
     int getIsOutPrescription();
 
+    long getPatientId();
+
     void setIsOutPrescription(int isOutPrescription);
 }

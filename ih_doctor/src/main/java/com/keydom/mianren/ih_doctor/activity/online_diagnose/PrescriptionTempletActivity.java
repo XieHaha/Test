@@ -21,20 +21,15 @@ import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 import com.keydom.mianren.ih_doctor.fragment.PrescriptionTempletFragment;
 
 import org.jetbrains.annotations.Nullable;
+
 /**
- *
- * @link
- *
- * Author: song
- *
+ * @link Author: song
+ * <p>
  * Create: 19/3/7 上午10:49
- *
+ * <p>
  * Changes (from 19/3/7)
- *
+ * <p>
  * 19/3/7 : Create PrescriptionTempletActivity.java (song);
- *
- *
- *
  */
 public class PrescriptionTempletActivity extends BaseControllerActivity<PrescriptionTempletController> implements PrescriptionTempletView {
 
@@ -43,14 +38,17 @@ public class PrescriptionTempletActivity extends BaseControllerActivity<Prescrip
     private Fragment[] mFragmentArrays;
     private String[] mTabTitles;
     private int isOutPrescription = -1;
+    private long patientId;
 
     /**
      * 开启处方模版页面
+     *
      * @param context
      */
-    public static void start(Context context,int isOutPrescription) {
+    public static void start(Context context, int isOutPrescription,long patientId) {
         Intent intent = new Intent(context, PrescriptionTempletActivity.class);
         intent.putExtra(Const.IS_OUT_PRESCRIPTION, isOutPrescription);
+        intent.putExtra(Const.PATIENT_ID, patientId);
         context.startActivity(intent);
     }
 
@@ -63,6 +61,7 @@ public class PrescriptionTempletActivity extends BaseControllerActivity<Prescrip
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle("处方模板");
         isOutPrescription = getIntent().getIntExtra(Const.IS_OUT_PRESCRIPTION, -1);
+        patientId = getIntent().getLongExtra(Const.PATIENT_ID,-1);
         tabLayout = this.findViewById(R.id.tablayout);
         viewPager = this.findViewById(R.id.tab_viewpager);
         LinearLayout linearLayout = (LinearLayout) tabLayout.getChildAt(0);
@@ -76,28 +75,39 @@ public class PrescriptionTempletActivity extends BaseControllerActivity<Prescrip
      * 设置fragment
      */
     private void initFragment() {
-        if(isOutPrescription < 0){ //都展示
-            mTabTitles = new String[2];
-            mFragmentArrays = new Fragment[2];
-            mTabTitles[0] = "院内处方";
-            mTabTitles[1] = "外延处方";
-            tabLayout.setTabMode(TabLayout.MODE_FIXED);
-            mFragmentArrays[0] = PrescriptionTempletFragment.newInstance(TypeEnum.INSIDE_PRESCRIPTION);
-            mFragmentArrays[1] = PrescriptionTempletFragment.newInstance(TypeEnum.OUTSIDE_PRESCRIPTION);
+        //        if(isOutPrescription < 0){ //都展示
+        //            mTabTitles = new String[2];
+        //            mFragmentArrays = new Fragment[2];
+        //            mTabTitles[0] = "历史处方";
+        //            mTabTitles[1] = "外延处方";
+        //            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        //            mFragmentArrays[0] = PrescriptionTempletFragment.newInstance(TypeEnum
+        //            .INSIDE_PRESCRIPTION);
+        //            mFragmentArrays[1] = PrescriptionTempletFragment.newInstance(TypeEnum
+        //            .OUTSIDE_PRESCRIPTION);
+        //        }else if(isOutPrescription == 0){ //院内
+        //            mTabTitles = new String[1];
+        //            mFragmentArrays = new Fragment[1];
+        //            mTabTitles[0] = "历史处方";
+        //            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        //            mFragmentArrays[0] = PrescriptionTempletFragment.newInstance(TypeEnum
+        //            .INSIDE_PRESCRIPTION);
+        //        }else{ //外延
+        //            mTabTitles = new String[1];
+        //            mFragmentArrays = new Fragment[1];
+        //            mTabTitles[0] = "外延处方";
+        //            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        //            mFragmentArrays[0] = PrescriptionTempletFragment.newInstance(TypeEnum
+        //            .OUTSIDE_PRESCRIPTION);
+        //        }
 
-        }else if(isOutPrescription == 0){ //院内
-            mTabTitles = new String[1];
-            mFragmentArrays = new Fragment[1];
-            mTabTitles[0] = "院内处方";
-            tabLayout.setTabMode(TabLayout.MODE_FIXED);
-            mFragmentArrays[0] = PrescriptionTempletFragment.newInstance(TypeEnum.INSIDE_PRESCRIPTION);
-        }else{ //外延
-            mTabTitles = new String[1];
-            mFragmentArrays = new Fragment[1];
-            mTabTitles[0] = "外延处方";
-            tabLayout.setTabMode(TabLayout.MODE_FIXED);
-            mFragmentArrays[0] = PrescriptionTempletFragment.newInstance(TypeEnum.OUTSIDE_PRESCRIPTION);
-        }
+        mTabTitles = new String[2];
+        mFragmentArrays = new Fragment[2];
+        mTabTitles[0] = "历史处方";
+        mTabTitles[1] = "外延处方";
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        mFragmentArrays[0] = PrescriptionTempletFragment.newInstance(TypeEnum.INSIDE_PRESCRIPTION,patientId);
+        mFragmentArrays[1] = PrescriptionTempletFragment.newInstance(TypeEnum.OUTSIDE_PRESCRIPTION,patientId);
 
         viewPager.setOffscreenPageLimit(2);
         PagerAdapter pagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());

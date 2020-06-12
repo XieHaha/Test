@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_bg_color">
-    <include layout="@layout/common_title_bar"/>
+    android:background="@color/primary_bg_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
-        android:background="#F9F9F9"/>
+        android:background="#F9F9F9" />
+
     <TextView
         android:id="@+id/templet_detail_name_tv"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_63"
         android:gravity="center_vertical"
-        android:textSize="@dimen/dp_17"
-        android:paddingLeft="@dimen/dp_30"
+        android:paddingStart="@dimen/dp_30"
+        android:paddingEnd="@dimen/dp_0"
+        android:text=""
         android:textColor="#333333"
-        android:text="流感（普通）"/>
+        android:textSize="@dimen/sp_17" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/templet_detail_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F9F9F9"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"></android.support.v7.widget.RecyclerView>
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 </LinearLayout>

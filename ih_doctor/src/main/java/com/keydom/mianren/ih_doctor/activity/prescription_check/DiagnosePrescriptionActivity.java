@@ -136,7 +136,10 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     private List<PrescriptionTemplateBean> templateList = new ArrayList<>();
     private List<CommitPrescriptionSavedBean> commitPrescriptionSavedBeanList = new ArrayList<>();
     private boolean isHavePrescription = false;
-    private int isOutPrescription = 0;
+    /**
+     * 默认外延处方
+     */
+    private int isOutPrescription = 1;
 
     /**
      * 初步诊断选择结果
@@ -433,7 +436,6 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
      */
     @Subscribe
     public void getPrescriptionTemplate(Event event) {
-
         if (event.getType() == EventType.CHOOSE_PRESCRIPTION_TEMPLET) {
             PrescriptionDrugDetailBean bean = (PrescriptionDrugDetailBean) event.getData();
             isOutPrescription = bean.getIsOutPrescription();
@@ -447,8 +449,9 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                 if (prescription_type == bean.getCate()) {
                     saveData.add(bean.getItems().get(0));
                     prescriptionAdapter.setNewData(packagingData(saveData));
-                } else
+                } else {
                     ToastUtil.showMessage(getContext(), "选择的处方模板与当前处方类型不一致，请重新选择");
+                }
             }
         }
     }
@@ -811,7 +814,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         if (saveData.size() == 0) {
             isHavePrescription = false;
             prescription_type = -1;
-            isOutPrescription = 0;
+            //默认外延处方
+            isOutPrescription = 1;
         }
     }
 
@@ -942,6 +946,14 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     @Override
     public int getIsOutPrescription() {
         return isOutPrescription;
+    }
+
+    @Override
+    public long getPatientId() {
+        if (inquiryBean != null) {
+            return inquiryBean.getPatientId();
+        }
+        return -1;
     }
 
     @Override

@@ -11,7 +11,9 @@ import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.PrescriptionTempletDetailActivity;
+import com.keydom.mianren.ih_doctor.adapter.HistoryPrescriptionTempletAdapter;
 import com.keydom.mianren.ih_doctor.adapter.PrescriptionTempletAdapter;
+import com.keydom.mianren.ih_doctor.bean.DoctorPrescriptionDetailBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionTempletBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
@@ -50,16 +52,21 @@ public class PrescriptionTempletFragment extends BaseControllerFragment<Prescrip
     private EditText search_et;
     private RecyclerView recyclerView;
     private PrescriptionTempletAdapter prescriptionTempletAdapter;
+    private HistoryPrescriptionTempletAdapter historyAdapter;
     private List<PrescriptionTempletBean> dataList = new ArrayList<>();
     private List<PrescriptionTempletBean> tempList = new ArrayList<>();
+    private List<DoctorPrescriptionDetailBean> historyDataList = new ArrayList<>();
+    private List<DoctorPrescriptionDetailBean> historyTempList = new ArrayList<>();
     private String mType = PERSONAL;
+    private long patientId;
     private int isOutPrescription = 0;
 
 
-    public static final PrescriptionTempletFragment newInstance(TypeEnum type) {
+    public static final PrescriptionTempletFragment newInstance(TypeEnum type, long patientId) {
         PrescriptionTempletFragment fragment = new PrescriptionTempletFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(Const.TYPE, type);
+        bundle.putLong(Const.PATIENT_ID, patientId);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -71,18 +78,17 @@ public class PrescriptionTempletFragment extends BaseControllerFragment<Prescrip
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        TypeEnum type = (TypeEnum) getArguments().getSerializable(Const.TYPE);
-        if (type == TypeEnum.INSIDE_PRESCRIPTION) {
-            isOutPrescription = 0;
-        } else if (type == TypeEnum.OUTSIDE_PRESCRIPTION) {
-            isOutPrescription = 1;
-        }
+        Bundle bundle = getArguments();
+        TypeEnum type = (TypeEnum) bundle.getSerializable(Const.TYPE);
+        patientId = bundle.getLong(Const.PATIENT_ID);
+
         type_tv = getView().findViewById(R.id.type_tv);
         search_tv = getView().findViewById(R.id.search_tv);
         search_et = getView().findViewById(R.id.search_et);
         recyclerView = getView().findViewById(R.id.recyclerView);
         type_tv.setOnClickListener(getController());
         prescriptionTempletAdapter = new PrescriptionTempletAdapter(dataList);
+        historyAdapter = new HistoryPrescriptionTempletAdapter(historyDataList);
         search_tv.setOnClickListener(new View.OnClickListener() {
             @SingleClick(1000)
             @Override
@@ -95,27 +101,59 @@ public class PrescriptionTempletFragment extends BaseControllerFragment<Prescrip
             @SingleClick(1000)
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                PrescriptionTempletDetailActivity.start(getContext(), prescriptionTempletAdapter.getData().get(position).getId(), prescriptionTempletAdapter.getData().get(position).getTemplateName());
+                PrescriptionTempletDetailActivity.start(getContext(),
+                        prescriptionTempletAdapter.getData().get(position).getId(),
+                        prescriptionTempletAdapter.getData().get(position).getTemplateName());
             }
         });
-        recyclerView.setAdapter(prescriptionTempletAdapter);
-        getController().getPrescriptionTempletList();
+        historyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @SingleClick(1000)
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                PrescriptionTempletDetailActivity.startHistory(getContext(),
+                        historyAdapter.getData().get(position));
+            }
+        });
+
+        if (type == TypeEnum.INSIDE_PRESCRIPTION) {
+            isOutPrescription = 0;
+            getController().getPrescriptionTempletHistoryList();
+            recyclerView.setAdapter(historyAdapter);
+        } else if (type == TypeEnum.OUTSIDE_PRESCRIPTION) {
+            isOutPrescription = 1;
+            getController().getPrescriptionTempletList();
+            recyclerView.setAdapter(prescriptionTempletAdapter);
+        }
     }
 
     /**
      * 关键字搜索模版
+     *
      * @param key
      */
     private void searchTemplet(String key) {
-        dataList.clear();
-        dataList.addAll(tempList);
-        Iterator<PrescriptionTempletBean> it = dataList.iterator();
-        while (it.hasNext()) {
-            if (!it.next().getTemplateName().contains(key)) {
-                it.remove();
+
+        if (isOutPrescription()) {
+            dataList.clear();
+            dataList.addAll(tempList);
+            Iterator<PrescriptionTempletBean> it = dataList.iterator();
+            while (it.hasNext()) {
+                if (!it.next().getTemplateName().contains(key)) {
+                    it.remove();
+                }
             }
+            prescriptionTempletAdapter.notifyDataSetChanged();
+        } else {
+            historyDataList.clear();
+            historyDataList.addAll(historyTempList);
+            Iterator<DoctorPrescriptionDetailBean> it = historyDataList.iterator();
+            while (it.hasNext()) {
+                if (!it.next().getInitDiagnosis().contains(key)) {
+                    it.remove();
+                }
+            }
+            historyAdapter.notifyDataSetChanged();
         }
-        prescriptionTempletAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -130,6 +168,17 @@ public class PrescriptionTempletFragment extends BaseControllerFragment<Prescrip
         pageLoadingFail();
     }
 
+    @Override
+    public void requestPrescriptionTempletHistorySuccess(List<DoctorPrescriptionDetailBean> data) {
+        historyTempList.addAll(data);
+        this.historyDataList = data;
+        historyAdapter.setNewData(historyDataList);
+    }
+
+    @Override
+    public void requestPrescriptionTempletHistoryFailed(String msg) {
+        pageLoadingFail();
+    }
 
     @Override
     public void setDept(String dept, String type) {
@@ -138,7 +187,17 @@ public class PrescriptionTempletFragment extends BaseControllerFragment<Prescrip
     }
 
     @Override
-    public Map<String,Object> getRequestType() {
+    public boolean isOutPrescription() {
+        return isOutPrescription == 1;
+    }
+
+    @Override
+    public long getPatientId() {
+        return patientId;
+    }
+
+    @Override
+    public Map<String, Object> getRequestType() {
         Map<String, Object> map = new HashMap<>();
         map.put("type", mType);
         map.put("isOutPrescription", isOutPrescription);

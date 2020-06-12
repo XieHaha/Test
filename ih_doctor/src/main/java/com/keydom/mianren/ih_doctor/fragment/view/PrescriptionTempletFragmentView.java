@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_doctor.fragment.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.mianren.ih_doctor.bean.DoctorPrescriptionDetailBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionTempletBean;
 
 import java.util.List;
@@ -29,6 +30,10 @@ public interface PrescriptionTempletFragmentView extends BaseView {
      */
     void getTempletListFailed(String errMsg);
 
+    void requestPrescriptionTempletHistorySuccess(List<DoctorPrescriptionDetailBean> data);
+
+    void requestPrescriptionTempletHistoryFailed(String msg);
+
     /**
      * 选择科室后进行设置
      *
@@ -36,6 +41,10 @@ public interface PrescriptionTempletFragmentView extends BaseView {
      * @param type     科室代表的type
      */
     void setDept(String deptName, String type);
+
+    boolean isOutPrescription();
+
+    long getPatientId();
 
     /**
      * 获取请求参数
