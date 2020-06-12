@@ -19,7 +19,9 @@ import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.pregnancy.controller.PregnancyReserveController;
 import com.keydom.mianren.ih_patient.activity.pregnancy.view.PregnancyReserveView;
 import com.keydom.mianren.ih_patient.adapter.PrenancyOrderTimeAdapter;
-import com.keydom.mianren.ih_patient.bean.CheckProjectsItem;
+import com.keydom.mianren.ih_patient.bean.CheckProjectBean;
+import com.keydom.mianren.ih_patient.bean.CheckProjectRootBean;
+import com.keydom.mianren.ih_patient.bean.CheckProjectSubBean;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderTime;
 import com.keydom.mianren.ih_patient.bean.event.PregnancyOrderSuccess;
 import com.keydom.mianren.ih_patient.constant.Const;
@@ -48,14 +50,17 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
 
     private String mCurrentDate = "";
 
-    private List<CheckProjectsItem> checkProjectsItems;
+    private CheckProjectRootBean rootBean;
+    private List<CheckProjectSubBean> subBeans;
+    private List<CheckProjectSubBean> selectSubBeans;
 
     private boolean isOrderCheck = false;
     private boolean isOrderDiagnose = false;
 
 
     private String mRecordId;
-    private long mPrenatalProjectId;
+    private String mPrenatalProjectId;
+    private String prenatalProjectName;
     private int mPrenancyType;
 
 
@@ -104,17 +109,13 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setNestedScrollingEnabled(false);
 
-
         mCommitOrderTv.setOnClickListener(getController());
         findViewById(R.id.pregnancy_order_date_root_rl).setOnClickListener(getController());
         mCheckProjectsRootRl.setOnClickListener(getController());
         mOrderCheckRootLl.setOnClickListener(getController());
         mOrderDiagnoseRootLl.setOnClickListener(getController());
 
-
         showLayoutAndLogic(mPrenancyType);
-
-
     }
 
     private void showLayoutAndLogic(int type) {
@@ -133,12 +134,13 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
                 getController().getCheckProjects();
                 break;
             case Const.PREGNANCY_ORDER_TYPE_DIAGNOSE:
-                mPrenatalProjectId = 1;
+                //默认全部
+                mPrenatalProjectId = "1";
                 setOrderDiagnose(true);
                 mOrderCheckRootLl.setVisibility(View.GONE);
                 mOrderDiagnoseRootLl.setVisibility(View.VISIBLE);
                 mCheckProjectsRootRl.setVisibility(View.GONE);
-                getController().getCheckProjectsTimes(String.valueOf(mPrenatalProjectId));
+                getController().getCheckProjectsTimes(mPrenatalProjectId);
                 break;
         }
     }
@@ -161,8 +163,15 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
 
 
     @Override
-    public void getCheckProjectsSuccess(List<CheckProjectsItem> data) {
-        checkProjectsItems = data;
+    public void getCheckProjectsSuccess(CheckProjectRootBean data) {
+        rootBean = data;
+        subBeans = new ArrayList<>();
+        List<CheckProjectBean> projectBeans = rootBean.getItem();
+        for (CheckProjectBean bean : projectBeans) {
+            if (bean.getDetailItem() != null && bean.getDetailItem().size() > 0) {
+                subBeans.addAll(bean.getDetailItem());
+            }
+        }
     }
 
     @Override
@@ -200,8 +209,13 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
     }
 
     @Override
-    public List<CheckProjectsItem> getCheckProjects() {
-        return checkProjectsItems != null ? checkProjectsItems : new ArrayList<CheckProjectsItem>();
+    public List<CheckProjectSubBean> getCheckProjects() {
+        return subBeans == null ? new ArrayList<>() : subBeans;
+    }
+
+    @Override
+    public List<CheckProjectSubBean> getSelectSubBeans() {
+        return selectSubBeans;
     }
 
     @Override
@@ -240,27 +254,24 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
 
     @Override
     public int getAppointType() {
-
         if (isOrderCheck && isOrderDiagnose) {
-
             return 12;
-
-        } else if (isOrderCheck && !isOrderDiagnose) {
-
+        } else if (isOrderCheck) {
             return 1;
-
-        } else if (!isOrderCheck && isOrderDiagnose) {
-
+        } else if (isOrderDiagnose) {
             return 2;
-
         }
-
         return 0;
     }
 
     @Override
-    public long getPrenatalProjectId() {
+    public String getPrenatalProjectId() {
         return mPrenatalProjectId;
+    }
+
+    @Override
+    public String getPrenatalProjectName() {
+        return prenatalProjectName;
     }
 
     @Override
@@ -275,25 +286,33 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
         return null;
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case ChooseInspectItemActivity.CHOOSE_INSPECT_ITEM:
-                    List<CheckProjectsItem> projectsItems =
-                            (List<CheckProjectsItem>) data.getSerializableExtra(Const.DATA);
-                    if (null != projectsItems && projectsItems.size() > 0) {
-                        mPrenatalProjectId = projectsItems.get(0).getId();
-                        mCheckProjectsTv.setText(projectsItems.get(0).getAntepartumExamProjectName());
-                        mCheckProjectsTv.setTextColor(getResources().getColor(R.color.black));
-                        getController().getCheckProjectsTimes(String.valueOf(mPrenatalProjectId));
-                    } else {
-                        mCheckProjectsTv.setText("请选择检验检查项目");
-                        mCheckProjectsTv.setTextColor(getResources().getColor(R.color.tab_nol_color));
+            if (requestCode == ChooseInspectItemActivity.CHOOSE_INSPECT_ITEM) {
+                selectSubBeans =
+                        (List<CheckProjectSubBean>) data.getSerializableExtra(Const.DATA);
+                if (null != selectSubBeans && selectSubBeans.size() > 0) {
+                    StringBuilder builderId = new StringBuilder();
+                    StringBuilder builderName = new StringBuilder();
+                    for (int i = 0; i < selectSubBeans.size(); i++) {
+                        builderId.append(selectSubBeans.get(i).getItemCode());
+                        builderName.append(selectSubBeans.get(i).getItemName());
+                        if (selectSubBeans.size() - 1 > i) {
+                            builderId.append("、");
+                            builderName.append("、");
+                        }
                     }
-                    break;
+                    mPrenatalProjectId = builderId.toString();
+                    prenatalProjectName = builderName.toString();
+                    mCheckProjectsTv.setText(prenatalProjectName);
+                    mCheckProjectsTv.setTextColor(getResources().getColor(R.color.black));
+                    getController().getCheckProjectsTimes(mPrenatalProjectId);
+                } else {
+                    mCheckProjectsTv.setText("请选择检验检查项目");
+                    mCheckProjectsTv.setTextColor(getResources().getColor(R.color.tab_nol_color));
+                }
             }
         }
     }

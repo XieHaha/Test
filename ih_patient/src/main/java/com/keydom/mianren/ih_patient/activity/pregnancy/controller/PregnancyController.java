@@ -99,7 +99,7 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
-                getView().getPregnancyDetailFailed(msg);
+                getView().getPregnancyDetailFailed(code,msg);
                 return super.requestError(exception, code, msg);
             }
         });

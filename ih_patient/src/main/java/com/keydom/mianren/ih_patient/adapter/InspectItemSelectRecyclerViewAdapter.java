@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.bean.CheckProjectsItem;
+import com.keydom.mianren.ih_patient.bean.CheckProjectSubBean;
 import com.keydom.mianren.ih_patient.callback.SingleClick;
 
 import java.util.List;
@@ -24,26 +24,25 @@ import java.util.List;
  * 修改人：xusong
  * 修改时间：18/11/6 下午6:52
  */
-public class InspactItemSelectRecyclrViewAdapter extends RecyclerView.Adapter<InspactItemSelectRecyclrViewAdapter.ViewHolder> {
-
-
+public class InspectItemSelectRecyclerViewAdapter extends RecyclerView.Adapter<InspectItemSelectRecyclerViewAdapter.ViewHolder> {
     private Context context;
-    private List<CheckProjectsItem> data;
+    private List<CheckProjectSubBean> data;
 
-    public InspactItemSelectRecyclrViewAdapter(Context context, List<CheckProjectsItem> data) {
+    public InspectItemSelectRecyclerViewAdapter(Context context, List<CheckProjectSubBean> data) {
         this.context = context;
         this.data = data;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_inspact_item_select_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_inspact_item_select_item
+                , parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.itemName.setText(data.get(position).getAntepartumExamProjectName());
+        holder.itemName.setText(data.get(position).getItemName());
         if (data.get(position).isSelect()) {
             holder.itemName.setTextColor(context.getResources().getColor(R.color.font_select));
             holder.itemIcon.setBackground(context.getResources().getDrawable(R.mipmap.point_green));

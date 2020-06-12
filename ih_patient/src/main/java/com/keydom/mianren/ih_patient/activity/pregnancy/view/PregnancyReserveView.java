@@ -1,7 +1,8 @@
 package com.keydom.mianren.ih_patient.activity.pregnancy.view;
 
 import com.keydom.ih_common.base.BaseView;
-import com.keydom.mianren.ih_patient.bean.CheckProjectsItem;
+import com.keydom.mianren.ih_patient.bean.CheckProjectRootBean;
+import com.keydom.mianren.ih_patient.bean.CheckProjectSubBean;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderTime;
 
 import java.util.Date;
@@ -14,7 +15,7 @@ public interface PregnancyReserveView extends BaseView {
     String getSelectedDate();
 
 
-    void getCheckProjectsSuccess(List<CheckProjectsItem> data);
+    void getCheckProjectsSuccess(CheckProjectRootBean data);
 
     void getCheckProjectsFailed(String msg);
 
@@ -23,7 +24,9 @@ public interface PregnancyReserveView extends BaseView {
 
     void getCheckProjectsTimesFailed(String msg);
 
-    List<CheckProjectsItem> getCheckProjects();
+    List<CheckProjectSubBean> getCheckProjects();
+
+    List<CheckProjectSubBean> getSelectSubBeans();
 
     boolean isOrderChecks();
 
@@ -39,7 +42,9 @@ public interface PregnancyReserveView extends BaseView {
 
     int getAppointType();
 
-    long getPrenatalProjectId();
+    String getPrenatalProjectId();
+
+    String getPrenatalProjectName();
 
     String getTimeInterval();
 }

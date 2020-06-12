@@ -525,7 +525,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         mDeliveryCostTv = view.findViewById(R.id.tv_logistic_fee);
 
 
-        //todo 跳转选择地址界面
+        // 跳转选择地址界面
         addressSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -562,7 +562,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
         mReZxingTitle = view.findViewById(R.id.re_zxing_title);
 
         mRadioGroup.setOnCheckedChangeListener(listen);
-        //todo 跳转选择药店界面
+        // 跳转选择药店界面
         mLinShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -703,13 +703,12 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
                     switch (group.getCheckedRadioButtonId()) {
                         case R.id.radio_self:
-                            //todo 到店自取
+                            // 到店自取
                             mLinAddress.setVisibility(View.GONE);
                             mLinShop.setVisibility(View.VISIBLE);
                             mReZxingTitle.setVisibility(View.VISIBLE);
                             mWaiYanTotalPayTv.setVisibility(View.GONE);
                             mLinPay.setVisibility(View.VISIBLE);
-
 
                             aliPay.setImageResource(R.mipmap.pay_selected_icon);
                             wechatPay.setImageResource(R.mipmap.pay_unselected_icon);
@@ -722,10 +721,12 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
                             isSendDrugsToHome = false;
                             if (null != mPharmacyBean) {
                                 refreshPriceView(Arrays.asList(mPharmacyBean));
+                            } else {
+                                mOrderPriceTv.setText("¥" + mTotalFee);
                             }
                             break;
                         case R.id.radio_home:
-                            //todo 配送到家
+                            // 配送到家
                             mLinAddress.setVisibility(View.VISIBLE);
                             mLinShop.setVisibility(View.GONE);
                             mReZxingTitle.setVisibility(View.GONE);
@@ -847,7 +848,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
 
     public void refreshDeliveryCostView(List<PharmacyBean> data) {
         if (!CommUtil.isEmpty(data) && null != data.get(0)) {
-            mDeliveryCostTv.setText("￥" + String.valueOf(data.get(0).getDeliveryCost()) + "元");
+            mDeliveryCostTv.setText("￥" + data.get(0).getDeliveryCost() + "元");
         }
 
     }

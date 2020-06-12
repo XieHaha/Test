@@ -2,7 +2,7 @@ package com.keydom.mianren.ih_patient.activity.pregnancy.view;
 
 
 import com.keydom.ih_common.base.BaseView;
-import com.keydom.mianren.ih_patient.bean.CheckProjectsItem;
+import com.keydom.mianren.ih_patient.bean.CheckProjectSubBean;
 
 import java.util.List;
 
@@ -17,9 +17,7 @@ public interface ChooseInspectItemView extends BaseView {
 
     /**
      * 获取选中项目列表
-     *
-     * @return
      */
-    List<CheckProjectsItem> getSelectItem();
+    List<CheckProjectSubBean> getSelectItem();
 
 }

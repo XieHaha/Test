@@ -14,7 +14,7 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.pregnancy.ChooseInspectItemActivity;
 import com.keydom.mianren.ih_patient.activity.pregnancy.view.PregnancyReserveView;
-import com.keydom.mianren.ih_patient.bean.CheckProjectsItem;
+import com.keydom.mianren.ih_patient.bean.CheckProjectRootBean;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderTime;
 import com.keydom.mianren.ih_patient.net.PregnancyService;
 import com.keydom.mianren.ih_patient.utils.DateUtils;
@@ -40,7 +40,8 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
                 showDateDialog(getView().getSelectedDate());
                 break;
             case R.id.pregnancy_check_projects_root_rl:
-                ChooseInspectItemActivity.start(getContext(), getView().getCheckProjects(), null);
+                ChooseInspectItemActivity.start(getContext(), getView().getCheckProjects(),
+                        getView().getSelectSubBeans());
                 break;
             case R.id.pregnancy_detail_order_check_root_ll:
                 getView().setChecks(!getView().isOrderChecks());
@@ -59,7 +60,7 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
                     return;
                 }
 
-                if (getView().getPrenatalProjectId() <= 0) {
+                if (TextUtils.isEmpty(getView().getPrenatalProjectId())) {
                     ToastUtils.showShort("请选择检查项目");
                     return;
                 }
@@ -108,12 +109,10 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
      * 获取检查项目
      */
     public void getCheckProjects() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getCheckProjects(), new HttpSubscriber<List<CheckProjectsItem>>(getContext(), getDisposable(), true, false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getCheckProjects(), new HttpSubscriber<CheckProjectRootBean>(getContext(), getDisposable(), true, false) {
             @Override
-            public void requestComplete(@Nullable List<CheckProjectsItem> data) {
-                if (data != null) {
-                    getView().getCheckProjectsSuccess(data);
-                }
+            public void requestComplete(@Nullable CheckProjectRootBean data) {
+                getView().getCheckProjectsSuccess(data);
             }
 
             @Override
@@ -156,9 +155,9 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
         map.put("recordId", getView().getRecordID());
         map.put("appointType", getView().getAppointType());
         map.put("prenatalProjectId", getView().getPrenatalProjectId());
+        map.put("prenatalProjectName", getView().getPrenatalProjectName());
         map.put("prenatalDate", getView().getSelectedDate());
         map.put("timeInterval", getView().getTimeInterval());
-
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).commitPregnancy(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), true, false) {
 
             @Override

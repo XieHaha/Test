@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.pregnancy.controller.PregnancyController;
@@ -125,12 +124,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         getController().listPersonInspectionRecord(mRefreshLayout, mCardNumber, TypeEnum.REFRESH);
         getController().getPregnancyDetail(mCardNumber);
 
-        setReloadListener(new LoadDataLayout.OnReloadListener() {
-            @Override
-            public void onReload(View v, int status) {
-                getController().getPregnancyDetail(mCardNumber);
-            }
-        });
+        setReloadListener((v, status) -> getController().getPregnancyDetail(mCardNumber));
 
         EventBus.getDefault().register(this);
     }
@@ -198,8 +192,11 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
     }
 
     @Override
-    public void getPregnancyDetailFailed(String msg) {
-        ToastUtils.showShort(msg);
+    public void getPregnancyDetailFailed(int code, String msg) {
+        if (code == 300) {
+            ToastUtils.showShort(msg);
+            finish();
+        }
         pageLoadingFail();
     }
 

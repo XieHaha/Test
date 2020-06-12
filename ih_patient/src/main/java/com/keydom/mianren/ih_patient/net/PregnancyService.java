@@ -2,7 +2,7 @@ package com.keydom.mianren.ih_patient.net;
 
 import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
-import com.keydom.mianren.ih_patient.bean.CheckProjectsItem;
+import com.keydom.mianren.ih_patient.bean.CheckProjectRootBean;
 import com.keydom.mianren.ih_patient.bean.PregnancyDetailBean;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderBean;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderTime;
@@ -38,7 +38,7 @@ public interface PregnancyService {
      * 获取产检检验检查项目
      */
     @GET("medicine/antepartum/listInspectionProject")
-    Observable<HttpResult<List<CheckProjectsItem>>> getCheckProjects();
+    Observable<HttpResult<CheckProjectRootBean>> getCheckProjects();
 
 
     /**

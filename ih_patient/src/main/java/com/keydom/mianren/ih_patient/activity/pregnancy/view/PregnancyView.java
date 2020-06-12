@@ -15,7 +15,7 @@ public interface PregnancyView extends BaseView {
 
     void getPregnancyDetailSuccess(PregnancyDetailBean data);
 
-    void getPregnancyDetailFailed(String msg);
+    void getPregnancyDetailFailed(int code, String msg);
 
     PregnancyDetailBean getPregnancyDetail();
 
