@@ -620,6 +620,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                 drugSavedBean.setId(drugBean.getId());
                 drugSavedBean.setPackUnit(drugBean.getPackUnit());
                 drugSavedBean.setMaximumMedicationDays(drugBean.getMaximumMedicationDays());
+                drugSavedBean.setSingleMaximum(drugBean.getSingleMaximum());
                 drugSavedBean.setPrice(drugBean.getPrice());
                 drugSavedBean.setDrugsCode(drugBean.getDrugsCode());
                 drugSavedBean.setDrugsId(drugBean.getDrugsId());
@@ -629,11 +630,9 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                 drugSavedBean.setFee(drugBean.getFee());
                 drugSavedBean.setAmount(drugBean.getAmount());
                 drugSavedBean.setStock(drugBean.getStock());
-                String value = drugBean.getSingleMaximum();
-                if (!TextUtils.isEmpty(value)) {
-                    drugSavedBean.setSingleMaximum(Float.valueOf(value));
-                }
-
+                drugSavedBean.setPreparation(drugBean.getPreparation());
+                //                drugSavedBean.setSeq(drugBean.getDays());
+                //                drugSavedBean.setState(drugBean.getDays());
                 items.add(drugSavedBean);
             }
             commitPrescriptionSavedBean.setItems(items);

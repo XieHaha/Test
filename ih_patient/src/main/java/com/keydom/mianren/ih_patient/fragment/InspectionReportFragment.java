@@ -70,8 +70,8 @@ public class InspectionReportFragment extends BaseControllerFragment<InspectionR
     @Override
     public Map<String, Object> getParams() {
         Map<String, Object> params = new HashMap<>();
-        params.put("elcCardNumber", "00721984");
-        //        params.put("elcCardNumber", selectedCardNum);
+        //        params.put("eleCardNumber", "00721984");
+        params.put("eleCardNumber", selectedCardNum);
         //        params.put("endDate", "");
         params.put("reportType", type);
         //        params.put("startDate", "");

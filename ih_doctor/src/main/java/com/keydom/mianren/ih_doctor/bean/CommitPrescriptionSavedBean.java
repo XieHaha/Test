@@ -68,7 +68,7 @@ public class CommitPrescriptionSavedBean {
         /**
          * 最大门诊用量
          */
-        private float singleMaximum;
+        private String singleMaximum;
         private float amount;
 
         /**
@@ -101,6 +101,33 @@ public class CommitPrescriptionSavedBean {
         private String specificationImg;
         private String basicUnit;
         private String stock;
+        private String preparation;
+        private int state;
+        private int seq;
+
+        public String getPreparation() {
+            return preparation;
+        }
+
+        public void setPreparation(String preparation) {
+            this.preparation = preparation;
+        }
+
+        public int getState() {
+            return state;
+        }
+
+        public void setState(int state) {
+            this.state = state;
+        }
+
+        public int getSeq() {
+            return seq;
+        }
+
+        public void setSeq(int seq) {
+            this.seq = seq;
+        }
 
         public float getAmount() {
             return amount;
@@ -142,11 +169,11 @@ public class CommitPrescriptionSavedBean {
             this.maximumMedicationDays = maximumMedicationDays;
         }
 
-        public float getSingleMaximum() {
+        public String getSingleMaximum() {
             return singleMaximum;
         }
 
-        public void setSingleMaximum(float singleMaximum) {
+        public void setSingleMaximum(String singleMaximum) {
             this.singleMaximum = singleMaximum;
         }
 
