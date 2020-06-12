@@ -129,7 +129,7 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
      * 获取检查时间
      */
     public void getCheckProjectsTimes(String projectId) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getCheckProjectsTimes(projectId), new HttpSubscriber<List<PregnancyOrderTime>>(getContext(), getDisposable(), true, false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getCheckProjectsTimes(), new HttpSubscriber<List<PregnancyOrderTime>>(getContext(), getDisposable(), true, false) {
             @Override
             public void requestComplete(@Nullable List<PregnancyOrderTime> data) {
                 if (data != null) {
@@ -154,7 +154,7 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
         Map<String, Object> map = new HashMap<>();
         map.put("recordId", getView().getRecordID());
         map.put("appointType", getView().getAppointType());
-        map.put("prenatalProjectId", getView().getPrenatalProjectId());
+        //        map.put("prenatalProjectId", getView().getPrenatalProjectId());
         map.put("prenatalProjectName", getView().getPrenatalProjectName());
         map.put("prenatalDate", getView().getSelectedDate());
         map.put("timeInterval", getView().getTimeInterval());
