@@ -62,6 +62,8 @@ public class ConsultationAdviceController extends ControllerImpl<ConsultationAdv
             } else {
                 commitConsultationAdvice();
             }
+        }else if(v.getId() == R.id.consultation_advice_refresh) {
+            getConsultationAdviceList();
         }
     }
 

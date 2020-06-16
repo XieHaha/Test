@@ -112,8 +112,18 @@
                 android:paddingTop="@dimen/dp_22"
                 android:paddingBottom="@dimen/dp_16"
                 android:text="其他专家意见"
+                android:layout_weight="1"
                 android:textColor="@color/primary_font_color"
                 android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/consultation_advice_refresh"
+                android:layout_width="wrap_content"
+                android:padding="@dimen/dp_15"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/login_btn_color"
+                android:text="刷新"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

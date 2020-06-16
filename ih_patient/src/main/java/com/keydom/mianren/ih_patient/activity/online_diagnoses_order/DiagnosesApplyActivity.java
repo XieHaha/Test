@@ -416,7 +416,6 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
             return null;
         } else {
             map.put("conditionDesc", descEdt.getText().toString().trim());
-
         }
 
         if (null != info) {
@@ -432,10 +431,11 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
 
         if (DiagnosesApplyDialog.VIDEODIAGNOSES.equals(type) || DiagnosesApplyDialog.VIP_DIAGNOSES.equals(type)) {
             map.put("type", 1);
+//            map.put("inquisyType", 0);
         } else {
             map.put("type", 0);
+//            map.put("inquisyType", 1);
         }
-        Logger.e("diagnoses type:", type);
         return map;
     }
 

@@ -54,6 +54,8 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
     ImageView consultationAdviceVoiceIv;
     @BindView(R.id.consultation_advice_commit_tv)
     TextView consultationAdviceCommitTv;
+    @BindView(R.id.consultation_advice_refresh)
+    TextView consultationAdviceRefresh;
     @BindView(R.id.consultation_advice_voice_layout)
     RelativeLayout consultationAdviceVoiceLayout;
     @BindView(R.id.consultation_advice_voice_recycler)
@@ -129,6 +131,7 @@ public class ConsultationAdviceFragment extends BaseControllerFragment<Consultat
         consultationAdviceRecyclerView.setNestedScrollingEnabled(false);
         consultationAdviceRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         consultationAdviceCommitTv.setOnClickListener(getController());
+        consultationAdviceRefresh.setOnClickListener(getController());
         adviceAdapter = new ConsultationAdviceAdapter(getContext(), adviceBeans, animationDrawable);
         consultationAdviceRecyclerView.setAdapter(adviceAdapter);
 
