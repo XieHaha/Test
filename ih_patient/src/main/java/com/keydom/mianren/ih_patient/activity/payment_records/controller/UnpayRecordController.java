@@ -99,16 +99,20 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
                         } else {
                             if (isOnline != payRecordBean.getIsOnline()) {
                                 hint = "不能同时为线上、线下订单合并缴费";
+                                break;
                             }
                         }
                         if (payRecordBean.getType() == UnpayRecordFragment.CAN_MERGE && !payRecordBean.getEleCardNumber().equals(card)) {
                             hint = "不能同时为多个就诊人合并缴费";
+                            break;
                         }
                         if (payRecordBean.getType() != type) {
                             hint = "不能同时缴纳诊间费用和预约挂号、在线问诊、护理服务和预约体检项目费用";
+                            break;
                         }
                         if (payRecordBean.getType() == UnpayRecordFragment.CANNOT_MERGE) {
                             hint = "不能同时缴纳预约挂号、在线问诊、护理服务和预约体检项目费用";
+                            break;
                         }
                     }
                 }
@@ -130,7 +134,6 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
                         }
                     }
                     if (isOnline == 0) {
-//                        payOffline(getView().getPatientId(),orderNumbers.toString(),1,getView().getTotalPay().doubleValue());
                         getView().goPay(needDispatch, orderNumbers.toString(), "", getView().getTotalPay().doubleValue(), "", false, false);
                     } else {
                         createOrder(needDispatch, getView().getDocument(),

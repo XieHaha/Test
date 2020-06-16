@@ -159,11 +159,14 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (view.getId() == R.id.pay) {
-                    PayRecordBean payRecordBean =
-                            (PayRecordBean) adapter.getData().get(position);
-                    getController().createOrder(payRecordBean.getRecordState() == 8,
-                            payRecordBean.getDocumentNo(), payRecordBean.getSumFee(),
-                            payRecordBean.getPrescriptionId(), payRecordBean.isWaiYan());
+                    PayRecordBean payRecordBean = (PayRecordBean) adapter.getData().get(position);
+                    if (payRecordBean.getIsOnline() == 0) {
+                        goPay(payRecordBean.getRecordState() == 8, payRecordBean.getDocumentNo(), "", payRecordBean.getSumFee().doubleValue(), "", false, payRecordBean.isWaiYan());
+                    } else {
+                        getController().createOrder(payRecordBean.getRecordState() == 8,
+                                payRecordBean.getDocumentNo(), payRecordBean.getSumFee(),
+                                payRecordBean.getPrescriptionId(), payRecordBean.isWaiYan());
+                    }
                 }
             }
         });
@@ -634,7 +637,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                             if (isOnline) {
                                 getController().pay(mAddressId, orderNum, payType[0], mPsTotal);
                             } else {
-                                getController().payOffline(patientId, orderNum,  payType[0], totalFee);
+                                getController().payOffline(patientId, orderNum, payType[0], totalFee);
                             }
                             bottomSheetDialog.dismiss();
                         }
@@ -642,7 +645,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                         if (isOnline) {
                             getController().pay(0, orderNum, payType[0], totalFee);
                         } else {
-                            getController().payOffline(patientId, orderNum,  payType[0], totalFee);
+                            getController().payOffline(patientId, orderNum, payType[0], totalFee);
                         }
                         bottomSheetDialog.dismiss();
                     }
@@ -739,7 +742,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                         if (isOnline) {
                             getController().pay(mAddressId, orderNum, payType[0], mPsTotal);
                         } else {
-                            getController().payOffline(patientId, orderNum,  payType[0], mPsTotal);
+                            getController().payOffline(patientId, orderNum, payType[0], mPsTotal);
                         }
                         bottomSheetDialog.dismiss();
                     }
@@ -747,7 +750,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     if (isOnline) {
                         getController().pay(0, orderNum, payType[0], totalFee);
                     } else {
-                        getController().payOffline(patientId, orderNum,  payType[0], totalFee);
+                        getController().payOffline(patientId, orderNum, payType[0], totalFee);
                     }
                     bottomSheetDialog.dismiss();
                 }
