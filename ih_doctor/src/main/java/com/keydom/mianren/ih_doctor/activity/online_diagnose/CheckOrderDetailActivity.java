@@ -168,8 +168,8 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         //        sampleType.setText(inspectionBean.getSpecimenName());
         deptName.setText(inspectionBean.getDeptName());
         diagnoseResTv.setText(inspectionBean.getDiagnosis());
-        checkItemAmount.setText("总共" + CommonUtils.numberToChinese(inspectionBean.getCateS().size()) + "项");
-        totalFee.setText("总金额：¥" + inspectionBean.getAmount() + "元");
+        checkItemAmount.setText("总共 " + CommonUtils.numberToChinese(inspectionBean.getCateS().size()) + " 项");
+        totalFee.setText("总金额：¥ " + inspectionBean.getAmount() + " 元");
         applyDoctor.setText(inspectionBean.getDoctorName());
         applyTime.setText(inspectionBean.getUpdateTime());
         diseaseDecTv.setVisibility(View.GONE);

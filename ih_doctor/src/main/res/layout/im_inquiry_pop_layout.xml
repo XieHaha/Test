@@ -68,7 +68,7 @@
                 android:text="转诊"
                 android:textColor="#FF333333"
                 android:textSize="@dimen/sp_13"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/inquiry_pop_diagnostic_prescription_tv"
