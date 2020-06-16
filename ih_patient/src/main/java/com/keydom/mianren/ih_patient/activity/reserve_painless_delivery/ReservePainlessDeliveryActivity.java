@@ -99,7 +99,7 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
     private void bindVisitData() {
         if (managerUserBean != null) {
             tvVisitName.setText(managerUserBean.getName());
-            etAge.setText(String.valueOf(managerUserBean.getAge()));
+            etAge.setText(managerUserBean.getAge());
             etPhone.setText(managerUserBean.getPhone());
         }
     }

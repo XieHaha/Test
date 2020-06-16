@@ -14,6 +14,8 @@ public class MedicalCardInfo implements Serializable {
     private String name;
     @JSONField(name = "sex")
     private String sex;
+    @JSONField(name = "age")
+    private String age;
     @JSONField(name = "hospital")
     private String hospital;
     @JSONField(name = "qrCode")
@@ -110,6 +112,14 @@ public class MedicalCardInfo implements Serializable {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
     }
 
     public String getHospital() {

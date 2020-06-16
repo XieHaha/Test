@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_patient.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 
@@ -40,7 +41,7 @@ public class UnPayRecordAdapter extends BaseQuickAdapter<PayRecordBean, BaseView
     @Override
     protected void convert(BaseViewHolder helper, PayRecordBean item) {
         helper.setText(R.id.name, item.getName())
-                .setText(R.id.project, item.getPayRegister() + "")
+                .setText(R.id.project, TextUtils.isEmpty(item.getPayRegister())?"":item.getPayRegister())
                 .setText(R.id.time, item.getDate())
                 .setText(R.id.money, item.getSumFee() + "")
                 .addOnClickListener(R.id.pay);

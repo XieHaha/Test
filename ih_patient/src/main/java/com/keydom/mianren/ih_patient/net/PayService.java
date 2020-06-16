@@ -44,6 +44,11 @@ public interface PayService {
      */
     @POST("pay/consultationPay/patientPayByOrderNumber")
     Observable<HttpResult<String>> patientPayByOrderNumber(@Body RequestBody body);
+    /**
+     * 发起支付(线下支付)
+     */
+    @POST("pay/consultationPay/payHisOfflineDoctorAdvice")
+    Observable<HttpResult<String>> payHisOfflineDoctorAdvice(@Body RequestBody body);
 
     /**
      * 支付宝登录token获取

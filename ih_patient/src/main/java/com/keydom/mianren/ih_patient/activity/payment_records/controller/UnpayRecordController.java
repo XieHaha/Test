@@ -79,58 +79,82 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
     @SingleClick(1000)
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.pay_tv:
-                List<PayRecordBean> selectList = getView().getSelectList();
-                if (selectList.size() > 0) {
-                    String hint = "";
-                    if (selectList.size() > 1) {
-                        String card = selectList.get(0).getEleCardNumber();
-                        int type = selectList.get(0).getType();
-                        for (int i = 0; i < selectList.size(); i++) {
-                            PayRecordBean payRecordBean = selectList.get(i);
-                            if (payRecordBean.getType() == UnpayRecordFragment.CAN_MERGE && !payRecordBean.getEleCardNumber().equals(card)) {
-                                hint = "不能同时为多个就诊人合并缴费";
+        if (v.getId() == R.id.pay_tv) {
+            List<PayRecordBean> selectList = getView().getSelectList();
+            if (selectList.size() > 0) {
+                String hint = "";
+                //是否为线下支付
+                boolean offline = false;
+                //判断多订单支付是否包含线上线下
+                int isOnline = -1;
+                //订单号（多订单 以逗号隔开）
+                StringBuilder orderNumbers;
+                if (selectList.size() > 1) {
+                    String card = selectList.get(0).getEleCardNumber();
+                    int type = selectList.get(0).getType();
+                    for (int i = 0; i < selectList.size(); i++) {
+                        PayRecordBean payRecordBean = selectList.get(i);
+                        if (isOnline == -1) {
+                            isOnline = payRecordBean.getIsOnline();
+                        } else {
+                            if (isOnline != payRecordBean.getIsOnline()) {
+                                hint = "不能同时为线上、线下订单合并缴费";
                             }
-                            if (payRecordBean.getType() != type) {
-                                hint = "不能同时缴纳诊间费用和预约挂号、在线问诊、护理服务和预约体检项目费用";
-                            }
-                            if (payRecordBean.getType() == UnpayRecordFragment.CANNOT_MERGE) {
-                                hint = "不能同时缴纳预约挂号、在线问诊、护理服务和预约体检项目费用";
-                            }
+                        }
+                        if (payRecordBean.getType() == UnpayRecordFragment.CAN_MERGE && !payRecordBean.getEleCardNumber().equals(card)) {
+                            hint = "不能同时为多个就诊人合并缴费";
+                        }
+                        if (payRecordBean.getType() != type) {
+                            hint = "不能同时缴纳诊间费用和预约挂号、在线问诊、护理服务和预约体检项目费用";
+                        }
+                        if (payRecordBean.getType() == UnpayRecordFragment.CANNOT_MERGE) {
+                            hint = "不能同时缴纳预约挂号、在线问诊、护理服务和预约体检项目费用";
                         }
                     }
-                    if (!StringUtils.isEmpty(hint)) {
-                        ToastUtils.showLong(hint);
-                    } else {
-                        boolean needDispatch = false;
-                        for (int i = 0; i < getView().getSelectList().size(); i++) {
-                            if (getView().getSelectList().get(i).getRecordState() == 8) {
-                                needDispatch = true;
-                            }
+                }
+                if (!StringUtils.isEmpty(hint)) {
+                    ToastUtils.showLong(hint);
+                    return;
+                } else {
+                    boolean needDispatch = false;
+                    orderNumbers = new StringBuilder();
+                    for (int i = 0; i < selectList.size(); i++) {
+                        PayRecordBean payRecordBean = selectList.get(i);
+                        isOnline = payRecordBean.getIsOnline();
+                        if (payRecordBean.getRecordState() == 8) {
+                            needDispatch = true;
                         }
+                        orderNumbers.append(payRecordBean.getDocumentNo());
+                        if (selectList.size() - 1 > i) {
+                            orderNumbers.append(",");
+                        }
+                    }
+                    if (isOnline == 0) {
+//                        payOffline(getView().getPatientId(),orderNumbers.toString(),1,getView().getTotalPay().doubleValue());
+                        getView().goPay(needDispatch, orderNumbers.toString(), "", getView().getTotalPay().doubleValue(), "", false, false);
+                    } else {
                         createOrder(needDispatch, getView().getDocument(),
                                 getView().getTotalPay(), "", false);
                     }
-                } else {
-                    ToastUtils.showShort("请选择订单");
                 }
-                // 新需求
-                //
-                //                if (getView().getSelectList().size() > 0) {
-                //                    boolean needDispatch = false;
-                //                    for (int i = 0; i < getView().getSelectList().size(); i++) {
-                //                        if (getView().getSelectList().get(i).getRecordState()
-                //                        == 8) {
-                //                            needDispatch = true;
-                //                        }
-                //                    }
-                //                    createOrder(needDispatch, getView().getDocument(), getView
-                //                    ().getTotalPay());
-                //                } else {
-                //                    ToastUtils.showShort("请选择订单");
-                //                }
-                break;
+            } else {
+                ToastUtils.showShort("请选择订单");
+            }
+            // 新需求
+            //
+            //                if (getView().getSelectList().size() > 0) {
+            //                    boolean needDispatch = false;
+            //                    for (int i = 0; i < getView().getSelectList().size(); i++) {
+            //                        if (getView().getSelectList().get(i).getRecordState()
+            //                        == 8) {
+            //                            needDispatch = true;
+            //                        }
+            //                    }
+            //                    createOrder(needDispatch, getView().getDocument(), getView
+            //                    ().getTotalPay());
+            //                } else {
+            //                    ToastUtils.showShort("请选择订单");
+            //                }
         }
     }
 
@@ -149,11 +173,11 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
             public void requestComplete(@Nullable PaymentOrderBean data) {
                 if (isWaiYan) {
                     getView().goPay(needDispatch, data.getOrderNumber(),
-                            String.valueOf(data.getOrderId()), data.getFee(), prescriptionId, true);
+                            String.valueOf(data.getOrderId()), data.getFee(), prescriptionId, true, true);
                 } else {
                     getView().goPay(needDispatch, data.getOrderNumber(),
                             String.valueOf(data.getOrderId()), data.getFee(), prescriptionId,
-                            false);
+                            true, false);
                 }
 
             }
@@ -177,6 +201,100 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
         map.put("type", type);
         map.put("totalMoney", totalMoney);
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PayService.class).patientPayByOrderNumber(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), true, true) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                switch (type) {
+                    case 1:
+                        if (StringUtils.isEmpty(data)) {
+                            ToastUtils.showShort("返回支付参数为空");
+                            return;
+                        }
+                        WXPay.getInstance().doPay(getContext(), data,
+                                new WXPay.WXPayResultCallBack() {
+                                    @Override
+                                    public void onSuccess() {
+                                        getView().paySuccess();
+                                        ToastUtils.showShort("支付成功");
+                                    }
+
+                                    @Override
+                                    public void onError(int error_code) {
+                                        ToastUtil.showMessage(getContext(), "支付失败" + error_code
+                                        );
+                                    }
+
+                                    @Override
+                                    public void onCancel() {
+
+                                    }
+                                });
+                        break;
+                    case 2:
+                        if (StringUtils.isEmpty(data)) {
+                            ToastUtils.showShort("返回支付参数为空");
+                            return;
+                        }
+                        JSONObject js = JSONObject.parseObject(data);
+                        if (!js.containsKey("return_msg")) {
+                            return;
+                        }
+                        new Alipay(getContext(), js.getString("return_msg"),
+                                new Alipay.AlipayResultCallBack() {
+                                    @Override
+                                    public void onSuccess() {
+                                        getView().paySuccess();
+                                        ToastUtils.showShort("支付成功");
+                                    }
+
+                                    @Override
+                                    public void onDealing() {
+                                        ToastUtils.showShort("等待支付结果确认");
+                                    }
+
+                                    @Override
+                                    public void onError(int error_code) {
+                                        ToastUtils.showShort("支付失败");
+                                        getView().refreshData();
+                                    }
+
+                                    @Override
+                                    public void onCancel() {
+                                        ToastUtils.showShort("取消支付");
+                                        getView().refreshData();
+                                    }
+                                }).doPay();
+                        break;
+                    case 4:
+                        getView().paySuccess();
+                        EventBus.getDefault().post(new Event(EventType.REFRESHDIAGNOSESORDER,
+                                null));
+                        ToastUtils.showShort("支付成功");
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtils.showShort(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 发起支付(线下)   //支付方式 1微信 2支付宝
+     */
+    public void payOffline(long patientId, String orderNumber, int type, double totalMoney) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", App.userInfo.getId());
+        map.put("patientId", patientId);
+        map.put("orderNumber", orderNumber);
+        map.put("payType", type);
+        map.put("totalMoney", totalMoney);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PayService.class).payHisOfflineDoctorAdvice(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), true, true) {
             @Override
             public void requestComplete(@Nullable String data) {
                 switch (type) {

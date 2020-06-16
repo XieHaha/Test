@@ -365,13 +365,13 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
 
     @Override
     public void goPay(boolean needDispatch, String orderNum, String orderId, double totalMoney,
-                      String prescriptionId, boolean isWaiYan) {
+                      String prescriptionId, boolean isOnline, boolean isWaiYan) {
         mTotalFee = totalMoney;
         if (isWaiYan) {
             showPayTypeDialog(String.valueOf(totalMoney), totalMoney, orderNum, orderId,
-                    prescriptionId);
+                    prescriptionId, isOnline);
         } else {
-            showPayDialog(needDispatch, String.valueOf(totalMoney), totalMoney, orderNum);
+            showPayDialog(needDispatch, String.valueOf(totalMoney), totalMoney, orderNum, isOnline);
         }
 
     }
@@ -602,7 +602,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
      * 显示支付弹框
      */
     private void showPayDialog(boolean needAddress, String titleFee, double totalFee,
-                               String orderNum) {
+                               String orderNum, boolean isOnline) {
         String feeTv = new DecimalFormat("0.00").format(totalFee);
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity(),
                 R.style.BottomSheetDialog);
@@ -631,11 +631,19 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                         if (mAddressId == 0) {
                             ToastUtils.showShort("请选择配送地址");
                         } else {
-                            getController().pay(mAddressId, orderNum, payType[0], mPsTotal);
+                            if (isOnline) {
+                                getController().pay(mAddressId, orderNum, payType[0], mPsTotal);
+                            } else {
+                                getController().payOffline(patientId, orderNum,  payType[0], totalFee);
+                            }
                             bottomSheetDialog.dismiss();
                         }
                     } else {
-                        getController().pay(0, orderNum, payType[0], totalFee);
+                        if (isOnline) {
+                            getController().pay(0, orderNum, payType[0], totalFee);
+                        } else {
+                            getController().payOffline(patientId, orderNum,  payType[0], totalFee);
+                        }
                         bottomSheetDialog.dismiss();
                     }
                 }
@@ -728,11 +736,19 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     if (mAddressId == 0) {
                         ToastUtils.showShort("请选择配送地址");
                     } else {
-                        getController().pay(mAddressId, orderNum, payType[0], mPsTotal);
+                        if (isOnline) {
+                            getController().pay(mAddressId, orderNum, payType[0], mPsTotal);
+                        } else {
+                            getController().payOffline(patientId, orderNum,  payType[0], mPsTotal);
+                        }
                         bottomSheetDialog.dismiss();
                     }
                 } else {
-                    getController().pay(0, orderNum, payType[0], totalFee);
+                    if (isOnline) {
+                        getController().pay(0, orderNum, payType[0], totalFee);
+                    } else {
+                        getController().payOffline(patientId, orderNum,  payType[0], totalFee);
+                    }
                     bottomSheetDialog.dismiss();
                 }
                 //                } else {
@@ -778,7 +794,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
     ImageView aliPay;
     ImageView wechatPay;
     ImageView unionPay;
-    int[] WaiPayType = {2};
+    int[] waiPayType = {2};
     String payWaiType = Type.ALIPAY;
 
     //外院选择按钮
@@ -815,9 +831,9 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
      * 展示支付弹框
      */
     private void showPayTypeDialog(String titleFee, double totalFee, String orderNum,
-                                   String orderId, String prescriptionId) {
+                                   String orderId, String prescriptionId, boolean isOnline) {
         isSendDrugsToHome = false;
-        WaiPayType[0] = 2;
+        waiPayType[0] = 2;
         payWaiType = Type.ALIPAY;
         mPharmacyBean = null;
         mPharmacyBeans = null;
@@ -862,9 +878,12 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                         }
                         pharmacyBean = mPharmacyBean;
                     }
-
-                    getController().updatePrescriptionOrder(4, isSendDrugsToHome, true,
-                            prescriptionId, orderNum, pharmacyBean, mLocationInfo);
+                    if (isOnline) {
+                        getController().updatePrescriptionOrder(4, isSendDrugsToHome, true,
+                                prescriptionId, orderNum, pharmacyBean, mLocationInfo);
+                    } else {
+                        getController().payOffline(patientId, orderNum, 4, totalFee);
+                    }
                     bottomWaiYanSheetDialog.dismiss();
                 }
             });
@@ -937,7 +956,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                 mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_unselected));
                 unionPay.setImageResource(R.mipmap.pay_unselected_icon);
                 mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_unselected));
-                WaiPayType[0] = 2;
+                waiPayType[0] = 2;
                 payWaiType = Type.ALIPAY;
             }
         });
@@ -951,7 +970,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
 
                 unionPay.setImageResource(R.mipmap.pay_unselected_icon);
                 mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_unselected));
-                WaiPayType[0] = 1;
+                waiPayType[0] = 1;
                 payWaiType = Type.WECHATPAY;
             }
         });
@@ -964,7 +983,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                 mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_unselected));
                 unionPay.setImageResource(R.mipmap.pay_selected_icon);
                 mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_selected));
-                WaiPayType[0] = 3;
+                waiPayType[0] = 3;
                 payWaiType = Type.UNIONPAY;
             }
         });
@@ -976,14 +995,15 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     ToastUtils.showShort("请选择配送地址");
                 } else {
                     PharmacyBean pharmacyBean = mPharmacyBeans.get(0);
-
-                    getController().updatePrescriptionOrder(WaiPayType[0],
-                            isSendDrugsToHome,
-                            true, prescriptionId, orderNum, pharmacyBean, mLocationInfo);
-
+                    if (isOnline) {
+                        getController().updatePrescriptionOrder(waiPayType[0],
+                                isSendDrugsToHome, true, prescriptionId, orderNum, pharmacyBean, mLocationInfo);
+                    } else {
+                        getController().payOffline(patientId, orderNum, waiPayType[0], totalFee);
+                    }
                     Logger.e("1=" + mWaiYanAddressId);
                     Logger.e("2=" + orderNum);
-                    Logger.e("3=" + WaiPayType[0]);
+                    Logger.e("3=" + waiPayType[0]);
                     Logger.e("4=" + totalFee);
                     bottomWaiYanSheetDialog.dismiss();
                 }
@@ -996,10 +1016,13 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     ToastUtils.showShort("请选择药店");
                 } else {
                     PharmacyBean pharmacyBean = mPharmacyBean;
+                    if (isOnline) {
+                        getController().updatePrescriptionOrder(waiPayType[0],
+                                isSendDrugsToHome, false, prescriptionId, orderNum, pharmacyBean, mLocationInfo);
+                    } else {
+                        getController().payOffline(patientId, orderNum, waiPayType[0], totalFee);
+                    }
 
-                    getController().updatePrescriptionOrder(WaiPayType[0],
-                            isSendDrugsToHome,
-                            false, prescriptionId, orderNum, pharmacyBean, mLocationInfo);
                     bottomWaiYanSheetDialog.dismiss();
                 }
             }
@@ -1019,17 +1042,15 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     if (payWaiType.equals(Type.ALIPAY)) {
                         map.put("type", 2);
                     }
-
                     PharmacyBean pharmacyBean = mPharmacyBean;
-
                     if (null != pharmacyBean) {
-                        getController().updatePrescriptionOrder(WaiPayType[0],
-                                isSendDrugsToHome,
-                                true, prescriptionId, orderNum, pharmacyBean,
-                                mLocationInfo);
+                        if (isOnline) {
+                            getController().updatePrescriptionOrder(waiPayType[0],
+                                    isSendDrugsToHome, true, prescriptionId, orderNum, pharmacyBean, mLocationInfo);
+                        } else {
+                            getController().payOffline(patientId, orderNum, waiPayType[0], totalFee);
+                        }
                     }
-
-
                     Logger.e("map=" + map);
                     bottomWaiYanSheetDialog.dismiss();
                 }
@@ -1059,13 +1080,12 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         public void onCheckedChanged(RadioGroup group, int checkedId) {
             switch (group.getCheckedRadioButtonId()) {
                 case R.id.radio_self:
-                    //todo 到店自取
+                    // 到店自取
                     mLinAddress.setVisibility(View.GONE);
                     mLinShop.setVisibility(View.VISIBLE);
                     mReZxingTitle.setVisibility(View.VISIBLE);
                     mWaiYanTotalPayTv.setVisibility(View.GONE);
                     mLinPay.setVisibility(View.VISIBLE);
-
 
                     aliPay.setImageResource(R.mipmap.pay_selected_icon);
                     wechatPay.setImageResource(R.mipmap.pay_unselected_icon);
@@ -1073,7 +1093,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_unselected));
                     unionPay.setImageResource(R.mipmap.pay_unselected_icon);
                     mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_unselected));
-                    WaiPayType[0] = 2;
+                    waiPayType[0] = 2;
                     payWaiType = Type.ALIPAY;
                     isSendDrugsToHome = false;
                     if (null != mPharmacyBean) {
@@ -1082,7 +1102,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     break;
 
                 case R.id.radio_home:
-                    //todo 配送到家
+                    // 配送到家
                     mLinAddress.setVisibility(View.VISIBLE);
                     mLinShop.setVisibility(View.GONE);
                     mReZxingTitle.setVisibility(View.GONE);
@@ -1096,7 +1116,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_unselected));
                     unionPay.setImageResource(R.mipmap.pay_unselected_icon);
                     mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_unselected));
-                    WaiPayType[0] = 2;
+                    waiPayType[0] = 2;
                     payWaiType = Type.ALIPAY;
                     isSendDrugsToHome = true;
                     if (null != mPharmacyBeans && mPharmacyBeans.size() > 0) {

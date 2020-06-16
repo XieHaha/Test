@@ -39,13 +39,14 @@ public class ManagerUserBean implements Serializable{
     private String personHistory;// 个人史1
     private String allergyHistory;//过敏史1
     private String area;
-    private int age;
+    private String age;
 
-    public int getAge() {
+
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

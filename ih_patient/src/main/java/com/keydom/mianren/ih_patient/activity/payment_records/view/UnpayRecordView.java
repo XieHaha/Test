@@ -37,7 +37,7 @@ public interface UnpayRecordView extends BaseView {
     /**
      * 发起支付
      */
-    void goPay(boolean needDispatch, String orderNum,String orderId, double totalMoney,String prescriptionId,boolean isWaiYan);
+    void goPay(boolean needDispatch, String orderNum,String orderId, double totalMoney,String prescriptionId,boolean isOnline,boolean isWaiYan);
 
     /**
      * 支付成功

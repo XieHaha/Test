@@ -396,6 +396,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         Map<String, Object> map = new HashMap<>();
         if (medicalCardInfo != null) {
             map.put("eleCardNumber", medicalCardInfo.getEleCardNumber());
+            map.put("age", medicalCardInfo.getAge());
         }
         if (managerUserBean != null) {
             map.put("patientId", managerUserBean.getId());
