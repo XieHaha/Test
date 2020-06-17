@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,6 +26,8 @@ public class GeneralDialog extends Dialog implements View.OnClickListener {
     private String title;
     private boolean positiveIsGone;
     private boolean negativeIsGone;
+
+    private int contentGravity = Gravity.CENTER;
 
     public GeneralDialog(Context context) {
         super(context);
@@ -94,6 +97,11 @@ public class GeneralDialog extends Dialog implements View.OnClickListener {
         return this;
     }
 
+    public GeneralDialog setContentGravity(int contentGravity) {
+        this.contentGravity = contentGravity;
+        return this;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +120,7 @@ public class GeneralDialog extends Dialog implements View.OnClickListener {
         cancelTxt.setOnClickListener(this);
 
         contentTxt.setText(content);
+        contentTxt.setGravity(contentGravity);
         if (!TextUtils.isEmpty(positiveName)) {
             submitTxt.setText(positiveName);
         }

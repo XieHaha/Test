@@ -56,13 +56,13 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
         if (type == Const.PATIENT_TYPE_ALL) {
             setTitle("选择就诊人");
             list.add("就诊卡(问诊)");
-            list.add("就诊人(咨询)");
+//            list.add("就诊人(咨询)");
             TypeCardFragment typeCardFragment = new TypeCardFragment();
             Bundle bundle = new Bundle();
             bundle.putBoolean(Const.IS_NEED_TO_PREGNANCY, false);
             typeCardFragment.setArguments(bundle);
             fragmentList.add(typeCardFragment);
-            fragmentList.add(new TypePatientFragment());
+//            fragmentList.add(new TypePatientFragment());
         } else if (type == Const.PATIENT_TYPE_CARD) {
             setTitle("选择就诊卡");
             list.add("就诊卡");

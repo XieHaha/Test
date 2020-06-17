@@ -34,6 +34,7 @@ import com.keydom.mianren.ih_patient.activity.my_message.NoticeDeatailActivity;
 import com.keydom.mianren.ih_patient.activity.nurse_main.NurseMainActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.DiagnosesApplyActivity;
+import com.keydom.mianren.ih_patient.activity.payment_records.PaymentRecordActivity;
 import com.keydom.mianren.ih_patient.adapter.ChooseHospitalAdapter;
 import com.keydom.mianren.ih_patient.adapter.IndexFunctionAdapter;
 import com.keydom.mianren.ih_patient.bean.CityBean;
@@ -143,10 +144,11 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mFirstVIPRootLl.setVisibility(View.GONE);
         mSecondVIPRootLl.setVisibility(View.GONE);
 
-        mTopRightTitleTv.setText("护理服务");
+        mTopRightTitleTv.setText("诊间缴费");
         mTopRightIconIv.setImageResource(R.mipmap.vip_mine_my_nurse_icon);
 
-        mTopRightRootRl.setOnClickListener(v -> NurseMainActivity.start(getContext()));
+//        mTopRightRootRl.setOnClickListener(v -> NurseMainActivity.start(getContext()));
+        mTopRightRootRl.setOnClickListener(v -> PaymentRecordActivity.start(getContext()));
         mTopLeftRootRl.setOnClickListener(v -> DiagnoseMainActivity.start(getContext()));
     }
 

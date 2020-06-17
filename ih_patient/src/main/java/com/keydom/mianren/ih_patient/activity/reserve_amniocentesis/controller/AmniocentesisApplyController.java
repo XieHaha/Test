@@ -46,8 +46,9 @@ public class AmniocentesisApplyController extends ControllerImpl<AmniocentesisAp
                 break;
             case R.id.amniocentesis_apply_last_menstruation_layout:
                 KeyboardUtils.hideSoftInput((Activity) getContext());
+                Calendar lastDate = Calendar.getInstance();
                 TimePickerView pickerView = new TimePickerBuilder(getContext(),
-                        (date, v1) -> getView().onDateSelect(v, date)).build();
+                        (date, v1) -> getView().onDateSelect(v, date)).setRangDate(null, lastDate).build();
                 pickerView.show();
                 break;
             case R.id.amniocentesis_apply_birth_layout:

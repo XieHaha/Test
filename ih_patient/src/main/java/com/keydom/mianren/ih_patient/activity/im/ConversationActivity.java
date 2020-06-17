@@ -85,6 +85,7 @@ import com.keydom.mianren.ih_patient.bean.entity.pharmacy.PharmacyBean;
 import com.keydom.mianren.ih_patient.bean.entity.pharmacy.PrescriptionItemEntity;
 import com.keydom.mianren.ih_patient.callback.GeneralCallback;
 import com.keydom.mianren.ih_patient.callback.MessageSingleClick;
+import com.keydom.mianren.ih_patient.callback.SingleClick;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.Type;
@@ -452,6 +453,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 return false;
             }
 
+
+            @MessageSingleClick(1000)
             @Override
             public boolean onMessageClick(Context context, View view, IMMessage message) {
                 if (message.getMsgType() == MsgTypeEnum.custom) {
@@ -645,14 +648,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             }
         } else {
             //用户端暂不能发起视频
-            //            if (orderBean != null && orderBean.getInquisitionType() == 1) {
-            //                if (!isWaitingForComment) {
-            //                    videoPlugin = new VideoPlugin(this);
-            //                    videoPlugin.setTeam(team);
-            //                    videoPlugin.setTeamId(sessionId);
-            //                    mMessageView.addPlugin(videoPlugin);
-            //                }
-            //            }
+            if (orderBean != null && orderBean.getInquisitionType() == 1) {
+                if (!isWaitingForComment) {
+                    videoPlugin = new VideoPlugin(this);
+                    videoPlugin.setTeam(team);
+                    videoPlugin.setTeamId(sessionId);
+                    mMessageView.addPlugin(videoPlugin);
+                }
+            }
 
             //            mRightText.setVisibility(View.VISIBLE);
             //            mRightText.setText("结束诊断");

@@ -1,5 +1,6 @@
 package com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller;
 
+import android.text.TextUtils;
 import android.view.View;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -72,6 +73,26 @@ public class AmniocentesisEvaluateController extends ControllerImpl<Amniocentesi
                 break;
             case R.id.amniocentesis_evaluate_next_tv:
                 if (getView().isSelect()) {
+                    if (getView().getFetusSelect() == 2 || getView().getFetusSelect() == 3) {
+                        ToastUtil.showMessage(mContext, "双胎或多胎需要到现场预约");
+                        return;
+                    }
+                    if ("阳性".equals(getView().getHivSelect())) {
+                        ToastUtil.showMessage(mContext, "HIV阳性需要到现场预约");
+                        return;
+                    }
+                    if ("阴性".equals(getView().getBloodSelect())) {
+                        ToastUtil.showMessage(mContext, "RH阴性需要到现场预约");
+                        return;
+                    }
+                    if (getView().getHypertensionSelect() == 1) {
+                        ToastUtil.showMessage(mContext, "高血压需要到现场预约");
+                        return;
+                    }
+                    if (getView().getDiabetesSelect() == 1) {
+                        ToastUtil.showMessage(mContext, "糖尿病需要到现场预约");
+                        return;
+                    }
                     Map<String, Object> map = new HashMap<>();
                     map.put("fetusNum", getView().getFetusSelect());
                     map.put("hivAttribute", getView().getHivSelect());

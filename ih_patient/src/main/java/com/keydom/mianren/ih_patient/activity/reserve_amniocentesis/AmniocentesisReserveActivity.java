@@ -1,13 +1,16 @@
 package com.keydom.mianren.ih_patient.activity.reserve_amniocentesis;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Gravity;
 import android.view.KeyEvent;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller.AmniocentesisReserveController;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.fragment.AmniocentesisApplyFragment;
@@ -82,6 +85,16 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
         });
         manager = getSupportFragmentManager();
         tabWebView();
+
+        showVirusTips();
+    }
+
+    private void showVirusTips() {
+        new GeneralDialog(this, getString(R.string.txt_virus_tips))
+                .setTitle(getString(R.string.txt_virus_tips_title))
+                .setContentGravity(Gravity.LEFT)
+                .setNegativeButtonIsGone(true)
+                .show();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
