@@ -284,6 +284,8 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
                                 null));
                         ToastUtils.showShort("支付成功");
                         break;
+                    default:
+                        break;
                 }
             }
 
@@ -303,13 +305,8 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getUnPaySubOrderInfo(inquiryId), new HttpSubscriber<ChildOrderBean>() {
             @Override
             public void requestComplete(@Nullable ChildOrderBean data) {
-                boolean isNeedAddress;
-                if (data.getIsPrescription() == 1)
-                    isNeedAddress = true;
-                else
-                    isNeedAddress = false;
-                createOrder(isNeedAddress, data.getOrderNumber(), new BigDecimal(data.getFee()),
-                        prescriptionId, data.isWaiYan());
+                createOrder(data.getIsPrescription() == 1, data.getOrderNumber(),
+                        new BigDecimal(data.getFee()), prescriptionId, data.isWaiYan());
             }
 
             @Override
@@ -380,7 +377,7 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
             map.put("consigneeName", locationInfo.getAddressName());
             map.put("consigneePhone", locationInfo.getPhone());
             map.put("delivery", "1");
-
+            map.put("deliveryCost", getView().getDeliveryCost());
         } else {
             map.put("delivery", "0");
         }

@@ -42,6 +42,8 @@ public interface OnlineDiagnonsesOrderView extends BaseView {
      */
     void paySuccess();
 
+    double getDeliveryCost();
+
     /**
      * 获取配送费
      */

@@ -1156,6 +1156,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         }
     }
 
+    @Override
     public void refreshPriceView(List<PharmacyBean> data) {
         if (!CommUtil.isEmpty(data) && null != data.get(0)) {
             //mPharmacyBean = data.get(0);
@@ -1197,14 +1198,20 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         }
     }
 
+    double deliveryCost;
 
+    @Override
     public void refreshDeliveryCostView(List<PharmacyBean> data) {
         if (!CommUtil.isEmpty(data) && null != data.get(0)) {
-            mDeliveryCostTv.setText("￥" + String.valueOf(data.get(0).getDeliveryCost()) + "元");
+            deliveryCost = data.get(0).getDeliveryCost();
+            mDeliveryCostTv.setText("￥" + deliveryCost + "元");
         }
-
     }
 
+    @Override
+    public double getDeliveryCost() {
+        return deliveryCost;
+    }
 
     @Override
     public void onDestroy() {

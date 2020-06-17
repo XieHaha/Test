@@ -496,7 +496,7 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
             map.put("consigneeName", locationInfo.getAddressName());
             map.put("consigneePhone", locationInfo.getPhone());
             map.put("delivery", "1");
-
+            map.put("deliveryCost", getView().getDeliveryCost());
         } else {
             map.put("delivery", "0");
         }
