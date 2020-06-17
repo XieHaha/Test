@@ -60,10 +60,10 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
                     return;
                 }
 
-                if (TextUtils.isEmpty(getView().getPrenatalProjectId())) {
-                    ToastUtils.showShort("请选择检查项目");
-                    return;
-                }
+                //                if (TextUtils.isEmpty(getView().getPrenatalProjectId())) {
+                //                    ToastUtils.showShort("请选择检查项目");
+                //                    return;
+                //                }
 
                 if (TextUtils.isEmpty(getView().getSelectedDate())) {
                     ToastUtils.showShort("请选择日期");
@@ -76,6 +76,8 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
                 }
 
                 commitPregnancy();
+                break;
+            default:
                 break;
         }
     }
@@ -150,12 +152,12 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
     /**
      * 续约
      */
-    public void commitPregnancy() {
+    private void commitPregnancy() {
         Map<String, Object> map = new HashMap<>();
         map.put("recordId", getView().getRecordID());
         map.put("appointType", getView().getAppointType());
         //        map.put("prenatalProjectId", getView().getPrenatalProjectId());
-        map.put("prenatalProjectName", getView().getPrenatalProjectName());
+        //        map.put("prenatalProjectName", getView().getPrenatalProjectName());
         map.put("prenatalDate", getView().getSelectedDate());
         map.put("timeInterval", getView().getTimeInterval());
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).commitPregnancy(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), true, false) {

@@ -68,8 +68,9 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
-                if (!"token解析失败".equals(msg))
-                    ToastUtils.showLong(msg);
+                if (!"token解析失败".equals(msg)) {
+//                    ToastUtils.showLong(msg);
+                }
                 refreshLayout.finishRefresh();
                 return super.requestError(exception, code, msg);
             }

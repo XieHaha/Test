@@ -366,7 +366,7 @@
     <string name="txt_reserve_success">恭喜您预约成功</string>
     <string name="txt_amniocentesis_reason_colon">羊膜腔穿刺原因:</string>
     <string name="txt_amniocentesis_surgery_time_colon">申请时间:</string>
-    <string name="txt_amniocentesis_surgery_time_colon_hint">请选择手术时间</string>
+    <string name="txt_amniocentesis_surgery_time_colon_hint">请选择申请时间</string>
     <string name="txt_name_colon">姓名:</string>
     <string name="txt_name_colon_hint">请输入孕妇姓名</string>
     <string name="txt_id_card_colon">身份证:</string>
@@ -435,5 +435,5 @@
     <string name="vip_charge_desc">服务期间，余额不足时，用户在线续约充值，确保后续孕检及生产时的费用支付</string>
 
     <string name="txt_virus_tips_title">绵阳市人民医院\n\n疫情期间介入性产前诊断手术预约特别告知书</string>
-    <string name="txt_virus_tips">尊敬的孕妇：您好！\n    目前，新型冠状病毒肆虐流行，四川省已启动四川省突发公共卫生事件一级应急响应。为了防止疫情的扩散，最大限度地保障孕妇、家属、患者、医务人员和全社会群众的安全，防止感染发生，请您务必仔细阅读以下内容，如有隐瞒事实，造成疫情扩散情况发生，将承担相应责任。请您在选择预约手术时间时，确保您和您的家属在预约时间的两周内：\n1、无武汉市及周边地区或其他有病例报告社区的旅行史或居住史；</string>
+    <string name="txt_virus_tips">目前，新型冠状病毒肆掠流行，四川省已启动四川省突发公共卫生事件一级应急响应。我院积极落实新型冠状病毒感染肺炎防控措施，为切实有效的切断传播途径，防止疫情进一步扩散，保障人民群众的健康安全，我科存在临时调整门诊或手术时间可能，如有变动，我们将尽快与您联系，请保持电话畅通，特此告知，希望得到您的支持与配合！</string>
 </resources>

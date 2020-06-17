@@ -99,13 +99,13 @@
                     </LinearLayout>
                 </LinearLayout>
 
-
             </LinearLayout>
 
 
             <RelativeLayout
                 android:id="@+id/pregnancy_check_projects_root_rl"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="@dimen/dp_56">
 
                 <TextView

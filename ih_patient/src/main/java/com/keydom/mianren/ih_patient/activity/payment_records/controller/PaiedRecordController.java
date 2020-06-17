@@ -1,6 +1,5 @@
 package com.keydom.mianren.ih_patient.activity.payment_records.controller;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
@@ -44,8 +43,9 @@ public class PaiedRecordController extends ControllerImpl<PaiedRecordView> {
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
-                if (!"token解析失败".equals(msg))
-                    ToastUtils.showLong(msg);
+                if (!"token解析失败".equals(msg)) {
+                    //                    ToastUtils.showLong(msg);
+                }
                 refreshLayout.finishLoadMore();
                 refreshLayout.finishRefresh();
                 return super.requestError(exception, code, msg);

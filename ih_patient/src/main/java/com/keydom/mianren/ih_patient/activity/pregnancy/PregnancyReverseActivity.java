@@ -123,14 +123,14 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
             case Const.PREGNANCY_ORDER_TYPE_ALL:
                 mOrderCheckRootLl.setVisibility(View.VISIBLE);
                 mOrderDiagnoseRootLl.setVisibility(View.VISIBLE);
-                mCheckProjectsRootRl.setVisibility(View.VISIBLE);
+                //                mCheckProjectsRootRl.setVisibility(View.VISIBLE);
                 getController().getCheckProjects();
                 break;
             case Const.PREGNANCY_ORDER_TYPE_CHECK:
                 setChecks(true);
                 mOrderCheckRootLl.setVisibility(View.VISIBLE);
                 mOrderDiagnoseRootLl.setVisibility(View.GONE);
-                mCheckProjectsRootRl.setVisibility(View.VISIBLE);
+                //                mCheckProjectsRootRl.setVisibility(View.VISIBLE);
                 getController().getCheckProjects();
                 break;
             case Const.PREGNANCY_ORDER_TYPE_DIAGNOSE:
@@ -141,6 +141,8 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
                 mOrderDiagnoseRootLl.setVisibility(View.VISIBLE);
                 mCheckProjectsRootRl.setVisibility(View.GONE);
                 getController().getCheckProjectsTimes(mPrenatalProjectId);
+                break;
+            default:
                 break;
         }
     }
@@ -154,6 +156,7 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
             mDateTv.setTextColor(getResources().getColor(R.color.black));
             mCurrentDate = dateStr;
         }
+        getController().getCheckProjectsTimes("");
     }
 
     @Override

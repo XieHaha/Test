@@ -100,7 +100,8 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
     private LinearLayout mLinearAddress, mLinearPrescription, mLinaLog, mLinaBottom, mLinaLogic;
     private RelativeLayout mLinAdd, mReHePrescription;
     private View mViewPrescription;
-    private Button mBtnCloseAddress, mBtnCloseBase, mBtnClosePrescription, mBtnCloseInfo, mBtnCloseLog;
+    private Button mBtnCloseAddress, mBtnCloseBase, mBtnClosePrescription, mBtnCloseInfo,
+            mBtnCloseLog;
 
     private MyViewPager mViewPager;
     private RecyclerView mRecyclerView;
@@ -211,8 +212,8 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
         mBtnCancel = findViewById(R.id.btn_cancel);
         mBtnConfirm = findViewById(R.id.btn_confirm);
         mViewPager = findViewById(R.id.vp_prescription);
-        mTabLayout = (TabLayout) findViewById(R.id.tab_prescription);
-        mTotalSumPriceTv = (TextView) findViewById(R.id.tv_combined_price);
+        mTabLayout = findViewById(R.id.tab_prescription);
+        mTotalSumPriceTv = findViewById(R.id.tv_combined_price);
 
 
         mAddressMessageView = findViewById(R.id.view_address);
@@ -221,6 +222,7 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
         layoutmanager.setOrientation(LinearLayoutManager.VERTICAL);
         //设置RecyclerView 布局
         mRecyclerView.setLayoutManager(layoutmanager);
+        mRecyclerView.setNestedScrollingEnabled(false);
         mLogisticDetailAdapter = new LogisticDetailAdapter(this);
         mRecyclerView.setAdapter(mLogisticDetailAdapter);
 
@@ -246,22 +248,24 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
          */
         mLocClient = new LocationClient(this);
 
-//        MyLocationListener myListener = new MyLocationListener();
-//        mLocClient.registerLocationListener(myListener);
-//        LocationClientOption option = new LocationClientOption();
-//        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
-//        option.setOpenGps(true); // 打开gps
-//        option.setCoorType("bd09ll"); // 设置坐标类型
-//        option.setScanSpan(3000);
-//        option.setIsNeedAddress(true);
-//        mLocClient.setLocOption(option);
-//        mLocClient.start();
+        //        MyLocationListener myListener = new MyLocationListener();
+        //        mLocClient.registerLocationListener(myListener);
+        //        LocationClientOption option = new LocationClientOption();
+        //        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        // 可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
+        //        option.setOpenGps(true); // 打开gps
+        //        option.setCoorType("bd09ll"); // 设置坐标类型
+        //        option.setScanSpan(3000);
+        //        option.setIsNeedAddress(true);
+        //        mLocClient.setLocOption(option);
+        //        mLocClient.start();
         initLocation();
 
         mBaseInfoView.setOnImageClickListener(new BaseInfoView.OnImageClickListener() {
             @Override
             public void onMoreClick(View v, PharmacyEntity entity) {
-                GotoActivityUtil.gotoZxingActivity(PrescriptionGetDetailActivity.this, entity.getAcquireMedicineCode());
+                GotoActivityUtil.gotoZxingActivity(PrescriptionGetDetailActivity.this,
+                        entity.getAcquireMedicineCode());
                 Logger.e("piii-" + entity);
             }
         });
@@ -317,7 +321,8 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
         double subTotal = 0;
         if (!CommUtil.isEmpty(mDatas)) {
             for (int i = 0; i < mDatas.size(); i++) {
-                ContentFragment fragment = ContentFragment.newInstance(mDatas.get(i).getData(), i, mViewPager);
+                ContentFragment fragment = ContentFragment.newInstance(mDatas.get(i).getData(), i
+                        , mViewPager);
                 Logger.e("ii=" + mDatas.get(0));
                 fragments.add(fragment);
                 subTotal += Double.valueOf(mDatas.get(i).getSubtotal());
@@ -325,12 +330,14 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
 
         }
         mTotalSumPriceTv.setText("￥" + String.format("%.2f", subTotal));
-        FragentPagerPrescriAdapter fragentPagerPrescriAdapter = new FragentPagerPrescriAdapter(getSupportFragmentManager(), fragments, mDatas);
+        FragentPagerPrescriAdapter fragentPagerPrescriAdapter =
+                new FragentPagerPrescriAdapter(getSupportFragmentManager(), fragments, mDatas);
         mViewPager.setAdapter(fragentPagerPrescriAdapter);
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
             }
 
             @Override
@@ -477,11 +484,14 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
     public void openMap(String drugstoreAddress) {
         LatLng latLng = MapUtil.BD09ToGCJ02(new LatLng(lat, lng));
         if (MapUtil.isBaiduMapInstalled()) {
-            MapUtil.openBaiDuNavi(PrescriptionGetDetailActivity.this, latLng.latitude, latLng.longitude, "当前位置", mLat, mLng, drugstoreAddress);
+            MapUtil.openBaiDuNavi(PrescriptionGetDetailActivity.this, latLng.latitude,
+                    latLng.longitude, "当前位置", mLat, mLng, drugstoreAddress);
         } else if (MapUtil.isGdMapInstalled()) {
-            MapUtil.openGaoDeNavi(PrescriptionGetDetailActivity.this, latLng.latitude, latLng.longitude, "当前位置", mLat, mLng, drugstoreAddress);
+            MapUtil.openGaoDeNavi(PrescriptionGetDetailActivity.this, latLng.latitude,
+                    latLng.longitude, "当前位置", mLat, mLng, drugstoreAddress);
         } else if (MapUtil.isTencentMapInstalled()) {
-            MapUtil.openTencentMap(PrescriptionGetDetailActivity.this, latLng.latitude, latLng.longitude, "当前位置", mLat, mLng, drugstoreAddress);
+            MapUtil.openTencentMap(PrescriptionGetDetailActivity.this, latLng.latitude,
+                    latLng.longitude, "当前位置", mLat, mLng, drugstoreAddress);
         } else {
             Uri uri = Uri.parse("market://details?id=com.baidu.BaiduMap");//id为包名
             Intent it = new Intent(Intent.ACTION_VIEW, uri);
@@ -495,14 +505,17 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
     @SuppressLint("CheckResult")
     private void initLocation() {
         RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        rxPermissions.request(Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean granted) throws Exception {
                         if (granted) {
                             Logger.e("权限已打开");
                             if (locationClient == null)
-                                locationClient = new LocationClient(PrescriptionGetDetailActivity.this);
+                                locationClient =
+                                        new LocationClient(PrescriptionGetDetailActivity.this);
                             MyLocationListener myListener = new MyLocationListener();
                             locationClient.registerLocationListener(myListener);
                             LocationClientOption option = new LocationClientOption();
@@ -511,7 +524,8 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
                             locationClient.start();
                         } else {
                             Logger.e("权限未打开");
-                            ToastUtil.showMessage(PrescriptionGetDetailActivity.this, "未打开定位权限，无法定位到您当前所在城市");
+                            ToastUtil.showMessage(PrescriptionGetDetailActivity.this,
+                                    "未打开定位权限，无法定位到您当前所在城市");
 
                         }
                     }
@@ -543,12 +557,12 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
         }
     }
 
-//    private void initData() {
-//        mDatas = new ArrayList<String>();
-//        for (int j = 0; j < data.length; j++) {
-//            mDatas.add(data[j]);
-//        }
-//    }
+    //    private void initData() {
+    //        mDatas = new ArrayList<String>();
+    //        for (int j = 0; j < data.length; j++) {
+    //            mDatas.add(data[j]);
+    //        }
+    //    }
 
 
     /**
@@ -580,7 +594,8 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 return super.requestError(exception, code, msg);
             }
         });
@@ -601,10 +616,12 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
                     for (int i = 0; i < data.size(); i++) {
                         prescriptionItemEntities.addAll(data.get(i).getData());
                     }
-//                    List<PrescriptionItemEntity> prescriptionItemEntities=new ArrayList<>();
-//                    for (PrescriptionItemEntity prescriptionItemEntity : data.get(0).getData()) {
-//                        prescriptionItemEntities.add(prescriptionItemEntity);
-//                    }
+                    //                    List<PrescriptionItemEntity>
+                    //                    prescriptionItemEntities=new ArrayList<>();
+                    //                    for (PrescriptionItemEntity prescriptionItemEntity :
+                    //                    data.get(0).getData()) {
+                    //                        prescriptionItemEntities.add(prescriptionItemEntity);
+                    //                    }
                     DataCacheUtil.getInstance().putPrescriptionItemEntity(prescriptionItemEntities);
                 }
 
@@ -612,7 +629,8 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 return super.requestError(exception, code, msg);
             }
         });
@@ -637,7 +655,7 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
                 if (!CommUtil.isEmpty(logisticsEntity.getCarrier())) {
                     mLogicCompany.setText(logisticsEntity.getCarrier());
                 }
-                if(!CommUtil.isEmpty(logisticsEntity.getDeliveryTime())){
+                if (!CommUtil.isEmpty(logisticsEntity.getDeliveryTime())) {
                     mDeliveryTimeTv.setText(logisticsEntity.getDeliveryTime());
                 }
 
@@ -692,7 +710,8 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 Logger.e("msg=" + msg);
                 Logger.e("code=" + code);
                 // loadingFail(msg);
@@ -774,7 +793,8 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
                     mLng = result.getLocation().longitude;
                     Logger.e("获取地理编码结果:  lat=" + result.getLocation().latitude + "lng=" + result.getLocation().longitude);
                     addMarkerMap(result.getLocation());
-                    // getController().getHospital(getQueryMap(selectedLocation, result.getLocation().latitude, result.getLocation().longitude));
+                    // getController().getHospital(getQueryMap(selectedLocation, result
+                    // .getLocation().latitude, result.getLocation().longitude));
                 }
 
             }
@@ -798,7 +818,8 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
         baiduMap.setMapStatus(mMapStatusUpdate);
         LatLng point = result;
         BitmapDescriptor bttmap = null;
-        View item_view = LayoutInflater.from(PrescriptionGetDetailActivity.this).inflate(R.layout.map_overlay_layout, null);
+        View item_view =
+                LayoutInflater.from(PrescriptionGetDetailActivity.this).inflate(R.layout.map_overlay_layout, null);
         TextView tv_storeName = (TextView) item_view.findViewById(R.id.overlay_name);
         ImageView imageView = (ImageView) item_view.findViewById(R.id.overlay_icon);
         tv_storeName.setText(mDrugstore);
@@ -829,7 +850,7 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
 
                     if (mAcquireMedicine == RECEIVE_MEDICINE && data.getPaystatus().getValue().equals("3")) {
                         mLinaBottom.setVisibility(View.VISIBLE);
-                    }else{
+                    } else {
                         mLinaBottom.setVisibility(View.GONE);
                     }
                     mWallBill = data.getWaybill();
@@ -843,7 +864,8 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
                         addMarkerMap(point);
                     } else {
                         if (!CommUtil.isEmpty(Global.getLocationCity()) && !CommUtil.isEmpty(data.getDrugsStoreAddress())) {
-                            getAddressLatAndLng(Global.getLocationCity(), data.getDrugsStoreAddress());
+                            getAddressLatAndLng(Global.getLocationCity(),
+                                    data.getDrugsStoreAddress());
                         }
                     }
 
@@ -856,7 +878,8 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 return super.requestError(exception, code, msg);
             }
         });
@@ -880,7 +903,8 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 return super.requestError(exception, code, msg);
             }
         });
@@ -904,7 +928,8 @@ public class PrescriptionGetDetailActivity extends BaseActivity implements View.
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 return super.requestError(exception, code, msg);
             }
         });
