@@ -31,7 +31,6 @@ import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.diagnose_main.DiagnoseMainActivity;
 import com.keydom.mianren.ih_patient.activity.index_main.ChooseCityActivity;
 import com.keydom.mianren.ih_patient.activity.my_message.NoticeDeatailActivity;
-import com.keydom.mianren.ih_patient.activity.nurse_main.NurseMainActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.DiagnosesApplyActivity;
 import com.keydom.mianren.ih_patient.activity.payment_records.PaymentRecordActivity;
@@ -254,6 +253,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mSecondVIPDatas.add(new IndexFunction(R.mipmap.appointment_register_icon, 105, "检验检查预约"));
         mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_record_icon, 106, "健康档案"));
         mSecondVIPDatas.add(new IndexFunction(R.mipmap.create_code_icon, 107, "办卡绑卡"));
+        mSecondVIPDatas.add(new IndexFunction(R.mipmap.nurse_icon, 30, "预约体检"));
 
 
         mFirstVIPRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
@@ -827,8 +827,9 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     public void showHospitalPopupWindow() {
         for (int i = 0; i < hospitalList.size(); i++) {
             hospitalList.get(i).setSelected(false);
-            if (hospitalList.get(i).getName().equals(App.hospitalName))
+            if (hospitalList.get(i).getName().equals(App.hospitalName)) {
                 hospitalList.get(i).setSelected(true);
+            }
         }
         chooseHospitalAdapter.notifyDataSetChanged();
         View view =
@@ -850,8 +851,9 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                     hospitalList.addAll(hospitalListFromService);
                     for (int position = 0; position < hospitalList.size(); position++) {
                         hospitalList.get(position).setSelected(false);
-                        if (hospitalList.get(position).getName().equals(App.hospitalName))
+                        if (hospitalList.get(position).getName().equals(App.hospitalName)) {
                             hospitalList.get(position).setSelected(true);
+                        }
                     }
                     chooseHospitalAdapter.notifyDataSetChanged();
                 }
@@ -877,8 +879,9 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                     }
                     for (int i = 0; i < hospitalList.size(); i++) {
                         hospitalList.get(i).setSelected(false);
-                        if (hospitalList.get(i).getName().equals(App.hospitalName))
+                        if (hospitalList.get(i).getName().equals(App.hospitalName)) {
                             hospitalList.get(i).setSelected(true);
+                        }
                     }
                     chooseHospitalAdapter.notifyDataSetChanged();
                 }
@@ -911,8 +914,9 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                 for (int i = 0; i < Global.getHospitalList().size(); i++) {
                     if (Global.getHospitalList().get(i).getId() == selectHospitalId) {
                         Global.getHospitalList().get(i).setSelected(true);
-                    } else
+                    } else {
                         Global.getHospitalList().get(i).setSelected(false);
+                    }
 
                 }
                 EventBus.getDefault().post(new Event(EventType.UPDATEHOSPITAL, null));
@@ -926,6 +930,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         hospitalPopupWindow.setFocusable(true);
         hospitalPopupWindow.setWidth(titleLayout.getWidth());
         hospitalPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
             public void onDismiss() {
                 backgroudView.setVisibility(View.INVISIBLE);
                 hospitalList.clear();

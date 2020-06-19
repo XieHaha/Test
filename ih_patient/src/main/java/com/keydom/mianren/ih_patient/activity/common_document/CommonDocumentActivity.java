@@ -78,37 +78,72 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
             switch (type) {
                 case CommonDocumentBean.CODE_1:
                     setTitle("在线问诊用户协议");
+                    getController().getOfficialDispatchAllMsgByCode(type);
                     break;
                 case CommonDocumentBean.CODE_2:
                     setTitle("护理服务用户协议");
+                    getController().getOfficialDispatchAllMsgByCode(type);
                     break;
                 case CommonDocumentBean.CODE_3:
                     setTitle("入院注意事项");
+                    getController().getOfficialDispatchAllMsgByCode(type);
                     break;
                 case CommonDocumentBean.CODE_4:
                     setTitle("体检中心介绍");
+                    getController().getOfficialDispatchAllMsgByCode(type);
                     break;
                 case CommonDocumentBean.CODE_5:
                     setTitle("体检须知");
+                    getController().getOfficialDispatchAllMsgByCode(type);
                     break;
                 case CommonDocumentBean.CODE_6:
                     setTitle("体检流程");
+                    getController().getOfficialDispatchAllMsgByCode(type);
                     break;
                 case CommonDocumentBean.CODE_8:
                     setTitle("注册用户协议");
+                    getController().getOfficialDispatchAllMsgByCode(type);
                     break;
                 case CommonDocumentBean.CODE_10:
                     setTitle("服务介绍");
+                    getController().getOfficialDispatchAllMsgByCode(type);
                     break;
                 case CommonDocumentBean.CODE_13:
-                    setTitle("保险条款用户协议");
                 case CommonDocumentBean.CODE_14:
                     setTitle("保险条款用户协议");
+                    getController().getOfficialDispatchAllMsgByCode(type);
+                    break;
+                case CommonDocumentBean.CODE_15:
+                    setTitle("团体体检");
+                    mWebView.setVisibility(View.VISIBLE);
+                    mDecTv.setVisibility(View.GONE);
+                    loadUrl("http://www.health580.cn/reservation/public/wap/group_line/logingroup" +
+                            "?center_code=610008");
+                    break;
+                case CommonDocumentBean.CODE_16:
+                    setTitle("体检报表");
+                    mWebView.setVisibility(View.VISIBLE);
+                    mDecTv.setVisibility(View.GONE);
+                    loadUrl("http://api.weixin.zkpacs.com" +
+                            ".cn/report/jsp/webVersionJsp/report/reportBind" +
+                            ".html?center_code=610008");
+                    break;
+                case CommonDocumentBean.CODE_17:
+                    setTitle("个体体检");
+                    mWebView.setVisibility(View.VISIBLE);
+                    mDecTv.setVisibility(View.GONE);
+                    loadUrl("http://www.health580.cn/reservation/public/wap/norder_line" +
+                            "/nallPackage?center_code=610008");
+                    break;
+                case CommonDocumentBean.CODE_18:
+                    setTitle("个性化体检");
+                    mWebView.setVisibility(View.VISIBLE);
+                    mDecTv.setVisibility(View.GONE);
+                    loadUrl("http://center.zkpacs.com.cn/jsp/wxNewServegroup/nquesProcess/selectInfo.html");
                     break;
                 default:
                     break;
             }
-            getController().getOfficialDispatchAllMsgByCode(type);
         }
 
     }
@@ -127,7 +162,8 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
                 mWebView.getSettings().setJavaScriptEnabled(true);
                 mWebView.getSettings().setSupportZoom(true);
                 mWebView.getSettings().setDefaultTextEncodingName("utf-8");
-                mWebView.getSettings().setDomStorageEnabled(true);//webview不能完全加载网页
+                //webview不能完全加载网页
+                mWebView.getSettings().setDomStorageEnabled(true);
                 // 或者不能很好的支持懒加载是添加此设置
                 mWebView.setWebViewClient(new WebViewClient() {
                     @Override
@@ -174,7 +210,8 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setSupportZoom(true);
         mWebView.getSettings().setDefaultTextEncodingName("utf-8");
-        mWebView.getSettings().setDomStorageEnabled(true);//webview不能完全加载网页 或者不能很好的支持懒加载是添加此设置
+        //webview不能完全加载网页 或者不能很好的支持懒加载是添加此设置
+        mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

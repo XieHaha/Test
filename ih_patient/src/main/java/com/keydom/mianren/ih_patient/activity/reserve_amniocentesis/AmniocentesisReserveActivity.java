@@ -1,6 +1,5 @@
 package com.keydom.mianren.ih_patient.activity.reserve_amniocentesis;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -126,6 +125,8 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
             case AMNIOCENTESIS_RESULT:
                 curPage = 5;
                 tabResultView();
+                break;
+            default:
                 break;
         }
     }

@@ -15,6 +15,7 @@ import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.common_document.CommonDocumentActivity;
 import com.keydom.mianren.ih_patient.activity.order_physical_examination.controller.OrderPhysicalExaminationController;
 import com.keydom.mianren.ih_patient.activity.order_physical_examination.view.OrderPhysicalExaminationView;
+import com.keydom.mianren.ih_patient.activity.webview.WebActivity;
 import com.keydom.mianren.ih_patient.adapter.PhysicalExaminationAdapter;
 import com.keydom.mianren.ih_patient.bean.CommonDocumentBean;
 import com.keydom.mianren.ih_patient.bean.PhysicalExaInfo;
@@ -31,15 +32,18 @@ public class OrderPhysicalExaminationActivity extends BaseControllerActivity<Ord
     /**
      * 启动
      */
-    public static void start(Context context){
-        context.startActivity(new Intent(context,OrderPhysicalExaminationActivity.class));
+    public static void start(Context context) {
+        context.startActivity(new Intent(context, OrderPhysicalExaminationActivity.class));
     }
+
     private RecyclerView physical_exa_package_rv;
     private PhysicalExaminationAdapter physicalExaminationAdapter;
-    private List<PhysicalExaInfo> dataList=new ArrayList<>();
+    private List<PhysicalExaInfo> dataList = new ArrayList<>();
     private TextView errTv;
     private LinearLayout exa_center_layout;
-    private RelativeLayout exa_notice_layout,exa_process_layout;
+    private RelativeLayout exa_notice_layout, exa_process_layout;
+    private RelativeLayout teamLayout, reportLayout, singleLayout, personalLayout;
+
     @Override
     public int getLayoutRes() {
         return R.layout.activity_order_physical_examination_layout;
@@ -48,50 +52,48 @@ public class OrderPhysicalExaminationActivity extends BaseControllerActivity<Ord
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle("预约体检");
-        exa_center_layout=findViewById(R.id.exa_center_layout);
-        exa_center_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CommonDocumentActivity.start(getContext(),CommonDocumentBean.CODE_4);
-            }
-        });
-        exa_notice_layout=findViewById(R.id.exa_notice_layout);
-        exa_notice_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CommonDocumentActivity.start(getContext(),CommonDocumentBean.CODE_5);
-            }
-        });
-        exa_process_layout=findViewById(R.id.exa_process_layout);
-        exa_process_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CommonDocumentActivity.start(getContext(),CommonDocumentBean.CODE_6);
-            }
-        });
-        errTv=findViewById(R.id.err_tv);
-        physical_exa_package_rv=this.findViewById(R.id.physical_exa_package_rv);
-        physicalExaminationAdapter=new PhysicalExaminationAdapter(getContext(),dataList);
+        exa_center_layout = findViewById(R.id.exa_center_layout);
+        exa_center_layout.setOnClickListener(v -> CommonDocumentActivity.start(getContext(),
+                CommonDocumentBean.CODE_4));
+        exa_notice_layout = findViewById(R.id.exa_notice_layout);
+        exa_notice_layout.setOnClickListener(v -> CommonDocumentActivity.start(getContext(),
+                CommonDocumentBean.CODE_5));
+        exa_process_layout = findViewById(R.id.exa_process_layout);
+        exa_process_layout.setOnClickListener(v -> CommonDocumentActivity.start(getContext(),
+                CommonDocumentBean.CODE_6));
+        errTv = findViewById(R.id.err_tv);
+        physical_exa_package_rv = this.findViewById(R.id.physical_exa_package_rv);
+        physicalExaminationAdapter = new PhysicalExaminationAdapter(getContext(), dataList);
         physical_exa_package_rv.setAdapter(physicalExaminationAdapter);
         getController().queryPjysicalExaList();
-        errTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getController().queryPjysicalExaList();
-            }
-        });
+        errTv.setOnClickListener(view -> getController().queryPjysicalExaList());
+
+        teamLayout = findViewById(R.id.team_order_layout);
+        teamLayout.setOnClickListener(v -> WebActivity.start(getContext(),
+                CommonDocumentBean.CODE_15));
+        reportLayout = findViewById(R.id.report_query_layout);
+        reportLayout.setOnClickListener(v -> WebActivity.start(getContext(),
+                CommonDocumentBean.CODE_16));
+        singleLayout = findViewById(R.id.single_order_layout);
+        singleLayout.setOnClickListener(v -> WebActivity.start(getContext(),
+                CommonDocumentBean.CODE_17));
+        personalLayout = findViewById(R.id.personal_layout);
+        personalLayout.setOnClickListener(v -> WebActivity.start(getContext(),
+                CommonDocumentBean.CODE_18));
     }
 
     @Override
     public void fillPhysicalExaDataList(List<PhysicalExaInfo> dataList) {
-        if(dataList.size()==0){
-            if(errTv.getVisibility()==View.GONE)
+        if (dataList.size() == 0) {
+            if (errTv.getVisibility() == View.GONE) {
                 errTv.setVisibility(View.VISIBLE);
+            }
             errTv.setClickable(false);
             errTv.setText("该医院暂无体检套餐");
-        }else {
-            if(errTv.getVisibility()==View.VISIBLE)
+        } else {
+            if (errTv.getVisibility() == View.VISIBLE) {
                 errTv.setVisibility(View.GONE);
+            }
             this.dataList.clear();
             this.dataList.addAll(dataList);
             physicalExaminationAdapter.notifyDataSetChanged();
@@ -101,10 +103,11 @@ public class OrderPhysicalExaminationActivity extends BaseControllerActivity<Ord
 
     @Override
     public void getPhysicalExaDataFailed(String errMsg) {
-        if(errTv.getVisibility()==View.GONE)
+        if (errTv.getVisibility() == View.GONE) {
             errTv.setVisibility(View.VISIBLE);
+        }
         errTv.setClickable(true);
         errTv.setText("体检套餐获取失败，点击重试");
-        ToastUtil.showMessage(getContext(),"接口异常"+errMsg);
+        ToastUtil.showMessage(getContext(), "接口异常" + errMsg);
     }
 }

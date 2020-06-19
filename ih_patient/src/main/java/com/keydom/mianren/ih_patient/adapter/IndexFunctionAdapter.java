@@ -230,6 +230,8 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                         case HospitalPayment:
                             HospitalPaymentActivity.start(context);
                             break;
+                        default:
+                            break;
                     }
                 }
             });

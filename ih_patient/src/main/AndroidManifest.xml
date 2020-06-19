@@ -526,6 +526,7 @@
         <activity
             android:name=".activity.order_triage.TriageOrderDetailActivity"
             android:launchMode="singleTask" />
+        <activity android:name=".activity.webview.WebActivity" />
     </application>
 
 </manifest>
