@@ -96,6 +96,7 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
      * 听写UI监听器
      */
     private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
+        @Override
         public void onResult(RecognizerResult results, boolean isLast) {
             if (null != searchEt) {
                 String text = JsonUtils.handleXunFeiJson(results);
@@ -113,6 +114,7 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
         /**
          * 识别回调错误.
          */
+        @Override
         public void onError(SpeechError error) {
             ToastUtil.showMessage(DrugChooseActivity.this, error.getPlainDescription(true));
 
@@ -123,7 +125,6 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
     /**
      * 启动药品选择页面
      *
-     * @param context
      * @param list    已经选择了的药品
      */
     public static void start(Context context, List<DrugBean> list, int position,
@@ -163,7 +164,6 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
             public void OnRightTextClick(View v) {
                 if (drugChooseAdapter.getSelectList() == null || drugChooseAdapter.getSelectList().size() == 0) {
                     ToastUtil.showMessage(DrugChooseActivity.this, "请选择药品后再提交");
-                    return;
                 } else {
                     getController().drugsStock(drugChooseAdapter.getSelectList().get(0).getDrugsCode());
                 }
@@ -211,18 +211,21 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
         if (seletedList != null && seletedList.size() > 0) {
             for (int i = 0; i < seletedList.size(); i++) {
                 for (int j = 0; j < dataList.size(); j++) {
-                    if (dataList.get(j).getDrugsId() == seletedList.get(i).getDrugsId())
+                    if (dataList.get(j).getDrugsId() == seletedList.get(i).getDrugsId()) {
                         dataList.get(j).setSelecte(true);
+                    }
                 }
             }
             List<DrugBean> finalList = new ArrayList<>();
             for (int i = 0; i < dataList.size(); i++) {
-                if (!dataList.get(i).isSelecte())
+                if (!dataList.get(i).isSelecte()) {
                     finalList.add(dataList.get(i));
+                }
             }
             return finalList;
-        } else
+        } else {
             return dataList;
+        }
 
     }
 

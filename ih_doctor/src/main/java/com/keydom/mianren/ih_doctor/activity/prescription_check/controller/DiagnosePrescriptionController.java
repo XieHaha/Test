@@ -4,8 +4,6 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
-import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
-import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
@@ -19,6 +17,7 @@ import com.keydom.mianren.ih_doctor.bean.DiagnoseHandleBean;
 import com.keydom.mianren.ih_doctor.bean.DoctorPrescriptionDetailBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionMessageBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionModelBean;
+import com.keydom.mianren.ih_doctor.bean.UseDrugReasonBean;
 import com.keydom.mianren.ih_doctor.m_interface.OnModelAndCaseDialogListener;
 import com.keydom.mianren.ih_doctor.m_interface.OnModelDialogListener;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
@@ -74,7 +73,8 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                 }
                 break;
             case R.id.prescription_model_rl:
-                PrescriptionTempletActivity.start(getContext(), getView().getIsOutPrescription(),getView().getPatientId());
+                PrescriptionTempletActivity.start(getContext(), getView().getIsOutPrescription(),
+                        getView().getPatientId());
                 break;
             case R.id.submit_with_model:
                 if (getView().checkPrescription()) {
@@ -180,10 +180,11 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                 }
                 break;
             case R.id.drug_use_reason_tv:
-                OptionsPickerView pvOptions = new OptionsPickerBuilder(getContext(),
-                        (options1, option2, options3, view) -> getView().setDrugUseReason(options1)).build();
-                pvOptions.setPicker(getView().getDrugUseReasones());
-                pvOptions.show();
+                if (getView().getDrugUseReasones().size() > 0) {
+                    getView().showReasonDialog();
+                } else {
+                    getUseDrugReason();
+                }
                 break;
             default:
                 break;
@@ -231,6 +232,26 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
 
 
     /**
+     * 获取用药原因
+     */
+    private void getUseDrugReason() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getUseDrugReason(), new HttpSubscriber<List<UseDrugReasonBean>>(getContext(), getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable List<UseDrugReasonBean> data) {
+                getView().requestUseDrugReasonSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                getView().requestUseDrugReasonFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+
+    }
+
+    /**
      * 获取处方详情，修改处方的时候调用
      */
     public void getPrescriptionDetail() {
@@ -253,7 +274,7 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
     /**
      * 提交处置建议
      */
-    public void doctorHandleSuggest() {
+    private void doctorHandleSuggest() {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(DiagnoseApiService.class).doctorHandleSuggest(getView().getHandleMap()), new HttpSubscriber<DiagnoseHandleBean>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable DiagnoseHandleBean data) {

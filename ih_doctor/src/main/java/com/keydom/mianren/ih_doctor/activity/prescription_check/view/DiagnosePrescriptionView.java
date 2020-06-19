@@ -7,6 +7,7 @@ import com.keydom.mianren.ih_doctor.bean.DrugBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionMessageBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionModelBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionTemplateBean;
+import com.keydom.mianren.ih_doctor.bean.UseDrugReasonBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,7 +140,7 @@ public interface DiagnosePrescriptionView extends BaseView {
 
     boolean checkPrescription();
 
-    void removeDrug(int position,int childPosition);
+    void removeDrug(int position, int childPosition);
 
     void removePrescription(int position);
 
@@ -156,4 +157,10 @@ public interface DiagnosePrescriptionView extends BaseView {
     long getPatientId();
 
     void setIsOutPrescription(int isOutPrescription);
+
+    void requestUseDrugReasonSuccess(List<UseDrugReasonBean> data);
+
+    void showReasonDialog();
+
+    void requestUseDrugReasonFailed(String data);
 }

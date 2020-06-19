@@ -6,6 +6,7 @@ import com.keydom.mianren.ih_doctor.bean.DrugUseConfigBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionDetailBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionMessageBean;
+import com.keydom.mianren.ih_doctor.bean.UseDrugReasonBean;
 
 import java.util.List;
 import java.util.Map;
@@ -30,9 +31,6 @@ public interface PrescriptionService {
     /**
      * 药师处方列表
      * state -1或者不传是未审核 0,1已审核(0未通过 1通过)2,3配送 (2自取,3配送)4过期
-     *
-     * @param map
-     * @return
      */
     @GET("user/prescription/list")
     Observable<HttpResult<List<PrescriptionBean>>> getDrugsPrescriptionList(@QueryMap Map<String,
@@ -42,9 +40,6 @@ public interface PrescriptionService {
     /**
      * 获取医生处方列表
      * state -1或者不传是未审核 0,1已审核(0未通过 1通过)2,3配送 (2自取,3配送)4过期
-     *
-     * @param map
-     * @return
      */
     @GET("user/prescription/listDoctorPage")
     Observable<HttpResult<List<PrescriptionBean>>> getDoctorPrescriptionList(@QueryMap Map<String
@@ -53,28 +48,25 @@ public interface PrescriptionService {
 
     /**
      * 获取处方
-     *
-     * @param map
-     * @return
      */
     @GET("user/prescription/getDetailById")
     Observable<HttpResult<PrescriptionDetailBean>> getDrugControlPrescriptionDetail(@QueryMap Map<String, Object> map);
 
     /**
      * 获取处方详情
-     *
-     * @param map
-     * @return
      */
     @GET("user/prescription/getDetailById")
     Observable<HttpResult<DoctorPrescriptionDetailBean>> getDetailById(@QueryMap Map<String,
             Object> map);
 
     /**
+     * 用药原因
+     */
+    @GET("user/his/healthCateType")
+    Observable<HttpResult<List<UseDrugReasonBean>>> getUseDrugReason();
+
+    /**
      * 处方审核
-     *
-     * @param body
-     * @return
      */
     @POST("user/prescription/audit")
     Observable<HttpResult<String>> audit(@Body RequestBody body);
@@ -82,41 +74,32 @@ public interface PrescriptionService {
 
     /**
      * 处方提交
-     *
-     * @param body
-     * @return
      */
     @POST("user/prescription/save")
     Observable<HttpResult<PrescriptionMessageBean>> save(@Body RequestBody body);
 
     /**
      * 处方提交存为模版
-     *
-     * @param body
-     * @return
      */
     @POST("user/prescription/saveAndTemplate")
     Observable<HttpResult<PrescriptionMessageBean>> saveAndTemplate(@Body RequestBody body);
 
     /**
      * 获取给药途径、计量单位、用药频率、开方单位
-     *
-     * @return
      */
     @GET("user/prescription/drugsFrequencyList")
     Observable<HttpResult<DrugUseConfigBean>> drugsFrequencyList();
 
-//    /**
-//     * 药品用法列表
-//     *
-//     * @return
-//     */
-//    @GET("outer/drugsDict/drugsFrequencyList")
-//    Observable<HttpResult<DrugUseConfigBean>> getAllDrugsFrequencyList();
+    //    /**
+    //     * 药品用法列表
+    //     *
+    //
+    //     */
+    //    @GET("outer/drugsDict/drugsFrequencyList")
+    //    Observable<HttpResult<DrugUseConfigBean>> getAllDrugsFrequencyList();
+
     /**
      * 药品用法列表 （处方流转）
-     *
-     * @return
      */
     @GET("outer_mr/drugsDict/drugsFrequencyList")
     Observable<HttpResult<DrugUseConfigBean>> getAllDrugsFrequencyList();

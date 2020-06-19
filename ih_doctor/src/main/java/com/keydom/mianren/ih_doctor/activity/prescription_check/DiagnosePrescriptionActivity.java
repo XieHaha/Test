@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.keydom.ih_common.base.BaseControllerActivity;
@@ -54,6 +56,7 @@ import com.keydom.mianren.ih_doctor.bean.PrescriptionHeadBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionMessageBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionModelBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionTemplateBean;
+import com.keydom.mianren.ih_doctor.bean.UseDrugReasonBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.constant.ServiceConst;
@@ -110,8 +113,25 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
      */
     private LinearLayout drugUseReasonLayout;
     private TextView drugUseReasonTv;
+    /**
+     * 用药原因数据
+     */
+    private List<UseDrugReasonBean> useDrugReasonBeans;
+    /**
+     * 用药原因 name
+     */
     private ArrayList<String> drugUseReasones = new ArrayList<>();
-    private String drugUseReason;
+    /**
+     * 当前选择的用药原因
+     */
+    private String drugUseReason, drugUseReasonCode;
+    /**
+     * 当前用药原因position
+     */
+    private int curReasonPosition;
+    /**
+     * 是否需要填写用药原因
+     */
     private boolean needDrugUseReason;
     /**
      * 问诊单ID
@@ -175,8 +195,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     /**
      * 启动处置建议新建页面
      *
-     * @param context
-     * @param bean    问诊单对象
+     * @param bean 问诊单对象
      */
     public static void startHandle(Context context, InquiryBean bean) {
         Intent starter = new Intent(context, DiagnosePrescriptionActivity.class);
@@ -194,9 +213,6 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
      * 初始化界面
      */
     private void initView() {
-        drugUseReasones.add("慢性病");
-        drugUseReasones.add("病情需要");
-        drugUseReasones.add("病人要求");
         mScroller = findViewById(R.id.mScroller);
         reDiagnoseRb = findViewById(R.id.re_diagnose_rb);
         rediagnoseRl = findViewById(R.id.rediagnose_rl);
@@ -209,21 +225,6 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(false);
-       /* drugDetailListAdapter = new DrugDetailListAdapter(getContext(),selectDrugList, new
-       DrugDetailListAdapter.DeleteListener() {
-            @Override
-            public void delete(int positon) {
-                new GeneralDialog(getContext(), "确认删除该药品？", new GeneralDialog.OnCloseListener() {
-                    @Override
-                    public void onCommit() {
-                        selectDrugList.remove(positon);
-                        setDrugFee();
-                        drugDetailListAdapter.setNewData(selectDrugList);
-                    }
-                }).setTitle("提示").setNegativeButton("取消").setPositiveButton("确认").show();
-
-            }
-        });*/
 
         prescriptionAdapter = new PrescriptionAdapter(this, dataList);
         recyclerView.setAdapter(prescriptionAdapter);
@@ -524,7 +525,10 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
     @Override
     public void setDrugUseReason(int index) {
-        drugUseReason = drugUseReasones.get(index);
+        UseDrugReasonBean bean = useDrugReasonBeans.get(index);
+        curReasonPosition = index;
+        drugUseReason = bean.getName();
+        drugUseReasonCode = bean.getCode();
         drugUseReasonTv.setText(drugUseReason);
     }
 
@@ -564,6 +568,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     public Map<String, Object> getSaveMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("medicalReasonsName", drugUseReason);
+        map.put("medicalReasonsCode", drugUseReasonCode);
         map.put("isReturnVisit", isReturnVisit);
         map.put("mainComplaint", mainDec.getInputStr());
         map.put("auxiliaryInspect", checkRes.getInputStr());
@@ -590,10 +595,11 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         for (int i = 0; i < saveData.size(); i++) {
             CommitPrescriptionSavedBean commitPrescriptionSavedBean =
                     new CommitPrescriptionSavedBean();
-            if (templateList.get(i).isSavedAsTemplate())
+            if (templateList.get(i).isSavedAsTemplate()) {
                 commitPrescriptionSavedBean.setIsSaveTemplate(1);
-            else
+            } else {
                 commitPrescriptionSavedBean.setIsSaveTemplate(0);
+            }
             commitPrescriptionSavedBean.setPrescriptionTemplateName(templateList.get(i).getModelNameTemp() == null ? "" : templateList.get(i).getModelNameTemp());
             commitPrescriptionSavedBean.setPrescriptionTemplateType(templateList.get(i).getModelTypeTemp() == null ? "" : templateList.get(i).getModelTypeTemp());
             List<CommitPrescriptionSavedBean.DrugSavedBean> items = new ArrayList<>();
@@ -729,6 +735,29 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         pageLoadingFail();
     }
 
+    @Override
+    public void requestUseDrugReasonSuccess(List<UseDrugReasonBean> data) {
+        useDrugReasonBeans = data;
+        drugUseReasones.clear();
+        for (UseDrugReasonBean bean : data) {
+            drugUseReasones.add(bean.getName());
+        }
+        showReasonDialog();
+    }
+
+    @Override
+    public void showReasonDialog() {
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(getContext(),
+                (options1, option2, options3, view) -> setDrugUseReason(options1)).build();
+        pvOptions.setPicker(drugUseReasones);
+        pvOptions.setSelectOptions(curReasonPosition);
+        pvOptions.show();
+    }
+
+    @Override
+    public void requestUseDrugReasonFailed(String data) {
+        //用药原因获取失败
+    }
 
     @Override
     public Map<String, Object> getHandleMap() {
@@ -845,9 +874,9 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     @Override
     public void finish() {
         if (type == CREATE_PRESCRIPTION) {
-            if (isNeedLocalSave && isHaveEditInfo())
+            if (isNeedLocalSave && isHaveEditInfo()) {
                 savaLocalData();
-
+            }
         }
         super.finish();
 
@@ -867,11 +896,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     }
 
     private boolean isHaveEditInfo() {
-        if (!"".equals(mainDec.getInputStr()) || !"".equals(checkRes.getInputStr()) || !"".equals(dealIdea.getInputStr()) || !"".equals(medicalHistory.getInputStr()) || !"".equals(oversensitiveHistory.getInputStr()) || !"".equals(simpleDiagnose.getInputStr()) || saveData.size() != 0)
-
-            return true;
-        else
-            return false;
+        return !"".equals(mainDec.getInputStr()) || !"".equals(checkRes.getInputStr()) || !"".equals(dealIdea.getInputStr()) || !"".equals(medicalHistory.getInputStr()) || !"".equals(oversensitiveHistory.getInputStr()) || !"".equals(simpleDiagnose.getInputStr()) || saveData.size() != 0;
     }
 
     public List<MultiItemEntity> packagingData(List<List<DrugBean>> originalData) {
