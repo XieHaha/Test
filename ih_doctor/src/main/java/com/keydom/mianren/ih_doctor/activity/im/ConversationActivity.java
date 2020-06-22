@@ -301,7 +301,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     if (orderBean != null) {
                         DiagnosePatientInfoActivity.start(context, orderBean.getPatientId());
                     } else {
-                        PatientDatumActivity.start(context, message.getSessionId());
+                        if (message.getSessionType() == SessionTypeEnum.Team) {
+                            PatientDatumActivity.start(context,
+                                    message.getFromAccount().toUpperCase());
+                        } else {
+                            PatientDatumActivity.start(context, message.getSessionId());
+                        }
                     }
 
                 } else {
@@ -391,9 +396,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     dealExaminationAttachment((ExaminationAttachment) message.getAttachment());
                 } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
                     dealInspectionAttachment((InspectionAttachment) message.getAttachment());
-                } else
+                } else {
                     PrescriptionActivity.startCommon(context,
                             Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
+                }
                 return false;
             }
 
@@ -404,9 +410,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     dealExaminationAttachment((ExaminationAttachment) message.getAttachment());
                 } else if (message.getAttachment() instanceof InspectionAttachment) {//检验单
                     dealInspectionAttachment((InspectionAttachment) message.getAttachment());
-                } else
+                } else {
                     PrescriptionActivity.startCommon(context,
                             Long.parseLong(((ConsultationResultAttachment) message.getAttachment()).getId()));
+                }
                 return false;
             }
         });
@@ -1078,8 +1085,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 mHour--;
                 mMin = 59;
 
-            } else
+            } else {
                 mMin = 0;
+            }
 
             if (mHour == 0 && mMin == 0) {
                 // 倒计时结束

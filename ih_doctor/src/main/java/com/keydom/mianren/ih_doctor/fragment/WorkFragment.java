@@ -240,23 +240,26 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         });
         if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
             receiveOnlineName.setText("护理服务");
-            if (receiveNurse > 0 || visitNurse > 0)
+            if (receiveNurse > 0 || visitNurse > 0) {
                 receive_redpoint_view.setVisibility(View.VISIBLE);
-            else
+            } else {
                 receive_redpoint_view.setVisibility(View.GONE);
+            }
         } else if (SharePreferenceManager.getRoleId() == Const.ROLE_MEDICINE) {
             receiveOnlineName.setText("在线咨询");
-            if (receiveInquiry > 0)
+            if (receiveInquiry > 0) {
                 receive_redpoint_view.setVisibility(View.VISIBLE);
-            else
+            } else {
                 receive_redpoint_view.setVisibility(View.GONE);
+            }
 
         } else {
             receiveOnlineName.setText("网络门诊 （会员）");
-            if (receiveInquiry > 0)
+            if (receiveInquiry > 0) {
                 receive_redpoint_view.setVisibility(View.VISIBLE);
-            else
+            } else {
                 receive_redpoint_view.setVisibility(View.GONE);
+            }
         }
         setReloadListener((v, status) -> lazyLoad());
         refreshLayout.setPrimaryColorsId(R.color.transparent, R.color.fontClickEnable);
@@ -283,10 +286,11 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         visitNurse = homeBean.getVisitNurse();
         receiveReferral = homeBean.getReceiveReferral();
         MyApplication.receiveReferral = receiveReferral;
-        if (receiveReferral > 0)
+        if (receiveReferral > 0) {
             cooperate_redpoint_view.setVisibility(View.VISIBLE);
-        else
+        } else {
             cooperate_redpoint_view.setVisibility(View.GONE);
+        }
         MyApplication.userInfo = bean.getInfo();
         PushManager.setAlias(getContext(), SharePreferenceManager.getPhoneNumber());
         MyApplication.accessInfoBean = bean.getAuth();
@@ -359,21 +363,24 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
 
         workFunctionAdapter.setNewData(dataList);
         if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
-            if (receiveNurse > 0 || visitNurse > 0)
+            if (receiveNurse > 0 || visitNurse > 0) {
                 receive_redpoint_view.setVisibility(View.VISIBLE);
-            else
+            } else {
                 receive_redpoint_view.setVisibility(View.GONE);
+            }
         } else if (SharePreferenceManager.getRoleId() == Const.ROLE_MEDICINE) {
-            if (receiveInquiry > 0)
+            if (receiveInquiry > 0) {
                 receive_redpoint_view.setVisibility(View.VISIBLE);
-            else
+            } else {
                 receive_redpoint_view.setVisibility(View.GONE);
+            }
 
         } else {
-            if (receiveInquiry > 0)
+            if (receiveInquiry > 0) {
                 receive_redpoint_view.setVisibility(View.VISIBLE);
-            else
+            } else {
                 receive_redpoint_view.setVisibility(View.GONE);
+            }
         }
         topHospitalName.setText(MyApplication.userInfo.getHospitalName());
     }

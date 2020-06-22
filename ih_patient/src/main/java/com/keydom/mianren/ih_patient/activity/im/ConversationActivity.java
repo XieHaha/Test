@@ -85,7 +85,6 @@ import com.keydom.mianren.ih_patient.bean.entity.pharmacy.PharmacyBean;
 import com.keydom.mianren.ih_patient.bean.entity.pharmacy.PrescriptionItemEntity;
 import com.keydom.mianren.ih_patient.callback.GeneralCallback;
 import com.keydom.mianren.ih_patient.callback.MessageSingleClick;
-import com.keydom.mianren.ih_patient.callback.SingleClick;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.Type;
@@ -437,7 +436,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     private void initListener() {
         mMessageView.setOnConversationBehaviorListener(new IConversationBehaviorListener() {
-            @MessageSingleClick(1000)
+            //            @MessageSingleClick(1000)
             @Override
             public boolean onUserPortraitClick(Context context, IMMessage message) {
 
@@ -447,7 +446,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     com.orhanobut.logger.Logger.e("进入跳转头像方法");
                     Intent intent = new Intent(getContext(), DoctorOrNurseDetailActivity.class);
                     intent.putExtra("type", 0);
-                    intent.putExtra("doctorCode", message.getSessionId());
+                    if (message.getSessionType() == SessionTypeEnum.Team) {
+                        intent.putExtra("doctorCode", message.getFromAccount().toUpperCase());
+                    } else {
+                        intent.putExtra("doctorCode", message.getSessionId());
+                    }
                     startActivity(intent);
                 }
                 return false;

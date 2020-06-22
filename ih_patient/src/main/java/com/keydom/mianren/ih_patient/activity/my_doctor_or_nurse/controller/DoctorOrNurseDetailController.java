@@ -123,15 +123,17 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
     private void showApplyDialog(String type) {
         if (getView().getDoctorMainBean() != null && getView().getDoctorMainBean().getInfo() != null && getView().getDoctorMainBean().getInfo().getIsInquiry() == 1) {
             if (DiagnosesApplyDialog.VIDEODIAGNOSES.equals(type)) {
-                if (getView().getDoctorMainBean().getInfo().getIsEnabledVideo() == 1)
+                if (getView().getDoctorMainBean().getInfo().getIsEnabledVideo() == 1) {
                     getView().showApplyDialog(type);
-                else
+                } else {
                     ToastUtils.showShort("暂时不接受视频咨询");
+                }
             } else if (DiagnosesApplyDialog.PHOTODIAGNOSES.equals(type)) {
-                if (getView().getDoctorMainBean().getInfo().getIsEnabledImage() == 1)
+                if (getView().getDoctorMainBean().getInfo().getIsEnabledImage() == 1) {
                     getView().showApplyDialog(type);
-                else
+                } else {
                     ToastUtils.showShort("暂时不接受图文咨询");
+                }
             }
         } else {
             ToastUtils.showShort("暂时不接受咨询");
@@ -226,11 +228,9 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
         map.put("doctorCode", code);
         //        map.put("type", type);
         map.put("userId", Global.getUserId());
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getMyFollowDoctorDetail(map), new HttpSubscriber<DoctorMainBean>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getMyFollowDoctorDetail(map), new HttpSubscriber<DoctorMainBean>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable DoctorMainBean data) {
-                hideLoading();
                 List<MultiItemEntity> multiItemEntities = transFormList(data);
                 getView().getMainCallBack(multiItemEntities, data);
 
@@ -239,7 +239,6 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
-                hideLoading();
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -258,10 +257,11 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
             @Override
             public void requestComplete(@Nullable Integer data) {
                 if (data == 1) {
-                    if (type == 0)
+                    if (type == 0) {
                         showApplyDialog(DiagnosesApplyDialog.PHOTODIAGNOSES);
-                    else
+                    } else {
                         showApplyDialog(DiagnosesApplyDialog.VIDEODIAGNOSES);
+                    }
                 } else {
                     ToastUtil.showMessage(getContext(), "当前无法对该医生进行问诊服务");
                 }

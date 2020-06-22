@@ -166,12 +166,14 @@ public class DoctorIndexActivity extends BaseControllerActivity<DoctorIndexContr
         }
         if (doctorInfo.getJobTitleName() != null && !"".equals(doctorInfo.getJobTitleName())) {
             job_tv.setText(doctorInfo.getJobTitleName());
-        } else
+        } else {
             job_tv.setVisibility(View.GONE);
+        }
         if (doctorInfo.getDeptName() != null && !"".equals(doctorInfo.getDeptName())) {
             dept_tv.setText(doctorInfo.getDeptName());
-        } else
+        } else {
             dept_tv.setVisibility(View.GONE);
+        }
 
         if (doctorInfo.getIsInterrogation() == 1){
             doctor_online_tv.setBackgroundResource(R.drawable.doctor_online_chat_bg);
