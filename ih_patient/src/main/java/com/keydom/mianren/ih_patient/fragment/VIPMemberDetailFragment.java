@@ -94,11 +94,13 @@ public class VIPMemberDetailFragment extends BaseControllerFragment<VIPMemberDet
 
     public void refreshData(VIPDetailBean data) {
         if (null != data) {
-            if (!TextUtils.isEmpty(data.getCardNumber()))
+            if (!TextUtils.isEmpty(data.getCardNumber())) {
                 mCardNumTv.setText(data.getCardNumber());
+            }
 
-            if (!TextUtils.isEmpty(data.getCardHolder()))
+            if (!TextUtils.isEmpty(data.getCardHolder())) {
                 mCardNameTv.setText("持卡人：" + data.getCardHolder());
+            }
 
             if (null != data.getEndTime()) {
                 mCardDateTv.setText("有效期：" + DateUtils.getDate(data.getEndTime(),

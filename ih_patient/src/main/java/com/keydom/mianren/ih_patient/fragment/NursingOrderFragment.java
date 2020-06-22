@@ -66,6 +66,7 @@ public class NursingOrderFragment extends BaseControllerFragment<NursingOrderFra
 
     /**
      * fragment实例
+     *
      * @param status
      * @return
      */
@@ -97,56 +98,64 @@ public class NursingOrderFragment extends BaseControllerFragment<NursingOrderFra
         assert getArguments() != null;
         mStatus = getArguments().getInt(STATUS);
 
-        mRefreshLayout.setOnRefreshListener(refreshLayout -> switchState(mStatus,TypeEnum.REFRESH));
-        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> switchState(mStatus,TypeEnum.LOAD_MORE));
+        mRefreshLayout.setOnRefreshListener(refreshLayout -> switchState(mStatus,
+                TypeEnum.REFRESH));
+        mRefreshLayout.setOnLoadMoreListener(refreshLayout -> switchState(mStatus,
+                TypeEnum.LOAD_MORE));
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @SingleClick(1000)
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 
 
-            NursingOrderBean bean = (NursingOrderBean) adapter.getData().get(position);
-            switch (view.getId()) {
-                case R.id.num:
-                    if (bean.getState() == -2){
-                        getController().goChangeOrder(bean.getId(),bean.getState());
-                    }
-                    break;
-                case R.id.group:
-                    Intent i = new Intent();
-                    if (bean.getState() == -2) {
-                        return;
-                    } else if (bean.getState() == NursingOrderDetailBean.STATE0 || bean.getState() == NursingOrderDetailBean.STATE5) {
-                        i.putExtra(WaitForAdmissionActivity.ID, bean.getId());
-                        i.putExtra(WaitForAdmissionActivity.STATE, bean.getState());
-                        i.setClass(getContext(), WaitForAdmissionActivity.class);
-                        ActivityUtils.startActivity(i);
-                    } else {
-                        i.putExtra(SentListActivity.ID, bean.getId());
-                        i.putExtra(SentListActivity.STATE, bean.getState());
-                        i.setClass(getContext(), SentListActivity.class);
-                        ActivityUtils.startActivity(i);
-                    }
-                    break;
-                case R.id.go_pay:
-                    getController().getDataList(bean.getId(), bean.getState());
-                    break;
-                case R.id.assess:
-                    OrderEvaluateActivity.start(getContext(), OrderEvaluateBean.nursing_order_title, Type.NURSING_ORDER_EVALUATE, bean);
-                    break;
-                case R.id.charge_back:
-                    Intent i1 = new Intent(getContext(), ChargeBackOrderActivity.class);
-                    i1.putExtra(ChargeBackOrderActivity.ORDERNUM, bean.getOrderNumber());
-                    i1.putExtra(ChargeBackOrderActivity.STATUS, bean.getState());
-                    ActivityUtils.startActivity(i1);
-                    break;
+                NursingOrderBean bean = (NursingOrderBean) adapter.getData().get(position);
+                switch (view.getId()) {
+                    case R.id.num:
+                        if (bean.getState() == -2) {
+                            getController().goChangeOrder(bean.getId(), bean.getState());
+                        }
+                        break;
+                    case R.id.group:
+                        Intent i = new Intent();
+                        if (bean.getState() == -2) {
+                            return;
+                        } else if (bean.getState() == NursingOrderDetailBean.STATE0 || bean.getState() == NursingOrderDetailBean.STATE5) {
+                            i.putExtra(WaitForAdmissionActivity.ID, bean.getId());
+                            i.putExtra(WaitForAdmissionActivity.STATE, bean.getState());
+                            i.setClass(getContext(), WaitForAdmissionActivity.class);
+                            ActivityUtils.startActivity(i);
+                        } else {
+                            i.putExtra(SentListActivity.ID, bean.getId());
+                            i.putExtra(SentListActivity.STATE, bean.getState());
+                            i.setClass(getContext(), SentListActivity.class);
+                            ActivityUtils.startActivity(i);
+                        }
+                        break;
+                    case R.id.go_pay:
+                        getController().getDataList(bean.getId(), bean.getState());
+                        break;
+                    case R.id.assess:
+                        OrderEvaluateActivity.start(getContext(),
+                                OrderEvaluateBean.nursing_order_title,
+                                Type.NURSING_ORDER_EVALUATE, bean);
+                        break;
+                    case R.id.charge_back:
+                        Intent i1 = new Intent(getContext(), ChargeBackOrderActivity.class);
+                        i1.putExtra(ChargeBackOrderActivity.ORDERNUM, bean.getOrderNumber());
+                        i1.putExtra(ChargeBackOrderActivity.STATUS, bean.getState());
+                        ActivityUtils.startActivity(i1);
+                        break;
+                    default:
+                        break;
+                }
             }
-        }});
-        switchState(mStatus,TypeEnum.REFRESH);
+        });
+        switchState(mStatus, TypeEnum.REFRESH);
     }
 
     /**
      * 支付
+     *
      * @param type
      * @param bean
      * @param price
@@ -157,10 +166,11 @@ public class NursingOrderFragment extends BaseControllerFragment<NursingOrderFra
 
     /**
      * 根据状态更新列表
+     *
      * @param state
      */
     private void switchState(int state, TypeEnum typeEnum) {
-        getController().getNursingListData(state,typeEnum);
+        getController().getNursingListData(state, typeEnum);
     }
 
     @Override
@@ -168,10 +178,12 @@ public class NursingOrderFragment extends BaseControllerFragment<NursingOrderFra
         mRefreshLayout.finishLoadMore();
         mRefreshLayout.finishRefresh();
         mAdapter.removeAllFooterView();
-        if (data!=null && data.size()!=0){
+        if (data != null && data.size() != 0) {
             ImageView footer = new ImageView(getActivity());
             footer.setImageResource(R.mipmap.colorful_line);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams params =
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
             footer.setLayoutParams(params);
             mAdapter.addFooterView(footer);
 
@@ -179,7 +191,7 @@ public class NursingOrderFragment extends BaseControllerFragment<NursingOrderFra
             pageLoadingSuccess();
             if (typeEnum == TypeEnum.REFRESH) {
                 mAdapter.replaceData(data);
-            }else{
+            } else {
                 mAdapter.addData(data);
             }
             getController().currentPagePlus();
@@ -188,13 +200,13 @@ public class NursingOrderFragment extends BaseControllerFragment<NursingOrderFra
 
     @Override
     public void paySuccess() {
-        switchState(mStatus,TypeEnum.REFRESH);
+        switchState(mStatus, TypeEnum.REFRESH);
     }
 
     @Subscribe
     public void orderPaySuccess(Event event) {
-        if (event.getType() == EventType.NURSING_PAY_SUCCESS || event.getType() == EventType.CREATE_NURSING_SUCCESS  || event.getType() == EventType.CHANGE_NURSING_SUCCESS || event.getType() == EventType.Evaluted_success) {
-            switchState(mStatus,TypeEnum.REFRESH);
+        if (event.getType() == EventType.NURSING_PAY_SUCCESS || event.getType() == EventType.CREATE_NURSING_SUCCESS || event.getType() == EventType.CHANGE_NURSING_SUCCESS || event.getType() == EventType.Evaluted_success) {
+            switchState(mStatus, TypeEnum.REFRESH);
         }
     }
 
@@ -204,7 +216,7 @@ public class NursingOrderFragment extends BaseControllerFragment<NursingOrderFra
             return;
         }
         total = new BigDecimal(0.00);
-        if (data.getState() == NursingOrderDetailBean.STATE3 || data.getState() == NursingOrderDetailBean.STATE1 || data.getState() == NursingOrderDetailBean.STATE2 ||data.getState() == NursingOrderDetailBean.STATE4 || data.getState() == NursingOrderDetailBean.Evaluted) {
+        if (data.getState() == NursingOrderDetailBean.STATE3 || data.getState() == NursingOrderDetailBean.STATE1 || data.getState() == NursingOrderDetailBean.STATE2 || data.getState() == NursingOrderDetailBean.STATE4 || data.getState() == NursingOrderDetailBean.Evaluted) {
             if (data.getSubOrders() != null && data.getSubOrders().size() != 0) {
                 for (int i = 0; i < data.getSubOrders().size(); i++) {
                     if (data.getSubOrders().get(i) != null && data.getSubOrders().get(i).getPay() != 1 && data.getSubOrders().get(i).getFee() != null) {
@@ -223,7 +235,8 @@ public class NursingOrderFragment extends BaseControllerFragment<NursingOrderFra
         if (data.getState() == NursingOrderDetailBean.STATE5) {
             total = data.getNursingServiceOrderDetailBaseDto().getReservationSet();
         }
-        SelectDialogUtils.showPayDialog(getContext(), String.valueOf(total), "", new GeneralCallback.SelectPayMentListener() {
+        SelectDialogUtils.showPayDialog(getContext(), String.valueOf(total), "",
+                new GeneralCallback.SelectPayMentListener() {
             @Override
             public void getSelectPayMent(String type) {
                 int payType = 0;
@@ -240,8 +253,8 @@ public class NursingOrderFragment extends BaseControllerFragment<NursingOrderFra
 
     @Subscribe
     public void chargeBackSuccess(Event event) {
-        if (event.getType() == EventType.CHARGEBACKSUCCESS ) {
-            switchState(mStatus,TypeEnum.REFRESH);
+        if (event.getType() == EventType.CHARGEBACKSUCCESS) {
+            switchState(mStatus, TypeEnum.REFRESH);
         }
     }
 

@@ -181,9 +181,9 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
             @SingleClick(1000)
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (recommendDocAndNurAdapter.getData().get(position).getIsInquiry() == 0)
+                if (recommendDocAndNurAdapter.getData().get(position).getIsInquiry() == 0) {
                     ToastUtil.showMessage(getContext(), "该医生暂未开通问诊服务");
-                else {
+                } else {
                     Logger.e(recommendDocAndNurAdapter.getData().get(position).getUuid());
                     Intent intent = new Intent(getContext(), DoctorOrNurseDetailActivity.class);
                     int type = 0;
@@ -242,8 +242,9 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
                                         int oldy) {
                 if (y > 0) {
                     titleLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                } else
+                } else {
                     titleLayout.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+                }
             }
         });
         /*getController().getHomeData(getHomeQueryMap());
@@ -361,8 +362,9 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
         if (isOnline) {
             map.put("isOnline", 1);
         }
-        if (areaId != -1)
+        if (areaId != -1) {
             map.put("hospitalAreaId", areaId);
+        }
         map.put("isRecommend", 1);
         map.put("hospitalId", App.hospitalId);
         map.put("deptId", deptId);
@@ -454,7 +456,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
                 }
                 childDepList.add(parendChildList);
             }
-            if (deptPickerView == null)
+            if (deptPickerView == null) {
                 deptPickerView = new OptionsPickerBuilder(getContext(),
                         new OnOptionsSelectListener() {
                             @Override
@@ -463,6 +465,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
                                 setDept(options1, option2);
                             }
                         }).build();
+            }
             deptPickerView.setPicker(parentDepList, childDepList);
             deptPickerView.show();
         } else {
@@ -488,7 +491,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
             for (int i = 0; i < data.size(); i++) {
                 areaList.add(data.get(i).getName());
             }
-            if (areaPickerView == null)
+            if (areaPickerView == null) {
                 areaPickerView = new OptionsPickerBuilder(getContext(),
                         new OnOptionsSelectListener() {
                             @Override
@@ -502,6 +505,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
                                 getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline), TypeEnum.REFRESH);
                             }
                         }).build();
+            }
             areaPickerView.setPicker(areaList);
             areaPickerView.show();
         } else {
@@ -515,8 +519,9 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
         Logger.e("执行打开popupwindow");
         for (int i = 0; i < hospitalList.size(); i++) {
             hospitalList.get(i).setSelected(false);
-            if (hospitalList.get(i).getName().equals(App.hospitalName))
+            if (hospitalList.get(i).getName().equals(App.hospitalName)) {
                 hospitalList.get(i).setSelected(true);
+            }
         }
         chooseHospitalAdapter.notifyDataSetChanged();
         View view =
@@ -538,8 +543,9 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
                     hospitalList.addAll(hospitalListFromService);
                     for (int position = 0; position < hospitalList.size(); position++) {
                         hospitalList.get(position).setSelected(false);
-                        if (hospitalList.get(position).getName().equals(App.hospitalName))
+                        if (hospitalList.get(position).getName().equals(App.hospitalName)) {
                             hospitalList.get(position).setSelected(true);
+                        }
                     }
                     chooseHospitalAdapter.notifyDataSetChanged();
                 }
@@ -564,8 +570,9 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
                     }
                     for (int i = 0; i < hospitalList.size(); i++) {
                         hospitalList.get(i).setSelected(false);
-                        if (hospitalList.get(i).getName().equals(App.hospitalName))
+                        if (hospitalList.get(i).getName().equals(App.hospitalName)) {
                             hospitalList.get(i).setSelected(true);
+                        }
                     }
                     chooseHospitalAdapter.notifyDataSetChanged();
                 }
@@ -642,8 +649,9 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
                             Uri content_url = Uri.parse(dataList.get(position).getPictureUrl());
                             intent.setData(content_url);
                             startActivity(intent);
-                        } else
+                        } else {
                             Logger.e("地址非法");
+                        }
 
 
                     }
@@ -672,12 +680,14 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
         this.data.clear();
         this.data.addAll(data);
         if (data != null && data.size() == 1) {
-            if (data.get(0).getId() == App.hospitalId)
+            if (data.get(0).getId() == App.hospitalId) {
                 choose_area_tv.setVisibility(View.GONE);
-            else
+            } else {
                 choose_area_tv.setVisibility(View.VISIBLE);
-        } else
+            }
+        } else {
             choose_area_tv.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -689,8 +699,9 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
     public Map<String, Object> getQueryDeptMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("hospitalId", App.hospitalId);
-        if (areaId != -1)
+        if (areaId != -1) {
             map.put("hospitalAreaId", areaId);
+        }
         return map;
     }
 

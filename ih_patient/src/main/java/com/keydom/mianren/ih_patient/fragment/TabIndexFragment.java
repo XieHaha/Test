@@ -146,7 +146,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mTopRightTitleTv.setText("诊间缴费");
         mTopRightIconIv.setImageResource(R.mipmap.vip_mine_my_nurse_icon);
 
-//        mTopRightRootRl.setOnClickListener(v -> NurseMainActivity.start(getContext()));
+        //        mTopRightRootRl.setOnClickListener(v -> NurseMainActivity.start(getContext()));
         mTopRightRootRl.setOnClickListener(v -> PaymentRecordActivity.start(getContext()));
         mTopLeftRootRl.setOnClickListener(v -> DiagnoseMainActivity.start(getContext()));
     }
@@ -457,8 +457,9 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                         Uri content_url = Uri.parse(List.get(position).getPictureUrl());
                         intent.setData(content_url);
                         startActivity(intent);
-                    } else
+                    } else {
                         Logger.e("地址非法");
+                    }
 
 
                 }
@@ -532,8 +533,9 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                             Uri content_url = Uri.parse(List.get(position).getPictureUrl());
                             intent.setData(content_url);
                             startActivity(intent);
-                        } else
+                        } else {
                             Logger.e("地址非法");
+                        }
 
 
                     }
@@ -605,8 +607,9 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         }
         if (dataList == null || dataList.size() == 0) {
             if (page == 1) {
-                if (empty_layout.getVisibility() == View.GONE)
+                if (empty_layout.getVisibility() == View.GONE) {
                     empty_layout.setVisibility(View.VISIBLE);
+                }
                 empty_text.setText("暂无文章，我们正努力更新中");
                 empty_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -834,7 +837,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         chooseHospitalAdapter.notifyDataSetChanged();
         View view =
                 LayoutInflater.from(getContext()).inflate(R.layout.index_choose_hospital_popup_layout, titleLayout, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.hospital_list_rv);
+        RecyclerView recyclerView = view.findViewById(R.id.hospital_list_rv);
         TextView cancelTv = view.findViewById(R.id.cancel_tv);
         View backgroudView = view.findViewById(R.id.backgroud_view);
         EditText hospitalSearchEdt = view.findViewById(R.id.hospital_search_edt);

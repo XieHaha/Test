@@ -256,15 +256,17 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
     @Override
     public void onResume() {
         super.onResume();
-        if (Global.getUserId() != -1)
+        if (Global.getUserId() != -1) {
             getController().getMyUnreadMessageNum();
+        }
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser)
+        if (isVisibleToUser) {
             onResume();
+        }
     }
 
     @Override
@@ -539,8 +541,9 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         Logger.e("执行打开popupwindow");
         for (int i = 0; i < hospitalList.size(); i++) {
             hospitalList.get(i).setSelected(false);
-            if (hospitalList.get(i).getName().equals(App.hospitalName))
+            if (hospitalList.get(i).getName().equals(App.hospitalName)) {
                 hospitalList.get(i).setSelected(true);
+            }
         }
         chooseHospitalAdapter.notifyDataSetChanged();
         View view =
@@ -562,8 +565,9 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
                     hospitalList.addAll(hospitalListFromService);
                     for (int position = 0; position < hospitalList.size(); position++) {
                         hospitalList.get(position).setSelected(false);
-                        if (hospitalList.get(position).getName().equals(App.hospitalName))
+                        if (hospitalList.get(position).getName().equals(App.hospitalName)) {
                             hospitalList.get(position).setSelected(true);
+                        }
                     }
                     chooseHospitalAdapter.notifyDataSetChanged();
                 }
@@ -589,8 +593,9 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
                     }
                     for (int position = 0; position < hospitalList.size(); position++) {
                         hospitalList.get(position).setSelected(false);
-                        if (hospitalList.get(position).getName().equals(App.hospitalName))
+                        if (hospitalList.get(position).getName().equals(App.hospitalName)) {
                             hospitalList.get(position).setSelected(true);
+                        }
                     }
                     chooseHospitalAdapter.notifyDataSetChanged();
                 }
@@ -628,6 +633,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         hospitalPopupWindow.setFocusable(true);
         hospitalPopupWindow.setWidth(titleBarLayout.getWidth());
         hospitalPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
             public void onDismiss() {
                 backgroudView.setVisibility(View.INVISIBLE);
                 hospitalList.clear();
@@ -641,10 +647,11 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
 
     @Override
     public void getUnreadMessagaCountSuccess(Integer count) {
-        if (count > 0)
+        if (count > 0) {
             mineItemMyMessage.setRedpointVisiable(true);
-        else
+        } else {
             mineItemMyMessage.setRedpointVisiable(false);
+        }
     }
 
     @Override

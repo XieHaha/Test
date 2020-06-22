@@ -191,10 +191,11 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
                         }
                     }).setTitle("提示").setPositiveButton("确认").show();
                 } else {
-                    if (App.userInfo.getIdCard() != null && !"".equals(App.userInfo.getIdCard()))
+                    if (App.userInfo.getIdCard() != null && !"".equals(App.userInfo.getIdCard())) {
                         NursingChooseHospitalActivity.start(getContext(), null);
-                    else
+                    } else {
                         ToastUtil.showMessage(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约护理服务");
+                    }
                 }
             }
         });
@@ -203,8 +204,9 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
             public void onScrollChanged(MyScollerView scrollView, int x, int y, int oldx, int oldy) {
                 if(y>0){
                     titleLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                }else
+                }else {
                     titleLayout.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+                }
 
             }
         });
@@ -330,12 +332,13 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
             if ("专科护理".equals(nurseCategoryIdAndNameDtosBean.getName())) {
                 Global.setProfessionalProjectTypeId(nurseCategoryIdAndNameDtosBean.getId());
             }
-            if ("基础护理".equals(nurseCategoryIdAndNameDtosBean.getName()))
+            if ("基础护理".equals(nurseCategoryIdAndNameDtosBean.getName())) {
                 nurse_function_base_nursing.setVisibility(View.VISIBLE);
-            else if ("专科护理".equals(nurseCategoryIdAndNameDtosBean.getName()))
+            } else if ("专科护理".equals(nurseCategoryIdAndNameDtosBean.getName())) {
                 nurse_function_professional_nursing.setVisibility(View.VISIBLE);
-            else if ("产后母婴".equals(nurseCategoryIdAndNameDtosBean.getName()))
+            } else if ("产后母婴".equals(nurseCategoryIdAndNameDtosBean.getName())) {
                 nurse_function_after_pregnancy.setVisibility(View.VISIBLE);
+            }
         }
         Global.setProjectTypeMap(projectTypeMap);
         unpayTag=data.getPatientHomePageWaitDealServiceDto().getUnpayTag();
@@ -353,8 +356,9 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
             first_hot_project_name = data.getNurseProjectDetailDtos().get(0).getName();
             hot_service_one_layout.setOnClickListener(getController());
 
-            if(null != data.getNurseProjectDetailDtos().get(0).getHotImg())
+            if(null != data.getNurseProjectDetailDtos().get(0).getHotImg()) {
                 Glide.with(getContext()).load(Const.IMAGE_HOST + data.getNurseProjectDetailDtos().get(0).getHotImg()).into(hot_service_one_img);
+            }
         }
 
 
@@ -365,8 +369,9 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
             second_hot_project_id = data.getNurseProjectDetailDtos().get(1).getId();
             second_hot_project_name = data.getNurseProjectDetailDtos().get(1).getName();
             hot_service_two_layout.setOnClickListener(getController());
-            if(null != data.getNurseProjectDetailDtos().get(1).getHotImg())
+            if(null != data.getNurseProjectDetailDtos().get(1).getHotImg()) {
                 Glide.with(getContext()).load(Const.IMAGE_HOST + data.getNurseProjectDetailDtos().get(1).getHotImg()).into(hot_service_two_img);
+            }
 
         }
 
@@ -378,8 +383,9 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
             third_hot_project_id = data.getNurseProjectDetailDtos().get(2).getId();
             third_hot_project_name = data.getNurseProjectDetailDtos().get(2).getName();
             hot_service_three_layout.setOnClickListener(getController());
-            if(null != data.getNurseProjectDetailDtos().get(2).getHotImg())
+            if(null != data.getNurseProjectDetailDtos().get(2).getHotImg()) {
                 Glide.with(getContext()).load(Const.IMAGE_HOST + data.getNurseProjectDetailDtos().get(2).getHotImg()).into(hot_service_three_img);
+            }
 
         }
 
@@ -391,8 +397,9 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
             fourth_hot_project_id = data.getNurseProjectDetailDtos().get(3).getId();
             fourth_hot_project_name = data.getNurseProjectDetailDtos().get(3).getName();
             hot_service_four_layout.setOnClickListener(getController());
-            if(null != data.getNurseProjectDetailDtos().get(3).getHotImg())
+            if(null != data.getNurseProjectDetailDtos().get(3).getHotImg()) {
                 Glide.with(getContext()).load(Const.IMAGE_HOST + data.getNurseProjectDetailDtos().get(3).getHotImg()).into(hot_service_four_img);
+            }
 
         }
 
@@ -404,8 +411,9 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
             fifth_hot_project_id = data.getNurseProjectDetailDtos().get(4).getId();
             fifth_hot_project_name = data.getNurseProjectDetailDtos().get(4).getName();
             hot_service_five_layout.setOnClickListener(getController());
-            if(null != data.getNurseProjectDetailDtos().get(4).getHotImg())
+            if(null != data.getNurseProjectDetailDtos().get(4).getHotImg()) {
                 Glide.with(getContext()).load(Const.IMAGE_HOST + data.getNurseProjectDetailDtos().get(4).getHotImg()).into(hot_service_five_img);
+            }
         }
 
 
@@ -416,8 +424,9 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
             sixth_hot_project_id = data.getNurseProjectDetailDtos().get(5).getId();
             sixth_hot_project_name = data.getNurseProjectDetailDtos().get(5).getName();
             hot_service_six_layout.setOnClickListener(getController());
-            if(null != data.getNurseProjectDetailDtos().get(5).getHotImg())
+            if(null != data.getNurseProjectDetailDtos().get(5).getHotImg()) {
                 Glide.with(getContext()).load(Const.IMAGE_HOST + data.getNurseProjectDetailDtos().get(5).getHotImg()).into(hot_service_six_img);
+            }
         }
 
     }
@@ -475,10 +484,11 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
 
     @Override
     public long getProjectTypeId(String keyName) {
-        if (projectTypeMap.containsKey(keyName))
+        if (projectTypeMap.containsKey(keyName)) {
             return projectTypeMap.get(keyName);
-        else
+        } else {
             return -1;
+        }
 
     }
 
@@ -527,8 +537,9 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
         Logger.e("执行打开popupwindow");
         for (int position = 0; position <hospitalList.size() ; position++) {
             hospitalList.get(position).setSelected(false);
-            if( hospitalList.get(position).getName().equals(App.hospitalName))
+            if( hospitalList.get(position).getName().equals(App.hospitalName)) {
                 hospitalList.get(position).setSelected(true);
+            }
         }
         chooseHospitalAdapter.notifyDataSetChanged();
 
@@ -550,8 +561,9 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
                     hospitalList.addAll(hospitalListFromService);
                     for (int position = 0; position <hospitalList.size() ; position++) {
                         hospitalList.get(position).setSelected(false);
-                        if( hospitalList.get(position).getName().equals(App.hospitalName))
+                        if( hospitalList.get(position).getName().equals(App.hospitalName)) {
                             hospitalList.get(position).setSelected(true);
+                        }
                     }
                     chooseHospitalAdapter.notifyDataSetChanged();
                 }
@@ -577,8 +589,9 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
                     }
                     for (int position = 0; position <hospitalList.size() ; position++) {
                         hospitalList.get(position).setSelected(false);
-                        if( hospitalList.get(position).getName().equals(App.hospitalName))
+                        if( hospitalList.get(position).getName().equals(App.hospitalName)) {
                             hospitalList.get(position).setSelected(true);
+                        }
                     }
                     chooseHospitalAdapter.notifyDataSetChanged();
                 }
@@ -616,6 +629,7 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
         hospitalPopupWindow.setFocusable(true);
         hospitalPopupWindow.setWidth(titleLayout.getWidth());
         hospitalPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
             public void onDismiss() {
                 backgroudView.setVisibility(View.INVISIBLE);
                 hospitalList.clear();
@@ -648,7 +662,9 @@ public class TabNurseFragment extends BaseControllerFragment<TabNurseController>
                             Uri content_url = Uri.parse(dataList.get(position).getPictureUrl());
                             intent.setData(content_url);
                             startActivity(intent);
-                        } else Logger.e("地址非法");
+                        } else {
+                            Logger.e("地址非法");
+                        }
 
 
                     }

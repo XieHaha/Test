@@ -28,13 +28,13 @@ import java.util.Map;
  * 绑卡页面
  */
 public class CardBindFragment extends BaseControllerFragment<CardBindController> implements CardBindView {
-    private TextView bind_card_tv, card_type_label,name_label_tv;
-    private InterceptorEditText cardUserNameEdt,cardNumEdt;
+    private TextView bind_card_tv, card_type_label, name_label_tv;
+    private InterceptorEditText cardUserNameEdt, cardNumEdt;
     private RadioGroup radioGroup;
     //卡类型 EntityCard 实体卡  ElectronicCard 电子卡
     private int cardType = 1;
-    private final int EntityCard=1;
-    private final int ElectronicCard=2;
+    private final int EntityCard = 1;
+    private final int ElectronicCard = 2;
     private String nameStr = "";
     private String eleCardNumber = "";
 
@@ -44,7 +44,8 @@ public class CardBindFragment extends BaseControllerFragment<CardBindController>
     }
 
     @Override
-    public void onViewCreated(@NotNull View view, @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NotNull View view,
+                              @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         bind_card_tv = view.findViewById(R.id.bind_card_tv);
         card_type_label = view.findViewById(R.id.card_type_label);
@@ -53,9 +54,9 @@ public class CardBindFragment extends BaseControllerFragment<CardBindController>
         cardUserNameEdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
+                if (hasFocus) {
                     name_label_tv.setTextColor(Color.parseColor("#3F98F7"));
-                }else {
+                } else {
                     name_label_tv.setTextColor(Color.parseColor("#666666"));
 
                 }
@@ -65,9 +66,9 @@ public class CardBindFragment extends BaseControllerFragment<CardBindController>
         cardNumEdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
+                if (hasFocus) {
                     card_type_label.setTextColor(Color.parseColor("#3F98F7"));
-                }else {
+                } else {
                     card_type_label.setTextColor(Color.parseColor("#666666"));
 
                 }
@@ -115,10 +116,12 @@ public class CardBindFragment extends BaseControllerFragment<CardBindController>
             if (!RegexUtils.isIDCard15(idcard) && !RegexUtils.isIDCard18(idcard)) {
                 ToastUtils.showShort("请输入正确的身份证号");
                 return null;
-            } else
+            } else {
                 map.put("idCard", idcard);
+            }
         }
-        if (nameStr == null || "".equals(nameStr) || cardNumEdt.getText().toString() == null || "".equals(cardNumEdt.getText().toString())) {
+        if (nameStr == null || "".equals(nameStr) || cardNumEdt.getText().toString() == null ||
+                "".equals(cardNumEdt.getText().toString())) {
             ToastUtil.showMessage(getContext(), "请完善绑卡信息");
             return null;
         }
