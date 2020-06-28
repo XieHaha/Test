@@ -33,6 +33,7 @@ import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.im.listener.IConversationBehaviorListener;
+import com.keydom.ih_common.im.manager.ImPreferences;
 import com.keydom.ih_common.im.model.custom.ConsultationResultAttachment;
 import com.keydom.ih_common.im.model.custom.DisposalAdviceAttachment;
 import com.keydom.ih_common.im.model.custom.EndInquiryAttachment;
@@ -102,6 +103,7 @@ import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
+import com.netease.nimlib.sdk.team.model.TeamMember;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -654,6 +656,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             if (orderBean != null && orderBean.getInquisitionType() == 1) {
                 if (!isWaitingForComment) {
                     videoPlugin = new VideoPlugin(this);
+                    videoPlugin.setOnClickCallback(() -> teamMembersFilter());
                     videoPlugin.setTeam(team);
                     videoPlugin.setTeamId(sessionId);
                     mMessageView.addPlugin(videoPlugin);
@@ -825,6 +828,24 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mInquiryTypeTv.setTextColor(ContextCompat.getColor(this, R.color.im_status_ing));
         mQuestionRemainingTimeTv.setVisibility(View.VISIBLE);
         mMessageView.hideExtension();
+    }
+
+    /**
+     * 群聊成员处理
+     */
+    private void teamMembersFilter() {
+        ImClient.getTeamProvider().fetchTeamMemberList(sessionId,
+                (success, result, code) -> {
+                    ArrayList<String> accounts = new ArrayList<>();
+                    for (TeamMember member : result) {
+                        if (TextUtils.equals(member.getAccount(),
+                                ImPreferences.getUserAccount().toLowerCase())) {
+                            continue;
+                        }
+                        accounts.add(member.getAccount());
+                    }
+                    startTeamAVChat(accounts);
+                });
     }
 
     @Override

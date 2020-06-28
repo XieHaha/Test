@@ -10,7 +10,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.keydom.ih_common.R;
-import com.keydom.ih_common.avchatkit.selector.activity.ContactSelectActivity;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.listener.IPluginModule;
 import com.keydom.ih_common.im.widget.ImExtension;
@@ -54,14 +53,27 @@ public class VideoPlugin implements IPluginModule {
     public void onClick(AppCompatActivity activity, ImExtension extension) {
         if (requestCallPermissions(activity) && FloatPermissionManager.INSTANCE.applyFloatWindow(activity)) {
             if (team) {
-                Intent intent = new Intent(activity, ContactSelectActivity.class);
-                intent.putExtra("teamId", teamId);
-                activity.startActivityForResult(intent, 1000);
+                //                Intent intent = new Intent(activity, ContactSelectActivity.class);
+                //                intent.putExtra("teamId", teamId);
+                //                activity.startActivityForResult(intent, 1000);
+                if (onClickCallback != null) {
+                    onClickCallback.callback();
+                }
             } else {
                 ImClient.startAVChatCall(activity, extension.accountId,
                         AVChatType.VIDEO.getValue());
             }
         }
+    }
+
+    private OnClickCallback onClickCallback;
+
+    public void setOnClickCallback(OnClickCallback onClickCallback) {
+        this.onClickCallback = onClickCallback;
+    }
+
+    public interface OnClickCallback {
+        void callback();
     }
 
     @Override
