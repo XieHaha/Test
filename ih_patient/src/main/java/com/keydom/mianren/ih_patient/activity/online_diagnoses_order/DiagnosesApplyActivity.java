@@ -43,7 +43,6 @@ import com.keydom.mianren.ih_patient.view.DiagnosesApplyDialog;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
@@ -111,6 +110,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
      * 听写UI监听器
      */
     private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
+        @Override
         public void onResult(RecognizerResult results, boolean isLast) {
             if (null != descEdt) {
                 String text = JsonUtils.handleXunFeiJson(results);
@@ -127,6 +127,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         /**
          * 识别回调错误.
          */
+        @Override
         public void onError(SpeechError error) {
             ToastUtil.showMessage(DiagnosesApplyActivity.this, error.getPlainDescription(true));
 
@@ -264,14 +265,16 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
             getController().getManagerUserList();
         }
         if (event.getType() == EventType.SENDSELECTDIAGNOSESPATIENT) {
-            if (medicalCardInfo != null)
+            if (medicalCardInfo != null) {
                 medicalCardInfo = null;
+            }
             managerUserBean = (ManagerUserBean) event.getData();
             choosePatientCardTv.setText(managerUserBean.getName());
-            if (managerUserBean.getPastMedicalHistory() == null || "".equals(managerUserBean.getPastMedicalHistory()))
+            if (managerUserBean.getPastMedicalHistory() == null || "".equals(managerUserBean.getPastMedicalHistory())) {
                 choosePatientTv.setText("该就诊人无病史，点击前往编辑");
-            else
+            } else {
                 choosePatientTv.setText(managerUserBean.getPastMedicalHistory());
+            }
             //            choosePatientTv.setClickable(false);
         }
     }
@@ -318,10 +321,11 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         for (ManagerUserBean managerUserBean : data) {
             if (medicalCardInfo != null && medicalCardInfo.getIdCard() != null) {
                 if (medicalCardInfo.getIdCard().equals(managerUserBean.getCardId())) {
-                    if (managerUserBean.getPastMedicalHistory() == null || "".equals(managerUserBean.getPastMedicalHistory()))
+                    if (managerUserBean.getPastMedicalHistory() == null || "".equals(managerUserBean.getPastMedicalHistory())) {
                         choosePatientTv.setText("该就诊人无病史，点击前往编辑");
-                    else
+                    } else {
                         choosePatientTv.setText(managerUserBean.getPastMedicalHistory());
+                    }
                     this.managerUserBean = managerUserBean;
                     isCardPatientMatch = true;
                     break;
@@ -331,18 +335,20 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
                 }
             } else if (this.managerUserBean != null && this.managerUserBean.getCardId() != null) {
                 if (this.managerUserBean.getCardId().equals(managerUserBean.getCardId())) {
-                    if (managerUserBean.getPastMedicalHistory() == null || "".equals(managerUserBean.getPastMedicalHistory()))
+                    if (managerUserBean.getPastMedicalHistory() == null || "".equals(managerUserBean.getPastMedicalHistory())) {
                         choosePatientTv.setText("该就诊人无病史，点击前往编辑");
-                    else
+                    } else {
                         choosePatientTv.setText(managerUserBean.getPastMedicalHistory());
+                    }
                     this.managerUserBean = managerUserBean;
                     break;
                 }
             }
 
         }
-        if (!isCardPatientMatch && medicalCardInfo != null)
+        if (!isCardPatientMatch && medicalCardInfo != null) {
             ToastUtil.showMessage(getContext(), "该卡没有对应的就诊人，请重新换一张就诊卡或者创建对应就诊人");
+        }
     }
 
     @Override
@@ -408,12 +414,12 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         if (!"".equals(getImageStr())) {
             map.put("conditionData", getImageStr());
         } else {
-          /*  ToastUtil.showMessage(getContext(), "请至少选择一张病情图片依据");
-            return null;*/
+            //            ToastUtil.showMessage(getContext(), "请至少选择一张病情图片依据");
+            //            return null;
         }
         if (descEdt.getText().toString().trim().length() < 10) {
-            ToastUtil.showMessage(getContext(), "病情描述至少要求写入10字，请修改后再尝试提交");
-            return null;
+            //            ToastUtil.showMessage(getContext(), "病情描述至少要求写入10字，请修改后再尝试提交");
+            //            return null;
         } else {
             map.put("conditionDesc", descEdt.getText().toString().trim());
         }
@@ -431,10 +437,10 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
 
         if (DiagnosesApplyDialog.VIDEODIAGNOSES.equals(type) || DiagnosesApplyDialog.VIP_DIAGNOSES.equals(type)) {
             map.put("type", 1);
-//            map.put("inquisyType", 0);
+            //            map.put("inquisyType", 0);
         } else {
             map.put("type", 0);
-//            map.put("inquisyType", 1);
+            //            map.put("inquisyType", 1);
         }
         return map;
     }

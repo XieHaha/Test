@@ -13,11 +13,10 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.ToastUtil;
-import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.AnamnesisActivity;
-import com.keydom.mianren.ih_patient.activity.index_main.MainActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
+import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.OnlineDiagnonsesOrderActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.view.DiagnosesApplyView;
 import com.keydom.mianren.ih_patient.bean.DoctorInfo;
 import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
@@ -68,11 +67,14 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
                     intent.putExtra(AnamnesisActivity.STATUS, 2);
                     intent.putExtra(AnamnesisActivity.ISFROMDIAGNOSEAPPLY, true);
                     ActivityUtils.startActivity(intent);
-                } else
+                } else {
                     ToastUtil.showMessage(getContext(), "没有选中的就诊人");
+                }
                 break;
             case R.id.commit_tv:
                 saveInquisition(getView().getQueryMap(), getView().getPayDesc());
+                break;
+            default:
                 break;
         }
     }
@@ -165,7 +167,7 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
     /**
      * 发起支付
      */
-    public void inquiryPay(Map<String, Object> map, int type) {
+    private void inquiryPay(Map<String, Object> map, int type) {
         if (map != null) {
             ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).inquiryPay(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false, false) {
                 @Override
@@ -239,9 +241,13 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
      * 提交成功后提示
      */
     private void showApplySuccess() {
-        new GeneralDialog(getContext(),
-                "问诊订单支付成功，近期请留意订单状态以及接诊医生给你发送的消息"
-                , () -> MainActivity.start(getContext(), false)).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
+        //        new GeneralDialog(getContext(),
+        //                "问诊订单支付成功，近期请留意订单状态以及接诊医生给你发送的消息"
+        //                , () -> MainActivity.start(getContext(), false)).setTitle("提示")
+        //                .setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认")
+        //                .show();
+        OnlineDiagnonsesOrderActivity.start(getContext(),
+                OnlineDiagnonsesOrderActivity.WAITEDIAGNOSES);
     }
 
     /**
@@ -285,9 +291,10 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
                 ToastUtil.showMessage(mContext, "最多只能选择九张图片");
             }
 
-        } else
+        } else {
             //            CommonUtils.previewImage(getContext(), getView().getPicUrl(position));
             CommonUtils.previewImageList(getContext(), getView().getPicList(), position, true);
+        }
     }
 
 }
