@@ -35,7 +35,7 @@ public class DiagnosesOrderBean implements Serializable {
     @JSONField(name = "sex")
     private int sex;
     @JSONField(name = "age")
-    private int age;
+    private String age;
     @JSONField(name = "avatar")
     private String avatar;
     @JSONField(name = "applyTime")
@@ -143,11 +143,11 @@ public class DiagnosesOrderBean implements Serializable {
         this.sex = sex;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
