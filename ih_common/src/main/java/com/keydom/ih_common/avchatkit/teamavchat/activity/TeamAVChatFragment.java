@@ -165,6 +165,10 @@ public class TeamAVChatFragment extends Fragment {
      * 是否为未邀请的会诊医生
      */
     private boolean outConsultationDoctor;
+    /**
+     * 是否为会诊视频发起人
+     */
+    private boolean isCreateMDT = false;
 
     public static TeamAVChatFragment newInstance(boolean receivedCall, String teamId,
                                                  ArrayList<String> accounts, boolean isApply,
@@ -220,26 +224,23 @@ public class TeamAVChatFragment extends Fragment {
      */
     public void startConsultation() {
         destroyRTC = false;
-        if (isApply) {
-            ImClient.createRoom(getContext(), teamId, accounts, AVChatKit.teamChatType,
-                    new CreateRoomCallback() {
-                        @Override
-                        public void success(String id) {
-                            joinRoom();
-                        }
+        ImClient.createRoom(getContext(), teamId, accounts, AVChatKit.teamChatType,
+                new CreateRoomCallback() {
+                    @Override
+                    public void success(String id) {
+                        isCreateMDT = true;
+                        joinRoom();
+                    }
 
-                        @Override
-                        public void failed(int code) {
-                            if (code == 417) {
-                                joinRoom();
-                            } else {
-                                ToastUtil.showMessage(getContext(), "创建聊天室失败！");
-                            }
+                    @Override
+                    public void failed(int code) {
+                        if (code == 417) {
+                            joinRoom();
+                        } else {
+                            ToastUtil.showMessage(getContext(), "创建聊天室失败！");
                         }
-                    });
-        } else {
-            joinRoom();
-        }
+                    }
+                });
     }
 
     /**
@@ -368,11 +369,7 @@ public class TeamAVChatFragment extends Fragment {
         consutationLayout = view.findViewById(R.id.team_consultation_layout);
         consutationLayout.setVisibility(View.VISIBLE);
         TextView start = consutationLayout.findViewById(R.id.start);
-        if (isApply) {
-            start.setText("开始会诊");
-        } else {
-            start.setText("加入会诊室");
-        }
+        start.setText("开始会诊");
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -413,14 +410,15 @@ public class TeamAVChatFragment extends Fragment {
         }
     }
 
-    /*
+    /**
      * 设置通话状态
      */
     private void setChatting(boolean isChatting) {
         TeamAVChatProfile.sharedInstance().setTeamAVChatting(isChatting);
     }
 
-    /*
+
+    /**
      * 接听界面
      */
     private void showReceivedCallLayout() {
@@ -459,7 +457,7 @@ public class TeamAVChatFragment extends Fragment {
         startAutoRejectTask();
     }
 
-    /*
+    /**
      * 通话界面
      */
     private void showSurfaceLayout() {
@@ -597,7 +595,7 @@ public class TeamAVChatFragment extends Fragment {
 
         @Override
         public void onAudioRecordingCompletion(String filePath) {
-            if (isApply) {
+            if (isCreateMDT) {
                 LogUtil.i(TAG, "录制结束...filePath:" + filePath);
                 //音频录制回调
                 if (!TextUtils.isEmpty(filePath)) {
@@ -642,7 +640,7 @@ public class TeamAVChatFragment extends Fragment {
         }
         updateAudioMuteButtonState();
 
-        if (isApply) {
+        if (isCreateMDT) {
             //开始录制音频
             boolean startAudio = AVChatManager.getInstance().startAudioRecording();
             LogUtil.i(TAG, "startAudio..." + startAudio);
@@ -738,7 +736,7 @@ public class TeamAVChatFragment extends Fragment {
         }
 
         try {
-            if (isApply) {
+            if (isCreateMDT) {
                 //结束音频录制
                 AVChatManager.getInstance().stopAudioRecording();
             }
