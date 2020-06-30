@@ -30,11 +30,19 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp_13"
             android:layout_toEndOf="@id/user_icon"
+            android:background="@drawable/corner3_ffeb3b_bg"
+            android:drawableStart="@mipmap/icon_vip_label"
+            android:drawablePadding="@dimen/dp_5"
             android:ellipsize="end"
+            android:gravity="center"
             android:lines="1"
-            android:maxWidth="@dimen/dp_80"
-            android:textColor="@color/primary_font_color"
-            android:textSize="@dimen/sp_14"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_4"
+            android:paddingEnd="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_4"
+            android:textColor="@color/nursing_status_red"
+            android:textSize="@dimen/sp_12"
+            android:textStyle="bold"
             tools:text="风梳烟沐" />
 
         <TextView
@@ -44,18 +52,26 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp_13"
             android:layout_toEndOf="@id/user_name"
-            android:textColor="@color/fontColorDirection"
+            android:textColor="@color/color_69"
             android:textSize="@dimen/sp_12"
             tools:text="52岁" />
+
+        <View
+            android:layout_width="@dimen/dp_2"
+            android:layout_height="@dimen/dp_12"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_5"
+            android:layout_toEndOf="@id/user_age"
+            android:background="@color/color_69" />
 
         <TextView
             android:id="@+id/user_sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/dp_6"
+            android:layout_marginStart="@dimen/dp_12"
             android:layout_toEndOf="@id/user_age"
-            android:textColor="@color/fontColorDirection"
+            android:textColor="@color/color_69"
             android:textSize="@dimen/sp_12"
             tools:text="男" />
 

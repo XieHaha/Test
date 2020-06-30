@@ -39,6 +39,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.InputStream;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -331,8 +332,7 @@ public class CommonUtils {
     public static boolean containsEmoji3(String value) {
         boolean flag = false;
         try {
-            Pattern p = Pattern
-                    .compile("[\\p{Han}\\p{P}A-Za-z0-9]");
+            Pattern p = Pattern.compile("[\\p{Han}\\p{P}A-Za-z0-9]");
             Matcher m = p.matcher(value);
             flag = m.find();
         } catch (Exception e) {
@@ -428,10 +428,11 @@ public class CommonUtils {
 
     public static String stringToUnicode(char ch) {
         String str = "";
-        if (ch > 255)
+        if (ch > 255) {
             str += "\\u" + Integer.toHexString(ch);
-        else
+        } else {
             str += "\\" + Integer.toHexString(ch);
+        }
 
         return str;
     }
@@ -451,8 +452,8 @@ public class CommonUtils {
         List<String> strList = new ArrayList<>();
         if (str != null) {
             String[] icons = str.split(",");
-            for (int i = 0; i < icons.length; i++) {
-                strList.add(Const.IMAGE_HOST + icons[i]);
+            for (String icon : icons) {
+                strList.add(Const.IMAGE_HOST + icon);
             }
         }
         return strList;
@@ -522,8 +523,9 @@ public class CommonUtils {
         List<PackageInfo> installedPackages = manager.getInstalledPackages(0);
         if (installedPackages != null) {
             for (PackageInfo info : installedPackages) {
-                if (info.packageName.equals(packageName))
+                if (info.packageName.equals(packageName)) {
                     return true;
+                }
             }
         }
         return false;
@@ -562,10 +564,11 @@ public class CommonUtils {
         List<LocalMedia> mediaList = new ArrayList<>();
         for (int i = 0; i < pathList.size(); i++) {
             LocalMedia media = new LocalMedia();
-            if (isNeedAddhead)
+            if (isNeedAddhead) {
                 media.setPath(Const.IMAGE_HOST + pathList.get(i));
-            else
+            } else {
                 media.setPath(pathList.get(i));
+            }
             mediaList.add(media);
         }
 
@@ -657,12 +660,12 @@ public class CommonUtils {
         }
         char[] keywords = keyword.toCharArray();
         SpannableString spannableString = new SpannableString(content);
-        for (int i = 0; i < keywords.length; i++) {
-            int index = content.indexOf(keywords[i]);
+        for (char keyword1 : keywords) {
+            int index = content.indexOf(keyword1);
             while (index >= 0) {
                 spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#3F98F7")),
                         index, index + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                index = content.indexOf(keywords[i], index + 1);
+                index = content.indexOf(keyword1, index + 1);
             }
         }
 

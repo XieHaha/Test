@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,36 +111,50 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
             final InquiryBean bean = mDatas.get(position);
             GlideUtils.load(userIcon, Const.IMAGE_HOST + bean.getUserAvatar(), 0, 0, false, null);
             userName.setText(bean.getName());
-            userAge.setText(bean.getAge() + "岁");
+            if (bean.getIsVip() == 1) {
+                userName.setTextColor(ContextCompat.getColor(mContext, R.color.nursing_status_red));
+                userName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+                Drawable leftImg = ContextCompat.getDrawable(mContext, R.mipmap.icon_vip_label);
+                leftImg.setBounds(0, 0, leftImg.getMinimumWidth(), leftImg.getMinimumHeight());
+                userName.setCompoundDrawables(leftImg, null, null, null);
+                userName.setBackgroundResource(R.drawable.corner3_ffeb3b_bg);
+            } else {
+                userName.setTextColor(ContextCompat.getColor(mContext, R.color.other_login_color));
+                userName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                userName.setCompoundDrawables(null, null, null, null);
+                userName.setBackground(null);
+            }
+
+            userAge.setText(bean.getAge());
             userSex.setText(CommonUtils.getSex(bean.getSex()));
             diagnoseDec.setText(bean.getConditionDesc());
             diagnoseTime.setText(bean.getApplyTime());
             checkIdea.setText(bean.getRemark());
             Drawable img;
             if (bean.getSource() == 1) {
-                Drawable leftimg =
-                        mContext.getResources().getDrawable(R.mipmap.diagnose_change_icon);
-                leftimg.setBounds(0, 0, leftimg.getMinimumWidth(), leftimg.getMinimumHeight());
+                Drawable leftImg = ContextCompat.getDrawable(mContext,
+                        R.mipmap.diagnose_change_icon);
+                leftImg.setBounds(0, 0, leftImg.getMinimumWidth(), leftImg.getMinimumHeight());
                 orderTypeTv.setText("转诊");
                 orderTypeTv.setTextColor(mContext.getResources().getColor(R.color.income_bg));
-                orderTypeTv.setCompoundDrawables(leftimg, null, null, null);
+                orderTypeTv.setCompoundDrawables(leftImg, null, null, null);
             } else {
                 if (bean.getInquisitionType() == 0) {
-                    Drawable leftimg =
-                            mContext.getResources().getDrawable(R.mipmap.diagnose_illustration);
-                    leftimg.setBounds(0, 0, leftimg.getMinimumWidth(), leftimg.getMinimumHeight());
+                    Drawable leftImg = ContextCompat.getDrawable(mContext,
+                            R.mipmap.diagnose_illustration);
+                    leftImg.setBounds(0, 0, leftImg.getMinimumWidth(), leftImg.getMinimumHeight());
                     if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
                         orderTypeTv.setText("图文咨询");
                     } else {
                         orderTypeTv.setText("图文问诊");
                     }
                     orderTypeTv.setTextColor(mContext.getResources().getColor(R.color.font_order_type_image_with_video));
-                    orderTypeTv.setCompoundDrawables(leftimg, null, null, null);
+                    orderTypeTv.setCompoundDrawables(leftImg, null, null, null);
                 } else {
-                    Drawable leftimg =
-                            mContext.getResources().getDrawable(R.mipmap.video_diagnoses_icon);
-                    leftimg.setBounds(0, 0, leftimg.getMinimumWidth(), leftimg.getMinimumHeight());
-                    orderTypeTv.setCompoundDrawables(leftimg, null, null, null);
+                    Drawable leftImg = ContextCompat.getDrawable(mContext,
+                            R.mipmap.video_diagnoses_icon);
+                    leftImg.setBounds(0, 0, leftImg.getMinimumWidth(), leftImg.getMinimumHeight());
+                    orderTypeTv.setCompoundDrawables(leftImg, null, null, null);
                     if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
                         orderTypeTv.setText("视频咨询");
                     } else {

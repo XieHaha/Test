@@ -2,6 +2,7 @@ package com.keydom.mianren.ih_patient.adapter;
 
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -173,12 +174,12 @@ public class DiagnosesOrderAdapter extends BaseQuickAdapter<DiagnosesOrderBean, 
         }
         if (item.getInquisitionType() == 0) {
             diagnosesTypeTv.setText("图文问诊");
-            Drawable leftImg = mContext.getResources().getDrawable(R.mipmap.photo_diagnoses_icon);
+            Drawable leftImg = ContextCompat.getDrawable(mContext,R.mipmap.photo_diagnoses_icon);
             leftImg.setBounds(0, 0, leftImg.getMinimumWidth(), leftImg.getMinimumHeight());
             diagnosesTypeTv.setCompoundDrawables(leftImg, null, null, null);
         } else {
             diagnosesTypeTv.setText("视频问诊");
-            Drawable leftImg = mContext.getResources().getDrawable(R.mipmap.video_diagnoses_icon);
+            Drawable leftImg = ContextCompat.getDrawable(mContext,R.mipmap.video_diagnoses_icon);
             leftImg.setBounds(0, 0, leftImg.getMinimumWidth(), leftImg.getMinimumHeight());
             diagnosesTypeTv.setCompoundDrawables(leftImg, null, null, null);
         }
