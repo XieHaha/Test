@@ -29,7 +29,7 @@ ext {
             circleDialogVersion       : "3.0.1",
             roundedimageviewVersion   : "2.2.1",
             MPAndroidChartVersion     : "v3.1.0-alpha",
-            nimlibVersion             : "5.9.0",
+            nimlibVersion             : "7.7.2",
             rxpermissionsVersion      : "0.10.2",
             jpushVersion              :"3.1.8",
             jcoreVersion              :"1.2.5",

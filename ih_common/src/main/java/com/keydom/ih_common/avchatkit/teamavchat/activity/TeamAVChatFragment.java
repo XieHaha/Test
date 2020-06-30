@@ -55,11 +55,11 @@ import com.netease.nimlib.sdk.avchat.constant.AVChatType;
 import com.netease.nimlib.sdk.avchat.constant.AVChatUserRole;
 import com.netease.nimlib.sdk.avchat.constant.AVChatVideoCropRatio;
 import com.netease.nimlib.sdk.avchat.constant.AVChatVideoScalingType;
-import com.netease.nimlib.sdk.avchat.model.AVChatCameraCapturer;
 import com.netease.nimlib.sdk.avchat.model.AVChatControlEvent;
 import com.netease.nimlib.sdk.avchat.model.AVChatData;
 import com.netease.nimlib.sdk.avchat.model.AVChatParameters;
-import com.netease.nimlib.sdk.avchat.model.AVChatVideoCapturerFactory;
+import com.netease.nimlib.sdk.avchat.video.AVChatCameraCapturer;
+import com.netease.nimlib.sdk.avchat.video.AVChatVideoCapturerFactory;
 import com.netease.nrtc.video.render.IVideoRender;
 
 import org.greenrobot.eventbus.EventBus;
@@ -499,7 +499,7 @@ public class TeamAVChatFragment extends Fragment {
         AVChatManager.getInstance().enableVideo();
         LogUtil.i(TAG, "start rtc done");
 
-        mVideoCapturer = AVChatVideoCapturerFactory.createCameraCapturer();
+        mVideoCapturer = AVChatVideoCapturerFactory.createCameraPolicyCapturer(true);
         AVChatManager.getInstance().setupVideoCapturer(mVideoCapturer);
 
         // state observer

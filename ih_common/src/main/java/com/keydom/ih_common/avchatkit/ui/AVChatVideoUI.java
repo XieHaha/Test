@@ -33,9 +33,9 @@ import com.keydom.ih_common.avchatkit.module.AVSwitchListener;
 import com.netease.nimlib.sdk.avchat.AVChatManager;
 import com.netease.nimlib.sdk.avchat.constant.AVChatType;
 import com.netease.nimlib.sdk.avchat.constant.AVChatVideoScalingType;
-import com.netease.nimlib.sdk.avchat.model.AVChatCameraCapturer;
 import com.netease.nimlib.sdk.avchat.model.AVChatData;
 import com.netease.nimlib.sdk.avchat.model.AVChatSurfaceViewRenderer;
+import com.netease.nimlib.sdk.avchat.video.AVChatCameraCapturer;
 import com.netease.nrtc.video.render.IVideoRender;
 
 import java.util.List;
@@ -210,8 +210,9 @@ public class AVChatVideoUI implements View.OnClickListener, ToggleListener {
                     break;
                 case MotionEvent.ACTION_MOVE:
                     final int diff = Math.max(Math.abs(lastX - x), Math.abs(lastY - y));
-                    if (diff < TOUCH_SLOP)
+                    if (diff < TOUCH_SLOP) {
                         break;
+                    }
 
                     if (paddingRect == null) {
                         paddingRect = new Rect(ScreenUtil.dip2px(10), ScreenUtil.dip2px(20), ScreenUtil.dip2px(10),
@@ -294,8 +295,9 @@ public class AVChatVideoUI implements View.OnClickListener, ToggleListener {
      * ************************** video 初始化 ***********************
      */
     private void findVideoViews() {
-        if (videoInit)
+        if (videoInit) {
             return;
+        }
         View videoRoot = root.findViewById(R.id.avchat_video_layout);
         topRoot = videoRoot.findViewById(R.id.avchat_video_top_control);
         switchAudio = topRoot.findViewById(R.id.avchat_video_switch_audio);
@@ -594,8 +596,9 @@ public class AVChatVideoUI implements View.OnClickListener, ToggleListener {
 
     private void enableCameraToggle() {
         if (shouldEnableToggle) {
-            if (canSwitchCamera && AVChatCameraCapturer.hasMultipleCameras())
+            if (canSwitchCamera && AVChatCameraCapturer.hasMultipleCameras()) {
                 switchCameraToggle.enable();
+            }
         }
     }
 
@@ -733,10 +736,11 @@ public class AVChatVideoUI implements View.OnClickListener, ToggleListener {
     // 本地关闭了摄像头
     private void localVideoOff() {
         isLocalVideoOff = true;
-        if (localPreviewInSmallSize)
+        if (localPreviewInSmallSize) {
             closeSmallSizePreview();
-        else
+        } else {
             showNotificationLayout(LOCAL_CLOSE_CAMERA);
+        }
     }
 
     // 对方关闭了摄像头

@@ -965,6 +965,26 @@ public class ImClient {
     }
 
     /**
+     * 设置是否允许播放远端用户语音流、视频流数据。
+     *
+     * @param muted true 不解码
+     */
+    public static void muteRemoteAudioAndVideo(String account, boolean muted) {
+        //音频
+        AVChatManager.getInstance().muteRemoteAudio(account, muted);
+        //视频
+        AVChatManager.getInstance().muteRemoteVideo(account, muted);
+    }
+
+    public static boolean isRemoteAudioMuted(String account) {
+        return AVChatManager.getInstance().isRemoteAudioMuted(account);
+    }
+
+    public static boolean isRemoteVideoMuted(String account) {
+        return AVChatManager.getInstance().isRemoteVideoMuted(account);
+    }
+
+    /**
      * 发送消息
      *
      * @param imMessage 消息实体

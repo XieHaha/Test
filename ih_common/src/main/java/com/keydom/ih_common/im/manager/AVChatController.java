@@ -17,10 +17,10 @@ import com.netease.nimlib.sdk.avchat.AVChatCallback;
 import com.netease.nimlib.sdk.avchat.AVChatManager;
 import com.netease.nimlib.sdk.avchat.constant.AVChatControlCommand;
 import com.netease.nimlib.sdk.avchat.constant.AVChatType;
-import com.netease.nimlib.sdk.avchat.model.AVChatCameraCapturer;
 import com.netease.nimlib.sdk.avchat.model.AVChatData;
 import com.netease.nimlib.sdk.avchat.model.AVChatNotifyOption;
-import com.netease.nimlib.sdk.avchat.model.AVChatVideoCapturerFactory;
+import com.netease.nimlib.sdk.avchat.video.AVChatCameraCapturer;
+import com.netease.nimlib.sdk.avchat.video.AVChatVideoCapturerFactory;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -100,7 +100,7 @@ public class AVChatController {
         if (avChatType == AVChatType.VIDEO) {
             AVChatManager.getInstance().enableVideo();
             if (mVideoCapturer == null) {
-                mVideoCapturer = AVChatVideoCapturerFactory.createCameraCapturer();
+                mVideoCapturer = AVChatVideoCapturerFactory.createCameraPolicyCapturer(true);
                 if (AVChatManager.getInstance().setupVideoCapturer(mVideoCapturer)) {
                     AVChatManager.getInstance().startVideoPreview();
                 }
@@ -144,7 +144,7 @@ public class AVChatController {
         if (avChatType == AVChatType.VIDEO) {
             AVChatManager.getInstance().enableVideo();
             if (mVideoCapturer == null) {
-                mVideoCapturer = AVChatVideoCapturerFactory.createCameraCapturer();
+                mVideoCapturer = AVChatVideoCapturerFactory.createCameraPolicyCapturer(true);
                 AVChatManager.getInstance().setupVideoCapturer(mVideoCapturer);
             }
             AVChatManager.getInstance().startVideoPreview();
