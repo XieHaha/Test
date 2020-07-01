@@ -31,6 +31,7 @@ import com.keydom.ih_common.im.manager.TeamDataCache;
 import com.keydom.ih_common.im.model.AVChatExtras;
 import com.keydom.ih_common.minterface.OnLoginListener;
 import com.keydom.ih_common.push.PushManager;
+import com.keydom.ih_common.receive.HomeWatcherReceiver;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.App;
@@ -121,6 +122,8 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
         isNeedJump = getIntent().getBooleanExtra("isNeedJump", false);
         initLoginStatus();
         EventBus.getDefault().register(this);
+
+        registerHomeKeyReceiver();
     }
 
     @Override
@@ -194,8 +197,9 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                     App.userInfo = userInfo;
                     PushManager.setAlias(getContext(), userInfo.getId() + "");
                     App.isNeedInit = false;
-                    if (isNeedJump)
+                    if (isNeedJump) {
                         MyMessageActivity.start(getContext(), Type.MYMESSAGE, null);
+                    }
                 }
 
                 @Override
@@ -232,8 +236,9 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                     public void accept(Boolean granted) throws Exception {
                         if (granted) {
                             Logger.e("权限已打开");
-                            if (locationClient == null)
+                            if (locationClient == null) {
                                 locationClient = new LocationClient(getContext());
+                            }
                             MyLocationListener myListener = new MyLocationListener();
                             locationClient.registerLocationListener(myListener);
                             LocationClientOption option = new LocationClientOption();
@@ -277,6 +282,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
         if (netWorkBroadCast != null) {
             unregisterReceiver(netWorkBroadCast);
         }
+        unregisterHomeKeyReceiver();
         EventBus.getDefault().unregister(this);
         super.onDestroy();
 
@@ -344,10 +350,11 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                             JSONArray array = jsonObject.getJSONArray("typeAndNames");
                             JSONObject typeObj = array.getJSONObject(0);
                             int type;
-                            if (typeObj.getInt("type") == 1)
+                            if (typeObj.getInt("type") == 1) {
                                 type = 0;
-                            else
+                            } else {
                                 type = 1;
+                            }
                             String code = jsonObject.getString("userCode");
                             DoctorOrNurseDetailActivity.startDoctorPage(MainActivity.this, type,
                                     code);
@@ -489,4 +496,17 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
         getController().hideLoading();
     }
 
+    private static HomeWatcherReceiver mHomeKeyReceiver = null;
+
+    private void registerHomeKeyReceiver() {
+        mHomeKeyReceiver = new HomeWatcherReceiver();
+        final IntentFilter homeFilter = new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+        registerReceiver(mHomeKeyReceiver, homeFilter);
+    }
+
+    private void unregisterHomeKeyReceiver() {
+        if (null != mHomeKeyReceiver) {
+            unregisterReceiver(mHomeKeyReceiver);
+        }
+    }
 }

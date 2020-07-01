@@ -40,7 +40,10 @@ public class TeamAVChatProfile {
     private static final int ID = 3;
 
     private boolean isTeamAVChatting = false;
-    private boolean isSyncComplete = true; // 未开始也算同步完成，可能存在不启动同步的情况
+    /**
+     * 未开始也算同步完成，可能存在不启动同步的情况
+     */
+    private boolean isSyncComplete = true;
 
     public String buildContent(String roomName, String teamID, List<String> accounts,
                                String teamName) {
