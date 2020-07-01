@@ -36,7 +36,9 @@ import com.keydom.ih_common.avchatkit.teamavchat.TeamAVChatNotification;
 import com.keydom.ih_common.avchatkit.teamavchat.TeamAVChatVoiceMuteDialog;
 import com.keydom.ih_common.avchatkit.teamavchat.adapter.TeamAVChatAdapter;
 import com.keydom.ih_common.avchatkit.teamavchat.module.TeamAVChatItem;
+import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.listener.observer.SimpleAVChatStateObserver;
+import com.keydom.ih_common.utils.CommonUtils;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.ResponseCode;
@@ -51,11 +53,11 @@ import com.netease.nimlib.sdk.avchat.constant.AVChatType;
 import com.netease.nimlib.sdk.avchat.constant.AVChatUserRole;
 import com.netease.nimlib.sdk.avchat.constant.AVChatVideoCropRatio;
 import com.netease.nimlib.sdk.avchat.constant.AVChatVideoScalingType;
-import com.netease.nimlib.sdk.avchat.model.AVChatCameraCapturer;
 import com.netease.nimlib.sdk.avchat.model.AVChatControlEvent;
 import com.netease.nimlib.sdk.avchat.model.AVChatData;
 import com.netease.nimlib.sdk.avchat.model.AVChatParameters;
-import com.netease.nimlib.sdk.avchat.model.AVChatVideoCapturerFactory;
+import com.netease.nimlib.sdk.avchat.video.AVChatCameraCapturer;
+import com.netease.nimlib.sdk.avchat.video.AVChatVideoCapturerFactory;
 import com.netease.nrtc.video.render.IVideoRender;
 
 import java.util.ArrayList;
@@ -345,11 +347,11 @@ public class TeamAVChatActivity extends UI {
     private void showSurfaceLayout() {
         // 列表
         surfaceLayout.setVisibility(View.VISIBLE);
-        recyclerView =  surfaceLayout.findViewById(R.id.recycler_view);
+        recyclerView = surfaceLayout.findViewById(R.id.recycler_view);
         initRecyclerView();
 
         // 通话计时
-        timerText =  surfaceLayout.findViewById(R.id.timer_text);
+        timerText = surfaceLayout.findViewById(R.id.timer_text);
 
         // 控制按钮
         ViewGroup settingLayout = surfaceLayout.findViewById(R.id.avchat_setting_layout);
@@ -381,7 +383,7 @@ public class TeamAVChatActivity extends UI {
         AVChatManager.getInstance().enableVideo();
         LogUtil.i(TAG, "start rtc done");
 
-        mVideoCapturer = AVChatVideoCapturerFactory.createCameraCapturer();
+        mVideoCapturer = AVChatVideoCapturerFactory.createCameraPolicyCapturer(true);
         AVChatManager.getInstance().setupVideoCapturer(mVideoCapturer);
 
         // state observer
@@ -393,6 +395,7 @@ public class TeamAVChatActivity extends UI {
             public void onJoinedChannel(int code, String audioFile, String videoFile, int i) {
                 if (code == 200) {
                     onJoinRoomSuccess();
+                    muteUserAudioAndVideo("");
                 } else {
                     onJoinRoomFailed(code, null);
                 }
@@ -400,6 +403,7 @@ public class TeamAVChatActivity extends UI {
 
             @Override
             public void onUserJoined(String account) {
+                muteUserAudioAndVideo(account);
                 onAVChatUserJoined(account);
             }
 
@@ -484,6 +488,26 @@ public class TeamAVChatActivity extends UI {
         } else {
             showToast("join room failed, code=" + code + ", e=" + (e == null ? "" :
                     e.getMessage()));
+        }
+    }
+
+    /**
+     * 屏蔽音视频
+     */
+    private void muteUserAudioAndVideo(String account) {
+        if ("com.keydom.mianren.ih_patient".equals(CommonUtils.getPackageName(this))) {
+            if (TextUtils.isEmpty(account)) {
+                //第一个为接待人不屏蔽
+                for (int i = 1; i < accounts.size(); i++) {
+                    String userCode = accounts.get(i);
+                    if (userCode.equalsIgnoreCase(AVChatKit.getAccount())) {
+                        continue;
+                    }
+                    ImClient.muteRemoteAudioAndVideo(userCode, true);
+                }
+            } else {
+                ImClient.muteRemoteAudioAndVideo(account, true);
+            }
         }
     }
 
