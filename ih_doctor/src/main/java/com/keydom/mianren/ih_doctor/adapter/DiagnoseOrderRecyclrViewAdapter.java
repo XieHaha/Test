@@ -152,7 +152,7 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
                     orderTypeTv.setCompoundDrawables(leftImg, null, null, null);
                 } else {
                     Drawable leftImg = ContextCompat.getDrawable(mContext,
-                            R.mipmap.video_diagnoses_icon);
+                            R.mipmap.diagnose_change_icon);
                     leftImg.setBounds(0, 0, leftImg.getMinimumWidth(), leftImg.getMinimumHeight());
                     orderTypeTv.setCompoundDrawables(leftImg, null, null, null);
                     if (SharePreferenceManager.getRoleId() == Const.ROLE_NURSE) {
@@ -160,7 +160,7 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
                     } else {
                         orderTypeTv.setText("视频问诊");
                     }
-                    orderTypeTv.setTextColor(mContext.getResources().getColor(R.color.font_order_type_image_with_video));
+                    orderTypeTv.setTextColor(ContextCompat.getColor(mContext, R.color.income_bg));
                 }
             }
             orderStatus.setVisibility(View.VISIBLE);

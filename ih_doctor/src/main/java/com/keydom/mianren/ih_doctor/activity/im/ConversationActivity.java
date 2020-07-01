@@ -688,7 +688,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mInquiryTypeTv.setTextColor(ContextCompat.getColor(this, R.color.im_status_ing));
         mQuestionRemainingTimeTv.setVisibility(View.VISIBLE);
         mVisitingLl.setVisibility(View.GONE);
-        mMessageView.showExtension();
+        if (orderBean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())) {
+            mMessageView.showExtension();
+        } else {
+            mMessageView.hideExtension();
+        }
     }
 
     /**
@@ -702,7 +706,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mInquiryTypeTv.setTextColor(ContextCompat.getColor(this, R.color.im_status_ing));
         mEndTheConsultationLl.setVisibility(View.GONE);
         mQuestionRemainingTimeTv.setVisibility(View.VISIBLE);
-        mMessageView.showExtension();
+        if (orderBean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())) {
+            mMessageView.showExtension();
+        } else {
+            mMessageView.hideExtension();
+        }
     }
 
     @SingleClick(1000)
@@ -718,7 +726,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 break;
             case R.id.back_ll:
                 mEndTheConsultationLl.setVisibility(View.GONE);
-                mMessageView.showExtension();
+                if (orderBean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())) {
+                    mMessageView.showExtension();
+                } else {
+                    mMessageView.hideExtension();
+                }
                 break;
             case R.id.diagnostic_prescription_ll:
                 if (MyApplication.serviceEnable(new String[]{ServiceConst.DOCTOR_PRESCRIPTION_SERVICE_CODE})) {
