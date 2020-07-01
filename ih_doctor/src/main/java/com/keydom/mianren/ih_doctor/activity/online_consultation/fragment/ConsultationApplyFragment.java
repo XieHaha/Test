@@ -148,6 +148,7 @@ public class ConsultationApplyFragment extends BaseControllerFragment<Consultati
      */
     private RecognizerDialogListener transferDescriptionVoiceListener =
             new RecognizerDialogListener() {
+                @Override
                 public void onResult(RecognizerResult results, boolean isLast) {
                     if (null != consultationApplyTransferDescriptionEt) {
                         String text = JsonUtils.handleXunFeiJson(results);
@@ -160,6 +161,7 @@ public class ConsultationApplyFragment extends BaseControllerFragment<Consultati
                     }
                 }
 
+                @Override
                 public void onError(SpeechError error) {
                     ToastUtil.showMessage(getContext(), error.getPlainDescription(true));
                 }
@@ -169,6 +171,7 @@ public class ConsultationApplyFragment extends BaseControllerFragment<Consultati
      * 听写UI监听器  病情描述
      */
     private RecognizerDialogListener medicalSummaryVoiceListener = new RecognizerDialogListener() {
+        @Override
         public void onResult(RecognizerResult results, boolean isLast) {
             if (null != consultationApplyMedicalSummaryEt) {
                 String text = JsonUtils.handleXunFeiJson(results);
@@ -180,6 +183,7 @@ public class ConsultationApplyFragment extends BaseControllerFragment<Consultati
             }
         }
 
+        @Override
         public void onError(SpeechError error) {
             ToastUtil.showMessage(getContext(), error.getPlainDescription(true));
         }

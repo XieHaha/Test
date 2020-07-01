@@ -616,8 +616,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             inquiryPopDiagnosticPrescriptionTv.setVisibility(View.GONE);
         }
         if (orderBean.getIsVip() == 1 && orderBean.getState() != InquiryStatus.INQUIRY_WAIT) {
-            if (orderBean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())
-                    && orderBean.getState() != InquiryStatus.INQUIRY_CONSULTATION_DOING
+            if (orderBean.getState() != InquiryStatus.INQUIRY_CONSULTATION_DOING
                     && orderBean.getState() != InquiryStatus.INQUIRY_CONSULTATION_COMPLETE
                     && orderBean.getState() != InquiryStatus.INQUIRY_CONSULTATION_WAIT) {
                 inquiryPopConsultationTv.setVisibility(View.VISIBLE);
