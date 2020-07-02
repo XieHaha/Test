@@ -202,8 +202,7 @@ public class ConsultationReceiveActivity extends BaseControllerActivity<Consulta
             //患者基础信息
             consultationReceivePatientNameTv.setText(detailBean.getPatientName());
             consultationReceivePatientSexTv.setText(CommonUtils.getPatientSex(detailBean.getPatientGender()));
-            consultationReceivePatientAgeTv.setText(String.format(getString(R.string.txt_age),
-                    detailBean.getPatientAge()));
+            consultationReceivePatientAgeTv.setText(detailBean.getPatientAge());
             consultationReceiveCardTv.setText(String.format(getString(R.string.txt_visit_card),
                     detailBean.getEleCardNumber()));
             GlideUtils.load(consultationReceiveHeaderIv,

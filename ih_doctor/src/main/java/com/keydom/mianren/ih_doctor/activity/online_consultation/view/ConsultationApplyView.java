@@ -2,6 +2,7 @@ package com.keydom.mianren.ih_doctor.activity.online_consultation.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_doctor.bean.DeptDoctorBean;
+import com.keydom.mianren.ih_doctor.bean.DoctorInfo;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -92,4 +93,8 @@ public interface ConsultationApplyView extends BaseView {
     void setApplyDate(Date date);
 
     boolean verifyCommit();
+
+    void requestMdtSchDoctorSuccess(List<DoctorInfo> data);
+
+    void requestMdtSchDoctorFailed(String msg);
 }

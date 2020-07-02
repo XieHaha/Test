@@ -19,6 +19,7 @@ import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.FillOutApplyActivity;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.SelectDoctorActivity;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationApplyView;
+import com.keydom.mianren.ih_doctor.bean.DoctorInfo;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.ConsultationService;
 import com.keydom.mianren.ih_doctor.net.MainApiService;
@@ -30,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -113,6 +115,25 @@ public class ConsultationApplyController extends ControllerImpl<ConsultationAppl
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
                 getView().saveFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 获取mdt排班医生
+     */
+    public void getMdtSchDoctor() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).getMdtSchDoctor(), new HttpSubscriber<List<DoctorInfo>>(getContext(), getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable List<DoctorInfo> data) {
+                getView().requestMdtSchDoctorSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                getView().requestMdtSchDoctorFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });

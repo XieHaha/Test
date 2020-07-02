@@ -5,6 +5,7 @@ import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
+import com.keydom.mianren.ih_doctor.bean.DoctorInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,12 @@ public interface ConsultationService {
      */
     @POST("user/mdt/application/create")
     Observable<HttpResult<String>> consultationOrderApply(@Body RequestBody body);
+
+    /**
+     * 获取mdt排班医生
+     */
+    @GET("user/mdtSchedule/getMdtSchDoctor")
+    Observable<HttpResult<List<DoctorInfo>>> getMdtSchDoctor();
 
     /**
      * 可以会诊的医生

@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +31,7 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.Cons
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationApplyView;
 import com.keydom.mianren.ih_doctor.adapter.DiagnoseChangePlusImgAdapter;
 import com.keydom.mianren.ih_doctor.bean.DeptDoctorBean;
+import com.keydom.mianren.ih_doctor.bean.DoctorInfo;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.utils.DateUtils;
@@ -111,6 +111,10 @@ public class ConsultationApplyFragment extends BaseControllerFragment<Consultati
      * 科室医生列表
      */
     private ArrayList<DeptDoctorBean> doctorList = new ArrayList<>();
+    /**
+     * 排班医生
+     */
+    private List<DoctorInfo> mdtDoctors = new ArrayList<>();
     /**
      * 存放医生布局列表
      */
@@ -205,8 +209,7 @@ public class ConsultationApplyFragment extends BaseControllerFragment<Consultati
                 false, null);
         consultationApplyPatientNameTv.setText(inquiryBean.getName());
         consultationApplyPatientSexTv.setText(CommonUtils.getSex(inquiryBean.getSex()));
-        consultationApplyPatientAgeTv.setText(String.format(getString(R.string.txt_age),
-                inquiryBean.getAge()));
+        consultationApplyPatientAgeTv.setText(inquiryBean.getAge());
 
         mAdapter = new DiagnoseChangePlusImgAdapter(getContext(), gridList);
         consultationApplyConditionImageGrid.setAdapter(mAdapter);
@@ -217,6 +220,8 @@ public class ConsultationApplyFragment extends BaseControllerFragment<Consultati
         consultationApplyCommitTv.setOnClickListener(getController());
 
         initVoiceView();
+
+        getController().getMdtSchDoctor();
     }
 
     /**
@@ -307,8 +312,8 @@ public class ConsultationApplyFragment extends BaseControllerFragment<Consultati
      */
     private void addDoctor() {
         consultationApplyDoctorBoxLayout.removeAllViews();
-        for (int i = 0; i < doctorList.size(); i++) {
-            addDoctorView(doctorList.get(i).getName());
+        for (int i = 0; i < mdtDoctors.size(); i++) {
+            addDoctorView(mdtDoctors.get(i).getName());
         }
     }
 
@@ -386,22 +391,37 @@ public class ConsultationApplyFragment extends BaseControllerFragment<Consultati
     }
 
     @Override
+    public void requestMdtSchDoctorSuccess(List<DoctorInfo> data) {
+        if (data == null || data.size() == 0) {
+            return;
+        }
+        mdtDoctors = data;
+        addDoctor();
+    }
+
+    @Override
+    public void requestMdtSchDoctorFailed(String msg) {
+        ToastUtil.showMessage(getContext(), msg);
+    }
+
+    @Override
     public Map<String, Object> getOperateMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("applicantId", MyApplication.userInfo.getId());
         map.put("doctorId", getDoctorIds());
-        map.put("illnessAbstract", consultationApplyMedicalSummaryEt.getText().toString());
+        //        map.put("illnessAbstract", consultationApplyMedicalSummaryEt.getText().toString
+        //        ());
         map.put("level", mdtGrade);
-        map.put("mdtTime", mdtDate.getTime());
-        map.put("medicalHistoryImgUrl", gridList);
-        map.put("reasonAim", consultationApplyTransferDescriptionEt.getText().toString());
+        map.put("mdtTime", System.currentTimeMillis());
+        //        map.put("medicalHistoryImgUrl", gridList);
+        //        map.put("reasonAim", consultationApplyTransferDescriptionEt.getText().toString());
         map.put("userOrderId", inquiryBean.getId());
         return map;
     }
 
     private ArrayList<Long> getDoctorIds() {
         ArrayList<Long> ids = new ArrayList<>();
-        for (DeptDoctorBean bean : doctorList) {
+        for (DoctorInfo bean : mdtDoctors) {
             ids.add(bean.getId());
         }
         return ids;
@@ -445,10 +465,15 @@ public class ConsultationApplyFragment extends BaseControllerFragment<Consultati
 
     @Override
     public boolean verifyCommit() {
-        String str = consultationApplyTransferDescriptionEt.getText().toString().trim();
-        String str1 = consultationApplyMedicalSummaryEt.getText().toString().trim();
-        if (TextUtils.isEmpty(str) || TextUtils.isEmpty(str1) || mdtDate == null || mdtGrade == -1
-                || doctorList.size() == 0) {
+        //        String str = consultationApplyTransferDescriptionEt.getText().toString().trim();
+        //        String str1 = consultationApplyMedicalSummaryEt.getText().toString().trim();
+        //        if (TextUtils.isEmpty(str) || TextUtils.isEmpty(str1) || mdtDate == null ||
+        //        mdtGrade == -1
+        //                || doctorList.size() == 0) {
+        //            ToastUtil.showMessage(getContext(), "请完善信息!");
+        //            return false;
+        //        }
+        if (mdtGrade == -1) {
             ToastUtil.showMessage(getContext(), "请完善信息!");
             return false;
         }

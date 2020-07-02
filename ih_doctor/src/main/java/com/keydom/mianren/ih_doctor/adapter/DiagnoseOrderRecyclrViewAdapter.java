@@ -136,7 +136,7 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
                         R.mipmap.diagnose_change_icon);
                 leftImg.setBounds(0, 0, leftImg.getMinimumWidth(), leftImg.getMinimumHeight());
                 orderTypeTv.setText("转诊");
-                orderTypeTv.setTextColor(mContext.getResources().getColor(R.color.income_bg));
+                orderTypeTv.setTextColor(ContextCompat.getColor(mContext, R.color.income_bg));
                 orderTypeTv.setCompoundDrawables(leftImg, null, null, null);
             } else {
                 if (bean.getInquisitionType() == 0) {
@@ -148,7 +148,8 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
                     } else {
                         orderTypeTv.setText("图文问诊");
                     }
-                    orderTypeTv.setTextColor(mContext.getResources().getColor(R.color.font_order_type_image_with_video));
+                    orderTypeTv.setTextColor(ContextCompat.getColor(mContext,
+                            R.color.font_order_type_image_with_video));
                     orderTypeTv.setCompoundDrawables(leftImg, null, null, null);
                 } else {
                     Drawable leftImg = ContextCompat.getDrawable(mContext,
@@ -168,19 +169,20 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
              * 0未支付 1 待接收 2问诊中 3审核不通过 4 待转诊确认 5 待评价 7完成 -1已取消
              */
             switch (bean.getState()) {
-
                 case 0:
-                    img = mContext.getResources().getDrawable(R.mipmap.patient_cicle_yellow);
+                    img = ContextCompat.getDrawable(mContext, R.mipmap.patient_cicle_yellow);
                     img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                     orderStatus.setCompoundDrawables(img, null, null, null);
-                    orderStatus.setTextColor(mContext.getResources().getColor(R.color.diagnose_font_yellow));
+                    orderStatus.setTextColor(ContextCompat.getColor(mContext,
+                            R.color.diagnose_font_yellow));
                     orderStatus.setText("未支付");
                     break;
                 case 1:
-                    img = mContext.getResources().getDrawable(R.mipmap.patient_cicle_yellow);
+                    img = ContextCompat.getDrawable(mContext, R.mipmap.patient_cicle_yellow);
                     img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                     orderStatus.setCompoundDrawables(img, null, null, null);
-                    orderStatus.setTextColor(mContext.getResources().getColor(R.color.diagnose_font_yellow));
+                    orderStatus.setTextColor(ContextCompat.getColor(mContext,
+                            R.color.diagnose_font_yellow));
                     if (bean.getType() == 4) {
                         orderStatus.setText("待接收");
                     } else {
@@ -188,71 +190,97 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
                     }
                     break;
                 case 2:
-                    img = mContext.getResources().getDrawable(R.mipmap.patient_circle_green);
+                    img = ContextCompat.getDrawable(mContext, R.mipmap.patient_circle_green);
                     img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                     orderStatus.setCompoundDrawables(img, null, null, null);
-                    orderStatus.setTextColor(mContext.getResources().getColor(R.color.font_green));
+                    orderStatus.setTextColor(ContextCompat.getColor(mContext, R.color.font_green));
                     orderStatus.setText("问诊中");
                     break;
                 case 3:
                     checkIdeaRl.setVisibility(View.VISIBLE);
-                    img = mContext.getResources().getDrawable(R.mipmap.patient_cicle_red);
+                    img = ContextCompat.getDrawable(mContext, R.mipmap.patient_cicle_red);
                     img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                     orderStatus.setCompoundDrawables(img, null, null, null);
-                    orderStatus.setTextColor(mContext.getResources().getColor(R.color.diagnose_font_red));
+                    orderStatus.setTextColor(ContextCompat.getColor(mContext,
+                            R.color.diagnose_font_red));
                     orderStatus.setText("审核不通过");
                     break;
                 case 4:
-                    img = mContext.getResources().getDrawable(R.mipmap.patient_circle_green);
+                    img = ContextCompat.getDrawable(mContext, R.mipmap.patient_circle_green);
                     img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                     orderStatus.setCompoundDrawables(img, null, null, null);
-                    orderStatus.setTextColor(mContext.getResources().getColor(R.color.font_green));
+                    orderStatus.setTextColor(ContextCompat.getColor(mContext, R.color.font_green));
                     orderStatus.setText("问诊中");
                     break;
                 case 5:
-                    img = mContext.getResources().getDrawable(R.mipmap.patient_circle_green);
+                    img = ContextCompat.getDrawable(mContext, R.mipmap.patient_circle_green);
                     img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                     orderStatus.setCompoundDrawables(img, null, null, null);
-                    orderStatus.setTextColor(mContext.getResources().getColor(R.color.font_green));
+                    orderStatus.setTextColor(ContextCompat.getColor(mContext, R.color.font_green));
                     orderStatus.setText("问诊中");
                     break;
                 case 6:
-                    img = mContext.getResources().getDrawable(R.mipmap.patient_circle_green);
+                    img = ContextCompat.getDrawable(mContext, R.mipmap.patient_cicle_green_1);
                     img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                     orderStatus.setCompoundDrawables(img, null, null, null);
-                    orderStatus.setTextColor(mContext.getResources().getColor(R.color.font_green));
+                    orderStatus.setTextColor(ContextCompat.getColor(mContext, R.color.font_green));
                     orderStatus.setText("问诊中");
                     break;
                 case 7:
-                    img = mContext.getResources().getDrawable(R.mipmap.patient_cicle_yellow);
+                    img = ContextCompat.getDrawable(mContext, R.mipmap.patient_cicle_yellow);
                     img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                     orderStatus.setCompoundDrawables(img, null, null, null);
-                    orderStatus.setTextColor(mContext.getResources().getColor(R.color.diagnose_font_yellow));
+                    orderStatus.setTextColor(ContextCompat.getColor(mContext,
+                            R.color.diagnose_font_yellow));
                     orderStatus.setText("待接诊");
                     break;
                 case 8:
-                    img = mContext.getResources().getDrawable(R.mipmap.patient_cicle_yellow);
+                    img = ContextCompat.getDrawable(mContext, R.mipmap.patient_cicle_yellow);
                     img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                     orderStatus.setCompoundDrawables(img, null, null, null);
-                    orderStatus.setTextColor(mContext.getResources().getColor(R.color.diagnose_font_yellow));
+                    orderStatus.setTextColor(ContextCompat.getColor(mContext,
+                            R.color.diagnose_font_yellow));
                     orderStatus.setText("待评价");
                     break;
                 case 9:
-                    img = mContext.getResources().getDrawable(R.mipmap.patient_circle_green);
+                    img = ContextCompat.getDrawable(mContext, R.mipmap.patient_circle_green);
                     img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                     orderStatus.setCompoundDrawables(img, null, null, null);
-                    orderStatus.setTextColor(mContext.getResources().getColor(R.color.font_green));
+                    orderStatus.setTextColor(ContextCompat.getColor(mContext, R.color.font_green));
                     orderStatus.setText("已完成");
                     break;
                 case 11:
                     //分诊中
                     orderStatus.setText("分诊中");
                     break;
-                case -1:
-                    img = mContext.getResources().getDrawable(R.mipmap.patient_cicle_red);
+                case 13:
+                    img = ContextCompat.getDrawable(mContext, R.mipmap.patient_cicle_green_1);
                     img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
                     orderStatus.setCompoundDrawables(img, null, null, null);
-                    orderStatus.setTextColor(mContext.getResources().getColor(R.color.diagnose_font_red));
+                    orderStatus.setText("会诊中");
+                    orderStatus.setTextColor(ContextCompat.getColor(mContext, R.color.font_green));
+                    break;
+                case 14:
+                    img = ContextCompat.getDrawable(mContext, R.mipmap.patient_cicle_green_1);
+                    img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
+                    orderStatus.setCompoundDrawables(img, null, null, null);
+                    orderStatus.setTextColor(ContextCompat.getColor(mContext, R.color.font_green));
+                    orderStatus.setText("会诊结束");
+                    break;
+                case 15:
+                    img = ContextCompat.getDrawable(mContext, R.mipmap.patient_cicle_yellow);
+                    img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
+                    orderStatus.setCompoundDrawables(img, null, null, null);
+                    orderStatus.setTextColor(ContextCompat.getColor(mContext,
+                            R.color.diagnose_font_yellow));
+                    orderStatus.setText("待会诊");
+                    break;
+                case -1:
+                    img = ContextCompat.getDrawable(mContext, R.mipmap.patient_cicle_red);
+                    img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
+                    orderStatus.setCompoundDrawables(img, null, null, null);
+                    orderStatus.setTextColor(ContextCompat.getColor(mContext,
+                            R.color.diagnose_font_red));
                     orderStatus.setText("已取消");
                     break;
                 default:

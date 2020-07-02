@@ -1,4 +1,4 @@
-package com.keydom.mianren.ih_patient.bean;
+package com.keydom.mianren.ih_doctor.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -8,6 +8,7 @@ import java.io.Serializable;
  * 医生实体
  */
 public class DoctorInfo implements Serializable {
+    private static final long serialVersionUID = 7462389678052298802L;
     @JSONField(name = "id")
     private long id;
     @JSONField(name = "hospitalId")
@@ -82,6 +83,28 @@ public class DoctorInfo implements Serializable {
     private int popularDoctor;
     @JSONField(name = "isInterrogation")
     private int isInterrogation;
+
+    private int buildingAuthority;
+    private int inquisitionAmount;
+    private int feedbackRate;
+    private int averageResponseTime;
+    private int isManager;
+    private int provinceId;
+    private int cityId;
+    private int isDel;
+    private int isReceptionDoctor;
+    private int isOnDuty;
+
+    private String subordinateDoctorId;
+    private String token;
+    private String userRoles;
+    private String imToken;
+    private String roleIds;
+    private String msspId;
+    private String authCode;
+    private String caQrCode;
+    private String hisCode;
+
 
     public int getPopularDoctor() {
         return popularDoctor;
@@ -377,5 +400,158 @@ public class DoctorInfo implements Serializable {
 
     public void setDeptId(long deptId) {
         this.deptId = deptId;
+    }
+
+
+    public int getBuildingAuthority() {
+        return buildingAuthority;
+    }
+
+    public void setBuildingAuthority(int buildingAuthority) {
+        this.buildingAuthority = buildingAuthority;
+    }
+
+    public int getInquisitionAmount() {
+        return inquisitionAmount;
+    }
+
+    public void setInquisitionAmount(int inquisitionAmount) {
+        this.inquisitionAmount = inquisitionAmount;
+    }
+
+    public int getFeedbackRate() {
+        return feedbackRate;
+    }
+
+    public void setFeedbackRate(int feedbackRate) {
+        this.feedbackRate = feedbackRate;
+    }
+
+    public int getAverageResponseTime() {
+        return averageResponseTime;
+    }
+
+    public void setAverageResponseTime(int averageResponseTime) {
+        this.averageResponseTime = averageResponseTime;
+    }
+
+    public int getIsManager() {
+        return isManager;
+    }
+
+    public void setIsManager(int isManager) {
+        this.isManager = isManager;
+    }
+
+    public int getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(int provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
+    }
+
+    public int getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(int isDel) {
+        this.isDel = isDel;
+    }
+
+    public int getIsReceptionDoctor() {
+        return isReceptionDoctor;
+    }
+
+    public void setIsReceptionDoctor(int isReceptionDoctor) {
+        this.isReceptionDoctor = isReceptionDoctor;
+    }
+
+    public int getIsOnDuty() {
+        return isOnDuty;
+    }
+
+    public void setIsOnDuty(int isOnDuty) {
+        this.isOnDuty = isOnDuty;
+    }
+
+    public String getSubordinateDoctorId() {
+        return subordinateDoctorId;
+    }
+
+    public void setSubordinateDoctorId(String subordinateDoctorId) {
+        this.subordinateDoctorId = subordinateDoctorId;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(String userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    public String getImToken() {
+        return imToken;
+    }
+
+    public void setImToken(String imToken) {
+        this.imToken = imToken;
+    }
+
+    public String getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(String roleIds) {
+        this.roleIds = roleIds;
+    }
+
+    public String getMsspId() {
+        return msspId;
+    }
+
+    public void setMsspId(String msspId) {
+        this.msspId = msspId;
+    }
+
+    public String getAuthCode() {
+        return authCode;
+    }
+
+    public void setAuthCode(String authCode) {
+        this.authCode = authCode;
+    }
+
+    public String getCaQrCode() {
+        return caQrCode;
+    }
+
+    public void setCaQrCode(String caQrCode) {
+        this.caQrCode = caQrCode;
+    }
+
+    public String getHisCode() {
+        return hisCode;
+    }
+
+    public void setHisCode(String hisCode) {
+        this.hisCode = hisCode;
     }
 }
