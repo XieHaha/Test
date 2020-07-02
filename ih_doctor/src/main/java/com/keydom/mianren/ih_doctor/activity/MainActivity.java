@@ -6,6 +6,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.push.PushManager;
+import com.keydom.ih_common.receive.HomeWatcherReceiver;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.StatusBarUtils;
 import com.keydom.ih_common.utils.ToastUtil;
@@ -131,13 +133,29 @@ public class MainActivity extends AppCompatActivity {
         intentFilter1=new IntentFilter("common.action.interceptor");
         registerReceiver(interceptorReceiver, intentFilter1);*/
 
+        registerHomeKeyReceiver();
     }
 
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
+        unregisterHomeKeyReceiver();
         //        unregisterReceiver(interceptorReceiver);
         super.onDestroy();
+    }
+
+    private static HomeWatcherReceiver mHomeKeyReceiver = null;
+
+    private void registerHomeKeyReceiver() {
+        mHomeKeyReceiver = new HomeWatcherReceiver();
+        final IntentFilter homeFilter = new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+        registerReceiver(mHomeKeyReceiver, homeFilter);
+    }
+
+    private void unregisterHomeKeyReceiver() {
+        if (null != mHomeKeyReceiver) {
+            unregisterReceiver(mHomeKeyReceiver);
+        }
     }
 
     /**
