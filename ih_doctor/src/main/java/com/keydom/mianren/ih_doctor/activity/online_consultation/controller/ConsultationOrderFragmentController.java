@@ -38,26 +38,50 @@ public class ConsultationOrderFragmentController extends ControllerImpl<Consulta
         if (type == TypeEnum.REFRESH) {
             setCurrentPage(1);
         }
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderApplyList(getView().getListMap()), new HttpSubscriber<PageBean<ConsultationBean>>() {
-            @Override
-            public void requestComplete(@Nullable PageBean<ConsultationBean> data) {
-                if (data == null) {
-                    return;
+        if (getView().getPatientId() == 0) {
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderApplyListNew(getView().getListMap()), new HttpSubscriber<PageBean<ConsultationBean>>() {
+                @Override
+                public void requestComplete(@Nullable PageBean<ConsultationBean> data) {
+                    if (data == null) {
+                        return;
+                    }
+                    List<ConsultationBean> list = data.getRecords();
+                    if (list == null) {
+                        list = new ArrayList<>();
+                    }
+                    getView().getDataSuccess(type, list);
                 }
-                List<ConsultationBean> list = data.getRecords();
-                if (list == null) {
-                    list = new ArrayList<>();
-                }
-                getView().getDataSuccess(type, list);
-            }
 
-            @Override
-            public boolean requestError(@NotNull ApiException exception, int code,
-                                        @NotNull String msg) {
-                getView().getDataFailed(msg);
-                return super.requestError(exception, code, msg);
-            }
-        });
+                @Override
+                public boolean requestError(@NotNull ApiException exception, int code,
+                                            @NotNull String msg) {
+                    getView().getDataFailed(msg);
+                    return super.requestError(exception, code, msg);
+                }
+            });
+
+        } else {
+            ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationOrderApplyList(getView().getListMap()), new HttpSubscriber<PageBean<ConsultationBean>>() {
+                @Override
+                public void requestComplete(@Nullable PageBean<ConsultationBean> data) {
+                    if (data == null) {
+                        return;
+                    }
+                    List<ConsultationBean> list = data.getRecords();
+                    if (list == null) {
+                        list = new ArrayList<>();
+                    }
+                    getView().getDataSuccess(type, list);
+                }
+
+                @Override
+                public boolean requestError(@NotNull ApiException exception, int code,
+                                            @NotNull String msg) {
+                    getView().getDataFailed(msg);
+                    return super.requestError(exception, code, msg);
+                }
+            });
+        }
     }
 
     /**

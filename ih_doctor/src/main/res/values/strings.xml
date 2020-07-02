@@ -92,6 +92,8 @@
     <string name="txt_visit_time">就诊时间</string>
     <string name="txt_apply_time">申请时间</string>
     <string name="txt_press_voice">按住输入语音</string>
+    <string name="txt_my_order">我参与的会诊</string>
+    <string name="txt_other_order">我未参与的会诊</string>
 
 
     <!-- 讯飞SDK appid -->

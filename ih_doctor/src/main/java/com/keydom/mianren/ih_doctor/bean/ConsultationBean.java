@@ -11,6 +11,7 @@ public class ConsultationBean implements Serializable {
     private static final long serialVersionUID = -227101634146254979L;
 
     private int level;
+    private int isMyOrder;
     /**
      * 申请人id
      */
@@ -37,6 +38,14 @@ public class ConsultationBean implements Serializable {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public int getIsMyOrder() {
+        return isMyOrder;
+    }
+
+    public void setIsMyOrder(int isMyOrder) {
+        this.isMyOrder = isMyOrder;
     }
 
     public String getApplicantId() {

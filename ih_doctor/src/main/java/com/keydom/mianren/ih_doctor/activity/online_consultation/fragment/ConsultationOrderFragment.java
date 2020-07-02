@@ -96,7 +96,7 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
         } else if (mType == TypeEnum.CONSULTATION_COMPLETE) {
             status = 2;
         }
-        mAdapter = new ConsultationOrderAdapter(dataList);
+        mAdapter = new ConsultationOrderAdapter(dataList,patientId);
         mAdapter.setOnItemClickListener(getController());
         consultationOrderRecyclerView.setAdapter(mAdapter);
         consultationOrderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -153,6 +153,11 @@ public class ConsultationOrderFragment extends BaseControllerFragment<Consultati
             map.put("patientId", patientId);
         }
         return map;
+    }
+
+    @Override
+    public long getPatientId() {
+        return patientId;
     }
 
     @Override

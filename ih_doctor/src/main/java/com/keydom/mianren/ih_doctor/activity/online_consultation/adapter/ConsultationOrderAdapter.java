@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_doctor.activity.online_consultation.adapter;
 
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,8 +21,11 @@ import java.util.List;
  * 会诊订单适配器
  */
 public class ConsultationOrderAdapter extends BaseQuickAdapter<ConsultationBean, BaseViewHolder> {
-    public ConsultationOrderAdapter(@Nullable List<ConsultationBean> data) {
+    private long patientId;
+
+    public ConsultationOrderAdapter(@Nullable List<ConsultationBean> data, long patientId) {
         super(R.layout.item_consultation_order, data);
+        this.patientId = patientId;
     }
 
     @Override
@@ -46,6 +50,25 @@ public class ConsultationOrderAdapter extends BaseQuickAdapter<ConsultationBean,
         } else {
             tvStatus.setBackgroundResource(R.drawable.corner5_fbd54e_bg);
             tvStatus.setText("普通");
+        }
+        if (patientId == 0) {
+            TextView tvTitle = helper.getView(R.id.consultation_order_title_tv);
+            if (helper.getAdapterPosition() == 0) {
+                tvTitle.setVisibility(View.VISIBLE);
+                if (item.getIsMyOrder() == 1) {
+                    tvTitle.setText(R.string.txt_my_order);
+                } else {
+                    tvTitle.setText(R.string.txt_other_order);
+                }
+            } else {
+                ConsultationBean lastItem = mData.get(helper.getAdapterPosition() - 1);
+                if (lastItem.getIsMyOrder() == item.getIsMyOrder()) {
+                    tvTitle.setVisibility(View.GONE);
+                } else {
+                    tvTitle.setVisibility(View.VISIBLE);
+                    tvTitle.setText(R.string.txt_other_order);
+                }
+            }
         }
         //会诊申请人数量
         //        int applyNum = 0;

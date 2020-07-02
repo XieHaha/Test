@@ -40,4 +40,6 @@ public interface ConsultationOrderFragmentView extends BaseView {
      * @return 参数
      */
     Map<String, Object> getListMap();
+
+    long getPatientId();
 }

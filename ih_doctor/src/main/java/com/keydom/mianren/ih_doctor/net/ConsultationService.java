@@ -46,6 +46,11 @@ public interface ConsultationService {
      */
     @GET("user/mdt/application/list")
     Observable<HttpResult<PageBean<ConsultationBean>>> consultationOrderApplyList(@QueryMap Map<String, Object> maps);
+    /**
+     * 会诊记录
+     */
+    @GET("user/mdt/application/listNew")
+    Observable<HttpResult<PageBean<ConsultationBean>>> consultationOrderApplyListNew(@QueryMap Map<String, Object> maps);
 
     /**
      * 会诊状态变更
