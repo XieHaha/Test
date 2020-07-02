@@ -809,17 +809,22 @@ public class TeamAVChatActivity extends UI {
 
     private void initRecyclerView() {
         // 确认数据源,自己放在首位
-        data = new ArrayList<>(accounts.size() + 1);
-        for (String account : accounts) {
-            if (account.equals(AVChatKit.getAccount())) {
-                continue;
+        if ("com.keydom.mianren.ih_patient".equals(CommonUtils.getPackageName(this))) {
+            data = new ArrayList<>(2);
+            data.add(new TeamAVChatItem(TYPE_DATA, teamId, accounts.get(0)));
+        } else {
+            data = new ArrayList<>(accounts.size() + 1);
+            for (String account : accounts) {
+                if (account.equals(AVChatKit.getAccount())) {
+                    continue;
+                }
+                data.add(new TeamAVChatItem(TYPE_DATA, teamId, account));
             }
-
-            data.add(new TeamAVChatItem(TYPE_DATA, teamId, account));
         }
 
+        // 自己直接采集摄像头画面
         TeamAVChatItem selfItem = new TeamAVChatItem(TYPE_DATA, teamId, AVChatKit.getAccount());
-        selfItem.state = TeamAVChatItem.STATE.STATE_PLAYING; // 自己直接采集摄像头画面
+        selfItem.state = TeamAVChatItem.STATE.STATE_PLAYING;
         data.add(0, selfItem);
 
         // 补充占位符
@@ -840,7 +845,8 @@ public class TeamAVChatActivity extends UI {
         int index = 0;
         boolean find = false;
         for (TeamAVChatItem i : data) {
-            if (i.account.equals(account)) {
+            if(TextUtils.equals(account,i.account))
+            {
                 find = true;
                 break;
             }
@@ -855,8 +861,7 @@ public class TeamAVChatActivity extends UI {
      */
 
     private void checkPermission() {
-        List<String> lackPermissions =
-                AVChatManager.getInstance().checkPermission(TeamAVChatActivity.this);
+        List<String> lackPermissions = AVChatManager.checkPermission(TeamAVChatActivity.this);
         if (lackPermissions.isEmpty()) {
             onBasicPermissionSuccess();
         } else {
