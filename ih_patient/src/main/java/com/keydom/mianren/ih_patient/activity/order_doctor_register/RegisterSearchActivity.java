@@ -11,13 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.bean.DoctorInfo;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.order_doctor_register.controller.RegisterSearchController;
 import com.keydom.mianren.ih_patient.activity.order_doctor_register.view.RegisterSearchView;
 import com.keydom.mianren.ih_patient.adapter.RegisterDoctorSearchAdapter;
-import com.keydom.mianren.ih_patient.bean.DoctorInfo;
 import com.keydom.mianren.ih_patient.bean.HospitaldepartmentsInfo;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.Type;

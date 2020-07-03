@@ -1,8 +1,8 @@
 package com.keydom.mianren.ih_patient.net;
 
+import com.keydom.ih_common.bean.DoctorInfo;
 import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
-import com.keydom.mianren.ih_patient.bean.DoctorInfo;
 import com.keydom.mianren.ih_patient.bean.PhysicalExaInfo;
 import com.keydom.mianren.ih_patient.bean.SubscribeExaminationBean;
 

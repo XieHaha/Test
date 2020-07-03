@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.keydom.ih_common.event.ConsultationEvent;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.im.manager.ImPreferences;
@@ -32,10 +33,12 @@ import com.keydom.ih_common.receive.HomeWatcherReceiver;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.StatusBarUtils;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.controller.MainController;
 import com.keydom.mianren.ih_doctor.activity.my_message.MyMessageActivity;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationOrderActivity;
 import com.keydom.mianren.ih_doctor.activity.personal.MyServiceActivity;
 import com.keydom.mianren.ih_doctor.activity.personal.PersonalInfoActivity;
 import com.keydom.mianren.ih_doctor.bean.DeptBean;
@@ -423,5 +426,10 @@ public class MainActivity extends AppCompatActivity {
             });
             builder.create().show();
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(ConsultationEvent event) {
+        new GeneralDialog(this, "您有新的会诊邀请,请及时查看", () -> ConsultationOrderActivity.start(MainActivity.this)).show();
     }
 }

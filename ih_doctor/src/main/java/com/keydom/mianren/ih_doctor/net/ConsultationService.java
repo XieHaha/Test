@@ -5,7 +5,7 @@ import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_doctor.bean.ConsultationAdviceBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationBean;
 import com.keydom.mianren.ih_doctor.bean.ConsultationDetailBean;
-import com.keydom.mianren.ih_doctor.bean.DoctorInfo;
+import com.keydom.ih_common.bean.DoctorInfo;
 
 import java.util.List;
 import java.util.Map;

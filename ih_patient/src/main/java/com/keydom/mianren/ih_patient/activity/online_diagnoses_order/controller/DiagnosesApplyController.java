@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.DoctorInfo;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -18,7 +19,6 @@ import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.AnamnesisAct
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.OnlineDiagnonsesOrderActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.view.DiagnosesApplyView;
-import com.keydom.mianren.ih_patient.bean.DoctorInfo;
 import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
 import com.keydom.mianren.ih_patient.bean.PayOrderBean;
 import com.keydom.mianren.ih_patient.bean.UserInfo;

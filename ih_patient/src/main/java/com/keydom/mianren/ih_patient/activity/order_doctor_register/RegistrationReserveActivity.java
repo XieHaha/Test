@@ -7,10 +7,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.bean.DoctorInfo;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.order_doctor_register.controller.RegistrationReserveController;
 import com.keydom.mianren.ih_patient.activity.order_doctor_register.view.RegistrationReserveView;
-import com.keydom.mianren.ih_patient.bean.DoctorInfo;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
 import com.keydom.mianren.ih_patient.bean.ReserveSelectDepartBean;

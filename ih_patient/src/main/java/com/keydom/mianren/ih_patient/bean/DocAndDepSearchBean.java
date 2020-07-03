@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_patient.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.keydom.ih_common.bean.DoctorInfo;
 
 import java.util.List;
 

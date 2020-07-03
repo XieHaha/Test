@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.keydom.ih_common.bean.DoctorInfo;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.order_doctor_register.DoctorIndexActivity;
 import com.keydom.mianren.ih_patient.bean.DepartmentSchedulingBean;
-import com.keydom.mianren.ih_patient.bean.DoctorInfo;
 
 import java.util.List;
 

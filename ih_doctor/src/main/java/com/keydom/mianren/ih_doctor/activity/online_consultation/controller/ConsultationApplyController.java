@@ -19,7 +19,7 @@ import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.FillOutApplyActivity;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.SelectDoctorActivity;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationApplyView;
-import com.keydom.mianren.ih_doctor.bean.DoctorInfo;
+import com.keydom.ih_common.bean.DoctorInfo;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.ConsultationService;
 import com.keydom.mianren.ih_doctor.net.MainApiService;

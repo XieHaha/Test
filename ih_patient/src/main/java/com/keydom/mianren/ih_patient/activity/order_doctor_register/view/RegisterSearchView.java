@@ -1,7 +1,7 @@
 package com.keydom.mianren.ih_patient.activity.order_doctor_register.view;
 
 import com.keydom.ih_common.base.BaseView;
-import com.keydom.mianren.ih_patient.bean.DoctorInfo;
+import com.keydom.ih_common.bean.DoctorInfo;
 
 import java.util.List;
 

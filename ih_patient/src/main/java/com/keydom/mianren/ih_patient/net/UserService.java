@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_patient.net;
 
 import com.alibaba.fastjson.JSONObject;
+import com.keydom.ih_common.bean.DoctorInfo;
 import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.bean.SearchResultBean;
 import com.keydom.ih_common.net.result.HttpResult;
@@ -13,7 +14,6 @@ import com.keydom.mianren.ih_patient.bean.DiagnoseIndexBean;
 import com.keydom.mianren.ih_patient.bean.DiagnosesAndNurDepart;
 import com.keydom.mianren.ih_patient.bean.DiagnosesOrderBean;
 import com.keydom.mianren.ih_patient.bean.DoctorEvaluateItem;
-import com.keydom.mianren.ih_patient.bean.DoctorInfo;
 import com.keydom.mianren.ih_patient.bean.DoctorMainBean;
 import com.keydom.mianren.ih_patient.bean.DoctorOrNurseBean;
 import com.keydom.mianren.ih_patient.bean.HistoryListBean;

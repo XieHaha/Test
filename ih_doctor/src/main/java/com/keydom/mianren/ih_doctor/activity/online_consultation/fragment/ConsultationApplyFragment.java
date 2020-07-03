@@ -31,7 +31,7 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.controller.Cons
 import com.keydom.mianren.ih_doctor.activity.online_consultation.view.ConsultationApplyView;
 import com.keydom.mianren.ih_doctor.adapter.DiagnoseChangePlusImgAdapter;
 import com.keydom.mianren.ih_doctor.bean.DeptDoctorBean;
-import com.keydom.mianren.ih_doctor.bean.DoctorInfo;
+import com.keydom.ih_common.bean.DoctorInfo;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.utils.DateUtils;

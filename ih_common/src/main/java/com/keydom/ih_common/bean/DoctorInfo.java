@@ -1,4 +1,4 @@
-package com.keydom.mianren.ih_doctor.bean;
+package com.keydom.ih_common.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 

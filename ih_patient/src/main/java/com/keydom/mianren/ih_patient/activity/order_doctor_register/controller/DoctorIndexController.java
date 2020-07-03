@@ -3,12 +3,12 @@ package com.keydom.mianren.ih_patient.activity.order_doctor_register.controller;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.DoctorInfo;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_patient.activity.order_doctor_register.view.DoctorIndexView;
-import com.keydom.mianren.ih_patient.bean.DoctorInfo;
 import com.keydom.mianren.ih_patient.net.ReservationService;
 
 import org.jetbrains.annotations.NotNull;

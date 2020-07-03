@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.bean.DoctorInfo;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.ShareUtils;
@@ -26,7 +27,6 @@ import com.keydom.mianren.ih_patient.activity.my_doctor_or_nurse.DoctorOrNurseDe
 import com.keydom.mianren.ih_patient.activity.order_doctor_register.controller.DoctorIndexController;
 import com.keydom.mianren.ih_patient.activity.order_doctor_register.view.DoctorIndexView;
 import com.keydom.mianren.ih_patient.adapter.ViewPagerAdapter;
-import com.keydom.mianren.ih_patient.bean.DoctorInfo;
 import com.keydom.mianren.ih_patient.fragment.DoctorDescripeFragment;
 import com.keydom.mianren.ih_patient.fragment.DoctorSchedulFragment;
 import com.keydom.mianren.ih_patient.utils.StatusBarUtils;
