@@ -255,7 +255,7 @@ public class TeamAVChatFragment extends Fragment {
     /**
      * 结束会诊
      */
-    private void endConversultation() {
+    private void endConsultation() {
         hangup();
         consutationLayout.setVisibility(View.VISIBLE);
         callLayout.setVisibility(View.GONE);
@@ -439,7 +439,7 @@ public class TeamAVChatFragment extends Fragment {
             public void onClick(View v) {
                 AVChatSoundPlayer.instance().stop();
                 cancelAutoRejectTask();
-                endConversultation();
+                endConsultation();
             }
         });
 
@@ -622,7 +622,7 @@ public class TeamAVChatFragment extends Fragment {
             showToast("join room failed, code=" + code + ", e=" + (e == null ? "" :
                     e.getMessage()));
         }
-        endConversultation();
+        endConsultation();
     }
 
     public void onAVChatUserJoined(String account) {
@@ -835,7 +835,7 @@ public class TeamAVChatFragment extends Fragment {
         }
     }
 
-    /*
+    /**
      * 除了所有人都没接通，其他情况不做自动挂断
      */
     private void checkAllHangUp() {
@@ -905,7 +905,7 @@ public class TeamAVChatFragment extends Fragment {
                 disableUserAudio();
 
             } else if (i == R.id.hangup) {// 挂断
-                endConversultation();
+                endConsultation();
                 //                getActivity().finish();
             }
         }

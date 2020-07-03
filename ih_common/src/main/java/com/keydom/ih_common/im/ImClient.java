@@ -95,6 +95,7 @@ import com.netease.nimlib.sdk.team.TeamService;
 import com.netease.nimlib.sdk.team.constant.TeamFieldEnum;
 import com.netease.nimlib.sdk.team.constant.TeamTypeEnum;
 import com.netease.nimlib.sdk.team.model.CreateTeamResult;
+import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.uinfo.UserService;
 import com.netease.nimlib.sdk.uinfo.constant.UserInfoFieldEnum;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
@@ -887,16 +888,15 @@ public class ImClient {
                 new AVChatCallback<AVChatChannelInfo>() {
                     @Override
                     public void onSuccess(AVChatChannelInfo avChatChannelInfo) {
-                        LogUtil.ui("create room " + roomName + " success !");
-                        onCreateRoomSuccess(context, teamId, roomName, accounts);
-
-                        String teamName = getTeamProvider().getTeamById(teamId).getName();
-
+                        LogUtil.i("status", "create room " + roomName + " success !");
+                        Team team = getTeamProvider().getTeamById(teamId);
+                        onCreateRoomSuccess(context, teamId, roomName, team == null ? "会诊" :
+                                team.getName(), accounts);
                         TeamAVChatProfile.sharedInstance().setTeamAVChatting(true);
 
                         if (callback == null) {
                             AVChatKit.outgoingTeamCall(context, false, teamId, roomName, accounts,
-                                    teamName);
+                                    team == null ? "会诊" : team.getName());
                         } else {
                             callback.success(roomName);
                         }
@@ -920,10 +920,11 @@ public class ImClient {
                 });
     }
 
-    private static void onCreateRoomSuccess(Context context, String teamID, String roomName,
+    private static void onCreateRoomSuccess(Context context, String teamId, String roomName,
+                                            String teamName,
                                             ArrayList<String> accounts) {
         // 在群里发送tip消息
-        IMMessage message = MessageBuilder.createTipMessage(teamID, SessionTypeEnum.Team);
+        IMMessage message = MessageBuilder.createTipMessage(teamId, SessionTypeEnum.Team);
         CustomMessageConfig tipConfig = new CustomMessageConfig();
         tipConfig.enableHistory = false;
         tipConfig.enableRoaming = false;
@@ -934,8 +935,7 @@ public class ImClient {
         message.setConfig(tipConfig);
         sentMessage(message, false, null);
         // 对各个成员发送点对点自定义通知
-        String teamName = getTeamProvider().getTeamById(teamID).getName();
-        String content = TeamAVChatProfile.sharedInstance().buildContent(roomName, teamID,
+        String content = TeamAVChatProfile.sharedInstance().buildContent(roomName, teamId,
                 accounts, teamName);
         CustomNotificationConfig config = new CustomNotificationConfig();
         config.enablePush = true;

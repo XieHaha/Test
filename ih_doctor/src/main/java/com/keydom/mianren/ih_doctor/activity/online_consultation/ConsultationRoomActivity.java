@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.keydom.ih_common.avchatkit.AVChatKit;
+import com.keydom.ih_common.avchatkit.TeamAVChatProfile;
 import com.keydom.ih_common.avchatkit.teamavchat.activity.TeamAVChatFragment;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.MessageEvent;
@@ -153,6 +154,9 @@ public class ConsultationRoomActivity extends BaseControllerActivity<Consultatio
             recordId = consultationBean.getRecordId();
             tid = consultationBean.getTid();
         }
+
+        //初始化视频状态
+        TeamAVChatProfile.sharedInstance().setTeamAVChatting(false);
 
         LinearLayout linearLayout = (LinearLayout) consultationRoomTabLayout.getChildAt(0);
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);

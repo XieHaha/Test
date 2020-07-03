@@ -33,7 +33,7 @@ public class ConsultationOrderAdapter extends BaseQuickAdapter<ConsultationBean,
         helper.setText(R.id.consultation_order_name_tv, item.getPatientName())
                 .setText(R.id.consultation_order_sex_tv,
                         CommonUtils.getPatientSex(item.getPatientGender()))
-                .setText(R.id.consultation_order_age_tv, item.getPatientAge() + "岁")
+                .setText(R.id.consultation_order_age_tv, item.getPatientAge())
                 .setText(R.id.consultation_order_card_tv,
                         String.format(mContext.getString(R.string.txt_visit_card),
                                 item.getEleCardNumber()))
