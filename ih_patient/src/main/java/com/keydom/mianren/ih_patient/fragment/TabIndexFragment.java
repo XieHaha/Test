@@ -147,7 +147,13 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mTopRightIconIv.setImageResource(R.mipmap.vip_mine_my_nurse_icon);
 
         //        mTopRightRootRl.setOnClickListener(v -> NurseMainActivity.start(getContext()));
-        mTopRightRootRl.setOnClickListener(v -> PaymentRecordActivity.start(getContext()));
+        mTopRightRootRl.setOnClickListener(v -> {
+            if (Global.getUserId() != -1) {
+                PaymentRecordActivity.start(getContext());
+            } else {
+                ToastUtil.showMessage(getContext(), R.string.unlogin_hint);
+            }
+        });
         mTopLeftRootRl.setOnClickListener(v -> DiagnoseMainActivity.start(getContext()));
     }
 

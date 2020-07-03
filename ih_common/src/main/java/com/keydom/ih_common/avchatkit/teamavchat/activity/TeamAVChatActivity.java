@@ -395,7 +395,7 @@ public class TeamAVChatActivity extends UI {
             public void onJoinedChannel(int code, String audioFile, String videoFile, int i) {
                 if (code == 200) {
                     onJoinRoomSuccess();
-                    muteUserAudioAndVideo("");
+                    //                    muteUserAudioAndVideo("");
                 } else {
                     onJoinRoomFailed(code, null);
                 }
@@ -496,18 +496,12 @@ public class TeamAVChatActivity extends UI {
      */
     private void muteUserAudioAndVideo(String account) {
         if ("com.keydom.mianren.ih_patient".equals(CommonUtils.getPackageName(this))) {
-            if (TextUtils.isEmpty(account)) {
-                //第一个为接待人不屏蔽
-                for (int i = 1; i < accounts.size(); i++) {
-                    String userCode = accounts.get(i);
-                    if (userCode.equalsIgnoreCase(AVChatKit.getAccount())) {
-                        continue;
-                    }
-                    ImClient.muteRemoteAudioAndVideo(userCode, true);
-                }
-            } else {
-                ImClient.muteRemoteAudioAndVideo(account, true);
+            //第一个为接待人不屏蔽
+            String userCode = accounts.get(0);
+            if (userCode.equalsIgnoreCase(account) || userCode.equalsIgnoreCase(AVChatKit.getAccount())) {
+                return;
             }
+            ImClient.muteRemoteAudioAndVideo(account, true);
         }
     }
 
@@ -845,8 +839,7 @@ public class TeamAVChatActivity extends UI {
         int index = 0;
         boolean find = false;
         for (TeamAVChatItem i : data) {
-            if(TextUtils.equals(account,i.account))
-            {
+            if (TextUtils.equals(account, i.account)) {
                 find = true;
                 break;
             }

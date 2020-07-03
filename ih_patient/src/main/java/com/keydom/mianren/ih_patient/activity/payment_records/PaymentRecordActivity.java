@@ -35,7 +35,9 @@ import java.util.List;
  * 缴费记录主页面
  */
 public class PaymentRecordActivity extends BaseControllerActivity<PaymentRecordController> implements PaymentRecordView {
-    //0表示未缴费  1表示已缴费 2表示已退费
+    /**
+     * 0表示未缴费  1表示已缴费 2表示已退费
+     */
     public static final int NO_PAY = 0;
     public static final int PAYED = 1;
     public static final int RETURNS = 2;

@@ -558,6 +558,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 mMessageView.addPlugin(mVideoPlugin);
             }
             mMessageView.addPlugin(mEndInquiryPlugin);
+
             setRightImg(Objects.requireNonNull(ContextCompat.getDrawable(this,
                     R.mipmap.more_icon)));
         }
@@ -616,21 +617,32 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             inquiryPopDiagnosticPrescriptionTv.setVisibility(View.GONE);
         }
         if (orderBean.getIsVip() == 1 && orderBean.getState() != InquiryStatus.INQUIRY_WAIT) {
-            if (orderBean.getState() != InquiryStatus.INQUIRY_CONSULTATION_DOING
-                    && orderBean.getState() != InquiryStatus.INQUIRY_CONSULTATION_COMPLETE
-                    && orderBean.getState() != InquiryStatus.INQUIRY_CONSULTATION_WAIT) {
-                inquiryPopConsultationTv.setVisibility(View.VISIBLE);
+            if (AVChatKit.getAccount().equalsIgnoreCase(orderBean.getDoctorCode())) {
+                if (orderBean.getState() == InquiryStatus.INQUIRY_ING
+                        || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_COMPLETE
+                        || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_DOING
+                        || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_WAIT) {
+                    inquiryPopDiagnosticPrescriptionTv.setVisibility(View.VISIBLE);
+                } else {
+                    inquiryPopDiagnosticPrescriptionTv.setVisibility(View.GONE);
+                }
             } else {
-                inquiryPopConsultationTv.setVisibility(View.GONE);
-            }
-            if (orderBean.getState() == InquiryStatus.INQUIRY_ING
-                    || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_COMPLETE
-                    || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_DOING
-                    || orderBean.getState() == InquiryStatus.INQUIRY_CONSULTATION_WAIT) {
-                inquiryPopDiagnosticPrescriptionTv.setVisibility(View.VISIBLE);
-            } else {
+                inspection.setVisibility(View.GONE);
+                examination.setVisibility(View.GONE);
+                referralTv.setVisibility(View.GONE);
+                inquiryPopAdvice.setVisibility(View.GONE);
                 inquiryPopDiagnosticPrescriptionTv.setVisibility(View.GONE);
             }
+            //            if (orderBean.getState() != InquiryStatus.INQUIRY_CONSULTATION_DOING
+            //                    && orderBean.getState() != InquiryStatus
+            //                    .INQUIRY_CONSULTATION_COMPLETE
+            //                    && orderBean.getState() != InquiryStatus
+            //                    .INQUIRY_CONSULTATION_WAIT) {
+            //                inquiryPopConsultationTv.setVisibility(View.VISIBLE);
+            //            } else {
+            //                inquiryPopConsultationTv.setVisibility(View.GONE);
+            //            }
+            inquiryPopConsultationTv.setVisibility(View.VISIBLE);
         } else {
             inquiryPopConsultationTv.setVisibility(View.GONE);
         }
