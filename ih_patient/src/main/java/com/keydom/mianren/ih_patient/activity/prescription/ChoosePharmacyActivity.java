@@ -298,7 +298,7 @@ public class ChoosePharmacyActivity extends BaseActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("startLonLat", mLatXy);
         map.put("drugs", drugs);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getFindDrugstores(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<List<PharmacyBean>>(this, getDisposable(), true, true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getFindDrugstores(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<List<PharmacyBean>>(getContext(), getDisposable(), true, true) {
             @Override
             public void requestComplete(@Nullable List<PharmacyBean> data) {
                 if (!CommUtil.isEmpty(data)) {

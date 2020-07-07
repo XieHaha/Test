@@ -169,7 +169,7 @@ public class WaitForAdmissionActivity extends BaseControllerActivity<WaitForAdmi
             if ("0".equals(baseDto.getPatientSex())){
                 sex = "男";
             }
-            mServiceObj.setText(baseDto.getPatientName()+" "+sex+" "+baseDto.getPatientAge()+"岁");
+            mServiceObj.setText(baseDto.getPatientName()+" "+sex+" "+baseDto.getPatientAge());
             mHospital.setText(baseDto.getHospital());
             mDemandDes.setText(baseDto.getConditionDesciption());
             mTime.setText(baseDto.getTime());

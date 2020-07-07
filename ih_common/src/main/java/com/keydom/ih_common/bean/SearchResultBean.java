@@ -306,7 +306,7 @@ public class SearchResultBean implements Serializable {
         private String patientCode;
         private int state;
         private int sex;
-        private int age;
+        private String age;
         private String createTime;
 
         public int getSex() {
@@ -317,11 +317,11 @@ public class SearchResultBean implements Serializable {
             this.sex = sex;
         }
 
-        public int getAge() {
+        public String getAge() {
             return age;
         }
 
-        public void setAge(int age) {
+        public void setAge(String age) {
             this.age = age;
         }
 

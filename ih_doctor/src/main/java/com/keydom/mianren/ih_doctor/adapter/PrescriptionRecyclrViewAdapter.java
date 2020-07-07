@@ -57,7 +57,7 @@ public class PrescriptionRecyclrViewAdapter extends BaseEmptyAdapter<Prescriptio
                 DateUtils.YYYY_MM_DD_HH_MM_SS));
 
         holder.userNameTip.setText("患者:");
-        holder.userName.setText(item.getName() + "、" + CommonUtils.getSex(item.getSex()) + "、" + item.getAge() + "岁");
+        holder.userName.setText(item.getName() + "、" + CommonUtils.getSex(item.getSex()) + "、" + item.getAge());
         holder.userDiagnoseTip.setText("诊断:");
         holder.userDiagnose.setText(item.getDiagnosis());
 

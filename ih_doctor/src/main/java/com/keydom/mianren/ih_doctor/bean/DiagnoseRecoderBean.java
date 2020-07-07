@@ -24,7 +24,7 @@ public class DiagnoseRecoderBean implements Serializable {
     private String doctorId;
     private String hospitalName;
     private int sex;
-    private int age;
+    private String age;
 
     public long getId() {
         return id;
@@ -122,11 +122,11 @@ public class DiagnoseRecoderBean implements Serializable {
         this.sex = sex;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 }

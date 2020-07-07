@@ -334,7 +334,7 @@ public class CommonNurseServiceOrderDetailActivity extends BaseControllerActivit
         orderUserDept.setText(bean.getDeptName());
         orderUserPhone.setText(bean.getApplyPhone());
         orderUserAddress.setText(bean.getServiceAddress());
-        orderServiceObject.setText(bean.getServiceObject() + " " + com.keydom.ih_common.utils.CommonUtils.getSex(bean.getPatientSex()) + " " + bean.getPatientAge() + "岁");
+        orderServiceObject.setText(bean.getServiceObject() + " " + com.keydom.ih_common.utils.CommonUtils.getSex(bean.getPatientSex()) + " " + bean.getPatientAge() );
         orderVisitTime.setText(bean.getTime());
         orderUserContactNumber.setText(bean.getApplyPhone());
         orderFee.setText("¥" + bean.getReservationSet() + "元/次");

@@ -34,7 +34,7 @@ public class TriageOrderAdapter extends BaseQuickAdapter<TriageBean, BaseViewHol
                 .setText(R.id.triage_order_list_patient_info_tv,
                         String.format(mContext.getString(R.string.txt_three_value),
                                 item.getPatientName(), item.getPatientSex(),
-                                item.getPatientAge() + "岁"))
+                                item.getPatientAge()))
                 .setText(R.id.triage_order_list_description_tv, item.getTriageExplain())
                 .setText(R.id.triage_order_list_apply_info_tv,
                         String.format(mContext.getString(R.string.txt_three_value),

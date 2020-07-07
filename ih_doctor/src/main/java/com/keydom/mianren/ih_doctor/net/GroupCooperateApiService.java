@@ -33,30 +33,20 @@ import retrofit2.http.QueryMap;
  */
 public interface GroupCooperateApiService {
 
-
     /**
      * 新建医生团队
-     *
-     * @param body
-     * @return
      */
     @POST("Inquiry/ihGroup/add")
     Observable<HttpResult<GroupInfoBean>> ihGroupAdd(@Body RequestBody body);
 
     /**
      * 新增团队成员
-     *
-     * @param body
-     * @return
      */
     @POST("Inquiry/ihGroup/addTeamMembers")
     Observable<HttpResult<String>> ihGroupAddTeamMembers(@Body RequestBody body);
 
     /**
      * 修改团队信息
-     *
-     * @param body
-     * @return
      */
     @POST("Inquiry/ihGroup/edit")
     Observable<HttpResult<String>> ihGroupEdit(@Body RequestBody body);
@@ -64,18 +54,12 @@ public interface GroupCooperateApiService {
 
     /**
      * 查询用户医生团队
-     *
-     * @param maps
-     * @return
      */
     @GET("Inquiry/ihGroup/getUserIhGroup")
     Observable<HttpResult<GroupInfoRes>> ihGroupGetUserIhGroup(@QueryMap Map<String, Object> maps);
 
     /**
      * 查询医生用户科室下所有医生
-     *
-     * @param maps
-     * @return
      */
     @GET("Inquiry/ihGroup/queryDoctorDepAllUser")
     Observable<HttpResult<List<GroupDoctorBean>>> ihGroupQueryDoctorDepAllUser(@QueryMap Map<String, Object> maps);
@@ -83,18 +67,12 @@ public interface GroupCooperateApiService {
 
     /**
      * 查询用户医生团队下所有医生
-     *
-     * @param maps
-     * @return
      */
     @GET("user/hospitalDept/queryDoctorTeamAllUser")
     Observable<HttpResult<List<DeptDoctorBean>>> ihGroupQueryDoctorTeamAllUser(@QueryMap Map<String, Object> maps);
 
     /**
      * 查询用户医生团队下所有医生
-     *
-     * @param maps
-     * @return
      */
     @GET("user/hospitalDept/queryDoctorTeamAllUserAuthorization")
     Observable<HttpResult<List<DeptDoctorBean>>> queryDoctorTeamAllUserAuthorization(@QueryMap Map<String, Object> maps);
@@ -104,9 +82,6 @@ public interface GroupCooperateApiService {
 
     /**
      * 转诊操作
-     *
-     * @param body
-     * @return
      */
     @POST("user/referral/operate")
     Observable<HttpResult<String>> operate(@Body RequestBody body);
@@ -114,18 +89,12 @@ public interface GroupCooperateApiService {
 
     /**
      * 提交转诊申请
-     *
-     * @param body
-     * @return
      */
     @POST("user/referral/save")
     Observable<HttpResult<DiagnoseFillOutResBean>> save(@Body RequestBody body);
 
     /**
      * 获取问诊记录
-     *
-     * @param maps
-     * @return
      */
     @GET("user/inquisitionRecord/getInquisitionRecordByDocId")
     Observable<HttpResult<List<DiagnoseRecoderBean>>> getInquisitionRecordByDocId(@QueryMap Map<String, Object> maps);
@@ -133,9 +102,6 @@ public interface GroupCooperateApiService {
 
     /**
      * 获取病历详情
-     *
-     * @param maps
-     * @return
      */
     @GET("user/online/getMedicalRecordInfo")
     Observable<HttpResult<DiagnoseCaseBean>> getMedicalRecordInfo(@QueryMap Map<String, Object> maps);
@@ -143,9 +109,6 @@ public interface GroupCooperateApiService {
 
     /**
      * 获取转诊详情
-     *
-     * @param maps
-     * @return
      */
     @GET("user/referral/getDetail")
     Observable<HttpResult<DiagnoseOrderDetailBean>> getDetail(@QueryMap Map<String, Object> maps);
@@ -153,27 +116,18 @@ public interface GroupCooperateApiService {
 
     /**
      * 获取问诊病人信息
-     *
-     * @param maps
-     * @return
      */
     @GET("user/referral/getInquisitionPatientByNumber")
     Observable<HttpResult<String>> getInquisitionPatientByNumber(@QueryMap Map<String, Object> maps);
 
     /**
      * 获取转诊记录
-     *
-     * @param maps
-     * @return
      */
     @GET("user/referral/list")
     Observable<HttpResult<List<ChangeDiagnoseRecoderBean>>> list(@QueryMap Map<String, Object> maps);
 
     /**
      * 获取医生问诊单
-     *
-     * @param maps
-     * @return
      */
     @GET("user/referral/listDoctorInquisition")
     Observable<HttpResult<List<InquiryBean>>> listDoctorInquisition(@QueryMap Map<String, Object> maps);
@@ -181,9 +135,6 @@ public interface GroupCooperateApiService {
 
     /**
      * 获取科室下面所有医生
-     *
-     * @param maps
-     * @return
      */
     @GET("user/hospitalDept/listDoctor")
     Observable<HttpResult<PageBean<DeptDoctorBean>>> listDoctor(@QueryMap Map<String, Object> maps);

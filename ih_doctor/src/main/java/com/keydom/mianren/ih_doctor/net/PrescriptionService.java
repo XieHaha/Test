@@ -56,8 +56,7 @@ public interface PrescriptionService {
      * 获取处方详情
      */
     @GET("user/prescription/getDetailById")
-    Observable<HttpResult<DoctorPrescriptionDetailBean>> getDetailById(@QueryMap Map<String,
-            Object> map);
+    Observable<HttpResult<DoctorPrescriptionDetailBean>> getDetailById(@QueryMap Map<String, Object> map);
 
     /**
      * 用药原因

@@ -34,7 +34,7 @@ public class HeadNurseServiceOrderDetailBean implements Serializable {
     private int state;
     private String orderNumber;
     private String hospitalAddress;
-    private int patientAge;
+    private String patientAge;
     private String patientSex;
     /**
      * 就诊人电话
@@ -183,11 +183,11 @@ public class HeadNurseServiceOrderDetailBean implements Serializable {
         this.hospitalAddress = hospitalAddress;
     }
 
-    public int getPatientAge() {
+    public String getPatientAge() {
         return patientAge;
     }
 
-    public void setPatientAge(int patientAge) {
+    public void setPatientAge(String patientAge) {
         this.patientAge = patientAge;
     }
 

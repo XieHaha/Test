@@ -35,7 +35,9 @@ public class DianoseCaseDetailActivity extends BaseControllerActivity<DianoseCas
      * 病历ID
      */
     private String medicalId = "";
-    private TextView hospitalName, departmentTv, timeTv, userNameTv, userAgeTv, userSexTv, mainDec, diseaseHistory, oversensitiveHistory, auxiliaryCheck, diagnose, dealWith, doctorName;
+    private TextView hospitalName, departmentTv, timeTv, userNameTv, userAgeTv, userSexTv,
+            mainDec, diseaseHistory, oversensitiveHistory, auxiliaryCheck, diagnose, dealWith,
+            doctorName;
     private ImageView doctorSign;
 
     /**
@@ -126,7 +128,7 @@ public class DianoseCaseDetailActivity extends BaseControllerActivity<DianoseCas
         departmentTv.setText("科别：" + bean.getDoctorDept());
         timeTv.setText("日期：" + bean.getTime());
         userNameTv.setText(bean.getName());
-        userAgeTv.setText(String.valueOf(bean.getAge()));
+        userAgeTv.setText(bean.getAge());
         userSexTv.setText(CommonUtils.getSex(bean.getSex()));
         mainDec.setText(bean.getMainComplaint());
         diseaseHistory.setText(bean.getHistoryIllness());

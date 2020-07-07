@@ -90,7 +90,7 @@ public class DiagnoseCommonRecyclrViewAdapter extends BaseEmptyAdapter<ChangeDia
 
             }
 
-            userName.setText(bean.getPatientName() + "、" + CommonUtils.getSex(bean.getPatientSex()) + "、" + bean.getPatientAge() + "岁");
+            userName.setText(bean.getPatientName() + "、" + CommonUtils.getSex(bean.getPatientSex()) + "、" + bean.getPatientAge());
             diagnoseDec.setText(bean.getReferralExplain());
             receive.setText(bean.getChangeInfoDoctor() + "、" + (bean.getChangeInfoJobTitle() == null || "".equals(bean.getChangeInfoJobTitle()) ? "" : (bean.getChangeInfoJobTitle() + "、")) + bean.getChangeInfoDept());
             apply.setText(bean.getDoctor() + "、" + (bean.getJobTitle() == null || "".equals(bean.getJobTitle()) ? "" : (bean.getJobTitle() + "、")) + bean.getDept());

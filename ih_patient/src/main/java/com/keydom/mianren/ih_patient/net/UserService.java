@@ -139,12 +139,6 @@ public interface UserService {
             , Object> map);
 
     /**
-     * 获取病历详情
-     */
-    @GET("user/online/getMedicalRecordInfo")
-    Observable<HttpResult<MedicalRecordBean>> getMedicalRecordInfo(@Query("medicalId") long medicalId);
-
-    /**
      * 获取医生/护士列表
      */
     @GET("user/registerUserDoctor/getMyDoctor")

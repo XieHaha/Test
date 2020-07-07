@@ -135,7 +135,7 @@ public class NursingOrderAdapter extends BaseQuickAdapter<NursingOrderBean, Base
         }
         String pCot = StringUtils.isEmpty(item.getPateintName())?"":(item.getPateintName()+"、");
         String sCot = StringUtils.isEmpty(sex)?"":(sex+"、");
-        String aCot = item.getPatientAge()+"岁";
+        String aCot = item.getPatientAge();
         helper.setTextColor(R.id.nursing_status_tv, color)
                 .setGone(R.id.go_pay, goPayShow)
                 .setGone(R.id.assess, assessShow)

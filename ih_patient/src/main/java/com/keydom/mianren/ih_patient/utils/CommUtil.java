@@ -41,11 +41,11 @@ public class CommUtil {
     }
 
     public static <T> boolean isEmpty(List<T> list) {
-        return list == null || list.size() <= 0 ? true : false;
+        return list == null || list.size() <= 0;
     }
 
     public static <K, V> boolean isEmpty(Map<K, V> map) {
-        return map == null || map.size() <= 0 ? true : false;
+        return map == null || map.size() <= 0;
     }
 
     /**

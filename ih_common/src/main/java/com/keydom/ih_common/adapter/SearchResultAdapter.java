@@ -86,7 +86,7 @@ public class SearchResultAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                 helper.setText(R.id.user_name, CommonUtils.getSearchResultStr(keyword, bean.getName()));
                 helper.setText(R.id.diagnose_dec, CommonUtils.getSearchResultStr(keyword, bean.getConditionDesc()));
                 helper.setText(R.id.diagnose_time,bean.getCreateTime()==null?"":bean.getCreateTime() );
-                helper.setText(R.id.user_age,bean.getAge()+"岁");
+                helper.setText(R.id.user_age,bean.getAge());
                 helper.setText(R.id.user_sex,CommonUtils.getSex(bean.getSex()));
                 GlideUtils.load(circleImageView, Const.IMAGE_HOST+bean.getPatientImage(), 0, 0, false, null);
                 Drawable img;

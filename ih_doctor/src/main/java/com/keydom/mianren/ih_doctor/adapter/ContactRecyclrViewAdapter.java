@@ -41,7 +41,8 @@ public class ContactRecyclrViewAdapter extends BaseEmptyAdapter<ImPatientInfo> {
 
     @Override
     public RecyclerView.ViewHolder createMyViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.patient_contact_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.patient_contact_item, parent,
+                false);
         return new ContactRecyclrViewAdapter.ViewHolder(view);
     }
 
@@ -70,9 +71,10 @@ public class ContactRecyclrViewAdapter extends BaseEmptyAdapter<ImPatientInfo> {
 
         public void bind(final int position) {
             final ImPatientInfo bean = mDatas.get(position);
-            GlideUtils.load(friendIconCiv, Const.IMAGE_HOST + bean.getUserImage(), 0, 0, false, null);
+            GlideUtils.load(friendIconCiv, Const.IMAGE_HOST + bean.getUserImage(), 0, 0, false,
+                    null);
             friendNameTv.setText(bean.getUserName());
-            friendAgeTv.setText(bean.getAge() + "岁");
+            friendAgeTv.setText(bean.getAge());
             if ("0".equals(bean.getSex())) {
                 friendSexIv.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.patient_cicle_blue));
             } else {
@@ -105,7 +107,8 @@ public class ContactRecyclrViewAdapter extends BaseEmptyAdapter<ImPatientInfo> {
                     Bundle bundle = new Bundle();
                     bundle.putBoolean(ImConstants.CHATTING, true);
                     ImClient.startConversation(mContext, bean.getImNumber(), bundle);
-//                    ImClient.startConversation(mContext, bean.getImNumber(), null);
+                    //                    ImClient.startConversation(mContext, bean.getImNumber()
+                    //                    , null);
                 }
             });
         }

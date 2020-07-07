@@ -52,6 +52,16 @@ public class DoctorPrescriptionDetailBean implements Serializable {
     private List<List<DrugBean>> list;
     private List<ICD10Bean> idcItems;
 
+    private String checker;
+
+    public String getChecker() {
+        return checker;
+    }
+
+    public void setChecker(String checker) {
+        this.checker = checker;
+    }
+
     public String getDoctorId() {
         return doctorId;
     }

@@ -15,7 +15,7 @@ public class DiagnosePatientInfoBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private long id;
     private String name;
-    private int age;
+    private String age;
     private String sex;
     private String familyHistory;
     private String allergyHistory;
@@ -38,11 +38,11 @@ public class DiagnosePatientInfoBean implements Serializable {
         this.name = name;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

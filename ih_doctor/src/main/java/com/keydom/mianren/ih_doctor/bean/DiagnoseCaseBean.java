@@ -23,7 +23,7 @@ public class DiagnoseCaseBean implements Serializable {
     private String name;
     private String nameAlpha;
     private int sex;
-    private int age;
+    private String age;
     private String phoneNumber;
     private String applyDate;
     private int applyId;
@@ -214,11 +214,11 @@ public class DiagnoseCaseBean implements Serializable {
         this.sex = sex;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

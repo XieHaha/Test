@@ -36,7 +36,8 @@ public class DiagnoseRecoderRecyclrViewAdapter extends BaseEmptyAdapter<Diagnose
 
     @Override
     public RecyclerView.ViewHolder createMyViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.diagnose_recoder_item_layout, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.diagnose_recoder_item_layout,
+                parent, false);
         return new ViewHolder(view);
     }
 
@@ -67,7 +68,7 @@ public class DiagnoseRecoderRecyclrViewAdapter extends BaseEmptyAdapter<Diagnose
             userName.setText(bean.getPatient());
             userDiagnose.setText(bean.getContent());
             sex.setText(CommonUtils.getSex(bean.getSex()));
-            age.setText(String.valueOf(bean.getAge()));
+            age.setText(bean.getAge());
             if (bean.getSex() == Const.MALE) {
                 typePoint.setImageResource(R.mipmap.point_blue);
             } else if (bean.getSex() == Const.FEMALE) {

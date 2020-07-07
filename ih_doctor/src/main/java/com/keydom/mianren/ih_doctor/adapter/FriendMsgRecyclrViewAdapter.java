@@ -89,7 +89,7 @@ public class FriendMsgRecyclrViewAdapter extends BaseEmptyAdapter<RecentContact>
                     friendNameTv.setText(userInfo.getName());
                     if (userInfo.getBirthday() != null && !"".equals(userInfo.getBirthday())) {
                         try {
-                            friendAgeTv.setText(CalculateTimeUtils.getAgeByBirth(userInfo.getBirthday()) + "岁");
+                            friendAgeTv.setText(CalculateTimeUtils.getAgeByBirth(userInfo.getBirthday()));
                         } catch (ParseException e) {
                             e.printStackTrace();
                             friendAgeTv.setText("");

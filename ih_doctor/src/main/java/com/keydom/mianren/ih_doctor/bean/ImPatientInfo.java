@@ -16,7 +16,7 @@ public class ImPatientInfo implements Serializable {
     private long id;
     private String userName;
     private String userImage;
-    private int age;
+    private String age;
     private List<String> labelList;
     private String sex;
     private boolean select = false;
@@ -79,11 +79,11 @@ public class ImPatientInfo implements Serializable {
         this.userImage = userImage;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

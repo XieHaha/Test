@@ -44,7 +44,8 @@ public class ChoosePatientRecyclrViewAdapter extends BaseEmptyAdapter<ImPatientI
 
     @Override
     public RecyclerView.ViewHolder createMyViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.patient_contact_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.patient_contact_item, parent,
+                false);
         return new ChoosePatientRecyclrViewAdapter.ViewHolder(view);
     }
 
@@ -75,9 +76,11 @@ public class ChoosePatientRecyclrViewAdapter extends BaseEmptyAdapter<ImPatientI
 
         public void bind(final int position) {
             final ImPatientInfo bean = mDatas.get(position);
-            GlideUtils.load(friendIconCiv, com.keydom.mianren.ih_doctor.constant.Const.IMAGE_HOST + bean.getUserImage(), 0, 0, false, null);
+            GlideUtils.load(friendIconCiv,
+                    com.keydom.mianren.ih_doctor.constant.Const.IMAGE_HOST + bean.getUserImage(),
+                    0, 0, false, null);
             friendNameTv.setText(bean.getUserName());
-            friendAgeTv.setText(bean.getAge() + "岁");
+            friendAgeTv.setText(bean.getAge());
             if (bean.isSelect()) {
                 selectIv.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.check_box_selected));
             } else {

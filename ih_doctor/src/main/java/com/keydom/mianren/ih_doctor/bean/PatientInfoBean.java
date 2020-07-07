@@ -37,7 +37,7 @@ public class PatientInfoBean implements Serializable {
     private String cityAddress;
     private String phoneNumber;
     private String blackNameList;
-    private int age;
+    private String age;
     private String focusOn;
     private String groupChatNames;
     private String hospitalUserNames;
@@ -101,11 +101,11 @@ public class PatientInfoBean implements Serializable {
         this.blackNameList = blackNameList;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

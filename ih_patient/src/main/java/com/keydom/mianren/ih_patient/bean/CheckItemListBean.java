@@ -14,7 +14,7 @@ public class CheckItemListBean implements Serializable {
     private long id;
     private String name;
     private String sex;
-    private int age;
+    private String age;
     private long deptId;
     private String deptName;
     private String hospitalName;
@@ -84,11 +84,11 @@ public class CheckItemListBean implements Serializable {
         this.sex = sex;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

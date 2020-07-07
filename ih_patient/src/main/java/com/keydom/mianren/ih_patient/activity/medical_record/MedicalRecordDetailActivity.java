@@ -13,7 +13,7 @@ import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.medical_record.controller.MedicalRecordDetailController;
 import com.keydom.mianren.ih_patient.activity.medical_record.view.MedicalRecordDetailView;
-import com.keydom.mianren.ih_patient.bean.MedicalRecordBean;
+import com.keydom.mianren.ih_patient.bean.DiagnoseCaseBean;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -73,7 +73,7 @@ public class MedicalRecordDetailActivity extends BaseControllerActivity<MedicalR
     }
 
     @Override
-    public void getDetailCallBack(MedicalRecordBean bean) {
+    public void getDetailCallBack(DiagnoseCaseBean bean) {
         if (bean!=null){
             mHospital.setText(bean.getHospitalName());
             mDepartment.setText("科别："+bean.getDoctorDept());
@@ -83,7 +83,7 @@ public class MedicalRecordDetailActivity extends BaseControllerActivity<MedicalR
                     .create();
             mName.setText(name);
             SpannableStringBuilder age = new SpanUtils().append("年龄：").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color))
-                    .append(bean.getAge()+"岁").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.color_333333))
+                    .append(bean.getAge()).setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.color_333333))
                     .create();
             mAge.setText(age);
             String sex = "0".equals(bean.getSex())?"男":"女";

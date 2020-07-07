@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -170,8 +171,9 @@ public class PatientDatumActivity extends BaseControllerActivity<PatientDatumCon
         nameTv.setText(bean.getUserName());
         String infoStr = "";
         infoStr += CommonUtils.getSex(bean.getSex()) + "  ";
-        infoStr += (bean.getAge() != 0 && !"".equals(bean.getAge())) ? bean.getAge() + "岁  " : " ";
-        infoStr += (bean.getPhoneNumber() != null && !"".equals(bean.getPhoneNumber()) ? bean.getPhoneNumber() : "");
+        infoStr += TextUtils.isEmpty(bean.getAge()) ? " " : bean.getAge();
+        infoStr += (bean.getPhoneNumber() != null && !"".equals(bean.getPhoneNumber()) ?
+                bean.getPhoneNumber() : "");
         patientBasedatumTv.setText(infoStr);
         locationTv.setText(bean.getCityAddress());
         chooseDoctorTv.setText(bean.getHospitalUserNames());
@@ -289,17 +291,18 @@ public class PatientDatumActivity extends BaseControllerActivity<PatientDatumCon
         view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                new GeneralDialog(PatientDatumActivity.this, "是否确定删除该标签?", new GeneralDialog.OnCloseListener() {
-                    @Override
-                    public void onCommit() {
-                        patientInfoBean.getLableList().remove(name);
-                        Map<String, Object> map = new HashMap<>();
-                        map.put("imNumber", patientId);
-                        map.put("hospitalCode", MyApplication.userInfo.getUserCode());
-                        map.put("label", getLableStr(""));
-                        getController().updateRegUserInfo(map);
-                    }
-                }).show();
+                new GeneralDialog(PatientDatumActivity.this, "是否确定删除该标签?",
+                        new GeneralDialog.OnCloseListener() {
+                            @Override
+                            public void onCommit() {
+                                patientInfoBean.getLableList().remove(name);
+                                Map<String, Object> map = new HashMap<>();
+                                map.put("imNumber", patientId);
+                                map.put("hospitalCode", MyApplication.userInfo.getUserCode());
+                                map.put("label", getLableStr(""));
+                                getController().updateRegUserInfo(map);
+                            }
+                        }).show();
                 return false;
             }
         });

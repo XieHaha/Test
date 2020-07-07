@@ -122,11 +122,13 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
     /**
      * 距离数组
      */
-    private int[] distanceArr = new int[]{20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 25000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000};
+    private int[] distanceArr = new int[]{20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000,
+            25000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000};
     /**
      * 缩放等级数组
      */
-    private int[] levelArr = new int[]{21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3};
+    private int[] levelArr = new int[]{21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6
+            , 5, 4, 3};
     private int mDZoom = 11;//默认11级
 
     /**
@@ -163,17 +165,17 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
         });
         mMapView.setVisibility(View.GONE);
         mEvaluteBtn.setVisibility(View.GONE);
-       hintState();
+        hintState();
 
         mServiceAdapter = new NursingOrderServiceAdapter(new ArrayList<>());
         mServiceAdapter.addHeaderView(mHeadView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mServiceAdapter);
 
-        getController().getDataList(mId, mState,false);
+        getController().getDataList(mId, mState, false);
     }
 
-    private void hintState(){
+    private void hintState() {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setShape(GradientDrawable.OVAL);
         drawable.setCornerRadius(ConvertUtils.dp2px(getResources().getDimension(R.dimen.dp_7)));
@@ -230,7 +232,8 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
      * 查找控件
      */
     private void getView() {
-        mHeadView = LayoutInflater.from(getContext()).inflate(R.layout.activity_sent_list_head, null);
+        mHeadView = LayoutInflater.from(getContext()).inflate(R.layout.activity_sent_list_head,
+                null);
         mCircle = mHeadView.findViewById(R.id.circle);
         mOrderType = mHeadView.findViewById(R.id.order_type);
         mOrderNum = mHeadView.findViewById(R.id.number_content);
@@ -276,7 +279,7 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
 
     @SuppressLint("SimpleDateFormat")
     @Override
-    public void getBasicData(NursingOrderDetailBean data,boolean isPay) {
+    public void getBasicData(NursingOrderDetailBean data, boolean isPay) {
         NursingOrderDetailBean dto = data.getNursingServiceOrderDetailBaseDto();
         if (data == null || dto == null) {
             return;
@@ -296,7 +299,7 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
         if ("0".equals(dto.getPatientSex())) {
             sex = "男";
         }
-        mServiceObj.setText(dto.getPatientName() + " " + sex + " " + dto.getPatientAge() + "岁");
+        mServiceObj.setText(dto.getPatientName() + " " + sex + " " + dto.getPatientAge());
         mHospital.setText(dto.getHospital());
         mTime.setText(dto.getTime());
         mDemandDes.setText(dto.getConditionDesciption());
@@ -306,7 +309,7 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
             mImgAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    CommonUtils.previewImageList(getContext(),adapter.getData(),position,true);
+                    CommonUtils.previewImageList(getContext(), adapter.getData(), position, true);
                   /*  String url = Const.IMAGE_HOST + (String) adapter.getData().get(position);
                     CommonUtils.previewImage(getContext(),url);*/
                 }
@@ -316,9 +319,9 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
             mImgRv.setLayoutManager(linearLayoutManager);
             mImgRv.setAdapter(mImgAdapter);
             List<String> imgs = Arrays.asList(dto.getConditionImage().replace("，", ",").split(","));
-            if(imgs!=null&&"".equals(imgs.get(0))){
+            if (imgs != null && "".equals(imgs.get(0))) {
                 mImgAdapter.setNewData(new ArrayList<>());
-            }else {
+            } else {
                 mImgAdapter.setNewData(imgs);
             }
 
@@ -326,9 +329,10 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
         if (dto.getOrderDetailItems() != null) {
             int j = 1;
             StringBuffer str = new StringBuffer();
-            BigDecimal totolFee=new BigDecimal("0");
+            BigDecimal totolFee = new BigDecimal("0");
             for (int i = 0; i < dto.getOrderDetailItems().size(); i++) {
-                NursingOrderDetailBean.OrderDetailItemsBean orderDetailItemsBean = dto.getOrderDetailItems().get(i);
+                NursingOrderDetailBean.OrderDetailItemsBean orderDetailItemsBean =
+                        dto.getOrderDetailItems().get(i);
                 str.append(j);
                 j += 1;
                 str.append("、");
@@ -340,7 +344,7 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
                 str.append(orderDetailItemsBean.getFrequency());
                 str.append("次");
                 str.append("\n");
-                totolFee= totolFee.add(orderDetailItemsBean.getTotalPrice());
+                totolFee = totolFee.add(orderDetailItemsBean.getTotalPrice());
             }
             mServiceDes.setText(str);
             mServiceCost.setText("¥" + totolFee + "元");
@@ -374,25 +378,27 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
                 mPayBtn.setText("确认并支付（¥" + total + "元）");
             }
         }
-//        if (mState == NursingOrderDetailBean.STATE4) {
-//            BigDecimal total = new BigDecimal(0.00);
-//            boolean needPay = false;
-//            if (data.getEquipmentItem() != null && data.getEquipmentItem().size() != 0) {
-//                for (int i = 0; i < data.getEquipmentItem().size(); i++) {
-//                    if (data.getEquipmentItem().get(i) != null && data.getEquipmentItem().get(i).getTotalMoney() != null && data.getEquipmentItem().get(i).getPay() != 1) {
-//                        needPay = true;
-//                        total = total.add(data.getEquipmentItem().get(i).getTotalMoney());
-//                    }
-//                }
-//            }
-//            if (needPay) {
-//                mBottomGroup.setVisibility(View.VISIBLE);
-//                mPayBtn.setVisibility(View.VISIBLE);
-//                mEvaluteBtn.setVisibility(View.VISIBLE);
-//                mOrderBean.setPrice(total);
-//                mPayBtn.setText("确认并支付（¥" + total + "元）");
-//            }
-//        }
+        //        if (mState == NursingOrderDetailBean.STATE4) {
+        //            BigDecimal total = new BigDecimal(0.00);
+        //            boolean needPay = false;
+        //            if (data.getEquipmentItem() != null && data.getEquipmentItem().size() != 0) {
+        //                for (int i = 0; i < data.getEquipmentItem().size(); i++) {
+        //                    if (data.getEquipmentItem().get(i) != null && data.getEquipmentItem
+        //                    ().get(i).getTotalMoney() != null && data.getEquipmentItem().get(i)
+        //                    .getPay() != 1) {
+        //                        needPay = true;
+        //                        total = total.add(data.getEquipmentItem().get(i).getTotalMoney());
+        //                    }
+        //                }
+        //            }
+        //            if (needPay) {
+        //                mBottomGroup.setVisibility(View.VISIBLE);
+        //                mPayBtn.setVisibility(View.VISIBLE);
+        //                mEvaluteBtn.setVisibility(View.VISIBLE);
+        //                mOrderBean.setPrice(total);
+        //                mPayBtn.setText("确认并支付（¥" + total + "元）");
+        //            }
+        //        }
         if (mState == NursingOrderDetailBean.STATE5) {
             BigDecimal total = dto.getReservationSet();
             mBottomGroup.setVisibility(View.VISIBLE);
@@ -407,12 +413,14 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
             mMapView.setVisibility(View.VISIBLE);
             mMapView.onResume();
             try {
-                getAddressLatAndLng(new LatLng(Double.parseDouble(dto.getLatitude()), Double.parseDouble(dto.getLongitude())), dto.getCity(), dto.getServiceAddress());
+                getAddressLatAndLng(new LatLng(Double.parseDouble(dto.getLatitude()),
+                        Double.parseDouble(dto.getLongitude())), dto.getCity(),
+                        dto.getServiceAddress());
             } catch (Exception e) {
 
             }
         }
-        if (isPay){
+        if (isPay) {
             getController().showPayDialog(mOrderBean);
         }
     }
@@ -486,7 +494,8 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
         double R = 6371;
 
         // 两点间距离 km，如果想要米的话，结果*1000就可以了
-        double d = Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1))
+        double d =
+                Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1))
                 * R;
 
         return d;
@@ -504,7 +513,8 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
                     Logger.e("没有检索到结果");
                 } else {
                     Logger.e("获取地理编码结果:  lat=" + result.getLocation().latitude + "lng=" + result.getLocation().longitude);
-                    LatLng end = new LatLng(result.getLocation().latitude, result.getLocation().longitude);
+                    LatLng end = new LatLng(result.getLocation().latitude,
+                            result.getLocation().longitude);
 
                     double distance = getDistance(start, end);
                     BigDecimal bd = new BigDecimal(distance);
@@ -522,7 +532,8 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
                             .target(result.getLocation())
                             .zoom(levelArr[level])
                             .build();
-                    MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+                    MapStatusUpdate mMapStatusUpdate =
+                            MapStatusUpdateFactory.newMapStatus(mMapStatus);
                     mMap.setMapStatus(mMapStatusUpdate);
                 }
             }
@@ -599,10 +610,10 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
         // activity 暂停时同时暂停地图控件
         super.onPause();
         mMapView.onPause();
-//        MKOLUpdateElement temp = mOffline.getUpdateInfo(GY_CITY_ID);
-//        if (temp != null && temp.status == MKOLUpdateElement.DOWNLOADING) {
-//            mOffline.pause(GY_CITY_ID);
-//        }
+        //        MKOLUpdateElement temp = mOffline.getUpdateInfo(GY_CITY_ID);
+        //        if (temp != null && temp.status == MKOLUpdateElement.DOWNLOADING) {
+        //            mOffline.pause(GY_CITY_ID);
+        //        }
     }
 
     @Override
@@ -614,7 +625,7 @@ public class SentListActivity extends BaseControllerActivity<SentListController>
 
     @Override
     protected void onDestroy() {
-//        mOffline.destroy();
+        //        mOffline.destroy();
         super.onDestroy();
         if (mRouteSearch != null) {
             mRouteSearch.destroy();

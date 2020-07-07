@@ -43,7 +43,7 @@ public class CalculateTimeUtils {
 
             e.printStackTrace();
         }
-        if(setTime!=null){
+        if (setTime != null) {
             long reset = setTime.getTime();
             long dateDiff = nowTime - reset;
             if (dateDiff < 0) {
@@ -208,8 +208,9 @@ public class CalculateTimeUtils {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
-        if (w < 0)
+        if (w < 0) {
             w = 0;
+        }
         return weekDays[w];
     }
 
@@ -234,7 +235,8 @@ public class CalculateTimeUtils {
     }
 
     public static String getYMDTime(Date date) {
-        SimpleDateFormat formatTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat formatTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+                Locale.getDefault());
         return formatTime.format(date);
     }
 
@@ -336,7 +338,7 @@ public class CalculateTimeUtils {
 
     public static int getAgeByBirth(String birthDayStr) throws ParseException {
         Date birthDay = getDate(birthDayStr);
-        int age = 0;
+        int age;
         Calendar cal = Calendar.getInstance();
         if (cal.before(birthDay)) { //出生日期晚于当前时间，无法计算
             throw new IllegalArgumentException(
@@ -352,7 +354,9 @@ public class CalculateTimeUtils {
         age = yearNow - yearBirth;   //计算整岁数
         if (monthNow <= monthBirth) {
             if (monthNow == monthBirth) {
-                if (dayOfMonthNow < dayOfMonthBirth) age--;//当前日期在生日之前，年龄减一
+                if (dayOfMonthNow < dayOfMonthBirth) {
+                    age--;//当前日期在生日之前，年龄减一
+                }
             } else {
                 age--;//当前月份在生日之前，年龄减一
             }

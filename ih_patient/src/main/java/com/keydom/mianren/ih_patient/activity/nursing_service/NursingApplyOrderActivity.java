@@ -52,9 +52,9 @@ public class NursingApplyOrderActivity extends BaseControllerActivity<NursingApp
     private LinearLayout picLayout;
     private NursingServiceOrderInfo orderInfo;
     private NursingServicePriceAdapter nursingServicePriceAdapter;
-    private List<NursingServiceOrderInfo.NursingServiceOrderDetailBaseDtoBean.OrderDetailItemsBean> priceList=new ArrayList<>();
+    private List<NursingServiceOrderInfo.NursingServiceOrderDetailBaseDtoBean.OrderDetailItemsBean> priceList = new ArrayList<>();
     private String payType = Type.ALIPAY;
-    private BigDecimal allFee= BigDecimal.valueOf(0);
+    private BigDecimal allFee = BigDecimal.valueOf(0);
     private GridViewForScrollView img_gv;
     private GridViewImageShowAdapter mAdapter;
     public List<String> dataList = new ArrayList<>();
@@ -89,7 +89,7 @@ public class NursingApplyOrderActivity extends BaseControllerActivity<NursingApp
      */
     private void getView() {
         mOrderName = findViewById(R.id.order_name);
-        mOrderNameFlow=findViewById(R.id.order_name_fl);
+        mOrderNameFlow = findViewById(R.id.order_name_fl);
         mOrderNum = findViewById(R.id.number_content);
         mName = findViewById(R.id.name_content);
         mPhone = findViewById(R.id.phone_content);
@@ -99,7 +99,7 @@ public class NursingApplyOrderActivity extends BaseControllerActivity<NursingApp
         mHosPital = findViewById(R.id.hospital_content);
         mDemand = findViewById(R.id.demand_content);
         mServiceCost = findViewById(R.id.service_cost_content);
-        nursingServicePriceAdapter=new NursingServicePriceAdapter(priceList);
+        nursingServicePriceAdapter = new NursingServicePriceAdapter(priceList);
         mServiceCost.setAdapter(nursingServicePriceAdapter);
         mDepartment = findViewById(R.id.project_content);
         mServiceTotal = findViewById(R.id.money);
@@ -119,8 +119,9 @@ public class NursingApplyOrderActivity extends BaseControllerActivity<NursingApp
         img_gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CommonUtils.previewImageList(getContext(),dataList,position,true);
-//                CommonUtils.previewImage(getContext(), Const.IMAGE_HOST+dataList.get(position));
+                CommonUtils.previewImageList(getContext(), dataList, position, true);
+                //                CommonUtils.previewImage(getContext(), Const
+                //                .IMAGE_HOST+dataList.get(position));
             }
         });
         img_gv.setAdapter(mAdapter);
@@ -130,27 +131,33 @@ public class NursingApplyOrderActivity extends BaseControllerActivity<NursingApp
      * 查找全部数据
      */
     private void fillData() {
-        for (int i = 0; i <orderInfo.getNursingServiceOrderDetailBaseDto().getOrderDetailItems().size() ; i++) {
-            allFee=allFee.add(orderInfo.getNursingServiceOrderDetailBaseDto().getOrderDetailItems().get(i).getTotalPrice());
+        for (int i = 0; i < orderInfo.getNursingServiceOrderDetailBaseDto().getOrderDetailItems().size(); i++) {
+            allFee =
+                    allFee.add(orderInfo.getNursingServiceOrderDetailBaseDto().getOrderDetailItems().get(i).getTotalPrice());
         }
         String serviceName = "";
         if (orderInfo.getNursingServiceOrderDetailBaseDto() != null) {
             if (orderInfo.getNursingServiceOrderDetailBaseDto().getServiceName() != null) {
                 for (int i = 0; i < orderInfo.getNursingServiceOrderDetailBaseDto().getServiceName().size(); i++) {
                     serviceName += (orderInfo.getNursingServiceOrderDetailBaseDto().getServiceName().get(i) + " ");
-                    TextView textView=new TextView(getContext());
+                    TextView textView = new TextView(getContext());
                     textView.setText(orderInfo.getNursingServiceOrderDetailBaseDto().getServiceName().get(i));
                     textView.setTextColor(Color.parseColor("#BBBBBB"));
-                    textView.setPadding(getResources().getDimensionPixelSize(R.dimen.dp_5),getResources().getDimensionPixelSize(R.dimen.dp_3),getResources().getDimensionPixelSize(R.dimen.dp_5),getResources().getDimensionPixelSize(R.dimen.dp_5));
+                    textView.setPadding(getResources().getDimensionPixelSize(R.dimen.dp_5),
+                            getResources().getDimensionPixelSize(R.dimen.dp_3),
+                            getResources().getDimensionPixelSize(R.dimen.dp_5),
+                            getResources().getDimensionPixelSize(R.dimen.dp_5));
                     mOrderNameFlow.addView(textView);
                 }
                 //mOrderName.setText(serviceName);
             }
             mOrderNum.setText(orderInfo.getNursingServiceOrderDetailBaseDto().getOrderNumber() != null ? orderInfo.getNursingServiceOrderDetailBaseDto().getOrderNumber() : "");
-            mName.setText(orderInfo.getNursingServiceOrderDetailBaseDto().getUserName() != null ? orderInfo.getNursingServiceOrderDetailBaseDto().getUserName() : "");
+            mName.setText(orderInfo.getNursingServiceOrderDetailBaseDto().getUserName() != null ?
+                    orderInfo.getNursingServiceOrderDetailBaseDto().getUserName() : "");
             mPhone.setText(orderInfo.getNursingServiceOrderDetailBaseDto().getApplyPhone() != null ? orderInfo.getNursingServiceOrderDetailBaseDto().getApplyPhone() : "");
             mAddress.setText(orderInfo.getNursingServiceOrderDetailBaseDto().getServiceAddress() != null ? orderInfo.getNursingServiceOrderDetailBaseDto().getServiceAddress() : "");
-            mTime.setText(orderInfo.getNursingServiceOrderDetailBaseDto().getTime() != null ? orderInfo.getNursingServiceOrderDetailBaseDto().getTime() : "");
+            mTime.setText(orderInfo.getNursingServiceOrderDetailBaseDto().getTime() != null ?
+                    orderInfo.getNursingServiceOrderDetailBaseDto().getTime() : "");
             String objName = "";
             String objSex = "";
             String objAge = "";
@@ -164,25 +171,27 @@ public class NursingApplyOrderActivity extends BaseControllerActivity<NursingApp
             } else if ("2".equals(orderInfo.getNursingServiceOrderDetailBaseDto().getPatientSex())) {
                 objSex = "未知";
             }
-            objAge=orderInfo.getNursingServiceOrderDetailBaseDto().getPatientAge()+"岁";
-            mServiceObj.setText(objName+"  "+objSex+"  "+objAge);
+            objAge = orderInfo.getNursingServiceOrderDetailBaseDto().getPatientAge();
+            mServiceObj.setText(objName + "  " + objSex + "  " + objAge);
             mHosPital.setText(orderInfo.getNursingServiceOrderDetailBaseDto().getHospital() != null ? orderInfo.getNursingServiceOrderDetailBaseDto().getHospital() : "");
             mDepartment.setText(orderInfo.getNursingServiceOrderDetailBaseDto().getDeptName() != null ? orderInfo.getNursingServiceOrderDetailBaseDto().getDeptName() : "");
-            mDemand.setText(orderInfo.getNursingServiceOrderDetailBaseDto().getConditionDesciption() != null &&!"".equals(orderInfo.getNursingServiceOrderDetailBaseDto().getConditionDesciption())? orderInfo.getNursingServiceOrderDetailBaseDto().getConditionDesciption() : "无");
+            mDemand.setText(orderInfo.getNursingServiceOrderDetailBaseDto().getConditionDesciption() != null && !"".equals(orderInfo.getNursingServiceOrderDetailBaseDto().getConditionDesciption()) ? orderInfo.getNursingServiceOrderDetailBaseDto().getConditionDesciption() : "无");
             RecyclerView mServiceCost;//service_cost_content  服务费
-            mServiceTotal.setText("¥"+allFee+"元");
-            if(orderInfo.getNursingServiceOrderDetailBaseDto().getConditionImage()!=null&&!"".equals(orderInfo.getNursingServiceOrderDetailBaseDto().getConditionImage())){
-                String[]url=orderInfo.getNursingServiceOrderDetailBaseDto().getConditionImage().split(",");
-                for (int i = 0; i <url.length ; i++) {
+            mServiceTotal.setText("¥" + allFee + "元");
+            if (orderInfo.getNursingServiceOrderDetailBaseDto().getConditionImage() != null && !
+                    "".equals(orderInfo.getNursingServiceOrderDetailBaseDto().getConditionImage())) {
+                String[] url =
+                        orderInfo.getNursingServiceOrderDetailBaseDto().getConditionImage().split(",");
+                for (int i = 0; i < url.length; i++) {
                     dataList.add(url[i]);
                 }
                 mAdapter.notifyDataSetChanged();
 
-            }else {
+            } else {
                 picLayout.setVisibility(View.GONE);
                 noPicTv.setVisibility(View.VISIBLE);
             }
-            mPay.setText("立即支付 ¥"+allFee);
+            mPay.setText("立即支付 ¥" + allFee);
             nursingServicePriceAdapter.setNewData(orderInfo.getNursingServiceOrderDetailBaseDto().getOrderDetailItems());
         }
 

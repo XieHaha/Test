@@ -16,7 +16,7 @@ public class ChangeDiagnoseRecoderBean implements Serializable {
     private String referralExplain;
     private String patientName;
     private int patientSex;
-    private int patientAge;
+    private String patientAge;
     private String diseaseData;
     private String dept;
     private String doctor;
@@ -61,11 +61,11 @@ public class ChangeDiagnoseRecoderBean implements Serializable {
         this.patientSex = patientSex;
     }
 
-    public int getPatientAge() {
+    public String getPatientAge() {
         return patientAge;
     }
 
-    public void setPatientAge(int patientAge) {
+    public void setPatientAge(String patientAge) {
         this.patientAge = patientAge;
     }
 

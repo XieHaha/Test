@@ -36,7 +36,7 @@ public class NursingOrderBean implements Serializable{
     private boolean canRejectOrder;
     private int pay;
     private String remark;
-    private int patientAge;
+    private String patientAge;
     private String pateintName;
     private String patientSex;
     private int equipmentOrSubOrderPay;
@@ -80,11 +80,11 @@ public class NursingOrderBean implements Serializable{
         this.equipmentOrSubOrderPay = equipmentOrSubOrderPay;
     }
 
-    public int getPatientAge() {
+    public String getPatientAge() {
         return patientAge;
     }
 
-    public void setPatientAge(int patientAge) {
+    public void setPatientAge(String patientAge) {
         this.patientAge = patientAge;
     }
 

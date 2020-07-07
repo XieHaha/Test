@@ -64,7 +64,9 @@ public class HeadNurseServiceOrderDetailActivity extends BaseControllerActivity<
     private ImageView spreadOut;
     private Button receiveBt, updateBt, returnBt;
     private RecyclerView diagnoseMaterialRv;
-    private TextView distanceTv, nurseName, hospitalName, hospitalAddress, userPhone, orderNumTV, deptName, userName, userInfoPhone, useInfoAddress, serviceUser, contactPhoneNum, visitTime, serviceFee, serviceReqExplainTv;
+    private TextView distanceTv, nurseName, hospitalName, hospitalAddress, userPhone, orderNumTV,
+            deptName, userName, userInfoPhone, useInfoAddress, serviceUser, contactPhoneNum,
+            visitTime, serviceFee, serviceReqExplainTv;
     private DiagnoseOrderDetailAdapter diagnoseMaterialAdapter;
     private List<String> dataList = new ArrayList<>();
     private boolean isDept = false;
@@ -184,17 +186,17 @@ public class HeadNurseServiceOrderDetailActivity extends BaseControllerActivity<
         deptName.setText(bean.getDeptName());
         userName.setText(bean.getUserName());
         useInfoAddress.setText(bean.getServiceAddress());
-        serviceUser.setText(bean.getServiceObject() + " " + com.keydom.ih_common.utils.CommonUtils.getSex(bean.getPatientSex()) + " " + bean.getPatientAge() + "岁");
+        serviceUser.setText(bean.getServiceObject() + " " + com.keydom.ih_common.utils.CommonUtils.getSex(bean.getPatientSex()) + " " + bean.getPatientAge());
         visitTime.setText(bean.getTime());
         serviceFee.setText("¥" + bean.getReservationSet() + "元/次");
         serviceReqExplainTv.setText(bean.getConditionDesciption());
         if (bean.getConditionImage() != null) {
             String[] icons = bean.getConditionImage().split(",");
-            if(icons.length==1){
-                if(!"".equals(icons[0])){
+            if (icons.length == 1) {
+                if (!"".equals(icons[0])) {
                     dataList.add(icons[0]);
                 }
-            }else {
+            } else {
                 for (int i = 0; i < icons.length; i++) {
                     dataList.add(icons[i]);
                 }
@@ -219,7 +221,9 @@ public class HeadNurseServiceOrderDetailActivity extends BaseControllerActivity<
      */
     private void setMapInfo() {
         RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        rxPermissions.request(Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean granted) throws Exception {

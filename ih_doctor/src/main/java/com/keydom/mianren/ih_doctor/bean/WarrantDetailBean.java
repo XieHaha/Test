@@ -121,7 +121,7 @@ public class WarrantDetailBean  implements Serializable {
 
         private String userImage;
         private String userId;
-        private int age;
+        private String age;
         private String sex;
         private String userName;
 
@@ -141,11 +141,11 @@ public class WarrantDetailBean  implements Serializable {
             this.userId = userId;
         }
 
-        public int getAge() {
+        public String getAge() {
             return age;
         }
 
-        public void setAge(int age) {
+        public void setAge(String age) {
             this.age = age;
         }
 

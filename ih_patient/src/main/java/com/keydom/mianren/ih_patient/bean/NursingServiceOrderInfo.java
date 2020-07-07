@@ -88,7 +88,7 @@ public class NursingServiceOrderInfo implements Serializable {
         @JSONField(name = "hospitalAddress")
         private String hospitalAddress;
         @JSONField(name = "patientAge")
-        private int patientAge;
+        private String patientAge;
         @JSONField(name = "patientSex")
         private String patientSex;
         @JSONField(name = "patientTel")
@@ -230,11 +230,11 @@ public class NursingServiceOrderInfo implements Serializable {
             this.hospitalAddress = hospitalAddress;
         }
 
-        public int getPatientAge() {
+        public String getPatientAge() {
             return patientAge;
         }
 
-        public void setPatientAge(int patientAge) {
+        public void setPatientAge(String patientAge) {
             this.patientAge = patientAge;
         }
 

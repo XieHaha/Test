@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class PainlessDeliveryBean implements Serializable {
     private static final long serialVersionUID = -6924784896437675534L;
 
-    private int age;
+    private String age;
     private int embryoNumber;
     private int isConfirm;
     private int isDel;
@@ -27,11 +27,11 @@ public class PainlessDeliveryBean implements Serializable {
     private String confirmTime;
 
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

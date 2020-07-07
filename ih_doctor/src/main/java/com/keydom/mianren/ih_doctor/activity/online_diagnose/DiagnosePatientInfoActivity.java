@@ -92,17 +92,17 @@ public class DiagnosePatientInfoActivity extends BaseControllerActivity<Diagnose
      * @param bean 就诊人资料对象
      */
     private void setInfo(DiagnosePatientInfoBean bean) {
-        String nameStr="";
-        if(bean.getName()!=null&&bean.getName().length()>8){
-            nameStr=bean.getName().substring(0,2)+"..."+bean.getName().substring(6,8);
-        }else {
-            nameStr=bean.getName();
+        String nameStr = "";
+        if (bean.getName() != null && bean.getName().length() > 8) {
+            nameStr = bean.getName().substring(0, 2) + "..." + bean.getName().substring(6, 8);
+        } else {
+            nameStr = bean.getName();
 
         }
         setTitle(nameStr);
         userName.setText(bean.getName());
         userSex.setText(CommonUtils.getSex(bean.getSex()));
-        userAge.setText(String.valueOf(bean.getAge()));
+        userAge.setText(bean.getAge());
         presentHistory.setText(bean.getPresentHistory());
         familyHistory.setText(bean.getFamilyHistory());
         allergyHistory.setText(bean.getAllergyHistory());

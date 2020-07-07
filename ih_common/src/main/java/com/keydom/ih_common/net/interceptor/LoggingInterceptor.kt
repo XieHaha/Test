@@ -16,7 +16,9 @@ class LoggingInterceptor : Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response { //这个chain里面包含了request和response，所以你要什么都可以从这里拿
-        val request = chain.request().newBuilder().addHeader("Authorization", SharePreferenceManager.getToken()).build()
+        val request = chain.request().newBuilder()
+                .addHeader("Authorization", SharePreferenceManager.getToken())
+                .addHeader("Content-Type", "application/json").build()
         val t1 = System.nanoTime()//请求发起的时间
         val method = request.method()
         val responseBuilder = Response.Builder()
@@ -24,7 +26,7 @@ class LoggingInterceptor : Interceptor {
                 .message("不支持保存表情，请检查后重试！")
                 .request(chain.request())
                 .protocol(Protocol.HTTP_1_0)
-                .addHeader("content-type", "application/json")
+                .addHeader("Content-Type", "application/json")
 
         if ("POST" == method) {
             val sb = StringBuilder()
