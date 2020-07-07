@@ -16,6 +16,7 @@ import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.AnamnesisActivity;
+import com.keydom.mianren.ih_patient.activity.index_main.MainActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.OnlineDiagnonsesOrderActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.view.DiagnosesApplyView;
@@ -246,6 +247,7 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
         //                , () -> MainActivity.start(getContext(), false)).setTitle("提示")
         //                .setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认")
         //                .show();
+        MainActivity.start(getContext(), false);
         OnlineDiagnonsesOrderActivity.start(getContext(),
                 OnlineDiagnonsesOrderActivity.WAITEDIAGNOSES);
     }

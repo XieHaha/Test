@@ -49,16 +49,18 @@ public class ChargeMemberController extends ControllerImpl<ChargeMemberView> imp
                     return;
                 }
 
-                mCommonPayDialog = new CommonPayDialog(getContext(), price, new CommonPayDialog.iOnCommitOnClick() {
+                mCommonPayDialog = new CommonPayDialog(getContext(), price,
+                        new CommonPayDialog.iOnCommitOnClick() {
                     @Override
                     public void commitPay(int type) {
                         //renewalCard(price,type);
-                        renewalCard(0.01,type);
+                        renewalCard(0.01, type);
                     }
                 });
                 mCommonPayDialog.show();
                 break;
-
+            default:
+                break;
         }
     }
 
@@ -75,7 +77,8 @@ public class ChargeMemberController extends ControllerImpl<ChargeMemberView> imp
 
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 ToastUtils.showShort(msg);
                 getView().getMyVipCardFail(msg);
                 return super.requestError(exception, code, msg);
@@ -105,7 +108,8 @@ public class ChargeMemberController extends ControllerImpl<ChargeMemberView> imp
                     if (!js.containsKey("return_msg")) {
                         return;
                     }
-                    new Alipay(getContext(), js.getString("return_msg"), new Alipay.AlipayResultCallBack() {
+                    new Alipay(getContext(), js.getString("return_msg"),
+                            new Alipay.AlipayResultCallBack() {
                         @Override
                         public void onSuccess() {
                             getView().paySuccess();
@@ -151,7 +155,8 @@ public class ChargeMemberController extends ControllerImpl<ChargeMemberView> imp
 
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }

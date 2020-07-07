@@ -123,6 +123,7 @@
                 android:id="@+id/consultation_info_purpose_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 mitem:editMode="false"
                 mitem:itemTip="会诊理由及目的"
                 mitem:showArrow="false" />
@@ -131,6 +132,7 @@
                 android:id="@+id/consultation_info_summary_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 mitem:editMode="false"
                 mitem:itemTip="病情摘要"
                 mitem:showArrow="false" />
@@ -185,9 +187,7 @@
 
             </RelativeLayout>
 
-
         </LinearLayout>
-
     </ScrollView>
 
     <LinearLayout

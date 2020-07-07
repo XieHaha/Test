@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -187,34 +188,34 @@ public class ImMessageList extends FrameLayout {
                 if (message.getDirect() == MsgDirectionEnum.Out && (message.getMsgType() == MsgTypeEnum.text || message.getMsgType() == MsgTypeEnum.image || message.getMsgType() == MsgTypeEnum.file || message.getMsgType() == MsgTypeEnum.audio)) {
                     new GeneralDialog(getContext(), "是否撤回此条消息？",
                             new GeneralDialog.OnCloseListener() {
-                        @Override
-                        public void onCommit() {
-                            NIMClient.getService(MsgService.class).revokeMessage(message).setCallback(new RequestCallback<Void>() {
                                 @Override
-                                public void onSuccess(Void param) {
-                                    revokePosition = position;
-                                    getChatMessageList();
-                                    RevokeMessageHelper.getInstance().onRevokeMessage(message,
-                                            ImClient.getUserInfoProvider().getAccount());
-                                }
+                                public void onCommit() {
+                                    NIMClient.getService(MsgService.class).revokeMessage(message).setCallback(new RequestCallback<Void>() {
+                                        @Override
+                                        public void onSuccess(Void param) {
+                                            revokePosition = position;
+                                            getChatMessageList();
+                                            RevokeMessageHelper.getInstance().onRevokeMessage(message,
+                                                    ImClient.getUserInfoProvider().getAccount());
+                                        }
 
-                                @Override
-                                public void onFailed(int code) {
-                                    if (code == ResponseCode.RES_OVERDUE) {
-                                        Toast.makeText(getContext(), "发送时间超过2分钟的消息，不能被撤回",
-                                                Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Logger.e("revoke msg failed, code:" + code);
-                                    }
-                                }
+                                        @Override
+                                        public void onFailed(int code) {
+                                            if (code == ResponseCode.RES_OVERDUE) {
+                                                Toast.makeText(getContext(), "发送时间超过2分钟的消息，不能被撤回",
+                                                        Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Logger.e("revoke msg failed, code:" + code);
+                                            }
+                                        }
 
-                                @Override
-                                public void onException(Throwable exception) {
+                                        @Override
+                                        public void onException(Throwable exception) {
 
+                                        }
+                                    });
                                 }
-                            });
-                        }
-                    }).setTitle("撤回").setNegativeButton("取消").setPositiveButton("确认").show();
+                            }).setTitle("撤回").setNegativeButton("取消").setPositiveButton("确认").show();
                 }
             }
         });
@@ -238,50 +239,56 @@ public class ImMessageList extends FrameLayout {
     private void initData(final IMMessage anchor) {
         ImClient.queryMessageListEx(anchor, QueryDirectionEnum.QUERY_OLD, pageSize, true,
                 new QueryMessageListener() {
-            @Override
-            public void onSuccess(List<IMMessage> param) {
-                if (mRefresh.isEnableRefresh()) {
-                    mRefresh.finishRefresh();
-                    if (param.size() == 0) {
-                        setEnableLoadMore(false);
+                    @Override
+                    public void onSuccess(List<IMMessage> param) {
+                        if (mRefresh.isEnableRefresh()) {
+                            mRefresh.finishRefresh();
+                            if (param.size() == 0) {
+                                setEnableLoadMore(false);
+                            }
+                        }
+                        if (!param.isEmpty()) {
+                            anchorMessage = param.get(0);
+                        }
+                        if (param.size() >= pageSize) {
+                            setEnableLoadMore(true);
+                        }
+
+                        List<ImUIMessage> uiMessages = new ArrayList<>();
+                        for (IMMessage message : param) {
+                            if (message.getMsgType() == MsgTypeEnum.tip) {
+                                String content = message.getContent();
+                                if (!TextUtils.isEmpty(content) && content.contains("已被移出群")) {
+                                    message.setContent("群信息已更新");
+                                }
+                            }
+                            boolean isEndInquiryMsgType =
+                                    message.getMsgType() == MsgTypeEnum.custom && (message.getAttachment() instanceof EndInquiryAttachment);
+                            if (message.getMsgType() != MsgTypeEnum.notification && !isEndInquiryMsgType) {
+                                uiMessages.add(ImUIMessage.obtain(message));
+                            }
+                        }
+
+                        setData(uiMessages);
+                        if (type == SessionTypeEnum.Team) {
+                            NIMClient.getService(TeamService.class).refreshTeamMessageReceipt(param);
+                        }
                     }
-                }
-                if (!param.isEmpty()) {
-                    anchorMessage = param.get(0);
-                }
-                if (param.size() >= pageSize) {
-                    setEnableLoadMore(true);
-                }
 
-                List<ImUIMessage> uiMessages = new ArrayList<>();
-                for (IMMessage message : param) {
-                    boolean isEndInquiryMsgType =
-                            message.getMsgType() == MsgTypeEnum.custom && (message.getAttachment() instanceof EndInquiryAttachment);
-                    if (message.getMsgType() != MsgTypeEnum.notification && !isEndInquiryMsgType) {
-                        uiMessages.add(ImUIMessage.obtain(message));
+                    @Override
+                    public void onFailed(int code) {
+                        if (mRefresh.isEnableRefresh()) {
+                            mRefresh.finishRefresh();
+                        }
                     }
-                }
 
-                setData(uiMessages);
-                if (type == SessionTypeEnum.Team) {
-                    NIMClient.getService(TeamService.class).refreshTeamMessageReceipt(param);
-                }
-            }
-
-            @Override
-            public void onFailed(int code) {
-                if (mRefresh.isEnableRefresh()) {
-                    mRefresh.finishRefresh();
-                }
-            }
-
-            @Override
-            public void onException(Throwable exception) {
-                if (mRefresh.isEnableRefresh()) {
-                    mRefresh.finishRefresh();
-                }
-            }
-        });
+                    @Override
+                    public void onException(Throwable exception) {
+                        if (mRefresh.isEnableRefresh()) {
+                            mRefresh.finishRefresh();
+                        }
+                    }
+                });
     }
 
     public void setEnableLoadMore(boolean enable) {
@@ -356,6 +363,12 @@ public class ImMessageList extends FrameLayout {
         if (model.getMessage().getAttachment() instanceof EndInquiryAttachment) {
             ImClient.sentMessage(model.getMessage(), false, null);
         } else {
+            if (model.getItemType() == MsgTypeEnum.tip.getValue()) {
+                String content = model.getMessage().getContent();
+                if (!TextUtils.isEmpty(content) && content.contains("已被移出群")) {
+                    model.getMessage().setContent("群信息已更新");
+                }
+            }
             mAdapter.addData(model);
             mRecycler.scrollToPosition(mAdapter.getItemCount() - 1);
         }

@@ -85,7 +85,8 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
     public void paySuccess() {
         ToastUtils.showShort("续约成功");
         EventBus.getDefault().post(new ChargeMemberSuccess());
-        getController().getMyVipCard();
+        //        getController().getMyVipCard();
+        finish();
     }
 
     @Override
