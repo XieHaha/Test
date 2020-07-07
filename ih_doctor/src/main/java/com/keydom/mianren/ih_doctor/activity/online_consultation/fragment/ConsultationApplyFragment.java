@@ -412,7 +412,7 @@ public class ConsultationApplyFragment extends BaseControllerFragment<Consultati
         //        map.put("illnessAbstract", consultationApplyMedicalSummaryEt.getText().toString
         //        ());
         map.put("level", mdtGrade);
-        map.put("mdtTime", System.currentTimeMillis());
+        //        map.put("mdtTime", System.currentTimeMillis());
         //        map.put("medicalHistoryImgUrl", gridList);
         //        map.put("reasonAim", consultationApplyTransferDescriptionEt.getText().toString());
         map.put("userOrderId", inquiryBean.getId());

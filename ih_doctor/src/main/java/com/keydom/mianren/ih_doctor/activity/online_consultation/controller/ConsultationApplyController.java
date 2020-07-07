@@ -103,23 +103,6 @@ public class ConsultationApplyController extends ControllerImpl<ConsultationAppl
         });
     }
 
-
-    public void doc() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).consultationDoctorList(), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
-            @Override
-            public void requestComplete(@Nullable String data) {
-                getView().saveSuccess(data);
-            }
-
-            @Override
-            public boolean requestError(@NotNull ApiException exception, int code,
-                                        @NotNull String msg) {
-                getView().saveFailed(msg);
-                return super.requestError(exception, code, msg);
-            }
-        });
-    }
-
     /**
      * 获取mdt排班医生
      */
