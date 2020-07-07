@@ -99,7 +99,8 @@ public class ChoosePharmacyActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // EventBus.getDefault().register(this);
-        List<PrescriptionItemEntity> drugs = DataCacheUtil.getInstance().getPrescriptionItemEntity();
+        List<PrescriptionItemEntity> drugs =
+                DataCacheUtil.getInstance().getPrescriptionItemEntity();
         LatXyEntity latXyEntity;
         latXyEntity = DataCacheUtil.getInstance().getlatXy();
         if (latXyEntity != null) {
@@ -146,9 +147,9 @@ public class ChoosePharmacyActivity extends BaseActivity {
         mChoosePharmacyAdapter.setOnItemClickListener(new ChoosePharmacyAdapter.OnItemClickListener() {
             @Override
             public void onClick(PharmacyBean pharmacyBean) {
-                if(null != pharmacyBean){
+                if (null != pharmacyBean) {
                     String mPharmacyName = pharmacyBean.getDrugstore();
-                    String mDetailAddress=pharmacyBean.getDrugstoreAddress();
+                    String mDetailAddress = pharmacyBean.getDrugstoreAddress();
 
                     if (!CommUtil.isEmpty(mPharmacyName)) {
                         mName = mPharmacyName;
@@ -205,14 +206,15 @@ public class ChoosePharmacyActivity extends BaseActivity {
     }
 
     private void initData() {
-        mDatas = new ArrayList<String>();
+        mDatas = new ArrayList<>();
         for (int j = 0; j < data.length; j++) {
             mDatas.add(data[j]);
         }
     }
 
     public void showPopupWindow() {
-        View view = LayoutInflater.from(this).inflate(R.layout.index_choose_pharmacy_popup_layout, mReDis, false);
+        View view = LayoutInflater.from(this).inflate(R.layout.index_choose_pharmacy_popup_layout
+                , mReDis, false);
         RecyclerView recyclerView = view.findViewById(R.id.list_rv);
 
         mChoosePharmacyPupAdapter = new ChoosePharmacyPupAdapter(this, mDatas, mValue);
@@ -237,11 +239,13 @@ public class ChoosePharmacyActivity extends BaseActivity {
             }
         });
         recyclerView.setAdapter(mChoosePharmacyPupAdapter);
-        mPopupWindow = new PopupWindow(this, null, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mPopupWindow = new PopupWindow(this, null, ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
         mPopupWindow.setContentView(view);
         mPopupWindow.setFocusable(true);
         mPopupWindow.setWidth(mReDis.getWidth());
         mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
             public void onDismiss() {
             }
         });
@@ -250,24 +254,24 @@ public class ChoosePharmacyActivity extends BaseActivity {
     }
 
 
-//    public static String getJson(String fileName, Context context) {
-//        //将json数据变成字符串
-//        StringBuilder stringBuilder = new StringBuilder();
-//        try {
-//            //获取assets资源管理器
-//            AssetManager assetManager = context.getAssets();
-//            //通过管理器打开文件并读取
-//            BufferedReader bf = new BufferedReader(new InputStreamReader(
-//                    assetManager.open(fileName)));
-//            String line;
-//            while ((line = bf.readLine()) != null) {
-//                stringBuilder.append(line);
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return stringBuilder.toString();
-//    }
+    //    public static String getJson(String fileName, Context context) {
+    //        //将json数据变成字符串
+    //        StringBuilder stringBuilder = new StringBuilder();
+    //        try {
+    //            //获取assets资源管理器
+    //            AssetManager assetManager = context.getAssets();
+    //            //通过管理器打开文件并读取
+    //            BufferedReader bf = new BufferedReader(new InputStreamReader(
+    //                    assetManager.open(fileName)));
+    //            String line;
+    //            while ((line = bf.readLine()) != null) {
+    //                stringBuilder.append(line);
+    //            }
+    //        } catch (IOException e) {
+    //            e.printStackTrace();
+    //        }
+    //        return stringBuilder.toString();
+    //    }
 
 
     /**
@@ -284,7 +288,8 @@ public class ChoosePharmacyActivity extends BaseActivity {
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -298,7 +303,7 @@ public class ChoosePharmacyActivity extends BaseActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("startLonLat", mLatXy);
         map.put("drugs", drugs);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getFindDrugstores(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<List<PharmacyBean>>(getContext(), getDisposable(), true, true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getFindDrugstores("application/json", HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<List<PharmacyBean>>(getContext(), getDisposable(), true, true) {
             @Override
             public void requestComplete(@Nullable List<PharmacyBean> data) {
                 if (!CommUtil.isEmpty(data)) {
@@ -309,7 +314,8 @@ public class ChoosePharmacyActivity extends BaseActivity {
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 return super.requestError(exception, code, msg);
             }
         });
@@ -318,8 +324,6 @@ public class ChoosePharmacyActivity extends BaseActivity {
 
     /**
      * 刷新Adapter数据源
-     *
-     * @param data
      */
     public void refreshView(List<PharmacyBean> data) {
         if (!CommUtil.isEmpty(data)) {
@@ -333,14 +337,14 @@ public class ChoosePharmacyActivity extends BaseActivity {
     /**
      * 按照距离由近到远排序
      *
-     * @param list
      */
     @SuppressWarnings("unchecked")
     public static List<PharmacyBean> sortMethodDistance(List<PharmacyBean> list) {
 
         List<PharmacyBean> collect = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            collect = list.stream().sorted(Comparator.comparingLong(PharmacyBean::getDistance)).collect(Collectors.toList());
+            collect =
+                    list.stream().sorted(Comparator.comparingLong(PharmacyBean::getDistance)).collect(Collectors.toList());
 
             return collect;
         } else {
@@ -361,7 +365,6 @@ public class ChoosePharmacyActivity extends BaseActivity {
     /**
      * 按照价格由低到高排序
      *
-     * @param list
      */
     @SuppressWarnings("unchecked")
     public static void sortMethodPrice(List list) {

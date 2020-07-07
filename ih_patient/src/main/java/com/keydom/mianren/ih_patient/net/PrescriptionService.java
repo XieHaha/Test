@@ -18,6 +18,7 @@ import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
@@ -84,7 +85,7 @@ public interface PrescriptionService {
      * 根据经纬度和药品信息查询药店
      */
     @POST(Const.OUTER + "/prescription/findDrugstoresByStore")
-    Observable<HttpResult<List<PharmacyBean>>> getFindDrugstores(@Body RequestBody body);
+    Observable<HttpResult<List<PharmacyBean>>> getFindDrugstores(@Header("Content-Type") String type, @Body RequestBody body);
 
     /**
      * 根据药店名字取配送费
