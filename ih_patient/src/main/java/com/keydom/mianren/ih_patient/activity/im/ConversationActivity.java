@@ -2054,7 +2054,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             map.put("consigneePhone", mLocationInfo.getPhone());
             map.put("delivery", "1");
             pharmacyBean = mPharmacyBeans.get(0);
-
+            map.put("deliveryCost", pharmacyBean.getDeliveryCost());
         } else {
             map.put("delivery", "0");
             pharmacyBean = mPharmacyBean;
