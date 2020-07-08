@@ -30,12 +30,10 @@ import java.util.Map;
 public class AnamnesisController extends ControllerImpl<AnamnesisView> implements View.OnClickListener {
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.save:
-                if (getView().getManager() != null) {
-                    saveInfo(getView().getStatus(), getView().getManager());
-                }
-                break;
+        if (v.getId() == R.id.save) {
+            if (getView().getManager() != null) {
+                saveInfo(getView().getStatus(), getView().getManager());
+            }
         }
     }
 
@@ -43,17 +41,15 @@ public class AnamnesisController extends ControllerImpl<AnamnesisView> implement
      * 获取既往病史列表
      */
     public void getHistoryList() {
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getHistoryList(), new HttpSubscriber<HistoryListBean>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getHistoryList(), new HttpSubscriber<HistoryListBean>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable HistoryListBean data) {
-                hideLoading();
                 getView().getHistorySuccess(data);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -96,7 +92,8 @@ public class AnamnesisController extends ControllerImpl<AnamnesisView> implement
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 hideLoading();
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);

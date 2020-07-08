@@ -80,7 +80,7 @@
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/triage_order_content_layout"
-            tools:src="@drawable/ic_launcher_background" />
+           />
 
         <ImageView
             android:id="@+id/triage_order_image_2"
@@ -92,7 +92,7 @@
             android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/triage_order_image_1"
             app:layout_constraintTop_toBottomOf="@+id/triage_order_content_layout"
-            tools:src="@drawable/ic_launcher_background" />
+          />
 
         <ImageView
             android:id="@+id/line_2"

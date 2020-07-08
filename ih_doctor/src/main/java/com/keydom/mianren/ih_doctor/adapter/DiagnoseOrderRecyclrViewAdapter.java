@@ -127,7 +127,8 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
 
             userAge.setText(bean.getAge());
             userSex.setText(CommonUtils.getSex(bean.getSex()));
-            diagnoseDec.setText(bean.getConditionDesc());
+            diagnoseDec.setText(TextUtils.isEmpty(bean.getConditionDesc()) ? "无" :
+                    bean.getConditionDesc());
             diagnoseTime.setText(bean.getApplyTime());
             checkIdea.setText(bean.getRemark());
             Drawable img;

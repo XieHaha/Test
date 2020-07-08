@@ -65,7 +65,7 @@ public class FriendMsgRecyclrViewAdapter extends BaseEmptyAdapter<RecentContact>
             lastChatTime = (TextView) itemView.findViewById(R.id.last_chat_time);
             chatNum = (TextView) itemView.findViewById(R.id.chat_num);
             friendNameTv = (TextView) itemView.findViewById(R.id.friend_name_tv);
-            friendAgeTv = (TextView) itemView.findViewById(R.id.friend_age_tv);
+            friendAgeTv = (TextView) itemView.findViewById(R.id.item_patient_age);
             sexImage = (ImageView) itemView.findViewById(R.id.friend_sex_iv);
             friendIconCiv = (CircleImageView) itemView.findViewById(R.id.friend_icon_civ);
         }
@@ -89,7 +89,7 @@ public class FriendMsgRecyclrViewAdapter extends BaseEmptyAdapter<RecentContact>
                     friendNameTv.setText(userInfo.getName());
                     if (userInfo.getBirthday() != null && !"".equals(userInfo.getBirthday())) {
                         try {
-                            friendAgeTv.setText(CalculateTimeUtils.getAgeByBirth(userInfo.getBirthday()));
+                            friendAgeTv.setText(CalculateTimeUtils.getAgeByBirth(userInfo.getBirthday())+"岁");
                         } catch (ParseException e) {
                             e.printStackTrace();
                             friendAgeTv.setText("");

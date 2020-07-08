@@ -49,6 +49,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
+import org.jsoup.helper.StringUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -270,7 +271,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
             }
             managerUserBean = (ManagerUserBean) event.getData();
             choosePatientCardTv.setText(managerUserBean.getName());
-            if (managerUserBean.getPastMedicalHistory() == null || "".equals(managerUserBean.getPastMedicalHistory())) {
+            if (TextUtils.isEmpty(managerUserBean.getPastMedicalHistory())) {
                 choosePatientTv.setText("该就诊人无病史，点击前往编辑");
             } else {
                 choosePatientTv.setText(managerUserBean.getPastMedicalHistory());
@@ -319,12 +320,24 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
     @Override
     public void getPatientListSuccess(List<ManagerUserBean> data) {
         for (ManagerUserBean managerUserBean : data) {
+            String history = managerUserBean.getPastMedicalHistory();
+            String newHistory = "";
+            if (!TextUtils.isEmpty(history)) {
+                String[] histories = history.split(",");
+                List<String> list = new ArrayList<>();
+                for (String s : histories) {
+                    if (!"无".equals(s)) {
+                        list.add(s);
+                    }
+                }
+                newHistory = StringUtil.join(list, ",");
+            }
             if (medicalCardInfo != null && medicalCardInfo.getIdCard() != null) {
                 if (medicalCardInfo.getIdCard().equals(managerUserBean.getCardId())) {
-                    if (managerUserBean.getPastMedicalHistory() == null || "".equals(managerUserBean.getPastMedicalHistory())) {
+                    if (TextUtils.isEmpty(history)) {
                         choosePatientTv.setText("该就诊人无病史，点击前往编辑");
                     } else {
-                        choosePatientTv.setText(managerUserBean.getPastMedicalHistory());
+                        choosePatientTv.setText(newHistory);
                     }
                     this.managerUserBean = managerUserBean;
                     isCardPatientMatch = true;
@@ -335,10 +348,10 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
                 }
             } else if (this.managerUserBean != null && this.managerUserBean.getCardId() != null) {
                 if (this.managerUserBean.getCardId().equals(managerUserBean.getCardId())) {
-                    if (managerUserBean.getPastMedicalHistory() == null || "".equals(managerUserBean.getPastMedicalHistory())) {
+                    if (TextUtils.isEmpty(history)) {
                         choosePatientTv.setText("该就诊人无病史，点击前往编辑");
                     } else {
-                        choosePatientTv.setText(managerUserBean.getPastMedicalHistory());
+                        choosePatientTv.setText(newHistory);
                     }
                     this.managerUserBean = managerUserBean;
                     break;

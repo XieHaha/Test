@@ -904,7 +904,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         mDeliveryCostTv = view.findViewById(R.id.tv_logistic_fee);
 
 
-        //todo 跳转选择地址界面
+        // 跳转选择地址界面
         addressSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

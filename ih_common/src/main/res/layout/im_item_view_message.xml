@@ -28,16 +28,14 @@
             android:layout_width="@dimen/dp_50"
             android:layout_height="@dimen/dp_50"
             android:contentDescription="@string/app_name"
-            app:layout_constraintLeft_toLeftOf="parent"
-            tools:src="@mipmap/ic_launcher" />
+            app:layout_constraintLeft_toLeftOf="parent"/>
 
         <ImageView
             android:id="@+id/im_message_avatar_right"
             android:layout_width="@dimen/dp_50"
             android:layout_height="@dimen/dp_50"
             android:contentDescription="@string/app_name"
-            app:layout_constraintRight_toRightOf="parent"
-            tools:src="@mipmap/ic_launcher" />
+            app:layout_constraintRight_toRightOf="parent" />
 
         <TextView
             android:id="@+id/left_name"

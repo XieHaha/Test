@@ -86,7 +86,7 @@
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inquiry_content"
-            tools:src="@drawable/ic_launcher_background" />
+          />
 
         <ImageView
             android:id="@+id/inquiry_image_2"
@@ -97,8 +97,7 @@
             android:contentDescription="@string/app_name"
             android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/inquiry_image_1"
-            app:layout_constraintTop_toBottomOf="@+id/inquiry_content"
-            tools:src="@drawable/ic_launcher_background" />
+            app:layout_constraintTop_toBottomOf="@+id/inquiry_content" />
 
         <ImageView
             android:id="@+id/line_2"

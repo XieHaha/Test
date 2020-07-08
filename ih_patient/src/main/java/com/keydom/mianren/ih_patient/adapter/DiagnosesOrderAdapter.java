@@ -3,6 +3,7 @@ package com.keydom.mianren.ih_patient.adapter;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -174,17 +175,18 @@ public class DiagnosesOrderAdapter extends BaseQuickAdapter<DiagnosesOrderBean, 
         }
         if (item.getInquisitionType() == 0) {
             diagnosesTypeTv.setText("图文问诊");
-            Drawable leftImg = ContextCompat.getDrawable(mContext,R.mipmap.photo_diagnoses_icon);
+            Drawable leftImg = ContextCompat.getDrawable(mContext, R.mipmap.photo_diagnoses_icon);
             leftImg.setBounds(0, 0, leftImg.getMinimumWidth(), leftImg.getMinimumHeight());
             diagnosesTypeTv.setCompoundDrawables(leftImg, null, null, null);
         } else {
             diagnosesTypeTv.setText("视频问诊");
-            Drawable leftImg = ContextCompat.getDrawable(mContext,R.mipmap.video_diagnoses_icon);
+            Drawable leftImg = ContextCompat.getDrawable(mContext, R.mipmap.video_diagnoses_icon);
             leftImg.setBounds(0, 0, leftImg.getMinimumWidth(), leftImg.getMinimumHeight());
             diagnosesTypeTv.setCompoundDrawables(leftImg, null, null, null);
         }
         //        if (TextUtils.isEmpty(item.getGroupTid())) {
-        helper.setText(R.id.doctor_name_tv, item.getDoctorName());
+        helper.setText(R.id.doctor_name_tv, TextUtils.isEmpty(item.getDoctorName()) ? "等待医生接诊" :
+                item.getDoctorName());
         //        } else {
         //            Team team = ImClient.getTeamProvider().getTeamById(item.getGroupTid());
         //            if (team == null) {
@@ -194,7 +196,8 @@ public class DiagnosesOrderAdapter extends BaseQuickAdapter<DiagnosesOrderBean, 
         //            }
         //        }
         helper.setText(R.id.doctor_depart_tv, item.getDeptName())
-                .setText(R.id.diagnoses_desc_tv, item.getConditionDesc())
+                .setText(R.id.diagnoses_desc_tv, TextUtils.isEmpty(item.getConditionDesc()) ?
+                        "无" : item.getConditionDesc())
                 .setText(R.id.time_tv, item.getApplyTime());
         // .setText(R.id.wait_people_tv,item.getInquisitionType())
     }

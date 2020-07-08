@@ -43,8 +43,7 @@
             android:layout_width="@dimen/dp_69"
             android:layout_height="@dimen/dp_69"
             android:contentDescription="@string/app_name"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:src="@mipmap/ic_launcher" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tv_title"

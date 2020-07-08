@@ -325,10 +325,11 @@ public class AnamnesisActivity extends BaseControllerActivity<AnamnesisControlle
 
     @Override
     public void addOrEditSuccess(ManagerUserBean manager) {
-        if (isFromDiagnoseApply)
+        if (isFromDiagnoseApply) {
             EventBus.getDefault().post(new Event(EventType.UPDATEPATIENT, null));
-        else
+        } else {
             EventBus.getDefault().post(manager);
+        }
         this.finish();
     }
 
