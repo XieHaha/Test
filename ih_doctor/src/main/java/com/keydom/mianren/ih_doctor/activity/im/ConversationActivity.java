@@ -31,6 +31,7 @@ import com.keydom.ih_common.bean.InquiryStatus;
 import com.keydom.ih_common.bean.InspectionApplyBean;
 import com.keydom.ih_common.bean.InspectionBean;
 import com.keydom.ih_common.bean.TriageBean;
+import com.keydom.ih_common.bean.VoiceBean;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.im.listener.IConversationBehaviorListener;
@@ -104,10 +105,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jsoup.helper.StringUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -202,6 +206,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      * menu
      */
     private View view;
+    /**
+     * 当前视频音频moudle
+     */
+    private VoiceBean voiceBean;
 
     @Override
     protected void onResume() {
@@ -955,6 +963,27 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 }
             }
         }
+    }
+
+    /**
+     * 接收到会诊视频结束的音频
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(com.keydom.ih_common.bean.MessageEvent messageEvent) {
+        if (messageEvent.getType() == com.keydom.ih_common.constant.EventType.DIAGNOSIS_FILE) {
+            voiceBean = (VoiceBean) messageEvent.getData();
+            if (voiceBean != null) {
+                File file = new File(voiceBean.getUrl());
+                getController().uploadVoiceFile(file);
+            }
+        }
+    }
+    @Override
+    public Map<String, Object> getUploadVoiceParams() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userOrderId", orderId);
+        params.put("duration", voiceBean == null ? 0 : voiceBean.getDuration());
+        return params;
     }
 
     @Override

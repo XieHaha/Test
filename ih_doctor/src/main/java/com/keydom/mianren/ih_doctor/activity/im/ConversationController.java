@@ -7,13 +7,18 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
+import com.keydom.mianren.ih_doctor.net.ConsultationService;
+import com.keydom.mianren.ih_doctor.net.MainApiService;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class ConversationController extends ControllerImpl<ConversationView> {
@@ -120,5 +125,48 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                         return super.requestError(exception, code, msg);
                     }
                 });
+    }
+
+    /**
+     * 上传file  视频音频录制
+     */
+    public void uploadVoiceFile(File file) {
+        RequestBody requestFile = RequestBody.create(MediaType.parse("application/otcet-stream"),
+                file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(),
+                requestFile);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).upload(body), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                uploadConsultationVoice(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtil.showMessage(mContext, msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 上传会诊语音
+     */
+    private void uploadConsultationVoice(String voiceUrl) {
+        Map<String, Object> params = getView().getUploadVoiceParams();
+        params.put("url", voiceUrl);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ConsultationService.class).uploadDiagnosisVoice(HttpService.INSTANCE.object2Body(params)), new HttpSubscriber<String>(mContext, getDisposable(), true, false) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtil.showMessage(mContext, msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
     }
 }

@@ -36,6 +36,9 @@ import com.keydom.ih_common.avchatkit.teamavchat.TeamAVChatNotification;
 import com.keydom.ih_common.avchatkit.teamavchat.TeamAVChatVoiceMuteDialog;
 import com.keydom.ih_common.avchatkit.teamavchat.adapter.TeamAVChatAdapter;
 import com.keydom.ih_common.avchatkit.teamavchat.module.TeamAVChatItem;
+import com.keydom.ih_common.bean.MessageEvent;
+import com.keydom.ih_common.bean.VoiceBean;
+import com.keydom.ih_common.constant.EventType;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.listener.observer.SimpleAVChatStateObserver;
 import com.keydom.ih_common.utils.CommonUtils;
@@ -59,6 +62,8 @@ import com.netease.nimlib.sdk.avchat.model.AVChatParameters;
 import com.netease.nimlib.sdk.avchat.video.AVChatCameraCapturer;
 import com.netease.nimlib.sdk.avchat.video.AVChatVideoCapturerFactory;
 import com.netease.nrtc.video.render.IVideoRender;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,6 +152,12 @@ public class TeamAVChatActivity extends UI {
     private Observer<AVChatControlEvent> notificationObserver;
     private AVChatCameraCapturer mVideoCapturer;
     private static boolean needFinish = true;
+
+    /**
+     * 是否为会诊视频发起人
+     */
+    private boolean isCreateMDT = false;
+
 
     private TeamAVChatNotification notifier;
 
@@ -271,6 +282,8 @@ public class TeamAVChatActivity extends UI {
         LogUtil.i(TAG, "onIntent, roomId=" + roomId + ", teamId=" + teamId
                 + ", receivedCall=" + receivedCall + ", accounts=" + accounts.size() + ", " +
                 "teamName = " + teamName);
+
+        isCreateMDT = !receivedCall;
     }
 
     private void findLayouts() {
@@ -416,6 +429,20 @@ public class TeamAVChatActivity extends UI {
             public void onReportSpeaker(Map<String, Integer> speakers, int mixedEnergy) {
                 onAudioVolume(speakers);
             }
+
+            @Override
+            public void onAudioRecordingCompletion(String filePath) {
+                if (isCreateMDT) {
+                    LogUtil.i(TAG, "录制结束...filePath:" + filePath);
+                    //音频录制回调
+                    if (!TextUtils.isEmpty(filePath)) {
+                        VoiceBean voiceBean = new VoiceBean();
+                        voiceBean.setUrl(filePath);
+                        voiceBean.setDuration(String.valueOf(seconds));
+                        EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.DIAGNOSIS_FILE).setData(voiceBean).build());
+                    }
+                }
+            }
         };
         AVChatManager.getInstance().observeAVChatState(stateObserver, true);
         LogUtil.i(TAG, "observe rtc state done");
@@ -520,6 +547,12 @@ public class TeamAVChatActivity extends UI {
         }
         updateAudioMuteButtonState();
 
+        if (isCreateMDT) {
+            //开始录制音频
+            boolean startAudio = AVChatManager.getInstance().startAudioRecording();
+            LogUtil.i(TAG, "startAudio..." + startAudio);
+        }
+
         LogUtil.i(TAG, "on user joined, account=" + account);
     }
 
@@ -603,6 +636,10 @@ public class TeamAVChatActivity extends UI {
         }
 
         try {
+            if (isCreateMDT) {
+                //结束音频录制
+                AVChatManager.getInstance().stopAudioRecording();
+            }
             AVChatManager.getInstance().stopVideoPreview();
             AVChatManager.getInstance().disableVideo();
             AVChatManager.getInstance().leaveRoom2(roomId, null);

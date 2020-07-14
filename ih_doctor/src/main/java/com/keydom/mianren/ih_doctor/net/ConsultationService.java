@@ -115,6 +115,11 @@ public interface ConsultationService {
      */
     @POST("user/mdt/record/audio/save")
     Observable<HttpResult<String>> uploadConsultationVoice(@Body RequestBody body);
+    /**
+     * 上传诊疗语音
+     */
+    @POST("user/inquiryRecordContent/saveAudio")
+    Observable<HttpResult<String>> uploadDiagnosisVoice(@Body RequestBody body);
 
     /**
      * 申请加入会诊

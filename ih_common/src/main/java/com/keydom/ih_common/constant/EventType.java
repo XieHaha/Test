@@ -13,6 +13,7 @@ public enum EventType {
     SEND,
     OFFLINE,
     FILE,
+    DIAGNOSIS_FILE,
     /**
      * 发起会诊申请
      */

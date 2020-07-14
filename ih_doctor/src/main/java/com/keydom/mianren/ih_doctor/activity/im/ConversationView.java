@@ -3,7 +3,11 @@ package com.keydom.mianren.ih_doctor.activity.im;
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 
+import java.util.Map;
+
 interface ConversationView extends BaseView {
+
+    Map<String, Object> getUploadVoiceParams();
 
     String getUserId();
 
