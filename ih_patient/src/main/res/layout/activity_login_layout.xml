@@ -235,6 +235,7 @@
                 android:id="@+id/qq_login"
                 android:layout_width="@dimen/dp_29"
                 android:layout_height="@dimen/dp_29"
+                android:visibility="gone"
                 android:layout_weight="1"
                 android:src="@mipmap/login_qq_icon" />
 
@@ -255,6 +256,7 @@
             <ImageView
                 android:id="@+id/ali_login"
                 android:layout_width="@dimen/dp_29"
+                android:visibility="gone"
                 android:layout_height="@dimen/dp_29"
                 android:layout_weight="1"
                 android:src="@mipmap/login_alipay_icon" />

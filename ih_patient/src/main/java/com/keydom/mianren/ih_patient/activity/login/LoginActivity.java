@@ -143,8 +143,9 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
             }
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         } else {
-            if(isLoginLocked)
+            if(isLoginLocked) {
                 isLoginLocked=false;
+            }
             LocalizationUtils.fileSave2Local(getContext(),data,"userInfo");
             Global.setUserId(data.getId());
             Global.setMember(data.getMember());
@@ -456,23 +457,20 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
     private Handler mHandler = new Handler() {
         @SuppressWarnings("unused")
         public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case FLAG_ALIPAY_LOGIN: {
-                    @SuppressWarnings("unchecked")
-                    AuthResult authResult = new AuthResult((Map<String, String>) msg.obj, true);
-                    String resultStatus = authResult.getResultStatus();
-                    // 判断resultStatus 为“9000”且result_code
-                    // 为“200”则代表授权成功，具体状态码代表含义可参考授权接口文档
-                    LogUtils.d("授权结果:"+authResult);
-                    if (TextUtils.equals(resultStatus, "9000") && TextUtils.equals(authResult.getResultCode(), "200")) {
-                        // 获取alipay_open_id，调支付时作为参数extern0_token 的value
-                        // 传入，则支付账户为该授权账户
-                        getController().loginTrilateral(authResult.getUserId(),ALI_LOGIN);
-                    } else {
-                        // 其他状态值则为授权失败
-                        ToastUtils.showShort("授权失败");
-                    }
-                    break;
+            if (msg.what == FLAG_ALIPAY_LOGIN) {
+                @SuppressWarnings("unchecked")
+                AuthResult authResult = new AuthResult((Map<String, String>) msg.obj, true);
+                String resultStatus = authResult.getResultStatus();
+                // 判断resultStatus 为“9000”且result_code
+                // 为“200”则代表授权成功，具体状态码代表含义可参考授权接口文档
+                LogUtils.d("授权结果:" + authResult);
+                if (TextUtils.equals(resultStatus, "9000") && TextUtils.equals(authResult.getResultCode(), "200")) {
+                    // 获取alipay_open_id，调支付时作为参数extern0_token 的value
+                    // 传入，则支付账户为该授权账户
+                    getController().loginTrilateral(authResult.getUserId(), ALI_LOGIN);
+                } else {
+                    // 其他状态值则为授权失败
+                    ToastUtils.showShort("授权失败");
                 }
             }
         }
