@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_bg_color"
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
+
+    <include layout="@layout/common_title_bar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/line_color" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:paddingStart="@dimen/padding_left_right_dp"
+                android:paddingTop="@dimen/dp_16"
+                android:paddingEnd="@dimen/padding_left_right_dp"
+                android:paddingBottom="@dimen/dp_19"
+                android:visibility="visible">
+
+                <com.keydom.ih_common.view.InterceptorEditText
+                    android:id="@+id/consultation_advice_edit_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/check_dialog_input_bg"
+                    android:gravity="start|top"
+                    android:hint="请您填写会诊意见，10-2000字以内"
+                    android:maxLength="2000"
+                    android:minHeight="@dimen/dp_81"
+                    android:padding="@dimen/dp_13"
+                    android:singleLine="false"
+                    android:textColor="@color/edit_font_color"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/sp_14" />
+
+                <ImageView
+                    android:id="@+id/consultation_advice_voice_iv"
+                    android:layout_width="20dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="@dimen/dp_5"
+                    android:layout_marginBottom="@dimen/dp_5"
+                    android:src="@drawable/im_voice_toggle_selector" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/consultation_advice_voice_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+            <RelativeLayout
+                android:id="@+id/consultation_advice_voice_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_23"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_25"
+                android:background="@drawable/selector_voice_btn">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_38"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:drawableStart="@mipmap/im_voice_sent"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:gravity="center"
+                    android:text="@string/txt_press_voice"
+                    android:textColor="@color/fontColorPrimary"
+                    android:textSize="@dimen/sp_14" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/consultation_advice_commit_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_19"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:background="@mipmap/pay_commit_bg"
+                android:gravity="center"
+                android:text="@string/txt_commit"
+                android:textColor="@color/primary_bg_color"
+                android:textSize="@dimen/sp_18" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_25"
+                android:background="@color/line_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_2"
+                    android:layout_height="@dimen/dp_15"
+                    android:layout_marginStart="@dimen/padding_left_right_dp"
+                    android:layout_marginTop="@dimen/dp_25"
+                    android:background="#71A4FF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:layout_weight="1"
+                    android:paddingTop="@dimen/dp_22"
+                    android:paddingBottom="@dimen/dp_16"
+                    android:text="其他专家意见"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/consultation_advice_refresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="@dimen/dp_15"
+                    android:text="刷新"
+                    android:textColor="@color/login_btn_color" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/consultation_advice_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

@@ -66,6 +66,7 @@ import com.keydom.mianren.ih_doctor.activity.common_document.CommonDocumentActiv
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.DianoseCaseDetailActivity;
 import com.keydom.mianren.ih_doctor.activity.doctor_cooperation.FillOutApplyActivity;
 import com.keydom.mianren.ih_doctor.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity;
+import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationAdviceActivity;
 import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationMainActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.ApplyForCheckActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.CheckOrderDetailActivity;
@@ -147,7 +148,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private ImMessageView mMessageView;
     private PopupWindow mPopupWindow;
     private TextView inspection, examination, referralTv, inquiryPopConsultationTv,
-            inquiryPopDiagnosticPrescriptionTv, inquiryPopAdvice;
+            inquiryPopDiagnosticPrescriptionTv, inquiryPopAdvice, inquiryPopDiagnosisTv;
     private String sessionId;
     private InquiryBean orderBean;
     private boolean isGetStatus = false;
@@ -509,6 +510,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         //会诊
         inquiryPopConsultationTv = view.findViewById(R.id.inquiry_pop_consultation_tv);
         inquiryPopConsultationTv.setOnClickListener(this);
+        //诊疗意见
+        inquiryPopDiagnosisTv = view.findViewById(R.id.inquiry_pop_diagnosis_tv);
+        inquiryPopDiagnosisTv.setOnClickListener(this);
         //诊断与处方
         inquiryPopDiagnosticPrescriptionTv =
                 view.findViewById(R.id.inquiry_pop_diagnostic_prescription_tv);
@@ -615,6 +619,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             referralTv.setVisibility(View.GONE);
             inquiryPopConsultationTv.setVisibility(View.GONE);
             inquiryPopDiagnosticPrescriptionTv.setVisibility(View.GONE);
+            inquiryPopDiagnosisTv.setVisibility(View.GONE);
         }
         if (orderBean.getIsVip() == 1 && orderBean.getState() != InquiryStatus.INQUIRY_WAIT) {
             if (AVChatKit.getAccount().equalsIgnoreCase(orderBean.getDoctorCode())) {
@@ -816,6 +821,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 } else {
                     showNotAccessDialog();
                 }
+                if (mPopupWindow != null) {
+                    mPopupWindow.dismiss();
+                }
+                break;
+            case R.id.inquiry_pop_diagnosis_tv:
+                //诊疗意见
+                ConsultationAdviceActivity.start(this, orderId);
                 if (mPopupWindow != null) {
                     mPopupWindow.dismiss();
                 }

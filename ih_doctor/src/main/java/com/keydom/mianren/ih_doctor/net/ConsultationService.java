@@ -46,6 +46,7 @@ public interface ConsultationService {
      */
     @GET("user/mdt/application/list")
     Observable<HttpResult<PageBean<ConsultationBean>>> consultationOrderApplyList(@QueryMap Map<String, Object> maps);
+
     /**
      * 会诊记录
      */
@@ -77,11 +78,24 @@ public interface ConsultationService {
     Observable<HttpResult<String>> consultationOrderCreateAdvice(@Body RequestBody body);
 
     /**
+     * 提交会诊意见(问诊单)
+     */
+    @POST("user/inquiryRecordContent/saveComment")
+    Observable<HttpResult<String>> diagnosisOrderCreateAdvice(@Body RequestBody body);
+
+    /**
      * 会诊意见列表
      */
     @GET("user/mdt/record/comment/list")
     Observable<HttpResult<List<ConsultationAdviceBean>>> consultationOrderAdviceList(@Query(
             "recordId") String id);
+
+    /**
+     * 会诊意见列表（问诊单）
+     */
+    @GET("user/inquiryRecordContent/list")
+    Observable<HttpResult<List<ConsultationAdviceBean>>> diagnosisOrderAdviceList(@Query(
+            "userOrderId") long id);
 
     /**
      * 会诊室 病历资料
