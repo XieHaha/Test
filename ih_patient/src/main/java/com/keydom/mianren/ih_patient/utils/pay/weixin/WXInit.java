@@ -28,15 +28,28 @@ public class WXInit {
     private WXPayResultCallBack mCallback;
     private WXLoginResultCallBack mLoginCallback;
 
-    public static final int NO_OR_LOW_WX = 1;   //未安装微信或微信版本过低
-    public static final int ERROR_PAY_PARAM = 2;  //支付参数错误
-    public static final int ERROR_PAY = 3;  //支付失败
+    /**
+     * 未安装微信或微信版本过低
+     */
+    public static final int NO_OR_LOW_WX = 1;
+    /**
+     * 支付参数错误
+     */
+    public static final int ERROR_PAY_PARAM = 2;
+    /**
+     * 支付失败
+     */
+    public static final int ERROR_PAY = 3;
 
-    private String WX_APP_ID = "wx21ddbc498622a67f";
-    // 获取第一步的code后，请求以下链接获取access_token
+    public static String WX_APP_ID = "wx8c08e2a7ec34269e";
+    /**
+     * 获取第一步的code后，请求以下链接获取access_token
+     */
     private String GetCodeRequest = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
-    // 获取用户个人信息
-    private String WX_APP_SECRET = "2b28023d0eb66b8237421db21f299e8e";
+    /**
+     * 获取用户个人信息
+     */
+    private String WX_APP_SECRET = "137b3992b25c35deccc19d7d58e72da3";
 
 
     /**

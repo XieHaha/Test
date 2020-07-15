@@ -22,7 +22,6 @@ public class WXPay {
     private IWXAPI mWXApi;
     private String mPayParam;
     private WXPayResultCallBack mCallback;
-    private final String appid="wx21ddbc498622a67f";
 
     public static final int NO_OR_LOW_WX = 1;   //未安装微信或微信版本过低
     public static final int ERROR_PAY_PARAM = 2;  //支付参数错误

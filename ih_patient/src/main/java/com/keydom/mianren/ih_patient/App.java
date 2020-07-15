@@ -25,7 +25,7 @@ public class App extends CommonApp {
     public static UserInfo userInfo;
     public static long hospitalId = -1;
     public static String hospitalName = "";
-    public static boolean isNeedInit=true;
+    public static boolean isNeedInit = true;
 
     @Override
     public void onCreate() {
@@ -36,9 +36,8 @@ public class App extends CommonApp {
             SDKInitializer.initialize(getApplicationContext());
             SpeechUtility.createUtility(this, "appid=" + getString(R.string.xunfei_app_id));
             ZXingLibrary.initDisplayOpinion(getApplicationContext());
-            String appId = "wx21ddbc498622a67f";
-            WXInit.init(this, appId);
-            WXPay.init(this, appId);
+            WXInit.init(this, WXInit.WX_APP_ID);
+            WXPay.init(this, WXInit.WX_APP_ID);
             closeAndroidPDialog();
             registerActivityLifecycleCallbacks(new CustomActivityLifecycleCallback());
         }
@@ -46,9 +45,10 @@ public class App extends CommonApp {
 
 
     /**
-     * 去掉在Android P上的提醒弹窗 （Detected problems with API compatibility(visit g.co/dev/appcompat for more info)
+     * 去掉在Android P上的提醒弹窗 （Detected problems with API compatibility(visit g.co/dev/appcompat for
+     * more info)
      */
-    private void closeAndroidPDialog(){
+    private void closeAndroidPDialog() {
         try {
             Class aClass = Class.forName("android.content.pm.PackageParser$Package");
             Constructor declaredConstructor = aClass.getDeclaredConstructor(String.class);
