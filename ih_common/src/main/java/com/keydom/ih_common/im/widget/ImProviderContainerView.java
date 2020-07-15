@@ -20,8 +20,6 @@ import com.keydom.ih_common.utils.GlideUtils;
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
-import com.netease.nimlib.sdk.team.model.Team;
-import com.netease.nimlib.sdk.team.model.TeamMember;
 import com.netease.nimlib.sdk.uinfo.model.UserInfo;
 
 import org.jetbrains.annotations.NotNull;
@@ -130,9 +128,6 @@ public class ImProviderContainerView extends LinearLayout implements IContainerI
 
     public void setLeftName(IMMessage message) {
         if (message.getSessionType() == SessionTypeEnum.Team && message.getDirect() == MsgDirectionEnum.In) {
-            Team team = ImClient.getTeamProvider().getTeamById(message.getSessionId());
-            TeamMember teamMember = ImClient.getTeamProvider().getTeamMember(team.getId(),
-                    message.getFromAccount());
             leftName.setVisibility(VISIBLE);
             leftName.setText(message.getFromNick());
         } else {
