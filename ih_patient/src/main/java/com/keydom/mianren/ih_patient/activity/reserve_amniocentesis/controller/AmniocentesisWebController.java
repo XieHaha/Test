@@ -10,15 +10,18 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
+import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.AmniocentesisRecordActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisWebView;
 import com.keydom.mianren.ih_patient.bean.AmniocentesisBean;
 import com.keydom.mianren.ih_patient.bean.AmniocentesisReserveBean;
+import com.keydom.mianren.ih_patient.bean.CommonDocumentBean;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.net.AmniocentesisService;
+import com.keydom.mianren.ih_patient.net.UserService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
@@ -87,6 +90,27 @@ public class AmniocentesisWebController extends ControllerImpl<AmniocentesisWebV
             default:
                 break;
         }
+    }
+
+    /**
+     * 获取文书维护详情内容
+     */
+    public void getOfficialDispatchAllMsgByCode(String code) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("code", code);
+        map.put("hospitalId", App.hospitalId);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getOfficialDispatchAllMsgByCode(map), new HttpSubscriber<CommonDocumentBean>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable CommonDocumentBean data) {
+                getView().onWebUrlSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                getView().onWebUrlFailed();
+                return super.requestError(exception, code, msg);
+            }
+        });
     }
 
     /**

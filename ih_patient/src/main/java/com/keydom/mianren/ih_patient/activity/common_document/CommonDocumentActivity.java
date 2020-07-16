@@ -120,7 +120,7 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
                     loadUrl("http://www.health580.cn/reservation/public/wap/group_line/logingroup" +
                             "?center_code=610008");
                     break;
-                case CommonDocumentBean.CODE_16:
+                case CommonDocumentBean.CODE_19:
                     setTitle("体检报表");
                     mWebView.setVisibility(View.VISIBLE);
                     mDecTv.setVisibility(View.GONE);
@@ -128,14 +128,14 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
                             ".cn/report/jsp/webVersionJsp/report/reportBind" +
                             ".html?center_code=610008");
                     break;
-                case CommonDocumentBean.CODE_17:
+                case CommonDocumentBean.CODE_20:
                     setTitle("个体体检");
                     mWebView.setVisibility(View.VISIBLE);
                     mDecTv.setVisibility(View.GONE);
                     loadUrl("http://www.health580.cn/reservation/public/wap/norder_line" +
                             "/nallPackage?center_code=610008");
                     break;
-                case CommonDocumentBean.CODE_18:
+                case CommonDocumentBean.CODE_21:
                     setTitle("个性化体检");
                     mWebView.setVisibility(View.VISIBLE);
                     mDecTv.setVisibility(View.GONE);

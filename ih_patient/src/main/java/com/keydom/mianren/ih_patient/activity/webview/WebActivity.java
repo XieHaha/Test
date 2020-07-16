@@ -58,17 +58,17 @@ public class WebActivity extends BaseControllerActivity<WebPageController> imple
                 url = "http://www.health580.cn/reservation/public/wap/group_line/logingroup" +
                         "?center_code=610008";
                 break;
-            case CommonDocumentBean.CODE_16:
+            case CommonDocumentBean.CODE_19:
                 setTitle("体检报表");
                 url = "http://api.weixin.zkpacs.com.cn/report/jsp/webVersionJsp/report/reportBind" +
                         ".html?center_code=610008";
                 break;
-            case CommonDocumentBean.CODE_17:
+            case CommonDocumentBean.CODE_20:
                 setTitle("个体体检");
                 url = "http://www.health580.cn/reservation/public/wap/norder_line" +
                         "/nallPackage?center_code=610008";
                 break;
-            case CommonDocumentBean.CODE_18:
+            case CommonDocumentBean.CODE_21:
                 setTitle("个性化体检");
                 url = "http://center.zkpacs.com.cn/jsp/wxNewServegroup/nquesProcess/selectInfo" +
                         ".html";

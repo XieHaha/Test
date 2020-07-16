@@ -90,6 +90,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     private List<IndexFunction> mFirstVIPDatas = new ArrayList<>();
     private List<IndexFunction> mSecondVIPDatas = new ArrayList<>();
     private RelativeLayout topHealthRl, empty_layout;
+    private TextView tabLeftTitleTv;
 
     private List<HospitalAreaInfo> hospitalListFromService = new ArrayList<>();
     private List<HospitalAreaInfo> hospitalList = new ArrayList<>();
@@ -121,6 +122,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mFirstVIPRootLl.setVisibility(View.VISIBLE);
         mSecondVIPRootLl.setVisibility(View.VISIBLE);
 
+        tabLeftTitleTv.setText("实时在线MDT问诊");
         mTopRightTitleTv.setText("产检预约");
         mTopRightIconIv.setImageResource(R.mipmap.vip_antenatal_care_icon);
 
@@ -144,6 +146,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mSecondVIPRootLl.setVisibility(View.GONE);
 
         mTopRightTitleTv.setText("诊间缴费");
+        tabLeftTitleTv.setText("在线问诊");
         mTopRightIconIv.setImageResource(R.mipmap.vip_mine_my_nurse_icon);
 
         //        mTopRightRootRl.setOnClickListener(v -> NurseMainActivity.start(getContext()));
@@ -198,6 +201,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mTopLeftRootRl = view.findViewById(R.id.fragment_tab_index_top_left_rl);
         mTopRightRootRl = view.findViewById(R.id.fragment_tab_index_top_right_rl);
         mTopRightTitleTv = view.findViewById(R.id.fragment_tab_index_top_right_title_tv);
+        tabLeftTitleTv = view.findViewById(R.id.fragment_tab_index_top_left_title_tv);
 
 
         indexRefresh.setEnableLoadMore(false);

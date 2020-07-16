@@ -2,6 +2,7 @@ package com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_patient.bean.AmniocentesisReserveBean;
+import com.keydom.mianren.ih_patient.bean.CommonDocumentBean;
 import com.keydom.mianren.ih_patient.constant.AmniocentesisProtocol;
 
 import java.util.Map;
@@ -40,5 +41,8 @@ public interface AmniocentesisWebView extends BaseView {
     boolean isSelectNoticeProtocol();
 
     Map<String, Object> getParamsMap();
+
+    void onWebUrlSuccess(CommonDocumentBean bean);
+    void onWebUrlFailed();
 
 }

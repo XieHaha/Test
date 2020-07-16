@@ -7,11 +7,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller.AmniocentesisWebController;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisWebView;
 import com.keydom.mianren.ih_patient.bean.AmniocentesisReserveBean;
+import com.keydom.mianren.ih_patient.bean.CommonDocumentBean;
 import com.keydom.mianren.ih_patient.constant.AmniocentesisProtocol;
 import com.tencent.smtt.export.external.interfaces.WebResourceError;
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
@@ -63,6 +65,8 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
      */
     private AmniocentesisProtocol protocol;
 
+    private String code;
+
     /**
      * 网页加载错误
      */
@@ -78,7 +82,6 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
         super.onHiddenChanged(hidden);
         if (!hidden) {
             initPage();
-            amniocentesisWebView.loadUrl(protocol.getUrl());
         }
     }
 
@@ -90,14 +93,12 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
         amniocentesisWebAgreeProtocolLayout.setOnClickListener(getController());
         amniocentesisWebAgreeProtocolLayout1.setOnClickListener(getController());
         amniocentesisWebNoticeLayout.setOnClickListener(getController());
+        //        initWebViewSetting();
         initPage();
-        initWebViewSetting();
 
         setReloadListener((v, status) -> {
             isError = false;
-            pageLoading();
             initPage();
-            amniocentesisWebView.loadUrl(protocol.getUrl());
         });
     }
 
@@ -116,18 +117,21 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
     private void initPage() {
         switch (protocol) {
             case AMNIOCENTESIS_WEB_RESERVE:
+                code = CommonDocumentBean.CODE_16;
                 amniocentesisWebNextTv.setText(R.string.txt_next);
                 amniocentesisWebProtocolLayout.setVisibility(View.VISIBLE);
                 amniocentesisWebAgreeProtocolLayout.setVisibility(View.GONE);
                 amniocentesisWebNoticeProtocolLayout.setVisibility(View.GONE);
                 break;
             case AMNIOCENTESIS_AGREE_PROTOCOL:
+                code = CommonDocumentBean.CODE_17;
                 amniocentesisWebNextTv.setText(R.string.txt_next);
                 amniocentesisWebProtocolLayout.setVisibility(View.GONE);
                 amniocentesisWebAgreeProtocolLayout.setVisibility(View.VISIBLE);
                 amniocentesisWebNoticeProtocolLayout.setVisibility(View.GONE);
                 break;
             case AMNIOCENTESIS_NOTICE:
+                code = CommonDocumentBean.CODE_18;
                 amniocentesisWebNextTv.setText(R.string.txt_commit_reserve_apply);
                 amniocentesisWebProtocolLayout.setVisibility(View.GONE);
                 amniocentesisWebAgreeProtocolLayout.setVisibility(View.GONE);
@@ -137,6 +141,8 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
                 break;
         }
         pageLoading();
+
+        getController().getOfficialDispatchAllMsgByCode(code);
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -146,8 +152,9 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
         WebSettings settings = amniocentesisWebView.getSettings();
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setJavaScriptEnabled(true);
+        settings.setSupportZoom(true);
         //设置页面默认缩放密度
-        settings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
+        //        settings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
         //设置默认的文本编码名称，以便在解码html页面时使用
         settings.setDefaultTextEncodingName("UTF-8");
         //启动或禁用WebView内的内容URL访问
@@ -174,8 +181,6 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
             settings.setMixedContentMode(0);
         }
         initClient();
-
-        amniocentesisWebView.loadUrl(protocol.getUrl());
     }
 
     private void initClient() {
@@ -219,6 +224,44 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
     private void loadStatus() {
         amniocentesisWebView.setVisibility(View.GONE);
         pageLoadingFail();
+    }
+
+
+    @Override
+    public void onWebUrlSuccess(CommonDocumentBean bean) {
+        pageLoadingSuccess();
+        if (bean != null) {
+            String url = bean.getContent();
+            if (StringUtils.isEmpty(url)) {
+                initWebViewSetting();
+                url = bean.getUrl().contains("http://") ? bean.getUrl() : "http://" + bean.getUrl();
+                amniocentesisWebView.loadUrl(url);
+            } else {
+                StringBuilder sb = new StringBuilder();
+                sb.append(getHtmlData(bean.getContent()));
+                amniocentesisWebView.loadDataWithBaseURL(null, sb.toString(), "text/html", "UTF-8"
+                        , null);
+            }
+        }
+
+    }
+
+    @Override
+    public void onWebUrlFailed() {
+        pageLoadingFail();
+    }
+
+    private String getHtmlData(String bodyHTML) {
+        String css = "<style type=\"text/css\"> img {"
+                + "width:100%;" +//限定图片宽度填充屏幕
+                "height:auto;" +//限定图片高度自动
+                "}" +
+                "body {" +
+                "word-wrap:break-word;" +//允许自动换行(汉字网页应该不需要这一属性,这个用来强制英文单词换行,类似于word/wps中的西文换行)
+                "}" +
+                "</style>";
+
+        return "<html><header>" + css + "</header>" + bodyHTML + "</html>";
     }
 
     @Override
