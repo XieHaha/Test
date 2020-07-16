@@ -555,6 +555,14 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     }
 
     private void initStatus() {
+        if (!TextUtils.isEmpty(orderBean.getDoctorCode())) {
+            if (orderBean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())) {
+                mMessageView.showExtension();
+            } else {
+                mMessageView.hideExtension();
+            }
+        }
+
         mMessageView.getPluginAdapter().getPluginModule(0);
 
         //如果是从患者管理进来的，这就是一个纯聊天界面，没其他的布局
@@ -700,6 +708,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         }
         mVisitingLl.setVisibility(View.GONE);
         mEndTheConsultationLl.setVisibility(View.GONE);
+        if (orderBean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())) {
+            mMessageView.showExtension();
+        } else {
+            mMessageView.hideExtension();
+        }
     }
 
     /**
@@ -978,6 +991,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             }
         }
     }
+
     @Override
     public Map<String, Object> getUploadVoiceParams() {
         Map<String, Object> params = new HashMap<>();

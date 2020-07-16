@@ -88,7 +88,7 @@ public class ConsultationAdviceActivity extends BaseControllerActivity<Diagnosis
      */
     private String consultationAdvice;
 
-    private List<ConsultationAdviceBean> adviceBeans;
+    private List<ConsultationAdviceBean> adviceBeans = new ArrayList<>();
     private List<VoiceBean> voiceBeans = new ArrayList<>();
 
     public static void start(Context context, long orderId) {
@@ -253,7 +253,8 @@ public class ConsultationAdviceActivity extends BaseControllerActivity<Diagnosis
 
     @Override
     public void getConsultationAdviceSuccess(List<ConsultationAdviceBean> data) {
-        adviceBeans = data;
+        adviceBeans.clear();
+        adviceBeans.addAll(data);
         adviceAdapter.setNewData(adviceBeans);
     }
 
