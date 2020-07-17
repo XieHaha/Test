@@ -51,8 +51,8 @@ public class ConsultationAdviceAdapter extends BaseQuickAdapter<ConsultationAdvi
         }
         LinearLayout voiceLayout = helper.getView(R.id.consultation_advice_voice_layout);
 
+        voiceLayout.removeAllViews();
         if (item.getAudioInfos() != null && item.getAudioInfos().size() > 0) {
-            voiceLayout.removeAllViews();
             addVoiceView(voiceLayout, item.getAudioInfos());
         }
     }
