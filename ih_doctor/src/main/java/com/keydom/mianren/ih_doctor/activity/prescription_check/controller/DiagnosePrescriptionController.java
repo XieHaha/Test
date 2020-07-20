@@ -86,8 +86,35 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                                     modelNameTemp = modelName;
                                     modelTypeTemp = modelType;
                                     getView().updateTemplateList(prescriptionModelBeanList);
-                                    getView().saveCaseModel(false);
-                                    save(modelNameTemp, modelTypeTemp, "", "", "2");
+                                    getView().saveCaseModel
+                                            (false);
+                                    save(modelNameTemp,
+                                            modelTypeTemp, "", "",
+                                            "2");
+                                    //                                    SignUtils.sign
+                                    //                                    (getContext(),
+                                    //                                            getView()
+                                    //                                            .getSaveMap()
+                                    //                                            .toString(),
+                                    //                                            Const
+                                    //                                            .SIGN_CHECK_PRESCRIPTION,
+                                    //                                            new SignUtils
+                                    //                                            .SignCallBack() {
+                                    //                                        @Override
+                                    //                                        public void
+                                    //                                        signSuccess(String
+                                    //                                        signature, String
+                                    //                                        jobId) {
+                                    //                                            getView()
+                                    //                                            .saveCaseModel
+                                    //                                            (false);
+                                    //                                            save
+                                    //                                            (modelNameTemp,
+                                    //                                            modelTypeTemp,
+                                    //                                            signature, jobId,
+                                    //                                                    "2");
+                                    //                                        }
+                                    //                                    });
                                 }
                             }).show();
                 } else {
@@ -98,6 +125,18 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                 if (getView().checkPrescription()) {
                     getView().saveCaseModel(false);
                     save(modelNameTemp, modelTypeTemp, "", "", "1");
+                    //                    SignUtils.sign(getContext(), getView().getSaveMap()
+                    //                    .toString(),
+                    //                            Const.SIGN_CHECK_PRESCRIPTION, new SignUtils
+                    //                            .SignCallBack() {
+                    //                        @Override
+                    //                        public void signSuccess(String signature, String
+                    //                        jobId) {
+                    //                            getView().saveCaseModel(false);
+                    //                            save(modelNameTemp, modelTypeTemp, signature,
+                    //                            jobId, "1");
+                    //                        }
+                    //                    });
                 } else {
                     ToastUtil.showMessage(getContext(), "请完善处方信息！");
                 }

@@ -37,12 +37,14 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
             case R.id.check_yes:
                 getView().auditPass("", "");
                 //                SignUtils.sign(getContext(), getView().getAuditMap().toString()
-                //                , Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
-                //                    @Override
-                //                    public void signSuccess(String signature, String jobId) {
-                //                        getView().auditPass(signature, jobId);
-                //                    }
-                //                });
+                //                        , Const.SIGN_CHECK_PRESCRIPTION, new SignUtils
+                //                        .SignCallBack() {
+                //                            @Override
+                //                            public void signSuccess(String signature, String
+                //                            jobId) {
+                //                                getView().auditPass(signature, jobId);
+                //                            }
+                //                        });
 
                 break;
             case R.id.check_no:
@@ -51,21 +53,21 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
                     public void commit(View v, String value) {
                         getView().auditReturn(value, "", "");
                         //                        SignUtils.sign(getContext(), getView()
-                        //                        .getAuditMap().toString(), Const
-                        //                        .SIGN_CHECK_PRESCRIPTION, new SignUtils
-                        //                        .SignCallBack() {
+                        //                                .getAuditMap().toString(), Const
+                        //                                .SIGN_CHECK_PRESCRIPTION, new SignUtils
+                        //                                .SignCallBack() {
                         //                            @Override
                         //                            public void signSuccess(String signature,
-                        //                            String jobId) {
+                        //                                                    String jobId) {
                         //                                getView().auditReturn(value, signature,
-                        //                                jobId);
+                        //                                        jobId);
                         //                            }
                         //                        });
 
                     }
                 }).show();
-
-
+                break;
+            default:
                 break;
         }
 
@@ -106,7 +108,8 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().auditFailed(msg);
                 return super.requestError(exception, code, msg);
             }

@@ -36,21 +36,18 @@ public class SetPasswordController extends ControllerImpl<SetPasswordView> imple
     @SingleClick(1000)
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.update_finish_btn:
-                if (StringUtils.isEmpty(getView().getPassword()) || StringUtils.isEmpty(getView().getRePassword())) {
-                    ToastUtil.showMessage(getContext(), "请输入密码");
-                } else if (!getView().getPassword().equals(getView().getRePassword())) {
-                    ToastUtil.showMessage(getContext(), "两次输入的密码不匹配");
-                } else if (!CommonUtils.checkPassword(getView().getPassword())) {
-                    ToastUtil.showMessage(getContext(), "密码为6-20位数字和字母组合，请修改后重试！");
-                } else if (!isDigit(getView().getPassword())) {
-                    ToastUtil.showMessage(getContext(), "密码为6-20位数字和字母组合，请修改后重试！");
-                } else {
-                    setPassword(((SetPasswordActivity) getContext()).getIntent().getStringExtra(PHONE_NUM), getView().getPassword());
-                }
-                break;
-            default:
+        if (v.getId() == R.id.update_finish_btn) {
+            if (StringUtils.isEmpty(getView().getPassword()) || StringUtils.isEmpty(getView().getRePassword())) {
+                ToastUtil.showMessage(getContext(), "请输入密码");
+            } else if (!getView().getPassword().equals(getView().getRePassword())) {
+                ToastUtil.showMessage(getContext(), "两次输入的密码不匹配");
+            } else if (!CommonUtils.checkPassword(getView().getPassword())) {
+                ToastUtil.showMessage(getContext(), "密码为6-20位数字和字母组合，请修改后重试！");
+            } else if (!isDigit(getView().getPassword())) {
+                ToastUtil.showMessage(getContext(), "密码为6-20位数字和字母组合，请修改后重试！");
+            } else {
+                setPassword(((SetPasswordActivity) getContext()).getIntent().getStringExtra(PHONE_NUM), getView().getPassword());
+            }
         }
     }
 
@@ -75,20 +72,17 @@ public class SetPasswordController extends ControllerImpl<SetPasswordView> imple
      * @param password 登录密码
      */
     private void setPassword(String phoneNo, String password) {
-        showLoading();
         HashMap<String, Object> map = new HashMap<>();
         map.put("phoneNumber", phoneNo);
         map.put("password", password);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginApiService.class).updatePassword(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<LoginBean>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginApiService.class).updatePassword(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<LoginBean>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable LoginBean data) {
-                hideLoading();
                 getView().updateSuccess(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
                 getView().updateFailed(msg);
                 return super.requestError(exception, code, msg);
             }

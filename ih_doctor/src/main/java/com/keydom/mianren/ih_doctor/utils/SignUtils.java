@@ -137,6 +137,7 @@ public class SignUtils {
                         break;
                     case "0":
                         break;
+                    default:break;
                 }
             }
         });
