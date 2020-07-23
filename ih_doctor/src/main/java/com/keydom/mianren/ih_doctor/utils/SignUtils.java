@@ -59,8 +59,7 @@ public class SignUtils {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SignService.class).addAuthJob(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(context, ((BaseActivity) context).getDisposable(), false) {
             @Override
             public void requestComplete(@org.jetbrains.annotations.Nullable String data) {
-                SignIdBean signIdBean = JSON.parseObject(data, new TypeReference<SignIdBean>() {
-                });
+                SignIdBean signIdBean = JSON.parseObject(data, new TypeReference<SignIdBean>() {});
                 SignetCoreApi.useCoreFunc(new SignDataCallBack(context, msspID, signIdBean.getSignJobId()) {
                     @Override
                     public void onSignDataResult(SignDataResult result) {

@@ -83,10 +83,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setExtends1(String extends1) {
-        if (extends1 != null)
+        if (extends1 != null) {
             this.extends1 = extends1;
-        else
+        } else {
             this.extends1 = "";
+        }
     }
 
     public String getTitle() {
@@ -94,10 +95,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setTitle(String title) {
-        if (title != null)
+        if (title != null) {
             this.title = title;
-        else
+        } else {
             this.title = "";
+        }
     }
 
     public long getId() {
@@ -113,10 +115,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setInfoType(String infoType) {
-        if (infoType != null)
+        if (infoType != null) {
             this.infoType = infoType;
-        else
+        } else {
             this.infoType = "";
+        }
         switch (infoType) {
             case "APPOINT_REGISTR":
                 setTitle("预约挂号成功通知");
@@ -152,7 +155,7 @@ public class MessageBean implements Serializable {
                 setTitle("在线问诊转诊通知");
                 break;
             case "NOTIC_APPOINT_INQUIRY":
-//                setTitle("");
+                //                setTitle("");
                 break;
             case "CHECK_APPOINT_INQUIRY":
                 setTitle("在线问诊检验通知");
@@ -200,10 +203,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setOrderNum(String orderNum) {
-        if (orderNum != null)
+        if (orderNum != null) {
             this.orderNum = orderNum;
-        else
+        } else {
             this.orderNum = "";
+        }
     }
 
     public String getUserName() {
@@ -211,10 +215,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setUserName(String userName) {
-        if (userName != null)
+        if (userName != null) {
             this.userName = userName;
-        else
+        } else {
             this.userName = "";
+        }
     }
 
     public String getUserId() {
@@ -222,10 +227,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setUserId(String userId) {
-        if (userId != null)
+        if (userId != null) {
             this.userId = userId;
-        else
+        } else {
             this.userId = "";
+        }
     }
 
     public String getUserPhone() {
@@ -233,10 +239,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setUserPhone(String userPhone) {
-        if (userPhone != null)
+        if (userPhone != null) {
             this.userPhone = userPhone;
-        else
+        } else {
             this.userPhone = "";
+        }
     }
 
     public String getHospitalName() {
@@ -244,10 +251,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setHospitalName(String hospitalName) {
-        if (hospitalName != null)
+        if (hospitalName != null) {
             this.hospitalName = hospitalName;
-        else
+        } else {
             this.hospitalName = "";
+        }
     }
 
     public String getHospitalCat() {
@@ -255,10 +263,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setHospitalCat(String hospitalCat) {
-        if (hospitalCat != null)
+        if (hospitalCat != null) {
             this.hospitalCat = hospitalCat;
-        else
+        } else {
             this.hospitalCat = "";
+        }
     }
 
     public String getDoctorsName() {
@@ -266,10 +275,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setDoctorsName(String doctorsName) {
-        if (doctorsName != null)
+        if (doctorsName != null) {
             this.doctorsName = doctorsName;
-        else
+        } else {
             this.doctorsName = "";
+        }
     }
 
     public String getDoctorsPhone() {
@@ -277,10 +287,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setDoctorsPhone(String doctorsPhone) {
-        if (doctorsPhone != null)
+        if (doctorsPhone != null) {
             this.doctorsPhone = doctorsPhone;
-        else
+        } else {
             this.doctorsPhone = "";
+        }
     }
 
     public String getVisitLocation() {
@@ -288,10 +299,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setVisitLocation(String visitLocation) {
-        if (visitLocation != null)
+        if (visitLocation != null) {
             this.visitLocation = visitLocation;
-        else
+        } else {
             this.visitLocation = "";
+        }
     }
 
     public String getVisitProject() {
@@ -299,10 +311,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setVisitProject(String visitProject) {
-        if (visitProject != null)
+        if (visitProject != null) {
             this.visitProject = visitProject;
-        else
+        } else {
             this.visitProject = "";
+        }
     }
 
     public String getVisitProjectNum() {
@@ -310,10 +323,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setVisitProjectNum(String visitProjectNum) {
-        if (visitProjectNum != null)
+        if (visitProjectNum != null) {
             this.visitProjectNum = visitProjectNum;
-        else
+        } else {
             this.visitProjectNum = "";
+        }
     }
 
     public String getVisitApplyTime() {
@@ -321,10 +335,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setVisitApplyTime(String visitApplyTime) {
-        if (visitApplyTime != null)
+        if (visitApplyTime != null) {
             this.visitApplyTime = visitApplyTime;
-        else
+        } else {
             this.visitApplyTime = "";
+        }
     }
 
     public String getVisitTime() {
@@ -332,10 +347,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setVisitTime(String visitTime) {
-        if (visitTime != null)
+        if (visitTime != null) {
             this.visitTime = visitTime;
-        else
+        } else {
             this.visitTime = "";
+        }
     }
 
     public String getVisitNum() {
@@ -343,10 +359,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setVisitNum(String visitNum) {
-        if (visitNum != null)
+        if (visitNum != null) {
             this.visitNum = visitNum;
-        else
+        } else {
             this.visitNum = "";
+        }
     }
 
     public String getPay() {
@@ -354,10 +371,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setPay(String pay) {
-        if (pay != null)
+        if (pay != null) {
             this.pay = pay;
-        else
+        } else {
             this.pay = "";
+        }
     }
 
     public String getRemarks() {
@@ -365,10 +383,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setRemarks(String remarks) {
-        if (remarks != null)
+        if (remarks != null) {
             this.remarks = remarks;
-        else
+        } else {
             this.remarks = "";
+        }
     }
 
     public String getDateTime() {
@@ -376,10 +395,11 @@ public class MessageBean implements Serializable {
     }
 
     public void setDateTime(String dateTime) {
-        if (dateTime != null)
+        if (dateTime != null) {
             this.dateTime = dateTime;
-        else
+        } else {
             this.dateTime = "";
+        }
     }
 
     public String getIsRead() {
@@ -387,12 +407,14 @@ public class MessageBean implements Serializable {
     }
 
     public void setIsRead(String isRead) {
-        if (isRead != null)
+        if (isRead != null) {
             this.isRead = isRead;
-        else
+        } else {
             this.isRead = "";
+        }
     }
 
+    @Override
     public String toString() {
         String result = "";
         switch (infoType) {
@@ -409,8 +431,8 @@ public class MessageBean implements Serializable {
 
                 break;
             case "VISIT_REMIND":
-                result ="你预约的明日就诊，请准时前往医院"+"<br>"
-                        +"就诊人: " + userName + "<br>"
+                result = "你预约的明日就诊，请准时前往医院" + "<br>"
+                        + "就诊人: " + userName + "<br>"
                         + "预约时间: " + visitTime + "<br>"
                         + "预约医院: " + hospitalName + "<br>"
                         + "预约科室: " + hospitalCat + "<br>"
@@ -462,28 +484,29 @@ public class MessageBean implements Serializable {
                         + "<font color='#F83535'>报到前请认真阅读《入院注意事项》。</font>";
                 break;
             case "APPOINT_INQUIRY":
-                if("视频".equals(visitProject))
-                result = "订单号:"+orderNum+"<br>"
-                        +"就诊人: " + userName + "<br>"
-                        + "医生: " + doctorsName + "<br>"
-                        + "科室: " + hospitalCat + "<br>"
-                        + "医院: " + hospitalName + "<br>"
-                        + "问诊类型: " + visitProject + "问诊"+"<br>"
-                        + "问诊费用: " + pay + "<br>"
-                        + "申请时间: " + dateTime + "<br>"
-                        + "申请人: " + MyApplication.userInfo.getName() + "<br>"
-                        + "<font color='#F83535'>请保持手机畅通，医生会尽快与您进行视频问诊。</font>";
-                else
-                    result = "订单号:"+orderNum+"<br>"
-                            +"就诊人: " + userName + "<br>"
+                if ("视频".equals(visitProject)) {
+                    result = "订单号:" + orderNum + "<br>"
+                            + "就诊人: " + userName + "<br>"
                             + "医生: " + doctorsName + "<br>"
                             + "科室: " + hospitalCat + "<br>"
                             + "医院: " + hospitalName + "<br>"
-                            + "问诊类型: " + visitProject + "问诊"+ "<br>"
+                            + "问诊类型: " + visitProject + "问诊" + "<br>"
+                            + "问诊费用: " + pay + "<br>"
+                            + "申请时间: " + dateTime + "<br>"
+                            + "申请人: " + MyApplication.userInfo.getName() + "<br>"
+                            + "<font color='#F83535'>请保持手机畅通，医生会尽快与您进行视频问诊。</font>";
+                } else {
+                    result = "订单号:" + orderNum + "<br>"
+                            + "就诊人: " + userName + "<br>"
+                            + "医生: " + doctorsName + "<br>"
+                            + "科室: " + hospitalCat + "<br>"
+                            + "医院: " + hospitalName + "<br>"
+                            + "问诊类型: " + visitProject + "问诊" + "<br>"
                             + "问诊费用: " + pay + "<br>"
                             + "申请时间: " + dateTime + "<br>"
                             + "申请人: " + MyApplication.userInfo.getName() + "<br>"
                             + "<font color='#F83535'>请保持手机畅通，医生会尽快与您进行图文问诊。</font>";
+                }
                 break;
             case "CANCEL_APPOINT_INQUIRY":
                 result = "就诊人: " + userName + "<br>"
@@ -496,8 +519,8 @@ public class MessageBean implements Serializable {
                         + "<font color='#F83535'>问诊费用将在5个工作日内按支付路径退回到您的付款账号中。</font>";
                 break;
             case "REFER_APPOINT_INQUIRY":
-                result ="订单号: " + orderNum + "<br>"
-                        +"就诊人: " + userName + "<br>"
+                result = "订单号: " + orderNum + "<br>"
+                        + "就诊人: " + userName + "<br>"
                         + "原医生: " + extends1 + "<br>"
                         + "现医生: " + doctorsName + "<br>"
                         + "科室: " + hospitalCat + "<br>"
@@ -508,21 +531,21 @@ public class MessageBean implements Serializable {
                 break;
             case "CONVER_APPOINT_INQUIRY":
                 result = "订单号: " + orderNum + "<br>"
-                        +"就诊人: " + userName + "<br>"
+                        + "就诊人: " + userName + "<br>"
                         + "转诊医生: " + extends1 + "<br>"
                         + "接收医生: " + doctorsName + "<br>"
                         + "接收科室: " + hospitalCat + "<br>"
                         + "医院: " + hospitalName + "<br>"
-                        + "问诊类型: " + visitProject + "问诊"+"<br>"
+                        + "问诊类型: " + visitProject + "问诊" + "<br>"
                         + "问诊费用: " + pay + "<br>"
                         + "<font color='#F83535'>请进入“问诊订单”，再进入对应问诊订单进行转诊确认，并及时支付问诊费用。</font>";
                 break;
             case "NOTIC_APPOINT_INQUIRY":
-//                setTitle("");
+                //                setTitle("");
                 break;
             case "CHECK_APPOINT_INQUIRY":
-                result ="订单号: " + orderNum + "<br>"
-                        +"就诊人: " + userName + "<br>"
+                result = "订单号: " + orderNum + "<br>"
+                        + "就诊人: " + userName + "<br>"
                         + "开单医生: " + doctorsName + "<br>"
                         + "开单科室: " + hospitalCat + "<br>"
                         + "医院: " + hospitalName + "<br>"
@@ -531,8 +554,8 @@ public class MessageBean implements Serializable {
                         + "<font color='#F83535'>请进入“诊间缴费”选择相应的检验项目进行支付，支付成功后及时到医院检验。</font>";
                 break;
             case "INSPECT_APPOINT_INQUIRY":
-                result ="订单号: " + orderNum + "<br>"
-                        +"就诊人: " + userName + "<br>"
+                result = "订单号: " + orderNum + "<br>"
+                        + "就诊人: " + userName + "<br>"
                         + "开单医生: " + doctorsName + "<br>"
                         + "开单科室: " + hospitalCat + "<br>"
                         + "医院: " + hospitalName + "<br>"
@@ -542,8 +565,8 @@ public class MessageBean implements Serializable {
                 break;
 
             case "PRESCRIPTION_APPOINT_INQUIRY":
-                result ="订单号: " + orderNum + "<br>"
-                        +"就诊人: " + userName + "<br>"
+                result = "订单号: " + orderNum + "<br>"
+                        + "就诊人: " + userName + "<br>"
                         + "开单医生: " + doctorsName + "<br>"
                         + "开单科室: " + hospitalCat + "<br>"
                         + "医院: " + hospitalName + "<br>"
@@ -551,30 +574,31 @@ public class MessageBean implements Serializable {
                         + "<font color='#F83535'>请进入“诊间缴费”选择相应的处方单进行支付。</font>";
                 break;
             case "APPOINT_NURSING":
-                result ="订单号: " + orderNum + "<br>"
-                        +"服务对象: " + userName + "<br>"
+                result = "订单号: " + orderNum + "<br>"
+                        + "服务对象: " + userName + "<br>"
                         + "预约上门时间: " + visitTime + "<br>"
                         + "服务项目: " + visitProject + "<br>"
                         + "服务次数: " + visitNum + "<br>"
                         + "医院: " + hospitalName + "<br>"
                         + "服务费用: " + pay + "<br>"
                         + "提交人: " + MyApplication.userInfo.getName() + "<br>"
-                        + "<font color='#F83535'>医院将尽快为您安排上门护士，如需取消订单，请打开APP，进入“护理服务订单”，选择对应订单进行取消。</font>";
+                        + "<font color='#F83535'>医院将尽快为您安排上门护士，如需取消订单，请打开APP" +
+                        "，进入“护理服务订单”，选择对应订单进行取消。</font>";
                 break;
             case "CANCEL_APPOINT_NURSING":
-                result ="订单号: " + orderNum + "<br>"
-                        +"服务对象: " + userName + "<br>"
+                result = "订单号: " + orderNum + "<br>"
+                        + "服务对象: " + userName + "<br>"
                         + "预约上门时间: " + visitTime + "<br>"
                         + "服务项目: " + visitProject + "<br>"
                         + "服务次数: " + visitNum + "<br>"
                         + "医院: " + hospitalName + "<br>"
                         + "服务费用: " + pay + "<br>"
-                        + "取消时间: " +dateTime+ "<br>"
+                        + "取消时间: " + dateTime + "<br>"
                         + "<font color='#F83535'>服务费用将在5个工作日内按支付路径退回到您的付款账号中。</font>";
                 break;
             case "CHARG_APPOINT_NURSING":
-                result ="订单号: " + orderNum + "<br>"
-                        +"服务对象: " + userName + "<br>"
+                result = "订单号: " + orderNum + "<br>"
+                        + "服务对象: " + userName + "<br>"
                         + "预约上门时间: " + visitTime + "<br>"
                         + "服务项目: " + visitProject + "<br>"
                         + "服务次数: " + visitNum + "<br>"
@@ -584,8 +608,8 @@ public class MessageBean implements Serializable {
                         + "<font color='#F83535'>服务费用将在5个工作日内按支付路径退回到您的付款账号中。</font>";
                 break;
             case "CHARGBACK_APPOINT_NURSING":
-                result ="订单号: " + orderNum + "<br>"
-                        +"服务对象: " + userName + "<br>"
+                result = "订单号: " + orderNum + "<br>"
+                        + "服务对象: " + userName + "<br>"
                         + "预约上门时间: " + visitTime + "<br>"
                         + "服务项目: " + visitProject + "<br>"
                         + "服务次数: " + visitNum + "<br>"
@@ -595,8 +619,8 @@ public class MessageBean implements Serializable {
                         + "<font color='#F83535'>请及时修改后再次提交订单。</font>";
                 break;
             case "ACCEPTUSER_APPOINT_NURSING":
-                result ="订单号: " + orderNum + "<br>"
-                        +"服务对象: " + userName + "<br>"
+                result = "订单号: " + orderNum + "<br>"
+                        + "服务对象: " + userName + "<br>"
                         + "预约上门时间: " + visitTime + "<br>"
                         + "服务项目: " + visitProject + "<br>"
                         + "服务次数: " + visitNum + "<br>"
@@ -607,30 +631,32 @@ public class MessageBean implements Serializable {
                         + "<font color='#F83535'>请注意接听上门护士电话，确认上门服务时间和相关事项。</font>";
                 break;
             case "ACCEPT_APPOINT_NURSING":
-                result ="订单号: " + orderNum + "<br>"
-                        +"服务对象: " + userName + "<br>"
+                result = "订单号: " + orderNum + "<br>"
+                        + "服务对象: " + userName + "<br>"
                         + "预约上门时间: " + visitTime + "<br>"
                         + "服务项目: " + visitProject + "<br>"
                         + "服务次数: " + visitNum + "<br>"
                         + "医院: " + hospitalName + "<br>"
                         + "服务费用: " + pay + "<br>"
-                        + "上门护士: " +doctorsName  + "<br>"
-                        + "<font color='#F83535'>上门护士"+userName+"已接收订单，并将于约定时间上门服务，请注意做好相应准备。</font>";
+                        + "上门护士: " + doctorsName + "<br>"
+                        + "<font color='#F83535'>上门护士" + userName +
+                        "已接收订单，并将于约定时间上门服务，请注意做好相应准备。</font>";
                 break;
             case "ACCEPTCHANGE_APPOINT_NURSING":
-                result ="订单号: " + orderNum + "<br>"
-                        +"服务对象: " + userName + "<br>"
+                result = "订单号: " + orderNum + "<br>"
+                        + "服务对象: " + userName + "<br>"
                         + "预约上门时间: " + visitTime + "<br>"
                         + "服务项目: " + visitProject + "<br>"
                         + "服务次数: " + visitNum + "<br>"
                         + "医院: " + hospitalName + "<br>"
                         + "转单护士: " + remarks + "<br>"
-                        + "接收护士: " +  doctorsName+ "<br>"
-                        + "<font color='#F83535'>上门护士"+remarks+"转单给"+doctorsName+"护士为您提供上门服务。</font>";
+                        + "接收护士: " + doctorsName + "<br>"
+                        + "<font color='#F83535'>上门护士" + remarks + "转单给" + doctorsName +
+                        "护士为您提供上门服务。</font>";
                 break;
             case "ADD_APPOINT_NURSING":
-                result ="订单号: " + orderNum + "<br>"
-                        +"服务对象: " + userName + "<br>"
+                result = "订单号: " + orderNum + "<br>"
+                        + "服务对象: " + userName + "<br>"
                         + "服务时间: " + visitTime + "<br>"
                         + "本次新增服务项目: " + visitProject + "<br>"
                         + "服务次数: " + visitProjectNum + "<br>"
@@ -638,7 +664,7 @@ public class MessageBean implements Serializable {
                         + "<font color='#F83535'>请进入“诊间缴费”，选择对应缴费项目进行支付。</font>";
                 break;
             case "EISI_APPOINT_NURSING":
-                result ="订单号: " + orderNum + "<br>"
+                result = "订单号: " + orderNum + "<br>"
                         + "服务时间: " + visitTime + "<br>"
                         + "本次服务项目: " + visitProject + "<br>"
                         + "本次器材/耗材费用: " + pay + "<br>"

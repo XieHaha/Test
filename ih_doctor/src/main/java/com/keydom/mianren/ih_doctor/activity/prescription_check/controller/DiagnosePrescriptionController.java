@@ -12,18 +12,22 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.PrescriptionTempletActivity;
+import com.keydom.mianren.ih_doctor.activity.prescription_check.DiagnosePrescriptionActivity;
 import com.keydom.mianren.ih_doctor.activity.prescription_check.view.DiagnosePrescriptionView;
 import com.keydom.mianren.ih_doctor.bean.DiagnoseHandleBean;
 import com.keydom.mianren.ih_doctor.bean.DoctorPrescriptionDetailBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionMessageBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionModelBean;
 import com.keydom.mianren.ih_doctor.bean.UseDrugReasonBean;
+import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.m_interface.OnModelAndCaseDialogListener;
 import com.keydom.mianren.ih_doctor.m_interface.OnModelDialogListener;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
 import com.keydom.mianren.ih_doctor.net.PrescriptionService;
+import com.keydom.mianren.ih_doctor.net.SignService;
 import com.keydom.mianren.ih_doctor.utils.DialogUtils;
+import com.keydom.mianren.ih_doctor.utils.SignUtils;
 import com.keydom.mianren.ih_doctor.view.BottomAddPrescriptionDialog;
 
 import org.jetbrains.annotations.NotNull;
@@ -86,35 +90,23 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                                     modelNameTemp = modelName;
                                     modelTypeTemp = modelType;
                                     getView().updateTemplateList(prescriptionModelBeanList);
-                                    getView().saveCaseModel
-                                            (false);
-                                    save(modelNameTemp,
-                                            modelTypeTemp, "", "",
-                                            "2");
-                                    //                                    SignUtils.sign
-                                    //                                    (getContext(),
-                                    //                                            getView()
-                                    //                                            .getSaveMap()
-                                    //                                            .toString(),
-                                    //                                            Const
-                                    //                                            .SIGN_CHECK_PRESCRIPTION,
-                                    //                                            new SignUtils
-                                    //                                            .SignCallBack() {
-                                    //                                        @Override
-                                    //                                        public void
-                                    //                                        signSuccess(String
-                                    //                                        signature, String
-                                    //                                        jobId) {
-                                    //                                            getView()
-                                    //                                            .saveCaseModel
-                                    //                                            (false);
-                                    //                                            save
-                                    //                                            (modelNameTemp,
-                                    //                                            modelTypeTemp,
-                                    //                                            signature, jobId,
-                                    //                                                    "2");
-                                    //                                        }
-                                    //                                    });
+                                    //getView().saveCaseModel(false);
+                                    //save(modelNameTemp, modelTypeTemp, "", "", "2");
+                                    SignUtils.sign(getContext(), getView().getSaveMap().toString(),
+                                            Const.SIGN_PRESCRIPTION,
+                                            new SignUtils.SignCallBack() {
+                                                @Override
+                                                public void signSuccess(String signature, String jobId) {
+                                                    getView().saveCaseModel(false);
+                                                    if (getView().getType() == DiagnosePrescriptionActivity.UPDATE_PRESCRIPTION) {
+                                                        caCount(1);
+                                                    } else {
+                                                        caCount(0);
+                                                    }
+                                                    save(modelNameTemp, modelTypeTemp, signature,
+                                                            jobId, "2");
+                                                }
+                                            });
                                 }
                             }).show();
                 } else {
@@ -123,20 +115,21 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                 break;
             case R.id.submit:
                 if (getView().checkPrescription()) {
-                    getView().saveCaseModel(false);
-                    save(modelNameTemp, modelTypeTemp, "", "", "1");
-                    //                    SignUtils.sign(getContext(), getView().getSaveMap()
-                    //                    .toString(),
-                    //                            Const.SIGN_CHECK_PRESCRIPTION, new SignUtils
-                    //                            .SignCallBack() {
-                    //                        @Override
-                    //                        public void signSuccess(String signature, String
-                    //                        jobId) {
-                    //                            getView().saveCaseModel(false);
-                    //                            save(modelNameTemp, modelTypeTemp, signature,
-                    //                            jobId, "1");
-                    //                        }
-                    //                    });
+                    // getView().saveCaseModel(false);
+                    //save(modelNameTemp, modelTypeTemp, "", "", "1");
+                    SignUtils.sign(getContext(), getView().getSaveMap().toString(),
+                            Const.SIGN_PRESCRIPTION, new SignUtils.SignCallBack() {
+                                @Override
+                                public void signSuccess(String signature, String jobId) {
+                                    getView().saveCaseModel(false);
+                                    if (getView().getType() == DiagnosePrescriptionActivity.UPDATE_PRESCRIPTION) {
+                                        caCount(1);
+                                    } else {
+                                        caCount(0);
+                                    }
+                                    save(modelNameTemp, modelTypeTemp, signature, jobId, "1");
+                                }
+                            });
                 } else {
                     ToastUtil.showMessage(getContext(), "请完善处方信息！");
                 }
@@ -269,6 +262,23 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
         });
     }
 
+    /**
+     * ca统计
+     */
+    private void caCount(int type) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SignService.class).caCount(type), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
 
     /**
      * 获取用药原因
@@ -287,7 +297,6 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                 return super.requestError(exception, code, msg);
             }
         });
-
     }
 
     /**

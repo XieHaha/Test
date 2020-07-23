@@ -59,6 +59,8 @@ public interface DiagnosePrescriptionView extends BaseView {
      */
     boolean isSaveModel();
 
+    int getType();
+
     /**
      * 获取提交参数
      *

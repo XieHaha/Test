@@ -10,6 +10,7 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
@@ -34,9 +35,6 @@ public interface SignService {
 
     /**
      * 获取电子签名任务ID
-     *
-     * @param maps
-     * @return
      */
     @POST("user/electronics/addAuthJob")
     Observable<HttpResult<String>> addAuthJob(@Body RequestBody body);
@@ -48,4 +46,12 @@ public interface SignService {
 
     @GET("user/electronics/getUserElectronicsInfo")
     Observable<HttpResult<SignRegInfoBean>> getUserElectronicsInfo(@QueryMap Map<String, Object> maps);
+
+    /**
+     * CA统计
+     *
+     * @param type 0 保存处方 1修改处方 2审核通过 3处方驳回
+     */
+    @GET("user/caCount/insert")
+    Observable<HttpResult<String>> caCount(@Query("type") int type);
 }

@@ -25,6 +25,7 @@ import java.util.List;
 public class MyMessageAdapter extends RecyclerView.Adapter<MyMessageAdapter.VH> {
     private Context context;
     private List<Object> dataList;
+
     /**
      * 构造方法
      */
@@ -36,13 +37,14 @@ public class MyMessageAdapter extends RecyclerView.Adapter<MyMessageAdapter.VH> 
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_message_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_message_item,
+                parent, false);
         return new MyMessageAdapter.VH(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-       if (dataList.get(position) instanceof MessageBean) {
+        if (dataList.get(position) instanceof MessageBean) {
             MessageBean messageBean = (MessageBean) dataList.get(position);
             holder.massage_icon_img.setImageResource(R.mipmap.my_message_notification_icon);
             holder.message_type_tv.setText("系统通知");
@@ -51,7 +53,7 @@ public class MyMessageAdapter extends RecyclerView.Adapter<MyMessageAdapter.VH> 
             if ("1".equals(messageBean.getIsRead())) {
                 holder.isReadTv.setText("已读");
                 holder.isReadTv.setTextColor(Color.parseColor("#BBBBBB"));
-            } else if ("0".equals(messageBean.getIsRead())){
+            } else if ("0".equals(messageBean.getIsRead())) {
                 holder.isReadTv.setText("未读");
                 holder.isReadTv.setTextColor(Color.parseColor("#F83535"));
             }
@@ -59,9 +61,9 @@ public class MyMessageAdapter extends RecyclerView.Adapter<MyMessageAdapter.VH> 
                 @SingleClick(1000)
                 @Override
                 public void onClick(View view) {
-//                    NoticeDeatailActivity.start(context, messageBean);
-                    ((MyMessageActivity)context).getController().updateMessageState(messageBean.getId());
-                    switch (messageBean.getInfoType()){
+                    //                    NoticeDeatailActivity.start(context, messageBean);
+                    ((MyMessageActivity) context).getController().updateMessageState(messageBean.getId());
+                    switch (messageBean.getInfoType()) {
                         case "APPOINT_INQUIRY":
                             DiagnoseOrderListActivity.startDiagnose(context);
                             break;
@@ -81,6 +83,8 @@ public class MyMessageAdapter extends RecyclerView.Adapter<MyMessageAdapter.VH> 
                             break;
                         case "ACCEPTCHANGE_APPOINT_NURSING":
                             NurseServiceOrderListActivity.commonNurseStart(context);
+                            break;
+                        default:
                             break;
                     }
                 }

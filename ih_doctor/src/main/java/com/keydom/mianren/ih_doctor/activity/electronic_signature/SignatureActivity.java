@@ -77,7 +77,7 @@ public class SignatureActivity extends BaseControllerActivity<ApplySignatureCont
             @SingleClick(1000)
             @Override
             public void onClick(View v) {
-                if (!isCart)
+                if (!isCart) {
                     SignetCoreApi.useCoreFunc(new FindBackUserCallBack(SignatureActivity.this, info.getName(), info.getIdCard(), IdCardType.SF) {
 
                         @Override
@@ -85,8 +85,9 @@ public class SignatureActivity extends BaseControllerActivity<ApplySignatureCont
                             updateSignStatus();
                         }
                     });
-                else
+                } else {
                     ChangeSignatureActivity.start(SignatureActivity.this, info.getMsspId());
+                }
             }
         });
 

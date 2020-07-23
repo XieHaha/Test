@@ -10,10 +10,13 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.prescription_check.view.PrescriptionView;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionDetailBean;
+import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.m_interface.OnCheckDialogListener;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.PrescriptionService;
+import com.keydom.mianren.ih_doctor.net.SignService;
 import com.keydom.mianren.ih_doctor.utils.DialogUtils;
+import com.keydom.mianren.ih_doctor.utils.SignUtils;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -35,35 +38,30 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.check_yes:
-                getView().auditPass("", "");
-                //                SignUtils.sign(getContext(), getView().getAuditMap().toString()
-                //                        , Const.SIGN_CHECK_PRESCRIPTION, new SignUtils
-                //                        .SignCallBack() {
-                //                            @Override
-                //                            public void signSuccess(String signature, String
-                //                            jobId) {
-                //                                getView().auditPass(signature, jobId);
-                //                            }
-                //                        });
+                //                getView().auditPass("", "");
+                SignUtils.sign(getContext(), getView().getAuditMap().toString()
+                        , Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
+                            @Override
+                            public void signSuccess(String signature, String jobId) {
+                                caCount(2);
+                                getView().auditPass(signature, jobId);
+                            }
+                        });
 
                 break;
             case R.id.check_no:
                 DialogUtils.createCheckDialog(getContext(), new OnCheckDialogListener() {
                     @Override
                     public void commit(View v, String value) {
-                        getView().auditReturn(value, "", "");
-                        //                        SignUtils.sign(getContext(), getView()
-                        //                                .getAuditMap().toString(), Const
-                        //                                .SIGN_CHECK_PRESCRIPTION, new SignUtils
-                        //                                .SignCallBack() {
-                        //                            @Override
-                        //                            public void signSuccess(String signature,
-                        //                                                    String jobId) {
-                        //                                getView().auditReturn(value, signature,
-                        //                                        jobId);
-                        //                            }
-                        //                        });
-
+                        //                        getView().auditReturn(value, "", "");
+                        SignUtils.sign(getContext(), getView().getAuditMap().toString(),
+                                Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
+                                    @Override
+                                    public void signSuccess(String signature, String jobId) {
+                                        caCount(3);
+                                        getView().auditReturn(value, signature, jobId);
+                                    }
+                                });
                     }
                 }).show();
                 break;
@@ -114,8 +112,22 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
                 return super.requestError(exception, code, msg);
             }
         });
-
     }
 
+    /**
+     * ca统计
+     */
+    private void caCount(int type) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SignService.class).caCount(type), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+            }
 
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
 }

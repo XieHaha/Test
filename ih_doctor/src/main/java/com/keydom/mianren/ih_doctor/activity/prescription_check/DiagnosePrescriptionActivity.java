@@ -560,6 +560,10 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         return savePrescriptionTemplate;
     }
 
+    @Override
+    public int getType() {
+        return type;
+    }
 
     /**
      * 0  都不存   1 存为处方模版    2  存为病历模版   3两个都存
