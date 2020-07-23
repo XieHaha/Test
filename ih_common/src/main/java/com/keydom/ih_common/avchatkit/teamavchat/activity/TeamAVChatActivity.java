@@ -37,10 +37,15 @@ import com.keydom.ih_common.avchatkit.teamavchat.TeamAVChatVoiceMuteDialog;
 import com.keydom.ih_common.avchatkit.teamavchat.adapter.TeamAVChatAdapter;
 import com.keydom.ih_common.avchatkit.teamavchat.module.TeamAVChatItem;
 import com.keydom.ih_common.bean.MessageEvent;
+import com.keydom.ih_common.bean.SpeakLimitBean;
 import com.keydom.ih_common.bean.VoiceBean;
 import com.keydom.ih_common.constant.EventType;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.listener.observer.SimpleAVChatStateObserver;
+import com.keydom.ih_common.net.ApiRequest;
+import com.keydom.ih_common.net.service.HttpService;
+import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.service.SpeakService;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
@@ -64,6 +69,9 @@ import com.netease.nimlib.sdk.avchat.video.AVChatVideoCapturerFactory;
 import com.netease.nrtc.video.render.IVideoRender;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +99,6 @@ import static com.keydom.ih_common.avchatkit.teamavchat.module.TeamAVChatItem.TY
  * <li>设置视频通话可选参数[可以不设置] {@link AVChatManager#setParameter(AVChatParameters.Key, Object)},
  * {@link AVChatManager#setParameters(AVChatParameters)}。</li>
  * <li>创建并设置本地视频预览源 {@link AVChatVideoCapturerFactory#createCameraCapturer(boolean)},
- * {@link AVChatManager#setupVideoCapturer(AVChatVideoCapturer)}</li>
  * <li>打开本地视频预览 {@link AVChatManager#startVideoPreview()}。</li>
  * <li>加入房间 {@link AVChatManager#joinRoom2(String, AVChatType, AVChatCallback)}。</li>
  * <li>开始多人会议或者互动直播，以及各种音视频操作。</li>
@@ -110,11 +117,13 @@ public class TeamAVChatActivity extends UI {
     private static final String KEY_ROOM_ID = "roomid";
     private static final String KEY_ACCOUNTS = "accounts";
     private static final String KEY_TNAME = "teamName";
+    private static final String KEY_ORDER_ID = "orderId";
     private static final int AUTO_REJECT_CALL_TIMEOUT = 45 * 1000;
     private static final int CHECK_RECEIVED_CALL_TIMEOUT = 45 * 1000;
     private static final int MAX_SUPPORT_ROOM_USERS_COUNT = 9;
     private static final int BASIC_PERMISSION_REQUEST_CODE = 0x100;
     // DATA
+    private String orderId;
     private String teamId;
     private String roomId;
     private long chatId;
@@ -158,11 +167,16 @@ public class TeamAVChatActivity extends UI {
      */
     private boolean isCreateMDT = false;
 
+    /**
+     * 会话权限
+     */
+    private List<SpeakLimitBean> limitBeans;
 
     private TeamAVChatNotification notifier;
 
     public static void startActivity(Context context, boolean receivedCall, String teamId,
-                                     String roomId, ArrayList<String> accounts, String teamName) {
+                                     String roomId, ArrayList<String> accounts, String teamName,
+                                     String orderId) {
         needFinish = false;
         Intent intent = new Intent();
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -172,12 +186,14 @@ public class TeamAVChatActivity extends UI {
         intent.putExtra(KEY_TEAM_ID, teamId);
         intent.putExtra(KEY_ACCOUNTS, accounts);
         intent.putExtra(KEY_TNAME, teamName);
+        intent.putExtra(KEY_ORDER_ID, orderId);
         context.startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
 
         if (needFinish) {
             finish();
@@ -224,7 +240,7 @@ public class TeamAVChatActivity extends UI {
     protected void onDestroy() {
         super.onDestroy();
         LogUtil.i(TAG, "TeamAVChatActivity onDestroy");
-
+        EventBus.getDefault().unregister(this);
         needFinish = true;
         if (timer != null) {
             timer.cancel();
@@ -279,11 +295,15 @@ public class TeamAVChatActivity extends UI {
         teamId = intent.getStringExtra(KEY_TEAM_ID);
         accounts = (ArrayList<String>) intent.getSerializableExtra(KEY_ACCOUNTS);
         teamName = intent.getStringExtra(KEY_TNAME);
+        orderId = intent.getStringExtra(KEY_ORDER_ID);
         LogUtil.i(TAG, "onIntent, roomId=" + roomId + ", teamId=" + teamId
                 + ", receivedCall=" + receivedCall + ", accounts=" + accounts.size() + ", " +
                 "teamName = " + teamName);
 
         isCreateMDT = !receivedCall;
+        if ("com.keydom.mianren.ih_patient".equals(CommonUtils.getPackageName(this))) {
+            getJurisdictionList(orderId);
+        }
     }
 
     private void findLayouts() {
@@ -408,7 +428,6 @@ public class TeamAVChatActivity extends UI {
             public void onJoinedChannel(int code, String audioFile, String videoFile, int i) {
                 if (code == 200) {
                     onJoinRoomSuccess();
-                    //                    muteUserAudioAndVideo("");
                 } else {
                     onJoinRoomFailed(code, null);
                 }
@@ -416,7 +435,13 @@ public class TeamAVChatActivity extends UI {
 
             @Override
             public void onUserJoined(String account) {
-                muteUserAudioAndVideo(account);
+                if (limitBeans != null) {
+                    for (SpeakLimitBean bean : limitBeans) {
+                        if (account.equalsIgnoreCase(bean.getDoctorCode())) {
+                            muteUserAudioAndVideo(account, bean.getIsLimit() == 1);
+                        }
+                    }
+                }
                 onAVChatUserJoined(account);
             }
 
@@ -521,14 +546,17 @@ public class TeamAVChatActivity extends UI {
     /**
      * 屏蔽音视频
      */
-    private void muteUserAudioAndVideo(String account) {
+    private void muteUserAudioAndVideo(String account, boolean limit) {
+        if (TextUtils.isEmpty(account)) {
+            return;
+        }
         if ("com.keydom.mianren.ih_patient".equals(CommonUtils.getPackageName(this))) {
             //第一个为接待人不屏蔽
             String userCode = accounts.get(0);
             if (userCode.equalsIgnoreCase(account) || userCode.equalsIgnoreCase(AVChatKit.getAccount())) {
                 return;
             }
-            ImClient.muteRemoteAudioAndVideo(account, true);
+            ImClient.muteRemoteAudioAndVideo(account.toLowerCase(), limit);
         }
     }
 
@@ -586,6 +614,21 @@ public class TeamAVChatActivity extends UI {
     /**
      * ************************************ 音视频状态 ***************************************
      */
+
+
+    /**
+     * 收到发言权限控制推送
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void doctorLimit(MessageEvent messageEvent) {
+        if (messageEvent.getType() == EventType.NOTIFY_PATIENT_SPEAK_PERMISSION) {
+//            getJurisdictionList(orderId);
+            limitBeans = (List<SpeakLimitBean>) messageEvent.getData();
+            for (SpeakLimitBean bean : limitBeans) {
+                muteUserAudioAndVideo(bean.getDoctorCode(), bean.getIsLimit() == 1);
+            }
+        }
+    }
 
     private void onVideoLive(String account) {
         if (account.equals(AVChatKit.getAccount())) {
@@ -716,7 +759,7 @@ public class TeamAVChatActivity extends UI {
         }
     }
 
-    /*
+    /**
      * 除了所有人都没接通，其他情况不做自动挂断
      */
     private void checkAllHangUp() {
@@ -840,17 +883,12 @@ public class TeamAVChatActivity extends UI {
 
     private void initRecyclerView() {
         // 确认数据源,自己放在首位
-        if ("com.keydom.mianren.ih_patient".equals(CommonUtils.getPackageName(this))) {
-            data = new ArrayList<>(2);
-            data.add(new TeamAVChatItem(TYPE_DATA, teamId, accounts.get(0)));
-        } else {
-            data = new ArrayList<>(accounts.size() + 1);
-            for (String account : accounts) {
-                if (account.equals(AVChatKit.getAccount())) {
-                    continue;
-                }
-                data.add(new TeamAVChatItem(TYPE_DATA, teamId, account));
+        data = new ArrayList<>(accounts.size() + 1);
+        for (String account : accounts) {
+            if (account.equals(AVChatKit.getAccount())) {
+                continue;
             }
+            data.add(new TeamAVChatItem(TYPE_DATA, teamId, account));
         }
 
         // 自己直接采集摄像头画面
@@ -946,4 +984,25 @@ public class TeamAVChatActivity extends UI {
             }
         }
     };
+
+    /**
+     * ************************************ 音视频权限 ***************************************
+     */
+
+    /**
+     * 获取发言权限
+     */
+    public void getJurisdictionList(String orderId) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SpeakService.class).getJurisdictionList(orderId),
+                new HttpSubscriber<List<SpeakLimitBean>>() {
+                    @Override
+                    public void requestComplete(@Nullable List<SpeakLimitBean> data) {
+                        limitBeans = data;
+                        for (SpeakLimitBean bean : limitBeans) {
+                            muteUserAudioAndVideo(bean.getDoctorCode(), bean.getIsLimit() == 1);
+                        }
+                    }
+                });
+    }
+
 }

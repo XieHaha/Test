@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_doctor.activity.im;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.ih_common.bean.SpeakLimitBean;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 
 import java.util.Map;
@@ -37,4 +38,6 @@ interface ConversationView extends BaseView {
     void stopReferralSuccess();
 
     boolean isTeam();
+
+    void getDoctorLimitSuccess(SpeakLimitBean limitBean);
 }

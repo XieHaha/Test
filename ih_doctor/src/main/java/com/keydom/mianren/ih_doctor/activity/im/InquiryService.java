@@ -1,5 +1,6 @@
 package com.keydom.mianren.ih_doctor.activity.im;
 
+import com.keydom.ih_common.bean.SpeakLimitBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 
@@ -23,6 +24,15 @@ public interface InquiryService {
     @GET("user/online/doctorGetOrderInfoByUserId")
     Observable<HttpResult<InquiryBean>> getOrderDetails(@Query("userId") String userId, @Query(
             "orderId") long orderId, @Query("type") String type);
+
+    /**
+     * 获取当前问诊单自己问诊发言权限
+     *
+     * @param userOrderId 订单id
+     * @return
+     */
+    @GET("user/inquiryDoctorJurisdiction/getDoctorLimit")
+    Observable<HttpResult<SpeakLimitBean>> getDoctorLimit(@Query("userOrderId") String userOrderId);
 
     //    /**
     //     * 查询与患者的问诊订单状态
@@ -75,8 +85,7 @@ public interface InquiryService {
     /**
      * 判断订单是否支付
      *
-     * @param orderId
-     * 0,3是未支付状态
+     * @param orderId 0,3是未支付状态
      * @return
      */
     @GET("user/online/isPay")

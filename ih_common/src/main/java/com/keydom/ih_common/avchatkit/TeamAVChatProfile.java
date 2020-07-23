@@ -34,6 +34,7 @@ public class TeamAVChatProfile {
     private static final String KEY_TID = "teamId";
     private static final String KEY_RID = "room";
     private static final String KEY_TNAME = "teamName";
+    private static final String KEY_ORDER_ID = "userOrderId";
 
     private static final long OFFLINE_EXPIRY = 45 * 1000;
 
@@ -46,7 +47,7 @@ public class TeamAVChatProfile {
     private boolean isSyncComplete = true;
 
     public String buildContent(String roomName, String teamID, List<String> accounts,
-                               String teamName) {
+                               String teamName,String orderId) {
         JSONObject json = new JSONObject();
         json.put(KEY_ID, ID);
         JSONArray array = new JSONArray();
@@ -58,6 +59,7 @@ public class TeamAVChatProfile {
         json.put(KEY_TID, teamID);
         json.put(KEY_RID, roomName);
         json.put(KEY_TNAME, teamName);
+        json.put(KEY_ORDER_ID, orderId);
         return json.toString();
     }
 
@@ -92,6 +94,7 @@ public class TeamAVChatProfile {
                         if (isTeamAVChatInvite(jsonObject)) {
                             final String roomName = jsonObject.getString(KEY_RID);
                             final String teamId = jsonObject.getString(KEY_TID);
+                            final String orderId = jsonObject.getString(KEY_ORDER_ID);
                             JSONArray accountArray = jsonObject.getJSONArray(KEY_MEMBER);
                             final ArrayList<String> accounts = new ArrayList<>();
                             final String teamName = jsonObject.getString(KEY_TNAME);
@@ -113,7 +116,7 @@ public class TeamAVChatProfile {
                             LogUtil.ui("isSyncComplete = " + isSyncComplete);
                             if (isSyncComplete || !checkOfflineOutTime(customNotification)) {
                                 isTeamAVChatting = true;
-                                launchActivity(teamId, roomName, accounts, teamName);
+                                launchActivity(teamId, roomName, accounts, teamName,orderId);
                             }
                         }
                     } catch (Exception e) {
@@ -124,7 +127,7 @@ public class TeamAVChatProfile {
 
 
     private void launchActivity(final String teamId, final String roomName,
-                                final ArrayList<String> accounts, final String teamName) {
+                                final ArrayList<String> accounts, final String teamName, final String orderId) {
         Runnable r = new Runnable() {
             @Override
             public void run() {
@@ -139,11 +142,11 @@ public class TeamAVChatProfile {
                         EventBus.getDefault().post(consultationEvent);
                     } else {
                         TeamAVChatActivity.startActivity(AVChatKit.getContext(), true, teamId,
-                                roomName, accounts, teamName);
+                                roomName, accounts, teamName,orderId);
                     }
                 } else {
                     LogUtil.ui("launch TeamAVChatActivity delay for WelComeActivity is Launching");
-                    launchActivity(teamId, roomName, accounts, teamName);
+                    launchActivity(teamId, roomName, accounts, teamName,orderId);
                 }
             }
         };

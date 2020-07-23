@@ -9,11 +9,21 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.keydom.ih_common.bean.MessageEvent;
+import com.keydom.ih_common.bean.SpeakLimitBean;
+import com.keydom.ih_common.bean.UpdateDoctorBean;
+import com.keydom.ih_common.constant.EventType;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.activity.index_main.MainActivity;
 import com.keydom.mianren.ih_patient.activity.my_message.MyMessageActivity;
 import com.keydom.mianren.ih_patient.constant.Type;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -39,6 +49,13 @@ public class JPushReceiver extends BroadcastReceiver {
                 Logger.d(TAG+":[MyReceiver] 接收到推送下来的通知");
                 int notificationId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
                 Logger.d(TAG+":[MyReceiver] 接收到推送下来的通知的ID: " + notificationId);
+                String title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE);
+                if("问诊权限修改".equals(title)) {
+                    String jsonString = bundle.getString(JPushInterface.EXTRA_EXTRA);
+                    UpdateDoctorBean doctorBean = new Gson().fromJson(jsonString,UpdateDoctorBean.class);
+                    List<SpeakLimitBean> limitBeans = new Gson().fromJson(doctorBean.getUpdateDoctors(), new TypeToken<List<SpeakLimitBean>>() {}.getType());
+                    EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NOTIFY_PATIENT_SPEAK_PERMISSION).setData(limitBeans).build());
+                }
 
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
                 Logger.d(TAG+":[MyReceiver] 用户点击打开了通知");

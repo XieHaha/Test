@@ -937,7 +937,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
 
     private void startTeamAVChat(ArrayList<String> accounts) {
-        ImClient.createRoom(this, sessionId, accounts);
+        ImClient.createRoom(this, sessionId, accounts,String.valueOf(orderId));
     }
 
     /**

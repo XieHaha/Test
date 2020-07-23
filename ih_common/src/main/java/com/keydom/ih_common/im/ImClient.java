@@ -874,12 +874,12 @@ public class ImClient {
     }
 
     public static void createRoom(final Context context, final String teamId,
-                                  final ArrayList<String> accounts) {
-        createRoom(context, teamId, accounts, "", null);
+                                  final ArrayList<String> accounts,String orderId) {
+        createRoom(context, teamId, accounts, "", orderId,null);
     }
 
     public static void createRoom(final Context context, final String teamId,
-                                  final ArrayList<String> accounts, String teamChatType,
+                                  final ArrayList<String> accounts, String teamChatType,final String orderId,
                                   final TeamAVChatFragment.CreateRoomCallback callback) {
         //final String roomName = teamChatType + UUID.randomUUID().toString().replaceAll("-", "");
         final String roomName = teamChatType + teamId;
@@ -891,12 +891,12 @@ public class ImClient {
                         LogUtil.i("status", "create room " + roomName + " success !");
                         Team team = getTeamProvider().getTeamById(teamId);
                         onCreateRoomSuccess(context, teamId, roomName, team == null ? "会诊" :
-                                team.getName(), accounts);
+                                team.getName(), accounts,orderId);
                         TeamAVChatProfile.sharedInstance().setTeamAVChatting(true);
 
                         if (callback == null) {
                             AVChatKit.outgoingTeamCall(context, false, teamId, roomName, accounts,
-                                    team == null ? "会诊" : team.getName());
+                                    team == null ? "会诊" : team.getName(),orderId);
                         } else {
                             callback.success(roomName);
                         }
@@ -921,8 +921,7 @@ public class ImClient {
     }
 
     private static void onCreateRoomSuccess(Context context, String teamId, String roomName,
-                                            String teamName,
-                                            ArrayList<String> accounts) {
+                                            String teamName, ArrayList<String> accounts,String orderId) {
         // 在群里发送tip消息
         IMMessage message = MessageBuilder.createTipMessage(teamId, SessionTypeEnum.Team);
         CustomMessageConfig tipConfig = new CustomMessageConfig();
@@ -936,7 +935,7 @@ public class ImClient {
         sentMessage(message, false, null);
         // 对各个成员发送点对点自定义通知
         String content = TeamAVChatProfile.sharedInstance().buildContent(roomName, teamId,
-                accounts, teamName);
+                accounts, teamName,orderId);
         CustomNotificationConfig config = new CustomNotificationConfig();
         config.enablePush = true;
         config.enablePushNick = false;

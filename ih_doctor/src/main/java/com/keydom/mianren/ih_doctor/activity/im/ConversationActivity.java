@@ -30,6 +30,7 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.InquiryStatus;
 import com.keydom.ih_common.bean.InspectionApplyBean;
 import com.keydom.ih_common.bean.InspectionBean;
+import com.keydom.ih_common.bean.SpeakLimitBean;
 import com.keydom.ih_common.bean.TriageBean;
 import com.keydom.ih_common.bean.VoiceBean;
 import com.keydom.ih_common.im.ImClient;
@@ -270,6 +271,15 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         initIM();
         initView();
         initListener();
+
+        getDoctorLimit();
+    }
+
+    /**
+     * 获取发言权限
+     */
+    private void getDoctorLimit() {
+        getController().getDoctorLimit();
     }
 
     /**
@@ -555,14 +565,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     }
 
     private void initStatus() {
-        if (!TextUtils.isEmpty(orderBean.getDoctorCode())) {
-            if (orderBean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())) {
-                mMessageView.showExtension();
-            } else {
-                mMessageView.hideExtension();
-            }
-        }
-
         mMessageView.getPluginAdapter().getPluginModule(0);
 
         //如果是从患者管理进来的，这就是一个纯聊天界面，没其他的布局
@@ -708,11 +710,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         }
         mVisitingLl.setVisibility(View.GONE);
         mEndTheConsultationLl.setVisibility(View.GONE);
-        if (orderBean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())) {
-            mMessageView.showExtension();
-        } else {
-            mMessageView.hideExtension();
-        }
     }
 
     /**
@@ -725,11 +722,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mInquiryTypeTv.setTextColor(ContextCompat.getColor(this, R.color.im_status_ing));
         mQuestionRemainingTimeTv.setVisibility(View.VISIBLE);
         mVisitingLl.setVisibility(View.GONE);
-        if (orderBean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())) {
-            mMessageView.showExtension();
-        } else {
-            mMessageView.hideExtension();
-        }
     }
 
     /**
@@ -743,11 +735,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mInquiryTypeTv.setTextColor(ContextCompat.getColor(this, R.color.im_status_ing));
         mEndTheConsultationLl.setVisibility(View.GONE);
         mQuestionRemainingTimeTv.setVisibility(View.VISIBLE);
-        if (orderBean.getDoctorCode().equalsIgnoreCase(AVChatKit.getAccount())) {
-            mMessageView.showExtension();
-        } else {
-            mMessageView.hideExtension();
-        }
     }
 
     @SingleClick(1000)
@@ -914,7 +901,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     }
 
     private void startTeamAVChat(ArrayList<String> accounts) {
-        ImClient.createRoom(this, sessionId, accounts);
+        ImClient.createRoom(this, sessionId, accounts,String.valueOf(orderId));
     }
 
     /**
@@ -992,6 +979,16 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         }
     }
 
+    /**
+     * 收到发言权限控制推送
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void doctorLimit(com.keydom.ih_common.bean.MessageEvent messageEvent) {
+        if (messageEvent.getType() == com.keydom.ih_common.constant.EventType.NOTIFY_DOCTOR_SPEAK_PERMISSION) {
+            getDoctorLimit();
+        }
+    }
+
     @Override
     public Map<String, Object> getUploadVoiceParams() {
         Map<String, Object> params = new HashMap<>();
@@ -1013,6 +1010,15 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     @Override
     public boolean isTeam() {
         return teamChat;
+    }
+
+    @Override
+    public void getDoctorLimitSuccess(SpeakLimitBean limitBean) {
+        if (limitBean != null && limitBean.getIsLimit() == 0) {
+            mMessageView.showExtension();
+        } else {
+            mMessageView.hideExtension();
+        }
     }
 
     @Override

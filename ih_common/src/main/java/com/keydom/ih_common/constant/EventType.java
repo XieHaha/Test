@@ -9,6 +9,9 @@ package com.keydom.ih_common.constant;
  * 修改时间：18/11/2 下午1:49
  */
 public enum EventType {
+    /**
+     *
+     */
     UPDATE,
     SEND,
     OFFLINE,
@@ -30,4 +33,12 @@ public enum EventType {
      * 拒绝会诊申请
      */
     NOTIFY_REJECT_JOIN_CONSULTATION,
+    /**
+     * 排班医生会话权限(医务端)
+     */
+    NOTIFY_DOCTOR_SPEAK_PERMISSION,
+    /**
+     * 排班医生会话权限(用户端)
+     */
+    NOTIFY_PATIENT_SPEAK_PERMISSION,
 }

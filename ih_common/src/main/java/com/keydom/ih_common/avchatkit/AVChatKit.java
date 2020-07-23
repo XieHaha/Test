@@ -164,8 +164,8 @@ public class AVChatKit {
      * @param accounts  音视频通话账号集合
      * @param teamName  群组名称
      */
-    public static void outgoingTeamCall(Context context, boolean receivedCall, String teamId, String roomId, ArrayList<String> accounts, String teamName) {
-        TeamAVChatActivity.startActivity(context, receivedCall, teamId, roomId, accounts, teamName);
+    public static void outgoingTeamCall(Context context, boolean receivedCall, String teamId, String roomId, ArrayList<String> accounts, String teamName,String orderId) {
+        TeamAVChatActivity.startActivity(context, receivedCall, teamId, roomId, accounts, teamName,orderId);
     }
 
     /**

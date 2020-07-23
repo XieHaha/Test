@@ -92,7 +92,6 @@ import static com.keydom.ih_common.avchatkit.teamavchat.module.TeamAVChatItem.TY
  * <li>设置视频通话可选参数[可以不设置] {@link AVChatManager#setParameter(AVChatParameters.Key, Object)},
  * {@link AVChatManager#setParameters(AVChatParameters)}。</li>
  * <li>创建并设置本地视频预览源 {@link AVChatVideoCapturerFactory#createCameraCapturer(boolean)},
- * {@link AVChatManager#setupVideoCapturer(AVChatVideoCapturer)}</li>
  * <li>打开本地视频预览 {@link AVChatManager#startVideoPreview()}。</li>
  * <li>加入房间 {@link AVChatManager#joinRoom2(String, AVChatType, AVChatCallback)}。</li>
  * <li>开始多人会议或者互动直播，以及各种音视频操作。</li>
@@ -224,7 +223,7 @@ public class TeamAVChatFragment extends Fragment {
      */
     public void startConsultation() {
         destroyRTC = false;
-        ImClient.createRoom(getContext(), teamId, accounts, AVChatKit.teamChatType,
+        ImClient.createRoom(getContext(), teamId, accounts, AVChatKit.teamChatType,"",
                 new CreateRoomCallback() {
                     @Override
                     public void success(String id) {

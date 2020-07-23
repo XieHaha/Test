@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_doctor.activity.im;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.SpeakLimitBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -22,6 +23,19 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class ConversationController extends ControllerImpl<ConversationView> {
+
+    /**
+     * 获取发言权限
+     */
+    public void getDoctorLimit() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(InquiryService.class).getDoctorLimit(String.valueOf(getView().getOrderId())),
+                new HttpSubscriber<SpeakLimitBean>(getContext(), getDisposable(), false) {
+                    @Override
+                    public void requestComplete(@Nullable SpeakLimitBean data) {
+                        getView().getDoctorLimitSuccess(data);
+                    }
+                });
+    }
 
     /**
      * 获取订单详情
