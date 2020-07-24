@@ -23,6 +23,7 @@ import com.keydom.mianren.ih_doctor.adapter.TestDetailItemListAdapter;
 import com.keydom.mianren.ih_doctor.bean.InquiryBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -169,7 +170,7 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         deptName.setText(inspectionBean.getDeptName());
         diagnoseResTv.setText(inspectionBean.getDiagnosis());
         checkItemAmount.setText("总共 " + CommonUtils.numberToChinese(inspectionBean.getCateS().size()) + " 项");
-        totalFee.setText("总金额：¥ " + inspectionBean.getAmount() + " 元");
+        totalFee.setText("总金额：¥ " + getPrice(inspectionBean.getAmount()) + " 元");
         applyDoctor.setText(inspectionBean.getDoctorName());
         applyTime.setText(inspectionBean.getUpdateTime());
         diseaseDecTv.setVisibility(View.GONE);
@@ -179,6 +180,15 @@ public class CheckOrderDetailActivity extends BaseControllerActivity<CheckOrderD
         doctorInstructionTipTv.setVisibility(View.GONE);
         checkOutList.addAll(getCheckOutList());
         testDetailItemListAdapter.notifyDataSetChanged();
+    }
+
+    private String getPrice(String price) {
+        try {
+            return new DecimalFormat("0.00").format(Double.valueOf(price));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return "0";
     }
 
     /**

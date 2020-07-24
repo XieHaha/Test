@@ -13,6 +13,7 @@ import com.keydom.ih_common.im.model.ImMessageConstant
 import com.keydom.ih_common.im.model.ImUIMessage
 import com.keydom.ih_common.im.model.custom.InspectionAttachment
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo
+import java.text.DecimalFormat
 
 class ImMessageItemInspectionProvider(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs), MessageProvider {
 
@@ -50,7 +51,8 @@ class ImMessageItemInspectionProvider(context: Context?, attrs: AttributeSet?) :
         } else {
             paymentAmount.visibility = View.VISIBLE
             resultPay.visibility = View.VISIBLE
-            paymentAmount.text = String.format("￥(%s元)", attachment.insCheckApplication.amount)
+            val f: String = DecimalFormat("0.00").format( attachment.insCheckApplication.amount.toDouble())
+            paymentAmount.text = String.format("￥(%s元)",f)
             resultPay.text = "去支付"
         }
     }

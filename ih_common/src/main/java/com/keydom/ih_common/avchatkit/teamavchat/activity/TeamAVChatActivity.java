@@ -642,7 +642,7 @@ public class TeamAVChatActivity extends UI {
                 //画面更新
                 int index = getItemIndex(bean.getDoctorCode().toLowerCase());
                 if (index == -1) {
-                    return;
+                    continue;
                 }
                 TeamAVChatItem item = data.get(index);
                 if (limit) {
