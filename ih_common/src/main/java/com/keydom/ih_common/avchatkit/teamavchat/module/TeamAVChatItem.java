@@ -16,6 +16,7 @@ public class TeamAVChatItem {
         int STATE_PLAYING = 1; // 接听中
         int STATE_END = 2; // 未接听
         int STATE_HANGUP = 3; // 已挂断
+        int STATE_LIMIT = 4;
     }
 
     public int type; // 类型：0 加号；1 正常surface

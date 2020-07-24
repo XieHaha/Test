@@ -17,6 +17,12 @@ public class SpeakLimitBean implements Serializable {
     private String doctorName;
     private String doctorCode;
 
+    public static final int LIMIT_NO = 0;
+    /**
+     * 限制发言
+     */
+    public static final int LIMIT_YES = 1;
+
     public int getIsLimit() {
         return isLimit;
     }

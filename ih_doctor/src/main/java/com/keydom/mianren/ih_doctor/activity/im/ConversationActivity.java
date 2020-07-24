@@ -1014,7 +1014,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
     @Override
     public void getDoctorLimitSuccess(SpeakLimitBean limitBean) {
-        if (limitBean != null && limitBean.getIsLimit() == 0) {
+        if (limitBean != null && limitBean.getIsLimit() == SpeakLimitBean.LIMIT_NO) {
             mMessageView.showExtension();
         } else {
             mMessageView.hideExtension();

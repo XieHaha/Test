@@ -43,8 +43,13 @@ public class JPushReceiver extends BroadcastReceiver {
 
             } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
                 Logger.d(TAG+":[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
-//                processCustomMessage(context, bundle);
-
+                String title = bundle.getString(JPushInterface.EXTRA_TITLE);
+                if("问诊权限修改".equals(title)) {
+                    String jsonString = bundle.getString(JPushInterface.EXTRA_EXTRA);
+                    UpdateDoctorBean doctorBean = new Gson().fromJson(jsonString,UpdateDoctorBean.class);
+                    List<SpeakLimitBean> limitBeans = new Gson().fromJson(doctorBean.getUpdateDoctors(), new TypeToken<List<SpeakLimitBean>>() {}.getType());
+                    EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NOTIFY_PATIENT_SPEAK_PERMISSION).setData(limitBeans).build());
+                }
             } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
                 Logger.d(TAG+":[MyReceiver] 接收到推送下来的通知");
                 int notificationId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);

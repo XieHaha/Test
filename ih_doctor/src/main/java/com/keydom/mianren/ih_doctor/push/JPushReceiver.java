@@ -38,37 +38,35 @@ public class JPushReceiver extends BroadcastReceiver {
 
             } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
                 Logger.e(TAG + ":[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
-                //                processCustomMessage(context, bundle);
+                String title = bundle.getString(JPushInterface.EXTRA_TITLE);
+                if ("问诊权限修改".equals(title)) {
+                    EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NOTIFY_DOCTOR_SPEAK_PERMISSION).build());
+                }
 
             } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
                 int notificationId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
                 Logger.e(TAG + ":[MyReceiver] 接收到推送下来的通知的ID: " + notificationId);
                 String jsonString = bundle.getString(JPushInterface.EXTRA_EXTRA);
                 String title = bundle.getString(JPushInterface.EXTRA_TITLE);
-                if ("问诊权限修改".equals(title)) {
-                    EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NOTIFY_DOCTOR_SPEAK_PERMISSION).build());
-                } else {
-                    try {
-                        AuditInfoBean notifyKeyBean = new Gson().fromJson(jsonString,
-                                AuditInfoBean.class);
-                        //字段统一
-                        notifyKeyBean.setId(notifyKeyBean.getAuditId());
-                        if (TextUtils.equals(notifyKeyBean.getType(), "0")) {
-                            EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NOTIFY_APPLY_JOIN_CONSULTATION).setData(notifyKeyBean).build());
+                try {
+                    AuditInfoBean notifyKeyBean = new Gson().fromJson(jsonString,
+                            AuditInfoBean.class);
+                    //字段统一
+                    notifyKeyBean.setId(notifyKeyBean.getAuditId());
+                    if (TextUtils.equals(notifyKeyBean.getType(), "0")) {
+                        EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NOTIFY_APPLY_JOIN_CONSULTATION).setData(notifyKeyBean).build());
+                    } else {
+                        if (TextUtils.isEmpty(title) || title.contains("拒绝")) {
+                            //拒绝暂不通知
                         } else {
-                            if (TextUtils.isEmpty(title) || title.contains("拒绝")) {
-                                //拒绝暂不通知
-                            } else {
-                                EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NOTIFY_AGREE_JOIN_CONSULTATION).setData(notifyKeyBean).build());
-                            }
+                            EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.NOTIFY_AGREE_JOIN_CONSULTATION).setData(notifyKeyBean).build());
                         }
-
-                    } catch (JsonSyntaxException e) {
-                        e.printStackTrace();
-                        Logger.e(TAG + "  Get message extra JSON error!");
                     }
-                }
 
+                } catch (JsonSyntaxException e) {
+                    e.printStackTrace();
+                    Logger.e(TAG + "  Get message extra JSON error!");
+                }
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
                 Logger.e(TAG + ":[MyReceiver] 用户点击打开了通知");
                 //打开自定义的Activity

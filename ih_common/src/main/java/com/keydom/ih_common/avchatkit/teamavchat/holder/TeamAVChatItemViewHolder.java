@@ -48,6 +48,7 @@ public class TeamAVChatItemViewHolder extends TeamAVChatItemViewHolderBase {
         super(adapter);
     }
 
+    @Override
     protected void inflate(final BaseViewHolder holder) {
         avatarImage = holder.getView(R.id.avatar_image);
         loadingImage = holder.getView(R.id.loading_image);
@@ -57,6 +58,7 @@ public class TeamAVChatItemViewHolder extends TeamAVChatItemViewHolderBase {
         volumeBar = holder.getView(R.id.avchat_volume);
     }
 
+    @Override
     protected void refresh(final TeamAVChatItem data) {
         UserInfo userInfo = ImClient.getUserInfoProvider().getUserInfo(data.account);
         if (userInfo != null) {
@@ -74,7 +76,7 @@ public class TeamAVChatItemViewHolder extends TeamAVChatItemViewHolderBase {
         } else if (data.state == TeamAVChatItem.STATE.STATE_PLAYING) {
             // 正在通话
             loadingImage.setVisibility(GONE);
-            surfaceView.setVisibility(data.videoLive ? View.VISIBLE : View.INVISIBLE); //
+            surfaceView.setVisibility(data.videoLive ? View.VISIBLE : View.INVISIBLE);
             // 有视频流才需要SurfaceView
             stateText.setVisibility(GONE);
         } else if (data.state == TeamAVChatItem.STATE.STATE_END || data.state == TeamAVChatItem.STATE.STATE_HANGUP) {
@@ -85,6 +87,10 @@ public class TeamAVChatItemViewHolder extends TeamAVChatItemViewHolderBase {
             stateText.setText(data.state ==
                     TeamAVChatItem.STATE.STATE_HANGUP ? R.string.avchat_has_hangup :
                     R.string.avchat_no_pick_up);
+        }else if(data.state == TeamAVChatItem.STATE.STATE_LIMIT) {
+            loadingImage.setVisibility(GONE);
+            surfaceView.setVisibility(GONE);
+            nickNameText.setText("");
         }
         updateVolume(data.volume);
     }

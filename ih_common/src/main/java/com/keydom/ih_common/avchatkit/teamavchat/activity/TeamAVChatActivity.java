@@ -438,7 +438,8 @@ public class TeamAVChatActivity extends UI {
                 if (limitBeans != null) {
                     for (SpeakLimitBean bean : limitBeans) {
                         if (account.equalsIgnoreCase(bean.getDoctorCode())) {
-                            muteUserAudioAndVideo(account, bean.getIsLimit() == 1);
+                            muteUserAudioAndVideo(account,
+                                    bean.getIsLimit() == SpeakLimitBean.LIMIT_YES);
                         }
                     }
                 }
@@ -566,9 +567,14 @@ public class TeamAVChatActivity extends UI {
             TeamAVChatItem item = data.get(index);
             IVideoRender surfaceView = adapter.getViewHolderSurfaceView(item);
             if (surfaceView != null) {
-                item.state = TeamAVChatItem.STATE.STATE_PLAYING;
-                item.videoLive = true;
-                adapter.notifyItemChanged(index);
+                if (getLimit(account)) {
+                    item.state = TeamAVChatItem.STATE.STATE_LIMIT;
+                    item.volume = 0;
+                } else {
+                    item.state = TeamAVChatItem.STATE.STATE_PLAYING;
+                    item.videoLive = true;
+                    adapter.notifyItemChanged(index);
+                }
                 AVChatManager.getInstance().setupRemoteVideoRender(account, surfaceView, false,
                         AVChatVideoScalingType.SCALE_ASPECT_FIT);
             }
@@ -588,8 +594,12 @@ public class TeamAVChatActivity extends UI {
         int index = getItemIndex(account);
         if (index >= 0) {
             TeamAVChatItem item = data.get(index);
-            item.state = TeamAVChatItem.STATE.STATE_HANGUP;
-            item.volume = 0;
+            if (getLimit(account)) {
+                item.state = TeamAVChatItem.STATE.STATE_LIMIT;
+            } else {
+                item.state = TeamAVChatItem.STATE.STATE_HANGUP;
+                item.volume = 0;
+            }
             adapter.notifyItemChanged(index);
         }
         updateAudioMuteButtonState();
@@ -622,10 +632,26 @@ public class TeamAVChatActivity extends UI {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void doctorLimit(MessageEvent messageEvent) {
         if (messageEvent.getType() == EventType.NOTIFY_PATIENT_SPEAK_PERMISSION) {
-//            getJurisdictionList(orderId);
+            //            getJurisdictionList(orderId);
             limitBeans = (List<SpeakLimitBean>) messageEvent.getData();
             for (SpeakLimitBean bean : limitBeans) {
-                muteUserAudioAndVideo(bean.getDoctorCode(), bean.getIsLimit() == 1);
+                boolean limit = bean.getIsLimit() == SpeakLimitBean.LIMIT_YES;
+                //设置是否限制音视频播放
+                muteUserAudioAndVideo(bean.getDoctorCode(), limit);
+
+                //画面更新
+                int index = getItemIndex(bean.getDoctorCode().toLowerCase());
+                if (index == -1) {
+                    return;
+                }
+                TeamAVChatItem item = data.get(index);
+                if (limit) {
+                    item.state = TeamAVChatItem.STATE.STATE_LIMIT;
+                } else {
+                    item.state = TeamAVChatItem.STATE.STATE_PLAYING;
+                    item.videoLive = true;
+                }
+                adapter.notifyItemChanged(index);
             }
         }
     }
@@ -888,7 +914,9 @@ public class TeamAVChatActivity extends UI {
             if (account.equals(AVChatKit.getAccount())) {
                 continue;
             }
-            data.add(new TeamAVChatItem(TYPE_DATA, teamId, account));
+            TeamAVChatItem item = new TeamAVChatItem(TYPE_DATA, teamId, account);
+            item.state = TeamAVChatItem.STATE.STATE_LIMIT;
+            data.add(item);
         }
 
         // 自己直接采集摄像头画面
@@ -922,6 +950,20 @@ public class TeamAVChatActivity extends UI {
         }
 
         return find ? index : -1;
+    }
+
+    /**
+     * 获取是否被限制发言
+     */
+    private boolean getLimit(String account) {
+        if (limitBeans != null) {
+            for (SpeakLimitBean bean : limitBeans) {
+                if (account.equalsIgnoreCase(bean.getDoctorCode())) {
+                    return bean.getIsLimit() == SpeakLimitBean.LIMIT_YES;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -996,10 +1038,11 @@ public class TeamAVChatActivity extends UI {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SpeakService.class).getJurisdictionList(orderId),
                 new HttpSubscriber<List<SpeakLimitBean>>() {
                     @Override
-                    public void requestComplete(@Nullable List<SpeakLimitBean> data) {
-                        limitBeans = data;
+                    public void requestComplete(@Nullable List<SpeakLimitBean> beans) {
+                        limitBeans = beans;
                         for (SpeakLimitBean bean : limitBeans) {
-                            muteUserAudioAndVideo(bean.getDoctorCode(), bean.getIsLimit() == 1);
+                            boolean limit = bean.getIsLimit() == SpeakLimitBean.LIMIT_YES;
+                            muteUserAudioAndVideo(bean.getDoctorCode(), limit);
                         }
                     }
                 });
