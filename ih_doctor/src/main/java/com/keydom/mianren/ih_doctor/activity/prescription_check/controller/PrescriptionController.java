@@ -38,7 +38,7 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.check_yes:
-                //                getView().auditPass("", "");
+                //getView().auditPass("", "");
                 SignUtils.sign(getContext(), getView().getAuditMap().toString()
                         , Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
                             @Override
@@ -53,7 +53,7 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
                 DialogUtils.createCheckDialog(getContext(), new OnCheckDialogListener() {
                     @Override
                     public void commit(View v, String value) {
-                        //                        getView().auditReturn(value, "", "");
+                        //       getView().auditReturn(value, "", "");
                         SignUtils.sign(getContext(), getView().getAuditMap().toString(),
                                 Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
                                     @Override
