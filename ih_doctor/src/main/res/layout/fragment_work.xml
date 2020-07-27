@@ -489,8 +489,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/tran"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingStart="@dimen/dp_19"
-                android:paddingTop="@dimen/dp_5"
+                android:paddingTop="@dimen/dp_10"
                 android:paddingEnd="@dimen/dp_19"
                 android:paddingBottom="@dimen/dp_5">
 
@@ -499,13 +501,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_31"
                     android:layout_marginEnd="@dimen/dp_12"
-                    android:layout_toStartOf="@id/search_btn"
                     android:background="@drawable/index_search_select_bg"
                     android:drawableEnd="@mipmap/arrow_bottom"
                     android:ellipsize="end"
                     android:gravity="center"
                     android:lines="1"
                     android:paddingStart="@dimen/dp_10"
+                    android:layout_toStartOf="@id/search_btn"
                     android:paddingEnd="@dimen/dp_10"
                     android:text="医院"
                     android:textColor="@color/primary_bg_color"
@@ -515,16 +517,32 @@
                     android:id="@+id/search_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_31"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp_10"
                     android:background="@null"
                     android:drawableTop="@mipmap/search_white"
+                    android:layout_toStartOf="@id/work_scan"
+                    android:drawablePadding="@dimen/dp_2"
+                    android:gravity="center"
                     android:minWidth="@dimen/dp_31"
                     android:minHeight="@dimen/dp_31"
                     android:text="@string/search"
                     android:textColor="@color/primary_bg_color"
-                    android:textSize="@dimen/dp_11" />
+                    android:textSize="@dimen/sp_11" />
+
+                <Button
+                    android:id="@+id/work_scan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_31"
+                    android:background="@null"
+                    android:drawableTop="@mipmap/search_white"
+                    android:drawablePadding="@dimen/dp_2"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center"
+                    android:minWidth="@dimen/dp_31"
+                    android:minHeight="@dimen/dp_31"
+                    android:text="扫一扫"
+                    android:textColor="@color/primary_bg_color"
+                    android:textSize="@dimen/sp_11" />
             </RelativeLayout>
         </FrameLayout>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

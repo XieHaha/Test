@@ -110,6 +110,11 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                                                     save(modelNameTemp, modelTypeTemp, signature,
                                                             jobId, "2");
                                                 }
+
+                                                @Override
+                                                public void signFailed(String code) {
+
+                                                }
                                             });
                                 }
                             }).show();
@@ -132,6 +137,11 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                                         caCount(0);
                                     }
                                     save(modelNameTemp, modelTypeTemp, signature, jobId, "1");
+                                }
+
+                                @Override
+                                public void signFailed(String code) {
+
                                 }
                             });
                 } else {

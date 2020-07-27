@@ -16,6 +16,8 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.google.gson.Gson;
+import com.keydom.ih_common.bean.ScanBean;
 import com.keydom.ih_common.event.ConsultationEvent;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.config.ImConstants;
@@ -42,15 +44,22 @@ import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationOrd
 import com.keydom.mianren.ih_doctor.activity.personal.MyServiceActivity;
 import com.keydom.mianren.ih_doctor.activity.personal.PersonalInfoActivity;
 import com.keydom.mianren.ih_doctor.bean.DeptBean;
+import com.keydom.mianren.ih_doctor.bean.Event;
 import com.keydom.mianren.ih_doctor.bean.LoginBean;
+import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 import com.keydom.mianren.ih_doctor.net.LoginApiService;
 import com.keydom.mianren.ih_doctor.net.MainApiService;
+import com.keydom.mianren.ih_doctor.net.SignService;
+import com.keydom.mianren.ih_doctor.utils.SignUtils;
 import com.keydom.mianren.ih_doctor.view.MainView;
 import com.netease.nimlib.sdk.NimIntent;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
+import com.uuzuche.lib_zxing.decoding.Intents;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -86,6 +95,11 @@ public class MainActivity extends AppCompatActivity {
     private boolean isNeedJump = false;
     private boolean isNeedJump2Service = false;
     private MainController mainController;
+
+    /**
+     * 扫一扫
+     */
+    private final int REQUEST_CODE = 100;
     /*private IntentFilter intentFilter1;
     private  InterceptorReceiver interceptorReceiver;*/
 
@@ -235,6 +249,42 @@ public class MainActivity extends AppCompatActivity {
                                         @NotNull String msg) {
                 MyApplication.deptBeanList.clear();
                 MyApplication.filterDeptList.clear();
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 扫码结果
+     */
+    public void sendCaSuccessToPc(String doctorCode) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).sendCaSuccessToPc(doctorCode), new HttpSubscriber<String>() {
+            @Override
+            public void requestComplete(@org.jetbrains.annotations.Nullable String data) {
+                ToastUtil.showMessage(MainActivity.this, "成功");
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtil.showMessage(MainActivity.this, "失败");
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * ca统计
+     */
+    private void caCount(int type) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SignService.class).caCount(type), new HttpSubscriber<String>() {
+            @Override
+            public void requestComplete(@org.jetbrains.annotations.Nullable String data) {
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 return super.requestError(exception, code, msg);
             }
         });
@@ -430,6 +480,59 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(ConsultationEvent event) {
-        new GeneralDialog(this, "您有新的会诊邀请,请及时查看", () -> ConsultationOrderActivity.start(MainActivity.this)).show();
+        new GeneralDialog(this, "您有新的会诊邀请,请及时查看",
+                () -> ConsultationOrderActivity.start(MainActivity.this)).show();
+    }
+
+    /**
+     * 跳转QR监听
+     */
+    @SuppressLint("CheckResult")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void jumpToQr(Event event) {
+        if (event.getType() == EventType.STARTTOQR) {
+            RxPermissions rxPermissions = new RxPermissions(this);
+            rxPermissions.request(Manifest.permission.CAMERA).subscribe(aBoolean -> {
+                if (aBoolean) {
+                    Intent intent = new Intent(this, CaptureActivity.class);
+                    intent.setAction(Intents.Scan.ACTION);
+                    intent.putExtra(Intents.Scan.SCAN_FORMATS, "QR_CODE");
+                    startActivityForResult(intent, REQUEST_CODE);
+                } else {
+                    ToastUtil.showMessage(this, "未获取摄像头使用权限，无法使用二维码功能");
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        if (requestCode == REQUEST_CODE) {
+            Bundle bundle = data.getExtras();
+            String result = bundle.getString(CodeUtils.RESULT_STRING);
+            if (TextUtils.isEmpty(result)) {
+                ToastUtil.showMessage(this, "解析数据失败,请确认您扫描的二维码");
+            } else {
+                ScanBean scanBean = new Gson().fromJson(result, ScanBean.class);
+                if (scanBean.getType() == 1) {
+                    SignUtils.signApi(this, scanBean.getContent(), new SignUtils.SignCallBack() {
+                        @Override
+                        public void signSuccess(String signature, String jobId) {
+                            sendCaSuccessToPc(scanBean.getDoctorCode());
+                            caCount(scanBean.getSignType());
+                        }
+
+                        @Override
+                        public void signFailed(String code) {
+                            ToastUtil.showMessage(MainActivity.this, "认证失败");
+                        }
+                    });
+                }
+            }
+        }
     }
 }

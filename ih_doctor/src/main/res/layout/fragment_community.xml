@@ -59,7 +59,7 @@
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/tab_color"
         app:tabTextAppearance="@style/TabLayoutTextStyle"
-        app:tabTextColor="@android:color/black"></android.support.design.widget.TabLayout>
+        app:tabTextColor="@android:color/black"/>
 
     <View
         android:layout_width="match_parent"

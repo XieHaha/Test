@@ -78,7 +78,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
     private RelativeLayout guideRe;
     private ScrollView scrollView;
     private RelativeLayout titleBarLayout;
-    private Button searchButton;
+    private Button searchButton,workScanBtn;
     private List<IndexMenuBean> dataList;
     private HomeBean homeBean;
     private RefreshLayout refreshLayout;
@@ -221,6 +221,8 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         titleBarLayout = getView().findViewById(R.id.title_bar_rl);
         searchButton = getView().findViewById(R.id.search_btn);
         searchButton.setOnClickListener(getController());
+        workScanBtn = getView().findViewById(R.id.work_scan);
+        workScanBtn.setOnClickListener(getController());
         scrollView.setOnScrollChangeListener(getController());
         cooperateOnlineRe.setOnClickListener(getController());
         receiveOnlineRe.setOnClickListener(getController());

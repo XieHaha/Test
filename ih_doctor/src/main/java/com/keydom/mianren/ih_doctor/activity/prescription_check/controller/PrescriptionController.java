@@ -46,6 +46,10 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
                                 caCount(2);
                                 getView().auditPass(signature, jobId);
                             }
+                            @Override
+                            public void signFailed(String code) {
+
+                            }
                         });
 
                 break;
@@ -61,6 +65,11 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
                                         caCount(3);
                                         getView().auditReturn(value, signature, jobId);
                                     }
+
+                                    @Override
+                                    public void signFailed(String code) {
+
+                                    }
                                 });
                     }
                 }).show();
@@ -68,7 +77,6 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
             default:
                 break;
         }
-
     }
 
     /**

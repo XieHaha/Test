@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.constant.Global;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -20,9 +21,11 @@ import com.keydom.mianren.ih_doctor.activity.nurse_service.NurseServiceOrderList
 import com.keydom.mianren.ih_doctor.activity.online_consultation.ConsultationOrderActivity;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.DiagnoseOrderListActivity;
 import com.keydom.mianren.ih_doctor.activity.personal.PersonalInfoActivity;
+import com.keydom.mianren.ih_doctor.bean.Event;
 import com.keydom.mianren.ih_doctor.bean.HomeBean;
 import com.keydom.mianren.ih_doctor.bean.HomeMsgBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
+import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.constant.ServiceConst;
 import com.keydom.mianren.ih_doctor.fragment.view.WorkFragmentView;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
@@ -30,6 +33,7 @@ import com.keydom.mianren.ih_doctor.net.MainApiService;
 import com.keydom.mianren.ih_doctor.net.PersonalApiService;
 import com.keydom.mianren.ih_doctor.utils.SelectHospitalPopUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -110,8 +114,17 @@ public class WorkFragmentController extends ControllerImpl<WorkFragmentView> imp
             case R.id.search_btn:
                 SearchActivity.start(getContext());
                 break;
+            case R.id.work_scan:
+                if (Global.getUserId() != -1) {
+                    EventBus.getDefault().post(new Event(EventType.STARTTOQR, null));
+                } else {
+                    ToastUtil.showMessage(getContext(), "你未登录,请登录后尝试");
+                }
+                break;
             case R.id.top_hospital_name:
                 SelectHospitalPopUtil.getInstance().initPopWindow(getContext()).showHospitalPopupWindow(getView().getTitleLayout());
+                break;
+            default:
                 break;
         }
     }
@@ -133,7 +146,7 @@ public class WorkFragmentController extends ControllerImpl<WorkFragmentView> imp
     public void getHome(boolean show) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("roleId", SharePreferenceManager.getRoleId());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).home(map), new HttpSubscriber<HomeBean>(getContext(),getDisposable(),show) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).home(map), new HttpSubscriber<HomeBean>(getContext(), getDisposable(), show) {
             @Override
             public void requestComplete(@Nullable HomeBean data) {
                 getView().getHomeDataSuccess(data);
@@ -181,9 +194,11 @@ public class WorkFragmentController extends ControllerImpl<WorkFragmentView> imp
     @Override
     public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
         if (scrollY != 0) {
-            getView().getTitleLayout().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.status_bar_color_work));
+            getView().getTitleLayout().setBackgroundColor(ContextCompat.getColor(getContext(),
+                    R.color.status_bar_color_work));
         } else {
-            getView().getTitleLayout().setBackgroundColor(ContextCompat.getColor(getContext(), R.color.tran));
+            getView().getTitleLayout().setBackgroundColor(ContextCompat.getColor(getContext(),
+                    R.color.tran));
         }
     }
 }

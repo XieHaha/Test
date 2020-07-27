@@ -59,12 +59,9 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
                 ChooseCityActivity.start(getContext());
                 break;
             case R.id.search_layout:
-                //                Toast.makeText(getContext(), "点击了Search", Toast.LENGTH_SHORT)
-                //                .show();
                 SearchActivity.start(getContext());
                 break;
             case R.id.qr_code_layout:
-                //Toast.makeText(getContext(),"点击了Qr",Toast.LENGTH_SHORT).show();
                 if (Global.getUserId() != -1) {
                     EventBus.getDefault().post(new Event(EventType.STARTTOQR, null));
                 } else {
