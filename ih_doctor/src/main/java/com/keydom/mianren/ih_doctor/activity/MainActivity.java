@@ -257,17 +257,17 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 扫码结果
      */
-    public void sendCaSuccessToPc(String doctorCode) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).sendCaSuccessToPc(doctorCode), new HttpSubscriber<String>() {
+    public void sendCaSuccessToPc(String doctorCode, String jobId) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).sendCaSuccessToPc(doctorCode,jobId), new HttpSubscriber<String>() {
             @Override
             public void requestComplete(@org.jetbrains.annotations.Nullable String data) {
-                ToastUtil.showMessage(MainActivity.this, "成功");
+                ToastUtil.showMessage(MainActivity.this, "扫码成功");
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
-                ToastUtil.showMessage(MainActivity.this, "失败");
+                ToastUtil.showMessage(MainActivity.this, "扫码失败");
                 return super.requestError(exception, code, msg);
             }
         });
@@ -522,7 +522,7 @@ public class MainActivity extends AppCompatActivity {
                     SignUtils.signApi(this, scanBean.getContent(), new SignUtils.SignCallBack() {
                         @Override
                         public void signSuccess(String signature, String jobId) {
-                            sendCaSuccessToPc(scanBean.getDoctorCode());
+                            sendCaSuccessToPc(scanBean.getDoctorCode(),jobId);
                             caCount(scanBean.getSignType());
                         }
 

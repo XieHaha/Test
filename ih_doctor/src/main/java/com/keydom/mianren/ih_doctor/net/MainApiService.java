@@ -247,6 +247,7 @@ public interface MainApiService {
      * 扫码结果
      */
     @GET("user/electronics/sendCaSuccessToPc")
-    Observable<HttpResult<String>> sendCaSuccessToPc(@Query("doctorCode") String doctorCode);
+    Observable<HttpResult<String>> sendCaSuccessToPc(@Query("doctorCode") String doctorCode,
+                                                     @Query("signJobId") String jobId);
 
 }
