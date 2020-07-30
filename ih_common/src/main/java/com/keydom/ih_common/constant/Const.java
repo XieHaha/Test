@@ -79,13 +79,16 @@ public class Const {
     //    public static final String RELEASE_HOST = "https://www.tianfuzhl.com/";
     //    public static final String IMAGE_HOST = "https://www.tianfuzhl.com/";
 
-
     //小程序环境
     //    public static final String RELEASE_HOST = "http://110.191.238.12:12013/";
     //    public static final String IMAGE_HOST = "http://110.191.238.12:12013/";
-    //绵阳测试
-    public static final String RELEASE_HOST = "http://220.166.57.218:8888/";
-    public static final String IMAGE_HOST = "http://220.166.57.218:8888/";
+
+    //绵阳测试 2020年7月29日 11:33:24
+    //    public static final String RELEASE_HOST = "http://220.166.57.218:8888/";
+    //    public static final String IMAGE_HOST = "http://220.166.57.218:8888/";
+    //绵人域名 2020年7月30日 11:33:30
+    public static final String RELEASE_HOST = "https://ih.mysrmyy.com:8888/";
+    public static final String IMAGE_HOST = "https://ih.mysrmyy.com:8888/";
 
     //    public static final String RELEASE_HOST = "http://power.tianfuzhl.com.cn:8080";
     //    public static final String IMAGE_HOST = "http://power.tianfuzhl.com.cn:8080";
