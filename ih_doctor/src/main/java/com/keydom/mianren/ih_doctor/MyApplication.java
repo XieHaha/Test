@@ -61,6 +61,11 @@ public class MyApplication extends CommonApp {
     public static boolean isNeedInit = true;
     public static int receiveReferral = 0;
 
+    /**
+     * shi'fou是否kai开启ca签名
+     */
+    public static boolean signAble = false;
+
 
     static {
         SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {

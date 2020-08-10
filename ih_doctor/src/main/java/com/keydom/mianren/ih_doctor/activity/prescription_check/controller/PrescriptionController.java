@@ -7,6 +7,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.prescription_check.view.PrescriptionView;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionDetailBean;
@@ -38,39 +39,50 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.check_yes:
-                //getView().auditPass("", "");
-                SignUtils.sign(getContext(), getView().getAuditMap().toString()
-                        , Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
-                            @Override
-                            public void signSuccess(String signature, String jobId) {
-                                caCount(2);
-                                getView().auditPass(signature, jobId);
-                            }
-                            @Override
-                            public void signFailed(String code) {
+                if (MyApplication.signAble) {
+                    SignUtils.sign(getContext(), getView().getAuditMap().toString()
+                            , Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
+                                @Override
+                                public void signSuccess(String signature, String jobId) {
+                                    caCount(2);
+                                    getView().auditPass(signature, jobId);
+                                }
 
-                            }
-                        });
+                                @Override
+                                public void signFailed(String code) {
 
+                                }
+                            });
+                } else {
+                    getView().auditPass("", "");
+                }
                 break;
             case R.id.check_no:
                 DialogUtils.createCheckDialog(getContext(), new OnCheckDialogListener() {
                     @Override
                     public void commit(View v, String value) {
-                        //       getView().auditReturn(value, "", "");
-                        SignUtils.sign(getContext(), getView().getAuditMap().toString(),
-                                Const.SIGN_CHECK_PRESCRIPTION, new SignUtils.SignCallBack() {
-                                    @Override
-                                    public void signSuccess(String signature, String jobId) {
-                                        caCount(3);
-                                        getView().auditReturn(value, signature, jobId);
-                                    }
+                        if (MyApplication.signAble) {
+                            SignUtils.sign(getContext(), getView()
+                                            .getAuditMap().toString(),
+                                    Const.SIGN_CHECK_PRESCRIPTION, new
+                                            SignUtils.SignCallBack() {
+                                                @Override
+                                                public void signSuccess(String
+                                                                                signature,
+                                                                        String jobId) {
+                                                    caCount(3);
+                                                    getView().auditReturn(value,
+                                                            signature, jobId);
+                                                }
 
-                                    @Override
-                                    public void signFailed(String code) {
+                                                @Override
+                                                public void signFailed(String code) {
 
-                                    }
-                                });
+                                                }
+                                            });
+                        } else {
+                            getView().auditReturn(value, "", "");
+                        }
                     }
                 }).show();
                 break;

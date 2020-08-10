@@ -10,6 +10,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.online_diagnose.PrescriptionTempletActivity;
 import com.keydom.mianren.ih_doctor.activity.prescription_check.DiagnosePrescriptionActivity;
@@ -90,32 +91,33 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                                     modelNameTemp = modelName;
                                     modelTypeTemp = modelType;
                                     getView().updateTemplateList(prescriptionModelBeanList);
-                                    //                                    getView().saveCaseModel
-                                    //                                    (false);
-                                    //                                    save(modelNameTemp,
-                                    //                                    modelTypeTemp, "", "",
-                                    //                                    "2");
-                                    SignUtils.sign(getContext(), getView().getSaveMap().toString(),
-                                            Const.SIGN_PRESCRIPTION,
-                                            new SignUtils.SignCallBack() {
-                                                @Override
-                                                public void signSuccess(String signature,
-                                                                        String jobId) {
-                                                    getView().saveCaseModel(false);
-                                                    if (getView().getType() == DiagnosePrescriptionActivity.UPDATE_PRESCRIPTION) {
-                                                        caCount(1);
-                                                    } else {
-                                                        caCount(0);
+                                    if (MyApplication.signAble) {
+                                        SignUtils.sign(getContext(),
+                                                getView().getSaveMap().toString(),
+                                                Const.SIGN_PRESCRIPTION,
+                                                new SignUtils.SignCallBack() {
+                                                    @Override
+                                                    public void
+                                                    signSuccess(String signature, String jobId) {
+                                                        getView().saveCaseModel(false);
+                                                        if (getView().getType() == DiagnosePrescriptionActivity.UPDATE_PRESCRIPTION) {
+                                                            caCount(1);
+                                                        } else {
+                                                            caCount(0);
+                                                        }
+                                                        save(modelNameTemp, modelTypeTemp,
+                                                                signature, jobId, "2");
                                                     }
-                                                    save(modelNameTemp, modelTypeTemp, signature,
-                                                            jobId, "2");
-                                                }
 
-                                                @Override
-                                                public void signFailed(String code) {
-
-                                                }
-                                            });
+                                                    @Override
+                                                    public void
+                                                    signFailed(String code) {
+                                                    }
+                                                });
+                                    } else {
+                                        getView().saveCaseModel(false);
+                                        save(modelNameTemp, modelTypeTemp, "", "", "2");
+                                    }
                                 }
                             }).show();
                 } else {
@@ -124,26 +126,29 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                 break;
             case R.id.submit:
                 if (getView().checkPrescription()) {
-                    //                     getView().saveCaseModel(false);
-                    //                    save(modelNameTemp, modelTypeTemp, "", "", "1");
-                    SignUtils.sign(getContext(), getView().getSaveMap().toString(),
-                            Const.SIGN_PRESCRIPTION, new SignUtils.SignCallBack() {
-                                @Override
-                                public void signSuccess(String signature, String jobId) {
-                                    getView().saveCaseModel(false);
-                                    if (getView().getType() == DiagnosePrescriptionActivity.UPDATE_PRESCRIPTION) {
-                                        caCount(1);
-                                    } else {
-                                        caCount(0);
+                    if (MyApplication.signAble) {
+                        SignUtils.sign(getContext(), getView().getSaveMap().toString(),
+                                Const.SIGN_PRESCRIPTION, new SignUtils.SignCallBack() {
+                                    @Override
+                                    public void signSuccess(String signature, String jobId) {
+                                        getView().saveCaseModel(false);
+                                        if (getView().getType() == DiagnosePrescriptionActivity.UPDATE_PRESCRIPTION) {
+                                            caCount(1);
+                                        } else {
+                                            caCount(0);
+                                        }
+                                        save(modelNameTemp, modelTypeTemp, signature, jobId, "1");
                                     }
-                                    save(modelNameTemp, modelTypeTemp, signature, jobId, "1");
-                                }
 
-                                @Override
-                                public void signFailed(String code) {
+                                    @Override
+                                    public void signFailed(String code) {
 
-                                }
-                            });
+                                    }
+                                });
+                    } else {
+                        getView().saveCaseModel(false);
+                        save(modelNameTemp, modelTypeTemp, "", "", "1");
+                    }
                 } else {
                     ToastUtil.showMessage(getContext(), "请完善处方信息！");
                 }

@@ -160,6 +160,7 @@ public class PrescriptionAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                     }
                 });
                 break;
+            default:break;
         }
     }
 }
