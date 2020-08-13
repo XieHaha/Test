@@ -375,7 +375,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_24"
                         android:orientation="horizontal"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/mine_function_doctor"
@@ -428,6 +428,7 @@
                         android:background="@color/color_f9f9f9" />
 
                     <RelativeLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_100">
 
@@ -495,10 +496,12 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_10"
+                        android:visibility="gone"
                         android:background="@color/color_f9f9f9" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
+                        android:visibility="gone"
                         android:layout_height="@dimen/dp_100">
 
                         <ImageView
@@ -587,11 +590,13 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_10"
+                        android:visibility="gone"
                         android:background="@color/color_f9f9f9" />
 
 
                     <RelativeLayout
                         android:layout_width="match_parent"
+                        android:visibility="gone"
                         android:layout_height="@dimen/dp_100">
 
                         <ImageView
@@ -649,6 +654,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_10"
+                        android:visibility="gone"
                         android:background="@color/color_f9f9f9" />
 
                     <com.keydom.ih_common.view.GeneralItemView

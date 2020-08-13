@@ -494,7 +494,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         //非会员
         layoutTopBg.setVisibility(View.VISIBLE);
         layoutBase.setVisibility(View.VISIBLE);
-        layoutMy.setVisibility(View.VISIBLE);
+        //        layoutMy.setVisibility(View.VISIBLE);
         mineNursingOrders.setVisibility(View.VISIBLE);
         mineRegisteredMailOrder.setVisibility(View.VISIBLE);
         mineItemMyChatGroup.setVisibility(View.VISIBLE);
@@ -502,7 +502,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         mineReportOrder.setVisibility(View.GONE);
         layoutTopBgVip.setVisibility(View.GONE);
         layoutBaseVip.setVisibility(View.GONE);
-        layoutBase2Vip.setVisibility(View.GONE);
+        //        layoutBase2Vip.setVisibility(View.GONE);
         mineBookingOrder.setIconImg(R.mipmap.mine_booking_order);
     }
 
@@ -513,7 +513,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         //会员
         layoutTopBg.setVisibility(View.GONE);
         layoutBase.setVisibility(View.GONE);
-        layoutMy.setVisibility(View.GONE);
+        //        layoutMy.setVisibility(View.GONE);
         mineNursingOrders.setVisibility(View.GONE);
         mineRegisteredMailOrder.setVisibility(View.GONE);
         mineItemMyChatGroup.setVisibility(View.GONE);
@@ -521,7 +521,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
         mineReportOrder.setVisibility(View.VISIBLE);
         layoutTopBgVip.setVisibility(View.VISIBLE);
         layoutBaseVip.setVisibility(View.VISIBLE);
-        layoutBase2Vip.setVisibility(View.VISIBLE);
+        //        layoutBase2Vip.setVisibility(View.VISIBLE);
         mineBookingOrder.setIconImg(R.mipmap.mine_nursing_orders);
     }
 

@@ -1,5 +1,6 @@
 package com.keydom.mianren.ih_patient.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -10,32 +11,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.card_operate.CardoperateActivity;
-import com.keydom.mianren.ih_patient.activity.child_health.ChildHealthActivity;
 import com.keydom.mianren.ih_patient.activity.diagnose_main.DiagnoseMainActivity;
-import com.keydom.mianren.ih_patient.activity.function_config.FunctionConfigActivity;
+import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.ManageUserActivity;
 import com.keydom.mianren.ih_patient.activity.get_drug.GetDrugActivity;
-import com.keydom.mianren.ih_patient.activity.health_manager.HealthManagerActivity;
 import com.keydom.mianren.ih_patient.activity.hospital_payment.HospitalPaymentActivity;
 import com.keydom.mianren.ih_patient.activity.inspection_report.InspectionReportActivity;
-import com.keydom.mianren.ih_patient.activity.inspection_report.ObstetricMedicalActivity;
+import com.keydom.mianren.ih_patient.activity.location_manage.LocationManageActivity;
 import com.keydom.mianren.ih_patient.activity.logistic.QueryLogisticActivity;
-import com.keydom.mianren.ih_patient.activity.medical_mail.MedicalMailActivity;
 import com.keydom.mianren.ih_patient.activity.nurse_main.NurseMainActivity;
+import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.OnlineDiagnonsesOrderActivity;
 import com.keydom.mianren.ih_patient.activity.order_doctor_register.RegistrationReserveActivity;
 import com.keydom.mianren.ih_patient.activity.order_examination.OrderExaminationActivity;
 import com.keydom.mianren.ih_patient.activity.order_hospital_cure.OrderHospitalCureListActivity;
 import com.keydom.mianren.ih_patient.activity.order_physical_examination.OrderPhysicalExaminationActivity;
 import com.keydom.mianren.ih_patient.activity.payment_records.PaymentRecordActivity;
-import com.keydom.mianren.ih_patient.activity.postpartum_rehabilitation.RehabilitationRecordActivity;
-import com.keydom.mianren.ih_patient.activity.pregnant_woman.PregnantWomanActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.AmniocentesisReserveActivity;
-import com.keydom.mianren.ih_patient.activity.reserve_examination.ExaminationReserveActivity;
-import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.ReserveObstetricHospitalActivity;
-import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.ReservePainlessDeliveryActivity;
 import com.keydom.mianren.ih_patient.bean.IndexFunction;
 import com.keydom.mianren.ih_patient.constant.AmniocentesisProtocol;
+import com.keydom.mianren.ih_patient.constant.FunctionIndex;
+import com.keydom.mianren.ih_patient.constant.Global;
+import com.keydom.mianren.ih_patient.constant.Type;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
@@ -43,67 +41,19 @@ import java.util.List;
 /**
  * 方法角标适配器
  */
-public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdapter.VH> {
+public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdapter.VH> implements FunctionIndex {
     private Context context;
     private List<IndexFunction> indexFunctionList;
-    //菜单配置
-    public final String Setting = "1";
-    //产后康复
-    public final String Rehabilitation = "15";
-    //羊水穿刺预约
-    public final String AmniocentesisApply = "16";
-    //孕妇学校
-    public final String PregnantWoman = "17";
-    //产科门诊
-    public final String ObstetricMedical = "18";
-    //无痛分娩
-    public final String PainlessDelivery = "19";
-    //产科住院
-    public final String ObstetricHospital = "20";
-    //儿童保健
-    public final String ChildHealthCare = "21";
-    //预约挂号
-    public final String DoctorRegister = "101";
-    //诊间缴费
-    public final String PaymentRecord = "102";
-    //健康管理
-    public final String HealthManager = "103";
-    //病案邮寄
-    public final String MedicalMail = "104";
-    //检验检查预约
-    public final String Examination = "105";
-    //办卡绑卡
-    public final String CardOperate = "107";
 
-    //非会员
-    //预约挂号
-    public final String DoctorRegisterNonMember = "22";
-    //诊间缴费
-    public final String PaymentRecordNonMember = "23";
-    //办卡绑卡
-    public final String CardOperateNonMember = "24";
-    //在线问诊
-    public final String OnlineDiagnose = "25";
-    //护理服务
-    public final String NurseService = "26";
-    //报告查询
-    public final String InspectionReport = "27";
-    //预约检查
-    public final String OrderExamination = "28";
-    //预约住院
-    public final String OrderHospitalCure = "29";
-    //预约体检
-    public final String OrderPhysicalExamination = "30";
-    //取药用药
-    public final String GetDrugs = "31";
-    //物流查询
-    public final String ExpressInfo = "32";
-    //线下评估预约
-    public final String OfflineEvaluation = "33";
-    //羊水穿刺预约
-    public final String AmniocentesisReserve = "34";
-    //住院预缴金
-    public final String HospitalPayment = "35";
+
+    private boolean loginStatus() {
+        if (Global.getUserId() != -1) {
+            return true;
+        } else {
+            ToastUtil.showMessage(context, R.string.unlogin_hint);
+            return false;
+        }
+    }
 
     /**
      * 构造方法
@@ -135,8 +85,8 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     }
 
     @Override
-    public void onBindViewHolder(VH vh, final int position) {
-        if (indexFunctionList.get(position) instanceof IndexFunction) {
+    public void onBindViewHolder(VH vh, @SuppressLint("RecyclerView") final int position) {
+        if (indexFunctionList.get(position) != null) {
             vh.funcIcon.setImageResource(indexFunctionList.get(position).getFunctionIcon());
 
             vh.funcName.setText(indexFunctionList.get(position).getName());
@@ -152,18 +102,98 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
             vh.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    switch (String.valueOf(indexFunctionList.get(position).getId())) {
-                        case Setting:
+                    int index = (int) indexFunctionList.get(position).getId();
+                    switch (index) {
+                        case AmniocentesisReserve:
+                            if (loginStatus()) {
+                                AmniocentesisReserveActivity.start(context,
+                                        AmniocentesisProtocol.AMNIOCENTESIS_WEB_RESERVE);
+                            }
+                            break;
+                        case DoctorRegister:
+                            if (loginStatus()) {
+                                RegistrationReserveActivity.start(context);
+                            }
+                            break;
+                        case PaymentRecord:
+                            if (loginStatus()) {
+                                PaymentRecordActivity.start(context);
+                            }
+                            break;
+                        case Cardoperate:
+                            if (loginStatus()) {
+                                CardoperateActivity.start(context);
+                            }
+                            break;
+                        case OnlineDiagnose:
+                            if (loginStatus()) {
+                                DiagnoseMainActivity.start(context);
+                            }
+                            break;
+                        case NurseService:
+                            if (loginStatus()) {
+                                NurseMainActivity.start(context);
+                            }
+                            break;
+                        case InspectionReport:
+                            if (loginStatus()) {
+                                InspectionReportActivity.start(context);
+                            }
+                            break;
+                        case OrderExamination:
+                            if (loginStatus()) {
+                                OrderExaminationActivity.start(context);
+                            }
+                            break;
+                        case OrderHospitalCure:
+                            if (loginStatus()) {
+                                OrderHospitalCureListActivity.start(context);
+                            }
+                            break;
+                        case OrderPhysicalExamination:
+                            OrderPhysicalExaminationActivity.start(context);
+                            break;
+                        case GetDrugs:
+                            if (loginStatus()) {
+                                context.startActivity(new Intent(context, GetDrugActivity.class));
+                            }
+                            break;
+                        case ExpressInfo:
+                            if (loginStatus()) {
+                                context.startActivity(new Intent(context,
+                                        QueryLogisticActivity.class));
+                            }
+                            break;
+                        case OfflineEvaluation:
+                            break;
+                        case HospitalPayment:
+                            if (loginStatus()) {
+                                HospitalPaymentActivity.start(context);
+                            }
+                            break;
+                        case InquiryOrder:
+                            if (loginStatus()) {
+                                OnlineDiagnonsesOrderActivity.start(context,
+                                        OnlineDiagnonsesOrderActivity.WAITEDIAGNOSES);
+                            }
+                            break;
+                        case UserManager:
+                            if (loginStatus()) {
+                                ManageUserActivity.start(context, ManageUserActivity.FROMUSERINDEX);
+                            }
+                            break;
+                        case AddressManager:
+                            if (loginStatus()) {
+                                LocationManageActivity.start(context,
+                                        Type.STARTLOCATIONWITHOUTRESULT);
+                            }
+                            break;
+                     /*   case Setting:
                             context.startActivity(new Intent(context,
                                     FunctionConfigActivity.class));
                             break;
                         case Rehabilitation:
                             RehabilitationRecordActivity.start(context);
-                            break;
-                        case AmniocentesisReserve:
-                        case AmniocentesisApply:
-                            AmniocentesisReserveActivity.start(context,
-                                    AmniocentesisProtocol.AMNIOCENTESIS_WEB_RESERVE);
                             break;
                         case PregnantWoman:
                             PregnantWomanActivity.start(context);
@@ -172,21 +202,15 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             ObstetricMedicalActivity.start(context);
                             break;
                         case PainlessDelivery:
-                            ReservePainlessDeliveryActivity.start(context);
+                            ReservePainlessDeliveryActivity.start
+                                    (context);
                             break;
                         case ObstetricHospital:
-                            ReserveObstetricHospitalActivity.start(context);
+                            ReserveObstetricHospitalActivity.start
+                                    (context);
                             break;
                         case ChildHealthCare:
                             ChildHealthActivity.start(context);
-                            break;
-                        case DoctorRegister:
-                        case DoctorRegisterNonMember:
-                            RegistrationReserveActivity.start(context);
-                            break;
-                        case PaymentRecord:
-                        case PaymentRecordNonMember:
-                            PaymentRecordActivity.start(context);
                             break;
                         case HealthManager:
                             HealthManagerActivity.start(context);
@@ -200,36 +224,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                         case CardOperate:
                         case CardOperateNonMember:
                             CardoperateActivity.start(context);
-                            break;
-                        case OnlineDiagnose:
-                            DiagnoseMainActivity.start(context);
-                            break;
-                        case NurseService:
-                            NurseMainActivity.start(context);
-                            break;
-                        case InspectionReport:
-                            InspectionReportActivity.start(context);
-                            break;
-                        case OrderExamination:
-                            OrderExaminationActivity.start(context);
-                            break;
-                        case OrderHospitalCure:
-                            OrderHospitalCureListActivity.start(context);
-                            break;
-                        case OrderPhysicalExamination:
-                            OrderPhysicalExaminationActivity.start(context);
-                            break;
-                        case GetDrugs:
-                            context.startActivity(new Intent(context, GetDrugActivity.class));
-                            break;
-                        case ExpressInfo:
-                            context.startActivity(new Intent(context, QueryLogisticActivity.class));
-                            break;
-                        case OfflineEvaluation:
-                            break;
-                        case HospitalPayment:
-                            HospitalPaymentActivity.start(context);
-                            break;
+                            break;*/
                         default:
                             break;
                     }

@@ -118,9 +118,9 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
     public void initVipFunction() {
         mMemberRootLl.setVisibility(View.GONE);
-        mIndexFunctionRootLl.setVisibility(View.GONE);
-        mFirstVIPRootLl.setVisibility(View.VISIBLE);
-        mSecondVIPRootLl.setVisibility(View.VISIBLE);
+//        mIndexFunctionRootLl.setVisibility(View.GONE);
+        //        mFirstVIPRootLl.setVisibility(View.VISIBLE);
+        //        mSecondVIPRootLl.setVisibility(View.VISIBLE);
 
         tabLeftTitleTv.setText("实时在线MDT问诊");
         mTopRightTitleTv.setText("产检预约");
@@ -142,8 +142,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     public void initNormal() {
         mMemberRootLl.setVisibility(View.VISIBLE);
         mIndexFunctionRootLl.setVisibility(View.VISIBLE);
-        mFirstVIPRootLl.setVisibility(View.GONE);
-        mSecondVIPRootLl.setVisibility(View.GONE);
+        //        mFirstVIPRootLl.setVisibility(View.GONE);
+        //        mSecondVIPRootLl.setVisibility(View.GONE);
 
         mTopRightTitleTv.setText("诊间缴费");
         tabLeftTitleTv.setText("在线问诊");
@@ -247,37 +247,49 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         indexFunctionRv.setAdapter(indexFunctionAdapter);
         indexFunctionRv.setNestedScrollingEnabled(false);
 
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_postpartum_recovery_icon, 15, "产后康复"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_amniocentesis_icon, 16, "羊水穿刺预约"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_pregnancy_school_icon, 17, "孕妇学校"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetrical_medical_records_icon, 18,
-                "产科病历"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_painless_labor_icon, 19, "无痛分娩预约"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetric_order_icon, 20, "产科住院预约"));
-        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_child_health_icon, 21, "儿童保健"));
-
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_orderby, 101, "预约挂号"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_pay, 102, "诊间缴费"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_management_icon, 103, "健康管理"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_medical_record_mail_icon, 104, "病案邮寄"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.appointment_register_icon, 105, "检验检查预约"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_record_icon, 106, "健康档案"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.create_code_icon, 107, "办卡绑卡"));
-        mSecondVIPDatas.add(new IndexFunction(R.mipmap.nurse_icon, 30, "预约体检"));
-
-
-        mFirstVIPRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
-        mFirstVIPRv.addItemDecoration(new FunctionRvItemDecoration(70, 30));
-        mFirstVIPFunctionAdapter = new IndexFunctionAdapter(getContext(), mFirstVIPDatas);
-        mFirstVIPRv.setAdapter(mFirstVIPFunctionAdapter);
-        mFirstVIPRv.setNestedScrollingEnabled(false);
-
-
-        mSecondVIPRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
-        mSecondVIPRv.addItemDecoration(new FunctionRvItemDecoration(70, 30));
-        mSecondVIPFunctionAdapter = new IndexFunctionAdapter(getContext(), mSecondVIPDatas);
-        mSecondVIPRv.setAdapter(mSecondVIPFunctionAdapter);
-        mSecondVIPRv.setNestedScrollingEnabled(false);
+        //        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_postpartum_recovery_icon, 15,
+        //        "产后康复"));
+        //        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_amniocentesis_icon, 16,
+        //        "羊水穿刺预约"));
+        //        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_pregnancy_school_icon, 17,
+        //        "孕妇学校"));
+        //        mFirstVIPDatas.add(new IndexFunction(R.mipmap
+        //        .vip_obstetrical_medical_records_icon, 18,
+        //                "产科病历"));
+        //        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_painless_labor_icon, 19,
+        //        "无痛分娩预约"));
+        //        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_obstetric_order_icon, 20,
+        //        "产科住院预约"));
+        //        mFirstVIPDatas.add(new IndexFunction(R.mipmap.vip_child_health_icon, 21, "儿童保健"));
+        //
+        //        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_orderby, 101,
+        //        "预约挂号"));
+        //        mSecondVIPDatas.add(new IndexFunction(R.mipmap.consultation_pay, 102, "诊间缴费"));
+        //        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_management_icon, 103,
+        //        "健康管理"));
+        //        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_medical_record_mail_icon,
+        //        104, "病案邮寄"));
+        //        mSecondVIPDatas.add(new IndexFunction(R.mipmap.appointment_register_icon, 105,
+        //        "检验检查预约"));
+        //        mSecondVIPDatas.add(new IndexFunction(R.mipmap.vip_health_record_icon, 106,
+        //        "健康档案"));
+        //        mSecondVIPDatas.add(new IndexFunction(R.mipmap.create_code_icon, 107, "办卡绑卡"));
+        //        mSecondVIPDatas.add(new IndexFunction(R.mipmap.nurse_icon, 30, "预约体检"));
+        //
+        //
+        //        mFirstVIPRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        //        mFirstVIPRv.addItemDecoration(new FunctionRvItemDecoration(70, 30));
+        //        mFirstVIPFunctionAdapter = new IndexFunctionAdapter(getContext(), mFirstVIPDatas);
+        //        mFirstVIPRv.setAdapter(mFirstVIPFunctionAdapter);
+        //        mFirstVIPRv.setNestedScrollingEnabled(false);
+        //
+        //
+        //        mSecondVIPRv.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        //        mSecondVIPRv.addItemDecoration(new FunctionRvItemDecoration(70, 30));
+        //        mSecondVIPFunctionAdapter = new IndexFunctionAdapter(getContext(),
+        //        mSecondVIPDatas);
+        //        mSecondVIPRv.setAdapter(mSecondVIPFunctionAdapter);
+        //        mSecondVIPRv.setNestedScrollingEnabled(false);
 
         memberLayoutShow();
 

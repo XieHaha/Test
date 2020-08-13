@@ -29,7 +29,6 @@ import com.keydom.mianren.ih_patient.fragment.view.TabIndexView;
 import com.keydom.mianren.ih_patient.net.IndexService;
 import com.keydom.mianren.ih_patient.net.UserService;
 import com.keydom.mianren.ih_patient.utils.DepartmentDataHelper;
-import com.keydom.mianren.ih_patient.utils.LocalizationUtils;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,7 +37,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,10 +60,9 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
                 SearchActivity.start(getContext());
                 break;
             case R.id.qr_code_layout:
-                if (Global.getUserId() != -1) {
+                if(loginStatus())
+                {
                     EventBus.getDefault().post(new Event(EventType.STARTTOQR, null));
-                } else {
-                    ToastUtil.showMessage(getContext(), "你未登录,请登录后尝试");
                 }
                 break;
             case R.id.empty_layout:
@@ -76,14 +73,24 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
                 getView().showHospitalPopupWindow();
                 break;
             case R.id.more_tv:
-                if (getView().getNoticeList() != null && getView().getNoticeList().size() > 0)
+                if (getView().getNoticeList() != null && getView().getNoticeList().size() > 0) {
                     MyMessageActivity.start(getContext(), Type.NOTICEMESSAGE, null);
-                else
+                } else {
                     ToastUtil.showMessage(getContext(), "暂无通知公告");
+                }
                 break;
             default:
         }
 
+    }
+
+    private boolean loginStatus() {
+        if (Global.getUserId() != -1) {
+            return true;
+        } else {
+            ToastUtil.showMessage(getContext(), R.string.unlogin_hint);
+            return false;
+        }
     }
 
     /**
@@ -99,73 +106,74 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
 
                 for (int i = 0; i < data.size(); i++) {
                     data.get(i).setFunctionIcon(FunctionConfig.getIcon(data.get(i).getId()));
-                    data.get(i).setSelected(false);
+                    data.get(i).setSelected(true);
                 }
-                Global.setFuncitonList(data);
-                String filename = "index_function_" + Global.getUserId();
-                String allFunctionFilename = "all_function_" + Global.getUserId();
-                List<IndexFunction> dataList =
-                        (List<IndexFunction>) LocalizationUtils.readFileFromLocal(getContext(),
-                                filename);
-                List<IndexFunction> savedLocalFunction = new ArrayList<>();
-                if (dataList != null && dataList.size() != 0) {
-                    Map<Long, IndexFunction> id2IndexFunctionServerMap = new LinkedHashMap<>();
-                    for (int i = 0; i < data.size(); i++) {
-                        data.get(i).setFunctionIcon(FunctionConfig.getIcon(data.get(i).getId()));
-                        data.get(i).setSelected(false);
-                        id2IndexFunctionServerMap.put(data.get(i).getId(), data.get(i));
-                    }
-                    Map<Long, IndexFunction> id2IndexFunctionLocalMap = new LinkedHashMap<>();
-                    for (int i = 0; i < dataList.size(); i++) {
-                        id2IndexFunctionLocalMap.put(dataList.get(i).getId(), dataList.get(i));
-                    }
-
-
-                    for (Map.Entry<Long, IndexFunction> entry :
-                            id2IndexFunctionLocalMap.entrySet()) {
-                        if (null != id2IndexFunctionServerMap.get(entry.getKey())) {
-                            id2IndexFunctionServerMap.get(entry.getKey()).setSelected(true);
-                            savedLocalFunction.add(id2IndexFunctionServerMap.get(entry.getKey()));
-                        }
-                    }
-                    List<IndexFunction> savedServiceFunction = new ArrayList<>();
-                    for (Map.Entry<Long, IndexFunction> entry :
-                            id2IndexFunctionServerMap.entrySet()) {
-                        savedServiceFunction.add(id2IndexFunctionServerMap.get(entry.getKey()));
-                    }
-                    if (Global.getUserId() != -1) {
-                        LocalizationUtils.fileSave2Local(getContext(), savedLocalFunction,
-                                filename);
-                        Logger.e("更改后菜单配置写入成功");
-
-                    }
-                    LocalizationUtils.fileSave2Local(getContext(), data, allFunctionFilename);
-                    //                    Global.setFuncitonList(data);
-                } else {
-                    int size = data.size() > 7 ? 7 : data.size();
-                    for (int i = 0; i < size; i++) {
-                        data.get(i).setFunctionIcon(FunctionConfig.getIcon(data.get(i).getId()));
-                        data.get(i).setSelected(true);
-                        data.get(i).setRedPointShow(false);
-                        savedLocalFunction.add(data.get(i));
-                    }
-                    LocalizationUtils.fileSave2Local(getContext(), data, allFunctionFilename);
-                    //                    Global.setFuncitonList(data);
-                    //                    savedLocalFunction.addAll(data);
-                    if (Global.getUserId() != -1) {
-                        LocalizationUtils.fileSave2Local(getContext(), savedLocalFunction,
-                                filename);
-                        Logger.e("首次菜单配置写入成功");
-
-                    }
-
-                }
-                allFunction = new IndexFunction();
-                allFunction.setName("全部");
-                allFunction.setId(1);
-                allFunction.setFunctionIcon(R.mipmap.more_icon);
-                savedLocalFunction.add(allFunction);
-                getView().setFunctionRvData(savedLocalFunction);
+                getView().setFunctionRvData(data);
+//                Global.setFuncitonList(data);
+//                String filename = "index_function_" + Global.getUserId();
+//                String allFunctionFilename = "all_function_" + Global.getUserId();
+//                List<IndexFunction> dataList =
+//                        (List<IndexFunction>) LocalizationUtils.readFileFromLocal(getContext(),
+//                                filename);
+//                List<IndexFunction> savedLocalFunction = new ArrayList<>();
+//                if (dataList != null && dataList.size() != 0) {
+//                    Map<Long, IndexFunction> id2IndexFunctionServerMap = new LinkedHashMap<>();
+//                    for (int i = 0; i < data.size(); i++) {
+//                        data.get(i).setFunctionIcon(FunctionConfig.getIcon(data.get(i).getId()));
+//                        data.get(i).setSelected(false);
+//                        id2IndexFunctionServerMap.put(data.get(i).getId(), data.get(i));
+//                    }
+//                    Map<Long, IndexFunction> id2IndexFunctionLocalMap = new LinkedHashMap<>();
+//                    for (int i = 0; i < dataList.size(); i++) {
+//                        id2IndexFunctionLocalMap.put(dataList.get(i).getId(), dataList.get(i));
+//                    }
+//
+//
+//                    for (Map.Entry<Long, IndexFunction> entry :
+//                            id2IndexFunctionLocalMap.entrySet()) {
+//                        if (null != id2IndexFunctionServerMap.get(entry.getKey())) {
+//                            id2IndexFunctionServerMap.get(entry.getKey()).setSelected(true);
+//                            savedLocalFunction.add(id2IndexFunctionServerMap.get(entry.getKey()));
+//                        }
+//                    }
+//                    List<IndexFunction> savedServiceFunction = new ArrayList<>();
+//                    for (Map.Entry<Long, IndexFunction> entry :
+//                            id2IndexFunctionServerMap.entrySet()) {
+//                        savedServiceFunction.add(id2IndexFunctionServerMap.get(entry.getKey()));
+//                    }
+//                    if (Global.getUserId() != -1) {
+//                        LocalizationUtils.fileSave2Local(getContext(), savedLocalFunction,
+//                                filename);
+//                        Logger.e("更改后菜单配置写入成功");
+//
+//                    }
+//                    LocalizationUtils.fileSave2Local(getContext(), data, allFunctionFilename);
+//                    //                    Global.setFuncitonList(data);
+//                } else {
+//                    int size = data.size() > 7 ? 7 : data.size();
+//                    for (int i = 0; i < size; i++) {
+//                        data.get(i).setFunctionIcon(FunctionConfig.getIcon(data.get(i).getId()));
+//                        data.get(i).setSelected(true);
+//                        data.get(i).setRedPointShow(false);
+//                        savedLocalFunction.add(data.get(i));
+//                    }
+//                    LocalizationUtils.fileSave2Local(getContext(), data, allFunctionFilename);
+//                    //                    Global.setFuncitonList(data);
+//                    //                    savedLocalFunction.addAll(data);
+//                    if (Global.getUserId() != -1) {
+//                        LocalizationUtils.fileSave2Local(getContext(), savedLocalFunction,
+//                                filename);
+//                        Logger.e("首次菜单配置写入成功");
+//
+//                    }
+//
+//                }
+//                allFunction = new IndexFunction();
+//                allFunction.setName("全部");
+//                allFunction.setId(1);
+//                allFunction.setFunctionIcon(R.mipmap.more_icon);
+//                savedLocalFunction.add(allFunction);
+//                getView().setFunctionRvData(savedLocalFunction);
             }
 
             @Override
@@ -263,7 +271,7 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
         Logger.e("执行upDateData");
         List<IndexFunction> indexFunctionList = new ArrayList<>();
         indexFunctionList.addAll(dataList);
-        indexFunctionList.add(allFunction);
+        //        indexFunctionList.add(allFunction);
         for (int i = 0; i < dataList.size(); i++) {
             dataList.get(i).setRedPointShow(false);
         }
@@ -281,7 +289,8 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getCityListFailed(msg);
                 return super.requestError(exception, code, msg);
             }

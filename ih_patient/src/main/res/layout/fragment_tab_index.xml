@@ -107,7 +107,7 @@
 
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></com.scwang.smartrefresh.layout.header.ClassicsHeader>
+            android:layout_height="wrap_content"/>
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -319,8 +319,7 @@
                     android:id="@+id/fragment_tab_index_function_root_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                    android:orientation="vertical">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/index_function_rv"
@@ -340,6 +339,7 @@
                     android:id="@+id/index_second_banner"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_77"
+                    android:visibility="gone"
                     app:pointsPosition="CENTER" />
 
                 <View
@@ -350,7 +350,8 @@
                 <RelativeLayout
                     android:id="@+id/top_health_rl"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_212">
+                    android:layout_height="@dimen/dp_212"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/title_left_icon"
@@ -478,7 +479,7 @@
 
         <com.scwang.smartrefresh.layout.footer.ClassicsFooter
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
