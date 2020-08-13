@@ -62,17 +62,13 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
                     @Override
                     public void commit(View v, String value) {
                         if (MyApplication.signAble) {
-                            SignUtils.sign(getContext(), getView()
-                                            .getAuditMap().toString(),
+                            SignUtils.sign(getContext(), getView().getAuditMap().toString(),
                                     Const.SIGN_CHECK_PRESCRIPTION, new
                                             SignUtils.SignCallBack() {
                                                 @Override
-                                                public void signSuccess(String
-                                                                                signature,
-                                                                        String jobId) {
+                                                public void signSuccess(String signature, String jobId) {
                                                     caCount(3);
-                                                    getView().auditReturn(value,
-                                                            signature, jobId);
+                                                    getView().auditReturn(value, signature, jobId);
                                                 }
 
                                                 @Override
