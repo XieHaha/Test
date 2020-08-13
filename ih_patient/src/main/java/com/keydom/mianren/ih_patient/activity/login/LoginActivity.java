@@ -151,9 +151,9 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
             Global.setMember(data.getMember());
             App.userInfo=data;
             PushManager.setAlias(getContext(), data.getId()+"");
-            EventBus.getDefault().post(new Event(EventType.UPDATELOGINSTATE,null));
             App.isNeedInit=false;
             SharePreferenceManager.setToken("User " + data.getToken());
+            EventBus.getDefault().post(new Event(EventType.UPDATELOGINSTATE,null));
             MainActivity.start(this,false);
         }
     }
@@ -455,6 +455,7 @@ public class LoginActivity extends BaseControllerActivity<LoginController> imple
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
+        @Override
         @SuppressWarnings("unused")
         public void handleMessage(Message msg) {
             if (msg.what == FLAG_ALIPAY_LOGIN) {
