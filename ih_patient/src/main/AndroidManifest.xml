@@ -75,7 +75,15 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".activity.welcome.WelcomeActivity" />
+        <activity android:name=".activity.welcome.WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WelcomeStyle">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+        </activity>
 
         <receiver
             android:name=".broadcast.JPushReceiver"
@@ -95,11 +103,6 @@
             android:name=".activity.index_main.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-
-            </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

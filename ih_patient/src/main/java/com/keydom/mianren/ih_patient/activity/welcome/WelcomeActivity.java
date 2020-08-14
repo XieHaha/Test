@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_patient.activity.welcome;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -100,6 +101,7 @@ public class WelcomeActivity extends BaseControllerActivity<WelcomeController> i
     /**
      * 初始化位置
      */
+    @SuppressLint("CheckResult")
     private void initLocation() {
         RxPermissions rxPermissions = new RxPermissions(this);
         rxPermissions.request(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -139,7 +141,12 @@ public class WelcomeActivity extends BaseControllerActivity<WelcomeController> i
             Global.setLocationCountry(country);
             Global.setLocationProvince(province);
             Global.setLocationCity(city);
-            getController().initLocation(city);
+//            getController().initLocation(city);
+
+            Global.setLocationCityCode("510700");
+
+            MainActivity.start(getContext(),false);
+            finish();
         }
     }
 
