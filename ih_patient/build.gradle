@@ -11,6 +11,11 @@ aspectjx {
     exclude 'com.alipay'
 
 }
+
+static def releaseTime() {
+    return new Date().format("MM月dd日", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
@@ -58,6 +63,17 @@ android {
         }
         debug {
             signingConfig signingConfigs.release_map
+        }
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            if (variant.name.endsWith("Debug")) {
+                //debug包
+                outputFileName = "mianren_p_${variant.name}_V${variant.versionName}-${releaseTime()}.apk"
+            } else {
+                //release包
+                outputFileName = "mianren_p_${variant.name}_V${variant.versionName}-${releaseTime()}.apk"
+            }
         }
     }
     compileOptions {
