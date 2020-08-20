@@ -41,15 +41,26 @@ public class WXInit {
      */
     public static final int ERROR_PAY = 3;
 
-    public static String WX_APP_ID = "wx6856bb8086521af5";
+    /**
+     * 测试
+     */
+    public static String WX_APP_ID = "wx8c08e2a7ec34269e";
+    /**
+     * 正式
+     */
+//    public static String WX_APP_ID = "wx6856bb8086521af5";
+    /**
+     * 获取用户个人信息 测试
+     */
+    private String WX_APP_SECRET = "137b3992b25c35deccc19d7d58e72da3";
+    /**
+     * 获取用户个人信息
+     */
+//    private String WX_APP_SECRET = "010fcb3d5cf2dac8a2ee7065201a07d7";
     /**
      * 获取第一步的code后，请求以下链接获取access_token
      */
     private String GetCodeRequest = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
-    /**
-     * 获取用户个人信息
-     */
-    private String WX_APP_SECRET = "010fcb3d5cf2dac8a2ee7065201a07d7";
 
 
     /**
