@@ -206,7 +206,7 @@ public class SelectDialogUtils {
      */
     public static void showPayDialog(Context context, String feeStr, String descStr,
                                      GeneralCallback.SelectPayMentListener selectPayMentListener) {
-        final String[] payType = {Type.ALIPAY};
+        final String[] payType = {Type.WECHATPAY};
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
         bottomSheetDialog.setCancelable(false);
 

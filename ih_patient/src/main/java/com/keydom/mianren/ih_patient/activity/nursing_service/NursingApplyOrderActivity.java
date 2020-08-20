@@ -53,7 +53,7 @@ public class NursingApplyOrderActivity extends BaseControllerActivity<NursingApp
     private NursingServiceOrderInfo orderInfo;
     private NursingServicePriceAdapter nursingServicePriceAdapter;
     private List<NursingServiceOrderInfo.NursingServiceOrderDetailBaseDtoBean.OrderDetailItemsBean> priceList = new ArrayList<>();
-    private String payType = Type.ALIPAY;
+    private String payType = Type.WECHATPAY;
     private BigDecimal allFee = BigDecimal.valueOf(0);
     private GridViewForScrollView img_gv;
     private GridViewImageShowAdapter mAdapter;

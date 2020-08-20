@@ -334,8 +334,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     public static final int SELECT_MEMBER = 1000;
 
-    int[] WaiPayType = {2};
-    String payWaiType = Type.ALIPAY;
+    int[] WaiPayType = {1};
+    String payWaiType = Type.WECHATPAY;
     List<PrescriptionItemEntity> drugs = new ArrayList<>();
 
     private VoiceInputPlugin mVoiceInputPlugin;
@@ -1477,7 +1477,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         bottomSheetDialog.setCancelable(false);
         mPSfee = 0.00;
         final boolean[] isAgree = {false};
-        int[] payType = {2};
+        int[] payType = {1};
         bottomSheetDialog.setCanceledOnTouchOutside(false);
         View view = LayoutInflater.from(getContext()).inflate(R.layout.pay_ment_dialog_layout,
                 null, false);
@@ -1646,8 +1646,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     private void showPayTypeDialog(String titleFee, double totalFee, String orderNum, String id) {
         isSendDrugsToHome = false;
-        WaiPayType[0] = 2;
-        payWaiType = Type.ALIPAY;
+        WaiPayType[0] = 1;
+        payWaiType = Type.WECHATPAY;
         mPharmacyBean = null;
         mPharmacyBeans = null;
         mPharmacyName = null;
@@ -1908,13 +1908,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     mLinPay.setVisibility(View.VISIBLE);
 
                     aliPay.setImageResource(R.mipmap.pay_selected_icon);
-                    wechatPay.setImageResource(R.mipmap.pay_unselected_icon);
+                    wechatPay.setImageResource(R.mipmap.pay_selected_icon);
                     mTvAliPay.setTextColor(getResources().getColor(R.color.pay_selected));
-                    mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                    mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_selected));
                     unionPay.setImageResource(R.mipmap.pay_unselected_icon);
                     mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_unselected));
-                    WaiPayType[0] = 2;
-                    payWaiType = Type.ALIPAY;
+                    WaiPayType[0] = 1;
+                    payWaiType = Type.WECHATPAY;
                     isSendDrugsToHome = false;
                     if (null != mPharmacyBean) {
                         refreshPriceView(Arrays.asList(mPharmacyBean));
@@ -1932,13 +1932,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                     mLinPay.setVisibility(View.GONE);
 
                     aliPay.setImageResource(R.mipmap.pay_selected_icon);
-                    wechatPay.setImageResource(R.mipmap.pay_unselected_icon);
+                    wechatPay.setImageResource(R.mipmap.pay_selected_icon);
                     mTvAliPay.setTextColor(getResources().getColor(R.color.pay_selected));
-                    mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                    mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_selected));
                     unionPay.setImageResource(R.mipmap.pay_unselected_icon);
                     mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_unselected));
-                    WaiPayType[0] = 2;
-                    payWaiType = Type.ALIPAY;
+                    WaiPayType[0] = 1;
+                    payWaiType = Type.WECHATPAY;
                     isSendDrugsToHome = true;
                     if (null != mPharmacyBeans && mPharmacyBeans.size() > 0) {
                         refreshDeliveryCostView(mPharmacyBeans);

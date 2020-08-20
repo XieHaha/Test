@@ -154,6 +154,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_63">
 
@@ -220,7 +221,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/dp_45"
-                android:src="@mipmap/pay_unselected_icon" />
+                android:src="@mipmap/pay_selected_icon" />
 
             <View
                 android:layout_width="match_parent"

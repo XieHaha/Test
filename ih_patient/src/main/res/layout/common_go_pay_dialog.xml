@@ -48,6 +48,7 @@
     <RelativeLayout
         android:id="@+id/common_go_pay_dialog_ali_root_rl"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="@dimen/dp_63">
         <ImageView
             android:layout_width="wrap_content"

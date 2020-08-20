@@ -51,7 +51,7 @@ public class ChooseMedicalCardActivity extends BaseControllerActivity<ChooseMedi
     private TextView cure_time_tv, cure_doctor_tv, cure_department_tv, cure_price_tv, jump_to_card_operate_tv, registerDoctorCommitTv,title_label_tv;
     private RecyclerView choose_medical_card_rv;
     private RegistrationCardAdapter registrationCardAdapter;
-    private String payType = Type.ALIPAY;
+    private String payType = Type.WECHATPAY;
     private List<MedicalCardInfo> dataList = new ArrayList<>();
     private DoctorSchedulingBean doctorSchedulingBean;
     private String doctorName, describe,deptId;

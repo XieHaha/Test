@@ -612,7 +612,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         bottomSheetDialog.setCancelable(false);
         mPSfee = 0.00;
         final boolean[] isAgree = {false};
-        int[] payType = {2};
+        int[] payType = {1};
         bottomSheetDialog.setCanceledOnTouchOutside(false);
         View view = LayoutInflater.from(getContext()).inflate(R.layout.pay_ment_dialog_layout,
                 null, false);
@@ -797,8 +797,8 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
     ImageView aliPay;
     ImageView wechatPay;
     ImageView unionPay;
-    int[] waiPayType = {2};
-    String payWaiType = Type.ALIPAY;
+    int[] waiPayType = {1};
+    String payWaiType = Type.WECHATPAY;
 
     //外院选择按钮
     RadioGroup mRadioGroup;
@@ -836,8 +836,8 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
     private void showPayTypeDialog(String titleFee, double totalFee, String orderNum,
                                    String orderId, String prescriptionId, boolean isOnline) {
         isSendDrugsToHome = false;
-        waiPayType[0] = 2;
-        payWaiType = Type.ALIPAY;
+        waiPayType[0] = 1;
+        payWaiType = Type.WECHATPAY;
         mPharmacyBean = null;
         mPharmacyBeans = null;
         mPharmacyName = null;
@@ -941,7 +941,7 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
         mReZxingTitle = view.findViewById(R.id.re_zxing_title);
 
         mRadioGroup.setOnCheckedChangeListener(listen);
-        //todo 跳转选择药店界面
+        // 跳转选择药店界面
         mLinShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1091,13 +1091,13 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     mLinPay.setVisibility(View.VISIBLE);
 
                     aliPay.setImageResource(R.mipmap.pay_selected_icon);
-                    wechatPay.setImageResource(R.mipmap.pay_unselected_icon);
+                    wechatPay.setImageResource(R.mipmap.pay_selected_icon);
                     mTvAliPay.setTextColor(getResources().getColor(R.color.pay_selected));
-                    mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                    mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_selected));
                     unionPay.setImageResource(R.mipmap.pay_unselected_icon);
                     mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_unselected));
-                    waiPayType[0] = 2;
-                    payWaiType = Type.ALIPAY;
+                    waiPayType[0] = 1;
+                    payWaiType = Type.WECHATPAY;
                     isSendDrugsToHome = false;
                     if (null != mPharmacyBean) {
                         refreshPriceView(Arrays.asList(mPharmacyBean));
@@ -1114,13 +1114,13 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                     mLinPay.setVisibility(View.GONE);
 
                     aliPay.setImageResource(R.mipmap.pay_selected_icon);
-                    wechatPay.setImageResource(R.mipmap.pay_unselected_icon);
+                    wechatPay.setImageResource(R.mipmap.pay_selected_icon);
                     mTvAliPay.setTextColor(getResources().getColor(R.color.pay_selected));
-                    mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_unselected));
+                    mTvWechatPay.setTextColor(getResources().getColor(R.color.pay_selected));
                     unionPay.setImageResource(R.mipmap.pay_unselected_icon);
                     mTvUnionPay.setTextColor(getResources().getColor(R.color.pay_unselected));
-                    waiPayType[0] = 2;
-                    payWaiType = Type.ALIPAY;
+                    waiPayType[0] = 1;
+                    payWaiType = Type.WECHATPAY;
                     isSendDrugsToHome = true;
                     if (null != mPharmacyBeans && mPharmacyBeans.size() > 0) {
                         refreshDeliveryCostView(mPharmacyBeans);

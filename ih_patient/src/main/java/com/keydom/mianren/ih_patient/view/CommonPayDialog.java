@@ -83,7 +83,7 @@ public class CommonPayDialog extends BottomSheetDialog implements View.OnClickLi
         int dialogHeight = screenHeight - statusBarHeight;
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, dialogHeight == 0 ? ViewGroup.LayoutParams.MATCH_PARENT : dialogHeight);
         initView();
-        if(mMoney > 0)setCost(mMoney);
+        if(mMoney > 0){setCost(mMoney);}
     }
 
 
@@ -120,7 +120,8 @@ public class CommonPayDialog extends BottomSheetDialog implements View.OnClickLi
         this.findViewById(R.id.common_go_pay_dialog_wechat_root_rl).setOnClickListener(this);
         mCommit.setOnClickListener(this);
 
-        mAliPayImg.setSelected(true);
+//        mAliPayImg.setSelected(true);
+        mWxPayImg.setSelected(true);
     }
 
     @Override
@@ -142,12 +143,13 @@ public class CommonPayDialog extends BottomSheetDialog implements View.OnClickLi
                 mWxPayImg.setSelected(true);
                 break;
             case R.id.pay_commit:
-                if (mAliPayImg.isSelected()) {
+                /*if (mAliPayImg.isSelected()) {
                     if(null != mIOnCommitOnClick){
                         mIOnCommitOnClick.commitPay(ALI_PAY);
                     }
                     dismiss();
-                } else if (mWxPayImg.isSelected()) {
+                } else */
+                if (mWxPayImg.isSelected()) {
                     if(null != mIOnCommitOnClick){
                         mIOnCommitOnClick.commitPay(WX_PAY);
                     }
@@ -156,8 +158,8 @@ public class CommonPayDialog extends BottomSheetDialog implements View.OnClickLi
                     ToastUtils.showShort("请选择支付方式");
                 }
                 break;
-
-
+            default:
+                break;
         }
     }
 }
