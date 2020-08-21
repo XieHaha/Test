@@ -64,7 +64,7 @@ public class MyApplication extends CommonApp {
     /**
      * 是否开启ca签名
      */
-    public static boolean signAble = false;
+    public static boolean signAble = true;
 
 
     static {

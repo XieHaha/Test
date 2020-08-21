@@ -649,12 +649,15 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 } else {
                     inquiryPopDiagnosticPrescriptionTv.setVisibility(View.GONE);
                 }
+                mMessageView.removePlugin(mEndInquiryPlugin);
+                mMessageView.addPlugin(mEndInquiryPlugin);
             } else {
                 inspection.setVisibility(View.GONE);
                 examination.setVisibility(View.GONE);
                 referralTv.setVisibility(View.GONE);
                 inquiryPopAdvice.setVisibility(View.GONE);
                 inquiryPopDiagnosticPrescriptionTv.setVisibility(View.GONE);
+                mMessageView.removePlugin(mEndInquiryPlugin);
             }
             //            if (orderBean.getState() != InquiryStatus.INQUIRY_CONSULTATION_DOING
             //                    && orderBean.getState() != InquiryStatus
