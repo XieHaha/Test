@@ -24,7 +24,9 @@ public interface PregnancyService {
      * 续约记录
      */
     @GET("medicine/antepartum/app/listPersonInspectionRecord")
-    Observable<HttpResult<PageBean<PregnancyRecordItem>>> listPersonInspectionRecord(@Query("cardNumber") String cardNumber, @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
+    Observable<HttpResult<PageBean<PregnancyRecordItem>>> listPersonInspectionRecord(@Query(
+            "cardNumber") String cardNumber, @Query("currentPage") int currentPage, @Query(
+                    "pageSize") int pageSize);
 
 
     /**
@@ -45,7 +47,7 @@ public interface PregnancyService {
      * 获取产检时间列表
      */
     @GET("medicine/antepartum/listAntepartumTime")
-    Observable<HttpResult<List<PregnancyOrderTime>>> getCheckProjectsTimes();
+    Observable<HttpResult<List<PregnancyOrderTime>>> getCheckProjectsTimes(@Query("date") String date, @Query("state") String state);
 
 
     /**

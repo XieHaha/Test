@@ -31,6 +31,7 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
+ * @author 顿顿
  * @date 20/3/9 16:07
  * @des 羊水穿刺预约申请
  */
@@ -85,6 +86,11 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
      * 羊水穿刺原因数据
      */
     private List<String> reasonData;
+    private Date applySurgeryDate, lastMenstruationDate;
+    /**
+     * 28周
+     */
+    public static final int MAX_WEEKS = 28 * 7;
 
     @Override
     public int getLayoutRes() {
@@ -134,6 +140,9 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
 
     @Override
     public boolean reserveInfoComplete() {
+        if (calcDateLimit()) {
+            return false;
+        }
         String surgeryTime = amniocentesisApplySurgeryTimeTv.getText().toString();
         String name = amniocentesisApplyNameEt.getText().toString();
         String idCard = amniocentesisApplyIdCardEt.getText().toString().trim();
@@ -141,7 +150,7 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
         String smsCode = amniocentesisApplyVerifyCodeEt.getText().toString().trim();
         String telephone = amniocentesisApplyPhoneEt.getText().toString().trim();
         String lastDate = amniocentesisApplyLastMenstruationTv.getText().toString().trim();
-        String dueDate = amniocentesisApplyDueDateTv.getText().toString().trim();
+        //        String dueDate = amniocentesisApplyDueDateTv.getText().toString().trim();
         String familyName = amniocentesisApplyFamilyNameEt.getText().toString().trim();
         String familyPhone = amniocentesisApplyFamilyPhoneEt.getText().toString().trim();
         String familyAddress = amniocentesisApplyFamilyAddressEt.getText().toString().trim();
@@ -150,7 +159,7 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
         if (TextUtils.isEmpty(surgeryTime) || TextUtils.isEmpty(name)
                 || TextUtils.isEmpty(idCard) || TextUtils.isEmpty(birthday)
                 || TextUtils.isEmpty(telephone) || TextUtils.isEmpty(lastDate)
-                || TextUtils.isEmpty(dueDate) || TextUtils.isEmpty(familyName)
+                || TextUtils.isEmpty(familyName)
                 || TextUtils.isEmpty(familyPhone) || TextUtils.isEmpty(familyAddress)
                 || TextUtils.isEmpty(curSelectReason) || TextUtils.isEmpty(smsCode)) {
             ToastUtil.showMessage(getContext(), "请完善羊膜腔穿刺手术网上预约申请单");
@@ -166,7 +175,7 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
         reserveBean.setName(name);
         reserveBean.setTelephone(telephone);
         reserveBean.setSmsCode(smsCode);
-        reserveBean.setExpectedBirthTime(dueDate);
+        //        reserveBean.setExpectedBirthTime(dueDate);
         reserveBean.setEndMensesTime(lastDate);
         reserveBean.setFamilyMemberName(familyName);
         reserveBean.setFamilyMemberPhone(familyPhone);
@@ -177,14 +186,31 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
         return true;
     }
 
+    /**
+     * 计算申请时间和末次月经时间差（大于28周不能预约）
+     */
+    private boolean calcDateLimit() {
+        if (applySurgeryDate != null && lastMenstruationDate != null) {
+            if (DateUtils.dateDifferent(lastMenstruationDate, applySurgeryDate) > MAX_WEEKS) {
+                ToastUtil.showMessage(getContext(), "申请时间与末次月经时间超过28周，不能预约！");
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public void onDateSelect(View view, Date date) {
         switch (view.getId()) {
             case R.id.amniocentesis_apply_surgery_time_layout:
                 amniocentesisApplySurgeryTimeTv.setText(DateUtils.dateToString(date));
+                applySurgeryDate = date;
+                calcDateLimit();
                 break;
             case R.id.amniocentesis_apply_last_menstruation_layout:
                 amniocentesisApplyLastMenstruationTv.setText(DateUtils.dateToString(date));
+                lastMenstruationDate = date;
+                calcDateLimit();
                 break;
             case R.id.amniocentesis_apply_due_date_layout:
                 amniocentesisApplyDueDateTv.setText(DateUtils.dateToString(date));

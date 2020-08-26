@@ -44,8 +44,9 @@ public class DateUtils {
         java.util.Date date2 = sdf.parse(d2);
         c1.setTime(date1);
         c2.setTime(date2);
-        if (c2.getTimeInMillis() < c1.getTimeInMillis())
+        if (c2.getTimeInMillis() < c1.getTimeInMillis()) {
             return 0;
+        }
         int year1 = c1.get(Calendar.YEAR);
         int year2 = c2.get(Calendar.YEAR);
         int month1 = c1.get(Calendar.MONTH);
@@ -53,11 +54,13 @@ public class DateUtils {
         int day1 = c1.get(Calendar.DAY_OF_MONTH);
         int day2 = c2.get(Calendar.DAY_OF_MONTH);
         int yearInterval = year2 - year1;
-        if (month2 < month1 || month1 == month2 && day2 < day1)
+        if (month2 < month1 || month1 == month2 && day2 < day1) {
             yearInterval--;
+        }
         int monthInterval = (month2 + 12) - month1;
-        if (day2 < day1)
+        if (day2 < day1) {
             monthInterval--;
+        }
         monthInterval %= 12;
         return yearInterval * 12 + monthInterval;
     }
@@ -86,23 +89,26 @@ public class DateUtils {
                 SimpleDateFormat minute = new SimpleDateFormat("mm");
                 int hourNum = Integer.parseInt(hour.format(today)) + 2;
                 int minuteNum = Integer.parseInt(minute.format(today));
-                if (minuteNum > 0)
+                if (minuteNum > 0) {
                     hourNum += 1;
+                }
                 if (hourNum < latestTime) {
                     for (int j = hourNum; j < latestTime; j++) {
-                        if (j < 10)
+                        if (j < 10) {
                             startTimeSonList.add("0" + j + ":00");
-                        else
+                        } else {
                             startTimeSonList.add(j + ":00");
+                        }
                         List<String> endTimeGrandSonList = new ArrayList<>();
                         for (int k = j + 1; k <= latestTime; k++) {
-                            if (k < 10)
+                            if (k < 10) {
                                 endTimeGrandSonList.add("0" + k + ":00");
-                            else {
-                                if (k == 24)
+                            } else {
+                                if (k == 24) {
                                     endTimeGrandSonList.add("23:59");
-                                else
+                                } else {
                                     endTimeGrandSonList.add(k + ":00");
+                                }
                             }
                         }
                         endTimeSonList.add(endTimeGrandSonList);
@@ -116,19 +122,21 @@ public class DateUtils {
 
             } else {
                 for (int j = earliestTime; j < latestTime; j++) {
-                    if (j < 10)
+                    if (j < 10) {
                         startTimeSonList.add("0" + j + ":00");
-                    else
+                    } else {
                         startTimeSonList.add(j + ":00");
+                    }
                     List<String> endTimeGrandSonList = new ArrayList<>();
                     for (int k = j + 1; k <= latestTime; k++) {
-                        if (k < 10)
+                        if (k < 10) {
                             endTimeGrandSonList.add("0" + k + ":00");
-                        else {
-                            if (k == 24)
+                        } else {
+                            if (k == 24) {
                                 endTimeGrandSonList.add("23:59");
-                            else
+                            } else {
                                 endTimeGrandSonList.add(k + ":00");
+                            }
                         }
                     }
                     endTimeSonList.add(endTimeGrandSonList);
@@ -144,10 +152,11 @@ public class DateUtils {
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         if ("服务时间段".equals(endTimeList.get(options1).get(options2).get(options3))) {
                             ToastUtil.showMessage(context, "当前不在服务时间段，请重新选择上门时间");
-                        } else
+                        } else {
                             dateIntervalSelectedListener.getSelectedDateInterval(dateList.get(options1),
                                     startTimeList.get(options1).get(options2),
                                     endTimeList.get(options1).get(options2).get(options3));
+                        }
                     }
                 })
                 .setCancelColor(Color.parseColor("#00FFFFFF"))
@@ -292,11 +301,18 @@ public class DateUtils {
         return "";
     }
 
-    public static String getDate(String date,String pattern) {
+    public static String getDate(String date, String pattern) {
         if (TextUtils.isEmpty(date)) {
             return "";
         }
         SimpleDateFormat format = new SimpleDateFormat(pattern);
         return format.format(new Date(Long.valueOf(date)));
+    }
+
+    /**
+     * 计算date天数差
+     */
+    public static int dateDifferent(Date date1, Date date2) {
+        return (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
     }
 }

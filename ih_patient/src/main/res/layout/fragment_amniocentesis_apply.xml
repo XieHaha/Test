@@ -330,6 +330,7 @@
             android:layout_height="@dimen/dp_62"
             android:background="@drawable/item_f9_bg_bottom_divider"
             android:gravity="center_vertical"
+            android:visibility="gone"
             android:orientation="horizontal"
             android:paddingStart="@dimen/dp_27"
             android:paddingEnd="@dimen/dp_20">
