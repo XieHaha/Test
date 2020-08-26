@@ -257,8 +257,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 扫码结果
      */
-    public void sendCaSuccessToPc(String doctorCode, String jobId) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).sendCaSuccessToPc(doctorCode,jobId), new HttpSubscriber<String>() {
+    public void sendCaSuccessToPc(String signature,String doctorCode, String jobId) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).sendCaSuccessToPc(signature,doctorCode,jobId), new HttpSubscriber<String>() {
             @Override
             public void requestComplete(@org.jetbrains.annotations.Nullable String data) {
                 ToastUtil.showMessage(MainActivity.this, "扫码成功");
@@ -522,7 +522,7 @@ public class MainActivity extends AppCompatActivity {
                     SignUtils.signApi(this, scanBean.getContent(), new SignUtils.SignCallBack() {
                         @Override
                         public void signSuccess(String signature, String jobId) {
-                            sendCaSuccessToPc(scanBean.getDoctorCode(),jobId);
+                            sendCaSuccessToPc(signature,scanBean.getDoctorCode(),jobId);
                             caCount(scanBean.getSignType());
                         }
 
