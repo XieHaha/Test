@@ -41,8 +41,8 @@ public class Const {
     public static final String RECORD_ID = "record_id";
     public static String PREGNANCY_ORDER_TYPE = "pregnancy_order_type"; //1：检验检查；2：产检门诊；12：检验检查和产检门诊
     public static final int PREGNANCY_ORDER_TYPE_ALL = 12;//12：检验检查和产检门诊
-    public static final int PREGNANCY_ORDER_TYPE_CHECK = 1;//1：检验检查
-    public static final int PREGNANCY_ORDER_TYPE_DIAGNOSE = 2;//2：产检门诊
+    public static final int PREGNANCY_ORDER_TYPE_CHECK = 0;//1：检验检查
+    public static final int PREGNANCY_ORDER_TYPE_DIAGNOSE = 1;//2：产检门诊
 
 
     /**

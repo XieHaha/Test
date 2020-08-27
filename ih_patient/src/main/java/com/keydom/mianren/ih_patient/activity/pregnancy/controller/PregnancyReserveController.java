@@ -43,27 +43,11 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
                 ChooseInspectItemActivity.start(getContext(), getView().getCheckProjects(),
                         getView().getSelectSubBeans());
                 break;
-            case R.id.pregnancy_detail_order_check_root_ll:
-                getView().setChecks(!getView().isOrderChecks());
-                break;
-            case R.id.pregnancy_detail_order_diagnose_root_ll:
-                getView().setOrderDiagnose(!getView().isOrderDiagnose());
-                break;
             case R.id.pregnancy_detail_order_tv:
                 if (TextUtils.isEmpty(getView().getRecordID())) {
                     ToastUtils.showShort("请确认是否存在该预约");
                     return;
                 }
-
-                if (getView().getAppointType() <= 0) {
-                    ToastUtils.showShort("请选择预约事项");
-                    return;
-                }
-
-                //                if (TextUtils.isEmpty(getView().getPrenatalProjectId())) {
-                //                    ToastUtils.showShort("请选择检查项目");
-                //                    return;
-                //                }
 
                 if (TextUtils.isEmpty(getView().getSelectedDate())) {
                     ToastUtils.showShort("请选择日期");
@@ -130,8 +114,8 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
     /**
      * 获取检查时间
      */
-    public void getCheckProjectsTimes(String date,String state) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getCheckProjectsTimes(date,state), new HttpSubscriber<List<PregnancyOrderTime>>(getContext(), getDisposable(), true, false) {
+    public void getCheckProjectsTimes(String date, int state) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getCheckProjectsTimes(date, state), new HttpSubscriber<List<PregnancyOrderTime>>(getContext(), getDisposable(), true, false) {
             @Override
             public void requestComplete(@Nullable List<PregnancyOrderTime> data) {
                 if (data != null) {
@@ -155,7 +139,7 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
     private void commitPregnancy() {
         Map<String, Object> map = new HashMap<>();
         map.put("recordId", getView().getRecordID());
-        map.put("appointType", getView().getAppointType());
+        map.put("appointType", getView().getmPrenancyType());
         //        map.put("prenatalProjectId", getView().getPrenatalProjectId());
         //        map.put("prenatalProjectName", getView().getPrenatalProjectName());
         map.put("prenatalDate", getView().getSelectedDate());

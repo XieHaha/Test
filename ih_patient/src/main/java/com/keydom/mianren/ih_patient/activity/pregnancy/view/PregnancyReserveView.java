@@ -15,6 +15,8 @@ public interface PregnancyReserveView extends BaseView {
     String getSelectedDate();
 
 
+    int getmPrenancyType();
+
     void getCheckProjectsSuccess(CheckProjectRootBean data);
 
     void getCheckProjectsFailed(String msg);
@@ -28,23 +30,9 @@ public interface PregnancyReserveView extends BaseView {
 
     List<CheckProjectSubBean> getSelectSubBeans();
 
-    boolean isOrderChecks();
-
-    void setChecks(boolean isOrderChecks);
-
-    boolean isOrderDiagnose();
-
-    void setOrderDiagnose(boolean isOrderDiagnose);
-
     void commitPregnancySuccess(Object data);
 
     String getRecordID();
-
-    int getAppointType();
-
-    String getPrenatalProjectId();
-
-    String getPrenatalProjectName();
 
     String getTimeInterval();
 }

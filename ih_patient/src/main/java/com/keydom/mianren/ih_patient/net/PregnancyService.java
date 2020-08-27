@@ -47,7 +47,7 @@ public interface PregnancyService {
      * 获取产检时间列表
      */
     @GET("medicine/antepartum/listAntepartumTime")
-    Observable<HttpResult<List<PregnancyOrderTime>>> getCheckProjectsTimes(@Query("date") String date, @Query("state") String state);
+    Observable<HttpResult<List<PregnancyOrderTime>>> getCheckProjectsTimes(@Query("date") String date, @Query("state") int state);
 
 
     /**

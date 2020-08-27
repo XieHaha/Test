@@ -33,6 +33,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author 顿顿
+ */
 public class PregnancyActivity extends BaseControllerActivity<PregnancyController> implements PregnancyView {
 
     private RecyclerView mRecyclerView;
@@ -86,7 +89,6 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         MedicalCardInfo mMedicalCardInfo =
                 (MedicalCardInfo) getIntent().getSerializableExtra(Const.MEDICAL_CARD_INFO);
         mCardNumber = mMedicalCardInfo.getEleCardNumber();
-        //mCardNumber = "37e0fcd8-c38f-43e4-b";
 
         mRecyclerView = findViewById(R.id.pregnancy_records_rv);
         mRefreshLayout = findViewById(R.id.pregnancy_refresh);
@@ -217,7 +219,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
             mOrderCheckProjectsTv.setText(data.getProjectName());
 
             checkDateTv.setText(data.getPrenatalDate());
-            checkTimeTv.setText("12:00-12:30");
+            checkTimeTv.setText(data.getListInspectionRecord());
             pregnancyDateTv.setText(data.getPrenatalDate());
             pregnancyTimeTv.setText("12:00-12:30");
 

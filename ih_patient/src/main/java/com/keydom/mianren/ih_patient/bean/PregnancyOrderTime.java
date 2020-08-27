@@ -11,25 +11,25 @@ public class PregnancyOrderTime implements Serializable {
      * timeInterval : 8:00~8:30
      */
 
-    private String timeType;
+    private int count;
     private String timeInterval;
 
-    private boolean selected;
+    private boolean select;
 
-    public boolean isSelected() {
-        return selected;
+    public boolean isSelect() {
+        return select;
     }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
+    public void setSelect(boolean select) {
+        this.select = select;
     }
 
-    public String getTimeType() {
-        return timeType;
+    public int getCount() {
+        return count;
     }
 
-    public void setTimeType(String timeType) {
-        this.timeType = timeType;
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public String getTimeInterval() {
