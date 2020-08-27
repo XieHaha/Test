@@ -3,6 +3,7 @@ package com.keydom.mianren.ih_patient.activity.pregnancy.view;
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_patient.bean.CheckProjectRootBean;
 import com.keydom.mianren.ih_patient.bean.CheckProjectSubBean;
+import com.keydom.mianren.ih_patient.bean.DoctorScheduling;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderTime;
 
 import java.util.Date;
@@ -25,6 +26,9 @@ public interface PregnancyReserveView extends BaseView {
     void getCheckProjectsTimesSuccess(List<PregnancyOrderTime> data);
 
     void getCheckProjectsTimesFailed(String msg);
+
+    void requestDoctorSchedulingSuccess(List<DoctorScheduling> data);
+    void requestDoctorSchedulingFailed(String data);
 
     List<CheckProjectSubBean> getCheckProjects();
 

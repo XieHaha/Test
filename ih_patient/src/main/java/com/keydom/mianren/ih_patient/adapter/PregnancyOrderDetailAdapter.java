@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * created date: 2019/1/15 on 16:44
  * des:产检预约详情
+ * @author 顿顿
  */
 public class PregnancyOrderDetailAdapter extends BaseQuickAdapter<PregnancyOrderDetailItem, BaseViewHolder> {
     /**
@@ -31,29 +32,27 @@ public class PregnancyOrderDetailAdapter extends BaseQuickAdapter<PregnancyOrder
             helper.setText(R.id.pregnancy_order_detail_check_projects_tv, StringUtils.isEmpty(item.getProjectName()) ? "" : item.getProjectName());
             helper.setText(R.id.pregnancy_order_time_tv, StringUtils.isEmpty(item.getTimeInterval()) ? "" : item.getTimeInterval());
 
-
-            //1：检验检查；2：产检门诊；12：检验检查和产检门诊
+            //0：检验检查；1：产检门诊；12：检验检查和产检门诊
             switch (item.getAppointType()) {
                 case 1:
-                    helper.getView(R.id.pregnancy_order_detail_check_projects_root_rl).setVisibility(View.VISIBLE);
-                    helper.getView(R.id.pregnancy_detail_order_diagnose_iv).setSelected(false);
-                    helper.getView(R.id.pregnancy_detail_order_check_iv).setSelected(true);
+                    helper.setText(R.id.reserve_type_tv,"检验检查");
+                    helper.getView(R.id.reserve_doctor_layout).setVisibility(View.GONE);
                     break;
                 case 2:
-                    helper.getView(R.id.pregnancy_order_detail_check_projects_root_rl).setVisibility(View.GONE);
-                    helper.getView(R.id.pregnancy_detail_order_diagnose_iv).setSelected(true);
-                    helper.getView(R.id.pregnancy_detail_order_check_iv).setSelected(false);
+                    helper.setText(R.id.reserve_type_tv,"产科门诊");
+                    helper.getView(R.id.reserve_doctor_layout).setVisibility(View.VISIBLE);
                     break;
-                case 12:
-                    helper.getView(R.id.pregnancy_order_detail_check_projects_root_rl).setVisibility(View.VISIBLE);
-                    helper.getView(R.id.pregnancy_detail_order_diagnose_iv).setSelected(true);
-                    helper.getView(R.id.pregnancy_detail_order_check_iv).setSelected(true);
-                    break;
-                default:
-                    helper.getView(R.id.pregnancy_order_detail_check_projects_root_rl).setVisibility(View.VISIBLE);
-                    helper.getView(R.id.pregnancy_detail_order_diagnose_iv).setSelected(false);
-                    helper.getView(R.id.pregnancy_detail_order_check_iv).setSelected(false);
-                    break;
+//                case 12:
+//                    helper.getView(R.id.pregnancy_order_detail_check_projects_root_rl).setVisibility(View.VISIBLE);
+//                    helper.getView(R.id.pregnancy_detail_order_diagnose_iv).setSelected(true);
+//                    helper.getView(R.id.pregnancy_detail_order_check_iv).setSelected(true);
+//                    break;
+//                default:
+//                    helper.getView(R.id.pregnancy_order_detail_check_projects_root_rl).setVisibility(View.VISIBLE);
+//                    helper.getView(R.id.pregnancy_detail_order_diagnose_iv).setSelected(false);
+//                    helper.getView(R.id.pregnancy_detail_order_check_iv).setSelected(false);
+//                    break;
+                default:break;
             }
 
         }

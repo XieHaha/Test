@@ -20,4 +20,6 @@ public interface PregnancyView extends BaseView {
     PregnancyDetailBean getPregnancyDetail();
 
     String getRecordID();
+
+    PregnancyRecordItem getPregnancyRecordItem();
 }

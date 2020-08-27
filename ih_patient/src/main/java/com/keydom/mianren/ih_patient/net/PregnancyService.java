@@ -3,6 +3,7 @@ package com.keydom.mianren.ih_patient.net;
 import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_patient.bean.CheckProjectRootBean;
+import com.keydom.mianren.ih_patient.bean.DoctorScheduling;
 import com.keydom.mianren.ih_patient.bean.PregnancyDetailBean;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderBean;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderTime;
@@ -62,5 +63,10 @@ public interface PregnancyService {
      */
     @GET("medicine/antepartum/detailProductInspection")
     Observable<HttpResult<PregnancyOrderBean>> getDetailProductInspection(@Query("recordId") String recordId);
+    /**
+     * 获取产检详情
+     */
+    @GET("api/antepartumSchedule/list")
+    Observable<HttpResult<List<DoctorScheduling>>> getDoctorScheduling();
 
 }

@@ -12,9 +12,9 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.pregnancy.ChooseInspectItemActivity;
 import com.keydom.mianren.ih_patient.activity.pregnancy.view.PregnancyReserveView;
 import com.keydom.mianren.ih_patient.bean.CheckProjectRootBean;
+import com.keydom.mianren.ih_patient.bean.DoctorScheduling;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderTime;
 import com.keydom.mianren.ih_patient.net.PregnancyService;
 import com.keydom.mianren.ih_patient.utils.DateUtils;
@@ -30,6 +30,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author 顿顿
+ */
 public class PregnancyReserveController extends ControllerImpl<PregnancyReserveView> implements View.OnClickListener {
 
 
@@ -40,8 +43,11 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
                 showDateDialog(getView().getSelectedDate());
                 break;
             case R.id.pregnancy_check_projects_root_rl:
-                ChooseInspectItemActivity.start(getContext(), getView().getCheckProjects(),
-                        getView().getSelectSubBeans());
+                //                ChooseInspectItemActivity.start(getContext(), getView()
+                //                .getCheckProjects(),
+                //                        getView().getSelectSubBeans());
+
+
                 break;
             case R.id.pregnancy_detail_order_tv:
                 if (TextUtils.isEmpty(getView().getRecordID())) {
@@ -105,6 +111,25 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
                 getView().getCheckProjectsFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 获取检查项目
+     */
+    public void getDoctorScheduling() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getDoctorScheduling(), new HttpSubscriber<List<DoctorScheduling>>(getContext(), getDisposable(), true, false) {
+            @Override
+            public void requestComplete(@Nullable List<DoctorScheduling> data) {
+                getView().requestDoctorSchedulingSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                getView().requestDoctorSchedulingFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });

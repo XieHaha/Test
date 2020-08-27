@@ -17,12 +17,16 @@ import com.keydom.mianren.ih_patient.adapter.PregnancyOrderDetailAdapter;
 import com.keydom.mianren.ih_patient.bean.PregnancyDetailBean;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderBean;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderDetailItem;
+import com.keydom.mianren.ih_patient.bean.PregnancyRecordItem;
 import com.keydom.mianren.ih_patient.constant.Const;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
+/**
+ * @author 顿顿
+ */
 public class PregnancyOrderDetailActivity extends BaseControllerActivity<PregnancyOrderDetailController> implements PregnancyOrderDetailView {
 
 
@@ -31,18 +35,22 @@ public class PregnancyOrderDetailActivity extends BaseControllerActivity<Pregnan
     private RecyclerView mRecyclerView;
     private TextView mWeeksTv;
     private TextView mDescTv;
+    private TextView projectNameTv, projectTimeTv;
 
     private PregnancyDetailBean mPregnancyDetailBean;
+
+    private PregnancyRecordItem pregnancyRecordItem;
     private String mRecordId;
 
 
     /**
      * 启动
      */
-    public static void start(Context context, PregnancyDetailBean pregnancyDetailBean, String recordId) {
+    public static void start(Context context, PregnancyDetailBean pregnancyDetailBean,
+                             PregnancyRecordItem item) {
         Intent intent = new Intent(context, PregnancyOrderDetailActivity.class);
         intent.putExtra(Const.PREGNANCY_DETAIL, pregnancyDetailBean);
-        intent.putExtra(Const.RECORD_ID, recordId);
+        intent.putExtra("item", item);
         context.startActivity(intent);
     }
 
@@ -64,21 +72,29 @@ public class PregnancyOrderDetailActivity extends BaseControllerActivity<Pregnan
         getTitleLayout().setBackgroundColor(getResources().getColor(R.color.vip_pregnancy_detail_tool_bar_bg));
         setTitle("产检预约");
 
-        mPregnancyDetailBean = (PregnancyDetailBean) getIntent().getSerializableExtra(Const.PREGNANCY_DETAIL);
-        mRecordId = (String) getIntent().getSerializableExtra(Const.RECORD_ID);
+        mPregnancyDetailBean =
+                (PregnancyDetailBean) getIntent().getSerializableExtra(Const.PREGNANCY_DETAIL);
+        pregnancyRecordItem = (PregnancyRecordItem) getIntent().getSerializableExtra("item");
 
         mWeeksTv = findViewById(R.id.pregnancy_order_detail_weeks_tv);
         mDescTv = findViewById(R.id.pregnancy_order_detail_desc_tv);
         mRecyclerView = findViewById(R.id.pregnancy_order_detail_rv);
+        projectNameTv = findViewById(R.id.project_name_tv);
+        projectTimeTv = findViewById(R.id.project_time_tv);
         mAdapter = new PregnancyOrderDetailAdapter(new ArrayList<>());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setNestedScrollingEnabled(false);
 
-
         if (null != mPregnancyDetailBean) {
             mWeeksTv.setText(mPregnancyDetailBean.getShowDate());
             mDescTv.setText(mPregnancyDetailBean.getContext());
+        }
+
+        if (pregnancyRecordItem != null) {
+            projectNameTv.setText(pregnancyRecordItem.getProjectName());
+            projectTimeTv.setText(pregnancyRecordItem.getPreWeek());
+            mRecordId = pregnancyRecordItem.getRecordId();
         }
 
         pageLoading();
@@ -94,13 +110,13 @@ public class PregnancyOrderDetailActivity extends BaseControllerActivity<Pregnan
             for (int i = 0; i < data.getData().size(); i++) {
                 PregnancyOrderDetailItem item = data.getData().get(i);
 
-                if(!TextUtils.isEmpty(item.getTimeInterval())){
+                if (!TextUtils.isEmpty(item.getTimeInterval())) {
                     mAdapter.addData(item);
                 }
             }
 
             mAdapter.notifyDataSetChanged();
-        }else{
+        } else {
             pageEmpty();
         }
 

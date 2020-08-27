@@ -11,12 +11,14 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.pregnancy.controller.PregnancyReserveController;
 import com.keydom.mianren.ih_patient.activity.pregnancy.view.PregnancyReserveView;
 import com.keydom.mianren.ih_patient.bean.CheckProjectBean;
 import com.keydom.mianren.ih_patient.bean.CheckProjectRootBean;
 import com.keydom.mianren.ih_patient.bean.CheckProjectSubBean;
+import com.keydom.mianren.ih_patient.bean.DoctorScheduling;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderTime;
 import com.keydom.mianren.ih_patient.bean.event.PregnancyOrderSuccess;
 import com.keydom.mianren.ih_patient.constant.Const;
@@ -30,6 +32,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author 顿顿
+ */
 public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyReserveController> implements PregnancyReserveView {
 
     private TextView mDateTv;
@@ -56,6 +61,11 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
      * 时间段
      */
     private ArrayList<String> spinnerTimeData = new ArrayList<>();
+
+    /**
+     * 排班医生
+     */
+    private List<DoctorScheduling> doctorSchedulings = new ArrayList<>();
 
 
     /**
@@ -135,6 +145,8 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
                 mPrenatalProjectId = "1";
                 mCheckProjectsRootRl.setVisibility(View.VISIBLE);
                 layoutReserveDoctor.setVisibility(View.VISIBLE);
+
+                getController().getDoctorScheduling();
                 break;
             default:
                 break;
@@ -167,6 +179,17 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
     @Override
     public int getmPrenancyType() {
         return mPrenancyType + 1;
+    }
+
+
+    @Override
+    public void requestDoctorSchedulingSuccess(List<DoctorScheduling> data) {
+        doctorSchedulings = data;
+    }
+
+    @Override
+    public void requestDoctorSchedulingFailed(String data) {
+        ToastUtil.showMessage(this, data);
     }
 
     @Override

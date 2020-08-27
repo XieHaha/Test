@@ -29,8 +29,6 @@ public class PregnancyRecordItem implements Serializable {
     private String appointDate;
     //门诊时段
     private String appointTimeInterval;
-    //检验检查时段
-    private String listInspectionRecord;
     private int projectId;
     private String isAppoint;//0 没有预约，1已预约
 
@@ -101,14 +99,6 @@ public class PregnancyRecordItem implements Serializable {
 
     public void setIsAppoint(String isAppoint) {
         this.isAppoint = isAppoint;
-    }
-
-    public String getListInspectionRecord() {
-        return listInspectionRecord;
-    }
-
-    public void setListInspectionRecord(String listInspectionRecord) {
-        this.listInspectionRecord = listInspectionRecord;
     }
 
     public String getPrenatalTimeInterval() {

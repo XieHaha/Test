@@ -58,6 +58,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
     String mCardNumber;
 
     private PregnancyDetailBean mPregnancyDetailBean;
+    private PregnancyRecordItem pregnancyRecordItem;
     private String mRecordId;
 
     /**
@@ -157,6 +158,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         for (int i = 0; i < list.size(); i++) {
             PregnancyRecordItem data = list.get(i);
             if (!data.isFinsh()) {
+                pregnancyRecordItem = data;
                 mRecordId = data.getRecordId();
                 orderNext(data);
                 list.remove(i);
@@ -211,17 +213,20 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         return mRecordId;
     }
 
+    @Override
+    public PregnancyRecordItem getPregnancyRecordItem() {
+        return pregnancyRecordItem;
+    }
 
     public void orderNext(PregnancyRecordItem data) {
         if (null != data) {
             mOrderRootLl.setVisibility(View.VISIBLE);
             mLastWeeksTv.setText(data.getPreWeek());
             mOrderCheckProjectsTv.setText(data.getProjectName());
-
             checkDateTv.setText(data.getPrenatalDate());
-            checkTimeTv.setText(data.getListInspectionRecord());
-            pregnancyDateTv.setText(data.getPrenatalDate());
-            pregnancyTimeTv.setText("12:00-12:30");
+            checkTimeTv.setText(data.getPrenatalTimeInterval());
+            pregnancyDateTv.setText(data.getAppointDate());
+            pregnancyTimeTv.setText(data.getAppointTimeInterval());
 
             if (data.isAppointed()) {
                 mOrderRootLl.setOnClickListener(getController());

@@ -34,7 +34,7 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
         switch (v.getId()) {
             case R.id.pregnancy_order_root_Ll:
                 PregnancyOrderDetailActivity.start(getContext(), getView().getPregnancyDetail(),
-                        getView().getRecordID());
+                        getView().getPregnancyRecordItem());
                 break;
             case R.id.layout_outpatient_reserve:
                 PregnancyReverseActivity.start(getContext(), getView().getRecordID(),

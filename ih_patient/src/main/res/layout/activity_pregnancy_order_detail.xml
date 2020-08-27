@@ -73,6 +73,7 @@
 
 
             <TextView
+                android:id="@+id/project_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
@@ -82,12 +83,12 @@
                 android:gravity="center_vertical"
                 android:lineSpacingExtra="10dp"
                 android:paddingLeft="@dimen/dp_30"
-                android:text="血压、体重、宫底高度、腹围、胎心率、B超胎
-儿畸形筛查（18-24）、胎儿心脏彩超"
+                android:text=""
                 android:textSize="14sp" />
 
 
             <TextView
+                android:id="@+id/project_time_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
@@ -98,7 +99,7 @@
                 android:gravity="center_vertical"
                 android:lineSpacingExtra="10dp"
                 android:paddingLeft="@dimen/dp_30"
-                android:text="需花费时间约50分钟"
+                android:text=""
                 android:textSize="14sp" />
 
 
