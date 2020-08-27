@@ -32,6 +32,8 @@ public interface PregnancyReserveView extends BaseView {
     void requestDoctorSchedulingSuccess(List<DoctorScheduling> data);
     void requestDoctorSchedulingFailed(String data);
 
+    void requestDoctorSuccess(String name);
+
     List<CheckProjectSubBean> getCheckProjects();
 
     List<CheckProjectSubBean> getSelectSubBeans();

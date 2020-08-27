@@ -7,10 +7,13 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
+import com.keydom.ih_common.net.factory.NoJsonConverterFactory;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.pregnancy.view.PregnancyReserveView;
 import com.keydom.mianren.ih_patient.bean.CheckProjectRootBean;
@@ -31,6 +34,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 /**
  * @author 顿顿
  */
@@ -47,12 +56,13 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
                 //                ChooseInspectItemActivity.start(getContext(), getView()
                 //                .getCheckProjects(),
                 //                        getView().getSelectSubBeans());
-                DoctorSchedualDialog dialog = new DoctorSchedualDialog(getContext(), new DoctorSchedualDialog.OnSelectListener() {
-                    @Override
-                    public void onSelected(DoctorScheduling bean) {
+                DoctorSchedualDialog dialog = new DoctorSchedualDialog(getContext(),
+                        new DoctorSchedualDialog.OnSelectListener() {
+                            @Override
+                            public void onSelected(DoctorScheduling bean) {
 
-                    }
-                });
+                            }
+                        });
                 dialog.setDataList(getView().getDoctorSchedulings());
                 dialog.show();
                 break;
@@ -124,7 +134,7 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
     }
 
     /**
-     * 获取检查项目
+     * 获取排班医生
      */
     public void getDoctorScheduling() {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getDoctorScheduling(), new HttpSubscriber<List<DoctorScheduling>>(getContext(), getDisposable(), true, false) {
@@ -138,6 +148,29 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
                                         @NotNull String msg) {
                 getView().requestDoctorSchedulingFailed(msg);
                 return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 获取排班医生
+     */
+    public void getAntDoctor(String date, String timeInterval) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Const.RELEASE_HOST)
+                .addConverterFactory(NoJsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        PregnancyService myInterface = retrofit.create(PregnancyService.class);
+        Call<Object> call = myInterface.getAntDoctor(SharePreferenceManager.getToken(),date,timeInterval);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                getView().requestDoctorSuccess((String) response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
             }
         });
     }

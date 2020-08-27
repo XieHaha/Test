@@ -109,6 +109,7 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mCurrentTime = spinnerTimeData.get(position);
+                getController().getAntDoctor(mCurrentDate, mCurrentTime);
             }
 
             @Override
@@ -228,11 +229,18 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
             mCurrentTime = "";
             niceSpinner.setTextInternal("请选择时段");
         }
+
+        getController().getAntDoctor(mCurrentDate, mCurrentTime);
     }
 
     @Override
     public void getCheckProjectsTimesFailed(String msg) {
         ToastUtils.showShort(msg);
+    }
+
+    @Override
+    public void requestDoctorSuccess(String name) {
+        reserveDoctorNameTv.setText(name);
     }
 
     @Override

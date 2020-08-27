@@ -13,8 +13,10 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -27,7 +29,7 @@ public interface PregnancyService {
     @GET("medicine/antepartum/app/listPersonInspectionRecord")
     Observable<HttpResult<PageBean<PregnancyRecordItem>>> listPersonInspectionRecord(@Query(
             "cardNumber") String cardNumber, @Query("currentPage") int currentPage, @Query(
-                    "pageSize") int pageSize);
+            "pageSize") int pageSize);
 
 
     /**
@@ -63,10 +65,19 @@ public interface PregnancyService {
      */
     @GET("medicine/antepartum/detailProductInspection")
     Observable<HttpResult<PregnancyOrderBean>> getDetailProductInspection(@Query("recordId") String recordId);
+
     /**
      * 获取产检详情
      */
     @GET("api/antepartumSchedule/list")
     Observable<HttpResult<List<DoctorScheduling>>> getDoctorScheduling();
+
+    /**
+     * 获取产检详情
+     */
+    @GET("api/antepartumSchedule/getAntDoctor")
+    Call<Object> getAntDoctor(@Header("Authorization") String Authorization,
+                              @Query("date") String date,
+                              @Query("timeInterval") String timeInterval);
 
 }
