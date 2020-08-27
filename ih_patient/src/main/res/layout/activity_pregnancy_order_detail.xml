@@ -6,10 +6,10 @@
 
     <include layout="@layout/common_title_bar" />
 
-    <com.ganxin.library.LoadDataLayout
-        android:id="@+id/loadDataLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--    <com.ganxin.library.LoadDataLayout-->
+    <!--        android:id="@+id/loadDataLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent">-->
 
 
     <android.support.v4.widget.NestedScrollView
@@ -116,7 +116,7 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-    </com.ganxin.library.LoadDataLayout>
+    <!--    </com.ganxin.library.LoadDataLayout>-->
 
 </LinearLayout>
 

@@ -25,9 +25,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author 顿顿
+ */
 public class PregnancyController extends ControllerImpl<PregnancyView> implements View.OnClickListener {
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -35,17 +36,15 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
                 PregnancyOrderDetailActivity.start(getContext(), getView().getPregnancyDetail(),
                         getView().getRecordID());
                 break;
-            case R.id.pregnancy_order_now_tv:
+            case R.id.layout_outpatient_reserve:
                 PregnancyReverseActivity.start(getContext(), getView().getRecordID(),
-                        Const.PREGNANCY_ORDER_TYPE_ALL);
+                        Const.PREGNANCY_ORDER_TYPE_DIAGNOSE);
                 break;
-            case R.id.pregnancy_order_check_tv:
+            case R.id.layout_check_reserve:
                 PregnancyReverseActivity.start(getContext(), getView().getRecordID(),
                         Const.PREGNANCY_ORDER_TYPE_CHECK);
                 break;
-            case R.id.pregnancy_order_doctor_tv:
-                PregnancyReverseActivity.start(getContext(), getView().getRecordID(),
-                        Const.PREGNANCY_ORDER_TYPE_DIAGNOSE);
+            default:
                 break;
         }
     }
@@ -99,7 +98,7 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
-                getView().getPregnancyDetailFailed(code,msg);
+                getView().getPregnancyDetailFailed(code, msg);
                 return super.requestError(exception, code, msg);
             }
         });

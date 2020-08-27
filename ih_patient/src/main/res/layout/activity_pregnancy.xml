@@ -15,135 +15,142 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.ganxin.library.LoadDataLayout
-            android:id="@+id/loadDataLayout"
+        <!--        <com.ganxin.library.LoadDataLayout-->
+        <!--            android:id="@+id/loadDataLayout"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent">-->
+
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v4.widget.NestedScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:orientation="vertical">
+                    android:layout_height="407.5dp"
+                    android:background="@mipmap/pregnancy_main_bg">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="407.5dp"
-                        android:background="@mipmap/pregnancy_main_bg">
+                    <TextView
+                        android:id="@+id/pregnancy_last_days_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="30dp"
+                        android:background="@drawable/white_line_corner_bg"
+                        android:paddingLeft="23dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="23dp"
+                        android:paddingBottom="7dp"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="22.5dp"
+                        android:layout_marginTop="161dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/pregnancy_last_days_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:background="@drawable/white_line_corner_bg"
-                            android:paddingLeft="23dp"
-                            android:paddingTop="7dp"
-                            android:paddingRight="23dp"
-                            android:paddingBottom="7dp"
+                            android:text="胎儿预估身高"
                             android:textColor="@color/white"
                             android:textSize="14sp" />
 
-                        <LinearLayout
+                        <TextView
+                            android:id="@+id/pregnancy_baby_height_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="22.5dp"
-                            android:layout_marginTop="161dp"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="胎儿身高"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:id="@+id/pregnancy_baby_height_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-                        </LinearLayout>
+                    </LinearLayout>
 
 
-                        <LinearLayout
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="161dp"
+                        android:layout_marginEnd="22.5dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginTop="161dp"
-                            android:layout_marginEnd="22.5dp"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            android:text="胎儿预估体重"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="胎儿体重"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:id="@+id/pregnancy_baby_weight_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-                        </LinearLayout>
-
-
-                        <LinearLayout
+                        <TextView
+                            android:id="@+id/pregnancy_baby_weight_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="279dp"
-                            android:background="@mipmap/baby_coming_out_bg"
-                            android:orientation="horizontal">
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
 
-                            <TextView
-                                android:id="@+id/pregnancy_baby_meetting_days_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="60.5dp"
-                                android:layout_marginTop="12dp"
-                                android:textColor="@color/white"
-                                android:textSize="18sp" />
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="11dp"
-                                android:layout_marginTop="16.5dp"
-                                android:src="@mipmap/baby_coming_out_day_icon" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="10dp"
-                                android:text="与宝宝见面"
-                                android:textColor="@color/white"
-                                android:textSize="12sp" />
+                    </LinearLayout>
 
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="31dp"
-                                android:layout_marginTop="16.5dp"
-                                android:src="@mipmap/white_right_arrow_icon" />
-                        </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="279dp"
+                        android:background="@mipmap/baby_coming_out_bg"
+                        android:orientation="horizontal">
 
-                    </RelativeLayout>
+                        <TextView
+                            android:id="@+id/pregnancy_baby_meetting_days_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="60.5dp"
+                            android:layout_marginTop="12dp"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
 
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="11dp"
+                            android:layout_marginTop="16.5dp"
+                            android:src="@mipmap/baby_coming_out_day_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="10dp"
+                            android:text="与宝宝见面"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="31dp"
+                            android:layout_marginTop="16.5dp"
+                            android:src="@mipmap/white_right_arrow_icon"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/pregnancy_order_root_Ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="23dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -163,208 +170,231 @@
                         android:layout_height="1dp"
                         android:background="@color/color_f9f9f9" />
 
+
                     <LinearLayout
-                        android:id="@+id/pregnancy_order_root_Ll"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="21dp"
-                        android:layout_marginBottom="23dp"
-                        android:orientation="vertical">
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="@dimen/dp_21"
+                        android:layout_marginEnd="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                        <LinearLayout
+                        <ImageView
+                            android:id="@+id/pregnancy_is_order_iv"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/pay_selector" />
+
+                        <TextView
+                            android:id="@+id/pregnancy_last_weeks_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25.5dp"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="|"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/pregnancy_order_check_projects_tv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="20dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:id="@+id/pregnancy_is_order_iv"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_centerVertical="true"
-                                android:src="@drawable/pay_selector" />
-
-                            <TextView
-                                android:id="@+id/pregnancy_last_weeks_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="25.5dp"
-                                android:textColor="@color/black"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginEnd="8dp"
-                                android:text="|"
-                                android:textColor="@color/black"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:id="@+id/pregnancy_order_check_projects_tv"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:textColor="@color/black"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="13.5dp"
-                            android:layout_marginEnd="20dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-
-                            <TextView
-                                android:id="@+id/pregnancy_order_counts_times_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="50.5dp"
-                                android:textColor="@color/vip_pregnancy_week_text"
-                                android:textSize="12sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginEnd="8dp"
-                                android:text="|"
-                                android:textColor="@color/vip_pregnancy_week_text"
-                                android:textSize="12sp" />
-
-                            <TextView
-                                android:id="@+id/pregnancy_order_dates_tv"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:textColor="@color/vip_pregnancy_week_text"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="13.5dp"
-                            android:layout_marginEnd="20dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-
-                            <TextView
-                                android:id="@+id/pregnancy_order_now_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="50.5dp"
-                                android:background="@drawable/red_corner_bg"
-                                android:paddingLeft="13dp"
-                                android:paddingTop="7dp"
-                                android:paddingRight="13dp"
-                                android:paddingBottom="7dp"
-                                android:text="立即预约"
-                                android:textColor="@color/white"
-                                android:textSize="12sp"
-                                android:visibility="gone" />
-
-                            <TextView
-                                android:id="@+id/pregnancy_order_check_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="50.5dp"
-                                android:background="@drawable/gray_line_corner_bg"
-                                android:paddingLeft="13dp"
-                                android:paddingTop="7dp"
-                                android:paddingRight="13dp"
-                                android:paddingBottom="7dp"
-                                android:text="产检预约"
-                                android:textColor="@color/black"
-                                android:textSize="12sp"
-                                android:visibility="gone" />
-
-
-                            <TextView
-                                android:id="@+id/pregnancy_order_doctor_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:background="@drawable/red_corner_bg"
-                                android:paddingLeft="13dp"
-                                android:paddingTop="7dp"
-                                android:paddingRight="13dp"
-                                android:paddingBottom="7dp"
-                                android:text="门诊预约"
-                                android:textColor="@color/white"
-                                android:textSize="12sp"
-                                android:visibility="gone" />
-                        </LinearLayout>
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_10"
-                        android:background="@color/color_f9f9f9" />
-
-
                     <LinearLayout
+                        android:id="@+id/layout_outpatient_reserve"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginBottom="16.5dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="13.5dp"
+                        android:layout_marginEnd="20dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:background="@drawable/gray_corner_bg"
-                            android:paddingLeft="24dp"
-                            android:paddingTop="7dp"
-                            android:paddingRight="24dp"
-                            android:paddingBottom="7dp"
-                            android:text="全部"
-                            android:textColor="@color/vip_pregnancy_counts_text"
-                            android:textSize="14sp" />
+                            android:layout_marginStart="50.5dp"
+                            android:background="@drawable/corner2_fff4f4_bg"
+                            android:gravity="center"
+                            android:paddingStart="@dimen/dp_7"
+                            android:paddingTop="@dimen/dp_5"
+                            android:paddingEnd="@dimen/dp_7"
+                            android:paddingBottom="@dimen/dp_5"
+                            android:text="门诊预约"
+                            android:textColor="@color/vip_pregnancy_tool_bar_bg"
+                            android:textSize="12sp" />
 
                         <TextView
-                            android:id="@+id/pregnancy_finish_order_counts_tv"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="17.5dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="|"
+                            android:textColor="@color/vip_pregnancy_week_text"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/item_pregnancy_record_date_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:textColor="@color/vip_pregnancy_counts_text"
-                            android:textSize="14sp" />
+                            android:text=""
+                            android:textColor="@color/vip_pregnancy_week_text"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/item_pregnancy_record_time_tv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_10"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="@color/vip_pregnancy_week_text"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dp_15"
+                            android:src="@mipmap/exa_report_right" />
                     </LinearLayout>
 
-
-                    <View
+                    <LinearLayout
+                        android:id="@+id/layout_check_reserve"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/color_f9f9f9" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="13.5dp"
+                        android:layout_marginEnd="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="50.5dp"
+                            android:background="@drawable/corner2_e9fff4_bg"
+                            android:gravity="center"
+                            android:paddingStart="@dimen/dp_7"
+                            android:paddingTop="@dimen/dp_5"
+                            android:paddingEnd="@dimen/dp_7"
+                            android:paddingBottom="@dimen/dp_5"
+                            android:text="检查预约"
+                            android:textColor="@color/register_success_color"
+                            android:textSize="12sp" />
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/pregnancy_records_rv"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@color/white" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="|"
+                            android:textColor="@color/vip_pregnancy_week_text"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/item_check_date_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="@color/vip_pregnancy_week_text"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/item_check_time_tv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_10"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="@color/vip_pregnancy_week_text"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dp_15"
+                            android:src="@mipmap/exa_report_right" />
+                    </LinearLayout>
 
                 </LinearLayout>
-            </android.support.v4.widget.NestedScrollView>
 
-        </com.ganxin.library.LoadDataLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_10"
+                    android:background="@color/color_f9f9f9" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="16.5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:background="@drawable/gray_corner_bg"
+                        android:paddingLeft="24dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="24dp"
+                        android:paddingBottom="7dp"
+                        android:text="全部"
+                        android:textColor="@color/vip_pregnancy_counts_text"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/pregnancy_finish_order_counts_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="17.5dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/vip_pregnancy_counts_text"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/color_f9f9f9" />
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/pregnancy_records_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/white" />
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <!--        </com.ganxin.library.LoadDataLayout>-->
 
 
         <com.scwang.smartrefresh.layout.footer.ClassicsFooter

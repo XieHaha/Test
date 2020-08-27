@@ -130,8 +130,8 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
     /**
      * 获取检查时间
      */
-    public void getCheckProjectsTimes(String projectId) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getCheckProjectsTimes(), new HttpSubscriber<List<PregnancyOrderTime>>(getContext(), getDisposable(), true, false) {
+    public void getCheckProjectsTimes(String date,String state) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getCheckProjectsTimes(date,state), new HttpSubscriber<List<PregnancyOrderTime>>(getContext(), getDisposable(), true, false) {
             @Override
             public void requestComplete(@Nullable List<PregnancyOrderTime> data) {
                 if (data != null) {

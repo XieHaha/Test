@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.pregnancy.controller.PregnancyController;
 import com.keydom.mianren.ih_patient.activity.pregnancy.view.PregnancyView;
@@ -42,14 +43,11 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
     private TextView mBabyMeettingDaysTv;
     private TextView mLastWeeksTv;
     private TextView mOrderCheckProjectsTv;
-    private TextView mOrderCountsTimesTv;
-    private TextView mOrderDatesTv;
-    private TextView mOrderNowTv;
-    private TextView mOrderCheckTv;
-    private TextView mOrderDoctorTv;
     private TextView mFinishOrderCountsTv;
     private ImageView mIsOrderIv;
-    private LinearLayout mOrderRootLl;
+    private LinearLayout mOrderRootLl, layoutOutpatientReserve, layoutCheckReserve;
+
+    private TextView checkDateTv, checkTimeTv, pregnancyDateTv, pregnancyTimeTv;
 
 
     private PregnancyRecordAdapter mAdapter;
@@ -98,14 +96,19 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         mBabyMeettingDaysTv = findViewById(R.id.pregnancy_baby_meetting_days_tv);
         mLastWeeksTv = findViewById(R.id.pregnancy_last_weeks_tv);
         mOrderCheckProjectsTv = findViewById(R.id.pregnancy_order_check_projects_tv);
-        mOrderCountsTimesTv = findViewById(R.id.pregnancy_order_counts_times_tv);
-        mOrderDatesTv = findViewById(R.id.pregnancy_order_dates_tv);
-        mOrderNowTv = findViewById(R.id.pregnancy_order_now_tv);
-        mOrderCheckTv = findViewById(R.id.pregnancy_order_check_tv);
-        mOrderDoctorTv = findViewById(R.id.pregnancy_order_doctor_tv);
         mIsOrderIv = findViewById(R.id.pregnancy_is_order_iv);
         mFinishOrderCountsTv = findViewById(R.id.pregnancy_finish_order_counts_tv);
         mOrderRootLl = findViewById(R.id.pregnancy_order_root_Ll);
+
+        checkDateTv = findViewById(R.id.item_check_date_tv);
+        checkTimeTv = findViewById(R.id.item_check_time_tv);
+        pregnancyDateTv = findViewById(R.id.item_pregnancy_record_date_tv);
+        pregnancyTimeTv = findViewById(R.id.item_pregnancy_record_time_tv);
+        layoutOutpatientReserve = findViewById(R.id.layout_outpatient_reserve);
+        layoutCheckReserve = findViewById(R.id.layout_check_reserve);
+
+        layoutOutpatientReserve.setOnClickListener(getController());
+        layoutCheckReserve.setOnClickListener(getController());
 
         mAdapter = new PregnancyRecordAdapter(new ArrayList<>());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -114,11 +117,6 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
 
         mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().listPersonInspectionRecord(mRefreshLayout, mCardNumber, TypeEnum.REFRESH));
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().listPersonInspectionRecord(mRefreshLayout, mCardNumber, TypeEnum.LOAD_MORE));
-
-
-        mOrderNowTv.setOnClickListener(getController());
-        mOrderCheckTv.setOnClickListener(getController());
-        mOrderDoctorTv.setOnClickListener(getController());
 
         pageLoading();
         getController().listPersonInspectionRecord(mRefreshLayout, mCardNumber, TypeEnum.REFRESH);
@@ -145,6 +143,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
     @Override
     public void listPersonInspectionRecordSuccess(List<PregnancyRecordItem> list,
                                                   TypeEnum typeEnum) {
+        mOrderRootLl.setVisibility(View.GONE);
         mRefreshLayout.finishRefresh();
         pageLoadingSuccess();
         if (list.size() >= Const.PAGE_SIZE) {
@@ -194,7 +193,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
     @Override
     public void getPregnancyDetailFailed(int code, String msg) {
         if (code == 300) {
-            ToastUtils.showShort(msg);
+            ToastUtil.showMessage(this, msg);
             finish();
         }
         pageLoadingFail();
@@ -213,24 +212,21 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
 
     public void orderNext(PregnancyRecordItem data) {
         if (null != data) {
+            mOrderRootLl.setVisibility(View.VISIBLE);
             mLastWeeksTv.setText(data.getPreWeek());
             mOrderCheckProjectsTv.setText(data.getProjectName());
-            mOrderCountsTimesTv.setText(data.getTimes());
-            mOrderDatesTv.setText(data.getPrenatalDate());
+
+            checkDateTv.setText(data.getPrenatalDate());
+            checkTimeTv.setText("12:00-12:30");
+            pregnancyDateTv.setText(data.getPrenatalDate());
+            pregnancyTimeTv.setText("12:00-12:30");
 
             if (data.isAppointed()) {
                 mOrderRootLl.setOnClickListener(getController());
-                mOrderNowTv.setVisibility(View.GONE);
-                mOrderCheckTv.setVisibility(View.VISIBLE);
-                mOrderDoctorTv.setVisibility(View.VISIBLE);
                 mIsOrderIv.setSelected(true);
             } else {
-                mOrderNowTv.setVisibility(View.VISIBLE);
-                mOrderCheckTv.setVisibility(View.GONE);
-                mOrderDoctorTv.setVisibility(View.GONE);
                 mIsOrderIv.setSelected(false);
             }
-
         }
     }
 }

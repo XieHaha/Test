@@ -54,7 +54,13 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
     private List<CheckProjectSubBean> subBeans;
     private List<CheckProjectSubBean> selectSubBeans;
 
+    /**
+     * 检验检查
+     */
     private boolean isOrderCheck = false;
+    /**
+     * 产科门诊
+     */
     private boolean isOrderDiagnose = false;
 
 
@@ -124,14 +130,14 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
                 mOrderCheckRootLl.setVisibility(View.VISIBLE);
                 mOrderDiagnoseRootLl.setVisibility(View.VISIBLE);
                 //                mCheckProjectsRootRl.setVisibility(View.VISIBLE);
-                getController().getCheckProjects();
+                //                getController().getCheckProjects();
                 break;
             case Const.PREGNANCY_ORDER_TYPE_CHECK:
                 setChecks(true);
                 mOrderCheckRootLl.setVisibility(View.VISIBLE);
                 mOrderDiagnoseRootLl.setVisibility(View.GONE);
                 //                mCheckProjectsRootRl.setVisibility(View.VISIBLE);
-                getController().getCheckProjects();
+                //                getController().getCheckProjects();
                 break;
             case Const.PREGNANCY_ORDER_TYPE_DIAGNOSE:
                 //默认全部
@@ -140,7 +146,7 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
                 mOrderCheckRootLl.setVisibility(View.GONE);
                 mOrderDiagnoseRootLl.setVisibility(View.VISIBLE);
                 mCheckProjectsRootRl.setVisibility(View.GONE);
-                getController().getCheckProjectsTimes(mPrenatalProjectId);
+                getController().getCheckProjectsTimes("", "");
                 break;
             default:
                 break;
@@ -156,7 +162,8 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
             mDateTv.setTextColor(getResources().getColor(R.color.black));
             mCurrentDate = dateStr;
         }
-        getController().getCheckProjectsTimes("");
+
+        getController().getCheckProjectsTimes(dateStr, "");
     }
 
     @Override
@@ -311,7 +318,7 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
                     prenatalProjectName = builderName.toString();
                     mCheckProjectsTv.setText(prenatalProjectName);
                     mCheckProjectsTv.setTextColor(getResources().getColor(R.color.black));
-                    getController().getCheckProjectsTimes(mPrenatalProjectId);
+                    getController().getCheckProjectsTimes("", "");
                 } else {
                     mCheckProjectsTv.setText("请选择检验检查项目");
                     mCheckProjectsTv.setTextColor(getResources().getColor(R.color.tab_nol_color));
