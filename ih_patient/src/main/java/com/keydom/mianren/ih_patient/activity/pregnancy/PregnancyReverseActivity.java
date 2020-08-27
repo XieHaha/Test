@@ -181,6 +181,10 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
         return mPrenancyType + 1;
     }
 
+    @Override
+    public List<DoctorScheduling> getDoctorSchedulings() {
+        return doctorSchedulings;
+    }
 
     @Override
     public void requestDoctorSchedulingSuccess(List<DoctorScheduling> data) {

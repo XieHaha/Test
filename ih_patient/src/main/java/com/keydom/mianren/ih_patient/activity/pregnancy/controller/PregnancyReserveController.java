@@ -18,6 +18,7 @@ import com.keydom.mianren.ih_patient.bean.DoctorScheduling;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderTime;
 import com.keydom.mianren.ih_patient.net.PregnancyService;
 import com.keydom.mianren.ih_patient.utils.DateUtils;
+import com.keydom.mianren.ih_patient.view.DoctorSchedualDialog;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -46,8 +47,14 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
                 //                ChooseInspectItemActivity.start(getContext(), getView()
                 //                .getCheckProjects(),
                 //                        getView().getSelectSubBeans());
+                DoctorSchedualDialog dialog = new DoctorSchedualDialog(getContext(), new DoctorSchedualDialog.OnSelectListener() {
+                    @Override
+                    public void onSelected(DoctorScheduling bean) {
 
-
+                    }
+                });
+                dialog.setDataList(getView().getDoctorSchedulings());
+                dialog.show();
                 break;
             case R.id.pregnancy_detail_order_tv:
                 if (TextUtils.isEmpty(getView().getRecordID())) {
