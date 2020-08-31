@@ -38,4 +38,10 @@ public interface FunctionIndex {
      int UserManager = 37;
     //地址管理
      int AddressManager = 38;
+    //孕妇学校
+     int PregnantWoman = 40;
+    //无痛分娩预约
+     int PainlessDelivery = 41;
+    //门诊病历
+     int ObstetricMedical = 42;
 }

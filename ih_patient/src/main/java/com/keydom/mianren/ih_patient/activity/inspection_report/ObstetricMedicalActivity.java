@@ -22,6 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
+ * @author 顿顿
  * @date 20/3/7 11:05
  * @des 产科病历首页
  */
@@ -92,7 +93,7 @@ public class ObstetricMedicalActivity extends BaseControllerActivity<ObstetricMe
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        setTitle(getString(R.string.txt_medical_records));
+        setTitle(getString(R.string.txt_patient_medical_records));
 
         outpatientNumbers.add("第一次");
         outpatientNumbers.add("第二次");

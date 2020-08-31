@@ -335,7 +335,6 @@
     <string name="txt_night">晚上</string>
 
     <!--产科病历-->
-    <string name="txt_medical_records">产科门诊病历</string>
     <string name="txt_patient_medical_records">门诊病历</string>
     <string name="txt_inspection_report">检验报告</string>
     <string name="txt_check_report">检查报告</string>

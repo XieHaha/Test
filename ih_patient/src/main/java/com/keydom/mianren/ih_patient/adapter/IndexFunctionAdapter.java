@@ -19,6 +19,7 @@ import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.ManageUserAc
 import com.keydom.mianren.ih_patient.activity.get_drug.GetDrugActivity;
 import com.keydom.mianren.ih_patient.activity.hospital_payment.HospitalPaymentActivity;
 import com.keydom.mianren.ih_patient.activity.inspection_report.InspectionReportActivity;
+import com.keydom.mianren.ih_patient.activity.inspection_report.ObstetricMedicalActivity;
 import com.keydom.mianren.ih_patient.activity.location_manage.LocationManageActivity;
 import com.keydom.mianren.ih_patient.activity.logistic.QueryLogisticActivity;
 import com.keydom.mianren.ih_patient.activity.nurse_main.NurseMainActivity;
@@ -28,7 +29,9 @@ import com.keydom.mianren.ih_patient.activity.order_examination.OrderExamination
 import com.keydom.mianren.ih_patient.activity.order_hospital_cure.OrderHospitalCureListActivity;
 import com.keydom.mianren.ih_patient.activity.order_physical_examination.OrderPhysicalExaminationActivity;
 import com.keydom.mianren.ih_patient.activity.payment_records.PaymentRecordActivity;
+import com.keydom.mianren.ih_patient.activity.pregnant_woman.PregnantWomanActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.AmniocentesisReserveActivity;
+import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.ReservePainlessDeliveryActivity;
 import com.keydom.mianren.ih_patient.bean.IndexFunction;
 import com.keydom.mianren.ih_patient.constant.AmniocentesisProtocol;
 import com.keydom.mianren.ih_patient.constant.FunctionIndex;
@@ -188,22 +191,21 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                                         Type.STARTLOCATIONWITHOUTRESULT);
                             }
                             break;
+                        case PregnantWoman:
+                            PregnantWomanActivity.start(context);
+                            break;
+                        case PainlessDelivery:
+                            ReservePainlessDeliveryActivity.start(context);
+                            break;
+                        case ObstetricMedical:
+                            ObstetricMedicalActivity.start(context);
+                            break;
                      /*   case Setting:
                             context.startActivity(new Intent(context,
                                     FunctionConfigActivity.class));
                             break;
                         case Rehabilitation:
                             RehabilitationRecordActivity.start(context);
-                            break;
-                        case PregnantWoman:
-                            PregnantWomanActivity.start(context);
-                            break;
-                        case ObstetricMedical:
-                            ObstetricMedicalActivity.start(context);
-                            break;
-                        case PainlessDelivery:
-                            ReservePainlessDeliveryActivity.start
-                                    (context);
                             break;
                         case ObstetricHospital:
                             ReserveObstetricHospitalActivity.start
