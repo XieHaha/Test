@@ -104,22 +104,26 @@ public class PregnancyOrderDetailActivity extends BaseControllerActivity<Pregnan
 
     @Override
     public void getDetailProductInspectionSuccess(PregnancyOrderBean data) {
-
         if (null != data && null != data.getData()) {
             pageLoadingSuccess();
             for (int i = 0; i < data.getData().size(); i++) {
                 PregnancyOrderDetailItem item = data.getData().get(i);
-
                 if (!TextUtils.isEmpty(item.getTimeInterval())) {
                     mAdapter.addData(item);
+                    if (item.getAppointType() == 2) {
+                        getController().getAntDoctor(item.getPrenatalDate(), item.getTimeInterval());
+                    }
                 }
             }
-
             mAdapter.notifyDataSetChanged();
         } else {
             pageEmpty();
         }
+    }
 
+    @Override
+    public void requestDoctorSuccess(String name) {
+        mAdapter.setDoctorName(name);
     }
 
     @Override
@@ -127,6 +131,4 @@ public class PregnancyOrderDetailActivity extends BaseControllerActivity<Pregnan
         ToastUtils.showShort(msg);
         pageLoadingFail();
     }
-
-
 }

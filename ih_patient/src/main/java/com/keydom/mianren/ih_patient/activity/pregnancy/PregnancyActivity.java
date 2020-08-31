@@ -117,6 +117,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setNestedScrollingEnabled(false);
+        mAdapter.setOnItemClickListener(getController());
 
         mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().listPersonInspectionRecord(mRefreshLayout, mCardNumber, TypeEnum.REFRESH));
         mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().listPersonInspectionRecord(mRefreshLayout, mCardNumber, TypeEnum.LOAD_MORE));

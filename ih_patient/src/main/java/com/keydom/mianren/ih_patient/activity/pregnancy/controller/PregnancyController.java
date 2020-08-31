@@ -2,6 +2,7 @@ package com.keydom.mianren.ih_patient.activity.pregnancy.controller;
 
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
@@ -28,7 +29,7 @@ import java.util.List;
 /**
  * @author 顿顿
  */
-public class PregnancyController extends ControllerImpl<PregnancyView> implements View.OnClickListener {
+public class PregnancyController extends ControllerImpl<PregnancyView> implements View.OnClickListener, BaseQuickAdapter.OnItemClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -102,6 +103,11 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
                 return super.requestError(exception, code, msg);
             }
         });
+    }
 
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        PregnancyOrderDetailActivity.start(getContext(), getView().getPregnancyDetail(),
+                (PregnancyRecordItem) adapter.getItem(position));
     }
 }

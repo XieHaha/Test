@@ -9,4 +9,6 @@ public interface PregnancyOrderDetailView extends BaseView {
 
     void getDetailProductInspectionFailed(String msg);
 
+    void requestDoctorSuccess(String name);
+
 }
