@@ -72,6 +72,8 @@ public class DoctorOrNurseDetailActivity extends BaseControllerActivity<DoctorOr
     private SmartRefreshLayout mRefreshLayout;
     private DoctorOrNurseDetailAdapter mAdapter;
 
+    private LinearLayout layoutInquiry;
+
     private CircleImageView mHeadImg;
     private TextView mName;
     private ImageView mQrCode;
@@ -125,17 +127,18 @@ public class DoctorOrNurseDetailActivity extends BaseControllerActivity<DoctorOr
     public void initData(@Nullable Bundle savedInstanceState) {
         getView();
         StatusBarUtils.setWindowStatusBarColor(this, R.color.color_399cf9);
-//        mType = getIntent().getIntExtra(TYPE, 0);
+        //        mType = getIntent().getIntExtra(TYPE, 0);
         mCode = getIntent().getStringExtra(CODE);
 
-        mAdapter = new DoctorOrNurseDetailAdapter(new ArrayList<>(),null);
-//        final GridLayoutManager manager = new GridLayoutManager(this, 3);
-//        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//            @Override
-//            public int getSpanSize(int position) {
-//                return mAdapter.getItemViewType(position) == DoctorOrNurseDetailAdapter.TYPE_TEAM ? 1 : manager.getSpanCount();
-//            }
-//        });
+        mAdapter = new DoctorOrNurseDetailAdapter(new ArrayList<>(), null);
+        //        final GridLayoutManager manager = new GridLayoutManager(this, 3);
+        //        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+        //            @Override
+        //            public int getSpanSize(int position) {
+        //                return mAdapter.getItemViewType(position) == DoctorOrNurseDetailAdapter
+        //                .TYPE_TEAM ? 1 : manager.getSpanCount();
+        //            }
+        //        });
         mRefreshLayout.setEnableRefresh(false);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -170,6 +173,12 @@ public class DoctorOrNurseDetailActivity extends BaseControllerActivity<DoctorOr
         mJobTitle = mHead.findViewById(R.id.job_title);
         mDepartName = mHead.findViewById(R.id.depart_name);
         mJobTime = mHead.findViewById(R.id.time);
+        layoutInquiry = mHead.findViewById(R.id.layout_inquiry);
+        if (Global.isMember()) {
+            layoutInquiry.setVisibility(View.GONE);
+        } else {
+            layoutInquiry.setVisibility(View.VISIBLE);
+        }
         mHead.findViewById(R.id.follow_group).setOnClickListener(getController());
         mHead.findViewById(R.id.video_inquiry_group).setOnClickListener(getController());
         mHead.findViewById(R.id.pic_inquiry_group).setOnClickListener(getController());
@@ -183,8 +192,10 @@ public class DoctorOrNurseDetailActivity extends BaseControllerActivity<DoctorOr
     /**
      * 处理不同颜色大小文字，返回string
      */
-    private SpannableStringBuilder transFormString(int color1, String str1, int color2, String str2) {
-        SpannableStringBuilder spannableStringBuilder = new SpanUtils().append(str1).setForegroundColor(color1).setFontSize(13, true).append(str2).setForegroundColor(color2).setFontSize(13, true).create();
+    private SpannableStringBuilder transFormString(int color1, String str1, int color2,
+                                                   String str2) {
+        SpannableStringBuilder spannableStringBuilder =
+                new SpanUtils().append(str1).setForegroundColor(color1).setFontSize(13, true).append(str2).setForegroundColor(color2).setFontSize(13, true).create();
         return spannableStringBuilder;
     }
 
@@ -206,49 +217,67 @@ public class DoctorOrNurseDetailActivity extends BaseControllerActivity<DoctorOr
             SpannableStringBuilder imgInquiry = null;
             SpannableStringBuilder videoInquiry = null;
             if (mType == DOCTOR) {
-                imgInquiry = transFormString(getTextColor(R.color.color_333333), "图文问诊", getTextColor(R.color.nursing_status_red), "(" + doctorMainBean.getImageFee() + "元/次）");
-                videoInquiry = transFormString(getTextColor(R.color.color_333333), "视频问诊", getTextColor(R.color.nursing_status_red), "(" + doctorMainBean.getVideoFee() + "元/次）");
+                imgInquiry = transFormString(getTextColor(R.color.color_333333), "图文问诊",
+                        getTextColor(R.color.nursing_status_red),
+                        "(" + doctorMainBean.getImageFee() + "元/次）");
+                videoInquiry = transFormString(getTextColor(R.color.color_333333), "视频问诊",
+                        getTextColor(R.color.nursing_status_red),
+                        "(" + doctorMainBean.getVideoFee() + "元/次）");
             } else if (mType == NURSE) {
-                imgInquiry = transFormString(getTextColor(R.color.color_333333), "图文咨询", getTextColor(R.color.nursing_status_red), "(" + doctorMainBean.getImageFee() + "元/次）");
-                videoInquiry = transFormString(getTextColor(R.color.color_333333), "视频咨询", getTextColor(R.color.nursing_status_red), "(" + doctorMainBean.getVideoFee() + "元/次）");
+                imgInquiry = transFormString(getTextColor(R.color.color_333333), "图文咨询",
+                        getTextColor(R.color.nursing_status_red),
+                        "(" + doctorMainBean.getImageFee() + "元/次）");
+                videoInquiry = transFormString(getTextColor(R.color.color_333333), "视频咨询",
+                        getTextColor(R.color.nursing_status_red),
+                        "(" + doctorMainBean.getVideoFee() + "元/次）");
             }
             if (mType == DOCTOR) {
                 mTitle.setText("医生主页");
             } else if (mType == NURSE) {
                 mTitle.setText("护士主页");
             }
-            getController().getDoctorEvaluates(mCode, 1,mType == DoctorOrNurseDetailActivity.DOCTOR);
+            getController().getDoctorEvaluates(mCode, 1,
+                    mType == DoctorOrNurseDetailActivity.DOCTOR);
             mRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getDoctorEvaluates(getCode(), mCurrPage, mType == DOCTOR));
             mPicInquiry.setText(imgInquiry);
             mVideoInquiry.setText(videoInquiry);
             mName.setText(info.getName());
-            mInquiryNum.setText(transFormString(getTextColor(R.color.title_bar_text_color), "问诊量：", getTextColor(R.color.other_login_color), String.valueOf(info.getInquisitionAmount())));
-            mGoodsNum.setText(transFormString(getTextColor(R.color.title_bar_text_color), "好评率：", getTextColor(R.color.goods_num_color), String.valueOf(info.getFeedbackRate())));
-            mFollow.setText(transFormString(getTextColor(R.color.title_bar_text_color), "关注数：", getTextColor(R.color.attention_num_color), String.valueOf(info.getAttentionAmount())));
-//            RequestOptions requestOptions = new RequestOptions()
-//                    .error(R.mipmap.im_default_head_image) //加载失败图片
-//                    .fallback(R.mipmap.im_default_head_image) //url为空图片
-//                    .signature(new ObjectKey(String.valueOf(System.currentTimeMillis())))
-//                    .transform(new CircleCrop());
+            mInquiryNum.setText(transFormString(getTextColor(R.color.title_bar_text_color),
+                    "问诊量：", getTextColor(R.color.other_login_color),
+                    String.valueOf(info.getInquisitionAmount())));
+            mGoodsNum.setText(transFormString(getTextColor(R.color.title_bar_text_color), "好评率：",
+                    getTextColor(R.color.goods_num_color), String.valueOf(info.getFeedbackRate())));
+            mFollow.setText(transFormString(getTextColor(R.color.title_bar_text_color), "关注数：",
+                    getTextColor(R.color.attention_num_color),
+                    String.valueOf(info.getAttentionAmount())));
+            //            RequestOptions requestOptions = new RequestOptions()
+            //                    .error(R.mipmap.im_default_head_image) //加载失败图片
+            //                    .fallback(R.mipmap.im_default_head_image) //url为空图片
+            //                    .signature(new ObjectKey(String.valueOf(System
+            //                    .currentTimeMillis())))
+            //                    .transform(new CircleCrop());
             String head = Const.IMAGE_HOST + info.getAvatar();
-//            Glide.with(this)
-//                    .load(head)
-//                    .apply(requestOptions)
-//                    .apply(bitmapTransform(new CropCircleTransformation()))
-//                    .into(mHeadImg);
+            //            Glide.with(this)
+            //                    .load(head)
+            //                    .apply(requestOptions)
+            //                    .apply(bitmapTransform(new CropCircleTransformation()))
+            //                    .into(mHeadImg);
             GlideUtils.load(mHeadImg, head, 0, 0, false, null);
-            if (info.getJobTitle() != null && !"".equals(info.getJobTitle()))
+            if (info.getJobTitle() != null && !"".equals(info.getJobTitle())) {
                 mJobTitle.setText(info.getJobTitle());
-            else
+            } else {
                 mJobTitle.setVisibility(View.GONE);
+            }
             mDepartName.setText(info.getDeptName());
-            mJobTime.setText(info.getSchedu() == null || "".equals(info.getSchedu()) ? "暂无排班信息" : "今日" + info.getSchedu());
+            mJobTime.setText(info.getSchedu() == null || "".equals(info.getSchedu()) ? "暂无排班信息" :
+                    "今日" + info.getSchedu());
             Bitmap image = CodeUtils.createImage(info.getQrcode(), 400, 400, null);
             mQrCode.setImageBitmap(image);
             mQrCode.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    GotoActivityUtil.gotoZxingActivity(DoctorOrNurseDetailActivity.this, info.getQrcode());
+                    GotoActivityUtil.gotoZxingActivity(DoctorOrNurseDetailActivity.this,
+                            info.getQrcode());
                 }
             });
 
@@ -269,16 +298,19 @@ public class DoctorOrNurseDetailActivity extends BaseControllerActivity<DoctorOr
                     ActivityUtils.startActivity(i);
                     break;
                 case R.id.isLike:
-                    if(Global.getUserId()!=-1){
-                        DoctorEvaluateItem evaluateItem = (DoctorEvaluateItem) adapter.getData().get(position);
-                        getController().doCommentLike(position, evaluateItem.getId(), evaluateItem.getIsLike() == 0 ? 1 : 0);
-                    }else {
-                        new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？", new GeneralDialog.OnCloseListener() {
-                            @Override
-                            public void onCommit() {
-                                LoginActivity.start(getContext());
-                            }
-                        }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
+                    if (Global.getUserId() != -1) {
+                        DoctorEvaluateItem evaluateItem =
+                                (DoctorEvaluateItem) adapter.getData().get(position);
+                        getController().doCommentLike(position, evaluateItem.getId(),
+                                evaluateItem.getIsLike() == 0 ? 1 : 0);
+                    } else {
+                        new GeneralDialog(getContext(), "该功能需要登录才能使用，是否立即登录？",
+                                new GeneralDialog.OnCloseListener() {
+                                    @Override
+                                    public void onCommit() {
+                                        LoginActivity.start(getContext());
+                                    }
+                                }).setTitle("提示").setCancel(false).setPositiveButton("登录").show();
                     }
 
                     break;
@@ -347,11 +379,14 @@ public class DoctorOrNurseDetailActivity extends BaseControllerActivity<DoctorOr
             fee = String.valueOf(mDoctorMainBean.getImageFee());
         }
         String doctorName = "";
-        if (mDoctorMainBean.getInfo().getJobTitle() != null && !"".equals(mDoctorMainBean.getInfo().getJobTitle()))
-            doctorName = mDoctorMainBean.getInfo().getJobTitle() + "-" + mDoctorMainBean.getInfo().getName();
-        else
+        if (mDoctorMainBean.getInfo().getJobTitle() != null && !"".equals(mDoctorMainBean.getInfo().getJobTitle())) {
+            doctorName =
+                    mDoctorMainBean.getInfo().getJobTitle() + "-" + mDoctorMainBean.getInfo().getName();
+        } else {
             doctorName = mDoctorMainBean.getInfo().getName();
-        new DiagnosesApplyDialog(getContext(), fee, mDoctorMainBean.getInfo().getDiscount(), doctorName, mDoctorMainBean.getInfo().getWaitInquiryCount(), type, () -> {
+        }
+        new DiagnosesApplyDialog(getContext(), fee, mDoctorMainBean.getInfo().getDiscount(),
+                doctorName, mDoctorMainBean.getInfo().getWaitInquiryCount(), type, () -> {
             DiagnosesApplyActivity.start(getContext(), type, mDoctorMainBean.getInfo());
         }).show();
     }
@@ -372,7 +407,9 @@ public class DoctorOrNurseDetailActivity extends BaseControllerActivity<DoctorOr
             }
         }
         mDoctorMainBean.getInfo().setAttentionAmount(attentiongAmount);
-        mFollow.setText(transFormString(getTextColor(R.color.title_bar_text_color), "关注数：", getTextColor(R.color.attention_num_color), String.valueOf(mDoctorMainBean.getInfo().getAttentionAmount())));
+        mFollow.setText(transFormString(getTextColor(R.color.title_bar_text_color), "关注数：",
+                getTextColor(R.color.attention_num_color),
+                String.valueOf(mDoctorMainBean.getInfo().getAttentionAmount())));
         mDoctorMainBean.getInfo().setIsAttention(isAttention);
     }
 }
