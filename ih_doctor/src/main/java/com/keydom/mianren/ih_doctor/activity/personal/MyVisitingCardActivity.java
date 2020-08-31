@@ -11,10 +11,7 @@ import android.widget.TextView;
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.GlideUtils;
-import com.keydom.ih_common.utils.ShareUtils;
-import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.CircleImageView;
-import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.personal.controller.MyVisitingCardController;
 import com.keydom.mianren.ih_doctor.activity.personal.view.MyVisitingCardView;
@@ -71,19 +68,20 @@ public class MyVisitingCardActivity extends BaseControllerActivity<MyVisitingCar
     @Override
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         setTitle("我的名片");
-        setRightImg(getResources().getDrawable(R.mipmap.share));
-        setRightImgListener(new IhTitleLayout.OnRightImgClickListener() {
-            @Override
-            public void OnRightImgClick(View v) {
-                ShareUtils.showShareUtils(MyVisitingCardActivity.this, new ShareUtils.IOnShareCallBack() {
-                    @Override
-                    public void onShareSelect(int type) {
-                        ToastUtil.showMessage(getContext(), "分享");
-                    }
-                });
-
-            }
-        });
+        //        setRightImg(getResources().getDrawable(R.mipmap.share));
+        //        setRightImgListener(new IhTitleLayout.OnRightImgClickListener() {
+        //            @Override
+        //            public void OnRightImgClick(View v) {
+        //                ShareUtils.showShareUtils(MyVisitingCardActivity.this, new ShareUtils
+        //                .IOnShareCallBack() {
+        //                    @Override
+        //                    public void onShareSelect(int type) {
+        //                        ToastUtil.showMessage(getContext(), "分享");
+        //                    }
+        //                });
+        //
+        //            }
+        //        });
         userIcon = (CircleImageView) this.findViewById(R.id.user_icon);
         qrCode = (ImageView) this.findViewById(R.id.qr_iv);
         userName = (TextView) this.findViewById(R.id.user_name);

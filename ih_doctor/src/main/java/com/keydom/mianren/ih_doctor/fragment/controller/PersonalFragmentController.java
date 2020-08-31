@@ -52,10 +52,6 @@ public class PersonalFragmentController extends ControllerImpl<PersonalFragmentV
                 PersonalInfoActivity.start(mContext);
                 break;
             case R.id.my_article:
-
-
-
-
                 ArticleListActivity.start(mContext, TypeEnum.MYARTICLE,null,null);
                 break;
             case R.id.my_collect:
