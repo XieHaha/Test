@@ -13,6 +13,8 @@ public interface PregnancyReserveView extends BaseView {
 
     void setOrderDate(Date date);
 
+    void setPregnancyOrderTime(PregnancyOrderTime pregnancyOrderTime);
+
     String getSelectedDate();
 
 
@@ -28,6 +30,8 @@ public interface PregnancyReserveView extends BaseView {
     void getCheckProjectsTimesFailed(String msg);
 
     List<DoctorScheduling> getDoctorSchedulings();
+
+    List<PregnancyOrderTime> getSpinnerTimeData();
 
     void requestDoctorSchedulingSuccess(List<DoctorScheduling> data);
     void requestDoctorSchedulingFailed(String data);

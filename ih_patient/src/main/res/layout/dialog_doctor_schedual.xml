@@ -6,11 +6,12 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/dialog_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_22"
-        android:text="产科门诊排班表"
+        android:text=""
         android:textColor="#343434"
         android:textSize="@dimen/sp_18"
         android:textStyle="bold" />

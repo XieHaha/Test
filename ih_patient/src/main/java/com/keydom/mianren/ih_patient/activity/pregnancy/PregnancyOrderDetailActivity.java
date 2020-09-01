@@ -88,7 +88,7 @@ public class PregnancyOrderDetailActivity extends BaseControllerActivity<Pregnan
 
         if (null != mPregnancyDetailBean) {
             mWeeksTv.setText(mPregnancyDetailBean.getShowDate());
-            mDescTv.setText(mPregnancyDetailBean.getContext());
+            //            mDescTv.setText(mPregnancyDetailBean.getContext());
         }
 
         if (pregnancyRecordItem != null) {
@@ -111,7 +111,8 @@ public class PregnancyOrderDetailActivity extends BaseControllerActivity<Pregnan
                 if (!TextUtils.isEmpty(item.getTimeInterval())) {
                     mAdapter.addData(item);
                     if (item.getAppointType() == 2) {
-                        getController().getAntDoctor(item.getPrenatalDate(), item.getTimeInterval());
+                        getController().getAntDoctor(item.getPrenatalDate(),
+                                item.getTimeInterval());
                     }
                 }
             }
