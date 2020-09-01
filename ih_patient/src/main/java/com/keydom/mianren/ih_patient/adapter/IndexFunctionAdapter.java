@@ -26,11 +26,11 @@ import com.keydom.mianren.ih_patient.activity.nurse_main.NurseMainActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.OnlineDiagnonsesOrderActivity;
 import com.keydom.mianren.ih_patient.activity.order_doctor_register.RegistrationReserveActivity;
 import com.keydom.mianren.ih_patient.activity.order_examination.OrderExaminationActivity;
-import com.keydom.mianren.ih_patient.activity.order_hospital_cure.OrderHospitalCureListActivity;
 import com.keydom.mianren.ih_patient.activity.order_physical_examination.OrderPhysicalExaminationActivity;
 import com.keydom.mianren.ih_patient.activity.payment_records.PaymentRecordActivity;
 import com.keydom.mianren.ih_patient.activity.pregnant_woman.PregnantWomanActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.AmniocentesisReserveActivity;
+import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.ReserveObstetricHospitalActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.ReservePainlessDeliveryActivity;
 import com.keydom.mianren.ih_patient.bean.IndexFunction;
 import com.keydom.mianren.ih_patient.constant.AmniocentesisProtocol;
@@ -150,7 +150,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             break;
                         case OrderHospitalCure:
                             if (loginStatus()) {
-                                OrderHospitalCureListActivity.start(context);
+                                ReserveObstetricHospitalActivity.start(context);
                             }
                             break;
                         case OrderPhysicalExamination:

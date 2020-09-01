@@ -60,7 +60,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="胎儿预估身高"
+                            android:text="预估身高"
                             android:textColor="@color/white"
                             android:textSize="14sp" />
 
@@ -86,7 +86,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="胎儿预估体重"
+                            android:text="预估体重"
                             android:textColor="@color/white"
                             android:textSize="14sp" />
 
