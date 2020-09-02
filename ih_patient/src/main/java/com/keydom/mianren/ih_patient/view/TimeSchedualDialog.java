@@ -13,31 +13,31 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.adapter.DoctorSchedualDialogAdapter;
-import com.keydom.mianren.ih_patient.bean.DoctorScheduling;
+import com.keydom.mianren.ih_patient.adapter.TimeSchedualDialogAdapter;
+import com.keydom.mianren.ih_patient.bean.PregnancyOrderTime;
 
 import java.util.List;
 
 /**
  * @author 顿顿
  */
-public class DoctorSchedualDialog extends BottomSheetDialog {
+public class TimeSchedualDialog extends BottomSheetDialog {
     private Context mContext;
     private TextView titleTv;
     private RecyclerView recyclerView;
-    private DoctorSchedualDialogAdapter adapter;
+    private TimeSchedualDialogAdapter adapter;
 
-    private List<DoctorScheduling> dataList;
+    private List<PregnancyOrderTime> dataList;
 
     private OnSelectListener onSelectListener;
 
-    public DoctorSchedualDialog(@NonNull Context context, OnSelectListener onSelectListener) {
+    public TimeSchedualDialog(@NonNull Context context, OnSelectListener onSelectListener) {
         super(context, com.keydom.ih_common.R.style.dialog);
         this.mContext = context;
         this.onSelectListener = onSelectListener;
     }
 
-    public void setDataList(List<DoctorScheduling> dataList) {
+    public void setDataList(List<PregnancyOrderTime> dataList) {
         this.dataList = dataList;
     }
 
@@ -58,12 +58,20 @@ public class DoctorSchedualDialog extends BottomSheetDialog {
      */
     private void initView() {
         titleTv = findViewById(R.id.dialog_title_tv);
-        titleTv.setText("产科门诊排班表");
+        titleTv.setText("选择预约时段");
         recyclerView = findViewById(R.id.dialog_doctor_recycler_view);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.addItemDecoration(new FunctionRvItemDecoration(20, 20));
-        adapter = new DoctorSchedualDialogAdapter(getContext(), dataList);
+        adapter = new TimeSchedualDialogAdapter(getContext(), dataList, new OnSelectListener() {
+            @Override
+            public void onSelected(PregnancyOrderTime bean) {
+                if (onSelectListener != null) {
+                    onSelectListener.onSelected(bean);
+                    dismiss();
+                }
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 
@@ -84,6 +92,6 @@ public class DoctorSchedualDialog extends BottomSheetDialog {
     }
 
     public interface OnSelectListener {
-        void onSelected(DoctorScheduling bean);
+        void onSelected(PregnancyOrderTime bean);
     }
 }

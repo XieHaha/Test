@@ -106,7 +106,7 @@
                     android:textColor="@color/vip_pregnancy_week_text"
                     android:textSize="14sp" />
 
-                <org.angmarch.views.NiceSpinner
+                <TextView
                     android:id="@+id/nice_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -114,13 +114,11 @@
                     android:gravity="center_vertical"
                     android:paddingStart="@dimen/dp_0"
                     android:paddingEnd="@dimen/dp_20"
-                    android:layout_marginEnd="@dimen/dp_10"
+                    android:drawableEnd="@mipmap/exa_report_down"
                     android:text="请选择时段"
                     android:drawablePadding="@dimen/dp_10"
                     android:textColor="@color/tab_nol_color"
-                    android:textSize="14sp"
-                    app:textTint="@color/tab_nol_color"
-                    app:arrowDrawable="@mipmap/exa_report_down"/>
+                    android:textSize="14sp"/>
             </RelativeLayout>
 
             <RelativeLayout

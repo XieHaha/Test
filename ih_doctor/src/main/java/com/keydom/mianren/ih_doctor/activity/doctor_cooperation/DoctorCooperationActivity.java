@@ -51,8 +51,10 @@ public class DoctorCooperationActivity extends BaseControllerActivity<DoctorCoop
      * 无法创建团队
      */
     public static final int CAN_NOT_CREATE_GROUP = 0;
-    private RelativeLayout noGroupRl, groupRl, groupExchangeRl, groupMemberRl, diagnosisRecoderRl, changeDiagnoseRl, receiveDiagnoseRl, groupDiagnoseRl, receiveGroupDiagnoseRl;
-    private TextView groupCut, changeDiagnoseRecoder, groupDiagnoseRecoder, doctorCoopreationName, doctorCoopreationDec, noGroupCreate;
+    private RelativeLayout noGroupRl, groupRl, groupExchangeRl, groupMemberRl, diagnosisRecoderRl
+            , changeDiagnoseRl, receiveDiagnoseRl, groupDiagnoseRl, receiveGroupDiagnoseRl;
+    private TextView groupCut, changeDiagnoseRecoder, groupDiagnoseRecoder, doctorCoopreationName
+            , doctorCoopreationDec, noGroupCreate;
     private ImageView groupEdit;
     private CircleImageView doctorCoopreationIcon;
     private View cooperate_redpoint_view;
@@ -86,8 +88,8 @@ public class DoctorCooperationActivity extends BaseControllerActivity<DoctorCoop
     }
 
     private void initView() {
-        cooperate_redpoint_view=this.findViewById(R.id.cooperate_redpoint_view);
-        group_exchange_redpoint_view=this.findViewById(R.id.group_exchange_redpoint_view);
+        cooperate_redpoint_view = this.findViewById(R.id.cooperate_redpoint_view);
+        group_exchange_redpoint_view = this.findViewById(R.id.group_exchange_redpoint_view);
         noGroupRl = this.findViewById(R.id.no_group_rl);
         groupRl = this.findViewById(R.id.doctor_coopreation_info_rl);
         groupExchangeRl = this.findViewById(R.id.group_exchange_rl);
@@ -117,19 +119,21 @@ public class DoctorCooperationActivity extends BaseControllerActivity<DoctorCoop
         groupDiagnoseRecoder.setOnClickListener(getController());
         noGroupCreate.setOnClickListener(getController());
         groupEdit.setOnClickListener(getController());
-        if(MyApplication.receiveReferral>0)
+        if (MyApplication.receiveReferral > 0) {
             cooperate_redpoint_view.setVisibility(View.VISIBLE);
-        else
+        } else {
             cooperate_redpoint_view.setVisibility(View.GONE);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(MyApplication.receiveReferral>0)
+        if (MyApplication.receiveReferral > 0) {
             cooperate_redpoint_view.setVisibility(View.VISIBLE);
-        else
+        } else {
             cooperate_redpoint_view.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -172,7 +176,7 @@ public class DoctorCooperationActivity extends BaseControllerActivity<DoctorCoop
     /**
      * 根据是否有团队决定显示哪个页面
      */
-    private void  showGroupView() {
+    private void showGroupView() {
         currentGroupId = SharePreferenceManager.getGroup();
         if (groupList.size() > 0) {
             groupRl.setVisibility(View.VISIBLE);
@@ -191,14 +195,17 @@ public class DoctorCooperationActivity extends BaseControllerActivity<DoctorCoop
         currentTId = groupInfoBean.getTid();
         doctorCoopreationName.setText(groupInfoBean.getGroupName());
         doctorCoopreationDec.setText(groupInfoBean.getGroupAdept());
-        GlideUtils.load(doctorCoopreationIcon, Const.IMAGE_HOST + groupInfoBean.getAvatar(), 0, 0, false, null);
-        ImClient.queryRecentContact(currentTId, SessionTypeEnum.Team, new OnRecentContactListener() {
+        GlideUtils.load(doctorCoopreationIcon, Const.IMAGE_HOST + groupInfoBean.getAvatar(), 0, 0
+                , false, null);
+        ImClient.queryRecentContact(currentTId, SessionTypeEnum.Team,
+                new OnRecentContactListener() {
             @Override
             public void onRecentResult(RecentContact recentContact) {
-                if(recentContact.getUnreadCount()>0)
+                if (recentContact.getUnreadCount() > 0) {
                     group_exchange_redpoint_view.setVisibility(View.VISIBLE);
-                else
+                } else {
                     group_exchange_redpoint_view.setVisibility(View.GONE);
+                }
             }
         });
     }
@@ -231,9 +238,9 @@ public class DoctorCooperationActivity extends BaseControllerActivity<DoctorCoop
 
     @Override
     public void showOrHideGroupExchangeRedPoint(boolean isShow) {
-        if(isShow){
+        if (isShow) {
             group_exchange_redpoint_view.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             group_exchange_redpoint_view.setVisibility(View.GONE);
         }
 

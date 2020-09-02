@@ -58,6 +58,12 @@ public class Const {
      * 处方流转
      */
     public static final String OUTER = "outer_mr";
+
+    /**
+     * 隐私协议
+     */
+    public static final String PRIVACY_POLICY = "https://mianren.tianfuzhl.com.cn/ih_mianren/agreement/privacy.html";
+
     /**
      * 没有其他作用，仅做前期接口测试
      */

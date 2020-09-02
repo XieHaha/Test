@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,7 +23,6 @@ import com.keydom.mianren.ih_patient.bean.event.PregnancyOrderSuccess;
 import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.utils.DateUtils;
 
-import org.angmarch.views.NiceSpinner;
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,7 +43,7 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
     private TextView reserveTypeTv, reserveDoctorNameTv;
     private RelativeLayout layoutReserveDoctor;
 
-    private NiceSpinner niceSpinner;
+    private TextView reserveTimeTv;
 
     private String mCurrentDate = "", mCurrentTime = "";
 
@@ -57,10 +55,12 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
     private String mPrenatalProjectId;
     private String prenatalProjectName;
     private int mPrenancyType;
+
+    private PregnancyOrderTime pregnancyOrderTime;
     /**
      * 时间段
      */
-    private ArrayList<String> spinnerTimeData = new ArrayList<>();
+    private List<PregnancyOrderTime> spinnerTimeData = new ArrayList<>();
 
     /**
      * 排班医生
@@ -103,20 +103,8 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
         mCommitOrderTv = findViewById(R.id.pregnancy_detail_order_tv);
         mCheckProjectsRootRl = findViewById(R.id.pregnancy_check_projects_root_rl);
 
-        niceSpinner = findViewById(R.id.nice_spinner);
-        niceSpinner.setTextInternal("请选择时段");
-        niceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mCurrentTime = spinnerTimeData.get(position);
-                getController().getAntDoctor(mCurrentDate, mCurrentTime);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        reserveTimeTv = findViewById(R.id.nice_spinner);
+        reserveTimeTv.setOnClickListener(getController());
 
         reserveTypeTv = findViewById(R.id.reserve_type_tv);
         reserveDoctorNameTv = findViewById(R.id.doctor_name_tv);
@@ -168,6 +156,13 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
     }
 
     @Override
+    public void setPregnancyOrderTime(PregnancyOrderTime pregnancyOrderTime) {
+        this.pregnancyOrderTime = pregnancyOrderTime;
+        reserveTimeTv.setText(mCurrentTime = pregnancyOrderTime.getTimeInterval());
+        getController().getAntDoctor(mCurrentDate, mCurrentTime);
+    }
+
+    @Override
     public String getSelectedDate() {
         return mCurrentDate;
     }
@@ -185,6 +180,11 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
     @Override
     public List<DoctorScheduling> getDoctorSchedulings() {
         return doctorSchedulings;
+    }
+
+    @Override
+    public List<PregnancyOrderTime> getSpinnerTimeData() {
+        return spinnerTimeData;
     }
 
     @Override
@@ -216,20 +216,13 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
 
     @Override
     public void getCheckProjectsTimesSuccess(List<PregnancyOrderTime> data) {
-        spinnerTimeData.clear();
-        for (PregnancyOrderTime bean : data) {
-            if (bean.isSelect()) {
-                spinnerTimeData.add(bean.getTimeInterval());
-            }
-        }
-        if (spinnerTimeData.size() > 0) {
-            niceSpinner.attachDataSource(spinnerTimeData);
-            mCurrentTime = spinnerTimeData.get(0);
+        spinnerTimeData = data;
+        if (spinnerTimeData != null && spinnerTimeData.size() > 0) {
+            mCurrentTime = spinnerTimeData.get(0).getTimeInterval();
         } else {
             mCurrentTime = "";
-            niceSpinner.setTextInternal("请选择时段");
         }
-
+        reserveTimeTv.setText(mCurrentTime);
         getController().getAntDoctor(mCurrentDate, mCurrentTime);
     }
 
