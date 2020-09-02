@@ -33,9 +33,9 @@ import java.util.List;
  */
 public class ManageUserActivity extends BaseControllerActivity<ManageUserController> implements ManageUserView, ManageUserRecyclrViewAdapter.IOnManagerItemClickListener {
     //从个人中心进入标识
-    public static final String FROMUSERINDEX="from_user_index";
+    public static final String FROMUSERINDEX = "from_user_index";
     //从就诊申请进入标识
-    public static final String FROMDIAGNOSES="from_diagnoses";
+    public static final String FROMDIAGNOSES = "from_diagnoses";
     private RecyclerView recyclerView;
     private ManageUserRecyclrViewAdapter manageUserRecyclrViewAdapter;
     private String type;
@@ -44,9 +44,9 @@ public class ManageUserActivity extends BaseControllerActivity<ManageUserControl
     /**
      * 启动页面
      */
-    public static void start(Context context,String type) {
+    public static void start(Context context, String type) {
         Intent intent = new Intent(context, ManageUserActivity.class);
-        intent.putExtra("type",type);
+        intent.putExtra("type", type);
         context.startActivity(intent);
     }
 
@@ -58,31 +58,34 @@ public class ManageUserActivity extends BaseControllerActivity<ManageUserControl
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
-        type=getIntent().getStringExtra("type");
+        type = getIntent().getStringExtra("type");
         setTitle("管理就诊人");
-        setRightTxt("新增就诊人");
-        setRightBtnListener(v -> {
-                Intent i = new Intent(ManageUserActivity.this, AddManageUserActivity.class);
-                i.putExtra(AddManageUserActivity.TYPE, AddManageUserActivity.ADD);
-                ActivityUtils.startActivity(i);
-        });
+        //        setRightTxt("新增就诊人");
+        //        setRightBtnListener(v -> {
+        //                Intent i = new Intent(ManageUserActivity.this, AddManageUserActivity
+        //                .class);
+        //                i.putExtra(AddManageUserActivity.TYPE, AddManageUserActivity.ADD);
+        //                ActivityUtils.startActivity(i);
+        //        });
         setLeftBtnListener(v -> {
-            if(FROMDIAGNOSES.equals(type)){
-                EventBus.getDefault().post(new Event(EventType.CHECKPATIENTINFOCHANGE,null));
+            if (FROMDIAGNOSES.equals(type)) {
+                EventBus.getDefault().post(new Event(EventType.CHECKPATIENTINFOCHANGE, null));
             }
             finish();
         });
         mAddHint = findViewById(R.id.add_hint);
         recyclerView = this.findViewById(R.id.user_rv);
-        manageUserRecyclrViewAdapter = new ManageUserRecyclrViewAdapter(new ArrayList<ManagerUserBean>(), this);
+        manageUserRecyclrViewAdapter =
+                new ManageUserRecyclrViewAdapter(new ArrayList<ManagerUserBean>(), this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(manageUserRecyclrViewAdapter);
         getController().getManagerUserList();
-        if(FROMDIAGNOSES.equals(type)){
+        if (FROMDIAGNOSES.equals(type)) {
             manageUserRecyclrViewAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    EventBus.getDefault().post(new Event(EventType.SENDPATIENTINFO,manageUserRecyclrViewAdapter.getData().get(position)));
+                    EventBus.getDefault().post(new Event(EventType.SENDPATIENTINFO,
+                            manageUserRecyclrViewAdapter.getData().get(position)));
                     finish();
                 }
             });
@@ -97,15 +100,14 @@ public class ManageUserActivity extends BaseControllerActivity<ManageUserControl
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if(FROMDIAGNOSES.equals(type)){
-                EventBus.getDefault().post(new Event(EventType.CHECKPATIENTINFOCHANGE,null));
+            if (FROMDIAGNOSES.equals(type)) {
+                EventBus.getDefault().post(new Event(EventType.CHECKPATIENTINFOCHANGE, null));
             }
             this.finish();
             return true;
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
 
     @Override
@@ -115,7 +117,8 @@ public class ManageUserActivity extends BaseControllerActivity<ManageUserControl
 
     @Override
     public void onDelete(final ManagerUserBean item, final int pos) {
-        new GeneralDialog(getContext(), "确认删除就诊人吗？", () -> getController().deleteManager(item.getId(), pos)).setTitle("提示").setPositiveButton("确认").show();
+        new GeneralDialog(getContext(), "确认删除就诊人吗？",
+                () -> getController().deleteManager(item.getId(), pos)).setTitle("提示").setPositiveButton("确认").show();
     }
 
     @Override
