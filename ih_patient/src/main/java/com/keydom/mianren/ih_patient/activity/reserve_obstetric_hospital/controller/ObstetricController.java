@@ -1,41 +1,41 @@
 package com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.controller;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.net.ApiRequest;
+import com.keydom.ih_common.net.exception.ApiException;
+import com.keydom.ih_common.net.service.HttpService;
+import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.view.ObstetricView;
-import com.keydom.mianren.ih_patient.constant.TypeEnum;
+import com.keydom.mianren.ih_patient.bean.DepartmentInfo;
+import com.keydom.mianren.ih_patient.net.HospitalAppointmentService;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
- * 产科住院记录
+ * 住院记录
+ *
+ * @author 顿顿
  */
 public class ObstetricController extends ControllerImpl<ObstetricView> {
 
     /**
-     * 获取挂号列表
+     * 住院记录
      */
-    public void queryObstetricRecordList(String state, final TypeEnum typeEnum) {
-        if (typeEnum == TypeEnum.REFRESH) {
-            setCurrentPage(1);
-        }
-        //        Map<String, Object> map = new HashMap<>();
-        //        map.put("userId", Global.getUserId());
-        //        map.put("hospitalId", App.hospitalId);
-        //        map.put("state", state);
-        //        map.put("currentPage", getCurrentPage());
-        //        map.put("pageSize", Const.PAGE_SIZE);
-        //        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService
-        //        .class).list(map), new HttpSubscriber<PageBean<RegistrationRecordInfo>>
-        //        (getContext(), getDisposable(), false) {
-        //            @Override
-        //            public void requestComplete(@Nullable PageBean<RegistrationRecordInfo> data) {
-        //                getView().getMedicalMailedSuccess(data.getRecords(), typeEnum);
-        //            }
-        //
-        //            @Override
-        //            public boolean requestError(@NotNull ApiException exception, int code,
-        //                                        @NotNull String msg) {
-        //                getView().getMedicalMailedFailed(msg);
-        //                return super.requestError(exception, code, msg);
-        //            }
-        //        });
+    public void getObsByCardNo(String eleCardNo) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(HospitalAppointmentService.class).getObsByCardNo(eleCardNo), new HttpSubscriber<List<DepartmentInfo>>() {
+            @Override
+            public void requestComplete(@Nullable List<DepartmentInfo> data) {
+                getView().getObstetricListSuccess(null, null);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                return super.requestError(exception, code, msg);
+            }
+        });
     }
 }

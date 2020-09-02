@@ -2,10 +2,14 @@ package com.keydom.mianren.ih_patient.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.io.Serializable;
+
 /**
  * 科室实体
+ * @author 顿顿
  */
-public class DepartmentInfo {
+public class DepartmentInfo implements Serializable {
+    private static final long serialVersionUID = -433857316931952030L;
     @JSONField(name = "id")
     private long id;
     @JSONField(name = "priority")
@@ -34,6 +38,19 @@ public class DepartmentInfo {
     private String hospitalAreaName;
     @JSONField(name = "hospitalName")
     private String hospitalName;
+
+    /**
+     * 0 门诊科室 1住院科室 2全部
+     */
+    private int type;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public long getId() {
         return id;

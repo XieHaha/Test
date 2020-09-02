@@ -8,23 +8,16 @@ import android.view.ViewGroup;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.controller.ObstetricController;
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.view.ObstetricView;
 import com.keydom.mianren.ih_patient.adapter.ObstetricRecordAdapter;
-import com.keydom.mianren.ih_patient.bean.Event;
-import com.keydom.mianren.ih_patient.constant.EventType;
-import com.keydom.mianren.ih_patient.constant.Type;
 import com.keydom.mianren.ih_patient.constant.TypeEnum;
-import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,14 +26,14 @@ import java.util.List;
 
 /**
  * 产科住院
+ *
+ * @author 顿顿
  */
 public class ObstetricHospitalFragment extends BaseControllerFragment<ObstetricController> implements ObstetricView {
-    private String type;
-    private SmartRefreshLayout containt_refresh;
-    private RecyclerView containt_rv;
+    private SmartRefreshLayout refreshLayout;
+    private RecyclerView recyclerView;
     private List<String> dataList = new ArrayList<>();
     private ObstetricRecordAdapter obstetricRecordAdapter;
-    private int page = 1;
 
     @Override
     public int getLayoutRes() {
@@ -57,52 +50,29 @@ public class ObstetricHospitalFragment extends BaseControllerFragment<ObstetricC
 
     @Override
     public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
-        containt_refresh = view.findViewById(R.id.containt_refresh);
-        containt_rv = view.findViewById(R.id.containt_rv);
+        refreshLayout = view.findViewById(R.id.containt_refresh);
+        recyclerView = view.findViewById(R.id.containt_rv);
         obstetricRecordAdapter = new ObstetricRecordAdapter(getContext(), dataList);
-        containt_rv.setAdapter(obstetricRecordAdapter);
-        Bundle bundle = getArguments();
-        type = bundle.getString("type");
-        Logger.e("type=" + type);
+        recyclerView.setAdapter(obstetricRecordAdapter);
 
-        containt_refresh.setOnRefreshListener(new OnRefreshListener() {
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                page = 1;
-                if (Type.NOTHOSPITALIZED.equals(type)) {
-                    getController().queryObstetricRecordList("0", TypeEnum.REFRESH);
-                } else {
-                    getController().queryObstetricRecordList("1", TypeEnum.REFRESH);
-                }
+                getController().getObsByCardNo(App.userInfo.getIdCard());
             }
         });
-        containt_refresh.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshLayout) {
-                if (Type.NOTHOSPITALIZED.equals(type)) {
-                    getController().queryObstetricRecordList("0", TypeEnum.LOAD_MORE);
-                } else {
-                    getController().queryObstetricRecordList("1", TypeEnum.LOAD_MORE);
-                }
-            }
-        });
-        EventBus.getDefault().register(this);
+
+        getController().getObsByCardNo(App.userInfo.getIdCard());
+
         super.onViewCreated(view, savedInstanceState);
-
-    }
-
-    @Override
-    public void lazyLoad() {
-        containt_refresh.autoRefresh();
     }
 
     @Override
     public void getObstetricListSuccess(List<String> dataList, TypeEnum typeEnum) {
-        containt_refresh.finishLoadMore();
-        containt_refresh.finishRefresh();
+        refreshLayout.finishLoadMore();
+        refreshLayout.finishRefresh();
         pageLoadingSuccess();
-        if (dataList.size() != 0) {
-
+        if (dataList != null) {
             if (typeEnum == TypeEnum.REFRESH) {
                 this.dataList.clear();
             }
@@ -114,22 +84,8 @@ public class ObstetricHospitalFragment extends BaseControllerFragment<ObstetricC
 
     @Override
     public void getObstetricListFailed(String errMsg) {
-        containt_refresh.finishLoadMore();
-        containt_refresh.finishRefresh();
+        refreshLayout.finishLoadMore();
+        refreshLayout.finishRefresh();
         ToastUtil.showMessage(getContext(), errMsg);
-    }
-
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshList(Event event) {
-        if (event.getType() == EventType.DOCTORREGISTERORDERPAYED) {
-            containt_refresh.autoRefresh();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        EventBus.getDefault().unregister(this);
-        super.onDestroy();
     }
 }
