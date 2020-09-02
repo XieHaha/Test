@@ -192,13 +192,19 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             }
                             break;
                         case PregnantWoman:
+                            if (loginStatus()) {
                             PregnantWomanActivity.start(context);
+                            }
                             break;
                         case PainlessDelivery:
+                            if (loginStatus()) {
                             ReservePainlessDeliveryActivity.start(context);
+                            }
                             break;
                         case ObstetricMedical:
-                            ObstetricMedicalActivity.start(context);
+                            if (loginStatus()) {
+                                ObstetricMedicalActivity.start(context);
+                            }
                             break;
                      /*   case Setting:
                             context.startActivity(new Intent(context,
