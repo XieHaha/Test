@@ -13,9 +13,11 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.ManageUserSelectActivity;
+import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.PainlessDeliveryListActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.view.ReservePainlessDeliveryView;
 import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
 import com.keydom.mianren.ih_patient.constant.Global;
@@ -30,7 +32,7 @@ import java.util.Map;
 /**
  * 无痛分泌预约控制器
  */
-public class ReservePainlessDeliveryController extends ControllerImpl<ReservePainlessDeliveryView> implements View.OnClickListener {
+public class ReservePainlessDeliveryController extends ControllerImpl<ReservePainlessDeliveryView> implements View.OnClickListener, IhTitleLayout.OnRightTextClickListener {
 
     @Override
     public void onClick(View v) {
@@ -51,6 +53,12 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
                 TimePickerView pickerView = new TimePickerBuilder(getContext(),
                         (date, v12) -> getView().setDueDate(date)).build();
                 pickerView.show();
+                break;
+            case R.id.layout_reserve_date:
+                KeyboardUtils.hideSoftInput((Activity) getContext());
+                TimePickerView reserveDate = new TimePickerBuilder(getContext(),
+                        (date, v12) -> getView().setReserveDate(date)).build();
+                reserveDate.show();
                 break;
             case R.id.layout_select:
                 getView().setSelect();
@@ -130,5 +138,10 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
             }
         });
 
+    }
+
+    @Override
+    public void OnRightTextClick(View v) {
+        PainlessDeliveryListActivity.start(getContext());
     }
 }

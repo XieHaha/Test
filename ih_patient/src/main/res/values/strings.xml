@@ -204,7 +204,7 @@
     <string name="txt_painless_delivery_reserve">无痛分娩预约</string>
 
     <!--产科住院预约-->
-    <string name="txt_obstetric_hospital_reserve">产科住院预约</string>
+    <string name="txt_obstetric_hospital_reserve">住院预约</string>
     <string name="txt_hospital_date">预约住院日期:</string>
     <string name="txt_hospital_date_hint">请选择就诊日期</string>
     <string name="txt_bed">住院床位:</string>

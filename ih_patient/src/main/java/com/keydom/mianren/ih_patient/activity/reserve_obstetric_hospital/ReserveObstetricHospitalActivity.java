@@ -79,6 +79,8 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
     public void initData(@Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
         setTitle(getString(R.string.txt_obstetric_hospital_reserve));
+        setRightTxt("预约记录");
+        setRightBtnListener(getController());
 
         txNext.setOnClickListener(getController());
     }

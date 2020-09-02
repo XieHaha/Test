@@ -235,6 +235,40 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layout_reserve_date"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:background="@drawable/item_f9_bg_bottom_divider"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_34"
+            android:paddingEnd="@dimen/dp_20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:gravity="end"
+                android:text="预约时间"
+                android:textColor="@color/tab_nol_color"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/tv_reserve_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawableEnd="@mipmap/icon_date"
+                android:drawablePadding="@dimen/dp_10"
+                android:gravity="center_vertical|end"
+                android:hint="请选择预约时间"
+                android:singleLine="true"
+                android:textColor="#333333"
+                android:textColorHint="#BBBBBB"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_10"

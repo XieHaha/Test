@@ -29,12 +29,15 @@ import java.util.Date;
 
 /**
  * 无痛分娩预约
+ * @author 顿顿
  */
 public class ReservePainlessDeliveryActivity extends BaseControllerActivity<ReservePainlessDeliveryController> implements ReservePainlessDeliveryView {
     private ImageView ivSelect;
-    private TextView tvVisitName, tvLastMenstruation, tvDueDate, tvFetus, tvNote, tvNext;
+    private TextView tvVisitName, tvLastMenstruation, tvDueDate, tvFetus, tvNote, tvNext,
+            tvReserveDate;
     private InterceptorEditText etAge, etPhone;
-    private LinearLayout layoutVisit, layoutFetus, layoutMenstruation, layoutDueDate;
+    private LinearLayout layoutVisit, layoutFetus, layoutMenstruation, layoutDueDate,
+            layoutReserveDate;
     private RelativeLayout layoutSelect;
     /**
      * 就诊人
@@ -57,6 +60,8 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle(getString(R.string.txt_painless_delivery_reserve));
         EventBus.getDefault().register(this);
+        setRightTxt("预约记录");
+        setRightBtnListener(getController());
         bindView();
     }
 
@@ -67,6 +72,7 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
         tvVisitName = findViewById(R.id.tv_visit_name);
         tvLastMenstruation = findViewById(R.id.tv_last);
         tvDueDate = findViewById(R.id.tv_due_date);
+        tvReserveDate = findViewById(R.id.tv_reserve_date);
         tvFetus = findViewById(R.id.tv_fetus);
         tvNote = findViewById(R.id.tv_note);
         tvNext = findViewById(R.id.tx_next);
@@ -75,6 +81,7 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
         layoutMenstruation = findViewById(R.id.layout_menstruation);
         layoutDueDate = findViewById(R.id.layout_due_date);
         layoutSelect = findViewById(R.id.layout_select);
+        layoutReserveDate = findViewById(R.id.layout_reserve_date);
 
         tvNext.setOnClickListener(getController());
         tvNote.setOnClickListener(getController());
@@ -82,6 +89,7 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
         layoutFetus.setOnClickListener(getController());
         layoutMenstruation.setOnClickListener(getController());
         layoutDueDate.setOnClickListener(getController());
+        layoutReserveDate.setOnClickListener(getController());
         layoutSelect.setOnClickListener(getController());
     }
 
@@ -171,6 +179,11 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
     @Override
     public void setDueDate(Date dueDate) {
         tvDueDate.setText(DateUtils.dateToString(dueDate));
+    }
+
+    @Override
+    public void setReserveDate(Date reserveDate) {
+        tvReserveDate.setText(DateUtils.dateToString(reserveDate));
     }
 
     @Override

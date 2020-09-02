@@ -19,6 +19,7 @@ public interface ReservePainlessDeliveryView extends BaseView {
     void setMenstruation(Date menstruation);
 
     void setDueDate(Date dueDate);
+    void setReserveDate(Date reserveDate);
 
     /**
      * 预约成功
