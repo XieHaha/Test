@@ -127,7 +127,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mTopRightIconIv.setImageResource(R.mipmap.vip_antenatal_care_icon);
 
         mTopRightRootRl.setOnClickListener(v -> ChoosePatientActivity.start(getActivity(),
-                com.keydom.mianren.ih_patient.constant.Const.PATIENT_TYPE_CARD));
+                com.keydom.mianren.ih_patient.constant.Const.PATIENT_TYPE_CARD,true));
         mTopLeftRootRl.setOnClickListener(v -> {
             if (null == mVIPDialog) {
                 mVIPDialog = new DiagnosesApplyDialog(getContext(),

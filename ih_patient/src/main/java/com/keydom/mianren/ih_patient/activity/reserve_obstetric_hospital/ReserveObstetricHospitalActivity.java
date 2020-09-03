@@ -20,12 +20,12 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.ManageUserSelectActivity;
+import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.controller.ReserveObstetricHospitalController;
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.view.ReserveObstetricHospitalView;
 import com.keydom.mianren.ih_patient.bean.DepartmentInfo;
 import com.keydom.mianren.ih_patient.bean.Event;
-import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
+import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.utils.DateUtils;
 
@@ -81,7 +81,7 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
     @BindView(R.id.layout_obstetric)
     LinearLayout layoutObstetric;
 
-    private ManagerUserBean curUserBean;
+    private MedicalCardInfo medicalCardInfo;
 
     private String reserveDate, bed, age, lastDate, dueDate, phone;
     private int fetus;
@@ -236,11 +236,7 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
                 }
                 break;
             case R.id.layout_visit:
-                long id = -1;
-                if (curUserBean != null) {
-                    id = curUserBean.getId();
-                }
-                ManageUserSelectActivity.start(this, String.valueOf(id));
+                ChoosePatientActivity.start(this, -1, false);
                 break;
             case R.id.layout_menstruation:
                 KeyboardUtils.hideSoftInput(this);
@@ -290,11 +286,14 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
         }
     }
 
+    /**
+     * 获取患者就诊卡
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onVisitPeopleSelect(Event event) {
-        if (event.getType() == EventType.SENDPATIENTINFO) {
-            curUserBean = (ManagerUserBean) event.getData();
-            tvVisitName.setText(curUserBean.getName());
+    public void getPatientCard(Event event) {
+        if (event.getType() == EventType.SENDSELECTNURSINGPATIENT) {
+            medicalCardInfo = (MedicalCardInfo) event.getData();
+            tvVisitName.setText(medicalCardInfo.getName());
         }
     }
 
@@ -365,9 +364,9 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
             map.put("lastMenstrualPeriodTime", lastDate);
             map.put("expectedDateOfConfinement", dueDate);
         }
-        map.put("eleCardNumber", curUserBean.getCardId());
-        map.put("patientId", curUserBean.getId());
-        map.put("patientName", curUserBean.getName());
+        map.put("eleCardNumber", medicalCardInfo.getEleCardNumber());
+        map.put("patientId", medicalCardInfo.getId());
+        map.put("patientName", medicalCardInfo.getName());
         map.put("phoneNumber", phone);
         map.put("registerUserId", App.userInfo.getId());
         if (anesthesiologistDoctor != null) {
@@ -385,7 +384,7 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
     public boolean reserveAble() {
         age = etAge.getText().toString();
         phone = etPhone.getText().toString();
-        if (TextUtils.isEmpty(reserveDate) || TextUtils.isEmpty(bed) || curDepart == null || curUserBean == null) {
+        if (TextUtils.isEmpty(reserveDate) || TextUtils.isEmpty(bed) || curDepart == null || medicalCardInfo == null) {
             ToastUtil.showMessage(this, "请完善预约信息");
             return false;
         }

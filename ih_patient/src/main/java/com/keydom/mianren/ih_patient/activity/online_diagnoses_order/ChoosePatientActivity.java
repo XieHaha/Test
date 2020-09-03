@@ -28,9 +28,10 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
     /**
      * 启动
      */
-    public static void start(Context context, int type) {
+    public static void start(Context context, int type,boolean isNeed) {
         Intent intent = new Intent(context, ChoosePatientActivity.class);
         intent.putExtra("type", type);
+        intent.putExtra("isNeed", isNeed);
         context.startActivity(intent);
     }
 
@@ -41,6 +42,8 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
     private List<Fragment> fragmentList = new ArrayList<>();
     private List<String> list = new ArrayList<>();
     private int type;
+
+    private boolean  isNeed;
 
     @Override
     public int getLayoutRes() {
@@ -66,10 +69,10 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
         } else if (type == Const.PATIENT_TYPE_CARD) {
             setTitle("选择就诊卡");
             list.add("就诊卡");
-
+            isNeed = getIntent().getBooleanExtra("isNeed",true);
             TypeCardFragment typeCardFragment = new TypeCardFragment();
             Bundle bundle = new Bundle();
-            bundle.putBoolean(Const.IS_NEED_TO_PREGNANCY, true);
+            bundle.putBoolean(Const.IS_NEED_TO_PREGNANCY, isNeed);
             typeCardFragment.setArguments(bundle);
             fragmentList.add(typeCardFragment);
             mTabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FFFFFF"));

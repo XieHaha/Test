@@ -73,7 +73,7 @@ public class PaymentRecordActivity extends BaseControllerActivity<PaymentRecordC
         setTitle("缴费记录");
         setRightTxt(App.userInfo.getUserName());
         setRightBtnListener(v -> ChoosePatientActivity.start(PaymentRecordActivity.this,
-                Const.PATIENT_TYPE_PERSON));
+                Const.PATIENT_TYPE_PERSON,true));
         paymentTb = findViewById(R.id.payment_tb);
         paymentVp = findViewById(R.id.payment_vp);
 

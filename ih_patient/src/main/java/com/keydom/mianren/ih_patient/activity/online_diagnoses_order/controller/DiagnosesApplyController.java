@@ -59,7 +59,7 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.choose_patient_card_tv:
-                ChoosePatientActivity.start(getContext(), getView().getType());
+                ChoosePatientActivity.start(getContext(), getView().getType(),true);
                 break;
             case R.id.choose_patient_tv:
                 if (getView().isHavePatient()) {
