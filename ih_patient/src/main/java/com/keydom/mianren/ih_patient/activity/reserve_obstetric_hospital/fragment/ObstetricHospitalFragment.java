@@ -13,6 +13,7 @@ import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.controller.ObstetricController;
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.view.ObstetricView;
 import com.keydom.mianren.ih_patient.adapter.ObstetricRecordAdapter;
+import com.keydom.mianren.ih_patient.bean.HospitalAppointmentBean;
 import com.keydom.mianren.ih_patient.constant.TypeEnum;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -29,7 +30,7 @@ import java.util.List;
  */
 public class ObstetricHospitalFragment extends BaseControllerFragment<ObstetricController> implements ObstetricView {
     private SmartRefreshLayout refreshLayout;
-    private List<String> dataList = new ArrayList<>();
+    private List<HospitalAppointmentBean> dataList = new ArrayList<>();
     private ObstetricRecordAdapter obstetricRecordAdapter;
 
     /**
@@ -56,7 +57,7 @@ public class ObstetricHospitalFragment extends BaseControllerFragment<ObstetricC
 
         refreshLayout = view.findViewById(R.id.containt_refresh);
         RecyclerView recyclerView = view.findViewById(R.id.containt_rv);
-        obstetricRecordAdapter = new ObstetricRecordAdapter(getContext(), dataList);
+        obstetricRecordAdapter = new ObstetricRecordAdapter(dataList);
         recyclerView.setAdapter(obstetricRecordAdapter);
         refreshLayout.setOnRefreshListener(refreshLayout -> getData());
 
@@ -69,18 +70,10 @@ public class ObstetricHospitalFragment extends BaseControllerFragment<ObstetricC
     }
 
     @Override
-    public void getObstetricListSuccess(List<String> dataList, TypeEnum typeEnum) {
+    public void getObstetricListSuccess(List<HospitalAppointmentBean> list, TypeEnum typeEnum) {
         refreshLayout.finishLoadMore();
         refreshLayout.finishRefresh();
-        pageLoadingSuccess();
-        if (dataList != null) {
-            if (typeEnum == TypeEnum.REFRESH) {
-                this.dataList.clear();
-            }
-            this.dataList.addAll(dataList);
-            obstetricRecordAdapter.notifyDataSetChanged();
-            getController().currentPagePlus();
-        }
+        obstetricRecordAdapter.setNewData(list);
     }
 
     @Override

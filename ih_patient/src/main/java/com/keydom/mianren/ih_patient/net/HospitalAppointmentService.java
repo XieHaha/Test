@@ -3,6 +3,7 @@ package com.keydom.mianren.ih_patient.net;
 import com.keydom.ih_common.bean.DoctorInfo;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_patient.bean.DepartmentInfo;
+import com.keydom.mianren.ih_patient.bean.HospitalAppointmentBean;
 
 import java.util.List;
 
@@ -43,5 +44,5 @@ public interface HospitalAppointmentService {
      * 获取住院预约列表
      */
     @GET("medicine/obstetric/getObsByCardNo")
-    Observable<HttpResult<List<DepartmentInfo>>> getObsByCardNo(@Query("eleCardNo") String eleCardNo, @Query("type") int type);
+    Observable<HttpResult<List<HospitalAppointmentBean>>> getObsByCardNo(@Query("eleCardNo") String eleCardNo, @Query("type") int type);
 }

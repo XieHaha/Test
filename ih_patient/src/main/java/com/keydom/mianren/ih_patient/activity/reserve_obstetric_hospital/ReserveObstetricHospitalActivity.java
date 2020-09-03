@@ -203,26 +203,34 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
                 break;
             case R.id.layout_doctor:
                 if (curDepart != null) {
-                    OptionsPickerView doctorPicker = new OptionsPickerBuilder(getContext(),
-                            (options1, option2, options3, v) -> {
-                                operationDoctor = operationList.get(options3);
-                                tvDoctor.setText(operationDoctor.getName());
-                            }).build();
-                    doctorPicker.setPicker(operationName);
-                    doctorPicker.show();
+                    if (operationName.size() > 0) {
+                        OptionsPickerView doctorPicker = new OptionsPickerBuilder(getContext(),
+                                (options1, option2, options3, v) -> {
+                                    operationDoctor = operationList.get(options3);
+                                    tvDoctor.setText(operationDoctor.getName());
+                                }).build();
+                        doctorPicker.setPicker(operationName);
+                        doctorPicker.show();
+                    } else {
+                        ToastUtil.showMessage(this, "暂无手术医生");
+                    }
                 } else {
                     ToastUtil.showMessage(this, "请先选择科室");
                 }
                 break;
             case R.id.layout_anesthetist:
                 if (curDepart != null) {
-                    OptionsPickerView anesthetistPicker = new OptionsPickerBuilder(getContext(),
-                            (options1, option2, options3, v) -> {
-                                anesthesiologistDoctor = anesthesiologistList.get(options3);
-                                tvDoctor.setText(anesthesiologistDoctor.getName());
-                            }).build();
-                    anesthetistPicker.setPicker(anesthesiologistName);
-                    anesthetistPicker.show();
+                    if (anesthesiologistName.size() > 0) {
+                        OptionsPickerView anesthetistPicker = new OptionsPickerBuilder(getContext(),
+                                (options1, option2, options3, v) -> {
+                                    anesthesiologistDoctor = anesthesiologistList.get(options3);
+                                    tvDoctor.setText(anesthesiologistDoctor.getName());
+                                }).build();
+                        anesthetistPicker.setPicker(anesthesiologistName);
+                        anesthetistPicker.show();
+                    } else {
+                        ToastUtil.showMessage(this, "暂无麻醉师");
+                    }
                 } else {
                     ToastUtil.showMessage(this, "请先选择科室");
                 }
