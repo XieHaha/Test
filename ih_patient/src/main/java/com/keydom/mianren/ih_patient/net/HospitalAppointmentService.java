@@ -43,5 +43,5 @@ public interface HospitalAppointmentService {
      * 获取住院预约列表
      */
     @GET("medicine/obstetric/getObsByCardNo")
-    Observable<HttpResult<List<DepartmentInfo>>> getObsByCardNo(@Query("eleCardNo") String eleCardNo);
+    Observable<HttpResult<List<DepartmentInfo>>> getObsByCardNo(@Query("eleCardNo") String eleCardNo, @Query("type") int type);
 }

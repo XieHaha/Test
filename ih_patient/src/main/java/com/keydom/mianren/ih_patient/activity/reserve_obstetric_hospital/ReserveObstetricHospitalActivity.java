@@ -116,6 +116,11 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
 
 
     /**
+     * 产科id
+     */
+    public static final String DEPART_ID = "376";
+
+    /**
      * 手术医生
      */
     public static final int OPERATION_DOCTOR = 0;
@@ -186,11 +191,11 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
             case R.id.layout_depart:
                 OptionsPickerView depart = new OptionsPickerBuilder(getContext(),
                         (options1, option2, options3, v) -> {
-                            curDepart = departmentList.get(options3);
+                            curDepart = departmentList.get(options1);
+                            initReserveView();
                             tvDepart.setText(curDepart.getName());
-                            getController().getDeptDoctor(String.valueOf(curDepart.getId()),
-                                    OPERATION_DOCTOR);
-                            getController().getDeptDoctor(String.valueOf(curDepart.getId()),
+                            getController().getDeptDoctor(curDepart.getId(), OPERATION_DOCTOR);
+                            getController().getDeptDoctor(curDepart.getId(),
                                     ANESTHESIOLOGIST_DOCTOR);
                         }).build();
                 depart.setPicker(departName);
@@ -268,6 +273,15 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
         }
     }
 
+
+    private void initReserveView() {
+        if (DEPART_ID.equals(curDepart.getId())) {
+            layoutObstetric.setVisibility(View.VISIBLE);
+        } else {
+            layoutObstetric.setVisibility(View.GONE);
+        }
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onVisitPeopleSelect(Event event) {
         if (event.getType() == EventType.SENDPATIENTINFO) {
@@ -338,10 +352,12 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
         map.put("bed", bed);
         map.put("deptId", curDepart.getId());
         map.put("deptName", curDepart.getName());
-        map.put("embryoNumber", fetus);
-        map.put("expectedDateOfConfinement", dueDate);
-        map.put("lastMenstrualPeriodTime", lastDate);
-        map.put("eleCardNumber", curUserBean.getId());
+        if (layoutObstetric.getVisibility() == View.VISIBLE) {
+            map.put("embryoNumber", fetus);
+            map.put("lastMenstrualPeriodTime", lastDate);
+            map.put("expectedDateOfConfinement", dueDate);
+        }
+        map.put("eleCardNumber", curUserBean.getCardId());
         map.put("patientId", curUserBean.getId());
         map.put("patientName", curUserBean.getName());
         map.put("phoneNumber", phone);

@@ -63,7 +63,7 @@ public class RegisterDoctorSearchAdapter extends RecyclerView.Adapter<RegisterDo
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ChooseDoctorActivity.start(context,departmentInfo.getHospitalAreaId(),departmentInfo.getHospitalAreaName(),departmentInfo.getId(),departmentInfo.getName(),null);
+                    ChooseDoctorActivity.start(context,departmentInfo.getHospitalAreaId(),departmentInfo.getHospitalAreaName(),Long.parseLong(departmentInfo.getId()),departmentInfo.getName(),null);
                 }
             });
         }

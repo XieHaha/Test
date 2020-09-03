@@ -75,8 +75,9 @@ public class LoginController extends ControllerImpl<ILoginView> implements View.
         HashMap<String, String> map = new HashMap<>();
         map.put("accountMobile", getView().getAccount());
         map.put("password", MD5.getStringMD5(getView().getPassword()));
-        if (getView().isLoginLocked())
+        if (getView().isLoginLocked()) {
             map.put("code", getView().getValidateCode());
+        }
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).doLogin(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<UserInfo>(getContext(), getDisposable(), true,false) {
             @Override
             public void requestComplete(@Nullable UserInfo data) {

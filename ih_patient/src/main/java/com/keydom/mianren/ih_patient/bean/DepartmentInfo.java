@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class DepartmentInfo implements Serializable {
     private static final long serialVersionUID = -433857316931952030L;
     @JSONField(name = "id")
-    private long id;
+    private String id;
     @JSONField(name = "priority")
     private int priority;
     @JSONField(name = "deptCode")
@@ -52,11 +52,11 @@ public class DepartmentInfo implements Serializable {
         this.type = type;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

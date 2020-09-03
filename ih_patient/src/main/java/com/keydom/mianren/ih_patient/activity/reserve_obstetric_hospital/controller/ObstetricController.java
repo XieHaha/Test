@@ -24,8 +24,8 @@ public class ObstetricController extends ControllerImpl<ObstetricView> {
     /**
      * 住院记录
      */
-    public void getObsByCardNo(String eleCardNo) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(HospitalAppointmentService.class).getObsByCardNo(eleCardNo), new HttpSubscriber<List<DepartmentInfo>>() {
+    public void getObsByCardNo(int type, String eleCardNo) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(HospitalAppointmentService.class).getObsByCardNo(eleCardNo, type), new HttpSubscriber<List<DepartmentInfo>>() {
             @Override
             public void requestComplete(@Nullable List<DepartmentInfo> data) {
                 getView().getObstetricListSuccess(null, null);

@@ -53,8 +53,8 @@ public class Type {
     public static final String MYMESSAGE = "my_message";
     public static final String IMMESSAGE = "im_message";
 
-    public static final String NOTHOSPITALIZED = "not_hospitalized";
-    public static final String HOSPITALIZED = "hospitalized";
+    public static final int NOTHOSPITALIZED = 0;
+    public static final int HOSPITALIZED = 1;
 
     public static final String NOTMEDICALMAILED = "not_medicalmailed";
     public static final String MEDICALMAILED = "medicalmailed";

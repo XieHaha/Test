@@ -15,8 +15,6 @@ import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.view.Ob
 import com.keydom.mianren.ih_patient.adapter.ObstetricRecordAdapter;
 import com.keydom.mianren.ih_patient.constant.TypeEnum;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -31,9 +29,13 @@ import java.util.List;
  */
 public class ObstetricHospitalFragment extends BaseControllerFragment<ObstetricController> implements ObstetricView {
     private SmartRefreshLayout refreshLayout;
-    private RecyclerView recyclerView;
     private List<String> dataList = new ArrayList<>();
     private ObstetricRecordAdapter obstetricRecordAdapter;
+
+    /**
+     * 1 已住院  0 未住院
+     */
+    private int type;
 
     @Override
     public int getLayoutRes() {
@@ -50,21 +52,20 @@ public class ObstetricHospitalFragment extends BaseControllerFragment<ObstetricC
 
     @Override
     public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
+        type = getArguments().getInt("type", 0);
+
         refreshLayout = view.findViewById(R.id.containt_refresh);
-        recyclerView = view.findViewById(R.id.containt_rv);
+        RecyclerView recyclerView = view.findViewById(R.id.containt_rv);
         obstetricRecordAdapter = new ObstetricRecordAdapter(getContext(), dataList);
         recyclerView.setAdapter(obstetricRecordAdapter);
+        refreshLayout.setOnRefreshListener(refreshLayout -> getData());
 
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshLayout) {
-                getController().getObsByCardNo(App.userInfo.getIdCard());
-            }
-        });
-
-        getController().getObsByCardNo(App.userInfo.getIdCard());
-
+        getData();
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    private void getData() {
+        getController().getObsByCardNo(type, App.userInfo.getIdCard());
     }
 
     @Override

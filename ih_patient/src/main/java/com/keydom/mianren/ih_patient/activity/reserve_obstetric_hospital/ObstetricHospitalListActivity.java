@@ -16,8 +16,14 @@ import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.control
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.fragment.ObstetricHospitalFragment;
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.view.ObstetricHospitalView;
 import com.keydom.mianren.ih_patient.adapter.ViewPagerAdapter;
+import com.keydom.mianren.ih_patient.bean.Event;
+import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
+import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.constant.Type;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -36,6 +42,8 @@ public class ObstetricHospitalListActivity extends BaseControllerActivity<Obstet
         context.startActivity(new Intent(context, ObstetricHospitalListActivity.class));
     }
 
+    private ManagerUserBean curUserBean;
+
     private ViewPagerAdapter viewPagerAdapter;
     private List<Fragment> fragmentList = new ArrayList<>();
     private List<String> list = new ArrayList<>();
@@ -47,6 +55,7 @@ public class ObstetricHospitalListActivity extends BaseControllerActivity<Obstet
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         setTitle(getString(R.string.txt_obstetric_hospital_reserve));
 
         setRightTxt(App.userInfo.getUserName());
@@ -54,25 +63,38 @@ public class ObstetricHospitalListActivity extends BaseControllerActivity<Obstet
 
         TabLayout registrationRecordTab = this.findViewById(R.id.registration_record_tab);
         ViewPager registrationRecordVp = this.findViewById(R.id.registration_record_vp);
-        //        list.add("未住院");
-        //        list.add("已住院");
+        list.add("未住院");
+        list.add("已住院");
         FragmentManager fm = getSupportFragmentManager();
         ObstetricHospitalFragment notHospitalized = new ObstetricHospitalFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("type", Type.NOTHOSPITALIZED);
+        bundle.putInt("type", Type.NOTHOSPITALIZED);
         notHospitalized.setArguments(bundle);
         fragmentList.add(notHospitalized);
 
-        //        ObstetricHospitalFragment hospitalized = new ObstetricHospitalFragment();
-        //        Bundle bundle_f = new Bundle();
-        //        bundle_f.putString("type", Type.HOSPITALIZED);
-        //        hospitalized.setArguments(bundle_f);
-        //        fragmentList.add(hospitalized);
+        ObstetricHospitalFragment hospitalized = new ObstetricHospitalFragment();
+        Bundle bundle_f = new Bundle();
+        bundle_f.putInt("type", Type.HOSPITALIZED);
+        hospitalized.setArguments(bundle_f);
+        fragmentList.add(hospitalized);
         if (viewPagerAdapter == null) {
             viewPagerAdapter = new ViewPagerAdapter(fm, fragmentList, list);
         }
         registrationRecordVp.setAdapter(viewPagerAdapter);
         registrationRecordTab.setupWithViewPager(registrationRecordVp);
+    }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onVisitPeopleSelect(Event event) {
+        if (event.getType() == EventType.SENDPATIENTINFO) {
+            curUserBean = (ManagerUserBean) event.getData();
+            setRightTxt(curUserBean.getName());
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -86,8 +86,8 @@ public class Const {
     //    public static final String IMAGE_HOST = "https://www.tianfuzhl.com/";
 
     //小程序环境
-        public static final String RELEASE_HOST = "http://110.191.238.12:12013/";
-        public static final String IMAGE_HOST = "http://110.191.238.12:12013/";
+        public static final String RELEASE_HOST = "https://mianren.tianfuzhl.com.cn/";
+        public static final String IMAGE_HOST = "https://mianren.tianfuzhl.com.cn/";
 
     //绵阳测试 2020年7月29日 11:33:24
     //    public static final String RELEASE_HOST = "http://220.166.57.218:8888/";

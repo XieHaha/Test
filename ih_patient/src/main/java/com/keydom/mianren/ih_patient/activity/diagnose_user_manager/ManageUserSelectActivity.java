@@ -23,6 +23,7 @@ import java.util.List;
 
 /**
  * 就诊人选择页面
+ * @author 顿顿
  */
 public class ManageUserSelectActivity extends BaseControllerActivity<ManageUserSelectController> implements ManageUserSelectView {
     private RecyclerView recyclerView;
