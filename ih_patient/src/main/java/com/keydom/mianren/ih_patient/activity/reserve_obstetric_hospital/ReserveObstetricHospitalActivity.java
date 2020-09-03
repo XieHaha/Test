@@ -240,7 +240,7 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
                 if (curUserBean != null) {
                     id = curUserBean.getId();
                 }
-                ManageUserSelectActivity.start(this, id);
+                ManageUserSelectActivity.start(this, String.valueOf(id));
                 break;
             case R.id.layout_menstruation:
                 KeyboardUtils.hideSoftInput(this);
