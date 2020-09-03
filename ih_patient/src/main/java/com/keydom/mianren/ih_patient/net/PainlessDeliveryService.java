@@ -31,8 +31,8 @@ public interface PainlessDeliveryService {
     Observable<HttpResult<List<PainlessDeliveryBean>>> getPainlessDeliveryList(@Query("eleCardNo") String eleCardNo);
 
     /**
-     * 无痛分娩预约
+     * 无痛分娩预约 1、取消   0、确认
      */
     @GET("medicine/medicinePainlessLabor/confirm")
-    Observable<HttpResult<String>> cancelPainlessDelivery(@Query("medicinePainlessLaborId") String id);
+    Observable<HttpResult<String>> dealPainlessDelivery(@Query("medicinePainlessLaborId") String id, @Query("state") int state);
 }

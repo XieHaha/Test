@@ -4,6 +4,7 @@ import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @auth 顿顿
@@ -11,6 +12,8 @@ import java.util.Date;
  * @des
  */
 public interface ReservePainlessDeliveryView extends BaseView {
+
+    int getFetusValue();
 
     void setSelect();
 
@@ -20,6 +23,7 @@ public interface ReservePainlessDeliveryView extends BaseView {
 
     void setDueDate(Date dueDate);
     void setReserveDate(Date reserveDate);
+    void setFetus(int position);
 
     /**
      * 预约成功
@@ -27,6 +31,8 @@ public interface ReservePainlessDeliveryView extends BaseView {
     void reserveSuccess();
 
     void reserveFailed();
+
+    List<String> getFetusDit();
 
     /**
      * 获取就诊人
@@ -47,6 +53,8 @@ public interface ReservePainlessDeliveryView extends BaseView {
      * 预产期
      */
     String getDueDate();
+
+    String getReserveDate();
 
     /**
      * 胎数

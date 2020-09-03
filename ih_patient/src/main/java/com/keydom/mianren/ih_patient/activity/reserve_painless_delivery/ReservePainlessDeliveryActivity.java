@@ -25,10 +25,13 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 无痛分娩预约
+ *
  * @author 顿顿
  */
 public class ReservePainlessDeliveryActivity extends BaseControllerActivity<ReservePainlessDeliveryController> implements ReservePainlessDeliveryView {
@@ -43,6 +46,14 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
      * 就诊人
      */
     private ManagerUserBean managerUserBean;
+
+
+    private int fetusValue = -1;
+
+    /**
+     * 胎数
+     */
+    private List<String> fetusDit = new ArrayList<>();
 
     /**
      * 启动
@@ -62,6 +73,11 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
         EventBus.getDefault().register(this);
         setRightTxt("预约记录");
         setRightBtnListener(getController());
+
+        fetusDit.add("单胎");
+        fetusDit.add("双胎");
+        fetusDit.add("多胎");
+
         bindView();
     }
 
@@ -114,12 +130,20 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
 
     @Override
     public void reserveSuccess() {
-        ToastUtil.showMessage(getContext(), "成功");
+        ToastUtil.showMessage(getContext(), "预约成功");
+        PainlessDeliveryListActivity.start(getContext());
+        finish();
     }
 
     @Override
     public void reserveFailed() {
         ToastUtil.showMessage(getContext(), "失败");
+    }
+
+
+    @Override
+    public List<String> getFetusDit() {
+        return fetusDit;
     }
 
     @Override
@@ -143,6 +167,11 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
     }
 
     @Override
+    public String getReserveDate() {
+        return tvReserveDate.getText().toString();
+    }
+
+    @Override
     public String getFetus() {
         return tvFetus.getText().toString();
     }
@@ -155,6 +184,11 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
     @Override
     public long getCurUserId() {
         return managerUserBean == null ? -1 : managerUserBean.getId();
+    }
+
+    @Override
+    public int getFetusValue() {
+        return fetusValue;
     }
 
     @Override
@@ -174,6 +208,12 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
     @Override
     public void setMenstruation(Date menstruation) {
         tvLastMenstruation.setText(DateUtils.dateToString(menstruation));
+    }
+
+    @Override
+    public void setFetus(int position) {
+        fetusValue = position;
+        tvFetus.setText(fetusDit.get(position));
     }
 
     @Override

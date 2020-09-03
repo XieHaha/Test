@@ -1,6 +1,8 @@
 package com.keydom.mianren.ih_patient.adapter;
 
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -28,9 +30,8 @@ public class PainlessDeliveryAdapter extends BaseQuickAdapter<PainlessDeliveryBe
         fetusDit.add("多胎");
     }
 
-    public PainlessDeliveryAdapter(int layoutResId,
-                                   @Nullable ArrayList<PainlessDeliveryBean> data) {
-        super(layoutResId, data);
+    public PainlessDeliveryAdapter(@Nullable ArrayList<PainlessDeliveryBean> data) {
+        super(R.layout.item_painless_delivery, data);
     }
 
     @Override
@@ -41,5 +42,23 @@ public class PainlessDeliveryAdapter extends BaseQuickAdapter<PainlessDeliveryBe
                 .setText(R.id.tv_fetus, fetusDit.get(item.getEmbryoNumber()))
                 .setText(R.id.tv_phone, item.getPhoneNumber())
                 .addOnClickListener(R.id.tv_cancel);
+        TextView tvStatus = helper.getView(R.id.tv_status);
+        switch (item.getIsConfirm()) {
+            case 0:
+                helper.getView(R.id.tv_cancel).setVisibility(View.VISIBLE);
+                helper.getView(R.id.tv_status).setVisibility(View.GONE);
+                break;
+            case 1:
+                helper.getView(R.id.tv_cancel).setVisibility(View.GONE);
+                helper.getView(R.id.tv_status).setVisibility(View.VISIBLE);
+                tvStatus.setText("已确认");
+                break;
+            case 2:
+                helper.getView(R.id.tv_cancel).setVisibility(View.GONE);
+                helper.getView(R.id.tv_status).setVisibility(View.VISIBLE);
+                tvStatus.setText("已取消");
+                break;
+            default:
+        }
     }
 }

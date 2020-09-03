@@ -25,15 +25,24 @@
             tools:text="名字" />
 
         <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_24"
+            android:gravity="center"
+            android:paddingStart="@dimen/dp_20"
+            android:paddingEnd="@dimen/dp_20"
+            android:text=""
+            android:textColor="@color/tab_nol_color"
+            android:textSize="@dimen/sp_12" />
+        <TextView
             android:id="@+id/tv_cancel"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_24"
             android:background="@drawable/corner3_stroke_3f98f7"
-            android:drawableStart="@mipmap/point_icon_6"
-            android:drawablePadding="@dimen/dp_6"
+            android:layout_marginStart="@dimen/dp_10"
             android:gravity="center"
-            android:paddingStart="@dimen/dp_12"
-            android:paddingEnd="@dimen/dp_12"
+            android:paddingStart="@dimen/dp_20"
+            android:paddingEnd="@dimen/dp_20"
             android:text="@string/txt_cancel"
             android:textColor="@color/other_login_color"
             android:textSize="@dimen/sp_12" />
