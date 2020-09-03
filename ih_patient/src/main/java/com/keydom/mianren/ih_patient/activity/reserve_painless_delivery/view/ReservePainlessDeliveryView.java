@@ -1,7 +1,7 @@
 package com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.view;
 
 import com.keydom.ih_common.base.BaseView;
-import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
+import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 
 import java.util.Date;
 import java.util.List;
@@ -37,7 +37,7 @@ public interface ReservePainlessDeliveryView extends BaseView {
     /**
      * 获取就诊人
      */
-    ManagerUserBean getVisitUser();
+    MedicalCardInfo getVisitUser();
 
     /**
      * 获取年龄
@@ -65,10 +65,5 @@ public interface ReservePainlessDeliveryView extends BaseView {
      * 电话
      */
     String getPhone();
-
-    /**
-     * 当前就诊人id
-     */
-    long getCurUserId();
 
 }

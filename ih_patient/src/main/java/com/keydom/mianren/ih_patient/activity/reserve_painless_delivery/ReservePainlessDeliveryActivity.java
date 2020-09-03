@@ -16,7 +16,7 @@ import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.controller.ReservePainlessDeliveryController;
 import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.view.ReservePainlessDeliveryView;
 import com.keydom.mianren.ih_patient.bean.Event;
-import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
+import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.utils.DateUtils;
 
@@ -43,9 +43,9 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
             layoutReserveDate;
     private RelativeLayout layoutSelect;
     /**
-     * 就诊人
+     * 就诊卡
      */
-    private ManagerUserBean managerUserBean;
+    private MedicalCardInfo medicalCardInfo;
 
 
     private int fetusValue = -1;
@@ -109,10 +109,13 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
         layoutSelect.setOnClickListener(getController());
     }
 
+    /**
+     * 获取患者就诊卡
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onVisitPeopleSelect(Event event) {
-        if (event.getType() == EventType.SENDPATIENTINFO) {
-            managerUserBean = (ManagerUserBean) event.getData();
+    public void getPatientCard(Event event) {
+        if (event.getType() == EventType.SENDSELECTNURSINGPATIENT) {
+            medicalCardInfo = (MedicalCardInfo) event.getData();
             bindVisitData();
         }
     }
@@ -121,10 +124,10 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
      * 就诊人信息
      */
     private void bindVisitData() {
-        if (managerUserBean != null) {
-            tvVisitName.setText(managerUserBean.getName());
-            etAge.setText(managerUserBean.getAge());
-            etPhone.setText(managerUserBean.getPhone());
+        if (medicalCardInfo != null) {
+            tvVisitName.setText(medicalCardInfo.getName());
+            etAge.setText(medicalCardInfo.getAge());
+            etPhone.setText(medicalCardInfo.getPhoneNumber());
         }
     }
 
@@ -147,8 +150,8 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
     }
 
     @Override
-    public ManagerUserBean getVisitUser() {
-        return managerUserBean;
+    public MedicalCardInfo getVisitUser() {
+        return medicalCardInfo;
     }
 
     @Override
@@ -179,11 +182,6 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
     @Override
     public String getPhone() {
         return etPhone.getText().toString();
-    }
-
-    @Override
-    public long getCurUserId() {
-        return managerUserBean == null ? -1 : managerUserBean.getId();
     }
 
     @Override

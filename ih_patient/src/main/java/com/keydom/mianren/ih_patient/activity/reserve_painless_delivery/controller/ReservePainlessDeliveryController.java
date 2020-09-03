@@ -18,10 +18,10 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.ManageUserSelectActivity;
+import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.PainlessDeliveryListActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.view.ReservePainlessDeliveryView;
-import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
+import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.net.PainlessDeliveryService;
 
@@ -43,7 +43,7 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.layout_visit:
-                ManageUserSelectActivity.start(getContext(), String.valueOf(getView().getCurUserId()));
+                ChoosePatientActivity.start(getContext(), -1, false);
                 break;
             case R.id.layout_fetus:
                 OptionsPickerView fetusPicker = new OptionsPickerBuilder(getContext(),
@@ -88,7 +88,7 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
     }
 
     private void onNext() {
-        ManagerUserBean bean = getView().getVisitUser();
+        MedicalCardInfo bean = getView().getVisitUser();
         if (bean == null) {
             ToastUtil.showMessage(getContext(), "请选择就诊人");
             return;
@@ -128,7 +128,7 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
         map.put("registerUserId", Global.getUserId());
         //预约时间
         map.put("appointmentDate", getView().getReserveDate());
-        map.put("eleCardNumber", bean.getCardId());
+        map.put("eleCardNumber", bean.getEleCardNumber());
         map.put("expectedDateOfConfinement", getView().getDueDate());
         map.put("lastMenstrualPeriodTime", getView().getLastDate());
         map.put("patientName", bean.getName());
