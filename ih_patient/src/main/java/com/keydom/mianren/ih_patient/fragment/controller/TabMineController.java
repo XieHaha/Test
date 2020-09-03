@@ -179,7 +179,7 @@ public class TabMineController extends ControllerImpl<TabMineView> implements Vi
                 break;
             case R.id.mine_current_visit_change:
                 if (loginStatus()) {
-                    ManageUserSelectActivity.start(getContext(), getView().getCurUserId());
+                    ManageUserSelectActivity.start(getContext(), String.valueOf(getView().getCurUserId()));
                 }
                 break;
             default:

@@ -1,8 +1,9 @@
 package com.keydom.mianren.ih_patient.net;
 
-import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_patient.bean.PainlessDeliveryBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -26,11 +27,11 @@ public interface PainlessDeliveryService {
     /**
      * 无痛分娩预约列表
      */
-    @GET("medicine/medicinePainlessLabor/list")
-    Observable<HttpResult<PageBean<PainlessDeliveryBean>>> getPainlessDeliveryList();
+    @GET("medicine/medicinePainlessLabor/painlessLabors")
+    Observable<HttpResult<List<PainlessDeliveryBean>>> getPainlessDeliveryList(@Query("eleCardNo") String eleCardNo);
 
     /**
-     * 无痛分娩预约列表
+     * 无痛分娩预约
      */
     @GET("medicine/medicinePainlessLabor/confirm")
     Observable<HttpResult<String>> cancelPainlessDelivery(@Query("medicinePainlessLaborId") String id);

@@ -20,7 +20,7 @@ public class ExaminationReserveController extends ControllerImpl<ExaminationRese
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.examination_reserve_visit_tv:
-                ManageUserSelectActivity.start(getContext(), getView().getCurrentUserId());
+                ManageUserSelectActivity.start(getContext(), String.valueOf(getView().getCurrentUserId()));
                 break;
             case R.id.examination_reserve_date_tv:
                 KeyboardUtils.hideSoftInput((Activity) getContext());

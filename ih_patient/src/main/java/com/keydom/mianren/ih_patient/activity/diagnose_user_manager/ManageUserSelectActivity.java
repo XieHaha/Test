@@ -31,12 +31,12 @@ public class ManageUserSelectActivity extends BaseControllerActivity<ManageUserS
     /**
      * 当前选中就诊人id
      */
-    private long curId;
+    private String curId;
 
     /**
      * 启动页面
      */
-    public static void start(Context context, long id) {
+    public static void start(Context context, String id) {
         Intent intent = new Intent(context, ManageUserSelectActivity.class);
         intent.putExtra("id", id);
         context.startActivity(intent);
@@ -49,7 +49,7 @@ public class ManageUserSelectActivity extends BaseControllerActivity<ManageUserS
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        curId = getIntent().getLongExtra("id", -1);
+        curId = getIntent().getStringExtra("id");
         setTitle("选择就诊人");
         recyclerView = this.findViewById(R.id.user_rv);
         adapter = new ManageUserNewAdapter(new ArrayList<>());
