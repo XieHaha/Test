@@ -25,11 +25,11 @@
             android:layout_toLeftOf="@id/search_btn"
             android:background="@drawable/search_select_bg"
             android:drawableRight="@mipmap/arrow_bottom_grey"
+            android:ellipsize="end"
             android:gravity="center"
+            android:lines="1"
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_10"
-            android:lines="1"
-            android:ellipsize="end"
             android:textColor="@color/primary_font_color"
             android:textSize="@dimen/font_size_primary" />
 
@@ -99,10 +99,10 @@
                                 android:id="@+id/personal_user_name_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="18dp"
-                                android:text="木雨成风"
-                                android:maxWidth="@dimen/dp_100"
-                                android:lines="1"
                                 android:ellipsize="end"
+                                android:lines="1"
+                                android:maxWidth="@dimen/dp_100"
+                                android:text="木雨成风"
                                 android:textSize="@dimen/sp_14" />
 
                             <TextView
@@ -158,28 +158,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            mitem:itemName="今日订单"></com.keydom.ih_common.view.CountItemView>
+                            mitem:itemName="今日订单" />
 
                         <com.keydom.ih_common.view.CountItemView
                             android:id="@+id/all_order_rl"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            mitem:itemName="累计订单"></com.keydom.ih_common.view.CountItemView>
+                            mitem:itemName="累计订单" />
 
                         <com.keydom.ih_common.view.CountItemView
                             android:id="@+id/today_evaluation_rl"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            mitem:itemName="今日好评"></com.keydom.ih_common.view.CountItemView>
+                            mitem:itemName="今日好评" />
 
                         <com.keydom.ih_common.view.CountItemView
                             android:id="@+id/all_evaluation_rl"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            mitem:itemName="累计好评"></com.keydom.ih_common.view.CountItemView>
+                            mitem:itemName="累计好评" />
 
                     </LinearLayout>
 
@@ -239,7 +239,7 @@
                         android:paddingBottom="@dimen/dp_10"
                         mitem:itemTitle="我的名片"
                         mitem:leftImg="@mipmap/my_visiting_card"
-                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+                        mitem:rightImg="@mipmap/arrow_right_grey" />
 
                     <com.keydom.ih_common.view.GeneralItemView
                         android:id="@+id/my_collect"
@@ -250,7 +250,7 @@
                         android:paddingBottom="@dimen/dp_10"
                         mitem:itemTitle="我的收藏"
                         mitem:leftImg="@mipmap/my_collect_icon"
-                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+                        mitem:rightImg="@mipmap/arrow_right_grey" />
 
                     <com.keydom.ih_common.view.GeneralItemView
                         android:id="@+id/my_article"
@@ -261,7 +261,7 @@
                         android:paddingBottom="@dimen/dp_10"
                         mitem:itemTitle="我的文章"
                         mitem:leftImg="@mipmap/my_article_icon"
-                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+                        mitem:rightImg="@mipmap/arrow_right_grey" />
 
                     <com.keydom.ih_common.view.GeneralItemView
                         android:id="@+id/my_attention"
@@ -272,7 +272,7 @@
                         android:paddingBottom="@dimen/dp_10"
                         mitem:itemTitle="我的关注"
                         mitem:leftImg="@mipmap/my_attention_icon"
-                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+                        mitem:rightImg="@mipmap/arrow_right_grey" />
 
                     <com.keydom.ih_common.view.GeneralItemView
                         android:id="@+id/my_service"
@@ -283,7 +283,7 @@
                         android:paddingBottom="@dimen/dp_10"
                         mitem:itemTitle="我的服务"
                         mitem:leftImg="@mipmap/my_service_icon"
-                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+                        mitem:rightImg="@mipmap/arrow_right_grey" />
 
                     <com.keydom.ih_common.view.GeneralItemView
                         android:id="@+id/my_sign"
@@ -294,7 +294,7 @@
                         android:paddingBottom="@dimen/dp_10"
                         mitem:itemTitle="我的电子签名"
                         mitem:leftImg="@mipmap/my_sign"
-                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+                        mitem:rightImg="@mipmap/arrow_right_grey" />
 
                     <com.keydom.ih_common.view.GeneralItemView
                         android:id="@+id/my_insurance"
@@ -303,9 +303,10 @@
                         android:background="@drawable/common_white_click_bg"
                         android:paddingTop="@dimen/dp_10"
                         android:paddingBottom="@dimen/dp_10"
+                        android:visibility="gone"
                         mitem:itemTitle="我的保险"
                         mitem:leftImg="@mipmap/my_insurance_icon"
-                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+                        mitem:rightImg="@mipmap/arrow_right_grey" />
 
                     <com.keydom.ih_common.view.GeneralItemView
                         android:id="@+id/my_purse"
@@ -316,7 +317,7 @@
                         android:paddingBottom="@dimen/dp_10"
                         mitem:itemTitle="我的钱包"
                         mitem:leftImg="@mipmap/my_purse_icon"
-                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+                        mitem:rightImg="@mipmap/arrow_right_grey" />
 
                     <com.keydom.ih_common.view.GeneralItemView
                         android:id="@+id/my_evaluation"
@@ -327,12 +328,13 @@
                         android:paddingBottom="@dimen/dp_10"
                         mitem:itemTitle="患者评价"
                         mitem:leftImg="@mipmap/my_evaluation_icon"
-                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+                        mitem:rightImg="@mipmap/arrow_right_grey" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_10"
                         android:background="@color/line_color" />
+
                     <com.keydom.ih_common.view.GeneralItemView
                         android:id="@+id/my_message"
                         android:layout_width="match_parent"
@@ -342,7 +344,7 @@
                         android:paddingBottom="@dimen/dp_10"
                         mitem:itemTitle="我的消息"
                         mitem:leftImg="@mipmap/my_feedback_icon"
-                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+                        mitem:rightImg="@mipmap/arrow_right_grey" />
 
                     <com.keydom.ih_common.view.GeneralItemView
                         android:id="@+id/my_feedback"
@@ -353,7 +355,7 @@
                         android:paddingBottom="@dimen/dp_10"
                         mitem:itemTitle="意见反馈"
                         mitem:leftImg="@mipmap/my_feedback_icon"
-                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+                        mitem:rightImg="@mipmap/arrow_right_grey" />
 
                     <com.keydom.ih_common.view.GeneralItemView
                         android:id="@+id/my_setting"
@@ -364,7 +366,7 @@
                         android:paddingBottom="@dimen/dp_10"
                         mitem:itemTitle="设置"
                         mitem:leftImg="@mipmap/my_setting_icon"
-                        mitem:rightImg="@mipmap/arrow_right_grey"></com.keydom.ih_common.view.GeneralItemView>
+                        mitem:rightImg="@mipmap/arrow_right_grey" />
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
