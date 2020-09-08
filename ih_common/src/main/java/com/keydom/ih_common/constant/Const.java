@@ -62,8 +62,11 @@ public class Const {
     /**
      * 隐私协议
      */
-    public static final String PRIVACY_POLICY = "https://mianren.tianfuzhl.com" +
-            ".cn/ih_mianren/agreement/privacy.html";
+    public static final String PRIVACY_POLICY = "https://mianren.tianfuzhl.com.cn/ih_mianren/agreement/privacy.html";
+    /**
+     * 孕妇学校
+     */
+    public static final String PREGNANT_WOMAN_SCHOOL = "https://mianren.tianfuzhl.com.cn/ih_mianren/amniocentsis_h5/#/pregnantSchool?userId=";
 
     /**
      * 没有其他作用，仅做前期接口测试

@@ -26,6 +26,7 @@ public class CommonDocumentBean {
     public static final String CODE_19 = "019";//报告查询
     public static final String CODE_20 = "020";//个体体检
     public static final String CODE_21 = "021";//个性化体检
+    public static final String CODE_100 = "100";//孕妇学校
 
     @JSONField(name = "linkUrl")
     private String url;

@@ -11,9 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.card_operate.CardoperateActivity;
+import com.keydom.mianren.ih_patient.activity.common_document.CommonDocumentActivity;
 import com.keydom.mianren.ih_patient.activity.diagnose_main.DiagnoseMainActivity;
 import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.ManageUserActivity;
 import com.keydom.mianren.ih_patient.activity.get_drug.GetDrugActivity;
@@ -28,7 +31,6 @@ import com.keydom.mianren.ih_patient.activity.order_doctor_register.Registration
 import com.keydom.mianren.ih_patient.activity.order_examination.OrderExaminationActivity;
 import com.keydom.mianren.ih_patient.activity.order_physical_examination.OrderPhysicalExaminationActivity;
 import com.keydom.mianren.ih_patient.activity.payment_records.PaymentRecordActivity;
-import com.keydom.mianren.ih_patient.activity.pregnant_woman.PregnantWomanActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.AmniocentesisReserveActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.ReserveObstetricHospitalActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.ReservePainlessDeliveryActivity;
@@ -193,12 +195,14 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             break;
                         case PregnantWoman:
                             if (loginStatus()) {
-                            PregnantWomanActivity.start(context);
+                                //                            PregnantWomanActivity.start(context);
+//                                WebActivity.start(context, CommonDocumentBean.CODE_100);
+                                CommonDocumentActivity.start(context, "孕妇学校", Const.PREGNANT_WOMAN_SCHOOL+ App.userInfo.getId());
                             }
                             break;
                         case PainlessDelivery:
                             if (loginStatus()) {
-                            ReservePainlessDeliveryActivity.start(context);
+                                ReservePainlessDeliveryActivity.start(context);
                             }
                             break;
                         case ObstetricMedical:

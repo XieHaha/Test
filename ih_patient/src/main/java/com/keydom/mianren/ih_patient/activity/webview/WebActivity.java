@@ -7,7 +7,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.webview.controller.WebPageController;
 import com.keydom.mianren.ih_patient.activity.webview.view.WebPageView;
@@ -25,6 +27,7 @@ import org.jetbrains.annotations.Nullable;
 import butterknife.BindView;
 
 /**
+ * @author 顿顿
  * @date 20/6/19 11:36
  * @des
  */
@@ -72,6 +75,10 @@ public class WebActivity extends BaseControllerActivity<WebPageController> imple
                 setTitle("个性化体检");
                 url = "http://center.zkpacs.com.cn/jsp/wxNewServegroup/nquesProcess/selectInfo" +
                         ".html";
+                break;
+            case CommonDocumentBean.CODE_100:
+                setTitle("孕妇学校");
+                url = com.keydom.ih_common.constant.Const.PREGNANT_WOMAN_SCHOOL + App.userInfo.getId();
                 break;
             default:
                 break;
@@ -132,6 +139,7 @@ public class WebActivity extends BaseControllerActivity<WebPageController> imple
 
         pageLoading();
         webView.loadUrl(url);
+        LogUtils.e("url:" + url);
     }
 
     private void initClient() {
