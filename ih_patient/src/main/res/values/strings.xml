@@ -178,6 +178,7 @@
     <string name="txt_none">无</string>
     <string name="txt_agree">同意</string>
     <string name="txt_disagree">不同意</string>
+    <string name="txt_change">更换</string>
     <string name="txt_agree_protocol">是否同意以上协议内容</string>
     <string name="txt_commit_reserve_apply">提交预约申请</string>
 
@@ -352,6 +353,7 @@
     <string name="txt_fetal_heart_colon">胎心:</string>
     <string name="txt_obstetric_medical_double_colon">双顶径:</string>
     <string name="txt_urine_protein_colon">尿蛋白:</string>
+    <string name="txt_medical_record_inspection">产检病历</string>
 
     <!--羊水穿刺预约-->
     <string name="txt_amniocentesis_reserve">羊水穿刺预约</string>

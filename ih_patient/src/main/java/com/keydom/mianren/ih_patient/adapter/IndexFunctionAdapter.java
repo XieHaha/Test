@@ -22,9 +22,9 @@ import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.ManageUserAc
 import com.keydom.mianren.ih_patient.activity.get_drug.GetDrugActivity;
 import com.keydom.mianren.ih_patient.activity.hospital_payment.HospitalPaymentActivity;
 import com.keydom.mianren.ih_patient.activity.inspection_report.InspectionReportActivity;
-import com.keydom.mianren.ih_patient.activity.inspection_report.ObstetricMedicalActivity;
 import com.keydom.mianren.ih_patient.activity.location_manage.LocationManageActivity;
 import com.keydom.mianren.ih_patient.activity.logistic.QueryLogisticActivity;
+import com.keydom.mianren.ih_patient.activity.medical_record.MedicalRecordActivity;
 import com.keydom.mianren.ih_patient.activity.nurse_main.NurseMainActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.OnlineDiagnonsesOrderActivity;
 import com.keydom.mianren.ih_patient.activity.order_doctor_register.RegistrationReserveActivity;
@@ -195,9 +195,9 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             break;
                         case PregnantWoman:
                             if (loginStatus()) {
-                                //                            PregnantWomanActivity.start(context);
-//                                WebActivity.start(context, CommonDocumentBean.CODE_100);
-                                CommonDocumentActivity.start(context, "孕妇学校", Const.PREGNANT_WOMAN_SCHOOL+ App.userInfo.getId());
+                                // PregnantWomanActivity.start(context);
+                                CommonDocumentActivity.start(context, "孕妇学校",
+                                        Const.PREGNANT_WOMAN_SCHOOL + App.userInfo.getId());
                             }
                             break;
                         case PainlessDelivery:
@@ -207,7 +207,8 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             break;
                         case ObstetricMedical:
                             if (loginStatus()) {
-                                ObstetricMedicalActivity.start(context);
+                                //ObstetricMedicalActivity.start(context);
+                                MedicalRecordActivity.start(context);
                             }
                             break;
                      /*   case Setting:

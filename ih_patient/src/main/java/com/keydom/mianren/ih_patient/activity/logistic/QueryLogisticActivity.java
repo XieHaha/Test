@@ -47,7 +47,7 @@ public class QueryLogisticActivity extends BaseActivity {
     private SmartRefreshLayout smartRefreshLayout;
     private RelativeLayout emptyLayout;
     private String mWaybill = null;
-    private String mUserId ;
+    private String mUserId;
     private int page = 1;
 
 
@@ -58,7 +58,7 @@ public class QueryLogisticActivity extends BaseActivity {
 
         //TODO : 用户UserID 没有数据，暂时用1，1有数据
         mUserId = String.valueOf(Global.getUserId());
-        getHttpUserId(mUserId,page, Const.PAGE_SIZE);
+        getHttpUserId(mUserId, page, Const.PAGE_SIZE);
         //初始化组件
         mEditText = findViewById(R.id.search_edt);
         mTextView = findViewById(R.id.search_tv);
@@ -82,9 +82,9 @@ public class QueryLogisticActivity extends BaseActivity {
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-               // getHttp(mWaybill);
+                // getHttp(mWaybill);
                 page = 1;
-                getHttpUserId(mUserId,page, Const.PAGE_SIZE);
+                getHttpUserId(mUserId, page, Const.PAGE_SIZE);
                 smartRefreshLayout.finishRefresh();
             }
         });
@@ -101,11 +101,11 @@ public class QueryLogisticActivity extends BaseActivity {
                     smartRefreshLayout.finishLoadMore();
                 }*/
 
-//                if (mDatas.size() < 5) {
-//                    refreshLayout.finishLoadMoreWithNoMoreData();
-//                } else {
-//                    smartRefreshLayout.finishLoadMore();
-//                }
+                //                if (mDatas.size() < 5) {
+                //                    refreshLayout.finishLoadMoreWithNoMoreData();
+                //                } else {
+                //                    smartRefreshLayout.finishLoadMore();
+                //                }
             }
         });
 
@@ -123,8 +123,9 @@ public class QueryLogisticActivity extends BaseActivity {
         mTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent=new Intent(QueryLogisticActivity.this, ChoosePharmacyActivity.class);
-//                startActivity(intent);
+                //                Intent intent=new Intent(QueryLogisticActivity.this,
+                //                ChoosePharmacyActivity.class);
+                //                startActivity(intent);
                 String value = mEditText.getText().toString();
                 if (!CommUtil.isEmpty(value)) {
                     // TODO: 2019/5/6   正则表达式判断  接口
@@ -170,7 +171,8 @@ public class QueryLogisticActivity extends BaseActivity {
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 Logger.e("msg=" + msg);
                 Logger.e("code=" + code);
                 loadingFail(msg);
@@ -191,20 +193,21 @@ public class QueryLogisticActivity extends BaseActivity {
         map.put("size", pageSize);
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getLogistics(map), new HttpSubscriber<GetLogisicBean>(this, getDisposable(), true, true) {
             @Override
-            public void requestComplete(@Nullable GetLogisicBean getLogisicBean) {
+            public void requestComplete(@Nullable GetLogisicBean bean) {
                 //  Logger.e("uuuu=" + logisticsEntity);
                 emptyLayout.setVisibility(View.GONE);
-                if (!CommUtil.isEmpty(getLogisicBean.getRecords())) {
-//                    List<LogisticsEntity> logisticsEntities=new ArrayList<>();
-//                    logisticsEntities.add(logisticsEntity);logisticsEntity
-                    refreshView(getLogisicBean.getRecords());
+                if (bean != null && !CommUtil.isEmpty(bean.getRecords())) {
+                    //                    List<LogisticsEntity> logisticsEntities=new ArrayList<>();
+                    //                    logisticsEntities.add(logisticsEntity);logisticsEntity
+                    refreshView(bean.getRecords());
                 } else {
                     pageEmpty();
                 }
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 Logger.e("msg=" + msg);
                 Logger.e("code=" + code);
                 loadingFail(msg);
@@ -230,8 +233,8 @@ public class QueryLogisticActivity extends BaseActivity {
                 //  Logger.e("uuuu=" + logisticsEntity);
                 emptyLayout.setVisibility(View.GONE);
                 if (!CommUtil.isEmpty(getLogisicBean.getRecords())) {
-//                    List<LogisticsEntity> logisticsEntities=new ArrayList<>();
-//                    logisticsEntities.add(logisticsEntity);logisticsEntity
+                    //                    List<LogisticsEntity> logisticsEntities=new ArrayList<>();
+                    //                    logisticsEntities.add(logisticsEntity);logisticsEntity
                     refreshView(getLogisicBean.getRecords());
                 } else {
                     pageEmpty();
@@ -239,7 +242,8 @@ public class QueryLogisticActivity extends BaseActivity {
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 Logger.e("msg=" + msg);
                 Logger.e("code=" + code);
                 loadingFail(msg);
@@ -285,7 +289,7 @@ public class QueryLogisticActivity extends BaseActivity {
         emptyLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getHttpUserId(mUserId,page,Const.PAGE_SIZE);
+                getHttpUserId(mUserId, page, Const.PAGE_SIZE);
             }
         });
     }
