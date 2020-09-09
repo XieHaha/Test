@@ -44,7 +44,7 @@
             android:textSize="@dimen/font_size_primary"
             android:drawablePadding="@dimen/dp_7"
             android:paddingLeft="@dimen/dp_10"
-            android:text="大师的可就是拉动拉动ask领导吉萨了解大接口"
+            android:text=""
             android:maxWidth="@dimen/dp_120"
             android:singleLine="true"
             android:ellipsize="middle"

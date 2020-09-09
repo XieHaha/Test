@@ -189,7 +189,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
             mBabyHeightTv.setText(data.getBabyLength() + "mm");
             mBabyWeightTv.setText(data.getBabyWeight() + "g");
             mLastDaysTv.setText(data.getShowDate());
-            mBabyMeettingDaysTv.setText(data.getPregnantDay());
+            mBabyMeettingDaysTv.setText(data.getDueDay());
         } else {
             pageEmpty();
         }
