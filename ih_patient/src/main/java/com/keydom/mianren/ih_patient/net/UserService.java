@@ -139,6 +139,12 @@ public interface UserService {
             , Object> map);
 
     /**
+     * 获取门诊病历
+     */
+    @POST("user/medicalHistory/medicalRecord")
+    Observable<HttpResult<List<MedicalRecordBean>>> getMedicalRecord(@Body RequestBody body);
+
+    /**
      * 获取医生/护士列表
      */
     @GET("user/registerUserDoctor/getMyDoctor")

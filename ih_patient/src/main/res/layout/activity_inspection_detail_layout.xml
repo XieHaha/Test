@@ -34,14 +34,15 @@
                     android:layout_marginTop="@dimen/dp_35"
                     android:text=""
                     android:textColor="#333333"
-                    android:textSize="@dimen/sp_20" />
+                    android:textSize="@dimen/sp_20"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/inspection_title_tv"
-                    android:layout_marginTop="@dimen/dp_35"
+                    android:layout_marginTop="@dimen/dp_20"
                     android:orientation="horizontal"
                     android:paddingStart="@dimen/dp_26"
                     android:paddingEnd="@dimen/dp_0">

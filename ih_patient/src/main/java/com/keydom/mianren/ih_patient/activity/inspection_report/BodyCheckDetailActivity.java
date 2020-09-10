@@ -23,6 +23,8 @@ import java.util.List;
 
 /**
  * 检查详情
+ *
+ * @author 顿顿
  */
 public class BodyCheckDetailActivity extends BaseControllerActivity<BodyCheckDetailController> implements InspectionDetailView {
     /**

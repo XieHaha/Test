@@ -530,6 +530,7 @@
             android:name=".activity.order_triage.TriageOrderDetailActivity"
             android:launchMode="singleTask" />
         <activity android:name=".activity.webview.WebActivity" />
+        <activity android:name=".activity.medical_record.MedicalRecordActivity" />
     </application>
 
 </manifest>

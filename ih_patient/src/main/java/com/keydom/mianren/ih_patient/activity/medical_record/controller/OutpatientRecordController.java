@@ -10,6 +10,7 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.inspection_report.InspectionReportActivity;
+import com.keydom.mianren.ih_patient.activity.medical_record.MedicalRecordActivity;
 import com.keydom.mianren.ih_patient.activity.medical_record.view.OutpatientRecordView;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
 import com.keydom.mianren.ih_patient.activity.prescription_check.PrescriptionListActivity;
@@ -40,6 +41,7 @@ public class OutpatientRecordController extends ControllerImpl<OutpatientRecordV
             case R.id.medical_record_inspection:
                 break;
             case R.id.medical_record_medical:
+                MedicalRecordActivity.start(getContext(), getView().getMedicalCardInfo());
                 break;
             case R.id.medical_record_examine:
                 InspectionReportActivity.start(getContext(), getView().getMedicalCardInfo(),

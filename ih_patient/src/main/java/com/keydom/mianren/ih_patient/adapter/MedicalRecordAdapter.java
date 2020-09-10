@@ -10,20 +10,19 @@ import com.keydom.mianren.ih_patient.bean.MedicalRecordBean;
 import java.util.List;
 
 /**
- * created date: 2019/1/4 on 15:44
- * des:处方记录适配器
+ * des:门诊病历记录适配器
+ *
+ * @author 顿顿
  */
-public class MedicalRecordAdapter extends BaseQuickAdapter<MedicalRecordBean,BaseViewHolder>{
+public class MedicalRecordAdapter extends BaseQuickAdapter<MedicalRecordBean, BaseViewHolder> {
     public MedicalRecordAdapter(@Nullable List<MedicalRecordBean> data) {
-        super(R.layout.item_medical_record,data);
+        super(R.layout.item_medical_record, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, MedicalRecordBean item) {
-//        type 0诊疗 1咨询
-        helper.setText(R.id.time,item.getConsultTime()+"")
-                .setText(R.id.content,item.getDiagnosis()+"")
-                .setText(R.id.type,item.getType()==0?"诊疗":"咨询");
-
+        helper.setText(R.id.time, item.getInquiryTime())
+                .setText(R.id.content, item.getDiagnosis())
+                .setText(R.id.type, item.getType() == 0 ? "诊疗" : "咨询");
     }
 }
