@@ -40,7 +40,7 @@ public class BodyCheckDetailActivity extends BaseControllerActivity<BodyCheckDet
     private TextView sexTv;
     private TextView ageTv;
     private TextView doctorNameTv;
-    private TextView dateTv;
+    private TextView dateTv,numberTv;
     private TextView inspectionTitleTv;
     private TextView departNameTv;
     private RecyclerView inspectionDataRv;
@@ -55,7 +55,7 @@ public class BodyCheckDetailActivity extends BaseControllerActivity<BodyCheckDet
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        setTitle("检查报告单结果");
+        setTitle("检查报告详情");
         reportID = getIntent().getStringExtra("reportID");
         inspectionTitleTv = findViewById(R.id.inspection_title_tv);
         nameTv = findViewById(R.id.name_tv);
@@ -63,6 +63,7 @@ public class BodyCheckDetailActivity extends BaseControllerActivity<BodyCheckDet
         ageTv = findViewById(R.id.age_tv);
         doctorNameTv = findViewById(R.id.doctor_name_tv);
         dateTv = findViewById(R.id.date_tv);
+        numberTv = findViewById(R.id.number_tv);
         departNameTv = findViewById(R.id.depart_name_tv);
         inspectionDataRv = findViewById(R.id.inspection_data_rv);
         bodyCheckDetailAdapter = new BodyCheckDetailAdapter(dataList);
@@ -79,6 +80,7 @@ public class BodyCheckDetailActivity extends BaseControllerActivity<BodyCheckDet
         ageTv.setText(detailBean.getAge());
         doctorNameTv.setText(detailBean.getPatientName());
         dateTv.setText(detailBean.getReportTime());
+        numberTv.setText(reportID);
         departNameTv.setText(detailBean.getApplicationDepartment());
         bodyCheckDetailAdapter.setNewData(detailBean.getDataS());
     }

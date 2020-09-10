@@ -49,7 +49,7 @@ public class InspectionDetailActivity extends BaseControllerActivity<InspectionD
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        setTitle("检验报告单结果");
+        setTitle("检验报告详情");
         inspectionTitleTv = findViewById(R.id.inspection_title_tv);
         nameTv = findViewById(R.id.name_tv);
         sexTv = findViewById(R.id.sex_tv);

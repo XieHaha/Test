@@ -1,4 +1,4 @@
-package com.keydom.mianren.ih_patient.fragment;
+package com.keydom.mianren.ih_patient.activity.inspection_report.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
