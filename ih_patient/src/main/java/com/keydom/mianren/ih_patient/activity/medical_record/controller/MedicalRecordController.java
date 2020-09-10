@@ -9,10 +9,13 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.activity.inspection_report.InspectionReportActivity;
 import com.keydom.mianren.ih_patient.activity.medical_record.view.MedicalRecordView;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
+import com.keydom.mianren.ih_patient.activity.prescription_check.PrescriptionListActivity;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.constant.Global;
+import com.keydom.mianren.ih_patient.constant.Type;
 import com.keydom.mianren.ih_patient.net.CardService;
 
 import org.jetbrains.annotations.NotNull;
@@ -39,10 +42,15 @@ public class MedicalRecordController extends ControllerImpl<MedicalRecordView> i
             case R.id.medical_record_medical:
                 break;
             case R.id.medical_record_examine:
+                InspectionReportActivity.start(getContext(), getView().getMedicalCardInfo(),
+                        Type.INSPECTIONTYPE);
                 break;
             case R.id.medical_record_check:
+                InspectionReportActivity.start(getContext(), getView().getMedicalCardInfo(),
+                        Type.BODYCHECKTYPE);
                 break;
             case R.id.medical_record_prescription:
+                PrescriptionListActivity.start(getContext());
                 break;
             default:
                 break;
@@ -52,18 +60,19 @@ public class MedicalRecordController extends ControllerImpl<MedicalRecordView> i
     /**
      * 查询所有就诊卡
      */
-    public void queryAllCard(){
+    public void queryAllCard() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("uuid", Global.getUserId());
         map.put("hospital", App.hospitalId);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(CardService.class).getCardList(map), new HttpSubscriber<List<MedicalCardInfo>>(getContext(),getDisposable(),true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(CardService.class).getCardList(map), new HttpSubscriber<List<MedicalCardInfo>>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable List<MedicalCardInfo> data) {
                 getView().getAllCardSuccess(data);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 return super.requestError(exception, code, msg);
             }
         });

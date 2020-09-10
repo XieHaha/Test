@@ -1,5 +1,7 @@
 package com.keydom.mianren.ih_patient.fragment.controller;
 
+import android.view.View;
+
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
@@ -16,13 +18,20 @@ import java.util.List;
 
 /**
  * 检验检查报告控制器
+ *
+ * @author 顿顿
  */
-public class InspectionReportFmController extends ControllerImpl<InspectionReportFmView> {
+public class InspectionReportFmController extends ControllerImpl<InspectionReportFmView> implements View.OnClickListener {
+    @Override
+    public void onClick(View v) {
+
+    }
+
     /**
      * 获取检验报告
      */
     public void getInspectionReportList() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getCheckoutRecordPage(HttpService.INSTANCE.object2Body(getView().getParams())), new HttpSubscriber<List<InspectionRecordBean>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getCheckoutRecordPage(HttpService.INSTANCE.object2Body(getView().getParams())), new HttpSubscriber<List<InspectionRecordBean>>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable List<InspectionRecordBean> data) {
                 getView().getDataListSuccess(data);

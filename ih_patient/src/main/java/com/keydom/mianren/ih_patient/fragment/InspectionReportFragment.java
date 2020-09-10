@@ -1,23 +1,24 @@
 package com.keydom.mianren.ih_patient.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.inspection_report.InspectionReportActivity;
 import com.keydom.mianren.ih_patient.adapter.InspectionReportAdapter;
 import com.keydom.mianren.ih_patient.bean.InspectionRecordBean;
-import com.keydom.mianren.ih_patient.callback.GeneralCallback;
+import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.constant.Type;
 import com.keydom.mianren.ih_patient.fragment.controller.InspectionReportFmController;
 import com.keydom.mianren.ih_patient.fragment.view.InspectionReportFmView;
+import com.keydom.mianren.ih_patient.utils.DateUtils;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -25,25 +26,55 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+
 /**
  * 检查检验页面
+ *
+ * @author 顿顿
  */
-public class InspectionReportFragment extends BaseControllerFragment<InspectionReportFmController> implements InspectionReportFmView, GeneralCallback.ExaReportActivityListener {
-    private SmartRefreshLayout refreshLayout;
-    private RecyclerView containRv;
+public class InspectionReportFragment extends BaseControllerFragment<InspectionReportFmController> implements InspectionReportFmView {
+    @BindView(R.id.medical_record_name_tv)
+    TextView medicalRecordNameTv;
+    @BindView(R.id.medical_record_card_number_tv)
+    TextView medicalRecordCardNumberTv;
+    @BindView(R.id.containt_rv)
+    RecyclerView containRv;
+    @BindView(R.id.containt_refresh)
+    SmartRefreshLayout refreshLayout;
+    @BindView(R.id.progress_wheel)
+    ImageView progressWheel;
+    @BindView(R.id.empty_text)
+    TextView emptyTv;
+    @BindView(R.id.medical_record_start_date_tv)
+    TextView startDateTv;
+    @BindView(R.id.medical_record_end_date_tv)
+    TextView endDateTv;
+    @BindView(R.id.state_retry2)
+    RelativeLayout emptyLayout;
+    @BindView(R.id.medical_record_patient_layout)
+    RelativeLayout patientLayout;
+    @BindView(R.id.medical_record_date_layout)
+    LinearLayout dateLayout;
+    @BindView(R.id.medical_record_start_date_layout)
+    LinearLayout startDateLayout;
+    @BindView(R.id.medical_record_end_date_layout)
+    LinearLayout endDateLayout;
     private List<InspectionRecordBean> recordBeans = new ArrayList<>();
     private InspectionReportAdapter inspectionReportAdapter;
     /**
      * type 类型 Type.INSPECTIONTYPE 检验  Type.BODYCHECKTYPE 检查  selectedCardNum选中的就诊卡号
      */
     private int type;
-    private String selectedCardNum;
-    private RelativeLayout emptyLayout;
-    private TextView emptyTv;
+
+    private String startDate, endDate;
+
+    private MedicalCardInfo medicalCardInfo;
 
     @Override
     public int getLayoutRes() {
@@ -55,26 +86,42 @@ public class InspectionReportFragment extends BaseControllerFragment<InspectionR
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = getArguments();
         type = bundle.getInt(Const.TYPE, 1);
+        medicalCardInfo = (MedicalCardInfo) bundle.getSerializable(Const.DATA);
 
-        refreshLayout = view.findViewById(R.id.containt_refresh);
-        containRv = view.findViewById(R.id.containt_rv);
+        initDefaultDate();
+
+        startDateTv.setText(startDate);
+        endDateTv.setText(endDate);
+        medicalRecordNameTv.setText(medicalCardInfo.getName());
+        medicalRecordCardNumberTv.setText(medicalCardInfo.getEleCardNumber());
+        startDateLayout.setOnClickListener(getController());
+        endDateLayout.setOnClickListener(getController());
+
         inspectionReportAdapter = new InspectionReportAdapter(type, recordBeans);
         containRv.setAdapter(inspectionReportAdapter);
         refreshLayout.setOnRefreshListener(refreshLayout -> getController().getInspectionReportList());
-
-        emptyLayout = view.findViewById(R.id.state_retry2);
-        emptyTv = view.findViewById(R.id.empty_text);
         emptyLayout.setOnClickListener(view1 -> getController().getInspectionReportList());
+
+        getController().getInspectionReportList();
+    }
+
+    /**
+     * 初始化时间范围
+     */
+    private void initDefaultDate() {
+        Date date = new Date();
+        endDate = DateUtils.dateToString(date);
+        startDate = DateUtils.getInterValDate(date, -12);
     }
 
     @Override
     public Map<String, Object> getParams() {
         Map<String, Object> params = new HashMap<>();
-        //        params.put("eleCardNumber", "00721984");
-        params.put("eleCardNumber", selectedCardNum);
-        //        params.put("endDate", "");
+//        params.put("eleCardNumber", medicalCardInfo.getEleCardNumber());
+        params.put("eleCardNumber", "00900466");
+        params.put("endDate", endDate);
+        params.put("startDate", startDate);
         params.put("reportType", type);
-        //        params.put("startDate", "");
         return params;
     }
 
@@ -91,7 +138,6 @@ public class InspectionReportFragment extends BaseControllerFragment<InspectionR
             this.recordBeans.addAll(dataList);
             inspectionReportAdapter.notifyDataSetChanged();
             getController().currentPagePlus();
-
         } else {
             refreshLayout.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.VISIBLE);
@@ -122,18 +168,5 @@ public class InspectionReportFragment extends BaseControllerFragment<InspectionR
             ToastUtil.showMessage(getContext(), "列表加载失败：" + errMsg);
             emptyLayout.setClickable(true);
         }
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        InspectionReportActivity inspectionReportActivity = (InspectionReportActivity) activity;
-        inspectionReportActivity.registerListener(this);
-    }
-
-    @Override
-    public void refreshSelectedCard(String cardNum) {
-        selectedCardNum = cardNum;
-        getController().getInspectionReportList();
     }
 }

@@ -313,6 +313,20 @@ public class DateUtils {
      * 计算date天数差
      */
     public static int dateDifferent(Date date1, Date date2) {
-        return (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
+        return (int) ((date2.getTime() - date1.getTime()) / (1000 * 3600 * 24));
+    }
+
+    /**
+     * 获取日期区间
+     */
+    public static String getInterValDate(Date date, int interval) {
+        Calendar calendar = Calendar.getInstance();
+        //当前时间设置给calendar
+        calendar.setTime(date);
+        //当前时间的前几个月
+        calendar.add(Calendar.MONTH, interval);
+        //得到个月前的时间
+        Date ago = calendar.getTime();
+        return dateToString(ago);
     }
 }

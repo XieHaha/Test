@@ -14,6 +14,8 @@ import java.util.List;
 
 /**
  * 检验检查报告适配器
+ *
+ * @author 顿顿
  */
 public class InspectionReportAdapter extends BaseQuickAdapter<InspectionRecordBean,
         BaseViewHolder> {
@@ -29,7 +31,8 @@ public class InspectionReportAdapter extends BaseQuickAdapter<InspectionRecordBe
 
     @Override
     protected void convert(BaseViewHolder helper, InspectionRecordBean item) {
-        helper.setText(R.id.body_tv, item.getItemName());
+        helper.setText(R.id.body_tv, item.getItemName())
+                .setText(R.id.body_date_tv, item.getPublishTime());
         helper.itemView.setOnClickListener(v -> {
             if (type == Type.INSPECTIONTYPE) {
                 InspectionDetailActivity.start(mContext, item.getReportID());

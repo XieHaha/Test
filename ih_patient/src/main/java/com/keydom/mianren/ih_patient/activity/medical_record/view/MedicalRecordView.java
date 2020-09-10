@@ -13,4 +13,6 @@ import java.util.List;
  */
 public interface MedicalRecordView extends BaseView {
     void getAllCardSuccess(List<MedicalCardInfo> data);
+
+    MedicalCardInfo getMedicalCardInfo();
 }

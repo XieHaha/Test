@@ -96,7 +96,7 @@ public class TabMineController extends ControllerImpl<TabMineView> implements Vi
                 break;
             case R.id.mine_report_order:
                 if (loginStatus()) {
-                    InspectionReportActivity.start(getContext());
+                    InspectionReportActivity.start(getContext(), null,-1);
                 }
                 break;
             case R.id.mine_people_control:

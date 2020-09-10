@@ -142,7 +142,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             break;
                         case InspectionReport:
                             if (loginStatus()) {
-                                InspectionReportActivity.start(context);
+                                InspectionReportActivity.start(context, null,-1);
                             }
                             break;
                         case OrderExamination:

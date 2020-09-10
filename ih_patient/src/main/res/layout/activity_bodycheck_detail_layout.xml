@@ -184,7 +184,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_22"
                     android:layout_toEndOf="@+id/doctor_name_label"
-                    android:text="李医生"
+                    android:text=""
                     android:textColor="#333333"
                     android:textSize="@dimen/sp_14" />
 
@@ -206,7 +206,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="@dimen/dp_22"
                     android:layout_marginEnd="@dimen/dp_25"
-                    android:text="2018.12.18"
+                    android:text=""
                     android:textColor="#333333"
                     android:textSize="@dimen/sp_14" />
 

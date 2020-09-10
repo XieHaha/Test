@@ -1,5 +1,7 @@
 package com.keydom.mianren.ih_patient.activity.prescription_check;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.activity.medical_record.MedicalRecordActivity;
 import com.keydom.mianren.ih_patient.activity.prescription_check.controller.PrescriptionController;
 import com.keydom.mianren.ih_patient.activity.prescription_check.view.PrescriptionView;
 import com.keydom.mianren.ih_patient.adapter.MedicalRecordPopupWindowAdapter;
@@ -47,6 +50,10 @@ public class PrescriptionListActivity extends BaseControllerActivity<Prescriptio
     private RecyclerView mRecyclerView;
     private RefreshLayout refreshLayout;
     private PrescriptionListAdapter mAdapter;
+
+    public static void start(Context context) {
+        context.startActivity(new Intent(context, PrescriptionListActivity.class));
+    }
 
     @Override
     public int getLayoutRes() {

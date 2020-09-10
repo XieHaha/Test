@@ -356,7 +356,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
                     ActivityUtils.startActivity(MedicalRecordActivity.class);
                     break;
                 case INSPECTIONORDER:
-                    InspectionReportActivity.start(getContext());
+                    InspectionReportActivity.start(getContext(), null,-1);
                     break;
                 case ELECTRONICPRESCRIBING:
                     ActivityUtils.startActivity(PrescriptionListActivity.class);
