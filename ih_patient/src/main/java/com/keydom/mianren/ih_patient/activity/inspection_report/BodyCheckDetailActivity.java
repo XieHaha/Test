@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
@@ -15,6 +16,7 @@ import com.keydom.mianren.ih_patient.activity.inspection_report.view.InspectionD
 import com.keydom.mianren.ih_patient.adapter.BodyCheckDetailAdapter;
 import com.keydom.mianren.ih_patient.bean.CheckoutResultListBean;
 import com.keydom.mianren.ih_patient.bean.InspectionDetailBean;
+import com.keydom.mianren.ih_patient.bean.InspectionRecordBean;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -30,9 +32,9 @@ public class BodyCheckDetailActivity extends BaseControllerActivity<BodyCheckDet
     /**
      * 启动方法
      */
-    public static void start(Context context, String reportID) {
+    public static void start(Context context, InspectionRecordBean recordBean) {
         Intent intent = new Intent(context, BodyCheckDetailActivity.class);
-        intent.putExtra("reportID", reportID);
+        intent.putExtra(Const.DATA, recordBean);
         context.startActivity(intent);
     }
 
@@ -40,13 +42,13 @@ public class BodyCheckDetailActivity extends BaseControllerActivity<BodyCheckDet
     private TextView sexTv;
     private TextView ageTv;
     private TextView doctorNameTv;
-    private TextView dateTv,numberTv;
+    private TextView dateTv, numberTv;
     private TextView inspectionTitleTv;
     private TextView departNameTv;
     private RecyclerView inspectionDataRv;
     private BodyCheckDetailAdapter bodyCheckDetailAdapter;
     private List<CheckoutResultListBean> dataList = new ArrayList<>();
-    private String reportID;
+    private InspectionRecordBean recordBean;
 
     @Override
     public int getLayoutRes() {
@@ -56,7 +58,8 @@ public class BodyCheckDetailActivity extends BaseControllerActivity<BodyCheckDet
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle("检查报告详情");
-        reportID = getIntent().getStringExtra("reportID");
+        recordBean = (InspectionRecordBean) getIntent().getSerializableExtra(Const.DATA);
+
         inspectionTitleTv = findViewById(R.id.inspection_title_tv);
         nameTv = findViewById(R.id.name_tv);
         sexTv = findViewById(R.id.sex_tv);
@@ -69,7 +72,7 @@ public class BodyCheckDetailActivity extends BaseControllerActivity<BodyCheckDet
         bodyCheckDetailAdapter = new BodyCheckDetailAdapter(dataList);
         inspectionDataRv.setAdapter(bodyCheckDetailAdapter);
 
-        getController().getInspectionDetail(reportID);
+        getController().getInspectionDetail(recordBean.getReportID());
     }
 
     @Override
@@ -77,10 +80,10 @@ public class BodyCheckDetailActivity extends BaseControllerActivity<BodyCheckDet
         inspectionTitleTv.setText(detailBean.getReportTitle());
         nameTv.setText(detailBean.getPatientName());
         sexTv.setText(CommonUtils.getPatientSex(detailBean.getSex()));
-        ageTv.setText(detailBean.getAge());
+        ageTv.setText(recordBean.getAge());
         doctorNameTv.setText(detailBean.getPatientName());
         dateTv.setText(detailBean.getReportTime());
-        numberTv.setText(reportID);
+        numberTv.setText(recordBean.getReportID());
         departNameTv.setText(detailBean.getApplicationDepartment());
         bodyCheckDetailAdapter.setNewData(detailBean.getDataS());
     }

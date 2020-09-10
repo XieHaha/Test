@@ -35,9 +35,9 @@ public class InspectionReportAdapter extends BaseQuickAdapter<InspectionRecordBe
                 .setText(R.id.body_date_tv, item.getPublishTime());
         helper.itemView.setOnClickListener(v -> {
             if (type == Type.INSPECTIONTYPE) {
-                InspectionDetailActivity.start(mContext, item.getReportID());
+                InspectionDetailActivity.start(mContext, item);
             } else {
-                BodyCheckDetailActivity.start(mContext, item.getReportID());
+                BodyCheckDetailActivity.start(mContext, item);
             }
         });
     }

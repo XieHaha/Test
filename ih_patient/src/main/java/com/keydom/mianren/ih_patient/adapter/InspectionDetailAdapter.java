@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * 检验适配器
+ *
+ * @author 顿顿
  */
 public class InspectionDetailAdapter extends BaseQuickAdapter<CheckoutResultListBean,
         BaseViewHolder> {
@@ -27,5 +29,14 @@ public class InspectionDetailAdapter extends BaseQuickAdapter<CheckoutResultList
                 .setText(R.id.project_result_tv, item.getResultValue())
                 .setText(R.id.project_unit_tv, item.getUnit())
                 .setText(R.id.project_reference_value_tv, item.getReferenceValues());
+        if ("1".equals(item.getIsNormal())) {
+            helper.setText(R.id.project_status_tv, "正常");
+        } else if ("2".equals(item.getIsNormal())) {
+            helper.setText(R.id.project_status_tv, "超出");
+        } else if ("3".equals(item.getIsNormal())) {
+            helper.setText(R.id.project_status_tv, "不足");
+        } else {
+            helper.setText(R.id.project_status_tv, "正常");
+        }
     }
 }
