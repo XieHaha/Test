@@ -142,7 +142,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             break;
                         case InspectionReport:
                             if (loginStatus()) {
-                                InspectionReportActivity.start(context, null,-1);
+                                InspectionReportActivity.start(context, null, -1);
                             }
                             break;
                         case OrderExamination:
@@ -170,11 +170,6 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             }
                             break;
                         case OfflineEvaluation:
-                            break;
-                        case HospitalPayment:
-                            if (loginStatus()) {
-                                HospitalPaymentActivity.start(context);
-                            }
                             break;
                         case InquiryOrder:
                             if (loginStatus()) {
@@ -209,6 +204,11 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             if (loginStatus()) {
                                 //ObstetricMedicalActivity.start(context);
                                 OutpatientRecordActivity.start(context);
+                            }
+                            break;
+                        case HospitalPayment:
+                            if (loginStatus()) {
+                                HospitalPaymentActivity.start(context);
                             }
                             break;
                      /*   case Setting:
