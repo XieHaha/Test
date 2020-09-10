@@ -110,14 +110,28 @@ public class InspectionReportFragment extends BaseControllerFragment<InspectionR
      */
     private void initDefaultDate() {
         Date date = new Date();
+        startDate = DateUtils.getInterValDate(date, -1);
         endDate = DateUtils.dateToString(date);
-        startDate = DateUtils.getInterValDate(date, -12);
+    }
+
+    @Override
+    public void setStartDate(Date date) {
+        startDate = DateUtils.dateToString(date);
+        startDateTv.setText(startDate);
+        getController().getInspectionReportList();
+    }
+
+    @Override
+    public void setEndDate(Date date) {
+        endDate = DateUtils.dateToString(date);
+        endDateTv.setText(endDate);
+        getController().getInspectionReportList();
     }
 
     @Override
     public Map<String, Object> getParams() {
         Map<String, Object> params = new HashMap<>();
-//        params.put("eleCardNumber", medicalCardInfo.getEleCardNumber());
+        //        params.put("eleCardNumber", medicalCardInfo.getEleCardNumber());
         params.put("eleCardNumber", "00900466");
         params.put("endDate", endDate);
         params.put("startDate", startDate);
