@@ -47,7 +47,7 @@ import butterknife.OnClick;
 /**
  * @author 顿顿
  * @date 20/2/25 10:49
- * @des 产科住院预约
+ * @des 住院预约
  */
 public class ReserveObstetricHospitalActivity extends BaseControllerActivity<ReserveObstetricHospitalController> implements ReserveObstetricHospitalView {
     @BindView(R.id.tv_hospital_date)
@@ -193,10 +193,6 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
                         (options1, option2, options3, v) -> {
                             curDepart = departmentList.get(options1);
                             initReserveView();
-                            tvDepart.setText(curDepart.getName());
-                            getController().getDeptDoctor(curDepart.getId(), OPERATION_DOCTOR);
-                            getController().getDeptDoctor(curDepart.getId(),
-                                    ANESTHESIOLOGIST_DOCTOR);
                         }).build();
                 depart.setPicker(departName);
                 depart.show();
@@ -278,12 +274,19 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
     }
 
 
+    /**
+     * 处理科室
+     */
     private void initReserveView() {
         if (DEPART_ID.equals(curDepart.getId())) {
             layoutObstetric.setVisibility(View.VISIBLE);
         } else {
             layoutObstetric.setVisibility(View.GONE);
         }
+
+        tvDepart.setText(curDepart.getName());
+        getController().getDeptDoctor(curDepart.getId(), OPERATION_DOCTOR);
+        getController().getDeptDoctor(curDepart.getId(), ANESTHESIOLOGIST_DOCTOR);
     }
 
     /**
@@ -294,6 +297,8 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
         if (event.getType() == EventType.SENDSELECTNURSINGPATIENT) {
             medicalCardInfo = (MedicalCardInfo) event.getData();
             tvVisitName.setText(medicalCardInfo.getName());
+            etAge.setText(medicalCardInfo.getAge());
+            etPhone.setText(medicalCardInfo.getPhoneNumber());
         }
     }
 
@@ -303,6 +308,10 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
         departName.clear();
         if (departmentList != null) {
             for (DepartmentInfo info : departmentList) {
+                if (TextUtils.equals(info.getId(), DEPART_ID)) {
+                    curDepart = info;
+                    initReserveView();
+                }
                 departName.add(info.getName());
             }
         }

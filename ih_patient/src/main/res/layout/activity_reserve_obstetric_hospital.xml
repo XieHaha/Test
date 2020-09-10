@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,7 +23,7 @@
                 android:background="@color/bg_color" />
 
             <LinearLayout
-                android:id="@+id/layout_hospital_date"
+                android:id="@+id/layout_visit"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_40"
                 android:layout_marginTop="@dimen/dp_10"
@@ -39,18 +38,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
                     android:gravity="end"
-                    android:text="@string/txt_hospital_date"
+                    android:text="@string/txt_visit_name"
                     android:textColor="@color/tab_nol_color"
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
-                    android:id="@+id/tv_hospital_date"
+                    android:id="@+id/tv_visit_name"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:hint="@string/txt_hospital_date_hint"
+                    android:hint="@string/txt_visit_name_hint"
                     android:textColor="@color/color_333333"
                     android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
@@ -63,7 +62,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout_bed"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_40"
                 android:background="@drawable/item_f9_bg_bottom_divider"
@@ -77,27 +75,62 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
                     android:gravity="end"
-                    android:text="@string/txt_bed"
+                    android:text="@string/txt_age"
                     android:textColor="@color/tab_nol_color"
                     android:textSize="@dimen/sp_14" />
 
-                <TextView
-                    android:id="@+id/tv_bed"
-                    android:layout_width="0dp"
+                <com.keydom.ih_common.view.InterceptorEditText
+                    android:id="@+id/et_age"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@null"
+                    android:drawableEnd="@mipmap/icon_age"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:gravity="center_vertical|end"
+                    android:hint="@string/txt_age_hint"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:singleLine="true"
+                    android:textColor="#333333"
+                    android:textColorHint="#BBBBBB"
+                    android:textSize="@dimen/sp_14" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:background="@drawable/item_f9_bg_bottom_divider"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_34"
+                android:paddingEnd="@dimen/dp_20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
-                    android:layout_weight="1"
-                    android:gravity="end|center_vertical"
-                    android:hint="@string/txt_bed_hint"
+                    android:gravity="end"
+                    android:text="@string/txt_phone_colon"
+                    android:textColor="@color/tab_nol_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <com.keydom.ih_common.view.InterceptorEditText
+                    android:id="@+id/et_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical|end"
+                    android:hint="@string/txt_phone_hint"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="@dimen/dp_17"
+                    android:singleLine="true"
                     android:textColor="@color/color_333333"
                     android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_12"
-                    android:src="@mipmap/exa_report_right" />
             </LinearLayout>
 
             <LinearLayout
@@ -215,80 +248,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout_visit"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40"
-                android:background="@drawable/item_f9_bg_bottom_divider"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/dp_34"
-                android:paddingEnd="@dimen/dp_20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:gravity="end"
-                    android:text="@string/txt_visit_name"
-                    android:textColor="@color/tab_nol_color"
-                    android:textSize="@dimen/sp_14" />
-
-                <TextView
-                    android:id="@+id/tv_visit_name"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_weight="1"
-                    android:gravity="end|center_vertical"
-                    android:hint="@string/txt_visit_name_hint"
-                    android:textColor="@color/color_333333"
-                    android:textColorHint="@color/edit_hint_color"
-                    android:textSize="@dimen/sp_14" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_12"
-                    android:src="@mipmap/exa_report_right" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40"
-                android:background="@drawable/item_f9_bg_bottom_divider"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/dp_34"
-                android:paddingEnd="@dimen/dp_20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:gravity="end"
-                    android:text="@string/txt_age"
-                    android:textColor="@color/tab_nol_color"
-                    android:textSize="@dimen/sp_14" />
-
-                <com.keydom.ih_common.view.InterceptorEditText
-                    android:id="@+id/et_age"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:drawableEnd="@mipmap/icon_age"
-                    android:drawablePadding="@dimen/dp_10"
-                    android:gravity="center_vertical|end"
-                    android:hint="@string/txt_age_hint"
-                    android:inputType="number"
-                    android:maxLength="3"
-                    android:singleLine="true"
-                    android:textColor="#333333"
-                    android:textColorHint="#BBBBBB"
-                    android:textSize="@dimen/sp_14" />
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/layout_obstetric"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -401,40 +360,80 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout_hospital_date"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_40"
+
                 android:background="@drawable/item_f9_bg_bottom_divider"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/dp_34"
-                android:paddingEnd="@dimen/dp_20"
-                android:paddingBottom="@dimen/dp_10">
+                android:paddingEnd="@dimen/dp_20">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
                     android:gravity="end"
-                    android:text="@string/txt_phone_colon"
+                    android:text="@string/txt_hospital_date"
                     android:textColor="@color/tab_nol_color"
                     android:textSize="@dimen/sp_14" />
 
-                <com.keydom.ih_common.view.InterceptorEditText
-                    android:id="@+id/et_phone"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_hospital_date"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="@null"
-                    android:gravity="center_vertical|end"
-                    android:hint="@string/txt_phone_hint"
-                    android:inputType="number"
-                    android:maxLength="11"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="@dimen/dp_17"
-                    android:singleLine="true"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_weight="1"
+                    android:gravity="end|center_vertical"
+                    android:hint="@string/txt_hospital_date_hint"
                     android:textColor="@color/color_333333"
                     android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:src="@mipmap/exa_report_right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_bed"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:background="@drawable/item_f9_bg_bottom_divider"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_34"
+                android:paddingEnd="@dimen/dp_20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:gravity="end"
+                    android:text="@string/txt_bed"
+                    android:textColor="@color/tab_nol_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/tv_bed"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_weight="1"
+                    android:gravity="end|center_vertical"
+                    android:hint="@string/txt_bed_hint"
+                    android:textColor="@color/color_333333"
+                    android:textColorHint="@color/edit_hint_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:src="@mipmap/exa_report_right" />
             </LinearLayout>
 
             <View
