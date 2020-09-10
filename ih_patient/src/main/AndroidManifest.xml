@@ -271,7 +271,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.medical_record.MedicalRecordActivity"
+            android:name=".activity.medical_record.OutpatientRecordActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.medical_record.MedicalRecordDetailActivity"

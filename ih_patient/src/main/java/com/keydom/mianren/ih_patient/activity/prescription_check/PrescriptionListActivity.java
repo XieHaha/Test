@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.medical_record.MedicalRecordActivity;
 import com.keydom.mianren.ih_patient.activity.prescription_check.controller.PrescriptionController;
 import com.keydom.mianren.ih_patient.activity.prescription_check.view.PrescriptionView;
 import com.keydom.mianren.ih_patient.adapter.MedicalRecordPopupWindowAdapter;

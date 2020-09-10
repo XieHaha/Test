@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author 顿顿
  */
-public interface MedicalRecordView extends BaseView {
+public interface OutpatientRecordView extends BaseView {
     void getAllCardSuccess(List<MedicalCardInfo> data);
 
     MedicalCardInfo getMedicalCardInfo();

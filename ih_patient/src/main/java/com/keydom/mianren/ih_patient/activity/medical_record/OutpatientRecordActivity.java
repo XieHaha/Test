@@ -8,8 +8,8 @@ import android.widget.TextView;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.view.GeneralItemView;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.medical_record.controller.MedicalRecordController;
-import com.keydom.mianren.ih_patient.activity.medical_record.view.MedicalRecordView;
+import com.keydom.mianren.ih_patient.activity.medical_record.controller.OutpatientRecordController;
+import com.keydom.mianren.ih_patient.activity.medical_record.view.OutpatientRecordView;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.constant.EventType;
@@ -29,7 +29,7 @@ import butterknife.BindView;
  *
  * @author 顿顿
  */
-public class MedicalRecordActivity extends BaseControllerActivity<MedicalRecordController> implements MedicalRecordView {
+public class OutpatientRecordActivity extends BaseControllerActivity<OutpatientRecordController> implements OutpatientRecordView {
     @BindView(R.id.medical_record_name_tv)
     TextView medicalRecordNameTv;
     @BindView(R.id.medical_record_card_number_tv)
@@ -53,12 +53,12 @@ public class MedicalRecordActivity extends BaseControllerActivity<MedicalRecordC
     private MedicalCardInfo medicalCardInfo;
 
     public static void start(Context context) {
-        context.startActivity(new Intent(context, MedicalRecordActivity.class));
+        context.startActivity(new Intent(context, OutpatientRecordActivity.class));
     }
 
     @Override
     public int getLayoutRes() {
-        return R.layout.activity_medical_record;
+        return R.layout.activity_outpatient_record;
     }
 
     @Override

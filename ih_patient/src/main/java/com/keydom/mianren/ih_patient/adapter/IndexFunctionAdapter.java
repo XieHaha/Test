@@ -24,7 +24,7 @@ import com.keydom.mianren.ih_patient.activity.hospital_payment.HospitalPaymentAc
 import com.keydom.mianren.ih_patient.activity.inspection_report.InspectionReportActivity;
 import com.keydom.mianren.ih_patient.activity.location_manage.LocationManageActivity;
 import com.keydom.mianren.ih_patient.activity.logistic.QueryLogisticActivity;
-import com.keydom.mianren.ih_patient.activity.medical_record.MedicalRecordActivity;
+import com.keydom.mianren.ih_patient.activity.medical_record.OutpatientRecordActivity;
 import com.keydom.mianren.ih_patient.activity.nurse_main.NurseMainActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.OnlineDiagnonsesOrderActivity;
 import com.keydom.mianren.ih_patient.activity.order_doctor_register.RegistrationReserveActivity;
@@ -208,7 +208,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                         case ObstetricMedical:
                             if (loginStatus()) {
                                 //ObstetricMedicalActivity.start(context);
-                                MedicalRecordActivity.start(context);
+                                OutpatientRecordActivity.start(context);
                             }
                             break;
                      /*   case Setting:

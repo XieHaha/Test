@@ -31,7 +31,7 @@ import com.keydom.ih_common.view.MyScrollView;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.inspection_report.InspectionReportActivity;
-import com.keydom.mianren.ih_patient.activity.medical_record.MedicalRecordActivity;
+import com.keydom.mianren.ih_patient.activity.medical_record.OutpatientRecordActivity;
 import com.keydom.mianren.ih_patient.activity.nursing_order.NursingOrderActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.OnlineDiagnonsesOrderActivity;
 import com.keydom.mianren.ih_patient.activity.order_doctor_register.RegistrationRecordActivity;
@@ -353,7 +353,7 @@ public class TabMineFragment extends BaseControllerFragment<TabMineController> i
             String recordType = (String) event.getData();
             switch (recordType) {
                 case MEDICALRECORD:
-                    ActivityUtils.startActivity(MedicalRecordActivity.class);
+                    ActivityUtils.startActivity(OutpatientRecordActivity.class);
                     break;
                 case INSPECTIONORDER:
                     InspectionReportActivity.start(getContext(), null,-1);
