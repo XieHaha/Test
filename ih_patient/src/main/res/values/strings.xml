@@ -237,7 +237,7 @@
 
     <!--住院金缴纳-->
     <string name="txt_go_hospital_time">入院时间</string>
-    <string name="txt_register_phone">登记号码</string>
+    <string name="txt_register_phone">住院号</string>
     <string name="txt_ward">病区</string>
     <string name="txt_bed_num">床号</string>
     <string name="txt_select_recharge_amount">选择充值金额</string>
