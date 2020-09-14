@@ -74,8 +74,8 @@ public class PainlessDeliveryListActivity extends BaseControllerActivity<Painles
         setRightBtnListener(v -> ManageUserSelectActivity.start(this, idCard));
 
         adapter = new PainlessDeliveryAdapter(new ArrayList<>());
-        adapter.setOnItemClickListener(getController());
         adapter.setOnItemChildClickListener(getController());
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapter);
 
         smartRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getPainlessDeliveryList(idCard));

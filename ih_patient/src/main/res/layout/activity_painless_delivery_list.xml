@@ -22,12 +22,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+            android:layout_height="match_parent">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_10"
+                    android:background="@color/color_f9f9f9" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_19"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:layout_marginBottom="@dimen/dp_30"
+                    android:text="（注：有引导分娩禁忌症、椎管内麻醉禁忌症、凝血功能异常的产妇不可以采用此方法)"
+                    android:textColor="#BBBBBB"
+                    android:textSize="@dimen/font_size_primary" />
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
