@@ -3,154 +3,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/item_f9_bg_bottom_divider"
     android:gravity="center_vertical"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingStart="@dimen/dp_25"
+    android:paddingEnd="@dimen/dp_25">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_48"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/dp_20"
-        android:paddingEnd="@dimen/dp_20">
+        android:layout_height="wrap_content"
+        android:background="@mipmap/mine_person_message_bg"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/dp_45"
+        android:paddingTop="@dimen/dp_20"
+        android:paddingEnd="@dimen/dp_18"
+        android:paddingBottom="@dimen/dp_35">
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/color_333333"
-            android:textSize="@dimen/sp_14"
-            tools:text="名字" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/painless_delivery_time_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_14"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="@color/color_black_ff666666"
+                android:textSize="@dimen/sp_14"
+                tools:text=" 10:33:25" />
+
+            <TextView
+                android:id="@+id/painless_delivery_status_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_14"
+                android:background="@drawable/corner20_f1f1f1_bg"
+                android:gravity="center"
+                android:paddingStart="@dimen/dp_12"
+                android:paddingTop="@dimen/dp_6"
+                android:paddingEnd="@dimen/dp_12"
+                android:paddingBottom="@dimen/dp_6"
+                android:textColor="@color/color_black_ff666666"
+                android:textSize="@dimen/sp_14"
+                tools:text="待确认" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/painless_delivery_name_tv"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableStart="@mipmap/point_icon_5"
+                android:drawablePadding="@dimen/dp_12"
+                android:gravity="center_vertical"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold"
+                tools:text="名字" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/ic_plan" />
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_status"
+            android:id="@+id/painless_delivery_date_tv"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_24"
-            android:gravity="center"
-            android:paddingStart="@dimen/dp_20"
-            android:paddingEnd="@dimen/dp_20"
-            android:text=""
-            android:textColor="@color/tab_nol_color"
-            android:textSize="@dimen/sp_12" />
-        <TextView
-            android:id="@+id/tv_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_24"
-            android:background="@drawable/corner3_stroke_3f98f7"
-            android:layout_marginStart="@dimen/dp_10"
-            android:gravity="center"
-            android:paddingStart="@dimen/dp_20"
-            android:paddingEnd="@dimen/dp_20"
-            android:text="@string/txt_cancel"
-            android:textColor="@color/other_login_color"
-            android:textSize="@dimen/sp_12" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_14"
+            android:drawableStart="@mipmap/point_icon_1"
+            android:drawablePadding="@dimen/dp_12"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_black_ff666666"
+            android:textSize="@dimen/sp_14"
+            tools:text="预约日期：2020-09-14 10:33:25" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_color" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_24"
-        android:paddingStart="@dimen/dp_20"
-        android:paddingEnd="@dimen/dp_20">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_due_date"
-            android:textColor="@color/edit_hint_color"
-            android:textSize="@dimen/sp_14" />
-
-        <TextView
-            android:id="@+id/tv_due_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_112"
-            android:textColor="@color/edit_text_color"
-            android:textSize="@dimen/sp_14"
-            tools:text="日期" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:paddingStart="@dimen/dp_20"
-        android:paddingEnd="@dimen/dp_20">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_age"
-            android:textColor="@color/edit_hint_color"
-            android:textSize="@dimen/sp_14" />
-
-        <TextView
-            android:id="@+id/tv_age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_112"
-            android:textColor="@color/edit_text_color"
-            android:textSize="@dimen/sp_14"
-            tools:text="年龄" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:paddingStart="@dimen/dp_20"
-        android:paddingEnd="@dimen/dp_20">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_fetus"
-            android:textColor="@color/edit_hint_color"
-            android:textSize="@dimen/sp_14" />
-
-        <TextView
-            android:id="@+id/tv_fetus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_112"
-            android:textColor="@color/edit_text_color"
-            android:textSize="@dimen/sp_14"
-            tools:text="胎数" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:paddingStart="@dimen/dp_20"
-        android:paddingEnd="@dimen/dp_20"
-        android:paddingBottom="@dimen/dp_25">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_phone_colon"
-            android:textColor="@color/edit_hint_color"
-            android:textSize="@dimen/sp_14" />
-
-        <TextView
-            android:id="@+id/tv_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_112"
-            android:textColor="@color/edit_text_color"
-            android:textSize="@dimen/sp_14"
-            tools:text="电话" />
-
-    </RelativeLayout>
 </LinearLayout>

@@ -36,26 +36,25 @@ public class PainlessDeliveryAdapter extends BaseQuickAdapter<PainlessDeliveryBe
 
     @Override
     protected void convert(BaseViewHolder helper, PainlessDeliveryBean item) {
-        helper.setText(R.id.tv_name, item.getPatientName())
-                .setText(R.id.tv_due_date, item.getExpectedDateOfConfinement())
-                .setText(R.id.tv_age, item.getAge())
-                .setText(R.id.tv_fetus, fetusDit.get(item.getEmbryoNumber()))
-                .setText(R.id.tv_phone, item.getPhoneNumber())
+        helper.setText(R.id.painless_delivery_name_tv, item.getPatientName())
+                .setText(R.id.painless_delivery_date_tv,
+                        "预约分娩日期:" + item.getExpectedDateOfConfinement())
+                .setText(R.id.painless_delivery_time_tv, item.getCreateTime())
                 .addOnClickListener(R.id.tv_cancel);
-        TextView tvStatus = helper.getView(R.id.tv_status);
+        TextView tvStatus = helper.getView(R.id.painless_delivery_status_tv);
         switch (item.getIsConfirm()) {
             case 0:
-                helper.getView(R.id.tv_cancel).setVisibility(View.VISIBLE);
-                helper.getView(R.id.tv_status).setVisibility(View.GONE);
+                //                helper.getView(R.id.tv_cancel).setVisibility(View.VISIBLE);
+                tvStatus.setVisibility(View.GONE);
                 break;
             case 1:
-                helper.getView(R.id.tv_cancel).setVisibility(View.GONE);
-                helper.getView(R.id.tv_status).setVisibility(View.VISIBLE);
+                //                helper.getView(R.id.tv_cancel).setVisibility(View.GONE);
+                tvStatus.setVisibility(View.VISIBLE);
                 tvStatus.setText("已确认");
                 break;
             case 2:
-                helper.getView(R.id.tv_cancel).setVisibility(View.GONE);
-                helper.getView(R.id.tv_status).setVisibility(View.VISIBLE);
+                //                helper.getView(R.id.tv_cancel).setVisibility(View.GONE);
+                tvStatus.setVisibility(View.VISIBLE);
                 tvStatus.setText("已取消");
                 break;
             default:

@@ -10,6 +10,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.PainlessDeliveryDetailActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.view.PainlessDeliveryListView;
 import com.keydom.mianren.ih_patient.bean.PainlessDeliveryBean;
 import com.keydom.mianren.ih_patient.net.PainlessDeliveryService;
@@ -24,7 +25,7 @@ import java.util.List;
  * @date 20/3/4 16:59
  * @des
  */
-public class PainlessDeliveryListController extends ControllerImpl<PainlessDeliveryListView> implements BaseQuickAdapter.OnItemChildClickListener {
+public class PainlessDeliveryListController extends ControllerImpl<PainlessDeliveryListView> implements BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener {
 
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -95,5 +96,11 @@ public class PainlessDeliveryListController extends ControllerImpl<PainlessDeliv
                 return super.requestError(exception, code, msg);
             }
         });
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        PainlessDeliveryDetailActivity.start(getContext(),
+                (PainlessDeliveryBean) adapter.getItem(position));
     }
 }
