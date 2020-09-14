@@ -10,11 +10,13 @@ import java.util.List;
 
 /**
  * 住院预缴金适配器
+ *
+ * @author 顿顿
  */
 public class HospitalPaymentAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-    public HospitalPaymentAdapter(int layoutResId, @Nullable List<String> data) {
-        super(layoutResId, data);
+    public HospitalPaymentAdapter(@Nullable List<String> data) {
+        super(R.layout.item_hospital_payment, data);
     }
 
     @Override

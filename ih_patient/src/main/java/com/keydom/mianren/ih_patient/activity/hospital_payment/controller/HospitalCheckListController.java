@@ -14,6 +14,7 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.hospital_payment.view.HospitalCheckListView;
 import com.keydom.mianren.ih_patient.bean.HospitalCheckBean;
+import com.keydom.mianren.ih_patient.bean.HospitalCountBean;
 import com.keydom.mianren.ih_patient.net.HospitalPaymentService;
 import com.keydom.mianren.ih_patient.utils.DateUtils;
 
@@ -52,11 +53,29 @@ public class HospitalCheckListController extends ControllerImpl<HospitalCheckLis
     }
 
     /**
+     * 获取所有次数住院信息
+     */
+    public void getInHospitalNoList() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(HospitalPaymentService.class).getInHospitalNoList(getView().getMedicalCardInfo().getEleCardNumber()), new HttpSubscriber<HospitalCountBean>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable HospitalCountBean data) {
+                getView().setHospitalCountBean(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
      * 查询住院清单分类列表
      */
     public void getHospitalCostType() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("beginDate", getView().getEndDateString());
+        map.put("beginDate", getView().getStartDateString());
         map.put("endDate", getView().getEndDateString());
         //        map.put("cardNo", getView().getMedicalCardInfo().getEleCardNumber());
         map.put("cardNo", "226780");

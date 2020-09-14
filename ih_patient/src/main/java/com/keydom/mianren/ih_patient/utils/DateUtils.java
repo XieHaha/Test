@@ -317,7 +317,7 @@ public class DateUtils {
     }
 
     /**
-     * 获取日期区间
+     * 获取日期区间 月份
      */
     public static String getInterValDate(Date date, int interval) {
         Calendar calendar = Calendar.getInstance();
@@ -328,5 +328,17 @@ public class DateUtils {
         //得到个月前的时间
         Date ago = calendar.getTime();
         return dateToString(ago);
+    }
+    /**
+     * 获取日期区间  天数
+     */
+    public static Date getInterValDay(Date date, int interval) {
+        Calendar calendar = Calendar.getInstance();
+        //当前时间设置给calendar
+        calendar.setTime(date);
+        //当前时间的前几个月
+        calendar.add(Calendar.DAY_OF_YEAR, interval);
+        //得到个月前的时间
+        return calendar.getTime();
     }
 }

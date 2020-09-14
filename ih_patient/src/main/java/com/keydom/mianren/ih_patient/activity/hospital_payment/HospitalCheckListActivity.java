@@ -13,6 +13,7 @@ import com.keydom.mianren.ih_patient.activity.hospital_payment.controller.Hospit
 import com.keydom.mianren.ih_patient.activity.hospital_payment.view.HospitalCheckListView;
 import com.keydom.mianren.ih_patient.adapter.HospitalCheckAdapter;
 import com.keydom.mianren.ih_patient.bean.HospitalCheckBean;
+import com.keydom.mianren.ih_patient.bean.HospitalCountBean;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.utils.DateUtils;
@@ -56,6 +57,10 @@ public class HospitalCheckListActivity extends BaseControllerActivity<HospitalCh
      * 就诊卡
      */
     private MedicalCardInfo medicalCardInfo;
+    /**
+     * 住院信息
+     */
+    private HospitalCountBean hospitalCountBean;
 
     @Override
     public int getLayoutRes() {
@@ -86,7 +91,7 @@ public class HospitalCheckListActivity extends BaseControllerActivity<HospitalCh
         hospitalNextTv.setOnClickListener(getController());
         hospitalDateTv.setOnClickListener(getController());
 
-        initDefaultDate();
+        getController().getInHospitalNoList();
     }
 
     /**
@@ -94,6 +99,8 @@ public class HospitalCheckListActivity extends BaseControllerActivity<HospitalCh
      */
     private void initDefaultDate() {
         endDateString = DateUtils.dateToString(curDate);
+        //默认只查一天的
+        startDateString = endDateString;
         hospitalDateTv.setText(endDateString);
         getController().getHospitalCostType();
     }
@@ -122,12 +129,24 @@ public class HospitalCheckListActivity extends BaseControllerActivity<HospitalCh
     }
 
     @Override
+    public String getStartDateString() {
+        return startDateString;
+    }
+
+    @Override
     public MedicalCardInfo getMedicalCardInfo() {
         return medicalCardInfo;
     }
 
     @Override
     public void fillHospitalPaymentData(List<HospitalCheckBean> data) {
+        swipeRefreshLayout.finishRefresh();
         adapter.setNewData(data);
+    }
+
+    @Override
+    public void setHospitalCountBean(HospitalCountBean hospitalCountBean) {
+        this.hospitalCountBean = hospitalCountBean;
+        initDefaultDate();
     }
 }

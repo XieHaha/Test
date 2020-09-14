@@ -2,6 +2,7 @@ package com.keydom.mianren.ih_patient.activity.hospital_payment.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_patient.bean.HospitalCheckBean;
+import com.keydom.mianren.ih_patient.bean.HospitalCountBean;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 
 import java.util.Date;
@@ -16,6 +17,8 @@ public interface HospitalCheckListView extends BaseView {
 
     String getEndDateString();
 
+    String getStartDateString();
+
     MedicalCardInfo getMedicalCardInfo();
 
     /**
@@ -27,4 +30,6 @@ public interface HospitalCheckListView extends BaseView {
     Date getCurDate();
 
     void setSelectDate(Date date);
+
+    void setHospitalCountBean(HospitalCountBean bean);
 }

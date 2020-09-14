@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_patient.activity.hospital_payment.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 
 import java.util.List;
 
@@ -10,9 +11,15 @@ import java.util.List;
  */
 public interface HospitalPaymentView extends BaseView {
 
+    String getMedicalCardNumber();
+
+    MedicalCardInfo getMedicalCardInfo();
+
     /**
      * 数据源
      */
     void fillHospitalPaymentData(List<String> data);
+
+    void getAllCardSuccess(List<MedicalCardInfo> data);
 
 }
