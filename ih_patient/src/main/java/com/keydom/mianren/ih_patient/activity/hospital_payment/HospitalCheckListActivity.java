@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
@@ -44,11 +45,12 @@ public class HospitalCheckListActivity extends BaseControllerActivity<HospitalCh
     TextView hospitalDateTv;
     @BindView(R.id.hospital_next_tv)
     TextView hospitalNextTv;
+    @BindView(R.id.empty_layout)
+    RelativeLayout emptyLayout;
 
     private HospitalCheckAdapter adapter;
 
     private List<HospitalCheckBean> data = new ArrayList<>();
-    private View headerView;
 
     private Date curDate;
     private String startDateString, endDateString;
@@ -62,6 +64,11 @@ public class HospitalCheckListActivity extends BaseControllerActivity<HospitalCh
      */
     private HospitalCountBean hospitalCountBean;
 
+    /**
+     * 住院号
+     */
+    private String inHospitalNo;
+
     @Override
     public int getLayoutRes() {
         return R.layout.activity_hospital_check_list;
@@ -70,9 +77,11 @@ public class HospitalCheckListActivity extends BaseControllerActivity<HospitalCh
     /**
      * 启动
      */
-    public static void start(Context context, MedicalCardInfo medicalCardInfo) {
+    public static void start(Context context, MedicalCardInfo medicalCardInfo,
+                             String inHospitalNo) {
         Intent intent = new Intent(context, HospitalCheckListActivity.class);
         intent.putExtra(Const.DATA, medicalCardInfo);
+        intent.putExtra(Const.RECORD_ID, inHospitalNo);
         context.startActivity(intent);
     }
 
@@ -80,18 +89,17 @@ public class HospitalCheckListActivity extends BaseControllerActivity<HospitalCh
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle("住院清单");
         medicalCardInfo = (MedicalCardInfo) getIntent().getSerializableExtra(Const.DATA);
+        inHospitalNo = getIntent().getStringExtra(Const.RECORD_ID);
         curDate = new Date();
         swipeRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getHospitalCostType());
-        bindHeaderView();
         adapter = new HospitalCheckAdapter(data);
-        adapter.addHeaderView(headerView);
         recyclerView.setAdapter(adapter);
 
         hospitalLastTv.setOnClickListener(getController());
         hospitalNextTv.setOnClickListener(getController());
         hospitalDateTv.setOnClickListener(getController());
 
-        getController().getInHospitalNoList();
+        initDefaultDate();
     }
 
     /**
@@ -105,11 +113,9 @@ public class HospitalCheckListActivity extends BaseControllerActivity<HospitalCh
         getController().getHospitalCostType();
     }
 
-    /**
-     * 头部 view
-     */
-    private void bindHeaderView() {
-        headerView = getLayoutInflater().inflate(R.layout.header_hospital_check_list, null);
+    @Override
+    public String getInHospitalNo() {
+        return inHospitalNo;
     }
 
     @Override
@@ -141,12 +147,18 @@ public class HospitalCheckListActivity extends BaseControllerActivity<HospitalCh
     @Override
     public void fillHospitalPaymentData(List<HospitalCheckBean> data) {
         swipeRefreshLayout.finishRefresh();
-        adapter.setNewData(data);
+        if (data == null || data.size() == 0) {
+            swipeRefreshLayout.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.VISIBLE);
+        } else {
+            swipeRefreshLayout.setVisibility(View.VISIBLE);
+            emptyLayout.setVisibility(View.GONE);
+            adapter.setNewData(data);
+        }
     }
 
     @Override
     public void setHospitalCountBean(HospitalCountBean hospitalCountBean) {
         this.hospitalCountBean = hospitalCountBean;
-        initDefaultDate();
     }
 }

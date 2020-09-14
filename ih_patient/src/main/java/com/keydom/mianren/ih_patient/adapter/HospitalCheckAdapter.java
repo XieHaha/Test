@@ -22,7 +22,9 @@ public class HospitalCheckAdapter extends BaseQuickAdapter<HospitalCheckBean, Ba
 
     @Override
     protected void convert(BaseViewHolder helper, HospitalCheckBean item) {
-        helper.setText(R.id.hospital_check_name_tv, item.getExpenseTypeName())
-                .setText(R.id.hospital_check_price_tv, item.getFee());
+        helper.setText(R.id.hospital_check_name_tv, item.getDoctor())
+                .setText(R.id.hospital_check_price_tv, item.getFee())
+                .setText(R.id.hospital_check_card_tv, item.getFee())
+                .setText(R.id.hospital_check_type_tv, item.getExpenseTypeName());
     }
 }

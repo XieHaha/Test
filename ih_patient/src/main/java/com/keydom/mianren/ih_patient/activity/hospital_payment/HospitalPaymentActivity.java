@@ -9,11 +9,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.hospital_payment.controller.HospitalPaymentController;
 import com.keydom.mianren.ih_patient.activity.hospital_payment.view.HospitalPaymentView;
 import com.keydom.mianren.ih_patient.adapter.HospitalPaymentAdapter;
 import com.keydom.mianren.ih_patient.bean.Event;
+import com.keydom.mianren.ih_patient.bean.HospitalInfoBean;
+import com.keydom.mianren.ih_patient.bean.HospitalRecordBean;
+import com.keydom.mianren.ih_patient.bean.HospitalRecordRootBean;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -42,7 +46,9 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
     private RelativeLayout patientLayout;
     private HospitalPaymentAdapter adapter;
 
-    private List<String> data = new ArrayList<>();
+    private HospitalRecordRootBean rootBean;
+    private HospitalInfoBean infoBean;
+    private List<HospitalRecordBean> data = new ArrayList<>();
     private View headerView;
 
     /**
@@ -66,8 +72,14 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle("住院预缴");
         setRightTxt("住院清单");
-        setRightBtnListener(v -> HospitalCheckListActivity.start(HospitalPaymentActivity.this,
-                medicalCardInfo));
+        setRightBtnListener(v -> {
+            if (infoBean != null) {
+                HospitalCheckListActivity.start(HospitalPaymentActivity.this, medicalCardInfo,
+                        infoBean.getInHospitalNo());
+            } else {
+                ToastUtil.showMessage(HospitalPaymentActivity.this, "数据获取失败");
+            }
+        });
 
         swipeRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getHospitalPayment());
         bindHeaderView();
@@ -99,14 +111,12 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
      * 头部数据绑定
      */
     private void bindHeaderData() {
-        //测试数据
-        tvName.setText("测试");
-        tvTime.setText("2020年2月26日");
-        tvRegisterPhone.setText("111122333");
-        tvWard.setText("外科病区");
-        tvBedNum.setText("32");
-        tvRechargeAmount.setText("1000元");
-        tvBalance.setText("100元");
+        tvTime.setText(infoBean.getInHospitalDate());
+        tvRegisterPhone.setText(infoBean.getInHospitalNo());
+        tvWard.setText(infoBean.getWardNo());
+        tvBedNum.setText(infoBean.getBedNo());
+        tvRechargeAmount.setText(infoBean.getTotalFee());
+        tvBalance.setText(infoBean.getBalance());
 
     }
 
@@ -141,7 +151,11 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
     }
 
     @Override
-    public void fillHospitalPaymentData(List<String> data) {
-        pageLoadingSuccess();
+    public void fillHospitalPaymentData(HospitalRecordRootBean data) {
+        rootBean = data;
+        infoBean = rootBean.getItem();
+        bindHeaderData();
+        this.data = data.getOrderRecord();
+        adapter.setNewData(this.data);
     }
 }

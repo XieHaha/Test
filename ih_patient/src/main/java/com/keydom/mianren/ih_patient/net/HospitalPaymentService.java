@@ -4,6 +4,7 @@ import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_patient.bean.DepartmentInfo;
 import com.keydom.mianren.ih_patient.bean.HospitalCheckBean;
 import com.keydom.mianren.ih_patient.bean.HospitalCountBean;
+import com.keydom.mianren.ih_patient.bean.HospitalRecordRootBean;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public interface HospitalPaymentService {
      */
     @POST("user/inHospital/inHospitalCostTypeItem")
     Observable<HttpResult<List<DepartmentInfo>>> getHospitalCostTypeItem(@Body RequestBody body);
+
     /**
      * 创建住院预缴订单
      */
@@ -42,7 +44,7 @@ public interface HospitalPaymentService {
      * 获取患者住院信息和订单信息
      */
     @GET("user/inHospital/getInHospitalRecord")
-    Observable<HttpResult<List<MedicalCardInfo>>> getInHospitalRecord(@Query("eleCardNumber") String value);
+    Observable<HttpResult<HospitalRecordRootBean>> getInHospitalRecord(@Query("eleCardNumber") String value);
 
     /**
      * 获取所有次数住院信息

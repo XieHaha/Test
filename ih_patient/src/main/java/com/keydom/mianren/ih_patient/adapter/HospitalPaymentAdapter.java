@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.bean.HospitalRecordBean;
 
 import java.util.List;
 
@@ -13,17 +14,32 @@ import java.util.List;
  *
  * @author 顿顿
  */
-public class HospitalPaymentAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class HospitalPaymentAdapter extends BaseQuickAdapter<HospitalRecordBean, BaseViewHolder> {
 
-    public HospitalPaymentAdapter(@Nullable List<String> data) {
+    public HospitalPaymentAdapter(@Nullable List<HospitalRecordBean> data) {
         super(R.layout.item_hospital_payment, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String teamItem) {
-        helper.setText(R.id.tv_deposit, "医院押金")
-                .setText(R.id.tv_amount, "1000元")
-                .setText(R.id.tv_pay_way, "微信")
-                .setText(R.id.tv_time, "2020年2月26日");
+    protected void convert(BaseViewHolder helper, HospitalRecordBean item) {
+        helper.setText(R.id.tv_deposit, "住院预缴")
+                .setText(R.id.tv_amount, item.getPayMoney())
+                .setText(R.id.tv_pay_way, getType(item.getChargeType()))
+                .setText(R.id.tv_time, item.getHisRechargeDate());
+    }
+
+    private String getType(String type) {
+        switch (type) {
+            case "0":
+                return "现金";
+            case "1":
+                return "微信";
+            case "2":
+                return "VIP余额";
+            case "3":
+                return "银行卡";
+            default:
+                return "其他";
+        }
     }
 }

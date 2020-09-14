@@ -77,7 +77,7 @@ public class HospitalCheckListController extends ControllerImpl<HospitalCheckLis
         HashMap<String, Object> map = new HashMap<>();
         map.put("beginDate", getView().getStartDateString());
         map.put("endDate", getView().getEndDateString());
-        //        map.put("cardNo", getView().getMedicalCardInfo().getEleCardNumber());
+        //                map.put("cardNo", getView().getInHospitalNo());
         map.put("cardNo", "226780");
         map.put("expenseTypeCode", "");
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(HospitalPaymentService.class).getHospitalCostType(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<List<HospitalCheckBean>>(getContext(), getDisposable(), true) {

@@ -27,6 +27,8 @@ public interface HospitalCheckListView extends BaseView {
     void fillHospitalPaymentData(List<HospitalCheckBean> data);
 
 
+    String getInHospitalNo();
+
     Date getCurDate();
 
     void setSelectDate(Date date);

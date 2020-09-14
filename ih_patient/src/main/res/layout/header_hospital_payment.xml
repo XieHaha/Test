@@ -181,7 +181,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.5"
+                android:layout_weight="1"
                 android:text="@string/txt_select_recharge_amount"
                 android:textColor="@color/edit_text_color"
                 android:textSize="@dimen/sp_14" />
@@ -191,7 +191,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_13"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:textColor="@color/vip_detail_balance_number_text"
                 android:textSize="@dimen/sp_18"
                 tools:text="1000元" />
@@ -254,7 +254,6 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_18"
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/txt_amount"
@@ -264,7 +263,6 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_18"
             android:layout_weight="0.8"
             android:gravity="center"
             android:text="@string/txt_pay_way"
