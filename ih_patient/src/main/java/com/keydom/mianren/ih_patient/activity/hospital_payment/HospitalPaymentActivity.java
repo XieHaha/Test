@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -42,6 +43,10 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
     SmartRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.et_amount)
+    EditText etAmount;
+    @BindView(R.id.tv_sure)
+    TextView tvGoPay;
     private TextView tvName, tvTime, tvRegisterPhone, tvWard, tvBedNum, tvRechargeAmount, tvBalance;
     private RelativeLayout patientLayout;
     private HospitalPaymentAdapter adapter;
@@ -82,6 +87,7 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
         });
 
         swipeRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getHospitalPayment());
+        tvGoPay.setOnClickListener(getController());
         bindHeaderView();
         adapter = new HospitalPaymentAdapter(data);
         adapter.addHeaderView(headerView);
@@ -117,7 +123,6 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
         tvBedNum.setText(infoBean.getBedNo());
         tvRechargeAmount.setText(infoBean.getTotalFee());
         tvBalance.setText(infoBean.getBalance());
-
     }
 
     @Override
@@ -130,13 +135,27 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
 
     @Override
     public String getMedicalCardNumber() {
-        //        return medicalCardInfo.getEleCardNumber();
-        return "00262164";
+        return medicalCardInfo.getEleCardNumber();
+        //        return "00262164";
     }
+
+    @Override
+    public String getFee() {
+        return etAmount.getText().toString();
+    }
+
 
     @Override
     public MedicalCardInfo getMedicalCardInfo() {
         return medicalCardInfo;
+    }
+
+    @Override
+    public String getInHospitalNo() {
+        if (infoBean == null) {
+            return "";
+        }
+        return infoBean.getInHospitalNo();
     }
 
     /**
@@ -158,5 +177,11 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
         bindHeaderData();
         this.data = data.getOrderRecord();
         adapter.setNewData(this.data);
+    }
+
+    @Override
+    public void createOrderSuccess() {
+        etAmount.setText("");
+        getController().getHospitalPayment();
     }
 }

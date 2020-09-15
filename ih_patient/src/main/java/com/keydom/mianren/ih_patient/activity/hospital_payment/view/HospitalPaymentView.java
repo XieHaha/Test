@@ -7,6 +7,7 @@ import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import java.util.List;
 
 /**
+ * @author 顿顿
  * @date 20/2/26 10:47
  * @des 住院预缴金
  */
@@ -14,7 +15,11 @@ public interface HospitalPaymentView extends BaseView {
 
     String getMedicalCardNumber();
 
+    String getFee();
+
     MedicalCardInfo getMedicalCardInfo();
+
+    String getInHospitalNo();
 
     /**
      * 数据源
@@ -23,4 +28,5 @@ public interface HospitalPaymentView extends BaseView {
 
     void getAllCardSuccess(List<MedicalCardInfo> data);
 
+    void createOrderSuccess();
 }

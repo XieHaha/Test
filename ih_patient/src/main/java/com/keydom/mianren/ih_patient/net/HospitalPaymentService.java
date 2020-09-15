@@ -4,8 +4,8 @@ import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_patient.bean.DepartmentInfo;
 import com.keydom.mianren.ih_patient.bean.HospitalCheckBean;
 import com.keydom.mianren.ih_patient.bean.HospitalCountBean;
+import com.keydom.mianren.ih_patient.bean.HospitalPaymentBean;
 import com.keydom.mianren.ih_patient.bean.HospitalRecordRootBean;
-import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public interface HospitalPaymentService {
      * 创建住院预缴订单
      */
     @POST("user/inHospital/createInHospitalOrder")
-    Observable<HttpResult<List<MedicalCardInfo>>> createInHospitalOrder(@Body RequestBody body);
+    Observable<HttpResult<HospitalPaymentBean>> createInHospitalOrder(@Body RequestBody body);
 
     /**
      * 获取患者住院信息和订单信息
