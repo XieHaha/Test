@@ -532,6 +532,8 @@
         <activity android:name=".activity.webview.WebActivity" />
         <activity android:name=".activity.medical_record.MedicalRecordActivity" />
         <activity android:name=".activity.hospital_payment.HospitalCheckListActivity" />
+        <activity android:name=".activity.pregnancy.PregnancyRecordActivity" />
+        <activity android:name=".activity.pregnancy.PregnancyRecordDetailActivity" />
     </application>
 
 </manifest>

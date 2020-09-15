@@ -7,6 +7,7 @@ import com.keydom.mianren.ih_patient.bean.DoctorScheduling;
 import com.keydom.mianren.ih_patient.bean.PregnancyDetailBean;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderBean;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderTime;
+import com.keydom.mianren.ih_patient.bean.PregnancyRecordBean;
 import com.keydom.mianren.ih_patient.bean.PregnancyRecordItem;
 
 import java.util.List;
@@ -80,4 +81,9 @@ public interface PregnancyService {
                               @Query("date") String date,
                               @Query("timeInterval") String timeInterval);
 
+    /**
+     * 获取产检病历
+     */
+    @GET("medicine/antepartum/getAntOutpatientRecord")
+    Observable<HttpResult<List<PregnancyRecordBean>>> getAntOutpatientRecord(@Query("eleCardNumber") String eleCardNumber);
 }

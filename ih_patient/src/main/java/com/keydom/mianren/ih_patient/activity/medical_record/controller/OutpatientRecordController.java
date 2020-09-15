@@ -13,6 +13,7 @@ import com.keydom.mianren.ih_patient.activity.inspection_report.InspectionReport
 import com.keydom.mianren.ih_patient.activity.medical_record.MedicalRecordActivity;
 import com.keydom.mianren.ih_patient.activity.medical_record.view.OutpatientRecordView;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
+import com.keydom.mianren.ih_patient.activity.pregnancy.PregnancyRecordActivity;
 import com.keydom.mianren.ih_patient.activity.prescription_check.PrescriptionListActivity;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.constant.Global;
@@ -39,6 +40,7 @@ public class OutpatientRecordController extends ControllerImpl<OutpatientRecordV
                 ChoosePatientActivity.start(getContext(), -1, false);
                 break;
             case R.id.medical_record_inspection:
+                PregnancyRecordActivity.start(getContext(), getView().getMedicalCardInfo());
                 break;
             case R.id.medical_record_medical:
                 MedicalRecordActivity.start(getContext(), getView().getMedicalCardInfo());

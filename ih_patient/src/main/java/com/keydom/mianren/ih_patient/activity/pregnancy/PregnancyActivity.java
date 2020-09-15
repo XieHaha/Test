@@ -16,7 +16,7 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.pregnancy.controller.PregnancyController;
 import com.keydom.mianren.ih_patient.activity.pregnancy.view.PregnancyView;
-import com.keydom.mianren.ih_patient.adapter.PregnancyRecordAdapter;
+import com.keydom.mianren.ih_patient.adapter.PregnancyReserveAdapter;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.bean.PregnancyDetailBean;
 import com.keydom.mianren.ih_patient.bean.PregnancyRecordItem;
@@ -53,7 +53,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
     private TextView checkDateTv, checkTimeTv, pregnancyDateTv, pregnancyTimeTv;
 
 
-    private PregnancyRecordAdapter mAdapter;
+    private PregnancyReserveAdapter mAdapter;
 
     String mCardNumber;
 
@@ -113,7 +113,7 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
         layoutOutpatientReserve.setOnClickListener(getController());
         layoutCheckReserve.setOnClickListener(getController());
 
-        mAdapter = new PregnancyRecordAdapter(new ArrayList<>());
+        mAdapter = new PregnancyReserveAdapter(new ArrayList<>());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setNestedScrollingEnabled(false);

@@ -152,6 +152,7 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
 
     @Override
     public void fillHospitalPaymentData(HospitalRecordRootBean data) {
+        swipeRefreshLayout.finishRefresh();
         rootBean = data;
         infoBean = rootBean.getItem();
         bindHeaderData();
