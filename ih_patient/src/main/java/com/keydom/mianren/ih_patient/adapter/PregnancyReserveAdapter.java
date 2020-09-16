@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class PregnancyReserveAdapter extends BaseQuickAdapter<PregnancyRecordItem, BaseViewHolder> {
     public PregnancyReserveAdapter(@Nullable List<PregnancyRecordItem> data) {
-        super(R.layout.item_pregnancy_record, data);
+        super(R.layout.item_pregnancy_reverse_record, data);
     }
 
     @Override

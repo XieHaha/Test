@@ -94,7 +94,6 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
         recyclerView.setAdapter(adapter);
 
         getController().queryAllCard();
-        getController().getHospitalPayment();
     }
 
     /**
@@ -130,13 +129,15 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
         if (data != null && data.size() > 0) {
             medicalCardInfo = data.get(0);
             tvName.setText(medicalCardInfo.getName());
+
+            getController().getHospitalPayment();
         }
     }
 
     @Override
     public String getMedicalCardNumber() {
-        return medicalCardInfo.getEleCardNumber();
-        //        return "00262164";
+        //        return medicalCardInfo.getEleCardNumber();
+        return "00262164";
     }
 
     @Override
@@ -177,6 +178,12 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
         bindHeaderData();
         this.data = data.getOrderRecord();
         adapter.setNewData(this.data);
+    }
+
+    @Override
+    public void fillHospitalPaymentFailed(String error) {
+        swipeRefreshLayout.finishRefresh();
+        ToastUtil.showMessage(this, error);
     }
 
     @Override

@@ -64,7 +64,7 @@ public class HospitalPaymentController extends ControllerImpl<HospitalPaymentVie
         HashMap<String, Object> map = new HashMap<>();
         map.put("uuid", Global.getUserId());
         map.put("hospital", App.hospitalId);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(CardService.class).getCardList(map), new HttpSubscriber<List<MedicalCardInfo>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(CardService.class).getCardList(map), new HttpSubscriber<List<MedicalCardInfo>>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable List<MedicalCardInfo> data) {
                 getView().getAllCardSuccess(data);
@@ -91,7 +91,7 @@ public class HospitalPaymentController extends ControllerImpl<HospitalPaymentVie
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
-                ToastUtil.showMessage(getContext(), msg);
+                getView().fillHospitalPaymentFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });

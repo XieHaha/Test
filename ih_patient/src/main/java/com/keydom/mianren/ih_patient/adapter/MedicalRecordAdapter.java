@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.bean.MedicalRecordBean;
+import com.keydom.mianren.ih_patient.utils.DateUtils;
 
 import java.util.List;
 
@@ -21,8 +22,8 @@ public class MedicalRecordAdapter extends BaseQuickAdapter<MedicalRecordBean, Ba
 
     @Override
     protected void convert(BaseViewHolder helper, MedicalRecordBean item) {
-        helper.setText(R.id.time, item.getInquiryTime())
-                .setText(R.id.content, item.getDiagnosis())
-                .setText(R.id.type, item.getType() == 0 ? "诊疗" : "咨询");
+        helper.setText(R.id.medical_record_date_tv, DateUtils.transDate(item.getInquiryTime(),
+                DateUtils.YYYY_MM_DD_HH_MM_SS_SLASH, DateUtils.YYYY_MM_DD_CH))
+                .setText(R.id.medical_record_week_tv, item.getDiagnosis());
     }
 }

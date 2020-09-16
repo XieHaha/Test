@@ -21,10 +21,9 @@ public interface HospitalPaymentView extends BaseView {
 
     String getInHospitalNo();
 
-    /**
-     * 数据源
-     */
     void fillHospitalPaymentData(HospitalRecordRootBean data);
+
+    void fillHospitalPaymentFailed(String error);
 
     void getAllCardSuccess(List<MedicalCardInfo> data);
 

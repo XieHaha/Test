@@ -48,6 +48,8 @@ public class PregnancyRecordDetailActivity extends BaseControllerActivity<Pregna
 
     private String[] keys = {"孕周", "体重", "增加体重", "心率", "血压", "宫高", "腹围", "胎心", "胎动", "妊娠分级", "水肿"
             , "尿蛋白", "其他"};
+    private String[] units = {"周", "kg", "kg", "次/分钟", "mmhg", "cm", "cm", "次/分钟", "", "", "", ""
+            , ""};
 
     public static void start(Context context, PregnancyRecordBean bean) {
         Intent intent = new Intent(context, PregnancyRecordDetailActivity.class);
@@ -83,6 +85,7 @@ public class PregnancyRecordDetailActivity extends BaseControllerActivity<Pregna
             for (int i = 0; i < keys.length; i++) {
                 PregnancyItemBean bean = new PregnancyItemBean();
                 bean.setName(keys[i]);
+                bean.setUnit(units[i]);
                 bean.setValue(values[i]);
                 itemBeans.add(bean);
             }

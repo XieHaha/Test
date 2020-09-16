@@ -29,7 +29,7 @@ import butterknife.BindView;
 
 /**
  * created date: 2019/1/4 on 13:00
- * des:门诊记录页面
+ * des:产检病历页面
  *
  * @author 顿顿
  */
