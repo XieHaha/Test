@@ -112,10 +112,8 @@ public class PrescriptionLayoutView extends RelativeLayout {
         GlideUtils.load(doctorSign, Const.IMAGE_HOST + bean.getCommonSeal(), 0, 0, false, null);
     }
 
-    public void setData(PrescriptionRootBean bean, int position) {
-        this.position = position;
-        PrescriptionRecordBean recordBean = bean.getItem().get(position);
-        prescriptionNumTv.setText("处方" + CommonUtils.numberToChinese(position + 1));
+    public void setData(PrescriptionRootBean bean, PrescriptionRecordBean recordBean) {
+        prescriptionNumTv.setText("处方1");
         hospitalName.setText(App.hospitalName + "处方笺");
         userName.setText(bean.getPatientName());
         userSex.setText(bean.getSex());
@@ -133,7 +131,7 @@ public class PrescriptionLayoutView extends RelativeLayout {
         prescriptionTypeName.setText(recordBean.getType());
         checkDoctorName.setText(recordBean.getAuditorDoctorName());
         sendDoctorName.setText(recordBean.getDispensingDoctor());
-        recordList.addAll(bean.getItem().get(position).getPrescriptionItem());
+        recordList.addAll(recordBean.getPrescriptionItem());
         recordAdapter.notifyDataSetChanged();
         recyclerView.setVisibility(GONE);
         recordRecycler.setVisibility(VISIBLE);

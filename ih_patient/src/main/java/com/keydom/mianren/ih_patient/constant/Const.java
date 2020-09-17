@@ -12,6 +12,7 @@ public class Const {
      * 数据传递key
      */
     public static final String DATA = "data";
+    public static final String POSITION = "position";
     public static final String PATIENT_ID = "patient_id";
     /**
      * 类型key

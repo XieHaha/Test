@@ -95,6 +95,7 @@ public class PrescriptionRecordActivity extends BaseControllerActivity<Prescript
             Intent intent = new Intent(PrescriptionRecordActivity.this,
                     PrescriptionDetailActivity.class);
             intent.putExtra(Const.DATA, rootBean);
+            intent.putExtra(Const.POSITION, position);
             startActivity(intent);
         });
 

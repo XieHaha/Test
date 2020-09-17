@@ -12,6 +12,7 @@ import com.keydom.mianren.ih_patient.activity.prescription_check.view.Prescripti
 import com.keydom.mianren.ih_patient.adapter.MedicineRecyclrViewAdapter;
 import com.keydom.mianren.ih_patient.bean.PrescriptionDetailBean;
 import com.keydom.mianren.ih_patient.bean.PrescriptionDrugBean;
+import com.keydom.mianren.ih_patient.bean.PrescriptionRecordBean;
 import com.keydom.mianren.ih_patient.bean.PrescriptionRootBean;
 import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.view.PrescriptionLayoutView;
@@ -55,10 +56,11 @@ public class PrescriptionDetailActivity extends BaseControllerActivity<Prescript
         prescription_detail_layout = findViewById(R.id.prescription_detail_layout);
         String id = getIntent().getStringExtra(ID);
         rootBean = (PrescriptionRootBean) getIntent().getSerializableExtra(Const.DATA);
+        int position = getIntent().getIntExtra(Const.POSITION,-1);
         if (rootBean == null) {
             getController().getPrescriptionDetail(id);
         } else {
-            setDetail(rootBean);
+            setDetail(rootBean, rootBean.getItem().get(position));
         }
     }
 
@@ -85,15 +87,15 @@ public class PrescriptionDetailActivity extends BaseControllerActivity<Prescript
     /**
      * 处方详情显示在控件上
      */
-    private void setDetail(PrescriptionRootBean bean) {
+    private void setDetail(PrescriptionRootBean bean, PrescriptionRecordBean recordBean) {
         if (bean != null) {
             prescription_detail_layout.removeAllViews();
-            for (int i = 0; i < bean.getItem().size(); i++) {
-                PrescriptionLayoutView prescriptionDetailView =
-                        new PrescriptionLayoutView(getContext());
-                prescriptionDetailView.setData(bean, i);
-                prescription_detail_layout.addView(prescriptionDetailView);
-            }
+            //            for (int i = 0; i < bean.getItem().size(); i++) {
+            PrescriptionLayoutView prescriptionDetailView =
+                    new PrescriptionLayoutView(getContext());
+            prescriptionDetailView.setData(bean, recordBean);
+            prescription_detail_layout.addView(prescriptionDetailView);
+            //            }
         }
     }
 
