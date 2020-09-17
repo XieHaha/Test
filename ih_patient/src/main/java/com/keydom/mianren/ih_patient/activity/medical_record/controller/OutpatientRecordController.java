@@ -14,7 +14,7 @@ import com.keydom.mianren.ih_patient.activity.medical_record.MedicalRecordActivi
 import com.keydom.mianren.ih_patient.activity.medical_record.view.OutpatientRecordView;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
 import com.keydom.mianren.ih_patient.activity.pregnancy.PregnancyRecordActivity;
-import com.keydom.mianren.ih_patient.activity.prescription_check.PrescriptionListActivity;
+import com.keydom.mianren.ih_patient.activity.prescription_check.PrescriptionRecordActivity;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.Type;
@@ -54,7 +54,7 @@ public class OutpatientRecordController extends ControllerImpl<OutpatientRecordV
                         Type.BODYCHECKTYPE);
                 break;
             case R.id.medical_record_prescription:
-                PrescriptionListActivity.start(getContext());
+                PrescriptionRecordActivity.start(getContext(), getView().getMedicalCardInfo());
                 break;
             default:
                 break;

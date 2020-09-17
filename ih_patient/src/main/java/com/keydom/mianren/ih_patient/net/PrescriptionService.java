@@ -4,6 +4,7 @@ import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_patient.bean.PrescriptionDetailBean;
+import com.keydom.mianren.ih_patient.bean.PrescriptionRootBean;
 import com.keydom.mianren.ih_patient.bean.PrescriptionTitleBean;
 import com.keydom.mianren.ih_patient.bean.entity.GetDrugBean;
 import com.keydom.mianren.ih_patient.bean.entity.GetLogisicBean;
@@ -33,6 +34,11 @@ public interface PrescriptionService {
      */
     @GET("user/prescription/listPatient")
     Observable<HttpResult<PageBean<PrescriptionTitleBean>>> prescriptionListPatient(@QueryMap Map<String, Object> map);
+    /**
+     * 获取患者处方订单列表
+     */
+    @POST("user/prescription/queryHospitalPre")
+    Observable<HttpResult<PrescriptionRootBean>> getPrescriptionList(@Body RequestBody body);
 
     /**
      * 获取患者处方详情

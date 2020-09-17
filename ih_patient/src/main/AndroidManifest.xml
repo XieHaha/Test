@@ -534,6 +534,7 @@
         <activity android:name=".activity.hospital_payment.HospitalCheckListActivity" />
         <activity android:name=".activity.pregnancy.PregnancyRecordActivity" />
         <activity android:name=".activity.pregnancy.PregnancyRecordDetailActivity" />
+        <activity android:name=".activity.prescription_check.PrescriptionRecordActivity" />
     </application>
 
 </manifest>

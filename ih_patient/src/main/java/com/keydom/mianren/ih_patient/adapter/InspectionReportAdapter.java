@@ -32,7 +32,8 @@ public class InspectionReportAdapter extends BaseQuickAdapter<InspectionRecordBe
     @Override
     protected void convert(BaseViewHolder helper, InspectionRecordBean item) {
         helper.setText(R.id.body_tv, item.getItemName())
-                .setText(R.id.body_date_tv, item.getPublishTime());
+                .setText(R.id.body_date_tv, item.getPublishTime())
+                .setText(R.id.body_state_tv, "1".equals(item.getState()) ? "报告已出" : "报告未出");
         helper.itemView.setOnClickListener(v -> {
             if (type == Type.INSPECTIONTYPE) {
                 InspectionDetailActivity.start(mContext, item);
