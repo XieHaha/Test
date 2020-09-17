@@ -29,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,8 +56,10 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
                 break;
             case R.id.layout_menstruation:
                 KeyboardUtils.hideSoftInput((Activity) getContext());
+                Calendar endDate = Calendar.getInstance();
+                endDate.setTime(new Date());
                 TimePickerView pvTime = new TimePickerBuilder(getContext(),
-                        (date, v1) -> getView().setMenstruation(date)).build();
+                        (date, v1) -> getView().setMenstruation(date)).setRangDate(null, endDate).build();
                 pvTime.show();
                 break;
             case R.id.layout_due_date:
@@ -93,24 +96,28 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
             ToastUtil.showMessage(getContext(), "请选择就诊人");
             return;
         }
-        //        if (TextUtils.isEmpty(getView().getAge())) {
-        //            ToastUtil.showMessage(getContext(), "请输入年龄");
-        //            return;
-        //        }
-        //        if (TextUtils.isEmpty(getView().getLastDate())) {
-        //            ToastUtil.showMessage(getContext(), "请选择末次月经时间");
-        //            return;
-        //        }
-        //        if (TextUtils.isEmpty(getView().getDueDate())) {
-        //            ToastUtil.showMessage(getContext(), "请选择预产期");
-        //            return;
-        //        }
-        //        if (TextUtils.isEmpty(getView().getFetus())) {
-        //            ToastUtil.showMessage(getContext(), "胎数不能为空");
-        //            return;
-        //        }
+        if (TextUtils.isEmpty(getView().getAge())) {
+            ToastUtil.showMessage(getContext(), "请输入年龄");
+            return;
+        }
+        if (TextUtils.isEmpty(getView().getLastDate())) {
+            ToastUtil.showMessage(getContext(), "请选择末次月经时间");
+            return;
+        }
+        if (TextUtils.isEmpty(getView().getDueDate())) {
+            ToastUtil.showMessage(getContext(), "请选择预产期");
+            return;
+        }
+        if (TextUtils.isEmpty(getView().getFetus())) {
+            ToastUtil.showMessage(getContext(), "胎数不能为空");
+            return;
+        }
         if (TextUtils.isEmpty(getView().getPhone())) {
             ToastUtil.showMessage(getContext(), "电话号码不能为空");
+            return;
+        }
+        if (TextUtils.isEmpty(getView().getReserveDate())) {
+            ToastUtil.showMessage(getContext(), "预约时间不能为空");
             return;
         }
 

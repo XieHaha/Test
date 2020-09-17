@@ -340,22 +340,21 @@
                         android:textColor="@color/tab_nol_color"
                         android:textSize="@dimen/sp_14" />
 
-                    <TextView
-                        android:id="@+id/tv_fetus"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:hint="@string/txt_fetus_hint"
+                    <com.keydom.ih_common.view.InterceptorEditText
+                        android:id="@+id/et_fetus"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:gravity="center_vertical|end"
+                        android:hint="请输入胎数"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="@dimen/dp_17"
+                        android:singleLine="true"
                         android:textColor="@color/color_333333"
                         android:textColorHint="@color/edit_hint_color"
                         android:textSize="@dimen/sp_14" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_12"
-                        android:src="@mipmap/exa_report_right" />
                 </LinearLayout>
             </LinearLayout>
 

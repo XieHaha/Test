@@ -3,6 +3,7 @@ package com.keydom.mianren.ih_patient.activity.reserve_painless_delivery;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,9 +37,9 @@ import java.util.List;
  */
 public class ReservePainlessDeliveryActivity extends BaseControllerActivity<ReservePainlessDeliveryController> implements ReservePainlessDeliveryView {
     private ImageView ivSelect;
-    private TextView tvVisitName, tvLastMenstruation, tvDueDate, tvFetus, tvNote, tvNext,
+    private TextView tvVisitName, tvLastMenstruation, tvDueDate, tvNote, tvNext,
             tvReserveDate;
-    private InterceptorEditText etAge, etPhone;
+    private InterceptorEditText etAge, etPhone, etFetus;
     private LinearLayout layoutVisit, layoutFetus, layoutMenstruation, layoutDueDate,
             layoutReserveDate;
     private RelativeLayout layoutSelect;
@@ -85,11 +86,11 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
         ivSelect = findViewById(R.id.iv_select);
         etAge = findViewById(R.id.et_age);
         etPhone = findViewById(R.id.et_phone);
+        etFetus = findViewById(R.id.et_fetus);
         tvVisitName = findViewById(R.id.tv_visit_name);
         tvLastMenstruation = findViewById(R.id.tv_last);
         tvDueDate = findViewById(R.id.tv_due_date);
         tvReserveDate = findViewById(R.id.tv_reserve_date);
-        tvFetus = findViewById(R.id.tv_fetus);
         tvNote = findViewById(R.id.tv_note);
         tvNext = findViewById(R.id.tx_next);
         layoutVisit = findViewById(R.id.layout_visit);
@@ -102,7 +103,7 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
         tvNext.setOnClickListener(getController());
         tvNote.setOnClickListener(getController());
         layoutVisit.setOnClickListener(getController());
-        layoutFetus.setOnClickListener(getController());
+        //        layoutFetus.setOnClickListener(getController());
         layoutMenstruation.setOnClickListener(getController());
         layoutDueDate.setOnClickListener(getController());
         layoutReserveDate.setOnClickListener(getController());
@@ -126,7 +127,10 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
     private void bindVisitData() {
         if (medicalCardInfo != null) {
             tvVisitName.setText(medicalCardInfo.getName());
-            etAge.setText(medicalCardInfo.getAge());
+            if (!TextUtils.isEmpty(medicalCardInfo.getAge())) {
+                String age = medicalCardInfo.getAge().replace("岁", "");
+                etAge.setText(age);
+            }
             etPhone.setText(medicalCardInfo.getPhoneNumber());
         }
     }
@@ -176,7 +180,7 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
 
     @Override
     public String getFetus() {
-        return tvFetus.getText().toString();
+        return etFetus.getText().toString();
     }
 
     @Override
@@ -211,7 +215,7 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
     @Override
     public void setFetus(int position) {
         fetusValue = position;
-        tvFetus.setText(fetusDit.get(position));
+        //        tvFetus.setText(fetusDit.get(position));
     }
 
     @Override

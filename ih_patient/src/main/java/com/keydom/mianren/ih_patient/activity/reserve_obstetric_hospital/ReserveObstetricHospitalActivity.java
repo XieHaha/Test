@@ -36,6 +36,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,8 +69,8 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
     TextView tvLast;
     @BindView(R.id.tv_due_date)
     TextView tvDueDate;
-    @BindView(R.id.tv_fetus)
-    TextView tvFetus;
+    @BindView(R.id.et_fetus)
+    InterceptorEditText tvFetus;
     @BindView(R.id.et_phone)
     InterceptorEditText etPhone;
     @BindView(R.id.iv_select)
@@ -84,7 +85,7 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
     private MedicalCardInfo medicalCardInfo;
 
     private String reserveDate, bed, age, lastDate, dueDate, phone;
-    private int fetus;
+    private String fetus;
 
     /**
      * 科室
@@ -236,11 +237,13 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
                 break;
             case R.id.layout_menstruation:
                 KeyboardUtils.hideSoftInput(this);
+                Calendar endDate = Calendar.getInstance();
+                endDate.setTime(new Date());
                 pickerView = new TimePickerBuilder(this,
                         (date, v1) -> {
                             lastDate = DateUtils.dateToString(date);
                             tvLast.setText(lastDate);
-                        }).build();
+                        }).setRangDate(null, endDate).build();
                 pickerView.show();
                 break;
             case R.id.layout_due_date:
@@ -252,15 +255,15 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
                         }).setRangDate(Calendar.getInstance(), null).build();
                 pickerView.show();
                 break;
-            case R.id.layout_fetus:
-                OptionsPickerView fetusPicker = new OptionsPickerBuilder(getContext(),
-                        (options1, option2, options3, v) -> {
-                            fetus = options1;
-                            tvFetus.setText(fetusDit.get(options1));
-                        }).build();
-                fetusPicker.setPicker(fetusDit);
-                fetusPicker.show();
-                break;
+            //            case R.id.layout_fetus:
+            //                OptionsPickerView fetusPicker = new OptionsPickerBuilder(getContext(),
+            //                        (options1, option2, options3, v) -> {
+            //                            fetus = options1;
+            //                            tvFetus.setText(fetusDit.get(options1));
+            //                        }).build();
+            //                fetusPicker.setPicker(fetusDit);
+            //                fetusPicker.show();
+            //                break;
             case R.id.layout_select:
                 if (ivSelect.getVisibility() == View.VISIBLE) {
                     ivSelect.setVisibility(View.GONE);
@@ -297,7 +300,10 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
         if (event.getType() == EventType.SENDSELECTNURSINGPATIENT) {
             medicalCardInfo = (MedicalCardInfo) event.getData();
             tvVisitName.setText(medicalCardInfo.getName());
-            etAge.setText(medicalCardInfo.getAge());
+            if (!TextUtils.isEmpty(medicalCardInfo.getAge())) {
+                age = medicalCardInfo.getAge().replace("岁", "");
+            }
+            etAge.setText(age);
             etPhone.setText(medicalCardInfo.getPhoneNumber());
         }
     }
@@ -363,7 +369,7 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
     @Override
     public Map<String, Object> getParams() {
         Map<String, Object> map = new HashMap<>(20);
-        map.put("age", age);
+        map.put("age", age + "岁");
         map.put("appointmentTime", reserveDate);
         map.put("bed", bed);
         map.put("deptId", curDepart.getId());
@@ -393,11 +399,12 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
     public boolean reserveAble() {
         age = etAge.getText().toString();
         phone = etPhone.getText().toString();
-        if (TextUtils.isEmpty(reserveDate) || TextUtils.isEmpty(bed) || curDepart == null || medicalCardInfo == null) {
+        fetus = tvFetus.getText().toString();
+        if (TextUtils.isEmpty(reserveDate) || TextUtils.isEmpty(bed) || TextUtils.isEmpty(fetus) || TextUtils.isEmpty(lastDate) || TextUtils.isEmpty(dueDate) || curDepart == null || medicalCardInfo == null) {
             ToastUtil.showMessage(this, "请完善预约信息");
             return false;
         }
-        if (ivSelect.getVisibility() == View.GONE) {
+        if (!ivSelect.isShown()) {
             ToastUtil.showMessage(this, "请仔细阅读并同意入院注意事项");
             return false;
         }
