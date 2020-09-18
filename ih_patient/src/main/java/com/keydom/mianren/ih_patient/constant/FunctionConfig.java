@@ -24,7 +24,7 @@ public class FunctionConfig implements FunctionIndex {
         } else if (id == NurseService) {
             FunctionConfig.ResourceId = R.mipmap.mine_my_nurse;
         } else if (id == OrderHospitalCure) {
-            FunctionConfig.ResourceId = R.mipmap.appointment_icon;
+            FunctionConfig.ResourceId = R.mipmap.vip_obstetric_order_icon;
         } else if (id == InspectionReport) {
             FunctionConfig.ResourceId = R.mipmap.report_query;
         } else if (id == GetDrugs) {
@@ -36,13 +36,19 @@ public class FunctionConfig implements FunctionIndex {
         } else if (id == AmniocentesisReserve) {
             FunctionConfig.ResourceId = R.mipmap.vip_amniocentesis_icon;
         } else if (id == HospitalPayment) {
-            FunctionConfig.ResourceId = R.mipmap.icon_express_info;
+            FunctionConfig.ResourceId = R.mipmap.icon_hospital_payment;
         } else if (id == InquiryOrder) {
             FunctionConfig.ResourceId = R.mipmap.mine_physician;
         } else if (id == UserManager) {
             FunctionConfig.ResourceId = R.mipmap.mine_people;
         } else if (id == AddressManager) {
             FunctionConfig.ResourceId = R.mipmap.mine_location;
+        } else if (id == PregnantWoman) {
+            FunctionConfig.ResourceId = R.mipmap.vip_pregnancy_school_icon;
+        } else if (id == PainlessDelivery) {
+            FunctionConfig.ResourceId = R.mipmap.vip_painless_labor_icon;
+        } else if (id == ObstetricMedical) {
+            FunctionConfig.ResourceId = R.mipmap.vip_obstetrical_medical_records_icon;
         } else {
             FunctionConfig.ResourceId = R.mipmap.consultation_pay;
         }

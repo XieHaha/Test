@@ -84,7 +84,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_57"
         mitem:itemTitle="@string/txt_medical_record_inspection"
-        mitem:leftImg="@mipmap/mine_item_message"
         mitem:rightImg="@mipmap/exa_report_right" />
 
     <View
@@ -97,7 +96,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_57"
         mitem:itemTitle="@string/txt_patient_medical_records"
-        mitem:leftImg="@mipmap/mine_item_message"
         mitem:rightImg="@mipmap/exa_report_right" />
 
     <View
@@ -110,7 +108,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_57"
         mitem:itemTitle="@string/txt_inspection_report"
-        mitem:leftImg="@mipmap/mine_item_message"
         mitem:rightImg="@mipmap/exa_report_right" />
 
     <View
@@ -123,7 +120,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_57"
         mitem:itemTitle="@string/txt_check_report"
-        mitem:leftImg="@mipmap/mine_item_message"
         mitem:rightImg="@mipmap/exa_report_right" />
 
     <View
@@ -136,7 +132,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_57"
         mitem:itemTitle="@string/txt_prescription"
-        mitem:leftImg="@mipmap/mine_item_message"
         mitem:rightImg="@mipmap/exa_report_right" />
 
 </LinearLayout>

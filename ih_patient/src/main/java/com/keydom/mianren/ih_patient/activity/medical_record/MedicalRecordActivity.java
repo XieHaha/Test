@@ -95,7 +95,7 @@ public class MedicalRecordActivity extends BaseControllerActivity<MedicalRecordC
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             MedicalRecordBean bean = (MedicalRecordBean) adapter.getData().get(position);
             Intent i = new Intent(this, MedicalRecordDetailActivity.class);
-            i.putExtra(MedicalRecordDetailActivity.MEDICAL_ID, bean.getMedicalId());
+            i.putExtra(Const.DATA, bean);
             ActivityUtils.startActivity(i);
         });
 
