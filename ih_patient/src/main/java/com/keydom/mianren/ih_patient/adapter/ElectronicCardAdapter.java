@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 
 import java.util.List;
 
@@ -13,16 +14,16 @@ import java.util.List;
  *
  * @author 顿顿
  */
-public class ElectronicCardAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class ElectronicCardAdapter extends BaseQuickAdapter<MedicalCardInfo, BaseViewHolder> {
     /**
      * 构造方法
      */
-    public ElectronicCardAdapter(@Nullable List<String> checkoutResultList) {
+    public ElectronicCardAdapter(@Nullable List<MedicalCardInfo> checkoutResultList) {
         super(R.layout.item_electronic_card, checkoutResultList);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.electronic_card_name, item);
+    protected void convert(BaseViewHolder helper, MedicalCardInfo item) {
+        helper.setText(R.id.electronic_card_name, item.getName());
     }
 }

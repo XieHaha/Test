@@ -1,7 +1,5 @@
 package com.keydom.mianren.ih_patient.bean;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 import java.io.Serializable;
 
 /**
@@ -10,55 +8,97 @@ import java.io.Serializable;
 public class MedicalCardInfo implements Serializable {
 
     private static final long serialVersionUID = -460434702513807292L;
-    @JSONField(name = "name")
     private String name;
-    @JSONField(name = "sex")
     private String sex;
-    @JSONField(name = "age")
     private String age;
-    @JSONField(name = "hospital")
     private String hospital;
-    @JSONField(name = "qrCode")
     private String qrCode;
-    @JSONField(name = "birthday")
     private String birthday;
-    @JSONField(name = "bindTime")
     private String bindTime;
-    @JSONField(name = "eleCardNumber")
     private String eleCardNumber;
-    @JSONField(name = "entCardNumber")
     private String entCardNumber;
-    @JSONField(name = "phoneNumber")
     private String phoneNumber;
-    @JSONField(name = "idCard")
     private String idCard;
-    @JSONField(name = "state")
     private int state;
-    @JSONField(name = "cardType")
-    private String cardType;
-
-    @JSONField(name = "hospitalName")
+    private int cardState;
+    private int cardType;
+    private String hospitalId;
     private String hospitalName;
-
-    @JSONField(name = "releaseTime")
     private String releaseTime;
-
-
-    @JSONField(name = "contact")
     private String contact;
-
-
-    @JSONField(name = "contactPhone")
     private String contactPhone;
-
-
-    @JSONField(name = "relationship")
     private String relationship;
-
-    @JSONField(name = "isUnbind")
+    private String socialNumber;
+    private String registerUserId;
+    private String patientHisCode;
+    private String hisCardType;
+    private String healthCardId;
     private int isUnbind;
-
     private String id;
+
+    public int getCardState() {
+        return cardState;
+    }
+
+    public void setCardState(int cardState) {
+        this.cardState = cardState;
+    }
+
+    public int getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(int cardType) {
+        this.cardType = cardType;
+    }
+
+    public String getHospitalId() {
+        return hospitalId;
+    }
+
+    public void setHospitalId(String hospitalId) {
+        this.hospitalId = hospitalId;
+    }
+
+    public String getSocialNumber() {
+        return socialNumber;
+    }
+
+    public void setSocialNumber(String socialNumber) {
+        this.socialNumber = socialNumber;
+    }
+
+    public String getRegisterUserId() {
+        return registerUserId;
+    }
+
+    public void setRegisterUserId(String registerUserId) {
+        this.registerUserId = registerUserId;
+    }
+
+    public String getPatientHisCode() {
+        return patientHisCode;
+    }
+
+    public void setPatientHisCode(String patientHisCode) {
+        this.patientHisCode = patientHisCode;
+    }
+
+    public String getHisCardType() {
+        return hisCardType;
+    }
+
+    public void setHisCardType(String hisCardType) {
+        this.hisCardType = hisCardType;
+    }
+
+    public String getHealthCardId() {
+        return healthCardId;
+    }
+
+    public void setHealthCardId(String healthCardId) {
+        this.healthCardId = healthCardId;
+    }
 
     public String getId() {
         return id;
@@ -202,14 +242,6 @@ public class MedicalCardInfo implements Serializable {
 
     public void setState(int state) {
         this.state = state;
-    }
-
-    public String getCardType() {
-        return cardType;
-    }
-
-    public void setCardType(String cardType) {
-        this.cardType = cardType;
     }
 
     public String getHospitalName() {

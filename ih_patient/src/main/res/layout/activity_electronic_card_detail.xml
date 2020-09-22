@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_500"
+        android:background="@mipmap/health_card_detail_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_130"
+            android:layout_marginEnd="@dimen/dp_40"
+            android:background="@drawable/corner5_ffffff_bg"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp_25"
+            android:paddingBottom="@dimen/dp_20">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="持卡人"
+                    android:textColor="@color/goods_num_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/card_detail_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:textColor="@color/other_login_color"
+                    android:textSize="@dimen/sp_14"
+                    tools:text="名字" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/card_detail_qr_iv"
+                android:layout_width="@dimen/dp_200"
+                android:layout_height="@dimen/dp_200"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_40" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

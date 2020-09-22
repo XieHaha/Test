@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_patient.net;
 
 import com.keydom.ih_common.net.result.HttpResult;
+import com.keydom.mianren.ih_patient.bean.ElectronicCardRootBean;
 import com.keydom.mianren.ih_patient.bean.HealthCardResponse;
 
 import java.util.List;
@@ -36,11 +37,16 @@ public interface HealthCardService {
     Observable<HttpResult<Boolean>> addCard(@Body RequestBody body);
 
 
-
     /**
      * 查询绑定健康卡信息
      */
     @POST("virdz_1214_war_exploded/virtual/user/queryCard")
     Observable<HttpResult<List<HealthCardResponse>>> queryCard(@Body RequestBody body);
+
+    /**
+     * 查询电子健康卡信息
+     */
+    @POST("user/healthCard/queryHealthCardList")
+    Observable<HttpResult<ElectronicCardRootBean>> queryHealthCardList(@Body RequestBody body);
 
 }

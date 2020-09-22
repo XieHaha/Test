@@ -19,24 +19,23 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * 我的就诊卡详情控制器
+ *
+ * @author 顿顿
  */
 public class MedicalCardDetailController extends ControllerImpl<MedicalCardDetailView> implements View.OnClickListener {
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.card_detail_remove_bind:
-                new GeneralDialog(getContext(), "您确认解绑该就诊卡？", new GeneralDialog.OnCloseListener() {
-                    @Override
-                    public void onCommit() {
-                        MedicalCardInfo medicalCardInfo=getView().getCardObject();
-                        String cardNum=(medicalCardInfo.getEleCardNumber()==null||"".equals(medicalCardInfo.getEleCardNumber())?medicalCardInfo.getEntCardNumber():medicalCardInfo.getEleCardNumber());
-                        unBindCard(Global.getUserId(),cardNum,medicalCardInfo.getCardType());
-                    }
-                }).setTitle("提示").setPositiveButton("确定").show();
-
-
-                break;
-
+        if (view.getId() == R.id.card_detail_remove_bind) {
+            new GeneralDialog(getContext(), "您确认解绑该就诊卡？", new GeneralDialog.OnCloseListener() {
+                @Override
+                public void onCommit() {
+                    MedicalCardInfo medicalCardInfo = getView().getCardObject();
+                    String cardNum =
+                            (medicalCardInfo.getEleCardNumber() == null || "".equals(medicalCardInfo.getEleCardNumber()) ? medicalCardInfo.getEntCardNumber() : medicalCardInfo.getEleCardNumber());
+                    unBindCard(Global.getUserId(), cardNum,
+                            String.valueOf(medicalCardInfo.getCardType()));
+                }
+            }).setTitle("提示").setPositiveButton("确定").show();
         }
     }
 
@@ -45,7 +44,7 @@ public class MedicalCardDetailController extends ControllerImpl<MedicalCardDetai
      */
     private void unBindCard(long userId, String cardNum, String cardType) {
         showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(CardService.class).unBindCard(userId,cardNum,cardType), new HttpSubscriber<Object>(getContext(),getDisposable(),false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(CardService.class).unBindCard(userId, cardNum, cardType), new HttpSubscriber<Object>(getContext(), getDisposable(), false) {
 
             @Override
             public void requestComplete(@Nullable Object data) {
@@ -54,7 +53,8 @@ public class MedicalCardDetailController extends ControllerImpl<MedicalCardDetai
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 hideLoading();
                 getView().removeBindFailed(msg);
                 return super.requestError(exception, code, msg);
