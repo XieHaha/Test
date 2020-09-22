@@ -129,7 +129,7 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
         Map<String, Object> map = new HashMap<>();
         map.put("age", getView().getAge());
         //胎数
-        map.put("embryoNumber", getView().getFetusValue());
+        map.put("embryoNumber", getView().getFetus());
         map.put("hospitalId", App.hospitalId);
         map.put("patientId", bean.getId());
         map.put("registerUserId", Global.getUserId());

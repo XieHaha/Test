@@ -70,6 +70,10 @@
     <string name="mine_item_feedback">意见反馈</string>
     <string name="mine_item_setting">设置</string>
 
+    <string name="mine_health_card">我的健康卡</string>
+    <string name="bind_health_card">绑定的健康卡</string>
+    <string name="add_health_card"><u>添加电子健康卡</u></string>
+
     <string name="creat_or_bind_card_title">办卡绑卡</string>
     <string name="creat_or_bind_card_label">申领/绑定电子健康卡</string>
     <string name="creat_or_bind_card_top_right_label">去申领/绑定</string>

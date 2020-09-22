@@ -535,6 +535,7 @@
         <activity android:name=".activity.pregnancy.PregnancyRecordActivity" />
         <activity android:name=".activity.pregnancy.PregnancyRecordDetailActivity" />
         <activity android:name=".activity.prescription_check.PrescriptionRecordActivity" />
+        <activity android:name=".activity.card_operate.ElectronicCardActivity" />
     </application>
 
 </manifest>
