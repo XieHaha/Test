@@ -14,8 +14,11 @@ import com.keydom.mianren.ih_patient.activity.card_operate.controller.Electronic
 import com.keydom.mianren.ih_patient.activity.card_operate.view.ElectronicCardView;
 import com.keydom.mianren.ih_patient.adapter.ElectronicCardAdapter;
 import com.keydom.mianren.ih_patient.bean.ElectronicCardRootBean;
+import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -32,6 +35,8 @@ import butterknife.BindView;
 public class ElectronicCardActivity extends BaseControllerActivity<ElectronicCardController> implements ElectronicCardView {
     @BindView(R.id.electronic_card_name)
     TextView electronicCardName;
+    @BindView(R.id.electronic_card_add_tv)
+    TextView electronicCardAddTv;
     @BindView(R.id.electronic_card_layout)
     RelativeLayout electronicCardLayout;
     @BindView(R.id.electronic_card_recycler_view)
@@ -57,12 +62,14 @@ public class ElectronicCardActivity extends BaseControllerActivity<ElectronicCar
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle("电子健康卡");
+        EventBus.getDefault().register(this);
 
         cardAdapter = new ElectronicCardAdapter(new ArrayList<>());
         cardAdapter.setOnItemClickListener(getController());
         electronicCardRecyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false));
         electronicCardRecyclerView.setAdapter(cardAdapter);
+        electronicCardAddTv.setOnClickListener(getController());
         electronicCardLayout.setOnClickListener(getController());
 
         getController().queryHealthCardList();
@@ -87,5 +94,20 @@ public class ElectronicCardActivity extends BaseControllerActivity<ElectronicCar
     @Override
     public MedicalCardInfo getMineCardInfo() {
         return mineCardInfo;
+    }
+
+    /**
+     * 保存就诊人成功事件监听
+     */
+    @Subscribe
+    public void onAddOrEditResult(ManagerUserBean managerUserBean) {
+        getController().queryHealthCardList();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

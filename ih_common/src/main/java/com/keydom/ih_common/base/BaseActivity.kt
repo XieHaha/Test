@@ -111,7 +111,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseActivityInterFace {
     /**
      * 设置标题栏右侧按钮文字
      */
-    fun setRightTxt(title: String) {
+    fun setRightTxt(title: String?) {
         titleLayout?.setRightTitle(title)
     }
 

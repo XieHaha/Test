@@ -33,6 +33,8 @@ public interface AddManageUserView extends BaseView{
      */
     int getStatus();
 
+    void addOrEditSuccess(ManagerUserBean manager);
+
     /**
      * 设置时间区间
      */

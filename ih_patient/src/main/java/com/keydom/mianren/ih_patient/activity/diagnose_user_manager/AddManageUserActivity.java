@@ -2,6 +2,9 @@ package com.keydom.mianren.ih_patient.activity.diagnose_user_manager;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,7 +16,9 @@ import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.view.AddMana
 import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
 import com.keydom.mianren.ih_patient.bean.PackageData;
 import com.keydom.mianren.ih_patient.constant.Global;
+import com.keydom.mianren.ih_patient.utils.CommUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
 
 import java.text.SimpleDateFormat;
@@ -55,7 +60,8 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
         getView();
         mType = getIntent().getIntExtra(TYPE, 0);
         setTitle(mType == ADD ? "新增就诊人信息" : "修改就诊人信息");
-        mManager = mType == ADD ? new ManagerUserBean() : (ManagerUserBean) getIntent().getSerializableExtra(MANAGER_USER);
+        mManager = mType == ADD ? new ManagerUserBean() :
+                (ManagerUserBean) getIntent().getSerializableExtra(MANAGER_USER);
         mManager.setManagerState(mType);
         if (mType == UPDATE) {
             mName.setText(mManager.getName());
@@ -71,14 +77,38 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
             mAddress.setText(mManager.getAddress());
             if (mManager.getArea() != null) {
                 String[] strArr = mManager.getArea().split("-");
-                if (strArr.length >= 1)
+                if (strArr.length >= 1) {
                     provinceName = strArr[0];
-                if (strArr.length >= 2)
+                }
+                if (strArr.length >= 2) {
                     cityName = strArr[1];
-                if (strArr.length >= 3)
+                }
+                if (strArr.length >= 3) {
                     areaName = strArr[2];
+                }
             }
         }
+
+        mIdCard.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!TextUtils.isEmpty(s) && s.length() == 18) {
+                    String dateString = CommUtil.getBirAgeSex(s.toString());
+                    mBirth.setText(dateString);
+                    mManager.setBirthday(dateString);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     /**
@@ -114,7 +144,6 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
     public void setBirth(Date birth) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = formatter.format(birth);
-        mBirth.setTextColor(getResources().getColor(R.color.color_333333));
         mBirth.setText(dateString);
         mManager.setBirthday(dateString);
     }
@@ -136,7 +165,14 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
     }
 
     @Override
-    public void saveRegion(List<PackageData.ProvinceBean> data, int options1, int option2, int options3) {
+    public void addOrEditSuccess(ManagerUserBean manager) {
+        EventBus.getDefault().post(manager);
+        finish();
+    }
+
+    @Override
+    public void saveRegion(List<PackageData.ProvinceBean> data, int options1, int option2,
+                           int options3) {
         if (data.get(options1).getCity().size() == 0) {
             mArea.setText(data.get(options1).getName());
             provinceName = data.get(options1).getName();
