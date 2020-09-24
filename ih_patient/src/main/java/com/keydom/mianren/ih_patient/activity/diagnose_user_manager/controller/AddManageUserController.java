@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_patient.activity.diagnose_user_manager.controller;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
@@ -9,6 +10,7 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
@@ -19,7 +21,9 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.PhoneUtils;
+import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.AnamnesisActivity;
 import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.view.AddManageUserView;
 import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
 import com.keydom.mianren.ih_patient.bean.PackageData;
@@ -134,28 +138,43 @@ public class AddManageUserController extends ControllerImpl<AddManageUserView> i
             ToastUtils.showShort("请输入详细地址");
             return;
         }
-        //        Intent i = new Intent(getContext(), AnamnesisActivity.class);
-        //        i.putExtra(AnamnesisActivity.MANAGER_USER_BEAN, manager);
-        //        i.putExtra(AnamnesisActivity.STATUS, status);
-        //        ActivityUtils.startActivity(i);
 
-        saveInfo(manager);
+        if (getView().isElectronic()) {
+            saveInfo(manager);
+        } else {
+            Intent i = new Intent(getContext(), AnamnesisActivity.class);
+            i.putExtra(AnamnesisActivity.MANAGER_USER_BEAN, manager);
+            i.putExtra(AnamnesisActivity.STATUS, status);
+            ActivityUtils.startActivity(i);
+        }
+
     }
+
+
 
     /**
      * 保存就诊人
      */
     public void saveInfo(ManagerUserBean manager) {
         Map<String, Object> map = new HashMap<>();
+        map.put("hospitalId", App.hospitalId);
         map.put("registerUserId", Global.getUserId());
         map.put("name", manager.getName());
+        map.put("age", manager.getAge());
         map.put("sex", manager.getSex());
-        map.put("idCard", manager.getCardId());
+        map.put("contact", App.userInfo.getUserName());
+        map.put("contactPhone", App.userInfo.getPhoneNumber());
+        map.put("cardNumber", manager.getCardId());
+        //证件类型:1身份证，户口本  01：身份证  02：军官证 03：驾驶证  04：港澳通行证
+        map.put("cardType", "01");
         map.put("birthDate", manager.getBirthday());
         map.put("phoneNumber", manager.getPhone());
-        map.put("address", manager.getAddress());
+        map.put("detailAddress", manager.getAddress());
+        map.put("provinceCode", getView().getProvinceCode());
+        map.put("cityCode", getView().getCityCode());
+        map.put("areaCode", getView().getAreaCode());
         map.put("area", manager.getArea());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).addManagerUser(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).addElectronicPatient(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable Object data) {
                 getView().addOrEditSuccess(manager);

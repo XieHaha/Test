@@ -33,6 +33,8 @@ public interface AddManageUserView extends BaseView{
      */
     int getStatus();
 
+    boolean isElectronic();
+
     void addOrEditSuccess(ManagerUserBean manager);
 
     /**
@@ -43,4 +45,10 @@ public interface AddManageUserView extends BaseView{
     String getProvinceName();
     String getCityName();
     String getAreaName();
+
+    String getProvinceCode();
+
+    String getCityCode();
+
+    String getAreaCode();
 }

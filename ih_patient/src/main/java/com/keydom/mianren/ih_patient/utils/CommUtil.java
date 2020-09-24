@@ -293,8 +293,9 @@ public class CommUtil {
     public static String subStringWithCAndE(String source, int len, String ellip) {
         int max = len * 2;
         boolean isAndEllip = false;
-        if (TextUtils.isEmpty(source) || len <= 0)
+        if (TextUtils.isEmpty(source) || len <= 0) {
             return "";
+        }
         StringBuffer sb = new StringBuffer();
         int sum = 0;
         char[] chars = source.toCharArray();
@@ -365,10 +366,11 @@ public class CommUtil {
         int length = 0;
         for (int i = 0; i < s.length(); i++) {
             int ascii = Character.codePointAt(s, i);
-            if (ascii >= 0 && ascii <= 255)
+            if (ascii >= 0 && ascii <= 255) {
                 length++;
-            else
+            } else {
                 length += 2;
+            }
         }
         long l1 = System.currentTimeMillis();
         //  LoggerUtil.e("length = " + length + " time  : " + (l1 - l) + "ms");
@@ -381,10 +383,11 @@ public class CommUtil {
         int lengthChinese = 0;
         for (int i = 0; !TextUtils.isEmpty(s) && i < s.length(); i++) {
             int ascii = Character.codePointAt(s, i);
-            if (ascii >= 0 && ascii <= 255)
+            if (ascii >= 0 && ascii <= 255) {
                 lengthCharacter++;
-            else
+            } else {
                 lengthChinese++;
+            }
         }
         lengthCharacter = lengthCharacter % 2 == 0 ? lengthCharacter / 2 : lengthCharacter / 2 + 1;
         //   LoggerUtil.e("lengthCharacter = " + lengthCharacter + " lengthChinese = " +
@@ -424,8 +427,9 @@ public class CommUtil {
                 c[i] = (char) 32;
                 continue;
             }
-            if (c[i] > 65280 && c[i] < 65375)
+            if (c[i] > 65280 && c[i] < 65375) {
                 c[i] = (char) (c[i] - 65248);
+            }
         }
         return new String(c);
     }
@@ -493,7 +497,7 @@ public class CommUtil {
      *
      * @return 返回的出生日期格式：1990-01-01   性别格式：F-女，M-男
      */
-    public static String getBirAgeSex(String certificateNo) {
+    public static Map<String, String> getBirAgeSex(String certificateNo) {
         String birthday = "";
         String age = "";
         String sexCode = "";
@@ -503,14 +507,16 @@ public class CommUtil {
         boolean flag = true;
         if (number.length == 15) {
             for (char c : number) {
-                if (!flag)
-                    return "";
+                if (!flag) {
+                    return null;
+                }
                 flag = Character.isDigit(c);
             }
         } else if (number.length == 18) {
             for (int x = 0; x < number.length - 1; x++) {
-                if (!flag)
-                    return "";
+                if (!flag) {
+                    return null;
+                }
                 flag = Character.isDigit(number[x]);
             }
         }
@@ -533,6 +539,6 @@ public class CommUtil {
         map.put("birthday", birthday);
         map.put("age", age);
         map.put("sexCode", sexCode);
-        return birthday;
+        return map;
     }
 }

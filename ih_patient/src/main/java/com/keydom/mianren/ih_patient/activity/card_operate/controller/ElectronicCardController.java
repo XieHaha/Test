@@ -61,6 +61,7 @@ public class ElectronicCardController extends ControllerImpl<ElectronicCardView>
             case R.id.electronic_card_add_tv:
                 Intent i = new Intent(getContext(), AddManageUserActivity.class);
                 i.putExtra(AddManageUserActivity.TYPE, AddManageUserActivity.ADD);
+                i.putExtra(AddManageUserActivity.ELECTRONIC_CARD, true);
                 ActivityUtils.startActivity(i);
                 break;
             case R.id.electronic_card_layout:

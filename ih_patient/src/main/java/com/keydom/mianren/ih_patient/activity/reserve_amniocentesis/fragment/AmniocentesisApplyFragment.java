@@ -27,6 +27,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -122,7 +123,10 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!TextUtils.isEmpty(s) && s.length() == 18) {
-                    amniocentesisApplyBirthTv.setText(CommUtil.getBirAgeSex(s.toString()));
+                    Map<String, String> map = CommUtil.getBirAgeSex(s.toString());
+                    if (map != null) {
+                        amniocentesisApplyBirthTv.setText(map.get("birthday"));
+                    }
                 }
             }
 

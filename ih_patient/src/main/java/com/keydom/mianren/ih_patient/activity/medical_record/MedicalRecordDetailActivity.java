@@ -2,6 +2,7 @@ package com.keydom.mianren.ih_patient.activity.medical_record;
 
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -84,8 +85,9 @@ public class MedicalRecordDetailActivity extends BaseControllerActivity<MedicalR
     public void getDetailCallBack(DiagnoseCaseBean bean) {
         if (bean != null) {
             mHospital.setText(bean.getHospitalName());
-            mDepartment.setText("科别：" + bean.getDoctorDept());
-            mTime.setText("日期：" + bean.getTime());
+            mDepartment.setText("科别：" + (TextUtils.isEmpty(bean.getDoctorDept()) ? "" :
+                    bean.getDoctorDept()));
+            mTime.setText("日期：" + (TextUtils.isEmpty(bean.getTime()) ? "" : bean.getTime()));
             SpannableStringBuilder name =
                     new SpanUtils().append("姓名：").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color))
                             .append(StringUtils.isEmpty(bean.getName()) ? "" : bean.getName()).setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.color_333333))
@@ -115,8 +117,9 @@ public class MedicalRecordDetailActivity extends BaseControllerActivity<MedicalR
 
     private void bindData(MedicalRecordBean bean) {
         mHospital.setText(bean.getHospitalName());
-        mDepartment.setText("科别：" + bean.getDoctorDept());
-        mTime.setText("日期：" + bean.getTime());
+        mDepartment.setText("科别：" + (TextUtils.isEmpty(bean.getDoctorDept()) ? "" :
+                bean.getDoctorDept()));
+        mTime.setText("日期：" + (TextUtils.isEmpty(bean.getTime()) ? "" : bean.getTime()));
         SpannableStringBuilder name =
                 new SpanUtils().append("姓名：").setFontSize(13, true).setForegroundColor(getResources().getColor(R.color.edit_hint_color))
                         .append(StringUtils.isEmpty(bean.getName()) ? "" : bean.getName()).setFontSize(13

@@ -18,6 +18,9 @@ import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 
 
@@ -52,12 +55,30 @@ public class ElectronicCardDetailActivity extends BaseControllerActivity<Electro
         setTitle("电子健康卡");
 
         cardInfo = (MedicalCardInfo) getIntent().getSerializableExtra(Const.DATA);
+        getController().queryHealthCardDetail();
 
         if (cardInfo != null) {
             cardDetailNameTv.setText(cardInfo.getName());
-            Bitmap logo = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_qr_logo);
-            Bitmap mBitmap = CodeUtils.createImage("cardInfo.getQrCode()", 400, 400, logo);
-            cardDetailQrIv.setImageBitmap(mBitmap);
         }
+    }
+
+    @Override
+    public Map<String, String> getParams() {
+        Map<String, String> map = new HashMap<>();
+        map.put("eleCardNumber", cardInfo.getEleCardNumber());
+        map.put("idCard", cardInfo.getIdCard());
+        return map;
+    }
+
+    @Override
+    public void queryHealthCardSuccess(String data) {
+        Bitmap logo = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_qr_logo);
+        Bitmap mBitmap = CodeUtils.createImage(data, 400, 400, logo);
+        cardDetailQrIv.setImageBitmap(mBitmap);
+    }
+
+    @Override
+    public void queryHealthCardFailed(String msg) {
+
     }
 }

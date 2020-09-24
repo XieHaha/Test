@@ -108,6 +108,12 @@ public interface UserService {
     Observable<HttpResult<Object>> addManagerUser(@Body RequestBody body);
 
     /**
+     * 保存就诊人
+     */
+    @POST("user/electronicCard/addPatient")
+    Observable<HttpResult<Object>> addElectronicPatient(@Body RequestBody body);
+
+    /**
      * 删除就诊人
      */
     @POST("user/patient/delete")

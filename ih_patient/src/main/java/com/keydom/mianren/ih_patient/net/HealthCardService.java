@@ -48,5 +48,10 @@ public interface HealthCardService {
      */
     @POST("user/healthCard/queryHealthCardList")
     Observable<HttpResult<ElectronicCardRootBean>> queryHealthCardList(@Body RequestBody body);
+    /**
+     * 查询电子健康卡信息
+     */
+    @POST("user/healthCard/qr")
+    Observable<HttpResult<String>> queryHealthCardDetail(@Body RequestBody body);
 
 }

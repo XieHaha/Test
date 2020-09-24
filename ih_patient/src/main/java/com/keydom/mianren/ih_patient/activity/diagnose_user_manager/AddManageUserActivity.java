@@ -24,19 +24,28 @@ import org.jetbrains.annotations.Nullable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * created date: 2018/12/13 on 15:02
  * des:添加就诊人页面
+ *
+ * @author 顿顿
  */
 public class AddManageUserActivity extends BaseControllerActivity<AddManageUserController> implements AddManageUserView {
+    public static final String ELECTRONIC_CARD = "electronic_card";
     public static final String TYPE = "type";
     public static final String MANAGER_USER = "manager_user";
-    //新增就诊人类型标识
+    /**
+     * 新增就诊人类型标识
+     */
     public static final int ADD = 1;
-    //修改就诊人类型标识
+    /**
+     * 修改就诊人类型标识
+     */
     public static final int UPDATE = 2;
     private int mType;
+    private boolean electronic;
     private EditText mName;
     private EditText mIdCard;
     private TextView mSex;
@@ -46,8 +55,10 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
     private LinearLayout mBirthChoose;
     private LinearLayout mAreaChoose;
     private TextView mArea;
+    private TextView nextTv;
     private EditText mAddress;
     private String provinceName, cityName, areaName;
+    private String provinceCode, cityCode, areaCode;
     private ManagerUserBean mManager;
 
     @Override
@@ -57,9 +68,10 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        getView();
         mType = getIntent().getIntExtra(TYPE, 0);
+        electronic = getIntent().getBooleanExtra(ELECTRONIC_CARD, false);
         setTitle(mType == ADD ? "新增就诊人信息" : "修改就诊人信息");
+        getView();
         mManager = mType == ADD ? new ManagerUserBean() :
                 (ManagerUserBean) getIntent().getSerializableExtra(MANAGER_USER);
         mManager.setManagerState(mType);
@@ -98,9 +110,12 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!TextUtils.isEmpty(s) && s.length() == 18) {
-                    String dateString = CommUtil.getBirAgeSex(s.toString());
-                    mBirth.setText(dateString);
-                    mManager.setBirthday(dateString);
+                    Map<String, String> map = CommUtil.getBirAgeSex(s.toString());
+                    if (map != null) {
+                        mBirth.setText(map.get("birthday"));
+                        mManager.setAge(map.get("age"));
+                        mManager.setBirthday(map.get("birthday"));
+                    }
                 }
             }
 
@@ -128,7 +143,13 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
         mAreaChoose.setOnClickListener(getController());
         mArea = findViewById(R.id.area);
         mAddress = findViewById(R.id.address);
-        findViewById(R.id.next_step).setOnClickListener(getController());
+        nextTv = findViewById(R.id.next_step);
+        nextTv.setOnClickListener(getController());
+        if (electronic) {
+            nextTv.setText(R.string.save);
+        } else {
+            nextTv.setText(R.string.txt_next);
+        }
     }
 
     @Override
@@ -165,6 +186,11 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
     }
 
     @Override
+    public boolean isElectronic() {
+        return electronic;
+    }
+
+    @Override
     public void addOrEditSuccess(ManagerUserBean manager) {
         EventBus.getDefault().post(manager);
         finish();
@@ -176,19 +202,25 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
         if (data.get(options1).getCity().size() == 0) {
             mArea.setText(data.get(options1).getName());
             provinceName = data.get(options1).getName();
+            provinceCode = data.get(options1).getCode();
             cityName = "";
             areaName = "";
         } else if (data.get(options1).getCity().get(option2).getArea().size() == 0) {
             mArea.setText(data.get(options1).getName() + "-" + data.get(options1).getCity().get(option2).getName());
             provinceName = data.get(options1).getName();
+            provinceCode = data.get(options1).getCode();
             cityName = data.get(options1).getCity().get(option2).getName();
+            cityCode = data.get(options1).getCity().get(option2).getCode();
             areaName = "";
 
         } else {
             mArea.setText(data.get(options1).getName() + "-" + data.get(options1).getCity().get(option2).getName() + "-" + data.get(options1).getCity().get(option2).getArea().get(options3).getName());
             provinceName = data.get(options1).getName();
+            provinceCode = data.get(options1).getCode();
             cityName = data.get(options1).getCity().get(option2).getName();
+            cityCode = data.get(options1).getCity().get(option2).getCode();
             areaName = data.get(options1).getCity().get(option2).getArea().get(options3).getName();
+            areaCode = data.get(options1).getCity().get(option2).getArea().get(options3).getCode();
         }
         mArea.setTextColor(this.getResources().getColor(R.color.color_333333));
     }
@@ -208,4 +240,18 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
         return areaName;
     }
 
+    @Override
+    public String getProvinceCode() {
+        return provinceCode;
+    }
+
+    @Override
+    public String getCityCode() {
+        return cityCode;
+    }
+
+    @Override
+    public String getAreaCode() {
+        return areaCode;
+    }
 }
