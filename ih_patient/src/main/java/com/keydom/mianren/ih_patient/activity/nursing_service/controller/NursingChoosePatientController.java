@@ -9,7 +9,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.card_operate.CardoperateActivity;
+import com.keydom.mianren.ih_patient.activity.card_operate.ElectronicCardActivity;
 import com.keydom.mianren.ih_patient.activity.nursing_service.view.NursingChoosePatientView;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.constant.Global;
@@ -27,11 +27,9 @@ import java.util.List;
 public class NursingChoosePatientController extends ControllerImpl<NursingChoosePatientView> implements View.OnClickListener {
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.jump_to_card_operate_tv:
-                CardoperateActivity.start(getContext());
-                break;
-
+        if (view.getId() == R.id.jump_to_card_operate_tv) {
+            // CardoperateActivity.start(getContext());
+            ElectronicCardActivity.start(getContext());
         }
     }
 

@@ -49,6 +49,8 @@ public class FunctionConfig implements FunctionIndex {
             FunctionConfig.ResourceId = R.mipmap.vip_painless_labor_icon;
         } else if (id == ObstetricMedical) {
             FunctionConfig.ResourceId = R.mipmap.vip_obstetrical_medical_records_icon;
+        } else if (id == ChildHealth) {
+            FunctionConfig.ResourceId = R.mipmap.vip_child_health_icon;
         } else {
             FunctionConfig.ResourceId = R.mipmap.consultation_pay;
         }

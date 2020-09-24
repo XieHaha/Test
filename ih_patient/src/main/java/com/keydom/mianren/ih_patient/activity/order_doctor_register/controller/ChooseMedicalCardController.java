@@ -11,7 +11,7 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.card_operate.CardoperateActivity;
+import com.keydom.mianren.ih_patient.activity.card_operate.ElectronicCardActivity;
 import com.keydom.mianren.ih_patient.activity.order_doctor_register.view.ChooseMedicalCardView;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.bean.PaymentOrderBean;
@@ -43,7 +43,10 @@ public class ChooseMedicalCardController extends ControllerImpl<ChooseMedicalCar
                 userOrderNumber(getView().getCreateOrderNumQueryMap());
                 break;
             case R.id.jump_to_card_operate_tv:
-                CardoperateActivity.start(getContext());
+                // CardoperateActivity.start(getContext());
+                ElectronicCardActivity.start(getContext());
+                break;
+            default:
                 break;
         }
     }
@@ -64,7 +67,8 @@ public class ChooseMedicalCardController extends ControllerImpl<ChooseMedicalCar
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 hideLoading();
                 getView().getAllCardFailed(msg);
                 return super.requestError(exception, code, msg);
@@ -86,7 +90,8 @@ public class ChooseMedicalCardController extends ControllerImpl<ChooseMedicalCar
                 }
 
                 @Override
-                public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+                public boolean requestError(@NotNull ApiException exception, int code,
+                                            @NotNull String msg) {
                     hideLoading();
                     getView().createOrderNumFailed(msg);
                     return super.requestError(exception, code, msg);
@@ -103,15 +108,17 @@ public class ChooseMedicalCardController extends ControllerImpl<ChooseMedicalCar
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(OrderService.class).hospitalFeeByOrderNumber(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<String>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable String data) {
-                if(type==2){
+                if (type == 2) {
                     try {
                         JSONObject object = new JSONObject(data);
                         Logger.e("return_msg:" + object.getString("return_msg"));
-                        new Alipay(getContext(), object.getString("return_msg"), new Alipay.AlipayResultCallBack() {
+                        new Alipay(getContext(), object.getString("return_msg"),
+                                new Alipay.AlipayResultCallBack() {
                             @Override
                             public void onSuccess() {
                                 ToastUtil.showMessage(getContext(), "支付成功");
-                                new GeneralDialog(getContext(), "挂号成功，可在挂号订单中进行查看", new GeneralDialog.OnCloseListener() {
+                                new GeneralDialog(getContext(), "挂号成功，可在挂号订单中进行查看",
+                                        new GeneralDialog.OnCloseListener() {
                                     @Override
                                     public void onCommit() {
                                         getView().completeOrder();
@@ -138,12 +145,13 @@ public class ChooseMedicalCardController extends ControllerImpl<ChooseMedicalCar
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }else if(type==1){
+                } else if (type == 1) {
                     WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
                         @Override
                         public void onSuccess() {
                             ToastUtil.showMessage(getContext(), "支付成功");
-                            new GeneralDialog(getContext(), "挂号成功，可在挂号订单中进行查看", new GeneralDialog.OnCloseListener() {
+                            new GeneralDialog(getContext(), "挂号成功，可在挂号订单中进行查看",
+                                    new GeneralDialog.OnCloseListener() {
                                 @Override
                                 public void onCommit() {
                                     getView().completeOrder();
@@ -153,7 +161,7 @@ public class ChooseMedicalCardController extends ControllerImpl<ChooseMedicalCar
 
                         @Override
                         public void onError(int error_code) {
-                            ToastUtil.showMessage(getContext(),"支付失败"+error_code
+                            ToastUtil.showMessage(getContext(), "支付失败" + error_code
                             );
                         }
 
@@ -167,7 +175,8 @@ public class ChooseMedicalCardController extends ControllerImpl<ChooseMedicalCar
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 ToastUtil.showMessage(getContext(), "拉取订单失败，请重试");
                 return super.requestError(exception, code, msg);
             }

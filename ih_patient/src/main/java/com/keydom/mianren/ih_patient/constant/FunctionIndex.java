@@ -44,4 +44,6 @@ public interface FunctionIndex {
     int ObstetricMedical = 42;
     //住院预缴金
     int HospitalPayment = 43;
+    //儿童保健
+    int ChildHealth = 44;
 }

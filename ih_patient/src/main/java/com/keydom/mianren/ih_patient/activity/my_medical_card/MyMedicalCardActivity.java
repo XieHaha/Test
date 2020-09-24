@@ -12,7 +12,7 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.card_operate.CardoperateActivity;
+import com.keydom.mianren.ih_patient.activity.card_operate.ElectronicCardActivity;
 import com.keydom.mianren.ih_patient.activity.my_medical_card.controller.MyMedicalCardController;
 import com.keydom.mianren.ih_patient.activity.my_medical_card.view.MyMedicalCardView;
 import com.keydom.mianren.ih_patient.adapter.MyMedicalCardAdapter;
@@ -55,7 +55,8 @@ public class MyMedicalCardActivity extends BaseControllerActivity<MyMedicalCardC
         getTitleLayout().setOnRightTextClickListener(new IhTitleLayout.OnRightTextClickListener() {
             @Override
             public void OnRightTextClick(View v) {
-                CardoperateActivity.start(getContext());
+                // CardoperateActivity.start(getContext());
+                ElectronicCardActivity.start(getContext());
             }
         });
         myMedicalCardRv=this.findViewById(R.id.my_medical_card_rv);

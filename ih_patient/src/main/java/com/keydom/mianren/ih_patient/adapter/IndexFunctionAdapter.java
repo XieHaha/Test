@@ -16,6 +16,7 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.card_operate.ElectronicCardActivity;
+import com.keydom.mianren.ih_patient.activity.child_health.ChildHealthActivity;
 import com.keydom.mianren.ih_patient.activity.common_document.CommonDocumentActivity;
 import com.keydom.mianren.ih_patient.activity.diagnose_main.DiagnoseMainActivity;
 import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.ManageUserActivity;
@@ -211,6 +212,11 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                         case HospitalPayment:
                             if (loginStatus()) {
                                 HospitalPaymentActivity.start(context);
+                            }
+                            break;
+                        case ChildHealth:
+                            if (loginStatus()) {
+                                ChildHealthActivity.start(context);
                             }
                             break;
                      /*   case Setting:
