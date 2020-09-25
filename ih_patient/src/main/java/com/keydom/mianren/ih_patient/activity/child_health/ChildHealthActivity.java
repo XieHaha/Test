@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 
 /**
+ * @author 顿顿
  * @date 20/2/27 11:37
  * @des 儿童保健首页
  */
@@ -39,14 +41,36 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     ImageView ivBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.right_tv)
+    TextView tvRight;
     @BindView(R.id.nested_scroll_view)
     MyNestedScollView scrollView;
     @BindView(R.id.smart_refresh)
     SmartRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @BindView(R.id.iv_online)
-    ImageView ivOnline;
+    @BindView(R.id.header_child_health_age_tv)
+    TextView headerChildHealthAgeTv;
+    @BindView(R.id.header_child_health_sex_tv)
+    TextView headerChildHealthSexTv;
+    @BindView(R.id.header_child_health_last_date_tv)
+    TextView headerChildHealthLastDateTv;
+    @BindView(R.id.header_child_health_info_layout)
+    RelativeLayout headerChildHealthInfoLayout;
+    @BindView(R.id.header_child_health_look_tv)
+    TextView headerChildHealthLookTv;
+    @BindView(R.id.header_child_health_doing_date_tv)
+    TextView headerChildHealthDoingDateTv;
+    @BindView(R.id.header_child_health_project_tv)
+    TextView headerChildHealthProjectTv;
+    @BindView(R.id.header_child_health_all_project_layout)
+    LinearLayout headerChildHealthAllProjectLayout;
+    @BindView(R.id.mine_user_head_img)
+    ImageView mineUserHeadImg;
+    @BindView(R.id.mine_user_name)
+    TextView mineUserName;
+    @BindView(R.id.mine_user_card)
+    TextView mineUserCard;
 
     private ChildHealthAdapter adapter;
     private ArrayList<String> data;
@@ -69,6 +93,7 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
                 StatusBarUtils.getStateBarHeight(this)));
         StatusBarUtils.setStatusBarTranslucent(this);
         tvTitle.setText("儿童保健");
+        tvRight.setText("选择就诊人");
         layoutBg.setAlpha(0);
         statusBar.setAlpha(0);
         StatusBarUtils.setStatusBarColor(this, true);
@@ -78,23 +103,17 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         data.add("");
         data.add("");
         data.add("");
-        adapter = new ChildHealthAdapter(R.layout.item_child_health, data);
+        adapter = new ChildHealthAdapter(data);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(getController());
-        ivOnline.setOnClickListener(getController());
         ivBack.setOnClickListener(getController());
+        tvRight.setOnClickListener(getController());
         scrollView.setScrollViewListener((scrollView, x, y, oldX, oldY) -> getController().transTitleBar(y));
         swipeRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getChildHealthList(TypeEnum.REFRESH));
-        swipeRefreshLayout.setOnLoadMoreListener(refreshLayout -> getController().getChildHealthList(TypeEnum.LOAD_MORE));
 
-        pageLoading();
         getController().getChildHealthList(TypeEnum.REFRESH);
-        setReloadListener((v, status) -> {
-            pageLoading();
-            getController().getChildHealthList(TypeEnum.REFRESH);
-        });
     }
 
     @Override
@@ -105,6 +124,7 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     @Override
     public void transTitleBar(boolean direction, float scale) {
         tvTitle.setSelected(!direction);
+        tvRight.setSelected(!direction);
         ivBack.setSelected(!direction);
         layoutBg.setAlpha(scale);
         statusBar.setAlpha(scale);
