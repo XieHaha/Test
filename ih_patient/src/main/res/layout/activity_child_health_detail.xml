@@ -18,7 +18,7 @@
 
     <com.keydom.ih_common.view.MyScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_above="@id/header_child_health_bottom_layout"
         android:layout_below="@id/view">
 

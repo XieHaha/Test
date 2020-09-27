@@ -11,6 +11,7 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.child_health.ChildHealthDetailActivity;
+import com.keydom.mianren.ih_patient.activity.child_health.ChildHealthHistoryActivity;
 import com.keydom.mianren.ih_patient.activity.child_health.ChildHealthProjectActivity;
 import com.keydom.mianren.ih_patient.activity.child_health.view.ChildHealthView;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
@@ -91,8 +92,15 @@ public class ChildHealthController extends ControllerImpl<ChildHealthView> imple
             case R.id.header_child_health_all_project_layout:
                 ChildHealthProjectActivity.start(getContext(), getView().getMedicalCardInfo());
                 break;
+            case R.id.header_child_health_info_layout:
+                //查看历史
+                ChildHealthHistoryActivity.start(getContext(), getView().getMedicalCardInfo(),
+                        getView().getHealthHistoryBeans());
+                break;
             case R.id.header_child_health_look_tv:
-                ChildHealthDetailActivity.start(getContext(), getView().getMedicalCardInfo(), getView().getHealthDoingBean());
+                //即将进行的项目
+                ChildHealthDetailActivity.start(getContext(), getView().getMedicalCardInfo(),
+                        getView().getHealthDoingBean());
                 break;
             default:
                 break;
@@ -101,6 +109,7 @@ public class ChildHealthController extends ControllerImpl<ChildHealthView> imple
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//        ChildHealthDetailActivity.start(getContext(), getView().getMedicalCardInfo(), null);
+        //        ChildHealthDetailActivity.start(getContext(), getView().getMedicalCardInfo(),
+        //        null);
     }
 }

@@ -538,6 +538,7 @@
         <activity android:name=".activity.card_operate.ElectronicCardActivity" />
         <activity android:name=".activity.card_operate.ElectronicCardDetailActivity" />
         <activity android:name=".activity.child_health.ChildHealthProjectActivity" />
+        <activity android:name=".activity.child_health.ChildHealthHistoryActivity" />
     </application>
 
 </manifest>

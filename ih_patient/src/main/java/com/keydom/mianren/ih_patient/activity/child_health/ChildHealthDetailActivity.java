@@ -193,6 +193,12 @@ public class ChildHealthDetailActivity extends BaseControllerActivity<ChildHealt
             unSelectProjectLayout.setVisibility(View.GONE);
         }
 
+        if (doingBean.getDoState() > 1) {
+            headerChildHealthBottomLayout.setVisibility(View.GONE);
+            childHealthDetailHintTv.setVisibility(View.GONE);
+            return;
+        }
+
         //0 等待医生开具医嘱  1待支付 2已支付 3已取消
         switch (doingBean.getState()) {
             case 1:

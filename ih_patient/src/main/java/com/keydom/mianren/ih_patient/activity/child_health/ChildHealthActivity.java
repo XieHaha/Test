@@ -97,6 +97,10 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
      */
     private ChildHealthRootBean rootBean;
     /**
+     * 历史记录
+     */
+    private List<ChildHealthDoingBean> healthHistoryBeans;
+    /**
      * 即将进行的数据
      */
     private ChildHealthDoingBean healthDoingBean;
@@ -136,6 +140,7 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         adapter.setOnItemClickListener(getController());
         ivBack.setOnClickListener(getController());
         tvRight.setOnClickListener(getController());
+        headerChildHealthInfoLayout.setOnClickListener(getController());
         headerChildHealthLookTv.setOnClickListener(getController());
         headerChildHealthAllProjectLayout.setOnClickListener(getController());
         scrollView.setScrollViewListener((scrollView, x, y, oldX, oldY) -> getController().transTitleBar(y));
@@ -159,7 +164,12 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         headerChildHealthSexTv.setText(CommonUtils.getSex(medicalCardInfo.getSex()));
     }
 
+    /**
+     * 儿保项目数据
+     */
     private void bindData() {
+        headerChildHealthLastDateTv.setText(rootBean.getLastTimeChild());
+        healthHistoryBeans = rootBean.getHistoryRecords();
         if (rootBean.getFutureAndDoing() != null && rootBean.getFutureAndDoing().size() > 0) {
             headerChildHealthDoingLayout.setVisibility(View.VISIBLE);
             //默认取第一条
@@ -198,6 +208,11 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         if (event.getType() == EventType.CHILD_HEALTH_APPLY) {
             getController().getChildHistory();
         }
+    }
+
+    @Override
+    public List<ChildHealthDoingBean> getHealthHistoryBeans() {
+        return healthHistoryBeans;
     }
 
     @Override
