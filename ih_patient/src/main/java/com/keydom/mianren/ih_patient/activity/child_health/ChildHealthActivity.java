@@ -171,6 +171,13 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onChileHealthUpdate(Event event) {
+        if (event.getType() == EventType.CHILD_HEALTH_APPLY) {
+            getController().getChildHistory();
+        }
+    }
+
     @Override
     public String getEleCardNumber() {
         return eleCardNumber;
@@ -195,6 +202,7 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     public void finishPage() {
         finish();
     }
+
 
     @Override
     protected void onDestroy() {

@@ -330,6 +330,7 @@ public class DateUtils {
         Date ago = calendar.getTime();
         return dateToString(ago);
     }
+
     /**
      * 获取日期区间  天数
      */
@@ -341,5 +342,19 @@ public class DateUtils {
         calendar.add(Calendar.DAY_OF_YEAR, interval);
         //得到个月前的时间
         return calendar.getTime();
+    }
+
+    public static int getMonthDiffer(String start) {
+        SimpleDateFormat sdf = new SimpleDateFormat(YYYY_MM_DD);
+        Calendar bef = Calendar.getInstance();
+        Calendar aft = Calendar.getInstance();
+        try {
+            bef.setTime(sdf.parse(start));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int month = (aft.get(Calendar.YEAR) - bef.get(Calendar.YEAR)) * 12;
+        int result = aft.get(Calendar.MONTH) - bef.get(Calendar.MONTH);
+        return month + result;
     }
 }

@@ -11,7 +11,18 @@ public class ChildHealthProjectItemBean implements Serializable {
     private static final long serialVersionUID = -1120378497804764628L;
     private int isMustFill;
     private double price;
+    private int age;
     private String name;
+
+    private boolean select;
+
+    public boolean isSelect() {
+        return select;
+    }
+
+    public void setSelect(boolean select) {
+        this.select = select;
+    }
 
     public int getIsMustFill() {
         return isMustFill;
@@ -35,5 +46,13 @@ public class ChildHealthProjectItemBean implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }

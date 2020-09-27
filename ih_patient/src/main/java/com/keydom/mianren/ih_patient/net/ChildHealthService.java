@@ -3,11 +3,12 @@ package com.keydom.mianren.ih_patient.net;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_patient.bean.ChildHealthProjectBean;
 import com.keydom.mianren.ih_patient.bean.ChildHealthRootBean;
-import com.keydom.mianren.ih_patient.bean.HealthCardResponse;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -28,8 +29,8 @@ public interface ChildHealthService {
     /**
      * 儿保预约提交
      */
-    @GET("user/childProject/childAppointSubmit")
-    Observable<HttpResult<List<HealthCardResponse>>> childAppointSubmit(@Query("ehealthCardId") String idCard);
+    @POST("user/childProject/childAppointSubmit")
+    Observable<HttpResult<String>> childAppointSubmit(@Body RequestBody body);
 
 
     /**

@@ -87,6 +87,7 @@ public class ChildCareItemLayout extends RelativeLayout {
                 TextView tvName = view.findViewById(R.id.item_project_name_tv);
                 TextView tvPrice = view.findViewById(R.id.item_project_price_tv);
                 ivSelect.setSelected(must);
+                bean.setSelect(must);
                 tvName.setText(bean.getName());
                 tvPrice.setText("￥" + bean.getPrice());
 
@@ -95,6 +96,7 @@ public class ChildCareItemLayout extends RelativeLayout {
                         @Override
                         public void onClick(View v) {
                             ivSelect.setSelected(!ivSelect.isSelected());
+                            bean.setSelect(!bean.isSelect());
                         }
                     });
                 }
