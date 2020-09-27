@@ -303,7 +303,8 @@
     <string name="txt_go_pay">去支付</string>
 
     <!--儿童保健-->
-    <string name="txt_child_maintain">儿童保养</string>
+    <string name="txt_child_maintain">儿保预约</string>
+    <string name="txt_child_maintain_detail">儿保预约详情</string>
     <string name="txt_reserve_time">预约时间</string>
     <string name="txt_select_time_hint">请选择时间</string>
     <string name="txt_childcare_address">儿保地点</string>
@@ -311,6 +312,7 @@
     <string name="txt_physical">体格检查</string>
     <string name="txt_growth_and_development_other">生长发育评估及其他</string>
     <string name="txt_precautions">注意事项</string>
+    <string name="txt_child_age">儿保月龄%d月</string>
 
     <!--孕妇学校-->
     <string name="txt_pregnant_woman_school">孕妇学校</string>

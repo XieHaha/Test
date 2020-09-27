@@ -50,7 +50,7 @@ public class ManageUserSelectActivity extends BaseControllerActivity<ManageUserS
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         curId = getIntent().getStringExtra("id");
-        setTitle("选择就诊人");
+        setTitle(R.string.txt_select_visit_people);
         recyclerView = this.findViewById(R.id.user_rv);
         adapter = new ManageUserNewAdapter(new ArrayList<>());
         adapter.setId(curId);

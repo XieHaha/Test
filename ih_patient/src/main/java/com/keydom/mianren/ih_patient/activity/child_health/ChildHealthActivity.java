@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,10 +17,10 @@ import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.child_health.controller.ChildHealthController;
 import com.keydom.mianren.ih_patient.activity.child_health.view.ChildHealthView;
 import com.keydom.mianren.ih_patient.adapter.ChildHealthAdapter;
+import com.keydom.mianren.ih_patient.bean.ChildHealthRootBean;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.constant.EventType;
-import com.keydom.mianren.ih_patient.constant.TypeEnum;
 import com.keydom.mianren.ih_patient.utils.StatusBarUtils;
 import com.keydom.mianren.ih_patient.view.MyNestedScollView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -85,9 +86,14 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     private ArrayList<String> data;
 
     /**
+     * 首页数据集合
+     */
+    private ChildHealthRootBean rootBean;
+    /**
      * 就诊卡
      */
     private MedicalCardInfo medicalCardInfo;
+    private String eleCardNumber;
 
     /**
      * 启动
@@ -107,8 +113,8 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         statusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 StatusBarUtils.getStateBarHeight(this)));
         StatusBarUtils.setStatusBarTranslucent(this);
-        tvTitle.setText("儿童保健");
-        tvRight.setText("选择就诊人");
+        tvTitle.setText(R.string.txt_child_maintain);
+        tvRight.setText(R.string.txt_select_visit_people);
         layoutBg.setAlpha(0);
         statusBar.setAlpha(0);
         StatusBarUtils.setStatusBarColor(this, true);
@@ -119,15 +125,24 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         adapter.setOnItemClickListener(getController());
         ivBack.setOnClickListener(getController());
         tvRight.setOnClickListener(getController());
+        headerChildHealthAllProjectLayout.setOnClickListener(getController());
         scrollView.setScrollViewListener((scrollView, x, y, oldX, oldY) -> getController().transTitleBar(y));
-        swipeRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getChildHealthList(TypeEnum.REFRESH));
+        swipeRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            if (!TextUtils.isEmpty(eleCardNumber)) {
+                getController().getChildHistory();
+            }
+        });
+    }
 
-        getController().getChildHealthList(TypeEnum.REFRESH);
+    private void bindData() {
+
     }
 
     @Override
-    public void requestSuccess(String data) {
-        pageLoadingSuccess();
+    public void requestSuccess(ChildHealthRootBean data) {
+        swipeRefreshLayout.finishRefresh();
+        rootBean = data;
+        bindData();
     }
 
     /**
@@ -137,10 +152,16 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     public void getPatientCard(Event event) {
         if (event.getType() == EventType.SENDSELECTNURSINGPATIENT) {
             medicalCardInfo = (MedicalCardInfo) event.getData();
+            eleCardNumber = medicalCardInfo.getEleCardNumber();
             headerChildHealthRootLayout.setVisibility(View.VISIBLE);
+            getController().getChildHistory();
         }
     }
 
+    @Override
+    public String getEleCardNumber() {
+        return eleCardNumber;
+    }
 
     @Override
     public void transTitleBar(boolean direction, float scale) {

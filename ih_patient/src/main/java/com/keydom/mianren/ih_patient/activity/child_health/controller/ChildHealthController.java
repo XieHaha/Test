@@ -4,18 +4,29 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.net.ApiRequest;
+import com.keydom.ih_common.net.exception.ApiException;
+import com.keydom.ih_common.net.service.HttpService;
+import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.child_health.ChildHealthDetailActivity;
+import com.keydom.mianren.ih_patient.activity.child_health.ChildHealthProjectActivity;
 import com.keydom.mianren.ih_patient.activity.child_health.view.ChildHealthView;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
-import com.keydom.mianren.ih_patient.constant.TypeEnum;
+import com.keydom.mianren.ih_patient.bean.ChildHealthRootBean;
+import com.keydom.mianren.ih_patient.net.ChildHealthService;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import map.baidu.ar.utils.ScreenUtils;
 
 /**
+ * @author 顿顿
  * @date 20/2/27 11:39
  * @des 儿童保健首页控制器
  */
@@ -24,9 +35,22 @@ public class ChildHealthController extends ControllerImpl<ChildHealthView> imple
     /**
      * 获取儿童保健记录
      */
-    public void getChildHealthList(TypeEnum refresh) {
-        getView().requestSuccess("");
+    public void getChildHistory() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChildHealthService.class).getChildHistory(getView().getEleCardNumber()), new HttpSubscriber<ChildHealthRootBean>(getContext(), getDisposable(), true, false) {
 
+            @Override
+            public void requestComplete(@Nullable ChildHealthRootBean data) {
+                getView().requestSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtil.showMessage(getContext(), msg);
+                return super.requestError(exception, code, msg);
+
+            }
+        });
     }
 
     /**
@@ -64,6 +88,9 @@ public class ChildHealthController extends ControllerImpl<ChildHealthView> imple
             case R.id.right_tv:
                 ChoosePatientActivity.start(getContext(), -1, false);
                 break;
+            case R.id.header_child_health_all_project_layout:
+                ChildHealthProjectActivity.start(getContext());
+                break;
             default:
                 break;
         }
@@ -71,6 +98,6 @@ public class ChildHealthController extends ControllerImpl<ChildHealthView> imple
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        ChildHealthDetailActivity.start(getContext());
+        ChildHealthDetailActivity.start(getContext(), null);
     }
 }

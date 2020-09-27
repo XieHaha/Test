@@ -537,6 +537,7 @@
         <activity android:name=".activity.prescription_check.PrescriptionRecordActivity" />
         <activity android:name=".activity.card_operate.ElectronicCardActivity" />
         <activity android:name=".activity.card_operate.ElectronicCardDetailActivity" />
+        <activity android:name=".activity.child_health.ChildHealthProjectActivity" />
     </application>
 
 </manifest>

@@ -14,179 +14,174 @@
         android:layout_height="@dimen/dp_1"
         android:background="@color/line_color" />
 
-        <com.keydom.ih_common.view.MyScrollView
+    <com.keydom.ih_common.view.MyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="@dimen/dp_75"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_29"
+                android:paddingEnd="@dimen/dp_29">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingStart="@dimen/dp_29"
-                    android:paddingTop="@dimen/dp_24"
-                    android:paddingEnd="@dimen/dp_29">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@mipmap/icon_date"
-                        android:drawablePadding="@dimen/dp_15"
-                        android:gravity="center"
-                        android:text="@string/txt_reserve_time"
-                        android:textColor="@color/color_333333"
-                        android:textSize="@dimen/sp_14" />
-
-                    <TextView
-                        android:id="@+id/tv_select_time"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/dp_32"
-                        android:layout_marginStart="@dimen/dp_22"
-                        android:layout_weight="1"
-                        android:background="@drawable/corner5_stroke_eeeeee"
-                        android:drawableEnd="@mipmap/icon_date"
-                        android:gravity="center_vertical"
-                        android:hint="@string/txt_select_time_hint"
-                        android:paddingStart="@dimen/dp_14"
-                        android:paddingEnd="@dimen/dp_9"
-                        android:textColor="@color/vip_detail_balance_number_text"
-                        android:textColorHint="@color/edit_hint_color"
-                        android:textSize="@dimen/sp_14" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingStart="@dimen/dp_29"
-                    android:paddingTop="@dimen/dp_21"
-                    android:paddingEnd="@dimen/dp_29">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@mipmap/icon_date"
-                        android:drawablePadding="@dimen/dp_15"
-                        android:gravity="center"
-                        android:text="@string/txt_childcare_address"
-                        android:textColor="@color/color_333333"
-                        android:textSize="@dimen/sp_14" />
-
-                    <TextView
-                        android:id="@+id/tv_hospital_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dp_32"
-                        android:layout_marginStart="@dimen/dp_22"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/vip_detail_balance_number_text"
-                        android:textSize="@dimen/sp_14"
-                        tools:text="医院名称" />
-
-                </LinearLayout>
+                <ImageView
+                    android:id="@+id/child_health_detail_head_iv"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    android:src="@drawable/bg_default_photo_round" />
 
                 <TextView
-                    android:id="@+id/tv_reserve"
-                    android:layout_width="match_parent"
+                    android:id="@+id/child_health_detail_name_tv"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:layout_marginStart="@dimen/dp_24"
-                    android:layout_marginTop="@dimen/dp_24"
-                    android:layout_marginEnd="@dimen/dp_24"
-                    android:background="@mipmap/pay_commit_bg"
-                    android:gravity="center"
-                    android:text="@string/txt_reserve"
-                    android:textColor="@color/primary_color"
-                    android:textSize="@dimen/sp_18" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_10"
-                    android:layout_marginTop="@dimen/dp_28"
-                    android:background="@color/color_f9f9f9" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_75"
-                    android:gravity="center_vertical"
-                    android:paddingStart="@dimen/dp_29"
-                    android:paddingEnd="@dimen/dp_29">
-
-                    <ImageView
-                        android:id="@+id/iv_avatar"
-                        android:layout_width="@dimen/dp_50"
-                        android:layout_height="@dimen/dp_50"
-                        android:src="@drawable/bg_default_photo_round" />
-
-                    <TextView
-                        android:id="@+id/tv_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_24"
-                        android:textColor="@color/color_333333"
-                        android:textSize="@dimen/sp_14"
-                        tools:text="姓名" />
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_14"
+                    tools:text="姓名" />
 
 
-                    <TextView
-                        android:id="@+id/tv_sex_age"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_28"
-                        android:textColor="@color/title_bar_text_color"
-                        android:textSize="@dimen/sp_12"
-                        tools:text="性别、年龄" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:background="@color/line_color" />
-
-                <com.keydom.mianren.ih_patient.view.ChildCareItemLayout
-                    android:id="@+id/layout_one"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/child_health_detail_sex_tv"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="9dp"
-                    android:paddingStart="@dimen/dp_30"
-                    android:paddingEnd="@dimen/dp_16"
-                    app:item_image="@mipmap/point_icon_4"
-                    app:item_title="@string/txt_growth_and_development" />
+                    android:layout_marginStart="@dimen/dp_28"
+                    android:textColor="@color/title_bar_text_color"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="性别" />
 
-                <com.keydom.mianren.ih_patient.view.ChildCareItemLayout
-                    android:id="@+id/layout_two"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/child_health_detail_age_tv"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/dp_30"
-                    android:paddingEnd="@dimen/dp_16"
-                    app:item_image="@mipmap/point_icon_3"
-                    app:item_title="@string/txt_physical" />
-
-                <com.keydom.mianren.ih_patient.view.ChildCareItemLayout
-                    android:id="@+id/layout_three"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/dp_30"
-                    android:paddingEnd="@dimen/dp_16"
-                    app:item_image="@mipmap/point_icon_1"
-                    app:item_title="@string/txt_growth_and_development_other" />
-
-                <com.keydom.mianren.ih_patient.view.ChildCareItemLayout
-                    android:id="@+id/layout_four"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/dp_30"
-                    android:paddingEnd="@dimen/dp_16"
-                    app:item_image="@mipmap/point_icon_6"
-                    app:item_title="@string/txt_precautions" />
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:textColor="@color/title_bar_text_color"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="年龄" />
 
             </LinearLayout>
 
-        </com.keydom.ih_common.view.MyScrollView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/bg_lines" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_78"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_29"
+                android:paddingEnd="@dimen/dp_29">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@mipmap/icon_child_health_date"
+                    android:drawablePadding="@dimen/dp_15"
+                    android:gravity="center"
+                    android:text="@string/txt_reserve_time"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/child_health_detail_select_time_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_32"
+                    android:layout_marginStart="@dimen/dp_22"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner5_stroke_eeeeee"
+                    android:drawableEnd="@mipmap/icon_child_health_time"
+                    android:gravity="center_vertical"
+                    android:hint="@string/txt_select_time_hint"
+                    android:paddingStart="@dimen/dp_14"
+                    android:paddingEnd="@dimen/dp_9"
+                    android:textColor="@color/vip_detail_balance_number_text"
+                    android:textColorHint="@color/edit_hint_color"
+                    android:textSize="@dimen/sp_14"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/child_health_detail_time_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_22"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_14"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    tools:text="2020年9月27日" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/color_f9f9f9" />
+
+            <com.keydom.mianren.ih_patient.view.ChildCareItemLayout
+                android:id="@+id/child_health_detail_select_project_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dp_30"
+                android:paddingEnd="@dimen/dp_16"
+                app:item_image="@mipmap/point_icon_4"
+                app:item_title="@string/txt_growth_and_development" />
+
+            <com.keydom.mianren.ih_patient.view.ChildCareItemLayout
+                android:id="@+id/child_health_detail_unselect_project_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dp_30"
+                android:paddingEnd="@dimen/dp_16"
+                app:item_image="@mipmap/point_icon_3"
+                app:item_title="@string/txt_physical" />
+
+            <com.keydom.mianren.ih_patient.view.ChildCareItemLayout
+                android:id="@+id/child_health_detail_notice_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dp_30"
+                android:paddingEnd="@dimen/dp_16"
+                app:item_image="@mipmap/point_icon_1"
+                app:item_title="@string/txt_precautions" />
+
+
+            <com.keydom.ih_common.view.JustifiedTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_60"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginEnd="@dimen/dp_60"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.3"
+                android:text="提交申请，医生开具处方后缴费完成预约医嘱有效期至预约时间前一天"
+                android:textColor="@color/register_success_color"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/child_health_detail_next_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginEnd="@dimen/dp_24"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:background="@mipmap/pay_commit_bg"
+                android:gravity="center"
+                android:text="提交预约"
+                android:textColor="@color/primary_color"
+                android:textSize="@dimen/sp_18" />
+
+        </LinearLayout>
+
+    </com.keydom.ih_common.view.MyScrollView>
 
 </LinearLayout>

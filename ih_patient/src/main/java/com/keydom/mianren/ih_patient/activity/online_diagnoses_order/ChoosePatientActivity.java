@@ -57,7 +57,7 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
         mTabLayout = findViewById(R.id.choose_patient_tab);
         mViewPager = findViewById(R.id.choose_patient_vp);
         if (type == Const.PATIENT_TYPE_ALL) {
-            setTitle("选择就诊人");
+            setTitle(R.string.txt_select_visit_people);
             list.add("就诊卡(问诊)");
 //            list.add("就诊人(咨询)");
             TypeCardFragment typeCardFragment = new TypeCardFragment();
@@ -78,7 +78,7 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
             mTabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FFFFFF"));
 
         } else {
-            setTitle("选择就诊人");
+            setTitle(R.string.txt_select_visit_people);
             list.add("就诊人(咨询)");
             fragmentList.add(new TypePatientFragment());
             mTabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FFFFFF"));
