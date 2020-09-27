@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_patient.activity.child_health.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.mianren.ih_patient.bean.ChildHealthDoingBean;
 import com.keydom.mianren.ih_patient.bean.ChildHealthRootBean;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 
@@ -17,6 +18,8 @@ public interface ChildHealthView extends BaseView {
     String getEleCardNumber();
 
     MedicalCardInfo getMedicalCardInfo();
+
+    ChildHealthDoingBean getHealthDoingBean();
 
     void transTitleBar(boolean direction, float scale);
 

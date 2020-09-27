@@ -273,6 +273,7 @@
     <string name="txt_order_confirm">订单确认</string>
     <string name="txt_upload_id_card">请上传患者本人证件照</string>
     <string name="txt_select_visit_people">选择就诊人</string>
+    <string name="txt_change_visit_people">切换就诊人</string>
     <string name="txt_id_card_front">[患者身份证正面]</string>
     <string name="txt_id_card_back">[患者身份证反面]</string>
     <string name="txt_id_card_hand">[患者手持身份证照]</string>

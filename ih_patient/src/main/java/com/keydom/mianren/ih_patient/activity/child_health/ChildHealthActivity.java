@@ -13,14 +13,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.child_health.controller.ChildHealthController;
 import com.keydom.mianren.ih_patient.activity.child_health.view.ChildHealthView;
 import com.keydom.mianren.ih_patient.adapter.ChildHealthAdapter;
+import com.keydom.mianren.ih_patient.bean.ChildHealthDoingBean;
+import com.keydom.mianren.ih_patient.bean.ChildHealthProjectItemBean;
 import com.keydom.mianren.ih_patient.bean.ChildHealthRootBean;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.constant.EventType;
+import com.keydom.mianren.ih_patient.utils.DateUtils;
 import com.keydom.mianren.ih_patient.utils.StatusBarUtils;
 import com.keydom.mianren.ih_patient.view.MyNestedScollView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -31,6 +35,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -92,6 +97,10 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
      */
     private ChildHealthRootBean rootBean;
     /**
+     * 即将进行的数据
+     */
+    private ChildHealthDoingBean healthDoingBean;
+    /**
      * 就诊卡
      */
     private MedicalCardInfo medicalCardInfo;
@@ -127,6 +136,7 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         adapter.setOnItemClickListener(getController());
         ivBack.setOnClickListener(getController());
         tvRight.setOnClickListener(getController());
+        headerChildHealthLookTv.setOnClickListener(getController());
         headerChildHealthAllProjectLayout.setOnClickListener(getController());
         scrollView.setScrollViewListener((scrollView, x, y, oldX, oldY) -> getController().transTitleBar(y));
         swipeRefreshLayout.setOnRefreshListener(refreshLayout -> {
@@ -144,10 +154,21 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         //        0, false, null);
         mineUserName.setText(medicalCardInfo.getName());
         mineUserCard.setText("卡号：" + medicalCardInfo.getEleCardNumber());
+        headerChildHealthAgeTv.setText(DateUtils.getMonthDiffer(medicalCardInfo.getBirthday()) +
+                "月龄");
+        headerChildHealthSexTv.setText(CommonUtils.getSex(medicalCardInfo.getSex()));
     }
 
     private void bindData() {
-        headerChildHealthDoingLayout.setVisibility(View.GONE);
+        if (rootBean.getFutureAndDoing() != null && rootBean.getFutureAndDoing().size() > 0) {
+            headerChildHealthDoingLayout.setVisibility(View.VISIBLE);
+            //默认取第一条
+            healthDoingBean = rootBean.getFutureAndDoing().get(0);
+            headerChildHealthDoingDateTv.setText(healthDoingBean.getAppointmentTime());
+            headerChildHealthProjectTv.setText(getProject(healthDoingBean.getSelect()));
+        } else {
+            headerChildHealthDoingLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -164,6 +185,7 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     public void getPatientCard(Event event) {
         if (event.getType() == EventType.SENDSELECTNURSINGPATIENT) {
             medicalCardInfo = (MedicalCardInfo) event.getData();
+            tvRight.setText(R.string.txt_change_visit_people);
             bindUserInfo();
             eleCardNumber = medicalCardInfo.getEleCardNumber();
             headerChildHealthRootLayout.setVisibility(View.VISIBLE);
@@ -186,6 +208,25 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     @Override
     public MedicalCardInfo getMedicalCardInfo() {
         return medicalCardInfo;
+    }
+
+    @Override
+    public ChildHealthDoingBean getHealthDoingBean() {
+        return healthDoingBean;
+    }
+
+    private String getProject(List<ChildHealthProjectItemBean> select) {
+        StringBuilder builder = new StringBuilder();
+        if (select != null) {
+            int count = select.size();
+            for (int i = 0; i < count; i++) {
+                builder.append(select.get(i).getName());
+                if (select.size() - 1 != i) {
+                    builder.append("、");
+                }
+            }
+        }
+        return builder.toString();
     }
 
     @Override

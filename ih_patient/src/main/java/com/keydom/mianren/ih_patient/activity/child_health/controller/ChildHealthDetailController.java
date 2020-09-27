@@ -14,6 +14,7 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.child_health.view.ChildHealthDetailView;
+import com.keydom.mianren.ih_patient.activity.payment_records.PaymentRecordActivity;
 import com.keydom.mianren.ih_patient.net.ChildHealthService;
 
 import org.jetbrains.annotations.NotNull;
@@ -30,15 +31,23 @@ public class ChildHealthDetailController extends ControllerImpl<ChildHealthDetai
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.child_health_detail_select_time_tv) {
-            KeyboardUtils.hideSoftInput((Activity) getContext());
-            TimePickerView pickerView = new TimePickerBuilder(getContext(),
-                    (date, v12) -> getView().setReserveDate(date)).setRangDate(Calendar.getInstance(), null).build();
-            pickerView.show();
-        } else if (v.getId() == R.id.child_health_detail_next_tv) {
-            if (getView().commitAble()) {
-                childAppointSubmit();
-            }
+        switch (v.getId()) {
+            case R.id.child_health_detail_select_time_tv:
+                KeyboardUtils.hideSoftInput((Activity) getContext());
+                TimePickerView pickerView = new TimePickerBuilder(getContext(),
+                        (date, v12) -> getView().setReserveDate(date)).setRangDate(Calendar.getInstance(), null).build();
+                pickerView.show();
+                break;
+            case R.id.child_health_detail_next_tv:
+                if (getView().commitAble()) {
+                    childAppointSubmit();
+                }
+                break;
+            case R.id.header_child_health_pay_tv:
+                PaymentRecordActivity.start(getContext());
+                break;
+            default:
+                break;
         }
     }
 

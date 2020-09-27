@@ -73,7 +73,8 @@ public class ChildCareItemLayout extends RelativeLayout {
         holder.tvContent.setText(content);
     }
 
-    public void setContentList(List<ChildHealthProjectItemBean> data, boolean must) {
+    public void setContentList(List<ChildHealthProjectItemBean> data, boolean must,
+                               boolean clickable) {
         holder.tvContent.setVisibility(GONE);
         holder.contentLayout.setVisibility(VISIBLE);
         holder.contentLayout.removeAllViews();
@@ -91,7 +92,7 @@ public class ChildCareItemLayout extends RelativeLayout {
                 tvName.setText(bean.getName());
                 tvPrice.setText("￥" + bean.getPrice());
 
-                if (!must) {
+                if (!must && clickable) {
                     view.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {

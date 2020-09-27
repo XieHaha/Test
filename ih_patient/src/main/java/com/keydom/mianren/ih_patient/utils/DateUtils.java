@@ -40,7 +40,7 @@ public class DateUtils {
     public static int getMonthDiff(String d1, String d2) throws ParseException {
         Calendar c1 = Calendar.getInstance();
         Calendar c2 = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        SimpleDateFormat sdf = new SimpleDateFormat(YYYY_MM_DD);
         java.util.Date date1 = sdf.parse(d1);
         java.util.Date date2 = sdf.parse(d2);
         c1.setTime(date1);
