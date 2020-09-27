@@ -7,10 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.child_health.controller.ChildHealthDetailController;
 import com.keydom.mianren.ih_patient.activity.child_health.view.ChildHealthDetailView;
 import com.keydom.mianren.ih_patient.bean.ChildHealthProjectBean;
+import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.view.ChildCareItemLayout;
 
@@ -38,21 +40,24 @@ public class ChildHealthDetailActivity extends BaseControllerActivity<ChildHealt
     @BindView(R.id.child_health_detail_time_tv)
     TextView childHealthDetailTimeTv;
     @BindView(R.id.child_health_detail_select_project_layout)
-    ChildCareItemLayout childHealthDetailSelectProjectLayout;
+    ChildCareItemLayout selectProjectLayout;
     @BindView(R.id.child_health_detail_unselect_project_layout)
-    ChildCareItemLayout childHealthDetailUnselectProjectLayout;
+    ChildCareItemLayout unSelectProjectLayout;
     @BindView(R.id.child_health_detail_notice_layout)
     ChildCareItemLayout childHealthDetailNoticeLayout;
     @BindView(R.id.child_health_detail_next_tv)
     TextView childHealthDetailNextTv;
 
     private ChildHealthProjectBean projectBean;
+    private MedicalCardInfo cardInfo;
 
     /**
      * 启动
      */
-    public static void start(Context context, ChildHealthProjectBean projectBean) {
+    public static void start(Context context, MedicalCardInfo cardInfo,
+                             ChildHealthProjectBean projectBean) {
         Intent intent = new Intent(context, ChildHealthDetailActivity.class);
+        intent.putExtra("cardInfo", cardInfo);
         intent.putExtra(Const.DATA, projectBean);
         context.startActivity(intent);
     }
@@ -66,9 +71,22 @@ public class ChildHealthDetailActivity extends BaseControllerActivity<ChildHealt
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle(getString(R.string.txt_child_maintain_detail));
         projectBean = (ChildHealthProjectBean) getIntent().getSerializableExtra(Const.DATA);
+        cardInfo = (MedicalCardInfo) getIntent().getSerializableExtra("cardInfo");
+
+        if (cardInfo != null) {
+            childHealthDetailNameTv.setText(cardInfo.getName());
+            childHealthDetailSexTv.setText(CommonUtils.getSex(cardInfo.getSex()));
+            childHealthDetailAgeTv.setText(cardInfo.getBirthday());
+        }
+
+        if (projectBean != null) {
+            childHealthDetailNoticeLayout.setContent(projectBean.getAttention());
+
+            selectProjectLayout.setTitle("儿保项目");
+            selectProjectLayout.setContentList(projectBean.getMustFill(), true);
+            unSelectProjectLayout.setTitle("可选项目");
+            unSelectProjectLayout.setContentList(projectBean.getNotMustFill(), false);
+        }
     }
 
-    @Override
-    public void bindDetailData(String data) {
-    }
 }

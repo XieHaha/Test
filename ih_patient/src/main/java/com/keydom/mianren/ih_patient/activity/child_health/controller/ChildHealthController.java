@@ -89,7 +89,7 @@ public class ChildHealthController extends ControllerImpl<ChildHealthView> imple
                 ChoosePatientActivity.start(getContext(), -1, false);
                 break;
             case R.id.header_child_health_all_project_layout:
-                ChildHealthProjectActivity.start(getContext());
+                ChildHealthProjectActivity.start(getContext(), getView().getMedicalCardInfo());
                 break;
             default:
                 break;
@@ -98,6 +98,6 @@ public class ChildHealthController extends ControllerImpl<ChildHealthView> imple
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        ChildHealthDetailActivity.start(getContext(), null);
+        ChildHealthDetailActivity.start(getContext(), getView().getMedicalCardInfo(), null);
     }
 }

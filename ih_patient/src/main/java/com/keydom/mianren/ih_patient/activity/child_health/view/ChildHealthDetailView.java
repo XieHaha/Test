@@ -9,8 +9,4 @@ import com.keydom.ih_common.base.BaseView;
  */
 public interface ChildHealthDetailView extends BaseView {
 
-    /**
-     * 数据绑定
-     */
-    void bindDetailData(String data);
 }

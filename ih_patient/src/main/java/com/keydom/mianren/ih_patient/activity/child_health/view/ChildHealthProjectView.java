@@ -2,6 +2,7 @@ package com.keydom.mianren.ih_patient.activity.child_health.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_patient.bean.ChildHealthProjectBean;
+import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ import java.util.List;
  * @des 儿童保健项目列表
  */
 public interface ChildHealthProjectView extends BaseView {
+    MedicalCardInfo getCardInfo();
+
     void requestProjectSuccess(List<ChildHealthProjectBean> data);
 
     void requestProjectFailed(String msg);

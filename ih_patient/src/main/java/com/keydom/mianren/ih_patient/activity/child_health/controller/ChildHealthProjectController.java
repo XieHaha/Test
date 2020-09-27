@@ -48,6 +48,6 @@ public class ChildHealthProjectController extends ControllerImpl<ChildHealthProj
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         ChildHealthProjectBean projectBean = (ChildHealthProjectBean) adapter.getItem(position);
-        ChildHealthDetailActivity.start(getContext(),projectBean);
+        ChildHealthDetailActivity.start(getContext(),getView().getCardInfo(),projectBean);
     }
 }

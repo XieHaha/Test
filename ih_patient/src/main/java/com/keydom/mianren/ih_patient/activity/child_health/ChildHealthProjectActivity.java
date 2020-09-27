@@ -13,6 +13,8 @@ import com.keydom.mianren.ih_patient.activity.child_health.controller.ChildHealt
 import com.keydom.mianren.ih_patient.activity.child_health.view.ChildHealthProjectView;
 import com.keydom.mianren.ih_patient.adapter.ChildHealthProjectAdapter;
 import com.keydom.mianren.ih_patient.bean.ChildHealthProjectBean;
+import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
+import com.keydom.mianren.ih_patient.constant.Const;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.jetbrains.annotations.Nullable;
@@ -37,11 +39,15 @@ public class ChildHealthProjectActivity extends BaseControllerActivity<ChildHeal
 
     private List<ChildHealthProjectBean> projectBeans;
 
+    private MedicalCardInfo cardInfo;
+
     /**
      * 启动
      */
-    public static void start(Context context) {
-        context.startActivity(new Intent(context, ChildHealthProjectActivity.class));
+    public static void start(Context context, MedicalCardInfo cardInfo) {
+        Intent intent = new Intent(context, ChildHealthProjectActivity.class);
+        intent.putExtra(Const.DATA, cardInfo);
+        context.startActivity(intent);
     }
 
     @Override
@@ -52,7 +58,7 @@ public class ChildHealthProjectActivity extends BaseControllerActivity<ChildHeal
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle("儿保月龄项目");
-
+        cardInfo = (MedicalCardInfo) getIntent().getSerializableExtra(Const.DATA);
         projectAdapter = new ChildHealthProjectAdapter(projectBeans);
         projectAdapter.setOnItemClickListener(getController());
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
@@ -61,6 +67,11 @@ public class ChildHealthProjectActivity extends BaseControllerActivity<ChildHeal
         smartRefresh.setOnRefreshListener(refreshLayout -> getController().childProjectList());
 
         getController().childProjectList();
+    }
+
+    @Override
+    public MedicalCardInfo getCardInfo() {
+        return cardInfo;
     }
 
     @Override

@@ -10,12 +10,4 @@ import com.keydom.mianren.ih_patient.activity.child_health.view.ChildHealthDetai
  */
 public class ChildHealthDetailController extends ControllerImpl<ChildHealthDetailView> {
 
-    /**
-     * 获取儿童保健详情
-     */
-    public void getChildHealthDetail() {
-
-        getView().bindDetailData("");
-    }
-
 }

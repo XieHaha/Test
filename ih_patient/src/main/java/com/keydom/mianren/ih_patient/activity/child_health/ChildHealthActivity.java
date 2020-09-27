@@ -74,6 +74,8 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     TextView headerChildHealthProjectTv;
     @BindView(R.id.header_child_health_all_project_layout)
     LinearLayout headerChildHealthAllProjectLayout;
+    @BindView(R.id.header_child_health_doing_layout)
+    LinearLayout headerChildHealthDoingLayout;
     @BindView(R.id.mine_user_head_img)
     ImageView mineUserHeadImg;
     @BindView(R.id.mine_user_name)
@@ -134,8 +136,18 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         });
     }
 
-    private void bindData() {
+    /**
+     * 用户信息
+     */
+    private void bindUserInfo() {
+        //        GlideUtils.load(mineUserHeadImg, Const.IMAGE_HOST + medicalCardInfo.get(), 0,
+        //        0, false, null);
+        mineUserName.setText(medicalCardInfo.getName());
+        mineUserCard.setText("卡号：" + medicalCardInfo.getEleCardNumber());
+    }
 
+    private void bindData() {
+        headerChildHealthDoingLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -152,6 +164,7 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     public void getPatientCard(Event event) {
         if (event.getType() == EventType.SENDSELECTNURSINGPATIENT) {
             medicalCardInfo = (MedicalCardInfo) event.getData();
+            bindUserInfo();
             eleCardNumber = medicalCardInfo.getEleCardNumber();
             headerChildHealthRootLayout.setVisibility(View.VISIBLE);
             getController().getChildHistory();
@@ -161,6 +174,11 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     @Override
     public String getEleCardNumber() {
         return eleCardNumber;
+    }
+
+    @Override
+    public MedicalCardInfo getMedicalCardInfo() {
+        return medicalCardInfo;
     }
 
     @Override
