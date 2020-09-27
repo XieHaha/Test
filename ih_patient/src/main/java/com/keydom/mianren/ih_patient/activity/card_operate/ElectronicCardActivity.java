@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -37,6 +38,10 @@ public class ElectronicCardActivity extends BaseControllerActivity<ElectronicCar
     TextView electronicCardName;
     @BindView(R.id.electronic_card_add_tv)
     TextView electronicCardAddTv;
+    @BindView(R.id.mine_card_title_tv)
+    TextView mineCardTitleTv;
+    @BindView(R.id.mine_card_other_tv)
+    TextView mineCardOtherTv;
     @BindView(R.id.electronic_card_layout)
     RelativeLayout electronicCardLayout;
     @BindView(R.id.electronic_card_recycler_view)
@@ -81,8 +86,19 @@ public class ElectronicCardActivity extends BaseControllerActivity<ElectronicCar
         if (mine != null && mine.size() > 0) {
             mineCardInfo = mine.get(0);
             electronicCardName.setText(mineCardInfo.getName());
+            mineCardTitleTv.setVisibility(View.VISIBLE);
+            electronicCardLayout.setVisibility(View.VISIBLE);
+        } else {
+            mineCardTitleTv.setVisibility(View.GONE);
+            electronicCardLayout.setVisibility(View.GONE);
         }
+
         othersCardInfoList = bean.getOthers();
+        if (othersCardInfoList != null && othersCardInfoList.size() > 0) {
+            mineCardOtherTv.setVisibility(View.VISIBLE);
+        } else {
+            mineCardOtherTv.setVisibility(View.GONE);
+        }
         cardAdapter.setNewData(othersCardInfoList);
     }
 

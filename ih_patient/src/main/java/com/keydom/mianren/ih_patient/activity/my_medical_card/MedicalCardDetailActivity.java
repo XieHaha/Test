@@ -15,7 +15,6 @@ import com.keydom.mianren.ih_patient.activity.my_medical_card.controller.Medical
 import com.keydom.mianren.ih_patient.activity.my_medical_card.view.MedicalCardDetailView;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.utils.DateUtils;
-import com.orhanobut.logger.Logger;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -78,12 +77,11 @@ public class MedicalCardDetailActivity extends BaseControllerActivity<MedicalCar
 
         try {
             Date date=sdf.parse(dateStr);
-            SimpleDateFormat sdfChange = new SimpleDateFormat("yyyy.MM.dd");
+            SimpleDateFormat sdfChange = new SimpleDateFormat(DateUtils.YYYY_MM_DD);
             dateStr=sdfChange.format(date);
             card_detail_bind_card_time.setText(dateStr);
-            SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd");
+            SimpleDateFormat df = new SimpleDateFormat(DateUtils.YYYY_MM_DD);
             String nowDateStr=df.format(new Date());
-            Logger.e("相差月份为："+ DateUtils.getMonthDiff(dateStr,nowDateStr));
             if(DateUtils.getMonthDiff(dateStr,nowDateStr)<Integer.parseInt(medicalCardInfo.getReleaseTime())){
                 card_detail_remove_bind.setVisibility(View.GONE);
             }else {
