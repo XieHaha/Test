@@ -7,6 +7,7 @@ import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.child_health.ChildHealthDetailActivity;
 import com.keydom.mianren.ih_patient.activity.child_health.view.ChildHealthView;
+import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
 import com.keydom.mianren.ih_patient.constant.TypeEnum;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -61,6 +62,7 @@ public class ChildHealthController extends ControllerImpl<ChildHealthView> imple
                 getView().finishPage();
                 break;
             case R.id.right_tv:
+                ChoosePatientActivity.start(getContext(), -1, false);
                 break;
             default:
                 break;

@@ -14,12 +14,6 @@
         android:layout_height="@dimen/dp_1"
         android:background="@color/line_color" />
 
-
-    <com.ganxin.library.LoadDataLayout
-        android:id="@+id/loadDataLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <com.keydom.ih_common.view.MyScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -194,7 +188,5 @@
             </LinearLayout>
 
         </com.keydom.ih_common.view.MyScrollView>
-
-    </com.ganxin.library.LoadDataLayout>
 
 </LinearLayout>

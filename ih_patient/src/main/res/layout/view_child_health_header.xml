@@ -3,15 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/dp_220"
+    android:layout_marginTop="@dimen/dp_250"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/header_child_health_root_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_75"
+        android:visibility="gone"
         android:background="#F6F5F8"
         android:orientation="vertical">
 
@@ -19,8 +21,8 @@
             android:id="@+id/header_child_health_info_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_90"
-            android:layout_marginTop="@dimen/dp_25"
             android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_25"
             android:layout_marginEnd="@dimen/dp_10"
             android:background="@drawable/corner5_ffffff_bg">
 

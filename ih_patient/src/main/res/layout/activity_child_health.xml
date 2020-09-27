@@ -43,7 +43,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#F6F5F8"
-                    android:paddingBottom="@dimen/dp_20"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
             </LinearLayout>

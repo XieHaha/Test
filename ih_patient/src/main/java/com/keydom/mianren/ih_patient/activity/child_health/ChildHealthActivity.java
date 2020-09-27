@@ -16,11 +16,17 @@ import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.child_health.controller.ChildHealthController;
 import com.keydom.mianren.ih_patient.activity.child_health.view.ChildHealthView;
 import com.keydom.mianren.ih_patient.adapter.ChildHealthAdapter;
+import com.keydom.mianren.ih_patient.bean.Event;
+import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
+import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.constant.TypeEnum;
 import com.keydom.mianren.ih_patient.utils.StatusBarUtils;
 import com.keydom.mianren.ih_patient.view.MyNestedScollView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -57,6 +63,8 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     TextView headerChildHealthLastDateTv;
     @BindView(R.id.header_child_health_info_layout)
     RelativeLayout headerChildHealthInfoLayout;
+    @BindView(R.id.header_child_health_root_layout)
+    LinearLayout headerChildHealthRootLayout;
     @BindView(R.id.header_child_health_look_tv)
     TextView headerChildHealthLookTv;
     @BindView(R.id.header_child_health_doing_date_tv)
@@ -73,7 +81,13 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     TextView mineUserCard;
 
     private ChildHealthAdapter adapter;
+
     private ArrayList<String> data;
+
+    /**
+     * 就诊卡
+     */
+    private MedicalCardInfo medicalCardInfo;
 
     /**
      * 启动
@@ -89,6 +103,7 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         statusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 StatusBarUtils.getStateBarHeight(this)));
         StatusBarUtils.setStatusBarTranslucent(this);
@@ -97,12 +112,6 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         layoutBg.setAlpha(0);
         statusBar.setAlpha(0);
         StatusBarUtils.setStatusBarColor(this, true);
-        //模拟数据
-        data = new ArrayList<>();
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
         adapter = new ChildHealthAdapter(data);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapter);
@@ -121,6 +130,18 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         pageLoadingSuccess();
     }
 
+    /**
+     * 获取患者就诊卡
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getPatientCard(Event event) {
+        if (event.getType() == EventType.SENDSELECTNURSINGPATIENT) {
+            medicalCardInfo = (MedicalCardInfo) event.getData();
+            headerChildHealthRootLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+
     @Override
     public void transTitleBar(boolean direction, float scale) {
         tvTitle.setSelected(!direction);
@@ -134,5 +155,11 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     @Override
     public void finishPage() {
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
