@@ -34,7 +34,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -88,9 +87,7 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     @BindView(R.id.mine_user_card)
     TextView mineUserCard;
 
-    private ChildHealthAdapter adapter;
-
-    private ArrayList<String> data;
+    private ChildHealthAdapter childProjectAdapter;
 
     /**
      * 首页数据集合
@@ -104,6 +101,10 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
      * 即将进行的数据
      */
     private ChildHealthDoingBean healthDoingBean;
+    /**
+     * 儿保项目
+     */
+    private List<ChildHealthDoingBean> childProjectBeans;
     /**
      * 就诊卡
      */
@@ -133,16 +134,17 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         layoutBg.setAlpha(0);
         statusBar.setAlpha(0);
         StatusBarUtils.setStatusBarColor(this, true);
-        adapter = new ChildHealthAdapter(data);
+        childProjectAdapter = new ChildHealthAdapter(childProjectBeans);
         recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(childProjectAdapter);
+        childProjectAdapter.setOnItemClickListener(getController());
 
-        adapter.setOnItemClickListener(getController());
         ivBack.setOnClickListener(getController());
         tvRight.setOnClickListener(getController());
         headerChildHealthInfoLayout.setOnClickListener(getController());
         headerChildHealthLookTv.setOnClickListener(getController());
         headerChildHealthAllProjectLayout.setOnClickListener(getController());
+
         scrollView.setScrollViewListener((scrollView, x, y, oldX, oldY) -> getController().transTitleBar(y));
         swipeRefreshLayout.setOnRefreshListener(refreshLayout -> {
             if (!TextUtils.isEmpty(eleCardNumber)) {
@@ -169,7 +171,12 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
      */
     private void bindData() {
         headerChildHealthLastDateTv.setText(rootBean.getLastTimeChild());
+        //历史记录
         healthHistoryBeans = rootBean.getHistoryRecords();
+        //儿保项目
+        childProjectBeans = rootBean.getChildProject();
+        childProjectAdapter.setNewData(childProjectBeans);
+        //即将进行的项目
         if (rootBean.getFutureAndDoing() != null && rootBean.getFutureAndDoing().size() > 0) {
             headerChildHealthDoingLayout.setVisibility(View.VISIBLE);
             //默认取第一条
@@ -196,9 +203,9 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
         if (event.getType() == EventType.SENDSELECTNURSINGPATIENT) {
             medicalCardInfo = (MedicalCardInfo) event.getData();
             tvRight.setText(R.string.txt_change_visit_people);
-            bindUserInfo();
             eleCardNumber = medicalCardInfo.getEleCardNumber();
             headerChildHealthRootLayout.setVisibility(View.VISIBLE);
+            bindUserInfo();
             getController().getChildHistory();
         }
     }

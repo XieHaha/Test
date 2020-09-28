@@ -14,7 +14,7 @@ public class ChildHealthRootBean implements Serializable {
     private String lastTimeChild;
     private String age;
 
-    private List<String> childProject;
+    private List<ChildHealthDoingBean> childProject;
     private List<ChildHealthDoingBean> futureAndDoing;
     private List<ChildHealthDoingBean> historyRecords;
 
@@ -32,6 +32,14 @@ public class ChildHealthRootBean implements Serializable {
 
     public void setAge(String age) {
         this.age = age;
+    }
+
+    public List<ChildHealthDoingBean> getChildProject() {
+        return childProject;
+    }
+
+    public void setChildProject(List<ChildHealthDoingBean> childProject) {
+        this.childProject = childProject;
     }
 
     public List<ChildHealthDoingBean> getFutureAndDoing() {
