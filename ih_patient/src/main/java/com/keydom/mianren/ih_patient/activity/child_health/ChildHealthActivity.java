@@ -19,6 +19,7 @@ import com.keydom.mianren.ih_patient.activity.child_health.controller.ChildHealt
 import com.keydom.mianren.ih_patient.activity.child_health.view.ChildHealthView;
 import com.keydom.mianren.ih_patient.adapter.ChildHealthAdapter;
 import com.keydom.mianren.ih_patient.bean.ChildHealthDoingBean;
+import com.keydom.mianren.ih_patient.bean.ChildHealthProjectBean;
 import com.keydom.mianren.ih_patient.bean.ChildHealthProjectItemBean;
 import com.keydom.mianren.ih_patient.bean.ChildHealthRootBean;
 import com.keydom.mianren.ih_patient.bean.Event;
@@ -104,7 +105,7 @@ public class ChildHealthActivity extends BaseControllerActivity<ChildHealthContr
     /**
      * 儿保项目
      */
-    private List<ChildHealthDoingBean> childProjectBeans;
+    private List<ChildHealthProjectBean> childProjectBeans;
     /**
      * 就诊卡
      */

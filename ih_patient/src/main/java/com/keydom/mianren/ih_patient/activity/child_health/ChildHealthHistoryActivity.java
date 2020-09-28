@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.mianren.ih_patient.R;
@@ -30,6 +32,8 @@ import butterknife.BindView;
 public class ChildHealthHistoryActivity extends BaseControllerActivity<ChildHealthHistoryController> implements ChildHealthHistoryView {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.empty_layout)
+    RelativeLayout emptyLayout;
 
     private ChildHealthHistoryAdapter historyAdapter;
 
@@ -59,6 +63,11 @@ public class ChildHealthHistoryActivity extends BaseControllerActivity<ChildHeal
         cardInfo = (MedicalCardInfo) getIntent().getSerializableExtra(Const.DATA);
         healthHistoryBeans = (List<ChildHealthDoingBean>) getIntent().getSerializableExtra("list");
 
+        if (healthHistoryBeans == null || healthHistoryBeans.size() == 0) {
+            emptyLayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+            return;
+        }
         historyAdapter = new ChildHealthHistoryAdapter(healthHistoryBeans);
         historyAdapter.setOnItemClickListener(getController());
         recyclerView.addItemDecoration(new DividerItemDecoration(this,

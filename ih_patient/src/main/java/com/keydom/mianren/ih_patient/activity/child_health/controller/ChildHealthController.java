@@ -15,7 +15,7 @@ import com.keydom.mianren.ih_patient.activity.child_health.ChildHealthHistoryAct
 import com.keydom.mianren.ih_patient.activity.child_health.ChildHealthProjectActivity;
 import com.keydom.mianren.ih_patient.activity.child_health.view.ChildHealthView;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
-import com.keydom.mianren.ih_patient.bean.ChildHealthDoingBean;
+import com.keydom.mianren.ih_patient.bean.ChildHealthProjectBean;
 import com.keydom.mianren.ih_patient.bean.ChildHealthRootBean;
 import com.keydom.mianren.ih_patient.net.ChildHealthService;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -110,7 +110,7 @@ public class ChildHealthController extends ControllerImpl<ChildHealthView> imple
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        ChildHealthDoingBean doingBean = (ChildHealthDoingBean) adapter.getItem(position);
+        ChildHealthProjectBean doingBean = (ChildHealthProjectBean) adapter.getItem(position);
         ChildHealthDetailActivity.start(getContext(), getView().getMedicalCardInfo(), doingBean);
     }
 }
