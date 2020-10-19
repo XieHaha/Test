@@ -165,7 +165,8 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         PregnancyService myInterface = retrofit.create(PregnancyService.class);
-        Call<Object> call = myInterface.getAntDoctor(SharePreferenceManager.getToken(),date,timeInterval);
+        Call<Object> call = myInterface.getAntDoctor(SharePreferenceManager.getToken(), date,
+                timeInterval);
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
@@ -182,12 +183,12 @@ public class PregnancyReserveController extends ControllerImpl<PregnancyReserveV
     /**
      * 获取检查时间
      */
-    public void getCheckProjectsTimes(String date, int state) {
+    public void getCheckProjectsTimes(String date, int state, boolean update) {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PregnancyService.class).getCheckProjectsTimes(date, state), new HttpSubscriber<List<PregnancyOrderTime>>(getContext(), getDisposable(), true, false) {
             @Override
             public void requestComplete(@Nullable List<PregnancyOrderTime> data) {
                 if (data != null) {
-                    getView().getCheckProjectsTimesSuccess(data);
+                    getView().getCheckProjectsTimesSuccess(data, update);
                 }
             }
 

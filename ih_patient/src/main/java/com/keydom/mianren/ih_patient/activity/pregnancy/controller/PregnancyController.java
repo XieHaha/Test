@@ -38,11 +38,11 @@ public class PregnancyController extends ControllerImpl<PregnancyView> implement
                         getView().getPregnancyRecordItem());
                 break;
             case R.id.layout_outpatient_reserve:
-                PregnancyReverseActivity.start(getContext(), getView().getRecordID(),
+                PregnancyReverseActivity.start(getContext(), getView().getPregnancyRecordItem(),
                         Const.PREGNANCY_ORDER_TYPE_DIAGNOSE);
                 break;
             case R.id.layout_check_reserve:
-                PregnancyReverseActivity.start(getContext(), getView().getRecordID(),
+                PregnancyReverseActivity.start(getContext(), getView().getPregnancyRecordItem(),
                         Const.PREGNANCY_ORDER_TYPE_CHECK);
                 break;
             default:

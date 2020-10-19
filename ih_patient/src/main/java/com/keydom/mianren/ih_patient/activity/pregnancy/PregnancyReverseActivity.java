@@ -19,6 +19,7 @@ import com.keydom.mianren.ih_patient.bean.CheckProjectRootBean;
 import com.keydom.mianren.ih_patient.bean.CheckProjectSubBean;
 import com.keydom.mianren.ih_patient.bean.DoctorScheduling;
 import com.keydom.mianren.ih_patient.bean.PregnancyOrderTime;
+import com.keydom.mianren.ih_patient.bean.PregnancyRecordItem;
 import com.keydom.mianren.ih_patient.bean.event.PregnancyOrderSuccess;
 import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.utils.DateUtils;
@@ -57,6 +58,7 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
     private int mPrenancyType;
 
     private PregnancyOrderTime pregnancyOrderTime;
+    private PregnancyRecordItem recordItem;
     /**
      * 时间段
      */
@@ -71,10 +73,10 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
     /**
      * 启动
      */
-    public static void start(Context context, String recordId, int type) {
+    public static void start(Context context, PregnancyRecordItem recordItem, int type) {
         Intent intent = new Intent(context, PregnancyReverseActivity.class);
         intent.putExtra(Const.PREGNANCY_ORDER_TYPE, type);
-        intent.putExtra(Const.RECORD_ID, recordId);
+        intent.putExtra(Const.DATA, recordItem);
         context.startActivity(intent);
     }
 
@@ -94,9 +96,12 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
         getTitleLayout().initViewsVisible(true, true, false);
         setTitle("产检预约");
 
-        mRecordId = (String) getIntent().getSerializableExtra(Const.RECORD_ID);
+        recordItem = (PregnancyRecordItem) getIntent().getSerializableExtra(Const.DATA);
         mPrenancyType = getIntent().getIntExtra(Const.PREGNANCY_ORDER_TYPE,
                 Const.PREGNANCY_ORDER_TYPE_ALL);
+        if (recordItem != null) {
+            mRecordId = recordItem.getRecordId();
+        }
 
         mDateTv = findViewById(R.id.pregnancy_order_date_tv);
         mCheckProjectsTv = findViewById(R.id.pregnancy_check_projects_tv);
@@ -114,11 +119,11 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
         findViewById(R.id.pregnancy_order_date_root_rl).setOnClickListener(getController());
         mCheckProjectsRootRl.setOnClickListener(getController());
 
-        showLayoutAndLogic(mPrenancyType);
+        showLayoutAndLogic();
     }
 
-    private void showLayoutAndLogic(int type) {
-        switch (type) {
+    private void showLayoutAndLogic() {
+        switch (mPrenancyType) {
             case Const.PREGNANCY_ORDER_TYPE_ALL:
                 //                mCheckProjectsRootRl.setVisibility(View.VISIBLE);
                 //                getController().getCheckProjects();
@@ -127,6 +132,13 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
                 reserveTypeTv.setText("检验检查");
                 mCheckProjectsRootRl.setVisibility(View.GONE);
                 layoutReserveDoctor.setVisibility(View.GONE);
+                if (recordItem != null) {
+                    mCurrentDate = recordItem.getPrenatalDate();
+                    mCurrentTime = recordItem.getPrenatalTimeInterval();
+                    mDateTv.setText(mCurrentDate);
+                    mDateTv.setTextColor(getResources().getColor(R.color.black));
+                    reserveTimeTv.setText(mCurrentTime);
+                }
                 break;
             case Const.PREGNANCY_ORDER_TYPE_DIAGNOSE:
                 reserveTypeTv.setText("产科门诊");
@@ -135,11 +147,19 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
                 mCheckProjectsRootRl.setVisibility(View.VISIBLE);
                 layoutReserveDoctor.setVisibility(View.VISIBLE);
 
+                if (recordItem != null) {
+                    mCurrentDate = recordItem.getAppointDate();
+                    mCurrentTime = recordItem.getAppointTimeInterval();
+                    mDateTv.setText(mCurrentDate);
+                    mDateTv.setTextColor(getResources().getColor(R.color.black));
+                    reserveTimeTv.setText(mCurrentTime);
+                }
                 getController().getDoctorScheduling();
                 break;
             default:
                 break;
         }
+        getController().getCheckProjectsTimes(mCurrentDate, mPrenancyType, false);
     }
 
 
@@ -151,8 +171,7 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
             mDateTv.setTextColor(getResources().getColor(R.color.black));
             mCurrentDate = dateStr;
         }
-
-        getController().getCheckProjectsTimes(dateStr, mPrenancyType);
+        getController().getCheckProjectsTimes(dateStr, mPrenancyType, true);
     }
 
     @Override
@@ -215,12 +234,14 @@ public class PregnancyReverseActivity extends BaseControllerActivity<PregnancyRe
     }
 
     @Override
-    public void getCheckProjectsTimesSuccess(List<PregnancyOrderTime> data) {
+    public void getCheckProjectsTimesSuccess(List<PregnancyOrderTime> data, boolean update) {
         spinnerTimeData = data;
-        if (spinnerTimeData != null && spinnerTimeData.size() > 0) {
-            mCurrentTime = spinnerTimeData.get(0).getTimeInterval();
-        } else {
-            mCurrentTime = "";
+        if (update) {
+            if (spinnerTimeData != null && spinnerTimeData.size() > 0) {
+                mCurrentTime = spinnerTimeData.get(0).getTimeInterval();
+            } else {
+                mCurrentTime = "";
+            }
         }
         reserveTimeTv.setText(mCurrentTime);
         getController().getAntDoctor(mCurrentDate, mCurrentTime);

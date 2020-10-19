@@ -25,7 +25,7 @@ public interface PregnancyReserveView extends BaseView {
     void getCheckProjectsFailed(String msg);
 
 
-    void getCheckProjectsTimesSuccess(List<PregnancyOrderTime> data);
+    void getCheckProjectsTimesSuccess(List<PregnancyOrderTime> data, boolean update);
 
     void getCheckProjectsTimesFailed(String msg);
 
