@@ -11,6 +11,7 @@ import com.keydom.mianren.ih_patient.utils.DateUtils;
 import java.util.List;
 
 /**
+ * @author 顿顿
  * @date 20/3/10 10:12
  * @des 羊水穿刺预约查询及取消
  */
@@ -29,7 +30,6 @@ public class AmniocentesisRecordAdapter extends BaseQuickAdapter<AmniocentesisBe
                 .setText(R.id.item_amniocentesis_reserve_time,
                         DateUtils.transDate(item.getSurgeryTime(),
                                 DateUtils.YYYY_MM_DD, DateUtils.MM_DD_CH))
-                .setText(R.id.item_amniocentesis_reserve_type, "羊膜穿刺")
                 .addOnClickListener(R.id.item_amniocentesis_operate);
     }
 

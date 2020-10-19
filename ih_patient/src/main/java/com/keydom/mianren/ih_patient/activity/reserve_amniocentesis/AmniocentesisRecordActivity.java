@@ -27,6 +27,7 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
+ * @author 顿顿
  * @date 20/3/11 14:27
  * @des 羊水穿刺预约查询及取消
  */
@@ -70,8 +71,6 @@ public class AmniocentesisRecordActivity extends BaseControllerActivity<Amniocen
         recordAdapter.setOnItemChildClickListener(getController());
         amniocentesisRecordRecyclerView.setAdapter(recordAdapter);
 
-        setReloadListener((v, status) -> getReserveData(""));
-
         amniocentesisRecordSearchTv.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -107,15 +106,17 @@ public class AmniocentesisRecordActivity extends BaseControllerActivity<Amniocen
         recordData.addAll(records);
         recordAdapter.notifyDataSetChanged();
         amniocentesisRecordRefreshLayout.finishRefresh();
-        amniocentesisRecordRefreshLayout.finishLoadMore();
-        pageLoadingSuccess();
+        if (records.size() >= 8) {
+            amniocentesisRecordRefreshLayout.finishLoadMore();
+        } else {
+            amniocentesisRecordRefreshLayout.finishLoadMoreWithNoMoreData();
+        }
     }
 
     @Override
     public void onAmniocentesisRecordFailed() {
         amniocentesisRecordRefreshLayout.finishRefresh();
         amniocentesisRecordRefreshLayout.finishLoadMore();
-        pageLoadingFail();
     }
 
     @Override
