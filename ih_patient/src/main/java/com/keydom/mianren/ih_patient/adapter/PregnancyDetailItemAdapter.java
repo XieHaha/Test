@@ -70,6 +70,13 @@ public class PregnancyDetailItemAdapter extends BaseQuickAdapter<PregnancyItemBe
                         imageView.setImageResource(R.color.green);
                         break;
                 }
+                //传染病
+                ImageView infectionIv = helper.getView(R.id.pregnancy_detail_infection_iv);
+                if (!item.isExtra()) {
+                    infectionIv.setVisibility(View.VISIBLE);
+                } else {
+                    infectionIv.setVisibility(View.GONE);
+                }
                 break;
             case EDEMA_POSITION:
                 helper.setText(R.id.pregnancy_detail_value_tv, TextUtils.equals("1",

@@ -13,6 +13,15 @@ public class PregnancyItemBean implements Serializable {
     private String name;
     private String value;
     private String unit;
+    private boolean extra;
+
+    public boolean isExtra() {
+        return extra;
+    }
+
+    public void setExtra(boolean extra) {
+        this.extra = extra;
+    }
 
     public String getName() {
         return name;

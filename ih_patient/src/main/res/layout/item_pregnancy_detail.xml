@@ -29,6 +29,13 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/dp_30"
             android:src="@color/red" />
+        <ImageView
+            android:id="@+id/pregnancy_detail_infection_iv"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dp_10"
+            android:src="@color/nursing_status_purple" />
     </LinearLayout>
 
     <LinearLayout

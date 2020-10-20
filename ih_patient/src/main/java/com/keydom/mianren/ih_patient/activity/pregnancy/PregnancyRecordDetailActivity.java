@@ -87,6 +87,10 @@ public class PregnancyRecordDetailActivity extends BaseControllerActivity<Pregna
                 bean.setName(keys[i]);
                 bean.setUnit(units[i]);
                 bean.setValue(values[i]);
+                //传染病
+                if (i == PregnancyDetailItemAdapter.PREGNANCY_POSITION) {
+                    bean.setExtra(recordBean.getIsInfectiousDiseases() == 1);
+                }
                 itemBeans.add(bean);
             }
             itemAdapter = new PregnancyDetailItemAdapter(itemBeans);
