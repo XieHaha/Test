@@ -1,5 +1,6 @@
 package com.keydom.mianren.ih_patient.activity.hospital_payment.controller;
 
+import android.text.TextUtils;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
@@ -50,6 +51,10 @@ public class HospitalPaymentController extends ControllerImpl<HospitalPaymentVie
                 ChoosePatientActivity.start(getContext(), -1, false);
                 break;
             case R.id.tv_sure:
+                if (TextUtils.isEmpty(getView().getFee())) {
+                    ToastUtil.showMessage(getContext(), "请输入金额");
+                    return;
+                }
                 createInHospitalOrder();
                 break;
             default:

@@ -23,6 +23,7 @@ import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
@@ -75,6 +76,7 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         setTitle("住院预缴");
         setRightTxt("住院清单");
         setRightBtnListener(v -> {
@@ -82,7 +84,7 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
                 HospitalCheckListActivity.start(HospitalPaymentActivity.this, medicalCardInfo,
                         infoBean.getInHospitalNo());
             } else {
-                ToastUtil.showMessage(HospitalPaymentActivity.this, "数据获取失败");
+                ToastUtil.showMessage(HospitalPaymentActivity.this, "暂无住院清单");
             }
         });
 
@@ -136,8 +138,7 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
 
     @Override
     public String getMedicalCardNumber() {
-        //        return medicalCardInfo.getEleCardNumber();
-        return "00262164";
+        return medicalCardInfo.getEleCardNumber();
     }
 
     @Override
@@ -167,6 +168,7 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
         if (event.getType() == EventType.SENDSELECTNURSINGPATIENT) {
             medicalCardInfo = (MedicalCardInfo) event.getData();
             tvName.setText(medicalCardInfo.getName());
+            getController().getHospitalPayment();
         }
     }
 
@@ -190,5 +192,11 @@ public class HospitalPaymentActivity extends BaseControllerActivity<HospitalPaym
     public void createOrderSuccess() {
         etAmount.setText("");
         getController().getHospitalPayment();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
