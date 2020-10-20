@@ -60,6 +60,7 @@ import java.util.Map;
 
 /**
  * 未缴费页面
+ * @author 顿顿
  */
 public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordController> implements UnpayRecordView, UnPayRecordAdapter.IOnSelectedChanged {
     public static final int CAN_MERGE = 1;
@@ -297,7 +298,6 @@ public class UnpayRecordFragment extends BaseControllerFragment<UnpayRecordContr
                 ActivityUtils.startActivity(i);
             }
         });
-        getController().getConsultationPayList(mRefreshLayout);
     }
 
     @Override

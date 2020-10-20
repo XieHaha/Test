@@ -25,7 +25,7 @@ import java.util.List;
 public class TypePatientController extends ControllerImpl<TypePatientView> implements View.OnClickListener {
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.jump_to_patient_operate_tv){
+        if (v.getId() == R.id.jump_to_patient_operate_tv) {
             Intent i = new Intent(getContext(), AddManageUserActivity.class);
             i.putExtra(AddManageUserActivity.TYPE, AddManageUserActivity.ADD);
             ActivityUtils.startActivity(i);
@@ -35,18 +35,16 @@ public class TypePatientController extends ControllerImpl<TypePatientView> imple
     /**
      * 获取就诊人管理列表
      */
-    public void getManagerUserList(){
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getManagerUserList(Global.getUserId()), new HttpSubscriber<List<ManagerUserBean>>(getContext(),getDisposable(),false) {
+    public void getManagerUserList() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getManagerUserList(Global.getUserId()), new HttpSubscriber<List<ManagerUserBean>>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable List<ManagerUserBean> data) {
-                hideLoading();
                 getView().getMangerUserList(data);
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }

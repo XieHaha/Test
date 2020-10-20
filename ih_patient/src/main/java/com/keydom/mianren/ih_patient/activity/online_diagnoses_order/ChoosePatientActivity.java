@@ -23,12 +23,14 @@ import java.util.List;
 
 /**
  * 选择患者页面
+ *
+ * @author 顿顿
  */
 public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientController> implements ChoosePatientView {
     /**
      * 启动
      */
-    public static void start(Context context, int type,boolean isNeed) {
+    public static void start(Context context, int type, boolean isNeed) {
         Intent intent = new Intent(context, ChoosePatientActivity.class);
         intent.putExtra("type", type);
         intent.putExtra("isNeed", isNeed);
@@ -43,7 +45,7 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
     private List<String> list = new ArrayList<>();
     private int type;
 
-    private boolean  isNeed;
+    private boolean isNeed;
 
     @Override
     public int getLayoutRes() {
@@ -59,17 +61,17 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
         if (type == Const.PATIENT_TYPE_ALL) {
             setTitle(R.string.txt_select_visit_people);
             list.add("就诊卡(问诊)");
-//            list.add("就诊人(咨询)");
+            //            list.add("就诊人(咨询)");
             TypeCardFragment typeCardFragment = new TypeCardFragment();
             Bundle bundle = new Bundle();
             bundle.putBoolean(Const.IS_NEED_TO_PREGNANCY, false);
             typeCardFragment.setArguments(bundle);
             fragmentList.add(typeCardFragment);
-//            fragmentList.add(new TypePatientFragment());
+            //            fragmentList.add(new TypePatientFragment());
         } else if (type == Const.PATIENT_TYPE_CARD) {
             setTitle("选择就诊卡");
             list.add("就诊卡");
-            isNeed = getIntent().getBooleanExtra("isNeed",true);
+            isNeed = getIntent().getBooleanExtra("isNeed", true);
             TypeCardFragment typeCardFragment = new TypeCardFragment();
             Bundle bundle = new Bundle();
             bundle.putBoolean(Const.IS_NEED_TO_PREGNANCY, isNeed);

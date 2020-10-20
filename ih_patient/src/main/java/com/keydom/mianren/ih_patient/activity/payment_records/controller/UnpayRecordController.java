@@ -25,6 +25,7 @@ import com.keydom.mianren.ih_patient.bean.PrescriptionDetailBean;
 import com.keydom.mianren.ih_patient.bean.PrescriptionDrugBean;
 import com.keydom.mianren.ih_patient.bean.entity.pharmacy.PharmacyBean;
 import com.keydom.mianren.ih_patient.callback.SingleClick;
+import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.net.LocationService;
@@ -46,6 +47,8 @@ import java.util.Map;
 
 /**
  * 未缴费控制器
+ *
+ * @author 顿顿
  */
 public class UnpayRecordController extends ControllerImpl<UnpayRecordView> implements View.OnClickListener {
     /**
@@ -69,7 +72,7 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
                 if (!"token解析失败".equals(msg)) {
-//                    ToastUtils.showLong(msg);
+                    //                    ToastUtils.showLong(msg);
                 }
                 refreshLayout.finishRefresh();
                 return super.requestError(exception, code, msg);
@@ -135,7 +138,8 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
                         }
                     }
                     if (isOnline == 0) {
-                        getView().goPay(needDispatch, orderNumbers.toString(), "", getView().getTotalPay().doubleValue(), "", false, false);
+                        getView().goPay(needDispatch, orderNumbers.toString(), "",
+                                getView().getTotalPay().doubleValue(), "", false, false);
                     } else {
                         createOrder(needDispatch, getView().getDocument(),
                                 getView().getTotalPay(), "", false);
@@ -177,7 +181,8 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
             public void requestComplete(@Nullable PaymentOrderBean data) {
                 if (isWaiYan) {
                     getView().goPay(needDispatch, data.getOrderNumber(),
-                            String.valueOf(data.getOrderId()), data.getFee(), prescriptionId, true, true);
+                            String.valueOf(data.getOrderId()), data.getFee(), prescriptionId,
+                            true, true);
                 } else {
                     getView().goPay(needDispatch, data.getOrderNumber(),
                             String.valueOf(data.getOrderId()), data.getFee(), prescriptionId,
@@ -410,22 +415,19 @@ public class UnpayRecordController extends ControllerImpl<UnpayRecordView> imple
      * 获取地址列表
      */
     public void getLocationList() {
-        showLoading();
         Map<String, Object> map = new HashMap<>();
         map.put("userId", Global.getUserId());
         map.put("currentPage", "1");
-        map.put("pageSize", 50);
+        map.put("pageSize", Const.PAGE_SIZE);
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LocationService.class).getAddressList(map), new HttpSubscriber<PageBean<LocationInfo>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable PageBean<LocationInfo> data) {
-                hideLoading();
                 getView().getLocationList(data.getRecords());
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
-                hideLoading();
                 return super.requestError(exception, code, msg);
             }
         });

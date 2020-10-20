@@ -26,6 +26,8 @@ import java.util.List;
 
 /**
  * 已缴费页面
+ *
+ * @author 顿顿
  */
 public class PaiedRecordFragment extends BaseControllerFragment<PaiedRecordController> implements PaiedRecordView {
     public static final String STATE = "state";
@@ -93,13 +95,11 @@ public class PaiedRecordFragment extends BaseControllerFragment<PaiedRecordContr
         });
 
         mRefreshLayout.setOnRefreshListener(refreshLayout -> getController().getConsultationPayList(mRefreshLayout, mState));
-        getController().getConsultationPayList(mRefreshLayout, mState);
     }
 
     @Override
     public void paymentListCallBack(List<PayRecordBean> list) {
         mRefreshLayout.finishRefresh();
-        pageLoadingSuccess();
         mPayRecordAdapter.setNewData(list);
     }
 

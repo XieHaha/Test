@@ -10,7 +10,6 @@ import android.support.v4.view.ViewPager;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.view.GeneralDialog;
-import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.login.LoginActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
@@ -42,6 +41,8 @@ public class PaymentRecordActivity extends BaseControllerActivity<PaymentRecordC
     public static final int PAYED = 1;
     public static final int RETURNS = 2;
 
+    private List<ManagerUserBean> userBeans;
+
     /**
      * 启动
      */
@@ -69,11 +70,10 @@ public class PaymentRecordActivity extends BaseControllerActivity<PaymentRecordC
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
-        patientId = App.userInfo.getId();
+        getController().getManagerUserList();
         setTitle("缴费记录");
-        setRightTxt(App.userInfo.getUserName());
         setRightBtnListener(v -> ChoosePatientActivity.start(PaymentRecordActivity.this,
-                Const.PATIENT_TYPE_PERSON,true));
+                Const.PATIENT_TYPE_PERSON, true));
         paymentTb = findViewById(R.id.payment_tb);
         paymentVp = findViewById(R.id.payment_vp);
 
@@ -117,6 +117,14 @@ public class PaymentRecordActivity extends BaseControllerActivity<PaymentRecordC
 
     private ManagerUserBean managerUserBean = null;
 
+    @Override
+    public void getMangerUserList(List<ManagerUserBean> data) {
+        if (data != null && data.size() > 0) {
+            managerUserBean = data.get(0);
+            update();
+        }
+    }
+
     /**
      * 获取患者就诊卡
      */
@@ -124,17 +132,24 @@ public class PaymentRecordActivity extends BaseControllerActivity<PaymentRecordC
     public void getPatientCard(Event event) {
         if (event.getType() == EventType.SENDSELECTDIAGNOSESPATIENT) {
             managerUserBean = (ManagerUserBean) event.getData();
-            setRightTxt(managerUserBean.getName());
-            patientId = managerUserBean.getId();
-            if (unpayRecordFragment != null) {
-                unpayRecordFragment.setPatientId(patientId);
-            }
-            if (paiedRecordFragment != null) {
-                paiedRecordFragment.setPatientId(patientId);
-            }
-            if (paiedRecordFragment1 != null) {
-                paiedRecordFragment1.setPatientId(patientId);
-            }
+            update();
+        }
+    }
+
+    /**
+     * 更新
+     */
+    private void update() {
+        setRightTxt(managerUserBean.getName());
+        patientId = managerUserBean.getId();
+        if (unpayRecordFragment != null) {
+            unpayRecordFragment.setPatientId(patientId);
+        }
+        if (paiedRecordFragment != null) {
+            paiedRecordFragment.setPatientId(patientId);
+        }
+        if (paiedRecordFragment1 != null) {
+            paiedRecordFragment1.setPatientId(patientId);
         }
     }
 
