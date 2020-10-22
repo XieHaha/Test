@@ -37,6 +37,10 @@ public class ChargeMemberController extends ControllerImpl<ChargeMemberView> imp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.charge_member_commit_charge_tv:
+                if (true) {
+                    ToastUtil.showMessage(getContext(), "暂不支持线上办理，请联系医务人员");
+                    return;
+                }
                 int price = (int) getView().getSelectedPrice();
 
                 if (price % 1000 != 0) {
@@ -51,12 +55,12 @@ public class ChargeMemberController extends ControllerImpl<ChargeMemberView> imp
 
                 mCommonPayDialog = new CommonPayDialog(getContext(), price,
                         new CommonPayDialog.iOnCommitOnClick() {
-                    @Override
-                    public void commitPay(int type) {
-                        //renewalCard(price,type);
-                        renewalCard(0.01, type);
-                    }
-                });
+                            @Override
+                            public void commitPay(int type) {
+                                //renewalCard(price,type);
+                                renewalCard(0.01, type);
+                            }
+                        });
                 mCommonPayDialog.show();
                 break;
             default:
@@ -110,27 +114,27 @@ public class ChargeMemberController extends ControllerImpl<ChargeMemberView> imp
                     }
                     new Alipay(getContext(), js.getString("return_msg"),
                             new Alipay.AlipayResultCallBack() {
-                        @Override
-                        public void onSuccess() {
-                            getView().paySuccess();
-                            ToastUtils.showShort("支付成功");
-                        }
+                                @Override
+                                public void onSuccess() {
+                                    getView().paySuccess();
+                                    ToastUtils.showShort("支付成功");
+                                }
 
-                        @Override
-                        public void onDealing() {
-                            ToastUtils.showShort("等待支付结果确认");
-                        }
+                                @Override
+                                public void onDealing() {
+                                    ToastUtils.showShort("等待支付结果确认");
+                                }
 
-                        @Override
-                        public void onError(int error_code) {
-                            ToastUtils.showShort("支付失败");
-                        }
+                                @Override
+                                public void onError(int error_code) {
+                                    ToastUtils.showShort("支付失败");
+                                }
 
-                        @Override
-                        public void onCancel() {
-                            ToastUtils.showShort("取消支付");
-                        }
-                    }).doPay();
+                                @Override
+                                public void onCancel() {
+                                    ToastUtils.showShort("取消支付");
+                                }
+                            }).doPay();
                 } else if (payType == Const.WECHAT_PAY) {
                     WXPay.getInstance().doPay(getContext(), data, new WXPay.WXPayResultCallBack() {
                         @Override

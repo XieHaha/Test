@@ -36,35 +36,36 @@ public class SignMemberController extends ControllerImpl<SignMemberView> impleme
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.pay_commit_tv:
+        if (v.getId() == R.id.pay_commit_tv) {
+            if (true) {
+                ToastUtil.showMessage(getContext(), "暂不支持线上办理，请联系医务人员");
+                return;
+            }
+            if (null == App.userInfo || !App.userInfo.isCertification()) {
+                ToastUtil.showMessage(getContext(), "还未实名认证，请实名认证再开通相关服务");
+                return;
+            }
 
-                if (null == App.userInfo || !App.userInfo.isCertification()) {
-                    ToastUtil.showMessage(getContext(), "还未实名认证，请实名认证再开通相关服务");
-                    return;
-                }
 
+            if (TextUtils.isEmpty(getView().getName())) {
+                ToastUtil.showMessage(getContext(), "姓名不能空");
+                return;
+            }
 
-                if (TextUtils.isEmpty(getView().getName())) {
-                    ToastUtil.showMessage(getContext(), "姓名不能空");
-                    return;
-                }
+            if (TextUtils.isEmpty(getView().getID())) {
+                ToastUtil.showMessage(getContext(), "身份证号不能为空");
+                return;
+            }
 
-                if (TextUtils.isEmpty(getView().getID())) {
-                    ToastUtil.showMessage(getContext(), "身份证号不能为空");
-                    return;
-                }
+            if (!getView().isCheckAgreement()) {
+                ToastUtil.showMessage(getContext(), "请阅读并同意相关会员服务协议");
+                return;
+            }
 
-                if (!getView().isCheckAgreement()) {
-                    ToastUtil.showMessage(getContext(), "请阅读并同意相关会员服务协议");
-                    return;
-                }
-
-                if (mCommonPayDialog.isShowing()) {
-                    mCommonPayDialog.dismiss();
-                }
-                mCommonPayDialog.show();
-                break;
+            if (mCommonPayDialog.isShowing()) {
+                mCommonPayDialog.dismiss();
+            }
+            mCommonPayDialog.show();
         }
     }
 

@@ -24,6 +24,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author 顿顿
+ */
 public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberController> implements ChargeMemberView {
 
     TextView mBalanceTv;
@@ -92,8 +95,9 @@ public class ChargeMemberActivity extends BaseControllerActivity<ChargeMemberCon
     @Override
     public double getSelectedPrice() {
         ChargeMemberPriceItemBean lastItem = mDatas.get(mDatas.size() - 1);
-        if (lastItem.getPrice() > 0)
+        if (lastItem.getPrice() > 0) {
             return lastItem.getPrice();
+        }
 
         for (ChargeMemberPriceItemBean item : mDatas) {
             if (item.isSelected()) {
