@@ -83,8 +83,17 @@ public class PregnancyDetailItemAdapter extends BaseQuickAdapter<PregnancyItemBe
                         item.getValue()) ? "有" : "无");
                 break;
             case URINE_PROTEIN_POSITION:
-                helper.setText(R.id.pregnancy_detail_value_tv, TextUtils.equals("-1",
-                        item.getValue()) ? "阴性" : "阳性");
+                switch (item.getValue()) {
+                    case "0":
+                        helper.setText(R.id.pregnancy_detail_value_tv, "可疑");
+                        break;
+                    case "-1":
+                        helper.setText(R.id.pregnancy_detail_value_tv, "阴性");
+                        break;
+                    default:
+                        helper.setText(R.id.pregnancy_detail_value_tv, "阳性");
+                        break;
+                }
                 break;
             default:
                 helper.getView(R.id.pregnancy_detail_value_layout).setVisibility(View.VISIBLE);
