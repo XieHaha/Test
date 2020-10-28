@@ -55,7 +55,16 @@ public class VIPDetailBean implements Serializable {
     private String paymentMethod;
     private String createTime;
     private String updateTime;
+    private String hisCardNumber;
     private int isDel;
+
+    public String getHisCardNumber() {
+        return hisCardNumber;
+    }
+
+    public void setHisCardNumber(String hisCardNumber) {
+        this.hisCardNumber = hisCardNumber;
+    }
 
     public String getId() {
         return id;

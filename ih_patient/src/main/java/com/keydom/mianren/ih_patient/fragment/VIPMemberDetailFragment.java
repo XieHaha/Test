@@ -94,8 +94,8 @@ public class VIPMemberDetailFragment extends BaseControllerFragment<VIPMemberDet
 
     public void refreshData(VIPDetailBean data) {
         if (null != data) {
-            if (!TextUtils.isEmpty(data.getCardNumber())) {
-                mCardNumTv.setText(data.getCardNumber());
+            if (!TextUtils.isEmpty(data.getHisCardNumber())) {
+                mCardNumTv.setText(data.getHisCardNumber());
             }
 
             if (!TextUtils.isEmpty(data.getCardHolder())) {
