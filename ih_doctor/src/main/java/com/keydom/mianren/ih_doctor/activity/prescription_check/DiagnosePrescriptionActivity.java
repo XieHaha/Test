@@ -518,8 +518,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
      */
     private void setMedicalCaseInfo(MedicalRecordTempletBean bean) {
         mainDec.setText(bean.getMainComplaint());
-        medicalHistory.setText(bean.getHistoryIllness());
-        oversensitiveHistory.setText(bean.getHistoryAllergy());
+        medicalHistory.setText(bean.getHistoryAllergy());
+        oversensitiveHistory.setText(bean.getHistoryIllness());
         epidemicHistory.setText(bean.getEpidemicDiseaseHistory());
         tvMorbidityDate.setText(bean.getIllnessDate());
         checkRes.setText(bean.getAuxiliaryInspect());
@@ -587,8 +587,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         map.put("mainComplaint", mainDec.getInputStr());
         map.put("auxiliaryInspect", checkRes.getInputStr());
         map.put("handleOpinion", dealIdea.getInputStr());
-        map.put("historyIllness", medicalHistory.getInputStr());
-        map.put("historyAllergy", oversensitiveHistory.getInputStr());
+        map.put("historyIllness", oversensitiveHistory.getInputStr());
+        map.put("historyAllergy", medicalHistory.getInputStr());
         map.put("epidemicDiseaseHistory", epidemicHistory.getInputStr());
         map.put("illnessDate", tvMorbidityDate.getText().toString());
         map.put("diagnosis", simpleDiagnose.getInputStr());
@@ -714,8 +714,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
      */
     private void setPrescriptionInfo(DoctorPrescriptionDetailBean bean) {
         mainDec.setText(bean.getMainComplaint());
-        medicalHistory.setText(bean.getHistoryIllness());
-        oversensitiveHistory.setText(bean.getHistoryAllergy());
+        medicalHistory.setText(bean.getHistoryAllergy());
+        oversensitiveHistory.setText(bean.getHistoryIllness());
         epidemicHistory.setText(bean.getEpidemicDiseaseHistory());
         tvMorbidityDate.setText(bean.getIllnessDate());
         checkRes.setText(bean.getAuxiliaryInspect());
@@ -913,8 +913,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     private void savaLocalData() {
         localSaveData = new DoctorPrescriptionDetailBean();
         localSaveData.setMainComplaint(mainDec.getInputStr());
-        localSaveData.setHistoryIllness(medicalHistory.getInputStr());
-        localSaveData.setHistoryAllergy(oversensitiveHistory.getInputStr());
+        localSaveData.setHistoryAllergy(medicalHistory.getInputStr());
+        localSaveData.setHistoryIllness(oversensitiveHistory.getInputStr());
         localSaveData.setEpidemicDiseaseHistory(epidemicHistory.getInputStr());
         localSaveData.setIllnessDate(tvMorbidityDate.getText().toString());
         localSaveData.setAuxiliaryInspect(checkRes.getInputStr());

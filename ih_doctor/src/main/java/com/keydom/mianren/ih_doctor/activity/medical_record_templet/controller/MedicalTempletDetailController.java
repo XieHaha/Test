@@ -59,8 +59,8 @@ public class MedicalTempletDetailController extends ControllerImpl<MedicalTemple
             return list;
         }
         list.add(createItem("主诉：", bean.getMainComplaint()));
-        list.add(createItem("现病史：", bean.getHistoryIllness()));
-        list.add(createItem("过敏史：", bean.getHistoryAllergy()));
+        list.add(createItem("现病史：", bean.getHistoryAllergy()));
+        list.add(createItem("过敏史：", bean.getHistoryIllness()));
         list.add(createItem("辅助检查：", bean.getAuxiliaryInspect()));
         list.add(createItem("初步诊断：", bean.getInitDiagnosis()));
         list.add(createItem("处理意见：", bean.getHandleOpinion()));
