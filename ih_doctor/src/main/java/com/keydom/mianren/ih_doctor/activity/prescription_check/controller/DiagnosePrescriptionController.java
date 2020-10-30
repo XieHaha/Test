@@ -1,9 +1,13 @@
 package com.keydom.mianren.ih_doctor.activity.prescription_check.controller;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.view.TimePickerView;
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
@@ -35,6 +39,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -236,6 +241,14 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                 } else {
                     getUseDrugReason();
                 }
+                break;
+            case R.id.layout_morbidity_date:
+                KeyboardUtils.hideSoftInput((Activity) getContext());
+                Calendar endDate = Calendar.getInstance();
+                TimePickerView pickerView = new TimePickerBuilder(getContext(),
+                        (date, v1) -> getView().setMorbidityDate(date))
+                        .setRangDate(null, endDate).build();
+                pickerView.show();
                 break;
             default:
                 break;

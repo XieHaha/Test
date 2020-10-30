@@ -75,6 +75,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,13 +101,15 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
      */
     public static final int CREATE_HANDLE = 503;
     private MRadioButton reDiagnoseRb;
-    private DiagnosePrescriptionItemView mainDec, medicalHistory, oversensitiveHistory, checkRes,
+    private DiagnosePrescriptionItemView mainDec, medicalHistory, oversensitiveHistory,
+            epidemicHistory, checkRes,
             simpleDiagnose, dealIdea;
     private RelativeLayout addPrescriptionRl, prescriptionModelRl, addPrescriptionItemRl;
-    private TextView modalName, selectSave, submitWithModel, submit, feeCount;
+    private TextView modalName, selectSave, submitWithModel, submit, feeCount, tvMorbidityDate;
     private CardView addMedicine;
     private RecyclerView recyclerView;
     private RelativeLayout rediagnoseRl;
+    private LinearLayout layoutMorbidityDate;
     private ScrollView mScroller;
     /**
      * 长期用药原因
@@ -233,6 +236,9 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         mainDec = findViewById(R.id.main_dec);
         medicalHistory = findViewById(R.id.medical_history);
         oversensitiveHistory = findViewById(R.id.oversensitive_history);
+        epidemicHistory = findViewById(R.id.epidemic_history);
+        tvMorbidityDate = findViewById(R.id.tv_morbidity_date);
+        layoutMorbidityDate = findViewById(R.id.layout_morbidity_date);
         checkRes = findViewById(R.id.check_res);
         simpleDiagnose = findViewById(R.id.simple_diagnose);
         dealIdea = findViewById(R.id.deal_idea);
@@ -255,6 +261,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         mainDec.setFragmentActivity(this);
         medicalHistory.setFragmentActivity(this);
         oversensitiveHistory.setFragmentActivity(this);
+        epidemicHistory.setFragmentActivity(this);
         checkRes.setFragmentActivity(this);
         simpleDiagnose.setFragmentActivity(this);
         dealIdea.setFragmentActivity(this);
@@ -264,6 +271,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         selectSave.setOnClickListener(getController());
         submitWithModel.setOnClickListener(getController());
         submit.setOnClickListener(getController());
+        layoutMorbidityDate.setOnClickListener(getController());
         if (reDiagnoseRb.isChecked()) {
             isReturnVisit = "1";
             initPrescription();
@@ -512,6 +520,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         mainDec.setText(bean.getMainComplaint());
         medicalHistory.setText(bean.getHistoryIllness());
         oversensitiveHistory.setText(bean.getHistoryAllergy());
+        epidemicHistory.setText(bean.getEpidemicDiseaseHistory());
+        tvMorbidityDate.setText(bean.getIllnessDate());
         checkRes.setText(bean.getAuxiliaryInspect());
         simpleDiagnose.setText(bean.getInitDiagnosis());
         dealIdea.setText(bean.getHandleOpinion());
@@ -579,6 +589,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         map.put("handleOpinion", dealIdea.getInputStr());
         map.put("historyIllness", medicalHistory.getInputStr());
         map.put("historyAllergy", oversensitiveHistory.getInputStr());
+        map.put("epidemicDiseaseHistory", epidemicHistory.getInputStr());
+        map.put("illnessDate", tvMorbidityDate.getText().toString());
         map.put("diagnosis", simpleDiagnose.getInputStr());
         map.put("items", getCommitItems());
         map.put("cate", prescription_type);
@@ -678,6 +690,14 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         return map;
     }
 
+    /**
+     * @param date 发病日期
+     */
+    @Override
+    public void setMorbidityDate(Date date) {
+        tvMorbidityDate.setText(DateUtils.dateToString(date, DateUtils.YYYY_MM_DD));
+    }
+
     @Override
     public void saveSuccess(PrescriptionMessageBean bean) {
         isNeedLocalSave = false;
@@ -696,6 +716,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         mainDec.setText(bean.getMainComplaint());
         medicalHistory.setText(bean.getHistoryIllness());
         oversensitiveHistory.setText(bean.getHistoryAllergy());
+        epidemicHistory.setText(bean.getEpidemicDiseaseHistory());
+        tvMorbidityDate.setText(bean.getIllnessDate());
         checkRes.setText(bean.getAuxiliaryInspect());
         simpleDiagnose.setText(bean.getDiagnosis());
         dealIdea.setText(bean.getHandleOpinion());
@@ -806,8 +828,10 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
     @Override
     public boolean checkPrescription() {
-        if (StringUtils.isEmpty(simpleDiagnose.getInputStr()) || StringUtils.isEmpty(mainDec.getInputStr())) {
-            ToastUtil.showMessage(getContext(), "请完善诊断信息！");
+        if (StringUtils.isEmpty(simpleDiagnose.getInputStr()) || StringUtils.isEmpty(mainDec.getInputStr())
+                || StringUtils.isEmpty(medicalHistory.getInputStr()) || StringUtils.isEmpty(epidemicHistory.getInputStr())
+                || StringUtils.isEmpty(tvMorbidityDate.getText().toString())) {
+            ToastUtil.showMessage(getContext(), "请完善以上信息！");
             return false;
         }
         if (needDrugUseReason && TextUtils.isEmpty(drugUseReason)) {
@@ -891,6 +915,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         localSaveData.setMainComplaint(mainDec.getInputStr());
         localSaveData.setHistoryIllness(medicalHistory.getInputStr());
         localSaveData.setHistoryAllergy(oversensitiveHistory.getInputStr());
+        localSaveData.setEpidemicDiseaseHistory(epidemicHistory.getInputStr());
+        localSaveData.setIllnessDate(tvMorbidityDate.getText().toString());
         localSaveData.setAuxiliaryInspect(checkRes.getInputStr());
         localSaveData.setDiagnosis(simpleDiagnose.getInputStr());
         localSaveData.setHandleOpinion(dealIdea.getInputStr());
@@ -900,7 +926,10 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     }
 
     private boolean isHaveEditInfo() {
-        return !"".equals(mainDec.getInputStr()) || !"".equals(checkRes.getInputStr()) || !"".equals(dealIdea.getInputStr()) || !"".equals(medicalHistory.getInputStr()) || !"".equals(oversensitiveHistory.getInputStr()) || !"".equals(simpleDiagnose.getInputStr()) || saveData.size() != 0;
+        return !"".equals(mainDec.getInputStr()) || !"".equals(checkRes.getInputStr())
+                || !"".equals(dealIdea.getInputStr()) || !"".equals(medicalHistory.getInputStr())
+                || !"".equals(oversensitiveHistory.getInputStr()) || !"".equals(simpleDiagnose.getInputStr())
+                || !"".equals(epidemicHistory.getInputStr()) || !"".equals(tvMorbidityDate.getText().toString()) || saveData.size() != 0;
     }
 
     public List<MultiItemEntity> packagingData(List<List<DrugBean>> originalData) {

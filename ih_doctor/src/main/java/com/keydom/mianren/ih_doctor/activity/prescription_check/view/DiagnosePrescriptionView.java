@@ -10,6 +10,7 @@ import com.keydom.mianren.ih_doctor.bean.PrescriptionTemplateBean;
 import com.keydom.mianren.ih_doctor.bean.UseDrugReasonBean;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -165,4 +166,6 @@ public interface DiagnosePrescriptionView extends BaseView {
     void showReasonDialog();
 
     void requestUseDrugReasonFailed(String data);
+
+    void setMorbidityDate(Date date);
 }

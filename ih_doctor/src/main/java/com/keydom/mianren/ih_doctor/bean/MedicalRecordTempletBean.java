@@ -6,6 +6,8 @@ import java.util.ArrayList;
  * created date: 2019/1/8 on 15:18
  * des:
  * author: HJW HP
+ *
+ * @author 顿顿
  */
 public class MedicalRecordTempletBean {
     private long id;
@@ -13,10 +15,34 @@ public class MedicalRecordTempletBean {
     private String mainComplaint;
     private String historyIllness;
     private String historyAllergy;
+    /**
+     *  流行病学史
+     */
+    private String epidemicDiseaseHistory;
+    /**
+     * 发病日期
+     */
+    private String illnessDate;
     private String auxiliaryInspect;
     private String initDiagnosis;
     private String handleOpinion;
     private ArrayList<ICD10Bean> idcItems;
+
+    public String getEpidemicDiseaseHistory() {
+        return epidemicDiseaseHistory;
+    }
+
+    public void setEpidemicDiseaseHistory(String epidemicDiseaseHistory) {
+        this.epidemicDiseaseHistory = epidemicDiseaseHistory;
+    }
+
+    public String getIllnessDate() {
+        return illnessDate;
+    }
+
+    public void setIllnessDate(String illnessDate) {
+        this.illnessDate = illnessDate;
+    }
 
     public String getMainComplaint() {
         return mainComplaint;
