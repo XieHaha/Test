@@ -7,6 +7,7 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.inspection_report.InspectionReportActivity;
@@ -40,20 +41,40 @@ public class OutpatientRecordController extends ControllerImpl<OutpatientRecordV
                 ChoosePatientActivity.start(getContext(), -1, false);
                 break;
             case R.id.medical_record_inspection:
+                if (getView().getMedicalCardInfo() == null) {
+                    ToastUtil.showMessage(getContext(), "请选择就诊人");
+                    return;
+                }
                 PregnancyRecordActivity.start(getContext(), getView().getMedicalCardInfo());
                 break;
             case R.id.medical_record_medical:
+                if (getView().getMedicalCardInfo() == null) {
+                    ToastUtil.showMessage(getContext(), "请选择就诊人");
+                    return;
+                }
                 MedicalRecordActivity.start(getContext(), getView().getMedicalCardInfo());
                 break;
             case R.id.medical_record_examine:
+                if (getView().getMedicalCardInfo() == null) {
+                    ToastUtil.showMessage(getContext(), "请选择就诊人");
+                    return;
+                }
                 InspectionReportActivity.start(getContext(), getView().getMedicalCardInfo(),
                         Type.INSPECTIONTYPE);
                 break;
             case R.id.medical_record_check:
+                if (getView().getMedicalCardInfo() == null) {
+                    ToastUtil.showMessage(getContext(), "请选择就诊人");
+                    return;
+                }
                 InspectionReportActivity.start(getContext(), getView().getMedicalCardInfo(),
                         Type.BODYCHECKTYPE);
                 break;
             case R.id.medical_record_prescription:
+                if (getView().getMedicalCardInfo() == null) {
+                    ToastUtil.showMessage(getContext(), "请选择就诊人");
+                    return;
+                }
                 PrescriptionRecordActivity.start(getContext(), getView().getMedicalCardInfo());
                 break;
             default:

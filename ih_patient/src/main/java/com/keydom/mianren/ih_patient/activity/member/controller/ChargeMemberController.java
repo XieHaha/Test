@@ -57,8 +57,8 @@ public class ChargeMemberController extends ControllerImpl<ChargeMemberView> imp
                         new CommonPayDialog.iOnCommitOnClick() {
                             @Override
                             public void commitPay(int type) {
-                                //renewalCard(price,type);
-                                renewalCard(0.01, type);
+                                renewalCard(price,type);
+//                                renewalCard(0.01, type);
                             }
                         });
                 mCommonPayDialog.show();
