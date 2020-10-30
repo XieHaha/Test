@@ -671,4 +671,20 @@ public class CommonUtils {
 
         return spannableString;
     }
+
+    /**
+     * 返回当前APP版本号
+     */
+    public static String getAppVersionCode(Context context) {
+        int versioncode = 0;
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+            // versionName = pi.versionName;
+            versioncode = pi.versionCode;
+        } catch (Exception e) {
+            Log.e("VersionInfo", "Exception", e);
+        }
+        return versioncode + "";
+    }
 }

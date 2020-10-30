@@ -280,7 +280,6 @@
                     android:textSize="@dimen/font_size_primary" />
             </RelativeLayout>
 
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_10"

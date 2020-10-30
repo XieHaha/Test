@@ -21,8 +21,11 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.MainLoadingEvent;
+import com.keydom.ih_common.bean.UpdateVersionBean;
+import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.im.manager.ImPreferences;
@@ -30,8 +33,15 @@ import com.keydom.ih_common.im.manager.NimUserInfoCache;
 import com.keydom.ih_common.im.manager.TeamDataCache;
 import com.keydom.ih_common.im.model.AVChatExtras;
 import com.keydom.ih_common.minterface.OnLoginListener;
+import com.keydom.ih_common.minterface.OnPrivateDialogListener;
+import com.keydom.ih_common.net.ApiRequest;
+import com.keydom.ih_common.net.exception.ApiException;
+import com.keydom.ih_common.net.service.HttpService;
+import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.push.PushManager;
 import com.keydom.ih_common.receive.HomeWatcherReceiver;
+import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.utils.DownloadUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.App;
@@ -49,7 +59,9 @@ import com.keydom.mianren.ih_patient.broadcast.NetWorkBroadCast;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.Type;
+import com.keydom.mianren.ih_patient.net.UserService;
 import com.keydom.mianren.ih_patient.utils.LocalizationUtils;
+import com.keydom.mianren.ih_patient.view.DialogUtils;
 import com.keydom.mianren.ih_patient.view.MainView;
 import com.netease.nimlib.sdk.NimIntent;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
@@ -62,12 +74,15 @@ import com.uuzuche.lib_zxing.decoding.Intents;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.functions.Consumer;
 
@@ -88,7 +103,9 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
     private LocationClient locationClient;
     private boolean isNeedJump = false;
 
-    NetWorkBroadCast netWorkBroadCast;
+    private NetWorkBroadCast netWorkBroadCast;
+
+    private DownloadUtils mDownloadUtils;
 
     /**
      * 启动页面
@@ -124,6 +141,8 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
         EventBus.getDefault().register(this);
 
         registerHomeKeyReceiver();
+
+        getVersion();
     }
 
     @Override
@@ -277,10 +296,51 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
         }
     }
 
+
+    /**
+     * 获取版本
+     */
+    public void getVersion() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("versionNumber", Integer.valueOf(CommonUtils.getAppVersionCode(this)));
+        map.put("applicationSystem", "用户端App");
+        map.put("systemPlatform", "Android");
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getVersion(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<UpdateVersionBean>() {
+            @Override
+            public void requestComplete(UpdateVersionBean data) {
+                if (null != data && !TextUtils.isEmpty(data.getUrl())) {
+                    DialogUtils.createUpdateDialog(MainActivity.this, data.getVersionName(),
+                            data.getUpdateContent(), new OnPrivateDialogListener() {
+                        @Override
+                        public void confirm() {
+                            mDownloadUtils = new DownloadUtils(MainActivity.this,
+                                    Const.RELEASE_HOST + data.getUrl(), "mianren.apk");
+                        }
+
+                        @Override
+                        public void cancel() {
+                            finish();
+                        }
+                    }).show();
+                }
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtils.showShort(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
     @Override
     protected void onDestroy() {
         if (netWorkBroadCast != null) {
             unregisterReceiver(netWorkBroadCast);
+        }
+        if(null != mDownloadUtils){
+            mDownloadUtils.destroy();
         }
         unregisterHomeKeyReceiver();
         EventBus.getDefault().unregister(this);

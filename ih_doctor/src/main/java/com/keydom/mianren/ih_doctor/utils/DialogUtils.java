@@ -25,6 +25,7 @@ import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
+import com.keydom.ih_common.minterface.OnPrivateDialogListener;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_doctor.MyApplication;
@@ -69,6 +70,64 @@ public class DialogUtils {
     public static final String INPUT_VALUE = "input_value";
     public static final String SELECT_USER = "select_user";
 
+    public static Dialog createUpdateDialog(final Context context, String version, String content
+            , final OnPrivateDialogListener listener) {
+        final Dialog dialog = new Dialog(context, com.keydom.ih_common.R.style.loading_dialog);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(com.keydom.ih_common.R.layout.dialog_update, null);
+        dialog.setContentView(view);
+        final TextView cancelTv =
+                (TextView) view.findViewById(com.keydom.ih_common.R.id.dialog_update_cancel_tv);
+        final TextView commitTv =
+                (TextView) view.findViewById(com.keydom.ih_common.R.id.dialog_update_confirm_tv);
+        final TextView titleTv =
+                (TextView) view.findViewById(com.keydom.ih_common.R.id.dialog_update_title_tv);
+        final TextView contentTv =
+                (TextView) view.findViewById(com.keydom.ih_common.R.id.dialog_update_content_tv);
+        final ImageView closeIv =
+                (ImageView) view.findViewById(com.keydom.ih_common.R.id.dialog_update_close_iv);
+
+        if (!TextUtils.isEmpty(content)) {
+            contentTv.setText(content);
+        }
+
+        if (!TextUtils.isEmpty(version)) {
+            titleTv.setText("新版本：V " + version);
+        }
+
+        cancelTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+                if (null != listener) {
+                    listener.cancel();
+                }
+            }
+        });
+        commitTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+                if (null != listener) {
+                    listener.confirm();
+                }
+            }
+        });
+
+        if (null != listener) {
+            closeIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.cancel();
+                }
+            });
+        }
+
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        return dialog;
+    }
+
     /**
      * 处方审核dialog
      *
@@ -76,7 +135,8 @@ public class DialogUtils {
      * @param listener
      * @return
      */
-    public static Dialog createCheckDialog(final Context context, final OnCheckDialogListener listener) {
+    public static Dialog createCheckDialog(final Context context,
+                                           final OnCheckDialogListener listener) {
         final Dialog dialog = new Dialog(context, R.style.loading_dialog);
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.prescription_dialog_layout, null);
@@ -111,7 +171,8 @@ public class DialogUtils {
     }
 
 
-    public static Dialog createReceiveDialog(final Context context, final OnExtraOptionDialogListener listener) {
+    public static Dialog createReceiveDialog(final Context context,
+                                             final OnExtraOptionDialogListener listener) {
         final Dialog dialog = new Dialog(context, R.style.loading_dialog);
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.nurse_service_dialog_layout, null);
@@ -160,7 +221,8 @@ public class DialogUtils {
     }
 
 
-    public static Dialog createChangeNurseDialog(final Context context, final OnExtraOptionDialogListener listener) {
+    public static Dialog createChangeNurseDialog(final Context context,
+                                                 final OnExtraOptionDialogListener listener) {
         final Dialog dialog = new Dialog(context, R.style.loading_dialog);
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.nurse_service_dialog_layout, null);
@@ -205,14 +267,16 @@ public class DialogUtils {
         return dialog;
     }
 
-    public static Dialog createReturnDialog(final Context context, final OnCheckDialogListener listener) {
+    public static Dialog createReturnDialog(final Context context,
+                                            final OnCheckDialogListener listener) {
         final Dialog dialog = new Dialog(context, R.style.loading_dialog);
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.nurse_service_return_dialog_layout, null);
         dialog.setContentView(view);
         final ImageView cancel = (ImageView) view.findViewById(R.id.nurse_return_dialog_close);
         final TextView commit = (TextView) view.findViewById(R.id.nurse_return_dialog_submit);
-        final EditText returnDialogInput = (EditText) view.findViewById(R.id.nurse_return_dialog_input);
+        final EditText returnDialogInput =
+                (EditText) view.findViewById(R.id.nurse_return_dialog_input);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -235,7 +299,8 @@ public class DialogUtils {
         return dialog;
     }
 
-    public static Dialog createReturnBackDialog(final Context context, final OnCheckDialogListener listener) {
+    public static Dialog createReturnBackDialog(final Context context,
+                                                final OnCheckDialogListener listener) {
         final Dialog dialog = new Dialog(context, R.style.loading_dialog);
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.nurse_service_return_dialog_layout, null);
@@ -243,7 +308,8 @@ public class DialogUtils {
         final ImageView cancel = (ImageView) view.findViewById(R.id.nurse_return_dialog_close);
         final TextView commit = (TextView) view.findViewById(R.id.nurse_return_dialog_submit);
         final TextView title = (TextView) view.findViewById(R.id.dialog_tip_tv);
-        final EditText returnDialogInput = (EditText) view.findViewById(R.id.nurse_return_dialog_input);
+        final EditText returnDialogInput =
+                (EditText) view.findViewById(R.id.nurse_return_dialog_input);
         title.setText("退单");
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -267,7 +333,8 @@ public class DialogUtils {
         return dialog;
     }
 
-    public static Dialog createServiceSureDialog(final Context context, final OnExtraOptionDialogListener listener) {
+    public static Dialog createServiceSureDialog(final Context context,
+                                                 final OnExtraOptionDialogListener listener) {
         AppCompatActivity appCompatActivity = (AppCompatActivity) context;
         final Dialog dialog = new Dialog(context, R.style.loading_dialog);
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -277,7 +344,8 @@ public class DialogUtils {
         final TextView commit = (TextView) view.findViewById(R.id.dialog_submit);
         final EditText input = (EditText) view.findViewById(R.id.dialog_input);
         final TextView visitTime = (TextView) view.findViewById(R.id.visit_time);
-        final ImageView voiceInputIv = (ImageView) view.findViewById(R.id.nurse_service_confirm_dialog_layout_voice_input_iv);
+        final ImageView voiceInputIv =
+                (ImageView) view.findViewById(R.id.nurse_service_confirm_dialog_layout_voice_input_iv);
         final Map<String, Object> map = new HashMap<>();
 
         // 语音听写UI
@@ -292,7 +360,8 @@ public class DialogUtils {
             public void onInit(int code) {
 
                 if (code != ErrorCode.SUCCESS) {
-                    Log.e("xunfei","初始化失败，错误码：" + code+",请点击网址https://www.xfyun.cn/document/error-code查询解决方案");
+                    Log.e("xunfei", "初始化失败，错误码：" + code + ",请点击网址https://www.xfyun" +
+                            ".cn/document/error-code查询解决方案");
                 }
             }
         };
@@ -301,13 +370,14 @@ public class DialogUtils {
          * 听写UI监听器
          */
         RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
+            @Override
             public void onResult(RecognizerResult results, boolean isLast) {
-                if(null != input){
+                if (null != input) {
                     String text = JsonUtils.handleXunFeiJson(results);
-                    if(TextUtils.isEmpty(input.getText().toString())){
+                    if (TextUtils.isEmpty(input.getText().toString())) {
                         input.setText(text);
                         input.setSelection(input.getText().length());
-                    }else{
+                    } else {
                         input.setText(input.getText().toString() + text);
                         input.setSelection(input.getText().length());
                     }
@@ -318,8 +388,9 @@ public class DialogUtils {
             /**
              * 识别回调错误.
              */
+            @Override
             public void onError(SpeechError error) {
-                ToastUtil.showMessage(MyApplication.mApplication,error.getPlainDescription(true));
+                ToastUtil.showMessage(MyApplication.mApplication, error.getPlainDescription(true));
 
             }
 
@@ -332,26 +403,30 @@ public class DialogUtils {
         voiceInputIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initPremissions(appCompatActivity,mIatDialog);
+                initPremissions(appCompatActivity, mIatDialog);
             }
         });
 
 
-        MixedTimePicker datePicker = new MixedTimePicker.Builder(context, MixedTimePicker.TYPE_DATE, new MixedTimePicker.OnTimeSelectListener() {
+        MixedTimePicker datePicker = new MixedTimePicker.Builder(context,
+                MixedTimePicker.TYPE_DATE, new MixedTimePicker.OnTimeSelectListener() {
             @Override
             public void onTimeSelect(MixedTimePicker picker, Date date) {
                 map.put(SELECT_DATE, date);
-                MixedTimePicker startTimePicker = new MixedTimePicker.Builder(context, MixedTimePicker.TYPE_TIME, new MixedTimePicker.OnTimeSelectListener() {
+                MixedTimePicker startTimePicker = new MixedTimePicker.Builder(context,
+                        MixedTimePicker.TYPE_TIME, new MixedTimePicker.OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(MixedTimePicker picker, Date date) {
                         map.put(SELECT_START_TIME, date);
-                        MixedTimePicker endTimePicker = new MixedTimePicker.Builder(context, MixedTimePicker.TYPE_TIME, new MixedTimePicker.OnTimeSelectListener() {
-                            @Override
-                            public void onTimeSelect(MixedTimePicker picker, Date date) {
-                                map.put(SELECT_END_TIME, date);
-                                visitTime.setText(CalculateTimeUtils.requestDate((Date) map.get(SELECT_DATE)) + " " + CalculateTimeUtils.getY2mTimeStr((Date) map.get(SELECT_START_TIME)) + "-" + CalculateTimeUtils.getY2mTimeStr((Date) map.get(SELECT_END_TIME)));
-                            }
-                        }).setContainsEndDate(false)
+                        MixedTimePicker endTimePicker = new MixedTimePicker.Builder(context,
+                                MixedTimePicker.TYPE_TIME,
+                                new MixedTimePicker.OnTimeSelectListener() {
+                                    @Override
+                                    public void onTimeSelect(MixedTimePicker picker, Date date) {
+                                        map.put(SELECT_END_TIME, date);
+                                        visitTime.setText(CalculateTimeUtils.requestDate((Date) map.get(SELECT_DATE)) + " " + CalculateTimeUtils.getY2mTimeStr((Date) map.get(SELECT_START_TIME)) + "-" + CalculateTimeUtils.getY2mTimeStr((Date) map.get(SELECT_END_TIME)));
+                                    }
+                                }).setContainsEndDate(false)
                                 .setTimeMinuteOffset(60)
                                 .setRangDate(((Date) map.get(SELECT_START_TIME)).getTime() + (30 * 60 * 1000), 2524665599000L)
                                 .create();
@@ -399,7 +474,8 @@ public class DialogUtils {
                     ToastUtil.showMessage(context, "请完善信息后提交");
                     return;
                 }
-                map.put(INPUT_VALUE, input.getText().toString() == null ? "" : input.getText().toString());
+                map.put(INPUT_VALUE, input.getText().toString() == null ? "" :
+                        input.getText().toString());
                 listener.commit(v, map);
                 dialog.hide();
             }
@@ -416,21 +492,23 @@ public class DialogUtils {
     }
 
     @SuppressLint("CheckResult")
-    public static void initPremissions(FragmentActivity activity , RecognizerDialog mIatDialog) {
+    public static void initPremissions(FragmentActivity activity, RecognizerDialog mIatDialog) {
         RxPermissions rxPermissions = new RxPermissions(activity);
-        rxPermissions.request(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        rxPermissions.request(Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean granted) throws Exception {
                         if (granted) {
-                            if(mIatDialog.isShowing()){
+                            if (mIatDialog.isShowing()) {
                                 mIatDialog.dismiss();
                             }
                             mIatDialog.show();
-                            ToastUtil.showMessage(MyApplication.mApplication,"请开始说话…");
+                            ToastUtil.showMessage(MyApplication.mApplication, "请开始说话…");
 
                         } else {
-                            ToastUtil.showMessage(MyApplication.mApplication,"请开启录音需要的权限");
+                            ToastUtil.showMessage(MyApplication.mApplication, "请开启录音需要的权限");
 
                         }
                     }
@@ -441,7 +519,8 @@ public class DialogUtils {
 
     public static String modelType = "";
 
-    public static Dialog saveModelDialog(final Context context, final OnModelDialogListener listener) {
+    public static Dialog saveModelDialog(final Context context,
+                                         final OnModelDialogListener listener) {
         modelType = "";
         final Dialog dialog = new Dialog(context, R.style.loading_dialog);
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -519,11 +598,12 @@ public class DialogUtils {
     }
 
 
-
     /*
      *保存处方模板弹窗
      */
-    public static Dialog saveModelDialog(final Context context,PrescriptionTemplateBean prescriptionTemplateBean, final OnModelDialogListener listener) {
+    public static Dialog saveModelDialog(final Context context,
+                                         PrescriptionTemplateBean prescriptionTemplateBean,
+                                         final OnModelDialogListener listener) {
         modelType = "";
         final Dialog dialog = new Dialog(context, R.style.loading_dialog);
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -535,23 +615,24 @@ public class DialogUtils {
         final TextView modelTypeDept = (TextView) view.findViewById(R.id.model_type_dept);
         final TextView modelTypeCommon = (TextView) view.findViewById(R.id.model_type_common);
         final EditText modelNameInput = view.findViewById(R.id.model_name_et);
-        if(prescriptionTemplateBean.isSavedAsTemplate()){
-            if(prescriptionTemplateBean.getModelTypeTemp()!=null){
-                modelType=prescriptionTemplateBean.getModelTypeTemp();
-                if("0".equals(modelType)){
+        if (prescriptionTemplateBean.isSavedAsTemplate()) {
+            if (prescriptionTemplateBean.getModelTypeTemp() != null) {
+                modelType = prescriptionTemplateBean.getModelTypeTemp();
+                if ("0".equals(modelType)) {
 
                     modelTypePersonal.setBackground(context.getResources().getDrawable(R.drawable.model_selected));
                     modelTypePersonal.setTextColor(context.getResources().getColor(R.color.white));
-                }else  if("1".equals(modelType)){
+                } else if ("1".equals(modelType)) {
                     modelTypeDept.setBackground(context.getResources().getDrawable(R.drawable.model_selected));
                     modelTypeDept.setTextColor(context.getResources().getColor(R.color.white));
-                }else {
+                } else {
                     modelTypeCommon.setBackground(context.getResources().getDrawable(R.drawable.model_selected));
                     modelTypeCommon.setTextColor(context.getResources().getColor(R.color.white));
                 }
             }
-            if (prescriptionTemplateBean.getModelNameTemp() != null)
+            if (prescriptionTemplateBean.getModelNameTemp() != null) {
                 modelNameInput.setText(prescriptionTemplateBean.getModelNameTemp());
+            }
         }
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -622,21 +703,23 @@ public class DialogUtils {
         return dialog;
     }
 
-    /**保存处方和病例模板
+    /**
+     * 保存处方和病例模板
      *
      * @param context
      * @param listener
      * @return
      */
-    public static Dialog savePrescriptionAndCaseDialog(final Context context, final List<PrescriptionTemplateBean> templateBeanList,final OnModelAndCaseDialogListener listener) {
+    public static Dialog savePrescriptionAndCaseDialog(final Context context,
+                                                       final List<PrescriptionTemplateBean> templateBeanList, final OnModelAndCaseDialogListener listener) {
         modelType = "";
         final Dialog dialog = new Dialog(context, R.style.loading_dialog);
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.save_prescription_and_case_dialog_layout, null);
         dialog.setContentView(view);
         List<String> list = new ArrayList<>();
-        for (int i = 0; i <templateBeanList.size() ; i++) {
-            list.add("处方"+DateUtils.numberToCH(i+1));
+        for (int i = 0; i < templateBeanList.size(); i++) {
+            list.add("处方" + DateUtils.numberToCH(i + 1));
         }
         final ImageView cancel = (ImageView) view.findViewById(R.id.check_dialog_close);
         final TextView commit = (TextView) view.findViewById(R.id.check_dialog_submit);
@@ -646,7 +729,8 @@ public class DialogUtils {
         final EditText modelNameInput = view.findViewById(R.id.model_name_et);
         final TabLayout prescription_tab = view.findViewById(R.id.prescription_tab);
         final ViewPager prescription_vp = view.findViewById(R.id.prescription_vp);
-        final PrescriptionPagerAdapter prescriptionPagerAdapter = new PrescriptionPagerAdapter(context, list,templateBeanList);
+        final PrescriptionPagerAdapter prescriptionPagerAdapter =
+                new PrescriptionPagerAdapter(context, list, templateBeanList);
         prescription_vp.setAdapter(prescriptionPagerAdapter);
         prescription_tab.setupWithViewPager(prescription_vp);
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -707,12 +791,14 @@ public class DialogUtils {
                     ToastUtil.showMessage(context, "请选择病例模版类型");
                     return;
                 }
-                for (int i = 0; i <prescriptionPagerAdapter.getModelList().size() ; i++) {
-                    if("".equals(prescriptionPagerAdapter.getModelList().get(i).getModelType())&&!"".equals( prescriptionPagerAdapter.getModelList().get(i).getModelName())){
-                        ToastUtil.showMessage(context, "处方模板"+DateUtils.numberToCH(i+1)+"数据未填写完整");
+                for (int i = 0; i < prescriptionPagerAdapter.getModelList().size(); i++) {
+                    if ("".equals(prescriptionPagerAdapter.getModelList().get(i).getModelType()) && !"".equals(prescriptionPagerAdapter.getModelList().get(i).getModelName())) {
+                        ToastUtil.showMessage(context, "处方模板" + DateUtils.numberToCH(i + 1) +
+                                "数据未填写完整");
                         return;
-                    }else if(!"".equals(prescriptionPagerAdapter.getModelList().get(i).getModelType())&&"".equals( prescriptionPagerAdapter.getModelList().get(i).getModelName())){
-                        ToastUtil.showMessage(context, "处方模板"+DateUtils.numberToCH(i+1)+"数据未填写完整");
+                    } else if (!"".equals(prescriptionPagerAdapter.getModelList().get(i).getModelType()) && "".equals(prescriptionPagerAdapter.getModelList().get(i).getModelName())) {
+                        ToastUtil.showMessage(context, "处方模板" + DateUtils.numberToCH(i + 1) +
+                                "数据未填写完整");
                         return;
                     }
 
@@ -720,7 +806,8 @@ public class DialogUtils {
                 dialog.hide();
                 dialog.dismiss();
                 dialog.cancel();
-                listener.dialogClick(v, modelType, modelNameInput.getText().toString(),prescriptionPagerAdapter.getModelList());
+                listener.dialogClick(v, modelType, modelNameInput.getText().toString(),
+                        prescriptionPagerAdapter.getModelList());
             }
         });
         dialog.setCancelable(true);
@@ -730,7 +817,8 @@ public class DialogUtils {
 
     private static Dialog alertDialog;
 
-    public static void showSingleAlertDialog(final Context mContext, final List<Integer> list, final OnSelectRoleListener listener) {
+    public static void showSingleAlertDialog(final Context mContext, final List<Integer> list,
+                                             final OnSelectRoleListener listener) {
         String[] items = new String[list.size()];
 
         for (int i = 0; i < list.size(); i++) {

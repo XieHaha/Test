@@ -1,5 +1,6 @@
 package com.keydom.mianren.ih_doctor.net;
 
+import com.keydom.ih_common.bean.UpdateVersionBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_doctor.bean.AgreementBean;
 import com.keydom.mianren.ih_doctor.bean.DoctorEvaluateItem;
@@ -17,8 +18,16 @@ import retrofit2.http.QueryMap;
 
 /**
  * 用户操作接口
+ *
+ * @author 顿顿
  */
 public interface UserService {
+    /**
+     * 获取版本信息
+     */
+    @POST("user/versionControl/getVersion")
+    Observable<HttpResult<UpdateVersionBean>> getVersion(@Body RequestBody body);
+
     /**
      * //获取医生/护士主页  doctorCode  type
      */
@@ -29,7 +38,8 @@ public interface UserService {
      * //获取医生/护士评价  doctorCode  type
      */
     @GET("user/online/listDoctorComment")
-    Observable<HttpResult<List<DoctorEvaluateItem>>> getDoctorEvaluates(@QueryMap Map<String, Object> map);
+    Observable<HttpResult<List<DoctorEvaluateItem>>> getDoctorEvaluates(@QueryMap Map<String,
+            Object> map);
 
     /**
      * //点赞/取消点赞
@@ -47,8 +57,9 @@ public interface UserService {
     Observable<HttpResult<Object>> logout();
 
     /*
-    * 获取用户协议
-    * */
+     * 获取用户协议
+     * */
     @GET("api/officialDispatch/getOfficialDispatchAllMsgByCode")
-    Observable<HttpResult<AgreementBean>> getOfficialDispatchAllMsgByCode(@QueryMap Map<String, Object> map);
+    Observable<HttpResult<AgreementBean>> getOfficialDispatchAllMsgByCode(@QueryMap Map<String,
+            Object> map);
 }

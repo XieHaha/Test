@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.keydom.ih_common.bean.DoctorInfo;
 import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.bean.SearchResultBean;
+import com.keydom.ih_common.bean.UpdateVersionBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_patient.bean.BannerBean;
 import com.keydom.mianren.ih_patient.bean.BodyCheckDetailInfo;
@@ -43,7 +44,11 @@ import retrofit2.http.QueryMap;
  * 用户操作接口
  */
 public interface UserService {
-
+    /**
+     * 获取版本信息
+     */
+    @POST("user/versionControl/getVersion")
+    Observable<HttpResult<UpdateVersionBean>> getVersion(@Body RequestBody body);
     /**
      * 上传信息接口
      */

@@ -16,8 +16,11 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.keydom.ih_common.bean.ScanBean;
+import com.keydom.ih_common.bean.UpdateVersionBean;
+import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.event.ConsultationEvent;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.config.ImConstants;
@@ -26,12 +29,15 @@ import com.keydom.ih_common.im.manager.NimUserInfoCache;
 import com.keydom.ih_common.im.manager.TeamDataCache;
 import com.keydom.ih_common.im.model.AVChatExtras;
 import com.keydom.ih_common.minterface.OnLoginListener;
+import com.keydom.ih_common.minterface.OnPrivateDialogListener;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.push.PushManager;
 import com.keydom.ih_common.receive.HomeWatcherReceiver;
+import com.keydom.ih_common.utils.CommonUtils;
+import com.keydom.ih_common.utils.DownloadUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.StatusBarUtils;
 import com.keydom.ih_common.utils.ToastUtil;
@@ -51,6 +57,8 @@ import com.keydom.mianren.ih_doctor.constant.TypeEnum;
 import com.keydom.mianren.ih_doctor.net.LoginApiService;
 import com.keydom.mianren.ih_doctor.net.MainApiService;
 import com.keydom.mianren.ih_doctor.net.SignService;
+import com.keydom.mianren.ih_doctor.net.UserService;
+import com.keydom.mianren.ih_doctor.utils.DialogUtils;
 import com.keydom.mianren.ih_doctor.utils.SignUtils;
 import com.keydom.mianren.ih_doctor.view.MainView;
 import com.netease.nimlib.sdk.NimIntent;
@@ -95,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean isNeedJump = false;
     private boolean isNeedJump2Service = false;
     private MainController mainController;
+
+    private DownloadUtils mDownloadUtils;
 
     /**
      * 扫一扫
@@ -151,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(interceptorReceiver, intentFilter1);*/
 
         registerHomeKeyReceiver();
+
+        getVersion();
     }
 
     @Override
@@ -158,6 +170,9 @@ public class MainActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
         unregisterHomeKeyReceiver();
         //        unregisterReceiver(interceptorReceiver);
+        if (null != mDownloadUtils) {
+            mDownloadUtils.destroy();
+        }
         super.onDestroy();
     }
 
@@ -257,8 +272,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 扫码结果
      */
-    public void sendCaSuccessToPc(String signature,String doctorCode, String jobId) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).sendCaSuccessToPc(signature,doctorCode,jobId), new HttpSubscriber<String>() {
+    public void sendCaSuccessToPc(String signature, String doctorCode, String jobId) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(MainApiService.class).sendCaSuccessToPc(signature, doctorCode, jobId), new HttpSubscriber<String>() {
             @Override
             public void requestComplete(@org.jetbrains.annotations.Nullable String data) {
                 ToastUtil.showMessage(MainActivity.this, "扫码成功");
@@ -522,7 +537,7 @@ public class MainActivity extends AppCompatActivity {
                     SignUtils.signApi(this, scanBean.getContent(), new SignUtils.SignCallBack() {
                         @Override
                         public void signSuccess(String signature, String jobId) {
-                            sendCaSuccessToPc(signature,scanBean.getDoctorCode(),jobId);
+                            sendCaSuccessToPc(signature, scanBean.getDoctorCode(), jobId);
                             caCount(scanBean.getSignType());
                         }
 
@@ -534,5 +549,43 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+
+    /**
+     * 获取版本
+     */
+    public void getVersion() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("versionNumber", Integer.valueOf(CommonUtils.getAppVersionCode(this)));
+        map.put("applicationSystem", "医务端App");
+        map.put("systemPlatform", "Android");
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getVersion(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<UpdateVersionBean>() {
+            @Override
+            public void requestComplete(UpdateVersionBean data) {
+                if (null != data && !TextUtils.isEmpty(data.getUrl())) {
+                    DialogUtils.createUpdateDialog(MainActivity.this, data.getVersionName(),
+                            data.getUpdateContent(), new OnPrivateDialogListener() {
+                                @Override
+                                public void confirm() {
+                                    mDownloadUtils = new DownloadUtils(MainActivity.this,
+                                            Const.RELEASE_HOST + data.getUrl(), "mianren.apk");
+                                }
+
+                                @Override
+                                public void cancel() {
+                                    finish();
+                                }
+                            }).show();
+                }
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtils.showShort(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
     }
 }
