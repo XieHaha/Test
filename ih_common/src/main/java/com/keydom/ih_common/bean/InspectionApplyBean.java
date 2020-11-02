@@ -21,6 +21,8 @@ public class InspectionApplyBean implements Serializable {
     private String elcCardNumber;
     private String historyAllergy;
     private String historyIllness;
+    private String epidemicDiseaseHistory;
+    private String illnessDate;
     private String hospitalId;
     private String inquiryOrderId;
     private String insCheckOrderId;
@@ -28,6 +30,22 @@ public class InspectionApplyBean implements Serializable {
     private String patientName;
     private String sex;
     private ArrayList<CheckOutApplyBean> cateS;
+
+    public String getEpidemicDiseaseHistory() {
+        return epidemicDiseaseHistory;
+    }
+
+    public void setEpidemicDiseaseHistory(String epidemicDiseaseHistory) {
+        this.epidemicDiseaseHistory = epidemicDiseaseHistory;
+    }
+
+    public String getIllnessDate() {
+        return illnessDate;
+    }
+
+    public void setIllnessDate(String illnessDate) {
+        this.illnessDate = illnessDate;
+    }
 
     public String getId() {
         return id;

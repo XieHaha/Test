@@ -175,6 +175,64 @@
                 mitem:itemTip="主诉"
                 mitem:limit="20"/>
 
+
+            <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
+                android:id="@+id/medical_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                mitem:itemInputHint="请填写现病史"
+                mitem:itemTip="现病史" />
+
+            <com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView
+                android:id="@+id/epidemic_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                mitem:itemInputHint="请填写流行病学史"
+                mitem:itemTip="流行病学史" />
+
+            <LinearLayout
+                android:id="@+id/layout_morbidity_date"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_52"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_0"
+                android:paddingEnd="@dimen/dp_20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:gravity="end"
+                    android:text="请选择发病日期"
+                    android:textColor="@color/primary_font_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/tv_morbidity_date"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_weight="1"
+                    android:gravity="end|center_vertical"
+                    android:text=""
+                    android:textColor="@color/primary_font_color"
+                    android:textColorHint="@color/edit_hint_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:src="@mipmap/arrow_right_grey" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_below="@id/diagnose_tip_tv"
+                android:background="@color/line_color" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

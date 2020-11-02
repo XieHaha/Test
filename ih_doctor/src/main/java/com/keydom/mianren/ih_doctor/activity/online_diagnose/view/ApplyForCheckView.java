@@ -5,6 +5,7 @@ import com.keydom.ih_common.bean.CheckOutGroupBean;
 import com.keydom.ih_common.bean.InspectionApplyBean;
 import com.keydom.mianren.ih_doctor.bean.OrderApplyResponse;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -83,4 +84,6 @@ public interface ApplyForCheckView extends BaseView {
      * @return 检验项目列表数据
      */
     List<CheckOutGroupBean> getCheckOutSelectItemList();
+
+    void setMorbidityDate(Date date);
 }

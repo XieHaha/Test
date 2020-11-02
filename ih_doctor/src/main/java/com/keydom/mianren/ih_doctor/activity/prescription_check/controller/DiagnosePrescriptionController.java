@@ -125,8 +125,6 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                                     }
                                 }
                             }).show();
-                } else {
-                    ToastUtil.showMessage(getContext(), "请完善处方信息！");
                 }
                 break;
             case R.id.submit:
@@ -154,8 +152,6 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                         getView().saveCaseModel(false);
                         save(modelNameTemp, modelTypeTemp, "", "", "1");
                     }
-                } else {
-                    ToastUtil.showMessage(getContext(), "请完善处方信息！");
                 }
                 break;
             case R.id.select_save:

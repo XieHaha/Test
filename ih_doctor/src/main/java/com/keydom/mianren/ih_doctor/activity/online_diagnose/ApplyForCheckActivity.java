@@ -36,10 +36,12 @@ import com.keydom.mianren.ih_doctor.bean.OrderApplyResponse;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.m_interface.OnItemChangeListener;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
+import com.keydom.mianren.ih_doctor.utils.DateUtils;
 import com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -82,11 +84,13 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
     private ArrayList<CheckOutGroupBean> selectTestList = new ArrayList<>();
     private RecyclerView recyclerView;
     private RelativeLayout diseaseRl;
-    private TextView applyTestAddTv, diagnoseTv, userName, userSex, userAge, diseaseTv;
+    private TextView applyTestAddTv, diagnoseTv, userName, userSex, userAge, diseaseTv,
+            tvMorbidityDate;
+    private LinearLayout layoutMorbidityDate;
     /**
      * 主诉
      */
-    private DiagnosePrescriptionItemView mainDec;
+    private DiagnosePrescriptionItemView mainDec, medicalHistory, epidemicHistory;
     /**
      * 检查项目适配器（两级列表）
      */
@@ -207,6 +211,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
                     }
                 }
                 break;
+            default:
         }
         setTitle(title);
         bindData();
@@ -279,11 +284,18 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
         recyclerView = this.findViewById(R.id.apply_item_rv);
         applyTestAddTv = this.findViewById(R.id.apply_test_add_tv);
         diagnoseTv = this.findViewById(R.id.diagnose_tv);
+        tvMorbidityDate = findViewById(R.id.tv_morbidity_date);
+        layoutMorbidityDate = findViewById(R.id.layout_morbidity_date);
         mainDec = findViewById(R.id.main_dec);
+        medicalHistory = findViewById(R.id.medical_history);
+        epidemicHistory = findViewById(R.id.epidemic_history);
         mainDec.setFragmentActivity(this);
+        medicalHistory.setFragmentActivity(this);
+        epidemicHistory.setFragmentActivity(this);
         applyTestAddTv.setOnClickListener(getController());
         diagnoseTv.setOnClickListener(getController());
         diseaseTv.setOnClickListener(getController());
+        layoutMorbidityDate.setOnClickListener(getController());
 
         mainDec.setAddOnClikListener(v -> PatientMainSuitActivity.start(ApplyForCheckActivity.this,
                 mainDec.getInputStr()));
@@ -360,6 +372,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
                 //修改订单时 需要订单id
                 bean.setId(orderId);
                 break;
+            default:
         }
         bean.setPatientName(orderBean.getName());
         bean.setAge(orderBean.getAge());
@@ -373,7 +386,18 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
         bean.setHospitalId(String.valueOf(MyApplication.userInfo.getHospitalId()));
         bean.setAmount(totalFee.toString());
         bean.setCateS(getSelectApplyList());
+        bean.setIllnessDate(tvMorbidityDate.getText().toString());
+        bean.setEpidemicDiseaseHistory(epidemicHistory.getInputStr());
+        bean.setHistoryAllergy(medicalHistory.getInputStr());
         return bean;
+    }
+
+    /**
+     * @param date 发病日期
+     */
+    @Override
+    public void setMorbidityDate(Date date) {
+        tvMorbidityDate.setText(DateUtils.dateToString(date, DateUtils.YYYY_MM_DD));
     }
 
     private ArrayList<CheckOutApplyBean> getSelectApplyList() {
@@ -454,10 +478,9 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
 
     @Override
     public boolean isSaveCheckOutOrder() {
-        if (TextUtils.isEmpty(mainDec.getInputStr())) {
-            return false;
-        }
-        if (TextUtils.isEmpty(getDiagnose())) {
+        if (TextUtils.isEmpty(mainDec.getInputStr()) || TextUtils.isEmpty(medicalHistory.getInputStr())
+                || TextUtils.isEmpty(epidemicHistory.getInputStr()) || TextUtils.isEmpty(getDiagnose())
+                || TextUtils.isEmpty(tvMorbidityDate.getText().toString())) {
             return false;
         }
         for (CheckOutGroupBean testItemBean : selectTestList) {

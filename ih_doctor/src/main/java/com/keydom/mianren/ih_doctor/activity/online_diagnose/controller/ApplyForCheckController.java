@@ -1,7 +1,11 @@
 package com.keydom.mianren.ih_doctor.activity.online_diagnose.controller;
 
+import android.app.Activity;
 import android.view.View;
 
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.view.TimePickerView;
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
@@ -22,6 +26,7 @@ import com.keydom.mianren.ih_doctor.net.DiagnoseApiService;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -53,6 +58,15 @@ public class ApplyForCheckController extends ControllerImpl<ApplyForCheckView> i
                 CommonInputActivity.start(getContext(), ApplyForCheckActivity.INPUT_DISEASE,
                         "病情描述", getView().getDisease(), 500, 10);
                 break;
+            case R.id.layout_morbidity_date:
+                KeyboardUtils.hideSoftInput((Activity) getContext());
+                Calendar endDate = Calendar.getInstance();
+                TimePickerView pickerView = new TimePickerBuilder(getContext(),
+                        (date, v1) -> getView().setMorbidityDate(date))
+                        .setRangDate(null, endDate).build();
+                pickerView.show();
+                break;
+            default:
         }
 
     }
