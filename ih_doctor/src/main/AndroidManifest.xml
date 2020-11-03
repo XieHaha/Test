@@ -25,6 +25,7 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <!--获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -289,6 +290,17 @@
         <activity android:name=".activity.online_consultation.ConsultationMainActivity" />
         <activity android:name=".activity.online_consultation.ConsultationAdviceActivity" />
 
+
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.keydom.mianren.ih_doctor.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

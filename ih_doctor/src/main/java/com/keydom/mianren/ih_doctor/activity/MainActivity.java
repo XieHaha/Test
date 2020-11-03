@@ -7,9 +7,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -38,10 +40,12 @@ import com.keydom.ih_common.push.PushManager;
 import com.keydom.ih_common.receive.HomeWatcherReceiver;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.DownloadUtils;
+import com.keydom.ih_common.utils.FileUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.StatusBarUtils;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
+import com.keydom.mianren.ih_doctor.BuildConfig;
 import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.controller.MainController;
@@ -74,6 +78,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -548,6 +553,15 @@ public class MainActivity extends AppCompatActivity {
                     });
                 }
             }
+        } else if (requestCode == 10001) {
+
+            Uri apkUri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID +
+                    ".fileprovider", new File(FileUtils.initPath(), "mianren.apk"));
+            Intent install = new Intent(Intent.ACTION_VIEW);
+            install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            install.setDataAndType(apkUri, "application/vnd.android.package-archive");
+            this.startActivity(install);
         }
     }
 
@@ -568,8 +582,7 @@ public class MainActivity extends AppCompatActivity {
                             data.getUpdateContent(), new OnPrivateDialogListener() {
                                 @Override
                                 public void confirm() {
-                                    mDownloadUtils = new DownloadUtils(MainActivity.this,
-                                            Const.RELEASE_HOST + data.getUrl(), "mianren.apk");
+                                    mDownloadUtils = new DownloadUtils(MainActivity.this, Const.RELEASE_HOST + data.getUrl(), "mianren.apk", BuildConfig.APPLICATION_ID);
                                 }
 
                                 @Override

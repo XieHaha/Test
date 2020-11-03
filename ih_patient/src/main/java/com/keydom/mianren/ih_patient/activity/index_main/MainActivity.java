@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -42,9 +43,11 @@ import com.keydom.ih_common.push.PushManager;
 import com.keydom.ih_common.receive.HomeWatcherReceiver;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.DownloadUtils;
+import com.keydom.ih_common.utils.FileUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.App;
+import com.keydom.mianren.ih_patient.BuildConfig;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.controller.MainController;
 import com.keydom.mianren.ih_patient.activity.index_main.Controller.IndexMainController;
@@ -79,6 +82,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -311,17 +315,18 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                 if (null != data && !TextUtils.isEmpty(data.getUrl())) {
                     DialogUtils.createUpdateDialog(MainActivity.this, data.getVersionName(),
                             data.getUpdateContent(), new OnPrivateDialogListener() {
-                        @Override
-                        public void confirm() {
-                            mDownloadUtils = new DownloadUtils(MainActivity.this,
-                                    Const.RELEASE_HOST + data.getUrl(), "mianren.apk");
-                        }
+                                @Override
+                                public void confirm() {
+                                    mDownloadUtils = new DownloadUtils(MainActivity.this,
+                                            Const.RELEASE_HOST + data.getUrl(), "mianren.apk",
+                                            BuildConfig.APPLICATION_ID);
+                                }
 
-                        @Override
-                        public void cancel() {
-                            finish();
-                        }
-                    }).show();
+                                @Override
+                                public void cancel() {
+                                    finish();
+                                }
+                            }).show();
                 }
             }
 
@@ -339,7 +344,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
         if (netWorkBroadCast != null) {
             unregisterReceiver(netWorkBroadCast);
         }
-        if(null != mDownloadUtils){
+        if (null != mDownloadUtils) {
             mDownloadUtils.destroy();
         }
         unregisterHomeKeyReceiver();
@@ -429,6 +434,14 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
                     Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
                 }
             }
+        } else if (requestCode == 10001) {
+            Uri apkUri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID +
+                    ".fileprovider", new File(FileUtils.initPath(), "mianren.apk"));
+            Intent install = new Intent(Intent.ACTION_VIEW);
+            install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            install.setDataAndType(apkUri, "application/vnd.android.package-archive");
+            this.startActivity(install);
         }
     }
 

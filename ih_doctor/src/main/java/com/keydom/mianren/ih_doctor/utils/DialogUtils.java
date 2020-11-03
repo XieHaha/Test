@@ -72,20 +72,20 @@ public class DialogUtils {
 
     public static Dialog createUpdateDialog(final Context context, String version, String content
             , final OnPrivateDialogListener listener) {
-        final Dialog dialog = new Dialog(context, com.keydom.ih_common.R.style.loading_dialog);
+        final Dialog dialog = new Dialog(context, R.style.loading_dialog);
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(com.keydom.ih_common.R.layout.dialog_update, null);
+        View view = inflater.inflate(R.layout.dialog_update, null);
         dialog.setContentView(view);
         final TextView cancelTv =
-                (TextView) view.findViewById(com.keydom.ih_common.R.id.dialog_update_cancel_tv);
+                (TextView) view.findViewById(R.id.dialog_update_cancel_tv);
         final TextView commitTv =
-                (TextView) view.findViewById(com.keydom.ih_common.R.id.dialog_update_confirm_tv);
+                (TextView) view.findViewById(R.id.dialog_update_confirm_tv);
         final TextView titleTv =
-                (TextView) view.findViewById(com.keydom.ih_common.R.id.dialog_update_title_tv);
+                (TextView) view.findViewById(R.id.dialog_update_title_tv);
         final TextView contentTv =
-                (TextView) view.findViewById(com.keydom.ih_common.R.id.dialog_update_content_tv);
+                (TextView) view.findViewById(R.id.dialog_update_content_tv);
         final ImageView closeIv =
-                (ImageView) view.findViewById(com.keydom.ih_common.R.id.dialog_update_close_iv);
+                (ImageView) view.findViewById(R.id.dialog_update_close_iv);
 
         if (!TextUtils.isEmpty(content)) {
             contentTv.setText(content);

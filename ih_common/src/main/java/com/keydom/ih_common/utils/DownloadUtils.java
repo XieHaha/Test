@@ -1,5 +1,6 @@
 package com.keydom.ih_common.utils;
 
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -11,6 +12,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
@@ -26,6 +28,8 @@ public class DownloadUtils {
     private String name;
     private String pathstr;
 
+    private String fileprovider;
+
     private DownloadChangeObserver downloadObserver;
     private ProgressDialog progressDialog;
 
@@ -33,9 +37,10 @@ public class DownloadUtils {
 
     public static final Uri CONTENT_URI = Uri.parse("content://downloads/my_downloads");
 
-    public DownloadUtils(Context context, String url, String name) {
+    public DownloadUtils(Context context, String url, String name,String fileprovider) {
         this.mContext = context;
         this.name = name;
+        this.fileprovider = fileprovider;
         filePath = FileUtils.initPath();
         initDialog();
         downloadAPK(url, name);
@@ -179,29 +184,52 @@ public class DownloadUtils {
                     }
                     mContext.unregisterReceiver(receiver);
                     break;
+                default:
             }
         }
     }
 
     private void installAPK() {
-        setPermission(pathstr);
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        // 由于没有在Activity环境下启动Activity,设置下面的标签
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //Android 7.0以上要使用FileProvider
+        //        pathstr = tempFile.getAbsolutePath();
+        //
+        //        setPermission(pathstr);
+        //        File file = new File(pathstr);
+
+        File tempFile = new File(FileUtils.initPath(), "mianren.apk");
+        //判读版本是否在7.0以上
         if (Build.VERSION.SDK_INT >= 24) {
-            File file = new File(pathstr);
-            //参数1 上下文, 参数2 Provider主机地址 和配置文件中保持一致   参数3  共享的文件
-            Uri apkUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() +
-                    ".fileprovider", file);
-            //添加这一句表示对目标应用临时授权该Uri所代表的文件
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                //判断是否是8.0或以上
+                boolean haveInstallPermission =
+                        mContext.getPackageManager().canRequestPackageInstalls();
+                if (!haveInstallPermission) {
+                    Uri packageURI = Uri.parse("package:" + mContext.getPackageName());
+                    Intent intent1 =
+                            new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageURI);
+                    ((Activity) mContext).startActivityForResult(intent1, 10001);
+                } else {
+                    Uri apkUri = FileProvider.getUriForFile(mContext, fileprovider + ".fileprovider", tempFile);
+                    Intent install = new Intent(Intent.ACTION_VIEW);
+                    install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    install.setDataAndType(apkUri, "application/vnd.android.package-archive");
+                    mContext.startActivity(install);
+                }
+            } else {
+                Uri apkUri =
+                        FileProvider.getUriForFile(mContext, fileprovider + ".fileprovider", tempFile);
+                Intent install = new Intent(Intent.ACTION_VIEW);
+                install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                install.setDataAndType(apkUri, "application/vnd.android.package-archive");
+                mContext.startActivity(install);
+            }
         } else {
-            intent.setDataAndType(Uri.fromFile(new File(filePath, name)), "application/vnd" +
-                    ".android.package-archive");
+            Intent install = new Intent(Intent.ACTION_VIEW);
+            install.setDataAndType(Uri.fromFile(tempFile), "application/vnd.android.package-archive");
+            install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(install);
         }
-        mContext.startActivity(intent);
     }
 
     //修改文件权限
