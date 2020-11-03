@@ -78,7 +78,7 @@ public class WebActivity extends BaseControllerActivity<WebPageController> imple
                 break;
             case CommonDocumentBean.CODE_100:
                 setTitle("孕妇学校");
-                url = com.keydom.ih_common.constant.Const.PREGNANT_WOMAN_SCHOOL + App.userInfo.getId();
+                url = com.keydom.ih_common.constant.Const.RELEASE_HOST + com.keydom.ih_common.constant.Const.WOMAN_SCHOOL + App.userInfo.getId();
                 break;
             default:
                 break;

@@ -195,7 +195,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             if (loginStatus()) {
                                 // PregnantWomanActivity.start(context);
                                 CommonDocumentActivity.start(context, "孕妇学校",
-                                        Const.PREGNANT_WOMAN_SCHOOL + App.userInfo.getId());
+                                        Const.RELEASE_HOST + Const.WOMAN_SCHOOL + App.userInfo.getId());
                             }
                             break;
                         case PainlessDelivery:

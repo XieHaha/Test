@@ -303,7 +303,7 @@ public class MainActivity extends BaseControllerActivity<IndexMainController> im
     public void getVersion() {
         Map<String, Object> map = new HashMap<>();
         map.put("versionNumber", Integer.valueOf(CommonUtils.getAppVersionCode(this)));
-        map.put("applicationSystem", "用户端App");
+        map.put("applicationSystem", "患者端App");
         map.put("systemPlatform", "Android");
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getVersion(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<UpdateVersionBean>() {
             @Override

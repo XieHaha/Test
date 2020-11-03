@@ -26,6 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
+ * @author 顿顿
  * @date 20/2/25 17:01
  * @des 产后康复
  */
@@ -34,8 +35,6 @@ public class RehabilitationRecordActivity extends BaseControllerActivity<Rehabil
     SmartRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @BindView(R.id.iv_online)
-    ImageView ivOnline;
     private ImageView imageView;
     private TextView tvTitle, tvTime, tvComment, tvAccolade;
     private RehabilitationRecordAdapter adapter;
@@ -78,11 +77,6 @@ public class RehabilitationRecordActivity extends BaseControllerActivity<Rehabil
         adapter.setOnItemClickListener(this);
         adapter.setOnItemChildClickListener(this);
         recyclerView.setAdapter(adapter);
-
-        ivOnline.setOnClickListener(this);
-
-        pageLoading();
-        setReloadListener((v, status) -> getController().getRehabilitationRecord());
     }
 
     /**
@@ -139,7 +133,6 @@ public class RehabilitationRecordActivity extends BaseControllerActivity<Rehabil
 
     @Override
     public void fillRehabilitationRecordData(List<String> data) {
-        pageLoadingSuccess();
     }
 
     @Override

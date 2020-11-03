@@ -25,7 +25,7 @@ public interface UserService {
     /**
      * 获取版本信息
      */
-    @POST("user/versionControl/getVersion")
+    @POST("api/versionControl/getVersion")
     Observable<HttpResult<UpdateVersionBean>> getVersion(@Body RequestBody body);
 
     /**
