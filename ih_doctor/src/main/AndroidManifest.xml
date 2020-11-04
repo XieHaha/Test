@@ -290,8 +290,6 @@
         <activity android:name=".activity.online_consultation.ConsultationMainActivity" />
         <activity android:name=".activity.online_consultation.ConsultationAdviceActivity" />
 
-
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.keydom.mianren.ih_doctor.fileprovider"

@@ -62,6 +62,7 @@ import com.keydom.ih_common.utils.CalculateTimeUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
+import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.common_document.CommonDocumentActivity;
@@ -606,11 +607,24 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         }
         //问诊已完成,等待开处方或者处置建议
         else if (InquiryStatus.INQUIRY_PRESCRIBE == inquiryStatus) {
+            setRightTxt("结束问诊");
+            setRightBtnListener(new IhTitleLayout.OnRightTextClickListener() {
+                @Override
+                public void OnRightTextClick(View v) {
+                    new GeneralDialog(ConversationActivity.this, "是否结束问诊?", new GeneralDialog.OnCloseListener() {
+                        @Override
+                        public void onCommit() {
+                            getController().endInquisition();
+                        }
+                    }).show();
+                }
+            });
             inquiryEnd();
         }
         //处方审核失败，隐藏结束问诊
         else if (InquiryStatus.AUDIT_FAILE == inquiryStatus) {
             //            mMessageView.removePlugin(mEndInquiryPlugin);
+            setRightImgVisibility(false);
             inquiryEnd();
         }
         //已开具处方，待评价
@@ -675,7 +689,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     }
 
     private void inquiryEnd() {
-        setRightImgVisibility(false);
         findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
         mInquiryTypeImage.setImageResource(R.drawable.inquiry_type_image_completed);
         mInquiryTypeTv.setTextColor(ContextCompat.getColor(this, R.color.im_status_completed));
@@ -921,6 +934,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             if (attachment.getEndType() == EndInquiryAttachment.PATIENT_AGREE) {
                 EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.DIAGNOSE_ORDER_UPDATE).build());
                 inquiryStatus = InquiryStatus.INQUIRY_PRESCRIBE;
+                setRightImgVisibility(false);
                 inquiryEnd();
                 if (teamChat) {
                     mMessageView.addData(ImClient.createLocalTipMessage(sessionId,
@@ -946,6 +960,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             else if (attachment.getEndType() == EndInquiryAttachment.PATIENT_END) {
                 EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.DIAGNOSE_ORDER_UPDATE).build());
                 inquiryStatus = InquiryStatus.INQUIRY_PRESCRIBE;
+                setRightImgVisibility(false);
                 inquiryEnd();
                 if (orderType == 0) {
                     if (teamChat) {
@@ -1059,6 +1074,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         //        calculateTime();
         //        setRightImgVisibility(true);
         EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.DIAGNOSE_ORDER_UPDATE).build());
+        //接诊后显示输入框
+        mMessageView.showExtension();
         getController().getInquiryStatus();
     }
 
