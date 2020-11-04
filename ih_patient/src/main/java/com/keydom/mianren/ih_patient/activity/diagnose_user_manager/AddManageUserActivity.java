@@ -148,11 +148,11 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
         nextTv = findViewById(R.id.next_step);
         nextTv.setOnClickListener(getController());
         addressDetailLayout = findViewById(R.id.address_detail_layout);
-        if (mType == ADD) {
-            addressDetailLayout.setVisibility(View.GONE);
-        } else {
-            addressDetailLayout.setVisibility(View.VISIBLE);
-        }
+        mName.setEnabled(mType == ADD);
+        mName.setFocusableInTouchMode(mType == ADD);
+        mIdCard.setEnabled(mType == ADD);
+        mIdCard.setFocusableInTouchMode(mType == ADD);
+        addressDetailLayout.setVisibility(mType == ADD ? View.GONE : View.VISIBLE);
         if (electronic) {
             nextTv.setText(R.string.save);
         } else {
