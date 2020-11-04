@@ -88,4 +88,6 @@ public interface CertificateView  extends BaseView {
      * 获取type
      */
     boolean isPhoneCertificate();
+
+    boolean commitAble();
 }

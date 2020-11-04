@@ -20,6 +20,7 @@ import com.baidu.ocr.sdk.model.IDCardResult;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.baidu.ocr.ui.camera.CameraNativeHelper;
 import com.baidu.ocr.ui.camera.CameraView;
+import com.blankj.utilcode.util.RegexUtils;
 import com.bumptech.glide.Glide;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.ToastUtil;
@@ -46,24 +47,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-*@Author: LiuJie
-*@Date: 2019/3/4 0004
-*@Desc: 短信验证和身份证实名认证页面
-*/
+ * @Author: LiuJie
+ * @Date: 2019/3/4 0004
+ * @Desc: 短信验证和身份证实名认证页面
+ */
 public class CertificateActivity extends BaseControllerActivity<CertificateController> implements CertificateView {
-    private LinearLayout id_card_certificate_layout,phone_certificate_layout;
+    private LinearLayout id_card_certificate_layout, phone_certificate_layout;
 
     //启动类型 phone_certificate 短信验证  id_card_certificate 实名认证
     private String type;
 
-    private EditText id_card_name_edt,id_card_num_edt,phone_num_edt,message_edt;
+    private EditText id_card_name_edt, id_card_num_edt, phone_num_edt, message_edt;
     private MButton get_message_bt;
 
 
     //身份证上传
     private LinearLayout mUploadRootLl;
     private ImageView pic_positive_img, pic_reverse_img;
-    private TextView  upload_certificate_pic_commit, upload_pic_positive_tv, upload_pic_reverse_tv;
+    private TextView upload_certificate_pic_commit, upload_pic_positive_tv, upload_pic_reverse_tv;
+    private TextView certificateTv;
 
     private static final int REQUEST_CODE_CAMERA = 102;
     private IdCardBean mResultBean = new IdCardBean();
@@ -78,11 +80,12 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
     /**
      * 启动页面
      */
-    public static void start(Context context,String type){
-        Intent intent=new Intent(context,CertificateActivity.class);
-        intent.putExtra("type",type);
+    public static void start(Context context, String type) {
+        Intent intent = new Intent(context, CertificateActivity.class);
+        intent.putExtra("type", type);
         context.startActivity(intent);
     }
+
     @Override
     public int getLayoutRes() {
         return R.layout.activity_certificate_layout;
@@ -90,19 +93,20 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        type=getIntent().getStringExtra("type");
+        type = getIntent().getStringExtra("type");
         getController().setType(type);
-        getTitleLayout().initViewsVisible(true,true,true);
+        getTitleLayout().initViewsVisible(true, true, true);
         getTitleLayout().setRightTitle("提交");
         alertDialog = new AlertDialog.Builder(this);
-        mUploadRootLl=this.findViewById(R.id.certificate_layout_photot_upload_root_ll);
-        id_card_certificate_layout=this.findViewById(R.id.id_card_certificate_layout);
-        phone_certificate_layout=this.findViewById(R.id.phone_certificate_layout);
-        id_card_name_edt=this.findViewById(R.id.id_card_name_edt);
-        id_card_num_edt=this.findViewById(R.id.id_card_num_edt);
-        phone_num_edt=this.findViewById(R.id.phone_num_edt);
-        message_edt=this.findViewById(R.id.message_edt);
-        get_message_bt=this.findViewById(R.id.get_message_bt);
+        mUploadRootLl = this.findViewById(R.id.certificate_layout_photot_upload_root_ll);
+        id_card_certificate_layout = this.findViewById(R.id.id_card_certificate_layout);
+        phone_certificate_layout = this.findViewById(R.id.phone_certificate_layout);
+        id_card_name_edt = this.findViewById(R.id.id_card_name_edt);
+        id_card_num_edt = this.findViewById(R.id.id_card_num_edt);
+        certificateTv = findViewById(R.id.certificate_tv);
+        phone_num_edt = this.findViewById(R.id.phone_num_edt);
+        message_edt = this.findViewById(R.id.message_edt);
+        get_message_bt = this.findViewById(R.id.get_message_bt);
         pic_positive_img = this.findViewById(R.id.pic_positive_img);
         pic_positive_img.setOnClickListener(getController());
         pic_reverse_img = this.findViewById(R.id.pic_reverse_img);
@@ -113,14 +117,21 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
         upload_certificate_pic_commit.setOnClickListener(getController());
         upload_pic_positive_tv = this.findViewById(R.id.upload_pic_positive_tv);
         upload_pic_positive_tv.setOnClickListener(getController());
-        if(type.equals("phone_certificate")){
+        certificateTv.setOnClickListener(getController());
+        if (type.equals("phone_certificate")) {
+            id_card_certificate_layout.setVisibility(View.GONE);
+            certificateTv.setVisibility(View.GONE);
+            phone_certificate_layout.setVisibility(View.VISIBLE);
             setTitle("短信验证");
             mUploadRootLl.setVisibility(View.GONE);
             upload_certificate_pic_commit.setVisibility(View.GONE);
             getTitleLayout().hideRightLl(true);
             getTitleLayout().setOnRightTextClickListener(getController());
-        }else {
+        } else {
             setTitle("实名认证");
+            id_card_certificate_layout.setVisibility(View.VISIBLE);
+            phone_certificate_layout.setVisibility(View.GONE);
+            certificateTv.setVisibility(View.VISIBLE);
             upload_pic_positive_tv.setText("[上传正面照]");
             upload_pic_reverse_tv.setText("[上传反面照]");
             upload_certificate_pic_commit.setText("下一步");
@@ -130,9 +141,11 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
                     String token = accessToken.getAccessToken();
                     /**
                      *  初始化本地质量控制模型
-                     *  调用身份证扫描必须加上 intent.putExtra(CameraActivity.KEY_NATIVE_MANUAL, true); 关闭自动初始化和释放本地模型
+                     *  调用身份证扫描必须加上 intent.putExtra(CameraActivity.KEY_NATIVE_MANUAL, true);
+                     *  关闭自动初始化和释放本地模型
                      */
-                    CameraNativeHelper.init(CertificateActivity.this, OCR.getInstance(CertificateActivity.this).getLicense(),
+                    CameraNativeHelper.init(CertificateActivity.this,
+                            OCR.getInstance(CertificateActivity.this).getLicense(),
                             new CameraNativeHelper.CameraNativeInitCallback() {
                                 @Override
                                 public void onError(int errorCode, Throwable e) {
@@ -153,7 +166,8 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            //ToastUtil.showMessage(getApplicationContext(), "本地质量控制初始化错误，错误原因： " + msg);
+                                            //ToastUtil.showMessage(getApplicationContext(),
+                                            // "本地质量控制初始化错误，错误原因： " + msg);
                                         }
                                     });
 
@@ -179,14 +193,16 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
 
     @Override
     public void msgInspectSuccess() {
-        if(type.equals("phone_certificate")){
-            Event event=new Event(EventType.PHONECERTIFICATESUCCESS,phone_num_edt.getText().toString().trim());
+        if (type.equals("phone_certificate")) {
+            Event event = new Event(EventType.PHONECERTIFICATESUCCESS,
+                    phone_num_edt.getText().toString().trim());
             EventBus.getDefault().post(event);
             finish();
-        }else{
+        } else {
             if (getUrlList().size() == 2) {
                 //getController().inspecteIdCard();
-                NewCardActivity.start(getContext(), Const.CARD_ID_CARD, getUrlList(),getResult(),true);
+                NewCardActivity.start(getContext(), Const.CARD_ID_CARD, getUrlList(), getResult()
+                        , true);
             } else {
                 ToastUtil.showMessage(getContext(), "证件图片上传未完成，请检查并完成上传");
             }
@@ -196,40 +212,40 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
 
     @Override
     public void msgInspectFailed(String msg) {
-        ToastUtil.showMessage(this,msg);
+        ToastUtil.showMessage(this, msg);
     }
 
     @Override
     public void getMsgCodeSuccess() {
         get_message_bt.startTimer();
-        ToastUtil.showMessage(this,"验证码已发送，注意查看");
+        ToastUtil.showMessage(this, "验证码已发送，注意查看");
     }
 
     @Override
     public void getMsgCodeFailed(String errMsg) {
-        ToastUtil.showMessage(this,errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
     public void idCardCertificateSuccess() {
-        Event event=new Event(EventType.IDCARDCERTIFICATESUCCESS,null);
+        Event event = new Event(EventType.IDCARDCERTIFICATESUCCESS, null);
         EventBus.getDefault().post(event);
         finish();
     }
 
     @Override
     public void idCardCertificateFailed(String errMsg) {
-        ToastUtil.showMessage(this,errMsg);
+        ToastUtil.showMessage(this, errMsg);
     }
 
     @Override
     public String getName() {
-        return null != mResultBean? mResultBean.getName() : "";
+        return name;
     }
 
     @Override
     public String getIdCardNum() {
-        return null != mResultBean? mResultBean.getIdNumber() : "";
+        return idCard;
     }
 
     @Override
@@ -340,29 +356,29 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case REQUEST_CODE_CAMERA:
-                    if (data != null) {
-                        String contentType = data.getStringExtra(CameraActivity.KEY_CONTENT_TYPE);
-                        if (!TextUtils.isEmpty(contentType)) {
-                            if (CameraActivity.CONTENT_TYPE_ID_CARD_FRONT.equals(contentType)) {
-                                String filePath = FileUtil.getSaveFile(getApplicationContext(), "IdCardFront" + timeMillis).getAbsolutePath();
-                                recIDCard(IDCardParams.ID_CARD_SIDE_FRONT, filePath);
-                                List<String> selectFrontList = new ArrayList<>();
-                                selectFrontList.add(filePath);
-                                Glide.with(getContext()).load(filePath).into(pic_positive_img);
-                                getController().upLoadPic(filePath, "positive");
-                            } else if (CameraActivity.CONTENT_TYPE_ID_CARD_BACK.equals(contentType)) {
-                                String filePath = FileUtil.getSaveFile(getApplicationContext(), "IdCardBack" + backTimeMillis).getAbsolutePath();
-                                recIDCard(IDCardParams.ID_CARD_SIDE_BACK, filePath);
-                                List<String> selectBackList = new ArrayList<>();
-                                selectBackList.add(filePath);
-                                Glide.with(getContext()).load(filePath).into(pic_reverse_img);
-                                getController().upLoadPic(filePath, "back");
-                            }
+            if (requestCode == REQUEST_CODE_CAMERA) {
+                if (data != null) {
+                    String contentType = data.getStringExtra(CameraActivity.KEY_CONTENT_TYPE);
+                    if (!TextUtils.isEmpty(contentType)) {
+                        if (CameraActivity.CONTENT_TYPE_ID_CARD_FRONT.equals(contentType)) {
+                            String filePath = FileUtil.getSaveFile(getApplicationContext(),
+                                    "IdCardFront" + timeMillis).getAbsolutePath();
+                            recIDCard(IDCardParams.ID_CARD_SIDE_FRONT, filePath);
+                            List<String> selectFrontList = new ArrayList<>();
+                            selectFrontList.add(filePath);
+                            Glide.with(getContext()).load(filePath).into(pic_positive_img);
+                            getController().upLoadPic(filePath, "positive");
+                        } else if (CameraActivity.CONTENT_TYPE_ID_CARD_BACK.equals(contentType)) {
+                            String filePath = FileUtil.getSaveFile(getApplicationContext(),
+                                    "IdCardBack" + backTimeMillis).getAbsolutePath();
+                            recIDCard(IDCardParams.ID_CARD_SIDE_BACK, filePath);
+                            List<String> selectBackList = new ArrayList<>();
+                            selectBackList.add(filePath);
+                            Glide.with(getContext()).load(filePath).into(pic_reverse_img);
+                            getController().upLoadPic(filePath, "back");
                         }
                     }
-                    break;
+                }
             }
         }
     }
@@ -382,42 +398,52 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
             @Override
             public void onResult(IDCardResult result) {
                 if (result != null) {
-//                    alertText("", result.toString());
+                    //                    alertText("", result.toString());
                     if (idCardSide.equals(IDCardParams.ID_CARD_SIDE_FRONT)) {
-                        if (result.getAddress() != null)
+                        if (result.getAddress() != null) {
                             mResultBean.setAddress(result.getAddress().toString());
-                        else
+                        } else {
                             mResultBean.setAddress("");
-                        if (result.getName() != null)
-                            mResultBean.setName(result.getName().toString());
-                        else
+                        }
+                        if (result.getName() != null) {
+                            name = result.getName().toString();
+                            mResultBean.setName(name);
+                        } else {
                             mResultBean.setName("");
-                        if (result.getIdNumber() != null)
-                            mResultBean.setIdNumber(result.getIdNumber().toString());
-                        else
+                        }
+                        if (result.getIdNumber() != null) {
+                            idCard = result.getIdNumber().toString();
+                            mResultBean.setIdNumber(idCard);
+                        } else {
                             mResultBean.setIdNumber("");
-                        if (result.getGender() != null)
+                        }
+                        if (result.getGender() != null) {
                             mResultBean.setGender(result.getGender().toString());
-                        else
+                        } else {
                             mResultBean.setGender("");
-                        if (result.getEthnic() != null)
+                        }
+                        if (result.getEthnic() != null) {
                             mResultBean.setEthnic(result.getEthnic().toString());
-                        else
+                        } else {
                             mResultBean.setEthnic("");
-                        if (result.getBirthday() != null)
+                        }
+                        if (result.getBirthday() != null) {
                             mResultBean.setBirthday(result.getBirthday().toString());
-                        else
+                        } else {
                             mResultBean.setBirthday("");
+                        }
                     } else {
-                        if (result.getExpiryDate() != null)
+                        if (result.getExpiryDate() != null) {
                             mResultBean.setExpiryDate(result.getExpiryDate().toString());
-                        else
+                        } else {
                             mResultBean.setExpiryDate("");
+                        }
 
-                        if (result.getSignDate() != null)
+                        if (result.getSignDate() != null) {
                             mResultBean.setSignDate(result.getSignDate().toString());
-                        else
+                        } else {
                             mResultBean.setSignDate("");
+                        }
                     }
                 }
             }
@@ -451,6 +477,22 @@ public class CertificateActivity extends BaseControllerActivity<CertificateContr
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onCertificateSuccess(CertificateSuccess success) {
-         finish();
+        finish();
+    }
+
+    private String name,idCard;
+    @Override
+    public boolean commitAble() {
+         name = id_card_name_edt.getText().toString();
+         idCard = id_card_num_edt.getText().toString();
+        if (TextUtils.isEmpty(name)) {
+            ToastUtil.showMessage(this, "请输入姓名");
+            return false;
+        }
+        if (!RegexUtils.isIDCard18(idCard)) {
+            ToastUtil.showMessage(this, "请输入正确的身份证号");
+            return false;
+        }
+        return true;
     }
 }

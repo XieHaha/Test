@@ -4,6 +4,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_patient.bean.DoctorEvaluateItem;
 import com.keydom.mianren.ih_patient.bean.DoctorMainBean;
+import com.keydom.mianren.ih_patient.bean.UserInfo;
 
 import java.util.List;
 
@@ -61,4 +62,9 @@ public interface DoctorOrNurseDetailView extends BaseView {
      * 设置关注成功
      */
     void setAttentionSuccess(int isAttention);
+
+    /**
+     * 刷新个人数据
+     */
+    void initUserData(UserInfo data);
 }

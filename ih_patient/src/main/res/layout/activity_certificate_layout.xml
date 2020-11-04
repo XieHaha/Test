@@ -10,7 +10,9 @@
         android:id="@+id/id_card_certificate_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <View
             android:layout_width="match_parent"
@@ -20,7 +22,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_56"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/name_label"
@@ -54,7 +56,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_56"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/num_label"
@@ -90,7 +92,8 @@
         android:id="@+id/phone_certificate_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <View
             android:layout_width="match_parent"
@@ -187,21 +190,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
+                android:layout_marginTop="@dimen/dp_10"
                 android:drawableLeft="@mipmap/point_icon_5"
                 android:drawablePadding="@dimen/dp_18"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_30"
                 android:text="身份证"
-                android:layout_marginTop="@dimen/dp_10"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/font_size_primary" />
 
 
             <LinearLayout
-                android:layout_marginTop="@dimen/dp_10"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_174"
                 android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginEnd="@dimen/dp_12"
                 android:orientation="horizontal">
 
@@ -273,7 +276,19 @@
                 android:textColor="@color/primary_color"
                 android:textSize="@dimen/dp_17" />
         </LinearLayout>
-
-
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/certificate_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_58"
+        android:layout_marginStart="@dimen/dp_19"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_19"
+        android:visibility="gone"
+        android:background="@mipmap/fill_personal_bt_bg"
+        android:gravity="center"
+        android:text="认证"
+        android:textColor="@color/primary_color"
+        android:textSize="@dimen/dp_17" />
 </LinearLayout>

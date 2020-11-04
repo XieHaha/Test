@@ -23,6 +23,7 @@ import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.StatusBarUtils;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.ih_common.view.GeneralDialog;
+import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.login.LoginActivity;
 import com.keydom.mianren.ih_patient.activity.my_doctor_or_nurse.controller.DoctorOrNurseDetailController;
@@ -32,12 +33,19 @@ import com.keydom.mianren.ih_patient.adapter.DoctorOrNurseDetailAdapter;
 import com.keydom.mianren.ih_patient.bean.DoctorEvaluateItem;
 import com.keydom.mianren.ih_patient.bean.DoctorMainBean;
 import com.keydom.mianren.ih_patient.bean.DoctorTeamItem;
+import com.keydom.mianren.ih_patient.bean.Event;
+import com.keydom.mianren.ih_patient.bean.UserInfo;
+import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.utils.GotoActivityUtil;
+import com.keydom.mianren.ih_patient.utils.LocalizationUtils;
 import com.keydom.mianren.ih_patient.view.DiagnosesApplyDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -125,6 +133,7 @@ public class DoctorOrNurseDetailActivity extends BaseControllerActivity<DoctorOr
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         getView();
         StatusBarUtils.setWindowStatusBarColor(this, R.color.color_399cf9);
         //        mType = getIntent().getIntExtra(TYPE, 0);
@@ -411,5 +420,27 @@ public class DoctorOrNurseDetailActivity extends BaseControllerActivity<DoctorOr
                 getTextColor(R.color.attention_num_color),
                 String.valueOf(mDoctorMainBean.getInfo().getAttentionAmount())));
         mDoctorMainBean.getInfo().setIsAttention(isAttention);
+    }
+
+    /**
+     * 实名认证后 重新拉取用户数据
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void idCardCertificateSuccess(Event event) {
+        if (event.getType() == EventType.IDCARDCERTIFICATESUCCESS) {
+            getController().initUserData();
+        }
+    }
+
+    @Override
+    public void initUserData(UserInfo data) {
+        App.userInfo = data;
+        LocalizationUtils.fileSave2Local(getContext(), data, "userInfo");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

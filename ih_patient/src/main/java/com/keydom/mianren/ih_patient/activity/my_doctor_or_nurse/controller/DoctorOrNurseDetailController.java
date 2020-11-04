@@ -18,6 +18,7 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.activity.certification.CertificateActivity;
 import com.keydom.mianren.ih_patient.activity.login.LoginActivity;
 import com.keydom.mianren.ih_patient.activity.my_doctor_or_nurse.DoctorOrNurseDetailActivity;
 import com.keydom.mianren.ih_patient.activity.my_doctor_or_nurse.view.DoctorOrNurseDetailView;
@@ -26,6 +27,7 @@ import com.keydom.mianren.ih_patient.bean.DoctorHeadItem;
 import com.keydom.mianren.ih_patient.bean.DoctorMainBean;
 import com.keydom.mianren.ih_patient.bean.DoctorTeamItem;
 import com.keydom.mianren.ih_patient.bean.DoctorTextItem;
+import com.keydom.mianren.ih_patient.bean.UserInfo;
 import com.keydom.mianren.ih_patient.callback.SingleClick;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.net.UserService;
@@ -72,7 +74,13 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
                     if (TextUtils.equals(App.userInfo.getCertification(), "0")) {
                         isCanDiagnose(1, getView().getCode());
                     } else {
-                        ToastUtil.showMessage(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊");
+                        new GeneralDialog(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊",
+                                new GeneralDialog.OnCloseListener() {
+                                    @Override
+                                    public void onCommit() {
+                                        CertificateActivity.start(getContext(), "id_card_certificate");
+                                    }
+                                }).setTitle("提示").setCancel(false).setPositiveButton("认证").show();
                     }
                 }
 
@@ -91,7 +99,13 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
                     if (TextUtils.equals(App.userInfo.getCertification(), "0")) {
                         isCanDiagnose(0, getView().getCode());
                     } else {
-                        ToastUtil.showMessage(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊");
+                        new GeneralDialog(getContext(), "您还未实名认证，前往个人中心实名认证后才能预约问诊",
+                                new GeneralDialog.OnCloseListener() {
+                                    @Override
+                                    public void onCommit() {
+                                        CertificateActivity.start(getContext(), "id_card_certificate");
+                                    }
+                                }).setTitle("提示").setCancel(false).setPositiveButton("认证").show();
                     }
                 }
 
@@ -349,6 +363,22 @@ public class DoctorOrNurseDetailController extends ControllerImpl<DoctorOrNurseD
             }
         });
     }
+    /**
+     * 刷新个人数据
+     */
+    public void initUserData() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).initUserData(String.valueOf(Global.getUserId())), new HttpSubscriber<UserInfo>(getContext(), getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable UserInfo data) {
+                getView().initUserData(data);
+            }
 
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
 
 }

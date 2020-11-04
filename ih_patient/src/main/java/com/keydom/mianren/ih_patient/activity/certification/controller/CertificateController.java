@@ -84,8 +84,13 @@ public class CertificateController extends ControllerImpl<CertificateView> imple
                 break;
             case R.id.upload_pic_positive_tv:
                 getView().goToIdCardFrontDiscriminate();
-
                 break;
+            case R.id.certificate_tv:
+                if (getView().commitAble()) {
+                    inspecteIdCard();
+                }
+                break;
+            default:
         }
 
     }
@@ -115,21 +120,19 @@ public class CertificateController extends ControllerImpl<CertificateView> imple
      * 短信验证
      */
     private void inspecteMsgCode() {
-        showLoading();
         Map<String, String> map = new HashMap<>();
         map.put("phoneNumber", getView().getPhoneNum());
         map.put("verificationCode", getView().getMessageCode());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).verificationCode(map), new HttpSubscriber<Object>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).verificationCode(map), new HttpSubscriber<Object>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable Object data) {
                 getView().msgInspectSuccess();
-                hideLoading();
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().msgInspectFailed(msg);
-                hideLoading();
                 return super.requestError(exception, code, msg);
             }
         });
@@ -139,20 +142,18 @@ public class CertificateController extends ControllerImpl<CertificateView> imple
      * 获取验证码
      */
     private void getMsgCode(String s) {
-        showLoading();
         String type = getView().isPhoneCertificate() ? null : "2";
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LoginService.class).sendCode(s, type), new HttpSubscriber<Object>(getContext(), getDisposable(), false) {
 
             @Override
             public void requestComplete(@Nullable Object data) {
                 getView().getMsgCodeSuccess();
-                hideLoading();
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().getMsgCodeFailed(msg);
-                hideLoading();
                 return super.requestError(exception, code, msg);
 
             }
@@ -167,17 +168,15 @@ public class CertificateController extends ControllerImpl<CertificateView> imple
         map.put("id", Global.getUserId());
         map.put("userName", getView().getName());
         map.put("idCard", getView().getIdCardNum());
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).realNameCertificate(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).realNameCertificate(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable Object data) {
-                hideLoading();
                 getView().idCardCertificateSuccess();
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
-                hideLoading();
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 getView().idCardCertificateFailed(msg);
                 return super.requestError(exception, code, msg);
             }
@@ -203,7 +202,8 @@ public class CertificateController extends ControllerImpl<CertificateView> imple
             }
 
             @Override
-            public boolean requestError(@NotNull ApiException exception, int code, @NotNull String msg) {
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 hideLoading();
                 getView().uploadImgFailed(msg, type);
                 return super.requestError(exception, code, msg);

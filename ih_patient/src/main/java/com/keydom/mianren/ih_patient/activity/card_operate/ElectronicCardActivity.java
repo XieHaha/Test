@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -44,6 +45,8 @@ public class ElectronicCardActivity extends BaseControllerActivity<ElectronicCar
     TextView mineCardOtherTv;
     @BindView(R.id.electronic_card_layout)
     RelativeLayout electronicCardLayout;
+    @BindView(R.id.layout_root)
+    LinearLayout layoutRoot;
     @BindView(R.id.electronic_card_recycler_view)
     RecyclerView electronicCardRecyclerView;
 
@@ -84,6 +87,7 @@ public class ElectronicCardActivity extends BaseControllerActivity<ElectronicCar
     public void queryHealthCardSuccess(ElectronicCardRootBean bean) {
         List<MedicalCardInfo> mine = bean.getMine();
         if (mine != null && mine.size() > 0) {
+            layoutRoot.setVisibility(View.VISIBLE);
             mineCardInfo = mine.get(0);
             electronicCardName.setText(mineCardInfo.getName());
             mineCardTitleTv.setVisibility(View.VISIBLE);
@@ -91,13 +95,16 @@ public class ElectronicCardActivity extends BaseControllerActivity<ElectronicCar
         } else {
             mineCardTitleTv.setVisibility(View.GONE);
             electronicCardLayout.setVisibility(View.GONE);
+            layoutRoot.setVisibility(View.GONE);
         }
 
         othersCardInfoList = bean.getOthers();
         if (othersCardInfoList != null && othersCardInfoList.size() > 0) {
+            layoutRoot.setVisibility(View.VISIBLE);
             mineCardOtherTv.setVisibility(View.VISIBLE);
         } else {
             mineCardOtherTv.setVisibility(View.GONE);
+            layoutRoot.setVisibility(View.GONE);
         }
         cardAdapter.setNewData(othersCardInfoList);
     }
