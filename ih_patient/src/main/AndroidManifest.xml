@@ -540,6 +540,7 @@
         <activity android:name=".activity.card_operate.ElectronicCardDetailActivity" />
         <activity android:name=".activity.child_health.ChildHealthProjectActivity" />
         <activity android:name=".activity.child_health.ChildHealthHistoryActivity" />
+        <activity android:name=".activity.online_diagnoses_order.PatientMainSuitActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

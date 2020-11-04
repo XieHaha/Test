@@ -13,6 +13,8 @@ import java.util.Map;
  */
 public interface DiagnosesApplyView extends BaseView {
 
+    String getPatientInputValue();
+
     /**
      * 获取患者成功
      */

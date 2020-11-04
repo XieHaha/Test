@@ -19,6 +19,7 @@ import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.AnamnesisAct
 import com.keydom.mianren.ih_patient.activity.index_main.MainActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.OnlineDiagnonsesOrderActivity;
+import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.PatientMainSuitActivity;
 import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.view.DiagnosesApplyView;
 import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
 import com.keydom.mianren.ih_patient.bean.PayOrderBean;
@@ -53,13 +54,15 @@ import okhttp3.RequestBody;
 
 /**
  * 提交问诊控制器
+ *
+ * @author 顿顿
  */
 public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView> implements View.OnClickListener, AdapterView.OnItemClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.choose_patient_card_tv:
-                ChoosePatientActivity.start(getContext(), getView().getType(),true);
+                ChoosePatientActivity.start(getContext(), getView().getType(), true);
                 break;
             case R.id.choose_patient_tv:
                 if (getView().isHavePatient()) {
@@ -74,6 +77,10 @@ public class DiagnosesApplyController extends ControllerImpl<DiagnosesApplyView>
                 break;
             case R.id.commit_tv:
                 saveInquisition(getView().getQueryMap(), getView().getPayDesc());
+                break;
+            case R.id.add_tv:
+                //快捷添加病情描述
+                PatientMainSuitActivity.start(getContext(), getView().getPatientInputValue());
                 break;
             default:
                 break;

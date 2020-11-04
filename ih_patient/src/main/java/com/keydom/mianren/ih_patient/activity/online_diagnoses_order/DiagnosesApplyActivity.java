@@ -65,6 +65,7 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
     private TextView nameTv, jobTitleTv, photoDiagnosesTv, videoDiagnosesTv,
             departTv, adeptTv, inquisitionNumTv, goodEvaluateNumTv,
             averageReplyTimeTv, choosePatientCardTv, choosePatientTv, commitTv, descFontNumTv;
+    private TextView addTv;
     private InterceptorEditText descEdt;
     private RelativeLayout mDoctorRootRl;
     private CircleImageView headImg;
@@ -172,6 +173,8 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
         commitTv.setOnClickListener(getController());
         descEdt = findViewById(R.id.desc_edt);
         mDoctorRootRl = findViewById(R.id.diagnoses_apply_layout_doctor_root_rl);
+        addTv = findViewById(R.id.add_tv);
+        addTv.setOnClickListener(getController());
         descEdt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -309,6 +312,11 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
             managerUserBean = (ManagerUserBean) event.getData();
             choosePatientTv.setText(managerUserBean.getPastMedicalHistory());
         }
+    }
+
+    @Override
+    public String getPatientInputValue() {
+        return descEdt.getText().toString();
     }
 
     @Override
@@ -523,6 +531,10 @@ public class DiagnosesApplyActivity extends BaseControllerActivity<DiagnosesAppl
                 for (int i = 0; i < selectList.size(); i++) {
                     getController().uploadFile(selectList.get(i).getPath());
                 }
+            } else if (requestCode == PatientMainSuitActivity.SELECT_PATIENT_MAIN_DEC) {
+                String decStr = (String) data.getSerializableExtra(Const.DATA);
+                descEdt.setText(decStr);
+                descEdt.setSelection(decStr.length());
             }
         }
     }

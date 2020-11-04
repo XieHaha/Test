@@ -89,7 +89,8 @@ public class PatientMainSuitActivity extends BaseControllerActivity<PatientMainS
         TagAdapter<String> tagAdapter = new TagAdapter<String>(data) {
             @Override
             public View getView(com.zhy.view.flowlayout.FlowLayout parent, int position, String o) {
-                TextView tv = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.flow_text_selecor,
+                TextView tv =
+                        (TextView) LayoutInflater.from(getContext()).inflate(R.layout.flow_text_selecor,
                         mFlowView, false);
                 tv.setText(o);
                 return tv;
@@ -161,6 +162,7 @@ public class PatientMainSuitActivity extends BaseControllerActivity<PatientMainS
                 mEdit.setText(mEdit.getText().toString() + ((TextView) v).getText().toString());
                 mEdit.setSelection(mEdit.getText().toString().length());
                 break;
+            default:
         }
     }
 }
