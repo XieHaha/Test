@@ -95,7 +95,6 @@ public class ElectronicCardActivity extends BaseControllerActivity<ElectronicCar
         } else {
             mineCardTitleTv.setVisibility(View.GONE);
             electronicCardLayout.setVisibility(View.GONE);
-            layoutRoot.setVisibility(View.GONE);
         }
 
         othersCardInfoList = bean.getOthers();
@@ -104,7 +103,6 @@ public class ElectronicCardActivity extends BaseControllerActivity<ElectronicCar
             mineCardOtherTv.setVisibility(View.VISIBLE);
         } else {
             mineCardOtherTv.setVisibility(View.GONE);
-            layoutRoot.setVisibility(View.GONE);
         }
         cardAdapter.setNewData(othersCardInfoList);
     }

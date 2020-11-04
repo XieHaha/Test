@@ -60,7 +60,7 @@ public class ChoosePatientActivity extends BaseControllerActivity<ChoosePatientC
         mViewPager = findViewById(R.id.choose_patient_vp);
         if (type == Const.PATIENT_TYPE_ALL) {
             setTitle(R.string.txt_select_visit_people);
-            list.add("就诊卡(问诊)");
+            list.add("就诊人(问诊)");
             //            list.add("就诊人(咨询)");
             TypeCardFragment typeCardFragment = new TypeCardFragment();
             Bundle bundle = new Bundle();

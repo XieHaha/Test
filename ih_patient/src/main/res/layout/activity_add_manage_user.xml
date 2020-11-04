@@ -65,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_60"
                 android:background="@drawable/item_f9_bg_bottom_divider"
+                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/dp_37"
@@ -136,6 +137,7 @@
 
             <LinearLayout
                 android:id="@+id/birth_choose"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_60"
                 android:background="@drawable/item_f9_bg_bottom_divider"
@@ -254,6 +256,7 @@
                     android:src="@mipmap/exa_report_right" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/address_detail_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_60"
                 android:background="@drawable/item_f9_bg_bottom_divider"
@@ -295,16 +298,12 @@
                 android:layout_height="@dimen/dp_10"
                 android:src="@mipmap/colorful_line" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_10"
-                android:background="@color/bg_color" />
-
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@color/white"
+                android:layout_marginTop="@dimen/dp_30"
                 android:paddingEnd="@dimen/padding_left_right_dp"
                 android:paddingStart="@dimen/padding_left_right_dp">
 

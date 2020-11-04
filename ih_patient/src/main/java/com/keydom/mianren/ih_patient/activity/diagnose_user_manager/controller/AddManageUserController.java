@@ -2,6 +2,7 @@ package com.keydom.mianren.ih_patient.activity.diagnose_user_manager.controller;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
@@ -27,10 +28,13 @@ import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.AnamnesisAct
 import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.view.AddManageUserView;
 import com.keydom.mianren.ih_patient.bean.ManagerUserBean;
 import com.keydom.mianren.ih_patient.bean.PackageData;
+import com.keydom.mianren.ih_patient.bean.UserInfo;
 import com.keydom.mianren.ih_patient.callback.GeneralCallback;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.net.UserService;
+import com.keydom.mianren.ih_patient.utils.LocalizationUtils;
 import com.keydom.mianren.ih_patient.utils.SelectDialogUtils;
+import com.orhanobut.logger.Logger;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -110,10 +114,10 @@ public class AddManageUserController extends ControllerImpl<AddManageUserView> i
             ToastUtils.showShort("请输入姓名");
             return;
         }
-        if (!manager.isSexIsChoose()) {
-            ToastUtils.showShort("请选择性别");
-            return;
-        }
+        //        if (!manager.isSexIsChoose()) {
+        //            ToastUtils.showShort("请选择性别");
+        //            return;
+        //        }
         if (StringUtils.isEmpty(manager.getCardId())) {
             ToastUtils.showShort("请输入身份证号");
             return;
@@ -134,10 +138,10 @@ public class AddManageUserController extends ControllerImpl<AddManageUserView> i
             ToastUtils.showShort("请选择地区");
             return;
         }
-        if (StringUtils.isEmpty(manager.getAddress())) {
-            ToastUtils.showShort("请输入详细地址");
-            return;
-        }
+        //        if (StringUtils.isEmpty(manager.getAddress())) {
+        //            ToastUtils.showShort("请输入详细地址");
+        //            return;
+        //        }
 
         if (getView().isElectronic()) {
             saveInfo(manager);
@@ -149,7 +153,6 @@ public class AddManageUserController extends ControllerImpl<AddManageUserView> i
         }
 
     }
-
 
 
     /**
@@ -174,9 +177,15 @@ public class AddManageUserController extends ControllerImpl<AddManageUserView> i
         map.put("cityCode", getView().getCityCode());
         map.put("areaCode", getView().getAreaCode());
         map.put("area", manager.getArea());
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).addElectronicPatient(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<Object>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).addElectronicPatient(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<UserInfo>(getContext(), getDisposable(), true) {
             @Override
-            public void requestComplete(@Nullable Object data) {
+            public void requestComplete(@Nullable UserInfo data) {
+                //如果相等，代表添加的电子健康卡即为当前登录账号本人
+                if (TextUtils.equals(App.userInfo.getPhoneNumber(), manager.getPhone())) {
+                    App.userInfo = data;
+                    LocalizationUtils.fileSave2Local(getContext(), data, "userInfo");
+                    Logger.e("用户信息写入成功");
+                }
                 getView().addOrEditSuccess(manager);
             }
 

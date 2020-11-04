@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -54,6 +55,7 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
     private LinearLayout mSexChoose;
     private LinearLayout mBirthChoose;
     private LinearLayout mAreaChoose;
+    private LinearLayout addressDetailLayout;
     private TextView mArea;
     private TextView nextTv;
     private EditText mAddress;
@@ -145,6 +147,12 @@ public class AddManageUserActivity extends BaseControllerActivity<AddManageUserC
         mAddress = findViewById(R.id.address);
         nextTv = findViewById(R.id.next_step);
         nextTv.setOnClickListener(getController());
+        addressDetailLayout = findViewById(R.id.address_detail_layout);
+        if (mType == ADD) {
+            addressDetailLayout.setVisibility(View.GONE);
+        } else {
+            addressDetailLayout.setVisibility(View.VISIBLE);
+        }
         if (electronic) {
             nextTv.setText(R.string.save);
         } else {

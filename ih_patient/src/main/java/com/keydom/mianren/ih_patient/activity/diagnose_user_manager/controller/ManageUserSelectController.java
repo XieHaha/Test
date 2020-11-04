@@ -25,18 +25,15 @@ public class ManageUserSelectController extends ControllerImpl<ManageUserSelectV
      * 获取就诊人管理列表
      */
     public void getManagerUserList() {
-        showLoading();
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getManagerUserList(Global.getUserId()), new HttpSubscriber<List<ManagerUserBean>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getManagerUserList(Global.getUserId()), new HttpSubscriber<List<ManagerUserBean>>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable List<ManagerUserBean> data) {
-                hideLoading();
                 getView().getMangerUserList(data);
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
-                hideLoading();
                 ToastUtils.showShort(msg);
                 return super.requestError(exception, code, msg);
             }

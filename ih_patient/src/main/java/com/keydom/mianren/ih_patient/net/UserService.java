@@ -116,7 +116,7 @@ public interface UserService {
      * 保存就诊人
      */
     @POST("user/electronicCard/addPatient")
-    Observable<HttpResult<Object>> addElectronicPatient(@Body RequestBody body);
+    Observable<HttpResult<UserInfo>> addElectronicPatient(@Body RequestBody body);
 
     /**
      * 删除就诊人

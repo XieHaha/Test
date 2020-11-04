@@ -147,7 +147,6 @@ public class PregnancyActivity extends BaseControllerActivity<PregnancyControlle
     @Override
     public void listPersonInspectionRecordSuccess(List<PregnancyRecordItem> list,
                                                   TypeEnum typeEnum) {
-        mOrderRootLl.setVisibility(View.GONE);
         mRefreshLayout.finishRefresh();
         pageLoadingSuccess();
         if (list.size() >= Const.PAGE_SIZE) {
