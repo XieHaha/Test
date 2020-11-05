@@ -33,7 +33,7 @@
                 android:background="@drawable/search_radius_bg"
                 android:gravity="top"
                 android:hint="详细描述您的病情症状，曾经做过的检查、用药情况，目前病情是加重还是缓解，想要获得医生的什么帮助（不少于10字，最多支持五百字）"
-                android:maxLength="20"
+                android:maxLength="500"
                 android:padding="@dimen/dp_10"
                 android:singleLine="false"
                 android:textColor="@color/color_333333"

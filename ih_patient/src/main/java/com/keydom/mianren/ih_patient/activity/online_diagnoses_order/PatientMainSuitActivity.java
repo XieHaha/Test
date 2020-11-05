@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -40,14 +41,14 @@ public class PatientMainSuitActivity extends BaseControllerActivity<PatientMainS
     /**
      * 病情描述内容
      */
-    private String content;
+    private String description;
 
     /**
      * 启动
      */
-    public static void start(Context context, String content) {
+    public static void start(Context context, String description) {
         Intent starter = new Intent(context, PatientMainSuitActivity.class);
-        starter.putExtra(Const.DATA, content);
+        starter.putExtra(Const.DATA, description);
         ((Activity) context).startActivityForResult(starter, SELECT_PATIENT_MAIN_DEC);
     }
 
@@ -85,8 +86,14 @@ public class PatientMainSuitActivity extends BaseControllerActivity<PatientMainS
                 if (v instanceof TagView) {
                     View mTv = ((TagView) v).getTagView();
                     if (mTv instanceof TextView) {
-                        mEdit.setText(mEdit.getText().toString() + ((TextView) mTv).getText().toString());
-                        mEdit.setSelection(mEdit.getText().toString().length());
+                        StringBuilder builder = new StringBuilder(description);
+                        if (!TextUtils.isEmpty(description)) {
+                            builder.append(",");
+                        }
+                        builder.append(((TextView) mTv).getText().toString());
+                        description = builder.toString();
+                        mEdit.setText(description);
+                        mEdit.setSelection(description.length());
                     }
                 }
                 return true;
@@ -99,8 +106,11 @@ public class PatientMainSuitActivity extends BaseControllerActivity<PatientMainS
         setTitle("病情描述");
         setRightTxt("确定");
         getView();
-        content = getIntent().getStringExtra(Const.DATA);
-        mEdit.setText(content);
+        description = getIntent().getStringExtra(Const.DATA);
+        if (!TextUtils.isEmpty(description)) {
+            mEdit.setText(description);
+            mEdit.setSelection(description.length());
+        }
         setRightBtnListener(v -> {
             Intent intent = new Intent();
             intent.putExtra(Const.DATA, mEdit.getText().toString());
