@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.setting.controller.SettingContrller;
 import com.keydom.mianren.ih_patient.activity.setting.view.SettingView;
@@ -23,7 +24,7 @@ public class SettingActivity extends BaseControllerActivity<SettingContrller> im
     public static void start(Context context){
         context.startActivity(new Intent(context,SettingActivity.class));
     }
-    private TextView jump_to_change_password_tv,jump_to_user_handbook_tv,logout_tv,gesture_unlock_tv;
+    private TextView jump_to_change_password_tv,jump_to_user_handbook_tv,logout_tv,gesture_unlock_tv,versionName;
     @Override
     public int getLayoutRes() {
         return R.layout.activity_setting_layout;
@@ -40,6 +41,9 @@ public class SettingActivity extends BaseControllerActivity<SettingContrller> im
         logout_tv.setOnClickListener(getController());
         gesture_unlock_tv=this.findViewById(R.id.gesture_unlock_tv);
         gesture_unlock_tv.setOnClickListener(getController());
+
+        versionName = this.findViewById(R.id.version_name);
+        versionName.setText("v" + CommonUtils.getAppVersionName(this));
     }
 
     @Override

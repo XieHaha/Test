@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.personal.controller.SettingController;
 import com.keydom.mianren.ih_doctor.activity.personal.view.SettingView;
@@ -21,7 +22,7 @@ import com.keydom.mianren.ih_doctor.activity.personal.view.SettingView;
 public class SettingActivity extends BaseControllerActivity<SettingController> implements SettingView {
 
 
-    private TextView updatePassword, userBook, exit;
+    private TextView updatePassword, userBook, exit,versionName;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, SettingActivity.class);
@@ -43,5 +44,8 @@ public class SettingActivity extends BaseControllerActivity<SettingController> i
         updatePassword.setOnClickListener(getController());
         userBook.setOnClickListener(getController());
         exit.setOnClickListener(getController());
+
+        versionName = this.findViewById(R.id.version_name);
+        versionName.setText("v" + CommonUtils.getAppVersionName(this));
     }
 }
