@@ -75,7 +75,7 @@ public class ElectronicCardActivity extends BaseControllerActivity<ElectronicCar
         cardAdapter = new ElectronicCardAdapter(new ArrayList<>());
         cardAdapter.setOnItemClickListener(getController());
         electronicCardRecyclerView.setLayoutManager(new LinearLayoutManager(this,
-                LinearLayoutManager.HORIZONTAL, false));
+                LinearLayoutManager.VERTICAL, false));
         electronicCardRecyclerView.setAdapter(cardAdapter);
         electronicCardAddTv.setOnClickListener(getController());
         electronicCardLayout.setOnClickListener(getController());
