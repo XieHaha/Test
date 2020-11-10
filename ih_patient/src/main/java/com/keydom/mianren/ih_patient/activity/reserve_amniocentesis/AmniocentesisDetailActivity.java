@@ -18,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import butterknife.BindView;
 
 /**
+ * @author 顿顿
  * @date 20/3/11 15:25
  * @des 羊水穿刺预约详情
  */
@@ -85,12 +86,10 @@ public class AmniocentesisDetailActivity extends BaseControllerActivity<Amniocen
                     (AmniocentesisBean) getIntent().getSerializableExtra(AMNIOCENTESIS_BEAN);
         }
 
-        //        pageLoading();
         //        getController().getAmniocentesisDetail(amniocentesisId);
 
         amniocentesisDetailNextTv.setOnClickListener(v -> finish());
         //        setReloadListener((v, status) -> {
-        //            pageLoading();
         //            getController().getAmniocentesisDetail(amniocentesisId);
         //        });
 
@@ -104,7 +103,6 @@ public class AmniocentesisDetailActivity extends BaseControllerActivity<Amniocen
         if (amniocentesisBean == null) {
             return;
         }
-        pageLoadingSuccess();
         amniocentesisDetailStatusTv.setText("已预约");
         amniocentesisDetailSurgeryTimeTv.setText(DateUtils.transDate(amniocentesisBean.getSurgeryTime(),
                 DateUtils.YYYY_MM_DD, DateUtils.YYYY_MM_DD_CH));
@@ -145,7 +143,6 @@ public class AmniocentesisDetailActivity extends BaseControllerActivity<Amniocen
 
     @Override
     public void onAmniocentesisDetailSuccess() {
-        pageLoadingSuccess();
         bindData();
     }
 

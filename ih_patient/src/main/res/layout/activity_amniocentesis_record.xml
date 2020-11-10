@@ -66,6 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/dp_20"
+                android:visibility="gone"
                 android:paddingBottom="@dimen/dp_20">
 
                 <TextView
@@ -118,6 +119,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
+                android:visibility="gone"
                 android:background="@color/register_success_color" />
 
             <android.support.v7.widget.RecyclerView

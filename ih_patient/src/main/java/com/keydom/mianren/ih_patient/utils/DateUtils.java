@@ -291,6 +291,9 @@ public class DateUtils {
     }
 
     public static String transDate(String dateString, String formatSource, String formatResult) {
+        if (TextUtils.isEmpty(dateString)) {
+            return "";
+        }
         SimpleDateFormat source = new SimpleDateFormat(formatSource);
         SimpleDateFormat result = new SimpleDateFormat(formatResult);
 

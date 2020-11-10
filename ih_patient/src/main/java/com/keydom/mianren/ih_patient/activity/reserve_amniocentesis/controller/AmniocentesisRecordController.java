@@ -1,6 +1,5 @@
 package com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller;
 
-import android.text.TextUtils;
 import android.view.View;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -27,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @author 顿顿
  * @date 20/3/11 14:26
  * @des 羊水穿刺预约查询及取消
  */
@@ -43,9 +43,7 @@ public class AmniocentesisRecordController extends ControllerImpl<AmniocentesisR
         map.put("currentPage", getCurrentPage());
         map.put("pageSize", Const.PAGE_SIZE);
         map.put("userId", Global.getUserId());
-        if (!TextUtils.isEmpty(idCard)) {
-            map.put("idCard", idCard);
-        }
+        map.put("idCard", idCard);
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(AmniocentesisService.class)
                         .getAmniocentesisList(HttpService.INSTANCE.object2Body(map)),
                 new HttpSubscriber<PageBean<AmniocentesisBean>>(getContext(), getDisposable(),

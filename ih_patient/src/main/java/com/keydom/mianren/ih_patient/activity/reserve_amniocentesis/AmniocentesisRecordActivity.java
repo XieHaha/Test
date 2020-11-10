@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.RelativeLayout;
 
+import com.blankj.utilcode.util.RegexUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.InterceptorEditText;
@@ -45,6 +46,8 @@ public class AmniocentesisRecordActivity extends BaseControllerActivity<Amniocen
 
     private ArrayList<AmniocentesisBean> recordData;
 
+    private String searchKey;
+
     public static void start(Context context) {
         context.startActivity(new Intent(context, AmniocentesisRecordActivity.class));
     }
@@ -57,10 +60,10 @@ public class AmniocentesisRecordActivity extends BaseControllerActivity<Amniocen
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle(getString(R.string.txt_amniocentesis_record_cancel));
-        amniocentesisRecordRefreshLayout.setOnRefreshListener(refreshLayout -> getReserveData(""));
+        amniocentesisRecordRefreshLayout.setOnRefreshListener(refreshLayout -> getReserveData());
         amniocentesisRecordRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
                     getController().currentPagePlus();
-                    getController().getAmniocentesisRecord("", TypeEnum.LOAD_MORE);
+                    getController().getAmniocentesisRecord(searchKey, TypeEnum.LOAD_MORE);
                 }
         );
 
@@ -79,7 +82,15 @@ public class AmniocentesisRecordActivity extends BaseControllerActivity<Amniocen
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                getReserveData(s.toString());
+                searchKey = s.toString();
+                if (searchKey.length() < 18) {
+                    return;
+                }
+                if (!RegexUtils.isIDCard18(searchKey)) {
+                    ToastUtil.showMessage(AmniocentesisRecordActivity.this, "请输入正确的身份证号");
+                    return;
+                }
+                getReserveData();
             }
 
             @Override
@@ -88,14 +99,14 @@ public class AmniocentesisRecordActivity extends BaseControllerActivity<Amniocen
             }
         });
 
-        getController().getAmniocentesisRecord("", TypeEnum.REFRESH, true);
+        //        getController().getAmniocentesisRecord("", TypeEnum.REFRESH, true);
     }
 
     /**
-     * 搜索(key为空  全查询)
+     * 搜索
      */
-    private void getReserveData(String key) {
-        getController().getAmniocentesisRecord(key, TypeEnum.REFRESH);
+    private void getReserveData() {
+        getController().getAmniocentesisRecord(searchKey, TypeEnum.REFRESH);
     }
 
     @Override
@@ -108,6 +119,7 @@ public class AmniocentesisRecordActivity extends BaseControllerActivity<Amniocen
         amniocentesisRecordRefreshLayout.finishRefresh();
         if (records.size() >= 8) {
             amniocentesisRecordRefreshLayout.finishLoadMore();
+            amniocentesisRecordRefreshLayout.setNoMoreData(false);
         } else {
             amniocentesisRecordRefreshLayout.finishLoadMoreWithNoMoreData();
         }
