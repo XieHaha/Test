@@ -31,6 +31,11 @@ public class AmniocentesisBean implements Serializable {
     private String isUltrasonicException;
     private String isHypertension;
     private String isGlycuresis;
+    private String syphilis;
+    private String nt;
+    private String headLength;
+    private String ultrasonicDate;
+    private String refusedReason;
 
     public int getId() {
         return id;
@@ -206,5 +211,45 @@ public class AmniocentesisBean implements Serializable {
 
     public void setIsGlycuresis(String isGlycuresis) {
         this.isGlycuresis = isGlycuresis;
+    }
+
+    public String getSyphilis() {
+        return syphilis;
+    }
+
+    public void setSyphilis(String syphilis) {
+        this.syphilis = syphilis;
+    }
+
+    public String getNt() {
+        return nt;
+    }
+
+    public void setNt(String nt) {
+        this.nt = nt;
+    }
+
+    public String getHeadLength() {
+        return headLength;
+    }
+
+    public void setHeadLength(String headLength) {
+        this.headLength = headLength;
+    }
+
+    public String getUltrasonicDate() {
+        return ultrasonicDate;
+    }
+
+    public void setUltrasonicDate(String ultrasonicDate) {
+        this.ultrasonicDate = ultrasonicDate;
+    }
+
+    public String getRefusedReason() {
+        return refusedReason;
+    }
+
+    public void setRefusedReason(String refusedReason) {
+        this.refusedReason = refusedReason;
     }
 }

@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.view.JustifiedTextView;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.controller.AmniocentesisDetailController;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisDetailView;
@@ -61,6 +64,20 @@ public class AmniocentesisDetailActivity extends BaseControllerActivity<Amniocen
     TextView amniocentesisDetailDiabetesTv;
     @BindView(R.id.amniocentesis_detail_next_tv)
     TextView amniocentesisDetailNextTv;
+    @BindView(R.id.amniocentesis_detail_syphilis_tv)
+    TextView amniocentesisDetailSyphilisTv;
+    @BindView(R.id.amniocentesis_detail_ultrasound_tv)
+    TextView amniocentesisDetailUltrasoundTv;
+    @BindView(R.id.amniocentesis_detail_nt_tv)
+    TextView amniocentesisDetailNtTv;
+    @BindView(R.id.amniocentesis_detail_headlength_tv)
+    TextView amniocentesisDetailHeadlengthTv;
+    @BindView(R.id.amniocentesis_detail_ultrasound_date_tv)
+    TextView amniocentesisDetailUltrasoundDateTv;
+    @BindView(R.id.amniocentesis_detail_cancel_reason_tv)
+    JustifiedTextView amniocentesisDetailCancelReasonTv;
+    @BindView(R.id.amniocentesis_detail_cancel_reason_layout)
+    LinearLayout amniocentesisDetailCancelReasonLayout;
 
     private AmniocentesisBean amniocentesisBean;
 
@@ -103,7 +120,22 @@ public class AmniocentesisDetailActivity extends BaseControllerActivity<Amniocen
         if (amniocentesisBean == null) {
             return;
         }
-        amniocentesisDetailStatusTv.setText("已预约");
+        switch (amniocentesisBean.getState()) {
+            case "-1":
+                amniocentesisDetailStatusTv.setText("已取消");
+                amniocentesisDetailCancelReasonLayout.setVisibility(View.VISIBLE);
+                break;
+            case "0":
+                amniocentesisDetailStatusTv.setText("未预约");
+                break;
+            case "1":
+                amniocentesisDetailStatusTv.setText("待确认");
+                break;
+            case "2":
+                amniocentesisDetailStatusTv.setText("已确认");
+                break;
+            default:
+        }
         amniocentesisDetailSurgeryTimeTv.setText(DateUtils.transDate(amniocentesisBean.getSurgeryTime(),
                 DateUtils.YYYY_MM_DD, DateUtils.YYYY_MM_DD_CH));
         amniocentesisDetailNameTv.setText(amniocentesisBean.getName());
@@ -113,13 +145,19 @@ public class AmniocentesisDetailActivity extends BaseControllerActivity<Amniocen
         amniocentesisDetailMinePhoneTv.setText(amniocentesisBean.getTelephone());
         amniocentesisDetailLastMenstruationTv.setText(DateUtils.transDate(amniocentesisBean.getEndMensesTime(),
                 DateUtils.YYYY_MM_DD, DateUtils.YYYY_MM_DD_CH));
-        amniocentesisDetailDueDateTv.setText(DateUtils.transDate(amniocentesisBean.getExpectedBirthTime(),
-                DateUtils.YYYY_MM_DD, DateUtils.YYYY_MM_DD_CH));
+        //        amniocentesisDetailDueDateTv.setText(DateUtils.transDate(amniocentesisBean
+        //        .getExpectedBirthTime(),
+        //                DateUtils.YYYY_MM_DD, DateUtils.YYYY_MM_DD_CH));
         amniocentesisDetailFamilyNameTv.setText(amniocentesisBean.getFamilyMemberName());
         amniocentesisDetailFamilyPhoneTv.setText(amniocentesisBean.getFamilyMemberPhone());
         amniocentesisDetailFamilyAddressTv.setText(amniocentesisBean.getFamilyAddress());
         amniocentesisDetailHospitalTv.setText(amniocentesisBean.getReferralHospital());
         amniocentesisDetailReasonTv.setText(amniocentesisBean.getReason());
+        amniocentesisDetailSyphilisTv.setText(amniocentesisBean.getSyphilis());
+        amniocentesisDetailNtTv.setText(amniocentesisBean.getNt());
+        amniocentesisDetailHeadlengthTv.setText(amniocentesisBean.getHeadLength());
+        amniocentesisDetailUltrasoundDateTv.setText(amniocentesisBean.getUltrasonicDate());
+        amniocentesisDetailCancelReasonTv.setText(amniocentesisBean.getRefusedReason());
         int fetus = amniocentesisBean.getFetusNum();
         switch (fetus) {
             case 1:
@@ -137,6 +175,7 @@ public class AmniocentesisDetailActivity extends BaseControllerActivity<Amniocen
         }
         amniocentesisDetailHivTv.setText(amniocentesisBean.getHivAttribute());
         amniocentesisDetailBloodTv.setText(amniocentesisBean.getRhAttribute());
+        amniocentesisDetailUltrasoundTv.setText(TextUtils.equals(amniocentesisBean.getIsUltrasonicException(), "1") ? R.string.txt_yes : R.string.txt_no);
         amniocentesisDetailHypertensionTv.setText(TextUtils.equals(amniocentesisBean.getIsHypertension(), "1") ? R.string.txt_have : R.string.txt_none);
         amniocentesisDetailDiabetesTv.setText(TextUtils.equals(amniocentesisBean.getIsGlycuresis(), "1") ? R.string.txt_have : R.string.txt_none);
     }

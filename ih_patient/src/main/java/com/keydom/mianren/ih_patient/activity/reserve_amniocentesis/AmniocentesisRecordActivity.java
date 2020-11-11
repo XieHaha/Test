@@ -134,8 +134,9 @@ public class AmniocentesisRecordActivity extends BaseControllerActivity<Amniocen
     @Override
     public void onAmniocentesisCancelSuccess(int position) {
         ToastUtil.showMessage(this, "操作成功");
-        recordData.remove(position);
-        recordAdapter.notifyItemRemoved(position);
-        recordAdapter.notifyItemRangeChanged(position, recordAdapter.getItemCount() - position);
+//        recordData.remove(position);
+//        recordAdapter.notifyItemRemoved(position);
+//        recordAdapter.notifyItemRangeChanged(position, recordAdapter.getItemCount() - position);
+        getReserveData();
     }
 }
