@@ -50,7 +50,7 @@
             <com.keydom.mianren.ih_patient.view.textview.RedStarTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/txt_amniocentesis_surgery_time_colon"
+                android:text="羊水穿刺日期"
                 android:textColor="@color/edit_text_color"
                 android:textSize="@dimen/sp_14"
                 android:textStyle="bold" />
@@ -59,10 +59,10 @@
                 android:id="@+id/amniocentesis_apply_surgery_time_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_56"
                 android:layout_weight="1"
-                android:gravity="end|center_vertical"
-                android:hint="@string/txt_amniocentesis_surgery_time_colon_hint"
+                android:gravity="center_vertical"
+                android:text="提交预约后等待医生确认设置具体时间"
                 android:textColor="@color/color_333333"
                 android:textColorHint="@color/edit_hint_color"
                 android:textSize="@dimen/sp_14" />
@@ -71,6 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_12"
+                android:visibility="gone"
                 android:src="@mipmap/exa_report_right" />
         </LinearLayout>
 

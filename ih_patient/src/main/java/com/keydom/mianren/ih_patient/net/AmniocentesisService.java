@@ -39,7 +39,8 @@ public interface AmniocentesisService {
      * 羊水穿刺预约取消
      */
     @GET("medicine/applyAmniocentesis/cancel")
-    Observable<HttpResult<PageBean<AmniocentesisBean>>> cancelAmniocentesis(@Query("id") int id);
+    Observable<HttpResult<PageBean<AmniocentesisBean>>> cancelAmniocentesis(@Query("id") int id,
+                                                                            @Query("refusedReason") String refusedReason);
 
     /**
      * 羊水穿刺预约详情

@@ -100,7 +100,7 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        amniocentesisApplySurgeryTimeLayout.setOnClickListener(getController());
+        //        amniocentesisApplySurgeryTimeLayout.setOnClickListener(getController());
         amniocentesisApplyBirthLayout.setOnClickListener(getController());
         amniocentesisApplyLastMenstruationLayout.setOnClickListener(getController());
         amniocentesisApplyDueDateLayout.setOnClickListener(getController());
@@ -147,7 +147,7 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
         if (calcDateLimit()) {
             return false;
         }
-        String surgeryTime = amniocentesisApplySurgeryTimeTv.getText().toString();
+        //        String surgeryTime = amniocentesisApplySurgeryTimeTv.getText().toString();
         String name = amniocentesisApplyNameEt.getText().toString();
         String idCard = amniocentesisApplyIdCardEt.getText().toString().trim();
         String birthday = amniocentesisApplyBirthTv.getText().toString().trim();
@@ -160,12 +160,11 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
         String familyAddress = amniocentesisApplyFamilyAddressEt.getText().toString().trim();
         String hospital = amniocentesisApplyTransferHospitalEt.getText().toString().trim();
 
-        if (TextUtils.isEmpty(surgeryTime) || TextUtils.isEmpty(name)
-                || TextUtils.isEmpty(idCard) || TextUtils.isEmpty(birthday)
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(idCard) || TextUtils.isEmpty(birthday)
                 || TextUtils.isEmpty(telephone) || TextUtils.isEmpty(lastDate)
-                || TextUtils.isEmpty(familyName)
-                || TextUtils.isEmpty(familyPhone) || TextUtils.isEmpty(familyAddress)
-                || TextUtils.isEmpty(curSelectReason) || TextUtils.isEmpty(smsCode)) {
+                || TextUtils.isEmpty(familyName) || TextUtils.isEmpty(familyPhone)
+                || TextUtils.isEmpty(familyAddress) || TextUtils.isEmpty(curSelectReason)
+                || TextUtils.isEmpty(smsCode)) {
             ToastUtil.showMessage(getContext(), "请完善羊膜腔穿刺手术网上预约申请单");
             return false;
         }
@@ -173,7 +172,7 @@ public class AmniocentesisApplyFragment extends BaseControllerFragment<Amniocent
         if (reserveBean == null) {
             reserveBean = new AmniocentesisReserveBean();
         }
-        reserveBean.setSurgeryTime(surgeryTime);
+        //        reserveBean.setSurgeryTime(surgeryTime);
         reserveBean.setBirthday(birthday);
         reserveBean.setIdCard(idCard);
         reserveBean.setName(name);

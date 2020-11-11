@@ -25,6 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @date 20/3/9 16:09
@@ -46,9 +47,12 @@ public class AmniocentesisApplyController extends ControllerImpl<AmniocentesisAp
                 break;
             case R.id.amniocentesis_apply_last_menstruation_layout:
                 KeyboardUtils.hideSoftInput((Activity) getContext());
-                Calendar lastDate = Calendar.getInstance();
+                Calendar end = Calendar.getInstance();
+                Calendar start = Calendar.getInstance();
+                end.setTime(new Date());
+                start.add(Calendar.MONTH, -12);
                 TimePickerView pickerView = new TimePickerBuilder(getContext(),
-                        (date, v1) -> getView().onDateSelect(v, date)).setRangDate(null, lastDate).build();
+                        (date, v1) -> getView().onDateSelect(v, date)).setRangDate(start, end).build();
                 pickerView.show();
                 break;
             case R.id.amniocentesis_apply_birth_layout:

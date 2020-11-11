@@ -10,7 +10,6 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
-import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.AmniocentesisDetailActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisRecordView;
 import com.keydom.mianren.ih_patient.bean.AmniocentesisBean;
@@ -18,6 +17,7 @@ import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.TypeEnum;
 import com.keydom.mianren.ih_patient.net.AmniocentesisService;
+import com.keydom.mianren.ih_patient.view.InputDialog;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -70,9 +70,9 @@ public class AmniocentesisRecordController extends ControllerImpl<AmniocentesisR
         getAmniocentesisRecord(idCard, typeEnum, false);
     }
 
-    private void cancelAmniocentesisReserve(int id, int position) {
+    private void cancelAmniocentesisReserve(String refusedReason, int id, int position) {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(AmniocentesisService.class)
-                        .cancelAmniocentesis(id),
+                        .cancelAmniocentesis(id, refusedReason),
                 new HttpSubscriber<PageBean<AmniocentesisBean>>(getContext(), getDisposable(),
                         true, false) {
                     @Override
@@ -98,9 +98,23 @@ public class AmniocentesisRecordController extends ControllerImpl<AmniocentesisR
 
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-        new GeneralDialog(mContext, "确认取消预约？", () -> {
-            AmniocentesisBean bean = (AmniocentesisBean) adapter.getItem(position);
-            cancelAmniocentesisReserve(bean.getId(), position);
-        }).setTitle("提示").setPositiveButton("确认").show();
+        //        new GeneralDialog(mContext, "确认取消预约？", () -> {
+        //            AmniocentesisBean bean = (AmniocentesisBean) adapter.getItem(position);
+        //            cancelAmniocentesisReserve(bean.getId(), position);
+        //        }).setTitle("提示").setPositiveButton("确认").show();
+
+        new InputDialog(mContext).Builder()
+                .setCancelable(false)
+                .setCanceledOnTouchOutside(false)
+                .setEditHintText("请输入取消原因")
+                .setCancleBtnTxt("提交")
+                .setEnterBtnTxt("取消")
+                .setEnterSelect(true)
+                .setLeft(true)
+                .setResultListener(result -> {
+                    AmniocentesisBean bean = (AmniocentesisBean) adapter.getItem(position);
+                    cancelAmniocentesisReserve(result, bean.getId(), position);
+                })
+                .show();
     }
 }
