@@ -68,8 +68,8 @@ public class ObstetricHospitalListActivity extends BaseControllerActivity<Obstet
 
         TabLayout registrationRecordTab = this.findViewById(R.id.registration_record_tab);
         ViewPager registrationRecordVp = this.findViewById(R.id.registration_record_vp);
-        list.add("未住院");
-        list.add("已住院");
+        //        list.add("未住院");
+        //        list.add("已住院");
         FragmentManager fm = getSupportFragmentManager();
         notHospitalized = new ObstetricHospitalFragment();
         Bundle bundle = new Bundle();
@@ -83,9 +83,9 @@ public class ObstetricHospitalListActivity extends BaseControllerActivity<Obstet
         bundle_f.putInt("type", Type.HOSPITALIZED);
         bundle_f.putString(Const.CARD_ID_CARD, idCard);
         hospitalized.setArguments(bundle_f);
-        fragmentList.add(hospitalized);
+        //        fragmentList.add(hospitalized);
         if (viewPagerAdapter == null) {
-            viewPagerAdapter = new ViewPagerAdapter(fm, fragmentList, list);
+            viewPagerAdapter = new ViewPagerAdapter(fm, fragmentList);
         }
         registrationRecordVp.setAdapter(viewPagerAdapter);
         registrationRecordTab.setupWithViewPager(registrationRecordVp);

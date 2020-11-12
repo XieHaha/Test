@@ -96,6 +96,6 @@ public class TypeCardFragment extends BaseControllerFragment<TypeCardController>
 
     @Override
     public void getAllCardFailed(String errMsg) {
-        ToastUtil.showMessage(getContext(), "接口异常：" + errMsg);
+        ToastUtil.showMessage(getContext(),  errMsg);
     }
 }

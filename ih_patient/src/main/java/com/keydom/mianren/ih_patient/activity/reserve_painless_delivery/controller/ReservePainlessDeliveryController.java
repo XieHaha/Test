@@ -18,11 +18,11 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.PainlessDeliveryListActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.view.ReservePainlessDeliveryView;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
 import com.keydom.mianren.ih_patient.constant.Global;
+import com.keydom.mianren.ih_patient.net.CardService;
 import com.keydom.mianren.ih_patient.net.PainlessDeliveryService;
 
 import org.jetbrains.annotations.NotNull;
@@ -31,6 +31,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,7 +45,7 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.layout_visit:
-                ChoosePatientActivity.start(getContext(), -1, false);
+                // ChoosePatientActivity.start(getContext(), -1, false);
                 break;
             case R.id.layout_fetus:
                 OptionsPickerView fetusPicker = new OptionsPickerBuilder(getContext(),
@@ -162,6 +163,28 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
             }
         });
 
+    }
+
+    /**
+     * 查询所有就诊卡
+     */
+    public void queryAllCard() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("uuid", Global.getUserId());
+        map.put("hospital", App.hospitalId);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(CardService.class).getCardList(map), new HttpSubscriber<List<MedicalCardInfo>>(getContext(), getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable List<MedicalCardInfo> data) {
+                getView().getAllCardSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                getView().getAllCardFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
     }
 
     @Override

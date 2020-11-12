@@ -13,16 +13,20 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.DoctorInfo;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.online_diagnoses_order.ChoosePatientActivity;
+import com.keydom.mianren.ih_patient.activity.common_document.CommonDocumentActivity;
+import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.AddManageUserActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.controller.ReserveObstetricHospitalController;
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.view.ReserveObstetricHospitalView;
+import com.keydom.mianren.ih_patient.bean.CommonDocumentBean;
 import com.keydom.mianren.ih_patient.bean.DepartmentInfo;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.bean.MedicalCardInfo;
@@ -143,6 +147,12 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        getController().queryAllCard();
+    }
+
+    @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
         setTitle(getString(R.string.txt_obstetric_hospital_reserve));
@@ -165,7 +175,7 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
 
     @OnClick({R.id.layout_hospital_date, R.id.layout_bed, R.id.layout_depart, R.id.layout_doctor,
             R.id.layout_anesthetist, R.id.layout_visit, R.id.layout_menstruation,
-            R.id.layout_due_date, R.id.layout_fetus, R.id.layout_select})
+            R.id.layout_due_date, R.id.layout_fetus, R.id.layout_select, R.id.tv_note})
     public void onViewClicked(View view) {
         TimePickerView pickerView;
         switch (view.getId()) {
@@ -233,7 +243,7 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
                 }
                 break;
             case R.id.layout_visit:
-                ChoosePatientActivity.start(this, -1, false);
+                //ChoosePatientActivity.start(this, -1, false);
                 break;
             case R.id.layout_menstruation:
                 KeyboardUtils.hideSoftInput(this);
@@ -271,6 +281,9 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
                     ivSelect.setVisibility(View.VISIBLE);
                 }
                 break;
+            case R.id.tv_note:
+                CommonDocumentActivity.start(this, CommonDocumentBean.CODE_13);
+                break;
             default:
                 break;
         }
@@ -293,12 +306,10 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
     }
 
     /**
-     * 获取患者就诊卡
+     * 就诊人信息
      */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getPatientCard(Event event) {
-        if (event.getType() == EventType.SENDSELECTNURSINGPATIENT) {
-            medicalCardInfo = (MedicalCardInfo) event.getData();
+    private void bindVisitData() {
+        if (medicalCardInfo != null) {
             tvVisitName.setText(medicalCardInfo.getName());
             if (!TextUtils.isEmpty(medicalCardInfo.getAge())) {
                 age = medicalCardInfo.getAge().replace("岁", "");
@@ -306,6 +317,45 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
             etAge.setText(age);
             etPhone.setText(medicalCardInfo.getPhoneNumber());
         }
+    }
+
+    /**
+     * 获取患者就诊卡
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getPatientCard(Event event) {
+        if (event.getType() == EventType.SENDSELECTNURSINGPATIENT) {
+            medicalCardInfo = (MedicalCardInfo) event.getData();
+            bindVisitData();
+        }
+    }
+
+    @Override
+    public void getAllCardSuccess(List<MedicalCardInfo> dataList) {
+        //只获取当前登录帐号的就诊卡
+        for (MedicalCardInfo info : dataList) {
+            if (App.userInfo.getIdCard().equals(info.getIdCard())) {
+                medicalCardInfo = info;
+                bindVisitData();
+                break;
+            }
+        }
+        if (medicalCardInfo == null) {
+            new GeneralDialog(this, "未获取到本人就诊卡信息", new GeneralDialog.OnCloseListener() {
+                @Override
+                public void onCommit() {
+                    Intent i = new Intent(getContext(), AddManageUserActivity.class);
+                    i.putExtra(AddManageUserActivity.TYPE, AddManageUserActivity.ADD);
+                    i.putExtra(AddManageUserActivity.ELECTRONIC_CARD, true);
+                    ActivityUtils.startActivity(i);
+                }
+            }).setPositiveButton("去添加").setNegativeButtonIsGone(true).show();
+        }
+    }
+
+    @Override
+    public void getAllCardFailed(String errMsg) {
+        ToastUtil.showMessage(getContext(), errMsg);
     }
 
     @Override

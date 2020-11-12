@@ -10,10 +10,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_common.view.InterceptorEditText;
+import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.AddManageUserActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.controller.ReservePainlessDeliveryController;
 import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.view.ReservePainlessDeliveryView;
 import com.keydom.mianren.ih_patient.bean.Event;
@@ -48,7 +52,6 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
      */
     private MedicalCardInfo medicalCardInfo;
 
-
     private int fetusValue = -1;
 
     /**
@@ -66,6 +69,12 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
     @Override
     public int getLayoutRes() {
         return R.layout.activity_reserve_painless_delivery;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getController().queryAllCard();
     }
 
     @Override
@@ -133,6 +142,34 @@ public class ReservePainlessDeliveryActivity extends BaseControllerActivity<Rese
             }
             etPhone.setText(medicalCardInfo.getPhoneNumber());
         }
+    }
+
+    @Override
+    public void getAllCardSuccess(List<MedicalCardInfo> dataList) {
+        //只获取当前登录帐号的就诊卡
+        for (MedicalCardInfo info : dataList) {
+            if (App.userInfo.getIdCard().equals(info.getIdCard())) {
+                medicalCardInfo = info;
+                bindVisitData();
+                break;
+            }
+        }
+        if (medicalCardInfo == null) {
+            new GeneralDialog(this, "未获取到本人就诊卡信息", new GeneralDialog.OnCloseListener() {
+                @Override
+                public void onCommit() {
+                    Intent i = new Intent(getContext(), AddManageUserActivity.class);
+                    i.putExtra(AddManageUserActivity.TYPE, AddManageUserActivity.ADD);
+                    i.putExtra(AddManageUserActivity.ELECTRONIC_CARD, true);
+                    ActivityUtils.startActivity(i);
+                }
+            }).setPositiveButton("去添加").setNegativeButtonIsGone(true).show();
+        }
+    }
+
+    @Override
+    public void getAllCardFailed(String errMsg) {
+        ToastUtil.showMessage(getContext(), errMsg);
     }
 
     @Override

@@ -17,8 +17,8 @@
         android:layout_height="@dimen/dp_50"
         app:tabSelectedTextColor="@color/other_login_color"
         app:tabTextColor="@color/tab_nol_color"
-        app:tabIndicatorColor="@color/other_login_color">
-    </android.support.design.widget.TabLayout>
+        android:visibility="gone"
+        app:tabIndicatorColor="@color/other_login_color"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"

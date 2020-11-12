@@ -66,4 +66,14 @@ public interface ReservePainlessDeliveryView extends BaseView {
      */
     String getPhone();
 
+    /**
+     * 查询就诊卡列表接口回调
+     */
+    void getAllCardSuccess(List<MedicalCardInfo> dataList);
+
+    /**
+     * 查询就诊卡失败
+     */
+    void getAllCardFailed(String errMsg);
+
 }

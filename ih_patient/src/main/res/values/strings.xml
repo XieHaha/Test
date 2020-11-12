@@ -212,11 +212,11 @@
     <string name="txt_obstetric_hospital_reserve">住院预约</string>
     <string name="txt_hospital_date">预约住院日期:</string>
     <string name="txt_hospital_date_hint">请选择就诊日期</string>
-    <string name="txt_bed">住院床位:</string>
+    <string name="txt_bed">意向住院床位:</string>
     <string name="txt_bed_hint">请选择床位类型</string>
-    <string name="txt_doctor">手术医生:</string>
+    <string name="txt_doctor">意向手术医生:</string>
     <string name="txt_doctor_hint">请选择手术医生(选填)</string>
-    <string name="txt_anesthetist">麻醉师:</string>
+    <string name="txt_anesthetist">意向麻醉师:</string>
     <string name="txt_anesthetist_hint">请选择麻醉师(选填)</string>
     <string name="txt_obstetric_hospital_note">《入院注意事项》</string>
     <string name="txt_reserve_date">预约日期:</string>
