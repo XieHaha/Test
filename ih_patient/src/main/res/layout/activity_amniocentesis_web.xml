@@ -135,6 +135,7 @@
                         android:id="@+id/amniocentesis_web_agree_protocol_layout1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -156,7 +157,6 @@
                         android:id="@+id/amniocentesis_web_notice_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_28"
                         android:orientation="horizontal">
 
                         <ImageView

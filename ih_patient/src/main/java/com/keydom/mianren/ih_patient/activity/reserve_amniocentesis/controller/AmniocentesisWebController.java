@@ -74,6 +74,14 @@ public class AmniocentesisWebController extends ControllerImpl<AmniocentesisWebV
                         }
                         amniocentesisApply();
                         break;
+                    case PAINLESS_DELIVERY_NOTICE:
+                        if (!getView().isSelectReserveProtocol()) {
+                            ToastUtil.showMessage(mContext, "请仔细阅读并同意以上协议内容");
+                            return;
+                        }
+                        EventBus.getDefault().post(new Event(EventType.PAINLESS_DELIVERY_NOTICE,
+                                null));
+                        break;
                     default:
                         break;
                 }

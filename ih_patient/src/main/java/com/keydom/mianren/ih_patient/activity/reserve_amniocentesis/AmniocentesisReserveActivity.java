@@ -17,9 +17,11 @@ import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.fragment.Amn
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.fragment.AmniocentesisResultFragment;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.fragment.AmniocentesisWebFragment;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisReserveView;
+import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.ReservePainlessDeliveryActivity;
 import com.keydom.mianren.ih_patient.bean.AmniocentesisReserveBean;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.constant.AmniocentesisProtocol;
+import com.keydom.mianren.ih_patient.constant.Const;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -52,11 +54,18 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
     private AmniocentesisProtocol protocol;
 
     /**
+     * 是否为无痛分娩文书
+     */
+    private boolean painlessDelivery;
+
+    /**
      * 启动
      */
-    public static void start(Context context, AmniocentesisProtocol protocol) {
+    public static void start(Context context, AmniocentesisProtocol protocol,
+                             boolean painlessDelivery) {
         Intent intent = new Intent(context, AmniocentesisReserveActivity.class);
         intent.putExtra(PROTOCOL_TYPE, protocol);
+        intent.putExtra(Const.TYPE, painlessDelivery);
         context.startActivity(intent);
     }
 
@@ -71,12 +80,22 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
 
         if (getIntent() != null) {
             protocol = (AmniocentesisProtocol) getIntent().getSerializableExtra(PROTOCOL_TYPE);
+            painlessDelivery = getIntent().getBooleanExtra(Const.TYPE, false);
         }
 
-        setTitle(getString(R.string.txt_amniocentesis_reserve));
-        setRightTxt(getString(R.string.txt_inquire_and_cancel_reserve));
-        setRightColor(R.color.edit_text_color);
-        getTitleLayout().setOnRightTextClickListener(getController());
+        if (painlessDelivery) {
+            setTitle(getString(R.string.txt_painless_delivery_reserve));
+            showVirusTips(getString(R.string.txt_painless_delivery_title),
+                    getString(R.string.txt_painless_delivery_tips));
+        } else {
+            setTitle(getString(R.string.txt_amniocentesis_reserve));
+            setRightTxt(getString(R.string.txt_inquire_and_cancel_reserve));
+            setRightColor(R.color.edit_text_color);
+            getTitleLayout().setOnRightTextClickListener(getController());
+            showVirusTips(getString(R.string.txt_virus_tips_title),
+                    getString(R.string.txt_virus_tips));
+        }
+
 
         setLeftBtnListener(v -> {
             if (finishPage()) {
@@ -85,13 +104,11 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
         });
         manager = getSupportFragmentManager();
         tabWebView();
-
-        showVirusTips();
     }
 
-    private void showVirusTips() {
-        new GeneralDialog(this, getString(R.string.txt_virus_tips))
-                .setTitle(getString(R.string.txt_virus_tips_title))
+    private void showVirusTips(String title, String content) {
+        new GeneralDialog(this, content)
+                .setTitle(title)
                 .setContentGravity(Gravity.LEFT)
                 .setNegativeButtonIsGone(true)
                 .show();
@@ -126,6 +143,10 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
             case AMNIOCENTESIS_RESULT:
                 curPage = 5;
                 tabResultView();
+                break;
+            case PAINLESS_DELIVERY_NOTICE:
+                ReservePainlessDeliveryActivity.start(this);
+                finish();
                 break;
             default:
                 break;

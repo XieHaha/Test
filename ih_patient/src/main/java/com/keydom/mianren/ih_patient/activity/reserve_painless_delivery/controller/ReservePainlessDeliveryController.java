@@ -116,15 +116,15 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
             ToastUtil.showMessage(getContext(), "电话号码不能为空");
             return;
         }
-        if (TextUtils.isEmpty(getView().getReserveDate())) {
-            ToastUtil.showMessage(getContext(), "预约时间不能为空");
-            return;
-        }
+        //        if (TextUtils.isEmpty(getView().getReserveDate())) {
+        //            ToastUtil.showMessage(getContext(), "预约时间不能为空");
+        //            return;
+        //        }
 
-        if (!getView().isSelect()) {
-            ToastUtil.showMessage(getContext(), "请仔细阅读并同意无痛分娩注意事项");
-            return;
-        }
+        //        if (!getView().isSelect()) {
+        //            ToastUtil.showMessage(getContext(), "请仔细阅读并同意无痛分娩注意事项");
+        //            return;
+        //        }
 
         Map<String, Object> map = new HashMap<>();
         map.put("age", getView().getAge() + "岁");
@@ -134,7 +134,7 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
         map.put("patientId", bean.getId());
         map.put("registerUserId", Global.getUserId());
         //预约时间
-        map.put("appointmentDate", getView().getReserveDate());
+        //        map.put("appointmentDate", getView().getReserveDate());
         map.put("eleCardNumber", bean.getEleCardNumber());
         map.put("expectedDateOfConfinement", getView().getDueDate());
         map.put("lastMenstrualPeriodTime", getView().getLastDate());

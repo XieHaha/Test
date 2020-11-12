@@ -29,6 +29,7 @@ import java.util.Map;
 import butterknife.BindView;
 
 /**
+ * @author 顿顿
  * @date 20/3/11 14:27
  * @des 羊水穿刺预约web
  */
@@ -136,6 +137,13 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
                 amniocentesisWebProtocolLayout.setVisibility(View.GONE);
                 amniocentesisWebAgreeProtocolLayout.setVisibility(View.GONE);
                 amniocentesisWebNoticeProtocolLayout.setVisibility(View.VISIBLE);
+                break;
+            case PAINLESS_DELIVERY_NOTICE:
+                code = CommonDocumentBean.CODE_16;
+                amniocentesisWebNextTv.setText(R.string.txt_next);
+                amniocentesisWebProtocolLayout.setVisibility(View.VISIBLE);
+                amniocentesisWebAgreeProtocolLayout.setVisibility(View.GONE);
+                amniocentesisWebNoticeProtocolLayout.setVisibility(View.GONE);
                 break;
             default:
                 break;
@@ -306,7 +314,7 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
 
     @Override
     public boolean isSelectNoticeProtocol() {
-        return amniocentesisWebAgreeProtocolLayout1.isSelected() && amniocentesisWebNoticeLayout.isSelected();
+        return amniocentesisWebNoticeLayout.isSelected();
     }
 
     @Override
