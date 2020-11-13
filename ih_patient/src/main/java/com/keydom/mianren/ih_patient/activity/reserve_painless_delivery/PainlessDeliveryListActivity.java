@@ -9,7 +9,6 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.ManageUserSelectActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.controller.PainlessDeliveryListController;
 import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.view.PainlessDeliveryListView;
 import com.keydom.mianren.ih_patient.adapter.PainlessDeliveryAdapter;
@@ -70,8 +69,6 @@ public class PainlessDeliveryListActivity extends BaseControllerActivity<Painles
         EventBus.getDefault().register(this);
         idCard = App.userInfo.getIdCard();
         setTitle(getString(R.string.txt_painless_delivery_reserve));
-        setRightTxt(App.userInfo.getUserName());
-        setRightBtnListener(v -> ManageUserSelectActivity.start(this, idCard));
 
         adapter = new PainlessDeliveryAdapter(new ArrayList<>());
         adapter.setOnItemChildClickListener(getController());

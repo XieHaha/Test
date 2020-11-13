@@ -57,10 +57,12 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
                 break;
             case R.id.layout_menstruation:
                 KeyboardUtils.hideSoftInput((Activity) getContext());
-                Calendar endDate = Calendar.getInstance();
-                endDate.setTime(new Date());
+                Calendar end = Calendar.getInstance();
+                Calendar start = Calendar.getInstance();
+                end.setTime(new Date());
+                start.add(Calendar.MONTH, -12);
                 TimePickerView pvTime = new TimePickerBuilder(getContext(),
-                        (date, v1) -> getView().setMenstruation(date)).setRangDate(null, endDate).build();
+                        (date, v1) -> getView().setMenstruation(date)).setRangDate(start, end).build();
                 pvTime.show();
                 break;
             case R.id.layout_due_date:
@@ -80,15 +82,12 @@ public class ReservePainlessDeliveryController extends ControllerImpl<ReservePai
             case R.id.layout_select:
                 getView().setSelect();
                 break;
-            case R.id.tv_note:
-                break;
             case R.id.tx_next:
                 onNext();
                 break;
             default:
                 break;
         }
-
     }
 
     private void onNext() {

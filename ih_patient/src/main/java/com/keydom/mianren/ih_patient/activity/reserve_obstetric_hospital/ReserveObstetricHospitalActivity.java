@@ -247,13 +247,15 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
                 break;
             case R.id.layout_menstruation:
                 KeyboardUtils.hideSoftInput(this);
-                Calendar endDate = Calendar.getInstance();
-                endDate.setTime(new Date());
+                Calendar end = Calendar.getInstance();
+                Calendar start = Calendar.getInstance();
+                end.setTime(new Date());
+                start.add(Calendar.MONTH, -12);
                 pickerView = new TimePickerBuilder(this,
                         (date, v1) -> {
                             lastDate = DateUtils.dateToString(date);
                             tvLast.setText(lastDate);
-                        }).setRangDate(null, endDate).build();
+                        }).setRangDate(start, end).build();
                 pickerView.show();
                 break;
             case R.id.layout_due_date:

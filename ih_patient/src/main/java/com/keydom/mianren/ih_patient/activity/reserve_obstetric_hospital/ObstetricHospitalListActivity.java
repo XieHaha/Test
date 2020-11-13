@@ -11,7 +11,6 @@ import android.support.v4.view.ViewPager;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.ManageUserSelectActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.controller.ObstetricHospitalController;
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.fragment.ObstetricHospitalFragment;
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.view.ObstetricHospitalView;
@@ -63,8 +62,6 @@ public class ObstetricHospitalListActivity extends BaseControllerActivity<Obstet
         EventBus.getDefault().register(this);
         setTitle(getString(R.string.txt_obstetric_hospital_reserve));
         idCard = App.userInfo.getIdCard();
-        setRightTxt(App.userInfo.getUserName());
-        setRightBtnListener(v -> ManageUserSelectActivity.start(this, idCard));
 
         TabLayout registrationRecordTab = this.findViewById(R.id.registration_record_tab);
         ViewPager registrationRecordVp = this.findViewById(R.id.registration_record_vp);

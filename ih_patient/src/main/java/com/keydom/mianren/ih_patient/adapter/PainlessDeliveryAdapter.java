@@ -37,7 +37,6 @@ public class PainlessDeliveryAdapter extends BaseQuickAdapter<PainlessDeliveryBe
     @Override
     protected void convert(BaseViewHolder helper, PainlessDeliveryBean item) {
         helper.setText(R.id.tv_name, item.getPatientName())
-                .setText(R.id.tv_reserve_date, item.getAppointmentDate())
                 .setText(R.id.tv_due_date, item.getExpectedDateOfConfinement())
                 .setText(R.id.tv_age, item.getAge())
                 .setText(R.id.tv_fetus, String.valueOf(item.getEmbryoNumber()))

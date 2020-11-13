@@ -17,7 +17,6 @@ import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.fragment.Amn
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.fragment.AmniocentesisResultFragment;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.fragment.AmniocentesisWebFragment;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.view.AmniocentesisReserveView;
-import com.keydom.mianren.ih_patient.activity.reserve_painless_delivery.ReservePainlessDeliveryActivity;
 import com.keydom.mianren.ih_patient.bean.AmniocentesisReserveBean;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.constant.AmniocentesisProtocol;
@@ -127,10 +126,6 @@ public class AmniocentesisReserveActivity extends BaseControllerActivity<Amnioce
             case AMNIOCENTESIS_RESULT:
                 curPage = 5;
                 tabResultView();
-                break;
-            case PAINLESS_DELIVERY_NOTICE:
-                ReservePainlessDeliveryActivity.start(this);
-                finish();
                 break;
             default:
                 break;
