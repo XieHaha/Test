@@ -22,8 +22,9 @@ import com.zzhoujay.richtext.RichText;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * created date: 2019/3/27 on 16:39
  * des:文书维护公共页面
+ *
+ * @author 顿顿
  */
 public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumentController> implements CommonDocumentView {
     public static final String TYPE = "type";
@@ -121,6 +122,10 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
                             "?center_code=610008");
                     break;
                 case CommonDocumentBean.CODE_19:
+                    setTitle("无痛分娩预约");
+                    getController().getOfficialDispatchAllMsgByCode(type);
+                    break;
+                case CommonDocumentBean.CODE_101:
                     setTitle("体检报表");
                     mWebView.setVisibility(View.VISIBLE);
                     mDecTv.setVisibility(View.GONE);
@@ -128,18 +133,19 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
                             ".cn/report/jsp/webVersionJsp/report/reportBind" +
                             ".html?center_code=610008");
                     break;
-                case CommonDocumentBean.CODE_20:
+                case CommonDocumentBean.CODE_102:
                     setTitle("个体体检");
                     mWebView.setVisibility(View.VISIBLE);
                     mDecTv.setVisibility(View.GONE);
                     loadUrl("http://www.health580.cn/reservation/public/wap/norder_line" +
                             "/nallPackage?center_code=610008");
                     break;
-                case CommonDocumentBean.CODE_21:
+                case CommonDocumentBean.CODE_103:
                     setTitle("个性化体检");
                     mWebView.setVisibility(View.VISIBLE);
                     mDecTv.setVisibility(View.GONE);
-                    loadUrl("http://center.zkpacs.com.cn/jsp/wxNewServegroup/nquesProcess/selectInfo.html");
+                    loadUrl("http://center.zkpacs.com" +
+                            ".cn/jsp/wxNewServegroup/nquesProcess/selectInfo.html");
                     break;
                 default:
                     break;

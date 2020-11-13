@@ -282,7 +282,7 @@ public class ReserveObstetricHospitalActivity extends BaseControllerActivity<Res
                 }
                 break;
             case R.id.tv_note:
-                CommonDocumentActivity.start(this, CommonDocumentBean.CODE_13);
+                CommonDocumentActivity.start(this, CommonDocumentBean.CODE_3);
                 break;
             default:
                 break;

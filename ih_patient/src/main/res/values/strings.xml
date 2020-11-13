@@ -449,6 +449,6 @@
     <string name="txt_virus_tips">目前，新型冠状病毒肆掠流行，四川省已启动四川省突发公共卫生事件一级应急响应。我院积极落实新型冠状病毒感染肺炎防控措施，为切实有效的切断传播途径，防止疫情进一步扩散，保障人民群众的健康安全，我科存在临时调整门诊或手术时间可能，如有变动，我们将尽快与您联系，请保持电话畅通，特此告知，希望得到您的支持与配合！</string>
 
     <!--无痛分娩预约告知-->
-    <string name="txt_painless_delivery_title">绵阳市人民医院\n\n无痛分娩预约告知书</string>
-    <string name="txt_painless_delivery_tips">n无痛分娩预约告知书n无痛分娩预约告知书n无痛分娩预约告知书n无痛分娩预约告知书n无痛分娩预约告知书n无痛分娩预约告知书</string>
+    <string name="txt_painless_delivery_title">绵阳市人民医院\n\n无痛分娩预约公告</string>
+    <string name="txt_painless_delivery_tips">需产科医生评估生产条件，满足顺产后由麻醉师进行无痛分娩评估</string>
 </resources>

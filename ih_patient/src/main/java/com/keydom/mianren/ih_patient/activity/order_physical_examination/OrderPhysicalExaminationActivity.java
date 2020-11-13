@@ -73,13 +73,13 @@ public class OrderPhysicalExaminationActivity extends BaseControllerActivity<Ord
                 CommonDocumentBean.CODE_15));
         reportLayout = findViewById(R.id.report_query_layout);
         reportLayout.setOnClickListener(v -> WebActivity.start(getContext(),
-                CommonDocumentBean.CODE_19));
+                CommonDocumentBean.CODE_101));
         singleLayout = findViewById(R.id.single_order_layout);
         singleLayout.setOnClickListener(v -> WebActivity.start(getContext(),
-                CommonDocumentBean.CODE_20));
+                CommonDocumentBean.CODE_102));
         personalLayout = findViewById(R.id.personal_layout);
         personalLayout.setOnClickListener(v -> WebActivity.start(getContext(),
-                CommonDocumentBean.CODE_21));
+                CommonDocumentBean.CODE_103));
     }
 
     @Override

@@ -112,6 +112,11 @@ public class AmniocentesisEvaluateController extends ControllerImpl<Amniocentesi
                                 .setPositiveButton("我知道了").setNegativeButtonIsGone(true).show();
                         return;
                     }
+                    if (getView().getUltrasoundSelect() == 1) {
+                        new GeneralDialog(getContext(), "羊穿原因超声异常请到医院遗传咨询门诊现场咨询预约")
+                                .setPositiveButton("我知道了").setNegativeButtonIsGone(true).show();
+                        return;
+                    }
                     if (getView().getHypertensionSelect() == 1) {
                         new GeneralDialog(getContext(), "高血压请到医院遗传咨询门诊现场咨询预约")
                                 .setPositiveButton("我知道了").setNegativeButtonIsGone(true).show();
