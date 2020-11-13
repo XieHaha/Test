@@ -34,6 +34,7 @@ import com.keydom.mianren.ih_patient.activity.order_physical_examination.OrderPh
 import com.keydom.mianren.ih_patient.activity.payment_records.PaymentRecordActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.AmniocentesisReserveActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.ReserveObstetricHospitalActivity;
+import com.keydom.mianren.ih_patient.bean.CommonDocumentBean;
 import com.keydom.mianren.ih_patient.bean.IndexFunction;
 import com.keydom.mianren.ih_patient.constant.AmniocentesisProtocol;
 import com.keydom.mianren.ih_patient.constant.FunctionIndex;
@@ -112,7 +113,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                         case AmniocentesisReserve:
                             if (loginStatus()) {
                                 AmniocentesisReserveActivity.start(context,
-                                        AmniocentesisProtocol.AMNIOCENTESIS_WEB_RESERVE,false);
+                                        AmniocentesisProtocol.AMNIOCENTESIS_WEB_RESERVE);
                             }
                             break;
                         case DoctorRegister:
@@ -199,9 +200,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             break;
                         case PainlessDelivery:
                             if (loginStatus()) {
-                               // ReservePainlessDeliveryActivity.start(context);
-                                AmniocentesisReserveActivity.start(context,
-                                        AmniocentesisProtocol.PAINLESS_DELIVERY_NOTICE,true);
+                                CommonDocumentActivity.start(context, CommonDocumentBean.CODE_19);
                             }
                             break;
                         case ObstetricMedical:

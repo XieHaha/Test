@@ -9,4 +9,8 @@ import com.keydom.mianren.ih_patient.bean.CommonDocumentBean;
  */
 public interface CommonDocumentView extends BaseView{
     void getData(CommonDocumentBean bean);
+
+    void onReserveProtocolSelect(boolean agree);
+
+    boolean isSelectReserveProtocol();
 }

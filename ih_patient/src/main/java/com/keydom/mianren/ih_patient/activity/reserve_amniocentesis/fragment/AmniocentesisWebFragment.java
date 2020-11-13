@@ -138,13 +138,6 @@ public class AmniocentesisWebFragment extends BaseControllerFragment<Amniocentes
                 amniocentesisWebAgreeProtocolLayout.setVisibility(View.GONE);
                 amniocentesisWebNoticeProtocolLayout.setVisibility(View.VISIBLE);
                 break;
-            case PAINLESS_DELIVERY_NOTICE:
-                code = CommonDocumentBean.CODE_16;
-                amniocentesisWebNextTv.setText(R.string.txt_next);
-                amniocentesisWebProtocolLayout.setVisibility(View.VISIBLE);
-                amniocentesisWebAgreeProtocolLayout.setVisibility(View.GONE);
-                amniocentesisWebNoticeProtocolLayout.setVisibility(View.GONE);
-                break;
             default:
                 break;
         }

@@ -4,13 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.constant.Const;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.common_document.controller.CommonDocumentController;
 import com.keydom.mianren.ih_patient.activity.common_document.view.CommonDocumentView;
@@ -21,6 +24,8 @@ import com.zzhoujay.richtext.RichText;
 
 import org.jetbrains.annotations.Nullable;
 
+import butterknife.BindView;
+
 /**
  * des:文书维护公共页面
  *
@@ -30,8 +35,18 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
     public static final String TYPE = "type";
     public static final String URL = "url";
     public static final String TITLE = "title";
-    private TextView mDecTv;
-    private WebView mWebView;
+    @BindView(R.id.webView)
+    WebView webView;
+    @BindView(R.id.dec_tv)
+    TextView decTv;
+    @BindView(R.id.document_bottom_yes_layout)
+    LinearLayout documentBottomYesLayout;
+    @BindView(R.id.document_bottom_no_layout)
+    LinearLayout documentBottomNoLayout;
+    @BindView(R.id.document_bottom_next_tv)
+    TextView documentBottomNextTv;
+    @BindView(R.id.document_bottom_layout)
+    LinearLayout documentBottomLayout;
 
     /**
      * 启动方法
@@ -59,22 +74,19 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        mDecTv = findViewById(R.id.dec_tv);
-        mWebView = findViewById(R.id.webView);
         RichText.initCacheDir(this);
         String type = getIntent().getStringExtra(TYPE);
         String url = getIntent().getStringExtra(URL);
         String title = getIntent().getStringExtra(TITLE);
         if (TextUtils.isEmpty(type)) {
-            mWebView.setVisibility(View.VISIBLE);
-            mDecTv.setVisibility(View.GONE);
+            webView.setVisibility(View.VISIBLE);
+            decTv.setVisibility(View.GONE);
             setTitle(title);
             if (!url.startsWith("http")) {
                 loadUrl(Const.RELEASE_HOST + url);
             } else {
                 loadUrl(url);
             }
-
         } else {
             switch (type) {
                 case CommonDocumentBean.CODE_1:
@@ -116,34 +128,41 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
                     break;
                 case CommonDocumentBean.CODE_15:
                     setTitle("团体体检");
-                    mWebView.setVisibility(View.VISIBLE);
-                    mDecTv.setVisibility(View.GONE);
+                    webView.setVisibility(View.VISIBLE);
+                    decTv.setVisibility(View.GONE);
                     loadUrl("http://www.health580.cn/reservation/public/wap/group_line/logingroup" +
                             "?center_code=610008");
                     break;
                 case CommonDocumentBean.CODE_19:
                     setTitle("无痛分娩预约");
+                    documentBottomLayout.setVisibility(View.VISIBLE);
+                    documentBottomNextTv.setOnClickListener(getController());
+                    documentBottomYesLayout.setOnClickListener(getController());
+                    documentBottomNoLayout.setOnClickListener(getController());
                     getController().getOfficialDispatchAllMsgByCode(type);
+
+                    showVirusTips(getString(R.string.txt_painless_delivery_title),
+                            getString(R.string.txt_painless_delivery_tips));
                     break;
                 case CommonDocumentBean.CODE_101:
                     setTitle("体检报表");
-                    mWebView.setVisibility(View.VISIBLE);
-                    mDecTv.setVisibility(View.GONE);
+                    webView.setVisibility(View.VISIBLE);
+                    decTv.setVisibility(View.GONE);
                     loadUrl("http://api.weixin.zkpacs.com" +
                             ".cn/report/jsp/webVersionJsp/report/reportBind" +
                             ".html?center_code=610008");
                     break;
                 case CommonDocumentBean.CODE_102:
                     setTitle("个体体检");
-                    mWebView.setVisibility(View.VISIBLE);
-                    mDecTv.setVisibility(View.GONE);
+                    webView.setVisibility(View.VISIBLE);
+                    decTv.setVisibility(View.GONE);
                     loadUrl("http://www.health580.cn/reservation/public/wap/norder_line" +
                             "/nallPackage?center_code=610008");
                     break;
                 case CommonDocumentBean.CODE_103:
                     setTitle("个性化体检");
-                    mWebView.setVisibility(View.VISIBLE);
-                    mDecTv.setVisibility(View.GONE);
+                    webView.setVisibility(View.VISIBLE);
+                    decTv.setVisibility(View.GONE);
                     loadUrl("http://center.zkpacs.com" +
                             ".cn/jsp/wxNewServegroup/nquesProcess/selectInfo.html");
                     break;
@@ -162,16 +181,16 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
             }
             String url = bean.getContent();
             if (StringUtils.isEmpty(bean.getContent())) {
-                mWebView.setVisibility(View.VISIBLE);
-                mDecTv.setVisibility(View.GONE);
+                webView.setVisibility(View.VISIBLE);
+                decTv.setVisibility(View.GONE);
                 url = bean.getUrl().contains("http://") ? bean.getUrl() : "http://" + bean.getUrl();
-                mWebView.getSettings().setJavaScriptEnabled(true);
-                mWebView.getSettings().setSupportZoom(true);
-                mWebView.getSettings().setDefaultTextEncodingName("utf-8");
+                webView.getSettings().setJavaScriptEnabled(true);
+                webView.getSettings().setSupportZoom(true);
+                webView.getSettings().setDefaultTextEncodingName("utf-8");
                 //webview不能完全加载网页
-                mWebView.getSettings().setDomStorageEnabled(true);
+                webView.getSettings().setDomStorageEnabled(true);
                 // 或者不能很好的支持懒加载是添加此设置
-                mWebView.setWebViewClient(new WebViewClient() {
+                webView.setWebViewClient(new WebViewClient() {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
                         WebView.HitTestResult hitTestResult = view.getHitTestResult();
@@ -184,14 +203,14 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
                     }
 
                 });
-                mWebView.loadUrl(url);
+                webView.loadUrl(url);
             } else {
-                mWebView.setVisibility(View.VISIBLE);
-                mDecTv.setVisibility(View.GONE);
+                webView.setVisibility(View.VISIBLE);
+                decTv.setVisibility(View.GONE);
 
                 StringBuilder sb = new StringBuilder();
                 sb.append(getHtmlData(bean.getContent()));
-                mWebView.loadDataWithBaseURL(null, sb.toString(), "text/html", "UTF-8", null);
+                webView.loadDataWithBaseURL(null, sb.toString(), "text/html", "UTF-8", null);
             }
         }
 
@@ -213,12 +232,12 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
     }
 
     public void loadUrl(String url) {
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.getSettings().setSupportZoom(true);
-        mWebView.getSettings().setDefaultTextEncodingName("utf-8");
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setSupportZoom(true);
+        webView.getSettings().setDefaultTextEncodingName("utf-8");
         //webview不能完全加载网页 或者不能很好的支持懒加载是添加此设置
-        mWebView.getSettings().setDomStorageEnabled(true);
-        mWebView.setWebViewClient(new WebViewClient() {
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 WebView.HitTestResult hitTestResult = view.getHitTestResult();
@@ -231,6 +250,26 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
             }
 
         });
-        mWebView.loadUrl(url);
+        webView.loadUrl(url);
     }
+
+    private void showVirusTips(String title, String content) {
+        new GeneralDialog(this, content)
+                .setTitle(title)
+                .setContentGravity(Gravity.LEFT)
+                .setNegativeButtonIsGone(true)
+                .show();
+    }
+
+    @Override
+    public void onReserveProtocolSelect(boolean agree) {
+        documentBottomYesLayout.setSelected(agree);
+        documentBottomNoLayout.setSelected(!agree);
+    }
+
+    @Override
+    public boolean isSelectReserveProtocol() {
+        return documentBottomYesLayout.isSelected();
+    }
+
 }

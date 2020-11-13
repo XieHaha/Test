@@ -18,13 +18,7 @@ public enum AmniocentesisProtocol {
     /**
      * 羊膜腔穿刺术术前及术后注意事项
      */
-    AMNIOCENTESIS_NOTICE(3,"http://www.tianfuzhl.com.cn/wechat_mr_test/h5/views/amniocentesis/operation-precautions.html"),
-
-    /**
-     * 无痛分娩预约注意事项
-     */
-    PAINLESS_DELIVERY_NOTICE(4,"http://www.tianfuzhl.com.cn/wechat_mr_test/h5/views/amniocentesis/operation-precautions.html");
-
+    AMNIOCENTESIS_NOTICE(3,"http://www.tianfuzhl.com.cn/wechat_mr_test/h5/views/amniocentesis/operation-precautions.html");
 
     int type;
     String url;
