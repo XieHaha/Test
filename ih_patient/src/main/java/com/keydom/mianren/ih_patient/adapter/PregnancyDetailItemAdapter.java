@@ -79,8 +79,17 @@ public class PregnancyDetailItemAdapter extends BaseQuickAdapter<PregnancyItemBe
                 }
                 break;
             case EDEMA_POSITION:
-                helper.setText(R.id.pregnancy_detail_value_tv, TextUtils.equals("1",
-                        item.getValue()) ? "有" : "无");
+                switch (item.getValue()) {
+                    case "0":
+                        helper.setText(R.id.pregnancy_detail_value_tv, "无");
+                        break;
+                    case "1":
+                        helper.setText(R.id.pregnancy_detail_value_tv, "有");
+                        break;
+                    default:
+                        helper.setText(R.id.pregnancy_detail_value_tv, "可疑");
+                        break;
+                }
                 break;
             case URINE_PROTEIN_POSITION:
                 switch (item.getValue()) {
