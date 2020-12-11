@@ -67,7 +67,7 @@ public class AmniocentesisEvaluateFragment extends BaseControllerFragment<Amnioc
 
 
     /**
-     * 超声日期、nt、头臂长
+     * NT超声日期、nt、头臂长
      */
     private String ultrasoundDate, ntString, headLengthString;
     private String isOperateBlood, isOperateHiv, isOperateSyphilis;

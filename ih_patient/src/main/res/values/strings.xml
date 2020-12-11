@@ -414,7 +414,7 @@
     <string name="txt_diabetes_colon">糖尿病:</string>
     <string name="txt_amniocentesis_reserve_evaluate_description">请先进行羊膜腔穿刺手术自我评估，以确认您是否可以通过网上进行预约，如不满足条件，建议您到遗传咨询门诊就诊。</string>
     <string name="txt_amniocentesis_reserve_check_description">如果有以下情况者，建议您到绵阳市人民医院遗传咨询门诊就诊，咨询医生后再预约羊膜腔穿刺手术。</string>
-    <string name="txt_amniocentesis_reserve_sms_note">我们将在24小时内通过短信方式把手术相关事宜发送到您的手机请注意查收。</string>
+    <string name="txt_amniocentesis_reserve_sms_note">我们将在3个工作日内通过短信方式把手术相关事宜发送到您的手机请注意查收。</string>
     <string name="txt_amniocentesis_reserve_procedure_note">请于上午前往绵阳市人民医院，完成门诊就诊->签署知情同意书->羊膜腔穿刺手术。</string>
     <string name="txt_amniocentesis_reserve_visit_note">请务必点击下方链接仔细阅读取号方法及就诊指南。否则将影响及时取号和就诊。</string>
     <string name="txt_amniocentesis_reserve_visit_url">取号方法及就诊指南：http://suo.im/2xkUHd</string>

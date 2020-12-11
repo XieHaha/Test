@@ -588,7 +588,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/dp_27"
-                android:text="超声日期"
+                android:text="NT超声日期"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_14" />
 

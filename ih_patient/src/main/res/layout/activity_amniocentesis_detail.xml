@@ -688,7 +688,7 @@
                 <com.keydom.mianren.ih_patient.view.textview.RedStarTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="超声日期:"
+                    android:text="NT超声日期:"
                     android:textColor="@color/edit_text_color"
                     android:textSize="@dimen/sp_14"
                     android:textStyle="bold" />
