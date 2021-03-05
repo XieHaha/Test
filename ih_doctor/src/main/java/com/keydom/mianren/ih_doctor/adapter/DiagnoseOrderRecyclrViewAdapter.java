@@ -21,6 +21,7 @@ import com.keydom.ih_common.im.config.ImConstants;
 import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.CircleImageView;
 import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
@@ -294,17 +295,20 @@ public class DiagnoseOrderRecyclrViewAdapter extends BaseEmptyAdapter<InquiryBea
                 @SingleClick(1000)
                 @Override
                 public void onClick(View v) {
-                    InquiryBean inquiryBean = mDatas.get(position);
+                    if (SharePreferenceManager.getIsReceptionDoctor() && bean.getState() != 1 && bean.getIsOwn()==0) {
+                        ToastUtil.showMessage(mContext, "这不是您的订单");
+                        return;
+                    }
 
-                    if (ImClient.getUserInfoProvider().getUserInfo(inquiryBean.getUserCode()) != null) {
+                    if (ImClient.getUserInfoProvider().getUserInfo(bean.getUserCode()) != null) {
                         Bundle bundle = new Bundle();
                         bundle.putBoolean(IS_ORDER, true);
-                        bundle.putLong("orderId", inquiryBean.getId());
-                        if (TextUtils.isEmpty(inquiryBean.getGroupTid())) {
-                            ImClient.startConversation(mContext, inquiryBean.getUserCode(), bundle);
+                        bundle.putLong("orderId", bean.getId());
+                        if (TextUtils.isEmpty(bean.getGroupTid())) {
+                            ImClient.startConversation(mContext, bean.getUserCode(), bundle);
                         } else {
                             bundle.putBoolean(ImConstants.TEAM, true);
-                            ImClient.startConversation(mContext, inquiryBean.getGroupTid(), bundle);
+                            ImClient.startConversation(mContext, bean.getGroupTid(), bundle);
                         }
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);

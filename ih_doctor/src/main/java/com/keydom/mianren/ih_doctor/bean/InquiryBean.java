@@ -157,6 +157,19 @@ public class InquiryBean implements Serializable {
      */
     private int source;
 
+    /**
+     * 是否为我接待的  0不是  1是
+     */
+    private int isOwn;
+
+    public int getIsOwn() {
+        return isOwn;
+    }
+
+    public void setIsOwn(int isOwn) {
+        this.isOwn = isOwn;
+    }
+
     public int getSource() {
         return source;
     }

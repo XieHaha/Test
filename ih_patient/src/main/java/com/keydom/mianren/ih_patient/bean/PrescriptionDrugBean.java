@@ -60,7 +60,7 @@ public class PrescriptionDrugBean implements Serializable {
      */
     private String dosage;
 
-    private String singleDose;
+    private String singleDosage;
 
     /**
      * 单次剂量单位
@@ -176,12 +176,12 @@ public class PrescriptionDrugBean implements Serializable {
         this.dosage = dosage;
     }
 
-    public String getSingleDose() {
-        return singleDose;
+    public void setSingleDosage(String singleDosage) {
+        this.singleDosage = singleDosage;
     }
 
-    public void setSingleDose(String singleDose) {
-        this.singleDose = singleDose;
+    public String getSingleDosage() {
+        return singleDosage;
     }
 
     public String getDosageUnit() {

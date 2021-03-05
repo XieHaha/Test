@@ -87,19 +87,19 @@ public class Const {
     //    public static final String IMAGE_HOST = "https://www.tianfuzhl.com/";
 
     //小程序环境
-        public static final String RELEASE_HOST = "https://mianren.tianfuzhl.com.cn/";
-        public static final String IMAGE_HOST = "https://mianren.tianfuzhl.com.cn/";
-        public static final String WOMAN_SCHOOL =
-        "ih_mianren/amniocentsis_h5/#/pregnantSchool?userId=";//孕妇学校  测试
+//        public static final String RELEASE_HOST = "https://mianren.tianfuzhl.com.cn/";
+//        public static final String IMAGE_HOST = "https://mianren.tianfuzhl.com.cn/";
+//        public static final String WOMAN_SCHOOL =
+//        "ih_mianren/amniocentsis_h5/#/pregnantSchool?userId=";//孕妇学校  测试
 
     //绵阳测试 2020年7月29日 11:33:24
     //    public static final String RELEASE_HOST = "http://220.166.57.218:8888/";
     //    public static final String IMAGE_HOST = "http://220.166.57.218:8888/";
 
     //绵人域名 2020年7月30日 11:33:30
-//    public static final String RELEASE_HOST = "https://ih.mysrmyy.com:8888/";
-//    public static final String IMAGE_HOST = "https://ih.mysrmyy.com:8888/";
-//    public static final String WOMAN_SCHOOL = "amniocentsis_h5/#/pregnantSchool?userId=";//孕妇学校  正式
+    public static final String RELEASE_HOST = "https://ih.mysrmyy.com:8888/";
+    public static final String IMAGE_HOST = "https://ih.mysrmyy.com:8888/";
+    public static final String WOMAN_SCHOOL = "amniocentsis_h5/#/pregnantSchool?userId=";//孕妇学校  正式
 
     //    public static final String RELEASE_HOST = "http://power.tianfuzhl.com.cn:8080";
     //    public static final String IMAGE_HOST = "http://power.tianfuzhl.com.cn:8080";

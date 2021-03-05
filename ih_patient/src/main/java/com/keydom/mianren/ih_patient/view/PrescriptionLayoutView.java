@@ -109,7 +109,7 @@ public class PrescriptionLayoutView extends RelativeLayout {
         mAdapter.notifyDataSetChanged();
         recyclerView.setVisibility(VISIBLE);
         recordRecycler.setVisibility(GONE);
-        GlideUtils.load(doctorSign, Const.IMAGE_HOST + bean.getCommonSeal(), 0, 0, false, null);
+        GlideUtils.load(doctorSign, Const.IMAGE_HOST + bean.getCommonSeal(), 0, -1, false, null);
     }
 
     public void setData(PrescriptionRootBean bean, PrescriptionRecordBean recordBean) {

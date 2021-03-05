@@ -53,7 +53,7 @@ public class MedicineRecyclrViewAdapter extends RecyclerView.Adapter<MedicineRec
         holder.medicineName.setText(bean.getDrugsName());
         holder.medicineSpecifications.setText(bean.getSpec());
         holder.medicineAmount.setText(bean.getQuantity() + bean.getPackUnit());
-        holder.useOnce.setText("用法:" + bean.getSingleDose() + bean.getDosageUnit() + "/次");
+        holder.useOnce.setText("用法:" + bean.getSingleDosage() + bean.getDosageUnit() + "/次");
         holder.useMethod.setText(bean.getWay());
         holder.times.setText(bean.getFrequency());
     }
