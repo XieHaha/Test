@@ -23,14 +23,12 @@ import com.keydom.mianren.ih_doctor.activity.online_diagnose.DiagnoseOrderListAc
 import com.keydom.mianren.ih_doctor.activity.personal.PersonalInfoActivity;
 import com.keydom.mianren.ih_doctor.bean.Event;
 import com.keydom.mianren.ih_doctor.bean.HomeBean;
-import com.keydom.mianren.ih_doctor.bean.HomeMsgBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.constant.ServiceConst;
 import com.keydom.mianren.ih_doctor.fragment.view.WorkFragmentView;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
 import com.keydom.mianren.ih_doctor.net.MainApiService;
-import com.keydom.mianren.ih_doctor.net.PersonalApiService;
 import com.keydom.mianren.ih_doctor.utils.SelectHospitalPopUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -53,7 +51,6 @@ public class WorkFragmentController extends ControllerImpl<WorkFragmentView> imp
     @SingleClick(1000)
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.receive_online_re:
                 if (SharePreferenceManager.isAutony()) {
@@ -80,20 +77,6 @@ public class WorkFragmentController extends ControllerImpl<WorkFragmentView> imp
 
                 break;
             case R.id.cooperate_online_re:
-                //                if(SharePreferenceManager.isAutony()){
-                //                    if (MyApplication.serviceEnable(new String[]{ServiceConst
-                //                    .DOCTOR_COOPERATE_SERVICE_CODE_Z,ServiceConst
-                //                    .DOCTOR_COOPERATE_SERVICE_CODE_H, ServiceConst
-                //                    .NURSE_COOPERATE_SERVICE_CODE, ServiceConst
-                //                    .MEDICINE_COOPERATE_SERVICE_CODE})) {
-                //                        DoctorCooperationActivity.start(getContext());
-                //                    } else {
-                //                        showNotAccessDialog();
-                //                    }
-                //                }else{
-                //                    ToastUtil.showMessage(mContext,"还未实名认证，请实名认证再开通相关服务");
-                //                }
-
                 ConsultationOrderActivity.start(getContext());
                 break;
             case R.id.calculator_re:
@@ -129,17 +112,6 @@ public class WorkFragmentController extends ControllerImpl<WorkFragmentView> imp
         }
     }
 
-    //    @Override
-    //    public void onScroll(int scrollY) {
-    //        if (scrollY != 0) {
-    //            getView().getTitleLayout().setBackgroundColor(ContextCompat.getColor(getContext
-    //            (), R.color.status_bar_color_work));
-    //        } else {
-    //            getView().getTitleLayout().setBackgroundColor(ContextCompat.getColor(getContext
-    //            (), R.color.tran));
-    //        }
-    //    }
-
     /**
      * 根据角色ID获取首页数据
      */
@@ -174,21 +146,6 @@ public class WorkFragmentController extends ControllerImpl<WorkFragmentView> imp
             }
         });
         builder.create().show();
-    }
-
-    public void getHomeCountMsg() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PersonalApiService.class).homeCountMessage(String.valueOf(SharePreferenceManager.getRoleId())), new HttpSubscriber<HomeMsgBean>() {
-            @Override
-            public void requestComplete(@Nullable HomeMsgBean data) {
-                getView().getHomeCountMsgSuccess(data);
-            }
-
-            @Override
-            public boolean requestError(@NotNull ApiException exception, int code,
-                                        @NotNull String msg) {
-                return super.requestError(exception, code, msg);
-            }
-        });
     }
 
     @Override

@@ -60,8 +60,7 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
                 SearchActivity.start(getContext());
                 break;
             case R.id.qr_code_layout:
-                if(loginStatus())
-                {
+                if (loginStatus()) {
                     EventBus.getDefault().post(new Event(EventType.STARTTOQR, null));
                 }
                 break;
@@ -109,71 +108,6 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
                     data.get(i).setSelected(true);
                 }
                 getView().setFunctionRvData(data);
-//                Global.setFuncitonList(data);
-//                String filename = "index_function_" + Global.getUserId();
-//                String allFunctionFilename = "all_function_" + Global.getUserId();
-//                List<IndexFunction> dataList =
-//                        (List<IndexFunction>) LocalizationUtils.readFileFromLocal(getContext(),
-//                                filename);
-//                List<IndexFunction> savedLocalFunction = new ArrayList<>();
-//                if (dataList != null && dataList.size() != 0) {
-//                    Map<Long, IndexFunction> id2IndexFunctionServerMap = new LinkedHashMap<>();
-//                    for (int i = 0; i < data.size(); i++) {
-//                        data.get(i).setFunctionIcon(FunctionConfig.getIcon(data.get(i).getId()));
-//                        data.get(i).setSelected(false);
-//                        id2IndexFunctionServerMap.put(data.get(i).getId(), data.get(i));
-//                    }
-//                    Map<Long, IndexFunction> id2IndexFunctionLocalMap = new LinkedHashMap<>();
-//                    for (int i = 0; i < dataList.size(); i++) {
-//                        id2IndexFunctionLocalMap.put(dataList.get(i).getId(), dataList.get(i));
-//                    }
-//
-//
-//                    for (Map.Entry<Long, IndexFunction> entry :
-//                            id2IndexFunctionLocalMap.entrySet()) {
-//                        if (null != id2IndexFunctionServerMap.get(entry.getKey())) {
-//                            id2IndexFunctionServerMap.get(entry.getKey()).setSelected(true);
-//                            savedLocalFunction.add(id2IndexFunctionServerMap.get(entry.getKey()));
-//                        }
-//                    }
-//                    List<IndexFunction> savedServiceFunction = new ArrayList<>();
-//                    for (Map.Entry<Long, IndexFunction> entry :
-//                            id2IndexFunctionServerMap.entrySet()) {
-//                        savedServiceFunction.add(id2IndexFunctionServerMap.get(entry.getKey()));
-//                    }
-//                    if (Global.getUserId() != -1) {
-//                        LocalizationUtils.fileSave2Local(getContext(), savedLocalFunction,
-//                                filename);
-//                        Logger.e("更改后菜单配置写入成功");
-//
-//                    }
-//                    LocalizationUtils.fileSave2Local(getContext(), data, allFunctionFilename);
-//                    //                    Global.setFuncitonList(data);
-//                } else {
-//                    int size = data.size() > 7 ? 7 : data.size();
-//                    for (int i = 0; i < size; i++) {
-//                        data.get(i).setFunctionIcon(FunctionConfig.getIcon(data.get(i).getId()));
-//                        data.get(i).setSelected(true);
-//                        data.get(i).setRedPointShow(false);
-//                        savedLocalFunction.add(data.get(i));
-//                    }
-//                    LocalizationUtils.fileSave2Local(getContext(), data, allFunctionFilename);
-//                    //                    Global.setFuncitonList(data);
-//                    //                    savedLocalFunction.addAll(data);
-//                    if (Global.getUserId() != -1) {
-//                        LocalizationUtils.fileSave2Local(getContext(), savedLocalFunction,
-//                                filename);
-//                        Logger.e("首次菜单配置写入成功");
-//
-//                    }
-//
-//                }
-//                allFunction = new IndexFunction();
-//                allFunction.setName("全部");
-//                allFunction.setId(1);
-//                allFunction.setFunctionIcon(R.mipmap.more_icon);
-//                savedLocalFunction.add(allFunction);
-//                getView().setFunctionRvData(savedLocalFunction);
             }
 
             @Override

@@ -118,7 +118,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
 
     public void initVipFunction() {
         mMemberRootLl.setVisibility(View.GONE);
-//        mIndexFunctionRootLl.setVisibility(View.GONE);
+        //        mIndexFunctionRootLl.setVisibility(View.GONE);
         //        mFirstVIPRootLl.setVisibility(View.VISIBLE);
         //        mSecondVIPRootLl.setVisibility(View.VISIBLE);
 
@@ -127,7 +127,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         mTopRightIconIv.setImageResource(R.mipmap.vip_antenatal_care_icon);
 
         mTopRightRootRl.setOnClickListener(v -> ChoosePatientActivity.start(getActivity(),
-                com.keydom.mianren.ih_patient.constant.Const.PATIENT_TYPE_CARD,true));
+                com.keydom.mianren.ih_patient.constant.Const.PATIENT_TYPE_CARD, true));
         mTopLeftRootRl.setOnClickListener(v -> {
             if (null == mVIPDialog) {
                 mVIPDialog = new DiagnosesApplyDialog(getContext(),
@@ -211,13 +211,6 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             getController().fillHealthKnowledges(page);
 
         });
-       /* indexRefresh.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshLayout) {
-                getController().fillHealthKnowledges(page);
-            }
-        });*/
-
 
         if (Global.getSelectedCityCode() != null && !"".equals(Global.getSelectedCityCode())) {
             locationTv.setText(Global.getSelectedCityName());
@@ -490,47 +483,53 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     }
 
     @Override
-    public void setFunctionRvData(List<IndexFunction> dataList) {
-        for (int i = 0; i < dataList.size(); i++) {
-            if (dataList.get(i).getId() == 23) {
+    public void setFunctionRvData(List<IndexFunction> data) {
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).getId() == 23) {
                 //诊间缴费
                 if (clinic > 0) {
-                    dataList.get(i).setRedPointShow(true);
+                    data.get(i).setRedPointShow(true);
                 } else {
-                    dataList.get(i).setRedPointShow(false);
+                    data.get(i).setRedPointShow(false);
                 }
-            } else if (dataList.get(i).getId() == 25) {
+            } else if (data.get(i).getId() == 25) {
                 //在线问诊
                 if (unFinishInquiry > 0) {
-                    dataList.get(i).setRedPointShow(true);
+                    data.get(i).setRedPointShow(true);
                 } else {
-                    dataList.get(i).setRedPointShow(false);
+                    data.get(i).setRedPointShow(false);
                 }
-            } else if (dataList.get(i).getId() == 28) {
+            } else if (data.get(i).getId() == 28) {
                 //检查项目
                 if (unFinishInspect > 0) {
-                    dataList.get(i).setRedPointShow(true);
+                    data.get(i).setRedPointShow(true);
                 } else {
-                    dataList.get(i).setRedPointShow(false);
+                    data.get(i).setRedPointShow(false);
                 }
-            } else if (dataList.get(i).getId() == 26) {
+            } else if (data.get(i).getId() == 26) {
                 //护理订单
                 if (unFinishNurse > 0) {
-                    dataList.get(i).setRedPointShow(true);
+                    data.get(i).setRedPointShow(true);
                 } else {
-                    dataList.get(i).setRedPointShow(false);
+                    data.get(i).setRedPointShow(false);
                 }
-            } else if (dataList.get(i).getId() == 29) {
+            } else if (data.get(i).getId() == 29) {
                 //住院预约
                 if (unFinishAdmission > 0) {
-                    dataList.get(i).setRedPointShow(true);
+                    data.get(i).setRedPointShow(true);
                 } else {
-                    dataList.get(i).setRedPointShow(false);
+                    data.get(i).setRedPointShow(false);
                 }
             }
         }
         datalist.clear();
-        datalist.addAll(dataList);
+        //todo
+        IndexFunction menuBean = new IndexFunction();
+        menuBean.setFunctionIcon(data.get(0).getFunctionIcon());
+        menuBean.setId(45);
+        menuBean.setName("健康管理");
+        data.add(menuBean);
+        datalist.addAll(data);
         indexFunctionAdapter.notifyDataSetChanged();
     }
 

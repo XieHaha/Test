@@ -78,7 +78,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
     private RelativeLayout guideRe;
     private ScrollView scrollView;
     private RelativeLayout titleBarLayout;
-    private Button searchButton,workScanBtn;
+    private Button searchButton, workScanBtn;
     private List<IndexMenuBean> dataList;
     private HomeBean homeBean;
     private RefreshLayout refreshLayout;
@@ -207,10 +207,8 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         userNameTv = getView().findViewById(R.id.user_name);
         refreshLayout = getView().findViewById(R.id.refreshLayout);
         receiveOnlineName = getView().findViewById(R.id.receive_online_name);
-        //        addTv = getView().findViewById(R.id.address);
         departmentTv = getView().findViewById(R.id.department);
         doctorTitle = getView().findViewById(R.id.work_title);
-        //        hospitalTv = getView().findViewById(R.id.hospital);
         receiveOnlineRe = getView().findViewById(R.id.receive_online_re);
         cooperateOnlineRe = getView().findViewById(R.id.cooperate_online_re);
         calculatorRe = getView().findViewById(R.id.calculator_re);
@@ -271,7 +269,6 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
 
     @Override
     public void getHomeDataSuccess(HomeBean bean) {
-        //        getController().getHomeCountMsg();
         if (refreshLayout.isRefreshing()) {
             refreshLayout.finishRefresh();
         }
@@ -296,25 +293,17 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
         MyApplication.userInfo = bean.getInfo();
         PushManager.setAlias(getContext(), SharePreferenceManager.getPhoneNumber());
         MyApplication.accessInfoBean = bean.getAuth();
-        if (MyApplication.deptBeanList.size() > 0) {//如果科室已经拿到，并且存在，则过滤科室，否则不过滤
+        if (MyApplication.deptBeanList.size() > 0) {
+            //如果科室已经拿到，并且存在，则过滤科室，否则不过滤
             MyApplication.filterDept();
         }
         LocalizationUtils.fileSave2Local(getContext(), bean.getInfo(), Const.USER_INFO);
         SharePreferenceManager.setId(bean.getInfo().getId());
 
 
-        //        GlideUtils.load(iconCircleImageView, Const.IMAGE_HOST + bean.getInfo()
-        //        .getAvatar(), 0, 0, false, null);
         GlideUtils.loadWithBorder(iconCircleImageView,
                 Const.IMAGE_HOST + bean.getInfo().getAvatar());
         userNameTv.setText(bean.getInfo().getName());
-        //        if (bean.getInfo().getCityName() == null || "".equals(bean.getInfo()
-        //        .getCityName())) {
-        //            addTv.setVisibility(View.GONE);
-        //        } else {
-        //            addTv.setText(bean.getInfo().getCityName());
-        //        }
-        //        hospitalTv.setText(bean.getInfo().getHospitalName());
         departmentTv.setText(bean.getInfo().getDeptName());
         doctorTitle.setText(bean.getInfo().getJobTitle());
         dataList = new ArrayList<>();
@@ -358,7 +347,7 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
             }
         }
 
-        //TODO 模拟健康管理数据
+        //        //TODO 模拟健康管理数据
         //        IndexMenuBean menuBean = new IndexMenuBean();
         //        menuBean.setName("健康管理");
         //        dataList.add(menuBean);
@@ -413,7 +402,6 @@ public class WorkFragment extends BaseControllerFragment<WorkFragmentController>
     @Override
     public void lazyLoad() {
         pageLoading();
-        //        getController().getHome();
     }
 
     @Override

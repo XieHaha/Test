@@ -16,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 import butterknife.BindView;
 
 /**
+ * @author 顿顿
  * @date 20/3/13 9:13
  * @des 患者信息
  */
@@ -54,7 +55,6 @@ public class PatientInfoActivity extends BaseControllerActivity<PatientInfoContr
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle(getString(R.string.txt_patient_info));
 
-
         setReloadListener((v, status) -> getData());
         getData();
     }
@@ -67,7 +67,6 @@ public class PatientInfoActivity extends BaseControllerActivity<PatientInfoContr
     @Override
     public void requestSuccess(String data) {
         pageLoadingSuccess();
-
     }
 
     @Override

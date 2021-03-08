@@ -56,11 +56,6 @@ public class HealthMsgFragment extends BaseControllerFragment<HealthMsgControlle
 
     private UserInfoObserver userInfoObserver;
 
-    /**
-     * 此处的EventBus
-     * 事件在
-     * {@link GroupChatRecyclerViewAdapter#onUnReadCountEvent(RecentContactEvent)} )}中处理
-     */
     @Override
     public void initData(@org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         if (!EventBus.getDefault().isRegistered(this)) {
