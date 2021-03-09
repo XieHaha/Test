@@ -50,4 +50,11 @@
         <attr name="starColor" format="color|reference" />
     </declare-styleable>
 
+    <!--弧形的界面属性-->
+    <declare-styleable name="PerfectArcView">
+        <attr name="p_arc_startColor" format="color" />
+        <attr name="p_arc_endColor" format="color" />
+        <attr name="p_arc_showImage" format="boolean" />
+    </declare-styleable>
+
 </resources>

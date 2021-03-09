@@ -451,4 +451,21 @@
     <!--无痛分娩预约告知-->
     <string name="txt_painless_delivery_title">绵阳市人民医院\n\n无痛分娩预约公告</string>
     <string name="txt_painless_delivery_tips">需产科医生评估生产条件，满足顺产后由麻醉师进行无痛分娩评估</string>
+
+    <!--健康管理-->
+    <string name="txt_health_manager">健康管理</string>
+    <string name="txt_health_manager_open">开通健康管理服务</string>
+    <string name="txt_health_manager_privilege">健康服务特权</string>
+    <string name="txt_health_manager_hint">健康档案慢病管理&#160;&#160;为您的健康服务</string>
+    <string name="txt_health_manager_hint2">贴心服务&#160;&#160;&#160;&#160;健康管理</string>
+    <string name="txt_health_manager_service">健康管理服务</string>
+    <string name="txt_health_manager_open_hint">您还没有开通服务</string>
+    <string name="txt_health_manager_open_now">立即开通 ></string>
+    <string name="txt_health_archives">个人健康档案</string>
+    <string name="txt_health_scheme">个性化健康方案</string>
+    <string name="txt_health_service">慢病服务</string>
+    <string name="txt_health_consultative">实时健康咨询</string>
+    <string name="txt_health_manager_protocol">《健康管理服务知情同意书》</string>
+    <string name="txt_health_manager_description">健康管理说明</string>
+    <string name="txt_health_manager_description_detail">健康管理服务为您提供，个人健康档案可以查看医院体检数据、检验检查数据，并对高血压、糖尿病、心脑血管3中慢性病健康管理，专业健康管理医生查看日常健康数据，定期整理健康总结，制定干预方案，一对一在线健康咨询。</string>
 </resources>
