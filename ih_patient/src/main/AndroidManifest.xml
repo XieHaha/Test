@@ -491,7 +491,7 @@
         <activity android:name=".activity.child_health.ChildHealthDetailActivity" />
         <activity android:name=".activity.pregnant_woman.PregnantWomanActivity" />
         <activity android:name=".activity.medical_mail.MedicalMailActivity" />
-        <activity android:name=".activity.health_manager.HealthManagerActivity" />
+        <activity android:name=".activity.health_manager.HealthManagerOpenActivity" />
         <activity android:name=".activity.reserve_examination.ExaminationReserveListActivity" />
         <activity android:name=".activity.reserve_examination.ExaminationReserveActivity" />
         <activity android:name=".activity.order_doctor_register.RegistrationReserveActivity" />
@@ -541,6 +541,7 @@
         <activity android:name=".activity.child_health.ChildHealthProjectActivity" />
         <activity android:name=".activity.child_health.ChildHealthHistoryActivity" />
         <activity android:name=".activity.online_diagnoses_order.PatientMainSuitActivity" />
+        <activity android:name=".activity.health_manager.HealthManagerActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

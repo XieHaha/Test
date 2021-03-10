@@ -18,7 +18,6 @@ import org.jetbrains.annotations.Nullable;
  * @des 健康管理
  */
 public class HealthManagerActivity extends BaseControllerActivity<HealthManagerController> implements HealthManagerView {
-
     /**
      * 启动
      */
@@ -28,20 +27,14 @@ public class HealthManagerActivity extends BaseControllerActivity<HealthManagerC
 
     @Override
     public int getLayoutRes() {
-        return R.layout.activity_health_manager;
+        return R.layout.activity_health_manager_open;
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         StatusBarUtils.setWindowStatusBarColor(this, R.color.color_f9f9f9);
-
         setTitle(R.string.txt_health_manager_service);
 
-        getController().getHealthManagerData();
-        setReloadListener((v, status) -> getController().getHealthManagerData());
     }
 
-    @Override
-    public void requestSuccess() {
-    }
 }

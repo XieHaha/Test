@@ -6,18 +6,18 @@
             <solid android:color="#ffffda53" />
             <item android:name="android:shadowDx">0</item>
             <item android:name="android:shadowDy">5</item>
-            <item android:name="android:shadowColor">#d000000</item>
+            <item android:name="android:shadowColor">#17000000</item>
             <gradient
-                android:angle="0"
-                android:endColor="#fffce595"
-                android:startColor="#fff5d568"
+                android:angle="180"
+                android:endColor="#fff6e6b5"
+                android:startColor="#ffe6c484"
                 android:type="linear"
                 android:useLevel="true" />
             <corners
-                android:bottomLeftRadius="20dp"
-                android:bottomRightRadius="20dp"
-                android:topLeftRadius="20dp"
-                android:topRightRadius="20dp" />
+                android:bottomLeftRadius="25dp"
+                android:bottomRightRadius="25dp"
+                android:topLeftRadius="25dp"
+                android:topRightRadius="25dp" />
         </shape>
     </item>
 

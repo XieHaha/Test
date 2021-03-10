@@ -61,6 +61,7 @@
                         android:textStyle="bold" />
 
                     <LinearLayout
+                        android:id="@+id/health_manager_open_now_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/text"
@@ -260,7 +261,7 @@
                 android:gravity="center">
 
                 <RelativeLayout
-                    android:id="@+id/layout_select"
+                    android:id="@+id/health_manager_select_layout"
                     android:layout_width="@dimen/dp_24"
                     android:layout_height="@dimen/dp_24">
 
@@ -271,7 +272,7 @@
                         android:src="@mipmap/icon_rect" />
 
                     <ImageView
-                        android:id="@+id/iv_select"
+                        android:id="@+id/health_manager_select_iv"
                         android:layout_width="@dimen/dp_24"
                         android:layout_height="@dimen/dp_24"
                         android:layout_centerInParent="true"
@@ -288,7 +289,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
-                    android:id="@+id/tv_note"
+                    android:id="@+id/health_manager_protocol_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_health_manager_protocol"
@@ -299,12 +300,13 @@
 
 
             <TextView
+                android:id="@+id/health_manager_open_tv"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_50"
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_30"
                 android:layout_marginEnd="@dimen/dp_20"
-                android:background="@drawable/btn_health_manager_bg"
+                android:background="@drawable/btn_open_health_manager_bg"
                 android:gravity="center"
                 android:text="@string/txt_health_manager_open"
                 android:textColor="@color/color_846336"

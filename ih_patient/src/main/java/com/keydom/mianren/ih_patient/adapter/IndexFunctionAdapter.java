@@ -21,7 +21,7 @@ import com.keydom.mianren.ih_patient.activity.common_document.CommonDocumentActi
 import com.keydom.mianren.ih_patient.activity.diagnose_main.DiagnoseMainActivity;
 import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.ManageUserActivity;
 import com.keydom.mianren.ih_patient.activity.get_drug.GetDrugActivity;
-import com.keydom.mianren.ih_patient.activity.health_manager.HealthManagerActivity;
+import com.keydom.mianren.ih_patient.activity.health_manager.HealthManagerOpenActivity;
 import com.keydom.mianren.ih_patient.activity.hospital_payment.HospitalPaymentActivity;
 import com.keydom.mianren.ih_patient.activity.inspection_report.InspectionReportActivity;
 import com.keydom.mianren.ih_patient.activity.location_manage.LocationManageActivity;
@@ -221,7 +221,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             }
                             break;
                         case HealthManager:
-                            HealthManagerActivity.start(context);
+                            HealthManagerOpenActivity.start(context);
                             break;
                      /*   case Setting:
                             context.startActivity(new Intent(context,

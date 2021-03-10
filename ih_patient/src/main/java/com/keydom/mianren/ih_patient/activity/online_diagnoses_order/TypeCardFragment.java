@@ -53,13 +53,12 @@ public class TypeCardFragment extends BaseControllerFragment<TypeCardController>
             public void onClick(View view) {
                 if (selectedCardInfo != null) {
                     if (isNeedToPregnancy) {
-                        PregnancyActivity.start(getActivity(),selectedCardInfo);
-                        getActivity().finish();
+                        PregnancyActivity.start(getActivity(), selectedCardInfo);
                     } else {
-                        EventBus.getDefault().post(new Event(EventType.SENDSELECTNURSINGPATIENT, selectedCardInfo));
-                        getActivity().finish();
+                        EventBus.getDefault().post(new Event(EventType.SENDSELECTNURSINGPATIENT,
+                                selectedCardInfo));
                     }
-
+                    getActivity().finish();
                 } else {
                     ToastUtil.showMessage(getContext(), "请选择就诊卡");
                 }
@@ -72,7 +71,8 @@ public class TypeCardFragment extends BaseControllerFragment<TypeCardController>
         choose_medical_card_rv.setLayoutManager(layoutManager);
         choose_medical_card_rv.setHasFixedSize(true);
         choose_medical_card_rv.setNestedScrollingEnabled(false);
-        registrationCardAdapter = new RegistrationCardAdapter(getContext(), dataList, new GeneralCallback.SelectCardListener() {
+        registrationCardAdapter = new RegistrationCardAdapter(getContext(), dataList,
+                new GeneralCallback.SelectCardListener() {
             @Override
             public void getSelectedCard(MedicalCardInfo medicalCardInfo) {
                 selectedCardInfo = medicalCardInfo;
@@ -96,6 +96,6 @@ public class TypeCardFragment extends BaseControllerFragment<TypeCardController>
 
     @Override
     public void getAllCardFailed(String errMsg) {
-        ToastUtil.showMessage(getContext(),  errMsg);
+        ToastUtil.showMessage(getContext(), errMsg);
     }
 }

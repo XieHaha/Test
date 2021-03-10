@@ -46,6 +46,7 @@
     <string name="txt_know">知道了</string>
     <string name="txt_send_verify_code">发送验证码</string>
     <string name="txt_back">返回</string>
+    <string name="txt_back_home">返回首页</string>
 
 
     <string name="mine_function_type_diagnosis">诊疗信息</string>
@@ -455,6 +456,7 @@
     <!--健康管理-->
     <string name="txt_health_manager">健康管理</string>
     <string name="txt_health_manager_open">开通健康管理服务</string>
+    <string name="txt_health_manager_open_success">您已开通健康管理功能</string>
     <string name="txt_health_manager_privilege">健康服务特权</string>
     <string name="txt_health_manager_hint">健康档案慢病管理&#160;&#160;为您的健康服务</string>
     <string name="txt_health_manager_hint2">贴心服务&#160;&#160;&#160;&#160;健康管理</string>
