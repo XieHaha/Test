@@ -182,7 +182,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_16"
                         android:gravity="center"
-                        android:text="@string/txt_health_archives"
+                        android:text="@string/txt_single_health_archives"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>

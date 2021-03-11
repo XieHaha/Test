@@ -412,6 +412,9 @@
     <string name="txt_ultrasound">羊穿原因超声异常:</string>
     <string name="txt_complication_pregnancy_description">妊娠合并症:如果有妊娠合并症请填写最近一周内的检查结果：</string>
     <string name="txt_hypertension_colon">高血压:</string>
+    <string name="txt_hypertension">高血压</string>
+    <string name="txt_diabetes">糖尿病</string>
+    <string name="txt_cardiovascular">心脑血管</string>
     <string name="txt_diabetes_colon">糖尿病:</string>
     <string name="txt_amniocentesis_reserve_evaluate_description">请先进行羊膜腔穿刺手术自我评估，以确认您是否可以通过网上进行预约，如不满足条件，建议您到遗传咨询门诊就诊。</string>
     <string name="txt_amniocentesis_reserve_check_description">如果有以下情况者，建议您到绵阳市人民医院遗传咨询门诊就诊，咨询医生后再预约羊膜腔穿刺手术。</string>
@@ -463,11 +466,16 @@
     <string name="txt_health_manager_service">健康管理服务</string>
     <string name="txt_health_manager_open_hint">您还没有开通服务</string>
     <string name="txt_health_manager_open_now">立即开通 ></string>
-    <string name="txt_health_archives">个人健康档案</string>
+    <string name="txt_health_archives">健康档案</string>
+    <string name="txt_medical_report">体检报告</string>
+    <string name="txt_online_consultative">在线咨询</string>
+    <string name="txt_single_health_archives">个人健康档案</string>
     <string name="txt_health_scheme">个性化健康方案</string>
     <string name="txt_health_service">慢病服务</string>
     <string name="txt_health_consultative">实时健康咨询</string>
     <string name="txt_health_manager_protocol">《健康管理服务知情同意书》</string>
     <string name="txt_health_manager_description">健康管理说明</string>
     <string name="txt_health_manager_description_detail">健康管理服务为您提供，个人健康档案可以查看医院体检数据、检验检查数据，并对高血压、糖尿病、心脑血管3中慢性病健康管理，专业健康管理医生查看日常健康数据，定期整理健康总结，制定干预方案，一对一在线健康咨询。</string>
+    <string name="txt_non_enable_module">您还未启用该模块</string>
+    <string name="txt_non_data">今日日常健康数据尚未填写</string>
 </resources>

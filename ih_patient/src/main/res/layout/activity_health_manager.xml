@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/health_main_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_32"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_10">
+
+                <LinearLayout
+                    android:id="@+id/health_manager_archives_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_50"
+                            android:layout_height="@dimen/dp_50"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/icon_health_archives_green" />
+
+                        <ImageView
+                            android:id="@+id/health_manager_archives_status_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_55"
+                            android:src="@mipmap/icon_no_complete" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="@dimen/dp_60"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_13"
+                        android:gravity="center"
+                        android:text="@string/txt_health_archives"
+                        android:textColor="@color/color_333333"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/health_manager_report_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_50"
+                        android:layout_height="@dimen/dp_50"
+                        android:src="@mipmap/icon_health_main_report" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/dp_10">
+
+                        <TextView
+                            android:layout_width="@dimen/dp_70"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_3"
+                            android:gravity="center"
+                            android:text="@string/txt_medical_report"
+                            android:textColor="@color/color_333333"
+                            android:textSize="@dimen/sp_13" />
+
+                        <TextView
+                            android:id="@+id/health_manager_report_status_tv"
+                            android:layout_width="@dimen/dp_10"
+                            android:layout_height="@dimen/dp_10"
+                            android:layout_marginStart="@dimen/dp_58"
+                            android:background="@drawable/oval_ff3939_bg" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/health_manager_online_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_50"
+                        android:layout_height="@dimen/dp_50"
+                        android:src="@mipmap/icon_health_main_chat" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_13"
+                        android:text="@string/txt_online_consultative"
+                        android:textColor="@color/color_333333"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginTop="@dimen/dp_26"
+                android:background="@color/line_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:orientation="horizontal">
+
+                <com.stx.xhb.xbanner.XBanner
+                    android:id="@+id/health_manager_notice_x_banner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="6"
+                    app:pointsVisibility="false" />
+
+                <TextView
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableEnd="@mipmap/arrow_right"
+                    android:paddingStart="@dimen/dp_0"
+                    android:paddingEnd="@dimen/dp_31" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/color_f9f9f9" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_44"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_20"
+                android:paddingEnd="@dimen/dp_20">
+
+                <TextView
+                    android:layout_width="@dimen/dp_3"
+                    android:layout_height="@dimen/dp_16"
+                    android:background="@drawable/corner1_71a4ff_bg" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:text="@string/txt_health_manager"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_14"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/line_color" />
+
+            <RelativeLayout
+                android:id="@+id/health_manager_cardiovascular_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_93"
+                android:paddingStart="@dimen/dp_34"
+                android:paddingEnd="@dimen/dp_34">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_health_archives_green" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:layout_toEndOf="@id/image"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/health_manager_cardiovascular_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_cardiovascular"
+                        android:textColor="@color/select_ff5000_bbbbbb_color"
+                        android:textSize="@dimen/sp_18"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/health_manager_cardiovascular_hint_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_13"
+                        android:text="@string/txt_non_data"
+                        android:textColor="@color/select_999999_bbbbbb_color"
+                        android:textSize="@dimen/sp_12"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/health_manager_cardiovascular_hint_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/selector_health_status" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/color_f9f9f9" />
+
+            <RelativeLayout
+                android:id="@+id/health_manager_hypertension_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_93"
+                android:paddingStart="@dimen/dp_34"
+                android:paddingEnd="@dimen/dp_34">
+
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_health_main_hypertension" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:layout_toEndOf="@id/image1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/health_manager_hypertension_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_hypertension"
+                        android:textColor="@color/select_ff5000_bbbbbb_color"
+                        android:textSize="@dimen/sp_18"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/health_manager_hypertension_hint_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_13"
+                        android:text="@string/txt_non_enable_module"
+                        android:textColor="@color/select_999999_bbbbbb_color"
+                        android:textSize="@dimen/sp_12"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/health_manager_hypertension_hint_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/selector_health_status" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/color_f9f9f9" />
+
+            <RelativeLayout
+                android:id="@+id/health_manager_diabetes_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_93"
+                android:paddingStart="@dimen/dp_34"
+                android:paddingEnd="@dimen/dp_34">
+
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_health_main_diabetes" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:layout_toEndOf="@id/image2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/health_manager_diabetes_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_diabetes"
+                        android:textColor="@color/select_ff5000_bbbbbb_color"
+                        android:textSize="@dimen/sp_18"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/health_manager_diabetes_hint_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_13"
+                        android:text="@string/txt_non_enable_module"
+                        android:textColor="@color/select_999999_bbbbbb_color"
+                        android:textSize="@dimen/sp_12"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/health_manager_diabetes_hint_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/selector_health_status" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
