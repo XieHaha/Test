@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/health_archives_base_info_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_75"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@color/color_f9f9f9"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_28"
+                android:paddingEnd="@dimen/dp_28">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_base_info"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/health_archives_base_info_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:layout_weight="1"
+                    android:text="@string/txt_base_info_hint"
+                    android:textColor="@color/color_439bf8"
+                    android:textSize="@dimen/sp_12" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/exa_report_right" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_75"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@color/color_f9f9f9"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_28"
+                android:paddingEnd="@dimen/dp_28">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txt_contact_people"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/health_archives_add_contact_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/txt_add_contact_people"
+                    android:textColor="@color/color_469cf8"
+                    android:textSize="@dimen/sp_14" />
+            </LinearLayout>
+
+            <include layout="@layout/item_health_contact_people" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_75"
+                android:background="@color/color_f9f9f9"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_27"
+                android:paddingEnd="@dimen/dp_0"
+                android:text="@string/txt_base_health_info"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@mipmap/icon_archives_history"
+                    android:drawablePadding="@dimen/dp_16"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/dp_34"
+                    android:paddingTop="@dimen/dp_20"
+                    android:paddingEnd="@dimen/dp_0"
+                    android:paddingBottom="@dimen/dp_20"
+                    android:text="@string/txt_past_medical"
+                    android:textColor="@color/edit_text_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/health_archives_select_past_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/dp_29"
+                    android:drawableEnd="@mipmap/exa_report_right"
+                    android:drawablePadding="@dimen/dp_16"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/dp_34"
+                    android:paddingTop="@dimen/dp_20"
+                    android:paddingEnd="@dimen/dp_0"
+                    android:paddingBottom="@dimen/dp_20"
+                    android:text="@string/txt_select_past_medical"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_14" />
+
+            </RelativeLayout>
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/health_archives_past_flow_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingTop="@dimen/dp_22"
+                android:paddingRight="@dimen/padding_left_right_dp"
+                android:paddingBottom="@dimen/dp_24"
+                app:max_select="-1" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/line_color" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@mipmap/icon_archives_history"
+                    android:drawablePadding="@dimen/dp_16"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/dp_34"
+                    android:paddingTop="@dimen/dp_20"
+                    android:paddingEnd="@dimen/dp_0"
+                    android:paddingBottom="@dimen/dp_20"
+                    android:text="@string/txt_genetic"
+                    android:textColor="@color/edit_text_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/health_archives_genetic_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/dp_29"
+                    android:drawableEnd="@mipmap/exa_report_right"
+                    android:drawablePadding="@dimen/dp_16"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/dp_34"
+                    android:paddingTop="@dimen/dp_20"
+                    android:paddingEnd="@dimen/dp_0"
+                    android:paddingBottom="@dimen/dp_20"
+                    android:text="@string/txt_select_past_medical"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_14" />
+
+            </RelativeLayout>
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/health_archives_genetic_flow_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_left_right_dp"
+                android:paddingTop="@dimen/dp_22"
+                android:paddingRight="@dimen/padding_left_right_dp"
+                android:paddingBottom="@dimen/dp_24"
+                app:max_select="-1" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@color/line_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_75"
+                android:background="@color/color_f9f9f9"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_28"
+                android:paddingEnd="@dimen/dp_28">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txt_surgery"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/health_archives_add_surgery_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/txt_add_surgery"
+                    android:textColor="@color/color_469cf8"
+                    android:textSize="@dimen/sp_14" />
+            </LinearLayout>
+
+
+            <include layout="@layout/item_health_add_surgery" />
+
+            <TextView
+                android:id="@+id/health_archives_look_more_tv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:layout_marginStart="@dimen/dp_14"
+                android:layout_marginTop="@dimen/dp_11"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:background="@drawable/corner5_stroke_999999"
+                android:gravity="center"
+                android:text="@string/txt_look_more_record"
+                android:textColor="@color/edit_hint_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_75"
+                android:layout_marginTop="@dimen/dp_19"
+                android:background="@color/color_f9f9f9"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_27"
+                android:paddingEnd="@dimen/dp_0"
+                android:text="@string/txt_smoke_and_drink"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold" />
+
+            <include layout="@layout/item_health_smoke_drink_layout" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

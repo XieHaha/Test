@@ -129,6 +129,7 @@
     <string name="nursing_order_charge_back">退单</string>
     <string name="nursing_order_assess">评价</string>
     <string name="nursing_order_go_pay">支付</string>
+    <string name="txt_delete">删除</string>
     <string name="delete_success">删除成功</string>
     <string name="cancel_success">取消成功</string>
     <string name="evaluate_success">评价提交成功</string>
@@ -478,4 +479,40 @@
     <string name="txt_health_manager_description_detail">健康管理服务为您提供，个人健康档案可以查看医院体检数据、检验检查数据，并对高血压、糖尿病、心脑血管3中慢性病健康管理，专业健康管理医生查看日常健康数据，定期整理健康总结，制定干预方案，一对一在线健康咨询。</string>
     <string name="txt_non_enable_module">您还未启用该模块</string>
     <string name="txt_non_data">今日日常健康数据尚未填写</string>
+
+    <string name="txt_is_drink">是否饮酒</string>
+    <string name="txt_drink">饮酒</string>
+    <string name="txt_non_drink">不饮酒</string>
+    <string name="txt_drink_frequency">饮酒程度</string>
+    <string name="txt_drink_frequency_hint">请选择您的饮酒程度</string>
+    <string name="txt_drink_quantity">饮酒量</string>
+    <string name="txt_drink_quantity_hint">请选择您的饮酒量</string>
+    <string name="txt_drink_year">饮酒年限</string>
+    <string name="txt_drink_year_hint">请选择您的饮酒年限</string>
+
+    <string name="txt_smoke_and_drink">吸烟饮酒史</string>
+    <string name="txt_is_smoke">是否吸烟</string>
+    <string name="txt_smoke">吸烟</string>
+    <string name="txt_non_smoke">不吸烟</string>
+    <string name="txt_smoke_frequency">吸烟程度</string>
+    <string name="txt_smoke_frequency_hint">请选择您的吸烟程度</string>
+    <string name="txt_smoke_quantity">吸烟量</string>
+    <string name="txt_smoke_quantity_hint">请选择您的吸烟量</string>
+    <string name="txt_smoke_year">吸烟年限</string>
+    <string name="txt_smoke_year_hint">请选择您的吸烟年限</string>
+    <string name="txt_past_medical">既往病史</string>
+    <string name="txt_genetic">遗传病史</string>
+    <string name="txt_surgery">手术史</string>
+    <string name="txt_add_surgery">添加手术记录</string>
+    <string name="txt_select_past_medical">选择病史</string>
+    <string name="txt_edit_past_medical">修改病史</string>
+
+    <string name="txt_look_more_record">查看更多记录</string>
+    <string name="txt_base_info">基础信息</string>
+    <string name="txt_base_health_info">基本健康信息</string>
+    <string name="txt_base_info_hint">基础信息尚未完善请进入补充信息</string>
+    <string name="txt_contact_people">紧急联系人</string>
+    <string name="txt_add_contact_people">添加联系人</string>
+
+
 </resources>

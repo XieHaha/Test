@@ -542,6 +542,7 @@
         <activity android:name=".activity.child_health.ChildHealthHistoryActivity" />
         <activity android:name=".activity.online_diagnoses_order.PatientMainSuitActivity" />
         <activity android:name=".activity.health_manager.HealthManagerActivity" />
+        <activity android:name=".activity.health_manager.HealthArchivesActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

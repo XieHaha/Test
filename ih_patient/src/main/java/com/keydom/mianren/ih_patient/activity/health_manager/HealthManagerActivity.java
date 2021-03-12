@@ -88,6 +88,13 @@ public class HealthManagerActivity extends BaseControllerActivity<HealthManagerC
         healthManagerCardiovascularTv.setSelected(true);
         healthManagerCardiovascularHintTv.setSelected(true);
         healthManagerCardiovascularHintIv.setSelected(true);
+
+        healthManagerArchivesLayout.setOnClickListener(getController());
+        healthManagerReportLayout.setOnClickListener(getController());
+        healthManagerOnlineLayout.setOnClickListener(getController());
+        healthManagerCardiovascularLayout.setOnClickListener(getController());
+        healthManagerHypertensionLayout.setOnClickListener(getController());
+        healthManagerDiabetesLayout.setOnClickListener(getController());
     }
 
     public void setNoticeData(final List<IndexData.NotificationsBean> list) {
