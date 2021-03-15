@@ -11,7 +11,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -60,7 +60,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smart_refresh"

@@ -516,6 +516,8 @@
 
     <string name="txt_name">姓名</string>
     <string name="txt_name_hint">请填写您的真实姓名</string>
+    <string name="txt_other_name_hint">请填写您的亲友姓名</string>
+    <string name="txt_other_phone_hint">请填写ta的电话号码</string>
     <string name="txt_sex">性别</string>
     <string name="txt_sex_male">男</string>
     <string name="txt_sex_female">女</string>
@@ -543,5 +545,14 @@
     <string name="txt_birth_status">生育状况</string>
     <string name="txt_birth_status_hint">请选择状况</string>
 
+    <string name="txt_add_relatives">添加亲属</string>
+    <string name="txt_relationship">关系</string>
+    <string name="txt_select">请选择</string>
+
+
+    <string name="txt_past_medical_hint">请根据真实情况选择既往病史信息</string>
+    <string name="txt_genetic_title">在您的家族亲属中</string>
+    <string name="txt_genetic_hint">（父母，祖父母，叔舅姑姨，兄弟姐妹）是否患有以下疾病：</string>
+    <string name="txt_diseases">病种分类</string>
 
 </resources>

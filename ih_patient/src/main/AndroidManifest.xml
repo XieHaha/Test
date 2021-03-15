@@ -544,6 +544,8 @@
         <activity android:name=".activity.health_manager.HealthManagerActivity" />
         <activity android:name=".activity.health_manager.HealthArchivesActivity" />
         <activity android:name=".activity.health_manager.HealthArchivesBaseActivity" />
+        <activity android:name=".activity.health_manager.HealthContactActivity" />
+        <activity android:name=".activity.health_manager.HealthMedicalHistoryActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

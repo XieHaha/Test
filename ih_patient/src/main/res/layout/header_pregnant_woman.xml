@@ -144,7 +144,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
         android:layout_marginTop="@dimen/dp_25"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/horizontal_recycler_view"

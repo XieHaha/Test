@@ -523,12 +523,6 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             }
         }
         datalist.clear();
-        //todo
-        IndexFunction menuBean = new IndexFunction();
-        menuBean.setFunctionIcon(data.get(0).getFunctionIcon());
-        menuBean.setId(45);
-        menuBean.setName("健康管理");
-        data.add(menuBean);
         datalist.addAll(data);
         indexFunctionAdapter.notifyDataSetChanged();
     }

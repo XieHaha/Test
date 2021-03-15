@@ -221,7 +221,7 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             }
                             break;
                         case HealthManager:
-//                            HealthManagerOpenActivity.start(context);
+                            //                            HealthManagerOpenActivity.start(context);
                             HealthManagerActivity.start(context);
                             break;
                      /*   case Setting:

@@ -53,7 +53,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <LinearLayout
         android:id="@+id/health_archives_drink_frequency_layout"
@@ -93,7 +93,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <LinearLayout
         android:id="@+id/health_archives_drink_quantity_layout"
@@ -133,7 +133,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <LinearLayout
         android:id="@+id/health_archives_drink_year_layout"
@@ -226,7 +226,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <LinearLayout
         android:id="@+id/health_archives_smoke_frequency_layout"
@@ -266,7 +266,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <LinearLayout
         android:id="@+id/health_archives_smoke_quantity_layout"
@@ -306,7 +306,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <LinearLayout
         android:id="@+id/health_archives_smoke_year_layout"

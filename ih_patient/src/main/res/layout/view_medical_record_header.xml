@@ -8,7 +8,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <RelativeLayout
         android:id="@+id/medical_record_patient_layout"
@@ -62,7 +62,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <LinearLayout
         android:id="@+id/medical_record_date_layout"
@@ -96,7 +96,7 @@
         <View
             android:layout_width="@dimen/dp_1"
             android:layout_height="match_parent"
-            android:background="@color/line_color" />
+            android:background="@color/color_f9f9f9" />
 
         <LinearLayout
             android:id="@+id/medical_record_end_date_layout"
@@ -126,5 +126,5 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 </LinearLayout>

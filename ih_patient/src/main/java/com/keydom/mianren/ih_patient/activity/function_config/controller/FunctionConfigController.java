@@ -55,8 +55,9 @@ public class FunctionConfigController extends ControllerImpl<FunctionConfigView>
         }
         if (selectedFunctionlist != null && allFunctionlist != null) {
             getView().fillFunctionData(allFunctionlist, selectedFunctionlist);
-        } else
+        } else {
             ToastUtil.showMessage(getContext(), "获取菜单配置失败");
+        }
 
     }
 

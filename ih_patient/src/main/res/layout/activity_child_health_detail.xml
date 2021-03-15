@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
         android:layout_marginTop="@dimen/title_bar_dp"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <com.keydom.ih_common.view.MyScrollView
         android:layout_width="match_parent"

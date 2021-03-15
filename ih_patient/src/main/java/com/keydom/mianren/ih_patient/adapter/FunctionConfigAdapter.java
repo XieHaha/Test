@@ -21,38 +21,44 @@ import java.util.List;
 
 /**
  * 方法配置适配器
+ *
+ * @author 顿顿
  */
 public class FunctionConfigAdapter extends RecyclerView.Adapter<FunctionConfigAdapter.VH> {
     private Activity context;
     private List<IndexFunction> dataList;
     public boolean isEditing = false;
     private String type;
-    private int selectedCount=0;
+    private int selectedCount = 0;
+
     /**
      * 构造方法
      */
-    public FunctionConfigAdapter(Activity context, List<IndexFunction> dataList,String type) {
+    public FunctionConfigAdapter(Activity context, List<IndexFunction> dataList, String type) {
         this.context = context;
         this.dataList = dataList;
-        this.type=type;
+        this.type = type;
 
     }
 
-    public class VH extends RecyclerView.ViewHolder{
+    public class VH extends RecyclerView.ViewHolder {
         public TextView funcName;
         public ImageView funcIcon;
         public ImageView funcAddOrDelImg;
+
         public VH(View v) {
             super(v);
-            funcName = (TextView) v.findViewById(R.id.item_func_name);
-            funcIcon= (ImageView) v.findViewById(R.id.item_func_icon);
-            funcAddOrDelImg=(ImageView)v.findViewById(R.id.function_addordel_img);
+            funcName = v.findViewById(R.id.item_func_name);
+            funcIcon = v.findViewById(R.id.item_func_icon);
+            funcAddOrDelImg = v.findViewById(R.id.function_addordel_img);
         }
     }
+
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.function_config_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.function_config_item,
+                parent, false);
         return new FunctionConfigAdapter.VH(v);
     }
 
@@ -60,27 +66,28 @@ public class FunctionConfigAdapter extends RecyclerView.Adapter<FunctionConfigAd
     public void onBindViewHolder(@NonNull final VH holder, final int position) {
         holder.funcIcon.setImageResource(dataList.get(position).getFunctionIcon());
         holder.funcName.setText(dataList.get(position).getName());
-        if(dataList.get(position).isSelected()){
+        if (dataList.get(position).isSelected()) {
             holder.funcAddOrDelImg.setImageResource(R.mipmap.function_del);
-        }else {
+        } else {
             holder.funcAddOrDelImg.setImageResource(R.mipmap.function_add);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isEditing){
+                if (isEditing) {
 
-                    if(dataList.get(position).isSelected()){
+                    if (dataList.get(position).isSelected()) {
                         dataList.get(position).setSelected(false);
                         selectedCount--;
                         holder.funcAddOrDelImg.setImageResource(R.mipmap.function_add);
-                    }else {
-                        if(selectedCount<7){
+                    } else {
+                        if (selectedCount < 7) {
                             selectedCount++;
                             dataList.get(position).setSelected(true);
                             holder.funcAddOrDelImg.setImageResource(R.mipmap.function_del);
-                        }else
-                            ToastUtil.showMessage(context,"最多可以在首页配置七个菜单");
+                        } else {
+                            ToastUtil.showMessage(context, "最多可以在首页配置七个菜单");
+                        }
 
                     }
                     EventBus.getDefault().post(dataList.get(position));
@@ -88,24 +95,27 @@ public class FunctionConfigAdapter extends RecyclerView.Adapter<FunctionConfigAd
                 }
             }
         });
-        if(isEditing){
+        if (isEditing) {
             holder.funcAddOrDelImg.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             holder.funcAddOrDelImg.setVisibility(View.GONE);
         }
     }
+
     /**
-     *  改变状态
+     * 改变状态
      */
-    public void ChangeState(boolean isEditing){
-        this.isEditing=isEditing;
-        selectedCount=0;
-        for (int i = 0; i <dataList.size() ; i++) {
-            if(dataList.get(i).isSelected())
+    public void ChangeState(boolean isEditing) {
+        this.isEditing = isEditing;
+        selectedCount = 0;
+        for (int i = 0; i < dataList.size(); i++) {
+            if (dataList.get(i).isSelected()) {
                 selectedCount++;
+            }
         }
         notifyDataSetChanged();
     }
+
     /**
      * 对拖拽的元素进行排序
      */
@@ -121,15 +131,18 @@ public class FunctionConfigAdapter extends RecyclerView.Adapter<FunctionConfigAd
         }
         notifyItemMoved(fromPosition, toPosition);
     }
+
     @Override
     public int getItemCount() {
         return dataList.size();
     }
-    public void refreshSelectedCount(){
-        selectedCount=0;
-        for (int i = 0; i <dataList.size() ; i++) {
-            if(dataList.get(i).isSelected())
+
+    public void refreshSelectedCount() {
+        selectedCount = 0;
+        for (int i = 0; i < dataList.size(); i++) {
+            if (dataList.get(i).isSelected()) {
                 selectedCount++;
+            }
         }
     }
 }

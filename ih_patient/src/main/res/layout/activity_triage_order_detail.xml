@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
         android:layout_below="@id/toolBar"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <com.ganxin.library.LoadDataLayout
         android:id="@+id/loadDataLayout"
@@ -66,7 +66,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_2"
-                        android:background="@color/line_color" />
+                        android:background="@color/color_f9f9f9" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -173,7 +173,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_10"
-                        android:background="@color/line_color" />
+                        android:background="@color/color_f9f9f9" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -204,7 +204,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_1"
-                        android:background="@color/line_color" />
+                        android:background="@color/color_f9f9f9" />
 
                     <TextView
                         android:id="@+id/triage_order_detail_diagnose_info_tv"
@@ -229,7 +229,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_10"
-                        android:background="@color/line_color" />
+                        android:background="@color/color_f9f9f9" />
 
                     <LinearLayout
                         android:id="@+id/triage_order_detail_voice_layout"
@@ -265,7 +265,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_1"
-                            android:background="@color/line_color" />
+                            android:background="@color/color_f9f9f9" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -278,7 +278,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_10"
-                            android:background="@color/line_color" />
+                            android:background="@color/color_f9f9f9" />
 
                     </LinearLayout>
 
@@ -312,7 +312,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_1"
-                        android:background="@color/line_color" />
+                        android:background="@color/color_f9f9f9" />
 
                     <TextView
                         android:id="@+id/triage_order_detail_diagnose_explain_tv"
@@ -330,7 +330,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_10"
-                        android:background="@color/line_color" />
+                        android:background="@color/color_f9f9f9" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -361,7 +361,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_1"
-                        android:background="@color/line_color" />
+                        android:background="@color/color_f9f9f9" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/triage_order_detail_diagnose_material_recycler"
@@ -373,7 +373,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_10"
-                        android:background="@color/line_color" />
+                        android:background="@color/color_f9f9f9" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -404,7 +404,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_1"
-                        android:background="@color/line_color" />
+                        android:background="@color/color_f9f9f9" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -501,7 +501,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
-                android:background="@color/line_color" />
+                android:background="@color/color_f9f9f9" />
         </RelativeLayout>
     </com.ganxin.library.LoadDataLayout>
 </RelativeLayout>

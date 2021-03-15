@@ -5,6 +5,8 @@ import android.view.View;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthArchivesBaseActivity;
+import com.keydom.mianren.ih_patient.activity.health_manager.HealthContactActivity;
+import com.keydom.mianren.ih_patient.activity.health_manager.HealthMedicalHistoryActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.HealthArchivesView;
 
 /**
@@ -20,10 +22,15 @@ public class HealthArchivesController extends ControllerImpl<HealthArchivesView>
                 HealthArchivesBaseActivity.start(getContext());
                 break;
             case R.id.health_archives_add_contact_tv:
+                HealthContactActivity.start(getContext());
                 break;
             case R.id.health_archives_select_past_tv:
+                HealthMedicalHistoryActivity.start(getContext(),
+                        HealthMedicalHistoryActivity.PAST_MEDICAL_HISTORY);
                 break;
             case R.id.health_archives_genetic_tv:
+                HealthMedicalHistoryActivity.start(getContext(),
+                        HealthMedicalHistoryActivity.GENETIC_HISTORY);
                 break;
             case R.id.health_archives_add_surgery_tv:
                 break;

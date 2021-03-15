@@ -66,7 +66,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/pregnancy_record_detail_recycler"

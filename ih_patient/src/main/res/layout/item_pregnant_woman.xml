@@ -130,6 +130,6 @@
         android:layout_height="@dimen/dp_1"
         android:layout_below="@id/layout"
         android:layout_marginTop="@dimen/dp_20"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
 </RelativeLayout>

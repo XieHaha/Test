@@ -164,7 +164,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
                 android:layout_below="@id/history_ll"
-                android:background="@color/line_color" />
+                android:background="@color/color_f9f9f9" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -183,7 +183,7 @@
                 <View
                     android:layout_width="@dimen/dp_1"
                     android:layout_height="match_parent"
-                    android:background="@color/line_color" />
+                    android:background="@color/color_f9f9f9" />
 
                 <Button
                     android:layout_width="match_parent"

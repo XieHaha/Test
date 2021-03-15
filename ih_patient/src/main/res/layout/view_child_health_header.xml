@@ -125,7 +125,7 @@
             android:layout_marginEnd="@dimen/dp_10"
             android:background="@drawable/corner5_ffffff_bg"
             android:orientation="vertical"
-            android:outlineSpotShadowColor="@color/line_color"
+            android:outlineSpotShadowColor="@color/color_f9f9f9"
             android:paddingStart="@dimen/dp_15"
             android:paddingEnd="@dimen/dp_15"
             android:paddingBottom="@dimen/dp_20">

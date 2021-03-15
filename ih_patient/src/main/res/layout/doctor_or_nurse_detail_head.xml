@@ -105,7 +105,7 @@
                 android:layout_height="@dimen/dp_1"
                 android:layout_below="@+id/time_group"
                 android:layout_marginTop="@dimen/dp_14"
-                android:background="@color/line_color" />
+                android:background="@color/color_f9f9f9" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -127,7 +127,7 @@
                 <View
                     android:layout_width="@dimen/dp_1"
                     android:layout_height="match_parent"
-                    android:background="@color/line_color"
+                    android:background="@color/color_f9f9f9"
                     android:baselineAligned="false" />
 
                 <TextView
@@ -144,7 +144,7 @@
                 <View
                     android:layout_width="@dimen/dp_1"
                     android:layout_height="match_parent"
-                    android:background="@color/line_color" />
+                    android:background="@color/color_f9f9f9" />
 
                 <TextView
                     android:id="@+id/follow_num"

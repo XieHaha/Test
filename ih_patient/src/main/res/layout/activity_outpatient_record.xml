@@ -11,7 +11,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -77,7 +77,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <com.keydom.ih_common.view.GeneralItemView
         android:id="@+id/medical_record_inspection"
@@ -89,7 +89,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <com.keydom.ih_common.view.GeneralItemView
         android:id="@+id/medical_record_medical"
@@ -101,7 +101,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <com.keydom.ih_common.view.GeneralItemView
         android:id="@+id/medical_record_examine"
@@ -113,7 +113,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <com.keydom.ih_common.view.GeneralItemView
         android:id="@+id/medical_record_check"
@@ -125,7 +125,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/line_color" />
+        android:background="@color/color_f9f9f9" />
 
     <com.keydom.ih_common.view.GeneralItemView
         android:id="@+id/medical_record_prescription"

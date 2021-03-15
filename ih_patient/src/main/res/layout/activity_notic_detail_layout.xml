@@ -59,7 +59,7 @@
                     android:id="@+id/comment_line"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
-                    android:background="@color/line_color" />
+                    android:background="@color/color_f9f9f9" />
 
 
                 <RelativeLayout
