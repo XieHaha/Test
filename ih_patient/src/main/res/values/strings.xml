@@ -514,5 +514,34 @@
     <string name="txt_contact_people">紧急联系人</string>
     <string name="txt_add_contact_people">添加联系人</string>
 
+    <string name="txt_name">姓名</string>
+    <string name="txt_name_hint">请填写您的真实姓名</string>
+    <string name="txt_sex">性别</string>
+    <string name="txt_sex_male">男</string>
+    <string name="txt_sex_female">女</string>
+    <string name="txt_birth">出生日期</string>
+    <string name="txt_birth_hint">请填写您的出身日期</string>
+    <string name="txt_card">身份证号</string>
+    <string name="txt_card_hint">请填写您的身份证号</string>
+    <string name="txt_height">身高</string>
+    <string name="txt_height_hint">请填写您的真实身高</string>
+    <string name="txt_weight">体重</string>
+    <string name="txt_weight_hint">请填写您的真实体重</string>
+    <string name="txt_bmi">BMI</string>
+    <string name="txt_bmi_hint">系数</string>
+    <string name="txt_address">现住址</string>
+    <string name="txt_address_hint">请填写您的当前地址</string>
+    <string name="txt_job">职业类别</string>
+    <string name="txt_job_hint">请填写您的职业类别</string>
+    <string name="txt_company">工作单位</string>
+    <string name="txt_company_hint">请填写您的工作单位</string>
+    <string name="txt_nation">民族</string>
+    <string name="txt_nation_hint">请选择民族</string>
+    <string name="txt_marriage">婚姻状况</string>
+    <string name="txt_marital">已婚</string>
+    <string name="txt_unmarried">未婚</string>
+    <string name="txt_birth_status">生育状况</string>
+    <string name="txt_birth_status_hint">请选择状况</string>
+
 
 </resources>

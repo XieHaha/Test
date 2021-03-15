@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.activity.health_manager.HealthArchivesBaseActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.HealthArchivesView;
 
 /**
@@ -16,6 +17,7 @@ public class HealthArchivesController extends ControllerImpl<HealthArchivesView>
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.health_archives_base_info_layout:
+                HealthArchivesBaseActivity.start(getContext());
                 break;
             case R.id.health_archives_add_contact_tv:
                 break;
