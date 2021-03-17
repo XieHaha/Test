@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.activity.health_manager.HealthAddSurgeryActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthArchivesBaseActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthContactActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthMedicalHistoryActivity;
@@ -33,6 +34,7 @@ public class HealthArchivesController extends ControllerImpl<HealthArchivesView>
                         HealthMedicalHistoryActivity.GENETIC_HISTORY);
                 break;
             case R.id.health_archives_add_surgery_tv:
+                HealthAddSurgeryActivity.start(getContext());
                 break;
             case R.id.health_archives_look_more_tv:
                 break;

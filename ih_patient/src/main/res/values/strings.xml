@@ -223,6 +223,8 @@
     <string name="txt_obstetric_hospital_note">《入院注意事项》</string>
     <string name="txt_reserve_date">预约日期:</string>
     <string name="txt_notice">备注:</string>
+    <string name="txt_notice_description">备注说明</string>
+    <string name="txt_edit_content_hint">请输入内容</string>
 
     <!--检验检查预约-->
     <string name="txt_checkout">检验</string>
@@ -506,6 +508,12 @@
     <string name="txt_add_surgery">添加手术记录</string>
     <string name="txt_select_past_medical">选择病史</string>
     <string name="txt_edit_past_medical">修改病史</string>
+    <string name="txt_surgery_name">手术名称</string>
+    <string name="txt_surgery_name_hint">请填写手术名称</string>
+    <string name="txt_surgery_date">手术时间</string>
+    <string name="txt_surgery_date_hint">请填写手术时间</string>
+    <string name="txt_surgery_status">恢复情况</string>
+    <string name="txt_surgery_status_hint">请选择恢复情况</string>
 
     <string name="txt_look_more_record">查看更多记录</string>
     <string name="txt_base_info">基础信息</string>
