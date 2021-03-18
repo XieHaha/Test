@@ -548,6 +548,7 @@
         <activity android:name=".activity.health_manager.HealthMedicalHistoryActivity" />
         <activity android:name=".activity.health_manager.HealthAddSurgeryActivity" />
         <activity android:name=".activity.health_manager.HealthSurgeryListActivity" />
+        <activity android:name=".activity.chronic_disease.ChronicDiseaseMainActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

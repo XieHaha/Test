@@ -418,6 +418,9 @@
     <string name="txt_hypertension">高血压</string>
     <string name="txt_diabetes">糖尿病</string>
     <string name="txt_cardiovascular">心脑血管</string>
+    <string name="txt_hypertension_manager">高血压慢病管理</string>
+    <string name="txt_diabetes_manager">糖尿病慢病管理</string>
+    <string name="txt_cardiovascular_manager">心脑血管慢病管理</string>
     <string name="txt_diabetes_colon">糖尿病:</string>
     <string name="txt_amniocentesis_reserve_evaluate_description">请先进行羊膜腔穿刺手术自我评估，以确认您是否可以通过网上进行预约，如不满足条件，建议您到遗传咨询门诊就诊。</string>
     <string name="txt_amniocentesis_reserve_check_description">如果有以下情况者，建议您到绵阳市人民医院遗传咨询门诊就诊，咨询医生后再预约羊膜腔穿刺手术。</string>

@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.activity.chronic_disease.ChronicDiseaseMainActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthArchivesActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.HealthManagerView;
 
@@ -24,10 +25,16 @@ public class HealthManagerController extends ControllerImpl<HealthManagerView> i
             case R.id.health_manager_online_layout:
                 break;
             case R.id.health_manager_cardiovascular_layout:
+                ChronicDiseaseMainActivity.start(getContext(),
+                        ChronicDiseaseMainActivity.CHRONIC_DISEASE_CARDIOVASCULAR);
                 break;
             case R.id.health_manager_hypertension_layout:
+                ChronicDiseaseMainActivity.start(getContext(),
+                        ChronicDiseaseMainActivity.CHRONIC_DISEASE_HYPERTENSION);
                 break;
             case R.id.health_manager_diabetes_layout:
+                ChronicDiseaseMainActivity.start(getContext(),
+                        ChronicDiseaseMainActivity.CHRONIC_DISEASE_DIABETES);
                 break;
             default:
                 break;
