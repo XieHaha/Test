@@ -71,47 +71,57 @@ public class UserInfoOperateActivity extends BaseControllerActivity<UserInfoOper
                 if (EDITTYPE.equals(type)) {
                     EventBus.getDefault().post(new Event(EventType.UPDATEUSERINFO, null));
                     MainActivity.start(getContext(), false);
-                } else
+                } else {
                     finish();
+                }
 
 
             }
         });
         user_head_img = this.findViewById(R.id.user_head_img);
-        if (EDITTYPE.equals(type))
+        if (EDITTYPE.equals(type)) {
             user_head_img.setOnClickListener(getController());
+        }
 
         user_name_tv = this.findViewById(R.id.user_name_tv);
-        if (EDITTYPE.equals(type))
+        if (EDITTYPE.equals(type)) {
             user_name_tv.setOnClickListener(getController());
+        }
 
         user_sex_tv = this.findViewById(R.id.user_sex_tv);
-        if (EDITTYPE.equals(type))
+        if (EDITTYPE.equals(type)) {
             user_sex_tv.setOnClickListener(getController());
+        }
 
         user_real_name_status_tv = this.findViewById(R.id.user_real_name_status_tv);
-        if (EDITTYPE.equals(type))
+        if (EDITTYPE.equals(type)) {
             user_real_name_status_tv.setOnClickListener(getController());
+        }
 
         user_region_tv = this.findViewById(R.id.user_region_tv);
-        if (EDITTYPE.equals(type))
+        if (EDITTYPE.equals(type)) {
             user_region_tv.setOnClickListener(getController());
+        }
 
         user_phone_tv = this.findViewById(R.id.user_phone_tv);
-        if (EDITTYPE.equals(type))
+        if (EDITTYPE.equals(type)) {
             user_phone_tv.setOnClickListener(getController());
+        }
 
         user_country_tv = this.findViewById(R.id.user_country_tv);
-        if (EDITTYPE.equals(type))
+        if (EDITTYPE.equals(type)) {
             user_country_tv.setOnClickListener(getController());
+        }
 
         user_nation_tv = this.findViewById(R.id.user_nation_tv);
-        if (EDITTYPE.equals(type))
+        if (EDITTYPE.equals(type)) {
             user_nation_tv.setOnClickListener(getController());
+        }
 
         user_id_card_pic_tv = this.findViewById(R.id.user_id_card_pic_tv);
-        if (EDITTYPE.equals(type))
+        if (EDITTYPE.equals(type)) {
             user_id_card_pic_tv.setOnClickListener(getController());
+        }
         EventBus.getDefault().register(this);
         getController().initUserData();
     }
@@ -188,10 +198,11 @@ public class UserInfoOperateActivity extends BaseControllerActivity<UserInfoOper
     @Override
     public void setSex(String sexStr) {
         user_sex_tv.setText(sexStr);
-        if (sexStr.equals("男"))
+        if (sexStr.equals("男")) {
             sex = "0";
-        else
+        } else {
             sex = "1";
+        }
     }
 
     @Override
@@ -216,20 +227,22 @@ public class UserInfoOperateActivity extends BaseControllerActivity<UserInfoOper
         if (data == null) {
             Logger.e("userData为空");
         } else {
-            if ("".equals(data.getUserImage()) || data.getUserImage() == null)
+            if ("".equals(data.getUserImage()) || data.getUserImage() == null) {
                 user_head_img.setBackgroundColor(getResources().getColor(R.color.color_f9f9f9));
-            else
+            } else {
                 Glide.with(getContext()).load(Const.IMAGE_HOST + data.getUserImage()).into(user_head_img);
+            }
             user_name_tv.setText("".equals(data.getUserName()) || data.getUserName() == null ?
                     "请输入姓名" : data.getUserName());
             if (data.getSex() == null || "".equals(data.getSex())) {
                 user_sex_tv.setText("请选择性别");
             } else {
                 user_sex_tv.setText(data.getSex().equals("0") ? "男" : "女");
-                if (data.getSex().equals("0"))
+                if (data.getSex().equals("0")) {
                     sex = "0";
-                else
+                } else {
                     sex = "1";
+                }
             }
             if (data.getProvinceName() == null || "".equals(data.getProvinceName())) {
                 user_region_tv.setText("请选择地区");
@@ -334,8 +347,9 @@ public class UserInfoOperateActivity extends BaseControllerActivity<UserInfoOper
             if (EDITTYPE.equals(type)) {
                 EventBus.getDefault().post(new Event(EventType.UPDATEUSERINFO, null));
                 MainActivity.start(getContext(), false);
-            } else
+            } else {
                 finish();
+            }
             return true;
 
         }

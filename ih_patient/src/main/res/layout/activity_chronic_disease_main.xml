@@ -32,17 +32,18 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dp_7"
-                android:text="@string/txt_health_manager"
+                android:text="@string/txt_health_value"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_18"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/disease_main_data_hint_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dp_32"
-                android:text="@string/txt_health_manager"
+                android:text="@string/txt_health_value_hint"
                 android:textColor="@color/tab_nol_color"
                 android:textSize="@dimen/sp_14" />
 
@@ -56,6 +57,7 @@
                 android:paddingEnd="@dimen/dp_30">
 
                 <TextView
+                    android:id="@+id/disease_main_systolic_data_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -67,6 +69,7 @@
                     tools:text="100" />
 
                 <TextView
+                    android:id="@+id/disease_main_diastolic_data_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -78,6 +81,7 @@
                     tools:text="100" />
 
                 <TextView
+                    android:id="@+id/disease_main_rate_data_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -111,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
-                        android:text="@string/txt_surgery"
+                        android:text="@string/txt_systolic"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_14" />
 
@@ -120,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_6"
                         android:gravity="center"
-                        android:text="@string/txt_surgery"
+                        android:text="@string/txt_mmhg_value"
                         android:textColor="@color/edit_hint_color"
                         android:textSize="@dimen/sp_12"
                         android:textStyle="bold" />
@@ -138,7 +142,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
-                        android:text="@string/txt_surgery"
+                        android:text="@string/txt_diastolic"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_14" />
 
@@ -147,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_6"
                         android:gravity="center"
-                        android:text="@string/txt_surgery"
+                        android:text="@string/txt_mmhg_value"
                         android:textColor="@color/edit_hint_color"
                         android:textSize="@dimen/sp_12"
                         android:textStyle="bold" />
@@ -165,7 +169,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
-                        android:text="@string/txt_surgery"
+                        android:text="@string/txt_rate_value"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_14" />
 
@@ -174,7 +178,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_6"
                         android:gravity="center"
-                        android:text="@string/txt_surgery"
+                        android:text="@string/txt_times_value"
                         android:textColor="@color/edit_hint_color"
                         android:textSize="@dimen/sp_12"
                         android:textStyle="bold" />
@@ -191,6 +195,7 @@
                 android:paddingEnd="@dimen/dp_10">
 
                 <ImageView
+                    android:id="@+id/disease_main_last_day_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -205,6 +210,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/disease_main_day_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_12"
@@ -214,6 +220,7 @@
                         tools:text="2021.03.18" />
 
                     <TextView
+                        android:id="@+id/disease_main_day_status_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_2"
@@ -226,6 +233,7 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/disease_main_next_day_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -248,7 +256,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_22"
                 android:layout_marginTop="@dimen/dp_21"
-                android:text="@string/txt_health_manager"
+                android:text="@string/txt_lifestyle_record"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_18"
                 android:textStyle="bold" />
@@ -262,7 +270,7 @@
                 android:paddingEnd="@dimen/dp_10">
 
                 <LinearLayout
-                    android:id="@+id/health_manager_archives_layout"
+                    android:id="@+id/disease_main_eat_record_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -278,13 +286,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_14"
                         android:gravity="center"
-                        android:text="@string/txt_health_archives"
+                        android:text="@string/txt_eat_record"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/health_manager_report_layout"
+                    android:id="@+id/disease_main_sleep_record_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_33"
@@ -301,13 +309,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_14"
                         android:gravity="center"
-                        android:text="@string/txt_medical_report"
+                        android:text="@string/txt_sleep_record"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/health_manager_online_layout"
+                    android:id="@+id/disease_main_sports_record_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_33"
@@ -323,7 +331,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_14"
-                        android:text="@string/txt_online_consultative"
+                        android:text="@string/txt_sports_record"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
@@ -343,7 +351,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_22"
                 android:layout_marginTop="@dimen/dp_21"
-                android:text="@string/txt_health_manager"
+                android:text="@string/txt_health_summary_and_intervention_plan"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_18"
                 android:textStyle="bold" />
@@ -364,6 +372,7 @@
                 android:paddingEnd="@dimen/dp_23">
 
                 <LinearLayout
+                    android:id="@+id/disease_main_health_summary_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -379,7 +388,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/dp_3"
-                        android:text="@string/txt_health_manager"
+                        android:text="@string/txt_health_summary"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_16" />
 
@@ -393,6 +402,7 @@
                     android:background="@color/color_f1f1f1" />
 
                 <LinearLayout
+                    android:id="@+id/disease_main_intervention_plan_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -408,7 +418,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/dp_3"
-                        android:text="@string/txt_health_manager"
+                        android:text="@string/txt_intervention_plan"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_16" />
 
@@ -424,6 +434,7 @@
 
 
             <TextView
+                android:id="@+id/disease_main_contact_counselor_tv"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_48"
                 android:layout_marginStart="@dimen/dp_30"
@@ -432,7 +443,7 @@
                 android:layout_marginBottom="@dimen/dp_42"
                 android:background="@drawable/test"
                 android:gravity="center"
-                android:text="@string/txt_delete"
+                android:text="@string/txt_contact_counselor"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_14"
                 android:textStyle="bold" />

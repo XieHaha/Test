@@ -565,5 +565,25 @@
     <string name="txt_genetic_title">在您的家族亲属中</string>
     <string name="txt_genetic_hint">（父母，祖父母，叔舅姑姨，兄弟姐妹）是否患有以下疾病：</string>
     <string name="txt_diseases">病种分类</string>
+    <string name="txt_health_value">当前健康值</string>
+    <string name="txt_health_value_hint">当前尚未填写健康值</string>
+    <string name="txt_systolic">收缩压</string>
+    <string name="txt_diastolic">舒张压</string>
+    <string name="txt_rate_value">心率值</string>
+    <string name="txt_mmhg_value">mmHg</string>
+    <string name="txt_times_value">次/分</string>
+    <string name="txt_brackets">(%s)</string>
+    <string name="txt_edit_health_data">填写健康数据</string>
+    <string name="txt_edit_health_data_hint">请按照真实数据填写，保障干预方案的正确性</string>
+    <string name="txt_lifestyle_record">生活方式记录</string>
+    <string name="txt_eat_record">饮食记录</string>
+    <string name="txt_sleep_record">睡眠记录</string>
+    <string name="txt_sports_record">运动记录</string>
+    <string name="txt_health_summary_and_intervention_plan">健康总结及干预方案</string>
+    <string name="txt_health_summary">健康总结</string>
+    <string name="txt_intervention_plan">干预方案</string>
+    <string name="txt_contact_counselor">联系健康咨询师</string>
+    <string name="txt_data_refer">以下正常范围区间仅供参考</string>
+    <string name="txt_data_refer_value">收缩压：90~140 mmHg&#160;&#160;&#160;心率值：60~100 次/分\n舒张压：60~100 mmHg</string>
 
 </resources>

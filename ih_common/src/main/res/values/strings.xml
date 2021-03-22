@@ -151,6 +151,7 @@
     <string name="load_end">没有更多数据</string>
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
+    <string name="submit_data">提交数据</string>
 
     <!--时间选择器-->
     <string name="pickerview_cancel">取消</string>
