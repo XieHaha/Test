@@ -47,6 +47,8 @@
     <string name="txt_send_verify_code">发送验证码</string>
     <string name="txt_back">返回</string>
     <string name="txt_back_home">返回首页</string>
+    <string name="txt_reset">重置</string>
+    <string name="txt_save_info">保存信息</string>
 
 
     <string name="mine_function_type_diagnosis">诊疗信息</string>
@@ -575,10 +577,31 @@
     <string name="txt_brackets">(%s)</string>
     <string name="txt_edit_health_data">填写健康数据</string>
     <string name="txt_edit_health_data_hint">请按照真实数据填写，保障干预方案的正确性</string>
+
+
     <string name="txt_lifestyle_record">生活方式记录</string>
+    <string name="txt_add_record">添加记录</string>
+    <string name="txt_lifestyle_copy">复用到今日</string>
+    <string name="txt_breakfast">早餐</string>
+    <string name="txt_breakfast_hint">营养早餐，良好精力的保证</string>
+    <string name="txt_lunch">午餐</string>
+    <string name="txt_lunch_hint">食物多样，定时定量</string>
+    <string name="txt_dinner">晚餐</string>
+    <string name="txt_dinner_hint">清淡饮食，结构合理</string>
+    <string name="txt_extra_meal">加餐</string>
+    <string name="txt_extra_meal_hint">少吃多餐，食不过饱</string>
+    <string name="txt_eat">饮食</string>
     <string name="txt_eat_record">饮食记录</string>
+    <string name="txt_eat_habits">饮食习惯</string>
+    <string name="txt_eat_record_hint">记录饮食，培养良好饮食习惯</string>
+    <string name="txt_sleep">睡眠</string>
     <string name="txt_sleep_record">睡眠记录</string>
+    <string name="txt_sleep_habits">睡眠习惯</string>
+    <string name="txt_sleep_record_hint">健康睡眠，培养良好作息习惯</string>
+    <string name="txt_sports">运动</string>
     <string name="txt_sports_record">运动记录</string>
+    <string name="txt_sports_habits">运动习惯</string>
+    <string name="txt_sports_record_hint">记录运动，形成规律运动习惯</string>
     <string name="txt_health_summary_and_intervention_plan">健康总结及干预方案</string>
     <string name="txt_health_summary">健康总结</string>
     <string name="txt_intervention_plan">干预方案</string>

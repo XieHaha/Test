@@ -94,5 +94,8 @@ public class ChronicDiseaseMainActivity extends BaseControllerActivity<ChronicDi
         }
 
         diseaseMainDataHintTv.setOnClickListener(getController());
+        diseaseMainEatRecordLayout.setOnClickListener(getController());
+        diseaseMainSportsRecordLayout.setOnClickListener(getController());
+        diseaseMainSleepRecordLayout.setOnClickListener(getController());
     }
 }
