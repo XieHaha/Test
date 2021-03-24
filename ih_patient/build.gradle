@@ -111,6 +111,7 @@ dependencies {
     implementation files('libs/ocr-sdk.jar')
     implementation files('libs/component_common_sdk_1.0.0.jar')
     implementation 'org.aspectj:aspectjrt:1.8.9'
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     implementation files('libs/Msc.jar')
     //注解
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.0'

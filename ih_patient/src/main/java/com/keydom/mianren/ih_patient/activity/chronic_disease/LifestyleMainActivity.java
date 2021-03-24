@@ -101,6 +101,7 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         layoutBg.setAlpha(0);
         statusBar.setAlpha(0);
         StatusBarUtils.setStatusBarColor(this, false);
+        ivBack.setOnClickListener(v -> finish());
         lifestyleType = getIntent().getIntExtra(Const.TYPE, -1);
         if (lifestyleType == LIFESTYLE_DIET) {
             tvTitle.setText(R.string.txt_eat_habits);
@@ -110,6 +111,16 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
             lifestyleMainSleepView.setVisibility(View.GONE);
             lifestyleMainSportsView.setVisibility(View.GONE);
             lifestyleBottomBtnLayout.setVisibility(View.GONE);
+
+            TextView view =
+                    lifestyleMainEatView.findViewById(R.id.view_eat_record_add_breakfast_tv);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    LifestyleDataActivity.start(LifestyleMainActivity.this, 1);
+                }
+            });
+
         } else if (lifestyleType == LIFESTYLE_SLEEP) {
             tvTitle.setText(R.string.txt_sleep_habits);
             lifestyleMainTitleTv.setText(R.string.txt_sleep);

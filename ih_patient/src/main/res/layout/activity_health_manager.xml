@@ -22,7 +22,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/health_main_bg" />
+                android:src="@mipmap/top_spanner" />
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -550,6 +550,7 @@
         <activity android:name=".activity.health_manager.HealthSurgeryListActivity" />
         <activity android:name=".activity.chronic_disease.ChronicDiseaseMainActivity" />
         <activity android:name=".activity.chronic_disease.LifestyleMainActivity" />
+        <activity android:name=".activity.chronic_disease.LifestyleDataActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
