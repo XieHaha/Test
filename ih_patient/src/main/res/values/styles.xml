@@ -47,6 +47,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
+
     <style name="MyDialog" parent="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
         <!-- 是否有边框 -->
         <item name="android:windowFrame">@null</item>
@@ -61,10 +62,11 @@
         <item name="android:windowCloseOnTouchOutside">true</item>
 
     </style>
-    
+
     <style name="TabLayoutTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">@dimen/font_size_primary</item>
     </style>
+
     <style name="BottomSheetEdit" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
@@ -73,6 +75,7 @@
     <style name="payCheckBoxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/pay_checkbox_selector</item>
     </style>
+
     <declare-styleable name="MaxHeightRecyclerView">
         <attr name="maxHeight" format="dimension" />
     </declare-styleable>
@@ -84,8 +87,8 @@
     <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
         <item name="behavior_peekHeight">500dp</item>
     </style>
-    
-        <!-- 横线 -->
+
+    <!-- 横线 -->
     <style name="CommonLine">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/dp_1</item>
@@ -98,6 +101,11 @@
         <item name="android:background">@color/bg_lines</item>
     </style>
 
+    <!-- 设置dialog弹出，退出动画 -->
+    <style name="dialogWindowAnim">
+        <item name="android:windowEnterAnimation">@anim/actionsheet_dialog_out</item>
+        <item name="android:windowExitAnimation">@anim/actionsheet_dialog_in</item>
+    </style>
 
     <style name="bindCardCheckBox" parent="@android:style/Widget.Material.CompoundButton.CheckBox">
         <item name="android:colorControlActivated">@color/colorAccent</item>

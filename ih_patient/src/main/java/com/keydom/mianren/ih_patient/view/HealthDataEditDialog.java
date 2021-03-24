@@ -71,7 +71,7 @@ public class HealthDataEditDialog extends AppCompatDialog implements View.OnClic
     }
 
     private void startAnim() {
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.actionsheet_dialog_out);
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.actionsheet_dialog_in);
         animation.setDuration(DURATION_TIME);
         animation.setAnimationListener(new AbstractAnimationListener() {
             @Override
