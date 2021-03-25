@@ -551,6 +551,7 @@
         <activity android:name=".activity.health_manager.ChronicDiseaseMainActivity" />
         <activity android:name=".activity.health_manager.LifestyleMainActivity" />
         <activity android:name=".activity.health_manager.LifestyleDataActivity" />
+        <activity android:name=".activity.health_manager.InterventionPlanActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

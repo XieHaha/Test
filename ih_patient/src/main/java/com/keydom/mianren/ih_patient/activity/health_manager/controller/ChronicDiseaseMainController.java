@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.activity.health_manager.InterventionPlanActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.LifestyleMainActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.ChronicDiseaseMainView;
 import com.keydom.mianren.ih_patient.view.HealthDataEditDialog;
@@ -40,6 +41,9 @@ public class ChronicDiseaseMainController extends ControllerImpl<ChronicDiseaseM
                 break;
             case R.id.disease_main_sports_record_layout:
                 LifestyleMainActivity.start(getContext(), LifestyleMainActivity.LIFESTYLE_SPORTS);
+                break;
+            case R.id.disease_main_intervention_plan_layout:
+                InterventionPlanActivity.start(getContext());
                 break;
             default:
                 break;

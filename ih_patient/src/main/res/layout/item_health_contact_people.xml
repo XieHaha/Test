@@ -62,7 +62,7 @@
         android:layout_height="@dimen/dp_24"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/btn_health_public"
+        android:background="@drawable/corner5_btn_health_public"
         android:gravity="center"
         android:text="@string/txt_delete"
         android:textColor="@color/white"
