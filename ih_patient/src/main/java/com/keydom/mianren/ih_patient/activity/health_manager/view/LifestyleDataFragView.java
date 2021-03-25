@@ -1,4 +1,4 @@
-package com.keydom.mianren.ih_patient.activity.chronic_disease.view;
+package com.keydom.mianren.ih_patient.activity.health_manager.view;
 
 import com.keydom.ih_common.base.BaseView;
 

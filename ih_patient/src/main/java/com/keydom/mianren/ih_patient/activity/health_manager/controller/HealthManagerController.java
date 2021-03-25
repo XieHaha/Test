@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.chronic_disease.ChronicDiseaseMainActivity;
+import com.keydom.mianren.ih_patient.activity.health_manager.ChronicDiseaseMainActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthArchivesActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.HealthManagerView;
 

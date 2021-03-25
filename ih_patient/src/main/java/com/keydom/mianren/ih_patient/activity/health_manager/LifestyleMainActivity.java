@@ -1,4 +1,4 @@
-package com.keydom.mianren.ih_patient.activity.chronic_disease;
+package com.keydom.mianren.ih_patient.activity.health_manager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.chronic_disease.controller.LifestyleMainController;
-import com.keydom.mianren.ih_patient.activity.chronic_disease.view.LifestyleMainView;
+import com.keydom.mianren.ih_patient.activity.health_manager.controller.LifestyleMainController;
+import com.keydom.mianren.ih_patient.activity.health_manager.view.LifestyleMainView;
 import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.utils.StatusBarUtils;
 

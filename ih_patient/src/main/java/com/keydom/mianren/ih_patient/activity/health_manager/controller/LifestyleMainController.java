@@ -1,19 +1,18 @@
-package com.keydom.mianren.ih_patient.activity.chronic_disease.controller;
+package com.keydom.mianren.ih_patient.activity.health_manager.controller;
 
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.chronic_disease.LifestyleMainActivity;
-import com.keydom.mianren.ih_patient.activity.chronic_disease.view.ChronicDiseaseMainView;
+import com.keydom.mianren.ih_patient.activity.health_manager.view.LifestyleMainView;
 import com.keydom.mianren.ih_patient.view.HealthDataEditDialog;
 
 /**
  * @author 顿顿
  * @date 20/3/4 10:56
- * @des 慢病管理
+ * @des 生活记录
  */
-public class ChronicDiseaseMainController extends ControllerImpl<ChronicDiseaseMainView> implements View.OnClickListener {
+public class LifestyleMainController extends ControllerImpl<LifestyleMainView> implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -32,14 +31,9 @@ public class ChronicDiseaseMainController extends ControllerImpl<ChronicDiseaseM
                         });
                 dialog.show();
                 break;
-            case R.id.disease_main_eat_record_layout:
-                LifestyleMainActivity.start(getContext(), LifestyleMainActivity.LIFESTYLE_DIET);
+            case R.id.lifestyle_bottom_cancel_tv:
                 break;
-            case R.id.disease_main_sleep_record_layout:
-                LifestyleMainActivity.start(getContext(), LifestyleMainActivity.LIFESTYLE_SLEEP);
-                break;
-            case R.id.disease_main_sports_record_layout:
-                LifestyleMainActivity.start(getContext(), LifestyleMainActivity.LIFESTYLE_SPORTS);
+            case R.id.lifestyle_bottom_submit_tv:
                 break;
             default:
                 break;

@@ -1,10 +1,10 @@
-package com.keydom.mianren.ih_patient.activity.chronic_disease.controller;
+package com.keydom.mianren.ih_patient.activity.health_manager.controller;
 
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.chronic_disease.view.LifestyleDataView;
+import com.keydom.mianren.ih_patient.activity.health_manager.view.LifestyleDataView;
 
 /**
  * @author 顿顿

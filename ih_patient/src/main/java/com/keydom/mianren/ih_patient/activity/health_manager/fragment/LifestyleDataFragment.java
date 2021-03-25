@@ -1,4 +1,4 @@
-package com.keydom.mianren.ih_patient.activity.chronic_disease.fragment;
+package com.keydom.mianren.ih_patient.activity.health_manager.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -6,8 +6,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.activity.chronic_disease.controller.LifestyleDataFragController;
-import com.keydom.mianren.ih_patient.activity.chronic_disease.view.LifestyleDataFragView;
+import com.keydom.mianren.ih_patient.activity.health_manager.controller.LifestyleDataFragController;
+import com.keydom.mianren.ih_patient.activity.health_manager.view.LifestyleDataFragView;
 import com.keydom.mianren.ih_patient.adapter.LifestyleDataAdapter;
 import com.keydom.mianren.ih_patient.bean.LifestyleDataBean;
 import com.keydom.mianren.ih_patient.constant.Const;
