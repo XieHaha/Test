@@ -37,6 +37,12 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
     TabLayout lifestyleDataTabLayout;
     @BindView(R.id.lifestyle_data_view_pager)
     ViewPager lifestyleDataViewPager;
+    @BindView(R.id.lifestyle_data_select_hint_tv)
+    TextView lifestyleDataSelectHintTv;
+    @BindView(R.id.lifestyle_data_select_num_tv)
+    TextView lifestyleDataSelectNumTv;
+    @BindView(R.id.lifestyle_data_select_sure_tv)
+    TextView lifestyleDataSelectSureTv;
 
     private FragmentManager fm;
     private ViewPagerAdapter viewPagerAdapter;
@@ -72,16 +78,22 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
     public void initData(@Nullable Bundle savedInstanceState) {
         lifestyleType = getIntent().getIntExtra(Const.TYPE, -1);
         if (lifestyleType == LIFESTYLE_DIET) {
+            setTitle("食物库");
+            lifestyleDataSelectHintTv.setText("已选择食物");
         } else {
+            setTitle("运动选择");
+            lifestyleDataSelectHintTv.setText("已选择运动");
         }
+
+        lifestyleDataSelectSureTv.setOnClickListener(getController());
         fm = getSupportFragmentManager();
-        fragmentList.add(LifestyleDataFragment.newInstance(1, 2));
-        fragmentList.add(LifestyleDataFragment.newInstance(1, 2));
-        fragmentList.add(LifestyleDataFragment.newInstance(1, 2));
-        fragmentList.add(LifestyleDataFragment.newInstance(1, 2));
-        fragmentList.add(LifestyleDataFragment.newInstance(1, 2));
-        fragmentList.add(LifestyleDataFragment.newInstance(1, 2));
-        fragmentList.add(LifestyleDataFragment.newInstance(1, 2));
+        fragmentList.add(LifestyleDataFragment.newInstance(1, lifestyleType));
+        fragmentList.add(LifestyleDataFragment.newInstance(1, lifestyleType));
+        fragmentList.add(LifestyleDataFragment.newInstance(1, lifestyleType));
+        fragmentList.add(LifestyleDataFragment.newInstance(1, lifestyleType));
+        fragmentList.add(LifestyleDataFragment.newInstance(1, lifestyleType));
+        fragmentList.add(LifestyleDataFragment.newInstance(1, lifestyleType));
+        fragmentList.add(LifestyleDataFragment.newInstance(1, lifestyleType));
 
         titles.add("测试");
         titles.add("测试2");

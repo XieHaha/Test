@@ -1,21 +1,21 @@
 package com.keydom.mianren.ih_patient.activity.chronic_disease.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.chronic_disease.controller.LifestyleDataFragController;
 import com.keydom.mianren.ih_patient.activity.chronic_disease.view.LifestyleDataFragView;
-import com.keydom.mianren.ih_patient.activity.payment_records.PaymentRecordActivity;
-import com.keydom.mianren.ih_patient.adapter.PayRecordAdapter;
-import com.keydom.mianren.ih_patient.bean.Event;
+import com.keydom.mianren.ih_patient.adapter.LifestyleDataAdapter;
+import com.keydom.mianren.ih_patient.bean.LifestyleDataBean;
 import com.keydom.mianren.ih_patient.constant.Const;
-import com.keydom.mianren.ih_patient.constant.EventType;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import org.greenrobot.eventbus.Subscribe;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 
@@ -29,22 +29,23 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
     RecyclerView fragLifestyleDataRecyclerView;
     @BindView(R.id.frag_lifestyle_data_refresh_layout)
     SmartRefreshLayout fragLifestyleDataRefreshLayout;
-    public static final String STATE = "state";
 
-    private PayRecordAdapter mPayRecordAdapter;
+    private LifestyleDataAdapter lifestyleDataAdapter;
+
+    private ArrayList<LifestyleDataBean> data = new ArrayList<>();
+    private ArrayList<LifestyleDataBean> selectData = new ArrayList<>();
+
     /**
-     * 缴费状态
+     * 运动3  食物1
      */
-    private int mState;
-    private long patientId;
+    private int lifestyleType;
 
     /**
      * fragment创建
      */
-    public static LifestyleDataFragment newInstance(long patientId, int state) {
+    public static LifestyleDataFragment newInstance(long patientId, int type) {
         Bundle args = new Bundle();
-        args.putInt(STATE, state);
-        args.putLong(Const.PATIENT_ID, patientId);
+        args.putInt(Const.TYPE, type);
         LifestyleDataFragment fragment = new LifestyleDataFragment();
         fragment.setArguments(args);
         return fragment;
@@ -55,16 +56,24 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
         return R.layout.fragment_lifestyle_data_layout;
     }
 
-    @Subscribe
-    public void paymentSuccess(Event event) {
-        if (event.getType() == EventType.PAYMENT_SUCCESS && mState == PaymentRecordActivity.PAYED) {
-            fragLifestyleDataRefreshLayout.autoRefresh();
-        }
-    }
-
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         assert getArguments() != null;
+        lifestyleType = getArguments().getInt(Const.TYPE);
+        data.add(new LifestyleDataBean());
+        data.add(new LifestyleDataBean());
+        data.add(new LifestyleDataBean());
+        data.add(new LifestyleDataBean());
+        data.add(new LifestyleDataBean());
+        lifestyleDataAdapter = new LifestyleDataAdapter(data, lifestyleType);
+        fragLifestyleDataRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        fragLifestyleDataRecyclerView.setAdapter(lifestyleDataAdapter);
+        lifestyleDataAdapter.setOnItemClickListener((adapter, view, position) -> {
+            data.get(position).changeSelectStatus();
+            lifestyleDataAdapter.notifyDataSetChanged();
+        });
+
+        fragLifestyleDataRefreshLayout.setOnRefreshListener(null);
     }
 
 }
