@@ -11,6 +11,7 @@ import com.keydom.mianren.ih_patient.activity.chronic_disease.view.LifestyleData
 import com.keydom.mianren.ih_patient.adapter.LifestyleDataAdapter;
 import com.keydom.mianren.ih_patient.bean.LifestyleDataBean;
 import com.keydom.mianren.ih_patient.constant.Const;
+import com.keydom.mianren.ih_patient.view.LifestyleDataEditDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.jetbrains.annotations.Nullable;
@@ -69,8 +70,21 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
         fragLifestyleDataRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         fragLifestyleDataRecyclerView.setAdapter(lifestyleDataAdapter);
         lifestyleDataAdapter.setOnItemClickListener((adapter, view, position) -> {
-            data.get(position).changeSelectStatus();
-            lifestyleDataAdapter.notifyDataSetChanged();
+            //            data.get(position).changeSelectStatus();
+            //            lifestyleDataAdapter.notifyDataSetChanged();
+            LifestyleDataEditDialog dialog = new LifestyleDataEditDialog(getContext(),
+                    new LifestyleDataEditDialog.OnCommitListener() {
+                        @Override
+                        public void backHealthManager() {
+
+                        }
+
+                        @Override
+                        public void backHome() {
+
+                        }
+                    });
+            dialog.show();
         });
 
         fragLifestyleDataRefreshLayout.setOnRefreshListener(null);

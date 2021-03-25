@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/health_data_dialog_bg_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_5f000000"
+        android:orientation="horizontal" />
+
+    <LinearLayout
+        android:id="@+id/health_data_dialog_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/dp_20"
+        android:paddingEnd="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_6"
+            android:layout_marginTop="@dimen/dp_19"
+            android:text="@string/txt_edit_health_data"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/health_data_dialog_hint_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_6"
+            android:layout_marginTop="@dimen/dp_15"
+            android:textColor="@color/edit_hint_color"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold"
+            tools:text="1份   200克" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_52"
+            android:layout_marginTop="@dimen/dp_21"
+            android:background="@color/color_f1f1f1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="碳水化合物"
+                android:textColor="@color/tab_nol_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="蛋白质"
+                android:textColor="@color/tab_nol_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="脂肪"
+                android:textColor="@color/tab_nol_color"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_18">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold"
+                tools:text="18克" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold"
+                tools:text="18克" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold"
+                tools:text="18克" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dialog_lifestyle_data_edit_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_17"
+            android:layout_marginEnd="4dp"
+            android:textColor="@color/color_57a7fc"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold"
+            tools:text="1份" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_44"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_6"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="交换份"
+                android:textColor="@color/tab_nol_color"
+                android:textSize="@dimen/sp_14" />
+
+            <View
+                android:layout_width="@dimen/dp_3"
+                android:layout_height="@dimen/dp_18"
+                android:layout_marginStart="@dimen/dp_5"
+                android:background="@color/tab_nol_color" />
+
+            <com.keydom.mianren.ih_patient.view.HorizontalScaleScrollView
+                android:id="@+id/dialog_lifestyle_data_edit_scroll_view"
+                android:layout_width="@dimen/dp_220"
+                android:layout_height="wrap_content"
+                app:lf_scale_view_max="40"
+                app:lf_scale_view_min="0" />
+
+            <View
+                android:layout_width="@dimen/dp_3"
+                android:layout_height="@dimen/dp_18"
+                android:background="@color/tab_nol_color" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_11"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="35克"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:text="90千卡"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/triangle_3f98f7" />
+
+        <TextView
+            android:id="@+id/health_data_dialog_submit_tv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@drawable/btn_health_public"
+            android:gravity="center"
+            android:text="@string/submit_data"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</RelativeLayout>
