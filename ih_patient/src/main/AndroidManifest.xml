@@ -553,6 +553,7 @@
         <activity android:name=".activity.health_manager.LifestyleDataActivity" />
         <activity android:name=".activity.health_manager.InterventionPlanActivity" />
         <activity android:name=".activity.health_manager.InterventionPlanDetailActivity" />
+        <activity android:name=".activity.health_manager.HealthSummaryActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
