@@ -554,6 +554,8 @@
         <activity android:name=".activity.health_manager.InterventionPlanActivity" />
         <activity android:name=".activity.health_manager.InterventionPlanDetailActivity" />
         <activity android:name=".activity.health_manager.HealthSummaryActivity" />
+        <activity android:name=".activity.health_manager.HealthSummaryDetailActivity" />
+        <activity android:name=".activity.health_manager.CombinedChartActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

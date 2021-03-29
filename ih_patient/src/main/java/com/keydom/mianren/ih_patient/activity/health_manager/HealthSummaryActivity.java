@@ -59,7 +59,7 @@ public class HealthSummaryActivity extends BaseControllerActivity<HealthSummaryC
         healthSummaryBeans.add(new HealthSummaryBean());
         healthSummaryBeans.add(new HealthSummaryBean());
         healthSummaryAdapter = new HealthSummaryAdapter(healthSummaryBeans);
-        healthSummaryAdapter.setOnItemChildClickListener(getController());
+        healthSummaryAdapter.setOnItemClickListener(getController());
         healthSummaryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         healthSummaryRecyclerView.setAdapter(healthSummaryAdapter);
         healthSummaryRefreshLayout.setOnRefreshListener(refreshLayout -> {
