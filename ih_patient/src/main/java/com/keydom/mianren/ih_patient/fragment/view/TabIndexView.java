@@ -2,6 +2,7 @@ package com.keydom.mianren.ih_patient.fragment.view;
 
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_patient.bean.HealthKnowledgeBean;
+import com.keydom.mianren.ih_patient.bean.HealthManagerMainBean;
 import com.keydom.mianren.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.mianren.ih_patient.bean.IndexData;
 import com.keydom.mianren.ih_patient.bean.IndexFunction;
@@ -75,4 +76,6 @@ public interface TabIndexView extends BaseView {
     void getCityListSuccess(List<Object> data);
 
     void getCityListFailed(String msg);
+
+    void requestHealthManagerSuccess(HealthManagerMainBean bean);
 }

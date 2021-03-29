@@ -236,7 +236,17 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/selector_health_status" />
+                    android:src="@mipmap/exa_report_right"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/health_manager_cardiovascular_hint1_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_edit_orange"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 
@@ -294,7 +304,17 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/selector_health_status" />
+                    android:src="@mipmap/exa_report_right"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/health_manager_hypertension_hint1_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_edit_orange"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 
@@ -351,7 +371,17 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/selector_health_status" />
+                    android:src="@mipmap/exa_report_right"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/health_manager_diabetes_hint1_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_edit_orange"
+                    android:visibility="gone" />
 
             </RelativeLayout>
         </LinearLayout>

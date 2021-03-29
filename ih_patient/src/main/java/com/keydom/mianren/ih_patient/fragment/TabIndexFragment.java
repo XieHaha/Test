@@ -39,6 +39,7 @@ import com.keydom.mianren.ih_patient.adapter.IndexFunctionAdapter;
 import com.keydom.mianren.ih_patient.bean.CityBean;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.bean.HealthKnowledgeBean;
+import com.keydom.mianren.ih_patient.bean.HealthManagerMainBean;
 import com.keydom.mianren.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.mianren.ih_patient.bean.IndexData;
 import com.keydom.mianren.ih_patient.bean.IndexFunction;
@@ -114,6 +115,10 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
     private ImageView mTopRightIconIv;
 
     private DiagnosesApplyDialog mVIPDialog;
+    /**
+     * 健康管理首页数据
+     */
+    private HealthManagerMainBean healthManagerMainBean;
 
 
     public void initVipFunction() {
@@ -209,7 +214,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             page = 1;
             getController().fillViewData();
             getController().fillHealthKnowledges(page);
-
+            getController().patientHealthManageIndex();
         });
 
         if (Global.getSelectedCityCode() != null && !"".equals(Global.getSelectedCityCode())) {
@@ -348,6 +353,8 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             getController().fillViewData();
             getController().fillFunction();
             getController().fillHealthKnowledges(page);
+            //健康管理
+            getController().patientHealthManageIndex();
             memberLayoutShow();
         }
     }
@@ -375,6 +382,17 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             getController().fillViewData();
             getController().fillFunction();
             getController().fillHealthKnowledges(page);
+            getController().patientHealthManageIndex();
+        }
+    }
+
+    /**
+     * 开通健康管理
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateHealthManager(Event event) {
+        if (event.getType() == EventType.OPEN_HEALTH_MANAGER) {
+            getController().patientHealthManageIndex();
         }
     }
 
@@ -776,8 +794,6 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             }
         }
         indexFunctionAdapter.notifyDataSetChanged();
-
-
     }
 
     @Override
@@ -986,6 +1002,14 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
                 ChooseCityActivity.start(getContext());
             }
         }).setTitle("提示").setCancel(false).setNegativeButtonIsGone(true).setPositiveButton("确认").show();
+    }
+
+    @Override
+    public void requestHealthManagerSuccess(HealthManagerMainBean bean) {
+        this.healthManagerMainBean = bean;
+        if (indexFunctionAdapter != null) {
+            indexFunctionAdapter.setHealthManagerMainBean(healthManagerMainBean);
+        }
     }
 }
 

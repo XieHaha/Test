@@ -486,6 +486,7 @@
     <string name="txt_health_manager_description_detail">健康管理服务为您提供，个人健康档案可以查看医院体检数据、检验检查数据，并对高血压、糖尿病、心脑血管3中慢性病健康管理，专业健康管理医生查看日常健康数据，定期整理健康总结，制定干预方案，一对一在线健康咨询。</string>
     <string name="txt_non_enable_module">您还未启用该模块</string>
     <string name="txt_non_data">今日日常健康数据尚未填写</string>
+    <string name="txt_has_data">今日日常健康数据已填写</string>
 
     <string name="txt_is_drink">是否饮酒</string>
     <string name="txt_drink">饮酒</string>

@@ -4,6 +4,8 @@ import com.keydom.mianren.ih_patient.R;
 
 /**
  * 首页功能配置类
+ *
+ * @author 顿顿
  */
 public class FunctionConfig implements FunctionIndex {
     private static int ResourceId = R.mipmap.more_icon;
@@ -51,6 +53,8 @@ public class FunctionConfig implements FunctionIndex {
             FunctionConfig.ResourceId = R.mipmap.vip_obstetrical_medical_records_icon;
         } else if (id == ChildHealth) {
             FunctionConfig.ResourceId = R.mipmap.vip_child_health_icon;
+        } else if (id == HealthManager) {
+            FunctionConfig.ResourceId = R.mipmap.icon_health_manager;
         } else {
             FunctionConfig.ResourceId = R.mipmap.consultation_pay;
         }

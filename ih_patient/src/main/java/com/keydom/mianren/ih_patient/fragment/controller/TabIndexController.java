@@ -17,6 +17,7 @@ import com.keydom.mianren.ih_patient.activity.member.MemberDetailActivity;
 import com.keydom.mianren.ih_patient.activity.my_message.MyMessageActivity;
 import com.keydom.mianren.ih_patient.bean.CityBean;
 import com.keydom.mianren.ih_patient.bean.Event;
+import com.keydom.mianren.ih_patient.bean.HealthManagerMainBean;
 import com.keydom.mianren.ih_patient.bean.HospitalAreaInfo;
 import com.keydom.mianren.ih_patient.bean.IndexData;
 import com.keydom.mianren.ih_patient.bean.IndexFunction;
@@ -26,6 +27,7 @@ import com.keydom.mianren.ih_patient.constant.FunctionConfig;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.Type;
 import com.keydom.mianren.ih_patient.fragment.view.TabIndexView;
+import com.keydom.mianren.ih_patient.net.HealthManagerService;
 import com.keydom.mianren.ih_patient.net.IndexService;
 import com.keydom.mianren.ih_patient.net.UserService;
 import com.keydom.mianren.ih_patient.utils.DepartmentDataHelper;
@@ -42,6 +44,8 @@ import java.util.Map;
 
 /**
  * 主页index控制器
+ *
+ * @author 顿顿
  */
 public class TabIndexController extends ControllerImpl<TabIndexView> implements View.OnClickListener {
     private IndexFunction allFunction;
@@ -226,6 +230,24 @@ public class TabIndexController extends ControllerImpl<TabIndexView> implements 
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
                 getView().getCityListFailed(msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 健康管理首页
+     */
+    public void patientHealthManageIndex() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(HealthManagerService.class).patientHealthManageIndex(), new HttpSubscriber<HealthManagerMainBean>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable HealthManagerMainBean data) {
+                getView().requestHealthManagerSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
                 return super.requestError(exception, code, msg);
             }
         });

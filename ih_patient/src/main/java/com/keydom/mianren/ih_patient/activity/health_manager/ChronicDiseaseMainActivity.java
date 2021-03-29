@@ -11,6 +11,7 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.health_manager.controller.ChronicDiseaseMainController;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.ChronicDiseaseMainView;
+import com.keydom.mianren.ih_patient.bean.entity.ChronicDisease;
 import com.keydom.mianren.ih_patient.constant.Const;
 
 import org.jetbrains.annotations.Nullable;
@@ -22,7 +23,7 @@ import butterknife.BindView;
  * @date 21/3/17 14:27
  * @des 慢病管理
  */
-public class ChronicDiseaseMainActivity extends BaseControllerActivity<ChronicDiseaseMainController> implements ChronicDiseaseMainView {
+public class ChronicDiseaseMainActivity extends BaseControllerActivity<ChronicDiseaseMainController> implements ChronicDiseaseMainView, ChronicDisease {
     @BindView(R.id.disease_main_data_hint_tv)
     TextView diseaseMainDataHintTv;
     @BindView(R.id.disease_main_systolic_data_tv)
@@ -52,18 +53,7 @@ public class ChronicDiseaseMainActivity extends BaseControllerActivity<ChronicDi
     @BindView(R.id.disease_main_contact_counselor_tv)
     TextView diseaseMainContactCounselorTv;
 
-    /**
-     * 心脑血管
-     */
-    public static final int CHRONIC_DISEASE_CARDIOVASCULAR = 1;
-    /**
-     * 高血压
-     */
-    public static final int CHRONIC_DISEASE_HYPERTENSION = 2;
-    /**
-     * 糖尿病
-     */
-    public static final int CHRONIC_DISEASE_DIABETES = 3;
+
 
     private int chronicDiseaseType = -1;
 

@@ -88,6 +88,13 @@ public class HealthManagerOpenActivity extends BaseControllerActivity<HealthMana
         }
     }
 
+
+    @Override
+    public void openHealthManagerSuccess() {
+        EventBus.getDefault().post(new Event(EventType.OPEN_HEALTH_MANAGER, null));
+        showSuccessDialog();
+    }
+
     /**
      * 获取就诊人
      */
@@ -95,7 +102,7 @@ public class HealthManagerOpenActivity extends BaseControllerActivity<HealthMana
     public void getPatientCard(Event event) {
         if (event.getType() == EventType.SENDSELECTNURSINGPATIENT) {
             medicalCardInfo = (MedicalCardInfo) event.getData();
-            showSuccessDialog();
+            getController().openHealthManager(medicalCardInfo.getEleCardNumber());
         }
     }
 

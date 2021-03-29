@@ -22,6 +22,7 @@ import com.keydom.mianren.ih_patient.activity.diagnose_main.DiagnoseMainActivity
 import com.keydom.mianren.ih_patient.activity.diagnose_user_manager.ManageUserActivity;
 import com.keydom.mianren.ih_patient.activity.get_drug.GetDrugActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthManagerActivity;
+import com.keydom.mianren.ih_patient.activity.health_manager.HealthManagerOpenActivity;
 import com.keydom.mianren.ih_patient.activity.hospital_payment.HospitalPaymentActivity;
 import com.keydom.mianren.ih_patient.activity.inspection_report.InspectionReportActivity;
 import com.keydom.mianren.ih_patient.activity.location_manage.LocationManageActivity;
@@ -36,6 +37,7 @@ import com.keydom.mianren.ih_patient.activity.payment_records.PaymentRecordActiv
 import com.keydom.mianren.ih_patient.activity.reserve_amniocentesis.AmniocentesisReserveActivity;
 import com.keydom.mianren.ih_patient.activity.reserve_obstetric_hospital.ReserveObstetricHospitalActivity;
 import com.keydom.mianren.ih_patient.bean.CommonDocumentBean;
+import com.keydom.mianren.ih_patient.bean.HealthManagerMainBean;
 import com.keydom.mianren.ih_patient.bean.IndexFunction;
 import com.keydom.mianren.ih_patient.constant.AmniocentesisProtocol;
 import com.keydom.mianren.ih_patient.constant.FunctionIndex;
@@ -47,10 +49,13 @@ import java.util.List;
 
 /**
  * 方法角标适配器
+ *
+ * @author 顿顿
  */
 public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdapter.VH> implements FunctionIndex {
     private Context context;
     private List<IndexFunction> indexFunctionList;
+    private HealthManagerMainBean healthManagerMainBean;
 
 
     private boolean loginStatus() {
@@ -68,6 +73,10 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
     public IndexFunctionAdapter(Context context, List<IndexFunction> indexFunctionList) {
         this.context = context;
         this.indexFunctionList = indexFunctionList;
+    }
+
+    public void setHealthManagerMainBean(HealthManagerMainBean healthManagerMainBean) {
+        this.healthManagerMainBean = healthManagerMainBean;
     }
 
     public class VH extends RecyclerView.ViewHolder {
@@ -221,8 +230,11 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             }
                             break;
                         case HealthManager:
-                            //                            HealthManagerOpenActivity.start(context);
-                            HealthManagerActivity.start(context);
+                            if (healthManagerMainBean != null && healthManagerMainBean.getIsOpen() != 0) {
+                                HealthManagerActivity.start(context);
+                            } else {
+                                HealthManagerOpenActivity.start(context);
+                            }
                             break;
                      /*   case Setting:
                             context.startActivity(new Intent(context,

@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_patient.activity.health_manager.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.mianren.ih_patient.bean.HealthManagerMainBean;
 
 /**
  * @author 顿顿
@@ -9,4 +10,7 @@ import com.keydom.ih_common.base.BaseView;
  */
 public interface HealthManagerView extends BaseView {
 
+    HealthManagerMainBean getMainBean();
+    void requestHealthManagerSuccess(HealthManagerMainBean bean);
+    void openChronicDiseaseManageSuccess(int type,String data);
 }

@@ -11,4 +11,6 @@ public interface HealthManagerOpenView extends BaseView {
     boolean isSelected();
 
     void setSelect();
+
+    void openHealthManagerSuccess();
 }
