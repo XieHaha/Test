@@ -541,4 +541,15 @@ public class CommUtil {
         map.put("sexCode", sexCode);
         return map;
     }
+
+    /**
+     * bmi = weight/height*height
+     */
+    public static String getBMI(float weight, float height) {
+        if (weight == 0 || height == 0) {
+            return "";
+        }
+        DecimalFormat decimalFormat = new DecimalFormat(".0");
+        return decimalFormat.format(weight / (height * height));
+    }
 }

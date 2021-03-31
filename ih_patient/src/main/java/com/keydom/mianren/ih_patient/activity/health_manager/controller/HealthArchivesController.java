@@ -3,12 +3,22 @@ package com.keydom.mianren.ih_patient.activity.health_manager.controller;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.net.ApiRequest;
+import com.keydom.ih_common.net.exception.ApiException;
+import com.keydom.ih_common.net.service.HttpService;
+import com.keydom.ih_common.net.subsriber.HttpSubscriber;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthAddSurgeryActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthArchivesBaseActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthContactActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthMedicalHistoryActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.HealthArchivesView;
+import com.keydom.mianren.ih_patient.bean.HealthArchivesBean;
+import com.keydom.mianren.ih_patient.net.HealthManagerService;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author 顿顿
@@ -20,7 +30,7 @@ public class HealthArchivesController extends ControllerImpl<HealthArchivesView>
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.health_archives_base_info_layout:
-                HealthArchivesBaseActivity.start(getContext());
+                HealthArchivesBaseActivity.start(getContext(), getView().getArchivesBean());
                 break;
             case R.id.health_archives_add_contact_tv:
                 HealthContactActivity.start(getContext());
@@ -61,5 +71,43 @@ public class HealthArchivesController extends ControllerImpl<HealthArchivesView>
             default:
                 break;
         }
+    }
+
+    /**
+     * 获取患者健康档案
+     */
+    public void getPatientInfo() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(HealthManagerService.class).getPatientInfo(getView().getPatientId()), new HttpSubscriber<HealthArchivesBean>(getContext(), getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable HealthArchivesBean data) {
+                getView().getPatientInfoSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtil.showMessage(getContext(), msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 保存患者健康档案
+     */
+    public void savePatientInfo() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(HealthManagerService.class).savePatientInfo(HttpService.INSTANCE.object2Body(getView().getParams())), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                getView().savePatientInfoSuccess();
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtil.showMessage(getContext(), msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
     }
 }

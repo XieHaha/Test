@@ -33,7 +33,7 @@ public class HealthManagerController extends ControllerImpl<HealthManagerView> i
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.health_manager_archives_layout:
-                HealthArchivesActivity.start(getContext());
+                HealthArchivesActivity.start(getContext(),getView().getMainBean().getPatientId(),getView().getMainBean().getIsPerfect());
                 break;
             case R.id.health_manager_report_layout:
                 break;

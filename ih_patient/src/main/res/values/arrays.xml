@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="job_type">
+        <item>国家机关、党群组织、企业、事业单位负责人</item>
+        <item>专业技术人员</item>
+        <item>办事人员和有关人员</item>
+        <item>商业、服务业员工</item>
+        <item>农、林、牧、渔、水利业生产人员</item>
+        <item>生产、运输设备操作人员及有关人员</item>
+        <item>军人</item>
+        <item>不便分类的其他从业人员</item>
+    </string-array>
+
+    <string-array name="birth_status">
+        <item>已婚未育</item>
+        <item>已婚已育</item>
+        <item>未婚未育</item>
+        <item>未婚已育</item>
+    </string-array>
+
+    <string-array name="contact_people">
+        <item>父母</item>
+        <item>亲人</item>
+        <item>配偶【恋人】</item>
+        <item>朋友</item>
+    </string-array>
+</resources>

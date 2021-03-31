@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_patient.net;
 
 import com.keydom.ih_common.net.result.HttpResult;
+import com.keydom.mianren.ih_patient.bean.HealthArchivesBean;
 import com.keydom.mianren.ih_patient.bean.HealthManagerMainBean;
 
 import io.reactivex.Observable;
@@ -33,5 +34,17 @@ public interface HealthManagerService {
      */
     @POST("medicine/chronicDiseaseManage/openChronicDiseaseManage")
     Observable<HttpResult<String>> openChronicDiseaseManage(@Body RequestBody body);
+
+    /**
+     * 保存患者健康档案
+     */
+    @POST("medicine/patientHealthManage/savePatientInfo")
+    Observable<HttpResult<String>> savePatientInfo(@Body RequestBody body);
+
+    /**
+     * 获取患者健康档案
+     */
+    @GET("medicine/patientHealthManage/patientInfo")
+    Observable<HttpResult<HealthArchivesBean>> getPatientInfo(@Query("patientId") String patientId);
 
 }

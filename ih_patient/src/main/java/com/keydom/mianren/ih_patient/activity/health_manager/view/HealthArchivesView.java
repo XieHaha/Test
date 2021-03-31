@@ -1,6 +1,9 @@
 package com.keydom.mianren.ih_patient.activity.health_manager.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.mianren.ih_patient.bean.HealthArchivesBean;
+
+import java.util.Map;
 
 /**
  * @author 顿顿
@@ -9,4 +12,12 @@ import com.keydom.ih_common.base.BaseView;
  */
 public interface HealthArchivesView extends BaseView {
 
+    HealthArchivesBean getArchivesBean();
+
+    Map<String, Object> getParams();
+
+    String getPatientId();
+
+    void savePatientInfoSuccess();
+    void getPatientInfoSuccess(HealthArchivesBean data);
 }

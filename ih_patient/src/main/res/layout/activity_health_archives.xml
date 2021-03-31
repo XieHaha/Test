@@ -85,7 +85,13 @@
                     android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
-            <include layout="@layout/item_health_contact_people" />
+            <!--            <include layout="@layout/item_health_contact_people" />-->
+
+            <LinearLayout
+                android:id="@+id/health_contact_people_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
             <TextView
                 android:layout_width="match_parent"

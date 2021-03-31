@@ -49,7 +49,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <com.keydom.ih_common.view.InterceptorEditText
-                    android:id="@+id/et_phone"
+                    android:id="@+id/archives_base_name_et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/dp_27"
@@ -91,7 +91,7 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:id="@+id/health_archives_drink"
+                    android:id="@+id/archives_base_male_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/location_manage_checkbox_button"
@@ -102,7 +102,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
-                    android:id="@+id/health_archives_non_drink"
+                    android:id="@+id/archives_base_female_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_27"
@@ -142,14 +142,16 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/archives_base_birth_tv"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/dp_27"
                     android:drawableEnd="@mipmap/arrow_bottom"
                     android:drawablePadding="@dimen/dp_15"
-                    android:gravity="center"
-                    android:text="@string/txt_birth_hint"
-                    android:textColor="@color/select_333333_bbbbbb_color"
+                    android:gravity="center_vertical|end"
+                    android:hint="@string/txt_birth_hint"
+                    android:textColor="@color/color_333333"
+                    android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
@@ -175,12 +177,14 @@
                     android:textSize="@dimen/sp_14" />
 
                 <com.keydom.ih_common.view.InterceptorEditText
+                    android:id="@+id/archives_base_card_et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/dp_27"
                     android:background="@null"
                     android:gravity="center_vertical|end"
                     android:hint="@string/txt_card_hint"
+                    android:inputType="text"
                     android:singleLine="true"
                     android:textColor="@color/color_333333"
                     android:textColorHint="@color/edit_hint_color"
@@ -210,6 +214,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <com.keydom.ih_common.view.InterceptorEditText
+                    android:id="@+id/archives_base_height_et"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/dp_16"
@@ -217,6 +222,7 @@
                     android:background="@null"
                     android:gravity="center_vertical|end"
                     android:hint="@string/txt_height_hint"
+                    android:inputType="number"
                     android:singleLine="true"
                     android:textColor="@color/color_333333"
                     android:textColorHint="@color/edit_hint_color"
@@ -254,6 +260,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <com.keydom.ih_common.view.InterceptorEditText
+                    android:id="@+id/archives_base_weight_et"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/dp_16"
@@ -261,6 +268,7 @@
                     android:background="@null"
                     android:gravity="center_vertical|end"
                     android:hint="@string/txt_weight_hint"
+                    android:inputType="number"
                     android:singleLine="true"
                     android:textColor="@color/color_333333"
                     android:textColorHint="@color/edit_hint_color"
@@ -298,6 +306,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/archives_base_bmi_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dp_27"
@@ -327,6 +336,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <com.keydom.ih_common.view.InterceptorEditText
+                    android:id="@+id/archives_base_address_et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/dp_27"
@@ -362,12 +372,14 @@
                     android:textSize="@dimen/sp_14" />
 
                 <com.keydom.ih_common.view.InterceptorEditText
+                    android:id="@+id/archives_base_phone_et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/dp_27"
                     android:background="@null"
                     android:gravity="center_vertical|end"
                     android:hint="@string/txt_phone_hint"
+                    android:inputType="phone"
                     android:singleLine="true"
                     android:textColor="@color/color_333333"
                     android:textColorHint="@color/edit_hint_color"
@@ -403,14 +415,18 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/archives_base_job_tv"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/dp_27"
                     android:drawableEnd="@mipmap/arrow_bottom"
                     android:drawablePadding="@dimen/dp_15"
-                    android:gravity="center"
-                    android:text="@string/txt_job_hint"
-                    android:textColor="@color/select_333333_bbbbbb_color"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|end"
+                    android:hint="@string/txt_job_hint"
+                    android:singleLine="true"
+                    android:textColor="@color/color_333333"
+                    android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
@@ -436,6 +452,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <com.keydom.ih_common.view.InterceptorEditText
+                    android:id="@+id/archives_base_company_et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/dp_27"
@@ -478,14 +495,16 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/archives_base_nation_tv"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/dp_27"
                     android:drawableEnd="@mipmap/arrow_bottom"
                     android:drawablePadding="@dimen/dp_15"
-                    android:gravity="center"
-                    android:text="@string/txt_nation_hint"
-                    android:textColor="@color/select_333333_bbbbbb_color"
+                    android:gravity="center_vertical|end"
+                    android:hint="@string/txt_nation_hint"
+                    android:textColor="@color/color_333333"
+                    android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
@@ -517,6 +536,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/archives_base_marital_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/location_manage_checkbox_button"
@@ -527,6 +547,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/archives_base_unmarried_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_27"
@@ -566,14 +587,16 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/archives_base_birth_status_tv"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/dp_27"
                     android:drawableEnd="@mipmap/arrow_bottom"
                     android:drawablePadding="@dimen/dp_15"
-                    android:gravity="center"
-                    android:text="@string/txt_birth_status_hint"
-                    android:textColor="@color/select_333333_bbbbbb_color"
+                    android:gravity="center_vertical|end"
+                    android:hint="@string/txt_birth_status_hint"
+                    android:textColor="@color/color_333333"
+                    android:textColorHint="@color/edit_hint_color"
                     android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
