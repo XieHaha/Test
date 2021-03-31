@@ -12,6 +12,8 @@ import java.util.Map;
  */
 public interface HealthArchivesView extends BaseView {
 
+    void setCurRelationPosition(int curRelationPosition);
+
     HealthArchivesBean getArchivesBean();
 
     Map<String, Object> getParams();

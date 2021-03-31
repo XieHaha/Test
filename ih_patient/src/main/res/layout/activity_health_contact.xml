@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/icon_archives_frequency"
+            android:drawableStart="@mipmap/icon_archives_job"
             android:drawablePadding="@dimen/dp_18"
             android:gravity="center"
             android:text="@string/txt_relationship"
@@ -37,14 +37,16 @@
             android:layout_weight="1" />
 
         <TextView
+            android:id="@+id/health_contact_relationship_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="@dimen/dp_27"
             android:drawableEnd="@mipmap/arrow_bottom"
             android:drawablePadding="@dimen/dp_15"
             android:gravity="center"
-            android:text="@string/txt_select"
-            android:textColor="@color/select_333333_bbbbbb_color"
+            android:hint="@string/txt_select"
+            android:textColor="@color/color_333333"
+            android:textColorHint="@color/edit_hint_color"
             android:textSize="@dimen/sp_14" />
     </LinearLayout>
 
@@ -63,13 +65,14 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp_34"
-            android:drawableStart="@mipmap/icon_archives_year"
+            android:drawableStart="@mipmap/icon_archives_name"
             android:drawablePadding="@dimen/dp_18"
             android:text="@string/txt_name"
             android:textColor="@color/edit_text_color"
             android:textSize="@dimen/sp_14" />
 
         <com.keydom.ih_common.view.InterceptorEditText
+            android:id="@+id/health_contact_name_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/dp_27"
@@ -98,19 +101,22 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp_34"
-            android:drawableStart="@mipmap/icon_archives_year"
+            android:drawableStart="@mipmap/icon_archives_phone"
             android:drawablePadding="@dimen/dp_18"
             android:text="@string/txt_phone"
             android:textColor="@color/edit_text_color"
             android:textSize="@dimen/sp_14" />
 
         <com.keydom.ih_common.view.InterceptorEditText
+            android:id="@+id/health_contact_phone_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/dp_27"
             android:background="@null"
             android:gravity="center_vertical|end"
             android:hint="@string/txt_other_phone_hint"
+            android:inputType="phone"
+            android:maxLength="11"
             android:singleLine="true"
             android:textColor="@color/color_333333"
             android:textColorHint="@color/edit_hint_color"

@@ -33,6 +33,8 @@ public class HealthArchivesController extends ControllerImpl<HealthArchivesView>
                 HealthArchivesBaseActivity.start(getContext(), getView().getArchivesBean());
                 break;
             case R.id.health_archives_add_contact_tv:
+                //初始化
+                getView().setCurRelationPosition(-1);
                 HealthContactActivity.start(getContext());
                 break;
             case R.id.health_archives_select_past_tv:

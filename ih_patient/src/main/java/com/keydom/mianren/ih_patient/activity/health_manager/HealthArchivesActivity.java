@@ -15,6 +15,7 @@ import com.keydom.mianren.ih_patient.activity.health_manager.controller.HealthAr
 import com.keydom.mianren.ih_patient.activity.health_manager.view.HealthArchivesView;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.bean.HealthArchivesBean;
+import com.keydom.mianren.ih_patient.bean.PatientRelativesBean;
 import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -25,6 +26,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -82,7 +84,17 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
      * 健康档案数据集
      */
     private HealthArchivesBean archivesBean;
+    /**
+     * 紧急联系人
+     */
+    private List<PatientRelativesBean> relativesBeans;
     private Map<String, Object> params;
+
+    /**
+     * 当前编辑的紧急联系人
+     */
+    private int curRelationPosition = -1;
+
 
     /**
      * 启动
@@ -144,6 +156,79 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
         healthArchivesGeneticFlowLayout.setVisibility(View.GONE);
     }
 
+    /**
+     * 数据初始化
+     */
+    private void bindData() {
+        //紧急联系人
+        relativesBeans = archivesBean.getPatientRelatives();
+        addRelationshipView();
+    }
+
+    /**
+     * 开通健康管理
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateArchives(Event event) {
+        if (event.getType() == EventType.UPDATE_ARCHIVES) {
+            archivesBean = (HealthArchivesBean) event.getData();
+            healthArchivesBaseInfoTv.setVisibility(View.INVISIBLE);
+        } else if (event.getType() == EventType.UPDATE_RELATIONSHIP) {
+            PatientRelativesBean relativesBean = (PatientRelativesBean) event.getData();
+            initRelationshipData(relativesBean);
+        }
+    }
+
+    /**
+     * 紧急联系人
+     */
+    private void initRelationshipData(PatientRelativesBean relativesBean) {
+        relativesBean.setPatientId(archivesBean.getPatientId());
+        if (curRelationPosition != -1) {
+            relativesBeans.set(curRelationPosition, relativesBean);
+        } else {
+            relativesBeans.add(relativesBean);
+        }
+        archivesBean.setPatientRelatives(relativesBeans);
+        addRelationshipView();
+    }
+
+    @Override
+    public void setCurRelationPosition(int curRelationPosition) {
+        this.curRelationPosition = curRelationPosition;
+    }
+
+    /**
+     * 添加紧急联系人布局
+     */
+    private void addRelationshipView() {
+        healthContactPeopleLayout.removeAllViews();
+        for (int i = 0; i < relativesBeans.size(); i++) {
+            PatientRelativesBean bean = relativesBeans.get(i);
+            View view = getLayoutInflater().inflate(R.layout.item_health_contact_people, null);
+            TextView name = view.findViewById(R.id.item_relation_name_tv);
+            TextView relation = view.findViewById(R.id.item_relation_ship_tv);
+            TextView phone = view.findViewById(R.id.item_relation_phone_tv);
+            TextView delete = view.findViewById(R.id.item_relation_delete_tv);
+            name.setText(bean.getName());
+            relation.setText(bean.getRelation());
+            phone.setText(bean.getPhoneNumber());
+            int finalI = i;
+            view.setOnClickListener(v -> {
+                curRelationPosition = finalI;
+                HealthContactActivity.start(this, bean);
+            });
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    relativesBeans.remove(bean);
+                    healthContactPeopleLayout.removeView(view);
+                }
+            });
+            healthContactPeopleLayout.addView(view);
+        }
+    }
+
     @Override
     public HealthArchivesBean getArchivesBean() {
         return archivesBean;
@@ -167,6 +252,7 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
         params.put("nation", archivesBean.getNation());
         params.put("maritalHistory", archivesBean.getMaritalHistory());
         params.put("fertilityStatus", archivesBean.getFertilityStatus());
+        params.put("patientRelatives", archivesBean.getPatientRelatives());
         return params;
     }
 
@@ -175,20 +261,10 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
         return patientId;
     }
 
-    /**
-     * 开通健康管理
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void updateArchives(Event event) {
-        if (event.getType() == EventType.UPDATE_ARCHIVES) {
-            archivesBean = (HealthArchivesBean) event.getData();
-            healthArchivesBaseInfoTv.setVisibility(View.INVISIBLE);
-        }
-    }
-
     @Override
     public void getPatientInfoSuccess(HealthArchivesBean data) {
         archivesBean = data;
+        bindData();
     }
 
     @Override
