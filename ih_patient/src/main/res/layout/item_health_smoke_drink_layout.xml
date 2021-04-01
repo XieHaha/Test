@@ -56,118 +56,131 @@
         android:background="@color/color_f9f9f9" />
 
     <LinearLayout
-        android:id="@+id/health_archives_drink_frequency_layout"
+        android:id="@+id/health_archives_drink_root_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_67"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/dp_30"
-        android:paddingEnd="@dimen/dp_25">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/icon_archives_frequency"
-            android:drawablePadding="@dimen/dp_22"
-            android:gravity="center"
-            android:text="@string/txt_drink_frequency"
-            android:textColor="@color/edit_text_color"
-            android:textSize="@dimen/sp_14" />
+        <LinearLayout
+            android:id="@+id/health_archives_drink_frequency_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_67"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_30"
+            android:paddingEnd="@dimen/dp_25">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/icon_archives_frequency"
+                android:drawablePadding="@dimen/dp_22"
+                android:gravity="center"
+                android:text="@string/txt_drink_frequency"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_27"
-            android:drawableEnd="@mipmap/arrow_bottom"
-            android:drawablePadding="@dimen/dp_15"
-            android:gravity="center"
-            android:text="@string/txt_drink_frequency_hint"
-            android:textColor="@color/select_333333_999999_color"
-            android:textSize="@dimen/sp_14" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:background="@color/color_f9f9f9" />
+            <TextView
+                android:id="@+id/health_archives_drink_frequency_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_27"
+                android:drawableEnd="@mipmap/arrow_bottom"
+                android:drawablePadding="@dimen/dp_15"
+                android:gravity="center|end"
+                android:hint="@string/txt_drink_frequency_hint"
+                android:textColor="@color/color_333333"
+                android:textColorHint="@color/tab_nol_color"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/health_archives_drink_quantity_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_67"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/dp_30"
-        android:paddingEnd="@dimen/dp_25">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_f9f9f9" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/icon_archives_quantity"
-            android:drawablePadding="@dimen/dp_22"
-            android:gravity="center"
-            android:text="@string/txt_drink_quantity"
-            android:textColor="@color/edit_text_color"
-            android:textSize="@dimen/sp_14" />
+        <LinearLayout
+            android:id="@+id/health_archives_drink_quantity_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_67"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_30"
+            android:paddingEnd="@dimen/dp_25">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/icon_archives_quantity"
+                android:drawablePadding="@dimen/dp_22"
+                android:gravity="center"
+                android:text="@string/txt_drink_quantity"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_27"
-            android:drawableEnd="@mipmap/arrow_bottom"
-            android:drawablePadding="@dimen/dp_15"
-            android:gravity="center"
-            android:text="@string/txt_drink_quantity_hint"
-            android:textColor="@color/select_333333_999999_color"
-            android:textSize="@dimen/sp_14" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:background="@color/color_f9f9f9" />
+            <TextView
+                android:id="@+id/health_archives_drink_quantity_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_27"
+                android:drawableEnd="@mipmap/arrow_bottom"
+                android:drawablePadding="@dimen/dp_15"
+                android:gravity="center|end"
+                android:hint="@string/txt_drink_quantity_hint"
+                android:textColor="@color/color_333333"
+                android:textColorHint="@color/tab_nol_color"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/health_archives_drink_year_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_67"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/dp_30"
-        android:paddingEnd="@dimen/dp_25">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_f9f9f9" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/icon_archives_year"
-            android:drawablePadding="@dimen/dp_22"
-            android:gravity="center"
-            android:text="@string/txt_drink_year"
-            android:textColor="@color/edit_text_color"
-            android:textSize="@dimen/sp_14" />
+        <LinearLayout
+            android:id="@+id/health_archives_drink_year_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_67"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_30"
+            android:paddingEnd="@dimen/dp_25">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/icon_archives_year"
+                android:drawablePadding="@dimen/dp_22"
+                android:gravity="center"
+                android:text="@string/txt_drink_year"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_27"
-            android:drawableEnd="@mipmap/arrow_bottom"
-            android:drawablePadding="@dimen/dp_15"
-            android:gravity="center"
-            android:text="@string/txt_drink_year_hint"
-            android:textColor="@color/select_333333_999999_color"
-            android:textSize="@dimen/sp_14" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/health_archives_drink_year_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_27"
+                android:drawableEnd="@mipmap/arrow_bottom"
+                android:drawablePadding="@dimen/dp_15"
+                android:gravity="center|end"
+                android:hint="@string/txt_drink_year_hint"
+                android:textColor="@color/color_333333"
+                android:textColorHint="@color/tab_nol_color"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
     </LinearLayout>
 
     <View
@@ -229,118 +242,133 @@
         android:background="@color/color_f9f9f9" />
 
     <LinearLayout
-        android:id="@+id/health_archives_smoke_frequency_layout"
+        android:id="@+id/health_archives_smoke_root_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_67"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/dp_30"
-        android:paddingEnd="@dimen/dp_25">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/icon_archives_frequency"
-            android:drawablePadding="@dimen/dp_22"
-            android:gravity="center"
-            android:text="@string/txt_smoke_frequency"
-            android:textColor="@color/edit_text_color"
-            android:textSize="@dimen/sp_14" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+        <LinearLayout
+            android:id="@+id/health_archives_smoke_frequency_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_67"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_30"
+            android:paddingEnd="@dimen/dp_25">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_27"
-            android:drawableEnd="@mipmap/arrow_bottom"
-            android:drawablePadding="@dimen/dp_15"
-            android:gravity="center"
-            android:text="@string/txt_smoke_frequency_hint"
-            android:textColor="@color/select_333333_999999_color"
-            android:textSize="@dimen/sp_14" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/icon_archives_frequency"
+                android:drawablePadding="@dimen/dp_22"
+                android:gravity="center"
+                android:text="@string/txt_smoke_frequency"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:background="@color/color_f9f9f9" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-    <LinearLayout
-        android:id="@+id/health_archives_smoke_quantity_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_67"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/dp_30"
-        android:paddingEnd="@dimen/dp_25">
+            <TextView
+                android:id="@+id/health_archives_smoke_frequency_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_27"
+                android:drawableEnd="@mipmap/arrow_bottom"
+                android:drawablePadding="@dimen/dp_15"
+                android:gravity="center|end"
+                android:hint="@string/txt_smoke_frequency_hint"
+                android:textColor="@color/color_333333"
+                android:textColorHint="@color/tab_nol_color"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/icon_archives_quantity"
-            android:drawablePadding="@dimen/dp_22"
-            android:gravity="center"
-            android:text="@string/txt_smoke_quantity"
-            android:textColor="@color/edit_text_color"
-            android:textSize="@dimen/sp_14" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_f9f9f9" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+        <LinearLayout
+            android:id="@+id/health_archives_smoke_quantity_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_67"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_30"
+            android:paddingEnd="@dimen/dp_25">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_27"
-            android:drawableEnd="@mipmap/arrow_bottom"
-            android:drawablePadding="@dimen/dp_15"
-            android:gravity="center"
-            android:text="@string/txt_smoke_quantity_hint"
-            android:textColor="@color/select_333333_999999_color"
-            android:textSize="@dimen/sp_14" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/icon_archives_quantity"
+                android:drawablePadding="@dimen/dp_22"
+                android:gravity="center"
+                android:text="@string/txt_smoke_quantity"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:background="@color/color_f9f9f9" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-    <LinearLayout
-        android:id="@+id/health_archives_smoke_year_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_67"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/dp_30"
-        android:paddingEnd="@dimen/dp_25">
+            <TextView
+                android:id="@+id/health_archives_smoke_quantity_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_27"
+                android:drawableEnd="@mipmap/arrow_bottom"
+                android:drawablePadding="@dimen/dp_15"
+                android:gravity="center|end"
+                android:hint="@string/txt_smoke_quantity_hint"
+                android:textColor="@color/color_333333"
+                android:textColorHint="@color/tab_nol_color"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/icon_archives_year"
-            android:drawablePadding="@dimen/dp_22"
-            android:gravity="center"
-            android:text="@string/txt_smoke_year"
-            android:textColor="@color/edit_text_color"
-            android:textSize="@dimen/sp_14" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_f9f9f9" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+        <LinearLayout
+            android:id="@+id/health_archives_smoke_year_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_67"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_30"
+            android:paddingEnd="@dimen/dp_25">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_27"
-            android:drawableEnd="@mipmap/arrow_bottom"
-            android:drawablePadding="@dimen/dp_15"
-            android:gravity="center"
-            android:text="@string/txt_smoke_year_hint"
-            android:textColor="@color/select_333333_999999_color"
-            android:textSize="@dimen/sp_14" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/icon_archives_year"
+                android:drawablePadding="@dimen/dp_22"
+                android:gravity="center"
+                android:text="@string/txt_smoke_year"
+                android:textColor="@color/edit_text_color"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/health_archives_smoke_year_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_27"
+                android:drawableEnd="@mipmap/arrow_bottom"
+                android:drawablePadding="@dimen/dp_15"
+                android:gravity="center|end"
+                android:hint="@string/txt_smoke_year_hint"
+                android:textColor="@color/color_333333"
+                android:textColorHint="@color/tab_nol_color"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <View

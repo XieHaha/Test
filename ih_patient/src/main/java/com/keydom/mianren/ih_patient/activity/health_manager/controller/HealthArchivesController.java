@@ -2,6 +2,8 @@ package com.keydom.mianren.ih_patient.activity.health_manager.controller;
 
 import android.view.View;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
@@ -29,6 +31,7 @@ import org.jetbrains.annotations.Nullable;
 public class HealthArchivesController extends ControllerImpl<HealthArchivesView> implements View.OnClickListener {
     @Override
     public void onClick(View v) {
+        OptionsPickerView pickerView;
         switch (v.getId()) {
             case R.id.health_archives_base_info_layout:
                 HealthArchivesBaseActivity.start(getContext(), getView().getArchivesBean());
@@ -56,24 +59,52 @@ public class HealthArchivesController extends ControllerImpl<HealthArchivesView>
                         getView().getArchivesBean().getPatientSurgeryHistories());
                 break;
             case R.id.health_archives_drink:
+                getView().setSelectDrink(1);
                 break;
             case R.id.health_archives_non_drink:
+                getView().setSelectDrink(0);
                 break;
             case R.id.health_archives_drink_frequency_layout:
+                pickerView = new OptionsPickerBuilder(getContext(),
+                        (options1, option2, options3, v12) -> getView().setDrinkDegree(options1)).build();
+                pickerView.setPicker(getView().getDrinkDegreeData());
+                pickerView.show();
                 break;
             case R.id.health_archives_drink_quantity_layout:
+                pickerView = new OptionsPickerBuilder(getContext(),
+                        (options1, option2, options3, v12) -> getView().setDrinkNum(options1)).build();
+                pickerView.setPicker(getView().getDrinkNumData());
+                pickerView.show();
                 break;
             case R.id.health_archives_drink_year_layout:
+                pickerView = new OptionsPickerBuilder(getContext(),
+                        (options1, option2, options3, v12) -> getView().setDrinkYear(options1)).build();
+                pickerView.setPicker(getView().getDrinkOrSmokeYearData());
+                pickerView.show();
                 break;
             case R.id.health_archives_smoke:
+                getView().setSelectSmoke(1);
                 break;
             case R.id.health_archives_non_smoke:
+                getView().setSelectSmoke(0);
                 break;
             case R.id.health_archives_smoke_frequency_layout:
+                pickerView = new OptionsPickerBuilder(getContext(),
+                        (options1, option2, options3, v12) -> getView().setSmokeDegree(options1)).build();
+                pickerView.setPicker(getView().getSmokeDegreeData());
+                pickerView.show();
                 break;
             case R.id.health_archives_smoke_quantity_layout:
+                pickerView = new OptionsPickerBuilder(getContext(),
+                        (options1, option2, options3, v12) -> getView().setSmokeNum(options1)).build();
+                pickerView.setPicker(getView().getSmokeNumData());
+                pickerView.show();
                 break;
             case R.id.health_archives_smoke_year_layout:
+                pickerView = new OptionsPickerBuilder(getContext(),
+                        (options1, option2, options3, v12) -> getView().setSmokeYear(options1)).build();
+                pickerView.setPicker(getView().getDrinkOrSmokeYearData());
+                pickerView.show();
                 break;
             default:
                 break;

@@ -29,10 +29,27 @@ public interface HealthArchivesView extends BaseView {
 
     List<String> getDrinkOrSmokeYearData();
 
+    void setSelectDrink(int type);
+
+    void setSelectSmoke(int type);
+
     Map<String, Object> getParams();
 
     String getPatientId();
 
     void savePatientInfoSuccess();
+
     void getPatientInfoSuccess(HealthArchivesBean data);
+
+    void setDrinkDegree(int position);
+
+    void setDrinkNum(int position);
+
+    void setDrinkYear(int position);
+
+    void setSmokeDegree(int position);
+
+    void setSmokeNum(int position);
+
+    void setSmokeYear(int position);
 }

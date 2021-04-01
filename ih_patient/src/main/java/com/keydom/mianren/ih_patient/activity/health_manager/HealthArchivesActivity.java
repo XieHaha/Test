@@ -81,10 +81,26 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
     LinearLayout healthArchivesSmokeQuantityLayout;
     @BindView(R.id.health_archives_smoke_year_layout)
     LinearLayout healthArchivesSmokeYearLayout;
+    @BindView(R.id.health_archives_drink_root_layout)
+    LinearLayout healthArchivesDrinkRootLayout;
+    @BindView(R.id.health_archives_smoke_root_layout)
+    LinearLayout healthArchivesSmokeRootLayout;
     @BindView(R.id.health_contact_people_layout)
     LinearLayout healthContactPeopleLayout;
     @BindView(R.id.health_surgery_history_layout)
     LinearLayout healthSurgeryHistoryLayout;
+    @BindView(R.id.health_archives_drink_frequency_tv)
+    TextView healthArchivesDrinkFrequencyTv;
+    @BindView(R.id.health_archives_drink_quantity_tv)
+    TextView healthArchivesDrinkQuantityTv;
+    @BindView(R.id.health_archives_drink_year_tv)
+    TextView healthArchivesDrinkYearTv;
+    @BindView(R.id.health_archives_smoke_frequency_tv)
+    TextView healthArchivesSmokeFrequencyTv;
+    @BindView(R.id.health_archives_smoke_quantity_tv)
+    TextView healthArchivesSmokeQuantityTv;
+    @BindView(R.id.health_archives_smoke_year_tv)
+    TextView healthArchivesSmokeYearTv;
 
     private String patientId;
 
@@ -220,6 +236,16 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
         //手术史
         surgeryHistoryBeans = archivesBean.getPatientSurgeryHistories();
         addSurgeryHistoryView();
+
+        //吸烟饮酒
+        setSelectDrink(archivesBean.getIsDrink());
+        healthArchivesDrinkFrequencyTv.setText(archivesBean.getDrinkDegree());
+        healthArchivesDrinkQuantityTv.setText(archivesBean.getDrinkMl());
+        healthArchivesDrinkYearTv.setText(archivesBean.getDrinkYear());
+        setSelectSmoke(archivesBean.getIsSmoke());
+        healthArchivesSmokeFrequencyTv.setText(archivesBean.getSmokeDegree());
+        healthArchivesSmokeQuantityTv.setText(archivesBean.getSmokeAmount());
+        healthArchivesSmokeYearTv.setText(archivesBean.getSmokeYear());
     }
 
     /**
@@ -407,6 +433,74 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
         return drinkOrSmokeYearData;
     }
 
+
+    @Override
+    public void setSelectDrink(int type) {
+        archivesBean.setIsDrink(type);
+        if (type == 0) {
+            healthArchivesDrink.setSelected(false);
+            healthArchivesNonDrink.setSelected(true);
+            healthArchivesDrinkRootLayout.setVisibility(View.GONE);
+        } else {
+            healthArchivesDrink.setSelected(true);
+            healthArchivesNonDrink.setSelected(false);
+            healthArchivesDrinkRootLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void setDrinkDegree(int position) {
+        healthArchivesDrinkFrequencyTv.setText(drinkDegreeData.get(position));
+        archivesBean.setDrinkDegree(drinkDegreeData.get(position));
+    }
+
+    @Override
+    public void setDrinkNum(int position) {
+        healthArchivesDrinkQuantityTv.setText(drinkNumData.get(position));
+        archivesBean.setDrinkMl(drinkNumData.get(position));
+
+    }
+
+    @Override
+    public void setDrinkYear(int position) {
+        healthArchivesDrinkYearTv.setText(drinkOrSmokeYearData.get(position));
+        archivesBean.setDrinkYear(drinkOrSmokeYearData.get(position));
+    }
+
+    @Override
+    public void setSelectSmoke(int type) {
+        archivesBean.setIsSmoke(type);
+        if (type == 0) {
+            healthArchivesSmoke.setSelected(false);
+            healthArchivesNonSmoke.setSelected(true);
+            healthArchivesSmokeRootLayout.setVisibility(View.GONE);
+        } else {
+            healthArchivesSmoke.setSelected(true);
+            healthArchivesNonSmoke.setSelected(false);
+            healthArchivesSmokeRootLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void setSmokeDegree(int position) {
+        healthArchivesSmokeFrequencyTv.setText(smokeDegreeData.get(position));
+        archivesBean.setSmokeDegree(smokeDegreeData.get(position));
+
+    }
+
+    @Override
+    public void setSmokeNum(int position) {
+        healthArchivesSmokeQuantityTv.setText(smokeNumData.get(position));
+        archivesBean.setSmokeAmount(smokeNumData.get(position));
+
+    }
+
+    @Override
+    public void setSmokeYear(int position) {
+        healthArchivesSmokeYearTv.setText(drinkOrSmokeYearData.get(position));
+        archivesBean.setSmokeYear(drinkOrSmokeYearData.get(position));
+    }
+
     @Override
     public Map<String, Object> getParams() {
         params = new HashMap<>();
@@ -429,6 +523,14 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
         params.put("medicalHistory", archivesBean.getMedicalHistory());
         params.put("geneticHistory", archivesBean.getGeneticHistory());
         params.put("patientSurgeryHistories", archivesBean.getPatientSurgeryHistories());
+        params.put("isDrink", archivesBean.getIsDrink());
+        params.put("drinkDegree", archivesBean.getDrinkDegree());
+        params.put("drinkMl", archivesBean.getDrinkMl());
+        params.put("drinkYear", archivesBean.getDrinkYear());
+        params.put("isSmoke", archivesBean.getIsSmoke());
+        params.put("smokeDegree", archivesBean.getSmokeDegree());
+        params.put("smokeAmount", archivesBean.getSmokeAmount());
+        params.put("smokeYear", archivesBean.getSmokeYear());
         return params;
     }
 
