@@ -49,10 +49,10 @@
         android:id="@+id/health_medical_content_flow_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/dp_25"
-        android:paddingTop="@dimen/dp_20"
-        android:paddingRight="@dimen/dp_25"
-        android:paddingBottom="@dimen/dp_24"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_0"
         app:max_select="-1" />
 
     <RelativeLayout
@@ -61,12 +61,15 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/health_medical_other_tv"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_34"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/dp_34"
-            android:text="@string/txt_name"
-            android:textColor="@color/edit_text_color"
+            android:layout_marginStart="@dimen/dp_22"
+            android:background="@drawable/health_manager_medical_selector"
+            android:gravity="center"
+            android:text="@string/nrtc_setting_other"
+            android:textColor="@color/select_666666_ffffff_color"
             android:textSize="@dimen/sp_14" />
 
         <com.keydom.ih_common.view.InterceptorEditText
@@ -74,13 +77,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/dp_27"
+            android:layout_toEndOf="@id/health_medical_other_tv"
             android:background="@null"
             android:gravity="center_vertical|end"
-            android:hint="@string/txt_other_name_hint"
+            android:hint="请手动输入"
             android:singleLine="true"
             android:textColor="@color/color_333333"
             android:textColorHint="@color/edit_hint_color"
             android:textSize="@dimen/sp_14" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/dp_17"
+            android:layout_marginEnd="@dimen/dp_23"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_toEndOf="@id/health_medical_other_tv"
+            android:background="#dddddd" />
 
     </RelativeLayout>
 

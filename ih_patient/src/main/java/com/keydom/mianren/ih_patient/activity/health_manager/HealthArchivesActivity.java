@@ -16,8 +16,11 @@ import com.keydom.mianren.ih_patient.activity.health_manager.view.HealthArchives
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.bean.HealthArchivesBean;
 import com.keydom.mianren.ih_patient.bean.PatientRelativesBean;
+import com.keydom.mianren.ih_patient.bean.PatientSurgeryHistoryBean;
 import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.constant.EventType;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -25,6 +28,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,6 +83,8 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
     LinearLayout healthArchivesSmokeYearLayout;
     @BindView(R.id.health_contact_people_layout)
     LinearLayout healthContactPeopleLayout;
+    @BindView(R.id.health_surgery_history_layout)
+    LinearLayout healthSurgeryHistoryLayout;
 
     private String patientId;
 
@@ -88,12 +96,29 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
      * 紧急联系人
      */
     private List<PatientRelativesBean> relativesBeans;
+    /**
+     * 手术史
+     */
+    private List<PatientSurgeryHistoryBean> surgeryHistoryBeans;
+    private List<String> drinkDegreeData;
+    private List<String> drinkNumData;
+    private List<String> smokeDegreeData;
+    private List<String> smokeNumData;
+    private List<String> drinkOrSmokeYearData;
+    /**
+     * 既往病史   遗传病史
+     */
+    private String selectMedical, selectGenetic;
     private Map<String, Object> params;
 
     /**
      * 当前编辑的紧急联系人
      */
     private int curRelationPosition = -1;
+    /**
+     * 当前编辑的手术史
+     */
+    private int curSurgeryPosition = -1;
 
 
     /**
@@ -127,6 +152,8 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
             }
         });
 
+        localData();
+
         patientId = getIntent().getStringExtra(Const.PATIENT_ID);
         int isPerfect = getIntent().getIntExtra("isPerfect", -1);
         if (isPerfect == 0) {
@@ -152,17 +179,47 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
         healthArchivesSmokeFrequencyLayout.setOnClickListener(getController());
         healthArchivesSmokeQuantityLayout.setOnClickListener(getController());
         healthArchivesSmokeYearLayout.setOnClickListener(getController());
-        healthArchivesPastFlowLayout.setVisibility(View.GONE);
-        healthArchivesGeneticFlowLayout.setVisibility(View.GONE);
+    }
+
+    /**
+     * 本地数据加载
+     */
+    private void localData() {
+        String[] drinkDegree = getResources().getStringArray(R.array.drink_degree);
+        drinkDegreeData = new ArrayList<>(drinkDegree.length);
+        Collections.addAll(drinkDegreeData, drinkDegree);
+        String[] drinkNum = getResources().getStringArray(R.array.drink_num);
+        drinkNumData = new ArrayList<>(drinkNum.length);
+        Collections.addAll(drinkNumData, drinkNum);
+
+        String[] smokeDegree = getResources().getStringArray(R.array.smoke_degree);
+        smokeDegreeData = new ArrayList<>(smokeDegree.length);
+        Collections.addAll(smokeDegreeData, smokeDegree);
+        String[] smokeNum = getResources().getStringArray(R.array.smoke_num);
+        smokeNumData = new ArrayList<>(smokeNum.length);
+        Collections.addAll(smokeNumData, smokeNum);
+
+        String[] year = getResources().getStringArray(R.array.drink_or_smoke_year);
+        drinkOrSmokeYearData = new ArrayList<>(year.length);
+        Collections.addAll(drinkOrSmokeYearData, year);
     }
 
     /**
      * 数据初始化
      */
     private void bindData() {
+        //既往病史
+        selectMedical = archivesBean.getMedicalHistory();
+        setMedicalFlows();
+        //遗传病史
+        selectGenetic = archivesBean.getGeneticHistory();
+        setGeneticFlows();
         //紧急联系人
         relativesBeans = archivesBean.getPatientRelatives();
         addRelationshipView();
+        //手术史
+        surgeryHistoryBeans = archivesBean.getPatientSurgeryHistories();
+        addSurgeryHistoryView();
     }
 
     /**
@@ -176,6 +233,17 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
         } else if (event.getType() == EventType.UPDATE_RELATIONSHIP) {
             PatientRelativesBean relativesBean = (PatientRelativesBean) event.getData();
             initRelationshipData(relativesBean);
+        } else if (event.getType() == EventType.UPDATE_MEDICAL_PAST) {
+            selectMedical = (String) event.getData();
+            archivesBean.setMedicalHistory(selectMedical);
+            setMedicalFlows();
+        } else if (event.getType() == EventType.UPDATE_GENETIC_PAST) {
+            selectGenetic = (String) event.getData();
+            archivesBean.setGeneticHistory(selectGenetic);
+            setGeneticFlows();
+        } else if (event.getType() == EventType.UPDATE_SURGERY_HISTORY) {
+            PatientSurgeryHistoryBean historyBean = (PatientSurgeryHistoryBean) event.getData();
+            initSurgeryHistoryData(historyBean);
         }
     }
 
@@ -191,6 +259,25 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
         }
         archivesBean.setPatientRelatives(relativesBeans);
         addRelationshipView();
+    }
+
+    /**
+     * 手术史
+     */
+    private void initSurgeryHistoryData(PatientSurgeryHistoryBean historyBean) {
+        historyBean.setPatientId(archivesBean.getPatientId());
+        if (curSurgeryPosition != -1) {
+            surgeryHistoryBeans.set(curSurgeryPosition, historyBean);
+        } else {
+            surgeryHistoryBeans.add(historyBean);
+        }
+        archivesBean.setPatientSurgeryHistories(surgeryHistoryBeans);
+        addSurgeryHistoryView();
+    }
+
+    @Override
+    public void setCurSurgeryPosition(int curSurgeryPosition) {
+        this.curSurgeryPosition = curSurgeryPosition;
     }
 
     @Override
@@ -229,9 +316,95 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
         }
     }
 
+    /**
+     * 手术史
+     */
+    private void addSurgeryHistoryView() {
+        healthSurgeryHistoryLayout.removeAllViews();
+        for (int i = 0; i < surgeryHistoryBeans.size(); i++) {
+            PatientSurgeryHistoryBean bean = surgeryHistoryBeans.get(i);
+            View view = getLayoutInflater().inflate(R.layout.item_health_add_surgery, null);
+            TextView name = view.findViewById(R.id.item_surgery_history_name_tv);
+            TextView date = view.findViewById(R.id.item_surgery_history_date_tv);
+            TextView status = view.findViewById(R.id.item_surgery_history_status_tv);
+            name.setText(bean.getName());
+            date.setText(bean.getSurgeryDate());
+            status.setText(bean.getSurgeryStatus());
+            int finalI = i;
+            view.setOnClickListener(v -> {
+                curSurgeryPosition = finalI;
+                HealthAddSurgeryActivity.start(this, bean);
+            });
+            healthSurgeryHistoryLayout.addView(view);
+        }
+    }
+
+    /**
+     * 既往病史
+     */
+    private void setMedicalFlows() {
+        List<String> list = Arrays.asList(selectMedical.split(","));
+        TagAdapter<String> tagAdapter = new TagAdapter<String>(list) {
+            @Override
+            public View getView(FlowLayout parent, int position, String o) {
+                TextView tv =
+                        (TextView) getLayoutInflater().inflate(R.layout.view_health_manager_unselect_flow,
+                                healthArchivesPastFlowLayout, false);
+                tv.setText(o);
+                return tv;
+            }
+        };
+        healthArchivesPastFlowLayout.setAdapter(tagAdapter);
+        healthArchivesSelectPastTv.setText(R.string.txt_edit_past_medical);
+    }
+
+    /**
+     * 遗传病史
+     */
+    private void setGeneticFlows() {
+        List<String> list = Arrays.asList(selectGenetic.split(","));
+        TagAdapter<String> tagAdapter = new TagAdapter<String>(list) {
+            @Override
+            public View getView(FlowLayout parent, int position, String o) {
+                TextView tv =
+                        (TextView) getLayoutInflater().inflate(R.layout.view_health_manager_unselect_flow,
+                                healthArchivesGeneticFlowLayout, false);
+                tv.setText(o);
+                return tv;
+            }
+        };
+        healthArchivesGeneticFlowLayout.setAdapter(tagAdapter);
+        healthArchivesGeneticTv.setText(R.string.txt_edit_past_medical);
+    }
+
     @Override
     public HealthArchivesBean getArchivesBean() {
         return archivesBean;
+    }
+
+    @Override
+    public List<String> getDrinkDegreeData() {
+        return drinkDegreeData;
+    }
+
+    @Override
+    public List<String> getDrinkNumData() {
+        return drinkNumData;
+    }
+
+    @Override
+    public List<String> getSmokeDegreeData() {
+        return smokeDegreeData;
+    }
+
+    @Override
+    public List<String> getSmokeNumData() {
+        return smokeNumData;
+    }
+
+    @Override
+    public List<String> getDrinkOrSmokeYearData() {
+        return drinkOrSmokeYearData;
     }
 
     @Override
@@ -253,6 +426,9 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
         params.put("maritalHistory", archivesBean.getMaritalHistory());
         params.put("fertilityStatus", archivesBean.getFertilityStatus());
         params.put("patientRelatives", archivesBean.getPatientRelatives());
+        params.put("medicalHistory", archivesBean.getMedicalHistory());
+        params.put("geneticHistory", archivesBean.getGeneticHistory());
+        params.put("patientSurgeryHistories", archivesBean.getPatientSurgeryHistories());
         return params;
     }
 

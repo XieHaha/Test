@@ -149,10 +149,10 @@
                 android:id="@+id/health_archives_past_flow_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/padding_left_right_dp"
-                android:paddingTop="@dimen/dp_22"
-                android:paddingRight="@dimen/padding_left_right_dp"
-                android:paddingBottom="@dimen/dp_24"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingTop="@dimen/dp_5"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_20"
                 app:max_select="-1" />
 
             <View
@@ -201,10 +201,10 @@
                 android:id="@+id/health_archives_genetic_flow_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/padding_left_right_dp"
-                android:paddingTop="@dimen/dp_22"
-                android:paddingRight="@dimen/padding_left_right_dp"
-                android:paddingBottom="@dimen/dp_24"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingTop="@dimen/dp_5"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_20"
                 app:max_select="-1" />
 
             <View
@@ -242,8 +242,15 @@
                     android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
-
-            <include layout="@layout/item_health_add_surgery" />
+            <LinearLayout
+                android:id="@+id/health_surgery_history_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingEnd="@dimen/dp_15"
+                android:paddingBottom="@dimen/dp_15" />
+<!--            <include layout="@layout/item_health_add_surgery" />-->
 
             <TextView
                 android:id="@+id/health_archives_look_more_tv"

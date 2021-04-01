@@ -511,7 +511,7 @@
     <string name="txt_past_medical">既往病史</string>
     <string name="txt_genetic">遗传病史</string>
     <string name="txt_surgery">手术史</string>
-    <string name="txt_add_surgery">添加手术记录</string>
+    <string name="txt_add_surgery">添加手术史记录</string>
     <string name="txt_select_past_medical">选择病史</string>
     <string name="txt_edit_past_medical">修改病史</string>
     <string name="txt_surgery_name">手术名称</string>

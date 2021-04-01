@@ -3,6 +3,7 @@ package com.keydom.mianren.ih_patient.activity.health_manager.view;
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_patient.bean.HealthArchivesBean;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,9 +13,21 @@ import java.util.Map;
  */
 public interface HealthArchivesView extends BaseView {
 
+    void setCurSurgeryPosition(int curSurgeryPosition);
+
     void setCurRelationPosition(int curRelationPosition);
 
     HealthArchivesBean getArchivesBean();
+
+    List<String> getDrinkDegreeData();
+
+    List<String> getDrinkNumData();
+
+    List<String> getSmokeDegreeData();
+
+    List<String> getSmokeNumData();
+
+    List<String> getDrinkOrSmokeYearData();
 
     Map<String, Object> getParams();
 

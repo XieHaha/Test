@@ -13,6 +13,7 @@ import com.keydom.mianren.ih_patient.activity.health_manager.HealthAddSurgeryAct
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthArchivesBaseActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthContactActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthMedicalHistoryActivity;
+import com.keydom.mianren.ih_patient.activity.health_manager.HealthSurgeryListActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.HealthArchivesView;
 import com.keydom.mianren.ih_patient.bean.HealthArchivesBean;
 import com.keydom.mianren.ih_patient.net.HealthManagerService;
@@ -39,16 +40,20 @@ public class HealthArchivesController extends ControllerImpl<HealthArchivesView>
                 break;
             case R.id.health_archives_select_past_tv:
                 HealthMedicalHistoryActivity.start(getContext(),
+                        getView().getArchivesBean().getMedicalHistory(),
                         HealthMedicalHistoryActivity.PAST_MEDICAL_HISTORY);
                 break;
             case R.id.health_archives_genetic_tv:
                 HealthMedicalHistoryActivity.start(getContext(),
+                        getView().getArchivesBean().getGeneticHistory(),
                         HealthMedicalHistoryActivity.GENETIC_HISTORY);
                 break;
             case R.id.health_archives_add_surgery_tv:
                 HealthAddSurgeryActivity.start(getContext());
                 break;
             case R.id.health_archives_look_more_tv:
+                HealthSurgeryListActivity.start(getContext(),
+                        getView().getArchivesBean().getPatientSurgeryHistories());
                 break;
             case R.id.health_archives_drink:
                 break;

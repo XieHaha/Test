@@ -55,7 +55,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp_55"
-                            android:src="@mipmap/icon_no_complete" />
+                            android:src="@mipmap/icon_no_complete"
+                            android:visibility="invisible" />
                     </RelativeLayout>
 
                     <TextView
@@ -100,7 +101,8 @@
                             android:layout_width="@dimen/dp_10"
                             android:layout_height="@dimen/dp_10"
                             android:layout_marginStart="@dimen/dp_58"
-                            android:background="@drawable/oval_ff3939_bg" />
+                            android:background="@drawable/oval_ff3939_bg"
+                            android:visibility="invisible" />
                     </RelativeLayout>
                 </LinearLayout>
 

@@ -24,4 +24,55 @@
         <item>配偶【恋人】</item>
         <item>朋友</item>
     </string-array>
+
+    <string-array name="medical_past">
+        <item>无</item>
+        <item>高血压</item>
+        <item>肥胖症</item>
+        <item>冠心病</item>
+        <item>痛风</item>
+        <item>偏头痛</item>
+        <item>中风</item>
+        <item>肺阻塞</item>
+        <item>抑郁症</item>
+        <item>胃癌</item>
+        <item>直肠癌</item>
+        <item>肺癌</item>
+        <item>前列腺癌</item>
+        <item>其他恶性癌</item>
+    </string-array>
+
+    <string-array name="surgery_status">
+        <item>已痊愈</item>
+        <item>持续治疗</item>
+        <item>病情恶化</item>
+    </string-array>
+    <string-array name="drink_degree">
+        <item>偶尔饮酒</item>
+        <item>经常饮酒</item>
+        <item>酗酒</item>
+    </string-array>
+    <string-array name="drink_num">
+        <item>100ML以下</item>
+        <item>100~300ML</item>
+        <item>300~500ML</item>
+        <item>500ML以上</item>
+    </string-array>
+    <string-array name="drink_or_smoke_year">
+        <item>1年内</item>
+        <item>1~3年</item>
+        <item>3~5年</item>
+        <item>5年以上</item>
+    </string-array>
+    <string-array name="smoke_degree">
+        <item>偶尔吸烟</item>
+        <item>经常吸烟</item>
+        <item>吸烟成瘾</item>
+    </string-array>
+    <string-array name="smoke_num">
+        <item>10只以下</item>
+        <item>10~20只/日</item>
+        <item>20~50只/日</item>
+        <item>50只以上</item>
+    </string-array>
 </resources>
