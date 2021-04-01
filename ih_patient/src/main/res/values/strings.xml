@@ -610,4 +610,6 @@
     <string name="txt_data_refer">以下正常范围区间仅供参考</string>
     <string name="txt_data_refer_value">收缩压：90~140 mmHg&#160;&#160;&#160;心率值：60~100 次/分\n舒张压：60~100 mmHg</string>
 
+    <string name="txt_year_and_month">%d年%d月%d日</string>
+
 </resources>

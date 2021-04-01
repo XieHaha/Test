@@ -9,4 +9,5 @@ import com.keydom.ih_common.base.BaseView;
  */
 public interface ChronicDiseaseMainView extends BaseView {
 
+    void setNewDate(int value);
 }

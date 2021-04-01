@@ -20,6 +20,8 @@ import java.util.List;
 
 /**
  * 日期工具类
+ *
+ * @author 顿顿
  */
 public class DateUtils {
 
@@ -280,12 +282,17 @@ public class DateUtils {
 
 
     /**
-     * String 转 Date
      *
-     * @param date
-     * @return
      */
     public static String dateToString(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.format(date);
+    }
+
+    /**
+     *
+     */
+    public static String dateToString(Date date, String pattern) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.format(date);
     }
@@ -359,5 +366,24 @@ public class DateUtils {
         int month = (aft.get(Calendar.YEAR) - bef.get(Calendar.YEAR)) * 12;
         int result = aft.get(Calendar.MONTH) - bef.get(Calendar.MONTH);
         return month + result;
+    }
+
+    /**
+     * 判断时间是不是今天
+     * @return    是返回true，不是返回false
+     */
+    public static boolean isToday(Date date) {
+        //当前时间
+        Date now = new Date();
+        SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+        //获取今天的日期
+        String nowDay = sf.format(now);
+        //对比的时间
+        String day = sf.format(date);
+
+        return day.equals(nowDay);
+
+
+
     }
 }

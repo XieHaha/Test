@@ -34,6 +34,16 @@ public class ChronicDiseaseMainController extends ControllerImpl<ChronicDiseaseM
                         });
                 dialog.show();
                 break;
+            case R.id.disease_main_last_day_iv:
+                if (v.isSelected()) {
+                    getView().setNewDate(-1);
+                }
+                break;
+            case R.id.disease_main_next_day_iv:
+                if (v.isSelected()) {
+                    getView().setNewDate(1);
+                }
+                break;
             case R.id.disease_main_eat_record_layout:
                 LifestyleMainActivity.start(getContext(), LifestyleMainActivity.LIFESTYLE_DIET);
                 break;
