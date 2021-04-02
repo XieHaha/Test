@@ -16,6 +16,8 @@ public interface ChronicDiseaseMainView extends BaseView {
 
     HealthDataBean getHealthDataBean();
 
+    String getPatientId();
+
     void setNewDate(int value);
 
     void requestHealthDataSuccess(HealthDataBean bean);

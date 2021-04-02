@@ -14,10 +14,17 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.health_manager.controller.LifestyleMainController;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.LifestyleMainView;
+import com.keydom.mianren.ih_patient.bean.EatRecordBean;
 import com.keydom.mianren.ih_patient.constant.Const;
+import com.keydom.mianren.ih_patient.utils.DateUtils;
 import com.keydom.mianren.ih_patient.utils.StatusBarUtils;
 
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -63,6 +70,18 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     TextView lifestyleBottomCancelTv;
     @BindView(R.id.lifestyle_bottom_submit_tv)
     TextView lifestyleBottomSubmitTv;
+
+    /**
+     * 饮食记录
+     */
+    private EatRecordBean eatRecordBean;
+    private Calendar calendar;
+
+    /**
+     * 当前日期
+     */
+    private String curSelectDate;
+    private String patientId;
     /**
      * 饮食
      */
@@ -81,9 +100,10 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     /**
      * 启动
      */
-    public static void start(Context context, int type) {
+    public static void start(Context context, String patientId, int type) {
         Intent intent = new Intent(context, LifestyleMainActivity.class);
         intent.putExtra(Const.TYPE, type);
+        intent.putExtra(Const.PATIENT_ID, patientId);
         context.startActivity(intent);
     }
 
@@ -103,8 +123,15 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         StatusBarUtils.setStatusBarColor(this, false);
         ivBack.setOnClickListener(v -> finish());
         lifestyleType = getIntent().getIntExtra(Const.TYPE, -1);
+        patientId = getIntent().getStringExtra(Const.PATIENT_ID);
+
+        //获取当前时间
+        calendar = Calendar.getInstance();
+        initCalendarView();
+
         if (lifestyleType == LIFESTYLE_DIET) {
             tvTitle.setText(R.string.txt_eat_habits);
+            lifestyleMainBgIv.setImageResource(R.mipmap.icon_eat_bg);
             lifestyleMainTitleTv.setText(R.string.txt_eat);
             lifestyleMainHintTv.setText(R.string.txt_eat_record_hint);
             lifestyleMainEatView.setVisibility(View.VISIBLE);
@@ -123,6 +150,7 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
 
         } else if (lifestyleType == LIFESTYLE_SLEEP) {
             tvTitle.setText(R.string.txt_sleep_habits);
+            lifestyleMainBgIv.setImageResource(R.mipmap.icon_sleep_bg);
             lifestyleMainTitleTv.setText(R.string.txt_sleep);
             lifestyleMainHintTv.setText(R.string.txt_sleep_record_hint);
             lifestyleMainEatView.setVisibility(View.GONE);
@@ -133,6 +161,7 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
             lifestyleBottomSubmitTv.setText(R.string.txt_save_info);
         } else {
             tvTitle.setText(R.string.txt_sports_habits);
+            lifestyleMainBgIv.setImageResource(R.mipmap.icon_sports_bg);
             lifestyleMainTitleTv.setText(R.string.txt_sports);
             lifestyleMainHintTv.setText(R.string.txt_sports_record_hint);
             lifestyleMainEatView.setVisibility(View.GONE);
@@ -141,7 +170,49 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
             lifestyleBottomBtnLayout.setVisibility(View.VISIBLE);
         }
 
+        lifestyleMainLastDayIv.setOnClickListener(getController());
+        lifestyleMainNextDayTv.setOnClickListener(getController());
         lifestyleBottomCancelTv.setOnClickListener(getController());
         lifestyleBottomSubmitTv.setOnClickListener(getController());
+    }
+
+    /**
+     * 日期处理
+     */
+    private void initCalendarView() {
+        Date date = calendar.getTime();
+        curSelectDate = DateUtils.dateToString(date, DateUtils.YYYY_MM_DD_CH);
+        lifestyleMainLastDayIv.setSelected(true);
+        if (DateUtils.isToday(date)) {
+            lifestyleMainNextDayTv.setSelected(false);
+            lifestyleMainDayTv.setText("今日");
+        } else {
+            lifestyleMainNextDayTv.setSelected(true);
+            lifestyleMainDayTv.setText(curSelectDate);
+        }
+
+        getController().foodRecordList(patientId, curSelectDate);
+    }
+
+    @Override
+    public void requestFoodRecordSuccess(EatRecordBean bean) {
+        updateFoodRecordSuccess(bean);
+    }
+
+    @Override
+    public void updateFoodRecordSuccess(EatRecordBean bean) {
+    }
+
+
+    @Override
+    public Map<String, Object> getUpdateEatDataParams(EatRecordBean bean) {
+        Map<String, Object> params = new HashMap<>();
+        return params;
+    }
+
+    @Override
+    public void setNewDate(int value) {
+        calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + value);
+        initCalendarView();
     }
 }

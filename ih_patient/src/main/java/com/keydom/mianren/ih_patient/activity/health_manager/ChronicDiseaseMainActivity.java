@@ -162,6 +162,7 @@ public class ChronicDiseaseMainActivity extends BaseControllerActivity<ChronicDi
                 setTitle(R.string.txt_hypertension_manager);
                 diseaseMainBgIv.setImageResource(R.mipmap.icon_hypertension_bg);
                 diseaseMainFourLayout.setVisibility(View.GONE);
+                diseaseMainFourTv.setVisibility(View.GONE);
                 break;
             case CHRONIC_DISEASE_DIABETES:
                 setTitle(R.string.txt_diabetes_manager);
@@ -190,8 +191,10 @@ public class ChronicDiseaseMainActivity extends BaseControllerActivity<ChronicDi
         diseaseMainLastDayIv.setSelected(true);
         if (DateUtils.isToday(date)) {
             diseaseMainNextDayIv.setSelected(false);
+            diseaseMainDayTv.setText("今日");
         } else {
             diseaseMainNextDayIv.setSelected(true);
+            diseaseMainDayTv.setText(curSelectDate);
         }
 
         getController().getHeathValue(patientId, curSelectDate);
@@ -206,6 +209,11 @@ public class ChronicDiseaseMainActivity extends BaseControllerActivity<ChronicDi
     @Override
     public HealthDataBean getHealthDataBean() {
         return healthDataBean;
+    }
+
+    @Override
+    public String getPatientId() {
+        return patientId;
     }
 
     @Override
@@ -242,7 +250,6 @@ public class ChronicDiseaseMainActivity extends BaseControllerActivity<ChronicDi
     @Override
     public void updateHeathValueSuccess(HealthDataBean bean) {
         healthDataBean = bean;
-
         switch (chronicDiseaseType) {
             case CHRONIC_DISEASE_CARDIOVASCULAR:
                 if (healthDataBean == null || healthDataBean.getCholesterol() == 0) {

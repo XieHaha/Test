@@ -1,6 +1,9 @@
 package com.keydom.mianren.ih_patient.activity.health_manager.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.mianren.ih_patient.bean.EatRecordBean;
+
+import java.util.Map;
 
 /**
  * @author 顿顿
@@ -9,4 +12,11 @@ import com.keydom.ih_common.base.BaseView;
  */
 public interface LifestyleMainView extends BaseView {
 
+    void requestFoodRecordSuccess(EatRecordBean bean);
+
+    void updateFoodRecordSuccess(EatRecordBean bean);
+
+    Map<String, Object> getUpdateEatDataParams(EatRecordBean bean);
+
+    void setNewDate(int value);
 }

@@ -35,7 +35,7 @@ public class ChronicDiseaseMainController extends ControllerImpl<ChronicDiseaseM
             case R.id.disease_main_day_status_tv:
                 HealthDataEditDialog dialog = new HealthDataEditDialog(getContext(),
                         getView().getHealthDataBean(), getView().getChronicDiseaseType(),
-                        bean -> insertOrUpdateHeathValue(bean));
+                        (bean) -> insertOrUpdateHeathValue(bean));
                 dialog.show();
                 break;
             case R.id.disease_main_last_day_iv:
@@ -49,13 +49,16 @@ public class ChronicDiseaseMainController extends ControllerImpl<ChronicDiseaseM
                 }
                 break;
             case R.id.disease_main_eat_record_layout:
-                LifestyleMainActivity.start(getContext(), LifestyleMainActivity.LIFESTYLE_DIET);
+                LifestyleMainActivity.start(getContext(), getView().getPatientId(),
+                        LifestyleMainActivity.LIFESTYLE_DIET);
                 break;
             case R.id.disease_main_sleep_record_layout:
-                LifestyleMainActivity.start(getContext(), LifestyleMainActivity.LIFESTYLE_SLEEP);
+                LifestyleMainActivity.start(getContext(), getView().getPatientId(),
+                        LifestyleMainActivity.LIFESTYLE_SLEEP);
                 break;
             case R.id.disease_main_sports_record_layout:
-                LifestyleMainActivity.start(getContext(), LifestyleMainActivity.LIFESTYLE_SPORTS);
+                LifestyleMainActivity.start(getContext(), getView().getPatientId(),
+                        LifestyleMainActivity.LIFESTYLE_SPORTS);
                 break;
             case R.id.disease_main_intervention_plan_layout:
                 InterventionPlanActivity.start(getContext());
