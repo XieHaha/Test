@@ -44,7 +44,7 @@ public class HealthManagerController extends ControllerImpl<HealthManagerView> i
                     showOpenHintDialog(getContext().getString(R.string.txt_cardiovascular),
                             CHRONIC_DISEASE_CARDIOVASCULAR);
                 } else {
-                    ChronicDiseaseMainActivity.start(getContext(), CHRONIC_DISEASE_CARDIOVASCULAR);
+                    ChronicDiseaseMainActivity.start(getContext(), getView().getMainBean().getPatientId(),CHRONIC_DISEASE_CARDIOVASCULAR);
                 }
                 break;
             case R.id.health_manager_hypertension_layout:
@@ -52,7 +52,7 @@ public class HealthManagerController extends ControllerImpl<HealthManagerView> i
                     showOpenHintDialog(getContext().getString(R.string.txt_hypertension),
                             CHRONIC_DISEASE_HYPERTENSION);
                 } else {
-                    ChronicDiseaseMainActivity.start(getContext(), CHRONIC_DISEASE_HYPERTENSION);
+                    ChronicDiseaseMainActivity.start(getContext(),getView().getMainBean().getPatientId(), CHRONIC_DISEASE_HYPERTENSION);
                 }
                 break;
             case R.id.health_manager_diabetes_layout:
@@ -60,7 +60,7 @@ public class HealthManagerController extends ControllerImpl<HealthManagerView> i
                     showOpenHintDialog(getContext().getString(R.string.txt_diabetes),
                             CHRONIC_DISEASE_DIABETES);
                 } else {
-                    ChronicDiseaseMainActivity.start(getContext(), CHRONIC_DISEASE_DIABETES);
+                    ChronicDiseaseMainActivity.start(getContext(),getView().getMainBean().getPatientId(), CHRONIC_DISEASE_DIABETES);
                 }
                 break;
             default:

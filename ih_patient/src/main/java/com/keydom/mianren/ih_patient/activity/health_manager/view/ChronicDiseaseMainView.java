@@ -1,6 +1,9 @@
 package com.keydom.mianren.ih_patient.activity.health_manager.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.mianren.ih_patient.bean.HealthDataBean;
+
+import java.util.Map;
 
 /**
  * @author 顿顿
@@ -9,5 +12,15 @@ import com.keydom.ih_common.base.BaseView;
  */
 public interface ChronicDiseaseMainView extends BaseView {
 
+    int getChronicDiseaseType();
+
+    HealthDataBean getHealthDataBean();
+
     void setNewDate(int value);
+
+    void requestHealthDataSuccess(HealthDataBean bean);
+
+    void updateHeathValueSuccess(HealthDataBean bean);
+
+    Map<String, Object> getUpdateHealthDataParams(HealthDataBean bean);
 }

@@ -12,14 +12,18 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.health_manager.controller.ChronicDiseaseMainController;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.ChronicDiseaseMainView;
+import com.keydom.mianren.ih_patient.bean.HealthDataBean;
 import com.keydom.mianren.ih_patient.bean.entity.ChronicDisease;
 import com.keydom.mianren.ih_patient.constant.Const;
+import com.keydom.mianren.ih_patient.utils.CommUtil;
 import com.keydom.mianren.ih_patient.utils.DateUtils;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -88,14 +92,25 @@ public class ChronicDiseaseMainActivity extends BaseControllerActivity<ChronicDi
     @BindView(R.id.disease_main_four_layout)
     LinearLayout diseaseMainFourLayout;
 
+    /**
+     * 健康值
+     */
+    private HealthDataBean healthDataBean;
+
     private Calendar calendar;
+    /**
+     * 当前日期
+     */
+    private String curSelectDate;
+    private String patientId;
     private int chronicDiseaseType = -1;
 
     /**
      * 启动
      */
-    public static void start(Context context, int type) {
+    public static void start(Context context, String patientId, int type) {
         Intent intent = new Intent(context, ChronicDiseaseMainActivity.class);
+        intent.putExtra(Const.PATIENT_ID, patientId);
         intent.putExtra(Const.TYPE, type);
         context.startActivity(intent);
     }
@@ -108,12 +123,15 @@ public class ChronicDiseaseMainActivity extends BaseControllerActivity<ChronicDi
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         chronicDiseaseType = getIntent().getIntExtra(Const.TYPE, -1);
+        patientId = getIntent().getStringExtra(Const.PATIENT_ID);
         bindData();
+        //获取当前时间
+        calendar = Calendar.getInstance();
         initCalendarView();
 
         diseaseMainLastDayIv.setOnClickListener(getController());
         diseaseMainNextDayIv.setOnClickListener(getController());
-        diseaseMainDataHintTv.setOnClickListener(getController());
+        diseaseMainDayStatusTv.setOnClickListener(getController());
         diseaseMainEatRecordLayout.setOnClickListener(getController());
         diseaseMainSportsRecordLayout.setOnClickListener(getController());
         diseaseMainSleepRecordLayout.setOnClickListener(getController());
@@ -163,25 +181,129 @@ public class ChronicDiseaseMainActivity extends BaseControllerActivity<ChronicDi
     }
 
     /**
-     * 日历初始化
+     * 日期处理
      */
     private void initCalendarView() {
-        calendar = Calendar.getInstance();
         Date date = calendar.getTime();
-        diseaseMainDayTv.setText(DateUtils.dateToString(date, DateUtils.YYYY_MM_DD_CH));
+        curSelectDate = DateUtils.dateToString(date, DateUtils.YYYY_MM_DD_CH);
+        diseaseMainDayTv.setText(curSelectDate);
         diseaseMainLastDayIv.setSelected(true);
-        diseaseMainNextDayIv.setSelected(false);
+        if (DateUtils.isToday(date)) {
+            diseaseMainNextDayIv.setSelected(false);
+        } else {
+            diseaseMainNextDayIv.setSelected(true);
+        }
+
+        getController().getHeathValue(patientId, curSelectDate);
+    }
+
+
+    @Override
+    public int getChronicDiseaseType() {
+        return chronicDiseaseType;
+    }
+
+    @Override
+    public HealthDataBean getHealthDataBean() {
+        return healthDataBean;
     }
 
     @Override
     public void setNewDate(int value) {
         calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + value);
-        Date date = calendar.getTime();
-        diseaseMainDayTv.setText(DateUtils.dateToString(date, DateUtils.YYYY_MM_DD_CH));
-        if (DateUtils.isToday(date)) {
-            diseaseMainNextDayIv.setSelected(false);
-        } else {
-            diseaseMainNextDayIv.setSelected(true);
+        initCalendarView();
+    }
+
+    @Override
+    public Map<String, Object> getUpdateHealthDataParams(HealthDataBean bean) {
+        healthDataBean = bean;
+        Map<String, Object> params = new HashMap<>();
+        params.put("bloodSugar", healthDataBean.getBloodSugar());
+        params.put("cholesterol", healthDataBean.getCholesterol());
+        params.put("diastolicPressure", healthDataBean.getDiastolicPressure());
+        params.put("heartRateValue", healthDataBean.getHeartRateValue());
+        params.put("highDensityLipoproteinCholesterol",
+                healthDataBean.getHighDensityLipoproteinCholesterol());
+        params.put("id", healthDataBean.getId());
+        params.put("lowDensityLipoproteinCholesterol",
+                healthDataBean.getLowDensityLipoproteinCholesterol());
+        params.put("patientId", patientId);
+        params.put("systolicPressure", healthDataBean.getSystolicPressure());
+        params.put("triglycerides", healthDataBean.getTriglycerides());
+        params.put("writeDate", curSelectDate);
+        return params;
+    }
+
+    @Override
+    public void requestHealthDataSuccess(HealthDataBean bean) {
+        updateHeathValueSuccess(bean);
+    }
+
+    @Override
+    public void updateHeathValueSuccess(HealthDataBean bean) {
+        healthDataBean = bean;
+
+        switch (chronicDiseaseType) {
+            case CHRONIC_DISEASE_CARDIOVASCULAR:
+                if (healthDataBean == null || healthDataBean.getCholesterol() == 0) {
+                    diseaseMainDataLayout.setVisibility(View.GONE);
+                    diseaseMainDataHintTv.setVisibility(View.VISIBLE);
+                    diseaseMainDayStatusTv.setText("【填写数据】");
+                } else {
+                    diseaseMainDayStatusTv.setText("【更新数据】");
+                    diseaseMainDataLayout.setVisibility(View.VISIBLE);
+                    diseaseMainDataHintTv.setVisibility(View.GONE);
+                    diseaseMainOneDataTv.setText(String.valueOf(healthDataBean.getCholesterol()));
+                    diseaseMainOneDataTv.setSelected(CommUtil.compareValue(CHOLESTEROL,
+                            healthDataBean.getCholesterol()));
+                    diseaseMainTwoDataTv.setText(String.valueOf(healthDataBean.getTriglycerides()));
+                    diseaseMainTwoDataTv.setSelected(CommUtil.compareValue(TRIGLYCERIDES,
+                            healthDataBean.getTriglycerides()));
+                    diseaseMainThreeTv.setText(String.valueOf(healthDataBean.getHighDensityLipoproteinCholesterol()));
+                    diseaseMainThreeTv.setSelected(CommUtil.compareValue(HIGHDENSITYLIPOPROTEINCHOLESTEROL,
+                            healthDataBean.getHighDensityLipoproteinCholesterol()));
+                    diseaseMainFourTv.setText(String.valueOf(healthDataBean.getLowDensityLipoproteinCholesterol()));
+                    diseaseMainFourTv.setSelected(CommUtil.compareValue(LOWDENSITYLIPOPROTEINCHOLESTEROL,
+                            healthDataBean.getLowDensityLipoproteinCholesterol()));
+                }
+                break;
+            case CHRONIC_DISEASE_HYPERTENSION:
+                if (healthDataBean == null || healthDataBean.getSystolicPressure() == 0) {
+                    diseaseMainDataLayout.setVisibility(View.GONE);
+                    diseaseMainDataHintTv.setVisibility(View.VISIBLE);
+                    diseaseMainDayStatusTv.setText("【填写数据】");
+                } else {
+                    diseaseMainDayStatusTv.setText("【更新数据】");
+                    diseaseMainDataLayout.setVisibility(View.VISIBLE);
+                    diseaseMainDataHintTv.setVisibility(View.GONE);
+                    diseaseMainOneDataTv.setText(String.valueOf(healthDataBean.getSystolicPressure()));
+                    diseaseMainOneDataTv.setSelected(CommUtil.compareValue(SYSTOLICPRESSURE,
+                            healthDataBean.getSystolicPressure()));
+                    diseaseMainTwoDataTv.setText(String.valueOf(healthDataBean.getDiastolicPressure()));
+                    diseaseMainTwoDataTv.setSelected(CommUtil.compareValue(DIASTOLICPRESSURE,
+                            healthDataBean.getDiastolicPressure()));
+                    diseaseMainThreeTv.setText(String.valueOf(healthDataBean.getHeartRateValue()));
+                    diseaseMainThreeTv.setSelected(CommUtil.compareValue(HEARTRATEVALUE,
+                            healthDataBean.getHeartRateValue()));
+                }
+                break;
+            case CHRONIC_DISEASE_DIABETES:
+                if (healthDataBean == null || healthDataBean.getBloodSugar() == 0) {
+                    diseaseMainDataLayout.setVisibility(View.GONE);
+                    diseaseMainDataHintTv.setVisibility(View.VISIBLE);
+                    diseaseMainDayStatusTv.setText("【填写数据】");
+                } else {
+                    diseaseMainDayStatusTv.setText("【更新数据】");
+                    diseaseMainDataLayout.setVisibility(View.VISIBLE);
+                    diseaseMainDataHintTv.setVisibility(View.GONE);
+                    diseaseMainOneDataTv.setText(String.valueOf(healthDataBean.getBloodSugar()));
+                    diseaseMainOneDataTv.setSelected(CommUtil.compareValue(BLOODSUGAR,
+                            healthDataBean.getBloodSugar()));
+                }
+                break;
+            default:
+                break;
+
         }
     }
 }

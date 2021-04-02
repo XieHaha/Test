@@ -15,6 +15,15 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.keydom.mianren.ih_patient.bean.entity.ChronicDisease.BLOODSUGAR;
+import static com.keydom.mianren.ih_patient.bean.entity.ChronicDisease.CHOLESTEROL;
+import static com.keydom.mianren.ih_patient.bean.entity.ChronicDisease.DIASTOLICPRESSURE;
+import static com.keydom.mianren.ih_patient.bean.entity.ChronicDisease.HEARTRATEVALUE;
+import static com.keydom.mianren.ih_patient.bean.entity.ChronicDisease.HIGHDENSITYLIPOPROTEINCHOLESTEROL;
+import static com.keydom.mianren.ih_patient.bean.entity.ChronicDisease.LOWDENSITYLIPOPROTEINCHOLESTEROL;
+import static com.keydom.mianren.ih_patient.bean.entity.ChronicDisease.SYSTOLICPRESSURE;
+import static com.keydom.mianren.ih_patient.bean.entity.ChronicDisease.TRIGLYCERIDES;
+
 /**
  * 通用工具类
  *
@@ -551,5 +560,49 @@ public class CommUtil {
         }
         DecimalFormat decimalFormat = new DecimalFormat(".0");
         return decimalFormat.format(weight / (height * height));
+    }
+
+    public static boolean compareValue(int type, float value) {
+        switch (type) {
+            case BLOODSUGAR:
+                if (value >= 4.4 && value <= 10) {
+                    return false;
+                }
+                break;
+            case CHOLESTEROL:
+                if (value >= 2.8 && value <= 5.2) {
+                    return false;
+                }
+                break;
+            case DIASTOLICPRESSURE:
+            case HEARTRATEVALUE:
+                if (value >= 60 && value <= 100) {
+                    return false;
+                }
+                break;
+            case HIGHDENSITYLIPOPROTEINCHOLESTEROL:
+                if (value >= 1 && value <= 2) {
+                    return false;
+                }
+                break;
+            case LOWDENSITYLIPOPROTEINCHOLESTEROL:
+                if (value >= 1 && value <= 3.4) {
+                    return false;
+                }
+                break;
+            case SYSTOLICPRESSURE:
+                if (value >= 90 && value <= 140) {
+                    return false;
+                }
+                break;
+            case TRIGLYCERIDES:
+                if (value >= 0.6 && value <= 1.7) {
+                    return false;
+                }
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 }
