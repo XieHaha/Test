@@ -1,8 +1,10 @@
 package com.keydom.mianren.ih_patient.activity.health_manager.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.mianren.ih_patient.bean.EatBean;
 import com.keydom.mianren.ih_patient.bean.EatRecordBean;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,11 +14,30 @@ import java.util.Map;
  */
 public interface LifestyleMainView extends BaseView {
 
-    void requestFoodRecordSuccess(EatRecordBean bean);
+    void expandBreakfastLayout();
 
-    void updateFoodRecordSuccess(EatRecordBean bean);
+    void expandLunchLayout();
+
+    void expandDinnerLayout();
+
+    void expandExtraLayout();
+
+    List<EatBean> getParams();
+
+    boolean isNotToday();
+
+    String getCurSelectDate();
+
+    EatRecordBean getEatRecordBean();
+
+    void requestFoodRecordSuccess(EatRecordBean bean);
+    void requestFoodRecordFailed();
+
+    void copyFoodRecordSuccess();
 
     Map<String, Object> getUpdateEatDataParams(EatRecordBean bean);
 
     void setNewDate(int value);
+
+    String getPatientId();
 }

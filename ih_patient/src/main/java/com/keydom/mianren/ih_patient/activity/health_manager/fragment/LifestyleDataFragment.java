@@ -10,6 +10,7 @@ import com.keydom.mianren.ih_patient.activity.health_manager.controller.Lifestyl
 import com.keydom.mianren.ih_patient.activity.health_manager.view.LifestyleDataFragView;
 import com.keydom.mianren.ih_patient.adapter.LifestyleEatDataAdapter;
 import com.keydom.mianren.ih_patient.adapter.LifestyleSportsDataAdapter;
+import com.keydom.mianren.ih_patient.bean.EatBean;
 import com.keydom.mianren.ih_patient.bean.EatItemBean;
 import com.keydom.mianren.ih_patient.bean.SportsItemBean;
 import com.keydom.mianren.ih_patient.constant.Const;
@@ -17,7 +18,9 @@ import com.keydom.mianren.ih_patient.view.LifestyleDataEditDialog;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -37,8 +40,10 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
     private LifestyleSportsDataAdapter sportsDataAdapter;
     private LifestyleEatDataAdapter eatDataAdapter;
 
-    private ArrayList<EatItemBean> eatItemBeans = new ArrayList<>();
-    private ArrayList<SportsItemBean> sportsItemBeans = new ArrayList<>();
+    private List<EatItemBean> eatItemBeans = new ArrayList<>();
+    private List<SportsItemBean> sportsItemBeans = new ArrayList<>();
+
+    private List<EatBean> selectEatBeans;
 
     /**
      * 运动3  食物1
@@ -48,16 +53,28 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
      * 种类id
      */
     private int projectId;
+    private int mealType;
+    private String patientId;
+    private String curSelectDate;
 
     /**
      * fragment创建
      */
-    public static LifestyleDataFragment newInstance(int projectId, int lifestyleType) {
+    public static LifestyleDataFragment newInstance(int projectId, int lifestyleType,
+                                                    int mealType, String curSelectDate,
+                                                    String patientId,
+                                                    List<EatBean> selectEatBeans,
+                                                    OnItemSelectedListener listener) {
         Bundle args = new Bundle();
         args.putInt(Const.TYPE, lifestyleType);
+        args.putInt("mealType", mealType);
         args.putInt("id", projectId);
+        args.putString(Const.PATIENT_ID, patientId);
+        args.putString("curSelectDate", curSelectDate);
+        args.putSerializable("list", (Serializable) selectEatBeans);
         LifestyleDataFragment fragment = new LifestyleDataFragment();
         fragment.setArguments(args);
+        fragment.setOnItemSelectedListener(listener);
         return fragment;
     }
 
@@ -71,45 +88,108 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
         assert getArguments() != null;
         lifestyleType = getArguments().getInt(Const.TYPE);
         projectId = getArguments().getInt("id");
+        mealType = getArguments().getInt("mealType");
+        patientId = getArguments().getString(Const.PATIENT_ID);
+        curSelectDate = getArguments().getString("curSelectDate");
+        selectEatBeans = (List<EatBean>) getArguments().getSerializable("list");
 
         fragLifestyleDataRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         if (lifestyleType == LIFESTYLE_DIET) {
             eatDataAdapter = new LifestyleEatDataAdapter(eatItemBeans, lifestyleType);
             fragLifestyleDataRecyclerView.setAdapter(eatDataAdapter);
             eatDataAdapter.setOnItemClickListener((adapter, view, position) -> {
-                LifestyleDataEditDialog dialog = new LifestyleDataEditDialog(getContext(),
-                        new LifestyleDataEditDialog.OnCommitListener() {
-                            @Override
-                            public void commit() {
-                                eatItemBeans.get(position).changeSelectStatus();
-                                eatDataAdapter.notifyDataSetChanged();
-                            }
-                        });
-                dialog.show();
+                if (eatItemBeans.get(position).isSelected()) {
+                    EatBean eatBean = new EatBean();
+                    eatBean.setName(eatItemBeans.get(position).getName());
+                    updateSelectEatItem(position, eatBean);
+                } else {
+                    LifestyleDataEditDialog dialog = new LifestyleDataEditDialog(getContext(),
+                            mealType, patientId, curSelectDate, eatItemBeans.get(position),
+                            eatBean -> updateSelectEatItem(position, eatBean));
+                    dialog.show();
+                }
             });
+            getController().foodBankList();
         } else {
             sportsDataAdapter = new LifestyleSportsDataAdapter(sportsItemBeans, lifestyleType);
             fragLifestyleDataRecyclerView.setAdapter(sportsDataAdapter);
             sportsDataAdapter.setOnItemClickListener((adapter, view, position) -> {
-                LifestyleDataEditDialog dialog = new LifestyleDataEditDialog(getContext(),
-                        new LifestyleDataEditDialog.OnCommitListener() {
-                            @Override
-                            public void commit() {
-                                sportsItemBeans.get(position).changeSelectStatus();
-                                sportsDataAdapter.notifyDataSetChanged();
-                            }
-                        });
-                dialog.show();
+                //                LifestyleDataEditDialog dialog = new LifestyleDataEditDialog
+                //                (getContext(),
+                //                        patientId,
+                //                        eatItemBeans.get(position), new LifestyleDataEditDialog
+                //                        .OnCommitListener() {
+                //                    @Override
+                //                    public void commit() {
+                //                        sportsItemBeans.get(position).changeSelectStatus();
+                //                        sportsDataAdapter.notifyDataSetChanged();
+                //                    }
+                //                });
+                //                dialog.show();
             });
+            getController().exerciseBankList();
         }
+    }
+
+    private void initEatSelectData() {
+        for (EatBean bean : selectEatBeans) {
+            for (EatItemBean item : eatItemBeans) {
+                if (bean.getName().equals(item.getName())) {
+                    item.setSelected(true);
+                }
+            }
+        }
+        eatDataAdapter.setNewData(eatItemBeans);
+    }
 
 
-        getController().foodBankList();
-        getController().exerciseBankList();
+    /**
+     * 饮食选择
+     */
+    private void updateSelectEatItem(int position, EatBean eatBean) {
+        eatItemBeans.get(position).changeSelectStatus();
+        eatDataAdapter.notifyDataSetChanged();
+        if (onItemSelectedListener != null) {
+            onItemSelectedListener.onEatItemSelect(eatBean);
+        }
     }
 
     @Override
     public int getProjectId() {
         return projectId;
+    }
+
+    @Override
+    public String getPatientId() {
+        return patientId;
+    }
+
+    @Override
+    public int getLifestyleType() {
+        return lifestyleType;
+    }
+
+    @Override
+    public void requestFoodBankListSuccess(List<EatItemBean> data) {
+        eatItemBeans = data;
+        initEatSelectData();
+    }
+
+    @Override
+    public void requestExerciseBankListSuccess(List<SportsItemBean> data) {
+        sportsItemBeans = data;
+        sportsDataAdapter.setNewData(sportsItemBeans);
+    }
+
+    private OnItemSelectedListener onItemSelectedListener;
+
+    public void setOnItemSelectedListener(OnItemSelectedListener onItemSelectedListener) {
+        this.onItemSelectedListener = onItemSelectedListener;
+    }
+
+    public interface OnItemSelectedListener {
+        void onEatItemSelect(EatBean bean);
+
+        void onSportsItemSelect(SportsItemBean bean);
     }
 }

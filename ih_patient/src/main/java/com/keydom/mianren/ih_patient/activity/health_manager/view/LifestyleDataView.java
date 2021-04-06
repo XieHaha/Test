@@ -1,6 +1,9 @@
 package com.keydom.mianren.ih_patient.activity.health_manager.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.mianren.ih_patient.bean.EatBean;
+
+import java.util.List;
 
 /**
  * @author 顿顿
@@ -8,5 +11,9 @@ import com.keydom.ih_common.base.BaseView;
  * @des 生活数据
  */
 public interface LifestyleDataView extends BaseView {
+    List<EatBean> getParams();
 
+    void updateFoodRecordSuccess();
+
+    List<EatBean> getSelectEatBeans();
 }

@@ -45,16 +45,41 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
                 break;
             case R.id.view_eat_record_add_breakfast_tv:
             case R.id.eat_record_breakfast_add_tv:
-                LifestyleDataActivity.start(getContext(), 1);
+                LifestyleDataActivity.start(getContext(), 1, 0, getView().getCurSelectDate(),
+                        getView().getEatRecordBean(), getView().getPatientId());
                 break;
             case R.id.view_eat_record_add_lunch_tv:
             case R.id.eat_record_lunch_add_tv:
+                LifestyleDataActivity.start(getContext(), 1, 1, getView().getCurSelectDate(),
+                        getView().getEatRecordBean(), getView().getPatientId());
                 break;
             case R.id.view_eat_record_add_dinner_tv:
             case R.id.eat_record_dinner_add_tv:
+                LifestyleDataActivity.start(getContext(), 1, 2, getView().getCurSelectDate(),
+                        getView().getEatRecordBean(), getView().getPatientId());
                 break;
             case R.id.view_eat_record_add_extra_tv:
             case R.id.eat_record_extra_add_tv:
+                LifestyleDataActivity.start(getContext(), 1, 3, getView().getCurSelectDate(),
+                        getView().getEatRecordBean(), getView().getPatientId());
+                break;
+            case R.id.lifestyle_main_copy_tv:
+                //复用到今日
+                if (getView().isNotToday()) {
+                    insertOrUpdateFoodRecord();
+                }
+                break;
+            case R.id.view_eat_record_add_breakfast_iv:
+                getView().expandBreakfastLayout();
+                break;
+            case R.id.view_eat_record_add_lunch_iv:
+                getView().expandLunchLayout();
+                break;
+            case R.id.view_eat_record_add_dinner_iv:
+                getView().expandDinnerLayout();
+                break;
+            case R.id.view_eat_record_add_extra_iv:
+                getView().expandExtraLayout();
                 break;
             default:
                 break;
@@ -77,6 +102,7 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
+                getView().requestFoodRecordFailed();
                 ToastUtil.showMessage(getContext(), msg);
                 return super.requestError(exception, code, msg);
             }
@@ -86,11 +112,29 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
     /**
      * 新增或者修改就餐记录
      */
-    public void insertOrUpdateFoodRecord(EatRecordBean bean) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).insertOrUpdateFoodRecord(HttpService.INSTANCE.object2Body(getView().getUpdateEatDataParams(bean))), new HttpSubscriber<EatRecordBean>(getContext(), getDisposable(), true) {
+    public void insertOrUpdateFoodRecord() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).insertOrUpdateFoodRecord(HttpService.INSTANCE.object2Body(getView().getParams())), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
             @Override
-            public void requestComplete(@Nullable EatRecordBean data) {
-                getView().updateFoodRecordSuccess(bean);
+            public void requestComplete(@Nullable String data) {
+                getView().copyFoodRecordSuccess();
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtil.showMessage(getContext(), msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 删除就餐记录
+     */
+    public void deleteFoodRecord(String id) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).deleteFoodRecord(id), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable String data) {
             }
 
             @Override

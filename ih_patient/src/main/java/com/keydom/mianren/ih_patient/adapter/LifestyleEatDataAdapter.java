@@ -1,10 +1,13 @@
 package com.keydom.mianren.ih_patient.adapter;
 
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.keydom.ih_common.utils.BaseFileUtils;
+import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.bean.EatItemBean;
 
@@ -31,10 +34,13 @@ public class LifestyleEatDataAdapter extends BaseQuickAdapter<EatItemBean, BaseV
     protected void convert(BaseViewHolder helper, EatItemBean item) {
         TextView title = helper.getView(R.id.item_lifestyle_data_name_tv);
         title.setText(item.getName());
-        //        if (lifestyleType == LifestyleDataActivity.LIFESTYLE_DIET) {
-        //        } else {
-        //
-        //        }
+        ImageView image = helper.getView(R.id.item_lifestyle_data_icon_iv);
+        GlideUtils.load(image, BaseFileUtils.getHeaderUrl(item.getImageUrl()), -1,
+                R.drawable.bg_default_photo, false, null);
+        helper.setText(R.id.item_lifestyle_data_quantity_tv,
+                String.format(mContext.getString(R.string.txt_eat_unit), item.getCopies(),
+                        item.getAmount()));
+
         if (item.isSelected()) {
             helper.setVisible(R.id.item_lifestyle_data_select_iv, true);
             title.setSelected(true);
@@ -42,7 +48,5 @@ public class LifestyleEatDataAdapter extends BaseQuickAdapter<EatItemBean, BaseV
             helper.setVisible(R.id.item_lifestyle_data_select_iv, false);
             title.setSelected(false);
         }
-
-
     }
 }

@@ -87,6 +87,7 @@
             android:layout_marginTop="@dimen/dp_18">
 
             <TextView
+                android:id="@+id/dialog_lifestyle_data_value_one_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -97,6 +98,7 @@
                 tools:text="18克" />
 
             <TextView
+                android:id="@+id/dialog_lifestyle_data_value_two_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -107,6 +109,7 @@
                 tools:text="18克" />
 
             <TextView
+                android:id="@+id/dialog_lifestyle_data_value_three_tv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -171,6 +174,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/dialog_lifestyle_data_amount_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="35克"
@@ -178,6 +182,7 @@
                     android:textSize="@dimen/sp_12" />
 
                 <TextView
+                    android:id="@+id/dialog_lifestyle_data_kj_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_15"

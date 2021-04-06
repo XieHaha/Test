@@ -13,15 +13,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.health_manager.controller.LifestyleDataController;
 import com.keydom.mianren.ih_patient.activity.health_manager.fragment.LifestyleDataFragment;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.LifestyleDataView;
 import com.keydom.mianren.ih_patient.adapter.ViewPagerAdapter;
+import com.keydom.mianren.ih_patient.bean.EatBean;
+import com.keydom.mianren.ih_patient.bean.EatRecordBean;
+import com.keydom.mianren.ih_patient.bean.Event;
+import com.keydom.mianren.ih_patient.bean.SportsItemBean;
 import com.keydom.mianren.ih_patient.constant.Const;
+import com.keydom.mianren.ih_patient.constant.EventType;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -50,6 +58,17 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
 
     List<Fragment> fragmentList = new ArrayList<>();
     List<String> titles = new ArrayList<>();
+
+    private EatRecordBean recordBean;
+    private List<EatBean> selectEatBeans;
+    private List<SportsItemBean> selectSportItemBeans = new ArrayList<>();
+
+    private String patientId;
+    private String curSelectDate;
+    /**
+     * 就餐类型
+     */
+    private int mealType;
     /**
      * 饮食
      */
@@ -64,9 +83,14 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
     /**
      * 启动
      */
-    public static void start(Context context, int type) {
+    public static void start(Context context, int type, int mealType, String curSelectDate,
+                             EatRecordBean recordBean, String patientId) {
         Intent intent = new Intent(context, LifestyleDataActivity.class);
+        intent.putExtra("mealType", mealType);
+        intent.putExtra("recordBean", (Serializable) recordBean);
+        intent.putExtra("curSelectDate", curSelectDate);
         intent.putExtra(Const.TYPE, type);
+        intent.putExtra(Const.PATIENT_ID, patientId);
         context.startActivity(intent);
     }
 
@@ -77,7 +101,31 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        mealType = getIntent().getIntExtra("mealType", -1);
         lifestyleType = getIntent().getIntExtra(Const.TYPE, -1);
+        patientId = getIntent().getStringExtra(Const.PATIENT_ID);
+        curSelectDate = getIntent().getStringExtra("curSelectDate");
+        recordBean = (EatRecordBean) getIntent().getSerializableExtra("recordBean");
+        switch (mealType) {
+            case 0:
+                selectEatBeans = recordBean.getBreakfastList();
+                break;
+            case 1:
+                selectEatBeans = recordBean.getLunchList();
+                break;
+            case 2:
+                selectEatBeans = recordBean.getDinnerList();
+                break;
+            case 3:
+                selectEatBeans = recordBean.getSnacksList();
+                break;
+            default:
+                break;
+        }
+        if (selectEatBeans == null) {
+            selectEatBeans = new ArrayList<>();
+        }
+
         if (lifestyleType == LIFESTYLE_DIET) {
             setTitle("食物库");
             lifestyleDataSelectHintTv.setText("已选择食物");
@@ -100,7 +148,8 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
 
     private void initTabLayout() {
         for (int i = 0; i < titles.size(); i++) {
-            fragmentList.add(LifestyleDataFragment.newInstance(i, lifestyleType));
+            fragmentList.add(LifestyleDataFragment.newInstance(i, lifestyleType, mealType,
+                    curSelectDate, patientId, selectEatBeans, listener));
             lifestyleDataTabLayout.addTab(lifestyleDataTabLayout.newTab());
         }
         viewPagerAdapter = new ViewPagerAdapter(fm, fragmentList, titles);
@@ -118,8 +167,7 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
         //默认选中第一个
         ViewHolder holder = (ViewHolder) lifestyleDataTabLayout.getTabAt(0).getTag();
         holder.imageView.setVisibility(View.VISIBLE);
-        holder.textView.setTextColor(ContextCompat.getColor(LifestyleDataActivity.this,
-                R.color.color_57a7fc));
+        holder.textView.setTextColor(ContextCompat.getColor(this, R.color.color_57a7fc));
         if (lifestyleType == LIFESTYLE_DIET) {
             holder.imageView.setImageResource(R.mipmap.icon_eat_top);
         } else {
@@ -176,5 +224,91 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
     static class ViewHolder {
         private ImageView imageView;
         private TextView textView;
+    }
+
+    @Override
+    public List<EatBean> getSelectEatBeans() {
+        return selectEatBeans;
+    }
+
+    @Override
+    public List<EatBean> getParams() {
+        List<EatBean> list = new ArrayList<>();
+        list.addAll(selectEatBeans);
+        switch (mealType) {
+            case 0:
+                if (recordBean.getLunchList() != null && recordBean.getLunchList().size() > 0) {
+                    list.addAll(recordBean.getLunchList());
+                }
+                if (recordBean.getDinnerList() != null && recordBean.getDinnerList().size() > 0) {
+                    list.addAll(recordBean.getDinnerList());
+                }
+                if (recordBean.getSnacksList() != null && recordBean.getSnacksList().size() > 0) {
+                    list.addAll(recordBean.getSnacksList());
+                }
+                break;
+            case 1:
+                if (recordBean.getBreakfastList() != null && recordBean.getBreakfastList().size() > 0) {
+                    list.addAll(recordBean.getBreakfastList());
+                }
+                if (recordBean.getDinnerList() != null && recordBean.getDinnerList().size() > 0) {
+                    list.addAll(recordBean.getDinnerList());
+                }
+                if (recordBean.getSnacksList() != null && recordBean.getSnacksList().size() > 0) {
+                    list.addAll(recordBean.getSnacksList());
+                }
+                break;
+            case 2:
+                if (recordBean.getBreakfastList() != null && recordBean.getBreakfastList().size() > 0) {
+                    list.addAll(recordBean.getBreakfastList());
+                }
+                if (recordBean.getLunchList() != null && recordBean.getLunchList().size() > 0) {
+                    list.addAll(recordBean.getLunchList());
+                }
+                if (recordBean.getSnacksList() != null && recordBean.getSnacksList().size() > 0) {
+                    list.addAll(recordBean.getSnacksList());
+                }
+                break;
+            case 3:
+                if (recordBean.getBreakfastList() != null && recordBean.getBreakfastList().size() > 0) {
+                    list.addAll(recordBean.getBreakfastList());
+                }
+                if (recordBean.getLunchList() != null && recordBean.getLunchList().size() > 0) {
+                    list.addAll(recordBean.getLunchList());
+                }
+                if (recordBean.getDinnerList() != null && recordBean.getDinnerList().size() > 0) {
+                    list.addAll(recordBean.getDinnerList());
+                }
+                break;
+            default:
+                break;
+        }
+        return list;
+    }
+
+    private LifestyleDataFragment.OnItemSelectedListener listener =
+            new LifestyleDataFragment.OnItemSelectedListener() {
+
+                @Override
+                public void onEatItemSelect(EatBean bean) {
+                    if (selectEatBeans.contains(bean)) {
+                        selectEatBeans.remove(bean);
+                    } else {
+                        selectEatBeans.add(bean);
+                    }
+                    lifestyleDataSelectNumTv.setText(String.valueOf(selectEatBeans.size()));
+                }
+
+                @Override
+                public void onSportsItemSelect(SportsItemBean bean) {
+
+                }
+            };
+
+    @Override
+    public void updateFoodRecordSuccess() {
+        ToastUtil.showMessage(this, "保存成功");
+        EventBus.getDefault().post(new Event(EventType.UPDATE_LIFESTYLE, null));
+        finish();
     }
 }

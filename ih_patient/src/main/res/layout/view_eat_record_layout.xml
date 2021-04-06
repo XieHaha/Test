@@ -46,7 +46,17 @@
             android:padding="@dimen/dp_10"
             android:text="@string/txt_add_record"
             android:textColor="@color/color_333333"
-            android:textSize="@dimen/sp_14" />
+            android:textSize="@dimen/sp_14"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/view_eat_record_add_breakfast_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:padding="@dimen/dp_15"
+            android:src="@drawable/selector_lifestyle_black"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -124,6 +134,15 @@
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
+        <ImageView
+            android:id="@+id/view_eat_record_add_lunch_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:padding="@dimen/dp_15"
+            android:src="@drawable/selector_lifestyle_black"
+            android:visibility="gone" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -200,6 +219,16 @@
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
+
+        <ImageView
+            android:id="@+id/view_eat_record_add_dinner_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:padding="@dimen/dp_15"
+            android:src="@drawable/selector_lifestyle_black"
+            android:visibility="gone" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -275,6 +304,15 @@
             android:text="@string/txt_add_record"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
+
+        <ImageView
+            android:id="@+id/view_eat_record_add_extra_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:padding="@dimen/dp_15"
+            android:src="@drawable/selector_lifestyle_black"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout

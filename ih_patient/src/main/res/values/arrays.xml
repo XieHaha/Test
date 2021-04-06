@@ -95,7 +95,7 @@
         <item>严重低落</item>
     </string-array>
     <string-array name="eat_type">
-        <item>早餐常用</item>
+        <item>常用</item>
         <item>谷薯类</item>
         <item>肉蛋类</item>
         <item>蔬菜类</item>

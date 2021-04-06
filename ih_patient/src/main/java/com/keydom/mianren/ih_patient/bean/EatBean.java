@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class EatBean implements Serializable {
     private static final long serialVersionUID = -2667099515575148079L;
     private int foodId;
-    private int sunHeat;
+    private float sumHeat;
     private int type;
     private float amount;
     private float copies;
@@ -28,12 +28,12 @@ public class EatBean implements Serializable {
         this.foodId = foodId;
     }
 
-    public int getSunHeat() {
-        return sunHeat;
+    public float getSumHeat() {
+        return sumHeat;
     }
 
-    public void setSunHeat(int sunHeat) {
-        this.sunHeat = sunHeat;
+    public void setSumHeat(float sumHeat) {
+        this.sumHeat = sumHeat;
     }
 
     public int getType() {
@@ -98,5 +98,24 @@ public class EatBean implements Serializable {
 
     public void setRecordTime(String recordTime) {
         this.recordTime = recordTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        EatBean itemBean = (EatBean) o;
+
+        return name.equals(itemBean.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 }

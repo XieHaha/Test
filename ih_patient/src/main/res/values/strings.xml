@@ -613,5 +613,10 @@
     <string name="txt_data_blood_pressure">血糖：4.4~10.0mmol/L</string>
 
     <string name="txt_year_and_month">%d年%d月%d日</string>
+    <string name="txt_eat_unit">%d份&#160;%d克</string>
+    <string name="txt_portion">%1f份</string>
+    <string name="txt_gram">%d克</string>
+    <string name="txt_gram_f">%1f克</string>
+    <string name="txt_kcal">%d千卡</string>
 
 </resources>

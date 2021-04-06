@@ -18,6 +18,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.keydom.mianren.ih_patient.activity.health_manager.LifestyleDataActivity.LIFESTYLE_DIET;
+
 /**
  * 生活方式数据
  *
@@ -30,9 +32,12 @@ public class LifestyleDataFragController extends ControllerImpl<LifestyleDataFra
      * 获取食物库列表
      */
     public void foodBankList() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).foodBankList(HttpService.INSTANCE.object2Body(getParams())), new HttpSubscriber<LifestyleRootBean<EatItemBean>>(getContext(), getDisposable(), true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).foodBankList(HttpService.INSTANCE.object2Body(getParams())), new HttpSubscriber<LifestyleRootBean<EatItemBean>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable LifestyleRootBean<EatItemBean> data) {
+                if (data != null) {
+                    getView().requestFoodBankListSuccess(data.getRecords());
+                }
             }
 
             @Override
@@ -48,9 +53,12 @@ public class LifestyleDataFragController extends ControllerImpl<LifestyleDataFra
      * 获取运动库列表
      */
     public void exerciseBankList() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).exerciseBankList(HttpService.INSTANCE.object2Body(getParams())), new HttpSubscriber<LifestyleRootBean<SportsItemBean>>(getContext(), getDisposable(), true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).exerciseBankList(HttpService.INSTANCE.object2Body(getParams())), new HttpSubscriber<LifestyleRootBean<SportsItemBean>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable LifestyleRootBean<SportsItemBean> data) {
+                if (data != null) {
+                    getView().requestExerciseBankListSuccess(data.getRecords());
+                }
             }
 
             @Override
@@ -67,7 +75,10 @@ public class LifestyleDataFragController extends ControllerImpl<LifestyleDataFra
         params.put("currentPage", 0);
         params.put("pageSize", 100);
         params.put("type", getView().getProjectId());
-        params.put("keyword", "");
+        //        params.put("keyword", "");
+        if (getView().getLifestyleType() == LIFESTYLE_DIET) {
+            params.put("patientId", getView().getPatientId());
+        }
         return params;
     }
 }

@@ -12,8 +12,10 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
@@ -56,13 +58,13 @@ public interface ChronicDiseaseService {
      * 新增或者修改就餐记录
      */
     @POST("medicine/chronicDiseaseManage/insertOrUpdateFoodRecord")
-    Observable<HttpResult<EatRecordBean>> insertOrUpdateFoodRecord(@Body RequestBody body);
+    Observable<HttpResult<String>> insertOrUpdateFoodRecord(@Body RequestBody body);
 
     /**
      * 删除就餐记录
      */
-    @GET("medicine/chronicDiseaseManage/deleteFoodRecord")
-    Observable<HttpResult<EatRecordBean>> deleteFoodRecord(@QueryMap Map<String, String> map);
+    @DELETE("medicine/chronicDiseaseManage/deleteFoodRecord")
+    Observable<HttpResult<String>> deleteFoodRecord(@Query("foodRecordId") String foodRecordId);
 
     /**
      * 新增或者修改睡眠记录

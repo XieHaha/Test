@@ -15,11 +15,17 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.health_manager.controller.LifestyleMainController;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.LifestyleMainView;
+import com.keydom.mianren.ih_patient.bean.EatBean;
 import com.keydom.mianren.ih_patient.bean.EatRecordBean;
+import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.constant.Const;
+import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.utils.DateUtils;
 import com.keydom.mianren.ih_patient.utils.StatusBarUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -76,12 +82,20 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     TextView lifestyleBottomSubmitTv;
     @BindView(R.id.view_eat_record_add_breakfast_tv)
     TextView viewEatRecordAddBreakfastTv;
+    @BindView(R.id.view_eat_record_add_breakfast_iv)
+    ImageView viewEatRecordAddBreakfastIv;
     @BindView(R.id.view_eat_record_add_lunch_tv)
     TextView viewEatRecordAddLunchTv;
+    @BindView(R.id.view_eat_record_add_lunch_iv)
+    ImageView viewEatRecordAddLunchIv;
     @BindView(R.id.view_eat_record_add_dinner_tv)
     TextView viewEatRecordAddDinnerTv;
+    @BindView(R.id.view_eat_record_add_dinner_iv)
+    ImageView viewEatRecordAddDinnerIv;
     @BindView(R.id.view_eat_record_add_extra_tv)
     TextView viewEatRecordAddExtraTv;
+    @BindView(R.id.view_eat_record_add_extra_iv)
+    ImageView viewEatRecordAddExtraIv;
     @BindView(R.id.eat_record_breakfast_item_layout)
     LinearLayout eatRecordBreakfastItemLayout;
     @BindView(R.id.eat_record_breakfast_add_tv)
@@ -111,6 +125,7 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
      * 饮食记录
      */
     private EatRecordBean eatRecordBean;
+    private List<EatBean> selectEatBeans;
     private Calendar calendar;
 
     private List<String> sleepQualityData;
@@ -153,6 +168,7 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         statusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 StatusBarUtils.getStateBarHeight(this)));
         StatusBarUtils.setStatusBarTranslucent(this);
@@ -211,13 +227,18 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         lifestyleBottomCancelTv.setOnClickListener(getController());
         lifestyleBottomSubmitTv.setOnClickListener(getController());
 
+        lifestyleMainCopyTv.setOnClickListener(getController());
         viewEatRecordAddBreakfastTv.setOnClickListener(getController());
+        viewEatRecordAddBreakfastIv.setOnClickListener(getController());
         eatRecordBreakfastAddTv.setOnClickListener(getController());
         viewEatRecordAddLunchTv.setOnClickListener(getController());
+        viewEatRecordAddLunchIv.setOnClickListener(getController());
         eatRecordLunchAddTv.setOnClickListener(getController());
         viewEatRecordAddDinnerTv.setOnClickListener(getController());
+        viewEatRecordAddDinnerIv.setOnClickListener(getController());
         eatRecordDinnerAddTv.setOnClickListener(getController());
         viewEatRecordAddExtraTv.setOnClickListener(getController());
+        viewEatRecordAddExtraIv.setOnClickListener(getController());
         eatRecordExtraAddTv.setOnClickListener(getController());
     }
 
@@ -248,23 +269,318 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         if (DateUtils.isToday(date)) {
             lifestyleMainNextDayTv.setSelected(false);
             lifestyleMainDayTv.setText("今日");
+            lifestyleMainCopyTv.setVisibility(View.INVISIBLE);
         } else {
             lifestyleMainNextDayTv.setSelected(true);
             lifestyleMainDayTv.setText(curSelectDate);
+            lifestyleMainCopyTv.setVisibility(View.VISIBLE);
         }
 
         getController().foodRecordList(patientId, curSelectDate);
     }
 
+    /**
+     * 数据处理
+     */
+    private void initLifestyleData() {
+        //早餐
+        List<EatBean> breakfastBeans = eatRecordBean.getBreakfastList();
+        if (breakfastBeans != null && breakfastBeans.size() > 0) {
+            viewEatRecordAddBreakfastIv.setSelected(true);
+            eatRecordBreakfastRootLayout.setVisibility(View.VISIBLE);
+            viewEatRecordAddBreakfastTv.setVisibility(View.GONE);
+            viewEatRecordAddBreakfastIv.setVisibility(View.VISIBLE);
+            addBreakfastView(breakfastBeans);
+        } else {
+            eatRecordBreakfastRootLayout.setVisibility(View.GONE);
+            viewEatRecordAddBreakfastIv.setVisibility(View.GONE);
+            viewEatRecordAddBreakfastTv.setVisibility(View.VISIBLE);
+        }
+
+        //午餐
+        List<EatBean> lunchBeans = eatRecordBean.getLunchList();
+        if (lunchBeans != null && lunchBeans.size() > 0) {
+            viewEatRecordAddLunchIv.setSelected(true);
+            eatRecordLunchRootLayout.setVisibility(View.VISIBLE);
+            viewEatRecordAddLunchTv.setVisibility(View.GONE);
+            viewEatRecordAddLunchIv.setVisibility(View.VISIBLE);
+            addLunchView(lunchBeans);
+        } else {
+            eatRecordLunchRootLayout.setVisibility(View.GONE);
+            viewEatRecordAddLunchIv.setVisibility(View.GONE);
+            viewEatRecordAddLunchTv.setVisibility(View.VISIBLE);
+        }
+
+        //晚餐
+        List<EatBean> dinnerBeans = eatRecordBean.getDinnerList();
+        if (dinnerBeans != null && dinnerBeans.size() > 0) {
+            viewEatRecordAddDinnerIv.setSelected(true);
+            eatRecordDinnerRootLayout.setVisibility(View.VISIBLE);
+            viewEatRecordAddDinnerTv.setVisibility(View.GONE);
+            viewEatRecordAddDinnerIv.setVisibility(View.VISIBLE);
+            addDinnerView(dinnerBeans);
+        } else {
+            eatRecordDinnerRootLayout.setVisibility(View.GONE);
+            viewEatRecordAddDinnerIv.setVisibility(View.GONE);
+            viewEatRecordAddDinnerTv.setVisibility(View.VISIBLE);
+        }
+
+        //加餐
+        List<EatBean> snacksBeans = eatRecordBean.getSnacksList();
+        if (snacksBeans != null && snacksBeans.size() > 0) {
+            viewEatRecordAddExtraIv.setSelected(true);
+            eatRecordExtraRootLayout.setVisibility(View.VISIBLE);
+            viewEatRecordAddExtraTv.setVisibility(View.GONE);
+            viewEatRecordAddExtraIv.setVisibility(View.VISIBLE);
+            addExtraView(snacksBeans);
+        } else {
+            eatRecordExtraRootLayout.setVisibility(View.GONE);
+            viewEatRecordAddExtraIv.setVisibility(View.GONE);
+            viewEatRecordAddExtraTv.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * 早餐
+     */
+    private void addBreakfastView(List<EatBean> breakfastBeans) {
+        eatRecordBreakfastItemLayout.removeAllViews();
+        for (int i = 0; i < breakfastBeans.size(); i++) {
+            EatBean bean = breakfastBeans.get(i);
+            View view = getLayoutInflater().inflate(R.layout.item_lifestyle_eat, null);
+            TextView name = view.findViewById(R.id.item_lifestyle_eat_name);
+            TextView num = view.findViewById(R.id.item_lifestyle_eat_num);
+            TextView copies = view.findViewById(R.id.item_lifestyle_eat_copies);
+            ImageView delete = view.findViewById(R.id.item_lifestyle_eat_delete);
+            name.setText(bean.getName());
+            num.setText(bean.getAmount() + "克  " + bean.getSumHeat() + "千卡");
+            copies.setText(bean.getCopies() + "份");
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    breakfastBeans.remove(bean);
+                    eatRecordBreakfastItemLayout.removeView(view);
+                    if (breakfastBeans.size() == 0) {
+                        eatRecordBreakfastRootLayout.setVisibility(View.GONE);
+                        viewEatRecordAddBreakfastIv.setVisibility(View.GONE);
+                        viewEatRecordAddBreakfastTv.setVisibility(View.VISIBLE);
+                    }
+                    //删除
+                    getController().deleteFoodRecord(bean.getId());
+                }
+            });
+            eatRecordBreakfastItemLayout.addView(view);
+        }
+    }
+
+    @Override
+    public void expandBreakfastLayout() {
+        if (viewEatRecordAddBreakfastIv.isSelected()) {
+            eatRecordBreakfastRootLayout.setVisibility(View.GONE);
+            viewEatRecordAddBreakfastIv.setSelected(false);
+        } else {
+            eatRecordBreakfastRootLayout.setVisibility(View.VISIBLE);
+            viewEatRecordAddBreakfastIv.setSelected(true);
+        }
+    }
+
+    /**
+     * 午餐
+     */
+    private void addLunchView(List<EatBean> lunchBeans) {
+        eatRecordLunchItemLayout.removeAllViews();
+        for (int i = 0; i < lunchBeans.size(); i++) {
+            EatBean bean = lunchBeans.get(i);
+            View view = getLayoutInflater().inflate(R.layout.item_lifestyle_eat, null);
+            TextView name = view.findViewById(R.id.item_lifestyle_eat_name);
+            TextView num = view.findViewById(R.id.item_lifestyle_eat_num);
+            TextView copies = view.findViewById(R.id.item_lifestyle_eat_copies);
+            ImageView delete = view.findViewById(R.id.item_lifestyle_eat_delete);
+            name.setText(bean.getName());
+            num.setText(bean.getAmount() + "克  " + bean.getSumHeat() + "千卡");
+            copies.setText(bean.getCopies() + "份");
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    lunchBeans.remove(bean);
+                    eatRecordLunchItemLayout.removeView(view);
+                    if (lunchBeans.size() == 0) {
+                        eatRecordLunchRootLayout.setVisibility(View.GONE);
+                        viewEatRecordAddLunchIv.setVisibility(View.GONE);
+                        viewEatRecordAddLunchTv.setVisibility(View.VISIBLE);
+                    }
+                    //删除
+                    getController().deleteFoodRecord(bean.getId());
+                }
+            });
+            eatRecordLunchItemLayout.addView(view);
+        }
+    }
+
+    @Override
+    public void expandLunchLayout() {
+        if (viewEatRecordAddLunchIv.isSelected()) {
+            eatRecordLunchRootLayout.setVisibility(View.GONE);
+            viewEatRecordAddLunchIv.setSelected(false);
+        } else {
+            eatRecordLunchRootLayout.setVisibility(View.VISIBLE);
+            viewEatRecordAddLunchIv.setSelected(true);
+        }
+    }
+
+    /**
+     * 晚餐
+     */
+    private void addDinnerView(List<EatBean> dinnerBeans) {
+        eatRecordDinnerItemLayout.removeAllViews();
+        for (int i = 0; i < dinnerBeans.size(); i++) {
+            EatBean bean = dinnerBeans.get(i);
+            View view = getLayoutInflater().inflate(R.layout.item_lifestyle_eat, null);
+            TextView name = view.findViewById(R.id.item_lifestyle_eat_name);
+            TextView num = view.findViewById(R.id.item_lifestyle_eat_num);
+            TextView copies = view.findViewById(R.id.item_lifestyle_eat_copies);
+            ImageView delete = view.findViewById(R.id.item_lifestyle_eat_delete);
+            name.setText(bean.getName());
+            num.setText(bean.getAmount() + "克  " + bean.getSumHeat() + "千卡");
+            copies.setText(bean.getCopies() + "份");
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dinnerBeans.remove(bean);
+                    eatRecordDinnerItemLayout.removeView(view);
+                    if (dinnerBeans.size() == 0) {
+                        eatRecordDinnerRootLayout.setVisibility(View.GONE);
+                        viewEatRecordAddDinnerIv.setVisibility(View.GONE);
+                        viewEatRecordAddDinnerTv.setVisibility(View.VISIBLE);
+                    }
+                    //删除
+                    getController().deleteFoodRecord(bean.getId());
+                }
+            });
+            eatRecordDinnerItemLayout.addView(view);
+        }
+    }
+
+    @Override
+    public void expandDinnerLayout() {
+        if (viewEatRecordAddDinnerIv.isSelected()) {
+            eatRecordDinnerRootLayout.setVisibility(View.GONE);
+            viewEatRecordAddDinnerIv.setSelected(false);
+        } else {
+            eatRecordDinnerRootLayout.setVisibility(View.VISIBLE);
+            viewEatRecordAddDinnerIv.setSelected(true);
+        }
+    }
+
+    /**
+     * 加餐
+     */
+    private void addExtraView(List<EatBean> extraBeans) {
+        eatRecordExtraItemLayout.removeAllViews();
+        for (int i = 0; i < extraBeans.size(); i++) {
+            EatBean bean = extraBeans.get(i);
+            View view = getLayoutInflater().inflate(R.layout.item_lifestyle_eat, null);
+            TextView name = view.findViewById(R.id.item_lifestyle_eat_name);
+            TextView num = view.findViewById(R.id.item_lifestyle_eat_num);
+            TextView copies = view.findViewById(R.id.item_lifestyle_eat_copies);
+            ImageView delete = view.findViewById(R.id.item_lifestyle_eat_delete);
+            name.setText(bean.getName());
+            num.setText(bean.getAmount() + "克  " + bean.getSumHeat() + "千卡");
+            copies.setText(bean.getCopies() + "份");
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    extraBeans.remove(bean);
+                    eatRecordExtraItemLayout.removeView(view);
+                    if (extraBeans.size() == 0) {
+                        eatRecordExtraRootLayout.setVisibility(View.GONE);
+                        viewEatRecordAddExtraIv.setVisibility(View.GONE);
+                        viewEatRecordAddExtraTv.setVisibility(View.VISIBLE);
+                    }
+                    //删除
+                    getController().deleteFoodRecord(bean.getId());
+                }
+            });
+            eatRecordExtraItemLayout.addView(view);
+        }
+    }
+
+    @Override
+    public void expandExtraLayout() {
+        if (viewEatRecordAddExtraIv.isSelected()) {
+            eatRecordExtraRootLayout.setVisibility(View.GONE);
+            viewEatRecordAddExtraIv.setSelected(false);
+        } else {
+            eatRecordExtraRootLayout.setVisibility(View.VISIBLE);
+            viewEatRecordAddExtraIv.setSelected(true);
+        }
+    }
+
+
+    @Override
+    public List<EatBean> getParams() {
+        List<EatBean> list = new ArrayList<>();
+        if (eatRecordBean.getBreakfastList() != null && eatRecordBean.getBreakfastList().size() > 0) {
+            list.addAll(eatRecordBean.getBreakfastList());
+        }
+        if (eatRecordBean.getLunchList() != null && eatRecordBean.getLunchList().size() > 0) {
+            list.addAll(eatRecordBean.getLunchList());
+        }
+        if (eatRecordBean.getDinnerList() != null && eatRecordBean.getDinnerList().size() > 0) {
+            list.addAll(eatRecordBean.getDinnerList());
+        }
+        if (eatRecordBean.getSnacksList() != null && eatRecordBean.getSnacksList().size() > 0) {
+            list.addAll(eatRecordBean.getSnacksList());
+        }
+        //日期修改为今天
+        for (EatBean bean : list) {
+            bean.setRecordTime(DateUtils.dateToString(new Date()));
+        }
+        return list;
+    }
+
+    /**
+     * 记录变化更新
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateLifestyle(Event event) {
+        if (event.getType() == EventType.UPDATE_LIFESTYLE) {
+            getController().foodRecordList(patientId, curSelectDate);
+        }
+    }
+
+    @Override
+    public boolean isNotToday() {
+        return lifestyleMainNextDayTv.isSelected();
+    }
+
+    @Override
+    public String getCurSelectDate() {
+        return curSelectDate;
+    }
+
+    @Override
+    public EatRecordBean getEatRecordBean() {
+        return eatRecordBean;
+    }
+
     @Override
     public void requestFoodRecordSuccess(EatRecordBean bean) {
-        updateFoodRecordSuccess(bean);
+        eatRecordBean = bean;
+        initLifestyleData();
     }
 
     @Override
-    public void updateFoodRecordSuccess(EatRecordBean bean) {
+    public void requestFoodRecordFailed() {
+        eatRecordBean = new EatRecordBean();
+        initLifestyleData();
     }
 
+    @Override
+    public void copyFoodRecordSuccess() {
+        calendar = Calendar.getInstance();
+        initCalendarView();
+    }
 
     @Override
     public Map<String, Object> getUpdateEatDataParams(EatRecordBean bean) {
@@ -276,5 +592,16 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     public void setNewDate(int value) {
         calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + value);
         initCalendarView();
+    }
+
+    @Override
+    public String getPatientId() {
+        return patientId;
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 }
