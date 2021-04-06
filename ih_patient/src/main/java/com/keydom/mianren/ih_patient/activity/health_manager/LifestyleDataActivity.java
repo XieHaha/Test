@@ -23,6 +23,7 @@ import com.keydom.mianren.ih_patient.constant.Const;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -80,38 +81,32 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
         if (lifestyleType == LIFESTYLE_DIET) {
             setTitle("食物库");
             lifestyleDataSelectHintTv.setText("已选择食物");
+            String[] eatType = getResources().getStringArray(R.array.eat_type);
+            titles = new ArrayList<>(eatType.length);
+            Collections.addAll(titles, eatType);
         } else {
             setTitle("运动选择");
             lifestyleDataSelectHintTv.setText("已选择运动");
+            String[] eatType = getResources().getStringArray(R.array.sports_type);
+            titles = new ArrayList<>(eatType.length);
+            Collections.addAll(titles, eatType);
         }
 
         lifestyleDataSelectSureTv.setOnClickListener(getController());
         fm = getSupportFragmentManager();
-        fragmentList.add(LifestyleDataFragment.newInstance(1, lifestyleType));
-        fragmentList.add(LifestyleDataFragment.newInstance(1, lifestyleType));
-        fragmentList.add(LifestyleDataFragment.newInstance(1, lifestyleType));
-        fragmentList.add(LifestyleDataFragment.newInstance(1, lifestyleType));
-        fragmentList.add(LifestyleDataFragment.newInstance(1, lifestyleType));
-        fragmentList.add(LifestyleDataFragment.newInstance(1, lifestyleType));
-        fragmentList.add(LifestyleDataFragment.newInstance(1, lifestyleType));
 
-        titles.add("测试");
-        titles.add("测试2");
-        titles.add("测试3");
-        titles.add("测试4");
-        titles.add("测试5");
-        titles.add("测试6");
-        titles.add("测试7");
+        initTabLayout();
+    }
 
-        if (viewPagerAdapter == null) {
-            viewPagerAdapter = new ViewPagerAdapter(fm, fragmentList, titles);
+    private void initTabLayout() {
+        for (int i = 0; i < titles.size(); i++) {
+            fragmentList.add(LifestyleDataFragment.newInstance(i, lifestyleType));
+            lifestyleDataTabLayout.addTab(lifestyleDataTabLayout.newTab());
         }
+        viewPagerAdapter = new ViewPagerAdapter(fm, fragmentList, titles);
         lifestyleDataViewPager.setAdapter(viewPagerAdapter);
         lifestyleDataViewPager.setOffscreenPageLimit(3);
 
-        for (int i = 0; i < titles.size(); i++) {
-            lifestyleDataTabLayout.addTab(lifestyleDataTabLayout.newTab());
-        }
         lifestyleDataTabLayout.setupWithViewPager(lifestyleDataViewPager);
 
         for (int i = 0; i < titles.size(); i++) {
@@ -125,22 +120,35 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
         holder.imageView.setVisibility(View.VISIBLE);
         holder.textView.setTextColor(ContextCompat.getColor(LifestyleDataActivity.this,
                 R.color.color_57a7fc));
+        if (lifestyleType == LIFESTYLE_DIET) {
+            holder.imageView.setImageResource(R.mipmap.icon_eat_top);
+        } else {
+            holder.imageView.setImageResource(R.mipmap.icon_sports_top);
+        }
 
-        lifestyleDataTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        lifestyleDataTabLayout.addOnTabSelectedListener(new TabLayout
+                .OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 ViewHolder holder = (ViewHolder) tab.getTag();
                 holder.imageView.setVisibility(View.VISIBLE);
-                holder.textView.setTextColor(ContextCompat.getColor(LifestyleDataActivity.this,
-                        R.color.color_57a7fc));
+                if (lifestyleType == LIFESTYLE_DIET) {
+                    holder.imageView.setImageResource(R.mipmap.icon_eat_top);
+                } else {
+                    holder.imageView.setImageResource(R.mipmap.icon_sports_top);
+                }
+                holder.textView.setTextColor(ContextCompat.getColor
+                        (LifestyleDataActivity.this,
+                                R.color.color_57a7fc));
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 ViewHolder holder = (ViewHolder) tab.getTag();
                 holder.imageView.setVisibility(View.INVISIBLE);
-                holder.textView.setTextColor(ContextCompat.getColor(LifestyleDataActivity.this,
-                        R.color.color_333333));
+                holder.textView.setTextColor(ContextCompat.getColor
+                        (LifestyleDataActivity.this,
+                                R.color.color_333333));
             }
 
             @Override

@@ -7,20 +7,20 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/frag_lifestyle_data_refresh_layout"
+    <!--    <com.scwang.smartrefresh.layout.SmartRefreshLayout-->
+    <!--        android:id="@+id/frag_lifestyle_data_refresh_layout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_weight="1">-->
+
+    <!--        <com.scwang.smartrefresh.layout.header.ClassicsHeader-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content" />-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/frag_lifestyle_data_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content" />
 
-        <com.scwang.smartrefresh.layout.header.ClassicsHeader
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/frag_lifestyle_data_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    <!--    </com.scwang.smartrefresh.layout.SmartRefreshLayout>-->
 </LinearLayout>

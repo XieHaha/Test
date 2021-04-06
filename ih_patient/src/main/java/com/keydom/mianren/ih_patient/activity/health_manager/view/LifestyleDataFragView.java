@@ -7,4 +7,5 @@ import com.keydom.ih_common.base.BaseView;
  * @author 顿顿
  */
 public interface LifestyleDataFragView extends BaseView {
+    int getProjectId();
 }

@@ -128,7 +128,7 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
         switch (view.getId()) {
             case R.id.health_data_dialog_submit_tv:
                 if (onCommitListener != null) {
-                    onCommitListener.backHealthManager();
+                    onCommitListener.commit();
                 }
                 break;
             default:
@@ -147,14 +147,6 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
      * 提交监听
      */
     public interface OnCommitListener {
-        /**
-         * 健康管理
-         */
-        void backHealthManager();
-
-        /**
-         * 返回首页
-         */
-        void backHome();
+        void commit();
     }
 }

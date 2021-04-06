@@ -6,7 +6,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.keydom.mianren.ih_patient.R;
-import com.keydom.mianren.ih_patient.bean.LifestyleDataBean;
+import com.keydom.mianren.ih_patient.bean.EatItemBean;
 
 import java.util.List;
 
@@ -16,21 +16,21 @@ import java.util.List;
  *
  * @author 顿顿
  */
-public class LifestyleDataAdapter extends BaseQuickAdapter<LifestyleDataBean, BaseViewHolder> {
+public class LifestyleEatDataAdapter extends BaseQuickAdapter<EatItemBean, BaseViewHolder> {
     private int lifestyleType;
 
     /**
      * 构建方法
      */
-    public LifestyleDataAdapter(@Nullable List<LifestyleDataBean> data, int lifestyleType) {
+    public LifestyleEatDataAdapter(@Nullable List<EatItemBean> data, int lifestyleType) {
         super(R.layout.item_lifestyle_data, data);
         this.lifestyleType = lifestyleType;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, LifestyleDataBean item) {
+    protected void convert(BaseViewHolder helper, EatItemBean item) {
         TextView title = helper.getView(R.id.item_lifestyle_data_name_tv);
-        title.setText(helper.getAdapterPosition() + "");
+        title.setText(item.getName());
         //        if (lifestyleType == LifestyleDataActivity.LIFESTYLE_DIET) {
         //        } else {
         //

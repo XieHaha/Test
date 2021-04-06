@@ -9,6 +9,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.activity.health_manager.LifestyleDataActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.LifestyleMainView;
 import com.keydom.mianren.ih_patient.bean.EatRecordBean;
 import com.keydom.mianren.ih_patient.net.ChronicDiseaseService;
@@ -38,11 +39,22 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
                     getView().setNewDate(1);
                 }
                 break;
-            case R.id.disease_main_data_hint_tv:
-                break;
             case R.id.lifestyle_bottom_cancel_tv:
                 break;
             case R.id.lifestyle_bottom_submit_tv:
+                break;
+            case R.id.view_eat_record_add_breakfast_tv:
+            case R.id.eat_record_breakfast_add_tv:
+                LifestyleDataActivity.start(getContext(), 1);
+                break;
+            case R.id.view_eat_record_add_lunch_tv:
+            case R.id.eat_record_lunch_add_tv:
+                break;
+            case R.id.view_eat_record_add_dinner_tv:
+            case R.id.eat_record_dinner_add_tv:
+                break;
+            case R.id.view_eat_record_add_extra_tv:
+            case R.id.eat_record_extra_add_tv:
                 break;
             default:
                 break;

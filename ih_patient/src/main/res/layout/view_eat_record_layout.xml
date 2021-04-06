@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,6 +51,36 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/eat_record_breakfast_root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_70"
+        android:layout_marginEnd="@dimen/dp_31"
+        android:background="@color/color_f9f9f9"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/eat_record_breakfast_item_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/eat_record_breakfast_add_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:drawableStart="@mipmap/icon_lifestyle_add"
+            android:drawablePadding="@dimen/dp_11"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:text="@string/txt_add_record"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_14" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
@@ -84,6 +113,7 @@
             android:textSize="@dimen/sp_12" />
 
         <TextView
+            android:id="@+id/view_eat_record_add_lunch_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableStart="@mipmap/icon_lifestyle_add"
@@ -94,6 +124,36 @@
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/eat_record_lunch_root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_70"
+        android:layout_marginEnd="@dimen/dp_31"
+        android:background="@color/color_f9f9f9"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/eat_record_lunch_item_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/eat_record_lunch_add_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:drawableStart="@mipmap/icon_lifestyle_add"
+            android:drawablePadding="@dimen/dp_11"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:text="@string/txt_add_record"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_14" />
     </LinearLayout>
 
     <LinearLayout
@@ -129,6 +189,7 @@
             android:textSize="@dimen/sp_12" />
 
         <TextView
+            android:id="@+id/view_eat_record_add_dinner_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableStart="@mipmap/icon_lifestyle_add"
@@ -139,6 +200,36 @@
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/eat_record_dinner_root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_70"
+        android:layout_marginEnd="@dimen/dp_31"
+        android:background="@color/color_f9f9f9"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/eat_record_dinner_item_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/eat_record_dinner_add_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:drawableStart="@mipmap/icon_lifestyle_add"
+            android:drawablePadding="@dimen/dp_11"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:text="@string/txt_add_record"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_14" />
     </LinearLayout>
 
     <LinearLayout
@@ -174,6 +265,7 @@
             android:textSize="@dimen/sp_12" />
 
         <TextView
+            android:id="@+id/view_eat_record_add_extra_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableStart="@mipmap/icon_lifestyle_add"
@@ -183,7 +275,36 @@
             android:text="@string/txt_add_record"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/eat_record_extra_root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_70"
+        android:layout_marginEnd="@dimen/dp_31"
+        android:background="@color/color_f9f9f9"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/eat_record_extra_item_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/eat_record_extra_add_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:drawableStart="@mipmap/icon_lifestyle_add"
+            android:drawablePadding="@dimen/dp_11"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:text="@string/txt_add_record"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_14" />
     </LinearLayout>
 
 </LinearLayout>

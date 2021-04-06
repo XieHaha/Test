@@ -316,7 +316,14 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
      */
     private void addRelationshipView() {
         healthContactPeopleLayout.removeAllViews();
-        for (int i = 0; i < relativesBeans.size(); i++) {
+        int showNum = relativesBeans.size();
+        if (relativesBeans.size() > 3) {
+            healthArchivesLookMoreTv.setVisibility(View.VISIBLE);
+            showNum = 3;
+        } else {
+            healthArchivesLookMoreTv.setVisibility(View.GONE);
+        }
+        for (int i = 0; i < showNum; i++) {
             PatientRelativesBean bean = relativesBeans.get(i);
             View view = getLayoutInflater().inflate(R.layout.item_health_contact_people, null);
             TextView name = view.findViewById(R.id.item_relation_name_tv);
@@ -548,7 +555,7 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
     @Override
     public void savePatientInfoSuccess() {
         ToastUtil.showMessage(this, "保存成功");
-        EventBus.getDefault().post(new Event(EventType.OPEN_HEALTH_MANAGER, null));
+        EventBus.getDefault().post(new Event(EventType.UPDATE_HEALTH_MANAGER, null));
         finish();
     }
 

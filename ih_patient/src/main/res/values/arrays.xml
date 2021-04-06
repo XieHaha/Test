@@ -75,4 +75,44 @@
         <item>20~50只/日</item>
         <item>50只以上</item>
     </string-array>
+
+    <string-array name="sleep_quality">
+        <item>很好</item>
+        <item>较好</item>
+        <item>较差</item>
+        <item>很差</item>
+    </string-array>
+    <string-array name="sleep_time">
+        <item>6小时甚至更少</item>
+        <item>6至8小时</item>
+        <item>8小时以上</item>
+        <item>12小时以上</item>
+    </string-array>
+    <string-array name="mental_state">
+        <item>正常</item>
+        <item>轻微低落</item>
+        <item>显著低落</item>
+        <item>严重低落</item>
+    </string-array>
+    <string-array name="eat_type">
+        <item>早餐常用</item>
+        <item>谷薯类</item>
+        <item>肉蛋类</item>
+        <item>蔬菜类</item>
+        <item>乳类</item>
+        <item>水果类</item>
+        <item>油脂类</item>
+        <item>豆类</item>
+        <item>零食饮料</item>
+    </string-array>
+
+    <string-array name="sports_type">
+        <item>走、跑类</item>
+        <item>户外类</item>
+        <item>舞蹈类</item>
+        <item>球类</item>
+        <item>其他运动</item>
+        <item>抗阻</item>
+    </string-array>
+
 </resources>

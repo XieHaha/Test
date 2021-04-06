@@ -263,7 +263,7 @@ public class HealthManagerActivity extends BaseControllerActivity<HealthManagerC
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateHealthManager(Event event) {
-        if (event.getType() == EventType.OPEN_HEALTH_MANAGER) {
+        if (event.getType() == EventType.UPDATE_HEALTH_MANAGER) {
             getController().patientHealthManageIndex();
         }
     }

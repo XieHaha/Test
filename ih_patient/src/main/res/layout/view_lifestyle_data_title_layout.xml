@@ -12,7 +12,7 @@
         android:id="@+id/view_lifestyle_data_iv"
         android:layout_width="@dimen/dp_24"
         android:layout_height="@dimen/dp_21"
-        android:src="@mipmap/icon_sleep"
+        android:src="@mipmap/icon_eat_top"
         android:visibility="invisible" />
 
     <TextView

@@ -1,8 +1,11 @@
 package com.keydom.mianren.ih_patient.net;
 
 import com.keydom.ih_common.net.result.HttpResult;
+import com.keydom.mianren.ih_patient.bean.EatItemBean;
 import com.keydom.mianren.ih_patient.bean.EatRecordBean;
 import com.keydom.mianren.ih_patient.bean.HealthDataBean;
+import com.keydom.mianren.ih_patient.bean.LifestyleRootBean;
+import com.keydom.mianren.ih_patient.bean.SportsItemBean;
 
 import java.util.Map;
 
@@ -36,6 +39,18 @@ public interface ChronicDiseaseService {
      */
     @GET("medicine/chronicDiseaseManage/foodRecordList")
     Observable<HttpResult<EatRecordBean>> foodRecordList(@QueryMap Map<String, String> map);
+
+    /**
+     * 获取食物库列表
+     */
+    @POST("api/healthChronicDiseaseManage/foodBankList")
+    Observable<HttpResult<LifestyleRootBean<EatItemBean>>> foodBankList(@Body RequestBody body);
+
+    /**
+     * 获取运动库列表
+     */
+    @POST("api/healthChronicDiseaseManage/exerciseBankList")
+    Observable<HttpResult<LifestyleRootBean<SportsItemBean>>> exerciseBankList(@Body RequestBody body);
 
     /**
      * 新增或者修改就餐记录

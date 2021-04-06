@@ -13,10 +13,13 @@ import com.keydom.mianren.ih_patient.activity.health_manager.HealthSummaryActivi
 import com.keydom.mianren.ih_patient.activity.health_manager.InterventionPlanActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.LifestyleMainActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.ChronicDiseaseMainView;
+import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.bean.HealthDataBean;
+import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.net.ChronicDiseaseService;
 import com.keydom.mianren.ih_patient.view.HealthDataEditDialog;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -101,6 +104,8 @@ public class ChronicDiseaseMainController extends ControllerImpl<ChronicDiseaseM
             @Override
             public void requestComplete(@Nullable String data) {
                 getView().updateHeathValueSuccess(bean);
+                //更新健康管理首页
+                EventBus.getDefault().post(new Event(EventType.UPDATE_HEALTH_MANAGER, null));
             }
 
             @Override

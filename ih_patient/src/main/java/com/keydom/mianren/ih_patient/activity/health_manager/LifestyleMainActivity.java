@@ -3,6 +3,7 @@ package com.keydom.mianren.ih_patient.activity.health_manager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,9 +22,12 @@ import com.keydom.mianren.ih_patient.utils.StatusBarUtils;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -70,6 +74,38 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     TextView lifestyleBottomCancelTv;
     @BindView(R.id.lifestyle_bottom_submit_tv)
     TextView lifestyleBottomSubmitTv;
+    @BindView(R.id.view_eat_record_add_breakfast_tv)
+    TextView viewEatRecordAddBreakfastTv;
+    @BindView(R.id.view_eat_record_add_lunch_tv)
+    TextView viewEatRecordAddLunchTv;
+    @BindView(R.id.view_eat_record_add_dinner_tv)
+    TextView viewEatRecordAddDinnerTv;
+    @BindView(R.id.view_eat_record_add_extra_tv)
+    TextView viewEatRecordAddExtraTv;
+    @BindView(R.id.eat_record_breakfast_item_layout)
+    LinearLayout eatRecordBreakfastItemLayout;
+    @BindView(R.id.eat_record_breakfast_add_tv)
+    TextView eatRecordBreakfastAddTv;
+    @BindView(R.id.eat_record_breakfast_root_layout)
+    LinearLayout eatRecordBreakfastRootLayout;
+    @BindView(R.id.eat_record_lunch_item_layout)
+    LinearLayout eatRecordLunchItemLayout;
+    @BindView(R.id.eat_record_lunch_add_tv)
+    TextView eatRecordLunchAddTv;
+    @BindView(R.id.eat_record_lunch_root_layout)
+    LinearLayout eatRecordLunchRootLayout;
+    @BindView(R.id.eat_record_dinner_item_layout)
+    LinearLayout eatRecordDinnerItemLayout;
+    @BindView(R.id.eat_record_dinner_add_tv)
+    TextView eatRecordDinnerAddTv;
+    @BindView(R.id.eat_record_dinner_root_layout)
+    LinearLayout eatRecordDinnerRootLayout;
+    @BindView(R.id.eat_record_extra_item_layout)
+    LinearLayout eatRecordExtraItemLayout;
+    @BindView(R.id.eat_record_extra_add_tv)
+    TextView eatRecordExtraAddTv;
+    @BindView(R.id.eat_record_extra_root_layout)
+    LinearLayout eatRecordExtraRootLayout;
 
     /**
      * 饮食记录
@@ -77,6 +113,9 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     private EatRecordBean eatRecordBean;
     private Calendar calendar;
 
+    private List<String> sleepQualityData;
+    private List<String> sleepTimeData;
+    private List<String> mentalStateData;
     /**
      * 当前日期
      */
@@ -122,13 +161,19 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         statusBar.setAlpha(0);
         StatusBarUtils.setStatusBarColor(this, false);
         ivBack.setOnClickListener(v -> finish());
+
+
         lifestyleType = getIntent().getIntExtra(Const.TYPE, -1);
         patientId = getIntent().getStringExtra(Const.PATIENT_ID);
 
         //获取当前时间
         calendar = Calendar.getInstance();
         initCalendarView();
+        bindView();
+        localData();
+    }
 
+    private void bindView() {
         if (lifestyleType == LIFESTYLE_DIET) {
             tvTitle.setText(R.string.txt_eat_habits);
             lifestyleMainBgIv.setImageResource(R.mipmap.icon_eat_bg);
@@ -138,18 +183,9 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
             lifestyleMainSleepView.setVisibility(View.GONE);
             lifestyleMainSportsView.setVisibility(View.GONE);
             lifestyleBottomBtnLayout.setVisibility(View.GONE);
-
-            TextView view =
-                    lifestyleMainEatView.findViewById(R.id.view_eat_record_add_breakfast_tv);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    LifestyleDataActivity.start(LifestyleMainActivity.this, 1);
-                }
-            });
-
         } else if (lifestyleType == LIFESTYLE_SLEEP) {
             tvTitle.setText(R.string.txt_sleep_habits);
+            tvTitle.setTextColor(ContextCompat.getColor(this, R.color.white));
             lifestyleMainBgIv.setImageResource(R.mipmap.icon_sleep_bg);
             lifestyleMainTitleTv.setText(R.string.txt_sleep);
             lifestyleMainHintTv.setText(R.string.txt_sleep_record_hint);
@@ -174,6 +210,32 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         lifestyleMainNextDayTv.setOnClickListener(getController());
         lifestyleBottomCancelTv.setOnClickListener(getController());
         lifestyleBottomSubmitTv.setOnClickListener(getController());
+
+        viewEatRecordAddBreakfastTv.setOnClickListener(getController());
+        eatRecordBreakfastAddTv.setOnClickListener(getController());
+        viewEatRecordAddLunchTv.setOnClickListener(getController());
+        eatRecordLunchAddTv.setOnClickListener(getController());
+        viewEatRecordAddDinnerTv.setOnClickListener(getController());
+        eatRecordDinnerAddTv.setOnClickListener(getController());
+        viewEatRecordAddExtraTv.setOnClickListener(getController());
+        eatRecordExtraAddTv.setOnClickListener(getController());
+    }
+
+    /**
+     * 本地数据获取
+     */
+    private void localData() {
+        String[] quality = getResources().getStringArray(R.array.sleep_quality);
+        sleepQualityData = new ArrayList<>(quality.length);
+        Collections.addAll(sleepQualityData, quality);
+
+        String[] time = getResources().getStringArray(R.array.sleep_time);
+        sleepTimeData = new ArrayList<>(time.length);
+        Collections.addAll(sleepTimeData, time);
+
+        String[] mental = getResources().getStringArray(R.array.mental_state);
+        mentalStateData = new ArrayList<>(mental.length);
+        Collections.addAll(mentalStateData, mental);
     }
 
     /**
