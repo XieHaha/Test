@@ -20,14 +20,11 @@ import java.util.List;
  * @author 顿顿
  */
 public class LifestyleEatDataAdapter extends BaseQuickAdapter<EatItemBean, BaseViewHolder> {
-    private int lifestyleType;
-
     /**
      * 构建方法
      */
-    public LifestyleEatDataAdapter(@Nullable List<EatItemBean> data, int lifestyleType) {
+    public LifestyleEatDataAdapter(@Nullable List<EatItemBean> data) {
         super(R.layout.item_lifestyle_data, data);
-        this.lifestyleType = lifestyleType;
     }
 
     @Override

@@ -165,7 +165,7 @@
             android:layout_weight="115"
             android:background="@drawable/corner5_stroke_3f98f7"
             android:gravity="center"
-            android:text="@string/cancel"
+            android:text="@string/txt_reset"
             android:textColor="@color/color_5caafd"
             android:textSize="@dimen/sp_14"
             android:textStyle="bold" />

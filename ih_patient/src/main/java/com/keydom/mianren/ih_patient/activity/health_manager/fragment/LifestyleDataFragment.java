@@ -12,6 +12,7 @@ import com.keydom.mianren.ih_patient.adapter.LifestyleEatDataAdapter;
 import com.keydom.mianren.ih_patient.adapter.LifestyleSportsDataAdapter;
 import com.keydom.mianren.ih_patient.bean.EatBean;
 import com.keydom.mianren.ih_patient.bean.EatItemBean;
+import com.keydom.mianren.ih_patient.bean.SportsBean;
 import com.keydom.mianren.ih_patient.bean.SportsItemBean;
 import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.view.LifestyleDataEditDialog;
@@ -45,6 +46,7 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
     private List<SportsItemBean> sportsItemBeans = new ArrayList<>();
 
     private List<EatBean> selectEatBeans;
+    private List<SportsBean> selectSportsBeans;
 
     /**
      * 运动3  食物1
@@ -78,6 +80,24 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
         fragment.setOnItemSelectedListener(listener);
         return fragment;
     }
+    /**
+     * fragment创建
+     */
+    public static LifestyleDataFragment newInstance(int projectId, int lifestyleType, String curSelectDate,
+                                                    String patientId,
+                                                    List<SportsBean> selectEatBeans,
+                                                    OnItemSelectedListener listener) {
+        Bundle args = new Bundle();
+        args.putInt(Const.TYPE, lifestyleType);
+        args.putInt("id", projectId);
+        args.putString(Const.PATIENT_ID, patientId);
+        args.putString("curSelectDate", curSelectDate);
+        args.putSerializable("list", (Serializable) selectEatBeans);
+        LifestyleDataFragment fragment = new LifestyleDataFragment();
+        fragment.setArguments(args);
+        fragment.setOnItemSelectedListener(listener);
+        return fragment;
+    }
 
     @Override
     public int getLayoutRes() {
@@ -92,11 +112,11 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
         mealType = getArguments().getInt("mealType");
         patientId = getArguments().getString(Const.PATIENT_ID);
         curSelectDate = getArguments().getString("curSelectDate");
-        selectEatBeans = (List<EatBean>) getArguments().getSerializable("list");
 
         fragLifestyleDataRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         if (lifestyleType == LIFESTYLE_DIET) {
-            eatDataAdapter = new LifestyleEatDataAdapter(eatItemBeans, lifestyleType);
+            selectEatBeans = (List<EatBean>) getArguments().getSerializable("list");
+            eatDataAdapter = new LifestyleEatDataAdapter(eatItemBeans);
             fragLifestyleDataRecyclerView.setAdapter(eatDataAdapter);
             eatDataAdapter.setOnItemClickListener((adapter, view, position) -> {
                 if (eatItemBeans.get(position).isSelected()) {
@@ -104,7 +124,7 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
                     eatBean.setName(eatItemBeans.get(position).getName());
                     updateSelectEatItem(position, eatBean);
                 } else {
-                    LifestyleDataEditDialog dialog = new LifestyleDataEditDialog(getContext(),
+                    LifestyleDataEditDialog dialog = new LifestyleDataEditDialog(getContext(),lifestyleType,
                             mealType, patientId, curSelectDate, eatItemBeans.get(position),
                             eatBean -> updateSelectEatItem(position, eatBean));
                     dialog.show();
@@ -112,21 +132,20 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
             });
             getController().foodBankList();
         } else {
-            sportsDataAdapter = new LifestyleSportsDataAdapter(sportsItemBeans, lifestyleType);
+            sportsItemBeans = (List<SportsItemBean>) getArguments().getSerializable("list");
+            sportsDataAdapter = new LifestyleSportsDataAdapter(sportsItemBeans);
             fragLifestyleDataRecyclerView.setAdapter(sportsDataAdapter);
             sportsDataAdapter.setOnItemClickListener((adapter, view, position) -> {
-                //                LifestyleDataEditDialog dialog = new LifestyleDataEditDialog
-                //                (getContext(),
-                //                        patientId,
-                //                        eatItemBeans.get(position), new LifestyleDataEditDialog
-                //                        .OnCommitListener() {
-                //                    @Override
-                //                    public void commit() {
-                //                        sportsItemBeans.get(position).changeSelectStatus();
-                //                        sportsDataAdapter.notifyDataSetChanged();
-                //                    }
-                //                });
-                //                dialog.show();
+                if (sportsItemBeans.get(position).isSelected()) {
+                    EatBean eatBean = new EatBean();
+                    eatBean.setName(sportsItemBeans.get(position).getName());
+                    updateSelectEatItem(position, eatBean);
+                } else {
+                    LifestyleDataEditDialog dialog = new LifestyleDataEditDialog(getContext(),lifestyleType,
+                            patientId, curSelectDate, sportsItemBeans.get(position),
+                            sportsBean -> updateSelectSportsItem(position, sportsBean));
+                    dialog.show();
+                }
             });
             getController().exerciseBankList();
         }
@@ -152,6 +171,17 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
         eatDataAdapter.notifyDataSetChanged();
         if (onItemSelectedListener != null) {
             onItemSelectedListener.onEatItemSelect(eatBean);
+        }
+    }
+
+    /**
+     * 运动选择
+     */
+    private void updateSelectSportsItem(int position, SportsBean sportsBean) {
+        sportsItemBeans.get(position).changeSelectStatus();
+        sportsDataAdapter.notifyDataSetChanged();
+        if (onItemSelectedListener != null) {
+            onItemSelectedListener.onSportsItemSelect(sportsBean);
         }
     }
 
@@ -191,6 +221,6 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
     public interface OnItemSelectedListener {
         void onEatItemSelect(EatBean bean);
 
-        void onSportsItemSelect(SportsItemBean bean);
+        void onSportsItemSelect(SportsBean bean);
     }
 }

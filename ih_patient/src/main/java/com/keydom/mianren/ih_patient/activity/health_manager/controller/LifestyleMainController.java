@@ -15,6 +15,7 @@ import com.keydom.mianren.ih_patient.activity.health_manager.LifestyleDataActivi
 import com.keydom.mianren.ih_patient.activity.health_manager.view.LifestyleMainView;
 import com.keydom.mianren.ih_patient.bean.EatRecordBean;
 import com.keydom.mianren.ih_patient.bean.SleepRecordBean;
+import com.keydom.mianren.ih_patient.bean.SportsBean;
 import com.keydom.mianren.ih_patient.net.ChronicDiseaseService;
 
 import org.jetbrains.annotations.NotNull;
@@ -48,18 +49,23 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
                 }
                 break;
             case R.id.lifestyle_bottom_cancel_tv:
-                if (getView().getLifestyleType() == LIFESTYLE_SLEEP){
+                if (getView().getLifestyleType() == LIFESTYLE_SLEEP) {
                     if (getView().verifySleepRecordParams()) {
                         deleteExerciseAndSleepRecord();
                     }
                 }
-
                 break;
             case R.id.lifestyle_bottom_submit_tv:
-                if (getView().getLifestyleType() == LIFESTYLE_SLEEP){
+                if (getView().getLifestyleType() == LIFESTYLE_SLEEP) {
+                    //睡眠
                     if (getView().verifySleepRecordParams()) {
                         insertOrUpdateSleepRecord(false);
                     }
+                } else {
+                    //运动
+                    LifestyleDataActivity.start(getContext(), getView().getLifestyleType(),
+                            getView().getCurSelectDate(), getView().getRecordSportsBeans(),
+                            getView().getPatientId());
                 }
                 break;
             case R.id.view_eat_record_add_breakfast_tv:
@@ -245,6 +251,48 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
             @Override
             public void requestComplete(@Nullable String data) {
                 getView().requestSleepRecordFailed();
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtil.showMessage(getContext(), msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 查询患者运动记录
+     */
+    public void exerciseRecordList(String patientId, String curSelectDate) {
+        Map<String, String> params = new HashMap<>(16);
+        params.put("time", curSelectDate);
+        params.put("patientId", patientId);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).exerciseRecordList(params), new HttpSubscriber<List<SportsBean>>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable List<SportsBean> data) {
+                getView().requestSportsRecordSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                getView().requestSportsRecordFailed();
+                ToastUtil.showMessage(getContext(), msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 删除运动记录
+     */
+    public void deleteExerciseRecord(String id) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).deleteExerciseRecord(id), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                getView().deleteSportsRecordSuccess();
             }
 
             @Override

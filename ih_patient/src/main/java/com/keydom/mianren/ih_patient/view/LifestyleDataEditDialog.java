@@ -17,7 +17,10 @@ import com.keydom.ih_common.view.picker.listener.AbstractAnimationListener;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.bean.EatBean;
 import com.keydom.mianren.ih_patient.bean.EatItemBean;
+import com.keydom.mianren.ih_patient.bean.SportsBean;
 import com.keydom.mianren.ih_patient.bean.SportsItemBean;
+
+import static com.keydom.mianren.ih_patient.activity.health_manager.LifestyleMainActivity.LIFESTYLE_DIET;
 
 /**
  * 填写健康数据
@@ -25,17 +28,18 @@ import com.keydom.mianren.ih_patient.bean.SportsItemBean;
  * @author 顿顿
  */
 public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnClickListener {
-    private TextView hintTv, submitTv, quantityTv;
+    private TextView hintTv, hintTypeTv, submitTv, quantityTv;
     private TextView valueAmountTv;
-    private TextView valueKjTv;
+    private TextView valueKjTv, valueKcalTv, titleTv;
+    private LinearLayout titleLayout, valueLayout, kcalLayout;
     private HorizontalScaleScrollView scaleScrollView;
     private InterceptorEditText systolicEdit, diastolicEdit, rateValueEdit;
     private LinearLayout bgLayout, contentLayout;
     private Context context;
     private OnEatCommitListener onCommitListener;
+    private OnSportsCommitListener onSportsCommitListener;
 
     private EatItemBean eatItemBean;
-    private EatBean eatBean;
     private SportsItemBean sportsItemBean;
 
     /**
@@ -43,6 +47,12 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
      */
     private int amount, kcal;
     private float copies;
+
+    private int minute;
+    /**
+     * 1 食物  3、运动
+     */
+    private int lifestyleType;
 
     /**
      * 就餐类型 0 早餐 1午餐 2晚餐 3加餐
@@ -58,7 +68,8 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
     /**
      * 构建方法
      */
-    public LifestyleDataEditDialog(@NonNull Context context, int mealType, String patientId,
+    public LifestyleDataEditDialog(@NonNull Context context, int lifestyleType, int mealType,
+                                   String patientId,
                                    String curSelectDate, EatItemBean bean,
                                    OnEatCommitListener listener) {
         super(context, com.keydom.ih_common.R.style.trans_dialog);
@@ -66,6 +77,7 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
         this.mealType = mealType;
         this.patientId = patientId;
         this.curSelectDate = curSelectDate;
+        this.lifestyleType = lifestyleType;
         this.eatItemBean = bean;
         onCommitListener = listener;
     }
@@ -73,12 +85,16 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
     /**
      * 构建方法
      */
-    public LifestyleDataEditDialog(@NonNull Context context, SportsItemBean bean,
-                                   OnEatCommitListener listener) {
+    public LifestyleDataEditDialog(@NonNull Context context, int lifestyleType, String patientId,
+                                   String curSelectDate, SportsItemBean bean,
+                                   OnSportsCommitListener listener) {
         super(context, com.keydom.ih_common.R.style.trans_dialog);
         this.context = context;
+        this.curSelectDate = curSelectDate;
+        this.patientId = patientId;
         this.sportsItemBean = bean;
-        onCommitListener = listener;
+        this.lifestyleType = lifestyleType;
+        onSportsCommitListener = listener;
     }
 
     @Override
@@ -98,16 +114,22 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
         scaleScrollView = findViewById(R.id.dialog_lifestyle_data_edit_scroll_view);
         quantityTv = findViewById(R.id.dialog_lifestyle_data_edit_quantity);
         hintTv = findViewById(R.id.health_data_dialog_hint_tv);
-        TextView valueOneTv = findViewById(R.id.dialog_lifestyle_data_value_one_tv);
-        TextView valueTwoTv = findViewById(R.id.dialog_lifestyle_data_value_two_tv);
-        TextView valueThreeTv = findViewById(R.id.dialog_lifestyle_data_value_three_tv);
+        hintTypeTv = findViewById(R.id.health_data_dialog_hint1_tv);
+
         valueAmountTv = findViewById(R.id.dialog_lifestyle_data_amount_tv);
         valueKjTv = findViewById(R.id.dialog_lifestyle_data_kj_tv);
         submitTv = findViewById(R.id.health_data_dialog_submit_tv);
+
         bgLayout = findViewById(R.id.health_data_dialog_bg_layout);
         contentLayout = findViewById(R.id.health_data_dialog_content_layout);
+        titleLayout = findViewById(R.id.title_layout);
+        valueLayout = findViewById(R.id.value_layout);
 
-        if (eatItemBean != null) {
+        if (lifestyleType == LIFESTYLE_DIET) {
+            TextView valueOneTv = findViewById(R.id.dialog_lifestyle_data_value_one_tv);
+            TextView valueTwoTv = findViewById(R.id.dialog_lifestyle_data_value_two_tv);
+            TextView valueThreeTv = findViewById(R.id.dialog_lifestyle_data_value_three_tv);
+
             hintTv.setText(String.format(context.getString(R.string.txt_eat_unit),
                     eatItemBean.getCopies(), eatItemBean.getAmount()));
             valueOneTv.setText(eatItemBean.getCarbohydrate() + "克");
@@ -117,7 +139,23 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
                     eatItemBean.getAmount()));
             valueKjTv.setText(String.format(context.getString(R.string.txt_kcal),
                     eatItemBean.getHeat()));
+        } else {
+            kcalLayout = findViewById(R.id.kcal_layout);
+            valueKcalTv = findViewById(R.id.dialog_lifestyle_data_kcal_tv);
+            titleTv = findViewById(R.id.title);
+
+            kcalLayout.setVisibility(View.VISIBLE);
+            titleLayout.setVisibility(View.GONE);
+            valueLayout.setVisibility(View.GONE);
+            hintTv.setVisibility(View.GONE);
+            valueAmountTv.setVisibility(View.INVISIBLE);
+            hintTypeTv.setText("运动    ");
+            valueKjTv.setText("    分钟");
+            submitTv.setText("保存");
+
+            titleTv.setText(sportsItemBean.getName());
         }
+
 
         bgLayout.setOnClickListener(this);
         contentLayout.setOnClickListener(this);
@@ -128,12 +166,20 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
             @Override
             public void onScaleScroll(int scale) {
                 copies = 0.5f * scale;
-                amount = (int) (copies * eatItemBean.getAmount());
-                kcal = (int) (copies * eatItemBean.getHeat());
+                if (lifestyleType == LIFESTYLE_DIET) {
+                    amount = (int) (copies * eatItemBean.getAmount());
+                    kcal = (int) (copies * eatItemBean.getHeat());
 
-                valueAmountTv.setText(String.format(context.getString(R.string.txt_gram), amount));
-                valueKjTv.setText(String.format(context.getString(R.string.txt_kcal), kcal));
-                quantityTv.setText(copies + "份");
+                    valueAmountTv.setText(String.format(context.getString(R.string.txt_gram),
+                            amount));
+                    valueKjTv.setText(String.format(context.getString(R.string.txt_kcal), kcal));
+                    quantityTv.setText(copies + "份");
+                } else {
+                    kcal = (int) (copies * sportsItemBean.getHeat());
+                    minute = (int) (copies * 30);
+                    valueKcalTv.setText(String.valueOf(kcal));
+                    quantityTv.setText(String.valueOf(minute));
+                }
             }
         });
         startAnim();
@@ -193,7 +239,7 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
         switch (view.getId()) {
             case R.id.health_data_dialog_submit_tv:
                 if (onCommitListener != null) {
-                    eatBean = new EatBean();
+                    EatBean eatBean = new EatBean();
                     eatBean.setAmount(amount);
                     eatBean.setCopies(copies);
                     eatBean.setCreateTime(eatItemBean.getCreateTime());
@@ -204,6 +250,16 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
                     eatBean.setSumHeat(kcal);
                     eatBean.setType(mealType);
                     onCommitListener.commit(eatBean);
+                } else if (onSportsCommitListener != null) {
+                    SportsBean sportsBean = new SportsBean();
+                    sportsBean.setCreateTime(sportsItemBean.getCreateTime());
+                    sportsBean.setExerciseId(String.valueOf(sportsItemBean.getId()));
+                    sportsBean.setName(sportsItemBean.getName());
+                    sportsBean.setPatientId(patientId);
+                    sportsBean.setRecordTime(curSelectDate);
+                    sportsBean.setSumHeat(kcal);
+                    sportsBean.setMinute(minute);
+                    onSportsCommitListener.commit(sportsBean);
                 }
                 break;
             case R.id.health_data_dialog_bg_layout:
@@ -226,5 +282,12 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
      */
     public interface OnEatCommitListener {
         void commit(EatBean eatBean);
+    }
+
+    /**
+     * 提交监听
+     */
+    public interface OnSportsCommitListener {
+        void commit(SportsBean sportsBean);
     }
 }

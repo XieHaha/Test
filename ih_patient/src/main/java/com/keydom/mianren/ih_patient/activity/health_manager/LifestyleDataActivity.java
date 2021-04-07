@@ -22,7 +22,7 @@ import com.keydom.mianren.ih_patient.adapter.ViewPagerAdapter;
 import com.keydom.mianren.ih_patient.bean.EatBean;
 import com.keydom.mianren.ih_patient.bean.EatRecordBean;
 import com.keydom.mianren.ih_patient.bean.Event;
-import com.keydom.mianren.ih_patient.bean.SportsItemBean;
+import com.keydom.mianren.ih_patient.bean.SportsBean;
 import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.constant.EventType;
 
@@ -63,7 +63,8 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
 
     private EatRecordBean recordBean;
     private List<EatBean> selectEatBeans;
-    private List<SportsItemBean> selectSportItemBeans = new ArrayList<>();
+    private List<SportsBean> selectSportBeans = new ArrayList<>();
+    private List<SportsBean> recordSportsBeans;
 
     private String patientId;
     private String curSelectDate;
@@ -88,6 +89,19 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
         context.startActivity(intent);
     }
 
+    /**
+     * 启动
+     */
+    public static void start(Context context, int type, String curSelectDate,
+                             List<SportsBean> recordBean, String patientId) {
+        Intent intent = new Intent(context, LifestyleDataActivity.class);
+        intent.putExtra("list", (Serializable) recordBean);
+        intent.putExtra("curSelectDate", curSelectDate);
+        intent.putExtra(Const.TYPE, type);
+        intent.putExtra(Const.PATIENT_ID, patientId);
+        context.startActivity(intent);
+    }
+
     @Override
     public int getLayoutRes() {
         return R.layout.activity_lifestyle_data;
@@ -99,39 +113,53 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
         lifestyleType = getIntent().getIntExtra(Const.TYPE, -1);
         patientId = getIntent().getStringExtra(Const.PATIENT_ID);
         curSelectDate = getIntent().getStringExtra("curSelectDate");
-        recordBean = (EatRecordBean) getIntent().getSerializableExtra("recordBean");
-        switch (mealType) {
-            case 0:
-                selectEatBeans = recordBean.getBreakfastList();
-                break;
-            case 1:
-                selectEatBeans = recordBean.getLunchList();
-                break;
-            case 2:
-                selectEatBeans = recordBean.getDinnerList();
-                break;
-            case 3:
-                selectEatBeans = recordBean.getSnacksList();
-                break;
-            default:
-                break;
-        }
-        if (selectEatBeans == null) {
-            selectEatBeans = new ArrayList<>();
-        }
 
         if (lifestyleType == LIFESTYLE_DIET) {
+            recordBean = (EatRecordBean) getIntent().getSerializableExtra("recordBean");
+            switch (mealType) {
+                case 0:
+                    selectEatBeans = recordBean.getBreakfastList();
+                    break;
+                case 1:
+                    selectEatBeans = recordBean.getLunchList();
+                    break;
+                case 2:
+                    selectEatBeans = recordBean.getDinnerList();
+                    break;
+                case 3:
+                    selectEatBeans = recordBean.getSnacksList();
+                    break;
+                default:
+                    break;
+            }
+            if (selectEatBeans == null) {
+                selectEatBeans = new ArrayList<>();
+            }
             setTitle("食物库");
             lifestyleDataSelectHintTv.setText("已选择食物");
             String[] eatType = getResources().getStringArray(R.array.eat_type);
             titles = new ArrayList<>(eatType.length);
             Collections.addAll(titles, eatType);
+
+            for (int i = 0; i < titles.size(); i++) {
+                fragmentList.add(LifestyleDataFragment.newInstance(i, lifestyleType, mealType,
+                        curSelectDate, patientId, selectEatBeans, listener));
+                lifestyleDataTabLayout.addTab(lifestyleDataTabLayout.newTab());
+            }
         } else {
+            recordSportsBeans = (List<SportsBean>) getIntent().getSerializableExtra("list");
+            selectSportBeans.addAll(recordSportsBeans);
             setTitle("运动选择");
             lifestyleDataSelectHintTv.setText("已选择运动");
             String[] eatType = getResources().getStringArray(R.array.sports_type);
             titles = new ArrayList<>(eatType.length);
             Collections.addAll(titles, eatType);
+
+            for (int i = 0; i < titles.size(); i++) {
+                fragmentList.add(LifestyleDataFragment.newInstance(i, lifestyleType,
+                        curSelectDate, patientId, selectSportBeans, listener));
+                lifestyleDataTabLayout.addTab(lifestyleDataTabLayout.newTab());
+            }
         }
 
         lifestyleDataSelectSureTv.setOnClickListener(getController());
@@ -141,11 +169,7 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
     }
 
     private void initTabLayout() {
-        for (int i = 0; i < titles.size(); i++) {
-            fragmentList.add(LifestyleDataFragment.newInstance(i, lifestyleType, mealType,
-                    curSelectDate, patientId, selectEatBeans, listener));
-            lifestyleDataTabLayout.addTab(lifestyleDataTabLayout.newTab());
-        }
+
         viewPagerAdapter = new ViewPagerAdapter(fm, fragmentList, titles);
         lifestyleDataViewPager.setAdapter(viewPagerAdapter);
         lifestyleDataViewPager.setOffscreenPageLimit(3);
@@ -226,7 +250,12 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
     }
 
     @Override
-    public List<EatBean> getParams() {
+    public List<SportsBean> getSelectSportBeans() {
+        return selectSportBeans;
+    }
+
+    @Override
+    public List<EatBean> getEatParams() {
         List<EatBean> list = new ArrayList<>();
         list.addAll(selectEatBeans);
         switch (mealType) {
@@ -280,6 +309,11 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
         return list;
     }
 
+    @Override
+    public int getLifestyleType() {
+        return lifestyleType;
+    }
+
     private LifestyleDataFragment.OnItemSelectedListener listener =
             new LifestyleDataFragment.OnItemSelectedListener() {
 
@@ -294,15 +328,27 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
                 }
 
                 @Override
-                public void onSportsItemSelect(SportsItemBean bean) {
-
+                public void onSportsItemSelect(SportsBean bean) {
+                    if (selectSportBeans.contains(bean)) {
+                        selectSportBeans.remove(bean);
+                    } else {
+                        selectSportBeans.add(bean);
+                    }
+                    lifestyleDataSelectNumTv.setText(String.valueOf(selectSportBeans.size()));
                 }
             };
 
     @Override
     public void updateFoodRecordSuccess() {
         ToastUtil.showMessage(this, "保存成功");
-        EventBus.getDefault().post(new Event(EventType.UPDATE_LIFESTYLE, null));
+        EventBus.getDefault().post(new Event(EventType.UPDATE_EAT_LIFESTYLE, null));
+        finish();
+    }
+
+    @Override
+    public void updateSportsRecordSuccess() {
+        ToastUtil.showMessage(this, "保存成功");
+        EventBus.getDefault().post(new Event(EventType.UPDATE_SPORTS_LIFESTYLE, null));
         finish();
     }
 }

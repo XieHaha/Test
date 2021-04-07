@@ -21,6 +21,7 @@ import com.keydom.mianren.ih_patient.bean.EatBean;
 import com.keydom.mianren.ih_patient.bean.EatRecordBean;
 import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.bean.SleepRecordBean;
+import com.keydom.mianren.ih_patient.bean.SportsBean;
 import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.utils.DateUtils;
@@ -129,11 +130,21 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     TextView viewSleepRecordTimeTv;
     @BindView(R.id.view_sleep_record_status_tv)
     TextView viewSleepRecordStatusTv;
+    @BindView(R.id.view_sports_record_minute_tv)
+    TextView viewSportsRecordMinuteTv;
+    @BindView(R.id.view_sports_record_kcal_tv)
+    TextView viewSportsRecordKcalTv;
+    @BindView(R.id.view_sports_record_layout)
+    LinearLayout viewSportsRecordLayout;
 
     /**
      * 饮食记录
      */
     private EatRecordBean eatRecordBean;
+    /**
+     * 运动记录
+     */
+    private List<SportsBean> recordSportsBeans = new ArrayList<>();
     /**
      * 睡眠记录
      */
@@ -238,7 +249,6 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
             lifestyleMainSleepView.setVisibility(View.VISIBLE);
             lifestyleMainSportsView.setVisibility(View.GONE);
             lifestyleBottomBtnLayout.setVisibility(View.VISIBLE);
-            lifestyleBottomCancelTv.setText(R.string.txt_reset);
             lifestyleBottomSubmitTv.setText(R.string.txt_save_info);
 
             viewSleepRecordQualityTv.setOnClickListener(getController());
@@ -255,6 +265,8 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
             lifestyleMainSleepView.setVisibility(View.GONE);
             lifestyleMainSportsView.setVisibility(View.VISIBLE);
             lifestyleBottomBtnLayout.setVisibility(View.VISIBLE);
+
+            lifestyleBottomSubmitTv.setText("添加运动");
         }
 
         lifestyleMainLastDayIv.setOnClickListener(getController());
@@ -304,7 +316,7 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         } else if (lifestyleType == LIFESTYLE_SLEEP) {
             getController().sleepRecordList(patientId, curSelectDate);
         } else {
-
+            getController().exerciseRecordList(patientId, curSelectDate);
         }
     }
 
@@ -563,6 +575,49 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         }
     }
 
+    /**
+     * 运动数据处理
+     */
+    private void initSportsData() {
+        viewSportsRecordLayout.removeAllViews();
+        if (recordSportsBeans != null && recordSportsBeans.size() > 0) {
+            addSportsView();
+        } else {
+            viewSportsRecordMinuteTv.setText("0");
+            viewSportsRecordKcalTv.setText("0");
+        }
+    }
+
+    /**
+     * 运动view
+     */
+    private void addSportsView() {
+        int minute = 0, sumHeat = 0;
+        for (int i = 0; i < recordSportsBeans.size(); i++) {
+            SportsBean bean = recordSportsBeans.get(i);
+            minute += bean.getMinute();
+            sumHeat += bean.getSumHeat();
+            View view = getLayoutInflater().inflate(R.layout.item_lifestyle_sports, null);
+            TextView name = view.findViewById(R.id.item_lifestyle_sports_name);
+            TextView num = view.findViewById(R.id.item_lifestyle_sports_num);
+            ImageView delete = view.findViewById(R.id.item_lifestyle_sports_delete);
+            name.setText(bean.getName());
+            num.setText(bean.getMinute() + "分钟，" + bean.getSumHeat() + "千卡");
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    recordSportsBeans.remove(bean);
+                    viewSportsRecordLayout.removeView(view);
+                    //删除
+                    getController().deleteExerciseRecord(bean.getId());
+                }
+            });
+            viewSportsRecordLayout.addView(view);
+        }
+        viewSportsRecordMinuteTv.setText(String.valueOf(minute));
+        viewSportsRecordKcalTv.setText(String.valueOf(sumHeat));
+    }
+
     @Override
     public List<String> getSleepQualityData() {
         return sleepQualityData;
@@ -658,8 +713,10 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateLifestyle(Event event) {
-        if (event.getType() == EventType.UPDATE_LIFESTYLE) {
+        if (event.getType() == EventType.UPDATE_EAT_LIFESTYLE) {
             getController().foodRecordList(patientId, curSelectDate);
+        } else if (event.getType() == EventType.UPDATE_SPORTS_LIFESTYLE) {
+            getController().exerciseRecordList(patientId, curSelectDate);
         }
     }
 
@@ -681,6 +738,11 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     @Override
     public EatRecordBean getEatRecordBean() {
         return eatRecordBean;
+    }
+
+    @Override
+    public List<SportsBean> getRecordSportsBeans() {
+        return recordSportsBeans;
     }
 
     @Override
@@ -709,6 +771,23 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     public void requestSleepRecordFailed() {
         sleepRecordBean = new SleepRecordBean();
         initSleepData();
+    }
+
+    @Override
+    public void requestSportsRecordSuccess(List<SportsBean> bean) {
+        recordSportsBeans.clear();
+        recordSportsBeans.addAll(bean);
+        initSportsData();
+    }
+
+    @Override
+    public void requestSportsRecordFailed() {
+
+    }
+
+    @Override
+    public void deleteSportsRecordSuccess() {
+        getController().exerciseRecordList(patientId, curSelectDate);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_patient.bean.EatBean;
 import com.keydom.mianren.ih_patient.bean.EatRecordBean;
 import com.keydom.mianren.ih_patient.bean.SleepRecordBean;
+import com.keydom.mianren.ih_patient.bean.SportsBean;
 
 import java.util.List;
 import java.util.Map;
@@ -40,7 +41,6 @@ public interface LifestyleMainView extends BaseView {
     boolean verifySleepRecordParams();
 
     /**
-     *
      * @param copyToday 是否为复用今日
      */
     Map<String, String> getSleepRecordParams(boolean copyToday);
@@ -55,6 +55,8 @@ public interface LifestyleMainView extends BaseView {
 
     EatRecordBean getEatRecordBean();
 
+    List<SportsBean> getRecordSportsBeans();
+
     void requestFoodRecordSuccess(EatRecordBean bean);
 
     void requestFoodRecordFailed();
@@ -62,6 +64,11 @@ public interface LifestyleMainView extends BaseView {
     void requestSleepRecordSuccess(List<SleepRecordBean> bean);
 
     void requestSleepRecordFailed();
+
+    void requestSportsRecordSuccess(List<SportsBean> bean);
+
+    void requestSportsRecordFailed();
+    void deleteSportsRecordSuccess();
 
     void copyFoodRecordSuccess();
 
