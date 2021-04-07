@@ -24,7 +24,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import static com.keydom.mianren.ih_patient.activity.health_manager.LifestyleDataActivity.LIFESTYLE_DIET;
+import static com.keydom.mianren.ih_patient.activity.health_manager.LifestyleMainActivity.LIFESTYLE_DIET;
+
 
 /**
  * 生活方式数据

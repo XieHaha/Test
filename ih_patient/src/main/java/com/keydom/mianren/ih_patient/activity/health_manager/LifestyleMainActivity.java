@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,12 +13,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.health_manager.controller.LifestyleMainController;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.LifestyleMainView;
 import com.keydom.mianren.ih_patient.bean.EatBean;
 import com.keydom.mianren.ih_patient.bean.EatRecordBean;
 import com.keydom.mianren.ih_patient.bean.Event;
+import com.keydom.mianren.ih_patient.bean.SleepRecordBean;
 import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.utils.DateUtils;
@@ -120,17 +123,30 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     TextView eatRecordExtraAddTv;
     @BindView(R.id.eat_record_extra_root_layout)
     LinearLayout eatRecordExtraRootLayout;
+    @BindView(R.id.view_sleep_record_quality_tv)
+    TextView viewSleepRecordQualityTv;
+    @BindView(R.id.view_sleep_record_time_tv)
+    TextView viewSleepRecordTimeTv;
+    @BindView(R.id.view_sleep_record_status_tv)
+    TextView viewSleepRecordStatusTv;
 
     /**
      * 饮食记录
      */
     private EatRecordBean eatRecordBean;
-    private List<EatBean> selectEatBeans;
+    /**
+     * 睡眠记录
+     */
+    private SleepRecordBean sleepRecordBean;
     private Calendar calendar;
 
     private List<String> sleepQualityData;
     private List<String> sleepTimeData;
     private List<String> mentalStateData;
+    /**
+     * 睡眠质量  时间  精神状态
+     */
+    private String mentalState, sleepQuality, sleepTime;
     /**
      * 当前日期
      */
@@ -186,7 +202,6 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         calendar = Calendar.getInstance();
         initCalendarView();
         bindView();
-        localData();
     }
 
     private void bindView() {
@@ -199,6 +214,20 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
             lifestyleMainSleepView.setVisibility(View.GONE);
             lifestyleMainSportsView.setVisibility(View.GONE);
             lifestyleBottomBtnLayout.setVisibility(View.GONE);
+
+            viewEatRecordAddBreakfastTv.setOnClickListener(getController());
+            viewEatRecordAddBreakfastIv.setOnClickListener(getController());
+            eatRecordBreakfastAddTv.setOnClickListener(getController());
+            viewEatRecordAddLunchTv.setOnClickListener(getController());
+            viewEatRecordAddLunchIv.setOnClickListener(getController());
+            eatRecordLunchAddTv.setOnClickListener(getController());
+            viewEatRecordAddDinnerTv.setOnClickListener(getController());
+            viewEatRecordAddDinnerIv.setOnClickListener(getController());
+            eatRecordDinnerAddTv.setOnClickListener(getController());
+            viewEatRecordAddExtraTv.setOnClickListener(getController());
+            viewEatRecordAddExtraIv.setOnClickListener(getController());
+            eatRecordExtraAddTv.setOnClickListener(getController());
+
         } else if (lifestyleType == LIFESTYLE_SLEEP) {
             tvTitle.setText(R.string.txt_sleep_habits);
             tvTitle.setTextColor(ContextCompat.getColor(this, R.color.white));
@@ -211,6 +240,12 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
             lifestyleBottomBtnLayout.setVisibility(View.VISIBLE);
             lifestyleBottomCancelTv.setText(R.string.txt_reset);
             lifestyleBottomSubmitTv.setText(R.string.txt_save_info);
+
+            viewSleepRecordQualityTv.setOnClickListener(getController());
+            viewSleepRecordTimeTv.setOnClickListener(getController());
+            viewSleepRecordStatusTv.setOnClickListener(getController());
+
+            localSleepData();
         } else {
             tvTitle.setText(R.string.txt_sports_habits);
             lifestyleMainBgIv.setImageResource(R.mipmap.icon_sports_bg);
@@ -228,24 +263,12 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         lifestyleBottomSubmitTv.setOnClickListener(getController());
 
         lifestyleMainCopyTv.setOnClickListener(getController());
-        viewEatRecordAddBreakfastTv.setOnClickListener(getController());
-        viewEatRecordAddBreakfastIv.setOnClickListener(getController());
-        eatRecordBreakfastAddTv.setOnClickListener(getController());
-        viewEatRecordAddLunchTv.setOnClickListener(getController());
-        viewEatRecordAddLunchIv.setOnClickListener(getController());
-        eatRecordLunchAddTv.setOnClickListener(getController());
-        viewEatRecordAddDinnerTv.setOnClickListener(getController());
-        viewEatRecordAddDinnerIv.setOnClickListener(getController());
-        eatRecordDinnerAddTv.setOnClickListener(getController());
-        viewEatRecordAddExtraTv.setOnClickListener(getController());
-        viewEatRecordAddExtraIv.setOnClickListener(getController());
-        eatRecordExtraAddTv.setOnClickListener(getController());
     }
 
     /**
-     * 本地数据获取
+     * 睡眠本地数据获取
      */
-    private void localData() {
+    private void localSleepData() {
         String[] quality = getResources().getStringArray(R.array.sleep_quality);
         sleepQualityData = new ArrayList<>(quality.length);
         Collections.addAll(sleepQualityData, quality);
@@ -276,11 +299,17 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
             lifestyleMainCopyTv.setVisibility(View.VISIBLE);
         }
 
-        getController().foodRecordList(patientId, curSelectDate);
+        if (lifestyleType == LIFESTYLE_DIET) {
+            getController().foodRecordList(patientId, curSelectDate);
+        } else if (lifestyleType == LIFESTYLE_SLEEP) {
+            getController().sleepRecordList(patientId, curSelectDate);
+        } else {
+
+        }
     }
 
     /**
-     * 数据处理
+     * 就餐数据处理
      */
     private void initLifestyleData() {
         //早餐
@@ -516,9 +545,59 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         }
     }
 
+    /**
+     * 睡眠数据处理
+     */
+    private void initSleepData() {
+        mentalState = sleepRecordBean.getMentalState();
+        sleepQuality = sleepRecordBean.getSleepQuality();
+        sleepTime = sleepRecordBean.getSleepTime();
+        if (TextUtils.isEmpty(sleepRecordBean.getId())) {
+            viewSleepRecordStatusTv.setText(R.string.txt_select);
+            viewSleepRecordQualityTv.setText(R.string.txt_select);
+            viewSleepRecordTimeTv.setText(R.string.txt_select);
+        } else {
+            viewSleepRecordStatusTv.setText(mentalState);
+            viewSleepRecordQualityTv.setText(sleepQuality);
+            viewSleepRecordTimeTv.setText(sleepTime);
+        }
+    }
 
     @Override
-    public List<EatBean> getParams() {
+    public List<String> getSleepQualityData() {
+        return sleepQualityData;
+    }
+
+    @Override
+    public List<String> getSleepTimeData() {
+        return sleepTimeData;
+    }
+
+    @Override
+    public List<String> getMentalStateData() {
+        return mentalStateData;
+    }
+
+    @Override
+    public void setMentalState(int position) {
+        this.mentalState = mentalStateData.get(position);
+        viewSleepRecordStatusTv.setText(mentalState);
+    }
+
+    @Override
+    public void setSleepQuality(int position) {
+        this.sleepQuality = sleepQualityData.get(position);
+        viewSleepRecordQualityTv.setText(sleepQuality);
+    }
+
+    @Override
+    public void setSleepTime(int position) {
+        this.sleepTime = sleepTimeData.get(position);
+        viewSleepRecordTimeTv.setText(sleepTime);
+    }
+
+    @Override
+    public List<EatBean> getEatRecordParams() {
         List<EatBean> list = new ArrayList<>();
         if (eatRecordBean.getBreakfastList() != null && eatRecordBean.getBreakfastList().size() > 0) {
             list.addAll(eatRecordBean.getBreakfastList());
@@ -539,6 +618,41 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         return list;
     }
 
+    @Override
+    public boolean verifySleepRecordParams() {
+        if (TextUtils.isEmpty(mentalState) || TextUtils.isEmpty(sleepQuality) || TextUtils.isEmpty(sleepTime)) {
+            ToastUtil.showMessage(this, "暂无数据");
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Map<String, String> getSleepRecordParams(boolean copyToday) {
+        Map<String, String> params = new HashMap<>(16);
+        params.put("mentalState", mentalState);
+        params.put("patientId", patientId);
+        if (copyToday) {
+            params.put("recordTime", DateUtils.dateToString(new Date()));
+        } else {
+            params.put("recordTime", curSelectDate);
+        }
+        params.put("sleepQuality", sleepQuality);
+        params.put("sleepTime", sleepTime);
+        return params;
+    }
+
+    @Override
+    public Map<String, String> getDeleteSleepRecordParams() {
+        Map<String, String> params = new HashMap<>(16);
+        params.put("patientId", patientId);
+        params.put("recordTime", curSelectDate);
+        //睡眠
+        params.put("type", "1");
+        return params;
+    }
+
+
     /**
      * 记录变化更新
      */
@@ -547,6 +661,11 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         if (event.getType() == EventType.UPDATE_LIFESTYLE) {
             getController().foodRecordList(patientId, curSelectDate);
         }
+    }
+
+    @Override
+    public int getLifestyleType() {
+        return lifestyleType;
     }
 
     @Override
@@ -574,6 +693,22 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     public void requestFoodRecordFailed() {
         eatRecordBean = new EatRecordBean();
         initLifestyleData();
+    }
+
+    @Override
+    public void requestSleepRecordSuccess(List<SleepRecordBean> beans) {
+        if (beans != null && beans.size() > 0) {
+            sleepRecordBean = beans.get(0);
+        } else {
+            sleepRecordBean = new SleepRecordBean();
+        }
+        initSleepData();
+    }
+
+    @Override
+    public void requestSleepRecordFailed() {
+        sleepRecordBean = new SleepRecordBean();
+        initSleepData();
     }
 
     @Override

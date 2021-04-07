@@ -2,6 +2,8 @@ package com.keydom.mianren.ih_patient.activity.health_manager.controller;
 
 import android.view.View;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
@@ -12,13 +14,18 @@ import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.health_manager.LifestyleDataActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.LifestyleMainView;
 import com.keydom.mianren.ih_patient.bean.EatRecordBean;
+import com.keydom.mianren.ih_patient.bean.SleepRecordBean;
 import com.keydom.mianren.ih_patient.net.ChronicDiseaseService;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static com.keydom.mianren.ih_patient.activity.health_manager.LifestyleMainActivity.LIFESTYLE_DIET;
+import static com.keydom.mianren.ih_patient.activity.health_manager.LifestyleMainActivity.LIFESTYLE_SLEEP;
 
 /**
  * @author 顿顿
@@ -28,6 +35,7 @@ import java.util.Map;
 public class LifestyleMainController extends ControllerImpl<LifestyleMainView> implements View.OnClickListener {
     @Override
     public void onClick(View v) {
+        OptionsPickerView pickerView;
         switch (v.getId()) {
             case R.id.lifestyle_main_last_day_iv:
                 if (v.isSelected()) {
@@ -40,33 +48,54 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
                 }
                 break;
             case R.id.lifestyle_bottom_cancel_tv:
+                if (getView().getLifestyleType() == LIFESTYLE_SLEEP){
+                    if (getView().verifySleepRecordParams()) {
+                        deleteExerciseAndSleepRecord();
+                    }
+                }
+
                 break;
             case R.id.lifestyle_bottom_submit_tv:
+                if (getView().getLifestyleType() == LIFESTYLE_SLEEP){
+                    if (getView().verifySleepRecordParams()) {
+                        insertOrUpdateSleepRecord(false);
+                    }
+                }
                 break;
             case R.id.view_eat_record_add_breakfast_tv:
             case R.id.eat_record_breakfast_add_tv:
-                LifestyleDataActivity.start(getContext(), 1, 0, getView().getCurSelectDate(),
-                        getView().getEatRecordBean(), getView().getPatientId());
+                LifestyleDataActivity.start(getContext(), getView().getLifestyleType(), 0,
+                        getView().getCurSelectDate(), getView().getEatRecordBean(),
+                        getView().getPatientId());
                 break;
             case R.id.view_eat_record_add_lunch_tv:
             case R.id.eat_record_lunch_add_tv:
-                LifestyleDataActivity.start(getContext(), 1, 1, getView().getCurSelectDate(),
-                        getView().getEatRecordBean(), getView().getPatientId());
+                LifestyleDataActivity.start(getContext(), getView().getLifestyleType(), 1,
+                        getView().getCurSelectDate(), getView().getEatRecordBean(),
+                        getView().getPatientId());
                 break;
             case R.id.view_eat_record_add_dinner_tv:
             case R.id.eat_record_dinner_add_tv:
-                LifestyleDataActivity.start(getContext(), 1, 2, getView().getCurSelectDate(),
-                        getView().getEatRecordBean(), getView().getPatientId());
+                LifestyleDataActivity.start(getContext(), getView().getLifestyleType(), 2,
+                        getView().getCurSelectDate(), getView().getEatRecordBean(),
+                        getView().getPatientId());
                 break;
             case R.id.view_eat_record_add_extra_tv:
             case R.id.eat_record_extra_add_tv:
-                LifestyleDataActivity.start(getContext(), 1, 3, getView().getCurSelectDate(),
-                        getView().getEatRecordBean(), getView().getPatientId());
+                LifestyleDataActivity.start(getContext(), getView().getLifestyleType(), 3,
+                        getView().getCurSelectDate(), getView().getEatRecordBean(),
+                        getView().getPatientId());
                 break;
             case R.id.lifestyle_main_copy_tv:
                 //复用到今日
-                if (getView().isNotToday()) {
-                    insertOrUpdateFoodRecord();
+                if (getView().getLifestyleType() == LIFESTYLE_DIET) {
+                    if (getView().isNotToday()) {
+                        insertOrUpdateFoodRecord();
+                    }
+                } else if (getView().getLifestyleType() == LIFESTYLE_SLEEP) {
+                    if (getView().verifySleepRecordParams()) {
+                        insertOrUpdateSleepRecord(true);
+                    }
                 }
                 break;
             case R.id.view_eat_record_add_breakfast_iv:
@@ -80,6 +109,24 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
                 break;
             case R.id.view_eat_record_add_extra_iv:
                 getView().expandExtraLayout();
+                break;
+            case R.id.view_sleep_record_quality_tv:
+                pickerView = new OptionsPickerBuilder(getContext(),
+                        (options1, option2, options3, v12) -> getView().setSleepQuality(options1)).build();
+                pickerView.setPicker(getView().getSleepQualityData());
+                pickerView.show();
+                break;
+            case R.id.view_sleep_record_time_tv:
+                pickerView = new OptionsPickerBuilder(getContext(),
+                        (options1, option2, options3, v12) -> getView().setSleepTime(options1)).build();
+                pickerView.setPicker(getView().getSleepTimeData());
+                pickerView.show();
+                break;
+            case R.id.view_sleep_record_status_tv:
+                pickerView = new OptionsPickerBuilder(getContext(),
+                        (options1, option2, options3, v12) -> getView().setMentalState(options1)).build();
+                pickerView.setPicker(getView().getMentalStateData());
+                pickerView.show();
                 break;
             default:
                 break;
@@ -113,7 +160,7 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
      * 新增或者修改就餐记录
      */
     public void insertOrUpdateFoodRecord() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).insertOrUpdateFoodRecord(HttpService.INSTANCE.object2Body(getView().getParams())), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).insertOrUpdateFoodRecord(HttpService.INSTANCE.object2Body(getView().getEatRecordParams())), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable String data) {
                 getView().copyFoodRecordSuccess();
@@ -135,6 +182,69 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).deleteFoodRecord(id), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable String data) {
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtil.showMessage(getContext(), msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 查询患者睡眠记录
+     */
+    public void sleepRecordList(String patientId, String curSelectDate) {
+        Map<String, String> params = new HashMap<>(16);
+        params.put("time", curSelectDate);
+        params.put("patientId", patientId);
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).sleepRecordList(params), new HttpSubscriber<List<SleepRecordBean>>(getContext(), getDisposable(), false) {
+            @Override
+            public void requestComplete(@Nullable List<SleepRecordBean> data) {
+                getView().requestSleepRecordSuccess(data);
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                getView().requestSleepRecordFailed();
+                ToastUtil.showMessage(getContext(), msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 新增或者修改睡眠记录
+     */
+    public void insertOrUpdateSleepRecord(boolean copyToday) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).insertOrUpdateSleepRecord(HttpService.INSTANCE.object2Body(getView().getSleepRecordParams(copyToday))), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                if (copyToday) {
+                    getView().copyFoodRecordSuccess();
+                }
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtil.showMessage(getContext(), msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
+    /**
+     * 删除睡眠记录
+     */
+    public void deleteExerciseAndSleepRecord() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).deleteExerciseAndSleepRecord(getView().getDeleteSleepRecordParams()), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                getView().requestSleepRecordFailed();
             }
 
             @Override

@@ -36,6 +36,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static com.keydom.mianren.ih_patient.activity.health_manager.LifestyleMainActivity.LIFESTYLE_DIET;
+
 /**
  * @author 顿顿
  * @date 21/3/17 14:27
@@ -69,14 +71,6 @@ public class LifestyleDataActivity extends BaseControllerActivity<LifestyleDataC
      * 就餐类型
      */
     private int mealType;
-    /**
-     * 饮食
-     */
-    public static final int LIFESTYLE_DIET = 1;
-    /**
-     * 运动
-     */
-    public static final int LIFESTYLE_SPORTS = 3;
 
     private int lifestyleType = -1;
 

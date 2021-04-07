@@ -5,8 +5,10 @@ import com.keydom.mianren.ih_patient.bean.EatItemBean;
 import com.keydom.mianren.ih_patient.bean.EatRecordBean;
 import com.keydom.mianren.ih_patient.bean.HealthDataBean;
 import com.keydom.mianren.ih_patient.bean.LifestyleRootBean;
+import com.keydom.mianren.ih_patient.bean.SleepRecordBean;
 import com.keydom.mianren.ih_patient.bean.SportsItemBean;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -43,6 +45,12 @@ public interface ChronicDiseaseService {
     Observable<HttpResult<EatRecordBean>> foodRecordList(@QueryMap Map<String, String> map);
 
     /**
+     * 查询患者睡眠记录
+     */
+    @GET("medicine/chronicDiseaseManage/sleepRecordList")
+    Observable<HttpResult<List<SleepRecordBean>>> sleepRecordList(@QueryMap Map<String, String> map);
+
+    /**
      * 获取食物库列表
      */
     @POST("api/healthChronicDiseaseManage/foodBankList")
@@ -70,14 +78,13 @@ public interface ChronicDiseaseService {
      * 新增或者修改睡眠记录
      */
     @POST("medicine/chronicDiseaseManage/insertOrUpdateSleepRecord")
-    Observable<HttpResult<EatRecordBean>> insertOrUpdateSleepRecord(@QueryMap Map<String, String> map);
+    Observable<HttpResult<String>> insertOrUpdateSleepRecord(@Body RequestBody body);
 
     /**
      * 删除运动睡眠记录
      */
-    @GET("medicine/chronicDiseaseManage/deleteExerciseAndSleepRecord")
-    Observable<HttpResult<EatRecordBean>> deleteExerciseAndSleepRecord(@QueryMap Map<String,
-            String> map);
+    @DELETE("medicine/chronicDiseaseManage/deleteExerciseAndSleepRecord")
+    Observable<HttpResult<String>> deleteExerciseAndSleepRecord(@QueryMap Map<String, String> map);
 
     /**
      * 新增或者修改运动记录

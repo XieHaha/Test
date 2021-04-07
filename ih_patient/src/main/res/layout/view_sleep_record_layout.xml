@@ -26,6 +26,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/view_sleep_record_quality_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -33,7 +34,7 @@
             android:drawablePadding="@dimen/dp_11"
             android:gravity="center"
             android:padding="@dimen/dp_10"
-            android:text="@string/txt_add_record"
+            android:text="@string/txt_select"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
@@ -61,6 +62,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/view_sleep_record_time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -68,7 +70,7 @@
             android:drawablePadding="@dimen/dp_11"
             android:gravity="center"
             android:padding="@dimen/dp_10"
-            android:text="@string/txt_add_record"
+            android:text="@string/txt_select"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
@@ -96,6 +98,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/view_sleep_record_status_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -103,7 +106,7 @@
             android:drawablePadding="@dimen/dp_11"
             android:gravity="center"
             android:padding="@dimen/dp_10"
-            android:text="@string/txt_add_record"
+            android:text="@string/txt_select"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 

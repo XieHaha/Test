@@ -3,6 +3,7 @@ package com.keydom.mianren.ih_patient.activity.health_manager.view;
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_patient.bean.EatBean;
 import com.keydom.mianren.ih_patient.bean.EatRecordBean;
+import com.keydom.mianren.ih_patient.bean.SleepRecordBean;
 
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,31 @@ public interface LifestyleMainView extends BaseView {
 
     void expandExtraLayout();
 
-    List<EatBean> getParams();
+    List<String> getSleepQualityData();
+
+    List<String> getSleepTimeData();
+
+    List<String> getMentalStateData();
+
+    void setMentalState(int position);
+
+    void setSleepQuality(int position);
+
+    void setSleepTime(int position);
+
+    List<EatBean> getEatRecordParams();
+
+    boolean verifySleepRecordParams();
+
+    /**
+     *
+     * @param copyToday 是否为复用今日
+     */
+    Map<String, String> getSleepRecordParams(boolean copyToday);
+
+    Map<String, String> getDeleteSleepRecordParams();
+
+    int getLifestyleType();
 
     boolean isNotToday();
 
@@ -31,7 +56,12 @@ public interface LifestyleMainView extends BaseView {
     EatRecordBean getEatRecordBean();
 
     void requestFoodRecordSuccess(EatRecordBean bean);
+
     void requestFoodRecordFailed();
+
+    void requestSleepRecordSuccess(List<SleepRecordBean> bean);
+
+    void requestSleepRecordFailed();
 
     void copyFoodRecordSuccess();
 
