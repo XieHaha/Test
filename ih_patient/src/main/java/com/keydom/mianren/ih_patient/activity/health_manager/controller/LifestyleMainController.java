@@ -27,6 +27,7 @@ import java.util.Map;
 
 import static com.keydom.mianren.ih_patient.activity.health_manager.LifestyleMainActivity.LIFESTYLE_DIET;
 import static com.keydom.mianren.ih_patient.activity.health_manager.LifestyleMainActivity.LIFESTYLE_SLEEP;
+import static com.keydom.mianren.ih_patient.activity.health_manager.LifestyleMainActivity.LIFESTYLE_SPORTS;
 
 /**
  * @author 顿顿
@@ -52,6 +53,10 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
                 if (getView().getLifestyleType() == LIFESTYLE_SLEEP) {
                     if (getView().verifySleepRecordParams()) {
                         deleteExerciseAndSleepRecord();
+                    }
+                } else if (getView().getLifestyleType() == LIFESTYLE_SPORTS) {
+                    if (getView().verifySportsRecordParams()) {
+                        //重置运动  TODO
                     }
                 }
                 break;
@@ -101,6 +106,11 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
                 } else if (getView().getLifestyleType() == LIFESTYLE_SLEEP) {
                     if (getView().verifySleepRecordParams()) {
                         insertOrUpdateSleepRecord(true);
+                    }
+                } else {
+                    //运动
+                    if (getView().verifySportsRecordParams()) {
+                        insertOrUpdateExerciseRecord();
                     }
                 }
                 break;
@@ -284,6 +294,26 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
             }
         });
     }
+
+    /**
+     * 新增或者修改运动记录
+     */
+    public void insertOrUpdateExerciseRecord() {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).insertOrUpdateExerciseRecord(HttpService.INSTANCE.object2Body(getView().getSportRecordParams())), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                getView().copyFoodRecordSuccess();
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                ToastUtil.showMessage(getContext(), msg);
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
+
 
     /**
      * 删除运动记录

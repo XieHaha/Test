@@ -40,12 +40,16 @@ public interface LifestyleMainView extends BaseView {
 
     boolean verifySleepRecordParams();
 
+    boolean verifySportsRecordParams();
+
     /**
      * @param copyToday 是否为复用今日
      */
     Map<String, String> getSleepRecordParams(boolean copyToday);
 
     Map<String, String> getDeleteSleepRecordParams();
+
+    List<SportsBean> getSportRecordParams();
 
     int getLifestyleType();
 

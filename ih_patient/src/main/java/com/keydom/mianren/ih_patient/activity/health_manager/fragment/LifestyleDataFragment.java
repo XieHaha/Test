@@ -80,10 +80,12 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
         fragment.setOnItemSelectedListener(listener);
         return fragment;
     }
+
     /**
      * fragment创建
      */
-    public static LifestyleDataFragment newInstance(int projectId, int lifestyleType, String curSelectDate,
+    public static LifestyleDataFragment newInstance(int projectId, int lifestyleType,
+                                                    String curSelectDate,
                                                     String patientId,
                                                     List<SportsBean> selectEatBeans,
                                                     OnItemSelectedListener listener) {
@@ -124,7 +126,8 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
                     eatBean.setName(eatItemBeans.get(position).getName());
                     updateSelectEatItem(position, eatBean);
                 } else {
-                    LifestyleDataEditDialog dialog = new LifestyleDataEditDialog(getContext(),lifestyleType,
+                    LifestyleDataEditDialog dialog = new LifestyleDataEditDialog(getContext(),
+                            lifestyleType,
                             mealType, patientId, curSelectDate, eatItemBeans.get(position),
                             eatBean -> updateSelectEatItem(position, eatBean));
                     dialog.show();
@@ -132,7 +135,7 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
             });
             getController().foodBankList();
         } else {
-            sportsItemBeans = (List<SportsItemBean>) getArguments().getSerializable("list");
+            selectSportsBeans = (List<SportsBean>) getArguments().getSerializable("list");
             sportsDataAdapter = new LifestyleSportsDataAdapter(sportsItemBeans);
             fragLifestyleDataRecyclerView.setAdapter(sportsDataAdapter);
             sportsDataAdapter.setOnItemClickListener((adapter, view, position) -> {
@@ -141,7 +144,8 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
                     eatBean.setName(sportsItemBeans.get(position).getName());
                     updateSelectEatItem(position, eatBean);
                 } else {
-                    LifestyleDataEditDialog dialog = new LifestyleDataEditDialog(getContext(),lifestyleType,
+                    LifestyleDataEditDialog dialog = new LifestyleDataEditDialog(getContext(),
+                            lifestyleType,
                             patientId, curSelectDate, sportsItemBeans.get(position),
                             sportsBean -> updateSelectSportsItem(position, sportsBean));
                     dialog.show();
@@ -160,6 +164,17 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
             }
         }
         eatDataAdapter.setNewData(eatItemBeans);
+    }
+
+    private void initSportsSelectData() {
+        for (SportsBean bean : selectSportsBeans) {
+            for (SportsItemBean item : sportsItemBeans) {
+                if (bean.getName().equals(item.getName())) {
+                    item.setSelected(true);
+                }
+            }
+        }
+        sportsDataAdapter.setNewData(sportsItemBeans);
     }
 
 
@@ -209,7 +224,7 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
     @Override
     public void requestExerciseBankListSuccess(List<SportsItemBean> data) {
         sportsItemBeans = data;
-        sportsDataAdapter.setNewData(sportsItemBeans);
+        initSportsSelectData();
     }
 
     private OnItemSelectedListener onItemSelectedListener;

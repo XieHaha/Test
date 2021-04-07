@@ -159,6 +159,10 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
      */
     private String mentalState, sleepQuality, sleepTime;
     /**
+     * 运动总分钟 总消耗
+     */
+    private int minute = 0, sumHeat = 0;
+    /**
      * 当前日期
      */
     private String curSelectDate;
@@ -583,16 +587,17 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         if (recordSportsBeans != null && recordSportsBeans.size() > 0) {
             addSportsView();
         } else {
-            viewSportsRecordMinuteTv.setText("0");
-            viewSportsRecordKcalTv.setText("0");
+            minute = 0;
+            sumHeat = 0;
         }
+        viewSportsRecordMinuteTv.setText(String.valueOf(minute));
+        viewSportsRecordKcalTv.setText(String.valueOf(sumHeat));
     }
 
     /**
      * 运动view
      */
     private void addSportsView() {
-        int minute = 0, sumHeat = 0;
         for (int i = 0; i < recordSportsBeans.size(); i++) {
             SportsBean bean = recordSportsBeans.get(i);
             minute += bean.getMinute();
@@ -614,8 +619,6 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
             });
             viewSportsRecordLayout.addView(view);
         }
-        viewSportsRecordMinuteTv.setText(String.valueOf(minute));
-        viewSportsRecordKcalTv.setText(String.valueOf(sumHeat));
     }
 
     @Override
@@ -683,6 +686,15 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     }
 
     @Override
+    public boolean verifySportsRecordParams() {
+        if (minute == 0 || sumHeat == 0) {
+            ToastUtil.showMessage(this, "暂无数据");
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public Map<String, String> getSleepRecordParams(boolean copyToday) {
         Map<String, String> params = new HashMap<>(16);
         params.put("mentalState", mentalState);
@@ -707,6 +719,15 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         return params;
     }
 
+    @Override
+    public List<SportsBean> getSportRecordParams() {
+        List<SportsBean> list = new ArrayList<>();
+        for (SportsBean bean : recordSportsBeans) {
+            bean.setRecordTime(DateUtils.dateToString(new Date()));
+            list.add(bean);
+        }
+        return list;
+    }
 
     /**
      * 记录变化更新
