@@ -4,6 +4,7 @@ import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_patient.bean.HealthArchivesBean;
 import com.keydom.mianren.ih_patient.bean.HealthManagerMainBean;
+import com.keydom.mianren.ih_patient.bean.HealthSummaryBean;
 import com.keydom.mianren.ih_patient.bean.InterventionPlanBean;
 
 import io.reactivex.Observable;
@@ -48,6 +49,19 @@ public interface HealthManagerService {
      */
     @GET("medicine/patientHealthManage/patientInfo")
     Observable<HttpResult<HealthArchivesBean>> getPatientInfo(@Query("patientId") String patientId);
+
+    /**
+     * 健康总结列表
+     */
+    @POST("medicine/patientHealthManage/patientHealthConclusionList")
+    Observable<HttpResult<PageBean<HealthSummaryBean>>> patientHealthConclusionList(@Body RequestBody body);
+
+    /**
+     * 健康总结详情
+     */
+    @GET("medicine/patientHealthManage/patientHealthConclusionDetail")
+    Observable<HttpResult<HealthSummaryBean>> patientHealthConclusionDetail(@Query(
+            "consultRecordId") String consultRecordId);
 
     /**
      * 获取干预方案列表

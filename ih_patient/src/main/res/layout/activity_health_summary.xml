@@ -40,23 +40,23 @@
         android:layout_marginEnd="@dimen/dp_10"
         android:background="@color/color_f9f9f9" />
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/health_summary_refresh_layout"
+    <!--    <com.scwang.smartrefresh.layout.SmartRefreshLayout-->
+    <!--        android:id="@+id/health_summary_refresh_layout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:background="@color/primary_color"-->
+    <!--        android:orientation="vertical">-->
+
+    <!--        <com.scwang.smartrefresh.layout.header.ClassicsHeader-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content" />-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/health_summary_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primary_color"
-        android:orientation="vertical">
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
-        <com.scwang.smartrefresh.layout.header.ClassicsHeader
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/health_summary_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
-
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    <!--    </com.scwang.smartrefresh.layout.SmartRefreshLayout>-->
 
 </LinearLayout>

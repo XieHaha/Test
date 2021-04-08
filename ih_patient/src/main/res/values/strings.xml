@@ -611,7 +611,13 @@
     <string name="txt_data_refer_value">收缩压：90~140 mmHg&#160;&#160;&#160;心率值：60~100 次/分\n舒张压：60~100 mmHg</string>
     <string name="txt_data_cardiovascular_value">总胆固醇：2.8~5.2mmol/L&#160;&#160;&#160;甘油三酯：0.6~1.7mmol/L\n高密度脂蛋白胆固醇：1.0~2.0mmol/L\n低密度脂蛋白胆固醇：1.0~3.4mmol/L</string>
     <string name="txt_data_blood_pressure">血糖：4.4~10.0mmol/L</string>
+    <string name="txt_summary_detail_hint">健康总结是根据用户当前健康状况及疾病特点,运用慢病预测模型而设计。本报告是对疾病危险性的评价,不能作为临床诊断的依据。</string>
 
+    <string name="txt_eat_score">饮食(%d分)</string>
+    <string name="txt_sports_score">运动(%d分)</string>
+    <string name="txt_sleep_score">睡眠(%d分)</string>
+    <string name="txt_drink_score">饮酒(%d分)</string>
+    <string name="txt_smoke_score">吸烟(%d分)</string>
     <string name="txt_year_and_month">%d年%d月%d日</string>
     <string name="txt_eat_unit">%d份&#160;%d克</string>
     <string name="txt_portion">%1f份</string>

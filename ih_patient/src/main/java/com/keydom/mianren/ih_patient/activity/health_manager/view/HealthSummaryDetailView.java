@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_patient.activity.health_manager.view;
 
 import com.keydom.ih_common.base.BaseView;
+import com.keydom.mianren.ih_patient.bean.HealthSummaryBean;
 
 /**
  * @author 顿顿
@@ -8,4 +9,5 @@ import com.keydom.ih_common.base.BaseView;
  * @des 健康报告详情
  */
 public interface HealthSummaryDetailView extends BaseView {
+    void requestSummaryDetailSuccess(HealthSummaryBean summaryBean);
 }

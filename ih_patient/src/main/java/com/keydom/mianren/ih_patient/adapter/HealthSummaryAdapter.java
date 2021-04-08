@@ -1,6 +1,8 @@
 package com.keydom.mianren.ih_patient.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -23,9 +25,21 @@ public class HealthSummaryAdapter extends BaseQuickAdapter<HealthSummaryBean,
 
     @Override
     protected void convert(BaseViewHolder helper, HealthSummaryBean item) {
-        helper.setText(R.id.item_health_summary_title_tv, "年度健康报告")
-                .setText(R.id.item_health_summary_doctor_tv, "医生")
-                .setText(R.id.item_health_summary_content_tv, "内容内容内容内容内容内容内容内容内容内容");
+        helper.setText(R.id.item_health_summary_title_tv, item.getHealthConclusionName())
+                .setText(R.id.item_health_summary_doctor_tv, item.getDoctorName())
+                .setText(R.id.item_health_summary_content_tv, item.getCreateTime());
+        TextView summaryStatus = helper.getView(R.id.item_health_summary_status_tv);
+        String status = item.getHealthStatus();
+        if (!TextUtils.isEmpty(status)) {
+            if (status.contains("良好")) {
+                summaryStatus.setBackgroundResource(R.drawable.health_summary_good_status);
+            } else if (status.contains("一般")) {
+                summaryStatus.setBackgroundResource(R.drawable.health_summary_normal_status);
+            } else {
+                summaryStatus.setBackgroundResource(R.drawable.health_summary_normal_status);
+            }
+        }
+
     }
 
 }

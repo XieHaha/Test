@@ -67,7 +67,7 @@ public class ChronicDiseaseMainController extends ControllerImpl<ChronicDiseaseM
                 InterventionPlanActivity.start(getContext(), getView().getPatientId());
                 break;
             case R.id.disease_main_health_summary_layout:
-                HealthSummaryActivity.start(getContext());
+                HealthSummaryActivity.start(getContext(), getView().getPatientId());
                 break;
             default:
                 break;
