@@ -9,6 +9,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.activity.health_manager.HealthConsultantActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.HealthSummaryDetailView;
 import com.keydom.mianren.ih_patient.bean.HealthSummaryBean;
 import com.keydom.mianren.ih_patient.net.HealthManagerService;
@@ -26,7 +27,7 @@ public class HealthSummaryDetailController extends ControllerImpl<HealthSummaryD
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.health_summary_detail_next_tv) {
-
+            HealthConsultantActivity.start(getContext());
         }
     }
 

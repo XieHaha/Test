@@ -9,6 +9,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.activity.health_manager.HealthConsultantActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.InterventionPlanDetailView;
 import com.keydom.mianren.ih_patient.bean.InterventionPlanBean;
 import com.keydom.mianren.ih_patient.net.HealthManagerService;
@@ -26,7 +27,7 @@ public class InterventionPlanDetailController extends ControllerImpl<Interventio
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.intervention_plan_detail_contact_tv) {
-
+            HealthConsultantActivity.start(getContext());
         }
     }
 
