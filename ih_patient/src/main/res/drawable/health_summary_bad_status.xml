@@ -5,11 +5,11 @@
             <solid android:color="#ffcfcfcf" />
             <item android:name="android:shadowDx">0</item>
             <item android:name="android:shadowDy">3</item>
-            <item android:name="android:shadowColor">#33f0b20b</item>
+            <item android:name="android:shadowColor">#33ff0000</item>
             <gradient
                 android:angle="0"
-                android:endColor="#fffecd0b"
-                android:startColor="#fffcd511"
+                android:endColor="#ffff9363"
+                android:startColor="#ffff3939"
                 android:type="linear"
                 android:useLevel="true" />
         </shape>

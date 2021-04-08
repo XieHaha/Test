@@ -12,6 +12,7 @@
                 android:startColor="#fffcd511"
                 android:type="linear"
                 android:useLevel="true" />
+            <corners android:radius="@dimen/dp_5" />
         </shape>
     </item>
 </layer-list>

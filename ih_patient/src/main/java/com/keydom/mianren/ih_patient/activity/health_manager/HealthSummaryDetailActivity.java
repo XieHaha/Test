@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.CombinedChart;
@@ -189,9 +190,20 @@ public class HealthSummaryDetailActivity extends BaseControllerActivity<HealthSu
         setTitle(summaryBean.getHealthConclusionName());
         healthSummaryDetailNameTv.setText(summaryBean.getDoctorName());
         healthSummaryDetailDateTv.setText(summaryBean.getCreateTime());
-        healthSummaryDetailStatusTv.setText(summaryBean.getHealthStatus());
         healthSummaryDetailSummaryTv.setText(summaryBean.getContent());
         healthSummaryDetailNoticeTv.setText(summaryBean.getAttention());
+        String status = summaryBean.getHealthStatus();
+        healthSummaryDetailStatusTv.setText(status);
+        if (!TextUtils.isEmpty(status)) {
+            if (status.contains("良好")) {
+                healthSummaryDetailStatusTv.setBackgroundResource(R.drawable.corner5_health_summary_good_status);
+            } else if (status.contains("一般")) {
+                healthSummaryDetailStatusTv.setBackgroundResource(R.drawable.corner5_health_summary_normal_status);
+            } else {
+                healthSummaryDetailStatusTv.setBackgroundResource(R.drawable.corner5_health_summary_bad_status);
+            }
+        }
+
         //        healthSummaryDetailHintTv.setText(summaryBean.getHealthStatus());
         lifestyleData = new Integer[5];
         lifestyleData[0] = summaryBean.getFoodScore();

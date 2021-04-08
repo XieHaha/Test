@@ -36,7 +36,7 @@ public class HealthSummaryAdapter extends BaseQuickAdapter<HealthSummaryBean,
             } else if (status.contains("一般")) {
                 summaryStatus.setBackgroundResource(R.drawable.health_summary_normal_status);
             } else {
-                summaryStatus.setBackgroundResource(R.drawable.health_summary_normal_status);
+                summaryStatus.setBackgroundResource(R.drawable.health_summary_bad_status);
             }
         }
 
