@@ -47,7 +47,7 @@ public interface LifestyleMainView extends BaseView {
      */
     Map<String, String> getSleepRecordParams(boolean copyToday);
 
-    Map<String, String> getDeleteSleepRecordParams();
+    Map<String, String> getDeleteSleepRecordParams(boolean isSleep);
 
     List<SportsBean> getSportRecordParams();
 

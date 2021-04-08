@@ -30,16 +30,19 @@
             android:id="@+id/item_intervention_plan_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxEms="6"
+            android:singleLine="true"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14"
             android:textStyle="bold"
-            tools:text="干预方案" />
+            tools:text="干预方案干预方案干预方案干预方案干预方案" />
 
         <TextView
             android:id="@+id/item_intervention_plan_doctor_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_25"
+            android:layout_marginStart="@dimen/dp_12"
             android:layout_toEndOf="@id/item_intervention_plan_title_tv"
             android:drawableStart="@mipmap/icon_intervention_doctor"
             android:drawablePadding="@dimen/dp_7"

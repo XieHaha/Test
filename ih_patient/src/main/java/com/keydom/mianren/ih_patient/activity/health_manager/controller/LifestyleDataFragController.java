@@ -1,6 +1,7 @@
 package com.keydom.mianren.ih_patient.activity.health_manager.controller;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -8,7 +9,6 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.LifestyleDataFragView;
 import com.keydom.mianren.ih_patient.bean.EatItemBean;
-import com.keydom.mianren.ih_patient.bean.LifestyleRootBean;
 import com.keydom.mianren.ih_patient.bean.SportsItemBean;
 import com.keydom.mianren.ih_patient.net.ChronicDiseaseService;
 
@@ -33,9 +33,9 @@ public class LifestyleDataFragController extends ControllerImpl<LifestyleDataFra
      * 获取食物库列表
      */
     public void foodBankList() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).foodBankList(HttpService.INSTANCE.object2Body(getParams())), new HttpSubscriber<LifestyleRootBean<EatItemBean>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).foodBankList(HttpService.INSTANCE.object2Body(getParams())), new HttpSubscriber<PageBean<EatItemBean>>(getContext(), getDisposable(), false) {
             @Override
-            public void requestComplete(@Nullable LifestyleRootBean<EatItemBean> data) {
+            public void requestComplete(@Nullable PageBean<EatItemBean> data) {
                 if (data != null) {
                     getView().requestFoodBankListSuccess(data.getRecords());
                 }
@@ -54,9 +54,9 @@ public class LifestyleDataFragController extends ControllerImpl<LifestyleDataFra
      * 获取运动库列表
      */
     public void exerciseBankList() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).exerciseBankList(HttpService.INSTANCE.object2Body(getParams())), new HttpSubscriber<LifestyleRootBean<SportsItemBean>>(getContext(), getDisposable(), false) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).exerciseBankList(HttpService.INSTANCE.object2Body(getParams())), new HttpSubscriber<PageBean<SportsItemBean>>(getContext(), getDisposable(), false) {
             @Override
-            public void requestComplete(@Nullable LifestyleRootBean<SportsItemBean> data) {
+            public void requestComplete(@Nullable PageBean<SportsItemBean> data) {
                 if (data != null) {
                     getView().requestExerciseBankListSuccess(data.getRecords());
                 }

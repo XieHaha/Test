@@ -23,9 +23,9 @@ public class InterventionPlanAdapter extends BaseQuickAdapter<InterventionPlanBe
 
     @Override
     protected void convert(BaseViewHolder helper, InterventionPlanBean item) {
-        helper.setText(R.id.item_intervention_plan_title_tv, "年度干预")
-                .setText(R.id.item_intervention_plan_doctor_tv, "医生")
-                .setText(R.id.item_intervention_plan_content_tv, "内容内容内容内容内容内容内容内容内容内容")
+        helper.setText(R.id.item_intervention_plan_title_tv, item.getInterventionPlanName())
+                .setText(R.id.item_intervention_plan_doctor_tv, item.getDoctorName())
+                .setText(R.id.item_intervention_plan_content_tv, "")
                 .addOnClickListener(R.id.item_intervention_plan_look_tv);
     }
 

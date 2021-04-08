@@ -1,8 +1,10 @@
 package com.keydom.mianren.ih_patient.net;
 
+import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_patient.bean.HealthArchivesBean;
 import com.keydom.mianren.ih_patient.bean.HealthManagerMainBean;
+import com.keydom.mianren.ih_patient.bean.InterventionPlanBean;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -46,5 +48,17 @@ public interface HealthManagerService {
      */
     @GET("medicine/patientHealthManage/patientInfo")
     Observable<HttpResult<HealthArchivesBean>> getPatientInfo(@Query("patientId") String patientId);
+
+    /**
+     * 获取干预方案列表
+     */
+    @POST("medicine/doctorHealthManage/interventionPlanList")
+    Observable<HttpResult<PageBean<InterventionPlanBean>>> interventionPlanList(@Body RequestBody body);
+
+    /**
+     * 获取干预方案详情
+     */
+    @GET("medicine/patientHealthManage/patientInterventionPlanDetail")
+    Observable<HttpResult<InterventionPlanBean>> interventionPlanDetail(@Query("planId") String planId);
 
 }

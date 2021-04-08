@@ -17,12 +17,16 @@ import com.keydom.mianren.ih_patient.activity.health_manager.controller.Interven
 import com.keydom.mianren.ih_patient.activity.health_manager.view.InterventionPlanView;
 import com.keydom.mianren.ih_patient.adapter.InterventionPlanAdapter;
 import com.keydom.mianren.ih_patient.bean.InterventionPlanBean;
+import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.utils.StatusBarUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -45,6 +49,8 @@ public class InterventionPlanActivity extends BaseControllerActivity<Interventio
     @BindView(R.id.intervention_plan_recycler_view)
     RecyclerView recyclerView;
 
+    private String patientId;
+
     private InterventionPlanAdapter interventionPlanAdapter;
 
     private ArrayList<InterventionPlanBean> interventionPlanBeans = new ArrayList<>();
@@ -52,8 +58,10 @@ public class InterventionPlanActivity extends BaseControllerActivity<Interventio
     /**
      * 启动
      */
-    public static void start(Context context) {
-        context.startActivity(new Intent(context, InterventionPlanActivity.class));
+    public static void start(Context context, String patientId) {
+        Intent intent = new Intent(context, InterventionPlanActivity.class);
+        intent.putExtra(Const.PATIENT_ID, patientId);
+        context.startActivity(intent);
     }
 
     @Override
@@ -70,19 +78,41 @@ public class InterventionPlanActivity extends BaseControllerActivity<Interventio
         layoutBg.setAlpha(0);
         statusBar.setAlpha(0);
         StatusBarUtils.setStatusBarColor(this, false);
-
         ivBack.setOnClickListener(getController());
 
-        interventionPlanBeans.add(new InterventionPlanBean());
-        interventionPlanBeans.add(new InterventionPlanBean());
-        interventionPlanBeans.add(new InterventionPlanBean());
-        interventionPlanBeans.add(new InterventionPlanBean());
+        patientId = getIntent().getStringExtra(Const.PATIENT_ID);
+
         interventionPlanAdapter = new InterventionPlanAdapter(interventionPlanBeans);
         interventionPlanAdapter.setOnItemChildClickListener(getController());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(interventionPlanAdapter);
         swipeRefreshLayout.setOnRefreshListener(refreshLayout -> {
         });
+
+        getController().interventionPlanList();
+    }
+
+    @Override
+    public Map<String, Object> getParams() {
+        Map<String, Object> params = new HashMap<>();
+        //0 不分页，1 分页
+        params.put("isPage", 0);
+        params.put("currentPage", 0);
+        params.put("pageSize", 99);
+        params.put("patientId", patientId);
+        return params;
+    }
+
+    @Override
+    public void requestInterventionPlanListSuccess(List<InterventionPlanBean> data) {
+        interventionPlanBeans.clear();
+        interventionPlanBeans.addAll(data);
+        interventionPlanAdapter.setNewData(interventionPlanBeans);
+    }
+
+    @Override
+    public ArrayList<InterventionPlanBean> getInterventionPlanBeans() {
+        return interventionPlanBeans;
     }
 
     @Override

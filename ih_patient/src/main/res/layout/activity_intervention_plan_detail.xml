@@ -44,6 +44,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/intervention_plan_detail_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_9"
@@ -61,6 +62,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/intervention_plan_detail_date_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_9"
@@ -70,6 +72,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/intervention_plan_detail_contact_tv"
                     android:layout_width="@dimen/dp_60"
                     android:layout_height="@dimen/dp_18"
                     android:background="@drawable/corner2_stroke_00cafc"
@@ -100,6 +103,7 @@
                 android:textStyle="bold" />
 
             <com.keydom.ih_common.view.JustifiedTextView
+                android:id="@+id/intervention_plan_detail_eat_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_20"
@@ -130,6 +134,7 @@
                 android:textStyle="bold" />
 
             <com.keydom.ih_common.view.JustifiedTextView
+                android:id="@+id/intervention_plan_detail_sports_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_20"
@@ -160,6 +165,7 @@
                 android:textStyle="bold" />
 
             <com.keydom.ih_common.view.JustifiedTextView
+                android:id="@+id/intervention_plan_detail_drug_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_20"
@@ -190,6 +196,7 @@
                 android:textStyle="bold" />
 
             <com.keydom.ih_common.view.JustifiedTextView
+                android:id="@+id/intervention_plan_detail_sleep_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_20"

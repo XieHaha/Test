@@ -64,7 +64,7 @@ public class ChronicDiseaseMainController extends ControllerImpl<ChronicDiseaseM
                         LifestyleMainActivity.LIFESTYLE_SPORTS);
                 break;
             case R.id.disease_main_intervention_plan_layout:
-                InterventionPlanActivity.start(getContext());
+                InterventionPlanActivity.start(getContext(), getView().getPatientId());
                 break;
             case R.id.disease_main_health_summary_layout:
                 HealthSummaryActivity.start(getContext());

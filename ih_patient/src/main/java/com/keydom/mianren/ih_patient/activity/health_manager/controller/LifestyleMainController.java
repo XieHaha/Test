@@ -52,11 +52,12 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
             case R.id.lifestyle_bottom_cancel_tv:
                 if (getView().getLifestyleType() == LIFESTYLE_SLEEP) {
                     if (getView().verifySleepRecordParams()) {
-                        deleteExerciseAndSleepRecord();
+                        deleteExerciseAndSleepRecord(true);
                     }
                 } else if (getView().getLifestyleType() == LIFESTYLE_SPORTS) {
                     if (getView().verifySportsRecordParams()) {
-                        //重置运动  TODO
+                        //重置运动
+                        deleteExerciseAndSleepRecord(false);
                     }
                 }
                 break;
@@ -254,13 +255,17 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
     }
 
     /**
-     * 删除睡眠记录
+     * 删除睡眠记录或运动记录
      */
-    public void deleteExerciseAndSleepRecord() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).deleteExerciseAndSleepRecord(getView().getDeleteSleepRecordParams()), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+    public void deleteExerciseAndSleepRecord(boolean isSleep) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).deleteExerciseAndSleepRecord(getView().getDeleteSleepRecordParams(isSleep)), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable String data) {
-                getView().requestSleepRecordFailed();
+                if (isSleep) {
+                    getView().requestSleepRecordFailed();
+                } else {
+                    getView().requestSportsRecordFailed();
+                }
             }
 
             @Override

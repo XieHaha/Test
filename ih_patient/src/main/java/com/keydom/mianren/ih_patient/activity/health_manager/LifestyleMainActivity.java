@@ -710,12 +710,15 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     }
 
     @Override
-    public Map<String, String> getDeleteSleepRecordParams() {
+    public Map<String, String> getDeleteSleepRecordParams(boolean isSleep) {
         Map<String, String> params = new HashMap<>(16);
         params.put("patientId", patientId);
         params.put("recordTime", curSelectDate);
-        //睡眠
-        params.put("type", "1");
+        if (isSleep) {
+            params.put("type", "1");
+        } else {
+            params.put("type", "0");
+        }
         return params;
     }
 
@@ -803,7 +806,8 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
 
     @Override
     public void requestSportsRecordFailed() {
-
+        recordSportsBeans.clear();
+        initSportsData();
     }
 
     @Override
