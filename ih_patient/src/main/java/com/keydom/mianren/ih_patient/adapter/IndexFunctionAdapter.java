@@ -230,10 +230,12 @@ public class IndexFunctionAdapter extends RecyclerView.Adapter<IndexFunctionAdap
                             }
                             break;
                         case HealthManager:
-                            if (healthManagerMainBean != null && healthManagerMainBean.getIsOpen() != 0) {
-                                HealthManagerActivity.start(context);
-                            } else {
-                                HealthManagerOpenActivity.start(context);
+                            if (loginStatus()) {
+                                if (healthManagerMainBean != null && healthManagerMainBean.getIsOpen() != 0) {
+                                    HealthManagerActivity.start(context);
+                                } else {
+                                    HealthManagerOpenActivity.start(context);
+                                }
                             }
                             break;
                      /*   case Setting:
