@@ -72,6 +72,7 @@ public class HealthSummaryDetailActivity extends BaseControllerActivity<HealthSu
     TextView healthSummaryDetailHeartStatusTv;
 
     private String summaryId;
+    private  String patientId;
     private HealthSummaryBean summaryBean;
 
     private ArrayList<Integer> lineData = new ArrayList<>();
@@ -84,8 +85,9 @@ public class HealthSummaryDetailActivity extends BaseControllerActivity<HealthSu
     /**
      * 启动
      */
-    public static void start(Context context, String summaryId) {
+    public static void start(Context context, String summaryId, String patientId) {
         Intent intent = new Intent(context, HealthSummaryDetailActivity.class);
+        intent.putExtra(Const.PATIENT_ID, patientId);
         intent.putExtra(Const.RECORD_ID, summaryId);
         context.startActivity(intent);
     }
@@ -97,6 +99,7 @@ public class HealthSummaryDetailActivity extends BaseControllerActivity<HealthSu
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        patientId = getIntent().getStringExtra(Const.PATIENT_ID);
         summaryId = getIntent().getStringExtra(Const.RECORD_ID);
         healthSummaryDetailNextTv.setOnClickListener(getController());
 
@@ -270,5 +273,10 @@ public class HealthSummaryDetailActivity extends BaseControllerActivity<HealthSu
         } else {
             return ContextCompat.getColor(this, R.color.color_f61717);
         }
+    }
+
+    @Override
+    public String getPatientId() {
+        return patientId;
     }
 }

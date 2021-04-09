@@ -10,4 +10,6 @@ import com.keydom.mianren.ih_patient.bean.HealthSummaryBean;
  */
 public interface HealthSummaryDetailView extends BaseView {
     void requestSummaryDetailSuccess(HealthSummaryBean summaryBean);
+
+    String getPatientId();
 }

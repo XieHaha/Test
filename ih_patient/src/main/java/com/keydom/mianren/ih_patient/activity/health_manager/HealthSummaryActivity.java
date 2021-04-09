@@ -90,6 +90,11 @@ public class HealthSummaryActivity extends BaseControllerActivity<HealthSummaryC
     }
 
     @Override
+    public String getPatientId() {
+        return patientId;
+    }
+
+    @Override
     public void requestHealthSummaryListSuccess(List<HealthSummaryBean> data) {
         healthSummaryBeans.clear();
         healthSummaryBeans.addAll(data);

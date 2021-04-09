@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.utils.BaseFileUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.mianren.ih_patient.R;
@@ -43,6 +44,8 @@ public class HealthConsultantAdapter extends BaseQuickAdapter<HealthConsultantBe
             contactTv.setSelected(true);
             contactTv.setText("继续咨询");
         }
+        contactTv.setOnClickListener(v -> ImClient.startConversation(mContext, item.getUserCode()
+                , null));
         ImageView headerIv = helper.getView(R.id.health_consultant_header_iv);
         GlideUtils.load(headerIv, BaseFileUtils.getHeaderUrl(item.getImage()), -1,
                 R.mipmap.user_icon, true, null);

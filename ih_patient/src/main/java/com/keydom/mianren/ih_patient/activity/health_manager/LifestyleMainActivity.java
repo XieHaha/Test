@@ -203,7 +203,6 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         statusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 StatusBarUtils.getStateBarHeight(this)));
         StatusBarUtils.setStatusBarTranslucent(this);
-        tvTitle.setText(R.string.txt_child_maintain);
         layoutBg.setAlpha(0);
         statusBar.setAlpha(0);
         StatusBarUtils.setStatusBarColor(this, false);

@@ -34,8 +34,9 @@ public class HealthSummaryController extends ControllerImpl<HealthSummaryView> i
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        HealthSummaryDetailActivity.start(getContext(),
-                getView().getHealthSummaryBeans().get(position).getId());
+        HealthSummaryBean summaryBean = (HealthSummaryBean) adapter.getItem(position);
+        HealthSummaryDetailActivity.start(getContext(), summaryBean.getId(),
+                getView().getPatientId());
     }
 
     /**

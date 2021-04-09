@@ -17,5 +17,7 @@ public interface HealthSummaryView extends BaseView {
 
     ArrayList<HealthSummaryBean> getHealthSummaryBeans();
 
+    String getPatientId();
+
     void requestHealthSummaryListSuccess(List<HealthSummaryBean> data);
 }

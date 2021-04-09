@@ -9,6 +9,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.mianren.ih_patient.activity.health_manager.HealthConsultantDetailActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.HealthConsultantView;
 import com.keydom.mianren.ih_patient.bean.HealthConsultantBean;
 import com.keydom.mianren.ih_patient.net.HealthManagerService;
@@ -26,7 +27,8 @@ import java.util.List;
 public class HealthConsultantController extends ControllerImpl<HealthConsultantView> implements BaseQuickAdapter.OnItemClickListener {
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        HealthConsultantBean bean = (HealthConsultantBean) adapter.getItem(position);
+        HealthConsultantDetailActivity.start(getContext(), bean);
     }
 
     /**
