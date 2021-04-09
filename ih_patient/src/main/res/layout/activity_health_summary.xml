@@ -24,7 +24,7 @@
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginEnd="@dimen/dp_25"
         android:background="@drawable/corner5_stroke_e9e8eb"
-        android:drawableEnd="@mipmap/icon_right_black_triangle"
+        android:drawableEnd="@drawable/selector_lifestyle_black"
         android:gravity="center_vertical"
         android:paddingStart="@dimen/dp_10"
         android:paddingEnd="@dimen/dp_7"

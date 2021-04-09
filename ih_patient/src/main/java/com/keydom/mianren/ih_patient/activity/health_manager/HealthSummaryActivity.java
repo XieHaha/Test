@@ -14,10 +14,12 @@ import com.keydom.mianren.ih_patient.activity.health_manager.view.HealthSummaryV
 import com.keydom.mianren.ih_patient.adapter.HealthSummaryAdapter;
 import com.keydom.mianren.ih_patient.bean.HealthSummaryBean;
 import com.keydom.mianren.ih_patient.constant.Const;
+import com.keydom.mianren.ih_patient.utils.DateUtils;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +41,7 @@ public class HealthSummaryActivity extends BaseControllerActivity<HealthSummaryC
 
 
     private String patientId;
+    private String curSelectDate;
     private HealthSummaryAdapter healthSummaryAdapter;
 
     private ArrayList<HealthSummaryBean> healthSummaryBeans = new ArrayList<>();
@@ -63,6 +66,8 @@ public class HealthSummaryActivity extends BaseControllerActivity<HealthSummaryC
 
         patientId = getIntent().getStringExtra(Const.PATIENT_ID);
 
+        healthSummarySelectTimeTv.setOnClickListener(getController());
+
         healthSummaryAdapter = new HealthSummaryAdapter(healthSummaryBeans);
         healthSummaryAdapter.setOnItemClickListener(getController());
         healthSummaryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -76,8 +81,7 @@ public class HealthSummaryActivity extends BaseControllerActivity<HealthSummaryC
     @Override
     public Map<String, Object> getParams() {
         Map<String, Object> params = new HashMap<>();
-        //0 不分页，1 分页
-        params.put("isPage", 0);
+        params.put("time", curSelectDate);
         params.put("currentPage", 0);
         params.put("pageSize", 99);
         params.put("patientId", patientId);
@@ -92,6 +96,13 @@ public class HealthSummaryActivity extends BaseControllerActivity<HealthSummaryC
     @Override
     public String getPatientId() {
         return patientId;
+    }
+
+    @Override
+    public void onSelectDate(Date date) {
+        curSelectDate = DateUtils.dateToString(date, DateUtils.YYYY);
+        healthSummarySelectTimeTv.setText(curSelectDate + "年");
+        getController().patientHealthConclusionList();
     }
 
     @Override

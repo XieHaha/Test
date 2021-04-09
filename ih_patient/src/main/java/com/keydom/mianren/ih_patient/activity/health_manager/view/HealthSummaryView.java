@@ -4,6 +4,7 @@ import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_patient.bean.HealthSummaryBean;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,4 +21,6 @@ public interface HealthSummaryView extends BaseView {
     String getPatientId();
 
     void requestHealthSummaryListSuccess(List<HealthSummaryBean> data);
+
+    void onSelectDate(Date date);
 }

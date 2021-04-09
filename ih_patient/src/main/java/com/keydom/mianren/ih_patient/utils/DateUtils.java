@@ -28,6 +28,7 @@ public class DateUtils {
     public static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
     public static final String YYYY_MM_DD_HH_MM_SS_SLASH = "yyyy/MM/dd HH:mm:ss";
     public static final String YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";
+    public static final String YYYY = "yyyy";
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
     public static final String MM_DD_CH = "MM月dd日";
     public static final String YYYY_MM_DD_CH = "yyyy年MM月dd日";
@@ -293,7 +294,7 @@ public class DateUtils {
      *
      */
     public static String dateToString(Date date, String pattern) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         return formatter.format(date);
     }
 
