@@ -160,7 +160,6 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
         contentLayout.setOnClickListener(this);
         submitTv.setOnClickListener(this);
 
-        scaleScrollView.setCurScale(2);
         scaleScrollView.setOnScrollListener(new BaseScaleView.OnScrollListener() {
             @Override
             public void onScaleScroll(int scale) {
@@ -190,7 +189,8 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
         animation.setAnimationListener(new AbstractAnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                contentLayout.setVisibility(View.VISIBLE);
+                //默认选中一份
+                scaleScrollView.setCurScale(2);
             }
         });
         contentLayout.startAnimation(animation);
@@ -214,7 +214,6 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                contentLayout.setVisibility(View.GONE);
                 IS_ANIMING = false;
                 dismiss();
             }
@@ -265,6 +264,7 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
                     sportsBean.setMinute(minute);
                     onSportsCommitListener.commit(sportsBean);
                 }
+                endAnim();
                 break;
             case R.id.health_data_dialog_bg_layout:
                 endAnim();
@@ -272,8 +272,6 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
             default:
                 break;
         }
-
-        endAnim();
     }
 
     @Override
