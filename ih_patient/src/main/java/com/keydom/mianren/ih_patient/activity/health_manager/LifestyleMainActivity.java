@@ -583,11 +583,10 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
      */
     private void initSportsData() {
         viewSportsRecordLayout.removeAllViews();
+        minute = 0;
+        sumHeat = 0;
         if (recordSportsBeans != null && recordSportsBeans.size() > 0) {
             addSportsView();
-        } else {
-            minute = 0;
-            sumHeat = 0;
         }
         viewSportsRecordMinuteTv.setText(String.valueOf(minute));
         viewSportsRecordKcalTv.setText(String.valueOf(sumHeat));

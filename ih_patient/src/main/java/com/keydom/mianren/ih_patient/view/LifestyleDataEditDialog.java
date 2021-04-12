@@ -12,7 +12,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.keydom.ih_common.view.InterceptorEditText;
 import com.keydom.ih_common.view.picker.listener.AbstractAnimationListener;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.bean.EatBean;
@@ -34,7 +33,6 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
     private TextView valueKjTv, valueKcalTv, titleTv;
     private LinearLayout titleLayout, valueLayout, kcalLayout;
     private HorizontalScaleScrollView scaleScrollView;
-    private InterceptorEditText systolicEdit, diastolicEdit, rateValueEdit;
     private LinearLayout bgLayout, contentLayout;
     private Context context;
     private OnEatCommitListener onCommitListener;
@@ -239,6 +237,9 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.health_data_dialog_submit_tv:
+                if (kcal == 0) {
+                    return;
+                }
                 if (onCommitListener != null) {
                     EatBean eatBean = new EatBean();
                     eatBean.setAmount(amount);
