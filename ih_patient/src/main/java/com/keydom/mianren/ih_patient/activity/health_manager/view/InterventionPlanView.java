@@ -16,6 +16,7 @@ public interface InterventionPlanView extends BaseView {
     Map<String, Object> getParams();
 
     void requestInterventionPlanListSuccess(List<InterventionPlanBean> data);
+    void requestInterventionPlanListFailed(String error);
 
     ArrayList<InterventionPlanBean> getInterventionPlanBeans();
 

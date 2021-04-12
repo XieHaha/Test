@@ -676,6 +676,15 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     }
 
     @Override
+    public boolean verifyEatRecordParams() {
+        if (eatRecordBean == null || (eatRecordBean.getBreakfastList() == null && eatRecordBean.getDinnerList() == null && eatRecordBean.getLunchList() == null && eatRecordBean.getSnacksList() == null)) {
+            ToastUtil.showMessage(this, "暂无数据");
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public boolean verifySleepRecordParams() {
         if (TextUtils.isEmpty(mentalState) || TextUtils.isEmpty(sleepQuality) || TextUtils.isEmpty(sleepTime)) {
             ToastUtil.showMessage(this, "暂无数据");
@@ -746,11 +755,6 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     @Override
     public int getLifestyleType() {
         return lifestyleType;
-    }
-
-    @Override
-    public boolean isNotToday() {
-        return lifestyleMainNextDayTv.isSelected();
     }
 
     @Override

@@ -13,7 +13,6 @@ import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
-import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthSummaryDetailActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.HealthSummaryView;
@@ -66,7 +65,7 @@ public class HealthSummaryController extends ControllerImpl<HealthSummaryView> i
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
-                ToastUtil.showMessage(getContext(), msg);
+                getView().requestHealthSummaryListFailed(msg);
                 return super.requestError(exception, code, msg);
             }
         });

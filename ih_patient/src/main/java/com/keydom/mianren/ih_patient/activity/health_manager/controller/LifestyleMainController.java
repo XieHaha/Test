@@ -17,6 +17,7 @@ import com.keydom.mianren.ih_patient.bean.EatRecordBean;
 import com.keydom.mianren.ih_patient.bean.SleepRecordBean;
 import com.keydom.mianren.ih_patient.bean.SportsBean;
 import com.keydom.mianren.ih_patient.net.ChronicDiseaseService;
+import com.keydom.mianren.ih_patient.utils.DateUtils;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -101,10 +102,11 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
             case R.id.lifestyle_main_copy_tv:
                 //复用到今日
                 if (getView().getLifestyleType() == LIFESTYLE_DIET) {
-                    if (getView().isNotToday()) {
+                    if (getView().verifyEatRecordParams()) {
                         insertOrUpdateFoodRecord();
                     }
                 } else if (getView().getLifestyleType() == LIFESTYLE_SLEEP) {
+                    //睡眠
                     if (getView().verifySleepRecordParams()) {
                         insertOrUpdateSleepRecord(true);
                     }
@@ -155,7 +157,8 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
      */
     public void foodRecordList(String patientId, String curSelectDate) {
         Map<String, String> params = new HashMap<>(16);
-        params.put("time", curSelectDate);
+        params.put("time", DateUtils.transDate(curSelectDate, DateUtils.YYYY_MM_DD_CH,
+                DateUtils.YYYY_MM_DD));
         params.put("patientId", patientId);
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).foodRecordList(params), new HttpSubscriber<EatRecordBean>(getContext(), getDisposable(), false) {
             @Override
@@ -282,7 +285,8 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
      */
     public void exerciseRecordList(String patientId, String curSelectDate) {
         Map<String, String> params = new HashMap<>(16);
-        params.put("time", curSelectDate);
+        params.put("time", DateUtils.transDate(curSelectDate, DateUtils.YYYY_MM_DD_CH,
+                DateUtils.YYYY_MM_DD));
         params.put("patientId", patientId);
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).exerciseRecordList(params), new HttpSubscriber<List<SportsBean>>(getContext(), getDisposable(), false) {
             @Override

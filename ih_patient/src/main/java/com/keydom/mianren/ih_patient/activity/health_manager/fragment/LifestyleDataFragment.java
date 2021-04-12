@@ -140,13 +140,12 @@ public class LifestyleDataFragment extends BaseControllerFragment<LifestyleDataF
             fragLifestyleDataRecyclerView.setAdapter(sportsDataAdapter);
             sportsDataAdapter.setOnItemClickListener((adapter, view, position) -> {
                 if (sportsItemBeans.get(position).isSelected()) {
-                    EatBean eatBean = new EatBean();
-                    eatBean.setName(sportsItemBeans.get(position).getName());
-                    updateSelectEatItem(position, eatBean);
+                    SportsBean sportsBean = new SportsBean();
+                    sportsBean.setName(sportsItemBeans.get(position).getName());
+                    updateSelectSportsItem(position, sportsBean);
                 } else {
                     LifestyleDataEditDialog dialog = new LifestyleDataEditDialog(getContext(),
-                            lifestyleType,
-                            patientId, curSelectDate, sportsItemBeans.get(position),
+                            lifestyleType, patientId, curSelectDate, sportsItemBeans.get(position),
                             sportsBean -> updateSelectSportsItem(position, sportsBean));
                     dialog.show();
                 }

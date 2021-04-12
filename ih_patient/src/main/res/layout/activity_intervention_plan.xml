@@ -28,7 +28,32 @@
             android:layout_height="match_parent"
             android:layout_below="@id/image"
             android:layout_marginTop="@dimen/dp_24"
+            android:visibility="visible"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+
+        <RelativeLayout
+            android:id="@+id/empty_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/image"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/empty_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_10"
+                android:drawableTop="@mipmap/no_data"
+                android:drawablePadding="@dimen/dp_10"
+                android:gravity="center_horizontal"
+                android:text=" 暂无数据"
+                android:textSize="@dimen/sp_14" />
+        </RelativeLayout>
 
         <include layout="@layout/child_health_title_bar" />
 

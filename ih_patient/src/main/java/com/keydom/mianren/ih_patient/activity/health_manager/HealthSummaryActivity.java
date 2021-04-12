@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.health_manager.controller.HealthSummaryController;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.HealthSummaryView;
@@ -36,6 +39,8 @@ public class HealthSummaryActivity extends BaseControllerActivity<HealthSummaryC
     TextView healthSummarySelectTimeTv;
     @BindView(R.id.health_summary_recycler_view)
     RecyclerView healthSummaryRecyclerView;
+    @BindView(R.id.empty_layout)
+    RelativeLayout emptyLayout;
     //    @BindView(R.id.health_summary_refresh_layout)
     //    SmartRefreshLayout healthSummaryRefreshLayout;
 
@@ -110,5 +115,19 @@ public class HealthSummaryActivity extends BaseControllerActivity<HealthSummaryC
         healthSummaryBeans.clear();
         healthSummaryBeans.addAll(data);
         healthSummaryAdapter.setNewData(healthSummaryBeans);
+        if (healthSummaryBeans.size() > 0) {
+            healthSummaryRecyclerView.setVisibility(View.VISIBLE);
+            emptyLayout.setVisibility(View.GONE);
+        } else {
+            healthSummaryRecyclerView.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void requestHealthSummaryListFailed(String error) {
+        ToastUtil.showMessage(this, error);
+        healthSummaryRecyclerView.setVisibility(View.GONE);
+        emptyLayout.setVisibility(View.VISIBLE);
     }
 }

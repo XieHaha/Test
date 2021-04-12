@@ -22,5 +22,7 @@ public interface HealthSummaryView extends BaseView {
 
     void requestHealthSummaryListSuccess(List<HealthSummaryBean> data);
 
+    void requestHealthSummaryListFailed(String error);
+
     void onSelectDate(Date date);
 }

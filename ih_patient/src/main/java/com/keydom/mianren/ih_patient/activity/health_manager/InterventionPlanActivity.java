@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.health_manager.controller.InterventionPlanController;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.InterventionPlanView;
@@ -48,6 +49,8 @@ public class InterventionPlanActivity extends BaseControllerActivity<Interventio
     SmartRefreshLayout swipeRefreshLayout;
     @BindView(R.id.intervention_plan_recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.empty_layout)
+    RelativeLayout emptyLayout;
 
     private String patientId;
 
@@ -87,6 +90,7 @@ public class InterventionPlanActivity extends BaseControllerActivity<Interventio
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(interventionPlanAdapter);
         swipeRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            getController().interventionPlanList();
         });
 
         getController().interventionPlanList();
@@ -105,9 +109,25 @@ public class InterventionPlanActivity extends BaseControllerActivity<Interventio
 
     @Override
     public void requestInterventionPlanListSuccess(List<InterventionPlanBean> data) {
+        swipeRefreshLayout.finishRefresh();
         interventionPlanBeans.clear();
         interventionPlanBeans.addAll(data);
         interventionPlanAdapter.setNewData(interventionPlanBeans);
+
+        if (interventionPlanBeans.size() > 0) {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyLayout.setVisibility(View.GONE);
+        } else {
+            recyclerView.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void requestInterventionPlanListFailed(String error) {
+        ToastUtil.showMessage(this, error);
+        recyclerView.setVisibility(View.GONE);
+        emptyLayout.setVisibility(View.VISIBLE);
     }
 
     @Override

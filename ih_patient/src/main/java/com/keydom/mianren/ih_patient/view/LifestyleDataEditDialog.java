@@ -19,6 +19,7 @@ import com.keydom.mianren.ih_patient.bean.EatBean;
 import com.keydom.mianren.ih_patient.bean.EatItemBean;
 import com.keydom.mianren.ih_patient.bean.SportsBean;
 import com.keydom.mianren.ih_patient.bean.SportsItemBean;
+import com.keydom.mianren.ih_patient.utils.DateUtils;
 
 import static com.keydom.mianren.ih_patient.activity.health_manager.LifestyleMainActivity.LIFESTYLE_DIET;
 
@@ -246,7 +247,8 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
                     eatBean.setFoodId(eatItemBean.getId());
                     eatBean.setName(eatItemBean.getName());
                     eatBean.setPatientId(patientId);
-                    eatBean.setRecordTime(curSelectDate);
+                    eatBean.setRecordTime(DateUtils.transDate(curSelectDate,
+                            DateUtils.YYYY_MM_DD_CH, DateUtils.YYYY_MM_DD));
                     eatBean.setSumHeat(kcal);
                     eatBean.setType(mealType);
                     onCommitListener.commit(eatBean);
@@ -256,7 +258,8 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
                     sportsBean.setExerciseId(String.valueOf(sportsItemBean.getId()));
                     sportsBean.setName(sportsItemBean.getName());
                     sportsBean.setPatientId(patientId);
-                    sportsBean.setRecordTime(curSelectDate);
+                    sportsBean.setRecordTime(DateUtils.transDate(curSelectDate,
+                            DateUtils.YYYY_MM_DD_CH, DateUtils.YYYY_MM_DD));
                     sportsBean.setSumHeat(kcal);
                     sportsBean.setMinute(minute);
                     onSportsCommitListener.commit(sportsBean);

@@ -38,6 +38,8 @@ public interface LifestyleMainView extends BaseView {
 
     List<EatBean> getEatRecordParams();
 
+    boolean verifyEatRecordParams();
+
     boolean verifySleepRecordParams();
 
     boolean verifySportsRecordParams();
@@ -52,8 +54,6 @@ public interface LifestyleMainView extends BaseView {
     List<SportsBean> getSportRecordParams();
 
     int getLifestyleType();
-
-    boolean isNotToday();
 
     String getCurSelectDate();
 
