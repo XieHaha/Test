@@ -11,5 +11,7 @@ import java.util.List;
  * @des 健康管理咨询师
  */
 public interface HealthConsultantView extends BaseView {
+    String getPatientId();
+
     void requestHealthDoctorListSuccess(List<HealthConsultantBean> data);
 }

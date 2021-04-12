@@ -9,5 +9,7 @@ import com.keydom.mianren.ih_patient.bean.InterventionPlanBean;
  * @des 干预方案
  */
 public interface InterventionPlanDetailView extends BaseView {
+    String getPatientId();
+
     void requestInterventionPlanDetailSuccess(InterventionPlanBean planBean);
 }

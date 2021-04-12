@@ -97,6 +97,11 @@ public class InterventionPlanActivity extends BaseControllerActivity<Interventio
     }
 
     @Override
+    public String getPatientId() {
+        return patientId;
+    }
+
+    @Override
     public Map<String, Object> getParams() {
         Map<String, Object> params = new HashMap<>();
         //0 不分页，1 分页

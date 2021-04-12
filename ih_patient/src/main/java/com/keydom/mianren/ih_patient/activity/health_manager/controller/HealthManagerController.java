@@ -40,7 +40,8 @@ public class HealthManagerController extends ControllerImpl<HealthManagerView> i
             case R.id.health_manager_report_layout:
                 break;
             case R.id.health_manager_online_layout:
-                HealthConsultantActivity.start(getContext());
+                HealthConsultantActivity.start(getContext(),
+                        getView().getMainBean().getPatientId());
                 break;
             case R.id.health_manager_cardiovascular_layout:
                 if (getView().getMainBean().getIsOpenHeartHeadBloodVessel() == 0) {

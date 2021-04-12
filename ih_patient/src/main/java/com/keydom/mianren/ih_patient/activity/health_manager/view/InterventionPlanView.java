@@ -13,6 +13,8 @@ import java.util.Map;
  * @des 干预方案
  */
 public interface InterventionPlanView extends BaseView {
+    String getPatientId();
+
     Map<String, Object> getParams();
 
     void requestInterventionPlanListSuccess(List<InterventionPlanBean> data);

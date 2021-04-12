@@ -26,19 +26,15 @@ import org.jetbrains.annotations.Nullable;
 public class InterventionPlanController extends ControllerImpl<InterventionPlanView> implements View.OnClickListener, BaseQuickAdapter.OnItemChildClickListener {
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_back:
-                getView().finishPage();
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.iv_back) {
+            getView().finishPage();
         }
     }
 
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-        InterventionPlanDetailActivity.start(getContext(),
-                getView().getInterventionPlanBeans().get(position).getId());
+        InterventionPlanBean planBean = (InterventionPlanBean) adapter.getItem(position);
+        InterventionPlanDetailActivity.start(getContext(),getView().getPatientId(), planBean.getId());
     }
 
 

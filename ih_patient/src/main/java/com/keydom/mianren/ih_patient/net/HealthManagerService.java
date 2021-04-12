@@ -84,4 +84,11 @@ public interface HealthManagerService {
     @GET("medicine/patientHealthManage/healthDoctorList")
     Observable<HttpResult<List<HealthConsultantBean>>> healthDoctorList();
 
+    /**
+     * 修改咨询记录
+     */
+    @GET("medicine/patientHealthManage/updateConsultTimeAndRecord")
+    Observable<HttpResult<String>> updateConsultTimeAndRecord(@Query("doctorId") long doctorId,
+                                                              @Query("patientId") String patientId, @Query("type") int type);
+
 }

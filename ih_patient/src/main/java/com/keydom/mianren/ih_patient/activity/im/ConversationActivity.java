@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableStringBuilder;
@@ -310,10 +311,16 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private RadioButton mRadioSelf;
     private RadioButton mRadioHome;
 
+    private ConstraintLayout topStatusLayout;
+
     private VideoPlugin videoPlugin;
 
     private boolean team;
     private long orderId;
+    /**
+     * 为true代表是健康咨询
+     */
+    private boolean consultType;
 
     /**
      * 预付费用户扣费
@@ -395,6 +402,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mCancel = findViewById(R.id.cancel);
         mDisagree = findViewById(R.id.disagree);
         mConfirm = findViewById(R.id.confirm);
+
+        topStatusLayout = findViewById(R.id.inquiry_header);
 
         getLifecycle().addObserver(mMessageView);
 
@@ -604,6 +613,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         Uri data = getIntent().getData();
         bundle = getIntent().getExtras();
         if (bundle != null) {
+            consultType = bundle.getBoolean(Const.TYPE);
             team = bundle.getBoolean(ImConstants.TEAM);
             orderId = bundle.getLong("orderId");
         }
@@ -639,7 +649,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             mMessageView.showExtension();
             mEndTips.setVisibility(View.GONE);
             mEndLl.setVisibility(View.GONE);
-            findViewById(R.id.inquiry_header).setVisibility(View.GONE);
+            topStatusLayout.setVisibility(View.GONE);
             mRightText.setVisibility(View.VISIBLE);
             if (bundle != null) {
                 doctorType = bundle.getInt("jobType");
@@ -673,7 +683,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         //待接诊
         if (InquiryStatus.INQUIRY_WAIT == inquiryStatus) {
             mRightText.setVisibility(View.GONE);
-            findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
+            topStatusLayout.setVisibility(View.VISIBLE);
             mEndTips.setVisibility(View.GONE);
             mEndLl.setVisibility(View.VISIBLE);
             mConfirm.setVisibility(View.GONE);
@@ -717,7 +727,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         }
         //换诊
         else if (InquiryStatus.INQUIRY_REFERRAL_DOCTOR == inquiryStatus) {
-            findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
+            topStatusLayout.setVisibility(View.VISIBLE);
             mInquiryTypeTv.setText("待接诊");
             mInquiryTypeTv.setVisibility(View.VISIBLE);
             mQuestionRemainingTimeTv.setVisibility(View.GONE);
@@ -740,7 +750,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     private void inquiryUnpaid() {
         mRightText.setVisibility(View.GONE);
-        findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
+        topStatusLayout.setVisibility(View.VISIBLE);
         mInquiryTypeImage.setImageResource(R.drawable.inquiry_type_image_completed);
         mInquiryTypeTv.setText("已完成");
         mInquiryTypeTv.setTextColor(ContextCompat.getColor(this, R.color.im_status_completed));
@@ -762,7 +772,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     private void inquiryWaitPrescribe() {
         mRightText.setVisibility(View.GONE);
-        findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
+        topStatusLayout.setVisibility(View.VISIBLE);
         mInquiryTypeImage.setImageResource(R.drawable.inquiry_type_image_completed);
         mInquiryTypeTv.setText("已完成");
         mInquiryTypeTv.setTextColor(ContextCompat.getColor(this, R.color.im_status_completed));
@@ -786,7 +796,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      */
     private void inquiryEnd() {
         mRightText.setVisibility(View.GONE);
-        findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
+        topStatusLayout.setVisibility(View.VISIBLE);
         mInquiryTypeImage.setImageResource(R.drawable.inquiry_type_image_completed);
         mInquiryTypeTv.setText("已完成");
         mInquiryTypeTv.setTextColor(ContextCompat.getColor(this, R.color.im_status_completed));
@@ -801,7 +811,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      * 问诊中布局设置
      */
     private void inquiryIng() {
-        findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
+        topStatusLayout.setVisibility(View.VISIBLE);
         mEndTips.setVisibility(View.GONE);
         mEndLl.setVisibility(View.GONE);
         mRightText.setVisibility(View.VISIBLE);
@@ -816,7 +826,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
      * 医生申请结束问诊布局
      */
     private void inquiryApply() {
-        findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
+        topStatusLayout.setVisibility(View.VISIBLE);
         mRightText.setVisibility(View.GONE);
         mEndTips.setVisibility(View.VISIBLE);
         mEndLl.setVisibility(View.VISIBLE);
@@ -937,7 +947,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
 
     private void startTeamAVChat(ArrayList<String> accounts) {
-        ImClient.createRoom(this, sessionId, accounts,String.valueOf(orderId));
+        ImClient.createRoom(this, sessionId, accounts, String.valueOf(orderId));
     }
 
     /**
@@ -1010,7 +1020,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mEndLl.setVisibility(View.VISIBLE);
         mEndTips.setVisibility(View.GONE);
         mRightText.setVisibility(View.GONE);
-        findViewById(R.id.inquiry_header).setVisibility(View.VISIBLE);
+        topStatusLayout.setVisibility(View.VISIBLE);
         mQuestionRemainingTimeTv.setVisibility(View.VISIBLE);
         mQuestionRemainingTimeTv.setText("医生已填写转诊单，请及时确认");
         mCancel.setText("不同意");
@@ -1288,7 +1298,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P,
                     "您已退诊"));
         }
-        findViewById(R.id.inquiry_header).setVisibility(View.GONE);
+        topStatusLayout.setVisibility(View.GONE);
         mEndTips.setVisibility(View.GONE);
         mEndLl.setVisibility(View.GONE);
         mRightText.setVisibility(View.GONE);
@@ -1317,7 +1327,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             //            mQuestionRemainingTimeTv.setVisibility(View.GONE);
             //            mInquiryTypeTv.setText("待接诊");
             mEndLl.setVisibility(View.GONE);
-            findViewById(R.id.inquiry_header).setVisibility(View.GONE);
+            topStatusLayout.setVisibility(View.GONE);
             if (team) {
                 mMessageView.addData(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.Team,
                         "您已同意换诊，请等待换诊医生接诊"));

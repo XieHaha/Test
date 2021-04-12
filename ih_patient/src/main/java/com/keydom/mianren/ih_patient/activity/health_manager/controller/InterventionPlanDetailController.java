@@ -27,7 +27,7 @@ public class InterventionPlanDetailController extends ControllerImpl<Interventio
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.intervention_plan_detail_contact_tv) {
-            HealthConsultantActivity.start(getContext());
+            HealthConsultantActivity.start(getContext(), getView().getPatientId());
         }
     }
 

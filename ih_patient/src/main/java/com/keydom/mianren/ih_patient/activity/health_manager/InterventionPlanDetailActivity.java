@@ -38,13 +38,14 @@ public class InterventionPlanDetailActivity extends BaseControllerActivity<Inter
     @BindView(R.id.intervention_plan_detail_sleep_tv)
     JustifiedTextView interventionPlanDetailSleepTv;
     private InterventionPlanBean planBean;
-    private String planId;
+    private String planId, patientId;
 
     /**
      * 启动
      */
-    public static void start(Context context, String planId) {
+    public static void start(Context context, String patientId, String planId) {
         Intent intent = new Intent(context, InterventionPlanDetailActivity.class);
+        intent.putExtra(Const.PATIENT_ID, patientId);
         intent.putExtra(Const.RECORD_ID, planId);
         context.startActivity(intent);
     }
@@ -56,8 +57,9 @@ public class InterventionPlanDetailActivity extends BaseControllerActivity<Inter
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        patientId = getIntent().getStringExtra(Const.PATIENT_ID);
         planId = getIntent().getStringExtra(Const.RECORD_ID);
+
         interventionPlanDetailContactTv.setOnClickListener(getController());
         getController().interventionPlanDetail(planId);
     }
@@ -72,6 +74,11 @@ public class InterventionPlanDetailActivity extends BaseControllerActivity<Inter
             interventionPlanDetailDrugTv.setText(planBean.getDrugsPlan());
             interventionPlanDetailSleepTv.setText(planBean.getSleepPlan());
         }
+    }
+
+    @Override
+    public String getPatientId() {
+        return patientId;
     }
 
     @Override
