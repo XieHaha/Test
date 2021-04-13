@@ -81,6 +81,15 @@ public class HealthManagerActivity extends BaseControllerActivity<HealthManagerC
     RelativeLayout healthManagerDiabetesLayout;
 
     /**
+     * 健康报告通知
+     */
+    public static final int NOTIFY_HEALTH_CONCLUSION = 1;
+    /**
+     * 干预计划
+     */
+    public static final int NOTIFY_INTERVENTION_PLAN = 2;
+
+    /**
      * 健康首页状态值
      */
     private HealthManagerMainBean mainBean;
@@ -103,7 +112,6 @@ public class HealthManagerActivity extends BaseControllerActivity<HealthManagerC
         setTitle(R.string.txt_health_manager_service);
 
         getController().patientHealthManageIndex();
-        setNoticeData(null);
 
         healthManagerArchivesLayout.setOnClickListener(getController());
         healthManagerReportLayout.setOnClickListener(getController());
@@ -128,6 +136,27 @@ public class HealthManagerActivity extends BaseControllerActivity<HealthManagerC
         }
         //体检报告 默认不显示
         healthManagerReportStatusTv.setVisibility(View.INVISIBLE);
+
+        List<IndexData.NotificationsBean> list = new ArrayList<>();
+        if (mainBean.getHealthConclusionIsRead() == 1) {
+            IndexData.NotificationsBean bean = new IndexData.NotificationsBean();
+            bean.setId(mainBean.getHealthConclusionId());
+            list.add(bean);
+        }
+        if (mainBean.getHealthConclusionIsRead() == 1) {
+            IndexData.NotificationsBean bean = new IndexData.NotificationsBean();
+            bean.setId(mainBean.getHealthConclusionId());
+            bean.setNoticeType(NOTIFY_HEALTH_CONCLUSION);
+            list.add(bean);
+        }
+        if (mainBean.getInterventionPlanIsRead() == 1) {
+            IndexData.NotificationsBean bean = new IndexData.NotificationsBean();
+            bean.setId(mainBean.getInterventionPlanId());
+            bean.setNoticeType(NOTIFY_INTERVENTION_PLAN);
+            list.add(bean);
+        }
+
+        setNoticeData(list);
 
         cardiovascularData();
         hypertensionData();
@@ -213,20 +242,46 @@ public class HealthManagerActivity extends BaseControllerActivity<HealthManagerC
      * 广告banner
      */
     public void setNoticeData(final List<IndexData.NotificationsBean> list) {
-        List<String> data = new ArrayList<>();
-        data.add("暂无通知");
-        healthManagerNoticeBanner.setData(R.layout.notice_xbanner_item, data, null);
+        if (list.size() == 0) {
+            list.add(new IndexData.NotificationsBean());
+        }
+        healthManagerNoticeBanner.setData(R.layout.notice_xbanner_item, list, null);
         healthManagerNoticeBanner.loadImage(new XBanner.XBannerAdapter() {
             @Override
             public void loadBanner(XBanner banner, Object model, View view, int position) {
+                IndexData.NotificationsBean bean = (IndexData.NotificationsBean) model;
                 TextView indexNewsTv = view.findViewById(R.id.index_news_tv);
-                indexNewsTv.setText(data.get(position));
+                switch (bean.getNoticeType()) {
+                    case NOTIFY_HEALTH_CONCLUSION:
+                        indexNewsTv.setText("您有新的健康报告未查看");
+                        break;
+                    case NOTIFY_INTERVENTION_PLAN:
+                        indexNewsTv.setText("您有新的干预方案未查看");
+                        break;
+                    default:
+                        indexNewsTv.setText("暂无通知");
+                        break;
+                }
             }
         });
         healthManagerNoticeBanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
             @Override
             public void onItemClick(XBanner banner, Object model, View view, int position) {
-                ToastUtil.showMessage(getContext(), "暂无通知");
+                IndexData.NotificationsBean bean = (IndexData.NotificationsBean) model;
+                switch (bean.getNoticeType()) {
+                    case NOTIFY_HEALTH_CONCLUSION:
+                        HealthSummaryDetailActivity.start(getContext(),
+                                String.valueOf(bean.getId()),
+                                mainBean.getPatientId());
+                        break;
+                    case NOTIFY_INTERVENTION_PLAN:
+                        InterventionPlanDetailActivity.start(getContext(),
+                                mainBean.getPatientId(), String.valueOf(bean.getId()));
+                        break;
+                    default:
+                        ToastUtil.showMessage(getContext(), "暂无通知");
+                        break;
+                }
             }
         });
     }

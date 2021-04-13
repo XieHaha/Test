@@ -18,6 +18,11 @@ public class HealthManagerMainBean implements Serializable {
     private int isWriteHighBloodPressure;
     private int isOpenDiabetes;
     private int isWriteDiabetes;
+    private int interventionPlanIsRead;
+    private int healthConclusionIsRead;
+    private int healthConclusionId;
+    private int interventionPlanId;
+    private String healthManagementFee;
 
     public String getPatientId() {
         return patientId;
@@ -89,5 +94,45 @@ public class HealthManagerMainBean implements Serializable {
 
     public void setIsWriteDiabetes(int isWriteDiabetes) {
         this.isWriteDiabetes = isWriteDiabetes;
+    }
+
+    public int getInterventionPlanIsRead() {
+        return interventionPlanIsRead;
+    }
+
+    public void setInterventionPlanIsRead(int interventionPlanIsRead) {
+        this.interventionPlanIsRead = interventionPlanIsRead;
+    }
+
+    public int getHealthConclusionIsRead() {
+        return healthConclusionIsRead;
+    }
+
+    public void setHealthConclusionIsRead(int healthConclusionIsRead) {
+        this.healthConclusionIsRead = healthConclusionIsRead;
+    }
+
+    public int getHealthConclusionId() {
+        return healthConclusionId;
+    }
+
+    public void setHealthConclusionId(int healthConclusionId) {
+        this.healthConclusionId = healthConclusionId;
+    }
+
+    public int getInterventionPlanId() {
+        return interventionPlanId;
+    }
+
+    public void setInterventionPlanId(int interventionPlanId) {
+        this.interventionPlanId = interventionPlanId;
+    }
+
+    public String getHealthManagementFee() {
+        return healthManagementFee;
+    }
+
+    public void setHealthManagementFee(String healthManagementFee) {
+        this.healthManagementFee = healthManagementFee;
     }
 }
