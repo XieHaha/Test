@@ -17,6 +17,7 @@ import com.keydom.mianren.ih_patient.bean.Event;
 import com.keydom.mianren.ih_patient.bean.HealthDataBean;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.net.ChronicDiseaseService;
+import com.keydom.mianren.ih_patient.utils.DateUtils;
 import com.keydom.mianren.ih_patient.view.HealthDataEditDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -82,7 +83,8 @@ public class ChronicDiseaseMainController extends ControllerImpl<ChronicDiseaseM
      */
     public void getHeathValue(String patientId, String curSelectDate) {
         Map<String, String> params = new HashMap<>(16);
-        params.put("writeDate", curSelectDate);
+        params.put("writeDate", DateUtils.transDate(curSelectDate, DateUtils.YYYY_MM_DD_CH,
+                DateUtils.YYYY_MM_DD));
         params.put("patientId", patientId);
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).getHeathValue(params), new HttpSubscriber<HealthDataBean>(getContext(), getDisposable(), false) {
             @Override

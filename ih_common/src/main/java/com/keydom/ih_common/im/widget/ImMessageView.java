@@ -185,18 +185,12 @@ public class ImMessageView extends LinearLayout implements IExtensionClickListen
         ImUIMessage imUIMessage = ImUIMessage.obtain(message, MsgDirectionEnum.Out);
         if (chatting) {
             if (isNewChatting) {
-//                messageList.addData(ImUIMessage.obtain(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "您未购买在线问诊服务，聊天只能医生发起")));
                 ToastUtils.showShort("您未购买在线问诊服务，聊天只能医生发起");
             } else if (lastOneMessage == null || (lastOneMessage != null && lastOneMessage.getMessage().getDirect() == MsgDirectionEnum.Out)
                     && (secondLastMessage == null || (secondLastMessage != null && secondLastMessage.getMessage().getDirect() == MsgDirectionEnum.Out))
                     && (thirdLastMessage == null || (thirdLastMessage != null && thirdLastMessage.getMessage().getDirect() == MsgDirectionEnum.Out))) {
-//                messageList.addData(ImUIMessage.obtain(ImClient.createLocalTipMessage(sessionId, SessionTypeEnum.P2P, "您输入过于频繁，等对方回复后您才有输入权限")));
                 ToastUtils.showShort("您输入过于频繁，等对方回复后您才有输入权限");
             } else {
-
-
-
-
                 messageList.addData(imUIMessage);
             }
         } else {

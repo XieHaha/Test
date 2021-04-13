@@ -218,7 +218,8 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
      */
     public void sleepRecordList(String patientId, String curSelectDate) {
         Map<String, String> params = new HashMap<>(16);
-        params.put("time", curSelectDate);
+        params.put("time", DateUtils.transDate(curSelectDate, DateUtils.YYYY_MM_DD_CH,
+                DateUtils.YYYY_MM_DD));
         params.put("patientId", patientId);
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).sleepRecordList(params), new HttpSubscriber<List<SleepRecordBean>>(getContext(), getDisposable(), false) {
             @Override

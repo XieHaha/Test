@@ -3,6 +3,7 @@ package com.keydom.mianren.ih_patient.activity.health_manager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -78,7 +79,7 @@ public class HealthConsultantDetailActivity extends BaseControllerActivity<Healt
         statusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 StatusBarUtils.getStateBarHeight(this)));
         StatusBarUtils.setStatusBarTranslucent(this);
-        tvTitle.setText(R.string.txt_child_maintain);
+        tvTitle.setText("咨询申请单");
         layoutBg.setAlpha(0);
         statusBar.setAlpha(0);
         StatusBarUtils.setStatusBarColor(this, true);
@@ -96,8 +97,10 @@ public class HealthConsultantDetailActivity extends BaseControllerActivity<Healt
             consultantDetailTitleTv.setText(consultantBean.getJobTitleName());
             consultantDetailHospitalTv.setText(consultantBean.getHospitalName());
             consultantDetailGradeTv.setText(consultantBean.getName());
-            consultantDetailGoodTv.setText(consultantBean.getAdept());
-            consultantDetailInfoTv.setText(consultantBean.getIntro());
+            consultantDetailGoodTv.setText(TextUtils.isEmpty(consultantBean.getAdept()) ? "暂无信息"
+                    : consultantBean.getAdept());
+            consultantDetailInfoTv.setText(TextUtils.isEmpty(consultantBean.getIntro()) ? "暂无信息"
+                    : consultantBean.getIntro());
             GlideUtils.load(consultantDetailHeaderTv,
                     BaseFileUtils.getHeaderUrl(consultantBean.getImage()), -1,
                     R.mipmap.user_icon, true, null);

@@ -118,67 +118,74 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <TextView
-        android:id="@+id/end_tips"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        android:background="#fffffae2"
-        android:gravity="center"
-        android:text="医生发起结束诊疗，您可以继续追问或确认结束。"
-        android:textColor="#FFEDA823"
-        android:textSize="@dimen/sp_14"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/conversation_pay_hint_tv"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        android:background="@color/color_0084f6"
-        android:gravity="center"
-        android:text="@string/txt_pay_consultation_fee_hint"
-        android:textColor="@color/primary_color"
-        android:textSize="@dimen/sp_14"
-        android:visibility="gone" />
-
     <LinearLayout
-        android:id="@+id/end_ll"
+        android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/cancel"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/white"
+            android:id="@+id/end_tips"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:background="#fffffae2"
             android:gravity="center"
-            android:text="退诊"
-            android:textColor="#FFBBBBBB"
-            android:textSize="@dimen/sp_16" />
-
-        <TextView
-            android:id="@+id/disagree"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#FF22E17E"
-            android:gravity="center"
-            android:text="不同意"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_16"
+            android:text="医生发起结束诊疗，您可以继续追问或确认结束。"
+            android:textColor="#FFEDA823"
+            android:textSize="@dimen/sp_14"
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/confirm"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#FF3F98F7"
+            android:id="@+id/conversation_pay_hint_tv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:background="@color/color_0084f6"
             android:gravity="center"
-            android:text="确定"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_16" />
+            android:text="@string/txt_pay_consultation_fee_hint"
+            android:textColor="@color/primary_color"
+            android:textSize="@dimen/sp_14"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/end_ll"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text="退诊"
+                android:textColor="#FFBBBBBB"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView
+                android:id="@+id/disagree"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#FF22E17E"
+                android:gravity="center"
+                android:text="不同意"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/confirm"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#FF3F98F7"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

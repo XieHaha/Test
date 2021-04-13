@@ -14,7 +14,6 @@ import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthConsultantDetailActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.HealthConsultantView;
 import com.keydom.mianren.ih_patient.bean.HealthConsultantBean;
-import com.keydom.mianren.ih_patient.constant.Const;
 import com.keydom.mianren.ih_patient.net.HealthManagerService;
 
 import org.jetbrains.annotations.NotNull;
@@ -38,7 +37,8 @@ public class HealthConsultantController extends ControllerImpl<HealthConsultantV
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
         HealthConsultantBean bean = (HealthConsultantBean) adapter.getItem(position);
         Bundle bundle = new Bundle();
-        bundle.putBoolean(Const.TYPE, true);
+        bundle.putBoolean("consultType", true);
+        bundle.putString("title", bean.getName());
         ImClient.startConversation(mContext, bean.getUserCode(), bundle);
 
         //更新会话记录

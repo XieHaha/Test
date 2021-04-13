@@ -1,5 +1,6 @@
 package com.keydom.mianren.ih_patient.activity.health_manager.controller;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
@@ -16,7 +17,11 @@ public class HealthConsultantDetailController extends ControllerImpl<HealthConsu
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.consultant_detail_next_tv) {
-            ImClient.startConversation(mContext, getView().getConsultantBean().getUserCode(), null);
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("consultType", true);
+            bundle.putString("title", getView().getConsultantBean().getName());
+            ImClient.startConversation(mContext, getView().getConsultantBean().getUserCode(),
+                    bundle);
         }
     }
 }

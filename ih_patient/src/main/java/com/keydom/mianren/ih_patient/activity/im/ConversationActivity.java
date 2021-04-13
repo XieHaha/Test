@@ -312,6 +312,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private RadioButton mRadioHome;
 
     private ConstraintLayout topStatusLayout;
+    private LinearLayout bottomLayout;
 
     private VideoPlugin videoPlugin;
 
@@ -350,8 +351,10 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     @Override
     protected void onResume() {
         super.onResume();
-        getController().getLocationList();
-        getWaiYanLocationList();
+        if (!consultType) {
+            getController().getLocationList();
+            getWaiYanLocationList();
+        }
         if (team) {
             NIMClient.getService(MsgService.class).setChattingAccount(sessionId,
                     SessionTypeEnum.Team);
@@ -404,6 +407,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mConfirm = findViewById(R.id.confirm);
 
         topStatusLayout = findViewById(R.id.inquiry_header);
+        bottomLayout = findViewById(R.id.bottom_layout);
 
         getLifecycle().addObserver(mMessageView);
 
@@ -414,7 +418,9 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         initIM();
         initView();
         initListener();
-        getController().getInquiryStatus();
+        if (!consultType) {
+            getController().getInquiryStatus();
+        }
     }
 
     /**
@@ -612,10 +618,12 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     private void initView() {
         Uri data = getIntent().getData();
         bundle = getIntent().getExtras();
+        String doctorName = "";
         if (bundle != null) {
-            consultType = bundle.getBoolean(Const.TYPE);
+            consultType = bundle.getBoolean("consultType");
             team = bundle.getBoolean(ImConstants.TEAM);
             orderId = bundle.getLong("orderId");
+            doctorName = bundle.getString("title");
         }
         if (data != null) {
             String title;
@@ -632,6 +640,13 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 title = "问诊详情";
             }
             mTitle.setText(title);
+        }
+
+        if (consultType) {
+            topStatusLayout.setVisibility(View.GONE);
+            bottomLayout.setVisibility(View.GONE);
+            mMessageView.setChatting(false);
+            mTitle.setText("健康医师_" + doctorName);
         }
 
         mBackImage.setOnClickListener(this);
@@ -742,6 +757,11 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         if (myDoctor == ImClient.MY_DOCTOR_CONVERSATION) {//显示已经完成服务
             mInquiryTypeTv.setText("已完成问诊");
             mInquiryTypeTv.setVisibility(View.VISIBLE);
+        }
+        //健康咨询
+        if (consultType) {
+            topStatusLayout.setVisibility(View.GONE);
+            bottomLayout.setVisibility(View.GONE);
         }
     }
 

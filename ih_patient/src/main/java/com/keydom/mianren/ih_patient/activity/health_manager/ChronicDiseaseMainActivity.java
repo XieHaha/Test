@@ -239,7 +239,8 @@ public class ChronicDiseaseMainActivity extends BaseControllerActivity<ChronicDi
         params.put("patientId", patientId);
         params.put("systolicPressure", healthDataBean.getSystolicPressure());
         params.put("triglycerides", healthDataBean.getTriglycerides());
-        params.put("writeDate", curSelectDate);
+        params.put("writeDate", DateUtils.transDate(curSelectDate, DateUtils.YYYY_MM_DD_CH,
+                DateUtils.YYYY_MM_DD));
         return params;
     }
 
