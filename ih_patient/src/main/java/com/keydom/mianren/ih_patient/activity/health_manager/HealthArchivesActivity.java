@@ -3,6 +3,7 @@ package com.keydom.mianren.ih_patient.activity.health_manager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -226,10 +227,14 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
     private void bindData() {
         //既往病史
         selectMedical = archivesBean.getMedicalHistory();
-        setMedicalFlows();
+        if (!TextUtils.isEmpty(selectMedical)) {
+            setMedicalFlows();
+        }
         //遗传病史
         selectGenetic = archivesBean.getGeneticHistory();
-        setGeneticFlows();
+        if (!TextUtils.isEmpty(selectGenetic)) {
+            setGeneticFlows();
+        }
         //紧急联系人
         relativesBeans = archivesBean.getPatientRelatives();
         addRelationshipView();
@@ -315,6 +320,9 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
      * 添加紧急联系人布局
      */
     private void addRelationshipView() {
+        if (relativesBeans == null) {
+            return;
+        }
         healthContactPeopleLayout.removeAllViews();
         int showNum = relativesBeans.size();
         if (relativesBeans.size() > 3) {
@@ -353,6 +361,9 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
      * 手术史
      */
     private void addSurgeryHistoryView() {
+        if (surgeryHistoryBeans == null) {
+            return;
+        }
         healthSurgeryHistoryLayout.removeAllViews();
         for (int i = 0; i < surgeryHistoryBeans.size(); i++) {
             PatientSurgeryHistoryBean bean = surgeryHistoryBeans.get(i);

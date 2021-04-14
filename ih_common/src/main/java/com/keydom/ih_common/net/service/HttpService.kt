@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
  */
 object HttpService {
 
-    private const val DEFAULT_TIMEOUT: Long = 30
+    private const val DEFAULT_TIMEOUT: Long = 50
 
     //定制OkHttp
     //设置超时时间

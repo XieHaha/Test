@@ -190,50 +190,49 @@
                 android:background="@color/color_f9f9f9" />
 
             <RelativeLayout
-                android:id="@+id/health_manager_cardiovascular_layout"
+                android:id="@+id/health_manager_diabetes_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_93"
                 android:paddingStart="@dimen/dp_34"
                 android:paddingEnd="@dimen/dp_34">
 
                 <ImageView
-                    android:id="@+id/image"
+                    android:id="@+id/image2"
                     android:layout_width="@dimen/dp_50"
                     android:layout_height="@dimen/dp_50"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_health_archives_green" />
+                    android:src="@mipmap/icon_health_main_diabetes" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/dp_20"
-                    android:layout_toEndOf="@id/image"
+                    android:layout_toEndOf="@id/image2"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/health_manager_cardiovascular_tv"
+                        android:id="@+id/health_manager_diabetes_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/txt_cardiovascular"
+                        android:text="@string/txt_diabetes"
                         android:textColor="@color/select_ff5000_bbbbbb_color"
                         android:textSize="@dimen/sp_18"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/health_manager_cardiovascular_hint_tv"
+                        android:id="@+id/health_manager_diabetes_hint_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_13"
-                        android:text="@string/txt_non_data"
+                        android:text="@string/txt_non_enable_module"
                         android:textColor="@color/select_999999_bbbbbb_color"
                         android:textSize="@dimen/sp_12"
                         android:textStyle="bold" />
-
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/health_manager_cardiovascular_hint_iv"
+                    android:id="@+id/health_manager_diabetes_hint_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -242,7 +241,7 @@
                     android:visibility="visible" />
 
                 <ImageView
-                    android:id="@+id/health_manager_cardiovascular_hint1_iv"
+                    android:id="@+id/health_manager_diabetes_hint1_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -326,49 +325,50 @@
                 android:background="@color/color_f9f9f9" />
 
             <RelativeLayout
-                android:id="@+id/health_manager_diabetes_layout"
+                android:id="@+id/health_manager_cardiovascular_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_93"
                 android:paddingStart="@dimen/dp_34"
                 android:paddingEnd="@dimen/dp_34">
 
                 <ImageView
-                    android:id="@+id/image2"
+                    android:id="@+id/image"
                     android:layout_width="@dimen/dp_50"
                     android:layout_height="@dimen/dp_50"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_health_main_diabetes" />
+                    android:src="@mipmap/icon_health_archives_green" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/dp_20"
-                    android:layout_toEndOf="@id/image2"
+                    android:layout_toEndOf="@id/image"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/health_manager_diabetes_tv"
+                        android:id="@+id/health_manager_cardiovascular_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/txt_diabetes"
+                        android:text="@string/txt_cardiovascular"
                         android:textColor="@color/select_ff5000_bbbbbb_color"
                         android:textSize="@dimen/sp_18"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/health_manager_diabetes_hint_tv"
+                        android:id="@+id/health_manager_cardiovascular_hint_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_13"
-                        android:text="@string/txt_non_enable_module"
+                        android:text="@string/txt_non_data"
                         android:textColor="@color/select_999999_bbbbbb_color"
                         android:textSize="@dimen/sp_12"
                         android:textStyle="bold" />
+
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/health_manager_diabetes_hint_iv"
+                    android:id="@+id/health_manager_cardiovascular_hint_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -377,7 +377,7 @@
                     android:visibility="visible" />
 
                 <ImageView
-                    android:id="@+id/health_manager_diabetes_hint1_iv"
+                    android:id="@+id/health_manager_cardiovascular_hint1_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -386,6 +386,7 @@
                     android:visibility="gone" />
 
             </RelativeLayout>
+
         </LinearLayout>
 
     </ScrollView>
