@@ -141,11 +141,6 @@ public class HealthManagerActivity extends BaseControllerActivity<HealthManagerC
         if (mainBean.getHealthConclusionIsRead() == 1) {
             IndexData.NotificationsBean bean = new IndexData.NotificationsBean();
             bean.setId(mainBean.getHealthConclusionId());
-            list.add(bean);
-        }
-        if (mainBean.getHealthConclusionIsRead() == 1) {
-            IndexData.NotificationsBean bean = new IndexData.NotificationsBean();
-            bean.setId(mainBean.getHealthConclusionId());
             bean.setNoticeType(NOTIFY_HEALTH_CONCLUSION);
             list.add(bean);
         }

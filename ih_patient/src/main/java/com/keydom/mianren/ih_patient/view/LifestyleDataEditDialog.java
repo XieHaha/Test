@@ -262,6 +262,7 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
                             DateUtils.YYYY_MM_DD_CH, DateUtils.YYYY_MM_DD));
                     sportsBean.setSumHeat(kcal);
                     sportsBean.setMinute(minute);
+                    sportsBean.setImageUrl(sportsItemBean.getImageUrl());
                     onSportsCommitListener.commit(sportsBean);
                 }
                 endAnim();

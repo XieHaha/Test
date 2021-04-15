@@ -79,7 +79,7 @@ public class HealthConsultantDetailActivity extends BaseControllerActivity<Healt
         statusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 StatusBarUtils.getStateBarHeight(this)));
         StatusBarUtils.setStatusBarTranslucent(this);
-        tvTitle.setText("咨询申请单");
+        tvTitle.setText("咨询师");
         layoutBg.setAlpha(0);
         statusBar.setAlpha(0);
         StatusBarUtils.setStatusBarColor(this, true);

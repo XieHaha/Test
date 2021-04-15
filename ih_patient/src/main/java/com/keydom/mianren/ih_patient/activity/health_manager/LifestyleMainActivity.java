@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.BaseFileUtils;
+import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.health_manager.controller.LifestyleMainController;
@@ -603,9 +605,12 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
             View view = getLayoutInflater().inflate(R.layout.item_lifestyle_sports, null);
             TextView name = view.findViewById(R.id.item_lifestyle_sports_name);
             TextView num = view.findViewById(R.id.item_lifestyle_sports_num);
+            ImageView headerIv = view.findViewById(R.id.item_lifestyle_sports_iv);
             ImageView delete = view.findViewById(R.id.item_lifestyle_sports_delete);
             name.setText(bean.getName());
             num.setText(bean.getMinute() + "分钟，" + bean.getSumHeat() + "千卡");
+            GlideUtils.load(headerIv, BaseFileUtils.getHeaderUrl(bean.getImageUrl()), -1,
+                    R.drawable.bg_default_photo, false, null);
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -709,7 +714,8 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         if (copyToday) {
             params.put("recordTime", DateUtils.dateToString(new Date()));
         } else {
-            params.put("recordTime", curSelectDate);
+            params.put("recordTime", DateUtils.transDate(curSelectDate, DateUtils.YYYY_MM_DD_CH,
+                    DateUtils.YYYY_MM_DD));
         }
         params.put("sleepQuality", sleepQuality);
         params.put("sleepTime", sleepTime);
@@ -720,7 +726,8 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     public Map<String, String> getDeleteSleepRecordParams(boolean isSleep) {
         Map<String, String> params = new HashMap<>(16);
         params.put("patientId", patientId);
-        params.put("recordTime", curSelectDate);
+        params.put("recordTime", DateUtils.transDate(curSelectDate, DateUtils.YYYY_MM_DD_CH,
+                DateUtils.YYYY_MM_DD));
         if (isSleep) {
             params.put("type", "1");
         } else {
