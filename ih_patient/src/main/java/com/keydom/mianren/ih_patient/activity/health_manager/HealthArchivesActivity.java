@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.ih_common.view.IhTitleLayout;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.health_manager.controller.HealthArchivesController;
@@ -137,6 +138,10 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
      */
     private int curSurgeryPosition = -1;
 
+    /**
+     * 页面更新提示
+     */
+    private boolean isUpdate = false;
 
     /**
      * 启动
@@ -166,6 +171,17 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
                     return;
                 }
                 getController().savePatientInfo();
+            }
+        });
+        setLeftBtnListener(new IhTitleLayout.OnLeftButtonClickListener() {
+            @Override
+            public void onLeftButtonClick(View v) {
+                if (isUpdate) {
+                    new GeneralDialog(getContext(), "您还未保存，是否退出？",
+                            () -> finish()).setTitle("提示").setPositiveButton("确认").show();
+                } else {
+                    finish();
+                }
             }
         });
 
@@ -254,10 +270,11 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
     }
 
     /**
-     * 开通健康管理
+     * 健康管理
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateArchives(Event event) {
+        isUpdate = true;
         if (event.getType() == EventType.UPDATE_ARCHIVES) {
             archivesBean = (HealthArchivesBean) event.getData();
             healthArchivesBaseInfoTv.setVisibility(View.INVISIBLE);
@@ -468,12 +485,14 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
 
     @Override
     public void setDrinkDegree(int position) {
+        isUpdate = true;
         healthArchivesDrinkFrequencyTv.setText(drinkDegreeData.get(position));
         archivesBean.setDrinkDegree(drinkDegreeData.get(position));
     }
 
     @Override
     public void setDrinkNum(int position) {
+        isUpdate = true;
         healthArchivesDrinkQuantityTv.setText(drinkNumData.get(position));
         archivesBean.setDrinkMl(drinkNumData.get(position));
 
@@ -481,6 +500,7 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
 
     @Override
     public void setDrinkYear(int position) {
+        isUpdate = true;
         healthArchivesDrinkYearTv.setText(drinkOrSmokeYearData.get(position));
         archivesBean.setDrinkYear(drinkOrSmokeYearData.get(position));
     }
@@ -501,6 +521,7 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
 
     @Override
     public void setSmokeDegree(int position) {
+        isUpdate = true;
         healthArchivesSmokeFrequencyTv.setText(smokeDegreeData.get(position));
         archivesBean.setSmokeDegree(smokeDegreeData.get(position));
 
@@ -508,6 +529,7 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
 
     @Override
     public void setSmokeNum(int position) {
+        isUpdate = true;
         healthArchivesSmokeQuantityTv.setText(smokeNumData.get(position));
         archivesBean.setSmokeAmount(smokeNumData.get(position));
 
@@ -515,6 +537,7 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
 
     @Override
     public void setSmokeYear(int position) {
+        isUpdate = true;
         healthArchivesSmokeYearTv.setText(drinkOrSmokeYearData.get(position));
         archivesBean.setSmokeYear(drinkOrSmokeYearData.get(position));
     }

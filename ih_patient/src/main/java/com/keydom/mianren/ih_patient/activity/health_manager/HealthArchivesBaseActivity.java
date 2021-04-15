@@ -82,7 +82,8 @@ public class HealthArchivesBaseActivity extends BaseControllerActivity<HealthArc
     /**
      * 民族
      */
-    private String height, weight, address, company, nation, jobType, birthState, bmi;
+    private String height, weight, address, company, nation, jobType, birthState, bmi,
+            maritalHistory;
 
     /**
      * 启动
@@ -122,8 +123,7 @@ public class HealthArchivesBaseActivity extends BaseControllerActivity<HealthArc
         //        archivesBaseFemaleTv.setOnClickListener(getController());
         //        archivesBaseBirthTv.setOnClickListener(getController());
         archivesBaseJobTv.setOnClickListener(getController());
-        //        archivesBaseMaritalTv.setOnClickListener(getController());
-        //        archivesBaseUnmarriedTv.setOnClickListener(getController());
+
         archivesBaseNationTv.setOnClickListener(getController());
         archivesBaseBirthStatusTv.setOnClickListener(getController());
         archivesBaseWeightEt.addTextChangedListener(new AbsTextWatcher() {
@@ -156,16 +156,25 @@ public class HealthArchivesBaseActivity extends BaseControllerActivity<HealthArc
         archivesBaseBirthTv.setText(archivesBean.getBirthDate());
         archivesBaseCardEt.setText(archivesBean.getIdCard());
         archivesBasePhoneEt.setText(archivesBean.getPhoneNumber());
-        if ("已婚".equals(archivesBean.getMaritalHistory())) {
-            archivesBaseMaritalTv.setSelected(true);
-            archivesBaseUnmarriedTv.setSelected(false);
+
+        maritalHistory = archivesBean.getMaritalHistory();
+        if (TextUtils.isEmpty(maritalHistory)) {
+            archivesBaseMaritalTv.setOnClickListener(getController());
+            archivesBaseUnmarriedTv.setOnClickListener(getController());
         } else {
-            archivesBaseMaritalTv.setSelected(false);
-            archivesBaseUnmarriedTv.setSelected(true);
+            if ("已婚".equals(maritalHistory)) {
+                archivesBaseMaritalTv.setSelected(true);
+                archivesBaseUnmarriedTv.setSelected(false);
+            } else {
+                archivesBaseMaritalTv.setSelected(false);
+                archivesBaseUnmarriedTv.setSelected(true);
+            }
         }
         archivesBaseWeightEt.setText(archivesBean.getWeight());
         archivesBaseHeightEt.setText(archivesBean.getHeight());
-        archivesBaseBmiEt.setText(archivesBean.getBmi());
+
+        bmi = archivesBean.getBmi();
+        archivesBaseBmiEt.setText(bmiStatus());
         archivesBaseAddressEt.setText(archivesBean.getAddress());
         archivesBaseJobTv.setText(archivesBean.getProfessionalCategory());
         archivesBaseCompanyEt.setText(archivesBean.getWorkUnits());
@@ -191,12 +200,11 @@ public class HealthArchivesBaseActivity extends BaseControllerActivity<HealthArc
         weight = archivesBaseWeightEt.getText().toString();
         address = archivesBaseAddressEt.getText().toString();
         company = archivesBaseCompanyEt.getText().toString();
-        bmi = archivesBaseBmiEt.getText().toString();
         jobType = archivesBaseJobTv.getText().toString();
         nation = archivesBaseNationTv.getText().toString();
         birthState = archivesBaseBirthStatusTv.getText().toString();
 
-        if (TextUtils.isEmpty(height) || TextUtils.isEmpty(weight) || TextUtils.isEmpty(address) || TextUtils.isEmpty(company) || TextUtils.isEmpty(jobType) || TextUtils.isEmpty(nation) || TextUtils.isEmpty(birthState) || TextUtils.isEmpty(bmi)) {
+        if (TextUtils.isEmpty(height) || TextUtils.isEmpty(weight) || TextUtils.isEmpty(address) || TextUtils.isEmpty(company) || TextUtils.isEmpty(jobType) || TextUtils.isEmpty(nation) || TextUtils.isEmpty(birthState) || TextUtils.isEmpty(bmi) || TextUtils.isEmpty(maritalHistory)) {
             ToastUtil.showMessage(this, "请完善以上所有信息");
             return;
         }
@@ -208,6 +216,7 @@ public class HealthArchivesBaseActivity extends BaseControllerActivity<HealthArc
         archivesBean.setProfessionalCategory(jobType);
         archivesBean.setNation(nation);
         archivesBean.setFertilityStatus(birthState);
+        archivesBean.setMaritalHistory(maritalHistory);
         //通知更新
         EventBus.getDefault().post(new Event(EventType.UPDATE_ARCHIVES, archivesBean));
         finish();
@@ -228,7 +237,32 @@ public class HealthArchivesBaseActivity extends BaseControllerActivity<HealthArc
             return;
         }
         bmi = CommUtil.getBMI(Float.parseFloat(weight), Float.parseFloat(height) / 100f);
-        archivesBaseBmiEt.setText(String.valueOf(bmi));
+        archivesBaseBmiEt.setText(bmiStatus());
+    }
+
+    /**
+     * BMI说明：
+     * BMI<18.5 体重过轻
+     * 18.5<=BMI<=23.9 正常
+     * 23.9<BMI<=27 体重过重
+     * 27<BMI<=32 肥胖
+     * BMI>32 非常肥胖
+     */
+    private String bmiStatus() {
+        float value = Float.parseFloat(bmi);
+        if (value <= 0) {
+            return "";
+        } else if (value < 18.5) {
+            return bmi + " 体重过轻";
+        } else if (value >= 18.5 && value <= 23.9) {
+            return bmi + " 正常";
+        } else if (value > 23.9 && value <= 27) {
+            return bmi + " 体重过重";
+        } else if (value > 27 && value <= 32) {
+            return bmi + " 肥胖";
+        } else {
+            return bmi + " 非常肥胖";
+        }
     }
 
     @Override
@@ -245,9 +279,11 @@ public class HealthArchivesBaseActivity extends BaseControllerActivity<HealthArc
     @Override
     public void setMarrySelect(int type) {
         if (type == 0) {
+            maritalHistory = "已婚";
             archivesBaseMaritalTv.setSelected(true);
             archivesBaseUnmarriedTv.setSelected(false);
         } else {
+            maritalHistory = "未婚";
             archivesBaseMaritalTv.setSelected(false);
             archivesBaseUnmarriedTv.setSelected(true);
         }

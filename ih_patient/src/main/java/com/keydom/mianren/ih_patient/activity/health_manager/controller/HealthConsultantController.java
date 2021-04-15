@@ -41,14 +41,11 @@ public class HealthConsultantController extends ControllerImpl<HealthConsultantV
         bundle.putString("title", bean.getName());
         ImClient.startConversation(mContext, bean.getUserCode(), bundle);
 
-        //更新会话记录
-        if (bean.getIsConsult() == 0) {
-            updateConsultTimeAndRecord(bean.getId());
-        }
+        updateConsultTimeAndRecord(bean.getId());
     }
 
     /**
-     * 获取健康总结列表
+     * 获取可咨询医生列表
      */
     public void healthDoctorList() {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(HealthManagerService.class).healthDoctorList(), new HttpSubscriber<List<HealthConsultantBean>>(getContext(), getDisposable(), true) {
@@ -70,9 +67,10 @@ public class HealthConsultantController extends ControllerImpl<HealthConsultantV
      * 修改咨询记录
      */
     public void updateConsultTimeAndRecord(long doctorId) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(HealthManagerService.class).updateConsultTimeAndRecord(doctorId, getView().getPatientId(), 0), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(HealthManagerService.class).updateConsultTimeAndRecord(doctorId, getView().getPatientId(), 0), new HttpSubscriber<String>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable String data) {
+                healthDoctorList();
             }
 
             @Override
