@@ -138,6 +138,7 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
                     eatItemBean.getAmount()));
             valueKjTv.setText(String.format(context.getString(R.string.txt_kcal),
                     eatItemBean.getHeat()));
+            titleTv.setText(eatItemBean.getName());
         } else {
             kcalLayout = findViewById(R.id.kcal_layout);
             valueKcalTv = findViewById(R.id.dialog_lifestyle_data_kcal_tv);

@@ -53,15 +53,15 @@ public class ChronicDiseaseMainController extends ControllerImpl<ChronicDiseaseM
                 }
                 break;
             case R.id.disease_main_eat_record_layout:
-                LifestyleMainActivity.start(getContext(), getView().getPatientId(),
+                LifestyleMainActivity.start(getContext(), getView().getCalendar(),getView().getPatientId(),
                         LifestyleMainActivity.LIFESTYLE_DIET);
                 break;
             case R.id.disease_main_sleep_record_layout:
-                LifestyleMainActivity.start(getContext(), getView().getPatientId(),
+                LifestyleMainActivity.start(getContext(), getView().getCalendar(), getView().getPatientId(),
                         LifestyleMainActivity.LIFESTYLE_SLEEP);
                 break;
             case R.id.disease_main_sports_record_layout:
-                LifestyleMainActivity.start(getContext(), getView().getPatientId(),
+                LifestyleMainActivity.start(getContext(), getView().getCalendar(), getView().getPatientId(),
                         LifestyleMainActivity.LIFESTYLE_SPORTS);
                 break;
             case R.id.disease_main_intervention_plan_layout:

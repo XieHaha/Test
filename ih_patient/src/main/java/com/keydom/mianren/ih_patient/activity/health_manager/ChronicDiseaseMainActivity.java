@@ -201,6 +201,10 @@ public class ChronicDiseaseMainActivity extends BaseControllerActivity<ChronicDi
         getController().getHeathValue(patientId, curSelectDate);
     }
 
+    @Override
+    public Calendar getCalendar() {
+        return calendar;
+    }
 
     @Override
     public int getChronicDiseaseType() {

@@ -10,6 +10,7 @@ import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.health_manager.LifestyleDataActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.LifestyleMainView;
@@ -100,22 +101,26 @@ public class LifestyleMainController extends ControllerImpl<LifestyleMainView> i
                         getView().getPatientId());
                 break;
             case R.id.lifestyle_main_copy_tv:
-                //复用到今日
-                if (getView().getLifestyleType() == LIFESTYLE_DIET) {
-                    if (getView().verifyEatRecordParams()) {
-                        insertOrUpdateFoodRecord();
-                    }
-                } else if (getView().getLifestyleType() == LIFESTYLE_SLEEP) {
-                    //睡眠
-                    if (getView().verifySleepRecordParams()) {
-                        insertOrUpdateSleepRecord(true);
-                    }
-                } else {
-                    //运动
-                    if (getView().verifySportsRecordParams()) {
-                        insertOrUpdateExerciseRecord();
-                    }
-                }
+                new GeneralDialog(getContext(), "确认复用到今日？",
+                        () -> {
+                            //复用到今日
+                            if (getView().getLifestyleType() == LIFESTYLE_DIET) {
+                                //饮食
+                                if (getView().verifyEatRecordParams()) {
+                                    insertOrUpdateFoodRecord();
+                                }
+                            } else if (getView().getLifestyleType() == LIFESTYLE_SLEEP) {
+                                //睡眠
+                                if (getView().verifySleepRecordParams()) {
+                                    insertOrUpdateSleepRecord(true);
+                                }
+                            } else {
+                                //运动
+                                if (getView().verifySportsRecordParams()) {
+                                    insertOrUpdateExerciseRecord();
+                                }
+                            }
+                        }).setTitle("提示").setPositiveButton("确认").show();
                 break;
             case R.id.view_eat_record_add_breakfast_iv:
                 getView().expandBreakfastLayout();

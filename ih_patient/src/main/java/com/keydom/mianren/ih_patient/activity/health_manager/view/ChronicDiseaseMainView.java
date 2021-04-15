@@ -3,6 +3,7 @@ package com.keydom.mianren.ih_patient.activity.health_manager.view;
 import com.keydom.ih_common.base.BaseView;
 import com.keydom.mianren.ih_patient.bean.HealthDataBean;
 
+import java.util.Calendar;
 import java.util.Map;
 
 /**
@@ -11,6 +12,8 @@ import java.util.Map;
  * @des 慢病管理
  */
 public interface ChronicDiseaseMainView extends BaseView {
+
+    Calendar getCalendar();
 
     int getChronicDiseaseType();
 

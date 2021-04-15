@@ -16,6 +16,7 @@ import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.utils.BaseFileUtils;
 import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.ih_common.utils.ToastUtil;
+import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_patient.R;
 import com.keydom.mianren.ih_patient.activity.health_manager.controller.LifestyleMainController;
 import com.keydom.mianren.ih_patient.activity.health_manager.view.LifestyleMainView;
@@ -187,9 +188,10 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
     /**
      * 启动
      */
-    public static void start(Context context, String patientId, int type) {
+    public static void start(Context context, Calendar calendar, String patientId, int type) {
         Intent intent = new Intent(context, LifestyleMainActivity.class);
         intent.putExtra(Const.TYPE, type);
+        intent.putExtra("calendar", calendar);
         intent.putExtra(Const.PATIENT_ID, patientId);
         context.startActivity(intent);
     }
@@ -214,8 +216,8 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
         lifestyleType = getIntent().getIntExtra(Const.TYPE, -1);
         patientId = getIntent().getStringExtra(Const.PATIENT_ID);
 
-        //获取当前时间
-        calendar = Calendar.getInstance();
+        //获取时间
+        calendar = (Calendar) getIntent().getSerializableExtra("calendar");
         initCalendarView();
         bindView();
     }
@@ -404,15 +406,18 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    breakfastBeans.remove(bean);
-                    eatRecordBreakfastItemLayout.removeView(view);
-                    if (breakfastBeans.size() == 0) {
-                        eatRecordBreakfastRootLayout.setVisibility(View.GONE);
-                        viewEatRecordAddBreakfastIv.setVisibility(View.GONE);
-                        viewEatRecordAddBreakfastTv.setVisibility(View.VISIBLE);
-                    }
-                    //删除
-                    getController().deleteFoodRecord(bean.getId());
+                    new GeneralDialog(getContext(), "确认删除？",
+                            () -> {
+                                breakfastBeans.remove(bean);
+                                eatRecordBreakfastItemLayout.removeView(view);
+                                if (breakfastBeans.size() == 0) {
+                                    eatRecordBreakfastRootLayout.setVisibility(View.GONE);
+                                    viewEatRecordAddBreakfastIv.setVisibility(View.GONE);
+                                    viewEatRecordAddBreakfastTv.setVisibility(View.VISIBLE);
+                                }
+                                //删除
+                                getController().deleteFoodRecord(bean.getId());
+                            }).setTitle("提示").setPositiveButton("确认").show();
                 }
             });
             eatRecordBreakfastItemLayout.addView(view);
@@ -448,15 +453,18 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    lunchBeans.remove(bean);
-                    eatRecordLunchItemLayout.removeView(view);
-                    if (lunchBeans.size() == 0) {
-                        eatRecordLunchRootLayout.setVisibility(View.GONE);
-                        viewEatRecordAddLunchIv.setVisibility(View.GONE);
-                        viewEatRecordAddLunchTv.setVisibility(View.VISIBLE);
-                    }
-                    //删除
-                    getController().deleteFoodRecord(bean.getId());
+                    new GeneralDialog(getContext(), "确认删除？",
+                            () -> {
+                                lunchBeans.remove(bean);
+                                eatRecordLunchItemLayout.removeView(view);
+                                if (lunchBeans.size() == 0) {
+                                    eatRecordLunchRootLayout.setVisibility(View.GONE);
+                                    viewEatRecordAddLunchIv.setVisibility(View.GONE);
+                                    viewEatRecordAddLunchTv.setVisibility(View.VISIBLE);
+                                }
+                                //删除
+                                getController().deleteFoodRecord(bean.getId());
+                            }).setTitle("提示").setPositiveButton("确认").show();
                 }
             });
             eatRecordLunchItemLayout.addView(view);
@@ -492,15 +500,18 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    dinnerBeans.remove(bean);
-                    eatRecordDinnerItemLayout.removeView(view);
-                    if (dinnerBeans.size() == 0) {
-                        eatRecordDinnerRootLayout.setVisibility(View.GONE);
-                        viewEatRecordAddDinnerIv.setVisibility(View.GONE);
-                        viewEatRecordAddDinnerTv.setVisibility(View.VISIBLE);
-                    }
-                    //删除
-                    getController().deleteFoodRecord(bean.getId());
+                    new GeneralDialog(getContext(), "确认删除？",
+                            () -> {
+                                dinnerBeans.remove(bean);
+                                eatRecordDinnerItemLayout.removeView(view);
+                                if (dinnerBeans.size() == 0) {
+                                    eatRecordDinnerRootLayout.setVisibility(View.GONE);
+                                    viewEatRecordAddDinnerIv.setVisibility(View.GONE);
+                                    viewEatRecordAddDinnerTv.setVisibility(View.VISIBLE);
+                                }
+                                //删除
+                                getController().deleteFoodRecord(bean.getId());
+                            }).setTitle("提示").setPositiveButton("确认").show();
                 }
             });
             eatRecordDinnerItemLayout.addView(view);
@@ -536,15 +547,18 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    extraBeans.remove(bean);
-                    eatRecordExtraItemLayout.removeView(view);
-                    if (extraBeans.size() == 0) {
-                        eatRecordExtraRootLayout.setVisibility(View.GONE);
-                        viewEatRecordAddExtraIv.setVisibility(View.GONE);
-                        viewEatRecordAddExtraTv.setVisibility(View.VISIBLE);
-                    }
-                    //删除
-                    getController().deleteFoodRecord(bean.getId());
+                    new GeneralDialog(getContext(), "确认删除？",
+                            () -> {
+                                extraBeans.remove(bean);
+                                eatRecordExtraItemLayout.removeView(view);
+                                if (extraBeans.size() == 0) {
+                                    eatRecordExtraRootLayout.setVisibility(View.GONE);
+                                    viewEatRecordAddExtraIv.setVisibility(View.GONE);
+                                    viewEatRecordAddExtraTv.setVisibility(View.VISIBLE);
+                                }
+                                //删除
+                                getController().deleteFoodRecord(bean.getId());
+                            }).setTitle("提示").setPositiveButton("确认").show();
                 }
             });
             eatRecordExtraItemLayout.addView(view);
@@ -614,10 +628,13 @@ public class LifestyleMainActivity extends BaseControllerActivity<LifestyleMainC
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    recordSportsBeans.remove(bean);
-                    viewSportsRecordLayout.removeView(view);
-                    //删除
-                    getController().deleteExerciseRecord(bean.getId());
+                    new GeneralDialog(getContext(), "确认删除？",
+                            () -> {
+                                recordSportsBeans.remove(bean);
+                                viewSportsRecordLayout.removeView(view);
+                                //删除
+                                getController().deleteExerciseRecord(bean.getId());
+                            }).setTitle("提示").setPositiveButton("确认").show();
                 }
             });
             viewSportsRecordLayout.addView(view);
