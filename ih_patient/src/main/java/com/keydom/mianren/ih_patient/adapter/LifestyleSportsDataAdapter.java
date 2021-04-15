@@ -32,7 +32,7 @@ public class LifestyleSportsDataAdapter extends BaseQuickAdapter<SportsItemBean,
         TextView title = helper.getView(R.id.item_lifestyle_data_name_tv);
         title.setText(item.getName());
         helper.setText(R.id.item_lifestyle_data_quantity_tv, "30分钟")
-                .setText(R.id.item_lifestyle_data_calories_tv, item.getHeat() + "千卡");
+                .setText(R.id.item_lifestyle_data_calories_tv, item.getHeat() * 3 + "千卡");
         ImageView image = helper.getView(R.id.item_lifestyle_data_icon_iv);
         GlideUtils.load(image, BaseFileUtils.getHeaderUrl(item.getImageUrl()), -1,
                 R.drawable.bg_default_photo, false, null);

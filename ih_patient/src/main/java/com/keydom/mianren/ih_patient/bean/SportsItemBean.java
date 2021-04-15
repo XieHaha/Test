@@ -11,6 +11,9 @@ public class SportsItemBean implements Serializable {
     private static final long serialVersionUID = -8638246624454545086L;
     private int id;
     private int type;
+    /**
+     * 每10分钟 热量
+     */
     private int heat;
     private String name;
     private String createTime;

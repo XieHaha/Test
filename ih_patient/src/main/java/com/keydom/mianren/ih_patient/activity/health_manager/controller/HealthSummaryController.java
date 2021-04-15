@@ -1,11 +1,9 @@
 package com.keydom.mianren.ih_patient.activity.health_manager.controller;
 
-import android.app.Activity;
 import android.view.View;
 
-import com.bigkoo.pickerview.builder.TimePickerBuilder;
-import com.bigkoo.pickerview.view.TimePickerView;
-import com.blankj.utilcode.util.KeyboardUtils;
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.keydom.ih_common.base.ControllerImpl;
 import com.keydom.ih_common.bean.PageBean;
@@ -22,8 +20,6 @@ import com.keydom.mianren.ih_patient.net.HealthManagerService;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Calendar;
-
 /**
  * @author 顿顿
  * @date 20/3/4 10:56
@@ -33,15 +29,10 @@ public class HealthSummaryController extends ControllerImpl<HealthSummaryView> i
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.health_summary_select_time_tv) {
-            Calendar startDate = Calendar.getInstance();
-            Calendar endDate = Calendar.getInstance();
-            //过去10年数据
-            startDate.add(Calendar.YEAR, -9);
-            KeyboardUtils.hideSoftInput((Activity) getContext());
-            TimePickerView view = new TimePickerBuilder(getContext(),
-                    (date, v1) -> getView().onSelectDate(date)).setRangDate(startDate,
-                    endDate).setType(new boolean[]{true, false, false, false, false, false}).build();
-            view.show();
+            OptionsPickerView pickerView = new OptionsPickerBuilder(getContext(),
+                    (options1, option2, options3, v12) -> getView().onSelectDate(options1)).build();
+            pickerView.setPicker(getView().getSelectDate());
+            pickerView.show();
         }
     }
 

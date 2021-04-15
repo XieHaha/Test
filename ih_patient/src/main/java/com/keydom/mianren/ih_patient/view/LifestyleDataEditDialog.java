@@ -174,8 +174,8 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
                     valueKjTv.setText(String.format(context.getString(R.string.txt_kcal), kcal));
                     quantityTv.setText(copies + "份");
                 } else {
-                    kcal = (int) (copies * sportsItemBean.getHeat());
-                    minute = (int) (copies * 30);
+                    kcal = scale * sportsItemBean.getHeat();
+                    minute = (int) (copies * 20);
                     valueKcalTv.setText(String.valueOf(kcal));
                     quantityTv.setText(String.valueOf(minute));
                 }
@@ -190,8 +190,13 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
         animation.setAnimationListener(new AbstractAnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                //默认选中一份
-                scaleScrollView.setCurScale(2);
+                if (lifestyleType == LIFESTYLE_DIET) {
+                    //默认选中一份
+                    scaleScrollView.setCurScale(2);
+                } else {
+                    //默认30分钟
+                    scaleScrollView.setCurScale(3);
+                }
             }
         });
         contentLayout.startAnimation(animation);

@@ -17,12 +17,11 @@ import com.keydom.mianren.ih_patient.activity.health_manager.view.HealthSummaryV
 import com.keydom.mianren.ih_patient.adapter.HealthSummaryAdapter;
 import com.keydom.mianren.ih_patient.bean.HealthSummaryBean;
 import com.keydom.mianren.ih_patient.constant.Const;
-import com.keydom.mianren.ih_patient.utils.DateUtils;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +47,8 @@ public class HealthSummaryActivity extends BaseControllerActivity<HealthSummaryC
     private String patientId;
     private String curSelectDate;
     private HealthSummaryAdapter healthSummaryAdapter;
+
+    private List<String> selectDate;
 
     private ArrayList<HealthSummaryBean> healthSummaryBeans = new ArrayList<>();
 
@@ -81,6 +82,18 @@ public class HealthSummaryActivity extends BaseControllerActivity<HealthSummaryC
         //            getController().patientHealthConclusionList();
         //        });
         getController().patientHealthConclusionList();
+
+        initDate();
+    }
+
+    private void initDate() {
+        Calendar startDate = Calendar.getInstance();
+        int year = startDate.get(Calendar.YEAR);
+        selectDate = new ArrayList<>();
+        selectDate.add("全部时间");
+        for (int i = 0; i < 10; i++) {
+            selectDate.add(String.valueOf(year - i));
+        }
     }
 
     @Override
@@ -94,6 +107,11 @@ public class HealthSummaryActivity extends BaseControllerActivity<HealthSummaryC
     }
 
     @Override
+    public List<String> getSelectDate() {
+        return selectDate;
+    }
+
+    @Override
     public ArrayList<HealthSummaryBean> getHealthSummaryBeans() {
         return healthSummaryBeans;
     }
@@ -104,9 +122,14 @@ public class HealthSummaryActivity extends BaseControllerActivity<HealthSummaryC
     }
 
     @Override
-    public void onSelectDate(Date date) {
-        curSelectDate = DateUtils.dateToString(date, DateUtils.YYYY);
-        healthSummarySelectTimeTv.setText(curSelectDate + "年");
+    public void onSelectDate(int position) {
+        if (position == 0) {
+            curSelectDate = "";
+            healthSummarySelectTimeTv.setText("全部时间");
+        } else {
+            curSelectDate = selectDate.get(position);
+            healthSummarySelectTimeTv.setText(curSelectDate + "年");
+        }
         getController().patientHealthConclusionList();
     }
 

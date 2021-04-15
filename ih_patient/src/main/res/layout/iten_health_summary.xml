@@ -41,12 +41,15 @@
 
         <TextView
             android:id="@+id/item_health_summary_status_tv"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_13"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_14"
             android:layout_marginStart="@dimen/dp_7"
             android:layout_marginTop="@dimen/dp_3"
             android:layout_toEndOf="@id/item_health_summary_title_tv"
-            android:background="@drawable/health_summary_normal_status" />
+            android:background="@drawable/health_summary_normal_status"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_11" />
 
         <TextView
             android:id="@+id/item_health_summary_doctor_tv"

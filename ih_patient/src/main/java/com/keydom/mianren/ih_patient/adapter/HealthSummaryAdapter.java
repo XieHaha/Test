@@ -32,10 +32,13 @@ public class HealthSummaryAdapter extends BaseQuickAdapter<HealthSummaryBean,
         String status = item.getHealthStatus();
         if (!TextUtils.isEmpty(status)) {
             if (status.contains("良好")) {
+                summaryStatus.setText("良好");
                 summaryStatus.setBackgroundResource(R.drawable.health_summary_good_status);
             } else if (status.contains("一般")) {
+                summaryStatus.setText("一般");
                 summaryStatus.setBackgroundResource(R.drawable.health_summary_normal_status);
             } else {
+                summaryStatus.setText("不良");
                 summaryStatus.setBackgroundResource(R.drawable.health_summary_bad_status);
             }
         }
