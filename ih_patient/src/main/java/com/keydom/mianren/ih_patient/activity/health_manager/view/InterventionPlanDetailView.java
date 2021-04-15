@@ -11,5 +11,9 @@ import com.keydom.mianren.ih_patient.bean.InterventionPlanBean;
 public interface InterventionPlanDetailView extends BaseView {
     String getPatientId();
 
+    String getDoctorName();
+
+    String getUserCode();
+
     void requestInterventionPlanDetailSuccess(InterventionPlanBean planBean);
 }

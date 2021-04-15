@@ -38,7 +38,7 @@ public class InterventionPlanDetailActivity extends BaseControllerActivity<Inter
     @BindView(R.id.intervention_plan_detail_sleep_tv)
     JustifiedTextView interventionPlanDetailSleepTv;
     private InterventionPlanBean planBean;
-    private String planId, patientId;
+    private String planId, patientId, doctorName, userCode;
 
     /**
      * 启动
@@ -67,7 +67,9 @@ public class InterventionPlanDetailActivity extends BaseControllerActivity<Inter
     private void bindData() {
         if (planBean != null) {
             setTitle(planBean.getInterventionPlanName());
-            interventionPlanDetailNameTv.setText(planBean.getDoctorName());
+            doctorName = planBean.getDoctorName();
+            userCode = planBean.getUserCode();
+            interventionPlanDetailNameTv.setText(doctorName);
             interventionPlanDetailDateTv.setText(planBean.getUpdateTime());
             interventionPlanDetailEatTv.setText(planBean.getFoodPlan());
             interventionPlanDetailSportsTv.setText(planBean.getExercisePlan());
@@ -79,6 +81,16 @@ public class InterventionPlanDetailActivity extends BaseControllerActivity<Inter
     @Override
     public String getPatientId() {
         return patientId;
+    }
+
+    @Override
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    @Override
+    public String getUserCode() {
+        return userCode;
     }
 
     @Override

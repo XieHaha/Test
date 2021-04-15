@@ -62,7 +62,7 @@
             android:singleLine="true"
             android:textColor="@color/tab_nol_color"
             android:textSize="@dimen/sp_12"
-            tools:text="描述描述" />
+            android:text="饮食方案、运动方案、用药方案、睡眠作息方案" />
     </RelativeLayout>
 
     <TextView

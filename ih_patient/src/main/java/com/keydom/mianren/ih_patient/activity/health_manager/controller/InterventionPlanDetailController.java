@@ -1,8 +1,11 @@
 package com.keydom.mianren.ih_patient.activity.health_manager.controller;
 
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.keydom.ih_common.base.ControllerImpl;
+import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.net.ApiRequest;
 import com.keydom.ih_common.net.exception.ApiException;
 import com.keydom.ih_common.net.service.HttpService;
@@ -27,7 +30,14 @@ public class InterventionPlanDetailController extends ControllerImpl<Interventio
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.intervention_plan_detail_contact_tv) {
-            HealthConsultantActivity.start(getContext(), getView().getPatientId());
+            if (TextUtils.isEmpty(getView().getUserCode())) {
+                HealthConsultantActivity.start(getContext(), getView().getPatientId());
+            } else {
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("consultType", true);
+                bundle.putString("title", getView().getDoctorName());
+                ImClient.startConversation(mContext, getView().getUserCode(), bundle);
+            }
         }
     }
 
