@@ -123,6 +123,7 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
         contentLayout = findViewById(R.id.health_data_dialog_content_layout);
         titleLayout = findViewById(R.id.title_layout);
         valueLayout = findViewById(R.id.value_layout);
+        titleTv = findViewById(R.id.title);
 
         if (lifestyleType == LIFESTYLE_DIET) {
             TextView valueOneTv = findViewById(R.id.dialog_lifestyle_data_value_one_tv);
@@ -142,7 +143,6 @@ public class LifestyleDataEditDialog extends AppCompatDialog implements View.OnC
         } else {
             kcalLayout = findViewById(R.id.kcal_layout);
             valueKcalTv = findViewById(R.id.dialog_lifestyle_data_kcal_tv);
-            titleTv = findViewById(R.id.title);
 
             kcalLayout.setVisibility(View.VISIBLE);
             titleLayout.setVisibility(View.GONE);

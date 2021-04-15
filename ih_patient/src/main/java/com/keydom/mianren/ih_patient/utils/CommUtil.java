@@ -558,7 +558,7 @@ public class CommUtil {
         if (weight == 0 || height == 0) {
             return "";
         }
-        DecimalFormat decimalFormat = new DecimalFormat(".0");
+        DecimalFormat decimalFormat = new DecimalFormat("0.0");
         return decimalFormat.format(weight / (height * height));
     }
 

@@ -249,6 +249,9 @@ public class HealthArchivesBaseActivity extends BaseControllerActivity<HealthArc
      * BMI>32 非常肥胖
      */
     private String bmiStatus() {
+        if (TextUtils.isEmpty(bmi)) {
+            return "";
+        }
         float value = Float.parseFloat(bmi);
         if (value <= 0) {
             return "";

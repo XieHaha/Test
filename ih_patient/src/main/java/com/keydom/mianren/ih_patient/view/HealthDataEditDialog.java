@@ -126,19 +126,33 @@ public class HealthDataEditDialog extends AppCompatDialog implements View.OnClic
                 threeUnitTv.setText("mmol/L");
                 fourUnitTv.setText("mmol/L");
                 if (dataBean != null) {
-                    oneValueTv.setText(String.valueOf(dataBean.getCholesterol()));
-                    twoValueTv.setText(String.valueOf(dataBean.getTriglycerides()));
-                    threeValueTv.setText(String.valueOf(dataBean.getHighDensityLipoproteinCholesterol()));
-                    fourValueTv.setText(String.valueOf(dataBean.getLowDensityLipoproteinCholesterol()));
+                    if (dataBean.getCholesterol() > 0) {
+                        oneValueTv.setText(String.valueOf(dataBean.getCholesterol()));
+                    }
+                    if (dataBean.getTriglycerides() > 0) {
+                        twoValueTv.setText(String.valueOf(dataBean.getTriglycerides()));
+                    }
+                    if (dataBean.getHighDensityLipoproteinCholesterol() > 0) {
+                        threeValueTv.setText(String.valueOf(dataBean.getHighDensityLipoproteinCholesterol()));
+                    }
+                    if (dataBean.getLowDensityLipoproteinCholesterol() > 0) {
+                        fourValueTv.setText(String.valueOf(dataBean.getLowDensityLipoproteinCholesterol()));
+                    }
                 }
                 healthDataReferenceTv.setText(R.string.txt_data_cardiovascular_value);
                 break;
             case CHRONIC_DISEASE_HYPERTENSION:
                 fourLayout.setVisibility(View.GONE);
                 if (dataBean != null) {
-                    oneValueTv.setText(String.valueOf(dataBean.getSystolicPressure()));
-                    twoValueTv.setText(String.valueOf(dataBean.getDiastolicPressure()));
-                    threeValueTv.setText(String.valueOf(dataBean.getHeartRateValue()));
+                    if (dataBean.getSystolicPressure() > 0) {
+                        oneValueTv.setText(String.valueOf(dataBean.getSystolicPressure()));
+                    }
+                    if (dataBean.getDiastolicPressure() > 0) {
+                        twoValueTv.setText(String.valueOf(dataBean.getDiastolicPressure()));
+                    }
+                    if (dataBean.getHeartRateValue() > 0) {
+                        threeValueTv.setText(String.valueOf(dataBean.getHeartRateValue()));
+                    }
                 }
                 healthDataReferenceTv.setText(R.string.txt_data_refer_value);
                 break;
@@ -146,7 +160,9 @@ public class HealthDataEditDialog extends AppCompatDialog implements View.OnClic
                 oneTitleTv.setText("血糖");
                 oneUnitTv.setText("mmol/L");
                 if (dataBean != null) {
-                    oneValueTv.setText(String.valueOf(dataBean.getBloodSugar()));
+                    if (dataBean.getBloodSugar() > 0) {
+                        oneValueTv.setText(String.valueOf(dataBean.getBloodSugar()));
+                    }
                 }
                 twoLayout.setVisibility(View.GONE);
                 threeLayout.setVisibility(View.GONE);

@@ -9,6 +9,7 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_patient.R;
+import com.keydom.mianren.ih_patient.activity.health_manager.HealthConsultantActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.HealthSummaryActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.InterventionPlanActivity;
 import com.keydom.mianren.ih_patient.activity.health_manager.LifestyleMainActivity;
@@ -53,15 +54,18 @@ public class ChronicDiseaseMainController extends ControllerImpl<ChronicDiseaseM
                 }
                 break;
             case R.id.disease_main_eat_record_layout:
-                LifestyleMainActivity.start(getContext(), getView().getCalendar(),getView().getPatientId(),
+                LifestyleMainActivity.start(getContext(), getView().getCalendar(),
+                        getView().getPatientId(),
                         LifestyleMainActivity.LIFESTYLE_DIET);
                 break;
             case R.id.disease_main_sleep_record_layout:
-                LifestyleMainActivity.start(getContext(), getView().getCalendar(), getView().getPatientId(),
+                LifestyleMainActivity.start(getContext(), getView().getCalendar(),
+                        getView().getPatientId(),
                         LifestyleMainActivity.LIFESTYLE_SLEEP);
                 break;
             case R.id.disease_main_sports_record_layout:
-                LifestyleMainActivity.start(getContext(), getView().getCalendar(), getView().getPatientId(),
+                LifestyleMainActivity.start(getContext(), getView().getCalendar(),
+                        getView().getPatientId(),
                         LifestyleMainActivity.LIFESTYLE_SPORTS);
                 break;
             case R.id.disease_main_intervention_plan_layout:
@@ -71,7 +75,7 @@ public class ChronicDiseaseMainController extends ControllerImpl<ChronicDiseaseM
                 HealthSummaryActivity.start(getContext(), getView().getPatientId());
                 break;
             case R.id.disease_main_contact_counselor_tv:
-
+                HealthConsultantActivity.start(getContext(), getView().getPatientId());
                 break;
             default:
                 break;
