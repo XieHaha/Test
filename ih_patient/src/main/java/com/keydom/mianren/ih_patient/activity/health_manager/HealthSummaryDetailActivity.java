@@ -72,7 +72,7 @@ public class HealthSummaryDetailActivity extends BaseControllerActivity<HealthSu
     TextView healthSummaryDetailHeartStatusTv;
 
     private String summaryId;
-    private  String patientId;
+    private String patientId;
     private HealthSummaryBean summaryBean;
 
     private ArrayList<Integer> lineData = new ArrayList<>();
@@ -133,12 +133,14 @@ public class HealthSummaryDetailActivity extends BaseControllerActivity<HealthSu
 
         //Y轴设置
         YAxis rightAxis = combinedChart.getAxis(YAxis.AxisDependency.RIGHT);
-        rightAxis.setDrawGridLines(true);
-        rightAxis.setGridColor(ContextCompat.getColor(this, R.color.edit_hint_color));
-        rightAxis.setAxisMinimum(0f);
+        YAxis leftAxis = combinedChart.getAxis(YAxis.AxisDependency.LEFT);
+        //设置只有五条横坐标
         rightAxis.setLabelCount(5, true);
-        combinedChart.getAxisLeft().setLabelCount(5, true);
+        leftAxis.setLabelCount(5, true);
+        //不显示右侧数据
         rightAxis.setValueFormatter((value, axis) -> "");
+        leftAxis.setAxisMinimum(0);
+        rightAxis.setAxisMinimum(0);
 
         // 去掉左右边线：
         combinedChart.getAxisLeft().setDrawAxisLine(false);
@@ -241,10 +243,23 @@ public class HealthSummaryDetailActivity extends BaseControllerActivity<HealthSu
         lineData.add(15);
         lineData.add(15);
 
-        barData.add(summaryBean.getBloodPressureCount());
-        barData.add(summaryBean.getBloodSugarCount());
-        barData.add(summaryBean.getBloodFatCount());
-        barData.add(summaryBean.getHeartRateCount());
+        YAxis rightAxis = combinedChart.getAxis(YAxis.AxisDependency.RIGHT);
+        YAxis leftAxis = combinedChart.getAxis(YAxis.AxisDependency.LEFT);
+
+        List<Integer> num = new ArrayList<>();
+        num.add(summaryBean.getBloodPressureCount());
+        num.add(summaryBean.getBloodSugarCount());
+        num.add(summaryBean.getBloodFatCount());
+        num.add(summaryBean.getHeartRateCount());
+
+        int max = getMax(num);
+        if (max < 20) {
+           max = 20;
+        }
+        leftAxis.setAxisMaximum(max);
+        rightAxis.setAxisMaximum(max);
+
+        barData.addAll(num);
 
         CombinedData combinedData = new CombinedData();
         combinedData.setData(AndroidCartUtils.generateLineData(lineData));
@@ -253,6 +268,17 @@ public class HealthSummaryDetailActivity extends BaseControllerActivity<HealthSu
         combinedChart.invalidate();
         radarChart.setData(AndroidCartUtils.getChartData(lifestyleData));
         radarChart.invalidate();
+    }
+
+    public int getMax(List<Integer> num) {
+        int max = num.get(0);
+        int length = num.size();
+        for (int i = 0; i < length; i++) {
+            if (max < num.get(i)) {
+                max = num.get(i);
+            }
+        }
+        return max;
     }
 
     private String getStatusString(int count) {
