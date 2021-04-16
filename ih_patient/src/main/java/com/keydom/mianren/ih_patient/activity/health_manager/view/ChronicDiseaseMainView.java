@@ -15,6 +15,8 @@ public interface ChronicDiseaseMainView extends BaseView {
 
     Calendar getCalendar();
 
+    String getCurSelectDate();
+
     int getChronicDiseaseType();
 
     HealthDataBean getHealthDataBean();
@@ -24,8 +26,6 @@ public interface ChronicDiseaseMainView extends BaseView {
     void setNewDate(int value);
 
     void requestHealthDataSuccess(HealthDataBean bean);
-
-    void updateHeathValueSuccess(HealthDataBean bean);
 
     Map<String, Object> getUpdateHealthDataParams(HealthDataBean bean);
 }

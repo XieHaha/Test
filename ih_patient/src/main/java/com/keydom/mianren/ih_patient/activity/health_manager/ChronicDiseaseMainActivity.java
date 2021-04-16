@@ -198,12 +198,17 @@ public class ChronicDiseaseMainActivity extends BaseControllerActivity<ChronicDi
             diseaseMainDayTv.setText(curSelectDate);
         }
 
-        getController().getHeathValue(patientId, curSelectDate);
+        getController().getHeathValue();
     }
 
     @Override
     public Calendar getCalendar() {
         return calendar;
+    }
+
+    @Override
+    public String getCurSelectDate() {
+        return curSelectDate;
     }
 
     @Override
@@ -250,11 +255,6 @@ public class ChronicDiseaseMainActivity extends BaseControllerActivity<ChronicDi
 
     @Override
     public void requestHealthDataSuccess(HealthDataBean bean) {
-        updateHeathValueSuccess(bean);
-    }
-
-    @Override
-    public void updateHeathValueSuccess(HealthDataBean bean) {
         healthDataBean = bean;
         switch (chronicDiseaseType) {
             case CHRONIC_DISEASE_CARDIOVASCULAR:

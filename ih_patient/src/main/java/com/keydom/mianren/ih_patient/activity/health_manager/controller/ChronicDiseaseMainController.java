@@ -85,11 +85,12 @@ public class ChronicDiseaseMainController extends ControllerImpl<ChronicDiseaseM
     /**
      * 获取健康值
      */
-    public void getHeathValue(String patientId, String curSelectDate) {
+    public void getHeathValue() {
         Map<String, String> params = new HashMap<>(16);
-        params.put("writeDate", DateUtils.transDate(curSelectDate, DateUtils.YYYY_MM_DD_CH,
+        params.put("writeDate", DateUtils.transDate(getView().getCurSelectDate(),
+                DateUtils.YYYY_MM_DD_CH,
                 DateUtils.YYYY_MM_DD));
-        params.put("patientId", patientId);
+        params.put("patientId", getView().getPatientId());
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).getHeathValue(params), new HttpSubscriber<HealthDataBean>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@Nullable HealthDataBean data) {
@@ -112,7 +113,8 @@ public class ChronicDiseaseMainController extends ControllerImpl<ChronicDiseaseM
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(ChronicDiseaseService.class).insertOrUpdateHeathValue(HttpService.INSTANCE.object2Body(getView().getUpdateHealthDataParams(bean))), new HttpSubscriber<String>(getContext(), getDisposable(), true) {
             @Override
             public void requestComplete(@Nullable String data) {
-                getView().updateHeathValueSuccess(bean);
+                //更新后重新获取数据
+                getHeathValue();
                 //更新健康管理首页
                 EventBus.getDefault().post(new Event(EventType.UPDATE_HEALTH_MANAGER, null));
             }
