@@ -109,7 +109,7 @@ public class HealthAddSurgeryActivity extends BaseControllerActivity<HealthAddSu
         String date = addSurgeryTimeTv.getText().toString();
         String status = addSurgeryStatusTv.getText().toString();
         String notice = addSurgeryNoticeTv.getText().toString();
-        if (TextUtils.isEmpty(date) || TextUtils.isEmpty(name) || TextUtils.isEmpty(notice) || TextUtils.isEmpty(status)) {
+        if (TextUtils.isEmpty(date) || TextUtils.isEmpty(name) || TextUtils.isEmpty(status)) {
             ToastUtil.showMessage(this, "请完善信息");
             return;
         }

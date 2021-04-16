@@ -173,17 +173,7 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
                 getController().savePatientInfo();
             }
         });
-        setLeftBtnListener(new IhTitleLayout.OnLeftButtonClickListener() {
-            @Override
-            public void onLeftButtonClick(View v) {
-                if (isUpdate) {
-                    new GeneralDialog(getContext(), "您还未保存，是否退出？",
-                            () -> finish()).setTitle("提示").setPositiveButton("确认").show();
-                } else {
-                    finish();
-                }
-            }
-        });
+        setLeftBtnListener(v -> finishPage());
 
         localData();
 
@@ -591,6 +581,20 @@ public class HealthArchivesActivity extends BaseControllerActivity<HealthArchive
         ToastUtil.showMessage(this, "保存成功");
         EventBus.getDefault().post(new Event(EventType.UPDATE_HEALTH_MANAGER, null));
         finish();
+    }
+
+    private void finishPage() {
+        if (isUpdate) {
+            new GeneralDialog(getContext(), "您还未保存，是否退出？",
+                    () -> finish()).setTitle("提示").setPositiveButton("确认").show();
+        } else {
+            finish();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishPage();
     }
 
     @Override
