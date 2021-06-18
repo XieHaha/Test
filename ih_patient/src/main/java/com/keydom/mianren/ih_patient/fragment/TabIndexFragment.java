@@ -20,6 +20,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.keydom.ih_common.activity.ArticleDetailActivity;
 import com.keydom.ih_common.base.BaseControllerFragment;
 import com.keydom.ih_common.bean.MainLoadingEvent;
@@ -438,7 +441,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         indexFirstBanner.loadImage(new XBanner.XBannerAdapter() {
             @Override
             public void loadBanner(XBanner banner, Object model, View view, int position) {
-                Glide.with(getContext()).load(imgesUrlTop.get(position)).into((ImageView) view);
+                Glide.with(getContext()).load(imgesUrlTop.get(position)).apply(getOptions()).into((ImageView) view);
             }
         });
         final List<Integer> imgesUrl = new ArrayList<>();
@@ -466,7 +469,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             indexFirstBanner.loadImage(new XBanner.XBannerAdapter() {
                 @Override
                 public void loadBanner(XBanner banner, Object model, View view, int position) {
-                    Glide.with(getContext()).load(Const.IMAGE_HOST + List.get(position).getPicturePath()).into((ImageView) view);
+                    Glide.with(getContext()).load(Const.IMAGE_HOST + List.get(position).getPicturePath()).apply(getOptions()).into((ImageView) view);
                 }
             });
         } else {
@@ -475,7 +478,7 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
             indexFirstBanner.loadImage(new XBanner.XBannerAdapter() {
                 @Override
                 public void loadBanner(XBanner banner, Object model, View view, int position) {
-                    Glide.with(getContext()).load(list.get(position)).into((ImageView) view);
+                    Glide.with(getContext()).load(list.get(position)).apply(getOptions()).into((ImageView) view);
                 }
             });
         }
@@ -1010,6 +1013,13 @@ public class TabIndexFragment extends BaseControllerFragment<TabIndexController>
         if (indexFunctionAdapter != null) {
             indexFunctionAdapter.setHealthManagerMainBean(healthManagerMainBean);
         }
+    }
+
+    private RequestOptions getOptions() {
+        RequestOptions options =
+                new RequestOptions().priority(Priority.HIGH).diskCacheStrategy(DiskCacheStrategy.ALL);
+        options.error(R.mipmap.top_spanner);
+        return options;
     }
 }
 
