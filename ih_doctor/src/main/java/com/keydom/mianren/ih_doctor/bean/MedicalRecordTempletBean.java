@@ -26,7 +26,7 @@ public class MedicalRecordTempletBean {
     private String auxiliaryInspect;
     private String initDiagnosis;
     private String handleOpinion;
-    private ArrayList<ICD10Bean> idcItems;
+    private ArrayList<ICD10Bean> icdItems;
 
     public String getEpidemicDiseaseHistory() {
         return epidemicDiseaseHistory;
@@ -108,11 +108,11 @@ public class MedicalRecordTempletBean {
         this.templateName = templateName;
     }
 
-    public ArrayList<ICD10Bean> getIdcItems() {
-        return idcItems;
+    public ArrayList<ICD10Bean> getIcdItems() {
+        return icdItems;
     }
 
-    public void setIdcItems(ArrayList<ICD10Bean> idcItems) {
-        this.idcItems = idcItems;
+    public void setIcdItems(ArrayList<ICD10Bean> icdItems) {
+        this.icdItems = icdItems;
     }
 }

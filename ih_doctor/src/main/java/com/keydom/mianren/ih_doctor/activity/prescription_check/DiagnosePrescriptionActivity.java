@@ -167,7 +167,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     /**
      * 初步诊断选择结果
      */
-    private ArrayList<ICD10Bean> idcItems;
+    private List<ICD10Bean> icdItems;
 
     /**
      * 启动处方修改页面
@@ -525,7 +525,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         checkRes.setText(bean.getAuxiliaryInspect());
         simpleDiagnose.setText(bean.getInitDiagnosis());
         dealIdea.setText(bean.getHandleOpinion());
-        idcItems = bean.getIdcItems();
+        icdItems = bean.getIcdItems();
     }
 
     @Override
@@ -596,7 +596,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         map.put("cate", prescription_type);
         map.put("dept", MyApplication.userInfo.getDeptName());
         map.put("saveTemplate", getSaveType());
-        map.put("idcItems", idcItems);
+        map.put("idcItems", icdItems);
         if (type == CREATE_PRESCRIPTION && inquiryBean != null) {
             map.put("inquiryId", inquiryBean.getId());
         } else if (type == UPDATE_PRESCRIPTION) {
@@ -722,6 +722,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         simpleDiagnose.setText(bean.getDiagnosis());
         dealIdea.setText(bean.getHandleOpinion());
         drugUseReasonTv.setText(bean.getMedicalReasonsName());
+        icdItems = bean.getIdcItems();
     }
 
     @Override
@@ -891,7 +892,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
                     break;
                 case DiagnoseInputActivity.DIAGNOSE_RES_INPUT:
                     String diagnoseStr = (String) data.getSerializableExtra(Const.DATA);
-                    idcItems = (ArrayList<ICD10Bean>) data.getSerializableExtra("listData");
+                    icdItems = (ArrayList<ICD10Bean>) data.getSerializableExtra("listData");
                     simpleDiagnose.setText(diagnoseStr);
                     break;
                 default:

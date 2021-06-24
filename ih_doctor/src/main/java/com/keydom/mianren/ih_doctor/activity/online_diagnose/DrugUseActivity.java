@@ -424,9 +424,9 @@ public class DrugUseActivity extends BaseActivity {
         if (autoDrugUseMode) {
             if (days > 0 && amount > 0) {
                 float value = (days / freqCn) * amount * freqDeg / rate;
-                if (drugStock > 0 && value > drugStock) {
-                    ToastUtil.showMessage(this, "库存不足！");
-                }
+//                if (drugStock > 0 && value > drugStock) {
+//                    ToastUtil.showMessage(this, "库存不足！");
+//                }
                 medicalNumScalerTextLayout.setText(String.valueOf((int) Math.ceil(value)));
             } else {
                 medicalNumScalerTextLayout.setText("0");
@@ -443,10 +443,10 @@ public class DrugUseActivity extends BaseActivity {
         String quantity = medicalNumScalerTextLayout.getText().toString().trim();
         if (days > 0 && amount > 0 && curUseWayBean != null && curFrequencyBean != null && !TextUtils.isEmpty(quantity)) {
             int total = Integer.valueOf(quantity);
-            if (total > drugStock) {
-                ToastUtil.showMessage(this, "库存不足！");
-                return false;
-            }
+//            if (total > drugStock) {
+//                ToastUtil.showMessage(this, "库存不足！");
+//                return false;
+//            }
             String doctorAdvice = doctorEntrust.getText().toString().trim();
             drugBean.setWay(curUseWayBean.getCodeValue());
             drugBean.setWayCode(curUseWayBean.getCode());

@@ -165,7 +165,11 @@ public class DrugChooseActivity extends BaseControllerActivity<DrugChooseControl
                 if (drugChooseAdapter.getSelectList() == null || drugChooseAdapter.getSelectList().size() == 0) {
                     ToastUtil.showMessage(DrugChooseActivity.this, "请选择药品后再提交");
                 } else {
-                    getController().drugsStock(drugChooseAdapter.getSelectList().get(0).getDrugsCode());
+                    DrugListBean drugListBean = new DrugListBean();
+                    drugListBean.setPosition(position);
+                    drugListBean.setDrugList(drugChooseAdapter.getSelectList());
+                    DrugUseActivity.start(DrugChooseActivity.this, drugListBean);
+//                    getController().drugsStock(drugChooseAdapter.getSelectList().get(0).getDrugsCode());
                 }
 
             }
