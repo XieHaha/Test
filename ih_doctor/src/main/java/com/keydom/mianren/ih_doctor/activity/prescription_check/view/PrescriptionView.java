@@ -1,7 +1,7 @@
 package com.keydom.mianren.ih_doctor.activity.prescription_check.view;
 
 import com.keydom.ih_common.base.BaseView;
-import com.keydom.mianren.ih_doctor.bean.PrescriptionDetailBean;
+import com.keydom.mianren.ih_doctor.bean.DoctorPrescriptionDetailBean;
 
 import java.util.Map;
 
@@ -19,7 +19,7 @@ public interface PrescriptionView extends BaseView {
      *
      * @param bean 处方详情数据
      */
-    void getDetailSuccess(PrescriptionDetailBean bean);
+    void getDetailSuccess(DoctorPrescriptionDetailBean bean);
 
     /**
      * 获取处方详情失败

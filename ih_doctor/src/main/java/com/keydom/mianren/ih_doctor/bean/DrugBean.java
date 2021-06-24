@@ -155,6 +155,8 @@ public class DrugBean implements Serializable, MultiItemEntity {
 
     private String stock;
 
+    private String singleDose;
+
     public String getStock() {
         return stock;
     }
@@ -418,6 +420,14 @@ public class DrugBean implements Serializable, MultiItemEntity {
 
     public void setAmount(float amount) {
         this.amount = amount;
+    }
+
+    public String getSingleDose() {
+        return singleDose;
+    }
+
+    public void setSingleDose(String singleDose) {
+        this.singleDose = singleDose;
     }
 
     @Override

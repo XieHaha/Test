@@ -54,6 +54,8 @@ public class DoctorPrescriptionDetailBean implements Serializable {
     private List<List<DrugBean>> list;
     private List<ICD10Bean> idcItems;
 
+    private String checker;
+
     public String getEpidemicDiseaseHistory() {
         return epidemicDiseaseHistory;
     }
@@ -69,8 +71,6 @@ public class DoctorPrescriptionDetailBean implements Serializable {
     public void setIllnessDate(String illnessDate) {
         this.illnessDate = illnessDate;
     }
-
-    private String checker;
 
     public String getChecker() {
         return checker;

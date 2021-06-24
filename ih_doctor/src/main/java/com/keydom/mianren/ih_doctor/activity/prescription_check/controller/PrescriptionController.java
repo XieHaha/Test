@@ -10,7 +10,7 @@ import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.prescription_check.view.PrescriptionView;
-import com.keydom.mianren.ih_doctor.bean.PrescriptionDetailBean;
+import com.keydom.mianren.ih_doctor.bean.DoctorPrescriptionDetailBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.m_interface.OnCheckDialogListener;
 import com.keydom.mianren.ih_doctor.m_interface.SingleClick;
@@ -91,9 +91,9 @@ public class PrescriptionController extends ControllerImpl<PrescriptionView> imp
      * 获取处方详情
      */
     public void getPrescriptionDetail() {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getDrugControlPrescriptionDetail(getView().getDetailMap()), new HttpSubscriber<PrescriptionDetailBean>(getContext(), getDisposable(), true) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getDetailById(getView().getDetailMap()), new HttpSubscriber<DoctorPrescriptionDetailBean>(getContext(), getDisposable(), true) {
             @Override
-            public void requestComplete(@Nullable PrescriptionDetailBean data) {
+            public void requestComplete(@Nullable DoctorPrescriptionDetailBean data) {
                 getView().getDetailSuccess(data);
             }
 

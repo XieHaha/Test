@@ -14,8 +14,8 @@ import com.keydom.ih_common.utils.GlideUtils;
 import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.adapter.MedicineRecyclrViewAdapter;
-import com.keydom.mianren.ih_doctor.bean.PrescriptionDetailBean;
-import com.keydom.mianren.ih_doctor.bean.PrescriptionDrugBean;
+import com.keydom.mianren.ih_doctor.bean.DoctorPrescriptionDetailBean;
+import com.keydom.mianren.ih_doctor.bean.DrugBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class PrescriptionDetailView extends RelativeLayout {
     private ImageView doctorSign;
     private TextView number, hospitalName, userName, userSex, userAge, caseNum, deptName, address, phoneNum, feeType, diagnose, date, doctorName, checkDoctorName, prescriptionTypeName, sendDoctorName,prescriptionNumTv;
     private MedicineRecyclrViewAdapter mAdapter;
-    private List<PrescriptionDrugBean> dataList = new ArrayList<>();
+    private List<DrugBean> dataList = new ArrayList<>();
     private int position=0;
     public PrescriptionDetailView(Context context) {
         this(context,null);
@@ -65,7 +65,7 @@ public class PrescriptionDetailView extends RelativeLayout {
         recyclerView.setNestedScrollingEnabled(false);
     }
 
-    public void  setData(PrescriptionDetailBean bean,int position){
+    public void  setData(DoctorPrescriptionDetailBean bean, int position){
         this.position=position;
         prescriptionNumTv.setText("处方"+CommonUtils.numberToChinese(position+1));
         hospitalName.setText(MyApplication.userInfo.getHospitalName() + "处方笺");
@@ -86,7 +86,7 @@ public class PrescriptionDetailView extends RelativeLayout {
         sendDoctorName.setText(bean.getChecker());
         dataList.addAll(bean.getList().get(position));
         mAdapter.notifyDataSetChanged();
-        GlideUtils.load(doctorSign, Const.IMAGE_HOST + bean.getCommonSeal(), 0, 0, false, null);
+        GlideUtils.load(doctorSign, Const.IMAGE_HOST + bean.getCommonSeal(), 0, -1, false, null);
     }
 
 }

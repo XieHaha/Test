@@ -16,8 +16,8 @@ import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.prescription_check.controller.PrescriptionController;
 import com.keydom.mianren.ih_doctor.activity.prescription_check.view.PrescriptionView;
+import com.keydom.mianren.ih_doctor.bean.DoctorPrescriptionDetailBean;
 import com.keydom.mianren.ih_doctor.bean.MessageEvent;
-import com.keydom.mianren.ih_doctor.bean.PrescriptionDetailBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.view.PrescriptionDetailView;
@@ -135,7 +135,7 @@ public class PrescriptionActivity extends BaseControllerActivity<PrescriptionCon
     }
 
     @Override
-    public void getDetailSuccess(PrescriptionDetailBean bean) {
+    public void getDetailSuccess(DoctorPrescriptionDetailBean bean) {
         pageLoadingSuccess();
         setDetail(bean);
     }
@@ -196,7 +196,7 @@ public class PrescriptionActivity extends BaseControllerActivity<PrescriptionCon
      *
      * @param bean 处方数据
      */
-    private void setDetail(PrescriptionDetailBean bean) {
+    private void setDetail(DoctorPrescriptionDetailBean bean) {
         prescription_detail_layout.removeAllViews();
         for (int i = 0; i <bean.getList().size() ; i++) {
             PrescriptionDetailView prescriptionDetailView=new PrescriptionDetailView(getContext());

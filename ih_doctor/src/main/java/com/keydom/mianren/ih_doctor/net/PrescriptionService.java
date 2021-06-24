@@ -4,7 +4,6 @@ import com.keydom.ih_common.net.result.HttpResult;
 import com.keydom.mianren.ih_doctor.bean.DoctorPrescriptionDetailBean;
 import com.keydom.mianren.ih_doctor.bean.DrugUseConfigBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionBean;
-import com.keydom.mianren.ih_doctor.bean.PrescriptionDetailBean;
 import com.keydom.mianren.ih_doctor.bean.PrescriptionMessageBean;
 import com.keydom.mianren.ih_doctor.bean.UseDrugReasonBean;
 
@@ -45,18 +44,12 @@ public interface PrescriptionService {
     Observable<HttpResult<List<PrescriptionBean>>> getDoctorPrescriptionList(@QueryMap Map<String
             , Object> map);
 
-
-    /**
-     * 获取处方
-     */
-    @GET("user/prescription/getDetailById")
-    Observable<HttpResult<PrescriptionDetailBean>> getDrugControlPrescriptionDetail(@QueryMap Map<String, Object> map);
-
     /**
      * 获取处方详情
      */
     @GET("user/prescription/getDetailById")
-    Observable<HttpResult<DoctorPrescriptionDetailBean>> getDetailById(@QueryMap Map<String, Object> map);
+    Observable<HttpResult<DoctorPrescriptionDetailBean>> getDetailById(@QueryMap Map<String,
+            Object> map);
 
     /**
      * 用药原因

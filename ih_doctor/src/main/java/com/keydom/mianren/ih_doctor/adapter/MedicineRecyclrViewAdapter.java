@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.keydom.mianren.ih_doctor.R;
-import com.keydom.mianren.ih_doctor.bean.PrescriptionDrugBean;
+import com.keydom.mianren.ih_doctor.bean.DrugBean;
 
 import java.util.List;
 
@@ -25,9 +25,9 @@ public class MedicineRecyclrViewAdapter extends RecyclerView.Adapter<MedicineRec
 
 
     private Context context;
-    private List<PrescriptionDrugBean> data;
+    private List<DrugBean> data;
 
-    public MedicineRecyclrViewAdapter(Context context, List<PrescriptionDrugBean> data) {
+    public MedicineRecyclrViewAdapter(Context context, List<DrugBean> data) {
         this.context = context;
         this.data = data;
 
@@ -45,7 +45,7 @@ public class MedicineRecyclrViewAdapter extends RecyclerView.Adapter<MedicineRec
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        PrescriptionDrugBean bean = data.get(position);
+        DrugBean bean = data.get(position);
         holder.medicineNum.setText(String.valueOf(position + 1) + "、");
         holder.medicineName.setText(bean.getDrugsName());
         holder.medicineSpecifications.setText(bean.getSpec());

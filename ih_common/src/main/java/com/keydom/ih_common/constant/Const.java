@@ -87,7 +87,7 @@ public class Const {
     //    public static final String IMAGE_HOST = "https://www.tianfuzhl.com/";
 
     //小程序环境
-    public static final String RELEASE_HOST = "8";
+    public static final String RELEASE_HOST = "https://mianren.tianfuzhl.com.cn/";
     public static final String IMAGE_HOST = "https://mianren.tianfuzhl.com.cn/";
     public static final String WOMAN_SCHOOL =
             "ih_mianren/amniocentsis_h5/#/pregnantSchool?userId=";//孕妇学校  测试
