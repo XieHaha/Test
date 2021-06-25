@@ -121,10 +121,4 @@ interface ConversationView extends BaseView {
     void getDistributionFee(String data);
     void getLocationList(List<LocationInfo> data);
 
-
-    /**
-     * 发起支付
-     */
-    void goPay(boolean needDispatch, String orderNum,String orderId, double totalMoney,boolean isWaiYan);
-
 }

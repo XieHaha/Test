@@ -15,7 +15,6 @@ import com.keydom.ih_common.view.GeneralDialog;
 import com.keydom.mianren.ih_patient.App;
 import com.keydom.mianren.ih_patient.bean.InquiryBean;
 import com.keydom.mianren.ih_patient.bean.LocationInfo;
-import com.keydom.mianren.ih_patient.bean.PaymentOrderBean;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.net.LocationService;
 import com.keydom.mianren.ih_patient.net.PayService;
@@ -29,7 +28,6 @@ import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -109,31 +107,6 @@ public class ConversationController extends ControllerImpl<ConversationView> {
                         return true;
                     }
                 });
-    }
-
-    /**
-     * 创建支付订单
-     */
-    public void createOrder(boolean needDispatch, String document, BigDecimal fee,
-                            boolean isWaiYan) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("registerUserId", Global.getUserId());
-        map.put("documentNo", document);
-        map.put("fee", fee);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PayService.class).generateOrder(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PaymentOrderBean>(getContext(), getDisposable(), true, true) {
-            @Override
-            public void requestComplete(@org.jetbrains.annotations.Nullable PaymentOrderBean data) {
-                getView().goPay(needDispatch, data.getOrderNumber(),
-                        String.valueOf(data.getOrderId()), data.getFee(), isWaiYan);
-            }
-
-            @Override
-            public boolean requestError(@NotNull ApiException exception, int code,
-                                        @NotNull String msg) {
-                ToastUtils.showShort(msg);
-                return super.requestError(exception, code, msg);
-            }
-        });
     }
 
     /**
@@ -373,7 +346,6 @@ public class ConversationController extends ControllerImpl<ConversationView> {
      * 获取地址列表
      */
     public void getLocationList() {
-        showLoading();
         Map<String, Object> map = new HashMap<>();
         map.put("userId", Global.getUserId());
         map.put("currentPage", "1");
@@ -381,14 +353,12 @@ public class ConversationController extends ControllerImpl<ConversationView> {
         ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LocationService.class).getAddressList(map), new HttpSubscriber<PageBean<LocationInfo>>(getContext(), getDisposable(), false) {
             @Override
             public void requestComplete(@org.jetbrains.annotations.Nullable PageBean<LocationInfo> data) {
-                hideLoading();
                 getView().getLocationList(data.getRecords());
             }
 
             @Override
             public boolean requestError(@NotNull ApiException exception, int code,
                                         @NotNull String msg) {
-                hideLoading();
                 return super.requestError(exception, code, msg);
             }
         });

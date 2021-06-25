@@ -59,9 +59,9 @@ public class GotoActivityUtil {
     /**
      * 进入选择药店界面
      */
-    public static void gotoChoosePharmacyActivity(Activity activity,String id) {
+    public static void gotoChoosePharmacyActivity(Activity activity,String prescriptionId) {
         Intent i = new Intent(activity, ChoosePharmacyActivity.class);
-        i.putExtra(ChoosePharmacyActivity.ID, id);
+        i.putExtra(ChoosePharmacyActivity.ID, prescriptionId);
         ActivityUtils.startActivity(i);
     }
 

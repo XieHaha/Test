@@ -53,6 +53,9 @@ import java.util.stream.Collectors;
 import static com.baidu.mapapi.BMapManager.getContext;
 
 
+/**
+ * @author 顿顿
+ */
 public class ChoosePharmacyActivity extends BaseActivity {
     private RelativeLayout mReDis;
     private TextView mTvContent;
@@ -93,7 +96,7 @@ public class ChoosePharmacyActivity extends BaseActivity {
      */
     public static final double DEFAULT_GPS_LNG = 104.071144;
 
-    public static final String ID = "id";
+    public static final String ID = "prescriptionId";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,8 +112,8 @@ public class ChoosePharmacyActivity extends BaseActivity {
             mLatXy = lng + "," + lat;
         }
 
-        String id = getIntent().getStringExtra(ID);
-        getPrescriptionDetailDrugs(id);
+        String prescriptionId = getIntent().getStringExtra(ID);
+        getPrescriptionDetailDrugs(prescriptionId);
         //todo : 替换查找药品
 /*        if (!CommUtil.isEmpty(drugs)) {
             Logger.e("经纬度=" + mLatXy);
@@ -277,11 +280,12 @@ public class ChoosePharmacyActivity extends BaseActivity {
     /**
      * 获取药品
      */
-    public void getPrescriptionDetailDrugs(String id) {
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getDetailById(id), new HttpSubscriber<PrescriptionDetailBean>(getContext(), getDisposable(), true, true) {
+    public void getPrescriptionDetailDrugs(String prescriptionId) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(PrescriptionService.class).getDetailById(prescriptionId), new HttpSubscriber<PrescriptionDetailBean>(getContext(), getDisposable(), true, true) {
             @Override
             public void requestComplete(@Nullable PrescriptionDetailBean data) {
                 if (null != data && !CommUtil.isEmpty(data.getList())) {
+                    data.getList().get(0).get(0).setPrescriptionId(prescriptionId);
                     getHttpFindDrugstores(mLatXy, data.getList());
                 }
 
@@ -336,7 +340,6 @@ public class ChoosePharmacyActivity extends BaseActivity {
 
     /**
      * 按照距离由近到远排序
-     *
      */
     @SuppressWarnings("unchecked")
     public static List<PharmacyBean> sortMethodDistance(List<PharmacyBean> list) {
@@ -364,7 +367,6 @@ public class ChoosePharmacyActivity extends BaseActivity {
 
     /**
      * 按照价格由低到高排序
-     *
      */
     @SuppressWarnings("unchecked")
     public static void sortMethodPrice(List list) {

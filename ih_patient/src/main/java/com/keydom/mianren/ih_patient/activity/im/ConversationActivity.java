@@ -28,7 +28,6 @@ import com.keydom.ih_common.activity.DiagnoseOrderDetailActivity;
 import com.keydom.ih_common.activity.HandleProposeAcitivity;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.bean.InquiryStatus;
-import com.keydom.ih_common.bean.PageBean;
 import com.keydom.ih_common.bean.TriageBean;
 import com.keydom.ih_common.constant.Const;
 import com.keydom.ih_common.im.ImClient;
@@ -90,7 +89,6 @@ import com.keydom.mianren.ih_patient.callback.MessageSingleClick;
 import com.keydom.mianren.ih_patient.constant.EventType;
 import com.keydom.mianren.ih_patient.constant.Global;
 import com.keydom.mianren.ih_patient.constant.Type;
-import com.keydom.mianren.ih_patient.net.LocationService;
 import com.keydom.mianren.ih_patient.net.PrescriptionService;
 import com.keydom.mianren.ih_patient.utils.CommUtil;
 import com.keydom.mianren.ih_patient.utils.DataCacheUtil;
@@ -353,7 +351,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         super.onResume();
         if (!consultType) {
             getController().getLocationList();
-            getWaiYanLocationList();
         }
         if (team) {
             NIMClient.getService(MsgService.class).setChattingAccount(sessionId,
@@ -1297,18 +1294,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     }
 
     @Override
-    public void goPay(boolean needDispatch, String orderNum, String orderId, double totalMoney,
-                      boolean isWaiYan) {
-        mTotalFee = totalMoney;
-        if (isWaiYan) {
-            showPayTypeDialog(String.valueOf(totalMoney), totalMoney, orderNum, orderId);
-        } else {
-            showPayDialog(needDispatch, String.valueOf(totalMoney), totalMoney, orderNum);
-        }
-
-    }
-
-    @Override
     public void returnBackSuccess() {
         mMessageView.hideExtension();
         if (team) {
@@ -1445,6 +1430,7 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
             @Override
             public void requestComplete(@org.jetbrains.annotations.Nullable PrescriptionDetailBean data) {
                 if (null != data && !CommUtil.isEmpty(data.getList())) {
+                    data.getList().get(0).get(0).setPrescriptionId(id);
                     getHttpFindDrugstores(address, data.getList());
                 }
 
@@ -1674,7 +1660,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
     /**
      * 展示支付弹框
      */
-    private void showPayTypeDialog(String titleFee, double totalFee, String orderNum, String id) {
+    private void showPayTypeDialog(String titleFee, double totalFee, String orderNum,
+                                   String prescriptionId) {
         isSendDrugsToHome = false;
         WaiPayType[0] = 1;
         payWaiType = Type.WECHATPAY;
@@ -1747,7 +1734,8 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
         mLinShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GotoActivityUtil.gotoChoosePharmacyActivity(ConversationActivity.this, id);
+                GotoActivityUtil.gotoChoosePharmacyActivity(ConversationActivity.this,
+                        prescriptionId);
             }
         });
 
@@ -2028,47 +2016,6 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
 
         }
 
-    }
-
-    /**
-     * 外延处方获取地址列表
-     */
-    public void getWaiYanLocationList() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("userId", Global.getUserId());
-        map.put("currentPage", "1");
-        map.put("pageSize", 50);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(LocationService.class).getAddressList(map), new HttpSubscriber<PageBean<LocationInfo>>(ConversationActivity.this, getDisposable(), false) {
-            @Override
-            public void requestComplete(@org.jetbrains.annotations.Nullable PageBean<LocationInfo> data) {
-                getWaiYanLocationList(data.getRecords());
-            }
-
-            @Override
-            public boolean requestError(@NotNull ApiException exception, int code,
-                                        @NotNull String msg) {
-
-                return super.requestError(exception, code, msg);
-            }
-        });
-    }
-
-
-    public void getWaiYanLocationList(List<LocationInfo> data) {
-        if (mPayAddress != null) {
-            boolean isDelete = false;
-            for (int i = 0; i < data.size(); i++) {
-                LocationInfo locationInfo = data.get(i);
-                if ((locationInfo.getProvinceName() + locationInfo.getCityName() + locationInfo.getAreaName() + locationInfo.getAddress()).equals(mPayAddress.getText().toString())) {
-                    isDelete = true;
-                    break;
-                }
-            }
-            if (!isDelete) {
-                mPayAddress.setText("请选择配送详细地址和联系人");
-                //   mPayAddress.setTextColor(getResources().getColor(R.color.edit_hint_color));
-            }
-        }
     }
 
     /**

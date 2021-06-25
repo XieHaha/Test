@@ -423,6 +423,7 @@ public class OnlineDiagnonsesOrderController extends ControllerImpl<OnlineDiagno
             @Override
             public void requestComplete(@org.jetbrains.annotations.Nullable PrescriptionDetailBean data) {
                 if (null != data && !CommUtil.isEmpty(data.getList())) {
+                    data.getList().get(0).get(0).setPrescriptionId(id);
                     getHttpFindDrugstores(address, data.getList());
                 }
 

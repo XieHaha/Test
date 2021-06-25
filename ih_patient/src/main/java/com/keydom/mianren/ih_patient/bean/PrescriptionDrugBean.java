@@ -96,6 +96,19 @@ public class PrescriptionDrugBean implements Serializable {
 
     private Integer seq;
 
+    /**
+     * 处方id
+     */
+    private String prescriptionId;
+
+    public String getPrescriptionId() {
+        return prescriptionId;
+    }
+
+    public void setPrescriptionId(String prescriptionId) {
+        this.prescriptionId = prescriptionId;
+    }
+
     public Long getId() {
         return id;
     }
