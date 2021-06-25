@@ -105,7 +105,7 @@ public class PrescriptionAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                         drugBean.getPrice().multiply(new BigDecimal(drugBean.getQuantity()));
                 bigDecimal = bigDecimal.setScale(2, RoundingMode.CEILING);
                 helper.setText(R.id.medicine_num, helper.getPosition() - num + "、").setText(R.id.medicine_name, drugBean.getDrugsName())
-                        .setText(R.id.medicine_specifications, drugBean.getSpec()).setText(R.id.medicine_amount, drugBean.getQuantity() + drugBean.getPackUnit())
+                        .setText(R.id.medicine_specifications, drugBean.getSpec()).setText(R.id.medicine_amount, drugBean.getQuantity())
                         .setText(R.id.medicine_fee, drugBean.getPrice() == null ? "" :
                                 bigDecimal.toString() + "元")
                         .setText(R.id.use_once,

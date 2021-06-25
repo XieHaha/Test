@@ -46,12 +46,11 @@ public class MedicineRecyclrViewAdapter extends RecyclerView.Adapter<MedicineRec
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         DrugBean bean = data.get(position);
-        holder.medicineNum.setText(String.valueOf(position + 1) + "、");
+        holder.medicineNum.setText((position + 1) + "、");
         holder.medicineName.setText(bean.getDrugsName());
         holder.medicineSpecifications.setText(bean.getSpec());
         holder.medicineAmount.setText(bean.getQuantity() + bean.getPackUnit());
-        String doseStr=bean.getSingleDose()==null?"":bean.getSingleDose();
-        holder.useOnce.setText("用法:" +doseStr  + bean.getDosageUnit() + "/次");
+        holder.useOnce.setText("用法:" +bean.getSingleDosage() + "/次");
         holder.useMethod.setText(bean.getWay());
         holder.times.setText(bean.getFrequency());
     }

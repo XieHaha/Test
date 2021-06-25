@@ -137,7 +137,7 @@ public class DianoseCaseDetailActivity extends BaseControllerActivity<DianoseCas
         diagnose.setText(bean.getDiagnosis());
         dealWith.setText(bean.getHandleOpinion());
         doctorName.setText(bean.getDoctorName());
-        GlideUtils.load(doctorSign, Const.IMAGE_HOST + bean.getCommonSeal(), 0, 0, false, null);
+        GlideUtils.load(doctorSign, Const.IMAGE_HOST + bean.getCommonSeal(), 0, -1, false, null);
 
     }
 
