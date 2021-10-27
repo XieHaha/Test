@@ -374,7 +374,7 @@ public class DrugUseActivity extends BaseActivity {
     /**
      * 总量自动计算模式 默认自动计算
      */
-    private boolean autoDrugUseMode = true;
+    private boolean autoDrugUseMode = false;
 
     /**
      * 计算总量mode
@@ -383,12 +383,12 @@ public class DrugUseActivity extends BaseActivity {
         //T表示不自动计算总量
         if (curFrequencyBean != null) {
             freqUnit = curFrequencyBean.getFreqUnit();
-            autoDrugUseMode = !"T".equalsIgnoreCase(freqUnit);
-            if (autoDrugUseMode) {
-                freqCn = Float.valueOf(curFrequencyBean.getFreqCn());
-                freqDeg = Float.valueOf(curFrequencyBean.getFreqDeg());
-                computeDosage();
-            }
+//            autoDrugUseMode = !"T".equalsIgnoreCase(freqUnit);
+//            if (autoDrugUseMode) {
+//                freqCn = Float.valueOf(curFrequencyBean.getFreqCn());
+//                freqDeg = Float.valueOf(curFrequencyBean.getFreqDeg());
+//                computeDosage();
+//            }
         }
         medicalNumScalerMinusLayout.setVisibility(autoDrugUseMode ? View.GONE : View.VISIBLE);
         medicalNumScalerAddLayout.setVisibility(autoDrugUseMode ? View.GONE : View.VISIBLE);

@@ -922,6 +922,8 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         localSaveData.setDiagnosis(simpleDiagnose.getInputStr());
         localSaveData.setHandleOpinion(dealIdea.getInputStr());
         localSaveData.setList(saveData);
+        localSaveData.setType(isOutPrescription);
+        localSaveData.setCate(prescription_type);
         String fileName = "diagnoseId" + inquiryBean.getId();
         LocalizationUtils.fileSave2Local(getContext(), localSaveData, fileName);
     }
