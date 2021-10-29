@@ -98,4 +98,6 @@
 
     <!-- 讯飞SDK appid -->
     <string name="xunfei_app_id">5dd938d5</string>
+    <string name="txt_sign_register">设置签名口令</string>
+    <string name="txt_sign_reset">重置签名口令</string>
 </resources>

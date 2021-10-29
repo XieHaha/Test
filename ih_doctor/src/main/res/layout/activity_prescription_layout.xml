@@ -30,7 +30,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/top_line">
 
-        <android.support.v4.widget.NestedScrollView
+        <ScrollView
             android:id="@+id/detail_box_sv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -44,7 +44,7 @@
 
 
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+        </ScrollView>
 
         <LinearLayout
             android:id="@+id/action_ll"

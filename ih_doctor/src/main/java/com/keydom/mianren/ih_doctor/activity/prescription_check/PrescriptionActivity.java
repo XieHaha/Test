@@ -4,12 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ganxin.library.LoadDataLayout;
 import com.keydom.ih_common.base.BaseControllerActivity;
+import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.mianren.ih_doctor.MyApplication;
@@ -20,12 +24,15 @@ import com.keydom.mianren.ih_doctor.bean.DoctorPrescriptionDetailBean;
 import com.keydom.mianren.ih_doctor.bean.MessageEvent;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
+import com.keydom.mianren.ih_doctor.utils.CloneUtil;
 import com.keydom.mianren.ih_doctor.view.PrescriptionDetailView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -63,17 +70,28 @@ public class PrescriptionActivity extends BaseControllerActivity<PrescriptionCon
      */
     private int type;
     private LinearLayout actionLl;
+    private ScrollView scrollView;
     private String auditOpinion;
 
+    /**
+     * view 宽高
+     */
+    private int width;
+    private List<Integer> heights;
+    //图片地址
+    private List<String> imagePaths = new ArrayList<>();
 
-    Handler mHandler = new Handler();
-    Runnable r = new Runnable() {
+    public static final String PDF_PATH = "/sdcard/screen_pdf.pdf";
 
+    public Handler mHandler = new Handler(new Handler.Callback() {
         @Override
-        public void run() {
-            PrescriptionActivity.this.finish();
+        public boolean handleMessage(Message msg) {
+            if (1 == msg.what) {
+                getController().signPdf(heights.size(),msg.getData().getString("pw"));
+            }
+            return false;
         }
-    };
+    });
 
 
     /**
@@ -113,10 +131,11 @@ public class PrescriptionActivity extends BaseControllerActivity<PrescriptionCon
         setTitle("电子处方单");
         id = getIntent().getLongExtra(Const.PRESCRIPTION_ID, 0);
         type = getIntent().getIntExtra(Const.TYPE, 0);
-        checkNo = (TextView) findViewById(R.id.check_no);
-        checkYes = (TextView) findViewById(R.id.check_yes);
+        scrollView = findViewById(R.id.detail_box_sv);
+        checkNo =  findViewById(R.id.check_no);
+        checkYes =  findViewById(R.id.check_yes);
         prescription_detail_layout=findViewById(R.id.prescription_detail_layout);
-        actionLl = (LinearLayout) findViewById(R.id.action_ll);
+        actionLl =  findViewById(R.id.action_ll);
         if (type == PRESCRIPTION_NOT_ACTION || SharePreferenceManager.getRoleId() != Const.ROLE_MEDICINE) {
             actionLl.setVisibility(View.GONE);
         }
@@ -135,6 +154,53 @@ public class PrescriptionActivity extends BaseControllerActivity<PrescriptionCon
     }
 
     @Override
+    public ScrollView getScrollView() {
+        return scrollView;
+    }
+
+    @Override
+    public void handleImageAndPdf(String password) {
+        getController().showLoading();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //截屏
+                CommonUtils.getBitmapByView(scrollView, new CommonUtils.ViewToImageCallBack() {
+                    @Override
+                    public void result(List<String> a, int b, List<Integer> c) {
+                        imagePaths.clear();
+                        imagePaths.addAll(a);
+                        width = b;
+                        heights = c;
+                    }
+                });
+                //图片转pdf
+                CloneUtil.imageToPDF(imagePaths, width, heights, PrescriptionActivity.PDF_PATH);
+                Message message = mHandler.obtainMessage();
+                Bundle bundle = new Bundle();
+                bundle.putString("pw", password);
+                message.setData(bundle);
+                message.what = 1;
+                mHandler.sendMessage(message);
+            }
+        }).start();
+    }
+
+    @Override
+    public void auditPass() {
+        state = 1;
+        auditOpinion = "";
+        getController().isSign();
+    }
+
+    @Override
+    public void auditReturn(String auditOpinion) {
+        state = 0;
+        this.auditOpinion = auditOpinion;
+        getController().audit("");
+    }
+
+    @Override
     public void getDetailSuccess(DoctorPrescriptionDetailBean bean) {
         pageLoadingSuccess();
         setDetail(bean);
@@ -148,7 +214,12 @@ public class PrescriptionActivity extends BaseControllerActivity<PrescriptionCon
     @Override
     public void auditSuccess(String successMsg) {
         EventBus.getDefault().post(new MessageEvent.Buidler().setType(EventType.PRESCRIPTION_UPDATE).build());
-        mHandler.postDelayed(r, 500);
+        mHandler.postDelayed(new Thread(new Runnable() {
+            @Override
+            public void run() {
+                PrescriptionActivity.this.finish();
+            }
+        }), 500);
     }
 
     @Override
@@ -165,31 +236,18 @@ public class PrescriptionActivity extends BaseControllerActivity<PrescriptionCon
     }
 
     @Override
-    public Map<String, Object> getAuditMap() {
+    public Map<String, Object> getAuditMap(String fileId) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", id);
         map.put("hospitalId", MyApplication.userInfo.getHospitalId());
         map.put("state", state);
         map.put("auditOpinion", auditOpinion);
+        //签章文件id
+        if (!TextUtils.isEmpty(fileId)) {
+            map.put("auditorSignFileId", fileId);
+        }
         return map;
     }
-
-
-    @Override
-    public void auditPass(String signature, String jobId) {
-        state = 1;
-        auditOpinion = "";
-        getController().audit(signature, jobId);
-
-    }
-
-    @Override
-    public void auditReturn(String value, String signature, String jobId) {
-        auditOpinion = value;
-        state = 0;
-        getController().audit(signature, jobId);
-    }
-
 
     /**
      * 设置处方信息

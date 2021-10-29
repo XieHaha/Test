@@ -62,9 +62,13 @@ public class MyApplication extends CommonApp {
     public static int receiveReferral = 0;
 
     /**
-     * 是否开启ca签名
+     * ca认证关闭  替换新CA，暂不移除旧代码
      */
     public static boolean signAble = false;
+    /**
+     * 四川CA
+     */
+    public static boolean scSignAble = true;
 
 
     static {

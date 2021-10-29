@@ -128,8 +128,10 @@
         <activity android:name=".activity.personal.MyEvaluationActivity" />
         <activity android:name=".activity.personal.MyServiceActivity" />
         <activity android:name=".activity.prescription_check.PrescriptionCheckActivity" />
-        <activity android:name=".activity.prescription_check.PrescriptionActivity" />
-        <activity android:name=".activity.prescription_check.DiagnosePrescriptionActivity" />
+        <activity android:name=".activity.prescription_check.PrescriptionActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".activity.prescription_check.DiagnosePrescriptionActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activity.consulting_arrange.ConsultingArrangeActivity" />
         <activity android:name=".activity.consulting_arrange.ConsultingChangeActivity" />
         <activity android:name=".activity.consulting_arrange.ArrangeCircleActivity" />
@@ -221,6 +223,9 @@
         <activity android:name=".activity.electronic_signature.ActivateSignatureActivity" />
         <activity android:name=".activity.electronic_signature.ChangeSignatureActivity" />
         <activity android:name=".activity.electronic_signature.SignatureActivity" />
+        <activity android:name=".activity.electronic_signature.SiChuanCAActivity" />
+        <activity android:name=".activity.electronic_signature.SiChuanCASetActivity" />
+
         <activity
             android:name="cn.org.bjca.signet.component.core.activity.SignetCoreApiActivity"
             android:configChanges="orientation|screenSize"

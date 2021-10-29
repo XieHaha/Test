@@ -23,6 +23,7 @@ import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.net.SignService;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -199,5 +200,27 @@ public class SignUtils {
 
     }
 
+    public interface SCSignCallBack{
+        void signSuccess();
+        void signFailed();
+    }
+    /**
+     * 获取签名用户信息
+     */
+    public static void isSign(Context context,SCSignCallBack callBack) {
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(SignService.class).isSign(), new HttpSubscriber<String>(context, ((BaseActivity) context).getDisposable(), true) {
+            @Override
+            public void requestComplete(@Nullable String data) {
+                callBack.signSuccess();
+            }
+
+            @Override
+            public boolean requestError(@NotNull ApiException exception, int code,
+                                        @NotNull String msg) {
+                callBack.signFailed();
+                return super.requestError(exception, code, msg);
+            }
+        });
+    }
 
 }

@@ -4,7 +4,7 @@ package com.keydom.mianren.ih_doctor.bean;
 import java.io.Serializable;
 
 public class AgreementBean  implements Serializable {
-
+    public static final String CODE_16 = "016";//四川CA协议
     /**
      * id : 30
      * officialDispatchCodeId : 1111

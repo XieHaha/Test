@@ -12,6 +12,8 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -26,6 +28,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.blankj.utilcode.util.ScreenUtils;
 import com.keydom.ih_common.R;
@@ -38,8 +42,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
-import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -701,5 +707,124 @@ public class CommonUtils {
             Log.e("VersionInfo", "Exception", e);
         }
         return versionName;
+    }
+
+    /**
+     * 对字符串处理:将指定位置到指定位置的字符以星号代替
+     *
+     * @param content
+     *            传入的字符串
+     * @param begin
+     *            开始位置
+     * @param end
+     *            结束位置
+     * @return
+     */
+    public static String getStarString(String content, int begin, int end) {
+
+        if (begin >= content.length() || begin < 0) {
+            return content;
+        }
+        if (end >= content.length() || end < 0) {
+            return content;
+        }
+        if (begin >= end) {
+            return content;
+        }
+        String starStr = "";
+        for (int i = begin; i < end; i++) {
+            starStr = starStr + "*";
+        }
+        return content.substring(0, begin) + starStr + content.substring(end);
+    }
+
+    /**
+     * 截取scrollview的屏幕
+     */
+    public static void getBitmapByScrollView(ScrollView scrollView, ViewToImageCallBack callBack) {
+        List<String> imagePaths = new ArrayList<>();
+        List<Integer> heights = new ArrayList<>();
+        int width = scrollView.getWidth();
+        int h = 0;
+        Bitmap bitmap = null;
+        // 获取scrollview实际高度
+        for (int i = 0; i < scrollView.getChildCount(); i++) {
+            h += scrollView.getChildAt(i).getHeight();
+        }
+        heights.add(h);
+        // 创建对应大小的bitmap
+        bitmap = Bitmap.createBitmap(width, h, Bitmap.Config.ARGB_8888);
+        final Canvas canvas = new Canvas(bitmap);
+        //设置背景白色
+        canvas.drawRGB(255, 255, 255);
+        scrollView.draw(canvas);
+
+        String path = "/sdcard/screen.png";
+        imagePaths.add(path);
+        File file = new File(path);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
+            fos.flush();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        scrollView.destroyDrawingCache();
+        //返回数据
+        callBack.result(imagePaths, width, heights);
+    }
+
+    /**
+     * 截取scrollview的屏幕
+     */
+    public static void getBitmapByView(ScrollView scrollView, ViewToImageCallBack callBack) {
+        List<String> imagePaths = new ArrayList<>();
+        List<Integer> heights = new ArrayList<>();
+        int width = scrollView.getWidth();
+        LinearLayout layout = (LinearLayout) scrollView.getChildAt(0);
+        // 获取View实际高度
+        for (int i = 0; i < layout.getChildCount(); i++) {
+            String path = "/sdcard/screen" + i + ".png";
+            imagePaths.add(path);
+            View view = layout.getChildAt(i);
+            view.setDrawingCacheEnabled(true);
+            view.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+            view.setDrawingCacheBackgroundColor(Color.WHITE);
+            heights.add(view.getHeight());
+            // 把一个View转换成图片
+            Bitmap bmp = Bitmap.createBitmap(width, view.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            //设置背景白色
+            canvas.drawRGB(255, 255, 255);
+            view.draw(canvas);
+            File file = new File(path);
+            try {
+                FileOutputStream fos = new FileOutputStream(file);
+                bmp.compress(Bitmap.CompressFormat.PNG, 90, fos);
+                fos.flush();
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            view.destroyDrawingCache();
+        }
+        //返回数据
+        callBack.result(imagePaths, width, heights);
+    }
+
+    public interface ViewToImageCallBack {
+        void result(List<String> imagePaths, int width, List<Integer> height);
+    }
+
+    public static String getPageString(int size) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < size; i++) {
+            builder.append(String.valueOf(i + 1));
+            if (i != size - 1) {
+                builder.append(",");
+            }
+        }
+        return builder.toString();
     }
 }

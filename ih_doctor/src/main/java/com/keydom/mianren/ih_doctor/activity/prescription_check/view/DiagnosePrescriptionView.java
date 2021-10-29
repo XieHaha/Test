@@ -143,6 +143,8 @@ public interface DiagnosePrescriptionView extends BaseView {
 
     boolean checkPrescription();
 
+    void handleImageAndPdf(String password);
+
     void removeDrug(int position, int childPosition);
 
     void removePrescription(int position);

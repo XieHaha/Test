@@ -9,11 +9,9 @@ import com.keydom.ih_common.net.service.HttpService;
 import com.keydom.ih_common.net.subsriber.HttpSubscriber;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.ToastUtil;
-import com.keydom.mianren.ih_doctor.MyApplication;
 import com.keydom.mianren.ih_doctor.R;
 import com.keydom.mianren.ih_doctor.activity.SearchActivity;
-import com.keydom.mianren.ih_doctor.activity.electronic_signature.ApplySignatureActivity;
-import com.keydom.mianren.ih_doctor.activity.electronic_signature.SignatureActivity;
+import com.keydom.mianren.ih_doctor.activity.electronic_signature.SiChuanCAActivity;
 import com.keydom.mianren.ih_doctor.activity.my_message.MyMessageActivity;
 import com.keydom.mianren.ih_doctor.activity.personal.ArticleListActivity;
 import com.keydom.mianren.ih_doctor.activity.personal.FeedBackActivity;
@@ -109,11 +107,8 @@ public class PersonalFragmentController extends ControllerImpl<PersonalFragmentV
                 break;
             case R.id.my_sign:
                 //没有注册、跳转到注册页面
-                if (MyApplication.userInfo.getMsspId() == null || "".equals(MyApplication.userInfo.getMsspId().replace(" ", ""))) {
-                    ApplySignatureActivity.start(getContext());
-                } else {//已经注册，跳转到二维码页面（可进行修改手机号、激活、找回等操作）
-                    SignatureActivity.start(getContext());
-                }
+                //                SignUtils.toGetSignature(getContext());
+                SiChuanCAActivity.start(getContext());
                 break;
             case R.id.my_message:
                 MyMessageActivity.start(getContext(),null);

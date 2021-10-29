@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +27,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.keydom.ih_common.base.BaseControllerActivity;
 import com.keydom.ih_common.im.ImClient;
 import com.keydom.ih_common.im.model.custom.DisposalAdviceAttachment;
+import com.keydom.ih_common.utils.CommonUtils;
 import com.keydom.ih_common.utils.SharePreferenceManager;
 import com.keydom.ih_common.utils.ToastUtil;
 import com.keydom.ih_common.view.GeneralDialog;
@@ -60,6 +63,7 @@ import com.keydom.mianren.ih_doctor.bean.UseDrugReasonBean;
 import com.keydom.mianren.ih_doctor.constant.Const;
 import com.keydom.mianren.ih_doctor.constant.EventType;
 import com.keydom.mianren.ih_doctor.constant.ServiceConst;
+import com.keydom.mianren.ih_doctor.utils.CloneUtil;
 import com.keydom.mianren.ih_doctor.utils.DateUtils;
 import com.keydom.mianren.ih_doctor.utils.LocalizationUtils;
 import com.keydom.mianren.ih_doctor.view.DiagnosePrescriptionItemView;
@@ -170,6 +174,14 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     private List<ICD10Bean> icdItems;
 
     /**
+     * view 宽高
+     */
+    private int width;
+    private List<Integer> heights;
+    //图片地址
+    private List<String> imagePaths = new ArrayList<>();
+
+    /**
      * 启动处方修改页面
      *
      * @param context
@@ -206,6 +218,16 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         starter.putExtra(Const.TYPE, CREATE_HANDLE);
         ((Activity) context).startActivityForResult(starter, ConversationActivity.SEND_MESSAGE);
     }
+
+    public Handler mHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            if (1 == msg.what) {
+                getController().signPdf(heights.size(),msg.getData().getString("pw"));
+            }
+            return false;
+        }
+    });
 
     @Override
     public int getLayoutRes() {
@@ -852,6 +874,34 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
             }
         }
         return true;
+    }
+
+    @Override
+    public void handleImageAndPdf(String password) {
+        getController().showLoading();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //截屏
+                CommonUtils.getBitmapByScrollView(mScroller, new CommonUtils.ViewToImageCallBack() {
+                    @Override
+                    public void result(List<String> a, int b, List<Integer> c) {
+                        imagePaths.clear();
+                        imagePaths.addAll(a);
+                        width = b;
+                        heights = c;
+                    }
+                });
+                //图片转pdf
+                CloneUtil.imageToPDF(imagePaths, width, heights, PrescriptionActivity.PDF_PATH);
+                Message message = mHandler.obtainMessage();
+                Bundle bundle = new Bundle();
+                bundle.putString("pw", password);
+                message.setData(bundle);
+                message.what = 1;
+                mHandler.sendMessage(message);
+            }
+        }).start();
     }
 
     @Override
