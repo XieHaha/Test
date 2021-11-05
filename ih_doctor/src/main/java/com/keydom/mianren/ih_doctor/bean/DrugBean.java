@@ -156,6 +156,51 @@ public class DrugBean implements Serializable, MultiItemEntity {
     private String stock;
 
     private String singleDose;
+    private String alpha;
+    private String cate;
+    private String dispensingUnit;
+    private String remark;
+    private String isDel;
+
+    public String getAlpha() {
+        return alpha;
+    }
+
+    public void setAlpha(String alpha) {
+        this.alpha = alpha;
+    }
+
+    public String getCate() {
+        return cate;
+    }
+
+    public void setCate(String cate) {
+        this.cate = cate;
+    }
+
+    public String getDispensingUnit() {
+        return dispensingUnit;
+    }
+
+    public void setDispensingUnit(String dispensingUnit) {
+        this.dispensingUnit = dispensingUnit;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(String isDel) {
+        this.isDel = isDel;
+    }
 
     public String getStock() {
         return stock;

@@ -137,10 +137,15 @@ public interface DiagnoseApiService {
     Observable<HttpResult<List<CheckOutGroupBean>>> inspectList(@Query("hospitalId") long id);
 
 
+//    /**
+//     * 外延处方获取药品
+//     */
+//    @POST("outer_mr/drugsSpec/findByParam")
+//    Observable<HttpResult<DrugEntity>> WaiYanDrugsList(@Body RequestBody body);
     /**
-     * 外延处方获取药品
+     * 外延处方获取药品  2021年11月3日 16:58:07
      */
-    @POST("outer_mr/drugsSpec/findByParam")
+    @POST("outer_mr/drugsDict/findByParam")
     Observable<HttpResult<DrugEntity>> WaiYanDrugsList(@Body RequestBody body);
 
     /**

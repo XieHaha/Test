@@ -195,7 +195,7 @@ public class DrugUseActivity extends BaseActivity {
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-        drugItemPackUnit.setText(drugBean.getPackUnit());
+        drugItemPackUnit.setText(drugBean.getDispensingUnit());
         medicalNameTv.setText(drugBean.getDrugsName());
         medicalDescTv.setText(drugBean.getSpec());
         medicalNumScalerTextLayout.setText(String.valueOf(drugBean.getQuantity()));
@@ -210,7 +210,7 @@ public class DrugUseActivity extends BaseActivity {
             }
         }
         medicalDosageScalerTextLayout.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        dosageUnitTv.setText(drugBean.getBasicUnit());
+        dosageUnitTv.setText(drugBean.getDosageUnit());
         eatMedicalRateTv.setText(drugBean.getFrequency());
         eatMedicalDayScalerTextLayout.setText(String.valueOf(drugBean.getDays()));
         doctorEntrust.setText(drugBean.getDoctorAdvice());
@@ -292,8 +292,15 @@ public class DrugUseActivity extends BaseActivity {
         medicalDosageScalerMinusLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                float temp;
+                if(TextUtils.isEmpty(drugBean.getDosage()))
+                {
+                    temp = 1f;
+                }else {
+                    temp = Float.parseFloat(drugBean.getDosage());
+                }
                 if (amount > 0) {
-                    amount -= 0.01;
+                    amount -= temp;
                     if (amount < 0) {
                         amount = 0;
                     }
@@ -306,7 +313,14 @@ public class DrugUseActivity extends BaseActivity {
         medicalDosageScalerAddLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                amount += 0.01;
+                float temp;
+                if(TextUtils.isEmpty(drugBean.getDosage()))
+                {
+                    temp = 1f;
+                }else {
+                    temp = Float.parseFloat(drugBean.getDosage());
+                }
+                amount += temp;
                 medicalDosageScalerTextLayout.setText(df1.format(amount));
             }
         });
@@ -383,12 +397,12 @@ public class DrugUseActivity extends BaseActivity {
         //T表示不自动计算总量
         if (curFrequencyBean != null) {
             freqUnit = curFrequencyBean.getFreqUnit();
-//            autoDrugUseMode = !"T".equalsIgnoreCase(freqUnit);
-//            if (autoDrugUseMode) {
-//                freqCn = Float.valueOf(curFrequencyBean.getFreqCn());
-//                freqDeg = Float.valueOf(curFrequencyBean.getFreqDeg());
-//                computeDosage();
-//            }
+            //            autoDrugUseMode = !"T".equalsIgnoreCase(freqUnit);
+            //            if (autoDrugUseMode) {
+            //                freqCn = Float.valueOf(curFrequencyBean.getFreqCn());
+            //                freqDeg = Float.valueOf(curFrequencyBean.getFreqDeg());
+            //                computeDosage();
+            //            }
         }
         medicalNumScalerMinusLayout.setVisibility(autoDrugUseMode ? View.GONE : View.VISIBLE);
         medicalNumScalerAddLayout.setVisibility(autoDrugUseMode ? View.GONE : View.VISIBLE);
@@ -424,9 +438,9 @@ public class DrugUseActivity extends BaseActivity {
         if (autoDrugUseMode) {
             if (days > 0 && amount > 0) {
                 float value = (days / freqCn) * amount * freqDeg / rate;
-//                if (drugStock > 0 && value > drugStock) {
-//                    ToastUtil.showMessage(this, "库存不足！");
-//                }
+                //                if (drugStock > 0 && value > drugStock) {
+                //                    ToastUtil.showMessage(this, "库存不足！");
+                //                }
                 medicalNumScalerTextLayout.setText(String.valueOf((int) Math.ceil(value)));
             } else {
                 medicalNumScalerTextLayout.setText("0");
@@ -443,10 +457,10 @@ public class DrugUseActivity extends BaseActivity {
         String quantity = medicalNumScalerTextLayout.getText().toString().trim();
         if (days > 0 && amount > 0 && curUseWayBean != null && curFrequencyBean != null && !TextUtils.isEmpty(quantity)) {
             int total = Integer.valueOf(quantity);
-//            if (total > drugStock) {
-//                ToastUtil.showMessage(this, "库存不足！");
-//                return false;
-//            }
+            //            if (total > drugStock) {
+            //                ToastUtil.showMessage(this, "库存不足！");
+            //                return false;
+            //            }
             String doctorAdvice = doctorEntrust.getText().toString().trim();
             drugBean.setWay(curUseWayBean.getCodeValue());
             drugBean.setWayCode(curUseWayBean.getCode());
@@ -460,6 +474,8 @@ public class DrugUseActivity extends BaseActivity {
                 BigDecimal b = ArithUtil.mul(String.valueOf(amount), drugBean.getSingleDosage());
                 b = b.setScale(2, RoundingMode.CEILING);
                 drugBean.setDosage(b.toString());
+            } else {
+                drugBean.setDosage(String.valueOf(amount));
             }
             BigDecimal price = ArithUtil.mul(quantity, drugBean.getPrice().toString());
             price = price.setScale(2, RoundingMode.CEILING);
