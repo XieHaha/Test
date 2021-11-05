@@ -1853,19 +1853,19 @@ public class ConversationActivity extends BaseControllerActivity<ConversationCon
                 @Override
                 public void onClick(View v) {
                     payWaiType = Type.PREPAY;
-                    PharmacyBean pharmacyBean = null;
+//                    PharmacyBean pharmacyBean = null;
                     if (mRadioHome.isChecked()) {
                         if (mWaiYanAddressId == 0) {
                             ToastUtils.showShort("请选择配送地址");
                             return;
                         }
-                        pharmacyBean = mPharmacyBeans.get(0);
+//                        pharmacyBean = mPharmacyBeans.get(0);
                     } else {
                         if (CommUtil.isEmpty(mPharmacyName) && CommUtil.isEmpty(mPharmacyAddress)) {
                             ToastUtils.showShort("请选择药店");
                             return;
                         }
-                        pharmacyBean = mPharmacyBean;
+//                        pharmacyBean = mPharmacyBean;
                     }
                     //去支付
                     Map<String, Object> map = new HashMap<>();
