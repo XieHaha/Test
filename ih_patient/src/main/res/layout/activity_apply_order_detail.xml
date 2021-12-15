@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#F9F9F9"
     android:orientation="vertical"
     android:paddingBottom="@dimen/padding_left_right_dp">
@@ -390,7 +391,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="总金额：¥120"
+                    tools:text="总金额：¥120"
                     android:textColor="#FF3939"
                     android:textSize="@dimen/sp_14" />
             </LinearLayout>
@@ -419,7 +420,7 @@
                     android:id="@+id/apply_doctor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="唐林"
+                    tools:text="唐林"
                     android:textColor="@color/color_333333"
                     android:textSize="@dimen/sp_14" />
             </LinearLayout>
@@ -444,7 +445,7 @@
                     android:id="@+id/apply_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2018.10.16 "
+                    tools:text="2018.10.16 "
                     android:textColor="@color/color_333333"
                     android:textSize="@dimen/sp_14" />
             </LinearLayout>
