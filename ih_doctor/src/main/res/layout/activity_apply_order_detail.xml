@@ -270,7 +270,7 @@
                     android:layout_below="@id/diagnose_res_tip_tv"
                     android:layout_marginTop="@dimen/dp_10"
                     android:paddingLeft="@dimen/dp_35"
-                    android:text="急性上呼吸道感染"
+                    tools:text="急性上呼吸道感染"
                     android:textColor="#666666"
                     android:textSize="@dimen/font_size_auxiliary" />
 
@@ -294,7 +294,7 @@
                     android:layout_below="@id/disease_dec_tip_tv"
                     android:layout_marginTop="@dimen/dp_10"
                     android:paddingLeft="@dimen/dp_35"
-                    android:text="急性上呼吸道感染"
+                    tools:text="急性上呼吸道感染"
                     android:textColor="#666666"
                     android:textSize="@dimen/font_size_auxiliary" />
 
@@ -328,7 +328,7 @@
                     android:layout_below="@id/check_item_rv"
                     android:layout_marginTop="@dimen/dp_12"
                     android:paddingLeft="@dimen/dp_35"
-                    android:text="心脏    心脏    心脏"
+                    tools:text="心脏    心脏    心脏"
                     android:textColor="#666666"
                     android:textSize="@dimen/font_size_auxiliary" />
 
@@ -353,7 +353,7 @@
                     android:layout_below="@id/doctor_instruction_tip_tv"
                     android:layout_marginTop="@dimen/dp_10"
                     android:paddingLeft="@dimen/dp_35"
-                    android:text="本次心脏检查三次、肾脏两次"
+                    tools:text="本次心脏检查三次、肾脏两次"
                     android:textColor="#666666"
                     android:textSize="@dimen/font_size_auxiliary" />
 
@@ -384,7 +384,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="left"
-                    android:text="总共三项"
+                    tools:text="总共三项"
                     android:textColor="@color/primary_font_color"
                     android:textSize="@dimen/font_size_primary" />
 
@@ -394,7 +394,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="总金额：¥120"
+                    tools:text="总金额：¥120"
                     android:textColor="#FF3939"
                     android:textSize="@dimen/font_size_primary" />
             </LinearLayout>
@@ -424,7 +424,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_10"
-                    android:text="唐林"
+                    tools:text="唐林"
                     android:textColor="@color/primary_font_color"
                     android:textSize="@dimen/font_size_primary" />
 
@@ -451,7 +451,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_10"
-                    android:text="2018.10.16 "
+                    tools:text="2018.10.16 "
                     android:textColor="@color/primary_font_color"
                     android:textSize="@dimen/font_size_primary" />
             </LinearLayout>

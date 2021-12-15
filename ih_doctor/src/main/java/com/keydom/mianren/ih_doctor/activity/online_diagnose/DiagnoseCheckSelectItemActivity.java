@@ -225,6 +225,8 @@ public class DiagnoseCheckSelectItemActivity extends BaseControllerActivity<Diag
                     parentBean.setItems(subBeans);
                     if (!selectData.contains(parentBean)) {
                         parentBean.setDeptName(subBean.getExecuteDeptName());
+                        parentBean.setApplicationName(subBean.getExecuteDeptName());
+                        parentBean.setInsCheckCateName(parentBean.getName());
                         selectData.add(parentBean);
                     }
                 } else {

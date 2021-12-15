@@ -184,14 +184,12 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
             case CREATE_INSPECT_ORDER:
                 isInspectOrder = true;
                 title = "检查申请";
-                initUserInfo();
                 diseaseTv.setText(orderBean.getConditionDesc());
                 diseaseRl.setVisibility(View.VISIBLE);
                 checkTipLl.setVisibility(View.GONE);
                 break;
             case CREATE_TEST_ORDER:
                 isInspectOrder = false;
-                initUserInfo();
                 title = "检验申请";
                 diseaseRl.setVisibility(View.GONE);
                 checkTipLl.setVisibility(View.VISIBLE);
@@ -215,6 +213,7 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
         }
         setTitle(title);
         bindData();
+        initUserInfo();
         if (mType == CREATE_INSPECT_ORDER || mType == CREATE_TEST_ORDER) {
             setRightBtnListener(getController());
             setRightTxt("提交");
@@ -245,6 +244,10 @@ public class ApplyForCheckActivity extends BaseControllerActivity<ApplyForCheckC
         if (inspectionBean != null) {
             //主诉
             mainDec.setText(inspectionBean.getComplaint());
+            //现病史
+            medicalHistory.setText(inspectionBean.getHistoryAllergy());
+            //流行病学史
+            epidemicHistory.setText(inspectionBean.getEpidemicDiseaseHistory());
             //诊断
             diagnoseTv.setText(inspectionBean.getDiagnosis());
             //描述

@@ -3,6 +3,7 @@
     xmlns:mitem="http://schemas.android.com/apk/res-audo/com.keydom.mianren.ih_doctor.view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -91,7 +92,7 @@
                         android:maxWidth="@dimen/dp_80"
                         android:singleLine="true"
                         android:ellipsize="middle"
-                        android:text="莫思凡·卡农萨达飒飒大苏打阿斯顿啊大神"
+                        tools:text="姓名"
                         android:textColor="@color/fontColorDirection"
                         android:textSize="@dimen/font_size_primary" />
                 </RelativeLayout>
@@ -124,7 +125,7 @@
                         android:paddingTop="@dimen/dp_9"
                         android:paddingRight="@dimen/dp_12"
                         android:paddingBottom="@dimen/dp_9"
-                        android:text="男"
+                        tools:text="男"
                         android:textColor="@color/fontColorDirection"
                         android:textSize="@dimen/font_size_primary" />
                 </RelativeLayout>
@@ -155,7 +156,7 @@
                         android:paddingTop="@dimen/dp_9"
                         android:paddingRight="@dimen/dp_12"
                         android:paddingBottom="@dimen/dp_9"
-                        android:text="24"
+                        tools:text="24"
                         android:textColor="@color/fontColorDirection"
                         android:textSize="@dimen/font_size_primary" />
                 </RelativeLayout>

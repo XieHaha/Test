@@ -23,6 +23,7 @@ public class InspectionBean implements Serializable {
     private String doctorId;
     private String elcCardNumber;
     private String historyAllergy;
+    private String epidemicDiseaseHistory;
     private String historyIllness;
     private String hospitalId;
     private String inquiryOrderId;
@@ -109,6 +110,14 @@ public class InspectionBean implements Serializable {
 
     public void setHistoryAllergy(String historyAllergy) {
         this.historyAllergy = historyAllergy;
+    }
+
+    public String getEpidemicDiseaseHistory() {
+        return epidemicDiseaseHistory;
+    }
+
+    public void setEpidemicDiseaseHistory(String epidemicDiseaseHistory) {
+        this.epidemicDiseaseHistory = epidemicDiseaseHistory;
     }
 
     public String getHistoryIllness() {
