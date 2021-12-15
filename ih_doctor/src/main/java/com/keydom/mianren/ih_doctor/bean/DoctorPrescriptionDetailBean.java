@@ -45,6 +45,7 @@ public class DoctorPrescriptionDetailBean implements Serializable {
     private String illnessDate;
     private String hospitalName;
     private String commonSeal;
+    private String auditorCommonSeal;
     private String medicalReasonsName;
     private String medicaltemplateType;
     private String medicaltemplateName;
@@ -350,6 +351,14 @@ public class DoctorPrescriptionDetailBean implements Serializable {
 
     public void setCommonSeal(String commonSeal) {
         this.commonSeal = commonSeal;
+    }
+
+    public String getAuditorCommonSeal() {
+        return auditorCommonSeal;
+    }
+
+    public void setAuditorCommonSeal(String auditorCommonSeal) {
+        this.auditorCommonSeal = auditorCommonSeal;
     }
 
     public List<List<DrugBean>> getList() {

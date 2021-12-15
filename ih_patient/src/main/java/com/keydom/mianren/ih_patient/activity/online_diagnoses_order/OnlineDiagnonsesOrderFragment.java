@@ -928,7 +928,7 @@ public class OnlineDiagnonsesOrderFragment extends BaseControllerFragment<Online
 
     @Override
     public void returnBackFailed(String errMsg) {
-        ToastUtil.showMessage(getContext(), "退单失败" + errMsg);
+        ToastUtil.showMessage(getContext(), errMsg);
     }
 
     @Override

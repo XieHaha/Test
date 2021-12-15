@@ -24,7 +24,7 @@ import java.util.List;
 public class PrescriptionDetailView extends RelativeLayout {
 
     private RecyclerView recyclerView;
-    private ImageView doctorSign;
+    private ImageView doctorSign,authDoctorSign;
     private TextView number, hospitalName, userName, userSex, userAge, caseNum, deptName, address, phoneNum, feeType, diagnose, date, doctorName, checkDoctorName, prescriptionTypeName, sendDoctorName,prescriptionNumTv;
     private MedicineRecyclrViewAdapter mAdapter;
     private List<DrugBean> dataList = new ArrayList<>();
@@ -43,6 +43,7 @@ public class PrescriptionDetailView extends RelativeLayout {
         prescriptionNumTv=this.findViewById(R.id.prescription_num_tv);
         hospitalName = (TextView) this.findViewById(R.id.hospital_name);
         doctorSign = (ImageView) this.findViewById(R.id.doctor_sign);
+        authDoctorSign = (ImageView) this.findViewById(R.id.auth_doctor_sign);
         userName = (TextView) this.findViewById(R.id.user_name);
         userSex = (TextView) this.findViewById(R.id.user_sex);
         userAge = (TextView) this.findViewById(R.id.user_age);
@@ -87,6 +88,7 @@ public class PrescriptionDetailView extends RelativeLayout {
         dataList.addAll(bean.getList().get(position));
         mAdapter.notifyDataSetChanged();
         GlideUtils.load(doctorSign, Const.IMAGE_HOST + bean.getCommonSeal(), 0, -1, false, null);
+//        GlideUtils.load(authDoctorSign, Const.IMAGE_HOST + bean.getAuditorCommonSeal(), 0, -1, false, null);
     }
 
 }

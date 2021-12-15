@@ -211,7 +211,7 @@ public class DrugUseActivity extends BaseActivity {
         }
         medicalDosageScalerTextLayout.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         dosageUnitTv.setText(drugBean.getDosageUnit());
-        eatMedicalRateTv.setText(drugBean.getFrequency());
+        eatMedicalRateTv.setText(drugBean.getFrequencyEnglish());
         eatMedicalDayScalerTextLayout.setText(String.valueOf(drugBean.getDays()));
         doctorEntrust.setText(drugBean.getDoctorAdvice());
 

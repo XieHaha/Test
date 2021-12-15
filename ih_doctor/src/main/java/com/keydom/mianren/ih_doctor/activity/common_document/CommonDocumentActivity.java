@@ -70,7 +70,7 @@ public class CommonDocumentActivity extends BaseControllerActivity<CommonDocumen
 
         } else {
             switch (code) {
-                case AgreementBean.CODE_16:
+                case AgreementBean.CODE_20:
                     setTitle("数字证书服务协议");
                     break;
                 default:

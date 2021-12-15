@@ -27,7 +27,7 @@ public class SiChuanCAController extends ControllerImpl<SiChuanCAView> implement
                 getView().setSelect();
                 break;
             case R.id.sign_protocol_tv:
-                CommonDocumentActivity.start(getContext(), AgreementBean.CODE_16);
+                CommonDocumentActivity.start(getContext(), AgreementBean.CODE_20);
                 break;
             case R.id.sign_next_tv:
                 if (getView().isSelect()) {
