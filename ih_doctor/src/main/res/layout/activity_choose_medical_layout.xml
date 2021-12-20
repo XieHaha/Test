@@ -8,17 +8,24 @@
 
     <include layout="@layout/common_title_bar" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_10"
-        android:background="#F9F9F9" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_20"
+        android:background="#f9f9f9"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:text="注意：不得在网上开具麻醉、精神类药品！"
+        android:textColor="@color/color_ff2d2e"
+        android:textSize="@dimen/sp_14" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+        android:layout_height="@dimen/dp_83"
         android:background="@color/primary_bg_color"
-        android:layout_height="@dimen/dp_83">
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <com.keydom.ih_common.view.InterceptorEditText
             android:id="@+id/search_et"
@@ -31,13 +38,13 @@
             android:drawableLeft="@mipmap/search"
             android:drawablePadding="@dimen/dp_7"
             android:ellipsize="none"
-            android:textCursorDrawable="@null"
             android:hint="搜索药品关键字、适应症、关联词"
             android:paddingLeft="@dimen/dp_18"
             android:paddingRight="@dimen/dp_20"
             android:singleLine="true"
             android:textColor="@color/primary_font_color"
             android:textColorHint="#BBBBBB"
+            android:textCursorDrawable="@null"
             android:textSize="@dimen/font_size_primary" />
 
         <ImageView
@@ -46,8 +53,8 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/dp_6"
-            android:layout_toLeftOf="@id/search_tv"
             android:layout_marginBottom="@dimen/dp_4"
+            android:layout_toLeftOf="@id/search_tv"
             android:src="@drawable/im_voice_toggle_selector" />
 
         <TextView

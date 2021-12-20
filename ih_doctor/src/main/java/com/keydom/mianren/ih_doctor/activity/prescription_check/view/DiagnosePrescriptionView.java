@@ -170,4 +170,6 @@ public interface DiagnosePrescriptionView extends BaseView {
     void requestUseDrugReasonFailed(String data);
 
     void setMorbidityDate(Date date);
+
+    void setPrescriptionType(int prescriptionType);
 }

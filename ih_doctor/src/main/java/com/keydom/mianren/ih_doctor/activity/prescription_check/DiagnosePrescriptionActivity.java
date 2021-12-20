@@ -149,7 +149,10 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     private InquiryBean inquiryBean;
     private DoctorPrescriptionDetailBean doctorPrescriptionDetailBean;
     private int type;
-    private int prescription_type = -1;
+    /**
+     * 儿科、普通
+     */
+    private int prescriptionType = -1;
     private LinearLayout diagnose_handle_ll, diagnose_prescription_ll;
     private boolean savePrescriptionTemplate = false;
     private boolean saveCaseTemplate = false;
@@ -471,13 +474,13 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
             PrescriptionDrugDetailBean bean = (PrescriptionDrugDetailBean) event.getData();
             isOutPrescription = bean.getIsOutPrescription();
 
-            if (prescription_type == -1) {
-                prescription_type = bean.getCate();
+            if (prescriptionType == -1) {
+                prescriptionType = bean.getCate();
                 saveData.add(bean.getItems().get(0));
                 prescriptionAdapter.setNewData(packagingData(saveData));
                 isHavePrescription = true;
             } else {
-                if (prescription_type == bean.getCate()) {
+                if (prescriptionType == bean.getCate()) {
                     saveData.add(bean.getItems().get(0));
                     prescriptionAdapter.setNewData(packagingData(saveData));
                 } else {
@@ -566,13 +569,13 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
     @Override
     public void addCommonPrescription() {
-        prescription_type = 1;
+        prescriptionType = 1;
         creatPrescription();
     }
 
     @Override
     public void addPaediatricsPrescription() {
-        prescription_type = 0;
+        prescriptionType = 0;
         creatPrescription();
     }
 
@@ -615,7 +618,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         map.put("illnessDate", tvMorbidityDate.getText().toString());
         map.put("diagnosis", simpleDiagnose.getInputStr());
         map.put("items", getCommitItems());
-        map.put("cate", prescription_type);
+        map.put("cate", prescriptionType);
         map.put("dept", MyApplication.userInfo.getDeptName());
         map.put("saveTemplate", getSaveType());
         map.put("idcItems", icdItems);
@@ -767,7 +770,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
 
         if (bean.getList() != null && bean.getList().size() > 0) {
-            prescription_type = bean.getCate();
+            prescriptionType = bean.getCate();
             saveData.clear();
             saveData = bean.getList();
             isOutPrescription = bean.getType();
@@ -920,7 +923,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         prescriptionAdapter.setNewData(packagingData(saveData));
         if (saveData.size() == 0) {
             isHavePrescription = false;
-            prescription_type = -1;
+            prescriptionType = -1;
             //默认外延处方
             isOutPrescription = 1;
         }
@@ -973,7 +976,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
         localSaveData.setHandleOpinion(dealIdea.getInputStr());
         localSaveData.setList(saveData);
         localSaveData.setType(isOutPrescription);
-        localSaveData.setCate(prescription_type);
+        localSaveData.setCate(prescriptionType);
         String fileName = "diagnoseId" + inquiryBean.getId();
         LocalizationUtils.fileSave2Local(getContext(), localSaveData, fileName);
     }
@@ -998,7 +1001,7 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
 
             prescriptionHeadBean.setIsOutPrescription(isOutPrescription);
 
-            if (prescription_type == 0) {
+            if (prescriptionType == 0) {
                 prescriptionHeadBean.setTitleName("处方" + DateUtils.numberToCH(i + 1) + "（儿科）");
             } else {
                 prescriptionHeadBean.setTitleName("处方" + DateUtils.numberToCH(i + 1) + "（普通）");
@@ -1069,5 +1072,10 @@ public class DiagnosePrescriptionActivity extends BaseControllerActivity<Diagnos
     @Override
     public void setIsOutPrescription(int isOutPrescription) {
         this.isOutPrescription = isOutPrescription;
+    }
+
+    @Override
+    public void setPrescriptionType(int prescriptionType) {
+        this.prescriptionType = prescriptionType;
     }
 }

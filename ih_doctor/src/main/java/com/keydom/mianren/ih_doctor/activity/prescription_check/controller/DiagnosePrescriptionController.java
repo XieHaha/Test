@@ -83,14 +83,11 @@ public class DiagnosePrescriptionController extends ControllerImpl<DiagnosePresc
                 if (getView().isHavePrescription()) {
                     getView().creatPrescription();
                 } else {
-                    if (dialog == null) {
-                        dialog = new BottomAddPrescriptionDialog(getContext());
-                    }
-                    dialog.setCancelListener(this);
-                    dialog.reset();
-                    dialog.show();
+                    //默认普通处方
+                    getView().setPrescriptionType(1);
                     //默认外延处方
                     getView().setIsOutPrescription(1);
+                    getView().creatPrescription();
                 }
                 break;
             case R.id.prescription_model_rl:
