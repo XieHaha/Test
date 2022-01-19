@@ -365,10 +365,12 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
         if (areaId != -1) {
             map.put("hospitalAreaId", areaId);
         }
-        map.put("isRecommend", 1);
-        map.put("hospitalId", App.hospitalId);
-        map.put("deptId", deptId);
-        map.put("type", 0);
+        //        map.put("isRecommend", 1);
+        //        map.put("hospitalId", App.hospitalId);
+        if (deptId != -1) {
+            map.put("deptId", deptId);
+        }
+        //        map.put("type", 0);
         return map;
     }
 
@@ -380,8 +382,10 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
         if (isOnline) {
             map.put("isOnline", 1);
         }
-        map.put("deptId", deptId);
-        map.put("type", 0);
+        if (deptId != -1) {
+            map.put("deptId", deptId);
+        }
+        //        map.put("type", 0);
         return map;
     }
 
@@ -432,6 +436,7 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
     @Override
     public void getDepartListSuccess(List<DiagnosesAndNurDepart> data) {
         departmentList.clear();
+        departmentList.add(getDefaultItem());
         departmentList.addAll(data);
         showChooseDepartmentDialog(departmentList);
     }
@@ -439,6 +444,20 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
     @Override
     public void getDepartListFailed(String errMsg) {
 
+    }
+
+    /**
+     * 处理全部科室
+     */
+    private DiagnosesAndNurDepart getDefaultItem() {
+        DiagnosesAndNurDepart nurDepart = new DiagnosesAndNurDepart();
+        nurDepart.setName("全部");
+        DiagnosesAndNurDepart.ItemsBean bean = new DiagnosesAndNurDepart.ItemsBean();
+        bean.setName("全部科室");
+        List<DiagnosesAndNurDepart.ItemsBean> list = new ArrayList<>();
+        list.add(bean);
+        nurDepart.setItems(list);
+        return nurDepart;
     }
 
     /**
@@ -476,10 +495,18 @@ public class TabDiagnoseFragment extends BaseControllerFragment<TabDiagnosesCont
 
     public void setDept(int option1, int option2) {
         getController().setCurrentPage(1);
-        deptId = departmentList.get(option1).getItems().get(option2).getId();
-        choose_depart_tv.setText(departmentList.get(option1).getItems().get(option2).getName());
-        getController().getRecommendNurse(getDepartmentRecommendNurseQueryMap(isOnline),
-                TypeEnum.REFRESH);
+        if (option1 == 0) {
+            deptId = -1;
+            choose_depart_tv.setText("全部科室");
+            getController().getRecommendNurse(getHospitslRecommendNurseQueryMap(isOnline),
+                    TypeEnum.REFRESH);
+
+        } else {
+            deptId = departmentList.get(option1).getItems().get(option2).getId();
+            choose_depart_tv.setText(departmentList.get(option1).getItems().get(option2).getName());
+            getController().getRecommendNurse(getDepartmentRecommendNurseQueryMap(isOnline),
+                    TypeEnum.REFRESH);
+        }
     }
 
     /**

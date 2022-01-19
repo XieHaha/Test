@@ -59,8 +59,9 @@ public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> imp
                                     LoginActivity.start(getContext());
                                 }
                             }).setTitle("提示").setPositiveButton("确认").show();
-                } else
+                } else {
                     OnlineDiagnonsesOrderActivity.start(getContext(), getView().getUnpaytag());
+                }
                 break;
             case R.id.await_diagnose_cv:
                 if (Global.getUserId() == -1) {
@@ -71,9 +72,10 @@ public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> imp
                                     LoginActivity.start(getContext());
                                 }
                             }).setTitle("提示").setPositiveButton("确认").show();
-                } else
+                } else {
                     OnlineDiagnonsesOrderActivity.start(getContext(),
                             OnlineDiagnonsesOrderActivity.WAITEDIAGNOSES);
+                }
                 break;
             case R.id.diagnose_cv:
                 if (Global.getUserId() == -1) {
@@ -84,9 +86,10 @@ public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> imp
                                     LoginActivity.start(getContext());
                                 }
                             }).setTitle("提示").setPositiveButton("确认").show();
-                } else
+                } else {
                     OnlineDiagnonsesOrderActivity.start(getContext(),
                             OnlineDiagnonsesOrderActivity.DIAGNOSESING);
+                }
                 break;
             case R.id.finished_cv:
                 if (Global.getUserId() == -1) {
@@ -97,9 +100,10 @@ public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> imp
                                     LoginActivity.start(getContext());
                                 }
                             }).setTitle("提示").setPositiveButton("确认").show();
-                } else
+                } else {
                     OnlineDiagnonsesOrderActivity.start(getContext(),
                             OnlineDiagnonsesOrderActivity.COMPLETEDIAGNOSES);
+                }
                 break;
             case R.id.await_evaluation_cv:
                 if (Global.getUserId() == -1) {
@@ -110,9 +114,10 @@ public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> imp
                                     LoginActivity.start(getContext());
                                 }
                             }).setTitle("提示").setPositiveButton("确认").show();
-                } else
+                } else {
                     OnlineDiagnonsesOrderActivity.start(getContext(),
                             OnlineDiagnonsesOrderActivity.COMPLETEDIAGNOSES);
+                }
                 break;
 
         }
@@ -137,7 +142,21 @@ public class TabDiagnosesController extends ControllerImpl<TabDiagnosesView> imp
     public void getRecommendNurse(Map<String, Object> map, TypeEnum type) {
         map.put("currentPage", getCurrentPage());
         map.put("pageSize", Const.PAGE_SIZE);
-        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getListHomeRecommendDoctor(map), new HttpSubscriber<PageBean<RecommendDocAndNurBean>>(getContext(), getDisposable(), false, false) {
+
+        //        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService
+        //        .class).getListHomeRecommendDoctor(map), new
+        //        HttpSubscriber<PageBean<RecommendDocAndNurBean>>(getContext(), getDisposable(),
+        //        false, false) {
+        //            @Override
+        //            public void requestComplete(@Nullable PageBean<RecommendDocAndNurBean> data) {
+        //                List<RecommendDocAndNurBean> list = data.getRecords();
+        //                if (list == null) {
+        //                    list = new ArrayList<>();
+        //                }
+        //                getView().getRecommendSuccess(list, type);
+        //            }
+        //        });
+        ApiRequest.INSTANCE.request(HttpService.INSTANCE.createService(UserService.class).getListHomeRecommendDoctorNew(HttpService.INSTANCE.object2Body(map)), new HttpSubscriber<PageBean<RecommendDocAndNurBean>>(getContext(), getDisposable(), false, false) {
             @Override
             public void requestComplete(@Nullable PageBean<RecommendDocAndNurBean> data) {
                 List<RecommendDocAndNurBean> list = data.getRecords();
