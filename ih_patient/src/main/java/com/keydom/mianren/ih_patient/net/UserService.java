@@ -287,6 +287,11 @@ public interface UserService {
      */
     @GET("user/hospitalDept/listHomeRecommendDoctor")
     Observable<HttpResult<PageBean<RecommendDocAndNurBean>>> getListHomeRecommendDoctor(@QueryMap Map<String, Object> map);
+    /**
+     * 问诊咨询搜索医生或者护士
+     */
+    @POST("user/hospitalDept/recommendDoctor")
+    Observable<HttpResult<PageBean<RecommendDocAndNurBean>>> getListHomeRecommendDoctorNew(@Body  RequestBody map);
 
     /**
      * 在线问诊首页(普通用户)
